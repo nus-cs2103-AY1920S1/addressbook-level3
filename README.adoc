@@ -1,5 +1,3 @@
-Test
-
 = Address Book (Level 3)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
