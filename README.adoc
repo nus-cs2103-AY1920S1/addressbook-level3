@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-F13-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-F13-3/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/Nanosync/main[image:https://ci.appveyor.com/api/projects/status/1iwut818qm3gdqg0?svg=true[Build status]]
+https://ci.appveyor.com/project/Nanosync/main[image:https://ci.appveyor.com/api/projects/status/4iypl48boafotycx?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F13-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F13-3/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/Nanosync/main?utm_source=github.com&utm_medium=referral&utm_content=Nanosync/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/85ca001eb7f443d4874432f8800362f6[Codacy Badge]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
