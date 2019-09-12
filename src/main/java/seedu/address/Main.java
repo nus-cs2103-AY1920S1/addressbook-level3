@@ -16,8 +16,10 @@ import javafx.application.Application;
  * find the javafx.graphics module, and so the launch is aborted.
  *
  * By having a separate main class (Main) that doesn't extend Application
- * to be the entry point of the application, we avoid this issue.
+ * to be the entry point of the application, we can avoid this issue.
  */
+
+
 public class Main {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
