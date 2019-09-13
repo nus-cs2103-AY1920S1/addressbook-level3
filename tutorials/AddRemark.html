@@ -1,0 +1,619 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Tutorial - Adding a new Command</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">AddressBook-Level3</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level3"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Tutorial - Adding a new Command</h1></div><div id="content"><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#create-a-new-code-remark-code-command">Create a new <code>remark</code> command</a>
+<ul class="sectlevel2">
+<li><a href="#hook-code-remarkcommand-code-into-the-application">Hook <code>RemarkCommand</code> into the application</a></li>
+<li><a href="#run-the-application">Run the application</a></li>
+</ul>
+</li>
+<li><a href="#change-code-remarkcommand-code-to-throw-an-exception">Change <code>RemarkCommand</code> to throw an exception</a></li>
+<li><a href="#enhancing-code-remarkcommand-code">Enhancing <code>RemarkCommand</code></a>
+<ul class="sectlevel2">
+<li><a href="#make-the-command-accept-parameters">Make the command accept parameters</a></li>
+<li><a href="#parse-user-input">Parse user input</a></li>
+</ul>
+</li>
+<li><a href="#add-code-remark-code-to-the-model">Add <code>Remark</code> to the model</a>
+<ul class="sectlevel2">
+<li><a href="#add-a-new-code-remark-code-class">Add a new <code>Remark</code> class</a></li>
+<li><a href="#make-use-of-code-remark-code">Make use of <code>Remark</code></a></li>
+</ul>
+</li>
+<li><a href="#add-a-placeholder-element-for-remark-to-the-ui">Add a placeholder element for remark to the UI</a></li>
+<li><a href="#modify-code-person-code-to-support-a-code-remark-code-field">Modify <code>Person</code> to support a <code>Remark</code> field</a>
+<ul class="sectlevel2">
+<li><a href="#modify-code-person-code">Modify <code>Person</code></a></li>
+<li><a href="#update-other-usages-of-code-person-code">Update other usages of <code>Person</code></a></li>
+</ul>
+</li>
+<li><a href="#updating-storage">Updating Storage</a></li>
+<li><a href="#finalizing-the-ui">Finalizing the UI</a></li>
+<li><a href="#putting-everything-together">Putting everything together</a>
+<ul class="sectlevel2">
+<li><a href="#update-code-remarkcommand-code-and-code-remarkcommandparser-code">Update <code>RemarkCommand</code> and <code>RemarkCommandParser</code></a></li>
+</ul>
+</li>
+<li><a href="#writing-tests">Writing tests</a>
+<ul class="sectlevel2">
+<li><a href="#automagically-generating-tests">Automagically generating tests</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, we&#8217;ll walk you through the implementation of a new command&#8201;&#8212;&#8201;<code>remark</code>.</p>
+</div>
+<div class="paragraph">
+<p>This command allows users of the AddressBook application to add optional remarks to people in their address book and edit it if required.
+The command should have the format of <code>remark INDEX r/REMARK</code>.
+An example of the command is <code>remark 2 r/Likes baseball</code>.</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll assume that you have already set up the development environment as outlined in the Developer&#8217;s Guide.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-a-new-code-remark-code-command"><a class="link" href="#create-a-new-code-remark-code-command">Create a new <code>remark</code> command</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Looking in the <code>logic.command</code> package, you will notice that each existing command have their own class.
+All the commands inherit from the abstract class <code>Command</code> which means that they must override <code>execute()</code>.
+Each <code>Command</code> returns an instance of <code>CommandResult</code> upon success and <code>CommandResult#feedbackToUser</code> is printed to the <code>ResultDisplay</code>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s start by creating a new <code>RemarkCommand</code> class in the <code>src/main/java/seedu/address/logic/command</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>For now, let&#8217;s keep <code>RemarkCommand</code> as simple as possible and print some output.
+We accomplish that by returning a <code>CommandResult</code> with an accompanying message.</p>
+</div>
+<div class="listingblock">
+<div class="title">RemarkCommand.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">package</span> <span class="namespace">seedu.address.logic.commands</span>;
+
+<span class="keyword">import</span> <span class="include">seedu.address.model.Model</span>;
+
+<span class="comment">/**
+ * Changes the remark of an existing person in the address book.
+ */</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">RemarkCommand</span> <span class="directive">extends</span> Command {
+
+    <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> COMMAND_WORD = <span class="string"><span class="delimiter">&quot;</span><span class="content">remark</span><span class="delimiter">&quot;</span></span>;
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult execute(Model model) {
+        <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hello from remark</span><span class="delimiter">&quot;</span></span>);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hook-code-remarkcommand-code-into-the-application"><a class="link" href="#hook-code-remarkcommand-code-into-the-application">Hook <code>RemarkCommand</code> into the application</a></h3>
+<div class="paragraph">
+<p>Now that we have our <code>RemarkCommand</code> ready to be executed, we need to update <code>AddressBookParser#parseCommand()</code> to recognize the <code>remark</code> keyword.
+Add the new command to the <code>switch</code> block by creating a new <code>case</code> that returns a new instance of <code>RemarkCommand</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can refer to the changes in this <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/7d04e49e364dad661cd88f462f01923fba972d2c#diff-5338391f3f6fbb4022c44add6590b74f">diff</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run-the-application"><a class="link" href="#run-the-application">Run the application</a></h3>
+<div class="paragraph">
+<p>Run <code>Main#main</code> and try out your new <code>RemarkCommand</code>.
+If everything went well, you should see something like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/add-remark/RemarkHello.png" alt="RemarkHello">
+</div>
+<div class="title">Figure 1. Output displayed</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="change-code-remarkcommand-code-to-throw-an-exception"><a class="link" href="#change-code-remarkcommand-code-to-throw-an-exception">Change <code>RemarkCommand</code> to throw an exception</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While we have successfully printed a message to <code>ResultDisplay</code>, the command does not do what it is supposed to do.
+Let&#8217;s change the command to throw an <code>CommandException</code> to accurately reflect that our command is still a work in progress.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/add-remark/CommandInterface.png" alt="CommandInterface">
+</div>
+<div class="title">Figure 2. The relationship between RemarkCommand and Command</div>
+</div>
+<div class="paragraph">
+<p>Following the convention in other commands, we add relevant messages as constants and use them.</p>
+</div>
+<div class="listingblock">
+<div class="title">RemarkCommand.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> MESSAGE_USAGE = COMMAND_WORD + <span class="string"><span class="delimiter">&quot;</span><span class="content">: Edits the remark of the person identified </span><span class="delimiter">&quot;</span></span>
+            + <span class="string"><span class="delimiter">&quot;</span><span class="content">by the index number used in the last person listing. </span><span class="delimiter">&quot;</span></span>
+            + <span class="string"><span class="delimiter">&quot;</span><span class="content">Existing remark will be overwritten by the input.</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>
+            + <span class="string"><span class="delimiter">&quot;</span><span class="content">Parameters: INDEX (must be a positive integer) </span><span class="delimiter">&quot;</span></span>
+            + <span class="string"><span class="delimiter">&quot;</span><span class="content">r/ [REMARK]</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>
+            + <span class="string"><span class="delimiter">&quot;</span><span class="content">Example: </span><span class="delimiter">&quot;</span></span> + COMMAND_WORD + <span class="string"><span class="delimiter">&quot;</span><span class="content"> 1 </span><span class="delimiter">&quot;</span></span>
+            + <span class="string"><span class="delimiter">&quot;</span><span class="content">r/ Likes to swim.</span><span class="delimiter">&quot;</span></span>;
+
+    <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> MESSAGE_NOT_IMPLEMENTED_YET = <span class="string"><span class="delimiter">&quot;</span><span class="content">Remark command not implemented yet</span><span class="delimiter">&quot;</span></span>;
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult execute(Model model) <span class="directive">throws</span> CommandException {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
+    }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enhancing-code-remarkcommand-code"><a class="link" href="#enhancing-code-remarkcommand-code">Enhancing <code>RemarkCommand</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s change <code>RemarkCommand</code> to  parse input from the user.</p>
+</div>
+<div class="sect2">
+<h3 id="make-the-command-accept-parameters"><a class="link" href="#make-the-command-accept-parameters">Make the command accept parameters</a></h3>
+<div class="paragraph">
+<p>We start by modifying the constructor of <code>RemarkCommand</code> to accept an <code>Index</code> and a <code>String</code>.
+While we are at it, let&#8217;s change the error message to echo the values.
+While this is not a replacement for tests, it is an obvious way to tell if our code is functioning as intended.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">import</span> <span class="include">static</span> <span class="include">seedu.address.commons.util.CollectionUtil.requireAllNonNull</span>;
+<span class="comment">//...</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">RemarkCommand</span> <span class="directive">extends</span> Command {
+    <span class="comment">//...</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> MESSAGE_ARGUMENTS = <span class="string"><span class="delimiter">&quot;</span><span class="content">Index: %1$d, Remark: %2$s</span><span class="delimiter">&quot;</span></span>;
+
+    <span class="directive">private</span> <span class="directive">final</span> Index index;
+    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> remark;
+
+    <span class="comment">/**
+     * @param index of the person in the filtered person list to edit the remark
+     * @param remark of the person to be updated to
+     */</span>
+    <span class="directive">public</span> RemarkCommand(Index index, <span class="predefined-type">String</span> remark) {
+        requireAllNonNull(index, remark);
+
+        <span class="local-variable">this</span>.index = index;
+        <span class="local-variable">this</span>.remark = remark;
+    }
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult execute(Model model) <span class="directive">throws</span> CommandException {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(<span class="predefined-type">String</span>.format(MESSAGE_ARGUMENTS, index.getOneBased(), remark));
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">boolean</span> equals(<span class="predefined-type">Object</span> other) {
+        <span class="comment">// short circuit if same object</span>
+        <span class="keyword">if</span> (other == <span class="local-variable">this</span>) {
+            <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+        }
+
+        <span class="comment">// instanceof handles nulls</span>
+        <span class="keyword">if</span> (!(other <span class="keyword">instanceof</span> RemarkCommand)) {
+            <span class="keyword">return</span> <span class="predefined-constant">false</span>;
+        }
+
+        <span class="comment">// state check</span>
+        RemarkCommand e = (RemarkCommand) other;
+        <span class="keyword">return</span> index.equals(e.index)
+                &amp;&amp; remark.equals(e.remark);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your code should look something like <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/83dd9e6b03d6b83199ceb6f3b66166483155abed#diff-34ace715a8a8d2e5a66e71289f017b47">this</a> after you are done.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="parse-user-input"><a class="link" href="#parse-user-input">Parse user input</a></h3>
+<div class="paragraph">
+<p>Now let&#8217;s move on to writing a parser that will extract the index and remark from the input provided by the user.</p>
+</div>
+<div class="paragraph">
+<p>Create a <code>RemarkCommandParser</code> class in the <code>seedu.address.logic.parser</code> package.
+The class must extend the <code>Parser</code> interface.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/add-remark/ParserInterface.png" alt="ParserInterface">
+</div>
+<div class="title">Figure 3. The relationship between Parser and RemarkCommandParser</div>
+</div>
+<div class="paragraph">
+<p>Thankfully, <code>ArgumentTokenizer#tokenize()</code> makes it trivial to parse user input.
+Let&#8217;s take a look at the JavaDoc provided for the function to understand what it does.</p>
+</div>
+<div class="listingblock">
+<div class="title">ArgumentTokenizer.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+ * Tokenizes an arguments string and returns an {@code ArgumentMultimap}
+ * object that maps prefixes to their respective argument values. Only the
+ * given prefixes will be recognized in the arguments string.
+ *
+ * @param argsString Arguments string of the form:
+ * {@code preamble &lt;prefix&gt;value &lt;prefix&gt;value ...}
+ * @param prefixes   Prefixes to tokenize the arguments string with
+ * @return           ArgumentMultimap object that maps prefixes to their
+ * arguments
+ */</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can tell <code>ArgumentTokenizer#tokenize()</code> to look out for our new prefix <code>r/</code> and it will return us an instance of <code>ArgumentMultimap</code>.
+Now let&#8217;s find out what we need to do in order to obtain the Index and String that we need.
+Let&#8217;s look through <code>ArgumentMultimap</code> :</p>
+</div>
+<div class="listingblock">
+<div class="title">ArgumentMultimap.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+ * Returns the last value of {@code prefix}.
+ */</span>
+<span class="directive">public</span> Optional&lt;<span class="predefined-type">String</span>&gt; getValue(Prefix prefix) {
+    <span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; values = getAllValues(prefix);
+    <span class="keyword">return</span> values.isEmpty() ? Optional.empty() :
+        Optional.of(values.get(values.size() - <span class="integer">1</span>));
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This appears to be what we need to get a String of the remark.
+But what about the Index? Taking a quick peek at existing an <code>Command</code>&#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="title">DeleteCommandParser.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Index index = ParserUtil.parseIndex(args);
+<span class="keyword">return</span> <span class="keyword">new</span> DeleteCommand(index);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There appears to be another utility class that obtains an <code>Index</code> from the input provided by the user.</p>
+</div>
+<div class="paragraph">
+<p>Now that we have the know-how to extract the data that we need from the user&#8217;s input, we can create a new instance of <code>RemarkCommand</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">RemarkCommandParser.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> RemarkCommand parse(<span class="predefined-type">String</span> args) <span class="directive">throws</span> <span class="exception">ParseException</span> {
+    requireNonNull(args);
+    ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
+        PREFIX_REMARK);
+
+    Index index;
+    <span class="keyword">try</span> {
+        index = ParserUtil.parseIndex(argMultimap.getPreamble());
+    } <span class="keyword">catch</span> (IllegalValueException ive) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(<span class="predefined-type">String</span>.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            RemarkCommand.MESSAGE_USAGE), ive);
+    }
+
+    <span class="predefined-type">String</span> remark = argMultimap.getValue(PREFIX_REMARK).orElse(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>);
+
+    <span class="keyword">return</span> <span class="keyword">new</span> RemarkCommand(index, remark);
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Don&#8217;t forget to update <code>AddressBookParser</code> to use our new <code>RemarkCommandParser</code>!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you are stuck, check out the sample <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/efdcdf0e80cec9489f7b47e3f65824f4688ad8f7#diff-fc19ecee89c3732a62fbc8c840250508">here</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-code-remark-code-to-the-model"><a class="link" href="#add-code-remark-code-to-the-model">Add <code>Remark</code> to the model</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that we have all the information that we need, let&#8217;s lay the groundwork for some <em>persistent</em> changes.
+We achieve that by working with the <code>Person</code> model.
+Each field in a Person is implemented as a separate class (e.g. a <code>Name</code> object represents the person&#8217;s name).
+That means we should add a <code>Remark</code> class so that we can use a <code>Remark</code> object to represent a remark given to a person.</p>
+</div>
+<div class="sect2">
+<h3 id="add-a-new-code-remark-code-class"><a class="link" href="#add-a-new-code-remark-code-class">Add a new <code>Remark</code> class</a></h3>
+<div class="paragraph">
+<p>Create a new <code>Remark</code> in <code>seedu.address.model.person</code>. Since a <code>Remark</code> is a field that is similar to <code>Address</code>, we can reuse a significant bit of code.</p>
+</div>
+<div class="paragraph">
+<p>A copy-paste and search-replace later, you should have something like <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b7a47c50c8e5f0430d343a23d2863446b6ce9298#diff-af2f075d24dfcd333876f0fbce321f25">this</a>.
+Note how <code>Remark</code> has no constrains and thus does not require input validation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="make-use-of-code-remark-code"><a class="link" href="#make-use-of-code-remark-code">Make use of <code>Remark</code></a></h3>
+<div class="paragraph">
+<p>Let&#8217;s change <code>RemarkCommand</code> and <code>RemarkCommandParser</code> to use the new <code>Remark</code> class instead of plain <code>String</code>.
+These should be relatively simple changes.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-a-placeholder-element-for-remark-to-the-ui"><a class="link" href="#add-a-placeholder-element-for-remark-to-the-ui">Add a placeholder element for remark to the UI</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Without getting too deep into <code>fxml</code>, let&#8217;s go on a 5 minute adventure to get some placeholder text to show up for each person.</p>
+</div>
+<div class="paragraph">
+<p>Simply add</p>
+</div>
+<div class="listingblock">
+<div class="title">PersonCard.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code>@FXML
+private Label remark;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-0c6b6abcfac8c205e075294f25e851fe"><code>seedu.address.ui.PersonCard</code></a>.
+<code>@FXML</code> is an annotation that marks a private or protected field and makes it accessible to FXML.
+It might sound like Greek to you right now, don&#8217;t worry&#8201;&#8212;&#8201;we will get back to it later.</p>
+</div>
+<div class="paragraph">
+<p>Then insert</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>&lt;Label fx:id="remark" styleClass="cell_small_label" text="\$remark" /&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>into <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-12580431f55d7880578aa4c16f249e71"><code>main/resources/view/PersonListCard.fxml</code></a>.</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it! Fire up the application again and you should see something like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/add-remark/$Remark.png" alt="$Remark">
+</div>
+<div class="title">Figure 4. $remark shows up in each entry</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modify-code-person-code-to-support-a-code-remark-code-field"><a class="link" href="#modify-code-person-code-to-support-a-code-remark-code-field">Modify <code>Person</code> to support a <code>Remark</code> field</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since <code>PersonCard</code> displays data from a <code>Person</code>, we need to update <code>Person</code> to get our <code>Remark</code> displayed!</p>
+</div>
+<div class="sect2">
+<h3 id="modify-code-person-code"><a class="link" href="#modify-code-person-code">Modify <code>Person</code></a></h3>
+<div class="paragraph">
+<p>We change the constructor of <code>Person</code> to take a <code>Remark</code>.
+We will also need to define new fields and accessors accordingly to store our new addition.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="update-other-usages-of-code-person-code"><a class="link" href="#update-other-usages-of-code-person-code">Update other usages of <code>Person</code></a></h3>
+<div class="paragraph">
+<p>Unfortunately, a change to <code>Person</code> will cause other commands to break, you will have to modify these commands to use the updated <code>Person</code>!</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Use the <code>Find Usages</code> feature in IntelliJ IDEA on the <code>Person</code> class to find these commands.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b241ef8526bd4e8a6ad94b8118b7fc3441ec8fa3#diff-3462fc1118b9872387a01b41157b0402">this commit</a> and check that you have got everything in order!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="updating-storage"><a class="link" href="#updating-storage">Updating Storage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AddressBook stores data by serializing <code>JsonAdaptedPerson</code> into <code>json</code> with the help of an external library&#8201;&#8212;&#8201;Jackson.
+Let&#8217;s update <code>JsonAdaptedPerson</code> to work with our new <code>Person</code>!</p>
+</div>
+<div class="paragraph">
+<p>While the changes to code may be minimal, the test data will have to be updated as well.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+You must delete AddressBook&#8217;s storage file located at <code>/data/addressbook.json</code> before running it!
+Not doing so will cause AddressBook to default to an empty address book!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Check out <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/ce4f9b70f524d2395948861d80d57fda9ae6e82e#diff-07708562699e2436c717f3330bafae1e">this commit</a> to see what the changes entail.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="finalizing-the-ui"><a class="link" href="#finalizing-the-ui">Finalizing the UI</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that we have finalized the <code>Person</code> class and its dependencies, we can now bind the <code>Remark</code> field to the UI.</p>
+</div>
+<div class="paragraph">
+<p>Just add <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/56d5cb662c31dd38b02f6a5301ba6ab3c667d6a3#diff-0c6b6abcfac8c205e075294f25e851fe">this one line of code!</a></p>
+</div>
+<div class="listingblock">
+<div class="title">PersonCard.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> PersonCard(Person person, <span class="type">int</span> displayedIndex) {
+    <span class="comment">//...</span>
+    remark.setText(person.getRemark().value);
+}</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/add-remark/RemarkBound.png" alt="RemarkBound">
+</div>
+<div class="title">Figure 5. The remark label is bound properly!</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="putting-everything-together"><a class="link" href="#putting-everything-together">Putting everything together</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After the previous step, we notice a peculiar regression&#8201;&#8212;&#8201;we went from displaying something to nothing at all.
+However, this is expected behavior as we have never changed <code>RemarkCommand</code> at all!</p>
+</div>
+<div class="sect2">
+<h3 id="update-code-remarkcommand-code-and-code-remarkcommandparser-code"><a class="link" href="#update-code-remarkcommand-code-and-code-remarkcommandparser-code">Update <code>RemarkCommand</code> and <code>RemarkCommandParser</code></a></h3>
+<div class="paragraph">
+<p>In this last step, we modify <code>RemarkCommand#execute()</code> to change the <code>Remark</code> of a <code>Person</code>.
+Since all fields in a <code>Person</code> are immutable, we create a new instance of a <code>Person</code> with the values that we want and save it with <code>Model#setPerson()</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">RemarkCommand.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">//...</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> MESSAGE_ADD_REMARK_SUCCESS = <span class="string"><span class="delimiter">&quot;</span><span class="content">Added remark to Person: %1$s</span><span class="delimiter">&quot;</span></span>;
+    <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> MESSAGE_DELETE_REMARK_SUCCESS = <span class="string"><span class="delimiter">&quot;</span><span class="content">Removed remark from Person: %1$s</span><span class="delimiter">&quot;</span></span>;
+<span class="comment">//...</span>
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult execute(Model model) <span class="directive">throws</span> CommandException {
+        <span class="predefined-type">List</span>&lt;Person&gt; lastShownList = model.getFilteredPersonList();
+
+        <span class="keyword">if</span> (index.getZeroBased() &gt;= lastShownList.size()) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person editedPerson = <span class="keyword">new</span> Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), remark, personToEdit.getTags());
+
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(generateSuccessMessage(editedPerson));
+    }
+
+    <span class="comment">/**
+     * Generates a command execution success message based on whether the remark is added to or removed from
+     * {@code personToEdit}.
+     */</span>
+    <span class="directive">private</span> <span class="predefined-type">String</span> generateSuccessMessage(Person personToEdit) {
+        <span class="predefined-type">String</span> message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        <span class="keyword">return</span> <span class="predefined-type">String</span>.format(message, personToEdit);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Make one last <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b3307d7a42acb613a8f1d36979a7f547abcf6623#diff-34ace715a8a8d2e5a66e71289f017b47">check</a> to ensure that everything is working properly&#8230;&#8203;</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/add-remark/RemarkComplete.png" alt="RemarkComplete">
+</div>
+<div class="title">Figure 6. Congratulations!</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="writing-tests"><a class="link" href="#writing-tests">Writing tests</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tests are crucial to ensuring that bugs don&#8217;t slip into the codebase unnoticed. This is especially true for large
+code bases where a change might lead to unintended behavior.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s verify the correctness of our code by writing some tests!</p>
+</div>
+<div class="sect2">
+<h3 id="automagically-generating-tests"><a class="link" href="#automagically-generating-tests">Automagically generating tests</a></h3>
+<div class="paragraph">
+<p>The goal is to write effective and efficient tests to ensure that <code>RemarkCommand#execute()</code> behaves as expected.</p>
+</div>
+<div class="paragraph">
+<p>The convention for test names is <em><code>methodName_testScenario_expectedResult</code></em>.
+An example would be <code>execute_filteredList_success</code>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create a test for <code>RemarkCommand#execute()</code> to test that adding a remark works.
+On <code>IntelliJ IDEA</code> you can bring up the context menu and choose to <code>Go To</code> &gt; <code>Test</code> or use the appropriate keyboard shortcut.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/add-remark/ContextMenu.png" alt="ContextMenu" width="1223px" height="267px">
+</div>
+<div class="title">Figure 7. Using the context menu to jump to tests</div>
+</div>
+<div class="paragraph">
+<p>Then, create a test for the <code>execute</code> method.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/add-remark/CreateTest.png" alt="CreateTest" width="664px" height="751px">
+</div>
+<div class="title">Figure 8. Creating a test for <code>execute</code>.</div>
+</div>
+<div class="paragraph">
+<p>Following convention, let&#8217;s change the name of the generated method to <code>execute_addRemarkUnfilteredList_success</code>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use the utility functions provided in <code>CommandTestUtil</code>. The functions ensure that commands produce the expected <code>CommandResult</code> and output the correct message.
+In this case, <code>CommandTestUtil#assertCommandSuccess</code> is the best fit as we are testing that a <code>RemarkCommand</code> will successfully add a <code>Remark</code>.</p>
+</div>
+<div class="paragraph">
+<p>You should end up with a test that looks something like
+<a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b3307d7a42acb613a8f1d36979a7f547abcf6623#diff-d749de38392f7ea504da7824641ba8d9">this</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion"><a class="link" href="#conclusion">Conclusion</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This concludes the tutorial for adding a new <code>Command</code> to AddressBook.</p>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-09-13 07:09:44 UTC</div></div></div></body></html>
