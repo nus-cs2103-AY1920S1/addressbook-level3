@@ -59,7 +59,7 @@ public class RemarkCommand extends Command {
 Now that we have our `RemarkCommand` ready to be executed, we need to update `AddressBookParser#parseCommand()` to recognize the `remark` keyword.
 Add the new command to the `switch` block by creating a new `case` that returns a new instance of `RemarkCommand`.
 
-You can refer to the changes in this link:https://github.com/j-lum/addressbook-level35/commit/72256eacea79dfcf077f5c7cb6f89819c02f090e#diff-5338391f3f6fbb4022c44add6590b74f[diff].
+You can refer to the changes in this link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/7d04e49e364dad661cd88f462f01923fba972d2c#diff-5338391f3f6fbb4022c44add6590b74f[diff].
 
 === Run the application
 
@@ -154,7 +154,7 @@ public class RemarkCommand extends Command {
 }
 ----
 
-Your code should look something like link:https://github.com/j-lum/addressbook-level35/commit/c0f8419be4fb59bffafcd73026769459e5cf5c5e#diff-34ace715a8a8d2e5a66e71289f017b47[this] after you are done.
+Your code should look something like link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/83dd9e6b03d6b83199ceb6f3b66166483155abed#diff-34ace715a8a8d2e5a66e71289f017b47[this] after you are done.
 
 === Parse user input
 
@@ -240,7 +240,7 @@ public RemarkCommand parse(String args) throws ParseException {
 
 NOTE: Don't forget to update `AddressBookParser` to use our new `RemarkCommandParser`!
 
-If you are stuck, check out the sample link:https://github.com/j-lum/addressbook-level35/commit/c0f8419be4fb59bffafcd73026769459e5cf5c5e#diff-fc19ecee89c3732a62fbc8c840250508[here].
+If you are stuck, check out the sample link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/efdcdf0e80cec9489f7b47e3f65824f4688ad8f7#diff-fc19ecee89c3732a62fbc8c840250508[here].
 
 == Add `Remark` to the model
 
@@ -253,7 +253,7 @@ That means we should add a `Remark` class so that we can use a `Remark` object t
 
 Create a new `Remark` in `seedu.address.model.person`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
 
-A copy-paste and search-replace later, you should have something like link:https://github.com/j-lum/addressbook-level35/commit/c8e6048f0d81f2b4b7797e838226da823892129b#diff-af2f075d24dfcd333876f0fbce321f25[this].
+A copy-paste and search-replace later, you should have something like link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b7a47c50c8e5f0430d343a23d2863446b6ce9298#diff-af2f075d24dfcd333876f0fbce321f25[this].
 Note how `Remark` has no constrains and thus does not require input validation.
 
 === Make use of `Remark`
@@ -267,13 +267,13 @@ Without getting too deep into `fxml`, let's go on a 5 minute adventure to get so
 
 Simply add
 [source, java]
-PersonCard.java
+.PersonCard.java
 ```
 @FXML
 private Label remark;
 ```
 
-to link:https://github.com/j-lum/addressbook-level35/commit/06f9897d7088d22689de478c94612f8bcbff2964#diff-0c6b6abcfac8c205e075294f25e851fe[`seedu.address.ui.PersonCard`].
+to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-0c6b6abcfac8c205e075294f25e851fe[`seedu.address.ui.PersonCard`].
 `@FXML` is an annotation that marks a private or protected field and makes it accessible to FXML.
 It might sound like Greek to you right now, don't worry -- we will get back to it later.
 
@@ -282,7 +282,7 @@ Then insert
 ```
 <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
 ```
-into link:https://github.com/j-lum/addressbook-level35/commit/06f9897d7088d22689de478c94612f8bcbff2964#diff-12580431f55d7880578aa4c16f249e71[`main/resources/view/PersonListCard.fxml`].
+into link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-12580431f55d7880578aa4c16f249e71[`main/resources/view/PersonListCard.fxml`].
 
 That's it! Fire up the application again and you should see something like this:
 
@@ -304,7 +304,7 @@ Unfortunately, a change to `Person` will cause other commands to break, you will
 
 TIP: Use the `Find Usages` feature in IntelliJ IDEA on the `Person` class to find these commands.
 
-Refer to link:https://github.com/j-lum/addressbook-level3/commit/b03b788d5a462403ea7f4dce9a832b62f729f7c4[this commit] and check that you have got everything in order!
+Refer to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b241ef8526bd4e8a6ad94b8118b7fc3441ec8fa3#diff-3462fc1118b9872387a01b41157b0402[this commit] and check that you have got everything in order!
 
 == Updating Storage
 
@@ -316,13 +316,13 @@ While the changes to code may be minimal, the test data will have to be updated 
 WARNING: You must delete AddressBook's storage file located at `/data/addressbook.json` before running it!
 Not doing so will cause AddressBook to default to an empty address book!
 
-Check out link:https://github.com/j-lum/addressbook-level35/commit/78b2a7438a9f9d828b7f09e190ff6130790966c0[this commit] to see what the changes entail.
+Check out link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/ce4f9b70f524d2395948861d80d57fda9ae6e82e#diff-07708562699e2436c717f3330bafae1e[this commit] to see what the changes entail.
 
 == Finalizing the UI
 
 Now that we have finalized the `Person` class and its dependencies, we can now bind the `Remark` field to the UI.
 
-Just add link:https://github.com/j-lum/addressbook-level35/commit/2edaf1c52e07e28dc7a49742bc63352813a55af9[this one line of code!]
+Just add link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/56d5cb662c31dd38b02f6a5301ba6ab3c667d6a3#diff-0c6b6abcfac8c205e075294f25e851fe[this one line of code!]
 [source, java]
 .PersonCard.java
 ----
@@ -380,6 +380,8 @@ Since all fields in a `Person` are immutable, we create a new instance of a `Per
     }
 ----
 
+Make one last link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b3307d7a42acb613a8f1d36979a7f547abcf6623#diff-34ace715a8a8d2e5a66e71289f017b47[check] to ensure that everything is working properly...
+
 .Congratulations!
 image::RemarkComplete.png[]
 
@@ -414,7 +416,7 @@ Let's use the utility functions provided in `CommandTestUtil`. The functions ens
 In this case, `CommandTestUtil#assertCommandSuccess` is the best fit as we are testing that a `RemarkCommand` will successfully add a `Remark`.
 
 You should end up with a test that looks something like
-link:https://github.com/j-lum/addressbook-level35/commit/1492fb0d4e8a075f2481028377e0d113e7c01b76#diff-d749de38392f7ea504da7824641ba8d9[this].
+link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b3307d7a42acb613a8f1d36979a7f547abcf6623#diff-d749de38392f7ea504da7824641ba8d9[this].
 
 == Conclusion
 
