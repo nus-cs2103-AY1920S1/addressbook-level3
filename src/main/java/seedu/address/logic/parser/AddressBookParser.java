@@ -11,10 +11,11 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.universal.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.universal.ExitCommand;
+import seedu.address.logic.commands.universal.SwitchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -26,6 +27,8 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private static Context currentContext = Context.GLOBAL;
 
     /**
      * Parses user input into command for execution.
@@ -68,9 +71,16 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case SwitchCommand.COMMAND_WORD:
+            return new SwitchCommandParser().parse(arguments);
+
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            switch (currentContext) {
+
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
         }
     }
-
 }
