@@ -9,10 +9,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.item.Address;
+import seedu.address.model.item.Email;
+import seedu.address.model.item.ExpiryDate;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,6 +49,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String expiryDate} into a {@code ExpiryDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
+        requireNonNull(expiryDate);
+        String trimmedDate = expiryDate.trim();
+        if (!ExpiryDate.isValidExpiryDate(trimmedDate)) {
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+        return new ExpiryDate(trimmedDate);
     }
 
     /**

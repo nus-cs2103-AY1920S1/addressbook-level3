@@ -1,0 +1,10 @@
+{
+  "items": [ {
+    "name": "Strawberry",
+    "expiryDate": "31/12/2019",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Strawberry",
+    "expiryDate": "31/12/2019"
+  } ]
+}
