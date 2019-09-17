@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.item.Item;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +19,26 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ExpiryDateTracker expiryDateTracker;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Item> filteredItems;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given expiryDateTracker and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExpiryDateTracker expiryDateTracker, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(expiryDateTracker, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + expiryDateTracker + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.expiryDateTracker = new ExpiryDateTracker(expiryDateTracker);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredItems = new FilteredList<>(this.expiryDateTracker.getItemList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ExpiryDateTracker(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,50 +66,49 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getExpiryDateTrackerFilePath() {
+        return userPrefs.getExpiryDateTrackerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setExpiryDateTrackerFilePath(Path expiryDateTrackerFilePath) {
+        requireNonNull(expiryDateTrackerFilePath);
+        userPrefs.setExpiryDateTrackerFilePath(expiryDateTrackerFilePath);
     }
 
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setExpiryDateTracker(ReadOnlyExpiryDateTracker expiryDateTracker) {
+        this.expiryDateTracker.resetData(expiryDateTracker);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyExpiryDateTracker getExpiryDateTracker() {
+        return expiryDateTracker;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasItem(Item item) {
+        requireNonNull(item);
+        return expiryDateTracker.hasItem(item);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteItem(Item target) {
+        expiryDateTracker.removeItem(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addItem(Item person) {
+        expiryDateTracker.addItem(person);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void setItem(Item target, Item editedPerson) {
         requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+        expiryDateTracker.setItem(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -119,15 +118,16 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Item> getFilteredItemList() {
+        return filteredItems;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredItems.setPredicate(predicate);
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -143,9 +143,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return expiryDateTracker.equals(other.expiryDateTracker)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredItems.equals(other.filteredItems);
     }
 
 }
