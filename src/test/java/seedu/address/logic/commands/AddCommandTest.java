@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpiryDateTracker;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.item.Item;
+import seedu.address.model.item.sort.MethodOfSorting;
 import seedu.address.testutil.ItemBuilder;
 
 public class AddCommandTest {
@@ -135,6 +136,16 @@ public class AddCommandTest {
 
         @Override
         public void setItem(Item target, Item editedItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortItemList(MethodOfSorting method) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Item> getSortedItemList() {
             throw new AssertionError("This method should not be called.");
         }
 

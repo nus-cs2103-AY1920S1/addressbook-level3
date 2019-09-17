@@ -29,7 +29,7 @@ public class ItemUtil {
     public static String getItemDetails(Item item) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + item.getName().fullName + " ");
-        sb.append(PREFIX_EXPIRY_DATE + item.getExpiryDate().value + " ");
+        sb.append(PREFIX_EXPIRY_DATE + item.getExpiryDate().toString() + " ");
         item.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -42,7 +42,7 @@ public class ItemUtil {
     public static String getEditItemDescriptorDetails(EditItemDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getExpiryDate().ifPresent(ed -> sb.append(PREFIX_EXPIRY_DATE).append(ed.value).append(" "));
+        descriptor.getExpiryDate().ifPresent(ed -> sb.append(PREFIX_EXPIRY_DATE).append(ed.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
