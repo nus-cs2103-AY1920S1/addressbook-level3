@@ -14,14 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*. More importantly, Xpire is
-*optimised for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a
-Graphical User Interface (GUI). If you have trouble tracking your items' expiry dates, Xpire can help you manage and notify
-you of items that are soon-expiring. Interested? Jump to the <<Quick Start>> to get started. HAJIMASHOUKA?
+Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*. More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble tracking your items' expiry dates, Xpire can help you manage and notify you of items that are soon-expiring. Interested? Jump to the <<Quick Start>> to get started. HAJIMASHOUKA?
 
 == Quick Start
 
@@ -36,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`view`* : views all items
-* **`add`**`|Banana|25/9/2019` : adds an item named `Banana` with expiry date `25/9/2019` to list.
-* **`delete`**`3` : deletes the 3rd item shown in the current list
-* *`exit`* : exits the app
+* `*view*` : views all items
+* `*add*|Banana|25/9/2019` : adds an item named `Banana` with expiry date `25/9/2019` to list.
+* `*delete*|3` : deletes the 3rd item shown in the current list
+* `*exit*` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -64,8 +61,8 @@ Format: `help`
 Adds item to list +
 Format: `add|<item name>|<expiry date>`
 
-[TIP]
-An item can have any number of tags (including 0)
+//[TIP]
+//An item can have any number of tags (including 0)
 
 Examples:
 
