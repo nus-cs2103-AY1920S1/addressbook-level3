@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.item.Item;
+import seedu.address.model.item.sort.MethodOfSorting;
 
 /**
  * The API of the Model component.
@@ -75,6 +76,15 @@ public interface Model {
      * The item identity of {@code editedItem} must not be the same as another existing item in the expiry date tracker.
      */
     void setItem(Item target, Item editedItem);
+
+    /** Returns an unmodifiable view of the sorted item list */
+    ObservableList<Item> getSortedItemList();
+
+    /**
+     * Sorts the filtered item list.
+     * @param method The method of sorting.
+     */
+    void sortItemList(MethodOfSorting method);
 
     /** Returns an unmodifiable view of the filtered item list */
     ObservableList<Item> getFilteredItemList();

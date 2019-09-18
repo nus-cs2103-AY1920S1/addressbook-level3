@@ -4,17 +4,20 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.item.Item;
+import seedu.address.model.item.sort.MethodOfSorting;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the expiryDateTracker data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -22,6 +25,8 @@ public class ModelManager implements Model {
     private final ExpiryDateTracker expiryDateTracker;
     private final UserPrefs userPrefs;
     private final FilteredList<Item> filteredItems;
+    private SortedList<Item> sortedItems;
+
 
     /**
      * Initializes a ModelManager with the given expiryDateTracker and userPrefs.
@@ -35,13 +40,14 @@ public class ModelManager implements Model {
         this.expiryDateTracker = new ExpiryDateTracker(expiryDateTracker);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredItems = new FilteredList<>(this.expiryDateTracker.getItemList());
+        sortedItems = new SortedList<>(this.expiryDateTracker.getItemList());
     }
 
     public ModelManager() {
         this(new ExpiryDateTracker(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========== UserPrefs =========================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -76,7 +82,7 @@ public class ModelManager implements Model {
         userPrefs.setExpiryDateTrackerFilePath(expiryDateTrackerFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== expiryDateTracker  ================================================================================
 
     @Override
     public void setExpiryDateTracker(ReadOnlyExpiryDateTracker expiryDateTracker) {
@@ -111,7 +117,41 @@ public class ModelManager implements Model {
         expiryDateTracker.setItem(target, editedPerson);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Sorted Item List Accessors ========================================================================
+
+
+    @Override
+    public void sortItemList(MethodOfSorting method) {
+        requireNonNull(method);
+        Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
+                String.CASE_INSENSITIVE_ORDER);
+        Comparator<Item> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
+                Comparator.nullsFirst(Comparator.naturalOrder()));
+
+        switch (method.getValue()) {
+        case "name":
+            sortedItems = new SortedList<>(expiryDateTracker.getItemList() , nameSorter);
+            break;
+        case "date":
+            sortedItems = new SortedList<>(expiryDateTracker.getItemList() , dateSorter);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + method);
+        }
+        expiryDateTracker.setItems(sortedItems);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Item> getSortedItemList() {
+        return sortedItems;
+    }
+
+
+    // =========== Filtered Item List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of

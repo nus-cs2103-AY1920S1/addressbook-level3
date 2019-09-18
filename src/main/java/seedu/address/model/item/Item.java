@@ -93,7 +93,7 @@ public class Item {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Expiry Date: ")
-                .append(getExpiryDate())
+                .append(getExpiryDate().toString())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
