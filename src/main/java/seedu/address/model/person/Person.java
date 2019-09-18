@@ -20,7 +20,7 @@ public class Person {
     private final Phone phone;
     private final Email email;
 
-    // Data fields
+    // Data  fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
