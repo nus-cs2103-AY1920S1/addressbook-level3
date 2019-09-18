@@ -7,8 +7,10 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.core.Command;
+import seedu.address.logic.commands.core.CommandHistory;
+import seedu.address.logic.commands.core.CommandResult;
+import seedu.address.logic.commands.core.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,11 +29,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final CommandHistory commandHistory;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        this.commandHistory = new CommandHistory();
+        this.addressBookParser = new AddressBookParser(commandHistory);
     }
 
     @Override
@@ -41,6 +45,10 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        if (command instanceof UndoableCommand) {
+            commandHistory.addToCommandHistory((UndoableCommand) command);
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());

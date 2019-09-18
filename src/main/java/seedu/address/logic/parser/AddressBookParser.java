@@ -8,13 +8,15 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.core.Command;
+import seedu.address.logic.commands.core.CommandHistory;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -26,6 +28,12 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private final CommandHistory commandHistory;
+
+    public AddressBookParser(CommandHistory commandHistory) {
+        this.commandHistory = commandHistory;
+    }
 
     /**
      * Parses user input into command for execution.
@@ -67,6 +75,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand(commandHistory);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
