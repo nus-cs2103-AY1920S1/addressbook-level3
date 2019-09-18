@@ -39,9 +39,9 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EXPIRY_DATE + "91234567 ";
 
-    public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the expiry date tracker.";
 
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;
@@ -64,11 +64,11 @@ public class EditCommand extends Command {
         List<Item> lastShownList = model.getFilteredItemList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
         Item itemToEdit = lastShownList.get(index.getZeroBased());
-        Item editedItem = createEditedPerson(itemToEdit, editItemDescriptor);
+        Item editedItem = createEditedItem(itemToEdit, editItemDescriptor);
 
         if (!itemToEdit.isSameItem(editedItem) && model.hasItem(editedItem)) {
             throw new CommandException(MESSAGE_DUPLICATE_ITEM);
@@ -80,15 +80,15 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Item} with the details of {@code itemToEdit}
+     * edited with {@code editItemDescriptor}.
      */
-    private static Item createEditedPerson(Item itemToEdit, EditItemDescriptor editPersonDescriptor) {
+    private static Item createEditedItem(Item itemToEdit, EditItemDescriptor editItemDescriptor) {
         assert itemToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(itemToEdit.getName());
-        ExpiryDate updatedExpiryDate = editPersonDescriptor.getExpiryDate().orElse(itemToEdit.getExpiryDate());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(itemToEdit.getTags());
+        Name updatedName = editItemDescriptor.getName().orElse(itemToEdit.getName());
+        ExpiryDate updatedExpiryDate = editItemDescriptor.getExpiryDate().orElse(itemToEdit.getExpiryDate());
+        Set<Tag> updatedTags = editItemDescriptor.getTags().orElse(itemToEdit.getTags());
 
         return new Item(updatedName, updatedExpiryDate, updatedTags);
     }
