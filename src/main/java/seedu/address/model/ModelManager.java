@@ -4,44 +4,50 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.item.Item;
+import seedu.address.model.item.sort.MethodOfSorting;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the expiryDateTracker data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ExpiryDateTracker expiryDateTracker;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Item> filteredItems;
+    private SortedList<Item> sortedItems;
+
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given expiryDateTracker and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExpiryDateTracker expiryDateTracker, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(expiryDateTracker, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + expiryDateTracker + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.expiryDateTracker = new ExpiryDateTracker(expiryDateTracker);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredItems = new FilteredList<>(this.expiryDateTracker.getItemList());
+        sortedItems = new SortedList<>(this.expiryDateTracker.getItemList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ExpiryDateTracker(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========== UserPrefs =========================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -66,68 +72,102 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getExpiryDateTrackerFilePath() {
+        return userPrefs.getExpiryDateTrackerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setExpiryDateTrackerFilePath(Path expiryDateTrackerFilePath) {
+        requireNonNull(expiryDateTrackerFilePath);
+        userPrefs.setExpiryDateTrackerFilePath(expiryDateTrackerFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== expiryDateTracker  ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setExpiryDateTracker(ReadOnlyExpiryDateTracker expiryDateTracker) {
+        this.expiryDateTracker.resetData(expiryDateTracker);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyExpiryDateTracker getExpiryDateTracker() {
+        return expiryDateTracker;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public boolean hasItem(Item item) {
+        requireNonNull(item);
+        return expiryDateTracker.hasItem(item);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void deleteItem(Item target) {
+        expiryDateTracker.removeItem(target);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void addItem(Item person) {
+        expiryDateTracker.addItem(person);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+    }
+
+    @Override
+    public void setItem(Item target, Item editedPerson) {
         requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+        expiryDateTracker.setItem(target, editedPerson);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Sorted Item List Accessors ========================================================================
+
+
+    @Override
+    public void sortItemList(MethodOfSorting method) {
+        requireNonNull(method);
+        Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
+                String.CASE_INSENSITIVE_ORDER);
+        Comparator<Item> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
+                Comparator.nullsFirst(Comparator.naturalOrder()));
+
+        switch (method.getValue()) {
+        case "name":
+            sortedItems = new SortedList<>(expiryDateTracker.getItemList() , nameSorter);
+            break;
+        case "date":
+            sortedItems = new SortedList<>(expiryDateTracker.getItemList() , dateSorter);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + method);
+        }
+        expiryDateTracker.setItems(sortedItems);
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Item> getSortedItemList() {
+        return sortedItems;
+    }
+
+
+    // =========== Filtered Item List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Item> getFilteredItemList() {
+        return filteredItems;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredItems.setPredicate(predicate);
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -143,9 +183,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return expiryDateTracker.equals(other.expiryDateTracker)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredItems.equals(other.filteredItems);
     }
 
 }
