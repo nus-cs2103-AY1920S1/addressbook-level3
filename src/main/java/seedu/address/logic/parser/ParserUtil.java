@@ -70,6 +70,8 @@ public class ParserUtil {
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param address address to be parsed.
+     * @return Address object from address string.
      * @throws ParseException if the given {@code address} is invalid.
      */
     public static Address parseAddress(String address) throws ParseException {
@@ -81,6 +83,13 @@ public class ParserUtil {
         return new Address(trimmedAddress);
     }
 
+    /**
+     * Parses a {@code String remark} into a {@code Remark}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param remark remark to be parsed
+     * @return Remark object from remark string
+     */
     public static Remark parseRemark(String remark) {
         String trimmedRemark = remark.trim();
         return new Remark(trimmedRemark);
