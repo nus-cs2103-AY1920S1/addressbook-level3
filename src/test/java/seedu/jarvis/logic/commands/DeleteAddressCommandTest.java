@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
-import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.person.Person;
 
