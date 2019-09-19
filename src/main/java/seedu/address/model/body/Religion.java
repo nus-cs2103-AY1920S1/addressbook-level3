@@ -1,0 +1,11 @@
+package seedu.address.model.body;
+
+//@@author ambervoong
+/**
+ * Enumerates all of the major religions.
+ */
+public enum Religion {
+    CHRISTIANITY, ISLAM, NONRELIGIOUS, HINDUISM, BUDDHISM, SIKHISM,
+            JUCHE, SPIRITISM, JUDAISM, BAHAI, JAINISM, SHINTO, ZOROASTRIANISM,
+            TENRIKYO, NEOPAGANISM
+}
