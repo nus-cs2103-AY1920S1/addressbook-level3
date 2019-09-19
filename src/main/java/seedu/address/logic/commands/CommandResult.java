@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the result of a command execution.
