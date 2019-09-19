@@ -1,8 +1,8 @@
 package seedu.address.model;
 
-import seedu.address.commons.core.GuiSettings;
-
 import java.nio.file.Path;
+
+import seedu.address.commons.core.GuiSettings;
 
 /**
  * Unmodifiable view of user prefs.
