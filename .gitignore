@@ -22,3 +22,6 @@ src/test/data/sandbox/
 
 # ignore modifications
 gradlew.bat
+
+# Fork-specific build icon
+README.adoc
