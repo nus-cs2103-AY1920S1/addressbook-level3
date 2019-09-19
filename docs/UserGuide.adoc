@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ELISA - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/ay1920s1-cs2103t-t10-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103T-T10-3`      Since: `Sep 2019`      Licence: `NUS`
 
 == Introduction
 
