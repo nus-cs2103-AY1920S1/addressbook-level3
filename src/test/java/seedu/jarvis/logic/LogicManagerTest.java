@@ -17,8 +17,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
@@ -27,9 +27,9 @@ import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.ReadOnlyAddressBook;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.person.Person;
+import seedu.jarvis.storage.AddressStorageManager;
 import seedu.jarvis.storage.JsonAddressBookStorage;
 import seedu.jarvis.storage.JsonUserPrefsStorage;
-import seedu.jarvis.storage.AddressStorageManager;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class LogicManagerTest {

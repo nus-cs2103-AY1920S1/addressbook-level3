@@ -6,14 +6,14 @@ import static seedu.jarvis.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.logic.commands.ExitCommand;
+import seedu.jarvis.logic.commands.HelpCommand;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
-import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
-import seedu.jarvis.logic.commands.ExitCommand;
 import seedu.jarvis.logic.commands.address.FindAddressCommand;
-import seedu.jarvis.logic.commands.HelpCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.parser.address.AddAddressCommandParser;
 import seedu.jarvis.logic.parser.address.DeleteAddressCommandParser;

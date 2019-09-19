@@ -18,12 +18,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
-import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
@@ -45,7 +45,8 @@ public class EditAddressCommandTest {
 
         String expectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()), new UserPrefs());
+        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()),
+                new UserPrefs());
         expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editAddressCommand, addressModel, expectedMessage, expectedAddressModel);
@@ -66,7 +67,8 @@ public class EditAddressCommandTest {
 
         String expectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()), new UserPrefs());
+        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()),
+                new UserPrefs());
         expectedAddressModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editAddressCommand, addressModel, expectedMessage, expectedAddressModel);
@@ -79,7 +81,8 @@ public class EditAddressCommandTest {
 
         String expectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()), new UserPrefs());
+        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()),
+                new UserPrefs());
 
         assertCommandSuccess(editAddressCommand, addressModel, expectedMessage, expectedAddressModel);
     }
@@ -95,7 +98,8 @@ public class EditAddressCommandTest {
 
         String expectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()), new UserPrefs());
+        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()),
+                new UserPrefs());
         expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editAddressCommand, addressModel, expectedMessage, expectedAddressModel);

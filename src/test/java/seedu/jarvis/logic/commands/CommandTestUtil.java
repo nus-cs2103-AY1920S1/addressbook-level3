@@ -75,8 +75,8 @@ public class CommandTestUtil {
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualAddressModel} matches {@code expectedAddressModel}
      */
-    public static void assertCommandSuccess(Command command, AddressModel actualAddressModel, CommandResult expectedCommandResult,
-                                            AddressModel expectedAddressModel) {
+    public static void assertCommandSuccess(Command command, AddressModel actualAddressModel,
+                                            CommandResult expectedCommandResult, AddressModel expectedAddressModel) {
         try {
             CommandResult result = command.execute(actualAddressModel);
             assertEquals(expectedCommandResult, result);

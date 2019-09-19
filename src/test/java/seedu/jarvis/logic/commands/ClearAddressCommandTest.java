@@ -18,7 +18,8 @@ public class ClearAddressCommandTest {
         AddressModel addressModel = new AddressModelManager();
         AddressModel expectedAddressModel = new AddressModelManager();
 
-        assertCommandSuccess(new ClearAddressCommand(), addressModel, ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        assertCommandSuccess(new ClearAddressCommand(), addressModel,
+                ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
     }
 
     @Test
@@ -27,7 +28,8 @@ public class ClearAddressCommandTest {
         AddressModel expectedAddressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedAddressModel.setAddressBook(new AddressBook());
 
-        assertCommandSuccess(new ClearAddressCommand(), addressModel, ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        assertCommandSuccess(new ClearAddressCommand(), addressModel,
+                ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
     }
 
 }

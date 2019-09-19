@@ -29,12 +29,14 @@ public class ListAddressCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListAddressCommand(), addressModel, ListAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        assertCommandSuccess(new ListAddressCommand(), addressModel,
+                ListAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(addressModel, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListAddressCommand(), addressModel, ListAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        assertCommandSuccess(new ListAddressCommand(), addressModel,
+                ListAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
     }
 }

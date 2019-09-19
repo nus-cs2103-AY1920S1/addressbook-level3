@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
-import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.PersonBuilder;
@@ -40,7 +40,8 @@ public class AddAddressCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = addressModel.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddAddressCommand(personInList), addressModel, AddAddressCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddAddressCommand(personInList), addressModel,
+                AddAddressCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

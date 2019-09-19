@@ -16,8 +16,8 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.address.FindAddressCommand;
-import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
 
