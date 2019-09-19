@@ -141,9 +141,7 @@ public class NusmodApi {
             try{
                 int responsecode = conn.getResponseCode();
                 if(responsecode != 200){
-                    throw new RuntimeException("Connection Error! "
-                            + "HttpsResponseCode: " + responsecode
-                    );
+                    throw new RuntimeException("Connection Error! " + "HttpsResponseCode: " + responsecode);
                 } else {
                     try (BufferedReader br = new BufferedReader(new InputStreamReader(query.openStream()))) {
                         String line;

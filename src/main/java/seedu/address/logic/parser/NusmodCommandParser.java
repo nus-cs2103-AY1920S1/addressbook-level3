@@ -18,10 +18,19 @@ public class NusmodCommandParser implements Parser<NusmodCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NusmodCommand.MESSAGE_USAGE));
         }
 
-        String moduleCode = ParserUtil.parseModule(argMultimap.getValue(PREFIX_MODULECODE).get());
+        String input = ParserUtil.parseModule(argMultimap.getValue(PREFIX_MODULECODE).get());
 
-        NusmodCommand nusmodCommand = new NusmodCommand(moduleCode);
-        return nusmodCommand;
+        String[] tokens = input.split(" ");
+        String moduleCode = tokens[0];
+
+        if(tokens.length == 2){
+            return new NusmodCommand(moduleCode, tokens[1]);
+        } else if (tokens.length == 3){
+            return new NusmodCommand(moduleCode, tokens[1], tokens[2]);
+        } else {
+            return new NusmodCommand(moduleCode);
+        }
+
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
