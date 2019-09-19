@@ -18,7 +18,8 @@ public class NusmodCommand extends Command{
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        JSONObject module = NusmodApi.getModules(moduleCode);
+        NusmodApi api = new NusmodApi();
+        JSONObject module = api.getModules(moduleCode);
         String result = module.get("description").toString();
 
         return new CommandResult(result);

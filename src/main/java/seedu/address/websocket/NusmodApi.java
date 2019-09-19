@@ -23,57 +23,75 @@ public class NusmodApi {
     private static final String SLASH = "/";
     private static final String JSON_EXTENTION = ".json";
 
-    public static JSONObject getModules(String moduleCode){
-        JSONObject obj = null;
+    public NusmodApi(){
+
+    }
+
+    public JSONObject getModules(String moduleCode){
         String output = "";
         try {
             // Generate URL
             URL query = new URL(BASEURL + ACAD_YEAR + MODULES + SLASH + moduleCode + JSON_EXTENTION);
             System.out.println(query.toString());
 
-            try{
-                // Establishing connection
-                HttpsURLConnection conn = (HttpsURLConnection)query.openConnection();
-                conn.setRequestMethod("GET");
-                conn.connect();
+            HttpsURLConnection conn = establishHttpsConnection(query);
 
-                int responsecode = conn.getResponseCode();
-                if(responsecode != 200){
-                    throw new RuntimeException("Connection Error!\n"
-                            + "HttpsResponseCode: " + responsecode
-                    );
-                } else {
-                    try (BufferedReader br = new BufferedReader(new InputStreamReader(query.openStream()))) {
-                        String line;
+            if(conn == null){
+                System.out.println("Unable to establish connection, returning null object");
+                return null;
+            } else {
+                try{
+                    int responsecode = conn.getResponseCode();
+                    if(responsecode != 200){
+                        throw new RuntimeException("Connection Error!\n"
+                                + "HttpsResponseCode: " + responsecode
+                        );
+                    } else {
+                        try (BufferedReader br = new BufferedReader(new InputStreamReader(query.openStream()))) {
+                            String line;
 
-                        //System.out.println("----------");
-                        while((line = br.readLine()) != null) {
-                            output += line;
-                            System.out.println(line);
+                            while((line = br.readLine()) != null) {
+                                output += line;
+                                System.out.println(line);
+                            }
+                        } catch (IOException ioe) {
+                            System.out.println("invalid argument");
+                            output += "Invalid Module Code";
                         }
-                    } catch (IOException ioe) {
-                        System.out.println("invalid argument");
-                        output += "Invalid Module Code";
                     }
-                }
 
-            } catch (IOException ioe){
-                System.out.println("Failed to establish connection with " + BASEURL);
+                } catch (IOException ioe){
+                    System.out.println("Connection error");
+                }
             }
+            conn.disconnect();
 
         } catch (MalformedURLException mue) {
             System.out.println("invalid url");
         }
+        return parser(output);
+    }
 
+    private JSONObject parser(String s){
+        JSONObject obj = null;
         try{
-            // Parse into JSON object
             JSONParser parser = new JSONParser();
-            obj = (JSONObject)parser.parse(output);
+            obj = (JSONObject)parser.parse(s);
         } catch (ParseException pe){
             System.out.println("Failed to parse JSON object");
         }
         return obj;
     }
 
-    
+    private HttpsURLConnection establishHttpsConnection(URL url){
+        HttpsURLConnection conn = null;
+        try{
+            conn = (HttpsURLConnection)url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+        } catch(IOException ioe){
+            System.out.println("Failed to establish connection with " + url.toString());
+        }
+        return conn;
+    }
 }
