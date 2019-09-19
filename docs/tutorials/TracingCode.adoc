@@ -105,12 +105,12 @@ public CommandResult execute(String commandText) throws CommandException, ParseE
      //Parse user input from String to a Command
      Command command = addressBookParser.parseCommand(commandText);
      //Executes the Command and stores the result
-     commandResult = command.execute(model);
+     commandResult = command.execute(addressModel);
 
      try {
-         //We can deduce that the previous line of code modifies model in some way
+         //We can deduce that the previous line of code modifies addressModel in some way
          // since it's being stored here.
-         storage.saveAddressBook(model.getAddressBook());
+         storage.saveAddressBook(addressModel.getAddressBook());
      } catch (IOException ioe) {
          throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
      }
@@ -177,19 +177,19 @@ image::LogicSequenceDiagram.png[]
 [source, java]
 ----
 @Override
-public CommandResult execute(Model model) throws CommandException {
+public CommandResult execute(Model addressModel) throws CommandException {
     ...
     Person personToEdit = lastShownList.get(index.getZeroBased());
     Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-    if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+    if (!personToEdit.isSamePerson(editedPerson) && addressModel.hasPerson(editedPerson)) {
         throw new CommandException(MESSAGE_DUPLICATE_PERSON);
     }
-    model.setPerson(personToEdit, editedPerson);
-    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    addressModel.setPerson(personToEdit, editedPerson);
+    addressModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
 }
 ----
-. As suspected, `command#execute()` does indeed make changes to `model`.
+. As suspected, `command#execute()` does indeed make changes to `addressModel`.
 . We can a closer look at how storage works by repeatedly stepping into the code until we arrive at
 `JsonAddressBook#saveAddressBook()`.
 . Again, it appears that the heavy lifting is delegated. Let's take a look at ``JsonSerializableAddressBook``'s
