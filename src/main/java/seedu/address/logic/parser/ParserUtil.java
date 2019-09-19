@@ -95,6 +95,12 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    public static String parseModule(String module) throws ParseException {
+        requireNonNull(module);
+        String trimmedModule = module.trim();
+        return trimmedModule;
+    }
+
     /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
