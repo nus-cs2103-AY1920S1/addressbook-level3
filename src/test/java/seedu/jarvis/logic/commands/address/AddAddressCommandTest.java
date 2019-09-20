@@ -1,4 +1,4 @@
-package seedu.jarvis.logic.commands;
+package seedu.jarvis.logic.commands.address;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
+import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.AddressBook;
 import seedu.jarvis.model.AddressModel;

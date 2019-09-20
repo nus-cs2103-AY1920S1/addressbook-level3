@@ -1,4 +1,4 @@
-package seedu.jarvis.logic.commands;
+package seedu.jarvis.logic.commands.address;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -8,7 +8,6 @@ import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.model.AddressModel;
 import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.UserPrefs;
