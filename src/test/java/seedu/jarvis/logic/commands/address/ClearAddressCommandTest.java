@@ -1,11 +1,10 @@
-package seedu.jarvis.logic.commands;
+package seedu.jarvis.logic.commands.address;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.model.AddressBook;
 import seedu.jarvis.model.AddressModel;
 import seedu.jarvis.model.AddressModelManager;

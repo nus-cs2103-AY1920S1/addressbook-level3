@@ -1,4 +1,4 @@
-package seedu.jarvis.logic.commands;
+package seedu.jarvis.logic.commands.address;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

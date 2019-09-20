@@ -1,4 +1,4 @@
-package seedu.jarvis.logic.commands;
+package seedu.jarvis.logic.commands.address;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,8 +18,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.logic.commands.address.ClearAddressCommand;
-import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
 import seedu.jarvis.model.AddressBook;
 import seedu.jarvis.model.AddressModel;
