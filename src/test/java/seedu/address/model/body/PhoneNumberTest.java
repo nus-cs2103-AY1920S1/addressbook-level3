@@ -53,4 +53,5 @@ class PhoneNumberTest {
         assertTrue(PhoneNumber.isValidPhoneNumber("82371039"));
         assertTrue(PhoneNumber.isValidPhoneNumber("98984444"));
     }
+
 }
