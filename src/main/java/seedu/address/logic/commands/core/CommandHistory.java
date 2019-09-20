@@ -1,12 +1,12 @@
 package seedu.address.logic.commands.core;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Stack;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Keeps track of the execution of {@code UndoableCommand} commands that alters one or more entries.

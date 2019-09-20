@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.address.logic.commands.core.CommandResult;
 
 public class CommandResultTest {
     @Test
@@ -31,10 +29,16 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false)));
+        CommandResult sampleResult = new CommandResult("feedback", true, false);
+        assertFalse(commandResult.equals(sampleResult));
+        assertFalse(sampleResult.isExit());
+        assertTrue(sampleResult.isShowHelp());
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+        sampleResult = new CommandResult("feedback", true, false);
+        assertFalse(commandResult.equals(sampleResult));
+        assertFalse(sampleResult.isExit());
+        assertTrue(sampleResult.isShowHelp());
     }
 
     @Test

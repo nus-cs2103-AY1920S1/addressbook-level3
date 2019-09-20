@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -53,11 +54,12 @@ public class DeleteCommand extends UndoableCommand {
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (personToDelete == null) {
+        if (personToDelete == null || model.hasPerson(personToDelete)) {
             throw new CommandException(MESSAGE_UNDO_DELETE_ERROR);
         }
 
         model.addPerson(personToDelete);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, personToDelete));
     }
 

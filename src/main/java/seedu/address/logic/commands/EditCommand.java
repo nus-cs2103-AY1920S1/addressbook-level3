@@ -98,7 +98,8 @@ public class EditCommand extends UndoableCommand {
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (personToEdit == null || editedPerson == null) {
+        if (personToEdit == null || editedPerson == null
+                || !model.hasPerson(editedPerson) || model.hasPerson(personToEdit)) {
             throw new CommandException(MESSAGE_UNDO_EDIT_ERROR);
         }
 
