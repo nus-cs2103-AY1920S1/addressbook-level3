@@ -14,8 +14,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.Problem.Address;
-import seedu.algobase.model.Problem.Email;
+import seedu.algobase.model.Problem.Description;
+import seedu.algobase.model.Problem.WebLink;
 import seedu.algobase.model.Problem.Name;
 import seedu.algobase.model.Problem.Phone;
 import seedu.algobase.model.tag.Tag;
@@ -114,15 +114,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
+        Description expectedDescription = new Description(VALID_ADDRESS);
+        assertEquals(expectedDescription, ParserUtil.parseAddress(VALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+        Description expectedDescription = new Description(VALID_ADDRESS);
+        assertEquals(expectedDescription, ParserUtil.parseAddress(addressWithWhitespace));
     }
 
     @Test
@@ -137,15 +137,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+        WebLink expectedWebLink = new WebLink(VALID_EMAIL);
+        assertEquals(expectedWebLink, ParserUtil.parseEmail(VALID_EMAIL));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+        WebLink expectedWebLink = new WebLink(VALID_EMAIL);
+        assertEquals(expectedWebLink, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
     @Test

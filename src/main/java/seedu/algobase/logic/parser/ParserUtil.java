@@ -3,8 +3,8 @@ package seedu.algobase.logic.parser;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.StringUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.Problem.Address;
-import seedu.algobase.model.Problem.Email;
+import seedu.algobase.model.Problem.Description;
+import seedu.algobase.model.Problem.WebLink;
 import seedu.algobase.model.Problem.Name;
 import seedu.algobase.model.Problem.Phone;
 import seedu.algobase.model.tag.Tag;
@@ -66,33 +66,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String address} into an {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
+    public static Description parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        if (!Description.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Description(trimmedAddress);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String email} into an {@code WebLink}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
+    public static WebLink parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+        if (!WebLink.isValidEmail(trimmedEmail)) {
+            throw new ParseException(WebLink.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new WebLink(trimmedEmail);
     }
 
     /**

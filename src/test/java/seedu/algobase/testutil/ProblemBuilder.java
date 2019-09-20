@@ -3,11 +3,8 @@ package seedu.algobase.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.algobase.model.Problem.Address;
-import seedu.algobase.model.Problem.Email;
-import seedu.algobase.model.Problem.Name;
-import seedu.algobase.model.Problem.Problem;
-import seedu.algobase.model.Problem.Phone;
+import seedu.algobase.model.Problem.*;
+import seedu.algobase.model.Problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.util.SampleDataUtil;
 
@@ -23,15 +20,15 @@ public class ProblemBuilder {
 
     private Name name;
     private Phone phone;
-    private Email email;
-    private Address address;
+    private WebLink webLink;
+    private Description description;
     private Set<Tag> tags;
 
     public ProblemBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        webLink = new WebLink(DEFAULT_EMAIL);
+        description = new Description(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
@@ -41,8 +38,8 @@ public class ProblemBuilder {
     public ProblemBuilder(Problem problemToCopy) {
         name = problemToCopy.getName();
         phone = problemToCopy.getPhone();
-        email = problemToCopy.getEmail();
-        address = problemToCopy.getAddress();
+        webLink = problemToCopy.getWebLink();
+        description = problemToCopy.getDescription();
         tags = new HashSet<>(problemToCopy.getTags());
     }
 
@@ -63,10 +60,10 @@ public class ProblemBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Problem} that we are building.
+     * Sets the {@code Description} of the {@code Problem} that we are building.
      */
     public ProblemBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.description = new Description(address);
         return this;
     }
 
@@ -79,15 +76,15 @@ public class ProblemBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Problem} that we are building.
+     * Sets the {@code WebLink} of the {@code Problem} that we are building.
      */
     public ProblemBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.webLink = new WebLink(email);
         return this;
     }
 
     public Problem build() {
-        return new Problem(name, phone, email, address, tags);
+        return new Problem(name, phone, webLink, description, tags);
     }
 
 }

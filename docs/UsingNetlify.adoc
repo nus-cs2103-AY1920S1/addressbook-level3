@@ -21,7 +21,7 @@ https://www.netlify.com/[Netlify] is an automated hosting platform for deploying
 +
 . After logging in, click `New site from Git`.
 +
-. You will then be brought to the setup page. Click `GitHub` to link your repository to Netlify.
+. You will then be brought to the setup page. Click `GitHub` to webLink your repository to Netlify.
 * Depending on whether you are the owner of the repository, you can either grant or request access to Netlify so that it can access your repository and build your documentation.
 +
 image:netlify/grant_or_request_access.png[Grant or request access, width = 630]
@@ -47,7 +47,7 @@ image:netlify/temp_site_name.png[Temporary site name, width = 630]
 +
 * Preview the updated documentation whenever a pull request is made by clicking the `Details` hyperlink next to the Netlify test status.
 +
-image:netlify/netlify_details.png[Netlify details link, width = 630]
+image:netlify/netlify_details.png[Netlify details webLink, width = 630]
 
 == Changing the site name of your project
 If you don't like the site name given by Netlify, you can change it as follows:

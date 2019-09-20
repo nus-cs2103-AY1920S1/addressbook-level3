@@ -14,7 +14,7 @@ https://gradle.org/[Gradle] is a build automation tool. It can automate build-re
 * Managing library dependencies
 * Analyzing code for style compliance
 
-The gradle configuration for this project is defined in the _build script_ link:../build.gradle[`build.gradle`].
+The gradle configuration for this project is defined in the _build script_ webLink:../build.gradle[`build.gradle`].
 
 [NOTE]
 To learn more about gradle build scripts, refer https://docs.gradle.org/current/userguide/tutorial_using_tasks.html[Build Scripts Basics].

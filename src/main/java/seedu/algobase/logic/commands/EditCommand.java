@@ -83,11 +83,11 @@ public class EditCommand extends Command {
 
         Name updatedName = editProblemDescriptor.getName().orElse(problemToEdit.getName());
         Phone updatedPhone = editProblemDescriptor.getPhone().orElse(problemToEdit.getPhone());
-        Email updatedEmail = editProblemDescriptor.getEmail().orElse(problemToEdit.getEmail());
-        Address updatedAddress = editProblemDescriptor.getAddress().orElse(problemToEdit.getAddress());
+        WebLink updatedWebLink = editProblemDescriptor.getWebLink().orElse(problemToEdit.getWebLink());
+        Description updatedDescription = editProblemDescriptor.getDescription().orElse(problemToEdit.getDescription());
         Set<Tag> updatedTags = editProblemDescriptor.getTags().orElse(problemToEdit.getTags());
 
-        return new Problem(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Problem(updatedName, updatedPhone, updatedWebLink, updatedDescription, updatedTags);
     }
 
     @Override
@@ -115,8 +115,8 @@ public class EditCommand extends Command {
     public static class EditProblemDescriptor {
         private Name name;
         private Phone phone;
-        private Email email;
-        private Address address;
+        private WebLink webLink;
+        private Description description;
         private Set<Tag> tags;
 
         public EditProblemDescriptor() {}
@@ -128,8 +128,8 @@ public class EditCommand extends Command {
         public EditProblemDescriptor(EditProblemDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setWebLink(toCopy.webLink);
+            setDescription(toCopy.description);
             setTags(toCopy.tags);
         }
 
@@ -137,7 +137,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, webLink, description, tags);
         }
 
         public void setName(Name name) {
@@ -156,20 +156,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setWebLink(WebLink webLink) {
+            this.webLink = webLink;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<WebLink> getWebLink() {
+            return Optional.ofNullable(webLink);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         /**
@@ -206,8 +206,8 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getWebLink().equals(e.getWebLink())
+                    && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
         }
     }

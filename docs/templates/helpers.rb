@@ -40,7 +40,7 @@ module Slim::Helpers
     }
   }.to_json
 
-  VOID_ELEMENTS = %w(area base br col command embed hr img input keygen link meta param source track wbr)
+  VOID_ELEMENTS = %w(area base br col command embed hr img input keygen webLink meta param source track wbr)
 
 
   ##
@@ -124,14 +124,14 @@ module Slim::Helpers
 
   ##
   # @param index [Integer] the footnote's index.
-  # @return [String] footnote id to be used in a link.
+  # @return [String] footnote id to be used in a webLink.
   def footnote_id(index = (attr :index))
     %(_footnote_#{index})
   end
 
   ##
   # @param index (see #footnote_id)
-  # @return [String] footnoteref id to be used in a link.
+  # @return [String] footnoteref id to be used in a webLink.
   def footnoteref_id(index = (attr :index))
     %(_footnoteref_#{index})
   end
@@ -173,19 +173,19 @@ module Slim::Helpers
   end
 
   ##
-  # Constructs a HTML <a> tag representing a link in the navigation bar.
+  # Constructs a HTML <a> tag representing a webLink in the navigation bar.
   #
-  # @param section [String] Name of the site section represented by the link.
+  # @param section [String] Name of the site section represented by the webLink.
   #   This is used to highlight the navigation item if the current document
   #   sets its site-section attribute to this String, indicating that the
   #   reader is browsing this section of the site.
   # @param href [String] Path to the target page, relative to the site root.
   # @param content [String] Link content. This is usually the human-readable name
-  #   of the link target.
+  #   of the webLink target.
   # @return [String] The rendered <a> tag.
   def nav_link(section, href, content)
     attributes = {
-      :class => ['nav-link'],
+      :class => ['nav-webLink'],
       :href => site_url(href),
     }
     attributes[:class].push('active') if (attr 'site-section') == section
@@ -207,7 +207,7 @@ module Slim::Helpers
     %(<meta name="#{name}" content="#{content}">) if content
   end
 
-  # Returns formatted style/link and script tags for header.
+  # Returns formatted style/webLink and script tags for header.
   def styles_and_scripts
     scripts = []
     styles = []
@@ -282,7 +282,7 @@ module Slim::Helpers
       if item.key?(:text)
         tags << html_tag(:style, {}, item[:text])
       else
-        tags << html_tag(:link, rel: 'stylesheet', href: urlize(*item[:href]))
+        tags << html_tag(:webLink, rel: 'stylesheet', href: urlize(*item[:href]))
       end
     end
 

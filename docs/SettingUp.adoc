@@ -37,7 +37,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 == Verifying the setup
 
-. Run the `seedu.address.Main` and try a few commands
+. Run the `seedu.description.Main` and try a few commands
 . <<Testing#,Run the tests>> to ensure they all pass.
 
 == Configurations to do before writing code
@@ -61,9 +61,9 @@ After forking the repo, the documentation will still have the SE-EDU branding an
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/algobase-level3`), you should do the following:
 
-. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in webLink:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute `repoURL` in webLink:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and webLink:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 === Setting up CI
 

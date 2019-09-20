@@ -30,8 +30,8 @@ public class EditProblemDescriptorBuilder {
         descriptor = new EditProblemDescriptor();
         descriptor.setName(problem.getName());
         descriptor.setPhone(problem.getPhone());
-        descriptor.setEmail(problem.getEmail());
-        descriptor.setAddress(problem.getAddress());
+        descriptor.setWebLink(problem.getWebLink());
+        descriptor.setDescription(problem.getDescription());
         descriptor.setTags(problem.getTags());
     }
 
@@ -52,18 +52,18 @@ public class EditProblemDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditProblemDescriptor} that we are building.
+     * Sets the {@code WebLink} of the {@code EditProblemDescriptor} that we are building.
      */
     public EditProblemDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+        descriptor.setWebLink(new WebLink(email));
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditProblemDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditProblemDescriptor} that we are building.
      */
     public EditProblemDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+        descriptor.setDescription(new Description(address));
         return this;
     }
 

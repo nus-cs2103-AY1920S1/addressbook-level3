@@ -47,8 +47,8 @@ class JsonAdaptedProblem {
     public JsonAdaptedProblem(Problem source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        email = source.getWebLink().value;
+        address = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -82,23 +82,23 @@ class JsonAdaptedProblem {
         final Phone modelPhone = new Phone(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, WebLink.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!WebLink.isValidEmail(email)) {
+            throw new IllegalValueException(WebLink.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final WebLink modelWebLink = new WebLink(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Description.isValidAddress(address)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Description modelDescription = new Description(address);
 
         final Set<Tag> modelTags = new HashSet<>(problemTags);
-        return new Problem(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Problem(modelName, modelPhone, modelWebLink, modelDescription, modelTags);
     }
 
 }

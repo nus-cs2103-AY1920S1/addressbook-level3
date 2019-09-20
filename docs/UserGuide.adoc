@@ -23,7 +23,7 @@ AlgoBase Level 3 (AB3) is for those who *prefer to use a desktop app for managin
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `algobase.jar` link:{repoURL}/releases[here].
+.  Download the latest `algobase.jar` webLink:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -58,7 +58,7 @@ Format: `help`
 
 === Adding a problem: `add`
 
-Adds a problem to the address book +
+Adds a problem to the description book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
@@ -71,12 +71,12 @@ Examples:
 
 === Listing all problems : `list`
 
-Shows a list of all problems in the address book. +
+Shows a list of all problems in the description book. +
 Format: `list`
 
 === Editing a problem : `edit`
 
-Edits an existing problem in the address book. +
+Edits an existing problem in the description book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -90,7 +90,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st problem to be `91234567` and `johndoe@example.com` respectively.
+Edits the phone number and webLink description of the 1st problem to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd problem to be `Betsy Crower` and clears all existing tags.
 
@@ -117,7 +117,7 @@ Returns any problem having names `Betsy`, `Tim`, or `John`
 // tag::delete[]
 === Deleting a problem : `delete`
 
-Deletes the specified problem from the address book. +
+Deletes the specified problem from the description book. +
 Format: `delete INDEX`
 
 ****
@@ -130,7 +130,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd problem in the address book.
+Deletes the 2nd problem in the description book.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st problem in the results of the `find` command.
@@ -138,7 +138,7 @@ Deletes the 1st problem in the results of the `find` command.
 // end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the description book. +
 Format: `clear`
 
 === Exiting the program : `exit`

@@ -49,7 +49,7 @@ However, the execution path through a GUI is often somewhat obscure due to vario
 used by GUI frameworks, which happens to be the case here too. Therefore, let us put the breakpoint where the UI transfers
 control to the Logic component. According to the sequence diagram, the UI component yields control to the Logic component
 through a method named `execute`. Searching through the code base for `execute()` yields a promising candidate in
-`seedu.address.ui.CommandBox.CommandExecutor`.
+`seedu.description.ui.CommandBox.CommandExecutor`.
 
 .Using the `Search for target by name` feature. `Navigate` > `Symbol`.
 image::Execute.png[]
@@ -251,8 +251,8 @@ handled?
 . What components will you have to modify to perform the following enhancements to the application?
 .. Make command words case-insensitive
 .. Allow `delete` to remove more than one index at a time
-.. Save the address book in the CSV format instead
+.. Save the description book in the CSV format instead
 .. Add a new command
 .. Add a new field to `Problem`
-.. Add a new entity to the address book
+.. Add a new entity to the description book
 ****

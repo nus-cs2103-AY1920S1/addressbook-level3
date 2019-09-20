@@ -7,19 +7,19 @@
           img src=(site_url 'images/SeEduLogo.png') alt='SE-EDU'
         ul.navbar-nav
           li.nav-item
-            a.nav-link href='https://se-edu.github.io/algobase-level1' AB-1
+            a.nav-webLink href='https://se-edu.github.io/algobase-level1' AB-1
           li.nav-item
-            a.nav-link href='https://se-edu.github.io/algobase-level2' AB-2
+            a.nav-webLink href='https://se-edu.github.io/algobase-level2' AB-2
           li.nav-item
-            a.nav-link.active href=(site_url 'index.html') AB-3
+            a.nav-webLink.active href=(site_url 'index.html') AB-3
           li.nav-item
-            a.nav-link href='https://se-edu.github.io/algobase-level4' AB-4
+            a.nav-webLink href='https://se-edu.github.io/algobase-level4' AB-4
           li.nav-item
-            a.nav-link href='https://se-edu.github.io/collate' Collate
+            a.nav-webLink href='https://se-edu.github.io/collate' Collate
           li.nav-item
-            a.nav-link href='https://se-edu.github.io/se-book' Book
+            a.nav-webLink href='https://se-edu.github.io/se-book' Book
           li.nav-item
-            a.nav-link href='https://se-edu.github.io/learningresources' Resources
+            a.nav-webLink href='https://se-edu.github.io/learningresources' Resources
 
 - if !(attr? 'no-site-header')
   #site-header
@@ -41,7 +41,7 @@
             =nav_link('ContactUs', 'ContactUs.html', 'Contact Us')
           - if attr? 'site-githuburl'
             li.navitem
-              a.nav-link href=(attr 'site-githuburl')
+              a.nav-webLink href=(attr 'site-githuburl')
                 span.fa.fa-github.fa-lg aria-hidden='true'
                 | &nbsp;View on GitHub
 
@@ -55,15 +55,15 @@
         - if attr? :author
           span.author#author =(attr :author)
           br
-          - if attr? :email
-            span.email#email =sub_macros(attr :email)
+          - if attr? :webLink
+            span.webLink#webLink =sub_macros(attr :webLink)
             br
           - if (authorcount = (attr :authorcount).to_i) > 1
             - (2..authorcount).each do |idx|
               span.author id="author#{idx}" =(attr "author_#{idx}")
               br
               - if attr? "email_#{idx}"
-                span.email id="email#{idx}" =sub_macros(attr "email_#{idx}")
+                span.webLink id="webLink#{idx}" =sub_macros(attr "email_#{idx}")
         - if attr? :revnumber
           span#revnumber #{((attr 'version-label') || '').downcase} #{attr :revnumber}#{',' if attr? :revdate}
           '

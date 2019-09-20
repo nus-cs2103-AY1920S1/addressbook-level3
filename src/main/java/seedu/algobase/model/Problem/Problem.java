@@ -18,21 +18,21 @@ public class Problem {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
+    private final WebLink webLink;
 
     // Data fields
-    private final Address address;
+    private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Problem(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Problem(Name name, Phone phone, WebLink webLink, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, phone, webLink, description, tags);
         this.name = name;
         this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.webLink = webLink;
+        this.description = description;
         this.tags.addAll(tags);
     }
 
@@ -44,12 +44,12 @@ public class Problem {
         return phone;
     }
 
-    public Email getEmail() {
-        return email;
+    public WebLink getWebLink() {
+        return webLink;
     }
 
-    public Address getAddress() {
-        return address;
+    public Description getDescription() {
+        return description;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Problem {
 
         return otherProblem != null
                 && otherProblem.getName().equals(getName())
-                && (otherProblem.getPhone().equals(getPhone()) || otherProblem.getEmail().equals(getEmail()));
+                && (otherProblem.getPhone().equals(getPhone()) || otherProblem.getWebLink().equals(getWebLink()));
     }
 
     /**
@@ -91,15 +91,15 @@ public class Problem {
         Problem otherProblem = (Problem) other;
         return otherProblem.getName().equals(getName())
                 && otherProblem.getPhone().equals(getPhone())
-                && otherProblem.getEmail().equals(getEmail())
-                && otherProblem.getAddress().equals(getAddress())
+                && otherProblem.getWebLink().equals(getWebLink())
+                && otherProblem.getDescription().equals(getDescription())
                 && otherProblem.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, webLink, description, tags);
     }
 
     @Override
@@ -108,10 +108,10 @@ public class Problem {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" WebLink: ")
+                .append(getWebLink())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

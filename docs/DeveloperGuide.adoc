@@ -31,10 +31,10 @@ image::ArchitectureDiagram.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create diagrams in this document can be found in the webLink:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called webLink:{repoURL}/src/main/java/seedu/description/Main.java[`Main`] and webLink:{repoURL}/src/main/java/seedu/description/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +77,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : webLink:{repoURL}/src/main/java/seedu/description/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ProblemListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the webLink:{repoURL}/src/main/java/seedu/description/ui/MainWindow.java[`MainWindow`] is specified in webLink:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,7 +96,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+webLink:{repoURL}/src/main/java/seedu/description/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AlgoBaseParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -117,7 +117,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : webLink:{repoURL}/src/main/java/seedu/description/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -137,7 +137,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : webLink:{repoURL}/src/main/java/seedu/description/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -161,35 +161,35 @@ The undo/redo mechanism is facilitated by `VersionedAlgoBase`.
 It extends `AlgoBase` with an undo/redo history, stored internally as an `algoBaseStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAlgoBase#commit()` -- Saves the current address book state in its history.
-* `VersionedAlgoBase#undo()` -- Restores the previous address book state from its history.
-* `VersionedAlgoBase#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedAlgoBase#commit()` -- Saves the current description book state in its history.
+* `VersionedAlgoBase#undo()` -- Restores the previous description book state from its history.
+* `VersionedAlgoBase#redo()` -- Restores a previously undone description book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAlgoBase()`, `Model#undoAlgoBase()` and `Model#redoAlgoBase()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAlgoBase` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedAlgoBase` will be initialized with the initial description book state, and the `currentStatePointer` pointing to that single description book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th problem in the address book. The `delete` command calls `Model#commitAlgoBase()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `algoBaseStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th problem in the description book. The `delete` command calls `Model#commitAlgoBase()`, causing the modified state of the description book after the `delete 5` command executes to be saved in the `algoBaseStateList`, and the `currentStatePointer` is shifted to the newly inserted description book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new problem. The `add` command also calls `Model#commitAlgoBase()`, causing another modified address book state to be saved into the `algoBaseStateList`.
+Step 3. The user executes `add n/David ...` to add a new problem. The `add` command also calls `Model#commitAlgoBase()`, causing another modified description book state to be saved into the `algoBaseStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAlgoBase()`, so the address book state will not be saved into the `algoBaseStateList`.
+If a command fails its execution, it will not call `Model#commitAlgoBase()`, so the description book state will not be saved into the `algoBaseStateList`.
 
-Step 4. The user now decides that adding the problem was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAlgoBase()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the problem was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAlgoBase()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous description book state, and restores the description book to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAlgoBase()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial description book state, then there are no previous description book states to restore. The `undo` command uses `Model#canUndoAlgoBase()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +197,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAlgoBase()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoAlgoBase()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the description book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `algoBaseStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAlgoBase()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `algoBaseStateList.size() - 1`, pointing to the latest description book state, then there are no undone description book states to restore. The `redo` command uses `Model#canRedoAlgoBase()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAlgoBase()`, `Model#undoAlgoBase()` or `Model#redoAlgoBase()`. Thus, the `algoBaseStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the description book, such as `list`, will usually not call `Model#commitAlgoBase()`, `Model#undoAlgoBase()` or `Model#redoAlgoBase()`. Thus, the `algoBaseStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAlgoBase()`. Since the `currentStatePointer` is not pointing at the end of the `algoBaseStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAlgoBase()`. Since the `currentStatePointer` is not pointing at the end of the `algoBaseStateList`, all description book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -218,7 +218,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire description book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -227,7 +227,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of description book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAlgoBase`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
@@ -305,7 +305,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many problems in the address book |sort problems by name |locate a problem easily
+|`*` |user with many problems in the description book |sort problems by name |locate a problem easily
 |=======================================================================
 
 _{More to be added}_

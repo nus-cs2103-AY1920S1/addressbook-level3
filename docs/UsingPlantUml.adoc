@@ -103,8 +103,8 @@ NOTE: In most cases, you should consider decomposing the diagram into smaller on
 Here are some of the techniques we used in this project to obtain a more palatable diagram.
 
 ==== Link lengths
-By default, a short link (`\->`) points to right and a long link (`-\->`)
-points downwards. you can extend any link to make it longer (```--\->```).
+By default, a short webLink (`\->`) points to right and a long webLink (`-\->`)
+points downwards. you can extend any webLink to make it longer (```--\->```).
 
 .Length of arrows and its effects
 image::ArrowLength.png[]

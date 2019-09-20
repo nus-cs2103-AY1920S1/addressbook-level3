@@ -2,8 +2,8 @@ package seedu.algobase.storage;
 
 import org.junit.jupiter.api.Test;
 import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.model.Problem.Address;
-import seedu.algobase.model.Problem.Email;
+import seedu.algobase.model.Problem.Description;
+import seedu.algobase.model.Problem.WebLink;
 import seedu.algobase.model.Problem.Name;
 import seedu.algobase.model.Problem.Phone;
 
@@ -25,8 +25,8 @@ public class JsonAdaptedProblemTest {
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
+    private static final String VALID_EMAIL = BENSON.getWebLink().toString();
+    private static final String VALID_ADDRESS = BENSON.getDescription().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -71,14 +71,14 @@ public class JsonAdaptedProblemTest {
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         JsonAdaptedProblem problem =
                 new JsonAdaptedProblem(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Email.MESSAGE_CONSTRAINTS;
+        String expectedMessage = WebLink.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, problem::toModelType);
     }
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
         JsonAdaptedProblem problem = new JsonAdaptedProblem(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, WebLink.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, problem::toModelType);
     }
 
@@ -86,14 +86,14 @@ public class JsonAdaptedProblemTest {
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         JsonAdaptedProblem problem =
                 new JsonAdaptedProblem(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Address.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Description.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, problem::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
         JsonAdaptedProblem problem = new JsonAdaptedProblem(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, problem::toModelType);
     }
 

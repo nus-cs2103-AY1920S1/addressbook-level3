@@ -32,11 +32,8 @@ import static seedu.algobase.testutil.TypicalProblems.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.logic.commands.AddCommand;
-import seedu.algobase.model.Problem.Address;
-import seedu.algobase.model.Problem.Email;
-import seedu.algobase.model.Problem.Name;
-import seedu.algobase.model.Problem.Problem;
-import seedu.algobase.model.Problem.Phone;
+import seedu.algobase.model.Problem.*;
+import seedu.algobase.model.Problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.testutil.ProblemBuilder;
 
@@ -119,11 +116,11 @@ public class AddCommandParserTest {
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, WebLink.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Description.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

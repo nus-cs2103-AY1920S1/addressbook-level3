@@ -47,8 +47,8 @@ public class ProblemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(problem.getName().fullName);
         phone.setText(problem.getPhone().value);
-        address.setText(problem.getAddress().value);
-        email.setText(problem.getEmail().value);
+        address.setText(problem.getDescription().value);
+        email.setText(problem.getWebLink().value);
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
