@@ -1,5 +1,6 @@
 package seedu.address.model.body;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
@@ -18,6 +19,7 @@ public class PhoneNumber {
 
     // Constructor
     public PhoneNumber(String phoneNumber) {
+        requireNonNull(phoneNumber);
         checkArgument(isValidPhoneNumber(phoneNumber), VALID_NUMBER);
         this.phoneNumber = phoneNumber;
     }
@@ -54,10 +56,9 @@ public class PhoneNumber {
      * The country calling code is omitted and assumed to be +65.
      */
     public static boolean isValidPhoneNumber(String phoneNumber) {
+        // Area of improvement: check for correct starting digits too
         String regex = "\\d+";
         Pattern pattern = Pattern.compile(regex);
         return (phoneNumber.length() == 8) && (pattern.matcher(phoneNumber).matches());
     }
-
-    //@@author
 }
