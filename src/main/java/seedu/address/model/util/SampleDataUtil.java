@@ -17,9 +17,9 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Item[] getSampleItems() {
         return new Item[] {
-            new Item(new Name("Alex Yeoh"), new ExpiryDate("1234567"),
+            new Item(new Name("Jermy Tan"), new ExpiryDate("12/03/1997"),
                 getTagSet("friends")),
-            new Item(new Name("Bernice Yu"), new ExpiryDate("99272758"),
+            new Item(new Name("Yeeyer"), new ExpiryDate("24/6/1999"),
                 getTagSet("colleagues", "friends")),
         };
     }
