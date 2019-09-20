@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Yan Wei Liang
-image::weiLiang.png[width="150", align="left"]
+image::ubersaiyan.png[width="150", align="left"]
 {empty} [https://github.com/uberSaiyan[github]]
 
 Role: Project Architect
@@ -20,7 +20,7 @@ Role: Project Architect
 '''
 
 === Eugene Teu
-image::eugene.png[width="150", align="left"]
+image::eugeneteu.png[width="150", align="left"]
 {empty}[https://github.com/EugeneTeu[github]] [https://eugeneteu.github.io/myWebsite/[Portfolio]
 
 Role:  Integration, deliverables and deadlines 
