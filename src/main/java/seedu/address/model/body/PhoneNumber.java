@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
  * Guarantees: immutable; is valid as declared in {@link #isValidPhoneNumber(String)}
  */
 public class PhoneNumber {
-    public static final String VALID_NUMBER = "A valid phone number contains exactly 8 digits only." +
-            "The country calling code is omitted and assumed to be +65.";
+    public static final String VALID_NUMBER = "A valid phone number contains exactly 8 digits only."
+            + "The country calling code is omitted and assumed to be +65.";
 
     public final String phoneNumber;
 

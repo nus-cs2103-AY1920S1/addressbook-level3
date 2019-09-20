@@ -5,6 +5,5 @@ package seedu.address.model.body;
  * Enumerates body parts that can be donated.
  */
 public enum DonationList {
-    KIDNEYS, HEART, LUNGS, LIVER, SMALLBOWEL,PANCREAS,
-    EYES, HEARTVALVES, BONE, SKIN, VEINS, TENDONS // These are tissues!
+    KIDNEYS, HEART, LUNGS, LIVER, SMALLBOWEL,PANCREAS, EYES, HEARTVALVES, BONE, SKIN, VEINS, TENDONS 
 }
