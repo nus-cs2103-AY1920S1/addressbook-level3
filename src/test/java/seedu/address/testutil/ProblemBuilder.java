@@ -6,15 +6,15 @@ import java.util.Set;
 import seedu.address.model.Problem.Address;
 import seedu.address.model.Problem.Email;
 import seedu.address.model.Problem.Name;
-import seedu.address.model.Problem.Person;
+import seedu.address.model.Problem.Problem;
 import seedu.address.model.Problem.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Problem objects.
  */
-public class PersonBuilder {
+public class ProblemBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -27,7 +27,7 @@ public class PersonBuilder {
     private Address address;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public ProblemBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -36,58 +36,58 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the ProblemBuilder with the data of {@code problemToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
+    public ProblemBuilder(Problem problemToCopy) {
+        name = problemToCopy.getName();
+        phone = problemToCopy.getPhone();
+        email = problemToCopy.getEmail();
+        address = problemToCopy.getAddress();
+        tags = new HashSet<>(problemToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Problem} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public ProblemBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Problem} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public ProblemBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Address} of the {@code Problem} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public ProblemBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Phone} of the {@code Problem} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public ProblemBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Problem} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public ProblemBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, address, tags);
+    public Problem build() {
+        return new Problem(name, phone, email, address, tags);
     }
 
 }

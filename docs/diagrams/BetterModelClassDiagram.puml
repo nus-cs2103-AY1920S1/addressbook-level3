@@ -4,18 +4,18 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+AlgoBase *-right-> "1" UniqueProblemList
+AlgoBase *-right-> "1" UniqueTagList
+UniqueTagList -[hidden]down- UniqueProblemList
+UniqueTagList -[hidden]down- UniqueProblemList
 
 UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniqueProblemList o-right-> Problem
 
-Person o-up-> "*" Tag
+Problem o-up-> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Problem *--> Name
+Problem *--> Phone
+Problem *--> Email
+Problem *--> Address
 @enduml

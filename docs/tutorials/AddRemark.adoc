@@ -16,7 +16,7 @@ toc::[]
 
 In this tutorial, we'll walk you through the implementation of a new command -- `remark`.
 
-This command allows users of the AddressBook application to add optional remarks to people in their address book and edit it if required.
+This command allows users of the AlgoBase application to add optional remarks to people in their address book and edit it if required.
 The command should have the format of `remark INDEX r/REMARK`.
 An example of the command is `remark 2 r/Likes baseball`.
 
@@ -41,7 +41,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.Model;
 
 /**
- * Changes the remark of an existing person in the address book.
+ * Changes the remark of an existing problem in the address book.
  */
 public class RemarkCommand extends Command {
 
@@ -56,10 +56,10 @@ public class RemarkCommand extends Command {
 
 === Hook `RemarkCommand` into the application
 
-Now that we have our `RemarkCommand` ready to be executed, we need to update `AddressBookParser#parseCommand()` to recognize the `remark` keyword.
+Now that we have our `RemarkCommand` ready to be executed, we need to update `AlgoBaseParser#parseCommand()` to recognize the `remark` keyword.
 Add the new command to the `switch` block by creating a new `case` that returns a new instance of `RemarkCommand`.
 
-You can refer to the changes in this link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/7d04e49e364dad661cd88f462f01923fba972d2c#diff-5338391f3f6fbb4022c44add6590b74f[diff].
+You can refer to the changes in this link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/7d04e49e364dad661cd88f462f01923fba972d2c#diff-5338391f3f6fbb4022c44add6590b74f[diff].
 
 === Run the application
 
@@ -82,8 +82,8 @@ Following the convention in other commands, we add relevant messages as constant
 .RemarkCommand.java
 [source, java]
 ----
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the person identified "
-            + "by the index number used in the last person listing. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the problem identified "
+            + "by the index number used in the last problem listing. "
             + "Existing remark will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "r/ [REMARK]\n"
@@ -120,8 +120,8 @@ public class RemarkCommand extends Command {
     private final String remark;
 
     /**
-     * @param index of the person in the filtered person list to edit the remark
-     * @param remark of the person to be updated to
+     * @param index of the problem in the filtered problem list to edit the remark
+     * @param remark of the problem to be updated to
      */
     public RemarkCommand(Index index, String remark) {
         requireAllNonNull(index, remark);
@@ -154,7 +154,7 @@ public class RemarkCommand extends Command {
 }
 ----
 
-Your code should look something like link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/83dd9e6b03d6b83199ceb6f3b66166483155abed#diff-34ace715a8a8d2e5a66e71289f017b47[this] after you are done.
+Your code should look something like link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/83dd9e6b03d6b83199ceb6f3b66166483155abed#diff-34ace715a8a8d2e5a66e71289f017b47[this] after you are done.
 
 === Parse user input
 
@@ -238,22 +238,22 @@ public RemarkCommand parse(String args) throws ParseException {
 }
 ----
 
-NOTE: Don't forget to update `AddressBookParser` to use our new `RemarkCommandParser`!
+NOTE: Don't forget to update `AlgoBaseParser` to use our new `RemarkCommandParser`!
 
-If you are stuck, check out the sample link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/efdcdf0e80cec9489f7b47e3f65824f4688ad8f7#diff-fc19ecee89c3732a62fbc8c840250508[here].
+If you are stuck, check out the sample link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/efdcdf0e80cec9489f7b47e3f65824f4688ad8f7#diff-fc19ecee89c3732a62fbc8c840250508[here].
 
 == Add `Remark` to the model
 
 Now that we have all the information that we need, let's lay the groundwork for some _persistent_ changes.
-We achieve that by working with the `Person` model.
-Each field in a Person is implemented as a separate class (e.g. a `Name` object represents the person's name).
-That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a person.
+We achieve that by working with the `Problem` model.
+Each field in a Problem is implemented as a separate class (e.g. a `Name` object represents the problem's name).
+That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a problem.
 
 === Add a new `Remark` class
 
 Create a new `Remark` in `seedu.address.model.Problem`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
 
-A copy-paste and search-replace later, you should have something like link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b7a47c50c8e5f0430d343a23d2863446b6ce9298#diff-af2f075d24dfcd333876f0fbce321f25[this].
+A copy-paste and search-replace later, you should have something like link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/b7a47c50c8e5f0430d343a23d2863446b6ce9298#diff-af2f075d24dfcd333876f0fbce321f25[this].
 Note how `Remark` has no constrains and thus does not require input validation.
 
 === Make use of `Remark`
@@ -263,17 +263,17 @@ These should be relatively simple changes.
 
 == Add a placeholder element for remark to the UI
 
-Without getting too deep into `fxml`, let's go on a 5 minute adventure to get some placeholder text to show up for each person.
+Without getting too deep into `fxml`, let's go on a 5 minute adventure to get some placeholder text to show up for each problem.
 
 Simply add
 [source, java]
-.PersonCard.java
+.ProblemCard.java
 ```
 @FXML
 private Label remark;
 ```
 
-to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-0c6b6abcfac8c205e075294f25e851fe[`seedu.address.ui.PersonCard`].
+to link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-0c6b6abcfac8c205e075294f25e851fe[`seedu.address.ui.ProblemCard`].
 `@FXML` is an annotation that marks a private or protected field and makes it accessible to FXML.
 It might sound like Greek to you right now, don't worry -- we will get back to it later.
 
@@ -282,53 +282,53 @@ Then insert
 ```
 <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
 ```
-into link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-12580431f55d7880578aa4c16f249e71[`main/resources/view/PersonListCard.fxml`].
+into link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-12580431f55d7880578aa4c16f249e71[`main/resources/view/ProblemListCard.fxml`].
 
 That's it! Fire up the application again and you should see something like this:
 
 .$remark shows up in each entry
 image::$Remark.png[]
 
-== Modify `Person` to support a `Remark` field
+== Modify `Problem` to support a `Remark` field
 
-Since `PersonCard` displays data from a `Person`, we need to update `Person` to get our `Remark` displayed!
+Since `ProblemCard` displays data from a `Problem`, we need to update `Problem` to get our `Remark` displayed!
 
-=== Modify `Person`
+=== Modify `Problem`
 
-We change the constructor of `Person` to take a `Remark`.
+We change the constructor of `Problem` to take a `Remark`.
 We will also need to define new fields and accessors accordingly to store our new addition.
 
-=== Update other usages of `Person`
+=== Update other usages of `Problem`
 
-Unfortunately, a change to `Person` will cause other commands to break, you will have to modify these commands to use the updated `Person`!
+Unfortunately, a change to `Problem` will cause other commands to break, you will have to modify these commands to use the updated `Problem`!
 
-TIP: Use the `Find Usages` feature in IntelliJ IDEA on the `Person` class to find these commands.
+TIP: Use the `Find Usages` feature in IntelliJ IDEA on the `Problem` class to find these commands.
 
-Refer to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b241ef8526bd4e8a6ad94b8118b7fc3441ec8fa3#diff-3462fc1118b9872387a01b41157b0402[this commit] and check that you have got everything in order!
+Refer to link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/b241ef8526bd4e8a6ad94b8118b7fc3441ec8fa3#diff-3462fc1118b9872387a01b41157b0402[this commit] and check that you have got everything in order!
 
 == Updating Storage
 
-AddressBook stores data by serializing `JsonAdaptedPerson` into `json` with the help of an external library -- Jackson.
-Let's update `JsonAdaptedPerson` to work with our new `Person`!
+AlgoBase stores data by serializing `JsonAdaptedProblem` into `json` with the help of an external library -- Jackson.
+Let's update `JsonAdaptedProblem` to work with our new `Problem`!
 
 While the changes to code may be minimal, the test data will have to be updated as well.
 
-WARNING: You must delete AddressBook's storage file located at `/data/addressbook.json` before running it!
-Not doing so will cause AddressBook to default to an empty address book!
+WARNING: You must delete AlgoBase's storage file located at `/data/algobase.json` before running it!
+Not doing so will cause AlgoBase to default to an empty address book!
 
-Check out link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/ce4f9b70f524d2395948861d80d57fda9ae6e82e#diff-07708562699e2436c717f3330bafae1e[this commit] to see what the changes entail.
+Check out link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/ce4f9b70f524d2395948861d80d57fda9ae6e82e#diff-07708562699e2436c717f3330bafae1e[this commit] to see what the changes entail.
 
 == Finalizing the UI
 
-Now that we have finalized the `Person` class and its dependencies, we can now bind the `Remark` field to the UI.
+Now that we have finalized the `Problem` class and its dependencies, we can now bind the `Remark` field to the UI.
 
-Just add link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/56d5cb662c31dd38b02f6a5301ba6ab3c667d6a3#diff-0c6b6abcfac8c205e075294f25e851fe[this one line of code!]
+Just add link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/56d5cb662c31dd38b02f6a5301ba6ab3c667d6a3#diff-0c6b6abcfac8c205e075294f25e851fe[this one line of code!]
 [source, java]
-.PersonCard.java
+.ProblemCard.java
 ----
-public PersonCard(Person person, int displayedIndex) {
+public ProblemCard(Problem problem, int displayedIndex) {
     //...
-    remark.setText(person.getRemark().value);
+    remark.setText(problem.getRemark().value);
 }
 ----
 
@@ -342,45 +342,45 @@ However, this is expected behavior as we have never changed `RemarkCommand` at a
 
 === Update `RemarkCommand` and `RemarkCommandParser`
 
-In this last step, we modify `RemarkCommand#execute()` to change the `Remark` of a `Person`.
-Since all fields in a `Person` are immutable, we create a new instance of a `Person` with the values that we want and save it with `Model#setPerson()`.
+In this last step, we modify `RemarkCommand#execute()` to change the `Remark` of a `Problem`.
+Since all fields in a `Problem` are immutable, we create a new instance of a `Problem` with the values that we want and save it with `Model#setProblem()`.
 
 [source, java]
 .RemarkCommand.java
 ----
 //...
-    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Problem: %1$s";
+    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Problem: %1$s";
 //...
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Problem> lastShownList = model.getFilteredProblemList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), remark, personToEdit.getTags());
+        Problem problemToEdit = lastShownList.get(index.getZeroBased());
+        Problem editedProblem = new Problem(problemToEdit.getName(), problemToEdit.getPhone(), problemToEdit.getEmail(),
+                problemToEdit.getAddress(), remark, problemToEdit.getTags());
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setProblem(problemToEdit, editedProblem);
+        model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedPerson));
+        return new CommandResult(generateSuccessMessage(editedProblem));
     }
 
     /**
      * Generates a command execution success message based on whether the remark is added to or removed from
-     * {@code personToEdit}.
+     * {@code problemToEdit}.
      */
-    private String generateSuccessMessage(Person personToEdit) {
+    private String generateSuccessMessage(Problem problemToEdit) {
         String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
-        return String.format(message, personToEdit);
+        return String.format(message, problemToEdit);
     }
 ----
 
-Make one last link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b3307d7a42acb613a8f1d36979a7f547abcf6623#diff-34ace715a8a8d2e5a66e71289f017b47[check] to ensure that everything is working properly...
+Make one last link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/b3307d7a42acb613a8f1d36979a7f547abcf6623#diff-34ace715a8a8d2e5a66e71289f017b47[check] to ensure that everything is working properly...
 
 .Congratulations!
 image::RemarkComplete.png[]
@@ -416,10 +416,10 @@ Let's use the utility functions provided in `CommandTestUtil`. The functions ens
 In this case, `CommandTestUtil#assertCommandSuccess` is the best fit as we are testing that a `RemarkCommand` will successfully add a `Remark`.
 
 You should end up with a test that looks something like
-link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b3307d7a42acb613a8f1d36979a7f547abcf6623#diff-d749de38392f7ea504da7824641ba8d9[this].
+link:https://github.com/nus-cs2103-AY1920S1/algobase-level3/commit/b3307d7a42acb613a8f1d36979a7f547abcf6623#diff-d749de38392f7ea504da7824641ba8d9[this].
 
 == Conclusion
 
-This concludes the tutorial for adding a new `Command` to AddressBook.
+This concludes the tutorial for adding a new `Command` to AlgoBase.
 
 //Link to more discussions

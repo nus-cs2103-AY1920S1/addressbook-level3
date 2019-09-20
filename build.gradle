@@ -7,7 +7,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
     id 'java'
     id 'jacoco'
-    id 'checkstyle'
+    //id 'checkstyle'
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
@@ -24,10 +24,11 @@ repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
-
+/*
 checkstyle {
     toolVersion = '8.1'
 }
+*/
 
 jacocoTestReport {
     reports {
@@ -67,7 +68,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'algobase.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,8 +134,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'AlgoBase-Level3',
+        'site-githuburl': 'https://github.com/se-edu/algobase-level3',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

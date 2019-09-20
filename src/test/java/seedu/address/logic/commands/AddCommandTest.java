@@ -16,44 +16,44 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.AlgoBase;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAlgoBase;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.Problem.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.Problem.Problem;
+import seedu.address.testutil.ProblemBuilder;
 
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullProblem_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_problemAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingProblemAdded modelStub = new ModelStubAcceptingProblemAdded();
+        Problem validProblem = new ProblemBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validProblem).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validProblem), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validProblem), modelStub.problemsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateProblem_throwsCommandException() {
+        Problem validProblem = new ProblemBuilder().build();
+        AddCommand addCommand = new AddCommand(validProblem);
+        ModelStub modelStub = new ModelStubWithProblem(validProblem);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Problem alice = new ProblemBuilder().withName("Alice").build();
+        Problem bob = new ProblemBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -99,52 +99,52 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getAlgoBaseFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setAlgoBaseFilePath(Path algoBaseFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addProblem(Problem problem) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAlgoBase(ReadOnlyAlgoBase newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAlgoBase getAlgoBase() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasProblem(Problem problem) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteProblem(Problem target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setProblem(Problem target, Problem editedProblem) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Problem> getFilteredProblemList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredProblemList(Predicate<Problem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -152,42 +152,42 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single Problem.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithProblem extends ModelStub {
+        private final Problem problem;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithProblem(Problem problem) {
+            requireNonNull(problem);
+            this.problem = problem;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasProblem(Problem problem) {
+            requireNonNull(problem);
+            return this.problem.isSameProblem(problem);
         }
     }
 
     /**
      * A Model stub that always accept the Problem being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingProblemAdded extends ModelStub {
+        final ArrayList<Problem> problemsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasProblem(Problem problem) {
+            requireNonNull(problem);
+            return problemsAdded.stream().anyMatch(problem::isSameProblem);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addProblem(Problem problem) {
+            requireNonNull(problem);
+            problemsAdded.add(problem);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyAlgoBase getAlgoBase() {
+            return new AlgoBase();
         }
     }
 

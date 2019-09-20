@@ -78,7 +78,7 @@ Then you can use it in another PlantUML file like this:
 
 box Logic LOGIC_COLOR_T2
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AlgoBaseParser" as AlgoBaseParser LOGIC_COLOR
 participant ":UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 ----

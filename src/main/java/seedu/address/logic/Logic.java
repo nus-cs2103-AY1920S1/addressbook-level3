@@ -1,14 +1,14 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.Problem.Person;
+import seedu.address.model.Problem.Problem;
+import seedu.address.model.ReadOnlyAlgoBase;
+
+import java.nio.file.Path;
 
 /**
  * API of the Logic component
@@ -24,19 +24,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the AlgoBase.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getAlgoBase()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyAlgoBase getAlgoBase();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of problems */
+    ObservableList<Problem> getFilteredProblemList();
 
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getAlgoBaseFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

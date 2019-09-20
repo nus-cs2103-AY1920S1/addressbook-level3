@@ -7,24 +7,24 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.Problem.Person;
+import seedu.address.model.Problem.Problem;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Problem}.
  */
-public class PersonCard extends UiPart<Region> {
+public class ProblemCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ProblemListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/algobase-level4/issues/336">The issue on AlgoBase level 4</a>
      */
 
-    public final Person person;
+    public final Problem problem;
 
     @FXML
     private HBox cardPane;
@@ -41,15 +41,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public ProblemCard(Problem problem, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.problem = problem;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
+        name.setText(problem.getName().fullName);
+        phone.setText(problem.getPhone().value);
+        address.setText(problem.getAddress().value);
+        email.setText(problem.getEmail().value);
+        problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -62,13 +62,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ProblemCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        ProblemCard card = (ProblemCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && problem.equals(card.problem);
     }
 }

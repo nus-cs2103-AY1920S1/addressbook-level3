@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Problem.Person;
+import seedu.address.model.Problem.Problem;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Problem> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,51 +37,51 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getAlgoBaseFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setAlgoBaseFilePath(Path algoBaseFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code algoBase}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAlgoBase(ReadOnlyAlgoBase algoBase);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the AlgoBase */
+    ReadOnlyAlgoBase getAlgoBase();
 
     /**
      * Returns true if a Problem with the same identity as {@code Problem} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasProblem(Problem problem);
 
     /**
      * Deletes the given Problem.
      * The Problem must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteProblem(Problem target);
 
     /**
      * Adds the given Problem.
      * {@code Problem} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addProblem(Problem problem);
 
     /**
-     * Replaces the given Problem {@code target} with {@code editedPerson}.
+     * Replaces the given Problem {@code target} with {@code editedProblem}.
      * {@code target} must exist in the address book.
-     * The Problem identity of {@code editedPerson} must not be the same as another existing Problem in the address book.
+     * The Problem identity of {@code editedProblem} must not be the same as another existing Problem in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setProblem(Problem target, Problem editedProblem);
 
     /** Returns an unmodifiable view of the filtered Problem list */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Problem> getFilteredProblemList();
 
     /**
      * Updates the filter of the filtered Problem list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredProblemList(Predicate<Problem> predicate);
 }
