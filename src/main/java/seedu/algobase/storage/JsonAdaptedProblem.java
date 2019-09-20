@@ -20,22 +20,22 @@ class JsonAdaptedProblem {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Problem's %s field is missing!";
 
     private final String name;
-    private final String phone;
-    private final String email;
-    private final String address;
+    private final String author;
+    private final String weblink;
+    private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedProblem} with the given Problem details.
      */
     @JsonCreator
-    public JsonAdaptedProblem(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
+    public JsonAdaptedProblem(@JsonProperty("name") String name, @JsonProperty("author") String author,
+            @JsonProperty("weblink") String weblink, @JsonProperty("description") String description,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.author = author;
+        this.weblink = weblink;
+        this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -46,9 +46,9 @@ class JsonAdaptedProblem {
      */
     public JsonAdaptedProblem(Problem source) {
         name = source.getName().fullName;
-        phone = source.getAuthor().value;
-        email = source.getWebLink().value;
-        address = source.getDescription().value;
+        author = source.getAuthor().value;
+        weblink = source.getWebLink().value;
+        description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -73,29 +73,29 @@ class JsonAdaptedProblem {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
+        if (author == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Author.class.getSimpleName()));
         }
-        if (!Author.isValidPhone(phone)) {
+        if (!Author.isValidAuthor(author)) {
             throw new IllegalValueException(Author.MESSAGE_CONSTRAINTS);
         }
-        final Author modelAuthor = new Author(phone);
+        final Author modelAuthor = new Author(author);
 
-        if (email == null) {
+        if (weblink == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, WebLink.class.getSimpleName()));
         }
-        if (!WebLink.isValidEmail(email)) {
+        if (!WebLink.isValidWeblink(weblink)) {
             throw new IllegalValueException(WebLink.MESSAGE_CONSTRAINTS);
         }
-        final WebLink modelWebLink = new WebLink(email);
+        final WebLink modelWebLink = new WebLink(weblink);
 
-        if (address == null) {
+        if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
-        if (!Description.isValidAddress(address)) {
+        if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(address);
+        final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(problemTags);
         return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags);

@@ -32,16 +32,16 @@ public class EditProblemDescriptorTest {
         EditProblemDescriptor editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different phone -> returns false
-        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
+        // different author -> returns false
+        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withAuthor(VALID_PHONE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different email -> returns false
-        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        // different weblink -> returns false
+        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withWeblink(VALID_EMAIL_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different address -> returns false
-        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
+        // different description -> returns false
+        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withDescription(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

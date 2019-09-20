@@ -13,37 +13,37 @@ endif::[]
 Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 
 == Introduction
-When working on Address Book, you will most likely find that some features and fields that are no longer necessary.
+When working on Description Book, you will most likely find that some features and fields that are no longer necessary.
 In scenarios like this, you can consider refactoring the existing `Problem` model to suit your use case.
 
 In this tutorial, we'll do exactly just that and remove the `description` field from `Problem`.
 
-== Safely deleting `Address`
+== Safely deleting `Description`
 
 Fortunately, the IntelliJ IDEA provides a robust refactoring tool that can identify _most_ usages.
 Let's try to use it as much as we can.
 
 === Assisted refactoring
-The `description` field in `Problem` is actually an instance of the `seedu.description.model.Problem.Address` class.
-Since removing the `Address` class will break the application, we start by identifying ``Address``'s usages.
-This allows us to see code that depends on `Address` to function properly and edit them on a case-by-case basis.
-Right-click the `Address` class and select `Refactor` > `Safe Delete` through the menu.
+The `description` field in `Problem` is actually an instance of the `seedu.description.model.Problem.Description` class.
+Since removing the `Description` class will break the application, we start by identifying ``Description``'s usages.
+This allows us to see code that depends on `Description` to function properly and edit them on a case-by-case basis.
+Right-click the `Description` class and select `Refactor` > `Safe Delete` through the menu.
 
 .Usages detected
 image::UnsafeDelete.png[width=787px. height=238px]
 
 Choose to `View Usages` and you should be presented with a list of `Safe Delete Conflicts`.
-These conflicts describe locations in which the `Address` class is used.
+These conflicts describe locations in which the `Description` class is used.
 
 .List of conflicts
 image::SafeDeleteConflicts.png[width=955, height=640px]
 
-Remove usages of `Address` by performing ``Safe Delete``s on each entry.
-You will need to exercise discretion when removing usages of `Address`.
-Functions like `ParserUtil#parseAddress()` can be safely removed but its usages must be removed as well.
+Remove usages of `Description` by performing ``Safe Delete``s on each entry.
+You will need to exercise discretion when removing usages of `Description`.
+Functions like `ParserUtil#parseDescription()` can be safely removed but its usages must be removed as well.
 Other usages like in `EditProblemDescriptor` may require more careful inspection.
 
-Let's try removing references to `Address` in `EditProblemDescriptor`.
+Let's try removing references to `Description` in `EditProblemDescriptor`.
 
 . Safe delete the field `description` in `EditProblemDescriptor`
 . Select `Yes` when prompted to remove getters and setters
@@ -54,13 +54,13 @@ TIP: Removing usages may result in errors.
 Exercise discretion and fix them.
 For example, removing the `description` field from the `Problem` class will require you to modify its constructor.
 
-. Repeat the steps for the remaining usages of `Address`
+. Repeat the steps for the remaining usages of `Description`
 
 After you are done, verify that the application still works by compiling and running it again.
 
 === Manual refactoring
 
-Unfortunately, there are usages of `Address` that IntelliJ IDEA cannot identify.
+Unfortunately, there are usages of `Description` that IntelliJ IDEA cannot identify.
 You can find them by searching for instances of the word `description` in your code (`Edit` > `Find` > `Find in path`).
 
 Places of interest to look out for would be resources used by the application.
@@ -97,7 +97,7 @@ Fix any remaining errors until the tests all pass.
 == Tidying up
 
 At this point, your application is working as intended and all your tests are passing.
-What's left to do is to clean up references to `Address` in test data and documentation.
+What's left to do is to clean up references to `Description` in test data and documentation.
 
 In `src/test/data/`, data meant for testing purposes are stored.
 While keeping the `description` field in the json files does not cause the tests to fail, it is not good practice to let cruft from old features accumulate.

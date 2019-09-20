@@ -46,9 +46,9 @@ public class ProblemUtil {
     public static String getEditProblemDescriptorDetails(EditProblemDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getAuthor().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getWebLink().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getAuthor().ifPresent(author -> sb.append(PREFIX_PHONE).append(author.value).append(" "));
+        descriptor.getWebLink().ifPresent(weblink -> sb.append(PREFIX_EMAIL).append(weblink.value).append(" "));
+        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_ADDRESS).append(description.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

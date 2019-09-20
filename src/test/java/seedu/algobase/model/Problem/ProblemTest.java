@@ -26,26 +26,26 @@ public class ProblemTest {
         // null -> returns false
         assertFalse(ALICE.isSameProblem(null));
 
-        // different phone and email -> returns false
-        Problem editedAlice = new ProblemBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        // different author and weblink -> returns false
+        Problem editedAlice = new ProblemBuilder(ALICE).withAuthor(VALID_PHONE_BOB).withWeblink(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameProblem(editedAlice));
 
         // different name -> returns false
         editedAlice = new ProblemBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameProblem(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new ProblemBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        // same name, same author, different attributes -> returns true
+        editedAlice = new ProblemBuilder(ALICE).withWeblink(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameProblem(editedAlice));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new ProblemBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        // same name, same weblink, different attributes -> returns true
+        editedAlice = new ProblemBuilder(ALICE).withAuthor(VALID_PHONE_BOB).withDescription(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameProblem(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new ProblemBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same name, same author, same weblink, different attributes -> returns true
+        editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameProblem(editedAlice));
     }
 
@@ -71,16 +71,16 @@ public class ProblemTest {
         Problem editedAlice = new ProblemBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new ProblemBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different author -> returns false
+        editedAlice = new ProblemBuilder(ALICE).withAuthor(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new ProblemBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        // different weblink -> returns false
+        editedAlice = new ProblemBuilder(ALICE).withWeblink(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new ProblemBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        // different description -> returns false
+        editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

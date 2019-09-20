@@ -54,11 +54,11 @@ public class EditCommandTest {
         Problem lastProblem = model.getFilteredProblemList().get(indexLastProblem.getZeroBased());
 
         ProblemBuilder problemInList = new ProblemBuilder(lastProblem);
-        Problem editedProblem = problemInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Problem editedProblem = problemInList.withName(VALID_NAME_BOB).withAuthor(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withAuthor(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastProblem, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedProblem);
@@ -111,7 +111,7 @@ public class EditCommandTest {
     public void execute_duplicateProblemFilteredList_failure() {
         showProblemAtIndex(model, INDEX_FIRST_PERSON);
 
-        // edit Problem in filtered list into a duplicate in address book
+        // edit Problem in filtered list into a duplicate in algobase
         Problem problemInList = model.getAlgoBase().getProblemList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditProblemDescriptorBuilder(problemInList).build());
@@ -130,13 +130,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of algobase
      */
     @Test
     public void execute_invalidProblemIndexFilteredList_failure() {
         showProblemAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of algobase list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAlgoBase().getProblemList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,

@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAlgoBaseFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setAlgoBaseFilePath(Paths.get("description/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAlgoBaseFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setAlgoBaseFilePath(Paths.get("new/description/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -67,7 +67,7 @@ public class ModelManagerTest {
 
     @Test
     public void setAlgoBaseFilePath_validPath_setsAlgoBaseFilePath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("description/book/file/path");
         modelManager.setAlgoBaseFilePath(path);
         assertEquals(path, modelManager.getAlgoBaseFilePath());
     }

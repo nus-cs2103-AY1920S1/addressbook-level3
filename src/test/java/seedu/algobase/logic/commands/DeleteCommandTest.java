@@ -68,7 +68,7 @@ public class DeleteCommandTest {
         showProblemAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of algobase list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAlgoBase().getProblemList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);

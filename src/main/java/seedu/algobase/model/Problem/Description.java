@@ -5,11 +5,11 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Problem's description in the algobase.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Descriptiones can take any values, and it should not be blank";
 
     /*
      * The first character of the description must not be a whitespace,
@@ -26,14 +26,14 @@ public class Description {
      */
     public Description(String description) {
         requireNonNull(description);
-        checkArgument(isValidAddress(description), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid weblink.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidDescription(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

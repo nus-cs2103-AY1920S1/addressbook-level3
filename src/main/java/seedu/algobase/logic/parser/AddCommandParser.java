@@ -31,9 +31,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Author author = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        WebLink webLink = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Description description = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Author author = ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_PHONE).get());
+        WebLink webLink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_EMAIL).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Problem problem = new Problem(name, author, webLink, description, tagList);

@@ -43,7 +43,7 @@ public class AlgoBaseTest {
     @Test
     public void resetData_withDuplicateProblems_throwsDuplicateProblemException() {
         // Two problems with the same identity fields
-        Problem editedAlice = new ProblemBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Problem> newProblems = Arrays.asList(ALICE, editedAlice);
         AlgoBaseStub newData = new AlgoBaseStub(newProblems);
@@ -70,7 +70,7 @@ public class AlgoBaseTest {
     @Test
     public void hasProblem_problemWithSameIdentityFieldsInAlgoBase_returnsTrue() {
         algoBase.addProblem(ALICE);
-        Problem editedAlice = new ProblemBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(algoBase.hasProblem(editedAlice));
     }

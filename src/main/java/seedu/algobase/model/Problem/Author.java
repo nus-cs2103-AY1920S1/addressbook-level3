@@ -5,7 +5,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Problem's author number in the algobase.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidAuthor(String)}
  */
 public class Author {
 
@@ -22,14 +22,14 @@ public class Author {
      */
     public Author(String author) {
         requireNonNull(author);
-        checkArgument(isValidPhone(author), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAuthor(author), MESSAGE_CONSTRAINTS);
         value = author;
     }
 
     /**
      * Returns true if a given string is a valid author number.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidAuthor(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -15,7 +15,7 @@ UniqueProblemList o-right-> Problem
 Problem o-up-> "*" Tag
 
 Problem *--> Name
-Problem *--> Phone
-Problem *--> Email
-Problem *--> Address
+Problem *--> Author
+Problem *--> Weblink
+Problem *--> Description
 @enduml

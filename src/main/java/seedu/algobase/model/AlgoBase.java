@@ -9,7 +9,7 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the algobase level
  * Duplicates are not allowed (by .isSameProblem comparison)
  */
 public class AlgoBase implements ReadOnlyAlgoBase {

@@ -46,24 +46,24 @@ public class EditProblemDescriptorBuilder {
     /**
      * Sets the {@code Author} of the {@code EditProblemDescriptor} that we are building.
      */
-    public EditProblemDescriptorBuilder withPhone(String phone) {
-        descriptor.setAuthor(new Author(phone));
+    public EditProblemDescriptorBuilder withAuthor(String author) {
+        descriptor.setAuthor(new Author(author));
         return this;
     }
 
     /**
      * Sets the {@code WebLink} of the {@code EditProblemDescriptor} that we are building.
      */
-    public EditProblemDescriptorBuilder withEmail(String email) {
-        descriptor.setWebLink(new WebLink(email));
+    public EditProblemDescriptorBuilder withWeblink(String weblink) {
+        descriptor.setWebLink(new WebLink(weblink));
         return this;
     }
 
     /**
      * Sets the {@code Description} of the {@code EditProblemDescriptor} that we are building.
      */
-    public EditProblemDescriptorBuilder withAddress(String address) {
-        descriptor.setDescription(new Description(address));
+    public EditProblemDescriptorBuilder withDescription(String description) {
+        descriptor.setDescription(new Description(description));
         return this;
     }
 

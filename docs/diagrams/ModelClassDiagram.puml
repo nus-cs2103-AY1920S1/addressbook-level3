@@ -17,10 +17,10 @@ Class ReadOnlyUserPrefs
 
 Package Problem {
 Class Problem
-Class Address
-Class Email
+Class Description
+Class Weblink
 Class Name
-Class Phone
+Class Author
 Class UniqueProblemList
 }
 
@@ -43,14 +43,14 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 AlgoBase *--> "1" UniqueProblemList
 UniqueProblemList o--> "*" Problem
 Problem *--> Name
-Problem *--> Phone
-Problem *--> Email
-Problem *--> Address
+Problem *--> Author
+Problem *--> Weblink
+Problem *--> Description
 Problem *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Name -[hidden]right-> Author
+Author -[hidden]right-> Description
+Description -[hidden]right-> Weblink
 
 ModelManager -->"1" Problem : filtered list
 @enduml

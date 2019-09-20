@@ -53,7 +53,7 @@ public class JsonAdaptedProblemTest {
     }
 
     @Test
-    public void toModelType_invalidPhone_throwsIllegalValueException() {
+    public void toModelType_invalidAuthor_throwsIllegalValueException() {
         JsonAdaptedProblem problem =
                 new JsonAdaptedProblem(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Author.MESSAGE_CONSTRAINTS;
@@ -61,14 +61,14 @@ public class JsonAdaptedProblemTest {
     }
 
     @Test
-    public void toModelType_nullPhone_throwsIllegalValueException() {
+    public void toModelType_nullAuthor_throwsIllegalValueException() {
         JsonAdaptedProblem problem = new JsonAdaptedProblem(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Author.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, problem::toModelType);
     }
 
     @Test
-    public void toModelType_invalidEmail_throwsIllegalValueException() {
+    public void toModelType_invalidWeblink_throwsIllegalValueException() {
         JsonAdaptedProblem problem =
                 new JsonAdaptedProblem(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = WebLink.MESSAGE_CONSTRAINTS;
@@ -76,14 +76,14 @@ public class JsonAdaptedProblemTest {
     }
 
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
+    public void toModelType_nullWeblink_throwsIllegalValueException() {
         JsonAdaptedProblem problem = new JsonAdaptedProblem(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, WebLink.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, problem::toModelType);
     }
 
     @Test
-    public void toModelType_invalidAddress_throwsIllegalValueException() {
+    public void toModelType_invalidDescription_throwsIllegalValueException() {
         JsonAdaptedProblem problem =
                 new JsonAdaptedProblem(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Description.MESSAGE_CONSTRAINTS;
@@ -91,7 +91,7 @@ public class JsonAdaptedProblemTest {
     }
 
     @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
+    public void toModelType_nullDescription_throwsIllegalValueException() {
         JsonAdaptedProblem problem = new JsonAdaptedProblem(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, problem::toModelType);

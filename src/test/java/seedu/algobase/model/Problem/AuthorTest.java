@@ -14,27 +14,27 @@ public class AuthorTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        assertThrows(IllegalArgumentException.class, () -> new Author(invalidPhone));
+    public void constructor_invalidAuthor_throwsIllegalArgumentException() {
+        String invalidAuthor = "";
+        assertThrows(IllegalArgumentException.class, () -> new Author(invalidAuthor));
     }
 
     @Test
-    public void isValidPhone() {
-        // null phone number
-        assertThrows(NullPointerException.class, () -> Author.isValidPhone(null));
+    public void isValidAuthor() {
+        // null author number
+        assertThrows(NullPointerException.class, () -> Author.isValidAuthor(null));
 
-        // invalid phone numbers
-        assertFalse(Author.isValidPhone("")); // empty string
-        assertFalse(Author.isValidPhone(" ")); // spaces only
-        assertFalse(Author.isValidPhone("91")); // less than 3 numbers
-        assertFalse(Author.isValidPhone("phone")); // non-numeric
-        assertFalse(Author.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Author.isValidPhone("9312 1534")); // spaces within digits
+        // invalid author numbers
+        assertFalse(Author.isValidAuthor("")); // empty string
+        assertFalse(Author.isValidAuthor(" ")); // spaces only
+        assertFalse(Author.isValidAuthor("91")); // less than 3 numbers
+        assertFalse(Author.isValidAuthor("author")); // non-numeric
+        assertFalse(Author.isValidAuthor("9011p041")); // alphabets within digits
+        assertFalse(Author.isValidAuthor("9312 1534")); // spaces within digits
 
-        // valid phone numbers
-        assertTrue(Author.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(Author.isValidPhone("93121534"));
-        assertTrue(Author.isValidPhone("124293842033123")); // long phone numbers
+        // valid author numbers
+        assertTrue(Author.isValidAuthor("911")); // exactly 3 numbers
+        assertTrue(Author.isValidAuthor("93121534"));
+        assertTrue(Author.isValidAuthor("124293842033123")); // long author numbers
     }
 }

@@ -1,8 +1,8 @@
 {
   "problems": [ {
     "name": "Problem with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "author": "9482424",
+    "weblink": "hans@example.com",
+    "description": "4th street"
   } ]
 }

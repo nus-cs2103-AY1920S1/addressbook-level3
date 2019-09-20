@@ -80,72 +80,72 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseAuthor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAuthor((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseAuthor_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAuthor(INVALID_PHONE));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
+    public void parseAuthor_validValueWithoutWhitespace_returnsAuthor() throws Exception {
         Author expectedAuthor = new Author(VALID_PHONE);
-        assertEquals(expectedAuthor, ParserUtil.parsePhone(VALID_PHONE));
+        assertEquals(expectedAuthor, ParserUtil.parseAuthor(VALID_PHONE));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
+    public void parseAuthor_validValueWithWhitespace_returnsTrimmedAuthor() throws Exception {
+        String authorWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Author expectedAuthor = new Author(VALID_PHONE);
-        assertEquals(expectedAuthor, ParserUtil.parsePhone(phoneWithWhitespace));
+        assertEquals(expectedAuthor, ParserUtil.parseAuthor(authorWithWhitespace));
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+    public void parseDescription_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+    public void parseDescription_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_ADDRESS));
     }
 
     @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
+    public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
         Description expectedDescription = new Description(VALID_ADDRESS);
-        assertEquals(expectedDescription, ParserUtil.parseAddress(VALID_ADDRESS));
+        assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_ADDRESS));
     }
 
     @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
+    public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
+        String descriptionWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Description expectedDescription = new Description(VALID_ADDRESS);
-        assertEquals(expectedDescription, ParserUtil.parseAddress(addressWithWhitespace));
+        assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    public void parseWeblink_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseWeblink((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+    public void parseWeblink_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeblink(INVALID_EMAIL));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
+    public void parseWeblink_validValueWithoutWhitespace_returnsWeblink() throws Exception {
         WebLink expectedWebLink = new WebLink(VALID_EMAIL);
-        assertEquals(expectedWebLink, ParserUtil.parseEmail(VALID_EMAIL));
+        assertEquals(expectedWebLink, ParserUtil.parseWeblink(VALID_EMAIL));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
+    public void parseWeblink_validValueWithWhitespace_returnsTrimmedWeblink() throws Exception {
+        String weblinkWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         WebLink expectedWebLink = new WebLink(VALID_EMAIL);
-        assertEquals(expectedWebLink, ParserUtil.parseEmail(emailWithWhitespace));
+        assertEquals(expectedWebLink, ParserUtil.parseWeblink(weblinkWithWhitespace));
     }
 
     @Test

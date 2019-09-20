@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Problem's email in the algobase.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Represents a Problem's weblink in the algobase.
+ * Guarantees: immutable; is valid as declared in {@link #isValidWeblink(String)}
  */
 public class WebLink {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
-    public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
+    public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format local-part@domain "
             + "and adhere to the following constraints:\n"
             + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
             + "the parentheses, (" + SPECIAL_CHARACTERS + ") .\n"
@@ -32,18 +32,18 @@ public class WebLink {
     /**
      * Constructs an {@code WebLink}.
      *
-     * @param email A valid email address.
+     * @param weblink A valid weblink.
      */
-    public WebLink(String email) {
-        requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
-        value = email;
+    public WebLink(String weblink) {
+        requireNonNull(weblink);
+        checkArgument(isValidWeblink(weblink), MESSAGE_CONSTRAINTS);
+        value = weblink;
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns if a given string is a valid weblink.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidWeblink(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

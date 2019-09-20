@@ -51,48 +51,48 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Author}.
+     * Parses a {@code String author} into a {@code Author}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code author} is invalid.
      */
-    public static Author parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Author.isValidPhone(trimmedPhone)) {
+    public static Author parseAuthor(String author) throws ParseException {
+        requireNonNull(author);
+        String trimmedAuthor = author.trim();
+        if (!Author.isValidAuthor(trimmedAuthor)) {
             throw new ParseException(Author.MESSAGE_CONSTRAINTS);
         }
-        return new Author(trimmedPhone);
+        return new Author(trimmedAuthor);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Description}.
+     * Parses a {@code String description} into an {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Description parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Description.isValidAddress(trimmedAddress)) {
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Description(trimmedAddress);
+        return new Description(trimmedDescription);
     }
 
     /**
-     * Parses a {@code String email} into an {@code WebLink}.
+     * Parses a {@code String weblink} into an {@code WebLink}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code weblink} is invalid.
      */
-    public static WebLink parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!WebLink.isValidEmail(trimmedEmail)) {
+    public static WebLink parseWeblink(String weblink) throws ParseException {
+        requireNonNull(weblink);
+        String trimmedWeblink = weblink.trim();
+        if (!WebLink.isValidWeblink(trimmedWeblink)) {
             throw new ParseException(WebLink.MESSAGE_CONSTRAINTS);
         }
-        return new WebLink(trimmedEmail);
+        return new WebLink(trimmedWeblink);
     }
 
     /**

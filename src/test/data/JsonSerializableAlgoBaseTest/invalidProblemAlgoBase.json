@@ -1,8 +1,8 @@
 {
   "problems": [ {
     "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+    "author": "9482424",
+    "weblink": "invalid@weblink!3e",
+    "description": "4th street"
   } ]
 }

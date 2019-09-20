@@ -62,24 +62,24 @@ public class ProblemBuilder {
     /**
      * Sets the {@code Description} of the {@code Problem} that we are building.
      */
-    public ProblemBuilder withAddress(String address) {
-        this.description = new Description(address);
+    public ProblemBuilder withDescription(String description) {
+        this.description = new Description(description);
         return this;
     }
 
     /**
      * Sets the {@code Author} of the {@code Problem} that we are building.
      */
-    public ProblemBuilder withPhone(String phone) {
-        this.author = new Author(phone);
+    public ProblemBuilder withAuthor(String author) {
+        this.author = new Author(author);
         return this;
     }
 
     /**
      * Sets the {@code WebLink} of the {@code Problem} that we are building.
      */
-    public ProblemBuilder withEmail(String email) {
-        this.webLink = new WebLink(email);
+    public ProblemBuilder withWeblink(String weblink) {
+        this.webLink = new WebLink(weblink);
         return this;
     }
 

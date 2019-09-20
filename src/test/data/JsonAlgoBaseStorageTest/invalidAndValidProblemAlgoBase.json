@@ -1,13 +1,13 @@
 {
   "problems": [ {
     "name": "Valid Problem",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "author": "9482424",
+    "weblink": "hans@example.com",
+    "description": "4th street"
   }, {
-    "name": "Problem With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "name": "Problem With Invalid Author Field",
+    "author": "948asdf2424",
+    "weblink": "hans@example.com",
+    "description": "4th street"
   } ]
 }

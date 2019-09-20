@@ -33,11 +33,11 @@ public class ProblemCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label author;
     @FXML
-    private Label address;
+    private Label description;
     @FXML
-    private Label email;
+    private Label weblink;
     @FXML
     private FlowPane tags;
 
@@ -46,9 +46,9 @@ public class ProblemCard extends UiPart<Region> {
         this.problem = problem;
         id.setText(displayedIndex + ". ");
         name.setText(problem.getName().fullName);
-        phone.setText(problem.getAuthor().value);
-        address.setText(problem.getDescription().value);
-        email.setText(problem.getWebLink().value);
+        author.setText(problem.getAuthor().value);
+        description.setText(problem.getDescription().value);
+        weblink.setText(problem.getWebLink().value);
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
