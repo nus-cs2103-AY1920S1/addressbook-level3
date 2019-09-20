@@ -13,20 +13,25 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class SetReminderCommandParser implements Parser<SetReminderCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the SetReminderCommand
+     * and returns a SetCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     @Override
     public SetReminderCommand parse(String args) throws ParseException {
-        System.out.println(args);
         requireNonNull(args);
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(args.split("|")[0]);
+            index = ParserUtil.parseIndex(args.split("\\|")[0]);
+
         } catch (IllegalValueException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetReminderCommand.MESSAGE_USAGE), e);
         }
 
-        int threshold = Integer.parseInt(args.split("|")[1]);
+        int threshold = Integer.parseInt(args.split("\\|")[1]);
 
         return new SetReminderCommand(index, threshold);
     }
