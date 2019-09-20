@@ -46,7 +46,7 @@ class JsonAdaptedProblem {
      */
     public JsonAdaptedProblem(Problem source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        phone = source.getAuthor().value;
         email = source.getWebLink().value;
         address = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
@@ -74,12 +74,12 @@ class JsonAdaptedProblem {
         final Name modelName = new Name(name);
 
         if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Author.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Author.isValidPhone(phone)) {
+            throw new IllegalValueException(Author.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Author modelAuthor = new Author(phone);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, WebLink.class.getSimpleName()));
@@ -98,7 +98,7 @@ class JsonAdaptedProblem {
         final Description modelDescription = new Description(address);
 
         final Set<Tag> modelTags = new HashSet<>(problemTags);
-        return new Problem(modelName, modelPhone, modelWebLink, modelDescription, modelTags);
+        return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags);
     }
 
 }

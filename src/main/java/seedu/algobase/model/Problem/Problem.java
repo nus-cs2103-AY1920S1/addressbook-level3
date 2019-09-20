@@ -17,7 +17,7 @@ public class Problem {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Author author;
     private final WebLink webLink;
 
     // Data fields
@@ -27,10 +27,10 @@ public class Problem {
     /**
      * Every field must be present and not null.
      */
-    public Problem(Name name, Phone phone, WebLink webLink, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, phone, webLink, description, tags);
+    public Problem(Name name, Author author, WebLink webLink, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, author, webLink, description, tags);
         this.name = name;
-        this.phone = phone;
+        this.author = author;
         this.webLink = webLink;
         this.description = description;
         this.tags.addAll(tags);
@@ -40,8 +40,8 @@ public class Problem {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Author getAuthor() {
+        return author;
     }
 
     public WebLink getWebLink() {
@@ -71,7 +71,7 @@ public class Problem {
 
         return otherProblem != null
                 && otherProblem.getName().equals(getName())
-                && (otherProblem.getPhone().equals(getPhone()) || otherProblem.getWebLink().equals(getWebLink()));
+                && (otherProblem.getAuthor().equals(getAuthor()) || otherProblem.getWebLink().equals(getWebLink()));
     }
 
     /**
@@ -90,7 +90,7 @@ public class Problem {
 
         Problem otherProblem = (Problem) other;
         return otherProblem.getName().equals(getName())
-                && otherProblem.getPhone().equals(getPhone())
+                && otherProblem.getAuthor().equals(getAuthor())
                 && otherProblem.getWebLink().equals(getWebLink())
                 && otherProblem.getDescription().equals(getDescription())
                 && otherProblem.getTags().equals(getTags());
@@ -99,15 +99,15 @@ public class Problem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, webLink, description, tags);
+        return Objects.hash(name, author, webLink, description, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Author: ")
+                .append(getAuthor())
                 .append(" WebLink: ")
                 .append(getWebLink())
                 .append(" Description: ")

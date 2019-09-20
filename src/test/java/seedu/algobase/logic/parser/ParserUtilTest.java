@@ -14,10 +14,10 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.Problem.Author;
 import seedu.algobase.model.Problem.Description;
 import seedu.algobase.model.Problem.WebLink;
 import seedu.algobase.model.Problem.Name;
-import seedu.algobase.model.Problem.Phone;
 import seedu.algobase.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -91,15 +91,15 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+        Author expectedAuthor = new Author(VALID_PHONE);
+        assertEquals(expectedAuthor, ParserUtil.parsePhone(VALID_PHONE));
     }
 
     @Test
     public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+        Author expectedAuthor = new Author(VALID_PHONE);
+        assertEquals(expectedAuthor, ParserUtil.parsePhone(phoneWithWhitespace));
     }
 
     @Test

@@ -46,7 +46,7 @@ public class ProblemCard extends UiPart<Region> {
         this.problem = problem;
         id.setText(displayedIndex + ". ");
         name.setText(problem.getName().fullName);
-        phone.setText(problem.getPhone().value);
+        phone.setText(problem.getAuthor().value);
         address.setText(problem.getDescription().value);
         email.setText(problem.getWebLink().value);
         problem.getTags().stream()

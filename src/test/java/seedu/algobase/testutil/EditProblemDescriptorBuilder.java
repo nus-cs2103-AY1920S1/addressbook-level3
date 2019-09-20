@@ -29,7 +29,7 @@ public class EditProblemDescriptorBuilder {
     public EditProblemDescriptorBuilder(Problem problem) {
         descriptor = new EditProblemDescriptor();
         descriptor.setName(problem.getName());
-        descriptor.setPhone(problem.getPhone());
+        descriptor.setAuthor(problem.getAuthor());
         descriptor.setWebLink(problem.getWebLink());
         descriptor.setDescription(problem.getDescription());
         descriptor.setTags(problem.getTags());
@@ -44,10 +44,10 @@ public class EditProblemDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditProblemDescriptor} that we are building.
+     * Sets the {@code Author} of the {@code EditProblemDescriptor} that we are building.
      */
     public EditProblemDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+        descriptor.setAuthor(new Author(phone));
         return this;
     }
 

@@ -19,14 +19,14 @@ public class ProblemBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
-    private Phone phone;
+    private Author author;
     private WebLink webLink;
     private Description description;
     private Set<Tag> tags;
 
     public ProblemBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        author = new Author(DEFAULT_PHONE);
         webLink = new WebLink(DEFAULT_EMAIL);
         description = new Description(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -37,7 +37,7 @@ public class ProblemBuilder {
      */
     public ProblemBuilder(Problem problemToCopy) {
         name = problemToCopy.getName();
-        phone = problemToCopy.getPhone();
+        author = problemToCopy.getAuthor();
         webLink = problemToCopy.getWebLink();
         description = problemToCopy.getDescription();
         tags = new HashSet<>(problemToCopy.getTags());
@@ -68,10 +68,10 @@ public class ProblemBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Problem} that we are building.
+     * Sets the {@code Author} of the {@code Problem} that we are building.
      */
     public ProblemBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.author = new Author(phone);
         return this;
     }
 
@@ -84,7 +84,7 @@ public class ProblemBuilder {
     }
 
     public Problem build() {
-        return new Problem(name, phone, webLink, description, tags);
+        return new Problem(name, author, webLink, description, tags);
     }
 
 }

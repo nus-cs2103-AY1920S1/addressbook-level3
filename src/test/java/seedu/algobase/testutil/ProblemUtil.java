@@ -31,7 +31,7 @@ public class ProblemUtil {
     public static String getProblemDetails(Problem problem) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + problem.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + problem.getPhone().value + " ");
+        sb.append(PREFIX_PHONE + problem.getAuthor().value + " ");
         sb.append(PREFIX_EMAIL + problem.getWebLink().value + " ");
         sb.append(PREFIX_ADDRESS + problem.getDescription().value + " ");
         problem.getTags().stream().forEach(
@@ -46,7 +46,7 @@ public class ProblemUtil {
     public static String getEditProblemDescriptorDetails(EditProblemDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getAuthor().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getWebLink().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {

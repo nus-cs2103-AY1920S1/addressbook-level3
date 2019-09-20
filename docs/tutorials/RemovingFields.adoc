@@ -84,7 +84,7 @@ private Label description;
 [source, xml]
 ----
 ...
-<Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+<Label fx:id="author" styleClass="cell_small_label" text="\$author" />
 <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
 <Label fx:id="webLink" styleClass="cell_small_label" text="\$webLink" />
 ...
@@ -108,7 +108,7 @@ While keeping the `description` field in the json files does not cause the tests
 {
   "problems": [ {
     "name": "Problem with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424",
+    "author": "9482424",
     "webLink": "hans@example.com",
     "description": "4th street"
   } ]

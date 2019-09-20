@@ -36,10 +36,10 @@ import org.junit.jupiter.api.Test;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditCommand.EditProblemDescriptor;
+import seedu.algobase.model.Problem.Author;
 import seedu.algobase.model.Problem.Description;
 import seedu.algobase.model.Problem.WebLink;
 import seedu.algobase.model.Problem.Name;
-import seedu.algobase.model.Problem.Phone;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.testutil.EditProblemDescriptorBuilder;
 
@@ -82,17 +82,17 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Author.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, WebLink.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Description.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Author.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Author.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Problem} being edited,
         // parsing it together with a valid tag results in error

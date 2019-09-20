@@ -82,12 +82,12 @@ public class EditCommand extends Command {
         assert problemToEdit != null;
 
         Name updatedName = editProblemDescriptor.getName().orElse(problemToEdit.getName());
-        Phone updatedPhone = editProblemDescriptor.getPhone().orElse(problemToEdit.getPhone());
+        Author updatedAuthor = editProblemDescriptor.getAuthor().orElse(problemToEdit.getAuthor());
         WebLink updatedWebLink = editProblemDescriptor.getWebLink().orElse(problemToEdit.getWebLink());
         Description updatedDescription = editProblemDescriptor.getDescription().orElse(problemToEdit.getDescription());
         Set<Tag> updatedTags = editProblemDescriptor.getTags().orElse(problemToEdit.getTags());
 
-        return new Problem(updatedName, updatedPhone, updatedWebLink, updatedDescription, updatedTags);
+        return new Problem(updatedName, updatedAuthor, updatedWebLink, updatedDescription, updatedTags);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class EditCommand extends Command {
      */
     public static class EditProblemDescriptor {
         private Name name;
-        private Phone phone;
+        private Author author;
         private WebLink webLink;
         private Description description;
         private Set<Tag> tags;
@@ -127,7 +127,7 @@ public class EditCommand extends Command {
          */
         public EditProblemDescriptor(EditProblemDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setAuthor(toCopy.author);
             setWebLink(toCopy.webLink);
             setDescription(toCopy.description);
             setTags(toCopy.tags);
@@ -137,7 +137,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, webLink, description, tags);
+            return CollectionUtil.isAnyNonNull(name, author, webLink, description, tags);
         }
 
         public void setName(Name name) {
@@ -148,12 +148,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setAuthor(Author author) {
+            this.author = author;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Author> getAuthor() {
+            return Optional.ofNullable(author);
         }
 
         public void setWebLink(WebLink webLink) {
@@ -205,7 +205,7 @@ public class EditCommand extends Command {
             EditProblemDescriptor e = (EditProblemDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getAuthor().equals(e.getAuthor())
                     && getWebLink().equals(e.getWebLink())
                     && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
