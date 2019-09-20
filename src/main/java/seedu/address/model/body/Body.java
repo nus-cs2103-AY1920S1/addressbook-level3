@@ -46,6 +46,7 @@ public class Body {
         this.dateOfAdmission = dateOfAdmission;
     }
 
+    // Getters and Setters
     public String getId() {
         return id;
     }
