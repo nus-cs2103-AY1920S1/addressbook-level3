@@ -21,9 +21,9 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_EXPIRY_DATE + "EXPIRY DATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_WORD + "| "
             + PREFIX_NAME + "Strawberry "
-            + PREFIX_EXPIRY_DATE + "11/12/1999"
+            + PREFIX_EXPIRY_DATE + "11/12/1999 "
             + PREFIX_TAG + "fruit";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
