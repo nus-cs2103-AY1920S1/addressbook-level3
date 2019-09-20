@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Ooi Qiu Jia
-image::yl_coder.jpg[width="150", align="left"]
+image::[width="150", align="left"]
 {empty}[https://github.com/qiujiaaa[github]]
 
 Role: Developer 
