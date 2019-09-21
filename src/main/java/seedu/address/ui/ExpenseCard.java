@@ -35,10 +35,6 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label price;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
     private FlowPane tags;
 
     public ExpenseCard(Expense expense, int displayedIndex) {
@@ -47,8 +43,6 @@ public class ExpenseCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(expense.getDescription().fullDescription);
         price.setText(expense.getPrice().value);
-        //address.setText(expense.getAddress().value);
-        //email.setText(expense.getEmail().value);
         expense.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

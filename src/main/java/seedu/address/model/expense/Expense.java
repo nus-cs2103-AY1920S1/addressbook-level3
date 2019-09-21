@@ -15,24 +15,18 @@ import seedu.address.model.tag.Tag;
  */
 public class Expense {
 
-    // Identity fields
     private final Description description;
     private final Price price;
-    //private final Email email;
 
-    // Data fields
-    //private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Expense(Description description, Price price, /*Email email, Address address, */Set<Tag> tags) {
-        requireAllNonNull(description, price, /*email, address,*/ tags);
+    public Expense(Description description, Price price, Set<Tag> tags) {
+        requireAllNonNull(description, price, tags);
         this.description = description;
         this.price = price;
-        //this.email = email;
-        //this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -43,14 +37,6 @@ public class Expense {
     public Price getPrice() {
         return price;
     }
-
-    /*public Email getEmail() {
-        return null;
-    }
-
-    public Address getAddress() {
-        return null;
-    }*/
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -71,7 +57,7 @@ public class Expense {
 
         return otherExpense != null
                 && otherExpense.getDescription().equals(getDescription())
-                && (otherExpense.getPrice().equals(getPrice())) /*|| otherExpense.getEmail().equals(getEmail()))*/;
+                && (otherExpense.getPrice().equals(getPrice()));
     }
 
     /**
@@ -91,15 +77,13 @@ public class Expense {
         Expense otherExpense = (Expense) other;
         return otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getPrice().equals(getPrice())
-                /*&& otherExpense.getEmail().equals(getEmail())
-                && otherExpense.getAddress().equals(getAddress())*/
                 && otherExpense.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, /*email, address,*/ tags);
+        return Objects.hash(description, price, tags);
     }
 
     @Override
@@ -109,10 +93,6 @@ public class Expense {
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
-                /*.append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())*/
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append("||");

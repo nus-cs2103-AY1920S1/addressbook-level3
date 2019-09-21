@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -19,7 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.expense.*;
+import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.tag.Tag;
 
@@ -36,12 +35,9 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_PRICE + "PRICE] "
-            /*+ "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "*/
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PRICE + "91234567 "
-            /*+ PREFIX_EMAIL + "johndoe@example.com"*/;
+            + PREFIX_PRICE + "91234567 ";
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -92,11 +88,9 @@ public class EditCommand extends Command {
 
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Price updatedPrice = editExpenseDescriptor.getPrice().orElse(expenseToEdit.getPrice());
-        //Email updatedEmail = editExpenseDescriptor.getEmail().orElse(expenseToEdit.getEmail());
-        //Address updatedAddress = editExpenseDescriptor.getAddress().orElse(expenseToEdit.getAddress());
         Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
 
-        return new Expense(updatedDescription, updatedPrice, /*updatedEmail, updatedAddress,*/ updatedTags);
+        return new Expense(updatedDescription, updatedPrice, updatedTags);
     }
 
     @Override
@@ -124,8 +118,6 @@ public class EditCommand extends Command {
     public static class EditExpenseDescriptor {
         private Description description;
         private Price price;
-        //private Email email;
-        //private Address address;
         private Set<Tag> tags;
 
         public EditExpenseDescriptor() {}
@@ -137,8 +129,6 @@ public class EditCommand extends Command {
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setDescription(toCopy.description);
             setPrice(toCopy.price);
-            //setEmail(toCopy.email);
-            //setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
 
@@ -146,7 +136,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, price, /*email, address,*/ tags);
+            return CollectionUtil.isAnyNonNull(description, price, tags);
         }
 
         public void setDescription(Description description) {
@@ -164,22 +154,6 @@ public class EditCommand extends Command {
         public Optional<Price> getPrice() {
             return Optional.ofNullable(price);
         }
-
-        /*public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }*/
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -215,8 +189,6 @@ public class EditCommand extends Command {
 
             return getDescription().equals(e.getDescription())
                     && getPrice().equals(e.getPrice())
-                    /*&& getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())*/
                     && getTags().equals(e.getTags());
         }
     }

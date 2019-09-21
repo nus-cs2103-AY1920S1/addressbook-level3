@@ -10,8 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.*;
 import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Price
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,8 +24,6 @@ class JsonAdaptedExpense {
 
     private final String description;
     private final String price;
-    //private final String email;
-    //private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -32,12 +31,9 @@ class JsonAdaptedExpense {
      */
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("description") String description, @JsonProperty("price") String price,
-                              /*@JsonProperty("email") String email, @JsonProperty("address") String address,*/
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
         this.price = price;
-        //this.email = email;
-        //this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -49,8 +45,6 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         description = source.getDescription().fullDescription;
         price = source.getPrice().value;
-        //email = source.getEmail().value;
-        //address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -83,24 +77,8 @@ class JsonAdaptedExpense {
         }
         final Price modelPrice = new Price(price);
 
-       /* if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
-
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);*/
-
         final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Expense(modelDescription, modelPrice, /*modelEmail, modelAddress,*/ modelTags);
+        return new Expense(modelDescription, modelPrice, modelTags);
     }
 
 }

@@ -29,8 +29,6 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
-      <!--<Label fx:id="address" styleClass="cell_small_label" text="\$address" />-->
-      <!--<Label fx:id="email" styleClass="cell_small_label" text="\$email" />-->
     </VBox>
   </GridPane>
 </HBox>
