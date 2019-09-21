@@ -22,3 +22,6 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+after_script:
+  - bash ./telegram_notification.sh
