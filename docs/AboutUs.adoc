@@ -11,46 +11,63 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
+=== Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: The Myth
 
 '''
 
-=== John Roe
+=== Keith Sim
+image::damithc.jpg[width="150", align="left"]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/kthSim[github]] [<<johndoe#, portfolio>>]
+
+Role: Avenger
+
+'''
+
+=== Oliver Cheok
 image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/olivercheok20[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
+Role: Developer
+Responsibilities: Search Function
 
 '''
 
-=== Johnny Roe
+=== Chow Yi Yin
+image::lejolly.jpg[width="150", align="left"]
+{empty}[http://github.com/chowyiyin[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer
+Responsibilities: Input Validation
+
+'''
+
+=== Chen Yuan Bo
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ybchen97[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer
+Responsibilities: Recycling Bin
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Chaitanya Baranwal
+image::m133225.jpg[width="150", align="left"]
+{empty}[http://github.com/chaitanyabaranwal[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer
+Responsibilities: Undo/Redo
+
+'''
+
+=== Larry Law
+image::m133225.jpg[width="150", align="left"]
+{empty}[http://github.com/larrylawl[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer
+Responsibilities: Visual Representation
 
 '''
