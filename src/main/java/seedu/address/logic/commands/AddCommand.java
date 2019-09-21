@@ -22,14 +22,14 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
+            /*+ PREFIX_EMAIL + "EMAIL "
+            + PREFIX_ADDRESS + "ADDRESS "*/
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "John Doe "
             + PREFIX_PRICE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            /*+ PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "*/
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 

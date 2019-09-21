@@ -18,21 +18,21 @@ public class Expense {
     // Identity fields
     private final Description description;
     private final Price price;
-    private final Email email;
+    //private final Email email;
 
     // Data fields
-    private final Address address;
+    //private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Expense(Description description, Price price, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(description, price, email, address, tags);
+    public Expense(Description description, Price price, /*Email email, Address address, */Set<Tag> tags) {
+        requireAllNonNull(description, price, /*email, address,*/ tags);
         this.description = description;
         this.price = price;
-        this.email = email;
-        this.address = address;
+        //this.email = email;
+        //this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -44,13 +44,13 @@ public class Expense {
         return price;
     }
 
-    public Email getEmail() {
-        return email;
+    /*public Email getEmail() {
+        return null;
     }
 
     public Address getAddress() {
-        return address;
-    }
+        return null;
+    }*/
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -71,7 +71,7 @@ public class Expense {
 
         return otherExpense != null
                 && otherExpense.getDescription().equals(getDescription())
-                && (otherExpense.getPrice().equals(getPrice()) || otherExpense.getEmail().equals(getEmail()));
+                && (otherExpense.getPrice().equals(getPrice())) /*|| otherExpense.getEmail().equals(getEmail()))*/;
     }
 
     /**
@@ -91,29 +91,31 @@ public class Expense {
         Expense otherExpense = (Expense) other;
         return otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getPrice().equals(getPrice())
-                && otherExpense.getEmail().equals(getEmail())
-                && otherExpense.getAddress().equals(getAddress())
+                /*&& otherExpense.getEmail().equals(getEmail())
+                && otherExpense.getAddress().equals(getAddress())*/
                 && otherExpense.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, email, address, tags);
+        return Objects.hash(description, price, /*email, address,*/ tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDescription())
+        builder.append("|| Description: ")
+                .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
-                .append(" Email: ")
+                /*.append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress())
+                .append(getAddress())*/
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append("||");
         return builder.toString();
     }
 

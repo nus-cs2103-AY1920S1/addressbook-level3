@@ -28,20 +28,20 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_PRICE, /*PREFIX_EMAIL, PREFIX_ADDRESS,*/ PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_PRICE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, /*PREFIX_ADDRESS,*/ PREFIX_PRICE/*, PREFIX_EMAIL*/)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        //Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        //Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Expense expense = new Expense(description, price, email, address, tagList);
+        Expense expense = new Expense(description, price, /*email, address,*/ tagList);
 
         return new AddCommand(expense);
     }
