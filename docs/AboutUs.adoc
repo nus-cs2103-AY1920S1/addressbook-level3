@@ -31,7 +31,7 @@ Role: Avenger
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/olivercheok20[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Search Function
 
 '''
@@ -40,7 +40,7 @@ Responsibilities: Search Function
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/chowyiyin[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Input Validation
 
 '''
@@ -49,7 +49,7 @@ Responsibilities: Input Validation
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/ybchen97[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Recycling Bin
 
 '''
@@ -58,7 +58,7 @@ Responsibilities: Recycling Bin
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/chaitanyabaranwal[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Undo/Redo
 
 '''
@@ -67,7 +67,7 @@ Responsibilities: Undo/Redo
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/larrylawl[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Visual Representation
 
 '''
