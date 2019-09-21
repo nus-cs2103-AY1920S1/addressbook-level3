@@ -12,8 +12,8 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
 
-    private Name name;
-    private Email email;
+    protected Name name;
+    protected Email email;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
