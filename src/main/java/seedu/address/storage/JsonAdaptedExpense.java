@@ -17,9 +17,9 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Expense}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedExpense {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
 
     private final String description;
     private final String price;
@@ -28,12 +28,12 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given expense details.
+     * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("description") String description, @JsonProperty("price") String price,
-                             @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExpense(@JsonProperty("description") String description, @JsonProperty("price") String price,
+                              @JsonProperty("email") String email, @JsonProperty("address") String address,
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
         this.price = price;
         this.email = email;
@@ -44,9 +44,9 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Expense} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Expense source) {
+    public JsonAdaptedExpense(Expense source) {
         description = source.getDescription().fullDescription;
         price = source.getPrice().value;
         email = source.getEmail().value;
@@ -57,14 +57,14 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts this Jackson-friendly adapted expense object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted expense object into the model's {@code Expense} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
     public Expense toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> expenseTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            expenseTags.add(tag.toModelType());
         }
 
         if (description == null) {
@@ -99,7 +99,7 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(expenseTags);
         return new Expense(modelDescription, modelPrice, modelEmail, modelAddress, modelTags);
     }
 

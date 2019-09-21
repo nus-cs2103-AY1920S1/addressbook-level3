@@ -9,26 +9,26 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Expense.
  */
-public class PersonUtil {
+public class ExpenseUtil {
 
     /**
      * Returns an add command string for adding the {@code expense}.
      */
     public static String getAddCommand(Expense expense) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(expense);
+        return AddCommand.COMMAND_WORD + " " + getExpenseDetails(expense);
     }
 
     /**
      * Returns the part of command string for the given {@code expense}'s details.
      */
-    public static String getPersonDetails(Expense expense) {
+    public static String getExpenseDetails(Expense expense) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_DESCRIPTION + expense.getDescription().fullDescription + " ");
         sb.append(PREFIX_PRICE + expense.getPrice().value + " ");
@@ -41,9 +41,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditExpenseDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditExpenseDescriptorDetails(EditExpenseDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION).append(description.fullDescription).append(" "));
         descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));

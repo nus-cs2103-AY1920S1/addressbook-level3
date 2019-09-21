@@ -12,7 +12,7 @@ import seedu.address.model.expense.Expense;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Expense> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -55,33 +55,33 @@ public interface Model {
     /**
      * Returns true if a expense with the same identity as {@code expense} exists in the address book.
      */
-    boolean hasPerson(Expense expense);
+    boolean hasExpense(Expense expense);
 
     /**
      * Deletes the given expense.
      * The expense must exist in the address book.
      */
-    void deletePerson(Expense target);
+    void deleteExpense(Expense target);
 
     /**
      * Adds the given expense.
      * {@code expense} must not already exist in the address book.
      */
-    void addPerson(Expense expense);
+    void addExpense(Expense expense);
 
     /**
-     * Replaces the given expense {@code target} with {@code editedPerson}.
+     * Replaces the given expense {@code target} with {@code editedExpense}.
      * {@code target} must exist in the address book.
-     * The expense identity of {@code editedPerson} must not be the same as another existing expense in the address book.
+     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the address book.
      */
-    void setPerson(Expense target, Expense editedExpense);
+    void setExpense(Expense target, Expense editedExpense);
 
     /** Returns an unmodifiable view of the filtered expense list */
-    ObservableList<Expense> getFilteredPersonList();
+    ObservableList<Expense> getFilteredExpenseList();
 
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Expense> predicate);
+    void updateFilteredExpenseList(Predicate<Expense> predicate);
 }

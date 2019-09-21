@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -43,58 +43,58 @@ public class EditCommand extends Command {
             + PREFIX_PRICE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This expense already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditExpenseDescriptor editExpenseDescriptor;
 
     /**
      * @param index of the expense in the filtered expense list to edit
-     * @param editPersonDescriptor details to edit the expense with
+     * @param editExpenseDescriptor details to edit the expense with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editExpenseDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editExpenseDescriptor = new EditExpenseDescriptor(editExpenseDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expense> lastShownList = model.getFilteredPersonList();
+        List<Expense> lastShownList = model.getFilteredExpenseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         }
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
-        Expense editedExpense = createEditedPerson(expenseToEdit, editPersonDescriptor);
+        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasPerson(editedExpense)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
-        model.setPerson(expenseToEdit, editedExpense);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedExpense));
+        model.setExpense(expenseToEdit, editedExpense);
+        model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+        return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
+     * edited with {@code editExpenseDescriptor}.
      */
-    private static Expense createEditedPerson(Expense expenseToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
         assert expenseToEdit != null;
 
-        Description updatedDescription = editPersonDescriptor.getDescription().orElse(expenseToEdit.getDescription());
-        Price updatedPrice = editPersonDescriptor.getPrice().orElse(expenseToEdit.getPrice());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(expenseToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(expenseToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(expenseToEdit.getTags());
+        Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
+        Price updatedPrice = editExpenseDescriptor.getPrice().orElse(expenseToEdit.getPrice());
+        Email updatedEmail = editExpenseDescriptor.getEmail().orElse(expenseToEdit.getEmail());
+        Address updatedAddress = editExpenseDescriptor.getAddress().orElse(expenseToEdit.getAddress());
+        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
 
         return new Expense(updatedDescription, updatedPrice, updatedEmail, updatedAddress, updatedTags);
     }
@@ -114,27 +114,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editExpenseDescriptor.equals(e.editExpenseDescriptor);
     }
 
     /**
      * Stores the details to edit the expense with. Each non-empty field value will replace the
      * corresponding field value of the expense.
      */
-    public static class EditPersonDescriptor {
+    public static class EditExpenseDescriptor {
         private Description description;
         private Price price;
         private Email email;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditExpenseDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setDescription(toCopy.description);
             setPrice(toCopy.price);
             setEmail(toCopy.email);
@@ -206,12 +206,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditExpenseDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditExpenseDescriptor e = (EditExpenseDescriptor) other;
 
             return getDescription().equals(e.getDescription())
                     && getPrice().equals(e.getPrice())

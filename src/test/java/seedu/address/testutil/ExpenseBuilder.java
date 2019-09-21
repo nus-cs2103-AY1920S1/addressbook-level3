@@ -9,9 +9,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Expense objects.
  */
-public class PersonBuilder {
+public class ExpenseBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Alice Pauline";
     public static final String DEFAULT_PRICE = "85355255";
@@ -24,7 +24,7 @@ public class PersonBuilder {
     private Address address;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public ExpenseBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         price = new Price(DEFAULT_PRICE);
         email = new Email(DEFAULT_EMAIL);
@@ -33,9 +33,9 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the ExpenseBuilder with the data of {@code expenseToCopy}.
      */
-    public PersonBuilder(Expense expenseToCopy) {
+    public ExpenseBuilder(Expense expenseToCopy) {
         description = expenseToCopy.getDescription();
         price = expenseToCopy.getPrice();
         email = expenseToCopy.getEmail();
@@ -44,41 +44,41 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Description} of the {@code Person} that we are building.
+     * Sets the {@code Description} of the {@code Expense} that we are building.
      */
-    public PersonBuilder withDescription(String description) {
+    public ExpenseBuilder withDescription(String description) {
         this.description = new Description(description);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expense} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public ExpenseBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Address} of the {@code Expense} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public ExpenseBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
 
     /**
-     * Sets the {@code Price} of the {@code Person} that we are building.
+     * Sets the {@code Price} of the {@code Expense} that we are building.
      */
-    public PersonBuilder withPrice(String price) {
+    public ExpenseBuilder withPrice(String price) {
         this.price = new Price(price);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Expense} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public ExpenseBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }

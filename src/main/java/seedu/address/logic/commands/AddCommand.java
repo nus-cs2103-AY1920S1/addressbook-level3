@@ -34,12 +34,12 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This expense already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book";
 
     private final Expense toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Expense}
      */
     public AddCommand(Expense expense) {
         requireNonNull(expense);
@@ -50,11 +50,11 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasExpense(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
-        model.addPerson(toAdd);
+        model.addExpense(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

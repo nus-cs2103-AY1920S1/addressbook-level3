@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredExpenses = new FilteredList<>(this.addressBook.getPersonList());
+        filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
     }
 
     public ModelManager() {
@@ -89,42 +89,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Expense expense) {
+    public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
-        return addressBook.hasPerson(expense);
+        return addressBook.hasExpense(expense);
     }
 
     @Override
-    public void deletePerson(Expense target) {
-        addressBook.removePerson(target);
+    public void deleteExpense(Expense target) {
+        addressBook.removeExpense(target);
     }
 
     @Override
-    public void addPerson(Expense expense) {
-        addressBook.addPerson(expense);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addExpense(Expense expense) {
+        addressBook.addExpense(expense);
+        updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
     }
 
     @Override
-    public void setPerson(Expense target, Expense editedExpense) {
+    public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
 
-        addressBook.setPerson(target, editedExpense);
+        addressBook.setExpense(target, editedExpense);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Expense List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Expense> getFilteredPersonList() {
+    public ObservableList<Expense> getFilteredExpenseList() {
         return filteredExpenses;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Expense> predicate) {
+    public void updateFilteredExpenseList(Predicate<Expense> predicate) {
         requireNonNull(predicate);
         filteredExpenses.setPredicate(predicate);
     }

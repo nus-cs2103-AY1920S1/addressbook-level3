@@ -1,5 +1,5 @@
 {
-  "persons": [ {
+  "expenses": [ {
     "description": "Hans Muster",
     "price": "9482424",
     "email": "invalid@email!3e",

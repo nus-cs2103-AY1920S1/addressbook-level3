@@ -1,5 +1,5 @@
 {
-  "persons": [ {
+  "expenses": [ {
     "description": "Alice Pauline",
     "price": "94351253",
     "email": "alice@example.com",

@@ -26,8 +26,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalExpenses.AMY;
+import static seedu.address.testutil.TypicalExpenses.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,14 +35,14 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.expense.*;
 import seedu.address.model.expense.Description;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ExpenseBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Expense expectedExpense = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Expense expectedExpense = new ExpenseBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + DESCRIPTION_DESC_BOB + PRICE_DESC_BOB + EMAIL_DESC_BOB
@@ -65,7 +65,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpense));
 
         // multiple tags - all accepted
-        Expense expectedExpenseMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Expense expectedExpenseMultipleTags = new ExpenseBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, DESCRIPTION_DESC_BOB + PRICE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedExpenseMultipleTags));
@@ -74,7 +74,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Expense expectedExpense = new PersonBuilder(AMY).withTags().build();
+        Expense expectedExpense = new ExpenseBuilder(AMY).withTags().build();
         assertParseSuccess(parser, DESCRIPTION_DESC_AMY + PRICE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedExpense));
     }
