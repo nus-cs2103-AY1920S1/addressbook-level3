@@ -22,7 +22,7 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String description;
-    private final String phone;
+    private final String price;
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -31,11 +31,11 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("description") String description, @JsonProperty("phone") String phone,
+    public JsonAdaptedPerson(@JsonProperty("description") String description, @JsonProperty("price") String price,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
-        this.phone = phone;
+        this.price = price;
         this.email = email;
         this.address = address;
         if (tagged != null) {
@@ -48,7 +48,7 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         description = source.getDescription().fullDescription;
-        phone = source.getPhone().value;
+        price = source.getPrice().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
@@ -75,13 +75,13 @@ class JsonAdaptedPerson {
         }
         final Description modelDescription = new Description(description);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (price == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Price.isValidPrice(price)) {
+            throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Price modelPrice = new Price(price);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -100,7 +100,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelDescription, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelDescription, modelPrice, modelEmail, modelAddress, modelTags);
     }
 
 }

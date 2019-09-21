@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -19,11 +19,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.expense.Address;
-import seedu.address.model.expense.Email;
-import seedu.address.model.expense.Description;
-import seedu.address.model.expense.Person;
-import seedu.address.model.expense.Phone;
+import seedu.address.model.expense.*;
+import seedu.address.model.expense.Price;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,12 +35,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_PRICE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
@@ -94,12 +91,12 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Description updatedDescription = editPersonDescriptor.getDescription().orElse(personToEdit.getDescription());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Price updatedPrice = editPersonDescriptor.getPrice().orElse(personToEdit.getPrice());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedDescription, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedDescription, updatedPrice, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -126,7 +123,7 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Description description;
-        private Phone phone;
+        private Price price;
         private Email email;
         private Address address;
         private Set<Tag> tags;
@@ -139,7 +136,7 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setDescription(toCopy.description);
-            setPhone(toCopy.phone);
+            setPrice(toCopy.price);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
@@ -149,7 +146,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(description, price, email, address, tags);
         }
 
         public void setDescription(Description description) {
@@ -160,12 +157,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(description);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setPrice(Price price) {
+            this.price = price;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Price> getPrice() {
+            return Optional.ofNullable(price);
         }
 
         public void setEmail(Email email) {
@@ -217,7 +214,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getDescription().equals(e.getDescription())
-                    && getPhone().equals(e.getPhone())
+                    && getPrice().equals(e.getPrice())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());

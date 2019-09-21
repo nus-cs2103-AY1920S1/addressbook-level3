@@ -3,11 +3,8 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.expense.Address;
-import seedu.address.model.expense.Email;
-import seedu.address.model.expense.Description;
-import seedu.address.model.expense.Person;
-import seedu.address.model.expense.Phone;
+import seedu.address.model.expense.*;
+import seedu.address.model.expense.Price;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -17,19 +14,19 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_PRICE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Description description;
-    private Phone phone;
+    private Price price;
     private Email email;
     private Address address;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
-        phone = new Phone(DEFAULT_PHONE);
+        price = new Price(DEFAULT_PRICE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -40,7 +37,7 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         description = personToCopy.getDescription();
-        phone = personToCopy.getPhone();
+        price = personToCopy.getPrice();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
@@ -71,10 +68,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Price} of the {@code Person} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public PersonBuilder withPrice(String price) {
+        this.price = new Price(price);
         return this;
     }
 
@@ -87,7 +84,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(description, phone, email, address, tags);
+        return new Person(description, price, email, address, tags);
     }
 
 }
