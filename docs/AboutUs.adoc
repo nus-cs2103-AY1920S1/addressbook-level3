@@ -21,7 +21,7 @@ Role: Project Architect
 
 === Eugene Teu
 image::eugeneteu.png[width="150", align="left"]
-{empty}[https://github.com/EugeneTeu[github]] [https://eugeneteu.github.io/myWebsite/[Portfolio]
+{empty}[https://github.com/EugeneTeu[github]] [https://eugeneteu.github.io/myWebsite/[Portfolio]]
 
 Role:  Integration, deliverables and deadlines 
 
@@ -30,7 +30,7 @@ In Charge of:
 '''
 
 === Yeo Dong Han
-image::[width="150", align="left"]
+image::yeodonghan.png[width="150", align="left"]
 {empty}[https://github.com/yeodonghan[github]]
 
 Role: Scheduling and tracking
@@ -40,7 +40,7 @@ Responsibilities: Data
 '''
 
 === Oon Zhi Xiang
-image::[width="150", align="left"]
+image::[zhixianggg.png][width="150", align="left"]
 {empty}[https://github.com/zhixianggg[github]]
 
 Role: Code Quality 
@@ -50,7 +50,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Ooi Qiu Jia
-image::[width="150", align="left"]
+image::qiujiaaa.png[width="150", align="left"]
 {empty}[https://github.com/qiujiaaa[github]]
 
 Role: Documentation
