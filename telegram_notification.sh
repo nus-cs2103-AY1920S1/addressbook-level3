@@ -34,6 +34,6 @@ Travis build #${TRAVIS_BUILD_NUMBER} *${build_status}!*
 \`Branch:      ${TRAVIS_BRANCH}\`
 *Commit Msg:*
 ${TRAVIS_COMMIT_MESSAGE}
-[Job Log here](${TRAVIS_JOB_WEB_URL})
+[View Job Log](${TRAVIS_JOB_WEB_URL})
 --------------------------------------
 "
