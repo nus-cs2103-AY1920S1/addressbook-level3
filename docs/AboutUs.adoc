@@ -4,9 +4,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Seller Manager Lite was developed by the https://github.com/orgs/AY1920S1-CS2103T-T09-4/teams/developers[CS2103T T09-4] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Seller Manager Lite was developed by the https://github.com/orgs/AY1920S1-CS2103T-T09-4/teams/developers[CS2103T T09-4] team. 
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -54,6 +53,7 @@ image::qiujiaaa.png[width="150", align="left"]
 {empty}[https://github.com/qiujiaaa[github]]
 
 Role: Documentation
+
 Responsibilities: 
 
 '''
