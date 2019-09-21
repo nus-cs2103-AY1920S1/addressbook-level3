@@ -3,8 +3,11 @@ package seedu.algobase.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.algobase.model.Problem.*;
-import seedu.algobase.model.Problem.WebLink;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.util.SampleDataUtil;
 

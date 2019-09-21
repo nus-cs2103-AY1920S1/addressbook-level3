@@ -36,10 +36,10 @@ import org.junit.jupiter.api.Test;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditCommand.EditProblemDescriptor;
-import seedu.algobase.model.Problem.Author;
-import seedu.algobase.model.Problem.Description;
-import seedu.algobase.model.Problem.WebLink;
-import seedu.algobase.model.Problem.Name;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.testutil.EditProblemDescriptorBuilder;
 
@@ -84,7 +84,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Author.MESSAGE_CONSTRAINTS); // invalid author
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, WebLink.MESSAGE_CONSTRAINTS); // invalid weblink
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Description.MESSAGE_CONSTRAINTS); // invalid description
+        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC,
+                Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid author followed by valid weblink
@@ -96,12 +97,16 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Problem} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+        assertParseFailure(parser,
+                "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -173,7 +178,8 @@ public class EditCommandParserTest {
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_PHONE_BOB)
-                .withWeblink(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withWeblink(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND,
+                        VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

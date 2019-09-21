@@ -20,7 +20,7 @@ import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.ReadOnlyUserPrefs;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.testutil.ProblemBuilder;
 
 public class AddCommandTest {

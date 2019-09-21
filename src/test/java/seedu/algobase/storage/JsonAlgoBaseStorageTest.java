@@ -1,19 +1,23 @@
 package seedu.algobase.storage;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import seedu.algobase.commons.exceptions.DataConversionException;
-import seedu.algobase.model.AlgoBase;
-import seedu.algobase.model.ReadOnlyAlgoBase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.algobase.testutil.Assert.assertThrows;
+import static seedu.algobase.testutil.TypicalProblems.ALICE;
+import static seedu.algobase.testutil.TypicalProblems.HOON;
+import static seedu.algobase.testutil.TypicalProblems.IDA;
+import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.algobase.testutil.Assert.assertThrows;
-import static seedu.algobase.testutil.TypicalProblems.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import seedu.algobase.commons.exceptions.DataConversionException;
+import seedu.algobase.model.AlgoBase;
+import seedu.algobase.model.ReadOnlyAlgoBase;
 
 public class JsonAlgoBaseStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAlgoBaseStorageTest");

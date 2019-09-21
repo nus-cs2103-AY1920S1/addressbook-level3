@@ -1,13 +1,13 @@
-package seedu.algobase.model.Problem;
+package seedu.algobase.model.problem;
 
-import seedu.algobase.model.tag.Tag;
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.algobase.model.tag.Tag;
 
 /**
  * Represents a Problem in the algobase.

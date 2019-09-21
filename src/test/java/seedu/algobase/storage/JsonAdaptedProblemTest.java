@@ -1,20 +1,21 @@
 package seedu.algobase.storage;
 
-import org.junit.jupiter.api.Test;
-import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.model.Problem.Author;
-import seedu.algobase.model.Problem.Description;
-import seedu.algobase.model.Problem.WebLink;
-import seedu.algobase.model.Problem.Name;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.algobase.storage.JsonAdaptedProblem.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.algobase.testutil.Assert.assertThrows;
+import static seedu.algobase.testutil.TypicalProblems.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.algobase.storage.JsonAdaptedProblem.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.algobase.testutil.Assert.assertThrows;
-import static seedu.algobase.testutil.TypicalProblems.BENSON;
+import org.junit.jupiter.api.Test;
+
+import seedu.algobase.commons.exceptions.IllegalValueException;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.WebLink;
 
 public class JsonAdaptedProblemTest {
     private static final String INVALID_NAME = "R@chel";

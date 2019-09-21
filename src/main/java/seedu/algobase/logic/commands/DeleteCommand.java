@@ -8,7 +8,7 @@ import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Deletes a Problem identified using it's displayed index from the algobase.

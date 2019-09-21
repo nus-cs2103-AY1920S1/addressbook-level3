@@ -1,14 +1,14 @@
 package seedu.algobase.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.LogsCenter;
-import seedu.algobase.model.Problem.Problem;
-
-import java.util.logging.Logger;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Panel containing the list of problems.

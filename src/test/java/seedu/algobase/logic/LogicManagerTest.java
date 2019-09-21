@@ -26,7 +26,7 @@ import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.UserPrefs;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;

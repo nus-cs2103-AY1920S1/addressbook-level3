@@ -1,7 +1,7 @@
 package seedu.algobase.testutil;
 
 import seedu.algobase.model.AlgoBase;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * A utility class to help with building Algobase objects.

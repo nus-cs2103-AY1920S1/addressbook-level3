@@ -1,16 +1,17 @@
 package seedu.algobase.storage;
 
-import org.junit.jupiter.api.Test;
-import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.commons.util.JsonUtil;
-import seedu.algobase.model.AlgoBase;
-import seedu.algobase.testutil.TypicalProblems;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.algobase.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.algobase.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import seedu.algobase.commons.exceptions.IllegalValueException;
+import seedu.algobase.commons.util.JsonUtil;
+import seedu.algobase.model.AlgoBase;
+import seedu.algobase.testutil.TypicalProblems;
 
 public class JsonSerializableAlgoBaseTest {
 

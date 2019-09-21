@@ -1,4 +1,4 @@
-package seedu.algobase.model.Problem;
+package seedu.algobase.model.problem;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;

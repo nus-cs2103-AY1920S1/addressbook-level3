@@ -1,15 +1,24 @@
 package seedu.algobase.logic.parser;
 
-import seedu.algobase.logic.commands.AddCommand;
-import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.Problem.*;
-import seedu.algobase.model.tag.Tag;
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.algobase.logic.parser.CliSyntax.*;
+import seedu.algobase.logic.commands.AddCommand;
+import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.WebLink;
+import seedu.algobase.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object

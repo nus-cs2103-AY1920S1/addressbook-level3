@@ -16,7 +16,7 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

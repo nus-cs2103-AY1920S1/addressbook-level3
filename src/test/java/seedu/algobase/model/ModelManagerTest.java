@@ -15,7 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.GuiSettings;
-import seedu.algobase.model.Problem.NameContainsKeywordsPredicate;
+import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 import seedu.algobase.testutil.AlgoBaseBuilder;
 
 public class ModelManagerTest {

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.Problem.NameContainsKeywordsPredicate;
+import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all problems in algobase whose name contains any of the argument keywords.

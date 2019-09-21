@@ -9,7 +9,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Adds a Problem to the algobase.

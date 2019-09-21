@@ -1,17 +1,18 @@
 package seedu.algobase.model;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import seedu.algobase.commons.core.GuiSettings;
-import seedu.algobase.commons.core.LogsCenter;
-import seedu.algobase.model.Problem.Problem;
+import static java.util.Objects.requireNonNull;
+
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.algobase.commons.core.GuiSettings;
+import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Represents the in-memory model of the algobase data.

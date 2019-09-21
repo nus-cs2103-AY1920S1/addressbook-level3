@@ -1,5 +1,10 @@
 package seedu.algobase;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.algobase.commons.core.Config;
@@ -10,16 +15,23 @@ import seedu.algobase.commons.util.ConfigUtil;
 import seedu.algobase.commons.util.StringUtil;
 import seedu.algobase.logic.Logic;
 import seedu.algobase.logic.LogicManager;
-import seedu.algobase.model.*;
+import seedu.algobase.model.AlgoBase;
+import seedu.algobase.model.Model;
+import seedu.algobase.model.ModelManager;
+import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.ReadOnlyUserPrefs;
+import seedu.algobase.model.UserPrefs;
 import seedu.algobase.model.util.SampleDataUtil;
-import seedu.algobase.storage.*;
+import seedu.algobase.storage.AlgoBaseStorage;
+import seedu.algobase.storage.JsonAlgoBaseStorage;
+import seedu.algobase.storage.JsonUserPrefsStorage;
+import seedu.algobase.storage.Storage;
+import seedu.algobase.storage.StorageManager;
+import seedu.algobase.storage.UserPrefsStorage;
 import seedu.algobase.ui.Ui;
 import seedu.algobase.ui.UiManager;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
+
 
 /**
  * Runs the application.

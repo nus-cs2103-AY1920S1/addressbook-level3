@@ -10,7 +10,7 @@ import java.util.Set;
 
 import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.EditCommand.EditProblemDescriptor;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -48,7 +48,8 @@ public class ProblemUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getAuthor().ifPresent(author -> sb.append(PREFIX_PHONE).append(author.value).append(" "));
         descriptor.getWebLink().ifPresent(weblink -> sb.append(PREFIX_EMAIL).append(weblink.value).append(" "));
-        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_ADDRESS).append(description.value).append(" "));
+        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_ADDRESS).append(description.value)
+                .append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

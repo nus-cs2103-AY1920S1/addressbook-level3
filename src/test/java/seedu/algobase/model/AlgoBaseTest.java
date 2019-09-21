@@ -1,23 +1,28 @@
 package seedu.algobase.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
-import seedu.algobase.model.Problem.Problem;
-import seedu.algobase.model.Problem.exceptions.DuplicateProblemException;
-import seedu.algobase.testutil.ProblemBuilder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.algobase.testutil.Assert.assertThrows;
+import static seedu.algobase.testutil.TypicalProblems.ALICE;
+import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.algobase.testutil.Assert.assertThrows;
-import static seedu.algobase.testutil.TypicalProblems.ALICE;
-import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
+import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.algobase.model.problem.Problem;
+
+import seedu.algobase.model.problem.exceptions.DuplicateProblemException;
+import seedu.algobase.testutil.ProblemBuilder;
+
 
 public class AlgoBaseTest {
 

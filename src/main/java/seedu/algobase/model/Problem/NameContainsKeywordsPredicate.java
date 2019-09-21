@@ -1,9 +1,9 @@
-package seedu.algobase.model.Problem;
-
-import seedu.algobase.commons.util.StringUtil;
+package seedu.algobase.model.problem;
 
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.algobase.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Problem}'s {@code Name} matches any of the keywords given.

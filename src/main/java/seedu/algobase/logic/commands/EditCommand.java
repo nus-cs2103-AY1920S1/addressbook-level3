@@ -1,18 +1,31 @@
 package seedu.algobase.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.Problem.*;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
-
-import java.util.*;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.algobase.logic.parser.CliSyntax.*;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * Edits the details of an existing Problem in the algobase.

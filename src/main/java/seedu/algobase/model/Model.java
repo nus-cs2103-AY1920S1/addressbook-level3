@@ -1,11 +1,11 @@
 package seedu.algobase.model;
 
-import javafx.collections.ObservableList;
-import seedu.algobase.commons.core.GuiSettings;
-import seedu.algobase.model.Problem.Problem;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
+import seedu.algobase.commons.core.GuiSettings;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * The API of the Model component.

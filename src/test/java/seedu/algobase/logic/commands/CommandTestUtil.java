@@ -17,8 +17,8 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.Problem.NameContainsKeywordsPredicate;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.testutil.EditProblemDescriptorBuilder;
 
 /**
@@ -51,7 +51,7 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in authors
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for descriptiones
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for descriptions
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

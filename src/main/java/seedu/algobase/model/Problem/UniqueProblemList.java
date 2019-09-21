@@ -1,22 +1,24 @@
-package seedu.algobase.model.Problem;
+package seedu.algobase.model.problem;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.algobase.model.Problem.exceptions.DuplicateProblemException;
-import seedu.algobase.model.Problem.exceptions.ProblemNotFoundException;
+import static java.util.Objects.requireNonNull;
+
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import seedu.algobase.model.problem.exceptions.DuplicateProblemException;
+import seedu.algobase.model.problem.exceptions.ProblemNotFoundException;
 
 /**
  * A list of problems that enforces uniqueness between its elements and does not allow nulls.
- * A Problem is considered unique by comparing using {@code Problem#isSameProblem(Problem)}. As such, adding and updating of
- * problems uses Problem#isSameProblem(Problem) for equality so as to ensure that the Problem being added or updated is
- * unique in terms of identity in the UniqueProblemList. However, the removal of a Problem uses Problem#equals(Object) so
- * as to ensure that the Problem with exactly the same fields will be removed.
+ * A Problem is considered unique by comparing using {@code Problem#isSameProblem(Problem)}. As such, adding and
+ * updating of problems uses Problem#isSameProblem(Problem) for equality so as to ensure that the Problem being added
+ * or updated is unique in terms of identity in the UniqueProblemList. However, the removal of a Problem uses
+ * Problem#equals(Object) so as to ensure that the Problem with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

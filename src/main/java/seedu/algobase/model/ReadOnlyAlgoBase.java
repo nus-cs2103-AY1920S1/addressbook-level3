@@ -1,7 +1,7 @@
 package seedu.algobase.model;
 
 import javafx.collections.ObservableList;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Unmodifiable view of an algobase

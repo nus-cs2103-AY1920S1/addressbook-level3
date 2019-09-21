@@ -1,9 +1,9 @@
 package seedu.algobase.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Clears the algobase.

@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.algobase.model.AlgoBase;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * A utility class containing a list of {@code Problem} objects to be used in tests.
@@ -52,8 +52,8 @@ public class TypicalProblems {
     public static final Problem AMY = new ProblemBuilder().withName(VALID_NAME_AMY).withAuthor(VALID_PHONE_AMY)
             .withWeblink(VALID_EMAIL_AMY).withDescription(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Problem BOB = new ProblemBuilder().withName(VALID_NAME_BOB).withAuthor(VALID_PHONE_BOB)
-            .withWeblink(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .build();
+            .withWeblink(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

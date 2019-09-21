@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.Problem.NameContainsKeywordsPredicate;
+import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

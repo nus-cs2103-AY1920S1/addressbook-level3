@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * A utility class for test cases.

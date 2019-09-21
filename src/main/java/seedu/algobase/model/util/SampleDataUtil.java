@@ -5,9 +5,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.algobase.model.AlgoBase;
-import seedu.algobase.model.Problem.*;
-import seedu.algobase.model.Problem.Description;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 
 /**

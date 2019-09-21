@@ -1,13 +1,13 @@
 package seedu.algobase.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.algobase.model.Problem.Problem;
-
-import java.util.Comparator;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * An UI component that displays information of a {@code Problem}.

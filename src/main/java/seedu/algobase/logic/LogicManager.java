@@ -1,6 +1,11 @@
 package seedu.algobase.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
+
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.commands.Command;
@@ -9,13 +14,9 @@ import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.AlgoBaseParser;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.Problem.Problem;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.storage.Storage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.

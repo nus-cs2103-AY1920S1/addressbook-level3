@@ -1,8 +1,8 @@
 package seedu.algobase.model;
 
-import seedu.algobase.commons.core.GuiSettings;
-
 import java.nio.file.Path;
+
+import seedu.algobase.commons.core.GuiSettings;
 
 /**
  * Unmodifiable view of user prefs.

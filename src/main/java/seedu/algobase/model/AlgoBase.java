@@ -1,12 +1,12 @@
 package seedu.algobase.model;
 
-import javafx.collections.ObservableList;
-import seedu.algobase.model.Problem.Problem;
-import seedu.algobase.model.Problem.UniqueProblemList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.UniqueProblemList;
 
 /**
  * Wraps all data at the algobase level

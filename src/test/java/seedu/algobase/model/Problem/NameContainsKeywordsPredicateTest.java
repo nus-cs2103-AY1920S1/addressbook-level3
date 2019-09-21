@@ -1,4 +1,4 @@
-package seedu.algobase.model.Problem;
+package seedu.algobase.model.problem;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

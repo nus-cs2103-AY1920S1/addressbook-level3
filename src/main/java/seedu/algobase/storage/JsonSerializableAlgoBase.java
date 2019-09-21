@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
-import seedu.algobase.model.Problem.Problem;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * An Immutable AlgoBase that is serializable to JSON format.

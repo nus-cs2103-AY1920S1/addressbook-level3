@@ -14,10 +14,10 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.Problem.Author;
-import seedu.algobase.model.Problem.Description;
-import seedu.algobase.model.Problem.WebLink;
-import seedu.algobase.model.Problem.Name;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 
 public class ParserUtilTest {

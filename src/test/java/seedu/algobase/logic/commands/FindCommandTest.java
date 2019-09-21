@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
-import seedu.algobase.model.Problem.NameContainsKeywordsPredicate;
+import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

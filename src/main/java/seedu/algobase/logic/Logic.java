@@ -1,14 +1,14 @@
 package seedu.algobase.logic;
 
+import java.nio.file.Path;
+
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.Problem.Problem;
 import seedu.algobase.model.ReadOnlyAlgoBase;
-
-import java.nio.file.Path;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * API of the Logic component

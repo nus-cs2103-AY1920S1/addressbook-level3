@@ -1,19 +1,19 @@
 package seedu.algobase.logic.parser;
 
-import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.commons.util.StringUtil;
-import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.Problem.Author;
-import seedu.algobase.model.Problem.Description;
-import seedu.algobase.model.Problem.WebLink;
-import seedu.algobase.model.Problem.Name;
-import seedu.algobase.model.tag.Tag;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
+import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.commons.util.StringUtil;
+import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.WebLink;
+import seedu.algobase.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

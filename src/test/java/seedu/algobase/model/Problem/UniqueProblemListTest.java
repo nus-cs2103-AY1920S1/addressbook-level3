@@ -1,20 +1,23 @@
-package seedu.algobase.model.Problem;
+package seedu.algobase.model.problem;
 
-import org.junit.jupiter.api.Test;
-import seedu.algobase.model.Problem.exceptions.DuplicateProblemException;
-import seedu.algobase.model.Problem.exceptions.ProblemNotFoundException;
-import seedu.algobase.testutil.ProblemBuilder;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.algobase.testutil.Assert.assertThrows;
 import static seedu.algobase.testutil.TypicalProblems.ALICE;
 import static seedu.algobase.testutil.TypicalProblems.BOB;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.algobase.model.problem.exceptions.DuplicateProblemException;
+import seedu.algobase.model.problem.exceptions.ProblemNotFoundException;
+import seedu.algobase.testutil.ProblemBuilder;
 
 public class UniqueProblemListTest {
 

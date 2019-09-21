@@ -1,12 +1,16 @@
 package seedu.algobase.testutil;
 
-import seedu.algobase.logic.commands.EditCommand.EditProblemDescriptor;
-import seedu.algobase.model.Problem.*;
-import seedu.algobase.model.tag.Tag;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import seedu.algobase.logic.commands.EditCommand.EditProblemDescriptor;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.WebLink;
+import seedu.algobase.model.tag.Tag;
 
 /**
  * A utility class to help with building EditProblemDescriptor objects.
