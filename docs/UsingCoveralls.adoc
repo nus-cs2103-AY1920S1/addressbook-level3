@@ -8,8 +8,8 @@ endif::[]
 
 [NOTE]
 ====
-This document was originally written for _AlgoBase Level 4_ and hence its screenshots refer to `algobase-level4`.
-For use with _AlgoBase Level 3_, wherever `algobase-level4` is used in the screenshots, you should use *`algobase-level3`*.
+This document was originally written for _AddressBook Level 4_ and hence its screenshots refer to `addressbook-level4`.
+For use with _AddressBook Level 3_, wherever `addressbook-level4` is used in the screenshots, you should use *`addressbook-level3`*.
 ====
 
 https://coveralls.io/[Coveralls] is a web service that tracks code coverage over time for GitHub projects.
@@ -44,7 +44,7 @@ image:coveralls/sync_repos.png[Sync repos]
 +
 image:coveralls/flick_repository_switch.png[Activate the switch]
 +
-.  Update the webLink of the `Coverage Status` badge at the top of your <<README#, README.adoc>> to point to that of your own repo by replacing the outlined areas with `your-org-name/your-repo-name`.
+.  Update the link of the `Coverage Status` badge at the top of your <<README#, README.adoc>> to point to that of your own repo by replacing the outlined areas with `your-org-name/your-repo-name`.
 +
 image:coveralls/coverage_asciidoc_code.png[Coverage Status Badge]
 +

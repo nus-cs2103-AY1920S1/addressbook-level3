@@ -5,23 +5,23 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAlgoBase <<Interface>>
+Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AlgoBase
-Class ReadOnlyAlgoBase
+Class AddressBook
+Class ReadOnlyAddressBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Problem {
-Class Problem
-Class Description
-Class Weblink
+Package Person {
+Class Person
+Class Address
+Class Email
 Class Name
-Class Author
-Class UniqueProblemList
+Class Phone
+Class UniquePersonList
 }
 
 Package Tag {
@@ -32,25 +32,25 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AlgoBase .up.|> ReadOnlyAlgoBase
+AddressBook .up.|> ReadOnlyAddressBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AlgoBase
+ModelManager o--> "1" AddressBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AlgoBase *--> "1" UniqueProblemList
-UniqueProblemList o--> "*" Problem
-Problem *--> Name
-Problem *--> Author
-Problem *--> Weblink
-Problem *--> Description
-Problem *--> "*" Tag
+AddressBook *--> "1" UniquePersonList
+UniquePersonList o--> "*" Person
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person *--> "*" Tag
 
-Name -[hidden]right-> Author
-Author -[hidden]right-> Description
-Description -[hidden]right-> Weblink
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
 
-ModelManager -->"1" Problem : filtered list
+ModelManager -->"1" Person : filtered list
 @enduml

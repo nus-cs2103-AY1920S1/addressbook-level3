@@ -21,8 +21,8 @@ toc::[]
 
 === Exercise: Add more user stories
 
-* Assume you are planing to expand the functionality of the AlgoBase (but keep it as a CLI application).
-What other user stories do you think AlgoBase should support? Add those user stories to the `DeveloperGuide.adoc`.
+* Assume you are planing to expand the functionality of the AddressBook (but keep it as a CLI application).
+What other user stories do you think AddressBook should support? Add those user stories to the `DeveloperGuide.adoc`.
 
 == Utilize use cases `[LO-UseCases]`
 
@@ -33,9 +33,9 @@ What other user stories do you think AlgoBase should support? Add those user sto
 === Exercise: Add a 'Rename tag' use case
 
 * Add a use case to the `DeveloperGuide.adoc` to cover the case of _renaming of an existing tag_.
-e.g. rename the tag `friends` to `buddies` (i.e. all problems who had the `friends` tag will now have
+e.g. rename the tag `friends` to `buddies` (i.e. all persons who had the `friends` tag will now have
 a `buddies` tag instead)
-Assume that AlgoBase confirms the change with the user before carrying out the operation.
+Assume that AddressBook confirms the change with the user before carrying out the operation.
 
 == Use Non Functional Requirements `[LO-NFR]`
 
@@ -60,7 +60,7 @@ Note how the `Command::execute()` method shows polymorphic behavior.
 
 * Add a method `boolean isMutating()` to the `Command` class. This method will return `true` for
 command types that mutate the data. e.g. `AddCommand`
-* Currently, AlgoBase data are saved to the file after every command.
+* Currently, AddressBook data are saved to the file after every command.
 Take advantage of the the new method you added to limit file saving to only for command types that mutate data.
 i.e. `add` command should always save the data while `list` command should never save data to the file.
 
@@ -83,9 +83,9 @@ optimal, will give you chance to implement a polymorphic behavior.
 
 == Use interfaces `[LO-Interfaces]`
 
-Note how the `AlgoBase` class implements the `ReadOnlyAlgoBase` interface so that clients who don't need write access to the `AlgoBase` can access the `AlgoBase` through the `ReadOnlyAlgoBase` interface instead.
+Note how the `AddressBook` class implements the `ReadOnlyAddressBook` interface so that clients who don't need write access to the `AddressBook` can access the `AddressBook` through the `ReadOnlyAddressBook` interface instead.
 
-image::ReadOnlyAlgoBaseUsage.png[width=500]
+image::ReadOnlyAddressBookUsage.png[width=500]
 
 === References
 
@@ -97,7 +97,7 @@ image::ReadOnlyAlgoBaseUsage.png[width=500]
 * Add a `Printable` interface as follows.
 +
 image::PrintableInterface.png[width=400]
-* `Override` the `getPrintableString` in classes `Name`, `Author`, `Weblink`, and `Description` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Author: 12349862`
+* `Override` the `getPrintableString` in classes `Name`, `Phone`, `Email`, and `Address` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Phone: 12349862`
 * Add the following method in a suitable place of some other class. Note how the method depends on the Interface.
 +
 [source,java]
@@ -108,13 +108,13 @@ image::PrintableInterface.png[width=400]
 String getPrintableString(Printable... printables) {
 ----
 +
-The above method can be used to get a printable string representing a bunch of problem details.
+The above method can be used to get a printable string representing a bunch of person details.
 For example, you should be able to call that method like this:
 +
 [source,java]
 ----
-// p is a Problem object
-return getPrintableString(p.getAuthor(), p.getWeblink(), p.getDescription());
+// p is a Person object
+return getPrintableString(p.getPhone(), p.getEmail(), p.getAddress());
 ----
 
 == Follow Liskov Substitution Principle `[LO-LSP]`
@@ -141,7 +141,7 @@ method in the child class should not reject `null` inputs. This will not be enfo
 
 === Exercise: Enhance GUI
 
-* Do some enhancements to the AlgoBase GUI. e.g. add an application icon, change font size/style
+* Do some enhancements to the AddressBook GUI. e.g. add an application icon, change font size/style
 
 == Analyze Coupling and Cohesion of designs `[LO-CouplingCohesion]`
 
@@ -200,9 +200,9 @@ image::DependencyInjectionWithoutDIP.png[width=250]
 
 === Exercise: Analyze OCP-compliance of the `LogicManager` class
 
-* Consider adding a new command to the Description Book. e.g. an `edit` command. Notice how little you need to change in the `LogicManager` class to extend its behavior so that it can execute the new command.
+* Consider adding a new command to the Address Book. e.g. an `edit` command. Notice how little you need to change in the `LogicManager` class to extend its behavior so that it can execute the new command.
 That is because `LogicManager` follows the OCP i.e. `LogicManager` is _open to be extended_ with more commands but _closed for modifications_.
-* Is it possible to make the `AlgoBaseParser` class more OCP-compliant in terms of extending it to handle more
+* Is it possible to make the `AddressBookParser` class more OCP-compliant in terms of extending it to handle more
 command types?
 * In terms of how it saves data, is `LogicManager` more OCP-compliant
 due to the application of DIP as given in <<apply-dependency-inversion-principle-lo-dip, `LO-DIP`>>?
@@ -211,6 +211,6 @@ of storages, but different number of storages (e.g. save to both a text file and
 
 == Work in a 3KLoC code base `[LO-3KLoC]`
 
-=== Exercise: Enhance AlgoBase
+=== Exercise: Enhance AddressBook
 
-* Enhance AlgoBase in some way. e.g. add a new command
+* Enhance AddressBook in some way. e.g. add a new command

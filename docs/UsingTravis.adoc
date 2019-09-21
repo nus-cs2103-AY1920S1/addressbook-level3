@@ -8,8 +8,8 @@ endif::[]
 
 [NOTE]
 ====
-This document was originally written for _AlgoBase Level 4_ and hence its screenshots refer to `algobase-level4`.
-For use with _AlgoBase Level 3_, wherever `algobase-level4` is used in the screenshots, you should use *`algobase-level3`*.
+This document was originally written for _AddressBook Level 4_ and hence its screenshots refer to `addressbook-level4`.
+For use with _AddressBook Level 3_, wherever `addressbook-level4` is used in the screenshots, you should use *`addressbook-level3`*.
 ====
 
 https://travis-ci.org/[Travis CI] is a _Continuous Integration_ platform for GitHub projects.
@@ -20,7 +20,7 @@ The current Travis CI set up performs the following things whenever someone push
 
 * Runs the `./gradlew clean test coverage coveralls -i` command (see <<UsingGradle#, UsingGradle>> for more details on what this command means).
 * Renders documentation from asciidoc to html and automatically publishes them using GitHub Pages.
-* Runs additional webLink:#repository-wide-checks[repository-wide checks].
+* Runs additional link:#repository-wide-checks[repository-wide checks].
 
 If you would like to customise your travis build further, you can learn more about Travis from https://docs.travis-ci.com/[Travis CI Documentation].
 
@@ -50,9 +50,9 @@ to Travis CI so that it can access your commits and build your code.
 +
 image:flick_repository_switch.png[Activate the switch]
 +
-.  This repo comes with a webLink:../.travis.yml[`.travis.yml`] that tells Travis what to do. So there is no need for you to create one yourself.
+.  This repo comes with a link:../.travis.yml[`.travis.yml`] that tells Travis what to do. So there is no need for you to create one yourself.
 .  To see the CI in action, push a commit to the master branch!
-* Go to the repository and see the pushed commit. There should be an icon which will webLink you to the Travis build.
+* Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.
 +
 image:build_pending.png[Commit build]
 +
@@ -61,16 +61,16 @@ image:build_pending.png[Commit build]
 image:travis_build.png[Travis build]
 +
 .  If the build is successful, you should be able to check the coverage details of the tests at http://coveralls.io/[Coveralls]
-.  Update the webLink to the 'build status' badge at the top of the `README.adoc` to point to the build status of your own repo.
+.  Update the link to the 'build status' badge at the top of the `README.adoc` to point to the build status of your own repo.
 
 == Enabling auto-publishing of documentation
 
 .  Ensure that you have followed the steps above to set up Travis CI.
 .  On GitHub, create a new user account and give this account collaborator and admin access to the repo. +
-   Using this account, generate a problemal access token https://github.com/settings/tokens/new[here].
+   Using this account, generate a personal access token https://github.com/settings/tokens/new[here].
 +
 [NOTE]
-Problemal access tokens are like passwords so make sure you keep them secret! If the problemal access token is leaked, please delete it and generate a new one.
+Personal access tokens are like passwords so make sure you keep them secret! If the personal access token is leaked, please delete it and generate a new one.
 +
 [NOTE]
 We use a new user account to generate the token for team projects to prevent team members from gaining access to other team members' repos. +
@@ -79,7 +79,7 @@ If you are the only one with write access to the repo, you can use your own acco
 --
 * Add a description for the token. (e.g. `Travis CI - deploy docs to gh-pages`)
 * Check the `public_repo` checkbox.
-* Click `Generate Token` and copy your new problemal access token.
+* Click `Generate Token` and copy your new personal access token.
 --
 We will use this token to grant Travis access to the repo.
 +
@@ -93,14 +93,14 @@ image:flick_repository_switch.png[Activate the switch]
 +
 --
 * name: `GITHUB_TOKEN`
-* value: problemal access token copied in step 1
+* value: personal access token copied in step 1
 * Display value in build log: `OFF`
 --
 image:travis_add_token.png[Travis add token]
 +
 [NOTE]
 *Make sure you set `Display value in build log` to `OFF`.* +
-Otherwise, other people will be able to see the problemal access token and thus have access this repo. +
+Otherwise, other people will be able to see the personal access token and thus have access this repo. +
 Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis scripts as the logs are viewable by the public.
 
 .  Now, whenever there's a new commit to master branch, Travis will push the latest documentation to gh-pages branch.
@@ -110,7 +110,7 @@ Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis sc
 .  Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
    Suggested change: Remove the codacy badge from `README`.
 .  Wait for Travis CI to finish running the build on your new commit.
-.  Go to the URL `\https://<your-username-or-organization-name>.github.io/algobase-level3/`. You should see your `README` file displayed.
+.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level3/`. You should see your `README` file displayed.
 
 == Repository-wide checks
 

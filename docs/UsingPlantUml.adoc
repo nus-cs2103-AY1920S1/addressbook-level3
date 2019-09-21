@@ -78,7 +78,7 @@ Then you can use it in another PlantUML file like this:
 
 box Logic LOGIC_COLOR_T2
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AlgoBaseParser" as AlgoBaseParser LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 ----
@@ -103,8 +103,8 @@ NOTE: In most cases, you should consider decomposing the diagram into smaller on
 Here are some of the techniques we used in this project to obtain a more palatable diagram.
 
 ==== Link lengths
-By default, a short webLink (`\->`) points to right and a long webLink (`-\->`)
-points downwards. you can extend any webLink to make it longer (```--\->```).
+By default, a short link (`\->`) points to right and a long link (`-\->`)
+points downwards. you can extend any link to make it longer (```--\->```).
 
 .Length of arrows and its effects
 image::ArrowLength.png[]
