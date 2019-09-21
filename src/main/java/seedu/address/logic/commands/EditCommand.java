@@ -96,10 +96,10 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        //Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, /*updatedAddress,*/ updatedTags);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            /*setAddress(toCopy.address);*/
             setTags(toCopy.tags);
         }
 
@@ -176,13 +176,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
+        /*public void setAddress(Address address) {
             this.address = address;
-        }
+        }*/
 
-        public Optional<Address> getAddress() {
+        /*public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
-        }
+        }*/
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -219,7 +219,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    /*&& getAddress().equals(e.getAddress())*/
                     && getTags().equals(e.getTags());
         }
     }
