@@ -5,9 +5,9 @@
 * *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103T-T09-4/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
 * *Email us* : You can also reach us at
-> `Yan Wei Liang e0310639@u.nus.edu[e0310639@u.nus.edu]`
-> `Eugene Teu eugeneteuchuwei@u.nus.edu[eugeneteuchuwei@u.nus.edu]`
-> `Yeo Dong Han e0321479@u.nus.edu[e0321479@u.nus.edu]`
-> `Oon Zhi Xiang e0310291@u.nus.edu[e0310291@u.nus.edu]`
-> `Ooi Qiu Jia e0335622@u.nus.edu[e0335622@u.nus.edu]`
+** `Yan Wei Liang e0310639@u.nus.edu`
+** `Eugene Teu eugeneteuchuwei@u.nus.edu`
+** `Yeo Dong Han e0321479@u.nus.edu`
+** `Oon Zhi Xiang e0310291@u.nus.edu`
+** `Ooi Qiu Jia e0335622@u.nus.edu`
 
