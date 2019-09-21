@@ -24,6 +24,12 @@ send_msg () {
         -d text="$1" -d parse_mode=${PARSE_MODE}
 }
 
+get_author() {
+    git show -s --pretty=%an ${TRAVIS_COMMIT}
+}
+
+author = get_author
+
 # Send message to the bot with some pertinent details about the job
 # Note that for Markdown, you need to escape any backtick (inline-code)
 # characters, since they're reserved in bash
@@ -32,6 +38,7 @@ send_msg "
 Travis build #${TRAVIS_BUILD_NUMBER} *${build_status}!*
 \`Repository:  ${TRAVIS_REPO_SLUG}\`
 \`Branch:      ${TRAVIS_BRANCH}\`
+\`Author:      ${AUTHOR_NAME}\`
 *Commit Msg:*
 ${TRAVIS_COMMIT_MESSAGE}
 [View Job Log](${TRAVIS_JOB_WEB_URL})
