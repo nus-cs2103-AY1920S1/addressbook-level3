@@ -12,7 +12,7 @@ public class NusmodCommand extends Command{
     public static final String COMMAND_WORD = "nusmod";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_MODULECODE
-            + " <semester number> <class number>";
+            + " <module code> <semester number> <class number>";
 
     private final String moduleCode;
     private final String semesterNo;
@@ -40,24 +40,28 @@ public class NusmodCommand extends Command{
     public CommandResult execute(Model model) throws CommandException {
         NusmodApi api = new NusmodApi();
         JSONObject obj = api.getModules(moduleCode);
-        Module module = new Module(obj);
 
         String result = "";
-
-        if(semesterNo == null && classNo == null){
-            result += module.getModuleCode().toString() + "\n";
-            result += module.getDescription().toString();
-        } else if (classNo == null){
-            result += module.getModuleCode().toString() + "\n";
-            result += module.getDescription().toString() + "\n";
-            result += module.getSemester(semesterNo).toString();
+        if(obj == null){
+            result = "Error! Unable to get module details";
+            return new CommandResult(result);
         } else {
-            result += module.getModuleCode().toString() + "\n";
-            result += module.getDescription().toString() + "\n";
-            result += module.getSemester(semesterNo).toString() + "\n";
-            result += module.getTimeTable(semesterNo, classNo).toString();
+            Module module = new Module(obj);
+            if(semesterNo == null && classNo == null){
+                result += module.getModuleCode().toString() + "\n";
+                result += module.getDescription().toString();
+            } else if (classNo == null){
+                result += module.getModuleCode().toString() + "\n";
+                result += module.getDescription().toString() + "\n";
+                result += module.getSemester(semesterNo).toString();
+            } else {
+                result += module.getModuleCode().toString() + "\n";
+                result += module.getDescription().toString() + "\n";
+                result += module.getSemester(semesterNo).toString() + "\n";
+                result += module.getTimeTable(semesterNo, classNo).toString();
+            }
+            return new CommandResult(result);
         }
 
-        return new CommandResult(result);
     }
 }
