@@ -62,21 +62,17 @@
                   </children>
                </AnchorPane>
                <AnchorPane minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" HBox.hgrow="ALWAYS" />
-      
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="500.0">
-      
                     <StackPane fx:id="commandBoxPlaceholder" minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                 <padding>
                   <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
               </StackPane>
-      
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" minWidth="500.0" prefHeight="100" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                 <padding>
                   <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
               </StackPane>
-      
                        <VBox fx:id="personList" minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                 <padding>
                   <Insets bottom="10" left="10" right="10" top="10" />
@@ -87,7 +83,6 @@
                         </VBox.margin>
                      </StackPane>
               </VBox>
-      
                     <StackPane fx:id="statusbarPlaceholder" minWidth="500.0" prefWidth="500.0" VBox.vgrow="NEVER" />
             </VBox>
             </children>
