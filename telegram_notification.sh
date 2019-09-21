@@ -24,11 +24,7 @@ send_msg () {
         -d text="$1" -d parse_mode=${PARSE_MODE}
 }
 
-get_author() {
-    git log -1 ${TRAVIS_COMMIT} --pretty="%aN"
-}
-
-author = get_author
+author = $(git log -1 ${TRAVIS_COMMIT} --pretty="%aN")
 
 # Send message to the bot with some pertinent details about the job
 # Note that for Markdown, you need to escape any backtick (inline-code)
