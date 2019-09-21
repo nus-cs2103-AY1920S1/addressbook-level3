@@ -19,7 +19,7 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
 
     @FXML
-    private TextField commandTextField;
+    protected TextField commandTextField;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
