@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
+    private final Description description;
     private final Phone phone;
     private final Email email;
 
@@ -27,17 +27,17 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
+    public Person(Description description, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(description, phone, email, address, tags);
+        this.description = description;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Description getDescription() {
+        return description;
     }
 
     public Phone getPhone() {
@@ -61,7 +61,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons of the same description have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -70,7 +70,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
+                && otherPerson.getDescription().equals(getDescription())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
@@ -89,7 +89,7 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
+        return otherPerson.getDescription().equals(getDescription())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
@@ -99,13 +99,13 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(description, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getDescription())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
