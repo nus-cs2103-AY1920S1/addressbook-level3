@@ -40,7 +40,7 @@ Responsibilities: Data
 '''
 
 === Oon Zhi Xiang
-image::[zhixianggg.png][width="150", align="left"]
+image::zhixianggg.png[width="150", align="left"]
 {empty}[https://github.com/zhixianggg[github]]
 
 Role: Code Quality 
