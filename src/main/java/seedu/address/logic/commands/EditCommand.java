@@ -65,38 +65,38 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Expense> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Expense expenseToEdit = lastShownList.get(index.getZeroBased());
+        Expense editedExpense = createEditedPerson(expenseToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasPerson(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setPerson(expenseToEdit, editedExpense);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedExpense));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Expense createEditedPerson(Expense expenseToEdit, EditPersonDescriptor editPersonDescriptor) {
+        assert expenseToEdit != null;
 
-        Description updatedDescription = editPersonDescriptor.getDescription().orElse(personToEdit.getDescription());
-        Price updatedPrice = editPersonDescriptor.getPrice().orElse(personToEdit.getPrice());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Description updatedDescription = editPersonDescriptor.getDescription().orElse(expenseToEdit.getDescription());
+        Price updatedPrice = editPersonDescriptor.getPrice().orElse(expenseToEdit.getPrice());
+        Email updatedEmail = editPersonDescriptor.getEmail().orElse(expenseToEdit.getEmail());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(expenseToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(expenseToEdit.getTags());
 
-        return new Person(updatedDescription, updatedPrice, updatedEmail, updatedAddress, updatedTags);
+        return new Expense(updatedDescription, updatedPrice, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniquePersonList;
 
 /**
@@ -43,8 +43,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the expense list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Expense> expenses) {
+        this.persons.setPersons(expenses);
     }
 
     /**
@@ -61,16 +61,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a expense with the same identity as {@code expense} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Expense expense) {
+        requireNonNull(expense);
+        return persons.contains(expense);
     }
 
     /**
      * Adds a expense to the address book.
      * The expense must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Expense p) {
         persons.add(p);
     }
 
@@ -79,17 +79,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The expense identity of {@code editedPerson} must not be the same as another existing expense in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Expense target, Expense editedExpense) {
+        requireNonNull(editedExpense);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedExpense);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Expense key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Expense> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

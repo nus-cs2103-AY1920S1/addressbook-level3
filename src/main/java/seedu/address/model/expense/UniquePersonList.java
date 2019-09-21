@@ -20,27 +20,27 @@ import seedu.address.model.expense.exceptions.PersonNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see Expense#isSameExpense(Expense)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Expense> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Person> internalUnmodifiableList =
+    private final ObservableList<Expense> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent expense as the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(Expense toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameExpense);
     }
 
     /**
      * Adds a expense to the list.
      * The expense must not already exist in the list.
      */
-    public void add(Person toAdd) {
+    public void add(Expense toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -53,26 +53,26 @@ public class UniquePersonList implements Iterable<Person> {
      * {@code target} must exist in the list.
      * The expense identity of {@code editedPerson} must not be the same as another existing expense in the list.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPerson(Expense target, Expense editedExpense) {
+        requireAllNonNull(target, editedExpense);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameExpense(editedExpense) && contains(editedExpense)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedExpense);
     }
 
     /**
      * Removes the equivalent expense from the list.
      * The expense must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(Expense toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
@@ -88,24 +88,24 @@ public class UniquePersonList implements Iterable<Person> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
+    public void setPersons(List<Expense> expenses) {
+        requireAllNonNull(expenses);
+        if (!personsAreUnique(expenses)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(expenses);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<Expense> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Expense> iterator() {
         return internalList.iterator();
     }
 
@@ -124,10 +124,10 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<Person> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+    private boolean personsAreUnique(List<Expense> expenses) {
+        for (int i = 0; i < expenses.size() - 1; i++) {
+            for (int j = i + 1; j < expenses.size(); j++) {
+                if (expenses.get(i).isSameExpense(expenses.get(j))) {
                     return false;
                 }
             }

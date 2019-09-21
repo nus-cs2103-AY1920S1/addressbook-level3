@@ -35,12 +35,12 @@ public class PersonBuilder {
     /**
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        description = personToCopy.getDescription();
-        price = personToCopy.getPrice();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
+    public PersonBuilder(Expense expenseToCopy) {
+        description = expenseToCopy.getDescription();
+        price = expenseToCopy.getPrice();
+        email = expenseToCopy.getEmail();
+        address = expenseToCopy.getAddress();
+        tags = new HashSet<>(expenseToCopy.getTags());
     }
 
     /**
@@ -83,8 +83,8 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() {
-        return new Person(description, price, email, address, tags);
+    public Expense build() {
+        return new Expense(description, price, email, address, tags);
     }
 
 }

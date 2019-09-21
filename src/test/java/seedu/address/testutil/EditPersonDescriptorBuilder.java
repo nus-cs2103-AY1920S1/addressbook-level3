@@ -27,13 +27,13 @@ public class EditPersonDescriptorBuilder {
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code expense}'s details
      */
-    public EditPersonDescriptorBuilder(Person person) {
+    public EditPersonDescriptorBuilder(Expense expense) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setDescription(person.getDescription());
-        descriptor.setPrice(person.getPrice());
-        descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
-        descriptor.setTags(person.getTags());
+        descriptor.setDescription(expense.getDescription());
+        descriptor.setPrice(expense.getPrice());
+        descriptor.setEmail(expense.getEmail());
+        descriptor.setAddress(expense.getAddress());
+        descriptor.setTags(expense.getTags());
     }
 
     /**

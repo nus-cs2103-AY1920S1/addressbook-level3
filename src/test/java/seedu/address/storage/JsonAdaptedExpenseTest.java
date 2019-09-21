@@ -17,7 +17,7 @@ import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Email;
 import seedu.address.model.expense.Price;
 
-public class JsonAdaptedPersonTest {
+public class JsonAdaptedExpenseTest {
     private static final String INVALID_DESCRIPTION = "R@chel";
     private static final String INVALID_PRICE = "+651234";
     private static final String INVALID_ADDRESS = " ";

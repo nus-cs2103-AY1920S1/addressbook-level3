@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Expense {
 
     // Identity fields
     private final Description description;
@@ -27,7 +27,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Description description, Price price, Email email, Address address, Set<Tag> tags) {
+    public Expense(Description description, Price price, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(description, price, email, address, tags);
         this.description = description;
         this.price = price;
@@ -64,14 +64,14 @@ public class Person {
      * Returns true if both persons of the same description have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameExpense(Expense otherExpense) {
+        if (otherExpense == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getDescription().equals(getDescription())
-                && (otherPerson.getPrice().equals(getPrice()) || otherPerson.getEmail().equals(getEmail()));
+        return otherExpense != null
+                && otherExpense.getDescription().equals(getDescription())
+                && (otherExpense.getPrice().equals(getPrice()) || otherExpense.getEmail().equals(getEmail()));
     }
 
     /**
@@ -84,16 +84,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Expense)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getDescription().equals(getDescription())
-                && otherPerson.getPrice().equals(getPrice())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Expense otherExpense = (Expense) other;
+        return otherExpense.getDescription().equals(getDescription())
+                && otherExpense.getPrice().equals(getPrice())
+                && otherExpense.getEmail().equals(getEmail())
+                && otherExpense.getAddress().equals(getAddress())
+                && otherExpense.getTags().equals(getTags());
     }
 
     @Override

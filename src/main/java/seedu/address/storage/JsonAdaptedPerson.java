@@ -15,7 +15,7 @@ import seedu.address.model.expense.Description;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Expense}.
  */
 class JsonAdaptedPerson {
 
@@ -46,7 +46,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Person source) {
+    public JsonAdaptedPerson(Expense source) {
         description = source.getDescription().fullDescription;
         price = source.getPrice().value;
         email = source.getEmail().value;
@@ -61,7 +61,7 @@ class JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
-    public Person toModelType() throws IllegalValueException {
+    public Expense toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -100,7 +100,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelDescription, modelPrice, modelEmail, modelAddress, modelTags);
+        return new Expense(modelDescription, modelPrice, modelEmail, modelAddress, modelTags);
     }
 
 }
