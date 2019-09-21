@@ -32,6 +32,7 @@ send_msg "
 Travis build #${TRAVIS_BUILD_NUMBER} *${build_status}!*
 \`Repository:  ${TRAVIS_REPO_SLUG}\`
 \`Branch:      ${TRAVIS_BRANCH}\`
+\`Author:      ${AUTHOR_NAME}\`
 *Commit Msg:*
 ${TRAVIS_COMMIT_MESSAGE}
 [View Job Log](${TRAVIS_JOB_WEB_URL})
