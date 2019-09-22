@@ -58,8 +58,8 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a person to the list of people +
+Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [pol/POLICY] [t/TAG]…​`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -140,6 +140,124 @@ Deletes the 1st person in the results of the `find` command.
 
 Clears all entries from the address book. +
 Format: `clear`
+
+=== Incorrect NRIC Alert
+
+Returns an error message to inform the user of an invalid NRIC. The contact number and/or email address is returned
+if present.
+
+Example:
+`add n/John Doe ic/Q9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+
+Expected Output:
+`Q9999999J is invalid. You might want to contact John Doe: 98765432 johnd@example.com`
+
+****
+* The details of the input person will not be added until all information is valid.
+****
+
+=== Incorrect Contact Number Alert
+
+Returns an error message to inform the user of an invalid contact number. The email address is returned
+if present.
+
+Example:
+`add n/John Doe ic/Q9999999J p/48765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+
+Expected Output:
+`48765432 is invalid. You might want to contact John Doe: johnd@example.com`
+
+****
+* The details of the input person will not be added until all information is valid.
+****
+
+=== Incorrect Email Address Alert
+
+Returns an error message to inform the user of an invalid email address. The phone number is returned
+if present.
+
+Example:
+`add n/John Doe ic/Q9999999J p/98765432 e/@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+
+Expected Output:
+`@example.com is invalid. You might want to contact John Doe: 98765432`
+
+****
+* The details of the input person will not be added until all information is valid.
+****
+
+=== Incorrect Email Address Warning
+
+Returns a warning message to inform the user of a potential typo in email address.
+
+Example:
+`add n/John Doe ic/Q9999999J p/48765432 e/johnd@gmal.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+
+Expected Output:
+`You entered johnd@**gmal**.com. Did you mean: johnd@**gmail**.com?`
+
+User can input `yes` or `no` to use the original input email or the suggested email respectively.
+
+****
+* The details of the input person will not be added until all information is confirmed.
+* These warnings can be turned off.
+****
+
+=== Incorrect Command Suggestions
+
+Returns an error message and suggestion of a correct command.
+
+Example:
+`dlete 2`
+
+Expected Output:
+`dlete is not recognised. Did you mean: delete 2?`
+
+User can input `yes` or `no`.
+
+If `yes`, the command will be executed.
+If `no`, `Please key in your command again. For more information  of the available commands, type help.`
+
+=== Incorrect Insurance Policy Assignment Alert
+
+Returns an error if the person is ineligible for the insurance policy and provides additional suggestions of policies for those that
+are appropriate for this person.
+
+Example:
+`edit n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 pol/SeniorCare`
+
+Expected Output:
+`John Doe is ineligible for this policy. These are other possible policies that John Doe is eligible for:
+...`
+
+****
+* The new information will be accepted and updated except for the updated policy.
+****
+
+=== Duplicate profile alert
+
+Returns an error message of an existing person and will attempt to merge the profiles.
+For each different attribute, there will be a prompt to suggest a change from the original attribute to the new one.
+
+Example:
+`add n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 pol/SeniorCare`
+
+Expected Output:
+`This profile already exists:
+n/John Doe ic/S9999999J p/98765432 e/johndoe@example.com a/John street, block 123, #01-01 age/30`
+
+`Do you wish to update John Doe’s profile?`
+
+User may input `yes` or `no`. Further prompts will be provided if user inputs  `yes`
+
+`Would you like to update p/98765432 to p/91234567?`
+
+If yes, the new profile will be created
+If no, then `You may edit John Doe’s profile using the edit command. For more information, type help.`
+
+=== Reminders of expiring policies
+
+Displays a list of people whose policies are expiring in the current month on the start up page. This list will be updated every month.
 
 === Exiting the program : `exit`
 
