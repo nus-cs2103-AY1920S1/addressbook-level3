@@ -31,18 +31,20 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private Label id;
+    private Label index;
     @FXML
     private Label price;
     @FXML
     private FlowPane tags;
+    @FXML
+    private HBox priceColumn;
 
     public ExpenseCard(Expense expense, int displayedIndex) {
         super(FXML);
         this.expense = expense;
-        id.setText(displayedIndex + ". ");
+        index.setText(displayedIndex + ". ");
         description.setText(expense.getDescription().fullDescription);
-        price.setText(expense.getPrice().value);
+        price.setText("$" + expense.getPrice().value);
         expense.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -62,7 +64,7 @@ public class ExpenseCard extends UiPart<Region> {
 
         // state check
         ExpenseCard card = (ExpenseCard) other;
-        return id.getText().equals(card.id.getText())
+        return index.getText().equals(card.index.getText())
                 && expense.equals(card.expense);
     }
 }

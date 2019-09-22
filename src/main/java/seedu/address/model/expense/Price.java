@@ -11,8 +11,9 @@ public class Price {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Prices should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Prices should only contain numeric characters, which can be followed by at most"
+            + " 1 period or comma followed by the numbers representing the cents";
+    public static final String VALIDATION_REGEX = "\\d+([,.]\\d+)?";
     public final String value;
 
     /**
