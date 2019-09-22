@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 public class StudentArgumentTokenizer extends ArgumentTokenizer {
 
     private static final OptionalArgument[] optionalArgs = {
-            OptionalArgument.OPTIONAL_MATNO,
-            OptionalArgument.OPTIONAL_NUSID};
+        OptionalArgument.OPTIONAL_MATNO,
+        OptionalArgument.OPTIONAL_NUSID};
 
     /**
      * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
@@ -48,6 +48,11 @@ public class StudentArgumentTokenizer extends ArgumentTokenizer {
         return argMultimap;
     }
 
+    /**
+     * Extracts optional arguments defined at the start of the class, if present, from the given string.
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @return           ArgumentMultimap object that maps prefixes to their arguments.
+     */
     public static ArgumentMultimap extractOptionalArguments(String argsString) {
         ArgumentMultimap argMultimap = new ArgumentMultimap();
 

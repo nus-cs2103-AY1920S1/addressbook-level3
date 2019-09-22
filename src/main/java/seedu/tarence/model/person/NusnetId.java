@@ -3,6 +3,9 @@ package seedu.tarence.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents an NUSNETID field of a Student.
+ */
 public class NusnetId {
 
     public static final String MESSAGE_CONSTRAINTS =
