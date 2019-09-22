@@ -22,6 +22,10 @@ public class SwitchCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Switched to : $s context";
 
+    public SwitchCommand(String args) {
+
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
