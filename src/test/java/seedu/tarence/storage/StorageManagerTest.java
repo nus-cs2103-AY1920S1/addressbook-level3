@@ -2,7 +2,7 @@ package seedu.tarence.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.tarence.testutil.TypicalPersons.getTypicalStudentBook;
+import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.tarence.commons.core.GuiSettings;
-import seedu.tarence.model.ReadOnlyStudentBook;
-import seedu.tarence.model.StudentBook;
+import seedu.tarence.model.Application;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonStudentBookStorage studentBookStorage = new JsonStudentBookStorage(getTempFilePath("ab"));
+        JsonApplicationStorage applicationStorage = new JsonApplicationStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(studentBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(applicationStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void studentBookReadSave() throws Exception {
+    public void applicationReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonStudentBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonStudentBookStorageTest} class.
+         * {@link JsonApplicationStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonApplicationStorageTest} class.
          */
-        StudentBook original = getTypicalStudentBook();
-        storageManager.saveStudentBook(original);
-        ReadOnlyStudentBook retrieved = storageManager.readStudentBook().get();
-        assertEquals(original, new StudentBook(retrieved));
+        Application original = getTypicalApplication();
+        storageManager.saveApplication(original);
+        ReadOnlyApplication retrieved = storageManager.readApplication().get();
+        assertEquals(original, new Application(retrieved));
     }
 
     @Test
-    public void getStudentBookFilePath() {
-        assertNotNull(storageManager.getStudentBookFilePath());
+    public void getApplicationFilePath() {
+        assertNotNull(storageManager.getApplicationFilePath());
     }
 
 }

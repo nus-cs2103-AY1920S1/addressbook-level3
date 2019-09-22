@@ -6,7 +6,7 @@ import static seedu.tarence.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.tarence.model.Model;
 
 /**
- * Lists all persons in the student book to the user.
+ * Lists all persons in the application (or class) to the user.
  */
 public class ListCommand extends Command {
 

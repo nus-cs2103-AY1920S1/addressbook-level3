@@ -6,7 +6,7 @@ import seedu.tarence.model.person.Person;
 /**
  * Unmodifiable view of T.A.rence
  */
-public interface ReadOnlyStudentBook {
+public interface ReadOnlyApplication {
 
     /**
      * Returns an unmodifiable view of the persons list.

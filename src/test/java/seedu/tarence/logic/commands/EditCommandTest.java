@@ -10,16 +10,16 @@ import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.tarence.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.tarence.testutil.TypicalPersons.getTypicalStudentBook;
+import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
-import seedu.tarence.model.StudentBook;
 import seedu.tarence.model.UserPrefs;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.testutil.EditPersonDescriptorBuilder;
@@ -30,7 +30,7 @@ import seedu.tarence.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalStudentBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -40,7 +40,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new StudentBook(model.getStudentBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Application(model.getApplication()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -60,7 +60,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new StudentBook(model.getStudentBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Application(model.getApplication()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -73,7 +73,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new StudentBook(model.getStudentBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Application(model.getApplication()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -89,7 +89,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new StudentBook(model.getStudentBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Application(model.getApplication()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -108,8 +108,8 @@ public class EditCommandTest {
     public void execute_duplicatePersonFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        // edit person in filtered list into a duplicate in student book
-        Person personInList = model.getStudentBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        // edit person in filtered list into a duplicate in application
+        Person personInList = model.getApplication().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
@@ -127,14 +127,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of student book
+     * but smaller than size of the overall class list
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of student book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getStudentBook().getPersonList().size());
+        // ensures that outOfBoundIndex is still in bounds of class list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getApplication().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -158,7 +158,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new HelpCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));

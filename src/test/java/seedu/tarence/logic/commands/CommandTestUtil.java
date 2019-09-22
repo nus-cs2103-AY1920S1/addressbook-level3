@@ -12,8 +12,8 @@ import java.util.List;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
+import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
-import seedu.tarence.model.StudentBook;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.testutil.EditPersonDescriptorBuilder;
@@ -77,21 +77,21 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the student book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the application, filtered person list and selected person in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        StudentBook expectedStudentBook = new StudentBook(actualModel.getStudentBook());
+        Application expectedApplication = new Application(actualModel.getApplication());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedStudentBook, actualModel.getStudentBook());
+        assertEquals(expectedApplication, actualModel.getApplication());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s student book.
+     * Updates {@code model}'s application to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s application.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());

@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.tarence.commons.exceptions.DataConversionException;
-import seedu.tarence.model.ReadOnlyStudentBook;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends StudentBookStorage, UserPrefsStorage {
+public interface Storage extends ApplicationStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +21,12 @@ public interface Storage extends StudentBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getStudentBookFilePath();
+    Path getApplicationFilePath();
 
     @Override
-    Optional<ReadOnlyStudentBook> readStudentBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyApplication> readApplication() throws DataConversionException, IOException;
 
     @Override
-    void saveStudentBook(ReadOnlyStudentBook studentBook) throws IOException;
+    void saveApplication(ReadOnlyApplication application) throws IOException;
 
 }

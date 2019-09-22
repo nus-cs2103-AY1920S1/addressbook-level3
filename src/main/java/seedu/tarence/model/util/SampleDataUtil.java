@@ -1,13 +1,13 @@
 package seedu.tarence.model.util;
 
-import seedu.tarence.model.ReadOnlyStudentBook;
-import seedu.tarence.model.StudentBook;
+import seedu.tarence.model.Application;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.Person;
 
 /**
- * Contains utility methods for populating {@code StudentBook} with sample data.
+ * Contains utility methods for populating {@code Application} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -21,8 +21,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyStudentBook getSampleStudentBook() {
-        StudentBook sampleAb = new StudentBook();
+    public static ReadOnlyApplication getSampleApplication() {
+        Application sampleAb = new Application();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

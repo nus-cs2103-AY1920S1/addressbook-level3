@@ -9,10 +9,10 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.person.UniquePersonList;
 
 /**
- * Wraps all data at the student-book level
+ * Wraps all data at the application level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class StudentBook implements ReadOnlyStudentBook {
+public class Application implements ReadOnlyApplication {
 
     private final UniquePersonList persons;
 
@@ -27,12 +27,12 @@ public class StudentBook implements ReadOnlyStudentBook {
         persons = new UniquePersonList();
     }
 
-    public StudentBook() {}
+    public Application() {}
 
     /**
-     * Creates a student book using the Persons in the {@code toBeCopied}
+     * Creates an application using the Persons in the {@code toBeCopied}
      */
-    public StudentBook(ReadOnlyStudentBook toBeCopied) {
+    public Application(ReadOnlyApplication toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class StudentBook implements ReadOnlyStudentBook {
     }
 
     /**
-     * Resets the existing data of this {@code StudentBook} with {@code newData}.
+     * Resets the existing data of this {@code Application} with {@code newData}.
      */
-    public void resetData(ReadOnlyStudentBook newData) {
+    public void resetData(ReadOnlyApplication newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -59,7 +59,7 @@ public class StudentBook implements ReadOnlyStudentBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the student book.
+     * Returns true if a person with the same identity as {@code person} exists in the application.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -67,8 +67,8 @@ public class StudentBook implements ReadOnlyStudentBook {
     }
 
     /**
-     * Adds a person to the student book.
-     * The person must not already exist in the student book.
+     * Adds a person to the application.
+     * The person must not already exist in the application.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -76,8 +76,8 @@ public class StudentBook implements ReadOnlyStudentBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the student book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the student book.
+     * {@code target} must exist in the application.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the application.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -86,8 +86,8 @@ public class StudentBook implements ReadOnlyStudentBook {
     }
 
     /**
-     * Removes {@code key} from this {@code StudentBook}.
-     * {@code key} must exist in the student book.
+     * Removes {@code key} from this {@code Application}.
+     * {@code key} must exist in the application.
      */
     public void removePerson(Person key) {
         persons.remove(key);
@@ -109,8 +109,8 @@ public class StudentBook implements ReadOnlyStudentBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof StudentBook // instanceof handles nulls
-                && persons.equals(((StudentBook) other).persons));
+                || (other instanceof Application // instanceof handles nulls
+                && persons.equals(((Application) other).persons));
     }
 
     @Override

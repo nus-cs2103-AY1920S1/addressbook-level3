@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "studentBookFilePath" : "studentbook.json"
+  "applicationFilePath" : "application.json"
 }

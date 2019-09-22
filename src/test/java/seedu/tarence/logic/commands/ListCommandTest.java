@@ -3,7 +3,7 @@ package seedu.tarence.logic.commands;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.tarence.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.tarence.testutil.TypicalPersons.getTypicalStudentBook;
+import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalStudentBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getStudentBook(), new UserPrefs());
+        model = new ModelManager(getTypicalApplication(), new UserPrefs());
+        expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
     }
 
     @Test

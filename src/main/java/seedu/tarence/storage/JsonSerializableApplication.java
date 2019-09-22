@@ -9,52 +9,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.tarence.commons.exceptions.IllegalValueException;
-import seedu.tarence.model.ReadOnlyStudentBook;
-import seedu.tarence.model.StudentBook;
+import seedu.tarence.model.Application;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.person.Person;
 
 /**
- * An Immutable StudentBook that is serializable to JSON format.
+ * An Immutable application that is serializable to JSON format.
  */
-@JsonRootName(value = "studentbook")
-class JsonSerializableStudentBook {
+@JsonRootName(value = "application")
+class JsonSerializableApplication {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableStudentBook} with the given persons.
+     * Constructs a {@code JsonSerializableApplication} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableStudentBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableApplication(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.persons.addAll(persons);
     }
 
     /**
-     * Converts a given {@code ReadOnlyStudentBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyApplication} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableStudentBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableApplication}.
      */
-    public JsonSerializableStudentBook(ReadOnlyStudentBook source) {
+    public JsonSerializableApplication(ReadOnlyApplication source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this student book into the model's {@code StudentBook} object.
+     * Converts this application into the model's {@code Application} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public StudentBook toModelType() throws IllegalValueException {
-        StudentBook studentBook = new StudentBook();
+    public Application toModelType() throws IllegalValueException {
+        Application application = new Application();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
-            if (studentBook.hasPerson(person)) {
+            if (application.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            studentBook.addPerson(person);
+            application.addPerson(person);
         }
-        return studentBook;
+        return application;
     }
 
 }

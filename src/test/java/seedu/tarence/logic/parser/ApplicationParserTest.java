@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.tarence.logic.commands.AddCommand;
-import seedu.tarence.logic.commands.ClearCommand;
 import seedu.tarence.logic.commands.DeleteCommand;
 import seedu.tarence.logic.commands.EditCommand;
 import seedu.tarence.logic.commands.EditCommand.EditPersonDescriptor;
@@ -29,21 +28,15 @@ import seedu.tarence.testutil.EditPersonDescriptorBuilder;
 import seedu.tarence.testutil.PersonBuilder;
 import seedu.tarence.testutil.PersonUtil;
 
-public class StudentBookParserTest {
+public class ApplicationParserTest {
 
-    private final StudentBookParser parser = new StudentBookParser();
+    private final ApplicationParser parser = new ApplicationParser();
 
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
-    }
-
-    @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
 
     @Test

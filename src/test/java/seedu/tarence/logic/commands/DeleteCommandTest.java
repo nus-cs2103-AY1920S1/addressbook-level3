@@ -7,7 +7,7 @@ import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.tarence.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.tarence.testutil.TypicalPersons.getTypicalStudentBook;
+import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import seedu.tarence.model.person.Person;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalStudentBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getStudentBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getStudentBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -68,8 +68,8 @@ public class DeleteCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of student book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getStudentBook().getPersonList().size());
+        // ensures that outOfBoundIndex is still in bounds of class list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getApplication().getPersonList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
