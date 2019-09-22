@@ -101,7 +101,7 @@ public class Nric {
         case 'G': // Fallthrough
             return isLetter;
         default:
-            return isLetter;
+            return false;
         }
     }
 }
