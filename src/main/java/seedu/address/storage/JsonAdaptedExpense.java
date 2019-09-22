@@ -30,7 +30,8 @@ class JsonAdaptedExpense {
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("description") String description, @JsonProperty("price") String price,
+    public JsonAdaptedExpense(@JsonProperty("description") String description,
+                              @JsonProperty("price") String price,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
         this.price = price;
@@ -62,7 +63,8 @@ class JsonAdaptedExpense {
         }
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -70,7 +72,8 @@ class JsonAdaptedExpense {
         final Description modelDescription = new Description(description);
 
         if (price == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
         }
         if (!Price.isValidPrice(price)) {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);

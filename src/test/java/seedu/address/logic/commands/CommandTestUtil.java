@@ -24,37 +24,40 @@ import seedu.address.testutil.EditExpenseDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_DESCRIPTION_AMY = "Amy Bee";
-    public static final String VALID_DESCRIPTION_BOB = "Bob Choo";
-    public static final String VALID_PRICE_AMY = "11111111";
-    public static final String VALID_PRICE_BOB = "22222222";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_DESCRIPTION_CHICKEN = "Chicken Rice";
+    public static final String VALID_DESCRIPTION_TRANSPORT = "Taxi to work";
+    public static final String VALID_PRICE_CHICKEN = "11111.11";
+    public static final String VALID_PRICE_TRANSPORT = "222,22222";
+    public static final String VALID_TAG_CLAIMABLE = "toClaimFromWork";
+    public static final String VALID_TAG_DISCOUNTED = "usedCouponCode";
 
-    public static final String DESCRIPTION_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
-    public static final String DESCRIPTION_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
-    public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PRICE_AMY;
-    public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PRICE_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String DESCRIPTION_DESC_CHICKEN = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHICKEN;
+    public static final String DESCRIPTION_DESC_TRANSPORT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TRANSPORT;
+    public static final String PRICE_DESC_CHICKEN = " " + PREFIX_PRICE + VALID_PRICE_CHICKEN;
+    public static final String PRICE_DESC_TRANSPORT = " " + PREFIX_PRICE + VALID_PRICE_TRANSPORT;
+    public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_TAG + VALID_TAG_DISCOUNTED;
+    public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_TAG + VALID_TAG_CLAIMABLE;
 
-    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&"; // '&' not allowed in descriptions
-    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in prices
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    // '&' not allowed in descriptions
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";
+    // 'a' not allowed in prices
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a";
+    // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditExpenseDescriptor DESC_AMY;
-    public static final EditCommand.EditExpenseDescriptor DESC_BOB;
+    public static final EditCommand.EditExpenseDescriptor DESC_CHICKEN;
+    public static final EditCommand.EditExpenseDescriptor DESC_TRANSPORT;
 
     static {
-        DESC_AMY = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_AMY)
-                .withPrice(VALID_PRICE_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_BOB)
-                .withPrice(VALID_PRICE_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_CHICKEN)
+                .withPrice(VALID_PRICE_CHICKEN)
+                .withTags(VALID_TAG_DISCOUNTED).build();
+        DESC_TRANSPORT = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TRANSPORT)
+                .withPrice(VALID_PRICE_TRANSPORT)
+                .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED).build();
     }
 
     /**

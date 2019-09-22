@@ -3,10 +3,10 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExpenses.AMY;
+import static seedu.address.testutil.TypicalExpenses.CHICKEN;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -77,9 +77,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + DESCRIPTION_DESC_AMY + PRICE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Expense expectedExpense = new ExpenseBuilder(AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN;
+        Expense expectedExpense = new ExpenseBuilder(CHICKEN).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExpense(expectedExpense);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

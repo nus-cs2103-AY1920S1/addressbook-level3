@@ -3,7 +3,8 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.expense.*;
+import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -13,22 +14,16 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ExpenseBuilder {
 
-    public static final String DEFAULT_DESCRIPTION = "Alice Pauline";
-    public static final String DEFAULT_PRICE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DESCRIPTION = "Chicken Rice";
+    public static final String DEFAULT_PRICE = "2.50";
 
     private Description description;
     private Price price;
-    private Email email;
-    private Address address;
     private Set<Tag> tags;
 
     public ExpenseBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         price = new Price(DEFAULT_PRICE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
@@ -38,8 +33,6 @@ public class ExpenseBuilder {
     public ExpenseBuilder(Expense expenseToCopy) {
         description = expenseToCopy.getDescription();
         price = expenseToCopy.getPrice();
-        email = expenseToCopy.getEmail();
-        address = expenseToCopy.getAddress();
         tags = new HashSet<>(expenseToCopy.getTags());
     }
 
@@ -60,14 +53,6 @@ public class ExpenseBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Expense} that we are building.
-     */
-    public ExpenseBuilder withAddress(String address) {
-        this.address = new Address(address);
-        return this;
-    }
-
-    /**
      * Sets the {@code Price} of the {@code Expense} that we are building.
      */
     public ExpenseBuilder withPrice(String price) {
@@ -75,16 +60,8 @@ public class ExpenseBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code Expense} that we are building.
-     */
-    public ExpenseBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
     public Expense build() {
-        return new Expense(description, price, email, address, tags);
+        return new Expense(description, price, tags);
     }
 
 }

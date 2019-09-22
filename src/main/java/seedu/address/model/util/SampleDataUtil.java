@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.expense.*;
+
 import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Price;
 import seedu.address.model.tag.Tag;
 
 /**

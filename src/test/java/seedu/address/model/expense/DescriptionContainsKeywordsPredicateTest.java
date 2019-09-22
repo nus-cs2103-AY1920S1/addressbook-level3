@@ -18,14 +18,17 @@ public class DescriptionContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        DescriptionContainsKeywordsPredicate firstPredicate = new DescriptionContainsKeywordsPredicate(firstPredicateKeywordList);
-        DescriptionContainsKeywordsPredicate secondPredicate = new DescriptionContainsKeywordsPredicate(secondPredicateKeywordList);
+        DescriptionContainsKeywordsPredicate firstPredicate =
+                new DescriptionContainsKeywordsPredicate(firstPredicateKeywordList);
+        DescriptionContainsKeywordsPredicate secondPredicate =
+                new DescriptionContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        DescriptionContainsKeywordsPredicate firstPredicateCopy = new DescriptionContainsKeywordsPredicate(firstPredicateKeywordList);
+        DescriptionContainsKeywordsPredicate firstPredicateCopy =
+                new DescriptionContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +44,8 @@ public class DescriptionContainsKeywordsPredicateTest {
     @Test
     public void test_descriptionContainsKeywords_returnsTrue() {
         // One keyword
-        DescriptionContainsKeywordsPredicate predicate = new DescriptionContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        DescriptionContainsKeywordsPredicate predicate =
+                new DescriptionContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new ExpenseBuilder().withDescription("Alice Bob").build()));
 
         // Multiple keywords
@@ -60,16 +64,16 @@ public class DescriptionContainsKeywordsPredicateTest {
     @Test
     public void test_descriptionDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        DescriptionContainsKeywordsPredicate predicate = new DescriptionContainsKeywordsPredicate(Collections.emptyList());
+        DescriptionContainsKeywordsPredicate predicate =
+                new DescriptionContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new ExpenseBuilder().withDescription("Alice").build()));
 
         // Non-matching keyword
         predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new ExpenseBuilder().withDescription("Alice Bob").build()));
 
-        // Keywords match price, email and address, but does not match description
-        predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new ExpenseBuilder().withDescription("Alice").withPrice("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+        // Keywords match price, but does not match description
+        predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("12345"));
+        assertFalse(predicate.test(new ExpenseBuilder().withDescription("Alice").withPrice("12345").build()));
     }
 }

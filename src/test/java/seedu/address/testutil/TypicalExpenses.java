@@ -1,15 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DISCOUNTED;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,36 +19,51 @@ import seedu.address.model.expense.Expense;
  */
 public class TypicalExpenses {
 
-    public static final Expense ALICE = new ExpenseBuilder().withDescription("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPrice("94351253")
-            .withTags("friends").build();
-    public static final Expense BENSON = new ExpenseBuilder().withDescription("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPrice("98765432")
-            .withTags("owesMoney", "friends").build();
-    public static final Expense CARL = new ExpenseBuilder().withDescription("Carl Kurz").withPrice("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").build();
-    public static final Expense DANIEL = new ExpenseBuilder().withDescription("Daniel Meier").withPrice("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
-    public static final Expense ELLE = new ExpenseBuilder().withDescription("Elle Meyer").withPrice("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Expense FIONA = new ExpenseBuilder().withDescription("Fiona Kunz").withPrice("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Expense GEORGE = new ExpenseBuilder().withDescription("George Best").withPrice("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+    public static final Expense ANNIVERSARY = new ExpenseBuilder()
+            .withDescription("Alices Birthday")
+            .withPrice("20")
+            .withTags("AnniversaryAndHoliday").build();
+    public static final Expense BUSAN_TRIP = new ExpenseBuilder()
+            .withDescription("Busan Trip")
+            .withPrice("1300")
+            .withTags("Travel", "Korea", "Food", "Transport").build();
+    public static final Expense CHICKEN_RICE = new ExpenseBuilder()
+            .withDescription("Chicken Rice extra Chicken")
+            .withPrice("3.50")
+            .withTags("nusDeck", "Favourite").build();
+    public static final Expense DRINKS = new ExpenseBuilder()
+            .withDescription("Whiskey and Coke")
+            .withPrice("50")
+            .withTags("Party", "AnniversaryAndHoliday").build();
+    public static final Expense ENTERTAINMENT = new ExpenseBuilder()
+            .withDescription("Marvel Movie Marathon")
+            .withPrice("75")
+            .withTags("Entertainment").build();
+    public static final Expense FASHION = new ExpenseBuilder()
+            .withDescription("Clothes for the New Year")
+            .withPrice("88.88").build();
+    public static final Expense GROCERIES = new ExpenseBuilder()
+            .withDescription("Groceries for September meal preps")
+            .withPrice("125.35").build();
 
     // Manually added
-    public static final Expense HOON = new ExpenseBuilder().withDescription("Hoon Meier").withPrice("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Expense IDA = new ExpenseBuilder().withDescription("Ida Mueller").withPrice("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Expense HALLOWEEN = new ExpenseBuilder()
+            .withDescription("HalloweenHorrorNight")
+            .withPrice("60")
+            .withTags("AnniversaryAndHoliday").build();
+    public static final Expense INVESTMENT = new ExpenseBuilder()
+            .withDescription("Property investment")
+            .withPrice("1200000").build();
 
     // Manually added - Expense's details found in {@code CommandTestUtil}
-    public static final Expense AMY = new ExpenseBuilder().withDescription(VALID_DESCRIPTION_AMY).withPrice(VALID_PRICE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Expense BOB = new ExpenseBuilder().withDescription(VALID_DESCRIPTION_BOB).withPrice(VALID_PRICE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Expense CHICKEN = new ExpenseBuilder()
+            .withDescription(VALID_DESCRIPTION_CHICKEN)
+            .withPrice(VALID_PRICE_CHICKEN)
+            .withTags(VALID_TAG_DISCOUNTED).build();
+    public static final Expense TRANSPORT = new ExpenseBuilder()
+            .withDescription(VALID_DESCRIPTION_TRANSPORT)
+            .withPrice(VALID_PRICE_TRANSPORT)
+            .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
@@ -71,6 +82,7 @@ public class TypicalExpenses {
     }
 
     public static List<Expense> getTypicalExpenses() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(
+                ANNIVERSARY, BUSAN_TRIP, CHICKEN_RICE, DRINKS, ENTERTAINMENT, FASHION, GROCERIES));
     }
 }

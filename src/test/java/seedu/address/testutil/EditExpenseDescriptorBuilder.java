@@ -5,8 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
-import seedu.address.model.expense.*;
+
 import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Price;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,8 +33,6 @@ public class EditExpenseDescriptorBuilder {
         descriptor = new EditExpenseDescriptor();
         descriptor.setDescription(expense.getDescription());
         descriptor.setPrice(expense.getPrice());
-        descriptor.setEmail(expense.getEmail());
-        descriptor.setAddress(expense.getAddress());
         descriptor.setTags(expense.getTags());
     }
 
@@ -49,22 +49,6 @@ public class EditExpenseDescriptorBuilder {
      */
     public EditExpenseDescriptorBuilder withPrice(String price) {
         descriptor.setPrice(new Price(price));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code EditExpenseDescriptor} that we are building.
-     */
-    public EditExpenseDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code EditExpenseDescriptor} that we are building.
-     */
-    public EditExpenseDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
         return this;
     }
 

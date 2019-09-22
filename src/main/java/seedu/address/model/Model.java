@@ -53,7 +53,8 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense}
+     * exists in the address book.
      */
     boolean hasExpense(Expense expense);
 
@@ -72,7 +73,8 @@ public interface Model {
     /**
      * Replaces the given expense {@code target} with {@code editedExpense}.
      * {@code target} must exist in the address book.
-     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the address book.
+     * The expense identity of {@code editedExpense} must not be the same as another
+     * existing expense in the address book.
      */
     void setExpense(Expense target, Expense editedExpense);
 

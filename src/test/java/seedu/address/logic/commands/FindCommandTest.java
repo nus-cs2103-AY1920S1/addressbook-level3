@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.CARL;
-import static seedu.address.testutil.TypicalExpenses.ELLE;
-import static seedu.address.testutil.TypicalExpenses.FIONA;
+import static seedu.address.testutil.TypicalExpenses.CHICKEN_RICE;
+import static seedu.address.testutil.TypicalExpenses.ENTERTAINMENT;
+import static seedu.address.testutil.TypicalExpenses.FASHION;
 import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -67,11 +67,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleExpensesFound() {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
-        DescriptionContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        DescriptionContainsKeywordsPredicate predicate = preparePredicate("the Chicken Movie");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredExpenseList());
+        assertEquals(Arrays.asList(CHICKEN_RICE, ENTERTAINMENT, FASHION), model.getFilteredExpenseList());
     }
 
     /**

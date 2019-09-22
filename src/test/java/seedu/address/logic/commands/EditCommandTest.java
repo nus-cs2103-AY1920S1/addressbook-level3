@@ -2,17 +2,17 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_TRANSPORT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
+import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,11 +54,15 @@ public class EditCommandTest {
         Expense lastExpense = model.getFilteredExpenseList().get(indexLastExpense.getZeroBased());
 
         ExpenseBuilder expenseInList = new ExpenseBuilder(lastExpense);
-        Expense editedExpense = expenseInList.withDescription(VALID_DESCRIPTION_BOB).withPrice(VALID_PRICE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Expense editedExpense = expenseInList
+                .withDescription(VALID_DESCRIPTION_TRANSPORT)
+                .withPrice(VALID_PRICE_TRANSPORT)
+                .withTags(VALID_TAG_CLAIMABLE).build();
 
-        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_BOB)
-                .withPrice(VALID_PRICE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+                .withDescription(VALID_DESCRIPTION_TRANSPORT)
+                .withPrice(VALID_PRICE_TRANSPORT)
+                .withTags(VALID_TAG_CLAIMABLE).build();
         EditCommand editCommand = new EditCommand(indexLastExpense, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
@@ -85,10 +89,14 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
 
-        Expense expenseInFilteredList = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-        Expense editedExpense = new ExpenseBuilder(expenseInFilteredList).withDescription(VALID_DESCRIPTION_BOB).build();
+        Expense expenseInFilteredList = model
+                .getFilteredExpenseList()
+                .get(INDEX_FIRST_EXPENSE.getZeroBased());
+        Expense editedExpense = new ExpenseBuilder(expenseInFilteredList)
+                .withDescription(VALID_DESCRIPTION_TRANSPORT).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE,
-                new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_BOB).build());
+                new EditExpenseDescriptorBuilder()
+                        .withDescription(VALID_DESCRIPTION_TRANSPORT).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
@@ -122,7 +130,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidExpenseIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenseList().size() + 1);
-        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_BOB).build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+                .withDescription(VALID_DESCRIPTION_TRANSPORT).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
@@ -140,17 +149,17 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getExpenseList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_BOB).build());
+                new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TRANSPORT).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_EXPENSE, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_EXPENSE, DESC_CHICKEN);
 
         // same values -> returns true
-        EditExpenseDescriptor copyDescriptor = new EditExpenseDescriptor(DESC_AMY);
+        EditExpenseDescriptor copyDescriptor = new EditExpenseDescriptor(DESC_CHICKEN);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_EXPENSE, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -164,10 +173,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_EXPENSE, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_EXPENSE, DESC_CHICKEN)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_EXPENSE, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_EXPENSE, DESC_TRANSPORT)));
     }
 
 }

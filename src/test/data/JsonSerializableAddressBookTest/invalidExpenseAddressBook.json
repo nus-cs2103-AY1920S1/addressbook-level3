@@ -1,8 +1,6 @@
 {
   "expenses": [ {
-    "description": "Hans Muster",
-    "price": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+    "description": "$Hans Muster",
+    "price": ",9482424"
   } ]
 }

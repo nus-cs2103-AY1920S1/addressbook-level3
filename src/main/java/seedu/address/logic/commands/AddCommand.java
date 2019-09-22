@@ -16,16 +16,16 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a expense to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the address book. "
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESCRIPTION + "John Doe "
-            + PREFIX_PRICE + "98765432 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_DESCRIPTION + "Chicken Rice "
+            + PREFIX_PRICE + "3.50 "
+            + PREFIX_TAG + "nusDeck "
+            + PREFIX_TAG + "chicken";
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book";

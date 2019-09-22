@@ -17,11 +17,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueExpenseList expenses;
 
     /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+     * The 'unusual' code block below is a non-static initialization block,
+     * sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+     * Note that non-static init blocks are not recommended to use. There are other ways to
+     * avoid duplication among constructors.
      */
     {
         expenses = new UniqueExpenseList();
@@ -59,7 +60,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// expense-level operations
 
     /**
-     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense}
+     * exists in the address book.
      */
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
@@ -77,7 +79,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given expense {@code target} in the list with {@code editedExpense}.
      * {@code target} must exist in the address book.
-     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the address book.
+     * The expense identity of {@code editedExpense} must not be the same as another existing
+     * expense in the address book.
      */
     public void setExpense(Expense target, Expense editedExpense) {
         requireNonNull(editedExpense);

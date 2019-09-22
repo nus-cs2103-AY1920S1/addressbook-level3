@@ -18,7 +18,8 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Expense> 
     @Override
     public boolean test(Expense expense) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(expense.getDescription().fullDescription, keyword));
+                .anyMatch(keyword -> StringUtil
+                        .containsWordIgnoreCase(expense.getDescription().fullDescription, keyword));
     }
 
     @Override
