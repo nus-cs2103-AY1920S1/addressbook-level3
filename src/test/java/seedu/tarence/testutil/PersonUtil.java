@@ -3,7 +3,7 @@ package seedu.tarence.testutil;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 
-import seedu.tarence.logic.commands.AddCommand;
+import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.tarence.model.person.Person;
 
@@ -16,7 +16,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return AddStudentCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**
