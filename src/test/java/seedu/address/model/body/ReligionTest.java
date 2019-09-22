@@ -1,6 +1,7 @@
 package seedu.address.model.body;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class ReligionTest {
 
     @Test
     void enumerateReligion_indexOne_wrong() {
-        assertEquals(Religion.ISLAM.toString(), "12345");
+        assertNotEquals(Religion.ISLAM.toString(), "12345");
     }
 
 }

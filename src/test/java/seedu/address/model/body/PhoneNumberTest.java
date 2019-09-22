@@ -55,6 +55,8 @@ class PhoneNumberTest {
         assertFalse(PhoneNumber.isValidPhoneNumber(" ")); // spaces only
         assertFalse(PhoneNumber.isValidPhoneNumber("8686")); // Not enough digits
         assertFalse(PhoneNumber.isValidPhoneNumber("4848ab122")); // Alphabets in number.
+        assertFalse(PhoneNumber.isValidPhoneNumber("12345678")); // Invalid starting digit
+        assertFalse(PhoneNumber.isValidPhoneNumber("@#!@4a&*(")); // Not digit
 
         // valid PhoneNumbers
         assertTrue(PhoneNumber.isValidPhoneNumber("82371039"));

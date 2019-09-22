@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class PhoneNumber {
     public static final String VALID_NUMBER = "A valid phone number contains exactly 8 digits only."
-            + "The country calling code is omitted and assumed to be +65.";
+            + "The country calling code is omitted and assumed to be +65. The first digit should be '8' or '9'.";
 
     public final String phoneNumber;
 
@@ -52,14 +52,21 @@ public class PhoneNumber {
     }
 
     /**
-     * Checks if a phone number is valid. A valid phone number contains exactly 8 digits only.
-     * The country calling code is omitted and assumed to be +65.
+     * Checks if a phone number is a valid Singaporean number. A valid phone number contains exactly 8 digits only.
+     * The country calling code is omitted and assumed to be +65. The first digit should be '8' or '9'.
      */
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        // Area of improvement: check for correct starting digits too
+        if (phoneNumber.length() == 0) {
+            return false;
+        }
+        boolean isLengthEight = phoneNumber.length() == 8;
+        boolean isFirstDigitCorrect = (phoneNumber.charAt(0) == '8') || (phoneNumber.charAt(0) == '9');
+
         String regex = "\\d+";
         Pattern pattern = Pattern.compile(regex);
-        return (phoneNumber.length() == 8) && (pattern.matcher(phoneNumber).matches());
+        boolean isDigits = (pattern.matcher(phoneNumber).matches());
+
+        return isLengthEight && isDigits && isFirstDigitCorrect;
     }
 }
 
