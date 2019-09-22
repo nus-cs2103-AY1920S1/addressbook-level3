@@ -285,7 +285,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manages large number of contacts and insurance policies faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -302,6 +302,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |delete a person |remove entries that I no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+
+|`* *` |insurance agent prone to mistakes with many entries to manually key in |be sure that the
+details of the buyers are valid without having to manually check every individual record|speed up my
+workflow without having to worry that I might have accidentally keyed in the details wrongly
+or if I have collected invalid information from buyers.
+
+|`* *` |insurance agent with many clients to keep track of |be sure that each individual in my records is only in
+possession of policies he or she is qualified for|
+
+|`* *` |insurance agent with many clients and policies to keep track of |get suggestions of appropriate policies when I assign an inappropriate policy to a buyer
+|quickly rectify the error
+
+|`* *` |insurance agent with many details to key in |get suggestions of auto-corrected commands when I make a typo |speed up my workflow
+possession of policies|
+
+|`* *` |insurance agent with many contacts |be sure that no duplicate profiles are created |minimise the storage space and keep the most updated version of a profile
+
+
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
