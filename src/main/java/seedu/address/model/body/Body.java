@@ -17,24 +17,26 @@ public class Body {
     private final Name middleName;
     private final Name lastName;
     private final Sex sex;
-    private final String dateOfAdmission;
-
-    private String dateOfBirth;
-    private String dateOfDeath;
     private Nric nric;
     private Religion religion;
+
+    private String causeOfDeath;
+    private DonationList organsForDonation;
+    private Status status;
+    private Index fridgeId;
+    private String details;
+
+    private final String dateOfAdmission;
+    private String dateOfBirth;
+    private String dateOfDeath;
+
 
     // Next of kin details
     private Name nextOfKin;
     private Relationship relationship;
     private PhoneNumber kinPhoneNumber;
 
-    private CauseOfDeath cod;
-    private DonationList organsForDonation;
 
-    private Status status;
-    private Index fridgeId;
-    private String details;
 
     public Body(String id, Name name, Name firstName, Name middleName, Name lastName, Sex sex, String dateOfAdmission) {
         this.id = id;
@@ -51,9 +53,7 @@ public class Body {
         return id;
     }
 
-    public Name getName() {
-        return name;
-    }
+    public Name getName() { return name; }
 
     public Name getFirstName() {
         return firstName;
@@ -63,9 +63,7 @@ public class Body {
         return middleName;
     }
 
-    public Name getLastName() {
-        return lastName;
-    }
+    public Name getLastName() { return lastName; }
 
     public Sex getSex() {
         return sex;
@@ -91,9 +89,7 @@ public class Body {
         this.dateOfDeath = dateOfDeath;
     }
 
-    public Nric getNric() {
-        return nric;
-    }
+    public Nric getNric() { return nric; }
 
     public void setNric(Nric nric) {
         this.nric = nric;
@@ -131,13 +127,9 @@ public class Body {
         this.kinPhoneNumber = kinPhoneNumber;
     }
 
-    public CauseOfDeath getCod() {
-        return cod;
-    }
+    public String getCauseOfDeath() { return causeOfDeath; }
 
-    public void setCod(CauseOfDeath cod) {
-        this.cod = cod;
-    }
+    public void setCauseOfDeath(String causeOfDeath) { this.causeOfDeath = causeOfDeath; }
 
     public DonationList getOrgansForDonation() {
         return organsForDonation;

@@ -30,11 +30,19 @@ class PhoneNumberTest {
     }
 
     @Test
-    void testEquals() {
+    void testEquals_self_true() {
         PhoneNumber testPhone = new PhoneNumber("87871234");
+        PhoneNumber otherPhone = new PhoneNumber("87871234");
         assertEquals(testPhone, testPhone);
-        assertNotEquals(testPhone, null);
+        assertEquals(testPhone, otherPhone);
+        assertEquals(testPhone.hashCode(), otherPhone.hashCode());
+    }
+
+    @Test
+    void testEquals_differentAndNull_notEqual() {
+        PhoneNumber testPhone = new PhoneNumber("87871234");
         assertNotEquals(testPhone, new PhoneNumber("98765432"));
+        assertNotEquals(testPhone, null);
     }
 
     @Test
