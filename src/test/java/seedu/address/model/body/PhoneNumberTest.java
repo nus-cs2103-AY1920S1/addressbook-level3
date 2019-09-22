@@ -24,7 +24,7 @@ class PhoneNumberTest {
     }
 
     @Test
-    void getPhoneNumber() {
+    void getPhoneNumber_true() {
         PhoneNumber testPhone = new PhoneNumber("87871234");
         assertEquals("87871234", testPhone.getPhoneNumber());
     }
@@ -47,18 +47,18 @@ class PhoneNumberTest {
 
     @Test
     void isValidPhoneNumber() {
-        // null PhoneNumber`
+        // Null PhoneNumber
         assertThrows(NullPointerException.class, () -> PhoneNumber.isValidPhoneNumber(null));
 
-        // invalid PhoneNumbers
+        // Invalid PhoneNumbers
         assertFalse(PhoneNumber.isValidPhoneNumber("")); // empty string
         assertFalse(PhoneNumber.isValidPhoneNumber(" ")); // spaces only
         assertFalse(PhoneNumber.isValidPhoneNumber("8686")); // Not enough digits
         assertFalse(PhoneNumber.isValidPhoneNumber("4848ab122")); // Alphabets in number.
         assertFalse(PhoneNumber.isValidPhoneNumber("12345678")); // Invalid starting digit
-        assertFalse(PhoneNumber.isValidPhoneNumber("@#!@4a&*(")); // Not digit
+        assertFalse(PhoneNumber.isValidPhoneNumber("@#!@4a&(")); // Not digit
 
-        // valid PhoneNumbers
+        // Valid PhoneNumbers
         assertTrue(PhoneNumber.isValidPhoneNumber("82371039"));
         assertTrue(PhoneNumber.isValidPhoneNumber("98984444"));
     }
