@@ -10,9 +10,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root height="800.0" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false" title="Address App" type="javafx.stage.Stage" width="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root height="1080.0" maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false" title="Address App" type="javafx.stage.Stage" width="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -22,7 +24,7 @@
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
-         <HBox prefHeight="800.0" prefWidth="1100.0">
+         <HBox prefHeight="1080.0" prefWidth="1920.0">
             <children>
                <AnchorPane styleClass="pane-with-border" stylesheets="@DarkTheme.css" HBox.hgrow="NEVER">
                   <children>
@@ -61,29 +63,43 @@
                      </Button>
                   </children>
                </AnchorPane>
-               <AnchorPane minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" HBox.hgrow="ALWAYS" />
-                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="500.0">
-                    <StackPane fx:id="commandBoxPlaceholder" minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+               <AnchorPane prefHeight="1080.0" prefWidth="556.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css">
+                  <children>
+                     <AnchorPane layoutX="1.0" prefHeight="106.0" prefWidth="554.0">
+                        <children>
+                           <Text fill="WHITE" layoutX="103.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STATISTICS">
+                              <font>
+                                 <Font name="Arial Black" size="51.0" />
+                              </font>
+                           </Text>
+                        </children>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </AnchorPane>
+                  </children></AnchorPane>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="900.0" HBox.hgrow="ALWAYS">
+                    <StackPane fx:id="commandBoxPlaceholder" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                 <padding>
                   <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
               </StackPane>
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" minWidth="500.0" prefHeight="100" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                 <padding>
                   <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
               </StackPane>
-                       <VBox fx:id="personList" minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                       <VBox fx:id="personList" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                 <padding>
                   <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
-                <StackPane fx:id="personListPanelPlaceholder" minWidth="480.0" prefHeight="586.0" prefWidth="474.0" VBox.vgrow="ALWAYS">
+                <StackPane fx:id="personListPanelPlaceholder" prefHeight="586.0" prefWidth="474.0" VBox.vgrow="ALWAYS">
                         <VBox.margin>
                            <Insets />
                         </VBox.margin>
                      </StackPane>
               </VBox>
-                    <StackPane fx:id="statusbarPlaceholder" minWidth="500.0" prefWidth="500.0" VBox.vgrow="NEVER" />
+                    <StackPane fx:id="statusbarPlaceholder" prefWidth="500.0" VBox.vgrow="NEVER" />
             </VBox>
             </children>
          </HBox>
