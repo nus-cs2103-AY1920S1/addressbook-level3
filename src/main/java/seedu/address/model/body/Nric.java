@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
  */
 public class Nric {
 
-    public static final String VALID_NRIC = "A valid NRIC number has 9 digits in total, with a letter at the start and "
-            + "end. Singaporeans either have the starting alphabets 'S' or 'T' while foreigners have the alphabets "
+    private static final String VALID_NRIC = "A valid NRIC number has 9 digits in total, with a letter at the start and"
+            + " end. Singaporeans either have the starting alphabets 'S' or 'T' while foreigners have the alphabets "
             + "F' or 'G'. The ending character of each NRIC number can be any alphabet.";
 
     private final String nric;
@@ -37,8 +37,12 @@ public class Nric {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Nric nric1 = (Nric) o;
         return nric.equals(nric1.getNric());
     }
@@ -56,7 +60,7 @@ public class Nric {
      * @return if the string is a valid NRIC number.
      */
     public static boolean isValidNric(String nric) {
-        if (nric.length() == 0 || nric.length() != 9) {
+        if (nric.length() != 9) {
             return false;
         }
 
@@ -64,6 +68,11 @@ public class Nric {
                 && isDigitAndLengthSeven(nric.substring(1, nric.length() - 1));
     }
 
+    /**
+     * Checks if the given string only contains digits and is of length seven.
+     * @param nricDigits
+     * @return
+     */
     public static boolean isDigitAndLengthSeven(String nricDigits) {
         boolean isLengthSeven = nricDigits.length() == 7;
 
@@ -90,9 +99,9 @@ public class Nric {
         case 'T': // Fallthrough
         case 'F': // Fallthrough
         case 'G': // Fallthrough
-            return true && isLetter;
+            return isLetter;
         default:
-            return false && isLetter;
+            return isLetter;
         }
     }
 }

@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+//@@author ambervoong
 class NricTest {
 
     @Test
@@ -16,7 +17,7 @@ class NricTest {
     }
 
     @Test
-    public void constructorNric_EmptyString_throwsIllegalArgumentException() {
+    public void constructorNric_emptyString_throwsIllegalArgumentException() {
         String invalidNric = "";
 
         assertThrows(IllegalArgumentException.class, () -> new Nric(invalidNric));
@@ -90,10 +91,10 @@ class NricTest {
         assertFalse(Nric.isValidStartEndAlphabet('F', '#'));
         assertFalse(Nric.isValidStartEndAlphabet('Z', 'A'));
 
-        assertTrue(Nric.isValidStartEndAlphabet('S','A'));
-        assertTrue(Nric.isValidStartEndAlphabet('F','Z'));
-        assertTrue(Nric.isValidStartEndAlphabet('T','N'));
-        assertTrue(Nric.isValidStartEndAlphabet('G','L'));
+        assertTrue(Nric.isValidStartEndAlphabet('S', 'A'));
+        assertTrue(Nric.isValidStartEndAlphabet('F', 'Z'));
+        assertTrue(Nric.isValidStartEndAlphabet('T', 'N'));
+        assertTrue(Nric.isValidStartEndAlphabet('G', 'L'));
 
     }
 }

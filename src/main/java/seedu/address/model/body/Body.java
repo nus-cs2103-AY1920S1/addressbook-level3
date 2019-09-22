@@ -1,7 +1,7 @@
 package seedu.address.model.body;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.person.Name; // Currently using AB3 Name class.
+import seedu.address.model.person.Name; // Currently using AB3 Name class until further discussion.
 
 //@@author ambervoong
 /**
@@ -9,61 +9,48 @@ import seedu.address.model.person.Name; // Currently using AB3 Name class.
  * Guarantees: name, sex and dateofAdmission are guaranteed to be present.
  */
 public class Body {
-    private final String id;
+    private final BodyIdentificationNumber bodyIdentificationNumber;
 
     // Identity fields.
+    // NOTE: Name details not yet finalised.
     private final Name name;
-    private final Name firstName;
-    private final Name middleName;
-    private final Name lastName;
+
     private final Sex sex;
     private Nric nric;
     private Religion religion;
 
     private String causeOfDeath;
     private DonationList organsForDonation;
+    // NOTE: Status details not yet finalised.
     private Status status;
     private Index fridgeId;
     private String details;
 
+    // NOTE: Date details not yet finalised.
     private final String dateOfAdmission;
     private String dateOfBirth;
     private String dateOfDeath;
-
 
     // Next of kin details
     private Name nextOfKin;
     private Relationship relationship;
     private PhoneNumber kinPhoneNumber;
 
-
-
-    public Body(String id, Name name, Name firstName, Name middleName, Name lastName, Sex sex, String dateOfAdmission) {
-        this.id = id;
+    public Body(BodyIdentificationNumber bodyIdentificationNumber, Name name, Sex sex, String dateOfAdmission) {
+        this.bodyIdentificationNumber = bodyIdentificationNumber;
         this.name = name;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
         this.sex = sex;
         this.dateOfAdmission = dateOfAdmission;
     }
 
     // Getters and Setters
-    public String getId() {
-        return id;
+    public BodyIdentificationNumber getBodyIdentificationNumber() {
+        return bodyIdentificationNumber;
     }
 
-    public Name getName() { return name; }
-
-    public Name getFirstName() {
-        return firstName;
+    public Name getName() {
+        return name;
     }
-
-    public Name getMiddleName() {
-        return middleName;
-    }
-
-    public Name getLastName() { return lastName; }
 
     public Sex getSex() {
         return sex;
@@ -89,7 +76,9 @@ public class Body {
         this.dateOfDeath = dateOfDeath;
     }
 
-    public Nric getNric() { return nric; }
+    public Nric getNric() {
+        return nric;
+    }
 
     public void setNric(Nric nric) {
         this.nric = nric;
@@ -127,9 +116,13 @@ public class Body {
         this.kinPhoneNumber = kinPhoneNumber;
     }
 
-    public String getCauseOfDeath() { return causeOfDeath; }
+    public String getCauseOfDeath() {
+        return causeOfDeath;
+    }
 
-    public void setCauseOfDeath(String causeOfDeath) { this.causeOfDeath = causeOfDeath; }
+    public void setCauseOfDeath(String causeOfDeath) {
+        this.causeOfDeath = causeOfDeath;
+    }
 
     public DonationList getOrgansForDonation() {
         return organsForDonation;
@@ -162,5 +155,6 @@ public class Body {
     public void setDetails(String details) {
         this.details = details;
     }
+
 }
 
