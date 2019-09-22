@@ -46,8 +46,8 @@ public class BodyIdentificationNumber {
     /**
      * Checks if a given string is a valid body identification number. A valid body identification number has a
      * length of 9, starts with 'B', which is followed by 8 digits.
-     * @param identificationNumber String that represents a given NRIC number.
-     * @return true if the string is a valid NRIC number, false otherwise.
+     * @param identificationNumber String that represents a given body identification number.
+     * @return true if the string is a valid body identification number, false otherwise.
      */
     public static boolean isValidIdentificationNumber(String identificationNumber) {
         if (identificationNumber.length() != 9) {
