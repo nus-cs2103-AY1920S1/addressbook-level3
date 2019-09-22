@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
@@ -25,6 +27,16 @@ import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class AddAddressCommandTest {
+
+    /**
+     * Verifies that checking AddAddressCommand for the availability of inverse execution returns true.
+     */
+    @BeforeEach
+    public void test_hasInverseExecution() {
+        Person validPerson = new PersonBuilder().build();
+        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
+        assertTrue(addAddressCommand.hasInverseExecution());
+    }
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {

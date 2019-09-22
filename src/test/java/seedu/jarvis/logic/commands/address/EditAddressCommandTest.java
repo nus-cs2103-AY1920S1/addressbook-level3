@@ -2,18 +2,22 @@ package seedu.jarvis.logic.commands.address;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.jarvis.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseFailure;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.Messages;
@@ -33,7 +37,23 @@ import seedu.jarvis.testutil.PersonBuilder;
  */
 public class EditAddressCommandTest {
 
-    private AddressModel addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+    private AddressModel addressModel;
+
+    @BeforeEach
+    public void setUp() {
+        addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+    }
+
+    /**
+     * Verifies that checking EditAddressCommand for the availability of inverse execution returns true.
+     */
+    @Test
+    public void test_hasInverseExecution() {
+        Person editedPerson = new PersonBuilder().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditAddressCommand editAddressCommand = new EditAddressCommand(INDEX_FIRST_PERSON, descriptor);
+        assertTrue(editAddressCommand.hasInverseExecution());
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -148,6 +168,116 @@ public class EditAddressCommandTest {
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editAddressCommand, addressModel, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    /**
+     * Ensures that CommandException is thrown with the correct message if the edited person to be reverted is not
+     * in address book when inverse execution is invoked.
+     */
+    @Test
+    public void executeInverse_editedPersonNotFound_exceptionThrown() {
+        showPersonAtIndex(addressModel, INDEX_FIRST_PERSON);
+
+        Person personInFilteredList = addressModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+        EditAddressCommand editAddressCommand = new EditAddressCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+
+        String executionExpectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()),
+                new UserPrefs());
+        expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), editedPerson);
+        assertCommandSuccess(editAddressCommand, addressModel, executionExpectedMessage, expectedAddressModel);
+
+        String inverseExecutionExpectedMessage = EditAddressCommand.MESSAGE_INVERSE_PERSON_NOT_FOUND;
+
+        addressModel.deletePerson(editedPerson);
+        assertCommandInverseFailure(editAddressCommand, addressModel, inverseExecutionExpectedMessage);
+    }
+
+    /**
+     * Ensures that CommandException is thrown if reverting the edited person will conflict with an existing
+     * person in the address book.
+     */
+    @Test
+    public void executeInverse_originalPersonAlreadyInAddressBook_exceptionThrown() {
+        showPersonAtIndex(addressModel, INDEX_FIRST_PERSON);
+
+        Person personInFilteredList = addressModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+        EditAddressCommand editAddressCommand = new EditAddressCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+
+        String executionExpectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()),
+                new UserPrefs());
+        expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), editedPerson);
+        assertCommandSuccess(editAddressCommand, addressModel, executionExpectedMessage, expectedAddressModel);
+
+        String inverseExecutionExpectedMessage = EditAddressCommand.MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_PERSON;
+
+        addressModel.addPerson(personInFilteredList);
+        assertCommandInverseFailure(editAddressCommand, addressModel, inverseExecutionExpectedMessage);
+    }
+
+    /**
+     * Ensures that the CommandResult with the appropriate message is returned from a successful inverse execution,
+     * that edits made to person was reverted.
+     */
+    @Test
+    public void executeInverse_success() {
+        showPersonAtIndex(addressModel, INDEX_FIRST_PERSON);
+
+        Person personInFilteredList = addressModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+        EditAddressCommand editAddressCommand = new EditAddressCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+
+        String executionExpectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()),
+                new UserPrefs());
+        expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), editedPerson);
+        assertCommandSuccess(editAddressCommand, addressModel, executionExpectedMessage, expectedAddressModel);
+
+        String inverseExecutionExpectedMessage = EditAddressCommand.MESSAGE_INVERSE_SUCCESS_EDIT;
+
+        expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), personInFilteredList);
+        assertCommandInverseSuccess(editAddressCommand, addressModel, inverseExecutionExpectedMessage,
+                expectedAddressModel);
+    }
+
+    /**
+     * Tests that repeatedly executing and inversely executing command works as intended.
+     */
+    @Test
+    public void test_repeatedExecutionAndInverseExecution() {
+        showPersonAtIndex(addressModel, INDEX_FIRST_PERSON);
+
+        Person personInFilteredList = addressModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+
+        EditAddressCommand editAddressCommand = new EditAddressCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+        AddressModel expectedAddressModel = new AddressModelManager(new AddressBook(addressModel.getAddressBook()),
+                new UserPrefs());
+
+        String executionExpectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                editedPerson);
+        String inverseExecutionExpectedMessage = EditAddressCommand.MESSAGE_INVERSE_SUCCESS_EDIT;
+
+        int cycles = 1000;
+
+        for (int i = 0; i < cycles; ++i) {
+            expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), editedPerson);
+            assertCommandSuccess(editAddressCommand, addressModel, executionExpectedMessage, expectedAddressModel);
+
+            expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), personInFilteredList);
+            assertCommandInverseSuccess(editAddressCommand, addressModel, inverseExecutionExpectedMessage,
+                    expectedAddressModel);
+        };
     }
 
     @Test

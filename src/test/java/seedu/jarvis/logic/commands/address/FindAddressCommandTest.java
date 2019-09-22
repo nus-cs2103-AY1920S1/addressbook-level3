@@ -3,8 +3,10 @@ package seedu.jarvis.logic.commands.address;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.jarvis.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalPersons.CARL;
 import static seedu.jarvis.testutil.TypicalPersons.ELLE;
 import static seedu.jarvis.testutil.TypicalPersons.FIONA;
@@ -13,8 +15,10 @@ import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.AddressModel;
 import seedu.jarvis.model.AddressModelManager;
 import seedu.jarvis.model.UserPrefs;
@@ -24,8 +28,24 @@ import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the AddressModel) for {@code FindAddressCommand}.
  */
 public class FindAddressCommandTest {
-    private AddressModel addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
-    private AddressModel expectedAddressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+    private AddressModel addressModel;
+    private AddressModel expectedAddressModel;
+
+    @BeforeEach
+    public void setUp() {
+        addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedAddressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+    }
+
+    /**
+     * Verifies that checking FindAddressCommand for the availability of inverse execution returns false.
+     */
+    @Test
+    public void test_hasInverseExecution() {
+        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        FindAddressCommand findAddressCommand = new FindAddressCommand(predicate);
+        assertFalse(findAddressCommand.hasInverseExecution());
+    }
 
     @Test
     public void equals() {
@@ -72,6 +92,18 @@ public class FindAddressCommandTest {
         expectedAddressModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, addressModel, expectedMessage, expectedAddressModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), addressModel.getFilteredPersonList());
+    }
+
+    /**
+     * Verifies that calling inverse execution of FindAddressCommand will always throw command exception with the
+     * correct message.
+     */
+    @Test
+    public void test_executeInverse_exceptionThrown() {
+        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        FindAddressCommand findAddressCommand = new FindAddressCommand(predicate);
+        assertThrows(CommandException.class,
+                FindAddressCommand.MESSAGE_NO_INVERSE, () -> findAddressCommand.executeInverse(addressModel));
     }
 
     /**

@@ -52,8 +52,21 @@ public class EditAddressCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
+    public static final String MESSAGE_INVERSE_SUCCESS_EDIT = "Reverted edit.";
+
+    public static final String MESSAGE_INVERSE_PERSON_NOT_FOUND =
+            "Unable to edit person, person not found in the address book.";
+
+    public static final String MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_PERSON =
+            "There is a conflict in reverting edits made to person as there is an existing person with similar details";
+
+    public static final boolean HAS_INVERSE = true;
+
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
+
+    private Person originalPerson;
+    private Person editedPerson;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -67,25 +80,80 @@ public class EditAddressCommand extends Command {
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
+    /**
+     * Returns whether the command has an inverse execution.
+     * If the command has no inverse execution, then calling {@code executeInverse}
+     * will be guaranteed to always throw a {@code CommandException}.
+     *
+     * @return Whether the command has an inverse execution.
+     */
+    @Override
+    public boolean hasInverseExecution() {
+        return HAS_INVERSE;
+    }
+
+    /**
+     * Edits a {@code Person} in address book with a new set of description from {@code EditPersonDescriptor}.
+     *
+     * @param addressModel {@code AddressModel} which the command should operate on.
+     * @return {@code CommandResult} of a successful edit.
+     * @throws CommandException If the targetIndex is out of range of the number of persons in the address book in
+     * zero-based indexing, or if the new edited description is already of an existing {@code Person} in address book.
+     */
     @Override
     public CommandResult execute(AddressModel addressModel) throws CommandException {
         requireNonNull(addressModel);
+
         List<Person> lastShownList = addressModel.getFilteredPersonList();
 
+        // checks if index is out of bounds.
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        originalPerson = lastShownList.get(index.getZeroBased());
+        Person createdEditedPerson = createEditedPerson(originalPerson, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && addressModel.hasPerson(editedPerson)) {
+        // checks if edited person does not conflict with another existing person that is not the original person.
+        if (!originalPerson.isSamePerson(createdEditedPerson) && addressModel.hasPerson(createdEditedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
+        editedPerson = createdEditedPerson;
 
-        addressModel.setPerson(personToEdit, editedPerson);
+        addressModel.setPerson(originalPerson, createdEditedPerson);
         addressModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+
+    /**
+     * Reverts back the edits made to {@code Person} in address book by the command's execution.
+     *
+     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @return {@code CommandResult} of a successful revert of {@code Person} if the revert is possible, or a
+     * {@code CommandResult} that the edited person is no longer in the address book, or a {@code CommandResult} that
+     * there will be a conflict with an existing {@code Person} in the address book if the revert is made.
+     * @throws CommandException If the person to be reverted is not found in the address book, or if reverting the edits
+     * to the person will result in a conflict with another person in the address book.
+     */
+    @Override
+    public CommandResult executeInverse(AddressModel addressModel) throws CommandException {
+        requireNonNull(addressModel);
+
+        // checks if person to be reverted is in address book.
+        if (!addressModel.hasPerson(editedPerson)) {
+            throw new CommandException(MESSAGE_INVERSE_PERSON_NOT_FOUND);
+        }
+
+        // checks if reverting the person will be in conflict with another existing person in the address book.
+        if (!originalPerson.isSamePerson(editedPerson) && addressModel.hasPerson(originalPerson)) {
+            throw new CommandException(MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_PERSON);
+        }
+
+        addressModel.setPerson(editedPerson, originalPerson);
+        addressModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
     }
 
     /**
