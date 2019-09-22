@@ -7,7 +7,7 @@ import seedu.address.model.student.Student;
 
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Student objects.
  */
 public class StudentBuilder extends PersonBuilder {
 

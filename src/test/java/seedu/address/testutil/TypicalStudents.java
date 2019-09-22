@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import seedu.address.model.student.Student;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Student} objects to be used in tests.
  */
 public class TypicalStudents {
 
