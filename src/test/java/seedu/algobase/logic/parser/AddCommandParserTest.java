@@ -63,7 +63,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + AUTHOR_DESC_BOB + WEBLINK_DESC_AMY + WEBLINK_DESC_BOB
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedProblem));
 
-        // multiple descriptiones - last description accepted
+        // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AUTHOR_DESC_BOB + WEBLINK_DESC_BOB + DESCRIPTION_DESC_AMY
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedProblem));
 
