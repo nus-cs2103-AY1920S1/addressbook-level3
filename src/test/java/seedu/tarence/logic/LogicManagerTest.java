@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.tarence.logic.commands.AddCommand;
+import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.commands.exceptions.CommandException;
@@ -77,7 +77,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY;
+        String addCommand = AddStudentCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

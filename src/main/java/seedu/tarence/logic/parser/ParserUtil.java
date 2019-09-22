@@ -6,7 +6,9 @@ import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.commons.util.StringUtil;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.person.Email;
+import seedu.tarence.model.person.MatricNum;
 import seedu.tarence.model.person.Name;
+import seedu.tarence.model.person.NusnetId;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -56,5 +58,35 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String matricNum} into an {@code MatricNum}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code matricNum} is invalid.
+     */
+    public static MatricNum parseMatricNum(String matricNum) throws ParseException {
+        requireNonNull(matricNum);
+        String trimmedMatricNum = matricNum.trim();
+        if (!MatricNum.isValidMatricNum(trimmedMatricNum)) {
+            throw new ParseException(MatricNum.MESSAGE_CONSTRAINTS);
+        }
+        return new MatricNum(trimmedMatricNum);
+    }
+
+    /**
+     * Parses a {@code String nusnetId} into an {@code NusnetId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nusnetId} is invalid.
+     */
+    public static NusnetId parseNusnetId(String nusnetId) throws ParseException {
+        requireNonNull(nusnetId);
+        String trimmedNusnetId = nusnetId.trim();
+        if (!NusnetId.isValidNusnetId(trimmedNusnetId)) {
+            throw new ParseException(MatricNum.MESSAGE_CONSTRAINTS);
+        }
+        return new NusnetId(trimmedNusnetId);
     }
 }

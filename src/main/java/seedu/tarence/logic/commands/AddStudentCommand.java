@@ -11,9 +11,9 @@ import seedu.tarence.model.person.Person;
 /**
  * Adds a person into T.A.rence.
  */
-public class AddCommand extends Command {
+public class AddStudentCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addStudent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person into T.A.rence. "
             + "Parameters: "
@@ -31,7 +31,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public AddStudentCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -51,7 +51,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddStudentCommand // instanceof handles nulls
+                && toAdd.equals(((AddStudentCommand) other).toAdd));
     }
 }
