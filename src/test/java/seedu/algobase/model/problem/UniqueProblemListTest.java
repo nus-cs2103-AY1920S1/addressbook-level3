@@ -3,7 +3,7 @@ package seedu.algobase.model.problem;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.algobase.testutil.Assert.assertThrows;
 import static seedu.algobase.testutil.TypicalProblems.ALICE;
@@ -42,7 +42,8 @@ public class UniqueProblemListTest {
     @Test
     public void contains_problemWithSameIdentityFieldsInList_returnsTrue() {
         uniqueProblemList.add(ALICE);
-        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+                .withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueProblemList.contains(editedAlice));
     }
@@ -85,7 +86,8 @@ public class UniqueProblemListTest {
     @Test
     public void setProblem_editedProblemHasSameIdentity_success() {
         uniqueProblemList.add(ALICE);
-        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+                .withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueProblemList.setProblem(ALICE, editedAlice);
         UniqueProblemList expectedUniqueProblemList = new UniqueProblemList();

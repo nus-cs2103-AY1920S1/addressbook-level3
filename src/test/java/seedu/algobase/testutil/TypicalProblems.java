@@ -1,15 +1,15 @@
 package seedu.algobase.testutil;
 
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_AUTHOR_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_AUTHOR_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_WEBLINK_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_WEBLINK_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,10 +49,10 @@ public class TypicalProblems {
             .withWeblink("hans@example.com").withDescription("chicago ave").build();
 
     // Manually added - Problem's details found in {@code CommandTestUtil}
-    public static final Problem AMY = new ProblemBuilder().withName(VALID_NAME_AMY).withAuthor(VALID_PHONE_AMY)
-            .withWeblink(VALID_EMAIL_AMY).withDescription(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Problem BOB = new ProblemBuilder().withName(VALID_NAME_BOB).withAuthor(VALID_PHONE_BOB)
-            .withWeblink(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB)
+    public static final Problem AMY = new ProblemBuilder().withName(VALID_NAME_AMY).withAuthor(VALID_AUTHOR_AMY)
+            .withWeblink(VALID_WEBLINK_AMY).withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Problem BOB = new ProblemBuilder().withName(VALID_NAME_BOB).withAuthor(VALID_AUTHOR_BOB)
+            .withWeblink(VALID_WEBLINK_BOB).withDescription(VALID_DESCRIPTION_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

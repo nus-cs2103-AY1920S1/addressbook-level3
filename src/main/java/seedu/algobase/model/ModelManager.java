@@ -1,7 +1,6 @@
 package seedu.algobase.model;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;

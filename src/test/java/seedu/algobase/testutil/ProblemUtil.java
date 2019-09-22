@@ -1,10 +1,10 @@
 package seedu.algobase.testutil;
 
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import java.util.Set;
 
@@ -31,9 +31,9 @@ public class ProblemUtil {
     public static String getProblemDetails(Problem problem) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + problem.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + problem.getAuthor().value + " ");
-        sb.append(PREFIX_EMAIL + problem.getWebLink().value + " ");
-        sb.append(PREFIX_ADDRESS + problem.getDescription().value + " ");
+        sb.append(PREFIX_AUTHOR + problem.getAuthor().value + " ");
+        sb.append(PREFIX_WEBLINK + problem.getWebLink().value + " ");
+        sb.append(PREFIX_DESCRIPTION + problem.getDescription().value + " ");
         problem.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -46,9 +46,9 @@ public class ProblemUtil {
     public static String getEditProblemDescriptorDetails(EditProblemDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getAuthor().ifPresent(author -> sb.append(PREFIX_PHONE).append(author.value).append(" "));
-        descriptor.getWebLink().ifPresent(weblink -> sb.append(PREFIX_EMAIL).append(weblink.value).append(" "));
-        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_ADDRESS).append(description.value)
+        descriptor.getAuthor().ifPresent(author -> sb.append(PREFIX_AUTHOR).append(author.value).append(" "));
+        descriptor.getWebLink().ifPresent(weblink -> sb.append(PREFIX_WEBLINK).append(weblink.value).append(" "));
+        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION).append(description.value)
                 .append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

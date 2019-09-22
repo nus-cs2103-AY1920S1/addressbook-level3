@@ -1,29 +1,29 @@
 package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.algobase.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.algobase.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.algobase.logic.commands.CommandTestUtil.AUTHOR_DESC_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.AUTHOR_DESC_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.INVALID_AUTHOR_DESC;
+import static seedu.algobase.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.algobase.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.algobase.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.algobase.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.algobase.logic.commands.CommandTestUtil.INVALID_WEBLINK_DESC;
 import static seedu.algobase.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.algobase.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_AUTHOR_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_AUTHOR_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_WEBLINK_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_WEBLINK_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.WEBLINK_DESC_AMY;
+import static seedu.algobase.logic.commands.CommandTestUtil.WEBLINK_DESC_BOB;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.algobase.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -82,18 +82,18 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Author.MESSAGE_CONSTRAINTS); // invalid author
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, WebLink.MESSAGE_CONSTRAINTS); // invalid weblink
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser, "1" + INVALID_AUTHOR_DESC, Author.MESSAGE_CONSTRAINTS); // invalid author
+        assertParseFailure(parser, "1" + INVALID_WEBLINK_DESC, WebLink.MESSAGE_CONSTRAINTS); // invalid weblink
+        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
                 Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid author followed by valid weblink
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Author.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_AUTHOR_DESC + WEBLINK_DESC_AMY, Author.MESSAGE_CONSTRAINTS);
 
         // valid author followed by invalid author. The test case for invalid author followed by valid author
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Author.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + AUTHOR_DESC_BOB + INVALID_AUTHOR_DESC, Author.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Problem} being edited,
         // parsing it together with a valid tag results in error
@@ -106,18 +106,18 @@ public class EditCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser,
-                "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+                "1" + INVALID_NAME_DESC + INVALID_WEBLINK_DESC + VALID_DESCRIPTION_AMY + VALID_AUTHOR_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + AUTHOR_DESC_BOB + TAG_DESC_HUSBAND
+                + WEBLINK_DESC_AMY + DESCRIPTION_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAuthor(VALID_PHONE_BOB).withWeblink(VALID_EMAIL_AMY).withDescription(VALID_ADDRESS_AMY)
+                .withAuthor(VALID_AUTHOR_BOB).withWeblink(VALID_WEBLINK_AMY).withDescription(VALID_DESCRIPTION_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -127,10 +127,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + AUTHOR_DESC_BOB + WEBLINK_DESC_AMY;
 
-        EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_PHONE_BOB)
-                .withWeblink(VALID_EMAIL_AMY).build();
+        EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_AUTHOR_BOB)
+                .withWeblink(VALID_WEBLINK_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -146,20 +146,20 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // author
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_PHONE_AMY).build();
+        userInput = targetIndex.getOneBased() + AUTHOR_DESC_AMY;
+        descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_AUTHOR_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // weblink
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditProblemDescriptorBuilder().withWeblink(VALID_EMAIL_AMY).build();
+        userInput = targetIndex.getOneBased() + WEBLINK_DESC_AMY;
+        descriptor = new EditProblemDescriptorBuilder().withWeblink(VALID_WEBLINK_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // description
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditProblemDescriptorBuilder().withDescription(VALID_ADDRESS_AMY).build();
+        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_AMY;
+        descriptor = new EditProblemDescriptorBuilder().withDescription(VALID_DESCRIPTION_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -173,12 +173,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
-                + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
-                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + AUTHOR_DESC_AMY + DESCRIPTION_DESC_AMY + WEBLINK_DESC_AMY
+                + TAG_DESC_FRIEND + AUTHOR_DESC_AMY + DESCRIPTION_DESC_AMY + WEBLINK_DESC_AMY + TAG_DESC_FRIEND
+                + AUTHOR_DESC_BOB + DESCRIPTION_DESC_BOB + WEBLINK_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_PHONE_BOB)
-                .withWeblink(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND,
+        EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_AUTHOR_BOB)
+                .withWeblink(VALID_WEBLINK_BOB).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_FRIEND,
                         VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -190,16 +190,16 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_PHONE_BOB).build();
+        String userInput = targetIndex.getOneBased() + INVALID_AUTHOR_DESC + AUTHOR_DESC_BOB;
+        EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_AUTHOR_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
-                + PHONE_DESC_BOB;
-        descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_PHONE_BOB).withWeblink(VALID_EMAIL_BOB)
-                .withDescription(VALID_ADDRESS_BOB).build();
+        userInput = targetIndex.getOneBased() + WEBLINK_DESC_BOB + INVALID_AUTHOR_DESC + DESCRIPTION_DESC_BOB
+                + AUTHOR_DESC_BOB;
+        descriptor = new EditProblemDescriptorBuilder().withAuthor(VALID_AUTHOR_BOB).withWeblink(VALID_WEBLINK_BOB)
+                .withDescription(VALID_DESCRIPTION_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

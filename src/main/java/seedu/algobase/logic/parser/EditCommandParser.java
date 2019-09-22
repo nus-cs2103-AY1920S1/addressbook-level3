@@ -2,11 +2,11 @@ package seedu.algobase.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -32,7 +32,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_WEBLINK, PREFIX_DESCRIPTION,
+                        PREFIX_TAG);
 
         Index index;
 
@@ -46,15 +47,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editProblemDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editProblemDescriptor.setAuthor(ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
+            editProblemDescriptor.setAuthor(ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editProblemDescriptor.setWebLink(ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_WEBLINK).isPresent()) {
+            editProblemDescriptor.setWebLink(ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editProblemDescriptor.setDescription(
-                    ParserUtil.parseDescription(argMultimap.getValue(PREFIX_ADDRESS).get()));
+                    ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editProblemDescriptor::setTags);
 

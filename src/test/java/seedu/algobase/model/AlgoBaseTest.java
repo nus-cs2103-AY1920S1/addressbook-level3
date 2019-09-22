@@ -3,7 +3,7 @@ package seedu.algobase.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.algobase.testutil.Assert.assertThrows;
 import static seedu.algobase.testutil.TypicalProblems.ALICE;
@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.algobase.model.problem.Problem;
-
 import seedu.algobase.model.problem.exceptions.DuplicateProblemException;
 import seedu.algobase.testutil.ProblemBuilder;
 
@@ -48,7 +47,8 @@ public class AlgoBaseTest {
     @Test
     public void resetData_withDuplicateProblems_throwsDuplicateProblemException() {
         // Two problems with the same identity fields
-        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+                .withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Problem> newProblems = Arrays.asList(ALICE, editedAlice);
         AlgoBaseStub newData = new AlgoBaseStub(newProblems);
@@ -75,7 +75,8 @@ public class AlgoBaseTest {
     @Test
     public void hasProblem_problemWithSameIdentityFieldsInAlgoBase_returnsTrue() {
         algoBase.addProblem(ALICE);
-        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Problem editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+                .withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(algoBase.hasProblem(editedAlice));
     }

@@ -17,9 +17,9 @@ import seedu.algobase.model.util.SampleDataUtil;
 public class ProblemBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_AUTHOR = "85355255";
+    public static final String DEFAULT_WEBLINK = "alice@gmail.com";
+    public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Author author;
@@ -29,9 +29,9 @@ public class ProblemBuilder {
 
     public ProblemBuilder() {
         name = new Name(DEFAULT_NAME);
-        author = new Author(DEFAULT_PHONE);
-        webLink = new WebLink(DEFAULT_EMAIL);
-        description = new Description(DEFAULT_ADDRESS);
+        author = new Author(DEFAULT_AUTHOR);
+        webLink = new WebLink(DEFAULT_WEBLINK);
+        description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
     }
 

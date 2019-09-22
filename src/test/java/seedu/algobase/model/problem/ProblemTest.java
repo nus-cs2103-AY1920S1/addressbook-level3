@@ -2,11 +2,11 @@ package seedu.algobase.model.problem;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_AUTHOR_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_WEBLINK_BOB;
 import static seedu.algobase.testutil.Assert.assertThrows;
 import static seedu.algobase.testutil.TypicalProblems.ALICE;
 import static seedu.algobase.testutil.TypicalProblems.BOB;
@@ -33,7 +33,7 @@ public class ProblemTest {
 
         // different author and weblink -> returns false
         Problem editedAlice =
-                new ProblemBuilder(ALICE).withAuthor(VALID_PHONE_BOB).withWeblink(VALID_EMAIL_BOB).build();
+                new ProblemBuilder(ALICE).withAuthor(VALID_AUTHOR_BOB).withWeblink(VALID_WEBLINK_BOB).build();
         assertFalse(ALICE.isSameProblem(editedAlice));
 
         // different name -> returns false
@@ -41,17 +41,18 @@ public class ProblemTest {
         assertFalse(ALICE.isSameProblem(editedAlice));
 
         // same name, same author, different attributes -> returns true
-        editedAlice = new ProblemBuilder(ALICE).withWeblink(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB)
+        editedAlice = new ProblemBuilder(ALICE).withWeblink(VALID_WEBLINK_BOB).withDescription(VALID_DESCRIPTION_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameProblem(editedAlice));
 
         // same name, same weblink, different attributes -> returns true
-        editedAlice = new ProblemBuilder(ALICE).withAuthor(VALID_PHONE_BOB).withDescription(VALID_ADDRESS_BOB)
+        editedAlice = new ProblemBuilder(ALICE).withAuthor(VALID_AUTHOR_BOB).withDescription(VALID_DESCRIPTION_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameProblem(editedAlice));
 
         // same name, same author, same weblink, different attributes -> returns true
-        editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+                .build();
         assertTrue(ALICE.isSameProblem(editedAlice));
     }
 
@@ -78,15 +79,15 @@ public class ProblemTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different author -> returns false
-        editedAlice = new ProblemBuilder(ALICE).withAuthor(VALID_PHONE_BOB).build();
+        editedAlice = new ProblemBuilder(ALICE).withAuthor(VALID_AUTHOR_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different weblink -> returns false
-        editedAlice = new ProblemBuilder(ALICE).withWeblink(VALID_EMAIL_BOB).build();
+        editedAlice = new ProblemBuilder(ALICE).withWeblink(VALID_WEBLINK_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different description -> returns false
-        editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).build();
+        editedAlice = new ProblemBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

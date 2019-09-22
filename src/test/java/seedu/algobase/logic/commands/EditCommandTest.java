@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.algobase.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.algobase.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_AUTHOR_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.algobase.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.algobase.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -54,11 +54,11 @@ public class EditCommandTest {
         Problem lastProblem = model.getFilteredProblemList().get(indexLastProblem.getZeroBased());
 
         ProblemBuilder problemInList = new ProblemBuilder(lastProblem);
-        Problem editedProblem = problemInList.withName(VALID_NAME_BOB).withAuthor(VALID_PHONE_BOB)
+        Problem editedProblem = problemInList.withName(VALID_NAME_BOB).withAuthor(VALID_AUTHOR_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditProblemDescriptor descriptor = new EditProblemDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAuthor(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withAuthor(VALID_AUTHOR_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastProblem, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedProblem);

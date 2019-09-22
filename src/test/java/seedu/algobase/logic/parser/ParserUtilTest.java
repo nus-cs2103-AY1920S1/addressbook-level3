@@ -22,15 +22,15 @@ import seedu.algobase.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_AUTHOR = "+651234";
+    private static final String INVALID_DESCRIPTION = " ";
+    private static final String INVALID_WEBLINK = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_AUTHOR = "123456";
+    private static final String VALID_DESCRIPTION = "123 Main Street #0505";
+    private static final String VALID_WEBLINK = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -86,19 +86,19 @@ public class ParserUtilTest {
 
     @Test
     public void parseAuthor_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAuthor(INVALID_PHONE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAuthor(INVALID_AUTHOR));
     }
 
     @Test
     public void parseAuthor_validValueWithoutWhitespace_returnsAuthor() throws Exception {
-        Author expectedAuthor = new Author(VALID_PHONE);
-        assertEquals(expectedAuthor, ParserUtil.parseAuthor(VALID_PHONE));
+        Author expectedAuthor = new Author(VALID_AUTHOR);
+        assertEquals(expectedAuthor, ParserUtil.parseAuthor(VALID_AUTHOR));
     }
 
     @Test
     public void parseAuthor_validValueWithWhitespace_returnsTrimmedAuthor() throws Exception {
-        String authorWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Author expectedAuthor = new Author(VALID_PHONE);
+        String authorWithWhitespace = WHITESPACE + VALID_AUTHOR + WHITESPACE;
+        Author expectedAuthor = new Author(VALID_AUTHOR);
         assertEquals(expectedAuthor, ParserUtil.parseAuthor(authorWithWhitespace));
     }
 
@@ -109,19 +109,19 @@ public class ParserUtilTest {
 
     @Test
     public void parseDescription_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_ADDRESS));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
     }
 
     @Test
     public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
-        Description expectedDescription = new Description(VALID_ADDRESS);
-        assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_ADDRESS));
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_DESCRIPTION));
     }
 
     @Test
     public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
-        String descriptionWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Description expectedDescription = new Description(VALID_ADDRESS);
+        String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
         assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
     }
 
@@ -132,19 +132,19 @@ public class ParserUtilTest {
 
     @Test
     public void parseWeblink_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseWeblink(INVALID_EMAIL));
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeblink(INVALID_WEBLINK));
     }
 
     @Test
     public void parseWeblink_validValueWithoutWhitespace_returnsWeblink() throws Exception {
-        WebLink expectedWebLink = new WebLink(VALID_EMAIL);
-        assertEquals(expectedWebLink, ParserUtil.parseWeblink(VALID_EMAIL));
+        WebLink expectedWebLink = new WebLink(VALID_WEBLINK);
+        assertEquals(expectedWebLink, ParserUtil.parseWeblink(VALID_WEBLINK));
     }
 
     @Test
     public void parseWeblink_validValueWithWhitespace_returnsTrimmedWeblink() throws Exception {
-        String weblinkWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        WebLink expectedWebLink = new WebLink(VALID_EMAIL);
+        String weblinkWithWhitespace = WHITESPACE + VALID_WEBLINK + WHITESPACE;
+        WebLink expectedWebLink = new WebLink(VALID_WEBLINK);
         assertEquals(expectedWebLink, ParserUtil.parseWeblink(weblinkWithWhitespace));
     }
 

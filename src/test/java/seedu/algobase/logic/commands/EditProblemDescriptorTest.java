@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.algobase.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.algobase.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_AUTHOR_BOB;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.algobase.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_WEBLINK_BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,15 +41,15 @@ public class EditProblemDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different author -> returns false
-        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withAuthor(VALID_PHONE_BOB).build();
+        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withAuthor(VALID_AUTHOR_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different weblink -> returns false
-        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withWeblink(VALID_EMAIL_BOB).build();
+        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withWeblink(VALID_WEBLINK_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different description -> returns false
-        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withDescription(VALID_ADDRESS_BOB).build();
+        editedAmy = new EditProblemDescriptorBuilder(DESC_AMY).withDescription(VALID_DESCRIPTION_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
