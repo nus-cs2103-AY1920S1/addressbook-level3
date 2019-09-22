@@ -1,6 +1,8 @@
 package seedu.jarvis.logic.commands.address;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseFailure;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -41,6 +43,69 @@ public class AddAddressCommandIntegrationTest {
         Person personInList = addressModel.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddAddressCommand(personInList), addressModel,
                 AddAddressCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    /**
+     * Ensures that CommandException is thrown if the person to delete is not found in address book.
+     */
+    @Test
+    public void executeInverse_personNotFound_exceptionThrown() {
+        Person validPerson = new PersonBuilder().build();
+        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
+
+        AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
+        expectedAddressModel.addPerson(validPerson);
+
+        assertCommandSuccess(addAddressCommand, addressModel,
+                String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
+
+        addressModel.deletePerson(validPerson);
+
+        assertCommandInverseFailure(addAddressCommand, addressModel,
+                String.format(AddAddressCommand.MESSAGE_INVERSE_PERSON_NOT_FOUND, validPerson));
+    }
+
+    /**
+     * Ensures that the CommandResult with the appropriate message is returned from a successful inverse execution,
+     * that the person to be deleted is removed.
+     */
+    @Test
+    public void test_executeInverse_success() {
+        Person validPerson = new PersonBuilder().build();
+        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
+
+        AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
+        expectedAddressModel.addPerson(validPerson);
+
+        assertCommandSuccess(addAddressCommand, addressModel,
+                String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
+
+        expectedAddressModel.deletePerson(validPerson);
+
+        assertCommandInverseSuccess(addAddressCommand, addressModel,
+                String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, validPerson), expectedAddressModel);
+    }
+
+    /**
+     * Tests that repeatedly executing and inversely executing command works as intended.
+     */
+    @Test
+    public void test_repeatedExecutionAndInverseExecution() {
+        Person validPerson = new PersonBuilder().build();
+        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
+        AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
+
+        int cycles = 1000;
+
+        for (int i = 0; i < cycles; ++i) {
+            expectedAddressModel.addPerson(validPerson);
+            assertCommandSuccess(addAddressCommand, addressModel,
+                    String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
+
+            expectedAddressModel.deletePerson(validPerson);
+            assertCommandInverseSuccess(addAddressCommand, addressModel,
+                    String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, validPerson), expectedAddressModel);
+        }
     }
 
 }

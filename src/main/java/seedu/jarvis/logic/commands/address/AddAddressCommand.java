@@ -38,16 +38,41 @@ public class AddAddressCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
+    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Person: %1$s";
+    public static final String MESSAGE_INVERSE_PERSON_NOT_FOUND = "Person already deleted: %1$s";
+
+    public static final boolean HAS_INVERSE = true;
+
     private final Person toAdd;
 
     /**
-     * Creates an AddAddressCommand to add the specified {@code Person}
+     * Creates an {@code AddAddressCommand} to add the specified {@code Person}.
      */
     public AddAddressCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
 
+    /**
+     * Returns whether the command has an inverse execution.
+     * If the command has no inverse execution, then calling {@code executeInverse}
+     * will be guaranteed to always throw a {@code CommandException}.
+     *
+     * @return Whether the command has an inverse execution.
+     */
+    @Override
+    public boolean hasInverseExecution() {
+        return HAS_INVERSE;
+    }
+
+    /**
+     * Adds {@code Person} to the address book, if person is not already inside address book.
+     *
+     * @param addressModel {@code AddressModel} which the command should operate on.
+     * @return {@code CommandResult} that person was added successfully.
+     * @throws CommandException If there already is a {@code Person} matching the person
+     * to be added in the address book.
+     */
     @Override
     public CommandResult execute(AddressModel addressModel) throws CommandException {
         requireNonNull(addressModel);
@@ -58,6 +83,28 @@ public class AddAddressCommand extends Command {
 
         addressModel.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    /**
+     * Deletes {@code Person} from address book that was added
+     * by this command's execution if person is still in address book.
+     *
+     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @return {@code CommandResult} that person was removed if person was in address book, else
+     * {@code CommandResult} that person was already not in address book.
+     * @throws CommandException If person to be removed is not found in the address book.
+     */
+    @Override
+    public CommandResult executeInverse(AddressModel addressModel) throws CommandException {
+        requireNonNull(addressModel);
+
+        if (!addressModel.hasPerson(toAdd)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_PERSON_NOT_FOUND, toAdd));
+        }
+
+        addressModel.deletePerson(toAdd);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
     }
 
     @Override
