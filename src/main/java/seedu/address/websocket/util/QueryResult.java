@@ -1,5 +1,7 @@
 package seedu.address.websocket.util;
 
+import java.util.logging.Logger;
+
 public class QueryResult {
     private Integer responseCode;
     private String responseResult;
@@ -21,14 +23,15 @@ public class QueryResult {
      * Processes any errors and returns true if not errors are found
      * @return
      */
-    public boolean process(){
+    public boolean process(Logger logger){
         if (this.responseCode == null) {
-            System.out.println("ERROR: " + this.responseResult);
+            logger.warning(this.responseResult);
             return false;
         } else if (this.responseCode != 200) {
-            System.out.println("ERROR: " + this.responseResult + " Response Code: " + this.responseCode);
+            logger.warning(this.responseResult + " response code: " + this.responseCode);
             return false;
         } else {
+            logger.fine(this.responseResult);
             return true;
         }
     }

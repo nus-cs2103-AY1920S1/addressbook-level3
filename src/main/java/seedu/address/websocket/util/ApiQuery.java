@@ -1,13 +1,18 @@
 package seedu.address.websocket.util;
 
+import seedu.address.commons.core.LogsCenter;
+
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ApiQuery {
     public static URL url;
+    private Logger logger;
 
     /**
      * Generate an instance of an API query with the given url
@@ -15,6 +20,7 @@ public class ApiQuery {
      */
     public ApiQuery(String url){
         URL generated_url = UrlUtil.generateUrl(url);
+        this.logger = LogsCenter.getLogger(this.getClass());
 
         if(generated_url == null){
             this.url = null;
@@ -33,7 +39,7 @@ public class ApiQuery {
         String output = "";
 
         if(this.url == null){
-            output = "Invalid URL";
+            output = "Malformed URL Exception";
             return new QueryResult(responseCode, output);
         }
 
@@ -54,7 +60,7 @@ public class ApiQuery {
                         String line;
                         while((line = br.readLine()) != null) {
                             output += line;
-                            System.out.println(line);
+                            logger.fine(line);
                         }
                     } catch (IOException ioe) {
                         output = "Unable to read response";
@@ -78,14 +84,15 @@ public class ApiQuery {
      * @return HttpsURLConnection
      */
     private HttpsURLConnection establishHttpsConnection(URL url){
-        HttpsURLConnection conn = null;
+        HttpsURLConnection conn;
         try{
             conn = (HttpsURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
+            return conn;
         } catch(IOException ioe){
             System.out.println("Failed to establish connection with " + url.toString());
+            return null;
         }
-        return conn;
     }
 }
