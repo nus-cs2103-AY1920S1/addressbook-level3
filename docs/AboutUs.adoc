@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Seller Manager Lite was developed by the https://github.com/orgs/AY1920S1-CS2103T-T09-4/teams/developers[CS2103T T09-4] team. 
+Seller Manager Lite was developed by the https://github.com/orgs/AY1920S1-CS2103T-T09-4/teams/developers[CS2103T T09-4] team.
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::ubersaiyan.png[width="150", align="left"]
 {empty} [https://github.com/uberSaiyan[github]]
 
-Role: Project Architect, Testing, Team Lead 
+Role: Project Architect, Testing, Team Lead
 
 In Charge of: Storage
 
@@ -24,7 +24,7 @@ In Charge of: Storage
 image::eugeneteu.png[width="150", align="left"]
 {empty}[https://github.com/EugeneTeu[github]] [https://eugeneteu.github.io/myWebsite/[Portfolio]]
 
-Role:  DevOps, deliverables and deadlines 
+Role:  DevOps, deliverables and deadlines
 
 In Charge of: Statistics generation
 
@@ -36,7 +36,7 @@ image::yeodonghan.png[width="150", align="left"]
 
 Role: Developer , Scheduling and tracking
 
-In Charge of: Schedule + CRUD 
+In Charge of: Schedule + CRUD
 
 '''
 
