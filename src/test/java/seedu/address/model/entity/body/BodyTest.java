@@ -1,9 +1,11 @@
-package seedu.address.model.body;
+package seedu.address.model.entity.body;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.entity.PhoneNumber;
+import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong

@@ -1,6 +1,8 @@
-package seedu.address.model.body;
+package seedu.address.model.entity.body;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.entity.PhoneNumber;
+import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name; // Currently using AB3 Name class until further discussion.
 
 //@@author ambervoong

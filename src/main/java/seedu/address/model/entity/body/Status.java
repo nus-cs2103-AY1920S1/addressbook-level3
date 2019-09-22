@@ -1,4 +1,4 @@
-package seedu.address.model.body;
+package seedu.address.model.entity.body;
 
 /**
  * Enumerates all the possible states a body undergoes in the mortuary.

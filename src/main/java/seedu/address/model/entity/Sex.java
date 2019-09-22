@@ -1,4 +1,4 @@
-package seedu.address.model.body;
+package seedu.address.model.entity;
 
 //@@author ambervoong
 /**

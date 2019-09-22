@@ -1,4 +1,4 @@
-package seedu.address.model.body;
+package seedu.address.model.entity.body;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
