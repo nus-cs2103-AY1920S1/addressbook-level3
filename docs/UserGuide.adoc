@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= CS ModBuddy - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,23 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-F09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-F09-3`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+CS ModBuddy is for those who *prefer to use a desktop app for planning their modules*.
+More importantly, CS ModBuddy is *optimized for those who prefer to work with a Command Line Interface* (CLI)
+while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, CS ModBuddy can get your module planning done faster than traditional GUI apps.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `csModBuddy.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your module plan.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -46,10 +50,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add SEMESTER MODULE_CODE`, `SEMESTER`
+is a parameter which can be used as `add y1s1 cs1101s`.
+* Items in square brackets are optional e.g `newplan [SHORT_DESCRIPTION]` can be used as `newplan`
+or as `newplan Algo and Graphics`.
+* Items with ... after them can be used multiple times e.g. `TAG_NAME...` can be used as `core`, `core completed`, etc.
+
 ====
 
 === Viewing help : `help`
@@ -150,6 +156,133 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Viewing default tags : `viewdefaulttags`
+Shows all default tag types. +
+Format: `viewdefaulttags`
+****
+List of default tags:
+
+* `completed` +
+_Completed_ modules are modules that are in any semester before the *current semester*.
+* `core` +
+_Core_ modules are *Computer Science Foundation* modules that count towards *Programme Requirements*.
+* `s/u-able` +
+_S/U-able_ modules are modules that permit the *Satisfactory/Unsatisfactory option*.
+* `ue` +
+_UE_ modules are *Unrestricted Elective* modules.
+* `ulr` +
+_ULR_ modules are modules that count towards *University Level Requirements*.
+****
+
+=== Viewing all tags : `viewalltags`
+Shows all tag types. +
+Format: `viewalltags`
+
+=== Adding new tags : `newtag`
+Adds a new tag type that can be used to keep track of other types of modules. +
+Format: `newtag TAG_NAME`
+
+[NOTE]
+If a tag with the specified `TAG_NAME` already exists, no new tag will be created.
+
+Example:
+
+* `newtag exchange` +
+Adds a tag called _exchange_ that can be used to tag modules that are to be taken during an overseas exchange.
+
+=== Renaming an existing tag : `renametag`
+Renames a tag. +
+Format: `renametag ORIGINAL_TAG_NAME NEW_TAG_NAME`
+
+[NOTE]
+Only user-created tags can be renamed, i.e. default tag cannot be renamed.
+
+Example:
+
+* `renametag exchange sep` +
+Renames the tag name from _exchange_ to _sep_.
+
+=== Tagging modules : `tag`
+Attaches a tag to a module. +
+Format: `tag MODULE_CODE TAG_NAME`
+
+[TIP]
+If a tag with the given `TAG_NAME` does not exist, a new tag will automatically be created and tagged to the specified module.
+
+Example:
+
+* `tag cs3230 exchange` +
+Attaches the tag with name _exchange_ to _CS3230_.
+
+=== Removing tags: `removetag`
+Removes a tag from a module. +
+Format: `removetag MODULE_CODE TAG_NAME`
+
+Example:
+
+* `removetag cs3230 exchange`
+
+=== Viewing modules with specific tags : `viewtagged`
+Shows all modules attached to all the specified tags. +
+Format: `viewtagged TAG_NAME ...`
+
+Examples:
+
+* `viewtagged completed` +
+Shows all modules that are tagged as _completed_.
+* `viewtagged core completed` +
+Shows all modules that are tagged as _core_ and _completed_.
+
+=== Viewing tags for a specific module : `viewtags`
+Shows all tags attached to the specified module. +
+Format `viewtags MODULE_CODE`
+
+Examples:
+
+* `viewtags cs2030`
+
+=== Finding modules using the module code : `findmod`
+Shows which semester the specified module is located at. +
+Format: `findmod MODULE_CODE`
+
+Examples:
+
+* `findmod cs1101s`
+* `findmod cs2103`
+
+=== Finding module code using keywords : `getmodcode`
+Shows module codes of all modules with names that contain the specified keywords. +
+Format: `getmodcode KEYWORDS`
+
+Examples:
+
+* `getmodcode algorithms`
+* `getmodcode programming`
+
+=== Viewing prerequisites of a module : `prereq`
+Shows all prerequisite modules for the specified module. +
+Format: `prereq MODULE_CODE`
+
+Example:
+
+* `prereq cs2040`
+
+=== Viewing total completed MCs : `mcs`
+Shows the current total MCs for all *completed* modules. +
+Format: `mcs`
+
+=== Viewing focus area : `viewfocusarea`
+Shows the focus area that the user has previously declared. +
+Format: `viewfocusarea`
+
+=== Viewing modules that can be taken in a given semester : `validmods`
+Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
+Format: `validmods SEMESTER`
+
+Example:
+
+* `validmods y2s1`
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
