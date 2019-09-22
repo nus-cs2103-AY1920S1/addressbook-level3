@@ -14,7 +14,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::ubersaiyan.png[width="150", align="left"]
 {empty} [https://github.com/uberSaiyan[github]]
 
-Role: Project Architect
+Role: Project Architect, Testing, Team Lead 
+
+In Charge of: Storage
 
 '''
 
@@ -22,9 +24,9 @@ Role: Project Architect
 image::eugeneteu.png[width="150", align="left"]
 {empty}[https://github.com/EugeneTeu[github]] [https://eugeneteu.github.io/myWebsite/[Portfolio]]
 
-Role:  Integration, deliverables and deadlines 
+Role:  DevOps, deliverables and deadlines 
 
-In Charge of: 
+In Charge of: Statistics generation
 
 '''
 
@@ -32,9 +34,9 @@ In Charge of:
 image::yeodonghan.png[width="150", align="left"]
 {empty}[https://github.com/yeodonghan[github]]
 
-Role: Scheduling and tracking
+Role: Developer , Scheduling and tracking
 
-Responsibilities: Data
+In Charge of: Schedule + CRUD 
 
 '''
 
@@ -42,9 +44,9 @@ Responsibilities: Data
 image::zhixianggg.png[width="150", align="left"]
 {empty}[https://github.com/zhixianggg[github]]
 
-Role: Code Quality 
+Role: Code Quality, Logic
 
-Responsibilities: Dev Ops + Threading
+In Charge of: Parsing + CRUD
 
 '''
 
@@ -52,8 +54,8 @@ Responsibilities: Dev Ops + Threading
 image::qiujiaaa.png[width="150", align="left"]
 {empty}[https://github.com/qiujiaaa[github]]
 
-Role: Documentation
+Role: Documentation, Code Coverage
 
-Responsibilities: 
+In Charge of: CRUD + storage
 
 '''
