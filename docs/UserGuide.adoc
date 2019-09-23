@@ -98,10 +98,10 @@ A reminder will display when the user starts up the CaloFit if he or she has mis
 * *Add* `add MEAL_NAME [/cal CALORIES]` +
 e.g. `add duck rice /cal 360`
 * *Edit* : `edit MEAL_NUMBER [/name MEAL_NAME] [/cal CALORIES]` +
-e.g. `edit 1 wanton noodle /cal 250`
+e.g. `edit 1 duck noodle /cal 250`
 * *Delete* : `delete MEAL_NUMBER` +
 e.g. `delete 3`
-* *Suggest* : `suggest` 
+* *Suggest* : `suggest`
 * *Set* : `set CALORIES` +
 e.g. `set 2600`
 * *Report* : `report`
