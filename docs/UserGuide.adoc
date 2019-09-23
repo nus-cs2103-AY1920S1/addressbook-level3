@@ -190,7 +190,7 @@ There is no need to save manually.
 Explain how the user can enable/disable data encryption
 
 === Autocomplete  `[coming in v2.0]`
-Press `Tab` to autocomplete the line. (like in command line)
+Press kbd:[Tab] to autocomplete the line. (like in command line)
 
 === Notification for reminders/alerts  `[coming in v2.0]`
 Notification page to show any notifications of reminders or alerts.
