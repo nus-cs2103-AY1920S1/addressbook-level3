@@ -47,7 +47,7 @@ Responsibilities: Ensure project deliverables are done on time and in the right 
 '''
 
 === Wallace Lim
-image::wallacelim97.jpg[width="150", align="left"]
+image::wallacelim97.png[width="150", align="left"]
 {empty}[http://github.com/wallacelim97[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
