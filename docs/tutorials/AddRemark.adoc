@@ -271,10 +271,17 @@ Simply add
 
 [source,java]
 .PersonCard.java
+<<<<<<< HEAD
 
 @FXML
 private Label remark;
 
+=======
+----
+@FXML
+private Label remark;
+----
+>>>>>>> f340c5cf6c8df4e5d4f79895ad0339c6a3b6a2b7
 
 to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-0c6b6abcfac8c205e075294f25e851fe[`seedu.address.ui.PersonCard`].
 `@FXML` is an annotation that marks a private or protected field and makes it accessible to FXML.
