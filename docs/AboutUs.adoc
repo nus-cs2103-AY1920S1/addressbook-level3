@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team Members
 
 === Daniel Wong
-image::dawo5010.jpg[width="150", align="left"]
+image::dawo5010.png[width="150", align="left"]
 {empty}[https://dawo.me/[homepage]] [https://github.com/dawo5010[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Advisor
@@ -18,7 +18,7 @@ Role: Project Advisor
 '''
 
 === Evon Dong
-image::evondong.jpg[width="150", align="left"]
+image::evondong.png[width="150", align="left"]
 {empty}[http://github.com/EvonDong[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -27,7 +27,7 @@ Responsibilities: UI
 '''
 
 === Lim Kang Yee
-image::kangyeelim.jpg[width="150", align="left"]
+image::kangyeelim.png[width="150", align="left"]
 {empty}[http://github.com/kangyeelim[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -36,7 +36,7 @@ Responsibilities: Data
 '''
 
 === Michaela Tang
-image::michaelatsh.jpg[width="150", align="left"]
+image::michaelatsh.png[width="150", align="left"]
 {empty}[http://github.com/MichaelaTSH[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -45,7 +45,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Jin Shuyuan
-image::coderstellaj.jpg[width="150", align="left"]
+image::coderstellaj.png[width="150", align="left"]
 {empty}[http://github.com/CoderStellaJ[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
