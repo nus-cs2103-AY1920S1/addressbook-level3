@@ -62,7 +62,7 @@ Format: `help`
 Split expenses with you friends +
 Format: `split AMOUNT [FLAG] n/NAME1 [n/NAME2]...`
 
-****
+
 * [FLAG] defines how the bill is split
 ** `--even` splits the amount evenly.
 ** `--shares` splits the amount by ration (default = 0)
@@ -72,71 +72,84 @@ Examples:
 * `split 1000 n/Amy n/Betty n/Catherine n/Dan`
 * `split 100 --share n/Albert n/Bernard n/Clement`
 
-=== Listing all persons : `list`
+=== Finance output: `out`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds an expenditure of personal finance +
+Format: `out AMOUNT n/ITEM [t/CATEGORY]`
 
-=== Editing a person : `edit`
+Examples:
+* `out 100 n/milk t/food`
+* `out 29 n/taxi t/transport`
+* `out 12 n/burger`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Finance input: `in`
+
+Adds an income of personal finance +
+Format: `in AMOUNT n/ITEM [t/CATEGORY]`
+
+Examples:
+* `in 100 n/errand t/work`
+* `in 200 n/mom t/family`
+* `in 120 n/work`
+
+=== Display view: `view`
+
+Shows all possible views (spending, projection and loan). +
+Format: `view KEYWORD [TIMEFRAME]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* `KEYWORD` input only accepts `spending`, `projection` and `loan`.
+* `[TIMEFRAME]` input defines the number of days prior to this command for the called projection. (default=30)
+* `view spending` shows a breakdown of your categories of spending
+* `view projection` shows a personal finance projection for a given period of time
+* `view loan` shows the amount of money owed and lent to others
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `view loan`
+* `view projection`
+* `view spending`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting Finance: `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified income or expenditure from the finance manager. +
+Format: `delete --TYPE AMOUNT n/ITEM [t/CATEGORY]`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* `TYPE` only accepts `in` or `out`. (e.g. `delete --out ...` refers to deleting an *expenditure*)
+* Deletes the item from the given category with it's given amount.
+* If there is no given category, it will only search for given type with it's corresponding amount.
+* If AMOUNT/ITEM/CATEGORY or a combination of any of the 3 does not match, no operation will be performed
+* example `delete --in 200 n/mom t/allowance` will delete income of *200* from type: *mom* and category: *allowance*.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete --out 20 n/sprite t/drinks`
+* `delete --out 10 n/car`
+* `delete --in 50 n/mom`
+
+=== Updating Finance: `update`
+
+Updates the specified income or expenditure from the finance manager. +
+Format: `update --TYPE AMOUNT1 AMOUNT2 n/ITEM [t/CATEGORY]`
+
+****
+* `TYPE` only accepts `in` or `out`. (e.g. `update --out ...` refers to deleting an *expenditure*)
+*`AMOUNT1` is the new amount you want to update the current in/out with.
+* Updates the item from the given category with it's given amount.
+* If there is no given category, it will only search for given type with it's corresponding amount.
+* If AMOUNT/ITEM/CATEGORY or a combination of any of the 3 does not match, no operation will be performed
+* example `update --in 100 200 n/mom t/allowance` will update income of *200* to *100* from type: *mom* and category: *allowance*.
+****
+
+Examples:
+
+* `update --out 10 20 n/coke t/drinks`
+* `update --out 100 300 n/transport`
+* `update --in 60 70 n/dad`
 
 // end::delete[]
 === Clearing all entries : `clear`
@@ -151,11 +164,8 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+PalPay data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
@@ -167,14 +177,16 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *In* `in AMOUNT n/ITEM [t/CATEGORY]` +
+e.g. `in 100 n/allowance`
+* *Out* : `out AMOUNT n/ITEM [t/CATEGORY]` + 
+e.g. `out 20 n/coke t/drink`
+* *Update* : `update --TYPE AMOUNT1 AMOUNT2 n/ITEM [t/CATEGORY]` +
+e.g. `update --out 100 300 n/transport`
+* *Delete* : `delete --TYPE AMOUNT n/ITEM [t/CATEGORY]` +
+e.g. `delete --in 200 n/waiter t/work`
+* *Split* : `split AMOUNT [FLAG] n/NAME1 [n/NAME2]...` + 
+e.g. `split 100 --share n/Albert n/Bernard n/Clement`
+* *View* : `view KEYWORD [TIMEFRAME]` +
+e.g. `view loan`, `view projection`, `view spending`
 * *Help* : `help`
