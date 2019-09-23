@@ -469,7 +469,6 @@ The user keys in a negative amount
 +
 Use case resumes from step 4
 
-[[discrete]]
 === Transaction Tab
 
 [discrete]
@@ -533,7 +532,6 @@ Lion replies with wrong input message
 * 2a.
 Lion replies with wrong input message
 
-[[discrete]]
 === Reimbursement Tab
 
 [discrete]
@@ -571,7 +569,6 @@ User disagrees to confirm
 +
 Use case ends
 
-[[discrete]]
 === Inventory Tab
 
 [discrete]
@@ -615,7 +612,6 @@ If typing “total” profit, the lion returns the sum of all price minus sum of
 * 2b.
 If just typing the index, the lion returns the total profit for that item
 
-[[discrete]]
 === Cashier Tab
 
 [discrete]
