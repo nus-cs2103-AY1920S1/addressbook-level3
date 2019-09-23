@@ -10,7 +10,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team Members
 
 === Daniel Wong
-image::dawo5010.png[width="150", align="left"]
+
+image::dawo5010.png[width="150",align="left"]
 {empty}[https://dawo.me/[homepage]] [https://github.com/dawo5010[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -19,7 +20,8 @@ Responsibilities: In charge of Home
 '''
 
 === Evon Dong
-image::evondong.png[width="150", align="left"]
+
+image::evondong.png[width="150",align="left"]
 {empty}[http://github.com/EvonDong[github]] [<<johndoe#, portfolio>>]
 
 Role: Code Quality +
@@ -28,7 +30,8 @@ Responsibilities: In charge of Cashier
 '''
 
 === Lim Kang Yee
-image::kangyeel1im.png[width="150", align="left"]
+
+image::kangyeel1im.png[width="150",align="left"]
 {empty}[http://github.com/kangyeelim[github]] [<<johndoe#, portfolio>>]
 
 Role: Deliverables and deadlines, Scheduling and Tracking +
@@ -37,7 +40,8 @@ Responsibilities: In charge of Transactions
 '''
 
 === Michaela Tang
-image::michaelatsh.png[width="150", align="left"]
+
+image::michaelatsh.png[width="150",align="left"]
 {empty}[http://github.com/MichaelaTSH[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation +
@@ -46,7 +50,8 @@ Responsibilities: In charge of Inventory
 '''
 
 === Jin Shuyuan
-image::coderstellaj.png[width="150", align="left"]
+
+image::coderstellaj.png[width="150",align="left"]
 {empty}[http://github.com/CoderStellaJ[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing +
