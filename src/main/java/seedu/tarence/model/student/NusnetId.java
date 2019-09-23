@@ -1,4 +1,4 @@
-package seedu.tarence.model.person;
+package seedu.tarence.model.student;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.AppUtil.checkArgument;
@@ -14,7 +14,7 @@ public class NusnetId {
     /*
      * Matriculation number is an "E", followed by exactly 7 numbers.
      */
-    public static final String VALIDATION_REGEX = "\\b[eE][0-9]{7}(?!@)";
+    public static final String VALIDATION_REGEX = "^[eE][0-9]{7}$";
 
     public final String nusnetId;
 

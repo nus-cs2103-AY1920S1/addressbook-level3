@@ -11,8 +11,8 @@ import java.util.Objects;
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Email email;
+    protected final Name name;
+    protected final Email email;
 
     /**
      * Every field must be present and not null.
