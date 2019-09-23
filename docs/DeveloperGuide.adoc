@@ -320,13 +320,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
-|`* * *` |new user |add my CCA expenses with (when, where, how much, who) details |better manage expense history
+|`* * *` |new user |add my CCA expenses with (when, where, how much, who) details |better manage expense history|
 
 |`* * *` |user |add a new transactions |
 
-|`* * *` |user |add a new member |
+|`* * *` |user |add a new member|
 
-|`* * *` |user |add a new inventory items |
+|`* * *` |user |add a new inventory items|
 
 |`* * *` |user |delete a transaction |remove entries that I no longer need
 
@@ -356,6 +356,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user|generate and export to print out overview reports of the financials| present it during board meetings and give it to other board directors
 
+<<<<<<< HEAD
 |`* * *` |user |have a cashier mode for another member who do sales input data directly in real time when the transaction is made | not spend extra time to collate their sales and revenue and key it in myself
 
 |`* * *` |user |plan and estimate my budget for events by comparing with previous transactions|
@@ -369,6 +370,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user|auto complete for people already in database |know if I have to get their contact details to fill into the database later
 
 |`*` |user |upload receipt proofs into the system| better check for validity of transaction and for security
+=======
+|`*`|user |upload receipt proofs into the system| better check for validity of transaction and for security|
+>>>>>>> Reformat code and solve build error
 
 |=======================================================================
 
