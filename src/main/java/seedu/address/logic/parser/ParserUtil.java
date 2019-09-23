@@ -95,6 +95,12 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    /**
+     * Parses a String module, and trims the String.
+     * @param module String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
     public static String parseModule(String module) throws ParseException {
         requireNonNull(module);
         String trimmedModule = module.trim();
