@@ -40,10 +40,11 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
-.  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+. Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+. Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+. Within Chrome, click on the `Print` option in Chrome's menu.
+. Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format.
+For best results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
@@ -56,7 +57,7 @@ The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-spec
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
 
-[cols="1,2a,1", options="header"]
+[cols="1,2a,1",options="header"]
 .List of site-wide attributes
 |===
 |Attribute name |Description |Default value
@@ -88,7 +89,7 @@ Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built
 [TIP]
 Attributes left unset in `.adoc` files will use their *default value*, if any.
 
-[cols="1,2a,1", options="header"]
+[cols="1,2a,1",options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
 |===
 |Attribute name |Description |Default value
@@ -112,8 +113,7 @@ _{asterisk} Official SE-EDU projects only_
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
-These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5. These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====

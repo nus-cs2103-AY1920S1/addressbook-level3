@@ -11,9 +11,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop application called treasurerPro (tP). It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop application called treasurerPro (tP).
+It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is aimed towards Co-curricular Activities Treasurers to help them better manage finances and reimbursements to members.
 * It makes planning and budgeting events much easier with everything consolidated in one application.
+
 == Site Map
 
 * <<UserGuide#, User Guide>>
@@ -23,8 +25,7 @@ endif::[]
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 * AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
