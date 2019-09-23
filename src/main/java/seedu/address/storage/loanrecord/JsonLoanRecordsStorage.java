@@ -47,18 +47,18 @@ public class JsonLoanRecordsStorage implements LoanRecordsStorage {
     public Optional<ReadOnlyLoanRecords> readLoanRecords(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-//        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-//                filePath, JsonSerializableAddressBook.class);
-//        if (!jsonAddressBook.isPresent()) {
-//            return Optional.empty();
-//        }
-//
-//        try {
-//            return Optional.of(jsonAddressBook.get().toModelType());
-//        } catch (IllegalValueException ive) {
-//            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-//            throw new DataConversionException(ive);
-//        }
+        Optional<JsonSerializableLoanRecords> jsonLoanRecords = JsonUtil.readJsonFile(
+                filePath, JsonSerializableLoanRecords.class);
+        if (!jsonLoanRecords.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonLoanRecords.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
     }
 
     @Override
@@ -76,7 +76,7 @@ public class JsonLoanRecordsStorage implements LoanRecordsStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-//        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+//        JsonUtil.saveJsonFile(new JsonSerializableLoanRecords(addressBook), filePath);
     }
 
 }
