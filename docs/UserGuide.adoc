@@ -125,22 +125,10 @@ A person can have any number of tags, including 0.
 ==== Delete a customer `delete -c`
 Deletes a customer in the address book. +
 Format: `delete -c INDEX
-****
-* Deletes the customer at the specified `INDEX`.
-* The index refers to the index number shown in the displayed customer list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
 
 ==== Find a customer `find -c`
 Finds customers whose names contain any of the given keywords. +
 Format: `find -c KEYWORD [MORE_KEYWORDS]`
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
 
 ==== List the customers `list -c`
 List every single customer in SML. +
@@ -149,13 +137,6 @@ Format: `list -c`
 ==== Update a customer `update -c`
 Updates an existing customer. +
 Format: `update -c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
-****
-* Edits the customer at the specified `INDEX`. The index refers to the index number shown in the displayed customer list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the customer will be removed i.e adding of tags is not cumulative.
-* You can remove all the customer's tags by typing `t/` without specifying any tags after it.
-****
 
 ==== Copy customer field `copy -c`
 Copies a customer field to clipboard. +
