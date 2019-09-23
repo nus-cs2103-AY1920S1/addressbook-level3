@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= $aveNUS
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,25 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/Raikonen/main
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team-F13-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+* $aveNUS is a financial planning app for meal planning in NUS. It is meant for
+students who prefer to use a desktop app for managing their food expenditure
+within NUS.
+* More importantly, $aveNUS is optimized for those who prefer to
+work on a Command Line Interface (CLI) while still having the benefits of a
+Graphical User Interface (GUI).
+* Interested in our app? <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest release.
+.  Copy the file to the folder you want to use as the home folder for $aveNUS.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,145 +39,199 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`add`**`n/halal chicken rice p/3.00 l/NUS UTown r/Halal`
+* **`edit`**`d/halal chicken rice`
+* **`delete`**`n/halal chicken rice`
+* *`exit`*
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
-====
-*Command Format*
+=== General Commands
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+==== Help
 
-=== Viewing help : `help`
+Display the help screen that contains helpful information on how to use the application. +
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Undo
+Undoes a command a specific number of TIMES. Note: TIMES must be a positive integer. +
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `undo TIMES`
 
-[TIP]
-A person can have any number of tags (including 0)
+Example: `undo 1`
 
-Examples:
+==== Redo
+Redoes a command a specific number of TIMES. TIMES must be a positive integer. +
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Format: `redo TIMES`
 
-=== Listing all persons : `list`
+Example: `redo 1`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Exit
+Exits the app. +
 
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Alias
+Adds a custom ALIAS to a COMMAND. All future occurrences of that alias
+will be executing that COMMAND. +
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Format: `alias ALIAS_COMMAND`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Example: `alias roby exit`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Tutorial
+Displays the tutorial on how to use the app.
 
-== FAQ
+Format: `tutorial`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+=== Food Items
+
+==== Add
+Adds a food item to the food list. Note: Price must be in integer or double value with at most 2 decimal places.
+Note: Opening Hours must be in HHMM format.
+Note: NAME, PRICE and CATEGORY are mandatory fields.
+
+Format: `add n/NAME d/DESCRIPTION p/PRICE c/CATEGORY l/LOCATION o/OPENING HOURS r/RESTRICTIONS`
+
+Example: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
+
+==== List
+List all the food items in the list.
+
+Format: `list`
+
+==== Edit
+Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be a positive integer. At least one FIELD must be given.
+
+Format: `edit INDEX n/NAME d/DESCRIPTION ...`
+
+Example: `edit 2 n/Fried Rice`
+
+
+==== Find
+Finds a food items based on a specific FIELD or fields. At least one FIELD must be given.
+
+Format: `find n/NAME d/DESCRIPTION ...`
+
+Example: `find n/Chicken d/Rice`
+
+==== Delete
+Deletes a food items based on the given INDEX. INDEX must be a positive integer.
+
+Format: `delete INDEX`
+
+Example: `delete 2`
+
+==== Clear
+Clears all the food items in the list.
+
+Format: `clear`
+
+==== Sort
+Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY, LOCATION, OPENING_HOURS, RESTRICTIONS.
+
+Format: `sort FIELD`
+
+Example: `sort OPENING_HOURS`
+
+=== Budgeting
+
+==== Budget
+Allows the user to set a budget AMOUNT for food expenses for a certain number
+of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or double with 2 decimal places.
+
+Format: `budget AMOUNT DAYS`
+
+Example: `budget 100.00 10`
+
+==== Buy
+Allows users the log a food expense into the application.
+
+Format: `buy FOOD`
+
+Example: `buy Chicken Rice`
+
+==== Track
+Brings up statistics of expenditure over the past day, month, or year.
+
+Format: `track -d | -w | -m`
+
+Example: `track -d`
+
+==== Recommend
+Allow users to get a recommendation from the application, based on the budget
+as well as the available food items entries.
+
+Format: `rec`
+
+== Frequently Asked Questions
+
+* *Will the available food items only be localized around a certain location?
+What if I am staying in a remote area will I still be able to use
+this app?*
+
+As a user, you are able to add your own restaurants and food items into the
+app, hence allowing you to add restaurants in a remote location.
+
+* *Am I able to share my expenses with other people?*
+
+Yes, you are able to obtain a complete list of your expenses as a text file for
+sharing.
+
+* *Do I need to install anything to use the app?*
+
+You need to ensure that you have Java SE Development Kit version 11 or
+later to run the app.
+
+* *Am I able to reset the app and remove all of my data?*
+
+Yes you can do this by using the “clear” command.
+
+* *Does this app support another language?*
+
+Unfortunately you are unable to change the app’s language
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+|===
+| Command | Description
+| Add <<Add>>
+| Add food item.
+| Alias <<Alias>>
+| Adds a custom alias to a command. All future occurrences of that alias will be executing that command.
+| Budget <<Budget>>
+| Allows the user to set a budget amount for food expenses for a certain number
+of days.
+| Buy <<Buy>>
+| Allows users the log a food expense into the application.
+| Clear <<Clear>>
+| Clears all food item
+| Delete <<Delete>>
+| Deletes a food items based on the given index.
+| Edit <<Edit>>
+| Edits a food item at a index based on a specific field or fields.
+| Exit <<Exit>>
+| Exits the app.
+| Find <<Find>>
+| Finds food items based on specified fields.
+| Help <<Help>>
+| Display possible uses of the application.
+| List <<List>>
+| List all saved food items
+| Recommend <<Recommend>>
+| Recommend a food item, based on the user's budget.
+| Redo <<Redo>>
+| Redo a command a specified number of times.
+| Sort <<Sort>>
+| Sort all the food items by a specified field.
+| Track <<Track>>
+| Brings up statistics of food expenditure.
+| Tutorial <<Tutorial>>
+| Give users a brief guide on how to use the application.
+| Undo <<Undo>>
+| Undo a command a specified number of times.
