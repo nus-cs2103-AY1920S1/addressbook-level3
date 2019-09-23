@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #1d1d1d;
     background-color: #383838; /* Used in the default.html file */
 }
 
@@ -100,11 +100,15 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: white;
+    -fx-border-width : 0 0 1 0;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: white;
+    -fx-border-width : 0 0 1 0;
 }
 
 .list-cell:filled:selected {
@@ -121,7 +125,7 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Arial Black";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
@@ -137,13 +141,13 @@
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: #1d1d1d;
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: #1d1d1d;
 }
 
 .result-display {
@@ -158,7 +162,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Arial Black";
     -fx-text-fill: white;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
@@ -193,7 +197,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 0%);
 }
 
 .menu-bar .label {
@@ -222,6 +226,15 @@
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.menu-button {
+    -fx-border-color: transparent;
+    -fx-background-color: #1d1d1d;
+}
+
+.command-text {
+    -fx-border-color: transparent;
 }
 
 .button:hover {
@@ -282,7 +295,7 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #1d1d1d;
 }
 
 .scroll-bar .thumb {
@@ -307,6 +320,11 @@
     -fx-padding: 8 1 8 1;
 }
 
+.border-gang {
+    -fx-border-width: 1;
+    -fx-border-color: black;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -318,9 +336,8 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: #1d1d1d;
     -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
