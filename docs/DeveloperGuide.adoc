@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of transactions, items in inventory and contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:  Provides money and reimbursement management specific for treasurers in a consolidated application
 
 [appendix]
 == User Stories
@@ -295,17 +295,45 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |new user |add my CCA expenses with (when, where, how much, who) details |better manage expense history
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add a new transactions |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |add a new member |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |add a new inventory items |
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |delete a transaction |remove entries that I no longer need |
+
+|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list |
+
+|`* * *` |user |find a transaction by description |locate details of transactions without having to go through the entire list |
+
+|`* * *` |user |sort transactions |prioritise different transactions according to date, amount and event |
+
+|`* * *` |user | track individual sales at an event and tabulate total sales at the end of the day |
+
+|`* * *` |user |find transactions by a single person |locate total amount of money to reimburse the person and keep track if it has been done |
+
+|`* * *` |user |function to schedule goals and plan budget/spending  |
+
+|`* * *`|user |have information of the person I need to reimburse| easily find information to contact the person for reimbursement |
+
+|`* * *`|user|generate and export to print out overview reports of the financials| present it during board meetings and give it to other board directors |
+
+|`* * *`|user |have a cashier mode for another member who do sales input data directly in real time when the transaction is made | not spend extra time to collate their sales and revenue and key it in myself |
+
+|`* *`|user |can tag and see who I have to reimburse back to most urgently |
+
+|`* *`|user |have a reminder pop up when I open the app of the reimbursements I have to do within this week from the current date |
+
+|`*`|user |schedule deadlines in order to plan for events |
+
+|`*`|user|auto complete for people already in database |know if I have to get their contact details to fill into the database later |
+
+|`*`|user |upload receipt proofs into the system| better check for validity of transaction and for security |
+
 |=======================================================================
 
 _{More to be added}_
