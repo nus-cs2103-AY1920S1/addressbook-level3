@@ -36,22 +36,22 @@ MainWindow *-down-> ResultDisplay
 MainWindow *-down-> foodListPanel
 MainWindow *-down-> StatusBarFooter
 
-foodListPanel -down-> foodCard
+FoodListPanel -down-> foodCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-foodListPanel --|> UiPart
-foodCard --|> UiPart
+FoodListPanel --|> UiPart
+FoodCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-foodCard ..> Model
+FoodCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-foodListPanel -[hidden]left- HelpWindow
+FoodListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

@@ -10,12 +10,11 @@ UniqueTagList -[hidden]down- UniqueFoodList
 UniqueTagList -[hidden]down- UniqueFoodList
 
 UniqueTagList *-right-> "*" Tag
-UniqueFoodList o-right-> food
+UniqueFoodList o-right-> Food
 
-food o-up-> "*" Tag
+Food o-up-> "*" Tag
 
-food *--> Name
-food *--> Phone
-food *--> Email
-food *--> Address
+Food *--> Name
+Food *--> Phone
+Food *--> Email
 @enduml

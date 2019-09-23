@@ -16,7 +16,7 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Food {
-Class food
+Class Food
 Class Email
 Class Name
 Class Phone
