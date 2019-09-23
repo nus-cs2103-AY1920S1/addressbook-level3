@@ -37,7 +37,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PRICE + "91234567 ";
+            + PREFIX_PRICE + "3512.123 ";
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -90,7 +90,8 @@ public class EditCommand extends Command {
         Price updatedPrice = editExpenseDescriptor.getPrice().orElse(expenseToEdit.getPrice());
         Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
 
-        return new Expense(updatedDescription, updatedPrice, updatedTags);
+
+        return new Expense(updatedDescription, updatedPrice, updatedTags, expenseToEdit.getUniqueIdentifier());
     }
 
     @Override
