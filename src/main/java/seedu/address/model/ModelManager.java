@@ -80,6 +80,17 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getLoanRecordsFilePath() {
+        return userPrefs.getLoanRecordsFilePath();
+    }
+
+    @Override
+    public void setLoanRecordsFilePath(Path loanRecordsFilePath) {
+        requireNonNull(loanRecordsFilePath);
+        userPrefs.setLoanRecordsFilePath(loanRecordsFilePath);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
@@ -133,14 +144,11 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Loan Records Accessors =============================================================
+    //=========== Loan Records ===============================================================================
 
-    public LoanRecords getLoanRecords() {
+    public ReadOnlyLoanRecords getLoanRecords() {
         return loanRecords;
     }
-
-
-    // ====
 
     @Override
     public boolean equals(Object obj) {

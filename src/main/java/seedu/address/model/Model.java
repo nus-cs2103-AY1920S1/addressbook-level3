@@ -44,6 +44,17 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
+
+    /**
+     * Returns the user prefs' address book file path.
+     */
+    Path getLoanRecordsFilePath();
+
+    /**
+     * Sets the user prefs' address book file path.
+     */
+    void setLoanRecordsFilePath(Path loanRecordsFilePath);
+
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
@@ -85,5 +96,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    LoanRecords getLoanRecords();
+    /** Returns the LoanRecords*/
+    ReadOnlyLoanRecords getLoanRecords();
 }

@@ -17,22 +17,22 @@ public class Loan {
     }
 
     public Address getSerialNumber() {
-        return new Address("");
+        return new Address("sn");
     }
 
     public Address getLoanDateTime() {
-        return new Address("");
+        return new Address("ldt");
     }
 
     public Address getDueDateTime() {
-        return new Address("");
+        return new Address("ddt");
     }
 
     public Address getReturnedDateTime() {
-        return new Address("");
+        return new Address("rdt");
     }
 
     public Name getUserName() {
-        return new Name("");
+        return new Name("username");
     }
 }
