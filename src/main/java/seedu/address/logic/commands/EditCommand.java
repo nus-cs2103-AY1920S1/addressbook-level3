@@ -52,14 +52,14 @@ public class EditCommand extends Command {
 
     /**
      * @param index of the food in the filtered food list to edit
-     * @param EditFoodDescriptor details to edit the food with
+     * @param editFoodDescriptor details to edit the food with
      */
-    public EditCommand(Index index, EditFoodDescriptor EditFoodDescriptor) {
+    public EditCommand(Index index, EditFoodDescriptor editFoodDescriptor) {
         requireNonNull(index);
-        requireNonNull(EditFoodDescriptor);
+        requireNonNull(editFoodDescriptor);
 
         this.index = index;
-        this.editFoodDescriptor = new EditFoodDescriptor(EditFoodDescriptor);
+        this.editFoodDescriptor = new EditFoodDescriptor(editFoodDescriptor);
     }
 
     @Override
@@ -85,15 +85,15 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Food} with the details of {@code foodToEdit}
-     * edited with {@code EditFoodDescriptor}.
+     * edited with {@code editFoodDescriptor}.
      */
-    private static Food createEditedFood(Food foodToEdit, EditFoodDescriptor EditFoodDescriptor) {
+    private static Food createEditedFood(Food foodToEdit, EditFoodDescriptor editFoodDescriptor) {
         assert foodToEdit != null;
 
-        Name updatedName = EditFoodDescriptor.getName().orElse(foodToEdit.getName());
-        Phone updatedPhone = EditFoodDescriptor.getPhone().orElse(foodToEdit.getPhone());
-        Email updatedEmail = EditFoodDescriptor.getEmail().orElse(foodToEdit.getEmail());
-        Set<Tag> updatedTags = EditFoodDescriptor.getTags().orElse(foodToEdit.getTags());
+        Name updatedName = editFoodDescriptor.getName().orElse(foodToEdit.getName());
+        Phone updatedPhone = editFoodDescriptor.getPhone().orElse(foodToEdit.getPhone());
+        Email updatedEmail = editFoodDescriptor.getEmail().orElse(foodToEdit.getEmail());
+        Set<Tag> updatedTags = editFoodDescriptor.getTags().orElse(foodToEdit.getTags());
 
         return new Food(updatedName, updatedPhone, updatedEmail, updatedTags);
     }
