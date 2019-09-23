@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= PalPay - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -320,44 +320,61 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `PalPay` and the **Actor** is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add an income
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add an income amount.
+2. PalPay adds the income amount.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Amount entered by the user is invalid.
++
+[none]
+** 1a1. PalPay shows an error message.
+		Use case resumes at step 1.
+Use case ends.
+
+[discrete]
+=== Use case: Delete expense
+
+*MSS*
+
+1. User requests to view spending.
+2. PalPay shows the list of expenses since beginning of time.
+3. User requests to delete an expense.
+4. PalPay deletes the specified expense.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. User speicified days passed since.
 +
 [none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+** 1a1. PalPay shows the list of expenses since the time period specified.
+Use case resumes at step 3.
+
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Should work on any <<mainstream-os,mainstream OS>> with JDK 11 or above installed.
+.  A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Upon user input, PalPay should execute tasks (and display results) within 1 second.
+.  Users should have (and be able to specify) default options such that they can issue minimal commands for common tasks.
+.  Should be quick and efficient, with each user session lasting no longer than 3 minutes to effectively manage his current financial state.
+.  The application shouldn't make users feel defeated, but rather empowered in managing their finances.
 
 [appendix]
 == Glossary
