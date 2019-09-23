@@ -1,6 +1,8 @@
 = SELLER MANAGER Lite
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+= Have you seen the price of iPhones these days? Ever wanted to get into the handphone selling business? With this app, you will be leagues of the competition! Download now!
+
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
