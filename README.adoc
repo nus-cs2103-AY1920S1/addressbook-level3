@@ -12,7 +12,7 @@
 - [ ] V1.1(Week 7)
 
 # Timeline
-- Friday complete individual basic features
+- Tuesday complete individual basic features
 
 
 = Address Book (Level 3)
