@@ -309,7 +309,7 @@ workflow without having to worry that I might have accidentally keyed in the det
 or if I have collected invalid information from buyers.
 
 |`* *` |insurance agent with many clients to keep track of |be sure that each individual in my records is only in
-possession of policies he or she is qualified for|
+possession of policies he or she is qualified for
 
 |`* *` |insurance agent with many clients and policies to keep track of |get suggestions of appropriate policies when I assign an inappropriate policy to a buyer
 |quickly rectify the error
