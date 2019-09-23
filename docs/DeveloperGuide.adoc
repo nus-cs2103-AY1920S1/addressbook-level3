@@ -361,14 +361,33 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add food item
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add food item, providing details such as price, description, category, location and so on.
+2. $aveNUS adds the food item.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The details are given in the wrong format or mandatory fields are omitted.
+[none]
+** 1a1. $aveNUS diplays an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete food item
+
+*MSS*
+
+1. User requests to list food items.
+2. $aveNUS shows a list of food items.
+3. User requests to delete a specific food item in the list.
+4. $aveNUS deletes the food item.
 +
 Use case ends.
 
@@ -382,9 +401,92 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. $aveNUS shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Search food item
+
+*MSS*
+
+1. User requests to search for a food item, providing a search query.
+2. $aveNUS shows a list of filtered food items according to their provided query.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User requests to add food item to their expenditure from the search results.
++
+[none]
+** 2a1. $aveNUS adds the food item to their expenditure.
++
+Use case ends.
+
+* 2b. User requests to search without providing any query.
++
+[none]
+** 2b1. $aveNUS displays the normal ordering of food items.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display recommendations
+
+*MSS*
+
+1. User requests to list recommendations.
+2. $aveNUS shows a list of recommended food items based on their specified budget.
+3. User requests to add a specific food item in the list into purchased food items.
+4. $aveNUS adds the food item into list of purchased food items.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. $aveNUS shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Tracking expenditure
+
+*MSS*
+
+1. User requests to track expenditure.
+2. $aveNUS shows a list of past purchases as expenses in a visual format.
++
+Use case ends.
+
+[discrete]
+=== Use case: Set budget
+
+*MSS*
+
+1. User requests to set budget.
+2. $aveNUS calculates the daily budget based on the specified weekly budget.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The budget set is invalid (such as a negative number).
++
+[none]
+** 1a1. $aveNUS shows an error message.
++
+Use case resumes at step 1.
 
 _{More to be added}_
 
