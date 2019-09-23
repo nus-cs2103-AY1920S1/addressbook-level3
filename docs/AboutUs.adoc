@@ -50,7 +50,7 @@ Responsibilities: Ensure project deliverables are done on time and in the right 
 image::wallacelim97.jpg[width="150", align="left"]
 {empty}[http://github.com/wallacelim97[github]] [<<johndoe#, portfolio>>]
 
-Role: Team lead +
+Role: Team Lead +
 Responsibilities: Overall project coordination
 
 '''
