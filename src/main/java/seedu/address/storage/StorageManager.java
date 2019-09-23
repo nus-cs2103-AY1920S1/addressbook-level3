@@ -8,9 +8,11 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCatalogue;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.catalogue.CatalogueStorage;
 import seedu.address.storage.loanrecord.LoanRecordsStorage;
 
 /**
@@ -22,14 +24,15 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private LoanRecordsStorage loanRecordsStorage;
-
+    private CatalogueStorage catalogueStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          LoanRecordsStorage loanRecordsStorage) {
+                          LoanRecordsStorage loanRecordsStorage, CatalogueStorage catalogueStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.loanRecordsStorage = loanRecordsStorage;
+        this.catalogueStorage = catalogueStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -81,7 +84,6 @@ public class StorageManager implements Storage {
 
     // ================ Loan Records methods ==============================
 
-
     @Override
     public Path getLoanRecordsFilePath() {
         return loanRecordsStorage.getLoanRecordsFilePath();
@@ -89,7 +91,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyLoanRecords> readLoanRecords() throws DataConversionException, IOException {
-        return Optional.empty();
+        return readLoanRecords(loanRecordsStorage.getLoanRecordsFilePath());
     }
 
     @Override
@@ -108,5 +110,35 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         loanRecordsStorage.saveLoanRecords(loanRecords,  filePath);
     }
+
+    // ================ Catalogue methods ==============================
+
+    @Override
+    public Path getCatalogueFilePath() {
+        return catalogueStorage.getCatalogueFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyCatalogue> readCatalogue() throws DataConversionException, IOException {
+        return readCatalogue(catalogueStorage.getCatalogueFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyCatalogue> readCatalogue(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return catalogueStorage.readCatalogue(filePath);
+    }
+
+    @Override
+    public void saveCatalogue(ReadOnlyCatalogue catalogue) throws IOException {
+        saveCatalogue(catalogue, catalogueStorage.getCatalogueFilePath());
+    }
+
+    @Override
+    public void saveCatalogue(ReadOnlyCatalogue catalogue, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        catalogueStorage.saveCatalogue(catalogue, filePath);
+    }
+
 
 }

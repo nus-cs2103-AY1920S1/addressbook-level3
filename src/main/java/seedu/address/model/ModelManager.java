@@ -23,13 +23,16 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final LoanRecords loanRecords;
+    private final Catalogue catalogue;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
+     * TODO change
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyLoanRecords loanRecords, ReadOnlyCatalogue catalogue) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, catalogue);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
@@ -37,12 +40,15 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         // testing loan records
-        loanRecords = new LoanRecords();
-        loanRecords.populateLoans();
+        this.loanRecords = new LoanRecords(loanRecords);
+        this.loanRecords.populateLoans();
+        // testing
+        this.catalogue = new Catalogue(catalogue);
+        this.catalogue.populateBooks();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new LoanRecords(), new Catalogue());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -89,6 +95,17 @@ public class ModelManager implements Model {
     public void setLoanRecordsFilePath(Path loanRecordsFilePath) {
         requireNonNull(loanRecordsFilePath);
         userPrefs.setLoanRecordsFilePath(loanRecordsFilePath);
+    }
+
+    @Override
+    public Path getCatalogueFilePath() {
+        return userPrefs.getCatalogueFilePath();
+    }
+
+    @Override
+    public void setCatalogueFilePath(Path catalogueFilePath) {
+        requireNonNull(catalogueFilePath);
+        userPrefs.setCatalogueFilePath(catalogueFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -148,6 +165,12 @@ public class ModelManager implements Model {
 
     public ReadOnlyLoanRecords getLoanRecords() {
         return loanRecords;
+    }
+
+    //=========== Loan Records ===============================================================================
+
+    public ReadOnlyCatalogue getCatalogue() {
+        return catalogue;
     }
 
     @Override

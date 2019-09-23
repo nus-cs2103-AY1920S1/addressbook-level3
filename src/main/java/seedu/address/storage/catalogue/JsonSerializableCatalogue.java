@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.catalogue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,52 +9,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.Catalogue;
+import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.book.Book;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable Catalogue that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "Catalogue")
+class JsonSerializableCatalogue {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_book = "books list contains duplicate book(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedBook> books = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableCatalogue} with the given books.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableCatalogue(@JsonProperty("books") List<JsonAdaptedBook> books) {
+        this.books.addAll(books);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyCatalogue} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableCatalogue}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+    public JsonSerializableCatalogue(ReadOnlyCatalogue source) {
+        books.addAll(source.getBookList().stream().map(JsonAdaptedBook::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code Catalogue} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+    public Catalogue toModelType() throws IllegalValueException {
+        Catalogue Catalogue = new Catalogue();
+        for (JsonAdaptedBook jsonAdaptedBook : books) {
+            Book book = jsonAdaptedBook.toModelType();
+            if (Catalogue.hasBook(book)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_book);
             }
-            addressBook.addPerson(person);
+            Catalogue.addBook(book);
         }
-        return addressBook;
+        return Catalogue;
     }
 
 }

@@ -44,16 +44,25 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
-
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' loan records file path.
      */
     Path getLoanRecordsFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' loan records file path.
      */
     void setLoanRecordsFilePath(Path loanRecordsFilePath);
+
+    /**
+     * Returns the user prefs' catalogue file path.
+     */
+    public Path getCatalogueFilePath();
+
+    /**
+     * Returns the user prefs' catalogue file path.
+     */
+    public void setCatalogueFilePath(Path catalogueFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
@@ -98,4 +107,7 @@ public interface Model {
 
     /** Returns the LoanRecords*/
     ReadOnlyLoanRecords getLoanRecords();
+
+    /** Returns the Catalogue*/
+    ReadOnlyCatalogue getCatalogue();
 }

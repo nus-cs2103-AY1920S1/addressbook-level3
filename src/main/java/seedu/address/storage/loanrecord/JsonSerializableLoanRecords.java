@@ -19,7 +19,7 @@ import seedu.address.model.loan.Loan;
 @JsonRootName(value = "loanrecords")
 class JsonSerializableLoanRecords {
     // NOT IMPORTANT
-    public static final String MESSAGE_DUPLICATE_LOAN = "loans list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_LOAN = "loans list contains duplicate loan(s).";
     
     private final List<JsonAdaptedLoan> loans = new ArrayList<>();
 

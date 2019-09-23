@@ -19,24 +19,25 @@ class JsonAdaptedLoan {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
-    private final String userName;
-    private final String serialNumber;
-    private final String loanDateTime;
-    private final String dueDateTime;
-    private final String returnedDateTime;
+    private final String id;
+//    private final String userName;
+//    private final String serialNumber;
+//    private final String loanDateTime;
+//    private final String dueDateTime;
+//    private final String returnedDateTime;
 
     /**
      * Constructs a {@code JsonAdaptedLoan} with the given Loan details.
      */
     @JsonCreator
-    public JsonAdaptedLoan(@JsonProperty("userName") String userName, @JsonProperty("serialNumber") String serialNumber,
-                           @JsonProperty("loanDateTime") String loanDateTime, @JsonProperty("dueDateTime") String dueDateTime,
-                           @JsonProperty("returnedDateTime") String returnedDateTime) {
-        this.userName = userName;
-        this.serialNumber = serialNumber;
-        this.loanDateTime = loanDateTime;
-        this.dueDateTime = dueDateTime;
-        this.returnedDateTime = returnedDateTime;
+    public JsonAdaptedLoan(@JsonProperty("id") String id) {
+
+        this.id = id;
+//        this.userName = userName;
+//        this.serialNumber = serialNumber;
+//        this.loanDateTime = loanDateTime;
+//        this.dueDateTime = dueDateTime;
+//        this.returnedDateTime = returnedDateTime;
     }
 
     /**
@@ -45,11 +46,12 @@ class JsonAdaptedLoan {
     public JsonAdaptedLoan(Loan source) {
 
         // TODO match up to the actual loan methods & string value getters
-        userName = source.getUserName().fullName;
-        serialNumber = source.getSerialNumber().value;
-        loanDateTime = source.getLoanDateTime().value;
-        dueDateTime = source.getDueDateTime().value;
-        returnedDateTime = source.getReturnedDateTime().value;
+        id = source.getId();
+//        userName = source.getUserName().fullName;
+//        serialNumber = source.getSerialNumber().value;
+//        loanDateTime = source.getLoanDateTime().value;
+//        dueDateTime = source.getDueDateTime().value;
+//        returnedDateTime = source.getReturnedDateTime().value;
     }
 
     /**
