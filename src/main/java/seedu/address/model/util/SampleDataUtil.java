@@ -5,7 +5,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.BorrowerRecords;
+import seedu.address.model.Catalogue;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBorrowerRecords;
+import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyLoanRecords;
+import seedu.address.model.loan.Loan;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -57,4 +64,21 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    public static ReadOnlyLoanRecords getSampleLoanRecords() {
+        LoanRecords loanRecords = new LoanRecords();
+        loanRecords.populateLoans();
+        return loanRecords;
+    }
+
+    public static ReadOnlyCatalogue getSampleCatalogue() {
+        Catalogue catalogue = new Catalogue();
+        catalogue.populateBooks();
+        return catalogue;
+    }
+
+    public static ReadOnlyBorrowerRecords getSampleBorrowerRecords() {
+        BorrowerRecords borrowerRecords = new BorrowerRecords();
+        borrowerRecords.populateBorrowers();
+        return borrowerRecords;
+    }
 }

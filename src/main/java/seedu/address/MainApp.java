@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javax.swing.text.html.Option;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -16,9 +18,15 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.BorrowerRecords;
+import seedu.address.model.Catalogue;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBorrowerRecords;
+import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
@@ -28,6 +36,12 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
+import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
+import seedu.address.storage.catalogue.CatalogueStorage;
+import seedu.address.storage.catalogue.JsonCatalogueStorage;
+import seedu.address.storage.loanrecord.JsonLoanRecordsStorage;
+import seedu.address.storage.loanrecord.LoanRecordsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -57,7 +71,13 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        LoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(userPrefs.getLoanRecordsFilePath());
+        CatalogueStorage catalogueStorage = new JsonCatalogueStorage(userPrefs.getCatalogueFilePath());
+        BorrowerRecordsStorage borrowerRecordsStorage
+                = new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
+
+        storage = new StorageManager(addressBookStorage, userPrefsStorage,
+                loanRecordsStorage, catalogueStorage, borrowerRecordsStorage);
 
         initLogging(config);
 
@@ -70,27 +90,80 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     *
+     *     TODO edit this
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook initialAddressBook;
+        Optional<ReadOnlyLoanRecords> loanRecordsOptional;
+        ReadOnlyLoanRecords initialLoanRecords;
+        Optional<ReadOnlyCatalogue> catalogueOptional;
+        ReadOnlyCatalogue initialCatalogue;
+        Optional<ReadOnlyBorrowerRecords> borrowerRecordsOptional;
+        ReadOnlyBorrowerRecords initialBorrowerRecords;
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialAddressBook = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialAddressBook = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            loanRecordsOptional = storage.readLoanRecords();
+            if (!loanRecordsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample LoanRecord");
+            }
+            initialLoanRecords = loanRecordsOptional.orElseGet(SampleDataUtil::getSampleLoanRecords);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty LoanRecord");
+            initialLoanRecords = new LoanRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty LoanRecord");
+            initialLoanRecords = new LoanRecords();
+        }
+
+        try {
+            catalogueOptional = storage.readCatalogue();
+            if (!catalogueOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Catalogue");
+            }
+            initialCatalogue = catalogueOptional.orElseGet(SampleDataUtil::getSampleCatalogue);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Catalogue");
+            initialCatalogue = new Catalogue();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Catalogue");
+            initialCatalogue = new Catalogue();
+        }
+
+        try {
+            borrowerRecordsOptional = storage.readBorrowerRecords();
+            if (!borrowerRecordsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample BorrowerRecords");
+            }
+            initialBorrowerRecords = borrowerRecordsOptional.orElseGet(SampleDataUtil::getSampleBorrowerRecords);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty BorrowerRecords");
+            initialBorrowerRecords = new BorrowerRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty BorrowerRecords");
+            initialBorrowerRecords = new BorrowerRecords();
+        }
+
+        return new ModelManager(initialAddressBook, userPrefs, initialLoanRecords,
+                initialCatalogue, initialBorrowerRecords);
     }
 
     private void initLogging(Config config) {

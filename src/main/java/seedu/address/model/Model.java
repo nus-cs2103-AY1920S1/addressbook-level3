@@ -45,6 +45,36 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Returns the user prefs' loan records file path.
+     */
+    Path getLoanRecordsFilePath();
+
+    /**
+     * Sets the user prefs' loan records file path.
+     */
+    void setLoanRecordsFilePath(Path loanRecordsFilePath);
+
+    /**
+     * Returns the user prefs' catalogue file path.
+     */
+    public Path getCatalogueFilePath();
+
+    /**
+     * Returns the user prefs' catalogue file path.
+     */
+    public void setCatalogueFilePath(Path catalogueFilePath);
+
+    /**
+     * Returns the user prefs' borrower records file path.
+     */
+    Path getBorrowerRecordsFilePath();
+
+    /**
+     * Sets the user prefs' address borrower records path.
+     */
+    void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath);
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
@@ -84,4 +114,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns the LoanRecords*/
+    ReadOnlyLoanRecords getLoanRecords();
+
+    /** Returns the Catalogue*/
+    ReadOnlyCatalogue getCatalogue();
+
+    /** Returns the BorrowerRecords*/
+    ReadOnlyBorrowerRecords getBorrowerRecords();
 }
