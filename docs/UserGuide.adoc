@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Seller Manager Lite - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
