@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.loanrecord.LoanRecordsStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -80,6 +80,23 @@ public class StorageManager implements Storage {
     }
 
     // ================ Loan Records methods ==============================
+
+
+    @Override
+    public Path getLoanRecordsFilePath() {
+        return loanRecordsStorage.getLoanRecordsFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyLoanRecords> readLoanRecords() throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ReadOnlyLoanRecords> readLoanRecords(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return loanRecordsStorage.readLoanRecords(filePath);
+    }
 
     @Override
     public void saveLoanRecords(ReadOnlyLoanRecords loanRecords) throws IOException {

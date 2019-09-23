@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.loanrecord;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ import seedu.address.model.loan.Loan;
  */
 class JsonAdaptedLoan {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
     private final String userName;
     private final String serialNumber;
@@ -26,7 +26,7 @@ class JsonAdaptedLoan {
     private final String returnedDateTime;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedLoan} with the given Loan details.
      */
     @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("userName") String userName, @JsonProperty("serialNumber") String serialNumber,
@@ -40,10 +40,11 @@ class JsonAdaptedLoan {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Loan} into this class for Jackson use.
      */
     public JsonAdaptedLoan(Loan source) {
 
+        // TODO match up to the actual loan methods & string value getters
         userName = source.getUserName().fullName;
         serialNumber = source.getSerialNumber().value;
         loanDateTime = source.getLoanDateTime().value;
@@ -52,9 +53,9 @@ class JsonAdaptedLoan {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted Loan object into the model's {@code Loan} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted Loan.
      */
     public Loan toModelType() throws IllegalValueException {
 

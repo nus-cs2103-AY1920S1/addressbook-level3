@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.loanrecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ class JsonSerializableLoanRecords {
     }
 
     /**
-     * Converts this address book into the model's {@code LoanRecords} object.
+     * Converts this loan record into the model's {@code LoanRecords} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

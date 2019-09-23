@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.loanrecord;
 
 import static java.util.Objects.requireNonNull;
 
@@ -12,8 +12,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.LoanRecords;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyLoanRecords;
 
 /**
@@ -21,7 +19,7 @@ import seedu.address.model.ReadOnlyLoanRecords;
  */
 public class JsonLoanRecordsStorage implements LoanRecordsStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonLoanRecordsStorage.class);
 
     private Path filePath;
 
