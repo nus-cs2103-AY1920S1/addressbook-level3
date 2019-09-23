@@ -320,6 +320,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
+
 |`* * *` |new user |add my CCA expenses with (when, where, how much, who) details |better manage expense history|
 
 |`* * *` |user |add a new transactions |
@@ -328,35 +329,48 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new inventory items|
 
-|`* * *` |user |delete a transaction |remove entries that I no longer need |
+|`* * *` |user |delete a transaction |remove entries that I no longer need 
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list |
+|`* * *` |user |delete a member |remove members that left the CCA
 
-|`* * *` |user |find a transaction by description |locate details of transactions without having to go through the entire list |
+|`* * *` |user |delete an item from inventory |remove items keyed in wrongly 
 
-|`* * *` |user |sort transactions |prioritise different transactions according to date, amount and event |
+|`* * *` |user |edit entries when user mistype, or when updates are required |not have to delete and make a new one
 
-|`* * *` |user | track individual sales at an event and tabulate total sales at the end of the day |
+|`* * *` |user |view an overview of all transactions and sales |budget for new events and check financial health 
 
-|`* * *` |user |find transactions by a single person |locate total amount of money to reimburse the person and keep track if it has been done |
+|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list 
 
-|`* * *` |user |function to schedule goals and plan budget/spending  |
+|`* * *` |user |find a transaction by description |locate details of transactions without having to go through the entire list 
 
-|`* * *`|user |have information of the person I need to reimburse| easily find information to contact the person for reimbursement |
+|`* * *` |user |sort transactions by date, amount and alphabetical order of name of person who spent the amount |view and prioritise reimbursements of transactions
 
-|`* * *`|user|generate and export to print out overview reports of the financials| present it during board meetings and give it to other board directors |
+|`* * *`| user |an overview of the expenditure for each event| that I can keep track for future purposes or reporting to the school
 
-|`* * *`|user |have a cashier mode for another member who do sales input data directly in real time when the transaction is made | not spend extra time to collate their sales and revenue and key it in myself |
+|`* * *` |user |track individual sales at an event and tabulate total sales at the end of the day |
 
-|`* *`|user |can tag and see who I have to reimburse back to most urgently |
+|`* * *` |user |find transactions by a single person and if reimbursment has been done|locate total amount of money to reimburse the person and keep track of reimbursements 
 
-|`* *`|user |have a reminder pop up when I open the app of the reimbursements I have to do within this week from the current date |
+|`* * *` |user |function to schedule goals and plan budget/spending |
 
-|`*`|user |schedule deadlines in order to plan for events |
+|`* * *` |user |have information of the person I need to reimburse| easily find information to contact the person for reimbursement 
 
-|`*`|user|auto complete for people already in database |know if I have to get their contact details to fill into the database later |
+|`* * *` |user|generate and export to print out overview reports of the financials| present it during board meetings and give it to other board directors 
 
-|`*`|user |upload receipt proofs into the system| better check for validity of transaction and for security|
+|`* * *` |user |have a cashier mode for another member who do sales input data directly in real time when the transaction is made | not spend extra time to collate their sales and revenue and key it in myself 
+
+|`* * *` |user |plan and estimate my budget for events by comparing with previous transactions| 
+
+|`* *` |user |can tag and see who I have to reimburse back to most urgently |
+
+|`* *` |user |have a reminder pop up when I open the app of the reimbursements I have to do within this week from the current date |
+
+|`*` |user |schedule deadlines in order to plan for events |
+
+|`*` |user|auto complete for people already in database |know if I have to get their contact details to fill into the database later 
+
+|`*` |user |upload receipt proofs into the system| better check for validity of transaction and for security| 
+
 
 |=======================================================================
 
