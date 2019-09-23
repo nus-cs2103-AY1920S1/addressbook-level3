@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.logic.commands.core.CommandResult;
+import seedu.address.logic.commands.core.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -14,7 +16,7 @@ import seedu.address.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -35,6 +37,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has been removed.";
+    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
 
     private final Person toAdd;
 
@@ -56,6 +60,18 @@ public class AddCommand extends Command {
 
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (!model.hasPerson(toAdd)) {
+            throw new CommandException(String.format(MESSAGE_UNDO_ADD_ERROR, toAdd));
+        }
+
+        model.deletePerson(toAdd);
+        return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, toAdd));
     }
 
     @Override
