@@ -8,7 +8,7 @@ import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.tarence.testutil.TypicalPersons.CARL;
 import static seedu.tarence.testutil.TypicalPersons.ELLE;
 import static seedu.tarence.testutil.TypicalPersons.FIONA;
-import static seedu.tarence.testutil.TypicalPersons.getTypicalStudentBook;
+import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import seedu.tarence.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalStudentBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalStudentBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalApplication(), new UserPrefs());
 
     @Test
     public void equals() {

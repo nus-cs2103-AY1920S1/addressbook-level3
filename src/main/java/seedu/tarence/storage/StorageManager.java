@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.commons.exceptions.DataConversionException;
-import seedu.tarence.model.ReadOnlyStudentBook;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.UserPrefs;
 
 /**
- * Manages storage of StudentBook data in local storage.
+ * Manages storage of Application data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private StudentBookStorage studentBookStorage;
+    private ApplicationStorage applicationStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(StudentBookStorage studentBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ApplicationStorage applicationStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.studentBookStorage = studentBookStorage;
+        this.applicationStorage = applicationStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ StudentBook methods ==============================
+    // ================ Application methods ==============================
 
     @Override
-    public Path getStudentBookFilePath() {
-        return studentBookStorage.getStudentBookFilePath();
+    public Path getApplicationFilePath() {
+        return applicationStorage.getApplicationFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyStudentBook> readStudentBook() throws DataConversionException, IOException {
-        return readStudentBook(studentBookStorage.getStudentBookFilePath());
+    public Optional<ReadOnlyApplication> readApplication() throws DataConversionException, IOException {
+        return readApplication(applicationStorage.getApplicationFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyStudentBook> readStudentBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyApplication> readApplication(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return studentBookStorage.readStudentBook(filePath);
+        return applicationStorage.readApplication(filePath);
     }
 
     @Override
-    public void saveStudentBook(ReadOnlyStudentBook studentBook) throws IOException {
-        saveStudentBook(studentBook, studentBookStorage.getStudentBookFilePath());
+    public void saveApplication(ReadOnlyApplication application) throws IOException {
+        saveApplication(application, applicationStorage.getApplicationFilePath());
     }
 
     @Override
-    public void saveStudentBook(ReadOnlyStudentBook studentBook, Path filePath) throws IOException {
+    public void saveApplication(ReadOnlyApplication application, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        studentBookStorage.saveStudentBook(studentBook, filePath);
+        applicationStorage.saveApplication(application, filePath);
     }
 
 }

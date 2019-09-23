@@ -14,31 +14,31 @@ import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.model.person.Person;
 
 /**
- * Represents the in-memory model of the student book data.
+ * Represents the in-memory model of the application data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final StudentBook studentBook;
+    private final Application application;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given student and userPrefs.
      */
-    public ModelManager(ReadOnlyStudentBook studentBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyApplication application, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(studentBook, userPrefs);
+        requireAllNonNull(application, userPrefs);
 
-        logger.fine("Initializing with student book: " + studentBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with application: " + application + " and user prefs " + userPrefs);
 
-        this.studentBook = new StudentBook(studentBook);
+        this.application = new Application(application);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.studentBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.application.getPersonList());
     }
 
     public ModelManager() {
-        this(new StudentBook(), new UserPrefs());
+        this(new Application(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,42 +66,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getStudentBookFilePath() {
-        return userPrefs.getStudentBookFilePath();
+    public Path getApplicationFilePath() {
+        return userPrefs.getApplicationFilePath();
     }
 
     @Override
-    public void setStudentBookFilePath(Path studentBookFilePath) {
-        requireNonNull(studentBookFilePath);
-        userPrefs.setStudentBookFilePath(studentBookFilePath);
+    public void setApplicationFilePath(Path applicationFilePath) {
+        requireNonNull(applicationFilePath);
+        userPrefs.setApplicationFilePath(applicationFilePath);
     }
 
     //=========== T.A.rence ================================================================================
 
     @Override
-    public void setStudentBook(ReadOnlyStudentBook studentBook) {
-        this.studentBook.resetData(studentBook);
+    public void setApplication(ReadOnlyApplication application) {
+        this.application.resetData(application);
     }
 
     @Override
-    public ReadOnlyStudentBook getStudentBook() {
-        return studentBook;
+    public ReadOnlyApplication getApplication() {
+        return application;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return studentBook.hasPerson(person);
+        return application.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        studentBook.removePerson(target);
+        application.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        studentBook.addPerson(person);
+        application.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,14 +109,14 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        studentBook.setPerson(target, editedPerson);
+        application.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedStudentBook}
+     * {@code versionedApplication}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return studentBook.equals(other.studentBook)
+        return application.equals(other.application)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.tarence.model.StudentBook;
+import seedu.tarence.model.Application;
 import seedu.tarence.model.person.Person;
 
 /**
@@ -48,10 +48,10 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code StudentBook} with all the typical persons.
+     * Returns an {@code Application} with all the typical persons.
      */
-    public static StudentBook getTypicalStudentBook() {
-        StudentBook ab = new StudentBook();
+    public static Application getTypicalApplication() {
+        Application ab = new Application();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

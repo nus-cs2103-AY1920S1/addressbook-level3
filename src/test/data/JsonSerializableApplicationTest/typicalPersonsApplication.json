@@ -1,5 +1,5 @@
 {
-  "_comment": "StudentBook save file which contains the same Person values as in TypicalPersons#getTypicalStudentBook()",
+  "_comment": "Application save file which contains the same Person values as in TypicalPersons#getTypicalapplication()",
   "persons" : [ {
     "name" : "Alice Pauline",
     "email" : "alice@example.com"

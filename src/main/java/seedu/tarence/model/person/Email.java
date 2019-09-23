@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's email in the student book.
+ * Represents a Person's email in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {

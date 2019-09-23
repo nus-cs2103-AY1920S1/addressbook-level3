@@ -5,7 +5,7 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a Person in the student book.
+ * Represents a Person in the application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {

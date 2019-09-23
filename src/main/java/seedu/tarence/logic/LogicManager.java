@@ -10,10 +10,10 @@ import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
-import seedu.tarence.logic.parser.StudentBookParser;
+import seedu.tarence.logic.parser.ApplicationParser;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.Model;
-import seedu.tarence.model.ReadOnlyStudentBook;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.storage.Storage;
 
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final StudentBookParser studentBookParser;
+    private final ApplicationParser applicationParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        studentBookParser = new StudentBookParser();
+        applicationParser = new ApplicationParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = studentBookParser.parseCommand(commandText);
+        Command command = applicationParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveStudentBook(model.getStudentBook());
+            storage.saveApplication(model.getApplication());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyStudentBook getStudentBook() {
-        return model.getStudentBook();
+    public ReadOnlyApplication getApplication() {
+        return model.getApplication();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getStudentBookFilePath() {
-        return model.getStudentBookFilePath();
+    public Path getApplicationFilePath() {
+        return model.getApplicationFilePath();
     }
 
     @Override

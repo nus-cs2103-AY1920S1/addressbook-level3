@@ -17,7 +17,7 @@ import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.Person;
 /**
- * Edits the details of an existing person in the student book.
+ * Edits the details of an existing person in the application.
  */
 public class EditCommand extends Command {
 
@@ -34,7 +34,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the student book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;

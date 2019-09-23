@@ -7,7 +7,7 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
-import seedu.tarence.model.ReadOnlyStudentBook;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.person.Person;
 
 /**
@@ -24,19 +24,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the StudentBook.
+     * Returns the application.
      *
-     * @see seedu.tarence.model.Model#getStudentBook()
+     * @see seedu.tarence.model.Model#getApplication()
      */
-    ReadOnlyStudentBook getStudentBook();
+    ReadOnlyApplication getApplication();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns the user prefs' student book file path.
+     * Returns the user prefs' application file path.
      */
-    Path getStudentBookFilePath();
+    Path getApplicationFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

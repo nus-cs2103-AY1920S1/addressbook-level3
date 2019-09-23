@@ -35,44 +35,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' studentBook file path.
+     * Returns the user prefs' application file path.
      */
-    Path getStudentBookFilePath();
+    Path getApplicationFilePath();
 
     /**
-     * Sets the user prefs' student book file path.
+     * Sets the user prefs' application file path.
      */
-    void setStudentBookFilePath(Path studentBookFilePath);
+    void setApplicationFilePath(Path applicationFilePath);
 
     /**
-     * Replaces student book data with the data in {@code studentBook}.
+     * Replaces application data with the data in {@code application}.
      */
-    void setStudentBook(ReadOnlyStudentBook studentBook);
+    void setApplication(ReadOnlyApplication application);
 
-    /** Returns the StudentBook */
-    ReadOnlyStudentBook getStudentBook();
+    /** Returns the application */
+    ReadOnlyApplication getApplication();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the student book.
+     * Returns true if a person with the same identity as {@code person} exists in the application.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the student book.
+     * The person must exist in the application.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the student book.
+     * {@code person} must not already exist in the application.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the student book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the student book.
+     * {@code target} must exist in the application.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the application.
      */
     void setPerson(Person target, Person editedPerson);
 

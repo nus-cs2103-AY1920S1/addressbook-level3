@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.logic.commands.exceptions.CommandException;
+import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
-import seedu.tarence.model.ReadOnlyStudentBook;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
-import seedu.tarence.model.StudentBook;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.testutil.PersonBuilder;
 
@@ -99,12 +99,12 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public Path getStudentBookFilePath() {
+        public Path getApplicationFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setStudentBookFilePath(Path studentBookFilePath) {
+        public void setApplicationFilePath(Path applicationFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,12 +114,12 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void setStudentBook(ReadOnlyStudentBook studentBook) {
+        public void setApplication(ReadOnlyApplication application) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyStudentBook getStudentBook() {
+        public ReadOnlyApplication getApplication() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,8 +186,8 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyStudentBook getStudentBook() {
-            return new StudentBook();
+        public ReadOnlyApplication getApplication() {
+            return new Application();
         }
     }
 

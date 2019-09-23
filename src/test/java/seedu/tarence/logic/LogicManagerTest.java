@@ -22,10 +22,10 @@ import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
-import seedu.tarence.model.ReadOnlyStudentBook;
+import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.UserPrefs;
 import seedu.tarence.model.person.Person;
-import seedu.tarence.storage.JsonStudentBookStorage;
+import seedu.tarence.storage.JsonApplicationStorage;
 import seedu.tarence.storage.JsonUserPrefsStorage;
 import seedu.tarence.storage.StorageManager;
 import seedu.tarence.testutil.PersonBuilder;
@@ -41,10 +41,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonStudentBookStorage studentBookStorage =
-                new JsonStudentBookStorage(temporaryFolder.resolve("studentBook.json"));
+        JsonApplicationStorage applicationStorage =
+                new JsonApplicationStorage(temporaryFolder.resolve("application.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(studentBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(applicationStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -68,12 +68,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonStudentBookIoExceptionThrowingStub
-        JsonStudentBookStorage studentBookStorage =
-                new JsonStudentBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionStudentBook.json"));
+        // Setup LogicManager with JsonApplicationIoExceptionThrowingStub
+        JsonApplicationStorage applicationStorage =
+                new JsonApplicationIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionApplication.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(studentBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(applicationStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -126,7 +126,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getStudentBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -146,13 +146,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonStudentBookIoExceptionThrowingStub extends JsonStudentBookStorage {
-        private JsonStudentBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonApplicationIoExceptionThrowingStub extends JsonApplicationStorage {
+        private JsonApplicationIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveStudentBook(ReadOnlyStudentBook studentBook, Path filePath) throws IOException {
+        public void saveApplication(ReadOnlyApplication application, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

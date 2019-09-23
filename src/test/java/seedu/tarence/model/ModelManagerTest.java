@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
-import seedu.tarence.testutil.StudentBookBuilder;
+import seedu.tarence.testutil.ApplicationBuilder;
 
 public class ModelManagerTest {
 
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new StudentBook(), new StudentBook(modelManager.getStudentBook()));
+        assertEquals(new Application(), new Application(modelManager.getApplication()));
     }
 
     @Test
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setStudentBookFilePath(Paths.get("tarence/book/file/path"));
+        userPrefs.setApplicationFilePath(Paths.get("tarence/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setStudentBookFilePath(Paths.get("new/tarence/book/file/path"));
+        userPrefs.setApplicationFilePath(Paths.get("new/tarence/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,15 +61,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setStudentBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setStudentBookFilePath(null));
+    public void setApplicationFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setApplicationFilePath(null));
     }
 
     @Test
-    public void setStudentBookFilePath_validPath_setsStudentBookFilePath() {
+    public void setApplicationFilePath_validPath_setsApplicationFilePath() {
         Path path = Paths.get("tarence/book/file/path");
-        modelManager.setStudentBookFilePath(path);
-        assertEquals(path, modelManager.getStudentBookFilePath());
+        modelManager.setApplicationFilePath(path);
+        assertEquals(path, modelManager.getApplicationFilePath());
     }
 
     @Test
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personNotInStudentBook_returnsFalse() {
+    public void hasPerson_personNotInApplication_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInStudentBook_returnsTrue() {
+    public void hasPerson_personInApplication_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
@@ -95,13 +95,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        StudentBook studentBook = new StudentBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        StudentBook differentStudentBook = new StudentBook();
+        Application application = new ApplicationBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        Application differentApplication = new Application();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(studentBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(studentBook, userPrefs);
+        modelManager = new ModelManager(application, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(application, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,20 +113,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different StudentBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentStudentBook, userPrefs)));
+        // different Application -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentApplication, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(studentBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(application, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setStudentBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(studentBook, differentUserPrefs)));
+        differentUserPrefs.setApplicationFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(application, differentUserPrefs)));
     }
 }
