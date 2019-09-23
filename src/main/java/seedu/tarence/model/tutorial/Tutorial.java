@@ -1,6 +1,6 @@
-package seedu.address.model.tutorial;
+package seedu.tarence.model.tutorial;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.student.Student;
+import seedu.tarence.model.student.Student;
 
 /**
  * Represents a Tutorial.

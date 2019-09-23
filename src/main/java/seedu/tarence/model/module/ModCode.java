@@ -1,7 +1,7 @@
-package seedu.address.model.module;
+package seedu.tarence.model.module;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.tarence.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Module Code.
@@ -15,7 +15,7 @@ public class ModCode {
             + " It should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the module code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "^[A-Z]{2,3}[0-9]{4}[A-Z]?$";

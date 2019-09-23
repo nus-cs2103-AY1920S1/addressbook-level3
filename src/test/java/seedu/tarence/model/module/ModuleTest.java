@@ -1,15 +1,15 @@
-package seedu.address.model.module;
+package seedu.tarence.model.module;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.address.testutil.TypicalModules.CS1101S;
-import static seedu.address.testutil.TypicalModules.CS2103;
-import static seedu.address.testutil.TypicalModules.VALID_MODCODE_CS1101S;
+import static seedu.tarence.testutil.TypicalModules.CS1101S;
+import static seedu.tarence.testutil.TypicalModules.CS2103;
+import static seedu.tarence.testutil.TypicalModules.VALID_MODCODE_CS1101S;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.ModuleBuilder;
+import seedu.tarence.testutil.ModuleBuilder;
 
 public class ModuleTest {
 

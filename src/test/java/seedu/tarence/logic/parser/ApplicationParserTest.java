@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.tarence.logic.commands.AddStudentCommand;
-import seedu.tarence.logic.commands.ClearCommand;
 import seedu.tarence.logic.commands.DeleteCommand;
 import seedu.tarence.logic.commands.EditCommand;
 import seedu.tarence.logic.commands.EditCommand.EditPersonDescriptor;

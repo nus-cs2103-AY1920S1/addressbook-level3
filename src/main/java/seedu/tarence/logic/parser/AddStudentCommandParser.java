@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.person.Email;
-import seedu.tarence.model.person.MatricNum;
 import seedu.tarence.model.person.Name;
-import seedu.tarence.model.person.NusnetId;
 import seedu.tarence.model.person.Person;
-import seedu.tarence.model.person.Student;
+import seedu.tarence.model.student.MatricNum;
+import seedu.tarence.model.student.NusnetId;
+import seedu.tarence.model.student.Student;
 
 /**
  * Parses input arguments and creates a new AddCommand object

@@ -1,11 +1,11 @@
-package seedu.address.testutil;
+package seedu.tarence.testutil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.module.ModCode;
-import seedu.address.model.module.Module;
-import seedu.address.model.tutorial.Tutorial;
+import seedu.tarence.model.module.ModCode;
+import seedu.tarence.model.module.Module;
+import seedu.tarence.model.tutorial.Tutorial;
 
 
 /**

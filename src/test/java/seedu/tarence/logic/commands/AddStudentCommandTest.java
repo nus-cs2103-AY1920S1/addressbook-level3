@@ -37,7 +37,8 @@ public class AddStudentCommandTest {
 
         CommandResult commandResult = new AddStudentCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validPerson),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 
@@ -47,7 +48,8 @@ public class AddStudentCommandTest {
         AddStudentCommand addStudentCommand = new AddStudentCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddStudentCommand.MESSAGE_DUPLICATE_PERSON, () -> addStudentCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+            AddStudentCommand.MESSAGE_DUPLICATE_PERSON, () -> addStudentCommand.execute(modelStub));
     }
 
     @Test

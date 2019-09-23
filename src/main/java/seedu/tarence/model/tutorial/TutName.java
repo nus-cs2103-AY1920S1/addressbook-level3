@@ -1,9 +1,9 @@
-package seedu.address.model.tutorial;
+package seedu.tarence.model.tutorial;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
- * Represents a Tutorial Name.
+ * Represents a Tutorial's Name.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class TutName {
@@ -12,7 +12,7 @@ public class TutName {
             "It should not be blank and should not start or end with whitespace.";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the tutorial name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "^\\S+.*\\S+$";

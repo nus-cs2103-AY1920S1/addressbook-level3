@@ -1,11 +1,11 @@
-package seedu.address.model.module;
+package seedu.tarence.model.module;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.Tutorial;
 
 /**
  * Represents a Module.

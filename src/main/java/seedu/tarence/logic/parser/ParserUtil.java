@@ -6,9 +6,9 @@ import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.commons.util.StringUtil;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.person.Email;
-import seedu.tarence.model.person.MatricNum;
 import seedu.tarence.model.person.Name;
-import seedu.tarence.model.person.NusnetId;
+import seedu.tarence.model.student.MatricNum;
+import seedu.tarence.model.student.NusnetId;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

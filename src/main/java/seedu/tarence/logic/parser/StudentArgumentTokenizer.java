@@ -27,7 +27,7 @@ public class StudentArgumentTokenizer extends ArgumentTokenizer {
      */
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
 
-        // Step 2: Detect and extract optional arguments not specified by a prefix
+        // Step 1: Detect and extract optional arguments not specified by a prefix
         ArgumentMultimap argMultimap = extractOptionalArguments(argsString);
         Prefix[] optionalPrefixes = Arrays.stream(optionalArgs).map(a -> a.getPrefix()).toArray(Prefix[]::new);
         for (Prefix p : optionalPrefixes) {
@@ -36,13 +36,17 @@ public class StudentArgumentTokenizer extends ArgumentTokenizer {
             }
         }
 
-        // Step 3: Extract required arguments specified by prefix
+        // Step 2: Extract required arguments specified by prefix
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         ArgumentMultimap requiredArgMultimap = extractArguments(argsString, positions);
         for (Prefix p : prefixes) {
             if (requiredArgMultimap.getValue(p).isPresent()) {
                 argMultimap.put(p, requiredArgMultimap.getValue(p).get());
             }
+        }
+        Prefix preamblePrefix = new Prefix("");
+        if (requiredArgMultimap.getValue(preamblePrefix).isPresent()) {
+            argMultimap.put(preamblePrefix, requiredArgMultimap.getValue(preamblePrefix).get());
         }
 
         return argMultimap;

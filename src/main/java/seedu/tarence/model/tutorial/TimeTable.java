@@ -1,6 +1,6 @@
-package seedu.address.model.tutorial;
+package seedu.tarence.model.tutorial;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -51,8 +51,7 @@ public class TimeTable {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both timetables have the same identity and data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -85,6 +84,8 @@ public class TimeTable {
                 .append(getDay())
                 .append(" Time: ")
                 .append(getTime())
+                .append(" Weeks: ")
+                .append(getWeeks())
                 .append(" Duration: ")
                 .append(getDuration());
         return builder.toString();

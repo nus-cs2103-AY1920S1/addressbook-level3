@@ -1,15 +1,15 @@
-package seedu.address.model.student;
+package seedu.tarence.model.student;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.testutil.TypicalStudents.ALICE;
-import static seedu.address.testutil.TypicalStudents.BOB;
+import static seedu.tarence.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.tarence.testutil.TypicalStudents.ALICE;
+import static seedu.tarence.testutil.TypicalStudents.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.StudentBuilder;
+import seedu.tarence.testutil.StudentBuilder;
 
 public class StudentTest {
 
@@ -55,6 +55,14 @@ public class StudentTest {
 
         // different email -> returns false
         editedAlice = new StudentBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different matric num -> returns false
+        editedAlice = new StudentBuilder(ALICE).withMatricNum("A1234567A").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different NUSNET id -> returns false
+        editedAlice = new StudentBuilder(ALICE).withNusnetId("e1234567").build();
         assertFalse(ALICE.equals(editedAlice));
 
     }

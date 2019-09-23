@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.tarence.logic.commands.AddStudentCommand;
-import seedu.tarence.logic.commands.ClearCommand;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.DeleteCommand;
 import seedu.tarence.logic.commands.EditCommand;

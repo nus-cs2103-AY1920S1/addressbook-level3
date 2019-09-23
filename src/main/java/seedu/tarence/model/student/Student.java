@@ -1,33 +1,41 @@
-package seedu.address.model.student;
+package seedu.tarence.model.student;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.tarence.model.person.Email;
+import seedu.tarence.model.person.Name;
+import seedu.tarence.model.person.Person;
 
 /**
- * Represents a Student in the address book.
+ * Represents a Student.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Student extends Person {
 
     // Identity fields
-    protected Matric matric;
+    protected Optional<MatricNum> matricNum;
+    protected Optional<NusnetId> nusnetId;
 
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Email email, Matric matric) {
+    public Student(Name name, Email email,
+            Optional<MatricNum> matricNum, Optional<NusnetId> nusnetId) {
         super(name, email);
-        requireAllNonNull(matric);
-        this.matric = matric;
+        requireAllNonNull(matricNum, nusnetId);
+        this.matricNum = matricNum;
+        this.nusnetId = nusnetId;
     }
 
-    public Matric getMatric() {
-        return this.matric;
+    public Optional<MatricNum> getMatricNum() {
+        return matricNum;
+    }
+
+    public Optional<NusnetId> getNusnetId() {
+        return nusnetId;
     }
 
     /**
@@ -41,7 +49,9 @@ public class Student extends Person {
 
         return otherStudent != null
                 && otherStudent.getName().equals(getName())
-                && (otherStudent.getEmail().equals(getEmail()) || otherStudent.getMatric().equals(getMatric()));
+                && (otherStudent.getEmail().equals(getEmail())
+                || otherStudent.getMatricNum().equals(getMatricNum())
+                || otherStudent.getNusnetId().equals(getNusnetId()));
     }
 
     /**
@@ -61,13 +71,14 @@ public class Student extends Person {
         Student otherStudent = (Student) other;
         return otherStudent.getName().equals(getName())
                 && otherStudent.getEmail().equals(getEmail())
-                && otherStudent.getMatric().equals(getMatric());
+                && otherStudent.getMatricNum().equals(getMatricNum())
+                && otherStudent.getNusnetId().equals(getNusnetId());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, email, matric);
+        return Objects.hash(name, email, matricNum, nusnetId);
     }
 
     @Override
@@ -76,8 +87,10 @@ public class Student extends Person {
         builder.append(getName())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Matric: ")
-                .append(getMatric());
+                .append(" Matric Number: ")
+                .append(getMatricNum())
+                .append(" NUSNET Id: ")
+                .append(getNusnetId());
         return builder.toString();
     }
 
