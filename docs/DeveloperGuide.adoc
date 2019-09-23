@@ -339,8 +339,8 @@ Use case ends.
 +
 [none]
 ** 1a1. PalPay shows an error message.
-		Use case resumes at step 1.
-Use case ends.
++
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Delete expense
@@ -361,6 +361,7 @@ Use case ends.
 +
 [none]
 ** 1a1. PalPay shows the list of expenses since the time period specified.
++
 Use case resumes at step 3.
 
 
@@ -374,7 +375,7 @@ _{More to be added}_
 .  Upon user input, PalPay should execute tasks (and display results) within 1 second.
 .  Users should have (and be able to specify) default options such that they can issue minimal commands for common tasks.
 .  Should be quick and efficient, with each user session lasting no longer than 3 minutes to effectively manage his current financial state.
-.  The application shouldn't make users feel defeated, but rather empowered in managing their finances.
+.  Should not make users feel defeated, but rather empowered in managing their finances.
 
 [appendix]
 == Glossary
