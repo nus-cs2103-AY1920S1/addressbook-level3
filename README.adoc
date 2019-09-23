@@ -1,6 +1,8 @@
 = SELLER MANAGER Lite
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+https://travis-ci.org/AY1920S1-CS2103T-T09-4[image:https://travis-ci.org/AY1920S1-CS2103T-T09-4/main.svg?branch=master[Build Status]]
+
 = Have you seen the price of iPhones these days? Ever wanted to get into the handphone selling business? With this app, you will be leagues of the competition! Download now!
 
 ifdef::env-github[]
