@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Seller Manager Lite - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,17 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
-
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Seller Manager Lite (SML) is for those who *prefer to use a desktop app for managing their sales*. More importantly, SML is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SML can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
-
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `sellermanagerlite.jar` https://github.com/AY1920S1-CS2103T-T09-4/main/releasesreleases[here].
+.  Copy the file to the folder you want to use as the home folder for your Seller Manager Lite.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +31,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list -c`* : lists all customer contacts
+* **`add -c`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a customer named `John Doe` to SML.
+* **`delete -c`**`3` : deletes the 3rd customer shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,132 +44,221 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add -c n/NAME`, `NAME` is a parameter which can be used as `add -c n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
-
+Lists out the commands you need to navigate SML. +
 Format: `help`
 
-=== Adding a person: `add`
+=== Phone Commands
+Commands that work on phones that you have in your inventory.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Add a phone : `add -p`
+Adds a phone or updates the inventory. +
+Format: `add -p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…​`
 
+==== Delete a phone : `delete -p`
+Deletes a phone from the inventory. +
+Format: `delete -p INDEX`
+
+==== Find a phone : `find -p`
+Returns all the information pertaining to phone with matching name. +
+Format: `find -p p/PHONE`
+
+==== List the phones : `list -p`
+List all the phones in lexicographical order. +
+Format: `list -p`
+
+==== Update a phone : `update -p`
+Updates the appropriate fields of a phone. +
+Format: `update -p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
+
+==== Copy phone field : `copy -p`
+Copies a phone field to clipboard. +
+Format: `copy -p <field>`
+
+=== Order Commands
+Commands that work on orders that you have.
+
+==== Add an order : `add -o`
+Adds an order to the list of orders. +
+Format: `add -o p/PHONE_NUMBER i/ITEM...`
+
+==== Find an order : `find -o`
+Returns all the information pertaining to the order. +
+Format: `find -o INDEX`
+
+==== Update an order : `update -o`
+Updates the order status.  +
+Format: `update -o INDEX` +
+Possible status: `UNSCHEDULED` , `SCHEDULED` , `COMPLETED`
+
+==== Cancel an order : `cancel -o`
+Cancels the order at the specified index. +
+Format: `cancel -o INDEX`
+
+==== List the orders : `list -o`
+List all the orders in the list. +
+Format: `list -o`
+
+==== Copy order field : `copy -o`
+Copies an order field to clipboard. +
+Format: `copy -o <field>`
+
+==== Duplicate an order : `duplicate -o`
+Duplicate an order of the specified index. +
+Format: `duplicate -o INDEX`
+
+=== Customer Commands
+Commands that work on customers in your list.
+
+==== Add a customer : `add -c`
+Adds a customer to the address book. +
+Format: `add -c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 [TIP]
-A person can have any number of tags (including 0)
+A person can have any number of tags, including 0.
 
-Examples:
+==== Delete a customer : `delete -c`
+Deletes a customer in the address book. +
+Format: `delete -c INDEX
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+==== Find a customer : `find -c`
+Finds customers whose names contain any of the given keywords. +
+Format: `find -c KEYWORD [MORE_KEYWORDS]`
 
-=== Listing all persons : `list`
+==== List the customers : `list -c`
+List every single customer in SML. +
+Format: `list -c`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Update a customer : `update -c`
+Updates an existing customer. +
+Format: `update -c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
 
-=== Editing a person : `edit`
+==== Copy customer field : `copy -c`
+Copies a customer field to clipboard. +
+Format: `copy -c <field>`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Utility Commands
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+==== Undo : `undo`
+Undo the previous command.  +
+Format: `undo`
 
-Examples:
+==== Redo : `redo`
+redo the previous command.  +
+Format: `redo`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+==== Generate stats : `generate`
+Generates the statistics either in normal viewing format or chart format (in pop-up modal dialog). +
+Format: `generate -s s/STAT -d d/ -t t/TYPE` +
+Possible stats: `general` , `bestseller` etc +
+Possible type: `view` , `graph`
 
-=== Locating persons by name: `find`
+==== Check : `check`
+Check for stock etc. For stock, see the phones that have < threshold quantity.   +
+Format: `check <flag>` +
+Possible flag: `-p` for phone stock, `check -p <threshold>`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Schedule : `schedule`
+Check for schedule.   +
+Format: `schedule`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
+==== Clearing all entries : `clear`
+Clears all entries of items, orders and customers. +
 Format: `clear`
 
-=== Exiting the program : `exit`
-
+==== Exiting the program : `exit`
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Import/export data : `import / export`
+Import csv file into the application. +
+Export application data into csv file. +
+Export application stats. +
+Format: `import <flag>` / `export <flag>` +
+Possible flag: `-p` for phone, `-c` for customer, `-o` for order.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+=== Saving the data
+SML data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
+Explain how the user can enable/disable data encryption
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Autocomplete  `[coming in v2.0]`
+Press kbd:[Tab] to autocomplete the line. (like in command line)
+
+=== Notification for reminders/alerts  `[coming in v2.0]`
+Notification page to show any notifications of reminders or alerts.
+
+=== Export data to PDF/Excel  `[coming in v2.0]`
+Export any of the data in SML to PDF format.
 
 == FAQ
-
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SML folder.
 
 == Command Summary
+* *Add* +
+** customer : `add -c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
+** phone : `add -p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…`
+** order : `add -o p/PHONE_NUMBER i/ITEM...`
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Cancel* +
+** order : `cancel -o INDEX`
+
+* *Check* +
+** stock : `check -p <threshold>`
+
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+
+* *Copy* +
+** customer : `copy -c <field>`
+** phone : `copy -p <field>`
+** order : `copy -o <field>`
+
+* *Delete* +
+** customer : `delete -c INDEX`
+** phone : `delete -p INDEX`
+
+* *Duplicate* +
+** order : `duplicate -o INDEX`
+
+* *Exit* : `exit`
+
+* *Export* +
+** customer : `export -c`
+** phone : `export -p`
+** order : `export -o`
+
+* *Find* +
+** customer : `find -c KEYWORD [MORE_KEYWORDS]`
+** phone : `find -p p/PHONE`
+** order : `find -o INDEX`
+
+* *Generate* : `generate -s s/STAT -d d/ -t t/TYPE`
+
+* *Import* +
+** customer : `import -c`
+** phone : `import -p`
+** order : `import -o`
+
+* *List* +
+** customer : `list -c`
+** phone : `list -p`
+** order : `list -o`
+
 * *Help* : `help`
+
+* *Redo* : `redo`
+
+* *Undo* : `undo`
+
+* *Update* +
+** customer : `update -c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+** phone : `update -p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
+** order : `update -o INDEX`
