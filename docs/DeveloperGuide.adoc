@@ -320,13 +320,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
-|`* * *` |new user |add my CCA expenses with (when, where, how much, who) details |better manage expense history
+|`* * *` |new user |add my CCA expenses with (when, where, how much, who) details |better manage expense history|
 
 |`* * *` |user |add a new transactions |
 
-|`* * *` |user |add a new member |
+|`* * *` |user |add a new member|
 
-|`* * *` |user |add a new inventory items |
+|`* * *` |user |add a new inventory items|
 
 |`* * *` |user |delete a transaction |remove entries that I no longer need |
 
@@ -356,7 +356,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*`|user|auto complete for people already in database |know if I have to get their contact details to fill into the database later |
 
-|`*`|user |upload receipt proofs into the system| better check for validity of transaction and for security |
+|`*`|user |upload receipt proofs into the system| better check for validity of transaction and for security|
 
 |=======================================================================
 
@@ -367,7 +367,6 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `treasurerPro (tP)` and the *Actor* is the `user`, unless specified otherwise)
 
-[[discrete]]
 === Overview Tab
 
 [discrete]
