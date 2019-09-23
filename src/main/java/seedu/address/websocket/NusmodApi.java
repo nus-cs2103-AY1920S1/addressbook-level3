@@ -1,11 +1,13 @@
 package seedu.address.websocket;
 
+import java.util.logging.Logger;
+
 import org.json.simple.JSONObject;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.websocket.util.ApiQuery;
 import seedu.address.websocket.util.ParserUtil;
 import seedu.address.websocket.util.QueryResult;
-
 
 /**
  * NUSMods API websocket
@@ -25,6 +27,8 @@ public class NusmodApi {
     private static final String VENUES = "/venues";
     private static final String VENUE_INFO = "/venueInformation";
 
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
+
     public NusmodApi() {
 
     }
@@ -37,7 +41,7 @@ public class NusmodApi {
     public JSONObject getModuleList() {
         ApiQuery query = new ApiQuery(BASEURL + ACAD_YEAR + MODULE_LIST + JSON_EXTENTION);
         QueryResult queryResult = query.execute();
-        if (queryResult.process()) {
+        if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
             return obj;
         } else {
@@ -53,7 +57,7 @@ public class NusmodApi {
     public JSONObject getModuleInfo() {
         ApiQuery query = new ApiQuery(BASEURL + ACAD_YEAR + MODULE_INFO + JSON_EXTENTION);
         QueryResult queryResult = query.execute();
-        if (queryResult.process()) {
+        if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
             return obj;
         } else {
@@ -70,7 +74,7 @@ public class NusmodApi {
     public JSONObject getModules(String moduleCode) {
         ApiQuery query = new ApiQuery(BASEURL + ACAD_YEAR + MODULES + SLASH + moduleCode + JSON_EXTENTION);
         QueryResult queryResult = query.execute();
-        if (queryResult.process()) {
+        if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
             return obj;
         } else {
@@ -90,7 +94,7 @@ public class NusmodApi {
     public JSONObject getVenues(String semester) {
         ApiQuery query = new ApiQuery(BASEURL + ACAD_YEAR + SEMESTERS + semester + VENUES + JSON_EXTENTION);
         QueryResult queryResult = query.execute();
-        if (queryResult.process()) {
+        if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
             return obj;
         } else {
@@ -110,7 +114,7 @@ public class NusmodApi {
     public JSONObject getVenueInformation(String semester) {
         ApiQuery query = new ApiQuery(BASEURL + ACAD_YEAR + SEMESTERS + semester + VENUE_INFO + JSON_EXTENTION);
         QueryResult queryResult = query.execute();
-        if (queryResult.process()) {
+        if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
             return obj;
         } else {
