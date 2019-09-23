@@ -18,24 +18,24 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+PalPay is for those who *prefer to use a desktop app for managing personal finances*. More importantly, PalPay is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps. Ready to start your journey to financial freedom? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `palpay.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your finance manager.
+.  Double-click the file to start the app. The GUI should appear within a few seconds.
 +
-image::Ui.png[width="790"]
+*Placeholder for image* image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Type your command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`view`* : shows statistics of your current finances
+* **`in`**`100 n/mother t/allowance` : adds an income to your personal finance of *100* dollars under the catergory *mother* and the item type *allowance*.
+* **`out`**`3 n/pie t/food` : adds an expenditure to your personal finance of *3* dollars under the category *food* and the item type *pie*.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,28 +46,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `in AMOUNT n/ITEM`, `AMOUNT` and 'ITEM' are parameters which can be used as `in 300 n/concert`.
+* Items in square brackets are optional e.g `n/ITEM [t/CATEGORY]` can be used as `n/coke t/drinks` or as `n/coke`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[n/NAME]...` can be used as `{nbsp}` (i.e. 0 times), `n/Amy`, `n/Amy n/Betty` etc.
+* Parameters can be in any order e.g. if the command specifies `AMOUNT n/ITEM`, `n/ITEM AMOUNT` is also acceptable.
 ====
 
 === Viewing help : `help`
 
+Opens help page for list of usable commands +
 Format: `help`
 
-=== Adding a person: `add`
+=== Splitting expense with multiple people: `split`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Split expenses with you friends +
+Format: `split AMOUNT [FLAG] n/NAME1 [n/NAME2]...`
 
-[TIP]
-A person can have any number of tags (including 0)
+****
+* [FLAG] defines how the bill is split
+** `--even` splits the amount evenly.
+** `--shares` splits the amount by ration (default = 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `split 1000 n/Amy n/Betty n/Catherine n/Dan`
+* `split 100 --share n/Albert n/Bernard n/Clement`
 
 === Listing all persons : `list`
 
