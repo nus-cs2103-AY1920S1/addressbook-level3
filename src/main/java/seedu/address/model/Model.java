@@ -5,7 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.group.Group;
+import seedu.address.model.group.GroupID;
+import seedu.address.model.group.GroupName;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonID;
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.personToGroupMapping.PersonToGroupMapping;
 
 /**
  * The API of the Model component.
@@ -69,6 +76,9 @@ public interface Model {
      */
     void addPerson(Person person);
 
+    String personListToString();
+
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -84,4 +94,29 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    void addGroup(Group group);
+
+    String list();
+
+    boolean addEvent(Name name, Event event);
+
+    void addPersonToGroupMapping(PersonToGroupMapping mapping);
+
+    Person findPerson(Name name);
+
+    Group findGroup(GroupName groupName);
+
+    PersonToGroupMapping findPersonToGroupMapping(PersonID personID, GroupID groupID);
+
+    boolean deletePersonToGroupMapping(PersonToGroupMapping mapping);
+
+    void deletePersonFromMapping(PersonID personID);
+
+    void deleteGroupFromMapping(GroupID groupID);
+
+    boolean deleteGroup(GroupID groupID);
+
+    boolean deletePerson(PersonID personID);
+
 }

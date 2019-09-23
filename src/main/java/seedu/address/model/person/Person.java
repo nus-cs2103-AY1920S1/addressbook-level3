@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,14 +18,19 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    private final PersonID personID;
+
+    // Data fields
     private final Name name;
     private final Phone phone;
     private final Email email;
-
-    // Data fields
     private final Address address;
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
+
+    private static Integer counter = 0;
+
+    private Schedule schedule;
 
     /**
      * Every field must be present and not null.
@@ -36,6 +43,13 @@ public class Person {
         this.address = address;
         this.remark = remark;
         this.tags.addAll(tags);
+        this.personID = new PersonID(counter);
+        this.schedule = new Schedule();
+        counter += 1;
+    }
+
+    public void addEvent(Event event){
+        this.schedule.addEvent(event);
     }
 
     public Name getName() {
@@ -111,19 +125,18 @@ public class Person {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Remarks: ")
-                .append(getRemark())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        return builder.toString();
+
+        String output = "";
+        output += "ID: " + personID.toString() + " ";
+        output += "Name: " + name.toString() + "\n";
+        output += "Scedule: ";
+        output += schedule.toString() + "\n";
+
+        return output;
+    }
+
+    public PersonID getPersonID(){
+        return this.personID;
     }
 
 }

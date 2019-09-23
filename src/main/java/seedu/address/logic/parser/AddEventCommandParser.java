@@ -1,0 +1,50 @@
+package seedu.address.logic.parser;
+
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddPersonCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Timeslot;
+
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
+
+public class AddEventCommandParser implements Parser<AddEventCommand> {
+    @Override
+    public AddEventCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EVENTNAME, PREFIX_TIMING);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENTNAME, PREFIX_TIMING)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
+        }
+
+        Name name = new Name(argMultimap.getValue(PREFIX_NAME).get());
+        String eventName = argMultimap.getValue(PREFIX_EVENTNAME).get();
+        String[] timings = argMultimap.getValue(PREFIX_TIMING).get().split(" ");
+
+        int i;
+        Event event = new Event(eventName);
+        try{
+            for(i = 0; i < timings.length ; i++){
+                String[] details = timings[i].split("-");
+                event.addTimeslot(new Timeslot(details[0], details[1], details[2]));
+            }
+        } catch (Exception e){
+            return new AddEventCommand(name, null);
+        }
+        return new AddEventCommand(name, event);
+    }
+
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+}

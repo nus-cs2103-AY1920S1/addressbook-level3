@@ -11,7 +11,17 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.group.Group;
+import seedu.address.model.group.GroupID;
+import seedu.address.model.group.GroupList;
+import seedu.address.model.group.GroupName;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonID;
+import seedu.address.model.person.PersonList;
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.personToGroupMapping.PersonToGroupMapping;
+import seedu.address.model.personToGroupMapping.PersonToGroupMappingList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +32,10 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    private PersonList personList;
+    private GroupList groupList;
+    private PersonToGroupMappingList personToGroupMappingList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +49,10 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        this.personList = new PersonList();
+        this.groupList = new GroupList();
+        this.personToGroupMappingList = new PersonToGroupMappingList();
     }
 
     public ModelManager() {
@@ -99,10 +117,10 @@ public class ModelManager implements Model {
         addressBook.removePerson(target);
     }
 
+
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public String personListToString(){
+        return personList.toString();
     }
 
     @Override
@@ -147,5 +165,117 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
+    //=========== Person Accessors =============================================================
+
+    @Override
+    public void addPerson(Person person) {
+
+        this.personList.addPerson(person);
+
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public Person findPerson(Name name) {
+        Person person = personList.findPerson(name);
+        if(person != null){
+            return person;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean addEvent(Name name, Event event) {
+        Person p = personList.findPerson(name);
+        if(p != null){
+            p.addEvent(event);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deletePerson(PersonID personID) {
+        deletePersonFromMapping(personID);
+        return personList.deletePerson(personID);
+    }
+
+    //=========== Group Accessors =============================================================
+
+    @Override
+    public void addGroup(Group group) {
+        this.groupList.addGroup(group);
+    }
+
+    @Override
+    public Group findGroup(GroupName groupName) {
+        Group group = groupList.findGroup(groupName);
+        if(group != null){
+            return group;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean deleteGroup(GroupID groupID) {
+        deleteGroupFromMapping(groupID);
+        return groupList.deleteGroup(groupID);
+    }
+
+    //=========== Mapping Accessors =============================================================
+
+    @Override
+    public void addPersonToGroupMapping(PersonToGroupMapping mapping) {
+        personToGroupMappingList.addPersonToGroupMapping(mapping);
+    }
+
+    @Override
+    public PersonToGroupMapping findPersonToGroupMapping(PersonID personID, GroupID groupID) {
+        return personToGroupMappingList.findPersonToGroupMapping(personID, groupID);
+    }
+
+    @Override
+    public boolean deletePersonToGroupMapping(PersonToGroupMapping mapping) {
+        return personToGroupMappingList.deletePersonToGroupMapping(mapping);
+    }
+
+    @Override
+    public void deletePersonFromMapping(PersonID personID) {
+        personToGroupMappingList.deletePersonFromMapping(personID);
+    }
+
+    @Override
+    public void deleteGroupFromMapping(GroupID groupID) {
+        personToGroupMappingList.deleteGroupFromMapping(groupID);
+    }
+
+
+
+
+
+    //=========== Others =============================================================
+
+    @Override
+    public String list() {
+        String output = "";
+        output += "PERSONS:\n";
+        output += personList.toString();
+
+        output += "--------------------------------------------\n";
+        output += "GROUPS:\n";
+        output += groupList.toString();
+
+        output += "--------------------------------------------\n";
+        output += "MAPPINGS: \n";
+        output += personToGroupMappingList.toString();
+
+        return output;
+    }
+
+
 
 }
