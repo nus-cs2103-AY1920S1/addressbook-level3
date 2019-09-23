@@ -13,7 +13,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* Palpay is a desktop finance management application with features such as budgeting, shared expense tracking and statistics. 
+* PalPay is a desktop finance management application with features such as budgeting, shared expense tracking and statistics. 
 * It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java (SDK 11) application intended for Computing students comfortable with CLI and wants to manage their personal finance.
 
