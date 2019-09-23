@@ -74,7 +74,7 @@ public class JsonLoanRecordsStorage implements LoanRecordsStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-//        JsonUtil.saveJsonFile(new JsonSerializableLoanRecords(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableLoanRecords(loanRecords), filePath);
     }
 
 }
