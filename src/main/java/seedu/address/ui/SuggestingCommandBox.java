@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanExpression;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
