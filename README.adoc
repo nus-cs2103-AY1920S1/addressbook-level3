@@ -1,10 +1,11 @@
 = THRIFT
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/AY1920S1-CS2103T-W12-2/main[image:https://travis-ci.org/AY1920S1-CS2103T-W12-2/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/lightz96/main[image:https://ci.appveyor.com/api/projects/status/3q73o6fe1kah8k0g/branch/master?svg=true[Build status]]
+https://travis-ci.org/AY1920S1-CS2103T-W12-2/main[image:https://img.shields.io/travis/AY1920S1-CS2103T-W12-2/main/master.svg?logo=travis-ci&logoColor=white[Build Status]]
+https://ci.appveyor.com/project/lightz96/main[image:https://img.shields.io/appveyor/ci/lightz96/main/master.svg?logo=Appveyor[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-W12-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-W12-2/main/badge.svg?branch=master[Coverage Status]]
-https://app.netlify.com/sites/thrift/deploys[image:https://api.netlify.com/api/v1/badges/fbb1dc07-179d-412c-a5cc-52c34f58a42c/deploy-status[Netlify Status]]
+https://app.netlify.com/sites/thrift/deploys[image:https://img.shields.io/netlify/fbb1dc07-179d-412c-a5cc-52c34f58a42c?logo=netlify[Netlify Status]]
+link:https://github.com/AY1920S1-CS2103T-W12-2/main/blob/master/LICENSE[image:https://img.shields.io/badge/license-MIT-blue.svg[MIT License]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

@@ -279,104 +279,259 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* money-conscious NUS students
+* has a need to manage a significant number of transactions
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* provides a more effective financial management compared to typical mouse/GUI driven app
+* easier to plan for future spending
+* keeps all info regarding fees and costs in a single location
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="5%,<25%,<30%,<40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *`
+|NUS student
+|track my spending
+|manage my finances better
 
-|`* * *` |user |add a new person |
+|`* * *`
+|movie addict who watches every movie that comes out
+|keep track of my movie ticket and snack expenses
+|have enough money to watch the movies I want.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *`
+|computing student who has many software subscriptions
+|use the recurring expenses tracker
+|manage my subscription payments
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *`
+|student staying in the Halls with many expenses
+|see all my expenses in a central spot
+|keep track of all the different expenses
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *`
+|NUS international student
+|keep track of my travelling and spending expenses
+|have enough money when I travel around Singapore
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *`
+|someone who loves travelling
+|use the tracker to help me plan for my travelling budgets
+|fully enjoy my time on vacation
+
+|`* * *`
+|SOC student always on my laptop
+|write down my expenses
+|really quickly due to the command-line nature
+
+|`* * *`
+|student who uses both PayLah and cash interchangeably
+|tag my expenses
+|keep track of both expenses
+
+|`* * *`
+|NUS student who loans money to a lot of friends
+|use the debt tracker to track and collect my interest
+|
+
+|`* * *`
+|student accepting financial aid
+|use the expense tracker report
+|keep within my budget
+
+|`* * *`
+|student who borrows money frequently from other people
+|use the debt tracker to remember who I owe money to
+|
+
+|`* * *`
+|NUS international student
+|be able to keep track of recurring utility expenses such as phone bills
+|plan a suitable budget
+
+|`* * *`
+|phone junkie
+|set aside enough money for purchasing the latest phones and accessories
+|
+
+|`* * *`
+|student who is conscious about money
+|be able to view my monthly expenditure
+|know how much I had spent this month
+
+|`* * *`
+|female buying clothes frequently
+|track exactly how much I spend on clothes each month using the tracker and filter
+|don’t exceed my clothes budget
+
+|`* * *`
+|student who likes to buy games online
+|use the expense tracker funds left
+|see if I am able to pay my school fees
+
+|`* * *`
+|mobile game addict who makes a lot of in-app purchases
+|use the expenses tracker report
+|manage my finances and to sustain my essential expenses
+
+|`* * *`
+|student that frequently takes on part-time jobs
+|use finance planner to track my income
+|
+
+|`* * *`
+|frugal NUS student
+|use the expense tracker report
+|optimise my finances
+
+|`* * *`
+|social animal frequently going to clubs and bars
+|plan out my expenses
+|moderate my spending on social activities and keep up my balanced lifestyle
+
+|`* * *`
+|student that stays in Hall
+|add my expenses to the expense tracker
+|track funds contributed to hall activities
+
+|`* * *`
+|student who wants to save more money
+|be able to compare my past expenditure with my current expenditure
+|know if I had spent more money or saved money this month
+
+|`* * *`
+|hall resident who eats supper daily
+|keep track of what I have been eating and how much I usually spend on supper
+|don't overspend on each supper
+
+|`* * *`
+|child of wealthy parent
+|easily delete previous expenses
+|properly count my expenditure should my parents decide to help cover some parts of it
+
+|`* * *`
+|careless student
+|make some changes to the information
+|ensure that the application displays the correct information
+
+|`* * *`
+|student who loves to keep track of finance
+|view all the possible commands
+|fully utilize the functionalities offered by the application
+
+|`* *`
+|student that wants to allocate less money to material goods and more to food
+|analyse the spending by category and adjust accordingly
+|
+
+|`* *`
+|on-campus resident who likes to cook my own food
+|track my grocery bills
+|moderate the cost and frequency of grocery shopping
+
+|`* *`
+|motor enthusiast
+|use the planner to set aside funds
+|keep purchasing vehicle parts, modifications and accessories and keep pursuing my hobby
+
+|`* *`
+|student who has a bad habit of spending a lot on material goods
+|see which goods are taking up most of my monthly budget
+|better manage my finances
+
+|`* *`
+|Hypebeast that spends a lot of money on branded goods
+|look at my recent spending percentage
+|manage my finances and keep my budget
+
+|`* *`
+|student who is going for exchange
+|make sure that I bring enough foreign currency
+|avoid using my credit card
+
+|`* *`
+|student who is currently in a relationship
+|the tracker to help me set aside enough money for both my partner and I
+|get married soon
+
+|`*`
+|student who always lends money to people
+|be able to send receipt to my loanee
+|claim back my money
+
+|`*`
+|dota addict who always buy arcanas and battle pass levels
+|track my spending
+|afford to buy more battle pass levels
+
+|`*`
+|active youth in need of sustenance within a limited budget
+|get recommendations for food prices
+|be healthy physically and financially
+
+|`*`
+|shopaholic
+|use the finance planner to find discounts
+|spend less on my shopping
+
+|`*`
+|NUS student with stingy and over-controlling parents
+|send my expense report for the month to my parents to view easily
+|avoid them asking me what I have been spending on all the time
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `THRIFT` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Shows help window
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to view to syntax of a specific command.
+2. THRIFT displays the syntax of the requested command.
 +
-Use case ends.
+Use case ends
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 1a. The command specified by the user is not valid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. THRIFT displays an invalid command error to user.
 +
-Use case resumes at step 2.
-
-_{More to be added}_
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. THRIFT should be able to run on any <<mainstream-os, mainstream OS>> as long as it has Java `11` installed.
+. THRIFT should be able to hold up to 250 persons without a noticeable sluggishness in performance for typical usage.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. THRIFT should be able to run with or without internet connection.
+. THRIFT should work for a single user only.
+. THRIFT should not require user to install.
+. Features implemented should be testable using manual testing and automated testing.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

@@ -1,0 +1,7 @@
+= Lee Bo Qiang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-2/main
+
+== Project: THRIFT

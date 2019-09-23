@@ -17,4 +17,11 @@ image::limerencee.png[width="150", align="left"]
 Role: Project Manager/Developer +
 Responsibilities: Deliverables and Deadlines
 
+=== Lee Bo Qiang
+image::lightz96.png[width="150", align="left"]
+{empty}[https://github.com/lightz96[github]] [<<lightz96#, portfolio>>]
+
+Role: User Experience Developer +
+Responsibilities: UI
+
 '''

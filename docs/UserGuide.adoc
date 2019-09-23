@@ -91,18 +91,79 @@ Expected output:
 
 *   `Entry deleted: 1. Laksa ($10.50) [Lunch][Food]`
 
+=== Undoing the previous undoable command: `undo`
 
-=== Generate an external report `[coming in v2.0]`
+Format: `undo`
+
+NOTE: Undoable commands are commands that modify the data of THRIFT application.
+
+.List of undoable commands[[Undoable]]:
+* <<Adding an expense: `add expense`, add expense>>
+* <<Adding an income: `add income`, add income>>
+* <<Deleting a Transaction: `delete`, delete>>
+* update
+* clone
+* tag
+
+Examples:
+
+* `add expense n/Laksa c/10.50 t/Lunch t/Food` +
+  `undo`
+
+* `add income n/Allowance c/1000 t/Monthly` +
+  `list` +
+  `undo`
+
+Expected output:
+
+* Deletes the expense spent on Laksa from THRIFT.
+* Deletes the allowance income from THRIFT.
+
+=== Redoing the undone command: `redo`
+
+Redo the <<Undoable, undoable command>> that was previously undone by the user.
+
+Format: `redo`
+
+Examples:
+
+* `add expense n/Laksa c/10.50 t/Lunch t/Food` +
+  `undo` +
+  `redo`
+
+Expected output:
+
+* Adds the expense spent on Laksa back to THRIFT.
+
+=== Displaying help page: `help`
+
+Format: `help [COMMAND]`
+
+Examples:
+
+* `help`
+* `help delete`
+
+Expected output:
+
+* Displays a detailed list of information regarding all the THRIFT commands.
+* Returns syntax of `delete` command.
+
+=== Exiting THRIFT application: `exit`
+
+Format: `exit`
+
+=== Generating an external report `[coming in v2.0]`
 
 With this feature, you will be able to save your monthly budget report into an external file for your record purposes. The report will clearly state your expenditure, income and remaining budget for the month.
 
 
-=== Recommend dining options based on budget `[coming in v2.0]`
+=== Recommending dining options based on budget `[coming in v2.0]`
 
 Depending on your remaining budget and the remaining days to the end of the month, THRIFT will recommend you dining places in NUS which will suit your budget. For example, if you are running low on funds, you might get recommended to travel to the Arts canteen to eat since there are really cheap options there.
 
 
-=== Encryption of THRIFT data `[coming in v2.0]`
+=== Encrypting THRIFT data `[coming in v2.0]`
 
 If you are especially conscious about having your data spied on, this function will definitely ease your worries. With encryption enabled, your data will not be known to the intruder should they steal your THRIFT application data.
 
@@ -110,7 +171,7 @@ If you are especially conscious about having your data spied on, this function w
 
 *Q*: How do I transfer my data to another Computer?
 
-*A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous THRIFT installation.
+*A*: Runs the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous THRIFT application.
 
 == Command summary
 * *Expense*:  `add expense n/EXPENSE_NAME c/COST [t/TAG]...` +
@@ -119,3 +180,9 @@ Example: `add expense n/Laksa c/10.50 t/Lunch t/Food`
 Example: `add income n/Allowance c/1000 t/Monthly`
 * *Delete*: `delete i/INDEX` +
 Example: `delete i/1`
+* *Undo*: `undo`
+* *Redo*: `redo`
+* *Help*: `help [COMMAND]` +
+Example: `help delete`
+* *Exit*: `exit`
+
