@@ -71,6 +71,8 @@ public class EditCommand extends UndoableCommand {
 
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.personToEdit = null;
+        this.editedPerson = null;
     }
 
     @Override
@@ -82,10 +84,14 @@ public class EditCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        personToEdit = lastShownList.get(index.getZeroBased());
-        editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        if (personToEdit == null && editedPerson == null) {
+            personToEdit = lastShownList.get(index.getZeroBased());
+            editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        }
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (personToEdit != null && editedPerson != null
+            && !personToEdit.isSamePerson(editedPerson)
+            && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
