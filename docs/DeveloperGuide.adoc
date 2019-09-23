@@ -328,23 +328,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |function to schedule goals and plan budget/spending |
 
-|`* * *`|user |have information of the person I need to reimburse| easily find information to contact the person for reimbursement 
+|`* * *` |user |have information of the person I need to reimburse| easily find information to contact the person for reimbursement 
 
-|`* * *`|user|generate and export to print out overview reports of the financials| present it during board meetings and give it to other board directors 
+|`* * *` |user|generate and export to print out overview reports of the financials| present it during board meetings and give it to other board directors 
 
-|`* * *`|user |have a cashier mode for another member who do sales input data directly in real time when the transaction is made | not spend extra time to collate their sales and revenue and key it in myself 
+|`* * *` |user |have a cashier mode for another member who do sales input data directly in real time when the transaction is made | not spend extra time to collate their sales and revenue and key it in myself 
 
-|`* * *`|plan and estimate my budget for events by comparing with previous transactions| 
+|`* * *` |user |plan and estimate my budget for events by comparing with previous transactions| 
 
-|`* *`|user |can tag and see who I have to reimburse back to most urgently |
+|`* *` |user |can tag and see who I have to reimburse back to most urgently |
 
-|`* *`|user |have a reminder pop up when I open the app of the reimbursements I have to do within this week from the current date |
+|`* *` |user |have a reminder pop up when I open the app of the reimbursements I have to do within this week from the current date |
 
-|`*`|user |schedule deadlines in order to plan for events |
+|`*` |user |schedule deadlines in order to plan for events |
 
-|`*`|user|auto complete for people already in database |know if I have to get their contact details to fill into the database later 
+|`*` |user|auto complete for people already in database |know if I have to get their contact details to fill into the database later 
 
-|`*`|user |upload receipt proofs into the system| better check for validity of transaction and for security 
+|`*` |user |upload receipt proofs into the system| better check for validity of transaction and for security 
 
 |=======================================================================
 
