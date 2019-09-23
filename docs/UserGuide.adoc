@@ -342,7 +342,7 @@ Returns an error message to inform the user of an invalid NRIC. The contact numb
 if present.
 
 ****
-* The details of the input person will not be added until all information is valid.
+* All details except the NRIC will be added.
 ****
 
 Example:
@@ -351,7 +351,10 @@ Example:
 
 Expected Output:
 ```
-Q9999999J is invalid. You might want to contact John Doe: 98765432 johnd@example.com`
+New person added: John Doe Phone:98765432 Email:johnd@example.com Address:John street, block 123, #01-01 Birthday 12th September 1980 Policy: SeniorCare Tags: high_priority
+
+Q9999999J is invalid.
+You might want to contact John Doe: 98765432 johnd@example.com`
 ```
 
 === Incorrect Contact Number Alert
@@ -360,16 +363,19 @@ Returns an error message to inform the user of an invalid contact number. The em
 if present.
 
 ****
-* The details of the input person will not be added until all information is valid.
+* All details except the phone number will be added.
 ****
 
 Example:
 
-`add n/John Doe ic/Q9999999J p/48765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+`add n/John Doe ic/S9999999J p/48765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
 
 Expected Output:
 ```
-48765432 is invalid. You might want to contact John Doe: johnd@example.com
+New person added: John Doe NRIC: S9999999J Email:johnd@example.com Address:John street, block 123, #01-01 Birthday 12th September 1980 Policy: SeniorCare Tags: high_priority
+
+48765432 is invalid.
+You might want to contact John Doe: johnd@example.com
 ```
 
 === Incorrect Email Address Alert
@@ -378,15 +384,17 @@ Returns an error message to inform the user of an invalid email address. The pho
 if present.
 
 ****
-* The details of the input person will not be added until all information is valid.
+* All details except the email address will be added.
 ****
 
 Example:
 
-`add n/John Doe ic/Q9999999J p/98765432 e/@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+`add n/John Doe ic/S9999999J p/98765432 e/@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
 
 Expected Output:
 ```
+New person added: John Doe NRIC: S9999999J Phone: 98765432 Address:John street, block 123, #01-01 Birthday 12th September 1980 Policy: SeniorCare Tags: high_priority
+
 @example.com is invalid. You might want to contact John Doe: 98765432
 ```
 
@@ -395,7 +403,7 @@ Expected Output:
 Returns a warning message to inform the user of a potential typo in email address.
 
 ****
-* The details of the input person will not be added until all information is confirmed.
+* All details except the email address will be added.
 * These warnings can be turned off.
 ****
 
@@ -405,6 +413,8 @@ Example:
 
 Expected Output:
 ```
+New person added: John Doe NRIC: S9999999J Phone: 98765432 Address:John street, block 123, #01-01 Birthday 12th September 1980 Policy: SeniorCare Tags: high_priority
+
 You entered johnd@gmal.com. Did you mean: johnd@gmail.com?
 ```
 
@@ -426,7 +436,10 @@ dlete is not recognised. Did you mean: delete 2?
 User can input `yes` or `no`.
 
 If `yes`, the command will be executed.
-If `no`, `Please key in your command again. For more information  of the available commands, type help.`
+If `no`,
+```
+Please key in your command again. For more information  of the available commands, type help.
+```
 
 === Incorrect Insurance Policy Assignment Alert
 
@@ -469,7 +482,10 @@ Would you like to update p/98765432 to p/91234567?
 ```
 
 If `yes`, the new profile will be created.
-If `no`, `You may edit John Doe’s profile using the edit command. For more information, type help.`
+If `no`,
+```
+You may edit John Doe’s profile using the edit command. For more information, type help.
+```
 
 === Reminders of expiring policies
 
@@ -498,14 +514,35 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Add Person* `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [pol/POLICY] [t/TAG]…​` +
+e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority`
+* *Add Policy* `addpolicy  add pol n/NAME d/DESCRIPTION c/TIME_PERIOD p/PRICE [sa/START_AGE] [ea/END_AGE]... [t/TAGS]...` +
+e.g. `add pol n/SeniorCare d/care for seniors c/10months p/$50000 [sa/50 ea/75]`
+* *List People* : `listpeople`
+* *List Policies* : `listpolicies`
+* *Edit Person* : `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Edit Policy* : `edit INDEX [n/NAME] [d/DESCRIPTION] [c/TIME_PERIOD] [p/PRICE]` +
+e.g. `editpolicy 1 n/Seniors`
+* *Find Person* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
+* *Find Policy* : `findpolicy KEYWORD [MORE_KEYWORDS]` +
+e.g. `findpolicy senior`
+* *Assign Policy* : `assignpolicy INDEX pol/POLICY [MORE_POLICIES]` +
+e.g. `assignpolicy 2 pol/SeniorCare`
+* *Add Tag To Person* : `addtag INDEX t/TAG [MORE_TAGS]` +
+e.g. `addtag 3 t/high_priority`
+* *Add Tag To Policy* : `addpolicytag INDEX t/TAG [MORE_TAGS]` +
+e.g. `addpolicytag 2 t/lifeinsurance`
+* *Delete Person* : `delete INDEX` +
+e.g. `delete 3`
+* *Delete Policy* : `deletepolicy INDEX` +
+e.g. `deletepolicy 3`
+* *Unassign Policy* : `unassignpolicy INDEX pol/POLICY [MORE_POLICIES]` +
+e.g. `unassignpolicy 2 pol/SeniorCare`
+* *Delete Tag From Person* : `deletetag INDEX t/TAG [MORE_TAGS]` +
+e.g. `deletetag 3 t/high_priority`
+* *Delete Tag From Policy* : `deletepolicytag INDEX t/TAG [MORE_TAGS]` +
+e.g. `deletepolicytag 2 t/lifeinsurance`
+* *Clear* : `clear`
 * *Help* : `help`
