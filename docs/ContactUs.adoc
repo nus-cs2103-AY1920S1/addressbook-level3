@@ -1,7 +1,17 @@
-= Contact Us
+= Contact Us :grinning:
 :site-section: ContactUs
 :stylesDir: stylesheets
 
-* *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level3/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
+* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103T-T12-2/main/issues[issue tracker] if you
+   noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
-* *Email us* : You can also reach us at `damith [at] comp.nus.edu.sg`
+* *Email us* : You can also reach any of us through our emails as stated below : +
+
+** *Choong Jin Yao* : _e0202817@u.nus.edu_
+** *Low Ee Ter* :     _e0310486@u.nus.edu_
+** *Ryan Tay* :      _e0310823@u.nus.edu_
+** *Stanley Yuan*:   _e0309350@u.nus.edu_
+** *Zhou Tianyu* :   _e0323028@u.nus.edu_
+
+
+
