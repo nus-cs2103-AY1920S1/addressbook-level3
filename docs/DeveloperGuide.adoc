@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= $aveNUS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team-F13-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of food items
+* has trouble tracking expenditure over a period of time
+* wants meal recommendations within their specified budget
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage expenditure and get recommendations faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,20 +297,63 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |know the total amount I have spent |plan my finances for the remaining days of the month.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |greedy user |have reminders when I am about to hit the limits I set for my expenditure |plan my budget better for the weeks ahead.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |meticulous user |sort the food items based on categories |see which items are the best or worst based on certain categories.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |forgetful user |track my expenses for the day using the app |know how much I have already spend in the day and plan for the remaining meals of the day.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |new user |view more information about command |learn how to use the app and its features.
+
+|`* * *` |user |add a food item by specifying the item, price, description and category |update the food items that are available to me if I find new food item options within NUS.
+
+|`* * *` |user |possess the ability to update existing food entries |update the existing food entries if there are changes in their prices/descriptions.
+
+|`* * *` |user |only be able to see what I can afford for meals and beverages |save time scrolling through meals that fit my budget.
+
+|`* *` |user |know the opening and closing timings of the food stores in NUS |closed shops are not recommended to me to prevent me from wasting time to travel to these shops.
+
+|`* *` |smart user |put aliases to the commands available in the application | personalise the app and use it more effectively.
+
+|`* *` |lazy user |obtain a recommended meal plan according to a specified daily allowance |save the time of having to plan for my meals for the day.
+
+|`* *` |user |add my savings of the month into a customised fund |purchase rewards/gifts/items that I require when I have saved enough for them.
+
+|`* *` |lazy user |load and save data from other computers |transfer data to an application onto another desktop.
+
+|`* *` |user with dietary/religious restrictions |exclude meals that do not fulfil my dietary requirements |reduce my options to only meals that I can consume.
+
+|`* *` |slow user |a guided tutorial to bring me through the basic functionality of the program |become more familiar with the program before I start using.
+
+|`* *` |Japanese food lover |prioritise Japanese food options over other similarly priced products |find specific food types of our choice/cravings we have.
+
+|`* *` |advanced user |shorten my commands |type faster and more efficiently.
+
+|`* *` |lazy user |have autocomplete |find food items without having to type long keywords.
+
+|`* *` |careful user |have a calendar function |keep track of the progress of my spending for the current month
+
+|`* *` |non-tech savvy user |have an easier way to understand how the works eg. through a video |use the app effectively without having to read long user guides.
+
+|`*`|dyslexic user |an app with easy to read font| use the app comfortably with being hindered by my reading disabilities.
+
+|`*` |user with ADHD |an app with simple commands and UI |use it comfortably without major distractions.
+
+|`*` |user who loves to customize things |have a theme changing function of the app from a list of themes available | personalise the app to a theme that I like.
+
+|`*` |user who hates travelling | sort places from the nearest to the furthest from my current location| find food places that are easy for me to get to.
+
+|`*` |user |add the birthdays of my friends |set up reminders to buy gifts for my friends.
+
+|`*` |user |undo and redo my commands |undo commands that I did wrongly.
+
+|`*` |user |receive sample suggestions and examples to understand how to use the program. |understand how to user the application effectively.
+
+|`*` |forgetful user |save specific meal sets to reuse |save time on inputting my meals daily.
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -346,20 +391,17 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+1. Should work on any mainstream OS that has JDK 11 installed.
+2. Should be usable by user with novice computing experience.
+3. Should be able to respond to user input within 2 seconds.
+4. Should be able to run fullscreen without any UI issues.
+5. Should be able to read easily by users.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
