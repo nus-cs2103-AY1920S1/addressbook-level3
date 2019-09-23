@@ -341,35 +341,272 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `treasurerPro (tP)` and the *Actor* is the `user`, unless specified otherwise)
+
+[[discrete]]
+=== Overview Tab
 
 [discrete]
-=== Use case: Delete person
+=== Use Case 1: Sets goals for expenditure, budget and sales
+
+*Guarantees*
+
+- Financial goals are only valid if they are a positive, non-zero amount
+- Financial goals are aligned within a time period
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. The user arrives on the Overview tab
+2. The user chooses to update the expenditure, budget or sales goal
+3. The user keys in the amount to be set as the goal
+4. The user keys in the period to be set for the goal (week, month, year)
+5. The user sets the reset day/date for the goal
+6. The overview updates with the new data
 +
 Use case ends.
 
 *Extensions*
-
 [none]
-* 2a. The list is empty.
+* 2a. The user keys in an invalid goal to update
++
+[none]
+**  2a1. The system requests for a correct category to set goal for
+** 2a2. User enters new category
+** Steps 2a1. and 2a2. are repeated until user keys in correct data
++
+Use case resumes from step 3.
+
+* 3a. The user keys in a negative amount
++
+[none]
+** 3a1. The system requests for a new, non-zero amount
+** 3a2. User enters new amount
+** Steps 3a1. and 3a2. are repeated until user keys in correct data
++
+Use case resumes from step 4
+
+* 4a. The user keys in an invalid period
++
+[none]
+** 4a1. The system requests for a new response
+** 4a2. User enters period for goal
+** Steps 4a1. and 4a2. are repeated until user keys in correct data
++
+Use case resumes from step 5
+
+* 5a. The user chooses an invalid reset day/date
++
+[none]
+** 5a1. The system requests for a new day/date
+** 5a2. User enters new day/date
+** Steps 5a1. and 5a2. are repeated until user keys in correct data
++
+Use case resumes from step 6
+
+[discrete]
+=== Use Case 2: Sets reminders for expenditure limit/sales targets
+*Guarantees*
+
+- Reminders are only valid if they are for a positive, non-zero amount
+
+*MSS*
+
+1. The user arrives on the Overview tab
+2. The user chooses to set a reminder for their expense limits/sales targets
+3. The user keys in the amount to be set as the goal
+4. The overview updates with the new data
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. The user keys in an invalid goal to update
++
+[none]
+** 2a1. The system requests for a correct category to set goal for
+** 2a2. User enters new category
+** Steps 2a1. and 2a2. are repeated until user keys in correct data
++
+Use case resumes from step 3.
+
+* 3a. The user keys in a negative amount
++
+[none]
+** 3a1. The system requests for a new, non-zero amount
+** 3a2. User enters new amount
+** Steps 3a1. and 3a2. are repeated until user keys in correct data
++
+Use case resumes from step 4
+
+[[discrete]]
+=== Transaction Tab
+
+[discrete]
+=== Use Case 3: Add a transaction
+
+*MSS*
+
+1. User type in command field
+2. Lion replies with success message
+
+*Extension*
+[none]
+* 2a. Lion replies with wrong input message
+
+[discrete]
+=== Use Case 4: Delete a transaction
+
+*MSS*
+
+1. User type command in command field
+2. Lion replies with a confirmation message
+3. User types confirmation
+4. Lion replies with success message and info on all transactions
+
+
+*Extension*
+[none]
+* 3a. Lion replies with wrong input message
+
+[discrete]
+=== Use Case 5: Edit a transaction
+
+*MSS*
+
+1. Type in command field
+2. Lion replies with message
+
+*Extension*
+[none]
+* 2a. Lion replies with wrong input message
+
+[discrete]
+=== Use Case 6: Sort transactions
+
+*MSS*
+
+1. Type in command field
+2. Lion replies with success message
+3. List is sorted
+
+
+*Extension*
+[none]
+* 2a. Lion replies with wrong input message
+
+[[discrete]]
+=== Reimbursement Tab
+
+[discrete]
+=== Use Case 7: Refresh and update reimbursement status
+
+*Preconditions*
+
+- User is on Reimbursement page
+- Reimbursement page shows correct amount of reimbursement for each person by retrieving data from Transaction tab
+
+*Guarantees*
+
+- Reimbursement status is updated to “Completed” if the user confirms to update
+
+*MSS*
+
+1. The user goes to the ‘Reimbursement’ tab.
+2. Refresh Reimbursement records
+3. The user chooses to update the reimbursement status for a person.
+4. System asks for confirmation
+5. Reimbursement status is updated
++
+Use case ends
+
+*Extensions*
+[none]
+* 4a. User agrees to confirm
++
+Use case resumes from step 5
+
+* 4b. User disagrees to confirm
++
+Use case ends
+
+
+[[discrete]]
+=== Inventory Tab
+
+[discrete]
+=== Use Case 8: Edit an item
+
+*Guarantees*
+
+- Index used must contain an item
+
+*MSS*
+
+1. Go to Inventory Tab
+2. User types in the command line using the item’s index
+3. Lion shows a success message and compares the old information to the new
+
+*Extension*
+[none]
+* 1a. Add a cancel/undo function
+* 2a. Add an error message if the index inputted does not have an item
+
+[discrete]
+=== Use Case 9: Calculate total profit
+
+*Guarantees*
+
+- Item must exist in the inventory and have a cost price and price
+
+*MSS*
+
+1. Go to Inventory Tab
+2. User type in the command line
+
+*Extension*
+[none]
+* 2a. If typing “total” profit, the lion returns the sum of all price minus sum of all cost price
+* 2b. If just typing the index, the lion returns the total profit for that item
+
+[[discrete]]
+=== Cashier Tab
+
+[discrete]
+=== Use Case 10: Stores the information of transactions
+
+*Guarantees*
+
+- Transaction is valid only if the quantity in the inventory is more than or equal to the quantity keyed in.
+- The type of item bought is already listed in the inventory
+
+*MSS*
+
+1. The user arrives on the ‘Cashier’ tab.
+2. The user chooses to update the purchases made.
+3. CS requests for details of the purchase.
+4. User enters the requested details.
+5. CS process the purchase and displays the amount change, if valid.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+[none]
+* 4a. CS detects that the item is not listed in the inventory or quantity is insufficient
 +
 [none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+** 4a1. CS requests for valid item
+** 4a2. User enters new item.
+** 4a3. Steps 4a1 to 4a2 are repeated until data entered are correct.
+** 4a4. Use case resumes from Step 5.
 
-_{More to be added}_
+* *a. At any time, User chooses to cancel the purchase made.
++
+[none]
+** *a1. CS requests for confirmation.
+** *a2. User confirms the cancellation.
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
