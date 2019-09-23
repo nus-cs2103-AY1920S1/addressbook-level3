@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+PalPay is being developed by team https://github.com/AY1920S1-CS2103T-W12-3[CS2103T-W12-3]. +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Bertrand Tan
+image::berttwm.png[width="150", align="left"]
+{empty} [https://github.com/berttwm[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: UI +
+Responsibilities: SceneBuilder
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Ding Yu Chen
+image::dingyuchen.png[width="150", align="left"]
+{empty}[http://github.com/dingyuchen[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Tester +
+Responsibilities: Testing
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Joel Loong
+image::joloong.png[width="150", align="left"]
+{empty}[http://github.com/joloong[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Code Quality +
+Responsibilities: Ensuring proper coding standards
+
+'''
+
+=== Park Ye Won
+image::yewon0303.png[width="150", align="left"]
+{empty}[http://github.com/yewon0303[github]] [<<johndoe#, portfolio>>]
+
+Role: Deliverables and Deadlines +
+Responsibilities: Ensure project deliverables are done on time and in the right format
+
+'''
+
+=== Wallace Lim
+image::wallacelim97.jpg[width="150", align="left"]
+{empty}[http://github.com/wallacelim97[github]] [<<johndoe#, portfolio>>]
+
+Role: Team lead +
+Responsibilities: Overall project coordination
 
 '''
