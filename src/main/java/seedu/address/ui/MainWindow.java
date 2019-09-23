@@ -15,7 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
+ * The Main Window.
  */
 public class MainWindow extends UiPart<Stage> {
 

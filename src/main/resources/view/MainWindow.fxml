@@ -19,7 +19,7 @@
     <Image url="@/images/address_book_32.png" />
   </icons>
   <scene>
-    <Scene onMouseDragged="#handleWindowDrag" onMousePressed="#handleWindowPress">
+    <Scene>
       <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
