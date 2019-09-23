@@ -16,6 +16,6 @@ image::huiminlim.png[width="150", align="left"]
 {empty}[http://github.com/huiminlim] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: TBC
 
 '''
