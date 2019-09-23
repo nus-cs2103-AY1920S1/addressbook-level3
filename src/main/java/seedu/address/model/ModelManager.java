@@ -135,7 +135,7 @@ public class ModelManager implements Model {
 
     //=========== Loan Records Accessors =============================================================
 
-    public LoanRecords getLoanRecords() {
+    public ReadOnlyLoanRecords getLoanRecords() {
         return loanRecords;
     }
 

@@ -85,5 +85,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    LoanRecords getLoanRecords();
+    /** Returns the LoanRecords*/
+    ReadOnlyLoanRecords getLoanRecords();
 }
