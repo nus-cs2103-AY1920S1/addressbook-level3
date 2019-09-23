@@ -1,0 +1,11 @@
+{
+  "books": [ {
+    "title": "Valid Book",
+    "serialNumber": "9482424",
+    "author": "hans@example.com",
+  }, {
+    "title": "Book With Invalid serial Field",
+    "serialNumber": "948asdf2424",
+    "author": "hans@example.com",
+  } ]
+}
