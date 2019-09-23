@@ -9,6 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -40,12 +42,24 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        Person personToEdit = model.getFilteredPersonList().get(0);
+        String expectedMessage1 = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage2 = String.format(EditCommand.MESSAGE_UNDO_EDIT_SUCCESS, personToEdit);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.setPerson(personToEdit, editedPerson);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        //ensures that undo can not be executed before the actual command
+        assertUndoCommandFailure(editCommand, model, EditCommand.MESSAGE_UNDO_EDIT_ERROR);
+
+        assertCommandSuccess(editCommand, model, expectedMessage1, expectedModel);
+
+        //ensures undo capability
+        expectedModel.setPerson(editedPerson, personToEdit);
+        assertUndoCommandSuccess(editCommand, model, expectedMessage2, expectedModel);
+
+        //ensures that undo can not be executed again
+        assertUndoCommandFailure(editCommand, model, EditCommand.MESSAGE_UNDO_EDIT_ERROR);
     }
 
     @Test
@@ -161,7 +175,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ExitCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
