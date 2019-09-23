@@ -41,12 +41,13 @@ public class LogsCenter {
     public static Logger getLogger(String name) {
         Logger logger = Logger.getLogger(name);
         logger.setUseParentHandlers(false);
+        logger.setLevel(currentLogLevel);
 
         removeHandlers(logger);
         addConsoleHandler(logger);
         addFileHandler(logger);
 
-        return Logger.getLogger(name);
+        return logger;
     }
 
     /**
