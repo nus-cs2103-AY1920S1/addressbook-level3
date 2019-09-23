@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= $aveNUS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team-F13-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FoodListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a food).
+.  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -123,11 +123,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Food>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Food` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Food` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -173,18 +173,18 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th food in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new food. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the food was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -222,7 +222,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the food being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -297,20 +297,63 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new food |
+|`* * *` |user |know the total amount I have spent |plan my finances for the remaining days of the month.
 
-|`* * *` |user |delete a food |remove entries that I no longer need
+|`* * *` |greedy user |have reminders when I am about to hit the limits I set for my expenditure |plan my budget better for the weeks ahead.
 
-|`* * *` |user |find a food by name |locate details of foods without having to go through the entire list
+|`* * *` |meticulous user |sort the food items based on categories |see which items are the best or worst based on certain categories.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |forgetful user |track my expenses for the day using the app |know how much I have already spend in the day and plan for the remaining meals of the day.
 
-|`*` |user with many foods in the address book |sort foods by name |locate a food easily
+|`* * *` |new user |view more information about command |learn how to use the app and its features.
+
+|`* * *` |user |add a food item by specifying the item, price, description and category |update the food items that are available to me if I find new food item options within NUS.
+
+|`* * *` |user |possess the ability to update existing food entries |update the existing food entries if there are changes in their prices/descriptions.
+
+|`* * *` |user |only be able to see what I can afford for meals and beverages |save time scrolling through meals that fit my budget.
+
+|`* *` |user |know the opening and closing timings of the food stores in NUS |closed shops are not recommended to me to prevent me from wasting time to travel to these shops.
+
+|`* *` |smart user |put aliases to the commands available in the application | personalise the app and use it more effectively.
+
+|`* *` |lazy user |obtain a recommended meal plan according to a specified daily allowance |save the time of having to plan for my meals for the day.
+
+|`* *` |user |add my savings of the month into a customised fund |purchase rewards/gifts/items that I require when I have saved enough for them.
+
+|`* *` |lazy user |load and save data from other computers |transfer data to an application onto another desktop.
+
+|`* *` |user with dietary/religious restrictions |exclude meals that do not fulfil my dietary requirements |reduce my options to only meals that I can consume.
+
+|`* *` |slow user |a guided tutorial to bring me through the basic functionality of the program |become more familiar with the program before I start using.
+
+|`* *` |Japanese food lover |prioritise Japanese food options over other similarly priced products |find specific food types of our choice/cravings we have.
+
+|`* *` |advanced user |shorten my commands |type faster and more efficiently.
+
+|`* *` |lazy user |have autocomplete |find food items without having to type long keywords.
+
+|`* *` |careful user |have a calendar function |keep track of the progress of my spending for the current month
+
+|`* *` |non-tech savvy user |have an easier way to understand how the works eg. through a video |use the app effectively without having to read long user guides.
+
+|`*`|dyslexic user |an app with easy to read font| use the app comfortably with being hindered by my reading disabilities.
+
+|`*` |user with ADHD |an app with simple commands and UI |use it comfortably without major distractions.
+
+|`*` |user who loves to customize things |have a theme changing function of the app from a list of themes available | personalise the app to a theme that I like.
+
+|`*` |user who hates travelling | sort places from the nearest to the furthest from my current location| find food places that are easy for me to get to.
+
+|`*` |user |add the birthdays of my friends |set up reminders to buy gifts for my friends.
+
+|`*` |user |undo and redo my commands |undo commands that I did wrongly.
+
+|`*` |user |receive sample suggestions and examples to understand how to use the program. |understand how to user the application effectively.
+
+|`*` |forgetful user |save specific meal sets to reuse |save time on inputting my meals daily.
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -318,14 +361,33 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete food
+=== Use case: Add food item
 
 *MSS*
 
-1.  User requests to list foods
-2.  AddressBook shows a list of foods
-3.  User requests to delete a specific food in the list
-4.  AddressBook deletes the food
+1. User requests to add food item, providing details such as price, description, category, location and so on.
+2. $aveNUS adds the food item.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The details are given in the wrong format or mandatory fields are omitted.
+[none]
+** 1a1. $aveNUS diplays an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete food item
+
+*MSS*
+
+1. User requests to list food items.
+2. $aveNUS shows a list of food items.
+3. User requests to delete a specific food item in the list.
+4. $aveNUS deletes the food item.
 +
 Use case ends.
 
@@ -339,29 +401,109 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. $aveNUS shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Search food item
+
+*MSS*
+
+1. User requests to search for a food item, providing a search query.
+2. $aveNUS shows a list of filtered food items according to their provided query.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User requests to add food item to their expenditure from the search results.
++
+[none]
+** 2a1. $aveNUS adds the food item to their expenditure.
++
+Use case ends.
+
+* 2b. User requests to search without providing any query.
++
+[none]
+** 2b1. $aveNUS displays the normal ordering of food items.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display recommendations
+
+*MSS*
+
+1. User requests to list recommendations.
+2. $aveNUS shows a list of recommended food items based on their specified budget.
+3. User requests to add a specific food item in the list into purchased food items.
+4. $aveNUS adds the food item into list of purchased food items.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. $aveNUS shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Tracking expenditure
+
+*MSS*
+
+1. User requests to track expenditure.
+2. $aveNUS shows a list of past purchases as expenses in a visual format.
++
+Use case ends.
+
+[discrete]
+=== Use case: Set budget
+
+*MSS*
+
+1. User requests to set budget.
+2. $aveNUS calculates the daily budget based on the specified weekly budget.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The budget set is invalid (such as a negative number).
++
+[none]
+** 1a1. $aveNUS shows an error message.
++
+Use case resumes at step 1.
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 foods without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+1. Should work on any mainstream OS that has JDK 11 installed.
+2. Should be usable by user with novice computing experience.
+3. Should be able to respond to user input within 2 seconds.
+4. Should be able to run fullscreen without any UI issues.
+5. Should be able to read easily by users.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
@@ -404,15 +546,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a food
+=== Deleting a person
 
-. Deleting a food while all foods are listed
+. Deleting a person while all persons are listed
 
-.. Prerequisites: List all foods using the `list` command. Multiple foods in the list.
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No food is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
