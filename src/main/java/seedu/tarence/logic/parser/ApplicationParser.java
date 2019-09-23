@@ -6,7 +6,7 @@ import static seedu.tarence.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.tarence.logic.commands.AddCommand;
+import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.DeleteCommand;
 import seedu.tarence.logic.commands.EditCommand;
@@ -43,8 +43,8 @@ public class ApplicationParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddStudentCommand.COMMAND_WORD:
+            return new AddStudentCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
