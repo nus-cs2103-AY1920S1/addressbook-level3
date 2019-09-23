@@ -57,125 +57,125 @@ Format: `help`
 === Phone Commands
 Commands that work on phones that you have in your inventory.
 
-==== Add a phone `add -p`
+==== Add a phone : `add -p`
 Adds a phone or updates the inventory. +
 Format: `add -p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…​`
 
-==== Delete a phone `delete -p`
+==== Delete a phone : `delete -p`
 Deletes a phone from the inventory. +
 Format: `delete -p INDEX`
 
-==== Find a phone `find -p`
+==== Find a phone : `find -p`
 Returns all the information pertaining to phone with matching name. +
 Format: `find -p p/PHONE`
 
-==== List the phones `list -p`
+==== List the phones : `list -p`
 List all the phones in lexicographical order. +
 Format: `list -p`
 
-==== Update a phone `update -p`
+==== Update a phone : `update -p`
 Updates the appropriate fields of a phone. +
 Format: `update -p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
 
-==== Copy phone field `copy -p`
+==== Copy phone field : `copy -p`
 Copies a phone field to clipboard. +
 Format: `copy -p <field>`
 
 === Order Commands
 Commands that work on orders that you have.
 
-==== Add an order `add -o`
+==== Add an order : `add -o`
 Adds an order to the list of orders. +
 Format: `add -o p/PHONE_NUMBER i/ITEM...`
 
-==== Find an order `find -o`
+==== Find an order : `find -o`
 Returns all the information pertaining to the order. +
 Format: `find -o INDEX`
 
-==== Update an order `update -o`
+==== Update an order : `update -o`
 Updates the order status.  +
 Format: `update -o INDEX` +
 Possible status: `UNSCHEDULED` , `SCHEDULED` , `COMPLETED`
 
-==== Cancel an order `cancel -o`
+==== Cancel an order : `cancel -o`
 Cancels the order at the specified index. +
 Format: `cancel -o INDEX`
 
-==== List the orders `list -o`
+==== List the orders : `list -o`
 List all the orders in the list. +
 Format: `list -o`
 
-==== Copy order field `copy -o`
+==== Copy order field : `copy -o`
 Copies an order field to clipboard. +
 Format: `copy -o <field>`
 
-==== Duplicate an order `duplicate -o`
+==== Duplicate an order : `duplicate -o`
 Duplicate an order of the specified index. +
 Format: `duplicate -o INDEX`
 
 === Customer Commands
 Commands that work on customers in your list.
 
-==== Add a customer `add -c`
+==== Add a customer : `add -c`
 Adds a customer to the address book. +
 Format: `add -c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 [TIP]
 A person can have any number of tags, including 0.
 
-==== Delete a customer `delete -c`
+==== Delete a customer : `delete -c`
 Deletes a customer in the address book. +
 Format: `delete -c INDEX
 
-==== Find a customer `find -c`
+==== Find a customer : `find -c`
 Finds customers whose names contain any of the given keywords. +
 Format: `find -c KEYWORD [MORE_KEYWORDS]`
 
-==== List the customers `list -c`
+==== List the customers : `list -c`
 List every single customer in SML. +
 Format: `list -c`
 
-==== Update a customer `update -c`
+==== Update a customer : `update -c`
 Updates an existing customer. +
 Format: `update -c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
 
-==== Copy customer field `copy -c`
+==== Copy customer field : `copy -c`
 Copies a customer field to clipboard. +
 Format: `copy -c <field>`
 
 === Utility Commands
 
-==== Undo `undo`
+==== Undo : `undo`
 Undo the previous command.  +
 Format: `undo`
 
-==== Redo `redo`
+==== Redo : `redo`
 redo the previous command.  +
 Format: `redo`
 
-==== Generate stats `generate`
+==== Generate stats : `generate`
 Generates the statistics either in normal viewing format or chart format (in pop-up modal dialog). +
 Format: `generate -s s/STAT -d d/ -t t/TYPE` +
 Possible stats: `general` , `bestseller` etc +
 Possible type: `view` , `graph`
 
-==== Check `check`
+==== Check : `check`
 Check for stock etc. For stock, see the phones that have < threshold quantity.   +
 Format: `check <flag>` +
 Possible flag: `-p` for phone stock, `check -p <threshold>`
 
-==== Schedule `schedule`
+==== Schedule : `schedule`
 Check for schedule.   +
 Format: `schedule`
 
-==== Clearing all entries `clear`
+==== Clearing all entries : `clear`
 Clears all entries of items, orders and customers. +
 Format: `clear`
 
-==== Exiting the program `exit`
+==== Exiting the program : `exit`
 Exits the program. +
 Format: `exit`
 
-=== Import/export data `import / export`
+=== Import/export data : `import / export`
 Import csv file into the application. +
 Export application data into csv file. +
 Export application stats. +
@@ -212,7 +212,7 @@ Export any of the data in SML to PDF format.
 ** order : `cancel -o INDEX`
 
 * *Check* +
-** stock : `check -p <threshold>'
+** stock : `check -p <threshold>`
 
 * *Clear* : `clear`
 
