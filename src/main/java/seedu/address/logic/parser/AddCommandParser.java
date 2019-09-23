@@ -13,6 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.util.UniqueIdentifierGenerator;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,7 +39,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Expense expense = new Expense(description, price, tagList);
+        Expense expense = new Expense(
+                description, price, tagList,
+                UniqueIdentifierGenerator.generateRandomUniqueIdentifier());
 
         return new AddCommand(expense);
     }

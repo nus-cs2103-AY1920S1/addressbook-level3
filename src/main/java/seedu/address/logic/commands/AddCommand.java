@@ -16,7 +16,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the address book. \n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "

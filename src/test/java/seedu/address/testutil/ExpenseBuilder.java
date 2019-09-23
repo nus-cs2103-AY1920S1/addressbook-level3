@@ -60,8 +60,16 @@ public class ExpenseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code UniqueIdentifier} of the {@code Expense} that we are building.
+     */
+    public ExpenseBuilder withUniqueIdentifier(String uniqueIdentifier) {
+        this.price = new Price(uniqueIdentifier);
+        return this;
+    }
+
     public Expense build() {
-        return new Expense(description, price, tags);
+        return new Expense(description, price, tags, );
     }
 
 }
