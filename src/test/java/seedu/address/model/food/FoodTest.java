@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalFood.ALICE;
+import static seedu.address.testutil.TypicalFood.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,34 +23,34 @@ public class FoodTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameFood() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(ALICE.isSameFood(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(ALICE.isSameFood(null));
 
         // different phone and email -> returns false
         Food editedAlice = new FoodBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameFood(editedAlice));
 
         // different name -> returns false
         editedAlice = new FoodBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameFood(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new FoodBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameFood(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice = new FoodBuilder(ALICE).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameFood(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new FoodBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameFood(editedAlice));
     }
 
     @Test

@@ -10,11 +10,11 @@ import seedu.address.model.food.UniqueFoodList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameFood comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueFoodList persons;
+    private final UniqueFoodList foods;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,13 +24,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueFoodList();
+        foods = new UniqueFoodList();
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the foods in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code foods} must not contain duplicate foods.
      */
     public void setFoods(List<Food> foods) {
-        this.persons.setFoods(foods);
+        this.foods.setFoods(foods);
     }
 
     /**
@@ -53,7 +53,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setFoods(newData.getPersonList());
+        setFoods(newData.getFoodList());
     }
 
     //// food-level operations
@@ -61,17 +61,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a food with the same identity as {@code food} exists in the address book.
      */
-    public boolean hasPerson(Food food) {
+    public boolean hasFood(Food food) {
         requireNonNull(food);
-        return persons.contains(food);
+        return foods.contains(food);
     }
 
     /**
      * Adds a food to the address book.
      * The food must not already exist in the address book.
      */
-    public void addPerson(Food p) {
-        persons.add(p);
+    public void addFood(Food p) {
+        foods.add(p);
     }
 
     /**
@@ -82,39 +82,39 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setFood(Food target, Food editedFood) {
         requireNonNull(editedFood);
 
-        persons.setFood(target, editedFood);
+        foods.setFood(target, editedFood);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Food key) {
-        persons.remove(key);
+    public void removeFood(Food key) {
+        foods.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return foods.asUnmodifiableObservableList().size() + " foods";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Food> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Food> getFoodList() {
+        return foods.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && foods.equals(((AddressBook) other).foods));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return foods.hashCode();
     }
 }

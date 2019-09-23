@@ -55,10 +55,10 @@ public class Food {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both foods of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two foods.
      */
-    public boolean isSamePerson(Food otherFood) {
+    public boolean isSameFood(Food otherFood) {
         if (otherFood == this) {
             return true;
         }
@@ -69,8 +69,8 @@ public class Food {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both foods have the same identity and data fields.
+     * This defines a stronger notion of equality between two foods.
      */
     @Override
     public boolean equals(Object other) {

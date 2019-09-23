@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New food added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This food already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in the address book";
 
     private final Food toAdd;
 
@@ -47,11 +47,11 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasFood(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_FOOD);
         }
 
-        model.addPerson(toAdd);
+        model.addFood(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -19,16 +19,16 @@ import seedu.address.model.food.Food;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate food(s).";
+    public static final String MESSAGE_DUPLICATE_FOOD = "foods list contains duplicate food(s).";
 
-    private final List<JsonAdaptedFood> persons = new ArrayList<>();
+    private final List<JsonAdaptedFood> foods = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given foods.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedFood> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("foods") List<JsonAdaptedFood> foods) {
+        this.foods.addAll(foods);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
+        foods.addAll(source.getFoodList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedFood jsonAdaptedFood : persons) {
+        for (JsonAdaptedFood jsonAdaptedFood : foods) {
             Food food = jsonAdaptedFood.toModelType();
-            if (addressBook.hasPerson(food)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            if (addressBook.hasFood(food)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_FOOD);
             }
-            addressBook.addPerson(food);
+            addressBook.addFood(food);
         }
         return addressBook;
     }

@@ -19,7 +19,7 @@ import seedu.address.model.food.Food;
 /**
  * A utility class containing a list of {@code Food} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalFood {
 
     public static final Food ALICE = new FoodBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
@@ -54,20 +54,20 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalFood() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical foods.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Food food : getTypicalPersons()) {
-            ab.addPerson(food);
+        for (Food food : getTypicalFood()) {
+            ab.addFood(food);
         }
         return ab;
     }
 
-    public static List<Food> getTypicalPersons() {
+    public static List<Food> getTypicalFood() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

@@ -9,9 +9,9 @@ import seedu.address.model.food.Food;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the foods list.
+     * This list will not contain any duplicate foods.
      */
-    ObservableList<Food> getPersonList();
+    ObservableList<Food> getFoodList();
 
 }

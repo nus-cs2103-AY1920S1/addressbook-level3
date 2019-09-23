@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Food: %1$s";
+    public static final String MESSAGE_DELETE_FOOD_SUCCESS = "Deleted Food: %1$s";
 
     private final Index targetIndex;
 
@@ -33,15 +33,15 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Food> lastShownList = model.getFilteredPersonList();
+        List<Food> lastShownList = model.getFilteredFoodList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
         }
 
         Food foodToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(foodToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, foodToDelete));
+        model.deleteFood(foodToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete));
     }
 
     @Override

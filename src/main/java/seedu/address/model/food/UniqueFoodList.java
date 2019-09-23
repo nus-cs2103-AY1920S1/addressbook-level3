@@ -12,15 +12,15 @@ import seedu.address.model.food.exceptions.DuplicateFoodException;
 import seedu.address.model.food.exceptions.FoodNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of foods that enforces uniqueness between its elements and does not allow nulls.
  * A food is considered unique by comparing using {@code Food#isSameFood(Food)}. As such, adding and updating of
- * persons uses Food#isSameFood(Food) for equality so as to ensure that the food being added or updated is
+ * foods uses Food#isSameFood(Food) for equality so as to ensure that the food being added or updated is
  * unique in terms of identity in the UniqueFoodList. However, the removal of a food uses Food#equals(Object) so
  * as to ensure that the food with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Food#isSamePerson(Food)
+ * @see Food#isSameFood(Food)
  */
 public class UniqueFoodList implements Iterable<Food> {
 
@@ -33,7 +33,7 @@ public class UniqueFoodList implements Iterable<Food> {
      */
     public boolean contains(Food toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameFood);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UniqueFoodList implements Iterable<Food> {
             throw new FoodNotFoundException();
         }
 
-        if (!target.isSamePerson(editedFood) && contains(editedFood)) {
+        if (!target.isSameFood(editedFood) && contains(editedFood)) {
             throw new DuplicateFoodException();
         }
 
@@ -127,7 +127,7 @@ public class UniqueFoodList implements Iterable<Food> {
     private boolean foodsAreUnique(List<Food> foods) {
         for (int i = 0; i < foods.size() - 1; i++) {
             for (int j = i + 1; j < foods.size(); j++) {
-                if (foods.get(i).isSamePerson(foods.get(j))) {
+                if (foods.get(i).isSameFood(foods.get(j))) {
                     return false;
                 }
             }

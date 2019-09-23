@@ -89,11 +89,11 @@
                                 <Insets bottom="5" left="10" right="10" top="5" />
                             </padding>
                         </StackPane>
-                        <VBox fx:id="personList" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="foodList" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                             <padding>
                                 <Insets bottom="10" left="10" right="10" top="10" />
                             </padding>
-                            <StackPane fx:id="personListPanelPlaceholder" prefHeight="586.0" prefWidth="474.0" VBox.vgrow="ALWAYS">
+                            <StackPane fx:id="foodListPanelPlaceholder" prefHeight="586.0" prefWidth="474.0" VBox.vgrow="ALWAYS">
                                 <VBox.margin>
                                     <Insets />
                                 </VBox.margin>

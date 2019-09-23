@@ -12,7 +12,7 @@ import seedu.address.model.food.Food;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Food> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Food> PREDICATE_SHOW_ALL_FOOD = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -55,19 +55,19 @@ public interface Model {
     /**
      * Returns true if a food with the same identity as {@code food} exists in the address book.
      */
-    boolean hasPerson(Food food);
+    boolean hasFood(Food food);
 
     /**
      * Deletes the given food.
      * The food must exist in the address book.
      */
-    void deletePerson(Food target);
+    void deleteFood(Food target);
 
     /**
      * Adds the given food.
      * {@code food} must not already exist in the address book.
      */
-    void addPerson(Food food);
+    void addFood(Food food);
 
     /**
      * Replaces the given food {@code target} with {@code editedFood}.
@@ -77,11 +77,11 @@ public interface Model {
     void setFood(Food target, Food editedFood);
 
     /** Returns an unmodifiable view of the filtered food list */
-    ObservableList<Food> getFilteredPersonList();
+    ObservableList<Food> getFilteredFoodList();
 
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Food> predicate);
+    void updateFilteredFoodList(Predicate<Food> predicate);
 }

@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FOOD;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -43,57 +43,57 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Food: %1$s";
+    public static final String MESSAGE_EDIT_FOOD_SUCCESS = "Edited Food: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This food already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditFoodDescriptor editFoodDescriptor;
 
     /**
      * @param index of the food in the filtered food list to edit
-     * @param editPersonDescriptor details to edit the food with
+     * @param EditFoodDescriptor details to edit the food with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditFoodDescriptor EditFoodDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(EditFoodDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editFoodDescriptor = new EditFoodDescriptor(EditFoodDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Food> lastShownList = model.getFilteredPersonList();
+        List<Food> lastShownList = model.getFilteredFoodList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
         }
 
         Food foodToEdit = lastShownList.get(index.getZeroBased());
-        Food editedFood = createEditedPerson(foodToEdit, editPersonDescriptor);
+        Food editedFood = createEditedFood(foodToEdit, editFoodDescriptor);
 
-        if (!foodToEdit.isSamePerson(editedFood) && model.hasPerson(editedFood)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!foodToEdit.isSameFood(editedFood) && model.hasFood(editedFood)) {
+            throw new CommandException(MESSAGE_DUPLICATE_FOOD);
         }
 
         model.setFood(foodToEdit, editedFood);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedFood));
+        model.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
+        return new CommandResult(String.format(MESSAGE_EDIT_FOOD_SUCCESS, editedFood));
     }
 
     /**
      * Creates and returns a {@code Food} with the details of {@code foodToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code EditFoodDescriptor}.
      */
-    private static Food createEditedPerson(Food foodToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Food createEditedFood(Food foodToEdit, EditFoodDescriptor EditFoodDescriptor) {
         assert foodToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(foodToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(foodToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(foodToEdit.getEmail());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(foodToEdit.getTags());
+        Name updatedName = EditFoodDescriptor.getName().orElse(foodToEdit.getName());
+        Phone updatedPhone = EditFoodDescriptor.getPhone().orElse(foodToEdit.getPhone());
+        Email updatedEmail = EditFoodDescriptor.getEmail().orElse(foodToEdit.getEmail());
+        Set<Tag> updatedTags = EditFoodDescriptor.getTags().orElse(foodToEdit.getTags());
 
         return new Food(updatedName, updatedPhone, updatedEmail, updatedTags);
     }
@@ -113,26 +113,26 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editFoodDescriptor.equals(e.editFoodDescriptor);
     }
 
     /**
      * Stores the details to edit the food with. Each non-empty field value will replace the
      * corresponding field value of the food.
      */
-    public static class EditPersonDescriptor {
+    public static class EditFoodDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditFoodDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditFoodDescriptor(EditFoodDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -195,12 +195,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditFoodDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditFoodDescriptor e = (EditFoodDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
