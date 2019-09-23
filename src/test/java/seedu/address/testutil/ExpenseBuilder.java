@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.UniqueIdentifier;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,15 +17,18 @@ public class ExpenseBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Chicken Rice";
     public static final String DEFAULT_PRICE = "2.50";
+    public static final String DEFAULT_UNIQUE_IDENTIFIER = "Expense@00000000-0000-0000-0000-000000000000";
 
     private Description description;
     private Price price;
     private Set<Tag> tags;
+    private UniqueIdentifier uniqueIdentifier;
 
     public ExpenseBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         price = new Price(DEFAULT_PRICE);
         tags = new HashSet<>();
+        uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
     }
 
     /**
@@ -69,7 +73,7 @@ public class ExpenseBuilder {
     }
 
     public Expense build() {
-        return new Expense(description, price, tags, );
+        return new Expense(description, price, tags, uniqueIdentifier);
     }
 
 }

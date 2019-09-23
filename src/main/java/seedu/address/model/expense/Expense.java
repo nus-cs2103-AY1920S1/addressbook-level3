@@ -101,7 +101,7 @@ public class Expense {
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
-                .append("[Tags: ");
+                .append(" [Tags: ");
         getTags().forEach(builder::append);
         builder.append("]");
         return builder.toString();

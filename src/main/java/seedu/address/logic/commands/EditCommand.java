@@ -90,6 +90,7 @@ public class EditCommand extends Command {
         Price updatedPrice = editExpenseDescriptor.getPrice().orElse(expenseToEdit.getPrice());
         Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
 
+
         return new Expense(updatedDescription, updatedPrice, updatedTags, expenseToEdit.getUniqueIdentifier());
     }
 

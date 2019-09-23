@@ -14,7 +14,6 @@ import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.UniqueIdentifier;
-
 import seedu.address.model.tag.Tag;
 
 /**
@@ -86,6 +85,7 @@ class JsonAdaptedExpense {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
         final Price modelPrice = new Price(price);
+
 
         if (uniqueIdentifier == null) {
             throw new IllegalValueException(
