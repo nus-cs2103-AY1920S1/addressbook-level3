@@ -120,20 +120,45 @@
     -fx-text-fill: white;
 }
 
-.cell_big_label {
+.list-cell #index {
+    -fx-text-fill: #a8a8a8;
+}
+
+.list-cell:filled #price {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 18px;
+    -fx-text-fill: #920000;
+    -fx-padding: 40;
+}
+
+.list-cell:filled:selected #price {
+    -fx-padding: 10;
+}
+
+.list-cell:filled #price-column {
+    -fx-background-color: rgba(200,200,200,0.20);
+    -fx-border-insets: 0 0 0 30;
+    -fx-background-insets: 0 0 0 30;
+    -fx-border-radius: 30 0 0 30;
+    -fx-alignment: center-left;
+}
+
+.list-cell:filled:selected #price-column {
+    -fx-background-radius: 30 0 0 30;
+    -fx-border-radius: 30 0 0 30;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+}
+
+
+.list-cell:filled:selected #price {
+    -fx-font-size:20px;
+}
+
+.list-cell:filled #index,
+.list-cell:filled #description {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
-}
-
-.cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #010504;
-}
-
-.stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .pane-with-border {
@@ -328,7 +353,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #expenseListPanel, #expenseWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
