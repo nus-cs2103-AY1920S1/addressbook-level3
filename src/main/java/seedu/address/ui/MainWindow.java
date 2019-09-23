@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private StackPane stackPane;
+    private StackPane foodListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -68,7 +68,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
-        stackPane.getChildren().add(foodListPanel.getRoot());
+        foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -169,4 +169,3 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 }
-

@@ -127,12 +127,12 @@ public class UniqueFoodListTest {
     }
 
     @Test
-    public void setFoods_nullUniquefoodList_throwsNullPointerException() {
+    public void setFoods_nullUniqueFoodList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueFoodList.setFoods((UniqueFoodList) null));
     }
 
     @Test
-    public void setFoods_uniquefoodList_replacesOwnListWithProvidedUniquefoodList() {
+    public void setFoods_uniqueFoodList_replacesOwnListWithProvidedUniqueFoodList() {
         uniqueFoodList.add(ALICE);
         UniqueFoodList expectedUniqueFoodList = new UniqueFoodList();
         expectedUniqueFoodList.add(BOB);

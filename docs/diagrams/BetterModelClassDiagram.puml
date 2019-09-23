@@ -4,13 +4,13 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquefoodList
+AddressBook *-right-> "1" UniqueFoodList
 AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquefoodList
-UniqueTagList -[hidden]down- UniquefoodList
+UniqueTagList -[hidden]down- UniqueFoodList
+UniqueTagList -[hidden]down- UniqueFoodList
 
 UniqueTagList *-right-> "*" Tag
-UniquefoodList o-right-> food
+UniqueFoodList o-right-> food
 
 food o-up-> "*" Tag
 

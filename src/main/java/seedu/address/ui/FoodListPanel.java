@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.food.Food;
 
 /**
- * Panel containing the list of foods.
+ * Panel containing the list of food.
  */
 public class FoodListPanel extends UiPart<Region> {
     private static final String FXML = "FoodListPanel.fxml";
@@ -23,13 +23,13 @@ public class FoodListPanel extends UiPart<Region> {
     public FoodListPanel(ObservableList<Food> foodList) {
         super(FXML);
         foodListView.setItems(foodList);
-        foodListView.setCellFactory(listView -> new FoodListViewCell());
+        foodListView.setCellFactory(listView -> new foodListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Food} using a {@code FoodCard}.
      */
-    class FoodListViewCell extends ListCell<Food> {
+    class foodListViewCell extends ListCell<Food> {
         @Override
         protected void updateItem(Food food, boolean empty) {
             super.updateItem(food, empty);

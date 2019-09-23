@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.food.Food;
 
 /**
- * An UI component that displays information of a {@code Food}.
+ * An UI component that displays information of a {@code Person}.
  */
 public class FoodCard extends UiPart<Region> {
 
@@ -34,8 +34,6 @@ public class FoodCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label phone;
-    @FXML
-    private Label address;
     @FXML
     private Label email;
     @FXML
