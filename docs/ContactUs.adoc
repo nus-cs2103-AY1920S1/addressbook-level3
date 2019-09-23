@@ -3,7 +3,7 @@
 :stylesDir: stylesheets
 
 * *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103T-F13-2/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
-* *Email us* : You can also reach us at the following emails:
+* *Email us* : You can also reach us *at* the following emails:
 
 Jon Chua: `jonchua@u.nus.edu` +
 Choo Ze Yuan: `e0379456@u.nus.edu` +
