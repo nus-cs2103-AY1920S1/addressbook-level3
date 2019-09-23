@@ -19,38 +19,38 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
+=== Maurice
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
+Role: Chief Executive Officer
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
+=== Felix
 image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Head Software Engineer
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
+=== Ryan
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Team All Rounder
 Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
+=== Pin Sern
 image::yl_coder.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Intern
 Responsibilities: UI
 
 '''
