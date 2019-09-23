@@ -18,11 +18,13 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalogue;
 import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalogue;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -34,6 +36,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
+import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
 import seedu.address.storage.catalogue.CatalogueStorage;
 import seedu.address.storage.catalogue.JsonCatalogueStorage;
 import seedu.address.storage.loanrecord.JsonLoanRecordsStorage;
@@ -69,7 +73,11 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         LoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(userPrefs.getLoanRecordsFilePath());
         CatalogueStorage catalogueStorage = new JsonCatalogueStorage(userPrefs.getCatalogueFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, loanRecordsStorage, catalogueStorage);
+        BorrowerRecordsStorage borrowerRecordsStorage
+                = new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
+
+        storage = new StorageManager(addressBookStorage, userPrefsStorage,
+                loanRecordsStorage, catalogueStorage, borrowerRecordsStorage);
 
         initLogging(config);
 
@@ -94,7 +102,9 @@ public class MainApp extends Application {
         ReadOnlyLoanRecords initialLoanRecords;
         Optional<ReadOnlyCatalogue> catalogueOptional;
         ReadOnlyCatalogue initialCatalogue;
-        
+        Optional<ReadOnlyBorrowerRecords> borrowerRecordsOptional;
+        ReadOnlyBorrowerRecords initialBorrowerRecords;
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -115,7 +125,7 @@ public class MainApp extends Application {
             if (!loanRecordsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample LoanRecord");
             }
-            initialLoanRecords = loanRecordsOptional.orElseGet(SampleDataUtil::getSampleLoanRecord);
+            initialLoanRecords = loanRecordsOptional.orElseGet(SampleDataUtil::getSampleLoanRecords);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty LoanRecord");
             initialLoanRecords = new LoanRecords();
@@ -138,7 +148,22 @@ public class MainApp extends Application {
             initialCatalogue = new Catalogue();
         }
 
-        return new ModelManager(initialAddressBook, userPrefs, initialLoanRecords, initialCatalogue);
+        try {
+            borrowerRecordsOptional = storage.readBorrowerRecords();
+            if (!borrowerRecordsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample BorrowerRecords");
+            }
+            initialBorrowerRecords = borrowerRecordsOptional.orElseGet(SampleDataUtil::getSampleBorrowerRecords);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty BorrowerRecords");
+            initialBorrowerRecords = new BorrowerRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty BorrowerRecords");
+            initialBorrowerRecords = new BorrowerRecords();
+        }
+
+        return new ModelManager(initialAddressBook, userPrefs, initialLoanRecords,
+                initialCatalogue, initialBorrowerRecords);
     }
 
     private void initLogging(Config config) {

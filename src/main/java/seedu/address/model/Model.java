@@ -65,6 +65,16 @@ public interface Model {
     public void setCatalogueFilePath(Path catalogueFilePath);
 
     /**
+     * Returns the user prefs' borrower records file path.
+     */
+    Path getBorrowerRecordsFilePath();
+
+    /**
+     * Sets the user prefs' address borrower records path.
+     */
+    void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath);
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
@@ -110,4 +120,7 @@ public interface Model {
 
     /** Returns the Catalogue*/
     ReadOnlyCatalogue getCatalogue();
+
+    /** Returns the BorrowerRecords*/
+    ReadOnlyBorrowerRecords getBorrowerRecords();
 }

@@ -24,13 +24,15 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final LoanRecords loanRecords;
     private final Catalogue catalogue;
+    private final BorrowerRecords borrowerRecords;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      * TODO change
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyLoanRecords loanRecords, ReadOnlyCatalogue catalogue) {
+                        ReadOnlyLoanRecords loanRecords, ReadOnlyCatalogue catalogue,
+                        ReadOnlyBorrowerRecords borrowerRecords) {
         super();
         requireAllNonNull(addressBook, userPrefs, catalogue);
 
@@ -45,10 +47,15 @@ public class ModelManager implements Model {
         // testing
         this.catalogue = new Catalogue(catalogue);
         this.catalogue.populateBooks();
+        // testing
+        this.borrowerRecords = new BorrowerRecords(borrowerRecords);
+        this.borrowerRecords.populateBorrowers();
+
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new LoanRecords(), new Catalogue());
+        this(new AddressBook(), new UserPrefs(),
+                new LoanRecords(), new Catalogue(), new BorrowerRecords());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -106,6 +113,17 @@ public class ModelManager implements Model {
     public void setCatalogueFilePath(Path catalogueFilePath) {
         requireNonNull(catalogueFilePath);
         userPrefs.setCatalogueFilePath(catalogueFilePath);
+    }
+
+    @Override
+    public Path getBorrowerRecordsFilePath() {
+        return userPrefs.getBorrowerRecordsFilePath();
+    }
+
+    @Override
+    public void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath) {
+        requireNonNull(borrowerRecordsFilePath);
+        userPrefs.setBorrowerRecordsFilePath(borrowerRecordsFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -167,11 +185,18 @@ public class ModelManager implements Model {
         return loanRecords;
     }
 
-    //=========== Loan Records ===============================================================================
+    //=========== Catalogue ===============================================================================
 
     public ReadOnlyCatalogue getCatalogue() {
         return catalogue;
     }
+
+    //=========== BorrowerRecords ===============================================================================
+
+    public ReadOnlyBorrowerRecords getBorrowerRecords() {
+        return borrowerRecords;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -189,7 +214,10 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && loanRecords.equals(other.loanRecords)
+                && catalogue.equals(other.catalogue)
+                && borrowerRecords.equals(other.borrowerRecords);
     }
 
 }
