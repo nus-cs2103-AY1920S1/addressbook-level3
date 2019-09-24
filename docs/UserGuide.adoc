@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Mortago v2.0 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -7,24 +7,32 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:toc:
+:toclevels: 3
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T13-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team  AY1920S1-CS2103T-T13-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Mortago is a mortuary management system for hospitals. Mortago is optimized for efficient mortuary managers who *prefer
+to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
 
-== Quick Start
+Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
+tasks, and alerts. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary management to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.
+
+Interested? Jump to <<Quick Start>> to get started. Enjoy!
+
+== Quick Start `[coming in v2.0]`
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `mortago.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for Mortago.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +41,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
+
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`workers`* : switches to the workers tab
+* **`add -w`**`/firstName John /lastName Doe /id W100200 /dob 17-05-1980` :
+adds a worker named John Doe (with staff ID and date of birth) to the management system.
+* **`delete -w`**`W100200` : deletes the worker with staff ID W100200
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -44,57 +55,198 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*Command Specification*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in [gray-background]#gray highlights# are the parameters to be supplied by you
+    ** e.g. in fridge [gray-background]#status#, [gray-background]#status# should be replaced with the status of the fridge, such as ‘vacant’ or ‘full’.
+* Words in parentheses are optional.
+    ** e.g. update -b /id B00000001 (/religion [gray-background]#religion#] (/status [gray-background]#status#) can be used as either of these:
+        *** update -b /id B00000001 /religion Buddhist
+        *** update -b /id B00000001 /religion Buddhist /status released
+* Parameters (in parentheses) can be given in any order.
+    ** e.g. These both result in the same command
+        *** update -b /id B00000001 /religion Buddhist /status released
+        *** Update -b /id B00000001 /status released /religion Buddhist
+
+
+* Commands that require [gray-background]#/attributeName# must be supplied with the respective name of the attribute which belong to the worker, fridge, or body.
+The types of attributes for each entry can be found in <<Section 3.1.a>>
+
+|===
+
+| :bulb: What are attributes?
+| Attributes are properties of a body, fridge or worker that are supplied by you when creating a body, fridge, or worker entry.
+    +
+    e.g. `firstName` is an attribute for both body and worker entries.
+
+
+|===
+
+* Commands with fields tagged with `...` must be supplied at least one argument.
+    ** `filter (/attributeName attributeValue)...`
+    ** `filter /firstName John` and `filter /sex F` are valid commands.
+
+
+* Some commands require a -flag while some are optional. List of flags: #to be updated#
+    ** -b: to indicate a `body` entry
+    ** -w: to indicate a `worker` entry
+    ** -f: to indicate a `fridge` entry
+    ** -v: view the verbose description of all commands and their flags.
+
+
+
+* Commands that require -id must follow the following specification:
+    ** `body` entries: `B\\####\####`
+    ** `worker` entries: `W\\#####`
+    **  `fridge` entries: `F##`
+
 ====
 
-=== Viewing help : `help`
+=== Creating, changing, and viewing entries
 
-Format: `help`
+==== Add an entry: `add`
 
-=== Adding a person: `add`
+Add a body, worker or fridge +
+Format:
+|===
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+| Purpose | Command
+
+| Add a new worker
+
+a|
+[source,java]
+add -w
+/id workerId
+/firstName firstName
+(/middleName middleName )
+/lastName lastName
+/phoneNo phoneNumber
+/sex  sex
+/dob dateOfBirth
+/dateJoined dateJoined
+/designation designation
+/status employmentStatus
+
+---
+
+| Add a new body
+a|
+[source,java]
+add -b
+/id bodyNumber
+/firstName firstName
+(/middleName middleName )
+/lastName lastName
+/sex  sex
+/dob DateOfBirth
+/dod DateOfDeath (HH:MM)
+/doa DateOfAdmission (HH:MM)
+/status status
+/nric nricNumber
+/religion religion
+/nameNOK nameOfNextOfKin
+/relationship Relationship
+/phoneNOK phoneNOK
+/cod causeOfDeath
+/details details
+/organsForDonation organsForDonation
+/fridgeId fridge
+
+---
+| Add a new fridge
+a|
+[source,java]
+add -f
+/id fridgeNumber
 
 [TIP]
-A person can have any number of tags (including 0)
+Default status: Unoccupied
 
-Examples:
+|===
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Example:
 
-=== Listing all persons : `list`
+|===
 
-Shows a list of all persons in the address book. +
-Format: `list`
+| Command | Expected Output
 
-=== Editing a person : `edit`
+a|
+[source,java]
+add -w
+/id W00001
+/firstName John
+/lastName Doe
+/phoneNo 87654321
+/sex M
+/dateJoined 18/08/2019
+/designation Autopsy Technician
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+---
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+| Worker added
 
-Examples:
+a|
+[source,java]
+add -b
+/id B00000002
+/firstName Mary
+/lastName Smith
+/sex F
+/dob 12/12/1984
+/dod 12/08/2019 2358
+/doa 13/08/2019 0200
+/status contactedNOK
+/nric S8456372C
+/religion Catholic
+/nameNOK Jack Smith
+/relationship Husband
+/phoneNOK 83462756
+/cod Car Accident
+/details Heavy bleeding and head injury
+/organsForDonation NIL
+/fridgeId 2
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+---
+| Body added
 
-=== Locating persons by name: `find`
+a|
+[source,java]
+add -f
+/id F13
+
+
+| Fridge added
+
+|===
+
+==== Update an entry: `update`
+
+Update the status of each worker, body or fridge
+
+Format: `update -flag /id id /attributeName attributeValue`
+
+Example:
+
+|===
+
+| Command | Expected Output
+
+|
+`update -w /id W00001 /designation Senior Autopsy Technician`
+
+| Status of worker 1 changed
+
+| `update -b /id B00000001 /organsForDonation heart`
+
+| Organs listed for donation for body 1 changed
+
+| `update -f /id 01 /status occupied`
+
+| Status of fridge 1 changed
+|===
+
+==== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -115,27 +267,34 @@ Returns `john` and `John Doe`
 Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+==== Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Delete a body, worker or fridge entry, indicated by its id number. +
+Format: `delete -flag  id`
+
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the body, worker or fridge entry with the specified identification number.
+* The identification number must be in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
+body, worker or fridge entry respectively.
+X represents any digit.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete -w W00001` +
+The first worker listed in the list of workers will be deleted.
 
 // end::delete[]
+====  View a single entry: `view`
+View a single entry of a body, worker or fridge.
+
+Format: `view -flag /id id`
+
+Example: `view -b /id B00000091` +
+View a body with the ID B00000091.
+
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
