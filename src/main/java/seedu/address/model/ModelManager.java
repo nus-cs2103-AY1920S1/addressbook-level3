@@ -9,8 +9,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UserAliases;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -74,6 +76,42 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public UserAliases getUserAliases() {
+        return userPrefs.getUserAliases();
+    }
+
+    @Override
+    public void setUserAliases(UserAliases userAliases) {
+        requireNonNull(userAliases);
+        userPrefs.setUserAliases(userAliases);
+    }
+
+    @Override
+    public void addUserAlias(Alias alias) {
+        userPrefs.addUserAlias(alias);
+    }
+
+    @Override
+    public Alias getUserAlias(String aliasName) {
+        return userPrefs.getUserAlias(aliasName);
+    }
+
+    @Override
+    public boolean aliasCommandWordIsAlias(String commandWord) {
+        return userPrefs.getUserAliases().aliasCommandWordIsAlias(commandWord);
+    }
+
+    @Override
+    public boolean hasAlias(String aliasName) {
+        return userPrefs.getUserAliases().aliasExists(aliasName);
+    }
+
+    @Override
+    public boolean aliasNameIsReserved(String aliasName) {
+        return userPrefs.getUserAliases().aliasNameIsReserved(aliasName);
     }
 
     //=========== AddressBook ================================================================================

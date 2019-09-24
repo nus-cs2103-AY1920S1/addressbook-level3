@@ -6,7 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserAliases;
 
 /**
  * Represents User's preferences.
@@ -15,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private UserAliases userAliases = new UserAliases();
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setUserAliases(newUserPrefs.getUserAliases());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +60,35 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public UserAliases getUserAliases() {
+        return userAliases;
+    }
+
+    public void setUserAliases(UserAliases userAliases) {
+        requireNonNull(userAliases);
+        this.userAliases = userAliases;
+    }
+
+    public void addUserAlias(Alias alias) {
+        requireNonNull(alias);
+        this.userAliases = userAliases.addAlias(alias);
+    }
+
+    public Alias getUserAlias(String aliasName) {
+        requireNonNull(aliasName);
+        return this.userAliases.getAlias(aliasName);
+    }
+
+    public boolean aliasNameIsReserved(String aliasName) {
+        requireNonNull(aliasName);
+        return this.userAliases.aliasNameIsReserved(aliasName);
+    }
+
+    public boolean aliasCommandWordIsAlias(String commandWord) {
+        requireNonNull(commandWord);
+        return this.userAliases.aliasCommandWordIsAlias(commandWord);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,12 +101,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && userAliases.equals(o.userAliases);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, userAliases);
     }
 
     @Override
