@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.UniqueEventList;
 import seedu.address.model.expense.UniqueExpenseList;
 
 /**
@@ -15,6 +17,7 @@ import seedu.address.model.expense.UniqueExpenseList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueExpenseList expenses;
+    private final UniqueEventList events;
 
     /*
      * The 'unusual' code block below is a non-static initialization block,
@@ -26,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         expenses = new UniqueExpenseList();
+        events = new UniqueEventList();
     }
 
     public AddressBook() {}
@@ -96,6 +100,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         expenses.remove(key);
     }
 
+    //// event-level operations
+
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return events.contains(event);
+    }
+
+    public void addEvent(Event event) {
+        events.add(event);
+    }
     //// util methods
 
     @Override

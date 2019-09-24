@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -61,6 +62,15 @@ public class ParserUtil {
             throw new ParseException(Price.MESSAGE_CONSTRAINTS);
         }
         return new Price(trimmedPrice);
+    }
+
+    public static Timestamp parseTimestamp(String timestamp) throws ParseException {
+        requireNonNull(timestamp);
+        String trimmedTimestamp = timestamp.trim();
+        if (!Timestamp.isValidTimestamp(trimmedTimestamp)) {
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
+        }
+        return new Timestamp(trimmedTimestamp);
     }
 
     /**

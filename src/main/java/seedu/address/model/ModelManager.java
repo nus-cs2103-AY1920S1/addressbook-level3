@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -111,6 +112,30 @@ public class ModelManager implements Model {
 
         addressBook.setExpense(target, editedExpense);
     }
+
+    @Override
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return addressBook.hasEvent(event);
+    }
+
+//    @Override
+//    public void deleteEvent(Event target) {
+//        addressBook.removeEvent(target);
+//    }
+
+    @Override
+    public void addEvent(Event event) {
+        addressBook.addEvent(event);
+        // updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES); TBI
+    }
+
+//    @Override
+//    public void setEvent(Event target, Event editedEvent) {
+//        requireAllNonNull(target, editedEvent);
+//
+//        addressBook.setEvent(target, editedEvent);
+//    }
 
     //=========== Filtered Expense List Accessors =============================================================
 
