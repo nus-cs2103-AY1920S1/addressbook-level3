@@ -1,11 +1,13 @@
 = EzWatchList
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+:imagesDir: docs/images
+
 https://travis-ci.org/AY1920S1-CS2103T-F13-4/main[image:https://travis-ci.org/AY1920S1-CS2103T-F13-4/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F13-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F13-4/main/badge.svg?branch=master[Coverage Status]]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::Ui.png[width="600"]
 endif::[]
 
 * This is a desktop application for users who manage their movies and tv series watchlist.
