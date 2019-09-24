@@ -670,11 +670,26 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Technical Requirements:
+* Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+* Should work on both 32-bit and 64-bit environments.
+* Should be easy to navigate to other tabs
+. Quality Requirements:
+* Should be easy to pick up and intuitive for novice user
+* A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* The messages the lion says should be understandable and not result in information overload
+* The GUI should look neat and organised
+* Should be intuitive and easy to understand and learn for a total novice
+* Our mascot should be original or not copied
+* Clear and grammatically correct English should be used throughout the program
+. Process Requirements:
+* Members should aim to do increments according to schedule
+* Members should sound out when help is needed in their increments
+* Members will be doing back-end first before proceeding to front-end designing
+. Data Requirements:
+* Should be able to store sufficient data for 1 year’s worth of transactions within a CCA
+* Should be as much resistant to data loss as possible
+* Should be able to read data quickly to prevent long loading times
 
 [appendix]
 == Glossary

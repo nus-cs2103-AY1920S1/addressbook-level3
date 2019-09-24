@@ -29,20 +29,14 @@ Enjoy!
 
 . Ensure you have Java `11` or above installed in your Computer.
 . Download the latest `treasurerPro.jar` link:{repoURL}/releases[here].
-. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Copy the file to the folder you want to use as the home folder for your treasurerPro.
 . Double-click the file to start the app.
 The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-. Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+e.g. typing *`go /home`* and pressing kbd:[Enter] will take you to the Home tab.
 
 . Refer to <<Features>> for details of each command.
 
@@ -58,128 +52,160 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+== Universal Commands
 
-Format: `help`
+These are commands available within the command box for all tabs.
 
-=== Adding a person: `add`
+=== Navigation: `go /TAB`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Allows you to navigate between tabs
+* `go /home`
+* `go /inventory`
+* `go /reimbursement`
+* `go /cashier`
+* `go /overview`
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Search: `search /KEYWORD`
 
-Examples:
+Allows you to search for any item in the inventory, reimbursement, home tab with a keyword
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+== Feature Specific Commands
 
-=== Listing all persons : `list`
+These are commands that are specific to each feature which would be categorised into tabs in our application.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Home
 
-=== Editing a person : `edit`
+====
+* Home tab shows the transaction history of each expenditure.
+* The columns will show the date/time of the transaction, description of the expenditure, category it is under, amount spent and the person who bought it.
+* At the side, our mascot lion will help to give replies to indicate successful addition, deletion, edits of the command line input.
+* He will also give you replies when there is a wrong input.
+* There is a function to filter the transactions by date so from latest to oldest, person so by alphabetical order of the person and amount so from most to least.
+* There will be autocomplete for the person according to who is in our address book database.
+====
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`.
-The index refers to the index number shown in the displayed person list.
-The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* To add an expense:
+`add dt/DATE_AND_TIME d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
 
 Examples:
+`add dt/January 1st 2019, 07:00PM d/Printer ink c/Miscellaneous a/3.50 p/Janelle`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* To delete an expense:
+`delete INDEX` or `delete DESCRIPTION`
 
 Examples:
+** `delete 1`
+** `delete Printer ink`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+* To edit:
+`edit INDEX` or `edit DESCRIPTION`
 
 Examples:
+** `edit 1`
+** `edit Printer ink`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* To sort:
+** By date: `sort d`
+** By person: `sort p`
+** By amount: `sort a`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Inventory
 
-Clears all entries from the address book. +
-Format: `clear`
+====
+* The inventory tab contains a detailed inventory of items belonging to the CCA for a variety of purposes. Each item will have 6 attributes: category, description, quantity, cost per unit, total cost, and price.
+* The last attribute will be used for sales purposes.
+* The inventory tab can be used in conjunction with the cashier tab by keeping track of the variety of items for sale and the remaining quantity of unsold products, as well as throw an error message via the lion if the cashier attempts to sell more than the specified quantity.
+====
 
-=== Exiting the program : `exit`
+* To add an item:
+`add c/CATEGORY d/DESCRIPTION q/QUANTITY cu/COST_PER_UNIT p/PRICE`
 
-Exits the program. +
-Format: `exit`
+Examples:
+`add c/Food d/Cupcake q/100 cu/0.70 p/1.50`
+
+* To delete an expense:
+`delete INDEX` or `delete DESCRIPTION`
+
+Examples:
+** `delete 1`
+** `delete Cupcake`
+
+* To edit:
+`edit INDEX` or `edit DESCRIPTION`
+
+Examples:
+** `edit 1`
+** `edit Cupcake`
+
+* To sort:
+** By category: `sort c`
+** By description: `sort d`
+** By quantity: `sort q`
+** By cost per unit: `sort cu`
+** By total cost: `sort co`
+** By price: `sort p`
+
+=== Reimbursements
+
+====
+* The reimbursement page contains details of reimbursement for each CCA member.
+* Each reimbursement record is represented by Person, Amount, Description and Status.
+* Once the person is reimbursed, the status can be modified from Pending to Completed.
+* This page helps the treasurer to directly retrieve the amount of reimbursement for each person from expenditure histories.
+* This page also contains a Manage People button. Once clicked, a pop up page will come out and show all the CCA members’ information.
+====
+
+* To find an reimbursement:
+`find p/PERSON`
+
+* To update status:
+`update p/PERSON`
+
+* To add a person:
+`add p/PERSON a/BANK_ACCOUNT_NUMBER`
+
+=== Cashier
+
+====
+* Cashier tab allows the cashier to key in and record the items sold from the inventory.
+* The columns will show the description of the item being sold, the amount per quantity, the quantity and the items subtotal.
+* At the side, just like other tabs, our mascot lion will reply and guide the user along to key in the correct inputs.
+====
+
+* To add an item being sold:
+`add d/DESCRIPTION q/QUANTITY`
+
+* To delete an item being sold:
+`delete INDEX`
+
+* To checkout:
+`checkout AMOUNT_PAID_BY_CUSTOMER`
+
+** If the total cost of items is greater than the amount paid, the lion will give an error message.
+** Else, the lion will state the amount receive and calculate the change.
+
+=== Overview
+
+====
+* The overview tab allows for the treasurer to get an overview of the expenditure this month, the sales for the month, the inventory value remaining and the remaining budget for the club.
+* At the side, the lion mascot will guide the user along to what inputs are permissible, and also offer financial advice based on the data gathered.
+====
+
+* To filter results by certain criteria:
+** By date range: `filter /from DATE /to DATE`
+** By category: `filter /by CATEGORY`
+
+* To set goals:
+** To set budget goal: `set /budget AMOUNT`
+** To set expense goal: `set /expense AMOUNT`
+** To set sales goal: `set /sales AMOUNT`
+
+* To notify when a certain goal has reached specific percentage of completion:
+** To set expense goal notification: `notify /expense PERCENTAGE`
+** To set budget goal notification: `notify /budget PERCENTAGE`
+** To set sales goal notification: `notify /sales PERCENTAGE`
 
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
