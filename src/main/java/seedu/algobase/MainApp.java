@@ -31,8 +31,6 @@ import seedu.algobase.storage.UserPrefsStorage;
 import seedu.algobase.ui.Ui;
 import seedu.algobase.ui.UiManager;
 
-
-
 /**
  * Runs the application.
  */
