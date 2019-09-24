@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Voong Yu Xuan
-image::amber.jpg[width="150", align="left"]
+image::ambervoong.png[width="150", align="left"]
 {empty}[https://github.com/ambervoong[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -20,7 +20,7 @@ Responsibilities: Undo/Redo
 '''
 
 === Bahety Arjavi
-image::arjavi.jpg[width="150", align="left"]
+image::arjavibahety.png[width="150", align="left"]
 {empty}[http://github.com/arjavibahety[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: Alerts
 '''
 
 === Bernice Chio Hui Yin
-image::bernice.jpg[width="150", align="left"]
+image::bernicechio.png[width="150", align="left"]
 {empty}[http://github.com/bernicechio[github]]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Generate PDF
 '''
 
 === Chan Dalis
-image::dalis.jpg[width="150", align="left"]
+image::dalisc.png[width="150", align="left"]
 {empty}[http://github.com/dalisc[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Sort
 '''
 
 === Hong Shao Yi
-image::shaoyi.jpg[width="150", align="left"]
+image::shaoyi1997.png[width="150", align="left"]
 {empty}[http://github.com/shaoyi1997[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
