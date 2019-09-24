@@ -280,12 +280,40 @@ There is no need to save manually.
 
 * *Add* `add n/NAME [m/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
 e.g. `add  n/factorial m/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *List* : `list` +
 * *Edit* : `edit n/NAME [d/DELETE] [n/NAME] [m/DESCRIPTION] [a/AUTHOR]  [t/TAG]...` +
 e.g. `edit 2 n/permutations t/`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find factorial permutations`
-* *List* : `list`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Sort* : `sort m/METHOD [d/DIRECTION]` +
+e.g. `sort m/alphabetical d/ASC`
+
+* *New Tag* : `newtag n/NAME` +
+e.g. `newtag n/sssp`
+* *List Tags* : `lstag`
+* *Delete Tag* : `deletetag INDEX` +
+e.g. `deletetag 3`
+
+* *Add Training Plan* : `addplan n/NAME` +
+e.g. `addplan n/CS2040`
+* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [r/DELETE_PROBLEM_INDEX_LIST] [n/NAME]` +
+e.g. `editplan 1 a/1 2 3 r/4 5 6 n/training set 1`
+* *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
+e.g. `find training set`
+* *List Training Plans* : `lsplan`
+* *Mark Training Plan as done* : `done PLAN_INDEX PROBLEM_INDEX` +
+e.g. `done 1 2`
+* *Mark Training Plan as undone* : `undone PLAN_INDEX PROBLEM_INDEX` +
+e.g. `undone 1 2`
+
+* *Importing data* : `import f/FORMAT p/PATH` +
+e.g. `import t/plan p/./steven_halim_secret.json`
+* *Exporting data* : `export f/FORMAT p/DIRECTORY` +
+e.g. `export f/csv p/./`
+
 * *Help* : `help`
+* *Clear* : `clear`
+* *Exit* : `exit`
+
