@@ -24,6 +24,7 @@ image::gabrielseow.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Project DashBoard Feature + Testing
+
 '''
 
 === Seah Lynn
@@ -49,6 +50,6 @@ image::arun.PNG[width="150", align="left"]
 {empty}[http://github.com/ArunBeCoding[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Inventory and Storage feature 
+Responsibilities: Inventory and Storage feature
 
 '''
