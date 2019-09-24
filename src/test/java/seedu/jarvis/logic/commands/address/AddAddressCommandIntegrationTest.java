@@ -6,6 +6,8 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSu
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -96,16 +98,17 @@ public class AddAddressCommandIntegrationTest {
         AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
 
         int cycles = 1000;
+        IntStream.range(0, cycles)
+                .forEach(index -> {
+                    expectedAddressModel.addPerson(validPerson);
+                    assertCommandSuccess(addAddressCommand, addressModel,
+                            String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
 
-        for (int i = 0; i < cycles; ++i) {
-            expectedAddressModel.addPerson(validPerson);
-            assertCommandSuccess(addAddressCommand, addressModel,
-                    String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
-
-            expectedAddressModel.deletePerson(validPerson);
-            assertCommandInverseSuccess(addAddressCommand, addressModel,
-                    String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, validPerson), expectedAddressModel);
-        }
+                    expectedAddressModel.deletePerson(validPerson);
+                    assertCommandInverseSuccess(addAddressCommand, addressModel,
+                            String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, validPerson),
+                            expectedAddressModel);
+                });
     }
 
 }

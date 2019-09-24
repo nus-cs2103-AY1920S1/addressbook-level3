@@ -17,6 +17,8 @@ import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -269,15 +271,16 @@ public class EditAddressCommandTest {
         String inverseExecutionExpectedMessage = EditAddressCommand.MESSAGE_INVERSE_SUCCESS_EDIT;
 
         int cycles = 1000;
+        IntStream.range(0, cycles)
+                .forEach(index -> {
+                    expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), editedPerson);
+                    assertCommandSuccess(editAddressCommand, addressModel, executionExpectedMessage,
+                            expectedAddressModel);
 
-        for (int i = 0; i < cycles; ++i) {
-            expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), editedPerson);
-            assertCommandSuccess(editAddressCommand, addressModel, executionExpectedMessage, expectedAddressModel);
-
-            expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), personInFilteredList);
-            assertCommandInverseSuccess(editAddressCommand, addressModel, inverseExecutionExpectedMessage,
-                    expectedAddressModel);
-        };
+                    expectedAddressModel.setPerson(addressModel.getFilteredPersonList().get(0), personInFilteredList);
+                    assertCommandInverseSuccess(editAddressCommand, addressModel, inverseExecutionExpectedMessage,
+                            expectedAddressModel);
+                });
     }
 
     @Test

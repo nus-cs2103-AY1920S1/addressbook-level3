@@ -6,6 +6,8 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSu
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -84,17 +86,16 @@ public class ClearAddressCommandTest {
         Person validPerson = new PersonBuilder().build();
 
         int cycles = 1000;
+        IntStream.range(0, cycles)
+                .forEach(index -> {
+                    addressModel.addPerson(validPerson);
+                    expectedAddressModel.setAddressBook(new AddressBook());
+                    assertCommandSuccess(clearAddressCommand, addressModel,
+                            ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
 
-        for (int i = 0; i < cycles; ++i) {
-            addressModel.addPerson(validPerson);
-            expectedAddressModel.setAddressBook(new AddressBook());
-            assertCommandSuccess(clearAddressCommand, addressModel,
-                    ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
-
-            addressModel.setAddressBook(getTypicalAddressBook());
-            assertCommandInverseSuccess(clearAddressCommand, addressModel,
-                    ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedAddressModel);
-
-        }
+                    addressModel.setAddressBook(getTypicalAddressBook());
+                    assertCommandInverseSuccess(clearAddressCommand, addressModel,
+                            ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedAddressModel);
+                });
     }
 }
