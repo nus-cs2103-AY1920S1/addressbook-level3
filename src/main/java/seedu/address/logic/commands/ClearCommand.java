@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.core.CommandResult;
-import seedu.address.logic.commands.core.UndoableCommand;
+import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;

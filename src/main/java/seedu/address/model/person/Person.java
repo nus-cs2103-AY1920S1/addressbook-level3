@@ -12,10 +12,10 @@ import seedu.address.model.common.ReferenceId;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person who can be either a patient or staff doctor.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public abstract class Person {
+public class Person {
 
     // Identity fields
     private final ReferenceId referenceId;
@@ -32,7 +32,7 @@ public abstract class Person {
      */
     public Person(ReferenceId referenceId, Name name, Phone phone, Email email,
                   Address address, Set<Tag> tags) {
-        requireAllNonNull(referenceId, name, phone, email, address, tags);
+        requireAllNonNull(referenceId, name);
         this.referenceId = referenceId;
         this.name = name;
         this.phone = phone;
@@ -70,7 +70,7 @@ public abstract class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons of the same reference id and name.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -79,8 +79,8 @@ public abstract class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && otherPerson.getReferenceId().equals(getReferenceId())
+                && otherPerson.getName().equals(getName());
     }
 
     /**
@@ -98,7 +98,8 @@ public abstract class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
+        return otherPerson.getReferenceId().equals(getReferenceId())
+                && otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
@@ -114,14 +115,16 @@ public abstract class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+        builder.append(getReferenceId())
+            .append(" Name: ")
+            .append(getName())
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

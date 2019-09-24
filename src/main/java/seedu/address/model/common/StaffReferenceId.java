@@ -1,33 +1,33 @@
 package seedu.address.model.common;
 
-
 /**
  * Represents a Reference ID for Patient.
  * Guarantees: Reference Id is present, validated and immutable.
  */
-public class PatientReferenceId extends PersonReferenceId {
+public class StaffReferenceId extends PersonReferenceId {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Reference Id for patients should not start with 'DR'";
+        "Reference Id for staff doctors should start with 'DR' followed by numbers.";
 
     /*
      * The reference ID should only contain alphanumeric characters.
      */
-    public static final String VALIDATION_REGEX = "DR\\w*";
+    public static final String VALIDATION_REGEX = "DR[0-9]*";
+
     /**
-     * Constructs a {@code PatientReferenceId}.
+     * Constructs a {@code DoctorReferenceId}.
      *
      * @param referenceId A valid identifier.
      */
-    public PatientReferenceId(String referenceId) {
+    public StaffReferenceId(String referenceId) {
         super(referenceId);
     }
 
     /**
-     * Returns true if a given string is a valid reference id for patient.
+     * Returns true if a given string is a valid reference id for staff.
      */
-    public static boolean isValidPatientId(String test) {
-        return isValidId(test) && !test.matches(VALIDATION_REGEX);
+    public static boolean isValidStaffId(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class PatientReferenceId extends PersonReferenceId {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof PatientReferenceId // instanceof handles nulls
-            && getReferenceIdentifier().equals(((PatientReferenceId) other).getReferenceIdentifier())); // state check
+            || (other instanceof StaffReferenceId // instanceof handles nulls
+            && getReferenceIdentifier().equals(((StaffReferenceId) other).getReferenceIdentifier())); // state check
     }
 }

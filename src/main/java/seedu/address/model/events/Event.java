@@ -4,35 +4,28 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.common.DoctorReferenceId;
-import seedu.address.model.common.PatientReferenceId;
+import seedu.address.model.common.ReferenceId;
 
 //TODO: Stub models for now
 public abstract class Event {
 
     // Identity fields
-    private final PatientReferenceId patientId;
-    private final DoctorReferenceId doctorId;
+    private final ReferenceId personId;
     private final Timing timing;
     private final Status status;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(PatientReferenceId patientId, DoctorReferenceId doctorId, Timing timing, Status status) {
-        requireAllNonNull(patientId, doctorId, timing, status);
-        this.patientId = patientId;
-        this.doctorId = doctorId;
+    public Event(ReferenceId personId, Timing timing, Status status) {
+        requireAllNonNull(personId, timing, status);
+        this.personId = personId;
         this.timing = timing;
         this.status = status;
     }
 
-    public PatientReferenceId getPatientId() {
-        return patientId;
-    }
-
-    public DoctorReferenceId getDoctorId() {
-        return doctorId;
+    public ReferenceId getPersonId() {
+        return personId;
     }
 
     public Timing getEventTiming() {
@@ -53,7 +46,7 @@ public abstract class Event {
         }
 
         return otherEvent != null
-            && otherEvent.getPatientId().equals(getPatientId())
+            && otherEvent.getPersonId().equals(getPersonId())
             && otherEvent.getEventTiming().equals(getEventTiming());
     }
 
@@ -72,8 +65,7 @@ public abstract class Event {
         }
 
         Event otherEvent = (Event) other;
-        return otherEvent.getPatientId().equals(getPatientId())
-            && otherEvent.getDoctorId().equals(getDoctorId())
+        return otherEvent.getPersonId().equals(getPersonId())
             && otherEvent.getEventTiming().equals(getEventTiming())
             && otherEvent.getStatus().equals(getStatus());
     }
@@ -81,18 +73,16 @@ public abstract class Event {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(patientId, doctorId, timing, status);
+        return Objects.hash(personId, timing, status);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Event - Patient: ")
-            .append(getPatientId())
+        builder.append("Event - Person ID: ")
+            .append(getPersonId())
             .append(" Timing: ")
             .append(getEventTiming())
-            .append(" Doctor: ")
-            .append(getDoctorId())
             .append(" status: ")
             .append(getStatus());
         return builder.toString();

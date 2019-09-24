@@ -7,8 +7,8 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.core.CommandResult;
-import seedu.address.logic.commands.core.UndoableCommand;
+import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -48,7 +48,7 @@ public class DeleteCommand extends UndoableCommand {
 
         if (personToDelete == null) {
             personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        } else if (!model.hasPerson(personToDelete)) {
+        } else if (!model.hasExactPerson(personToDelete)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -60,7 +60,7 @@ public class DeleteCommand extends UndoableCommand {
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (personToDelete == null || model.hasPerson(personToDelete)) {
+        if (personToDelete == null || model.hasExactPerson(personToDelete)) {
             throw new CommandException(MESSAGE_UNDO_DELETE_ERROR);
         }
 

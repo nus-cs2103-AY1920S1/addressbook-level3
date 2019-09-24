@@ -17,10 +17,11 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.core.CommandResult;
-import seedu.address.logic.commands.core.UndoableCommand;
+import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -89,9 +90,9 @@ public class EditCommand extends UndoableCommand {
             editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
         }
 
-        if (personToEdit != null && editedPerson != null
-            && !personToEdit.isSamePerson(editedPerson)
-            && model.hasPerson(editedPerson)) {
+        if (personToEdit == null || editedPerson == null
+            || personToEdit.equals(editedPerson)
+            || model.hasExactPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -105,7 +106,7 @@ public class EditCommand extends UndoableCommand {
         requireNonNull(model);
 
         if (personToEdit == null || editedPerson == null
-                || !model.hasPerson(editedPerson) || model.hasPerson(personToEdit)) {
+                || !model.hasExactPerson(editedPerson) || model.hasExactPerson(personToEdit)) {
             throw new CommandException(MESSAGE_UNDO_EDIT_ERROR);
         }
 
@@ -121,13 +122,14 @@ public class EditCommand extends UndoableCommand {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
+        ReferenceId updatedRefId = editPersonDescriptor.getReferenceId().orElse(personToEdit.getReferenceId());
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedRefId, updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -153,6 +155,7 @@ public class EditCommand extends UndoableCommand {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
+        private ReferenceId referenceId;
         private Name name;
         private Phone phone;
         private Email email;
@@ -166,6 +169,7 @@ public class EditCommand extends UndoableCommand {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+            setReferenceId(toCopy.referenceId);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -177,7 +181,15 @@ public class EditCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(referenceId, name, phone, email, address, tags);
+        }
+
+        public void setReferenceId(ReferenceId referenceId) {
+            this.referenceId = referenceId;
+        }
+
+        public Optional<ReferenceId> getReferenceId() {
+            return Optional.ofNullable(referenceId);
         }
 
         public void setName(Name name) {
@@ -244,7 +256,8 @@ public class EditCommand extends UndoableCommand {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getReferenceId().equals(getReferenceId())
+                    && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())

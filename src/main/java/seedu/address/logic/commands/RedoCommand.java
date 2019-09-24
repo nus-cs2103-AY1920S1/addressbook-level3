@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.core.Command;
-import seedu.address.logic.commands.core.CommandHistory;
-import seedu.address.logic.commands.core.CommandResult;
+import seedu.address.logic.commands.common.Command;
+import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 

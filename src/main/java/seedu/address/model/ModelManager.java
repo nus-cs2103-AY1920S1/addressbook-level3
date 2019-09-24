@@ -97,6 +97,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasExactPerson(Person person) {
+        requireNonNull(person);
+        return addressBook.hasExactPerson(person);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }

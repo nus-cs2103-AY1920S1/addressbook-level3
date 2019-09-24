@@ -9,6 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.common.PatientReferenceId;
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.common.StaffReferenceId;
+import seedu.address.model.common.PersonReferenceId;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -33,6 +37,40 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String refId} into an {@code StaffReferenceId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code StaffReferenceId} is invalid.
+     */
+    public static StaffReferenceId parseStaffReferenceId(String staffRefId) throws ParseException {
+        requireNonNull(staffRefId);
+        String trimmedRefId = staffRefId.trim();
+        if (!PersonReferenceId.isValidId(trimmedRefId)) {
+            throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
+        } else if (!StaffReferenceId.isValidStaffId(trimmedRefId)) {
+            throw new ParseException(StaffReferenceId.MESSAGE_CONSTRAINTS);
+        }
+        return new StaffReferenceId(trimmedRefId);
+    }
+
+    /**
+     * Parses a {@code String refId} into an {@code PatientReferenceId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code PatientReferenceId} is invalid.
+     */
+    public static PatientReferenceId parsePatientReferenceId(String patientRefId) throws ParseException {
+        requireNonNull(patientRefId);
+        String trimmedRefId = patientRefId.trim();
+        if (!PersonReferenceId.isValidId(trimmedRefId)) {
+            throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
+        } else if (!PatientReferenceId.isValidPatientId(trimmedRefId)) {
+            throw new ParseException(PatientReferenceId.MESSAGE_CONSTRAINTS);
+        }
+        return new PatientReferenceId(trimmedRefId);
     }
 
     /**
