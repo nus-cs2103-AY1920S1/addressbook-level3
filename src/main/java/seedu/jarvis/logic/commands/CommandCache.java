@@ -22,7 +22,7 @@ import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
  */
 public class CommandCache {
     /** Starting default limit to be assigned to each instance. */
-    private static final int DEFAULT_LIMIT = 10;
+    private static final int DEFAULT_INITIAL_SIZE_LIMIT = 10;
     /**
      * Deque to store commands. Deque is used to facilitate adding new commands to the start of the deque, and deleting
      * old commands from the back of the deque.
@@ -37,13 +37,13 @@ public class CommandCache {
     private int limit;
 
     /**
-     * Creates a new {@code CommandCache} with the default size limit of DEFAULT_LIMIT.
+     * Creates a new {@code CommandCache} with the default size limit of DEFAULT_INITIAL_SIZE_LIMIT.
      * This size limit can be set to another number.
      */
     public CommandCache() {
         commands = new ArrayDeque<>();
         commandTracker = new HashSet<>();
-        limit = DEFAULT_LIMIT;
+        limit = DEFAULT_INITIAL_SIZE_LIMIT;
     }
 
     /**

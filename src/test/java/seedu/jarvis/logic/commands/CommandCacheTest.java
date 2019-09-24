@@ -58,9 +58,9 @@ public class CommandCacheTest {
         });
         assertEquals(2, commandCache.getSize()); // checks that commands were added.
         assertSame(commandCache.deleteOldestCommand(), c1); // checks that the correct command is deleted.
-        assertEquals(1, commandCache.deleteOldestCommand()); // checks that the size reduced by 1.
+        assertEquals(1, commandCache.getSize()); // checks that the size reduced by 1.
         assertSame(commandCache.deleteOldestCommand(), c2); // checks that the correct command is deleted.
-        assertEquals(0, commandCache.deleteOldestCommand()); // checks that the size reduced by 1.
+        assertEquals(0, commandCache.getSize()); // checks that the size reduced by 1.
     }
 
     /**
