@@ -17,7 +17,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.model.person.Person;
 
 /**
@@ -43,6 +43,9 @@ public class DeleteCommandTest {
         assertUndoCommandFailure(deleteCommand, model, DeleteCommand.MESSAGE_UNDO_DELETE_ERROR);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage1, expectedModel);
+
+        //ensures that the same command instance cannot be executed again before an undo operation.
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         //ensures undo capability
         expectedModel.addPerson(personToDelete);
