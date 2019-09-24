@@ -110,13 +110,15 @@ public class Problem {
                 && otherProblem.getAuthor().equals(getAuthor())
                 && otherProblem.getWebLink().equals(getWebLink())
                 && otherProblem.getDescription().equals(getDescription())
-                && otherProblem.getTags().equals(getTags());
+                && otherProblem.getTags().equals(getTags())
+                && otherProblem.getRemark().equals(getRemark())
+                && otherProblem.getSource().equals(getSource());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, author, webLink, description, tags);
+        return Objects.hash(name, author, webLink, description, tags, remark, source);
     }
 
     @Override
@@ -131,6 +133,10 @@ public class Problem {
                 .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Remark: ")
+                .append(getRemark())
+                .append(" Source: ")
+                .append(getSource());
         return builder.toString();
     }
 
