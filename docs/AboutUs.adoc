@@ -42,7 +42,7 @@ image::jcjjjared.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: 
+Responsibilities:
 
 '''
 
