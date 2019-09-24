@@ -687,6 +687,14 @@ Windows, Linux, Unix, OS-X
 Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[transactions]]
+transactions::
+Transactions include all the expenses spent and sales made.
+
+[[inventory]]
+inventory::
+Inventory refers to the items that are stored to be sold. It consists of item description and quantity left.
+
 [appendix]
 == Product Survey
 
