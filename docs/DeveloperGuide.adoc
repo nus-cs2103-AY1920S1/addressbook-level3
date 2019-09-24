@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -135,7 +135,7 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
 This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
 An example of how such a model may look like is given below. +
- +
++
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
@@ -671,11 +671,26 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Technical Requirements:
+* Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+* Should work on both 32-bit and 64-bit environments.
+* Should be easy to navigate to other tabs
+. Quality Requirements:
+* Should be easy to pick up and intuitive for novice user
+* A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* The messages the lion says should be understandable and not result in information overload
+* The GUI should look neat and organised
+* Should be intuitive and easy to understand and learn for a total novice
+* Our mascot should be original or not copied
+* Clear and grammatically correct English should be used throughout the program
+. Process Requirements:
+* Members should aim to do increments according to schedule
+* Members should sound out when help is needed in their increments
+* Members will be doing back-end first before proceeding to front-end designing
+. Data Requirements:
+* Should be able to store sufficient data for 1 year’s worth of transactions within a CCA
+* Should be as much resistant to data loss as possible
+* Should be able to read data quickly to prevent long loading times
 
 [appendix]
 == Glossary
@@ -687,6 +702,14 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]]
 Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[transactions]]
+Transactions::
+Transactions include all the expenses spent and sales made.
+
+[[inventory]]
+Inventory::
+Inventory refers to the items that are stored to be sold. It consists of item description and quantity left.
 
 [appendix]
 == Product Survey
@@ -719,7 +742,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts.
+Expected: Shows the GUI with a set of sample contacts.
 The window size may not be optimum.
 
 . Saving window preferences
@@ -728,7 +751,7 @@ The window size may not be optimum.
 Move the window to a different location.
 Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
 
@@ -739,15 +762,15 @@ _{ more test cases ... }_
 .. Prerequisites: List all persons using the `list` command.
 Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
+Expected: First contact is deleted from the list.
 Details of the deleted contact shown in the status message.
 Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted.
+Expected: No person is deleted.
 Error details shown in the status message.
 Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Expected: Similar to previous.
 
 _{ more test cases ... }_
 
@@ -758,3 +781,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
