@@ -14,11 +14,7 @@ import seedu.tarence.model.person.Person;
 public class AddStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "addStudent";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-                                                      "addstu", "addstud"};
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists!";
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person into T.A.rence. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
@@ -26,6 +22,12 @@ public class AddStudentCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_EMAIL + "johnd@example.com ";
+
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists!";
+    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+        "addstu", "addstud"};
 
     private final Person toAdd;
 

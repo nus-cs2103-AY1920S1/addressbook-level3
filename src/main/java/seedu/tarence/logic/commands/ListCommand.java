@@ -11,11 +11,11 @@ import seedu.tarence.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "listStudent";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "liststu", "liststud"};
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+        "liststu", "liststud"};
 
     @Override
     public CommandResult execute(Model model) {

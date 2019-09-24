@@ -8,9 +8,10 @@ import seedu.tarence.model.Model;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting T.A.rence as requested ...";
+
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     @Override
     public CommandResult execute(Model model) {

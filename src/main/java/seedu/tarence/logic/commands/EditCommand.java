@@ -22,7 +22,6 @@ import seedu.tarence.model.person.Person;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -36,6 +35,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists.";
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;

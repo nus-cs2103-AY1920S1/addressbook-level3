@@ -16,8 +16,6 @@ import seedu.tarence.model.person.Person;
 public class DeleteStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteStudent";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "deletestu", "deletestud", "delstudent", "delstu", "delstud"};
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
@@ -25,6 +23,9 @@ public class DeleteStudentCommand extends Command {
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
+
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+        "deletestu", "deletestud", "delstudent", "delstu", "delstud"};
 
     private final Index targetIndex;
 
