@@ -10,7 +10,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.model.problem.*;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -35,7 +42,8 @@ class JsonAdaptedProblem {
     @JsonCreator
     public JsonAdaptedProblem(@JsonProperty("name") String name, @JsonProperty("author") String author,
                               @JsonProperty("weblink") String weblink, @JsonProperty("description") String description,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("difficulty") String difficulty,
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("difficulty") String difficulty,
                               @JsonProperty("remark") String remark, @JsonProperty("source") String source) {
         this.name = name;
         this.author = author;
@@ -146,7 +154,8 @@ class JsonAdaptedProblem {
         }
         final Source modelSource = new Source(source);
 
-        return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags, modelDifficulty, modelRemark, modelSource);
+        return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags, modelDifficulty,
+                modelRemark, modelSource);
     }
 
 }

@@ -19,10 +19,15 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.problem.*;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
-
-import javax.swing.text.html.Option;
 
 /**
  * Edits the details of an existing Problem in the algobase.
@@ -100,7 +105,8 @@ public class EditCommand extends Command {
         Remark updatedRemark = editProblemDescriptor.getRemark().orElse(problemToEdit.getRemark());
         Source updatedSource = editProblemDescriptor.getSource().orElse(problemToEdit.getSource());
 
-        return new Problem(updatedName, updatedAuthor, updatedWebLink, updatedDescription, updatedTags, updatedDifficulty, updatedRemark, updatedSource);
+        return new Problem(updatedName, updatedAuthor, updatedWebLink, updatedDescription, updatedTags,
+                updatedDifficulty, updatedRemark, updatedSource);
     }
 
     @Override

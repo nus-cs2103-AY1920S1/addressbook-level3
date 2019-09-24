@@ -1,14 +1,28 @@
 package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.algobase.logic.parser.CliSyntax.*;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.problem.*;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
+import seedu.algobase.model.problem.Name;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 
 /**
