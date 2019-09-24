@@ -13,7 +13,7 @@ import seedu.address.logic.commands.core.UndoableCommandStub;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model and CommandHistory) and unit tests for RedoCommand.

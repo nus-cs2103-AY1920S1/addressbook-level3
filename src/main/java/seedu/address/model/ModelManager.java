@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.userprefs.ReadOnlyUserPrefs;
+import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.model.person.Person;
 
 /**
