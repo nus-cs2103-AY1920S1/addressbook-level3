@@ -21,7 +21,6 @@ import seedu.algobase.model.tag.Tag;
  */
 public class SampleDataUtil {
     public static Problem[] getSampleProblems() {
-        // TODO: add fields difficulty, remark and source
         return new Problem[] {
             new Problem(new Name("Alex Yeoh"), new Author("87438807"), new WebLink("alexyeoh@example.com"),
                 new Description("Blk 30 Geylang Street 29, #06-40"),

@@ -5,8 +5,11 @@ import java.util.Set;
 
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
 import seedu.algobase.model.problem.Name;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
 import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.util.SampleDataUtil;
@@ -20,12 +23,18 @@ public class ProblemBuilder {
     public static final String DEFAULT_AUTHOR = "85355255";
     public static final String DEFAULT_WEBLINK = "alice@gmail.com";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DIFFICULTY = "3.0";
+    public static final String DEFAULT_REMARK = "remark placeholder";
+    public static final String DEFAULT_SOURCE = "UVa";
 
     private Name name;
     private Author author;
     private WebLink webLink;
     private Description description;
     private Set<Tag> tags;
+    private Difficulty difficulty;
+    private Remark remark;
+    private Source source;
 
     public ProblemBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +42,9 @@ public class ProblemBuilder {
         webLink = new WebLink(DEFAULT_WEBLINK);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
+        difficulty = new Difficulty(DEFAULT_DIFFICULTY);
+        remark = new Remark(DEFAULT_REMARK);
+        source = new Source(DEFAULT_SOURCE);
     }
 
     /**
@@ -44,6 +56,9 @@ public class ProblemBuilder {
         webLink = problemToCopy.getWebLink();
         description = problemToCopy.getDescription();
         tags = new HashSet<>(problemToCopy.getTags());
+        difficulty = problemToCopy.getDifficulty();
+        remark = problemToCopy.getRemark();
+        source = problemToCopy.getSource();
     }
 
     /**
@@ -86,9 +101,32 @@ public class ProblemBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Difficulty} of the {@code Problem} that we are building.
+     */
+    public ProblemBuilder withDifficulty(String difficulty) {
+        this.difficulty = new Difficulty(difficulty);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code Problem} that we are building.
+     */
+    public ProblemBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Source} of the {@code Problem} that we are building.
+     */
+    public ProblemBuilder withSource(String source) {
+        this.source = new Source(source);
+        return this;
+    }
+
     public Problem build() {
-        // TODO: add new fields
-        return new Problem(name, author, webLink, description, tags);
+        return new Problem(name, author, webLink, description, tags, difficulty, remark, source);
     }
 
 }

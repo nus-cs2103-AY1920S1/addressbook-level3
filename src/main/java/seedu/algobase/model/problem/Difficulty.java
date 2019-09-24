@@ -10,7 +10,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class Difficulty {
 
     public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric.";
-    public static final Difficulty DEFAULT_DIFFICULTY = new Difficulty("0.0");
+    public static final Difficulty DEFAULT_DIFFICULTY = new Difficulty();
     public final double value;
 
     /**
@@ -22,6 +22,10 @@ public class Difficulty {
         requireNonNull(difficulty);
         checkArgument(isValidDifficulty(difficulty), MESSAGE_CONSTRAINTS);
         value = Double.parseDouble(difficulty);
+    }
+
+    private Difficulty() {
+        value = 0.0;
     }
 
     /**
