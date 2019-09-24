@@ -82,7 +82,7 @@
     NAMING CHECKS
     -->
 
-    <!-- Validate abbreviations (consecutive capital letters) length in identifier title -->
+    <!-- Validate abbreviations (consecutive capital letters) length in identifier name -->
     <module name="AbbreviationAsWordInName">
       <property name="ignoreFinal" value="false"/>
       <property name="allowedAbbreviationLength" value="1"/>
@@ -104,7 +104,7 @@
       <!-- Validates non-private, static, final fields against the expression "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
       <metadata name="altname" value="ConstantName"/>
       <property name="applyToPrivate" value="false"/>
-      <message key="title.invalidPattern"
+      <message key="name.invalidPattern"
                value="Variable ''{0}'' should be in ALL_CAPS (if it is a constant) or be private (otherwise)."/>
       <property name="severity" value="warning"/>
     </module>
@@ -213,7 +213,7 @@
     <!-- Checks that long constants are defined with an upper ell.-->
     <module name="UpperEll" />
 
-    <module title="FallThrough">
+    <module name="FallThrough">
       <!-- Warn about falling through to the next case statement.  Similar to
       javac -Xlint:fallthrough, but the check is suppressed if a single-line comment
       on the last non-blank line preceding the fallen-into case contains 'fall through' (or

@@ -51,7 +51,7 @@ control to the Logic component. According to the sequence diagram, the UI compon
 through a method named `execute`. Searching through the code base for `execute()` yields a promising candidate in
 `seedu.address.ui.CommandBox.CommandExecutor`.
 
-.Using the `Search for target by title` feature. `Navigate` > `Symbol`.
+.Using the `Search for target by name` feature. `Navigate` > `Symbol`.
 image::Execute.png[]
 
 A quick look at the class confirms that this is indeed close to what we're looking for. However, it is just an
@@ -179,14 +179,14 @@ image::LogicSequenceDiagram.png[]
 @Override
 public CommandResult execute(Model model) throws CommandException {
     ...
-    Person bookToEdit = lastShownList.get(index.getZeroBased());
-    Person editedBook = createEditedPerson(bookToEdit, editBookDescriptor);
-    if (!bookToEdit.isSamePerson(editedBook) && model.hasPerson(editedBook)) {
+    Person personToEdit = lastShownList.get(index.getZeroBased());
+    Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+    if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
         throw new CommandException(MESSAGE_DUPLICATE_PERSON);
     }
-    model.setPerson(bookToEdit, editedBook);
+    model.setPerson(personToEdit, editedPerson);
     model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedBook));
+    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
 }
 ----
 . As suspected, `command#execute()` does indeed make changes to `model`.
@@ -205,7 +205,7 @@ constructor.
  * {@code JsonSerializableAddressBook}.
  */
 public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-    books.addAll(
+    persons.addAll(
         source.getPersonList()
               .stream()
               .map(JsonAdaptedPerson::new)
