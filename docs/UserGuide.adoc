@@ -61,7 +61,7 @@ Generates a new problem. +
 Format: `add n/NAME [m/DESCRIPTION] [a/AUTHOR] [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A problem can have any number of tags (including 0)
 
 Examples:
 
@@ -77,13 +77,11 @@ Format: `list`
 Edits an existing problem. +
 Format: `edit n/NAME [d/DELETE] [n/NAME] [m/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the problem at the specified `INDEX`. The index refers to the index number shown in the displayed problem list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* When editing tags, the existing tags of the problem will be removed i.e adding of tags is not cumulative.
+* You can remove all the problem's tags by typing `t/` without specifying any tags after it.
 
 Examples:
 
@@ -92,18 +90,16 @@ Edits the author of the 1st problem to be `John Doe` respectively.
 * `edit 2 n/permutations t/` +
 Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating problems by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds problems whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* Problems matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 
@@ -118,11 +114,9 @@ Returns any problem having names `factorial`, or `permutations`
 Deletes an existing problem. +
 Format: `delete INDEX`
 
-****
 * Deletes the problem at the specified `INDEX`.
 * The index refers to the index number shown in the displayed problem list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
 
 Examples:
 
@@ -132,6 +126,121 @@ Deletes the 2nd problem in the displayed list.
 * `find n/factorial` +
 `delete 1` +
 Deletes the 1st problem in the results of the `find` command.
+
+
+=== Sorting problem: `sort`
+
+Sorts the current list of results by a specified order and direction. +
+Format: `sort m/METHOD [d/DIRECTION]`
+
+* Method can be `alphabetical` or `chronological`.
+* Direction can be `ASC` or `DESC` representing ascending and descending order. The default is in ascending order.
+
+=== Create new tags: `newtag`
+
+Generates a new tag. +
+Format: `newtag n/NAME`
+
+Examples:
+
+* `newtag  n/sssp`
+
+=== Create new tags: `lstag`
+
+Displays a list of all existing tags. +
+Format: `lstag`
+
+=== Create new tags: `deletetag`
+
+Deletes an existing tag. +
+Format: `deletetag INDEX`
+Examples:
+
+* `deletetag 1`
+
+=== Creating a new training plan `addplan`
+
+Generates a new training plan. +
+Format: `addplan n/NAME`
+
+Examples:
+
+* `addplan n/CS2040`
+
+=== Editing a training plan `editplan`
+
+Edits an existing training plan. +
+Format: `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [r/DELETE_PROBLEM_INDEX_LIST] [n/NAME]`
+
+Examples:
+
+* `editplan 1 a/1 2 3 r/4 5 6 n/training set 1`
+
+=== Locating training plans by name: `findplan`
+
+Finds problems whose names contain any of the given keywords. +
+Format: `findplan KEYWORD [MORE_KEYWORDS]`
+
+Examples:
+
+* `find training-set` +
+Returns `training-set-1` and `training-set-2`
+* `find training set` +
+Returns any problem having names `training`, or `set`
+
+=== Listing all training plans: `lsplan`
+
+Displays a list of all existing plans alphabetically. +
+Format: `lsplan`
+
+=== Marking a problem as done: `done`
+
+Marks a problem in a given plan as done. +
+Format: `done PLAN_INDEX PROBLEM_INDEX`
+
+Examples:
+
+* `done 1 2`
+
+=== Unmarking a problem as undone: `undone`
+
+Marks a problem in a given plan as undone. +
+Format: `undone PLAN_INDEX PROBLEM_INDEX`
+
+Examples:
+
+* `undone 1 2`
+
+=== Importing data: `import`
+
+Imports external data of a specified format (e.g. CSV, JSON) into local storage. +
+Format: `import f/FORMAT p/PATH`
+
+* Format can be ‘CSV’ or ‘JSON’.
+* Directory refers to the full path of the output file.
+
+
+Examples:
+
+* `import t/plan p/./steven_halim_secret.json`
+
+=== Exporting data: `export`
+
+Exports data into a specified format (e.g. CSV, JSON). +
+Format: `export f/FORMAT p/DIRECTORY`
+
+* Format can be ‘CSV’ or ‘JSON’.
+* Directory refers to the full path of the output file.
+
+Examples:
+
+* `export f/csv p/./`
+
+// tag::dataencryption[]  
+=== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
 
 // end::delete[]
 === Clearing all entries : `clear`
@@ -148,12 +257,6 @@ Format: `exit`
 
 AlgoBase data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
