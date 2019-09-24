@@ -12,18 +12,15 @@ import seedu.address.logic.commands.AddGroupCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NusmodCommand;
-import seedu.address.logic.commands.RemarkCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -60,14 +57,8 @@ public class AddressBookParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -80,9 +71,6 @@ public class AddressBookParser {
 
         case NusmodCommand.COMMAND_WORD:
             return new NusmodCommandParser().parse(arguments);
-
-        case RemarkCommand.COMMAND_WORD:
-            return new RemarkCommandParser().parse(arguments);
 
         case AddGroupCommand.COMMAND_WORD:
             return new AddGroupCommandParser().parse(arguments);

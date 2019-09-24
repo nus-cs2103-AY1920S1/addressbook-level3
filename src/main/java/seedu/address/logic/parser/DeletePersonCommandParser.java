@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
