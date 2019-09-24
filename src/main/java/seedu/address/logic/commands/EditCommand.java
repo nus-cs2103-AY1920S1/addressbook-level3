@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -20,8 +20,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.Title;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 
 /**

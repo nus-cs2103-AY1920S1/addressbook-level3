@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.book.Book;
 import seedu.address.model.book.Author;
+import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
@@ -75,7 +75,8 @@ class JsonAdaptedBook {
         final Title modelTitle = new Title(title);
 
         if (serialNumber == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SerialNumber.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    SerialNumber.class.getSimpleName()));
         }
         if (!SerialNumber.isValidPhone(serialNumber)) {
             throw new IllegalValueException(SerialNumber.MESSAGE_CONSTRAINTS);

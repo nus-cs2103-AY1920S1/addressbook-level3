@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.book.exceptions.DuplicateBookException;
 import seedu.address.model.book.exceptions.BookNotFoundException;
+import seedu.address.model.book.exceptions.DuplicateBookException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

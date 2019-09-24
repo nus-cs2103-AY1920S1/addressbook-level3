@@ -3,9 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -47,7 +47,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editBookDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_SERIAL_NUMBER).isPresent()) {
-            editBookDescriptor.setSerialNumber(ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER).get()));
+            editBookDescriptor.setSerialNumber(ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER)
+                    .get()));
         }
         if (argMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
             editBookDescriptor.setAuthor(ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get()));
