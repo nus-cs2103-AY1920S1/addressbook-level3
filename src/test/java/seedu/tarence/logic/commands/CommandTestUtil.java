@@ -3,9 +3,7 @@ package seedu.tarence.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MATNO;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NUSID;
 import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
