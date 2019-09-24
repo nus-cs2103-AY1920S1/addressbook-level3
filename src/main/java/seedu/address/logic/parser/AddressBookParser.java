@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;

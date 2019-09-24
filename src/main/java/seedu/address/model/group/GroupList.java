@@ -2,6 +2,9 @@ package seedu.address.model.group;
 
 import java.util.ArrayList;
 
+/**
+ * List of Groups.
+ */
 public class GroupList {
     private ArrayList<Group> groups;
 
@@ -9,8 +12,13 @@ public class GroupList {
         this.groups = new ArrayList<Group>();
     }
 
+    /**
+     * Adds a Group to the list of groups.
+     * @param group group to be added
+     * @return true when successfully added group
+     */
     public boolean addGroup(Group group) {
-        if(findGroup(group.getGroupName()) == null){
+        if (findGroup(group.getGroupName()) == null) {
             this.groups.add(group);
             return true;
         } else {
@@ -18,39 +26,58 @@ public class GroupList {
         }
     }
 
-    public Group findGroup(GroupName groupName){
+    /**
+     * Finds a group with the same GroupName and returns the Group.
+     * @param groupName GroupName of the Group
+     * @return Group that is found
+     */
+    public Group findGroup(GroupName groupName) {
         int i;
-        for(i = 0; i < groups.size(); i++){
-            if(groups.get(i).getGroupName().toString().equals(groupName.toString())){
+        for (i = 0; i < groups.size(); i++) {
+            if (groups.get(i).getGroupName().toString().equals(groupName.toString())) {
                 return groups.get(i);
             }
         }
         return null;
     }
 
-    public Group findGroup(GroupID groupID){
+    /**
+     * Finds a group with the same GroupId and returns the Group.
+     * @param groupId GroupId of the Group
+     * @return Group that is found
+     */
+    public Group findGroup(GroupId groupId) {
         int i;
-        for(i = 0; i < groups.size(); i++){
-            if(groups.get(i).getGroupID().equals(groupID)){
+        for (i = 0; i < groups.size(); i++) {
+            if (groups.get(i).getGroupId().equals(groupId)) {
                 return groups.get(i);
             }
         }
         return null;
     }
 
-    public String toString(){
+    /**
+     * Converts to String.
+     * @return String
+     */
+    public String toString() {
         int i;
         String output = "";
-        for(i = 0; i < groups.size(); i++){
+        for (i = 0; i < groups.size(); i++) {
             output += groups.get(i).toString();
         }
         return output;
     }
 
-    public boolean deleteGroup(GroupID groupID){
+    /**
+     * Deletes a group based on GroupId.
+     * @param groupId groupId to find the group to be deleted
+     * @return true when successfully deleted group
+     */
+    public boolean deleteGroup(GroupId groupId) {
         int i;
-        for(i = 0; i < groups.size(); i++){
-            if(groups.get(i).getGroupID().equals(groupID)){
+        for (i = 0; i < groups.size(); i++) {
+            if (groups.get(i).getGroupId().equals(groupId)) {
                 groups.remove(i);
                 return true;
             }

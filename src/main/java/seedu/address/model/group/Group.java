@@ -1,29 +1,34 @@
 package seedu.address.model.group;
 
+/**
+ * A group.
+ */
 public class Group {
-    private final GroupID groupID;
-
+    private static Integer counter = 0;
+    private final GroupId groupId;
     private GroupName groupName;
 
-    private static Integer counter = 0;
-
-    public Group(GroupName groupName){
+    public Group(GroupName groupName) {
         this.groupName = groupName;
-        this.groupID = new GroupID(counter);
+        this.groupId = new GroupId(counter);
         counter += 1;
     }
 
-    public GroupName getGroupName(){
+    public GroupName getGroupName() {
         return this.groupName;
     }
 
-    public GroupID getGroupID(){
-        return this.groupID;
+    public GroupId getGroupId() {
+        return this.groupId;
     }
 
-    public String toString(){
+    /**
+     * Converts to String.
+     * @return String
+     */
+    public String toString() {
         String output = "";
-        output += "ID: " + groupID.toString() + " ";
+        output += "ID: " + groupId.toString() + " ";
         output += "Name: " + groupName.toString() + "\n";
         return output;
     }

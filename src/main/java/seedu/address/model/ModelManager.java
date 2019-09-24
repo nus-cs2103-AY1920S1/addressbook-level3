@@ -13,16 +13,17 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.GroupID;
+import seedu.address.model.group.GroupId;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.mapping.PersonToGroupMapping;
+import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonID;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
-import seedu.address.model.personToGroupMapping.PersonToGroupMapping;
-import seedu.address.model.personToGroupMapping.PersonToGroupMappingList;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -63,14 +64,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -98,13 +99,13 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.addressBook.resetData(addressBook);
     }
 
     @Override
@@ -113,14 +114,11 @@ public class ModelManager implements Model {
         return addressBook.hasPerson(person);
     }
 
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
+
 
 
     @Override
-    public String personListToString(){
+    public String personListToString() {
         return personList.toString();
     }
 
@@ -178,7 +176,7 @@ public class ModelManager implements Model {
     @Override
     public Person findPerson(Name name) {
         Person person = personList.findPerson(name);
-        if(person != null){
+        if (person != null) {
             return person;
         } else {
             return null;
@@ -186,9 +184,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person findPerson(PersonID personID) {
-        Person person = personList.findPerson(personID);
-        if(person != null){
+    public Person findPerson(PersonId personId) {
+        Person person = personList.findPerson(personId);
+        if (person != null) {
             return person;
         } else {
             return null;
@@ -198,7 +196,7 @@ public class ModelManager implements Model {
     @Override
     public boolean addEvent(Name name, Event event) {
         Person p = personList.findPerson(name);
-        if(p != null){
+        if (p != null) {
             p.addEvent(event);
             return true;
         } else {
@@ -207,14 +205,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean deletePerson(PersonID personID) {
-        deletePersonFromMapping(personID);
-        return personList.deletePerson(personID);
+    public void deletePerson(Person target) {
+        addressBook.removePerson(target);
+    }
+    @Override
+    public boolean deletePerson(PersonId personId) {
+        deletePersonFromMapping(personId);
+        return personList.deletePerson(personId);
     }
 
     @Override
-    public ArrayList<GroupID> findGroupsOfPerson(PersonID personID) {
-        return personToGroupMappingList.findGroupsOfPerson(personID);
+    public ArrayList<GroupId> findGroupsOfPerson(PersonId personId) {
+        return personToGroupMappingList.findGroupsOfPerson(personId);
     }
 
     //=========== Group Accessors =============================================================
@@ -228,7 +230,7 @@ public class ModelManager implements Model {
     @Override
     public Group findGroup(GroupName groupName) {
         Group group = groupList.findGroup(groupName);
-        if(group != null){
+        if (group != null) {
             return group;
         } else {
             return null;
@@ -236,9 +238,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Group findGroup(GroupID groupID) {
-        Group group = groupList.findGroup(groupID);
-        if(group != null){
+    public Group findGroup(GroupId groupId) {
+        Group group = groupList.findGroup(groupId);
+        if (group != null) {
             return group;
         } else {
             return null;
@@ -246,14 +248,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean deleteGroup(GroupID groupID) {
-        deleteGroupFromMapping(groupID);
-        return groupList.deleteGroup(groupID);
+    public boolean deleteGroup(GroupId groupId) {
+        deleteGroupFromMapping(groupId);
+        return groupList.deleteGroup(groupId);
     }
 
     @Override
-    public ArrayList<PersonID> findPersonsOfGroup(GroupID groupID) {
-        return personToGroupMappingList.findPersonsOfGroup(groupID);
+    public ArrayList<PersonId> findPersonsOfGroup(GroupId groupId) {
+        return personToGroupMappingList.findPersonsOfGroup(groupId);
     }
 
     //=========== Mapping Accessors =============================================================
@@ -264,8 +266,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public PersonToGroupMapping findPersonToGroupMapping(PersonID personID, GroupID groupID) {
-        return personToGroupMappingList.findPersonToGroupMapping(personID, groupID);
+    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) {
+        return personToGroupMappingList.findPersonToGroupMapping(personId, groupId);
     }
 
     @Override
@@ -274,13 +276,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePersonFromMapping(PersonID personID) {
-        personToGroupMappingList.deletePersonFromMapping(personID);
+    public void deletePersonFromMapping(PersonId personId) {
+        personToGroupMappingList.deletePersonFromMapping(personId);
     }
 
     @Override
-    public void deleteGroupFromMapping(GroupID groupID) {
-        personToGroupMappingList.deleteGroupFromMapping(groupID);
+    public void deleteGroupFromMapping(GroupId groupId) {
+        personToGroupMappingList.deleteGroupFromMapping(groupId);
     }
 
 

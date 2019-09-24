@@ -1,16 +1,19 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.group.GroupID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.group.GroupId;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 
-public class FindPersonCommand extends Command{
+/**
+ * Find a person.
+ */
+public class FindPersonCommand extends Command {
     public static final String COMMAND_WORD = "findperson";
     public static final String MESSAGE_SUCCESS = "Found person: ";
     public static final String MESSAGE_FAILURE = "Unable to find person";
@@ -19,18 +22,18 @@ public class FindPersonCommand extends Command{
 
     public final Name name;
 
-    public FindPersonCommand(Name name){
+    public FindPersonCommand(Name name) {
         this.name = name;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Person person = model.findPerson(name);
-        if(person != null){
-            ArrayList<GroupID> groups = model.findGroupsOfPerson(person.getPersonID());
+        if (person != null) {
+            ArrayList<GroupId> groups = model.findGroupsOfPerson(person.getPersonId());
             String s = "Groups: \n";
             int i;
-            for(i = 0; i < groups.size(); i++){
+            for (i = 0; i < groups.size(); i++) {
                 s += model.findGroup(groups.get(i)).toString();
             }
             return new CommandResult(MESSAGE_SUCCESS + person.toString() + s);

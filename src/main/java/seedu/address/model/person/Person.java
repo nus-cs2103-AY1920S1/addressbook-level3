@@ -17,9 +17,9 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
+    private static Integer counter = 0;
     // Identity fields
-    private final PersonID personID;
-
+    private final PersonId personId;
     // Data fields
     private final Name name;
     private final Phone phone;
@@ -27,9 +27,6 @@ public class Person {
     private final Address address;
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
-
-    private static Integer counter = 0;
-
     private Schedule schedule;
 
     /**
@@ -43,12 +40,12 @@ public class Person {
         this.address = address;
         this.remark = remark;
         this.tags.addAll(tags);
-        this.personID = new PersonID(counter);
+        this.personId = new PersonId(counter);
         this.schedule = new Schedule();
         counter += 1;
     }
 
-    public void addEvent(Event event){
+    public void addEvent(Event event) {
         this.schedule.addEvent(event);
     }
 
@@ -125,18 +122,16 @@ public class Person {
 
     @Override
     public String toString() {
-
         String output = "";
-        output += "ID: " + personID.toString() + " ";
+        output += "ID: " + personId.toString() + " ";
         output += "Name: " + name.toString() + "\n";
         output += "Scedule: ";
         output += schedule.toString() + "\n";
-
         return output;
     }
 
-    public PersonID getPersonID(){
-        return this.personID;
+    public PersonId getPersonId() {
+        return this.personId;
     }
 
 }

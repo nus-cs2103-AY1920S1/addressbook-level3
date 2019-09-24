@@ -1,12 +1,15 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-
+/**
+ * Deletes a person.
+ */
 public class DeletePersonCommand extends Command {
     public static final String COMMAND_WORD = "deleteperson";
     public static final String MESSAGE_SUCCESS = "Delete person success";
@@ -16,15 +19,15 @@ public class DeletePersonCommand extends Command {
 
     public final Name name;
 
-    public DeletePersonCommand(Name name){
+    public DeletePersonCommand(Name name) {
         this.name = name;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Person toDelete = model.findPerson(name);
-        if(toDelete != null){
-            if(model.deletePerson(toDelete.getPersonID())){
+        if (toDelete != null) {
+            if (model.deletePerson(toDelete.getPersonId())) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
         }

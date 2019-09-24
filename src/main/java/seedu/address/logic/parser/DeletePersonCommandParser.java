@@ -1,18 +1,22 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddEventCommand;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
-
+/**
+ * Parses input arguments and creates a new DeletePersonCommand object.
+ */
 public class DeletePersonCommandParser implements Parser<DeletePersonCommand> {
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     @Override
     public DeletePersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -25,9 +29,5 @@ public class DeletePersonCommandParser implements Parser<DeletePersonCommand> {
 
         Name name = new Name(argMultimap.getValue(PREFIX_NAME).get());
         return new DeletePersonCommand(name);
-    }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

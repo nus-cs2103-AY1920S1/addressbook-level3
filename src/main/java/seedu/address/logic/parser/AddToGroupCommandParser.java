@@ -1,20 +1,24 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddPersonCommand;
-import seedu.address.logic.commands.AddToGroupCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.group.GroupID;
-import seedu.address.model.group.GroupName;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.PersonID;
-
-import java.util.stream.Stream;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-public class AddToGroupCommandParser implements Parser<AddToGroupCommand>{
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.AddToGroupCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.GroupName;
+import seedu.address.model.person.Name;
+
+/**
+ * Parses input arguments and creates a new AddToGroupCommand object.
+ */
+public class AddToGroupCommandParser implements Parser<AddToGroupCommand> {
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     @Override
     public AddToGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -29,9 +33,5 @@ public class AddToGroupCommandParser implements Parser<AddToGroupCommand>{
         GroupName groupName = new GroupName(argMultimap.getValue(PREFIX_GROUPNAME).get());
 
         return new AddToGroupCommand(name, groupName);
-    }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

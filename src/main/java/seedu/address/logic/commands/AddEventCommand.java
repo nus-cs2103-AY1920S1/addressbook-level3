@@ -1,14 +1,17 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.schedule.Event;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
-
+/**
+ * Adds an Event to the schedule of a person.
+ */
 public class AddEventCommand extends Command {
     public static final String COMMAND_WORD = "addevent";
     public static final String MESSAGE_SUCCESS = "New event added: ";
@@ -21,17 +24,16 @@ public class AddEventCommand extends Command {
     public final Event event;
     public final Name name;
 
-    public AddEventCommand(Name name, Event event){
+    public AddEventCommand(Name name, Event event) {
         this.event = event;
         this.name = name;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
-        if(event == null){
+        if (event == null) {
             return new CommandResult(MESSAGE_FAILURE);
-        } else if(model.addEvent(name, event)){
+        } else if (model.addEvent(name, event)) {
             return new CommandResult(MESSAGE_SUCCESS + event.toString());
         } else {
             return new CommandResult(MESSAGE_FAILURE);

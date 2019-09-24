@@ -1,22 +1,26 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
+
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Timeslot;
 
-import java.util.ArrayList;
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
-
+/**
+ * Parses input arguments and creates a new AddEventCommand object.
+ */
 public class AddEventCommandParser implements Parser<AddEventCommand> {
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     @Override
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -33,18 +37,14 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
 
         int i;
         Event event = new Event(eventName);
-        try{
-            for(i = 0; i < timings.length ; i++){
+        try {
+            for (i = 0; i < timings.length; i++) {
                 String[] details = timings[i].split("-");
                 event.addTimeslot(new Timeslot(details[0], details[1], details[2]));
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return new AddEventCommand(name, null);
         }
         return new AddEventCommand(name, event);
-    }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
