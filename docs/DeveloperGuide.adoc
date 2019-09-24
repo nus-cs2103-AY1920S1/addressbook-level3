@@ -279,7 +279,11 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is an insurance agent
+* is always meeting new clients, so needs to manage a significant number of contacts
+* needs to manage a significant number of insurance policies
+* always offering insurance schemes to client base
+* finds it easier to understand visual data
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -297,13 +301,61 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new contact/policy |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a contact/policy |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |insurance agent |find a person/policy by name |locate details of persons without having to go through the entire list
+
+|`* * *` |insurance agent |predefine a custom set of policies |so I can select policies in this predefined set and make data entry faster
+
+|`* * *` |insurance agent |tag or untag clients |so I can target people belonging to different target groups
+
+|`* * *` |insurance agent |generate basic statistics and data about my sales for the month| so I can visualise and keep track of them
+
+|`* * *` |busy user |quickly check what commands  are available |so I do not have to remember all commands of the app
+
+|`* * *` |user handling many profiles and contacts |can use mass operations to change the same details across different people/policies |so I can speed up my workflow
+
+|`* * *` |insurance agent with many clients |filter and sort people according to their policies and tags |so I can get information about a particular group of people quickly
+
+|`* * *` |user who prefers typing over using a mouse |interact with all aspects of GUI using commands only |
+
+|`* *` |user with not a strong memory |view all commands as a dropdown list |
+
+|`* *` |insurance agent prone to making mistakes during manual entry |I want to be sure that the details of buyers are valid without having to manually check every record |
+
+|`* *` |insurance agent |start-up page to reflect key KPIs (e.g: sales in current quarter) |
+
+|`* *` |insurance agent with many contacts |disallow creating duplicate profiles |so I need not worry about accidentally creating duplicate profiles
+
+|`* *` |clumsy insurance agent |retrieve deleted contacts from an archive of recently deleted contacts |
+
+|`* *` |insurance agent |want to see which policies a new contact is eligible for |so I can quickly check eligible policies while constantly adding new contacts
+
+|`* *` |clumsy user |I can undo and redo my previous commands |to amend mistakes made by entering incorrect commands
+
+|`* *` |insurance agent |I can export the data as an Excel document for easier sharing of data |so I can generate reports and and send these reports to authorities/other agents
+
+|`* *` |insurance agent |I can group families who are under the same insurance |so it is easier to sell/manage plans for these people
+
+|`* *` |insurance agent with new policies |I want to be able to filter people based on eligibility for these policies |for faster data entry
+
+|`* *` |insurance agent |I can have details auto-filled into business/government forms |so I can save time keying in details I already have
+
+|`* *` |insurance agent |receive reminders for clients whose policies are almost due for renewal |so I can contact them to renew their insurance policy
+
+|`* *` |insurance agent |receive reminders when clients pass a certain age group |so I can contact them about the new policies that they are now eligible for.
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`*` |insurance agent with many clients |configure automatic greeting emails to policyholders |so I can maintain a good relationship with clients without manually sending individual emails
+
+|`*` |user with personal preferences |configure the CLI |so I can speed up my workflow
+
+|`*` |insurance agent with many clients |want to contact my policyholders with ease (such as email) |so I have a convenient method of communication
+
+|`*` |busy user |auto-complete my commands |so I can perform operations and find the data I need quickly
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
