@@ -37,6 +37,16 @@ public class PersonList {
         return null;
     }
 
+    public Person findPerson(PersonID personID){
+        int i;
+        for(i = 0; i < persons.size(); i++){
+            if(persons.get(i).getPersonID().equals(personID)){
+                return persons.get(i);
+            }
+        }
+        return null;
+    }
+
     public boolean deletePerson(PersonID personID){
         int i;
         for(i = 0; i < persons.size(); i++){

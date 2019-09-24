@@ -102,9 +102,11 @@ public interface Model {
 
     boolean addEvent(Name name, Event event);
 
-    void addPersonToGroupMapping(PersonToGroupMapping mapping);
+    boolean addPersonToGroupMapping(PersonToGroupMapping mapping);
 
     Person findPerson(Name name);
+
+    Person findPerson(PersonID personID);
 
     Group findGroup(GroupName groupName);
 
@@ -123,5 +125,7 @@ public interface Model {
     boolean deletePerson(PersonID personID);
 
     ArrayList<GroupID> findGroupsOfPerson(PersonID personID);
+
+    ArrayList<PersonID> findPersonsOfGroup(GroupID groupID);
 
 }

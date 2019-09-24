@@ -171,15 +171,23 @@ public class ModelManager implements Model {
 
     @Override
     public boolean addPerson(Person person) {
-
         boolean isAdded = this.personList.addPerson(person);
-
         return isAdded;
     }
 
     @Override
     public Person findPerson(Name name) {
         Person person = personList.findPerson(name);
+        if(person != null){
+            return person;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Person findPerson(PersonID personID) {
+        Person person = personList.findPerson(personID);
         if(person != null){
             return person;
         } else {
@@ -213,7 +221,6 @@ public class ModelManager implements Model {
 
     @Override
     public boolean addGroup(Group group) {
-
         boolean isAdded = this.groupList.addGroup(group);
         return isAdded;
     }
@@ -244,11 +251,16 @@ public class ModelManager implements Model {
         return groupList.deleteGroup(groupID);
     }
 
+    @Override
+    public ArrayList<PersonID> findPersonsOfGroup(GroupID groupID) {
+        return personToGroupMappingList.findPersonsOfGroup(groupID);
+    }
+
     //=========== Mapping Accessors =============================================================
 
     @Override
-    public void addPersonToGroupMapping(PersonToGroupMapping mapping) {
-        personToGroupMappingList.addPersonToGroupMapping(mapping);
+    public boolean addPersonToGroupMapping(PersonToGroupMapping mapping) {
+        return personToGroupMappingList.addPersonToGroupMapping(mapping);
     }
 
     @Override
@@ -272,9 +284,6 @@ public class ModelManager implements Model {
     }
 
 
-
-
-
     //=========== Others =============================================================
 
     @Override
@@ -293,7 +302,4 @@ public class ModelManager implements Model {
 
         return output;
     }
-
-
-
 }

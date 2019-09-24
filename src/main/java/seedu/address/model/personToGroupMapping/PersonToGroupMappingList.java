@@ -1,6 +1,5 @@
 package seedu.address.model.personToGroupMapping;
 
-import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupID;
 import seedu.address.model.person.PersonID;
 
@@ -13,8 +12,15 @@ public class PersonToGroupMappingList {
         this.mappings = new ArrayList<PersonToGroupMapping>();
     }
 
-    public void addPersonToGroupMapping(PersonToGroupMapping map){
+    public boolean addPersonToGroupMapping(PersonToGroupMapping map){
+        int i;
+        for(i = 0; i < mappings.size(); i++){
+            if(mappings.get(i).equals(map)){
+                return false;
+            }
+        }
         this.mappings.add(map);
+        return true;
     }
 
     public PersonToGroupMapping findPersonToGroupMapping(PersonID personID, GroupID groupID){
@@ -67,6 +73,17 @@ public class PersonToGroupMappingList {
             }
         }
         return groups;
+    }
+
+    public ArrayList<PersonID> findPersonsOfGroup(GroupID groupID){
+        int i;
+        ArrayList<PersonID> persons = new ArrayList<PersonID>();
+        for(i = 0; i < mappings.size(); i++){
+            if(mappings.get(i).getGroupID().equals(groupID)){
+                persons.add(mappings.get(i).getPersonID());
+            }
+        }
+        return persons;
     }
 
     public String toString(){

@@ -33,6 +33,9 @@ public class Event {
         int i;
         for(i = 0; i < timeslots.size(); i++){
             output += timeslots.get(i).toString();
+            if(i + 1 != timeslots.size()){
+                output += ", ";
+            }
         }
         return output;
     }

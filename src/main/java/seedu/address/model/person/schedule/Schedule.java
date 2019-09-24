@@ -22,7 +22,9 @@ public class Schedule {
         } else {
             for(i = 0; i < events.size(); i++){
                 output += events.get(i).toString();
-                output += "";
+                if(i + 1 != events.size()){
+                    output += " || ";
+                }
             }
         }
         return output;
