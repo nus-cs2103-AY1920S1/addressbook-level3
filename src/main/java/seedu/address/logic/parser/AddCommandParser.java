@@ -1,16 +1,21 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.logic.parser.ArgumentMultimap;
+import seedu.deliverymans.logic.parser.ArgumentTokenizer;
+import seedu.deliverymans.logic.parser.Parser;
+import seedu.deliverymans.logic.parser.ParserUtil;
+import seedu.deliverymans.logic.parser.Prefix;
+import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;

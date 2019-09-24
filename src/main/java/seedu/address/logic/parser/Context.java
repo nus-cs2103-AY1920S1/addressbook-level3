@@ -5,4 +5,8 @@ public enum Context {
     CUSTOMER,
     DELIVERYMEN,
     GLOBAL;
+
+    public String toLowerCase() {
+        return name().toLowerCase();
+    }
 }
