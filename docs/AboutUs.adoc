@@ -35,7 +35,7 @@ Responsibilities: Project Dashboard feature + Documentation
 
 '''
 
-=== Elsa Koh
+=== Elizabeth Koh
 image::elsa.png[width="150", align="left"]
 {empty}[http://github.com/elsakoh[github]] [<<johndoe#, portfolio>>]
 
