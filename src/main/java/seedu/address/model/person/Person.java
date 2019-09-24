@@ -2,13 +2,12 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.model.common.PersonReferenceId;
 import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.Appointment;
+import seedu.address.model.events.Event;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,13 +25,14 @@ public abstract class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private Optional<Event> event = Optional.empty();
 
     /**
      * Every field must be present and not null.
      */
     public Person(ReferenceId referenceId, Name name, Phone phone, Email email,
                   Address address, Set<Tag> tags) {
-        requireAllNonNull(referenceId, name, phone, email, address, tags);
+        requireAllNonNull(referenceId, name, phone, email);
         this.referenceId = referenceId;
         this.name = name;
         this.phone = phone;

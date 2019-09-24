@@ -5,7 +5,10 @@ public enum Status {
     WAITING("patient is waiting now"),
     MISSED("patient is waiting now"),
     ACK("patient is arrived"),
-    SETTLE("patient is ");
+    SETTLE("patient is "),
+    CANCELLED("patient appointment has been cancelled"),
+    NEW("default status"),
+    APPROVED("patient appointment was made");
 
     private String statusMess;
 
@@ -16,4 +19,4 @@ public enum Status {
     public String getStatusMess() {
         return statusMess;
     }
-}
+    }

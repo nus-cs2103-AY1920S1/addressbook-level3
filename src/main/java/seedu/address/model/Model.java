@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 
@@ -12,7 +13,9 @@ import seedu.address.model.userprefs.ReadOnlyUserPrefs;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
@@ -50,7 +53,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -77,12 +82,40 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.
+     */
+    boolean hasEvent(Event appt);
+
+    /**
+     * Deletes the given event.
+     */
+    void deleteEvent(Event target);
+
+    /**
+     * Adds the given appointment.
+     * {@code appt} must not already exist in the schedule.
+     */
+    void addAppointment(Event appt);
+
+    /**
+     * Replaces the given appointment {@code appt} with {@code editedAppt}.
+     * {@code appt} must exist in the schedule.
+     * The appointment timing of {@code editedAppt} must not be the same as another existing appointment.
+     */
+    void changeEvent(Event appt, Event editedAppt);
+
+    
 }

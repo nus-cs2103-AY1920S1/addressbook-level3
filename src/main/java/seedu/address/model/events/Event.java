@@ -14,7 +14,7 @@ public abstract class Event {
     private final PatientReferenceId patientId;
     private final DoctorReferenceId doctorId;
     private final Timing timing;
-    private final Status status;
+    private Status status = Status.NEW;
 
     /**
      * Every field must be present and not null.
@@ -25,6 +25,13 @@ public abstract class Event {
         this.doctorId = doctorId;
         this.timing = timing;
         this.status = status;
+    }
+
+    public Event(PatientReferenceId patientId, DoctorReferenceId doctorId, Timing timing) {
+        requireAllNonNull(patientId, doctorId, timing);
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.timing = timing;
     }
 
     public PatientReferenceId getPatientId() {
@@ -53,8 +60,8 @@ public abstract class Event {
         }
 
         return otherEvent != null
-            && otherEvent.getPatientId().equals(getPatientId())
-            && otherEvent.getEventTiming().equals(getEventTiming());
+                && otherEvent.getPatientId().equals(getPatientId())
+                && otherEvent.getEventTiming().equals(getEventTiming());
     }
 
     /**
@@ -73,9 +80,9 @@ public abstract class Event {
 
         Event otherEvent = (Event) other;
         return otherEvent.getPatientId().equals(getPatientId())
-            && otherEvent.getDoctorId().equals(getDoctorId())
-            && otherEvent.getEventTiming().equals(getEventTiming())
-            && otherEvent.getStatus().equals(getStatus());
+                && otherEvent.getDoctorId().equals(getDoctorId())
+                && otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(getStatus());
     }
 
     @Override
@@ -88,13 +95,13 @@ public abstract class Event {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Event - Patient: ")
-            .append(getPatientId())
-            .append(" Timing: ")
-            .append(getEventTiming())
-            .append(" Doctor: ")
-            .append(getDoctorId())
-            .append(" status: ")
-            .append(getStatus());
+                .append(getPatientId())
+                .append(" Timing: ")
+                .append(getEventTiming())
+                .append(" Doctor: ")
+                .append(getDoctorId())
+                .append(" status: ")
+                .append(getStatus());
         return builder.toString();
     }
 }

@@ -114,6 +114,13 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void addEvent(Appointment appt) {
+        versionedClinicIo.addAppointment(appt);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        indicateClinicIoChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -149,5 +156,6 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
 
 }
