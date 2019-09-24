@@ -14,13 +14,13 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*.
-More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+treasurerPro (tP) is for those who *prefer to use a desktop app for managing their club expenses*.
+More importantly, tP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, tP can get your expense management tasks done faster than traditional GUI apps.
 Interested?
 Jump to the <<Quick Start>> to get started.
 Enjoy!
@@ -75,14 +75,14 @@ These are commands that are specific to each feature which would be categorised 
 
 === Home
 
-****
+====
 * Home tab shows the transaction history of each expenditure. 
 * The columns will show the date/time of the transaction, description of the expenditure, category it is under, amount spent and the person who bought it.
 * At the side, our mascot lion will help to give replies to indicate successful addition, deletion, edits of the command line input.
 * He will also give you replies when there is a wrong input.
 * There is a function to filter the transactions by date so from latest to oldest, person so by alphabetical order of the person and amount so from most to least.
 * There will be autocomplete for the person according to who is in our address book database.
-****
+====
 
 * To add an expense:
 `add dt/DATE_AND_TIME d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
@@ -111,11 +111,11 @@ Examples:
 
 === Inventory
 
-****
+====
 * The inventory tab contains a detailed inventory of items belonging to the CCA for a variety of purposes. Each item will have 6 attributes: category, description, quantity, cost per unit, total cost, and price. 
 * The last attribute will be used for sales purposes.
 * The inventory tab can be used in conjunction with the cashier tab by keeping track of the variety of items for sale and the remaining quantity of unsold products, as well as throw an error message via the lion if the cashier attempts to sell more than the specified quantity.
-****
+====
 
 * To add an item:
 `add c/CATEGORY d/DESCRIPTION q/QUANTITY cu/COST_PER_UNIT p/PRICE`
@@ -147,13 +147,13 @@ Examples:
 
 === Reimbursements
 
-****
+====
 * The reimbursement page contains details of reimbursement for each CCA member. 
 * Each reimbursement record is represented by Person, Amount, Description and Status. 
 * Once the person is reimbursed, the status can be modified from Pending to Completed. 
 * This page helps the treasurer to directly retrieve the amount of reimbursement for each person from expenditure histories. 
 * This page also contains a Manage People button. Once clicked, a pop up page will come out and show all the CCA members’ information.
-****
+====
 
 * To find an reimbursement:
 `find p/PERSON`
@@ -166,11 +166,11 @@ Examples:
 
 === Cashier
 
-****
+====
 * Cashier tab allows the cashier to key in and record the items sold from the inventory. 
 * The columns will show the description of the item being sold, the amount per quantity, the quantity and the items subtotal.
 * At the side, just like other tabs, our mascot lion will reply and guide the user along to key in the correct inputs.
-****
+====
 
 * To add an item being sold:
 `add d/DESCRIPTION q/QUANTITY`
@@ -186,10 +186,10 @@ Examples:
 
 === Overview
 
-****
+====
 * The overview tab allows for the treasurer to get an overview of the expenditure this month, the sales for the month, the inventory value remaining and the remaining budget for the club.
 * At the side, the lion mascot will guide the user along to what inputs are permissible, and also offer financial advice based on the data gathered.
-****
+====
 
 * To filter results by certain criteria:
 ** By date range: `filter /from DATE /to DATE`
