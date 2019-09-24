@@ -15,15 +15,15 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.Catalogue;
+import seedu.address.model.Catalog;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.CatalogueStorage;
-import seedu.address.storage.JsonCatalogueStorage;
+import seedu.address.storage.CatalogStorage;
+import seedu.address.storage.JsonCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        CatalogueStorage catalogueStorage = new JsonCatalogueStorage(userPrefs.getCatalogueFilePath());
-        storage = new StorageManager(catalogueStorage, userPrefsStorage);
+        CatalogStorage catalogStorage = new JsonCatalogStorage(userPrefs.getCatalogFilePath());
+        storage = new StorageManager(catalogStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -74,20 +74,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyCatalogue> catalogueOptional;
-        ReadOnlyCatalogue initialData;
+        Optional<ReadOnlyCatalog> catalogOptional;
+        ReadOnlyCatalog initialData;
         try {
-            catalogueOptional = storage.readCatalogue();
-            if (!catalogueOptional.isPresent()) {
+            catalogOptional = storage.readCatalog();
+            if (!catalogOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = catalogueOptional.orElseGet(SampleDataUtil::getSampleCatalogue);
+            initialData = catalogOptional.orElseGet(SampleDataUtil::getSampleCatalog);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new Catalogue();
+            initialData = new Catalog();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new Catalogue();
+            initialData = new Catalog();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -173,7 +173,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Catalogue ] =============================");
+        logger.info("============================ [ Stopping Catalog ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

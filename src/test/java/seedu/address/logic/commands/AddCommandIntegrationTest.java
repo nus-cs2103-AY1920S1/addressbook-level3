@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalBooks.getTypicalCatalogue;
+import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +22,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalCatalogue(), new UserPrefs());
+        model = new ModelManager(getTypicalCatalog(), new UserPrefs());
     }
 
     @Test
     public void execute_newBook_success() {
         Book validBook = new BookBuilder().withTitle("Hari").build();
 
-        Model expectedModel = new ModelManager(model.getCatalogue(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
         expectedModel.addBook(validBook);
 
         assertCommandSuccess(new AddCommand(validBook), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Book bookInList = model.getCatalogue().getBookList().get(0);
+        Book bookInList = model.getCatalog().getBookList().get(0);
         assertCommandFailure(new AddCommand(bookInList), model, AddCommand.MESSAGE_DUPLICATE_BOOK);
     }
 

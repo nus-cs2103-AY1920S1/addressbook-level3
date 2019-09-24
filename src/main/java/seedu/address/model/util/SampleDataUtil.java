@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.Catalogue;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.Catalog;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
@@ -30,8 +30,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyCatalogue getSampleCatalogue() {
-        Catalogue sampleAb = new Catalogue();
+    public static ReadOnlyCatalog getSampleCatalog() {
+        Catalog sampleAb = new Catalog();
         for (Book sampleBook : getSampleBooks()) {
             sampleAb.addBook(sampleBook);
         }

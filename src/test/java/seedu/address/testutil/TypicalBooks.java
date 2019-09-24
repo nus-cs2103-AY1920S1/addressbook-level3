@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.Catalogue;
+import seedu.address.model.Catalog;
 import seedu.address.model.book.Book;
 
 /**
@@ -26,8 +26,8 @@ public class TypicalBooks {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static Catalogue getTypicalCatalogue() {
-        Catalogue ab = new Catalogue();
+    public static Catalog getTypicalCatalog() {
+        Catalog ab = new Catalog();
         for (Book book : getTypicalBooks()) {
             ab.addBook(book);
         }

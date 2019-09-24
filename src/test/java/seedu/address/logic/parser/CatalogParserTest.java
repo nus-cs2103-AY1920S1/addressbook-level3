@@ -28,9 +28,9 @@ import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
 
-public class CatalogueParserTest {
+public class CatalogParserTest {
 
-    private final CatalogueParser parser = new CatalogueParser();
+    private final CatalogParser parser = new CatalogParser();
 
     @Test
     public void parseCommand_add() throws Exception {

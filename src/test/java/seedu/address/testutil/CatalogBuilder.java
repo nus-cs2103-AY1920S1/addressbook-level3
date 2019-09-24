@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.Catalogue;
+import seedu.address.model.Catalog;
 import seedu.address.model.book.Book;
 
 /**
@@ -8,27 +8,27 @@ import seedu.address.model.book.Book;
  * Example usage: <br>
  *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
-public class CatalogueBuilder {
+public class CatalogBuilder {
 
-    private Catalogue catalogue;
+    private Catalog catalog;
 
-    public CatalogueBuilder() {
-        catalogue = new Catalogue();
+    public CatalogBuilder() {
+        catalog = new Catalog();
     }
 
-    public CatalogueBuilder(Catalogue catalogue) {
-        this.catalogue = catalogue;
+    public CatalogBuilder(Catalog catalog) {
+        this.catalog = catalog;
     }
 
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
-    public CatalogueBuilder withPerson(Book book) {
-        catalogue.addBook(book);
+    public CatalogBuilder withPerson(Book book) {
+        catalog.addBook(book);
         return this;
     }
 
-    public Catalogue build() {
-        return catalogue;
+    public Catalog build() {
+        return catalog;
     }
 }

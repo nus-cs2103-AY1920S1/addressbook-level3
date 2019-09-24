@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import static seedu.address.testutil.TypicalBooks.BOOK_3;
 import static seedu.address.testutil.TypicalBooks.BOOK_4;
-import static seedu.address.testutil.TypicalBooks.getTypicalCatalogue;
+import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,8 +25,8 @@ import seedu.address.model.book.TitleContainsKeywordPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalCatalogue(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCatalogue(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCatalog(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalCatalog(), new UserPrefs());
 
     @Test
     public void equals() {

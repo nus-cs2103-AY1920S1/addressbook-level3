@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
-import static seedu.address.testutil.TypicalBooks.getTypicalCatalogue;
+import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,25 +21,25 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.exceptions.DuplicateBookException;
 import seedu.address.testutil.BookBuilder;
 
-public class CatalogueTest {
+public class CatalogTest {
 
-    private final Catalogue catalogue = new Catalogue();
+    private final Catalog catalog = new Catalog();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), catalogue.getBookList());
+        assertEquals(Collections.emptyList(), catalog.getBookList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> catalogue.resetData(null));
+        assertThrows(NullPointerException.class, () -> catalog.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        Catalogue newData = getTypicalCatalogue();
-        catalogue.resetData(newData);
-        assertEquals(newData, catalogue);
+        Catalog newData = getTypicalCatalog();
+        catalog.resetData(newData);
+        assertEquals(newData, catalog);
     }
 
     @Test
@@ -48,47 +48,47 @@ public class CatalogueTest {
         Book editedAlice = new BookBuilder(BOOK_1).withGenres(VALID_GENRE_ACTION)
                 .build();
         List<Book> newBooks = Arrays.asList(BOOK_1, editedAlice);
-        CatalogueStub newData = new CatalogueStub(newBooks);
+        CatalogStub newData = new CatalogStub(newBooks);
 
-        assertThrows(DuplicateBookException.class, () -> catalogue.resetData(newData));
+        assertThrows(DuplicateBookException.class, () -> catalog.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> catalogue.hasBook(null));
+        assertThrows(NullPointerException.class, () -> catalog.hasBook(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(catalogue.hasBook(BOOK_1));
+        assertFalse(catalog.hasBook(BOOK_1));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        catalogue.addBook(BOOK_1);
-        assertTrue(catalogue.hasBook(BOOK_1));
+        catalog.addBook(BOOK_1);
+        assertTrue(catalog.hasBook(BOOK_1));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        catalogue.addBook(BOOK_1);
+        catalog.addBook(BOOK_1);
         Book editedAlice = new BookBuilder(BOOK_1).withGenres(VALID_GENRE_ACTION)
                 .build();
-        assertTrue(catalogue.hasBook(editedAlice));
+        assertTrue(catalog.hasBook(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> catalogue.getBookList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> catalog.getBookList().remove(0));
     }
 
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
-    private static class CatalogueStub implements ReadOnlyCatalogue {
+    private static class CatalogStub implements ReadOnlyCatalog {
         private final ObservableList<Book> books = FXCollections.observableArrayList();
 
-        CatalogueStub(Collection<Book> books) {
+        CatalogStub(Collection<Book> books) {
             this.books.setAll(books);
         }
 

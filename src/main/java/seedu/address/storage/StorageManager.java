@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -17,13 +17,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private CatalogueStorage catalogueStorage;
+    private CatalogStorage catalogStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(CatalogueStorage catalogueStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(CatalogStorage catalogStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.catalogueStorage = catalogueStorage;
+        this.catalogStorage = catalogStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getCatalogueFilePath() {
-        return catalogueStorage.getCatalogueFilePath();
+    public Path getCatalogFilePath() {
+        return catalogStorage.getCatalogFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyCatalogue> readCatalogue() throws DataConversionException, IOException {
-        return readCatalogue(catalogueStorage.getCatalogueFilePath());
+    public Optional<ReadOnlyCatalog> readCatalog() throws DataConversionException, IOException {
+        return readCatalog(catalogStorage.getCatalogFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyCatalogue> readCatalogue(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCatalog> readCatalog(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return catalogueStorage.readCatalogue(filePath);
+        return catalogStorage.readCatalog(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyCatalogue addressBook) throws IOException {
-        saveAddressBook(addressBook, catalogueStorage.getCatalogueFilePath());
+    public void saveAddressBook(ReadOnlyCatalog addressBook) throws IOException {
+        saveAddressBook(addressBook, catalogStorage.getCatalogFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyCatalogue addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyCatalog addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        catalogueStorage.saveAddressBook(addressBook, filePath);
+        catalogStorage.saveAddressBook(addressBook, filePath);
     }
 
 }

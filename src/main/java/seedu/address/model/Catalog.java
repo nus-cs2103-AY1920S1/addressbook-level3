@@ -12,7 +12,7 @@ import seedu.address.model.book.UniqueBookList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class Catalogue implements ReadOnlyCatalogue {
+public class Catalog implements ReadOnlyCatalog {
 
     private final UniqueBookList books;
 
@@ -27,12 +27,12 @@ public class Catalogue implements ReadOnlyCatalogue {
         books = new UniqueBookList();
     }
 
-    public Catalogue() {}
+    public Catalog() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public Catalogue(ReadOnlyCatalogue toBeCopied) {
+    public Catalog(ReadOnlyCatalog toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,7 +50,7 @@ public class Catalogue implements ReadOnlyCatalogue {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyCatalogue newData) {
+    public void resetData(ReadOnlyCatalog newData) {
         requireNonNull(newData);
 
         setBooks(newData.getBookList());
@@ -109,8 +109,8 @@ public class Catalogue implements ReadOnlyCatalogue {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Catalogue // instanceof handles nulls
-                && books.equals(((Catalogue) other).books));
+                || (other instanceof Catalog // instanceof handles nulls
+                && books.equals(((Catalog) other).books));
     }
 
     @Override

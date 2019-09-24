@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Catalogue;
+import seedu.address.model.Catalog;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.testutil.BookBuilder;
@@ -99,12 +99,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getCatalogueFilePath() {
+        public Path getCatalogFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCatalogueFilePath(Path addressBookFilePath) {
+        public void setCatalogFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setCatalogue(ReadOnlyCatalogue newData) {
+        public void setCatalog(ReadOnlyCatalog newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyCatalogue getCatalogue() {
+        public ReadOnlyCatalog getCatalog() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,8 +186,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyCatalogue getCatalogue() {
-            return new Catalogue();
+        public ReadOnlyCatalog getCatalog() {
+            return new Catalog();
         }
     }
 

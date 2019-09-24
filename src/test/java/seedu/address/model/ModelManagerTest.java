@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.TitleContainsKeywordPredicate;
-import seedu.address.testutil.CatalogueBuilder;
+import seedu.address.testutil.CatalogBuilder;
 
 public class ModelManagerTest {
 
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new Catalogue(), new Catalogue(modelManager.getCatalogue()));
+        assertEquals(new Catalog(), new Catalog(modelManager.getCatalog()));
     }
 
     @Test
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setCatalogueFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setCatalogFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setCatalogueFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setCatalogFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,15 +61,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setCatalogueFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setCatalogueFilePath(null));
+    public void setCatalogFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setCatalogFilePath(null));
     }
 
     @Test
-    public void setCatalogueFilePath_validPath_setsAddressBookFilePath() {
+    public void setCatalogFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setCatalogueFilePath(path);
-        assertEquals(path, modelManager.getCatalogueFilePath());
+        modelManager.setCatalogFilePath(path);
+        assertEquals(path, modelManager.getCatalogFilePath());
     }
 
     @Test
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasBook_bookNotInCatalogue_returnsFalse() {
+    public void hasBook_bookNotInCatalog_returnsFalse() {
         assertFalse(modelManager.hasBook(BOOK_1));
     }
 
     @Test
-    public void hasBook_bookInCatalogue_returnsTrue() {
+    public void hasBook_bookInCatalog_returnsTrue() {
         modelManager.addBook(BOOK_1);
         assertTrue(modelManager.hasBook(BOOK_1));
     }
@@ -95,13 +95,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Catalogue catalogue = new CatalogueBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();
-        Catalogue differentCatalogue = new Catalogue();
+        Catalog catalog = new CatalogBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();
+        Catalog differentCatalog = new Catalog();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(catalogue, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(catalogue, userPrefs);
+        modelManager = new ModelManager(catalog, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(catalog, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,19 +114,19 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentCatalogue, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentCatalog, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = BOOK_1.getTitle().value.split("\\s+");
         modelManager.updateFilteredBookList(new TitleContainsKeywordPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(catalogue, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(catalog, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredBookList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setCatalogueFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(catalogue, differentUserPrefs)));
+        differentUserPrefs.setCatalogFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(catalog, differentUserPrefs)));
     }
 }

@@ -19,26 +19,26 @@ import seedu.address.model.book.Book;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Catalogue catalogue;
+    private final Catalog catalog;
     private final UserPrefs userPrefs;
     private final FilteredList<Book> filteredBooks;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyCatalogue addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyCatalog addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with catalogue: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with catalog: " + addressBook + " and user prefs " + userPrefs);
 
-        this.catalogue = new Catalogue(addressBook);
+        this.catalog = new Catalog(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredBooks = new FilteredList<>(this.catalogue.getBookList());
+        filteredBooks = new FilteredList<>(this.catalog.getBookList());
     }
 
     public ModelManager() {
-        this(new Catalogue(), new UserPrefs());
+        this(new Catalog(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,42 +66,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getCatalogueFilePath() {
-        return userPrefs.getCatalogueFilePath();
+    public Path getCatalogFilePath() {
+        return userPrefs.getCatalogFilePath();
     }
 
     @Override
-    public void setCatalogueFilePath(Path addressBookFilePath) {
+    public void setCatalogFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setCatalogueFilePath(addressBookFilePath);
+        userPrefs.setCatalogFilePath(addressBookFilePath);
     }
 
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setCatalogue(ReadOnlyCatalogue addressBook) {
-        this.catalogue.resetData(addressBook);
+    public void setCatalog(ReadOnlyCatalog addressBook) {
+        this.catalog.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyCatalogue getCatalogue() {
-        return catalogue;
+    public ReadOnlyCatalog getCatalog() {
+        return catalog;
     }
 
     @Override
     public boolean hasBook(Book book) {
         requireNonNull(book);
-        return catalogue.hasBook(book);
+        return catalog.hasBook(book);
     }
 
     @Override
     public void deleteBook(Book target) {
-        catalogue.removeBook(target);
+        catalog.removeBook(target);
     }
 
     @Override
     public void addBook(Book book) {
-        catalogue.addBook(book);
+        catalog.addBook(book);
         updateFilteredBookList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setBook(Book target, Book editedBook) {
         requireAllNonNull(target, editedBook);
 
-        catalogue.setBook(target, editedBook);
+        catalog.setBook(target, editedBook);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return catalogue.equals(other.catalogue)
+        return catalog.equals(other.catalog)
                 && userPrefs.equals(other.userPrefs)
                 && filteredBooks.equals(other.filteredBooks);
     }

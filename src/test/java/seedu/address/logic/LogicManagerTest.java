@@ -23,10 +23,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
-import seedu.address.storage.JsonCatalogueStorage;
+import seedu.address.storage.JsonCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.BookBuilder;
@@ -42,8 +42,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonCatalogueStorage addressBookStorage =
-                new JsonCatalogueStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonCatalogStorage addressBookStorage =
+                new JsonCatalogStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -70,8 +70,8 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonCatalogueStorage addressBookStorage =
-                new JsonCatalogueIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonCatalogStorage addressBookStorage =
+                new JsonCatalogIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
@@ -128,7 +128,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getCatalogue(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -148,13 +148,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonCatalogueIoExceptionThrowingStub extends JsonCatalogueStorage {
-        private JsonCatalogueIoExceptionThrowingStub(Path filePath) {
+    private static class JsonCatalogIoExceptionThrowingStub extends JsonCatalogStorage {
+        private JsonCatalogIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyCatalogue addressBook, Path filePath) throws IOException {
+        public void saveAddressBook(ReadOnlyCatalog addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

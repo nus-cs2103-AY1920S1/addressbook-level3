@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path catalogueFilePath = Paths.get("data" , "catalogue.json");
+    private Path catalogFilePath = Paths.get("data" , "catalog.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setCatalogueFilePath(newUserPrefs.getCatalogueFilePath());
+        setCatalogFilePath(newUserPrefs.getCatalogFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +47,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getCatalogueFilePath() {
-        return catalogueFilePath;
+    public Path getCatalogFilePath() {
+        return catalogFilePath;
     }
 
-    public void setCatalogueFilePath(Path catalogueFilePath) {
-        requireNonNull(catalogueFilePath);
-        this.catalogueFilePath = catalogueFilePath;
+    public void setCatalogFilePath(Path catalogFilePath) {
+        requireNonNull(catalogFilePath);
+        this.catalogFilePath = catalogFilePath;
     }
 
     @Override
@@ -68,19 +68,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && catalogueFilePath.equals(o.catalogueFilePath);
+                && catalogFilePath.equals(o.catalogFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, catalogueFilePath);
+        return Objects.hash(guiSettings, catalogFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + catalogueFilePath);
+        sb.append("\nLocal data file location : " + catalogFilePath);
         return sb.toString();
     }
 

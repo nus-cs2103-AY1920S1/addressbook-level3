@@ -12,41 +12,41 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-public class JsonCatalogueStorage implements CatalogueStorage {
+public class JsonCatalogStorage implements CatalogStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonCatalogueStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonCatalogStorage.class);
 
     private Path filePath;
 
-    public JsonCatalogueStorage(Path filePath) {
+    public JsonCatalogStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getCatalogueFilePath() {
+    public Path getCatalogFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyCatalogue> readCatalogue() throws DataConversionException {
-        return readCatalogue(filePath);
+    public Optional<ReadOnlyCatalog> readCatalog() throws DataConversionException {
+        return readCatalog(filePath);
     }
 
     /**
-     * Similar to {@link #readCatalogue()}.
+     * Similar to {@link #readCatalog()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyCatalogue> readCatalogue(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyCatalog> readCatalog(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableCatalogue> jsonCatalogue = JsonUtil.readJsonFile(
-                filePath, JsonSerializableCatalogue.class);
+        Optional<JsonSerializableCatalog> jsonCatalogue = JsonUtil.readJsonFile(
+                filePath, JsonSerializableCatalog.class);
         if (!jsonCatalogue.isPresent()) {
             return Optional.empty();
         }
@@ -60,21 +60,21 @@ public class JsonCatalogueStorage implements CatalogueStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyCatalogue addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyCatalog addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyCatalogue)}.
+     * Similar to {@link #saveAddressBook(ReadOnlyCatalog)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyCatalogue addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyCatalog addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableCatalogue(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCatalog(addressBook), filePath);
     }
 
 }

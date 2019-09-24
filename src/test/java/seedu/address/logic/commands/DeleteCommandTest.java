@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBookAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalBooks.getTypicalCatalogue;
+import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import seedu.address.model.book.Book;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalCatalogue(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCatalog(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, bookToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getCatalogue(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
         expectedModel.deleteBook(bookToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, bookToDelete);
 
-        Model expectedModel = new ModelManager(model.getCatalogue(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
         expectedModel.deleteBook(bookToDelete);
         showNoPerson(expectedModel);
 
@@ -69,7 +69,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getCatalogue().getBookList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getCatalog().getBookList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
