@@ -30,7 +30,7 @@ Responsibilities: UI
 
 === Felix
 image::felix.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/FelixNWJ[github]] [<<johndoe#, portfolio>>]
 
 Role: Chief Operating Officer +
 Responsibilities: Data
@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 
 === Pin Sern
 image::pinsern.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/fangpinsern[github]] [<<johndoe#, portfolio>>]
 
 Role: Intern +
 Responsibilities: Database and DevOps
