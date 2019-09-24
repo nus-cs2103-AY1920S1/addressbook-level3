@@ -14,7 +14,11 @@ import seedu.tarence.model.person.Person;
 public class AddStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "addStudent";
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+                                                      "addstu", "addstud"};
 
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists!";
+    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person into T.A.rence. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
@@ -22,9 +26,6 @@ public class AddStudentCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_EMAIL + "johnd@example.com ";
-
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists!";
 
     private final Person toAdd;
 
@@ -46,6 +47,21 @@ public class AddStudentCommand extends Command {
 
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    /**
+     * Returns true if user command matches command word or any defined synonyms, and false otherwise.
+     *
+     * @param userCommand command word from user.
+     * @return whether user command matches specified command word or synonyms.
+     */
+    public static boolean isMatchingCommandWord(String userCommand) {
+        for (String synonym : COMMAND_SYNONYMS) {
+            if (synonym.equals(userCommand.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

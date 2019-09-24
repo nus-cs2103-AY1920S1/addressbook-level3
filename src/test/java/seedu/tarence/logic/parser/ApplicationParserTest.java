@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.tarence.logic.commands.AddStudentCommand;
-import seedu.tarence.logic.commands.DeleteCommand;
+import seedu.tarence.logic.commands.DeleteStudentCommand;
 import seedu.tarence.logic.commands.EditCommand;
 import seedu.tarence.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.tarence.logic.commands.ExitCommand;
@@ -41,9 +41,9 @@ public class ApplicationParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        DeleteStudentCommand command = (DeleteStudentCommand) parser.parseCommand(
+                DeleteStudentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new DeleteStudentCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
