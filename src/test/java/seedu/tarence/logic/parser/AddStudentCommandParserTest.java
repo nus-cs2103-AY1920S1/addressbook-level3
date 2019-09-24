@@ -5,8 +5,10 @@ import static seedu.tarence.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.tarence.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.tarence.logic.commands.CommandTestUtil.NUSNET_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.tarence.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -14,6 +16,7 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.tarence.testutil.TypicalPersons.BOB;
+import static seedu.tarence.testutil.TypicalStudents.AMY;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +24,9 @@ import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.testutil.PersonBuilder;
+import seedu.tarence.testutil.StudentBuilder;
 
 public class AddStudentCommandParserTest {
     private AddStudentCommandParser parser = new AddStudentCommandParser();
@@ -41,6 +46,21 @@ public class AddStudentCommandParserTest {
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB,
                 new AddStudentCommand(expectedPerson));
+    }
+
+    @Test
+    public void parse_withOptionalFields_success() {
+        Student expectedStudent = new StudentBuilder(AMY).build();
+
+        // MatricNum and NusnetID both present
+        assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY
+                + MATRIC_DESC_AMY + NUSNET_DESC_AMY,
+                new AddStudentCommand(expectedStudent));
+
+        // random ordering of optional fields
+        assertParseSuccess(parser, MATRIC_DESC_AMY + NAME_DESC_AMY
+                + NUSNET_DESC_AMY + EMAIL_DESC_AMY ,
+                new AddStudentCommand(expectedStudent));
     }
 
     @Test
