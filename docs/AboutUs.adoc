@@ -20,8 +20,8 @@ Role: Project Advisor
 '''
 
 === Lu Wenqi
-image::LuWenQ.png[width="150", align="left"]
-{empty}[http://github.com/LuWenQ.png[github]] [<<johndoe#, portfolio>>]
+image::luwenq.png[width="150", align="left"]
+{empty}[http://github.com/LuWenQ[github]] [<<luwenq#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration + Testing
@@ -30,7 +30,7 @@ Responsibilities: Integration + Testing
 
 === She Jiayu
 image::jiayushe.png[width="150", align="left"]
-{empty}[http://github.com/jiayushe[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/jiayushe[github]] [<<jiayushe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality
@@ -39,7 +39,7 @@ Responsibilities: Code Quality
 
 === Tan Yuanhong
 image::le0tan.png[width="150", align="left"]
-{empty}[http://github.com/le0tan[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/le0tan[github]] [<<le0tan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Scheduling and Tracking + In charge of Models
@@ -48,7 +48,7 @@ Responsibilities: Scheduling and Tracking + In charge of Models
 
 === Tiu Wee Han
 image::tiuweehan.png[width="150", align="left"]
-{empty}[http://github.com/tiuweehan[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/tiuweehan[github]] [<<tiuweehan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deliverables and Deadlines + In charge of UI
@@ -56,8 +56,8 @@ Responsibilities: Deliverables and Deadlines + In charge of UI
 '''
 
 === Yu Chenghui
-image::Seris370.png[width="150", align="left"]
-{empty}[http://github.com/Seris370.png[github]] [<<johndoe#, portfolio>>]
+image::seris370.png[width="150", align="left"]
+{empty}[http://github.com/Seris370[github]] [<<seris370#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation + In charge of Logic
