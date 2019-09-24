@@ -43,7 +43,7 @@ Responsibilities: Data
 
 === Ryan
 image::ryan.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[Github]] +
+{empty}[http://github.com/iltep64[Github]] +
 [<<johndoe#, portfolio>>]
 
 Role: Chief Technical Officer +
