@@ -51,11 +51,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Problems
 
-Format: `help`
-
-=== Adding a problem: `add`
+==== Adding a problem: `add`
 
 Generates a new problem. +
 Format: `add n/NAME [m/DESCRIPTION] [a/AUTHOR] [t/TAG]...`
@@ -67,12 +65,12 @@ Examples:
 
 * `add  n/factorial m/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
 
-=== Listing all problems : `list`
+==== Listing all problems : `list`
 
 Displays a list of all existing problems. +
 Format: `list`
 
-=== Editing a problem : `edit`
+==== Editing a problem : `edit`
 
 Edits an existing problem. +
 Format: `edit n/NAME [d/DELETE] [n/NAME] [m/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
@@ -90,7 +88,7 @@ Edits the author of the 1st problem to be `John Doe` respectively.
 * `edit 2 n/permutations t/` +
 Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
 
-=== Locating problems by name: `find`
+==== Locating problems by name: `find`
 
 Finds problems whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -109,7 +107,7 @@ Returns `factorial` and `Factorialize`
 Returns any problem having names `factorial`, or `permutations`
 
 // tag::delete[]
-=== Deleting a problem : `delete`
+==== Deleting a problem : `delete`
 
 Deletes an existing problem. +
 Format: `delete INDEX`
@@ -128,7 +126,7 @@ Deletes the 2nd problem in the displayed list.
 Deletes the 1st problem in the results of the `find` command.
 
 
-=== Sorting problem: `sort`
+==== Sorting problem: `sort`
 
 Sorts the current list of results by a specified order and direction. +
 Format: `sort m/METHOD [d/DIRECTION]`
@@ -136,7 +134,9 @@ Format: `sort m/METHOD [d/DIRECTION]`
 * Method can be `alphabetical` or `chronological`.
 * Direction can be `ASC` or `DESC` representing ascending and descending order. The default is in ascending order.
 
-=== Create new tags: `newtag`
+=== Tags
+
+==== Create new tags: `newtag`
 
 Generates a new tag. +
 Format: `newtag n/NAME`
@@ -145,12 +145,12 @@ Examples:
 
 * `newtag  n/sssp`
 
-=== Create new tags: `lstag`
+==== Listing tags: `lstag`
 
 Displays a list of all existing tags. +
 Format: `lstag`
 
-=== Create new tags: `deletetag`
+==== Create new tags: `deletetag`
 
 Deletes an existing tag. +
 Format: `deletetag INDEX`
@@ -158,7 +158,9 @@ Examples:
 
 * `deletetag 1`
 
-=== Creating a new training plan `addplan`
+=== Training Plans
+
+==== Creating a new training plan `addplan`
 
 Generates a new training plan. +
 Format: `addplan n/NAME`
@@ -167,7 +169,7 @@ Examples:
 
 * `addplan n/CS2040`
 
-=== Editing a training plan `editplan`
+==== Editing a training plan `editplan`
 
 Edits an existing training plan. +
 Format: `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [r/DELETE_PROBLEM_INDEX_LIST] [n/NAME]`
@@ -176,7 +178,7 @@ Examples:
 
 * `editplan 1 a/1 2 3 r/4 5 6 n/training set 1`
 
-=== Locating training plans by name: `findplan`
+==== Locating training plans by name: `findplan`
 
 Finds problems whose names contain any of the given keywords. +
 Format: `findplan KEYWORD [MORE_KEYWORDS]`
@@ -188,12 +190,12 @@ Returns `training-set-1` and `training-set-2`
 * `find training set` +
 Returns any problem having names `training`, or `set`
 
-=== Listing all training plans: `lsplan`
+==== Listing all training plans: `lsplan`
 
 Displays a list of all existing plans alphabetically. +
 Format: `lsplan`
 
-=== Marking a problem as done: `done`
+==== Marking a problem as done: `done`
 
 Marks a problem in a given plan as done. +
 Format: `done PLAN_INDEX PROBLEM_INDEX`
@@ -202,7 +204,7 @@ Examples:
 
 * `done 1 2`
 
-=== Unmarking a problem as undone: `undone`
+==== Unmarking a problem as undone: `undone`
 
 Marks a problem in a given plan as undone. +
 Format: `undone PLAN_INDEX PROBLEM_INDEX`
@@ -211,7 +213,9 @@ Examples:
 
 * `undone 1 2`
 
-=== Importing data: `import`
+=== Importing and Exporting data
+
+==== Importing data: `import`
 
 Imports external data of a specified format (e.g. CSV, JSON) into local storage. +
 Format: `import f/FORMAT p/PATH`
@@ -224,7 +228,7 @@ Examples:
 
 * `import t/plan p/./steven_halim_secret.json`
 
-=== Exporting data: `export`
+==== Exporting data: `export`
 
 Exports data into a specified format (e.g. CSV, JSON). +
 Format: `export f/FORMAT p/DIRECTORY`
@@ -236,24 +240,33 @@ Examples:
 
 * `export f/csv p/./`
 
+=== Encryption
+
 // tag::dataencryption[]  
-=== Encrypting data files `[coming in v2.0]`
+==== Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
 // end::delete[]
-=== Clearing all entries : `clear`
+
+=== Miscellaneous
+
+==== Viewing help : `help`
+
+Format: `help`
+
+==== Clearing all entries : `clear`
 
 Clears all entries from AlgoBase. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Saving the data
 
 AlgoBase data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
