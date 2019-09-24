@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === Maurice
-image::maurice.jpg[width="150", align="left"]
+image::maurice.png[width="150", align="left"]
 {empty}[http://github.com/MauriceTXS[github]] [<<johndoe#, portfolio>>]
 
 Role: Chief Executive Officer
