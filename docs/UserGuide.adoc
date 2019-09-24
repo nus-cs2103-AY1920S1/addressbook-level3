@@ -59,10 +59,10 @@ These are commands available within the command box for all tabs.
 === Navigation: `go /TAB`
 
 Allows you to navigate between tabs
-* `go /home` 
+* `go /home`
 * `go /inventory`
 * `go /reimbursement`
-* `go /cashier` 
+* `go /cashier`
 * `go /overview`
 
 === Search: `search /KEYWORD`
@@ -76,7 +76,7 @@ These are commands that are specific to each feature which would be categorised 
 === Home
 
 ====
-* Home tab shows the transaction history of each expenditure. 
+* Home tab shows the transaction history of each expenditure.
 * The columns will show the date/time of the transaction, description of the expenditure, category it is under, amount spent and the person who bought it.
 * At the side, our mascot lion will help to give replies to indicate successful addition, deletion, edits of the command line input.
 * He will also give you replies when there is a wrong input.
@@ -112,7 +112,7 @@ Examples:
 === Inventory
 
 ====
-* The inventory tab contains a detailed inventory of items belonging to the CCA for a variety of purposes. Each item will have 6 attributes: category, description, quantity, cost per unit, total cost, and price. 
+* The inventory tab contains a detailed inventory of items belonging to the CCA for a variety of purposes. Each item will have 6 attributes: category, description, quantity, cost per unit, total cost, and price.
 * The last attribute will be used for sales purposes.
 * The inventory tab can be used in conjunction with the cashier tab by keeping track of the variety of items for sale and the remaining quantity of unsold products, as well as throw an error message via the lion if the cashier attempts to sell more than the specified quantity.
 ====
@@ -148,10 +148,10 @@ Examples:
 === Reimbursements
 
 ====
-* The reimbursement page contains details of reimbursement for each CCA member. 
-* Each reimbursement record is represented by Person, Amount, Description and Status. 
-* Once the person is reimbursed, the status can be modified from Pending to Completed. 
-* This page helps the treasurer to directly retrieve the amount of reimbursement for each person from expenditure histories. 
+* The reimbursement page contains details of reimbursement for each CCA member.
+* Each reimbursement record is represented by Person, Amount, Description and Status.
+* Once the person is reimbursed, the status can be modified from Pending to Completed.
+* This page helps the treasurer to directly retrieve the amount of reimbursement for each person from expenditure histories.
 * This page also contains a Manage People button. Once clicked, a pop up page will come out and show all the CCA members’ information.
 ====
 
@@ -167,7 +167,7 @@ Examples:
 === Cashier
 
 ====
-* Cashier tab allows the cashier to key in and record the items sold from the inventory. 
+* Cashier tab allows the cashier to key in and record the items sold from the inventory.
 * The columns will show the description of the item being sold, the amount per quantity, the quantity and the items subtotal.
 * At the side, just like other tabs, our mascot lion will reply and guide the user along to key in the correct inputs.
 ====
