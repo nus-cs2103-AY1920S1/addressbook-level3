@@ -1,5 +1,5 @@
-= AddressBook Level 3 - Developer Guide
-:site-section: DeveloperGuide
+= EzWatchlist
+:site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main.git
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `NUS`
 
 == Setting up
 
@@ -279,8 +279,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* Users who are tidy and organised
+* has a need to keep track of what movies, tv series they would like to watch
+* Tech-savvy users who prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
@@ -295,17 +296,60 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |forgetful person | keep track of the shows to watch|I won’t forget about them.
 
-|`* * *` |user |add a new person |
+|`* * *` |very neat and organised movie lover |can organise the movies I’ve watched in categories/groups | watch them again.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |As a fickle and movie lover |mark movies in the watchlist as “watched” |I can keep track of what I have watched
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |someone who loves keeping records | keep track of how many movies or tv series I have watched |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |tech-savvy  |do any task as quickly as possible| experience is pleasant and quick.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` | App user | categorize and search based on distinct things | everything is neat and pleasing.
+
+|`* * *` | App user | track where I am specifically in the series | I can remember where I am for that show.
+
+|`* *`|movie lover who likes to think about the message conveyed in the movie  |I can note down some of my thoughts for every movie after watching |
+
+|`* *` | a movie critic| can track my thoughts and criticism of movie easily | it is organised.
+
+|`* *` | a movie/drama lover who also likes music | can note down the name of the soundtrack in the movie in a place specially for that. |
+
+|`* *`| a movie lover | rate a movie that I have watched | I can know what movies I liked to watch
+
+|`* *`| a movie lover | can know about all the movies | I would be able to watch them in the cinemas when they are out.
+
+|`* *`| a movie lover | look up for shows to watch from the recommendations |I will not have to manually search online.
+
+|`* *`| a movie lover | I can search for movies that I have added to the watchlist| I can easily find the movie that I want to watch.
+
+|`* *`| a movie lover | can keep track of the number of times I have watched a movie |I can find out which movie I liked watching the best.
+
+|`* *` | a movie lover |check the ratings of each movie I have watched |I can recommend them to my friends.
+
+|`* *`|a tv show addict | I can put my favourite shows in |  I can enjoy watching it next time.
+
+|`* *`| unorganised person | I can rank the movies that I want to watch into different priorities | I can easily know what are the movies that I desperately want to watch.
+
+|`* *` |unorganised person | can sort movies that I want to watch into the date they were added |I can clear the movies that have been lingering at the back of my mind the longest.
+
+|`* *` | does reviews | keep track of movies and write reviews for the show I have watched  |I can have a positive criticism.
+
+|`* *` | someone who forget to watch tv series/movies | I can have an alarm that alert me to watch videos on time.|
+
+|`* *` |As someone who has a deadline to watch movies | I can plan and add deadlines to watch movies.|
+
+|`* *`|As a lover of multiple mediums| I can combine all these different mediums in the same platform | I can keep track of everything in the same place.
+
+|`* *`| As a statistics lover| I can view the statistics of the shows I watched | I can gain insight of my viewing habits.
+
+|`* *`| forgetful person| I can add shows I’ve watched to see a virtual library of things I’ve completed| I can log it like a book in a bookcase.
+
+|`* *`| As an app user| I can see the date I’ve inputted the specific object| I can remember when I completed.
+
+
+
 |=======================================================================
 
 _{More to be added}_
