@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
@@ -82,9 +85,8 @@ public class CommandCacheTest {
         CommandCache commandCache = new CommandCache();
 
         // adds twice the amount of commands allowed by its size limit.
-        for (int i = 0; i < commandCache.getLimit() * 2; ++i) {
-            assertDoesNotThrow(() -> commandCache.addLatestCommand(new ClearAddressCommand()));
-        }
+        IntStream.range(0, commandCache.getLimit() * 2)
+                .forEach(index -> assertDoesNotThrow(() -> commandCache.addLatestCommand(new ClearAddressCommand())));
 
         assertEquals(commandCache.getLimit(), commandCache.getSize()); // checks that it is size has not exceeded limit.
     }
@@ -97,14 +99,33 @@ public class CommandCacheTest {
         CommandCache commandCache = new CommandCache();
 
         // adds commands until it is at the size limit.
-        for (int i = 0; i < commandCache.getLimit(); ++i) {
-            assertDoesNotThrow(() -> commandCache.addLatestCommand(new ClearAddressCommand()));
-        }
+        IntStream.range(0, commandCache.getLimit())
+                .forEach(index -> assertDoesNotThrow(() -> commandCache.addLatestCommand(new ClearAddressCommand())));
 
         int updatedLimit = commandCache.getLimit() / 2;
         commandCache.setLimit(updatedLimit);
 
         assertEquals(updatedLimit, commandCache.getLimit()); // checks if limit is updated.
         assertEquals(updatedLimit, commandCache.getSize()); // checks if new limit is enforced.
+    }
+
+    /**
+     * Verifies that {@code CommandCache} is clear cache will correctly clear all commands stored.
+     */
+    @Test
+    public void test_clearCache() {
+        CommandCache commandCache = new CommandCache();
+
+        // adds commands until it is at the size limit.
+        IntStream.range(0, commandCache.getLimit())
+                .forEach(index -> assertDoesNotThrow(() -> commandCache.addLatestCommand(new ClearAddressCommand())));
+
+        int limit = commandCache.getLimit();
+
+        commandCache.clearCache();
+
+        assertTrue(commandCache.isEmpty()); // checks that commands are all cleared.
+        assertEquals(limit, commandCache.getLimit()); // checks that limit is unchanged.
+
     }
 }

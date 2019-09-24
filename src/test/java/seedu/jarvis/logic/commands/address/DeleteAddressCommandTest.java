@@ -12,6 +12,8 @@ import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -160,22 +162,22 @@ public class DeleteAddressCommandTest {
         AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
 
         int cycles = 1000;
+        IntStream.range(0, cycles)
+                .forEach(index -> {
+                    Person personToDelete = addressModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+                    String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                            personToDelete);
+                    String inverseExpectedMessage = String.format(
+                            DeleteAddressCommand.MESSAGE_INVERSE_SUCCESS_ADD, personToDelete);
 
-        for (int i = 0; i < cycles; ++i) {
-            Person personToDelete = addressModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-            String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-                    personToDelete);
-            String inverseExpectedMessage = String.format(
-                    DeleteAddressCommand.MESSAGE_INVERSE_SUCCESS_ADD, personToDelete);
+                    expectedAddressModel.deletePerson(personToDelete);
+                    showNoPerson(expectedAddressModel);
+                    assertCommandSuccess(deleteAddressCommand, addressModel, expectedMessage, expectedAddressModel);
 
-            expectedAddressModel.deletePerson(personToDelete);
-            showNoPerson(expectedAddressModel);
-            assertCommandSuccess(deleteAddressCommand, addressModel, expectedMessage, expectedAddressModel);
-
-            expectedAddressModel.addPerson(personToDelete);
-            assertCommandInverseSuccess(deleteAddressCommand, addressModel, inverseExpectedMessage,
-                    expectedAddressModel);
-        }
+                    expectedAddressModel.addPerson(personToDelete);
+                    assertCommandInverseSuccess(deleteAddressCommand, addressModel, inverseExpectedMessage,
+                            expectedAddressModel);
+                });
     }
 
     @Test

@@ -146,6 +146,14 @@ public class CommandCache {
     }
 
     /**
+     * Clears all commands stored in {@code CommandCache}.
+     */
+    public void clearCache() {
+        commands.clear();
+        commandTracker.clear();
+    }
+
+    /**
      * Removes commands until the size limit is not exceeded.
      * Commands are deleted starting from the oldest commands.
      */
