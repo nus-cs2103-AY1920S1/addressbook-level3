@@ -1,5 +1,5 @@
 = EzWatchlist
-:site-section: UserGuide
+:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -280,13 +280,16 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * Users who are tidy and organised
-* has a need to keep track of what movies, tv series they would like to watch
+* Forgetful person who has a need to keep track of what movies, tv series they would like to watch
 * Tech-savvy users who prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* User can type fast
+* User prefers typing over mouse input
+* User is reasonably comfortable using CLI apps
+* Movie/TV series lover
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+EZWatchList provides a unique, clean and simple way of organizing and keeping track of your watchlist. All in one solution to your problem.
 
 [appendix]
 == User Stories
@@ -300,9 +303,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |very neat and organised movie lover |can organise the movies I’ve watched in categories/groups | watch them again.
 
-|`* * *` |As a fickle and movie lover |mark movies in the watchlist as “watched” |I can keep track of what I have watched
+|`* * *` |As an organised person| sort the movies and tv shows into genres | easily find a show from a genre that I want to watch.
 
-|`* * *` |someone who loves keeping records | keep track of how many movies or tv series I have watched |
+|`* * *` |As a movie lover |mark movies in the watchlist as “watched” | keep track of what I have watched
+
+|`* * *`| As a fickle person | delete a movie from the watchlist if I don’t feel like watching it anymore| my watchlist will not be cluttered with movies that I have no interest in watching anymore.
+
+|`* * *` |Someone who loves keeping records | keep track of how many movies or tv series I have watched |
 
 |`* * *` |tech-savvy  |do any task as quickly as possible| experience is pleasant and quick.
 
@@ -323,6 +330,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *`| a movie lover | look up for shows to watch from the recommendations |I will not have to manually search online.
 
 |`* *`| a movie lover | I can search for movies that I have added to the watchlist| I can easily find the movie that I want to watch.
+
+|`* *`| looking for new movies| search for some recommendations| I can watch it when I am free.
+
+|`* *`| a movie lover | search for movies that I have added to the watchlist| easily find the movie that I want to watch.
 
 |`* *`| a movie lover | can keep track of the number of times I have watched a movie |I can find out which movie I liked watching the best.
 
@@ -347,7 +358,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *`| forgetful person| I can add shows I’ve watched to see a virtual library of things I’ve completed| I can log it like a book in a bookcase.
 
 |`* *`| As an app user| I can see the date I’ve inputted the specific object| I can remember when I completed.
-
 
 
 |=======================================================================
