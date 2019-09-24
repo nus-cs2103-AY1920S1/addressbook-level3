@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
+By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
