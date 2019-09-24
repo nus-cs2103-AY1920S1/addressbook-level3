@@ -58,6 +58,17 @@ public class PersonToGroupMappingList {
         }
     }
 
+    public ArrayList<GroupID> findGroupsOfPerson(PersonID personID){
+        int i;
+        ArrayList<GroupID> groups = new ArrayList<GroupID>();
+        for(i = 0; i < mappings.size(); i++){
+            if(mappings.get(i).getPersonID().equals(personID)){
+                groups.add(mappings.get(i).getGroupID());
+            }
+        }
+        return groups;
+    }
+
     public String toString(){
         int i;
         String output = "";

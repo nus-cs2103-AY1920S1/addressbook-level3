@@ -14,11 +14,16 @@ public class Schedule {
     }
 
     public String toString(){
-        String output = "\n";
+        String output = "";
         int i;
-        for(i = 0; i < events.size(); i++){
-            output += events.get(i).toString();
-            output += "";
+
+        if(events.size() == 0){
+            output += "No Events Available";
+        } else {
+            for(i = 0; i < events.size(); i++){
+                output += events.get(i).toString();
+                output += "";
+            }
         }
         return output;
     }

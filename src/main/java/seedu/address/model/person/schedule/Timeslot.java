@@ -16,7 +16,7 @@ public class Timeslot {
     public String toString(){
         String output = "";
 
-        output += startTime + " - " + endTime + " at " + venue + "    ";
+        output += startTime + " - " + endTime + " at " + venue + " === ";
 
         return output;
     }

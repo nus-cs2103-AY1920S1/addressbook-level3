@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -74,7 +75,7 @@ public interface Model {
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    boolean addPerson(Person person);
 
     String personListToString();
 
@@ -95,7 +96,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    void addGroup(Group group);
+    boolean addGroup(Group group);
 
     String list();
 
@@ -106,6 +107,8 @@ public interface Model {
     Person findPerson(Name name);
 
     Group findGroup(GroupName groupName);
+
+    Group findGroup(GroupID groupID);
 
     PersonToGroupMapping findPersonToGroupMapping(PersonID personID, GroupID groupID);
 
@@ -118,5 +121,7 @@ public interface Model {
     boolean deleteGroup(GroupID groupID);
 
     boolean deletePerson(PersonID personID);
+
+    ArrayList<GroupID> findGroupsOfPerson(PersonID personID);
 
 }

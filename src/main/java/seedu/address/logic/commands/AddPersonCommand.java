@@ -33,7 +33,8 @@ public class AddPersonCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New person added: ";
+    public static final String MESSAGE_FAILURE = "Unable to add person";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
@@ -50,12 +51,11 @@ public class AddPersonCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        /*if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }*/
-
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        if(model.addPerson(toAdd)){
+            return new CommandResult(MESSAGE_SUCCESS + " " + toAdd.toString());
+        } else {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
     }
 
     @Override

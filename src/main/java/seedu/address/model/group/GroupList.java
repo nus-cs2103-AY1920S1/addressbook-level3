@@ -9,14 +9,29 @@ public class GroupList {
         this.groups = new ArrayList<Group>();
     }
 
-    public void addGroup(Group group) {
-        this.groups.add(group);
+    public boolean addGroup(Group group) {
+        if(findGroup(group.getGroupName()) == null){
+            this.groups.add(group);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Group findGroup(GroupName groupName){
         int i;
         for(i = 0; i < groups.size(); i++){
             if(groups.get(i).getGroupName().toString().equals(groupName.toString())){
+                return groups.get(i);
+            }
+        }
+        return null;
+    }
+
+    public Group findGroup(GroupID groupID){
+        int i;
+        for(i = 0; i < groups.size(); i++){
+            if(groups.get(i).getGroupID().equals(groupID)){
                 return groups.get(i);
             }
         }

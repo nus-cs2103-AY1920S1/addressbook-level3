@@ -23,7 +23,11 @@ public class AddGroupCommand extends Command{
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.addGroup(group);
-        return new CommandResult(MESSAGE_SUCCESS + group.getGroupName().toString());
+
+        if(model.addGroup(group)){
+            return new CommandResult(MESSAGE_SUCCESS + group.getGroupName().toString());
+        } else {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
     }
 }

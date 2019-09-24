@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -169,11 +170,11 @@ public class ModelManager implements Model {
     //=========== Person Accessors =============================================================
 
     @Override
-    public void addPerson(Person person) {
+    public boolean addPerson(Person person) {
 
-        this.personList.addPerson(person);
+        boolean isAdded = this.personList.addPerson(person);
 
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return isAdded;
     }
 
     @Override
@@ -203,16 +204,33 @@ public class ModelManager implements Model {
         return personList.deletePerson(personID);
     }
 
+    @Override
+    public ArrayList<GroupID> findGroupsOfPerson(PersonID personID) {
+        return personToGroupMappingList.findGroupsOfPerson(personID);
+    }
+
     //=========== Group Accessors =============================================================
 
     @Override
-    public void addGroup(Group group) {
-        this.groupList.addGroup(group);
+    public boolean addGroup(Group group) {
+
+        boolean isAdded = this.groupList.addGroup(group);
+        return isAdded;
     }
 
     @Override
     public Group findGroup(GroupName groupName) {
         Group group = groupList.findGroup(groupName);
+        if(group != null){
+            return group;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Group findGroup(GroupID groupID) {
+        Group group = groupList.findGroup(groupID);
         if(group != null){
             return group;
         } else {

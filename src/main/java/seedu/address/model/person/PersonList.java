@@ -9,8 +9,13 @@ public class PersonList {
         this.persons = new ArrayList<Person>();
     }
 
-    public void addPerson(Person person) {
-        this.persons.add(person);
+    public boolean addPerson(Person person) {
+
+        if(findPerson(person.getName()) == null){
+            this.persons.add(person);
+            return true;
+        }
+        return false;
     }
 
     public String toString() {
