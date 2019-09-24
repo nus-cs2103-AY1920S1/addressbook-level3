@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
+=== Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
@@ -20,8 +20,8 @@ Role: Project Advisor
 '''
 
 === Maurice
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+image::maurice.jpg[width="150", align="left"]
+{empty}[http://github.com/MauriceTXS[github]] [<<johndoe#, portfolio>>]
 
 Role: Chief Executive Officer
 Responsibilities: UI
@@ -29,28 +29,28 @@ Responsibilities: UI
 '''
 
 === Felix
-image::yijinl.jpg[width="150", align="left"]
+image::felix.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
-Role: Head Software Engineer
+Role: Chief Operating Officer
 Responsibilities: Data
 
 '''
 
 === Ryan
-image::m133225.jpg[width="150", align="left"]
+image::ryan.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
-Role: Team All Rounder
+Role: Chief Technical Officer
 Responsibilities: Dev Ops + Threading
 
 '''
 
 === Pin Sern
-image::yl_coder.jpg[width="150", align="left"]
+image::pinsern.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Intern
-Responsibilities: UI
+Responsibilities: Database and DevOps
 
 '''
