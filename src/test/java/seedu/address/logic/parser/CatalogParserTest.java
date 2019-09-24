@@ -24,9 +24,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.TitleContainsKeywordPredicate;
-import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
+import seedu.address.testutil.EditBookDescriptorBuilder;
 
 public class CatalogParserTest {
 

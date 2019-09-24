@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
 
 import org.junit.jupiter.api.Test;
 

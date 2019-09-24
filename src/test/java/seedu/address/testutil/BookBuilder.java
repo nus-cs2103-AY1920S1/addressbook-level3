@@ -5,8 +5,8 @@ import java.util.Set;
 
 import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.Title;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.util.SampleDataUtil;
 

@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.book.Author;
-import seedu.address.model.book.Title;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.Title;
 
 public class JsonAdaptedBookTest {
     private static final String INVALID_TITLE = "R@chel";

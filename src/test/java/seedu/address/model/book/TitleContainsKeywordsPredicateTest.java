@@ -68,8 +68,10 @@ public class TitleContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new BookBuilder().withTitle("Harry Bob").build()));
 
         // Keywords match serial number, author and genre, but does not match title
-        predicate = new TitleContainsKeywordPredicate(Arrays.asList("12345", "J K Rowling", "Fiction", "Action"));
+        predicate = new TitleContainsKeywordPredicate(Arrays.asList("12345", "JKRowling", "Fiction", "Action"));
+        Book b = new BookBuilder().withTitle("Harry").withSerialNumber("12345")
+                .withAuthor("J K Rowling").withGenres("Fiction", "Action").build();
         assertFalse(predicate.test(new BookBuilder().withTitle("Harry").withSerialNumber("12345")
-                .withAuthor("J K Rowling").withGenres("Fiction", "Action").build()));
+                .withAuthor("JKRowling").withGenres("Fiction", "Action").build()));
     }
 }

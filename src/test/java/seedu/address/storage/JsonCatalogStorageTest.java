@@ -3,9 +3,9 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
-import static seedu.address.testutil.TypicalBooks.BOOK_3;
+import static seedu.address.testutil.TypicalBooks.BOOK_5;
+import static seedu.address.testutil.TypicalBooks.BOOK_6;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ import seedu.address.model.Catalog;
 import seedu.address.model.ReadOnlyCatalog;
 
 public class JsonCatalogStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonCatalogStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -62,7 +62,7 @@ public class JsonCatalogStorageTest {
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
+        Path filePath = testFolder.resolve("TempCatalog.json");
         Catalog original = getTypicalCatalog();
         JsonCatalogStorage jsonAddressBookStorage = new JsonCatalogStorage(filePath);
 
@@ -72,14 +72,14 @@ public class JsonCatalogStorageTest {
         assertEquals(original, new Catalog(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addBook(BOOK_1);
+        original.addBook(BOOK_5);
         original.removeBook(BOOK_2);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readCatalog(filePath).get();
         assertEquals(original, new Catalog(readBack));
 
         // Save and read without specifying file path
-        original.addBook(BOOK_3);
+        original.addBook(BOOK_6);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readCatalog().get(); // file path not specified
         assertEquals(original, new Catalog(readBack));

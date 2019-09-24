@@ -20,6 +20,10 @@ public class TypicalBooks {
             .withAuthor("George Orwell").build();
     public static final Book BOOK_4 = new BookBuilder().withTitle("Harri Botter and the Full Blood Prince")
             .withSerialNumber("0004").withAuthor("J K Rowling").withGenres("Fiction", "Action").build();
+    public static final Book BOOK_5 = new BookBuilder().withTitle("The Heavenly Sword and the Dragon Saber")
+            .withSerialNumber("0005").withAuthor("Jin Yong").withGenres("Fiction", "Action").build();
+    public static final Book BOOK_6 = new BookBuilder().withTitle("My Book")
+            .withSerialNumber("0006").withAuthor("Jin Yong").withGenres("Fiction", "Action").build();
 
     private TypicalBooks() {} // prevents instantiation
 

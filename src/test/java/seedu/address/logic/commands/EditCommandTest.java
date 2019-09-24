@@ -4,15 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_3;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_3;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBookAtIndex;
+import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +26,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
-import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.BookBuilder;
+import seedu.address.testutil.EditBookDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -53,12 +55,13 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredBookList().size());
         Book lastBook = model.getFilteredBookList().get(indexLastPerson.getZeroBased());
 
-        BookBuilder personInList = new BookBuilder(lastBook);
-        Book editedBook = personInList.withTitle(VALID_TITLE_BOOK_2).withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2)
-                .withGenres(VALID_GENRE_ACTION).build();
+        BookBuilder bookInList = new BookBuilder(lastBook);
+        Book editedBook = bookInList.withTitle(VALID_TITLE_BOOK_3).withSerialNumber(VALID_SERIAL_NUMBER_BOOK_3)
+                .withGenres(VALID_GENRE_ACTION).withAuthor(VALID_AUTHOR_BOOK_2).build();
 
-        EditCommand.EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_2)
-                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).withGenres(VALID_GENRE_ACTION).build();
+        EditCommand.EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_3)
+                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_3).withGenres(VALID_GENRE_ACTION)
+                .withAuthor(VALID_AUTHOR_BOOK_2).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook);

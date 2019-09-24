@@ -3,21 +3,21 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_FICTION;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_GENRE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_1;
-import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
-import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_FICTION;
-import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
+import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_1;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_FICTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_FICTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
@@ -26,8 +26,8 @@ import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
 import seedu.address.model.genre.Genre;
 import seedu.address.testutil.BookBuilder;
 
@@ -55,8 +55,8 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Book expectedBook = new BookBuilder(BOOK_1).withGenres().build();
-        assertParseSuccess(parser, TITLE_DESC_BOOK_1 + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_1
-                , new AddCommand(expectedBook));
+        assertParseSuccess(parser, TITLE_DESC_BOOK_1 + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_1,
+                new AddCommand(expectedBook));
     }
 
     @Test
@@ -91,8 +91,8 @@ public class AddCommandParserTest {
                 + INVALID_GENRE_DESC + VALID_GENRE_FICTION, Genre.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, TITLE_DESC_BOOK_2 + INVALID_SERIAL_NUMBER_DESC + AUTHOR_DESC_BOOK_2
-                , SerialNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, TITLE_DESC_BOOK_2 + INVALID_SERIAL_NUMBER_DESC + AUTHOR_DESC_BOOK_2,
+                SerialNumber.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TITLE_DESC_BOOK_2 + SERIAL_NUMBER_DESC_BOOK_2

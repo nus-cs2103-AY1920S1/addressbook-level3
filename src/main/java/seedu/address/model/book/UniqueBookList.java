@@ -49,9 +49,9 @@ public class UniqueBookList implements Iterable<Book> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the book {@code target} in the list with {@code editedBook}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The book identity of {@code editedBook} must not be the same as another existing book in the list.
      */
     public void setBook(Book target, Book editedBook) {
         requireAllNonNull(target, editedBook);

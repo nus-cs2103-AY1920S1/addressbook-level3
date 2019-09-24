@@ -158,7 +158,8 @@ public class ParserUtilTest {
     @Test
     public void parseGenres_collectionWithValidTags_returnsGenreSet() throws Exception {
         Set<Genre> actualGenreSet = ParserUtil.parseGenres(Arrays.asList(VALID_GENRE_1, VALID_GENRE_2));
-        Set<Genre> expectedGenreSet = new HashSet<Genre>(Arrays.asList(new Genre(VALID_GENRE_1), new Genre(VALID_GENRE_2)));
+        Set<Genre> expectedGenreSet = new HashSet<Genre>(Arrays.asList(new Genre(VALID_GENRE_1),
+                new Genre(VALID_GENRE_2)));
 
         assertEquals(expectedGenreSet, actualGenreSet);
     }

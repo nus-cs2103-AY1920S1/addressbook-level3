@@ -1,8 +1,8 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+  "books": [ {
+    "title": "Hans Muster",
+    "serialNumber": "invalid9482424",
+    "author": "invalid@email!3e",
+    "genre": "Action"
   } ]
 }

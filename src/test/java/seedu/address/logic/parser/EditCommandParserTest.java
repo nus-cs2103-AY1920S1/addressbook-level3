@@ -3,19 +3,19 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_FICTION;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_GENRE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_1;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_FICTION;
-import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_FICTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_FICTION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_1;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -30,7 +30,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditBookDescriptor;
 import seedu.address.model.book.SerialNumber;
-import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 import seedu.address.testutil.EditBookDescriptorBuilder;
 
@@ -72,21 +71,28 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC, SerialNumber.MESSAGE_CONSTRAINTS); // invalid serial number
-        assertParseFailure(parser, "1" + INVALID_GENRE_DESC, Genre.MESSAGE_CONSTRAINTS); // invalid genre
+        // invalid serial number
+        assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC, SerialNumber.MESSAGE_CONSTRAINTS);
+        //invalid genre
+        assertParseFailure(parser, "1" + INVALID_GENRE_DESC, Genre.MESSAGE_CONSTRAINTS);
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC + AUTHOR_DESC_BOOK_1, SerialNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC + AUTHOR_DESC_BOOK_1,
+                SerialNumber.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + SERIAL_NUMBER_DESC_BOOK_2 + INVALID_SERIAL_NUMBER_DESC, SerialNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + SERIAL_NUMBER_DESC_BOOK_2 + INVALID_SERIAL_NUMBER_DESC,
+                SerialNumber.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid genre results in error
-        assertParseFailure(parser, "1" + GENRE_DESC_FICTION + GENRE_DESC_ACTION + TAG_EMPTY, Genre.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + GENRE_DESC_FICTION + TAG_EMPTY + GENRE_DESC_ACTION, Genre.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + GENRE_DESC_FICTION + GENRE_DESC_ACTION, Genre.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + GENRE_DESC_FICTION + GENRE_DESC_ACTION + TAG_EMPTY,
+                Genre.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + GENRE_DESC_FICTION + TAG_EMPTY + GENRE_DESC_ACTION,
+                Genre.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + GENRE_DESC_FICTION + GENRE_DESC_ACTION,
+                Genre.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC + INVALID_GENRE_DESC,
@@ -154,7 +160,8 @@ public class EditCommandParserTest {
                 + GENRE_DESC_FICTION + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_1 + GENRE_DESC_FICTION
                 + SERIAL_NUMBER_DESC_BOOK_2 + AUTHOR_DESC_BOOK_2 + GENRE_DESC_ACTION;
 
-        EditCommand.EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2)
+        EditCommand.EditBookDescriptor descriptor = new EditBookDescriptorBuilder()
+                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2)
                 .withAuthor(VALID_AUTHOR_BOOK_2).withGenres(VALID_GENRE_FICTION, VALID_GENRE_ACTION)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -167,13 +174,16 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_SERIAL_NUMBER_DESC + SERIAL_NUMBER_DESC_BOOK_2;
-        EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
+        EditBookDescriptor descriptor = new EditBookDescriptorBuilder()
+                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + AUTHOR_DESC_BOOK_2 + INVALID_SERIAL_NUMBER_DESC + SERIAL_NUMBER_DESC_BOOK_2;
-        descriptor = new EditBookDescriptorBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).withAuthor(VALID_AUTHOR_BOOK_2).build();
+        userInput = targetIndex.getOneBased() + AUTHOR_DESC_BOOK_2 + INVALID_SERIAL_NUMBER_DESC
+                + SERIAL_NUMBER_DESC_BOOK_2;
+        descriptor = new EditBookDescriptorBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2)
+                .withAuthor(VALID_AUTHOR_BOOK_2).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
