@@ -12,13 +12,13 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-F09-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-F09-04`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+AddressBook Level 3 (AB3) is for insurance agents who *prefer to use a desktop app for managing contacts and policies*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -58,41 +58,72 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a person to the list of people +
+Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [pol/POLICY] [t/TAG]…​`
 
-[TIP]
-A person can have any number of tags (including 0)
+****
+* A person can have any number of tags (including 0)
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority`
 
-=== Listing all persons : `list`
+=== Adding a policy: `addpolicy`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds a policy to the list of policies +
+Format: `addpolicy  add pol n/NAME d/DESCRIPTION c/TIME_PERIOD p/PRICE [sa/START_AGE] [ea/END_AGE]... [t/TAGS]...`
+
+****
+* A person can have any number of tags (including 0)
+****
+Examples:
+
+* `add pol n/SeniorCare d/care for seniors c/10months p/$50000 [sa/50 ea/75]`
+
+=== Listing all persons : `listpeople`
+
+Shows a list of all persons currently stored. +
+Format: `listpeople`
+
+=== Listing all policies : `listpolicies`
+
+Shows a list of all current policies. +
+Format: `listpolicies`
 
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY]`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 2 n/Betsy Crower a/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears the address tag.
+
+=== Editing a policy : `editpolicy`
+
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [c/TIME_PERIOD] [p/PRICE]`
+
+****
+* Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editpolicy 1 n/Seniors` +
+Edits the name of the 1st policy to `Seniors`.
 
 === Locating persons by name: `find`
 
@@ -114,10 +145,92 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+=== Locating policies by keywords: `findpolicy`
+
+Finds policies whose names or descriptions contain any of the given keywords. +
+Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `senior` will match `Seniors`
+* The order of the keywords does not matter. e.g. `Senior Care` will match `Care Seniors`
+* Only full words will be matched e.g. `Senior` will not match `Seniors`
+* Policies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Senior` will return `Care for seniors`, `Senior care`
+****
+
+Examples:
+
+* `find Senior` +
+Returns `senior care` and `Care for seniors`
+* `find family children` +
+Returns any policy having names or descriptions containing `family` of `children`
+
+=== Adding policies to a person : `assignpolicy`
+
+Assigns a policy to the person at the specified index. +
+Format: `assignpolicy INDEX pol/POLICY [MORE_POLICIES]`
+
+****
+* Adds the policies to the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Any number of policies can be added as long as the person is eligible for the policy.
+****
+
+Examples:
+
+* `listpeople` +
+`assignpolicy 2 pol/Senior Care` +
+Assigns a `Senior Care` policy to the 2nd person in the list of people.
+* `find Betsy` +
+`assignpolicy 1 pol/Health Insurance` +
+Assigns a `Health Insurance` policy to the 1st person in the results of the `find` command.
+
+=== Adding tags to a person : `addtag`
+
+Adds a new tag to the person at the specified index. +
+Format: `addtag INDEX t/TAG [MORE_TAGS]`
+
+****
+* Adds the tags to the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Any number of tags can be added.
+****
+
+Examples:
+
+* `listpeople` +
+`addtag 2 t/high_priority` +
+Adds a `high_priority` tag to the 2nd person in the list of people.
+* `find Betsy` +
+`addtag 1 t/high_risk` +
+Adds a `high_risk` tag to the 1st person in the results of the `find` command.
+
+=== Adding tags to a policy : `addpolicytag`
+
+Adds a new tag to the policy at the specified index. +
+Format: `addpolicytag INDEX t/TAG [MORE_TAGS]`
+
+****
+* Adds the tags to the policy at the specified `INDEX`.
+* The index refers to the index number shown in the displayed policies list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Any number of tags can be added.
+****
+
+Examples:
+
+* `listpolicies` +
+`addpolicytag 2 t/lifeinsurance` +
+Adds a `lifeinsurance` tag to the 2nd policy in the list of polciies.
+* `findpolicy Betsy` +
+`addpolicytag 1 t/motorinsurance` +
+Adds a `motorinsurance` tag to the 1st policy in the results of the `find` command.
+
 // tag::delete[]
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified person from the list of people. +
 Format: `delete INDEX`
 
 ****
@@ -130,16 +243,253 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in the list of people.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
+
+=== Deleting a policy : `deletepolicy`
+
+Deletes the specified policy from the address book. +
+Format: `deletepolicy INDEX`
+
+****
+* Deletes the policy at the specified `INDEX`.
+* The index refers to the index number shown in the displayed policy list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `listpolicies` +
+`delete 2 +
+Deletes the 2nd policy in the list of policies.
+* `find senior` +
+`delete 1` +
+Deletes the 1st policy in the results of the `find` command.
+
+=== Deleting policies from a person : `unassignpolicy`
+
+Removes a policy from the person at the specified index. +
+Format: `unassignpolicy INDEX pol/POLICY [MORE_POLICIES]`
+
+****
+* Removes the policies to the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `listpeople` +
+`unassignpolicy 2 pol/Senior Care` +
+Removes the `Senior Care` policy from the 2nd person in the list of people.
+* `find Betsy` +
+`unassignpolicy 1 pol/Health Insurance` +
+Removes the `Health Insurance` policy from the 1st person in the results of the `find` command.
+
+=== Deleting tags from a person : `deletetag`
+
+Deletes a tag from the person at the specified index. +
+Format: `deletetag INDEX t/TAG [MORE_TAGS]`
+
+****
+* Deletes the tags from the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Any number of tags can be deleted.
+****
+
+Examples:
+
+* `listpeople` +
+`deletetag 2 t/high_priority` +
+Deletes a `high_priority` tag from the 2nd person in the list of people.
+* `find Betsy` +
+`deletetag 1 t/high_risk` +
+Deletes a `high_risk` tag from the 1st person in the results of the `find` command.
+
+=== Deleting tags from a policy : `deletepolicytag`
+
+Deletes a tag from the policy at the specified index. +
+Format: `deletepolicytag INDEX t/TAG [MORE_TAGS]`
+
+****
+* Deletes the tags from the policy at the specified `INDEX`.
+* The index refers to the index number shown in the displayed policies list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Any number of tags can be deleted.
+****
+
+Examples:
+
+* `listpolicies` +
+`deletepolicytag 2 t/high_priority` +
+Deletes a `high_priority` tag from the 2nd policy in the list of policies.
+* `findpolicy Senior` +
+`deletepolicytag 1 t/high_risk` +
+Deletes a `high_risk` tag from the 1st policy in the results of the `find` command.
 
 // end::delete[]
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
+
+=== Incorrect NRIC Alert
+
+Returns an error message to inform the user of an invalid NRIC. The contact number and/or email address is returned
+if present.
+
+****
+* All details except the NRIC will be added.
+****
+
+Example:
+
+`add n/John Doe ic/Q9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+
+Expected Output:
+```
+New person added: John Doe Phone:98765432 Email:johnd@example.com Address:John street, block 123, #01-01 Birthday 12th September 1980 Policy: SeniorCare Tags: high_priority
+
+Q9999999J is invalid.
+You might want to contact John Doe: 98765432 johnd@example.com`
+```
+
+=== Incorrect Contact Number Alert
+
+Returns an error message to inform the user of an invalid contact number. The email address is returned
+if present.
+
+****
+* All details except the phone number will be added.
+****
+
+Example:
+
+`add n/John Doe ic/S9999999J p/48765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+
+Expected Output:
+```
+New person added: John Doe NRIC: S9999999J Email:johnd@example.com Address:John street, block 123, #01-01 Birthday 12th September 1980 Policy: SeniorCare Tags: high_priority
+
+48765432 is invalid.
+You might want to contact John Doe: johnd@example.com
+```
+
+=== Incorrect Email Address Alert
+
+Returns an error message to inform the user of an invalid email address. The phone number is returned
+if present.
+
+****
+* All details except the email address will be added.
+****
+
+Example:
+
+`add n/John Doe ic/S9999999J p/98765432 e/@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+
+Expected Output:
+```
+New person added: John Doe NRIC: S9999999J Phone: 98765432 Address:John street, block 123, #01-01 Birthday 12th September 1980 Policy: SeniorCare Tags: high_priority
+
+@example.com is invalid. You might want to contact John Doe: 98765432
+```
+
+=== Incorrect Email Address Warning
+
+Returns a warning message to inform the user of a potential typo in email address.
+
+****
+* All details except the email address will be added.
+* These warnings can be turned off.
+****
+
+Example:
+
+`add n/John Doe ic/Q9999999J p/48765432 e/johnd@gmal.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+
+Expected Output:
+```
+New person added: John Doe NRIC: S9999999J Phone: 98765432 Address:John street, block 123, #01-01 Birthday 12th September 1980 Policy: SeniorCare Tags: high_priority
+
+You entered johnd@gmal.com. Did you mean: johnd@gmail.com?
+```
+
+User can input `yes` or `no` to use the original input email or the suggested email respectively.
+
+=== Incorrect Command Suggestions
+
+Returns an error message and a suggestion of a correct command when a command is typed incorrectly.
+
+Example:
+
+`dlete 2`
+
+Expected Output:
+```
+dlete is not recognised. Did you mean: delete 2?
+```
+
+User can input `yes` or `no`.
+
+If `yes`, the command will be executed.
+If `no`,
+```
+Please key in your command again. For more information  of the available commands, type help.
+```
+
+=== Incorrect Insurance Policy Assignment Alert
+
+Returns an error if a person is ineligible for the insurance policy and provides suggestions for policies that this person is eligible for.
+
+****
+* The new information will be accepted and updated except for the updated policy.
+****
+
+Example:
+
+`edit n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 pol/SeniorCare`
+
+Expected Output:
+```
+John Doe is ineligible for this policy. These are other possible policies that John Doe is eligible for:
+...
+```
+
+=== Duplicate profile alert
+
+Returns an error message of an existing person and will attempt to merge the profiles.
+For each different attribute, there will be a prompt to suggest a change from the original attribute to the new one.
+
+Example:
+
+`add n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 pol/SeniorCare`
+
+Expected Output:
+```
+This profile already exists:
+n/John Doe ic/S9999999J p/98765432 e/johndoe@example.com a/John street, block 123, #01-01 age/30`
+Do you wish to update John Doe’s profile?
+```
+
+User may input `yes` or `no`. Further prompts will be provided if user inputs  `yes`
+
+```
+Would you like to update p/98765432 to p/91234567?
+```
+
+If `yes`, the new profile will be created.
+If `no`,
+```
+You may edit John Doe’s profile using the edit command. For more information, type help.
+```
+
+=== Reminders of expiring policies
+
+Displays a list of people whose policies are expiring in the current month on the start up page. This list will be updated every month.
 
 === Exiting the program : `exit`
 
@@ -164,14 +514,35 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Add Person* `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [pol/POLICY] [t/TAG]…​` +
+e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority`
+* *Add Policy* `addpolicy  add pol n/NAME d/DESCRIPTION c/TIME_PERIOD p/PRICE [sa/START_AGE] [ea/END_AGE]... [t/TAGS]...` +
+e.g. `add pol n/SeniorCare d/care for seniors c/10months p/$50000 [sa/50 ea/75]`
+* *List People* : `listpeople`
+* *List Policies* : `listpolicies`
+* *Edit Person* : `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Edit Policy* : `edit INDEX [n/NAME] [d/DESCRIPTION] [c/TIME_PERIOD] [p/PRICE]` +
+e.g. `editpolicy 1 n/Seniors`
+* *Find Person* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
+* *Find Policy* : `findpolicy KEYWORD [MORE_KEYWORDS]` +
+e.g. `findpolicy senior`
+* *Assign Policy* : `assignpolicy INDEX pol/POLICY [MORE_POLICIES]` +
+e.g. `assignpolicy 2 pol/SeniorCare`
+* *Add Tag To Person* : `addtag INDEX t/TAG [MORE_TAGS]` +
+e.g. `addtag 3 t/high_priority`
+* *Add Tag To Policy* : `addpolicytag INDEX t/TAG [MORE_TAGS]` +
+e.g. `addpolicytag 2 t/lifeinsurance`
+* *Delete Person* : `delete INDEX` +
+e.g. `delete 3`
+* *Delete Policy* : `deletepolicy INDEX` +
+e.g. `deletepolicy 3`
+* *Unassign Policy* : `unassignpolicy INDEX pol/POLICY [MORE_POLICIES]` +
+e.g. `unassignpolicy 2 pol/SeniorCare`
+* *Delete Tag From Person* : `deletetag INDEX t/TAG [MORE_TAGS]` +
+e.g. `deletetag 3 t/high_priority`
+* *Delete Tag From Policy* : `deletepolicytag INDEX t/TAG [MORE_TAGS]` +
+e.g. `deletepolicytag 2 t/lifeinsurance`
+* *Clear* : `clear`
 * *Help* : `help`
