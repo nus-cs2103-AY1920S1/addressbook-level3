@@ -1,4 +1,4 @@
-= +Work 
+= +Work
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/AY1920S1-CS2103T-T12-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-T12-1/main"]
@@ -14,7 +14,7 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop project managing application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* The application is targetted at NUS students who have to manage a group during a project or CCA etc. 
+* The application is targetted at NUS students who have to manage a group during a project or CCA etc.
 
 == Site Map
 
