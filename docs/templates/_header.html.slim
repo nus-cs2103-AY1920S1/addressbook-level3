@@ -63,7 +63,7 @@
               span.author id="author#{idx}" =(attr "author_#{idx}")
               br
               - if attr? "email_#{idx}"
-                span.email id="email#{idx}" =sub_macros(attr "email#{idx}")
+                span.email id="email#{idx}" =sub_macros(attr "email_#{idx}")
         - if attr? :revnumber
           span#revnumber #{((attr 'version-label') || '').downcase} #{attr :revnumber}#{',' if attr? :revdate}
           '

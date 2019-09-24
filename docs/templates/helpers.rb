@@ -53,7 +53,7 @@ module Slim::Helpers
   # @yield The block of Slim/HTML code within the tag (optional).
   # @return [String] a rendered HTML element.
   #
-  def html_tag(title, attributes = {}, content = nil)
+  def html_tag(name, attributes = {}, content = nil)
     attrs = attributes.reject { |_, v|
       v.nil? || (v.respond_to?(:empty?) && v.empty?)
     }.map do |k, v|
