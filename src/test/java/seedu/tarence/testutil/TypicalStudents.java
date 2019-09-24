@@ -6,6 +6,7 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MATRIC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NUSNET_AMY;
 
 import seedu.tarence.model.student.Student;
 
@@ -46,7 +47,7 @@ public class TypicalStudents {
 
     // Manually added - Student's details found in {@code CommandTestUtil}
     public static final Student AMY = new StudentBuilder().withName(VALID_NAME_AMY).withEmail(VALID_EMAIL_AMY)
-                .withMatricNum(VALID_MATRIC_AMY).build();
+                .withMatricNum(VALID_MATRIC_AMY).withNusnetId(VALID_NUSNET_AMY).build();
     public static final Student BOB = new StudentBuilder().withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB)
                 .withMatricNum(VALID_MATRIC_BOB).build();
 

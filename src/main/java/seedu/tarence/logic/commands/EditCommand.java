@@ -32,9 +32,11 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists.";
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists.";
+
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -83,6 +85,21 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
 
         return new Person(updatedName, updatedEmail);
+    }
+
+    /**
+     * Returns true if user command matches command word or any defined synonyms, and false otherwise.
+     *
+     * @param userCommand command word from user.
+     * @return whether user command matches specified command word or synonyms.
+     */
+    public static boolean isMatchingCommandWord(String userCommand) {
+        for (String synonym : COMMAND_SYNONYMS) {
+            if (synonym.equals(userCommand.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

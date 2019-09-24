@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.Command;
-import seedu.tarence.logic.commands.DeleteCommand;
+import seedu.tarence.logic.commands.DeleteStudentCommand;
 import seedu.tarence.logic.commands.EditCommand;
 import seedu.tarence.logic.commands.ExitCommand;
 import seedu.tarence.logic.commands.FindCommand;
@@ -41,32 +41,25 @@ public class ApplicationParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
 
-        case AddStudentCommand.COMMAND_WORD:
+        if (AddStudentCommand.isMatchingCommandWord(commandWord)) {
             return new AddStudentCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
+        } else if (EditCommand.isMatchingCommandWord(commandWord)) {
             return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case FindCommand.COMMAND_WORD:
+        } else if (DeleteStudentCommand.isMatchingCommandWord(commandWord)) {
+            return new DeleteStudentCommandParser().parse(arguments);
+        } else if (FindCommand.isMatchingCommandWord(commandWord)) {
             return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
+        } else if (ListCommand.isMatchingCommandWord(commandWord)) {
             return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
+        } else if (ExitCommand.isMatchingCommandWord(commandWord)) {
             return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
+        } else if (HelpCommand.isMatchingCommandWord(commandWord)) {
             return new HelpCommand();
-
-        default:
+        } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+
     }
 
 }
