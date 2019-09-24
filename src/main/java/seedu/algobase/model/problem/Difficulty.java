@@ -9,44 +9,55 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
  */
 public class Difficulty {
 
-    public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric";
-    public static final String VALIDATION_REGEX = "^\\d+$";
-
-    public final String value;
+    public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric.";
+    public static final Difficulty DEFAULT_DIFFICULTY = new Difficulty("0.0");
+    public final double value;
 
     /**
-     * Constructs an {@code Difficulty}.
+     * Constructs an {@code Difficulty} from a String representing a number.
      *
      * @param difficulty A valid difficulty.
      */
     public Difficulty(String difficulty) {
         requireNonNull(difficulty);
         checkArgument(isValidDifficulty(difficulty), MESSAGE_CONSTRAINTS);
-        value = difficulty;
+        value = Double.parseDouble(difficulty);
     }
 
     /**
      * Returns true if a given string is a valid difficulty.
      */
     public static boolean isValidDifficulty(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            double parseResult = Double.parseDouble(test);
+            return parseResult > 0.0 && parseResult <= 5.0;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if a given {@code Difficulty} is default.
+     */
+    public static boolean isDefaultDifficulty(Difficulty difficulty) {
+        return difficulty.equals(DEFAULT_DIFFICULTY);
     }
 
     @Override
     public String toString() {
-        return value;
+        return Double.toString(value);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Difficulty // instanceof handles nulls
-                && value.equals(((Difficulty) other).value)); // state check
+                && value == ((Difficulty) other).value); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Double.hashCode(value);
     }
 
 }

@@ -9,13 +9,14 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
  */
 public class Source {
 
-    public static final String MESSAGE_CONSTRAINTS = "Source should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Source should be alphanumeric.";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final Source DEFAULT_SOURCE = new Source();
 
     public final String value;
 
     /**
-     * Constructs an {@code Source}.
+     * Constructs a {@code Source}.
      *
      * @param source A valid source.
      */
@@ -26,10 +27,21 @@ public class Source {
     }
 
     /**
+     * Constructs an empty {@code Source}.
+     */
+    private Source() {
+        value = "";
+    }
+
+    /**
      * Returns true if a given string is a valid source.
      */
     public static boolean isValidSource(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public static boolean isDefaultSource(Source source) {
+        return source.equals(DEFAULT_SOURCE);
     }
 
     @Override

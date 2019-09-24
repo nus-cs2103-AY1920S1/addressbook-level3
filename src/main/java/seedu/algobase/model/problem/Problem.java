@@ -2,10 +2,7 @@ package seedu.algobase.model.problem;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import seedu.algobase.model.tag.Tag;
 
@@ -23,18 +20,26 @@ public class Problem {
     // Data fields
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
+    private final Difficulty difficulty;
+    private final Remark remark;
+    private final Source source;
 
     /**
      * Every field must be present and not null.
      */
-    public Problem(Name name, Author author, WebLink webLink, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, author, webLink, description, tags);
+    public Problem(Name name, Author author, WebLink webLink, Description description, Set<Tag> tags,
+                   Difficulty difficulty, Remark remark, Source source) {
+        requireAllNonNull(name, author, webLink, description, tags, difficulty, remark, source);
         this.name = name;
         this.author = author;
         this.webLink = webLink;
         this.description = description;
         this.tags.addAll(tags);
+        this.difficulty = difficulty;
+        this.remark = remark;
+        this.source = source;
     }
+
 
     public Name getName() {
         return name;
@@ -58,6 +63,18 @@ public class Problem {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public Remark getRemark() {
+        return remark;
+    }
+
+    public Source getSource() {
+        return source;
     }
 
     /**

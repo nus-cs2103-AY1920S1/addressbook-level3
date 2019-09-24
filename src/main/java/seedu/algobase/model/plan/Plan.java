@@ -18,34 +18,30 @@ public class Plan {
 
     // Identity fields
     private final Name name;
-    private final Author author;
 
     // Data fields
     private final Description description;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    private final Set<Problem> problems = new HashSet<>();
+    private final Set<Problem> problems;
+
 
     /**
      * Every field must be present and not null.
      */
-    public Plan(Name name, Author author, Description description, LocalDateTime startDate, LocalDateTime endDate,
+    public Plan(Name name, Description description, LocalDateTime startDate, LocalDateTime endDate,
                 Set<Problem> problems) {
-        requireAllNonNull(name, author, description, startDate, endDate, problems);
+        requireAllNonNull(name, description, startDate, endDate, problems);
         this.name = name;
-        this.author = author;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.problems = new HashSet<>();
         this.problems.addAll(problems);
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Author getAuthor() {
-        return author;
     }
 
     public Description getDescription() {
@@ -78,8 +74,7 @@ public class Plan {
         }
 
         return otherPlan != null
-                && otherPlan.getName().equals(getName())
-                && otherPlan.getAuthor().equals(getAuthor());
+                && otherPlan.getName().equals(getName());
     }
 
     /**
@@ -98,7 +93,6 @@ public class Plan {
 
         Plan otherPlan = (Plan) other;
         return otherPlan.getName().equals(getName())
-                && otherPlan.getAuthor().equals(getAuthor())
                 && otherPlan.getDescription().equals(getDescription())
                 && otherPlan.getStartDate().equals(getStartDate())
                 && otherPlan.getEndDate().equals(getEndDate())
@@ -108,15 +102,13 @@ public class Plan {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, author, description, problems);
+        return Objects.hash(name, description, problems);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Author: ")
-                .append(getAuthor())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Start Date: ")

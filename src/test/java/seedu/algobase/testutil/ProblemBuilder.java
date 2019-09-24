@@ -87,6 +87,7 @@ public class ProblemBuilder {
     }
 
     public Problem build() {
+        // TODO: add new fields
         return new Problem(name, author, webLink, description, tags);
     }
 

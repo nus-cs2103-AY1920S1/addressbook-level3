@@ -9,10 +9,7 @@ import java.util.Set;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.StringUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.problem.Author;
-import seedu.algobase.model.problem.Description;
-import seedu.algobase.model.problem.Name;
-import seedu.algobase.model.problem.WebLink;
+import seedu.algobase.model.problem.*;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -93,6 +90,21 @@ public class ParserUtil {
             throw new ParseException(WebLink.MESSAGE_CONSTRAINTS);
         }
         return new WebLink(trimmedWeblink);
+    }
+
+    public static Difficulty parseDifficulty(String difficulty) throws ParseException {
+        // TODO: implement parse difficulty
+        return Difficulty.DEFAULT_DIFFICULTY;
+    }
+
+    public static Remark parseRemark(String remark) throws ParseException {
+        // TODO: implementation
+        return Remark.DEFAULT_REMARK;
+    }
+
+    public static Source parseSource(String source) throws ParseException {
+        // TODO: implementation
+        return Source.DEFAULT_SOURCE;
     }
 
     /**

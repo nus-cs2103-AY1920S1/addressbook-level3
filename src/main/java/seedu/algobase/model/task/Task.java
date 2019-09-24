@@ -1,4 +1,4 @@
-package seedu.algobase.model.attempt;
+package seedu.algobase.model.task;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -8,10 +8,10 @@ import java.util.Objects;
 import seedu.algobase.model.problem.Problem;
 
 /**
- * Represents an Attempt in the algobase.
+ * Represents a Task in the algobase.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Attempt {
+public class Task {
 
     private final Problem problem;
     private final Boolean isSolved;
@@ -20,7 +20,7 @@ public class Attempt {
     /**
      * Every field must be present and not null.
      */
-    public Attempt(Problem problem, Boolean isSolved, LocalDateTime dateTime) {
+    public Task(Problem problem, Boolean isSolved, LocalDateTime dateTime) {
         requireAllNonNull(problem, isSolved, dateTime);
         this.problem = problem;
         this.isSolved = isSolved;
@@ -40,7 +40,7 @@ public class Attempt {
     }
 
     /**
-     * Returns true if both attempts have the same fields.
+     * Returns true if both tasks have the same fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -48,14 +48,14 @@ public class Attempt {
             return true;
         }
 
-        if (!(other instanceof Attempt)) {
+        if (!(other instanceof Task)) {
             return false;
         }
 
-        Attempt otherAttempt = (Attempt) other;
-        return otherAttempt.getProblem().equals(getProblem())
-            && otherAttempt.getIsSolved().equals(getIsSolved())
-            && otherAttempt.getDateTime().equals(getDateTime());
+        Task otherTask = (Task) other;
+        return otherTask.getProblem().equals(getProblem())
+                && otherTask.getIsSolved().equals(getIsSolved())
+                && otherTask.getDateTime().equals(getDateTime());
     }
 
     @Override
