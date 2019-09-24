@@ -5,6 +5,7 @@ https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-e
 https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T13-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T13-2/main/badge.svg?branch=master[Coverage Status]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+[![Netlify Status](https://api.netlify.com/api/v1/badges/934bd64f-9128-4ac0-8e64-fa469fcbd439/deploy-status)](https://app.netlify.com/sites/mortago/deploys)
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
