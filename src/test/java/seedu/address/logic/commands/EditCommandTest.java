@@ -106,26 +106,7 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    @Test
-    public void execute_duplicateExpenseUnfilteredList_failure() {
-        Expense firstExpense = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(firstExpense).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_EXPENSE, descriptor);
-
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
-    }
-
-    @Test
-    public void execute_duplicateExpenseFilteredList_failure() {
-        showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
-
-        // edit expense in filtered list into a duplicate in address book
-        Expense expenseInList = model.getAddressBook().getExpenseList().get(INDEX_SECOND_EXPENSE.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE,
-                new EditExpenseDescriptorBuilder(expenseInList).build());
-
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
-    }
+    // Editing an expense to have the same details as another should not result in failure
 
     @Test
     public void execute_invalidExpenseIndexUnfilteredList_failure() {

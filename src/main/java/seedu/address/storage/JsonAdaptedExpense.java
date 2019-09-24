@@ -35,7 +35,7 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                              @JsonProperty("uniqueIdentifier") String uniqueIdentifier){
+                              @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
@@ -90,6 +90,9 @@ class JsonAdaptedExpense {
         if (uniqueIdentifier == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueIdentifier.class.getSimpleName()));
+        }
+        if (!UniqueIdentifier.isValidUniqueIdentifier(uniqueIdentifier)) {
+            throw new IllegalValueException(UniqueIdentifier.MESSAGE_CONSTRAINTS);
         }
         final UniqueIdentifier modelUniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
 

@@ -15,9 +15,9 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ExpenseBuilder {
 
-    public static final String DEFAULT_DESCRIPTION = "Chicken Rice";
-    public static final String DEFAULT_PRICE = "2.50";
-    public static final String DEFAULT_UNIQUE_IDENTIFIER = "Expense@00000000-0000-0000-0000-000000000000";
+    public static final String DEFAULT_DESCRIPTION = "Alices Birthday";
+    public static final String DEFAULT_PRICE = "20";
+    public static final String DEFAULT_UNIQUE_IDENTIFIER = "Expense@00000000-0000-0000-0000-000000000001";
 
     private Description description;
     private Price price;
@@ -38,6 +38,7 @@ public class ExpenseBuilder {
         description = expenseToCopy.getDescription();
         price = expenseToCopy.getPrice();
         tags = new HashSet<>(expenseToCopy.getTags());
+        uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
     }
 
     /**
@@ -68,7 +69,7 @@ public class ExpenseBuilder {
      * Sets the {@code UniqueIdentifier} of the {@code Expense} that we are building.
      */
     public ExpenseBuilder withUniqueIdentifier(String uniqueIdentifier) {
-        this.price = new Price(uniqueIdentifier);
+        this.uniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
         return this;
     }
 

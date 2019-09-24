@@ -30,6 +30,7 @@ public class CommandTestUtil {
     public static final String VALID_PRICE_TRANSPORT = "222,22222";
     public static final String VALID_TAG_CLAIMABLE = "toClaimFromWork";
     public static final String VALID_TAG_DISCOUNTED = "usedCouponCode";
+    public static final String VALID_UNIQUE_IDENTIFIER = "Expense@12341234-1234-1234-1234-123412341234";
 
     public static final String DESCRIPTION_DESC_CHICKEN = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHICKEN;
     public static final String DESCRIPTION_DESC_TRANSPORT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TRANSPORT;
