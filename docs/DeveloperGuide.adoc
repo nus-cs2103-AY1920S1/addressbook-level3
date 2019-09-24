@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= +work - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,8 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
-
+By: `T12-1`      Since: `Sep 2019`      Licence: `MIT`
+////
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -273,19 +273,21 @@ Refer to the guide <<Testing#, here>>.
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
-
+////
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* an NUS student
+* managing an NUS project team. 
+* has a significant amount of tasks to manage among team members 
 * can type fast
+* prefers desktop apps over mobile apps 
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage tasks assigned to project mates, finding common time slots and keep track of inventory faster than GUI apps. 
 
 [appendix]
 == User Stories
@@ -297,15 +299,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |project leader |add a project member | asssign tasks to them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |project leader |add tasks |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |project leader |change task status | ger reminder of the progress of each task
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |project leader |sync team members schedules |Find a time slot where the maximum number of people, if not all, can attend
+|`* *` |Project leader with many members and tasks|Find out which group members are working on a particular task |Distribute workload evenly
+|`* *` |Project leader with tasks that require inventory|assign tasks inventory or materials that are needed |Download an inventory report whenever required
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *`|Project leader with frequent meetings|Create a new meeting with recommended time and desired location|View my next meeting in the home page
+
+|`*`|Project leader with a long-term project with ad-hoc members|Change members working on a task|Reassign tasks to incoming members
+
+|`*`|Project leader operating keeping track of purchases|Tag the inventory purchase to the member who bought it|Produce an accurate claims report at the end of the project
+
 |=======================================================================
 
 _{More to be added}_
@@ -314,19 +323,26 @@ _{More to be added}_
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
+////
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a team member
 
-*MSS*
+*Main Success Scenario*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a team member
+2. User specifies the name of the team member
 +
 Use case ends.
 
+[discrete]
+=== Use case: Add a team member
+
+*Main Success Scenario*
+
+1. User requests to add a team member
+2. User specifies the name of the team member
++
+Use case ends.
 *Extensions*
 
 [none]
@@ -342,7 +358,7 @@ Use case ends.
 Use case resumes at step 2.
 
 _{More to be added}_
-
+////
 [appendix]
 == Non Functional Requirements
 
@@ -358,9 +374,17 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[NUSl]] NUS::
+National University of Singapore
 
+[[CLI]] CLI:
+command line interface (bash, git) 
+
+[[GUI]] GUI:
+graphical user interface
+
+
+////
 [appendix]
 == Product Survey
 
@@ -423,3 +447,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+////
