@@ -135,7 +135,7 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
 This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
 An example of how such a model may look like is given below. +
- +
++
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
@@ -687,12 +687,13 @@ Windows, Linux, Unix, OS-X
 Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[[transactions]] Transactions::
+[[transactions]]
+transactions::
 Transactions include all the expenses spent and sales made.
 
-[[inventory]] Inventory::
-Inventory refers to the items that are stored to be sold. It consists of item description and quantity.
-
+[[inventory]]
+inventory::
+Inventory refers to the items that are stored to be sold. It consists of item description and quantity left.
 
 [appendix]
 == Product Survey
@@ -725,7 +726,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts.
+Expected: Shows the GUI with a set of sample contacts.
 The window size may not be optimum.
 
 . Saving window preferences
@@ -734,7 +735,7 @@ The window size may not be optimum.
 Move the window to a different location.
 Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
 
@@ -745,15 +746,15 @@ _{ more test cases ... }_
 .. Prerequisites: List all persons using the `list` command.
 Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
+Expected: First contact is deleted from the list.
 Details of the deleted contact shown in the status message.
 Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted.
+Expected: No person is deleted.
 Error details shown in the status message.
 Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Expected: Similar to previous.
 
 _{ more test cases ... }_
 
@@ -764,3 +765,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
