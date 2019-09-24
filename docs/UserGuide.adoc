@@ -14,13 +14,13 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*.
-More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+treasurerPro (tP) is for those who *prefer to use a desktop app for managing their club expenses*.
+More importantly, tP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, tP can get your expense management tasks done faster than traditional GUI apps.
 Interested?
 Jump to the <<Quick Start>> to get started.
 Enjoy!
@@ -28,7 +28,7 @@ Enjoy!
 == Quick Start
 
 . Ensure you have Java `11` or above installed in your Computer.
-. Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+. Download the latest `treasurerPro.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your Address Book.
 . Double-click the file to start the app.
 The GUI should appear in a few seconds.
