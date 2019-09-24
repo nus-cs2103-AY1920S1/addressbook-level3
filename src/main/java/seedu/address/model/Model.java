@@ -8,11 +8,14 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupId;
+import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
+import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
 
 /**
@@ -133,5 +136,11 @@ public interface Model {
     ArrayList<GroupId> findGroupsOfPerson(PersonId personId);
 
     ArrayList<PersonId> findPersonsOfGroup(GroupId groupId);
+
+    PersonList getPersonList();
+
+    GroupList getGroupList();
+
+    PersonToGroupMappingList getPersonToGroupMappingList();
 
 }

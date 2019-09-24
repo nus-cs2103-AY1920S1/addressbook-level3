@@ -42,7 +42,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, PersonList personList, GroupList groupList,
+                        PersonToGroupMappingList personToGroupMappingList, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -52,13 +53,13 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
-        this.personList = new PersonList();
-        this.groupList = new GroupList();
-        this.personToGroupMappingList = new PersonToGroupMappingList();
+        this.personList = personList;
+        this.groupList = groupList;
+        this.personToGroupMappingList = personToGroupMappingList;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new PersonList(), new GroupList(), new PersonToGroupMappingList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -114,9 +115,6 @@ public class ModelManager implements Model {
         return addressBook.hasPerson(person);
     }
 
-
-
-
     @Override
     public String personListToString() {
         return personList.toString();
@@ -166,6 +164,11 @@ public class ModelManager implements Model {
     }
 
     //=========== Person Accessors =============================================================
+
+    @Override
+    public PersonList getPersonList() {
+        return personList;
+    }
 
     @Override
     public boolean addPerson(Person person) {
@@ -222,6 +225,11 @@ public class ModelManager implements Model {
     //=========== Group Accessors =============================================================
 
     @Override
+    public GroupList getGroupList() {
+        return groupList;
+    }
+
+    @Override
     public boolean addGroup(Group group) {
         boolean isAdded = this.groupList.addGroup(group);
         return isAdded;
@@ -259,6 +267,11 @@ public class ModelManager implements Model {
     }
 
     //=========== Mapping Accessors =============================================================
+
+    @Override
+    public PersonToGroupMappingList getPersonToGroupMappingList() {
+        return personToGroupMappingList;
+    }
 
     @Override
     public boolean addPersonToGroupMapping(PersonToGroupMapping mapping) {

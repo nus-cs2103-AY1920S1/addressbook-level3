@@ -10,6 +10,9 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.group.GroupList;
+import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.person.PersonList;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -74,4 +77,40 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+
+    @Override
+    public void savePersonList(PersonList personList) throws IOException {
+        throw new IOException();
+        //todo
+    }
+
+    @Override
+    public void saveGroupList(GroupList groupList) throws IOException {
+        throw new IOException();
+        //todo
+    }
+
+    @Override
+    public void savePersonToGroupMappingList(PersonToGroupMappingList personToGroupMappingList) throws IOException {
+        throw new IOException();
+        //todo
+    }
+
+    @Override
+    public PersonList getPersonList() {
+        //todo
+        return null;
+    }
+
+    @Override
+    public GroupList getGroupList() {
+        //todo
+        return null;
+    }
+
+    @Override
+    public PersonToGroupMappingList getPersonToGroupMappingList() {
+        //todo
+        return null;
+    }
 }

@@ -21,6 +21,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.group.GroupList;
+import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.person.PersonList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -90,7 +93,30 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        PersonList personList;
+        GroupList groupList;
+        PersonToGroupMappingList personToGroupMappingList;
+        try {
+            personList = storage.getPersonList();
+            groupList = storage.getGroupList();
+            personToGroupMappingList = storage.getPersonToGroupMappingList();
+
+            if (personList == null || groupList == null || personToGroupMappingList == null) {
+                throw new NullPointerException();
+            }
+
+            logger.info("Loading personlist, grouplist and mappinglist");
+
+        } catch (Exception e) {
+            personList = new PersonList();
+            groupList = new GroupList();
+            personToGroupMappingList = new PersonToGroupMappingList();
+
+            logger.severe("Failed to load personlist, grouplist and mappinglist, starting with a new instance");
+
+        }
+
+        return new ModelManager(initialData, personList, groupList, personToGroupMappingList, userPrefs);
     }
 
     private void initLogging(Config config) {
