@@ -358,5 +358,5 @@
     -fx-text-fill: white;
 }
 #suggestions-list .list-cell:empty {
-    -fx-opacity: 0.4;
+    visibility: hidden;
 }
