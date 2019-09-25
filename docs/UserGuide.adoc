@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -91,9 +91,12 @@ Format: `/help`
 
 ==== Add a member: `add member` + 
 Adds a team member to the list of team members +
-Format: `add member [m/MEMBER_NAME]` +
+Format: `add member [m/MEMBER_NAME]` 
+
 Example: 
+
 * `add member m/Gabriel Seow`
+
 * `add member m/Abhinav Ramnath`
 
 ==== List existing members: `list members` +
@@ -102,23 +105,29 @@ Format: `list members`
 
 ==== Remove a member: `remove member` + 
 Removes a team member from the dashboard, and removes the team member from associated tasks + 
-Format: `remove member [mi/MEMBER_ID]` + 
-Example: + 
-* `remove member mi/9` + 
+Format: `remove member [mi/MEMBER_ID]` 
+
+Example: 
+
+* `remove member mi/9` +
 Removes the member with member ID 9 from the dashboard and removes her from associated tasks 
  
 ==== Assign a task to a member: `assign` +
 Assigns a task to the specified team member +
-Format: `assign [ti/TASK_ID] [mi/MEMBER_ID]` +
-Example: +
-* `assign ti/5 m/3` + 
+Format: `assign [ti/TASK_ID] [mi/MEMBER_ID]` 
+
+Example: 
+
+* `assign ti/5 m/3` +
 Assigns the task with ID 5 to the team member 3
 
 ==== Remove a task for a member: `fire` + 
 Removes a task for the specified team member + 
-Format: `fire [ti/TASK_ID] [mi/MEMBER_ID]` +
-Example: +  
-* `fire ti/9 mi/3` + 
+Format: `fire [ti/TASK_ID] [mi/MEMBER_ID]` 
+
+Example: 
+
+* `fire ti/9 mi/3` +
 Removes the task with ID 9 from the team member with ID 3
 
 
@@ -129,33 +138,33 @@ Removes the task with ID 9 from the team member with ID 3
 
 Adds a task into project dashboard
 
-* Format: `add task [t/TASK_NAME]  [m/MEMBER_NAME]`
+Format: `add task [t/TASK_NAME]  [m/MEMBER_NAME]`
 
-* Example: 
+Example: 
 
-`add task t/Finish up milestone setting m/Gabriel Seow`
-	
- A new task will be added to the project dashboard
+* `add task t/Finish up milestone setting m/Gabriel Seow` +
+A new task will be added to the project dashboard
 
 ==== Set a task status to ‘Doing’: `doing`
+
 Updates task status to ‘Doing’
-* Format: doing task [ti/TASK_ID]
 
-* Example:
+Format: `doing task [ti/TASK_ID]`
 
-`doing task ti/3`
+Example:
 
+* `doing task ti/3` +
 Marks the status of task 3 as doing
 
 ==== Set a task status to ‘Done’: done
 
 Updates task status to ‘Done’
 
-*Format: `done task [ti/TASK_ID]`
+Format: `done task [ti/TASK_ID]`
 
-* Example:
+Example:
 
-`done task ti/2`
+* `done task ti/2`
 
 Marks the status of task 2 as done.
 
@@ -174,20 +183,21 @@ Format: `remove task [ti/TASK_ID]`
 
 Example: 
 
-* `remove task 2`
-
+* `remove task 2` +
 Removes the 2nd task in the dashboard
 
 ==== Set deadline for a task: `deadline task`
 	
 Sets deadline for existing tasks on dashboard
+
 Format: `deadline task [ti/TASK_ID] [at/DEADLINE] [at/ dd-mm-yy hh:mm]`
+
 [TIP]		
 Remember to input using 24 hour time format
 
 Example: 
 
-* `deadline task ti/21 at/21-09-19 15:00` +
+* `deadline task ti/21 at/21-09-19 15:00`  +
 Deadline for task 21 will be specified as 21/09/19 1500
 
 
@@ -198,14 +208,23 @@ Deadline for task 21 will be specified as 21/09/19 1500
 Adds a members calendar to the required
 
 ****
+
 Steps 
+
 * User first exports their .ics file from NUSmods
+
 * Then import it into their google calendar
+
 * Add any weekly commitments to their google calendar
+
 * Export .ics file again
+
 * Import all to our application
+
 * generate timings 
+
 * Choose the desired timing for the weekly meetings from the grid displayed
+
 ****
 
 ==== Generate free time across all calendars uploaded: `generate timings`
@@ -262,6 +281,7 @@ Generates a PDF report containing all inventories grouped by tasks for easier sh
 Format: `generate inventory /task`
 
 Examples:
+
 * `generate inventory /task` + 
 File explorer pops up, triggering a message to allow the user to save the pdf file in the computer.
 
@@ -303,6 +323,8 @@ Deletes the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+////
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -325,7 +347,6 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-////
 
 == Command Summary
 
