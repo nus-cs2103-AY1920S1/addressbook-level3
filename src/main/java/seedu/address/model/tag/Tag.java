@@ -1,54 +1,77 @@
 package seedu.address.model.tag;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import java.util.ArrayList;
 
-/**
- * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
- */
 public class Tag {
+    private ArrayList<Flashcard> cardlist;
+    private String name;
+    private Statistics stats;
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-
-    public final String tagName;
-
-    /**
-     * Constructs a {@code Tag}.
-     *
-     * @param tagName A valid tag name.
-     */
-    public Tag(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+    public Tag(String _name) {
+        this.name = _name;
+        stats = new Statistics();
+        cardList = new ArrayList<>();
     }
 
-    /**
-     * Returns true if a given string is a valid tag name.
-     */
-    public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public ArrayList<Flashcard> getFlashcards() {
+        ArrayList<Flashcard> resultList = new ArrayList<>();
+        resultList.addAll(cardlist);
+        return resultList;
+    }
+
+    public void deleteFlashcard(ID id) {
+        ArrayList<Flashcard> newList = new ArrayList<>();
+        newList.addAll(cardlist);
+        for (Flashcard item: newList) {
+            if (item.getId() == id.getId()) { // there are two different getId() and ID stored as int
+                newList.remove(item);
+            }
+        }
+        this.cardlist = newList;
+    }
+
+    public void addFlashcard(Flashcard c) {
+        ArrayList<Flashcard> newList = new ArrayList<>();
+        newList.addAll(cardlist);
+        newList.add(c);
+        this.cardlist = newList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName) {
+        this.name = newName;
+    }
+
+    public Statistics getStatistics() {
+        return stats;
+    }
+
+    public boolean contains(Flashcard c) {
+        boolean isContain = false;
+        for (Flashcard item: cardlist) {
+            if (item.equals(c)) {
+                isContain = true;
+            }
+        }
+        return isContain;
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName)); // state check
-    }
+        if (other == this) {
+            return true;
+        }
 
-    @Override
-    public int hashCode() {
-        return tagName.hashCode();
-    }
+        if (!(other instanceof Tag)) {
+            return false;
+        }
 
-    /**
-     * Format state as text for viewing.
-     */
-    public String toString() {
-        return '[' + tagName + ']';
+        Tag otherTag = (Tag) other;
+        return otherTag.getName().equals(getName())
+                && otherTag.getFlashCards().equals(getFlashcards());
     }
 
 }
