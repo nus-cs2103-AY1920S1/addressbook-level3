@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.utils;
 
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
 

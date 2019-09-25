@@ -1,7 +1,5 @@
 package seedu.address.commons.util;
 
-import java.util.function.Supplier;
-
 import static java.util.Objects.requireNonNull;
 
 import javafx.scene.image.Image;
