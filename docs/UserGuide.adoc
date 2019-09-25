@@ -92,10 +92,13 @@ Format: `add -o p/PHONE_NUMBER i/ITEM...`
 Returns all the information pertaining to the order. +
 Format: `find -o INDEX`
 
-==== Update an order : `update -o`
-Updates the order status.  +
-Format: `update -o INDEX` +
-Possible status: `UNSCHEDULED` , `SCHEDULED` , `COMPLETED`
+==== Complete an order : `complete -o`
+Completes the order, order status changed to `COMPLETED`. +
+Format: `complete -o INDEX`
+
+==== Schedule an order : `schedule -o`
+Schedule the order for meet up.  +
+Format: `schedule -o INDEX DD/MM/YY HHMM`
 
 ==== Cancel an order : `cancel -o`
 Cancels the order at the specified index. +
@@ -124,7 +127,7 @@ A person can have any number of tags, including 0.
 
 ==== Delete a customer : `delete -c`
 Deletes a customer in the address book. +
-Format: `delete -c INDEX
+Format: `delete -c INDEX`
 
 ==== Find a customer : `find -c`
 Finds customers whose names contain any of the given keywords. +
@@ -179,7 +182,7 @@ Format: `exit`
 Import csv file into the application. +
 Export application data into csv file. +
 Export application stats. +
-Format: `import <flag>` / `export <flag>` +
+Format: `import <flag> <file name>` / `export <flag> <file name>` +
 Possible flag: `-p` for phone, `-c` for customer, `-o` for order.
 
 === Saving the data
@@ -195,7 +198,7 @@ Press kbd:[Tab] to autocomplete the line. (like in command line)
 === Notification for reminders/alerts  `[coming in v2.0]`
 Notification page to show any notifications of reminders or alerts.
 
-=== Export data to PDF/Excel  `[coming in v2.0]`
+=== Export data to PDF  `[coming in v2.0]`
 Export any of the data in SML to PDF format.
 
 == FAQ
@@ -215,6 +218,9 @@ Export any of the data in SML to PDF format.
 ** stock : `check -p <threshold>`
 
 * *Clear* : `clear`
+
+* *Complete* +
+** order : `complete -o INDEX`
 
 * *Copy* +
 ** customer : `copy -c <field>`
@@ -256,9 +262,11 @@ Export any of the data in SML to PDF format.
 
 * *Redo* : `redo`
 
+* *Schedule* +
+** order : `schedule -o INDEX DD/MM/YY HHMM`
+
 * *Undo* : `undo`
 
 * *Update* +
 ** customer : `update -c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 ** phone : `update -p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
-** order : `update -o INDEX`
