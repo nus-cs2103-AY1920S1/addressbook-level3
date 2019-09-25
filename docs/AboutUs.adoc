@@ -4,14 +4,13 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+AlgoBase was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== Prof. Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
@@ -19,38 +18,47 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Lu Wenqi
+image::luwenq.png[width="150", align="left"]
+{empty}[http://github.com/LuWenQ[github]] [<<luwenq#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Integration + Testing
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== She Jiayu
+image::jiayushe.png[width="150", align="left"]
+{empty}[http://github.com/jiayushe[github]] [<<jiayushe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Code Quality
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Tan Yuanhong
+image::le0tan.png[width="150", align="left"]
+{empty}[http://github.com/le0tan[github]] [<<le0tan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Scheduling and Tracking + In charge of Models
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tiu Wee Han
+image::tiuweehan.png[width="150", align="left"]
+{empty}[http://github.com/tiuweehan[github]] [<<tiuweehan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Deliverables and Deadlines + In charge of UI
+
+'''
+
+=== Yu Chenghui
+image::seris370.png[width="150", align="left"]
+{empty}[http://github.com/Seris370[github]] [<<seris370#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Documentation + In charge of Logic
 
 '''
