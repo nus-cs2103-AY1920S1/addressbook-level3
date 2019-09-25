@@ -106,7 +106,6 @@ Returns `factorial` and `Factorialize`
 * `find factorial permutations` +
 Returns any problem having names `factorial`, or `permutations`
 
-// tag::delete[]
 ==== Deleting a problem : `delete`
 
 Deletes an existing problem. +
@@ -242,13 +241,7 @@ Examples:
 
 === Encryption
 
-// tag::dataencryption[]  
 ==== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-// end::delete[]
 
 === Miscellaneous
 
