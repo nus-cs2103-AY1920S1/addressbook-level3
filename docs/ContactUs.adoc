@@ -8,5 +8,5 @@
 ** Andy Lam `andy.lam@u.nus.edu.sg`
 ** Chow Yi Wai `yiwai.chow@u.nus.edu`
 ** Liu Ze Chu `zechu.liu@u.nus.edu`
-** Lim Zi Wei ``
+** Lim Zi Wei `zwlim@u.nus.edu`
 ** Ong Yan Chun `yanchun@u.nus.edu`
