@@ -87,6 +87,9 @@ public class EditPersonDescriptorBuilder {
         return descriptor;
     }
 
+    /**
+     * Sets the {@code Remark} of the {@code EditPersonDescriptor} that we are building.
+     */
     public EditPersonDescriptorBuilder withRemark(String remark) {
         descriptor.setRemark(new Remark(remark));
         return this;
