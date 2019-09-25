@@ -44,6 +44,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+****
 *Command Format*
 
 * The command begins with the type of command to be executed
@@ -65,6 +66,7 @@ Example: If the command specifies `[t/TASK_NAME] [m/MEMBER_NAME]`,
 `[m/MEMBER_NAME] [t/TASK_NAME]` is also acceptable`
 
 * Date and Time is specified in the format dd-mm-yyyy hh:mm
+****
 ====
 
 === Universal Commands
@@ -185,76 +187,120 @@ Marks the status of task 2 as done.
 	
 List all the tasks on the dashboard
 	
-* Format: 'list tasks'
+Format: 'list tasks'
 
  
 ==== Remove a task: remove task
 
 Removes a task from the dashboard 
 
-* Format: `remove task [ti/TASK_ID]`
+Format: `remove task [ti/TASK_ID]`
 
-* Example: 
+Example: 
 
-`remove task 2`
+* `remove task 2`
 
 Removes the 2nd task in the dashboard
 
 ==== Set deadline for a task: `deadline task`
 	
 Sets deadline for existing tasks on dashboard
-* Format: `deadline task [ti/TASK_ID] [at/DEADLINE] [at/ dd-mm-yy hh:mm]`
+Format: `deadline task [ti/TASK_ID] [at/DEADLINE] [at/ dd-mm-yy hh:mm]`
 [TIP]		
 Remember to input using 24 hour time format
 
-* Example: 
+Example: 
 
-`deadline task ti/21 at/21-09-19 15:00`
-
+* `deadline task ti/21 at/21-09-19 15:00` +
 Deadline for task 21 will be specified as 21/09/19 1500
 
 
-=== Editing a person : `edit`
+=== Calendar Commands
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== Add a member’s calendar: `add calendar`
+
+Adds a members calendar to the required
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+Steps 
+* User first exports their .ics file from NUSmods
+* Then import it into their google calendar
+* Add any weekly commitments to their google calendar
+* Export .ics file again
+* Import all to our application
+* generate timings 
+* Choose the desired timing for the weekly meetings from the grid displayed
 ****
+
+==== Generate free time across all calendars uploaded: `generate timings`
+
+Format: `generate timings`
+
+Example:
+
+* `generate timings` +
+Generates a grid showing the number of people who can make it for a particular time slot during the week (mock-up needed)
+
+==== Add a meeting: `add meeting` 
+
+Format: `Add meeting [at/ dd-mm-yyyy hh:mm]  [l/LOCATION]`
+
+to add a new meeting
+
+Example: 
+
+* `add meeting at/10-10-2018 19:00 l/COM2-0204` +
+User chooses the meeting time from the grid displayed from generate timings commands (3.4.2) . A meeting is added to the internal calendar of the application, which will be displayed on the dashboard.
+
+=== Inventory Commands
+
+==== Adding an inventory: `add inventory`
+
+Adds an inventory item bought or required for a specific project task.
+
+Format: `add inventory [ti/TASK_ID] [i/ITEM_NAME] [mi/MEMBER_ID] [p/PRICE(optional)]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `add inventory ti/2 i/Mahjong Paper mi/3 p/8.50` + 
+Adds the item “Mahjong paper” for $8.50 to the inventory list. This item is tagged to task 2 and was paid for by member 3.
 
-=== Locating persons by name: `find`
+* `add inventory ti/4 i/scissors mi/1` +
+Adds the item “scissors” to the inventory list. The item is tagged to task 4 and is provided by member 1 for no cost.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Deleting an inventory: `delete inventory`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Deletes an inventory item.
+
+Format: `delete inventory [ii/ITEM_ID]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `delete inventory ii/3` + 
+Deletes the third item from the inventory list
 
-// tag::delete[]
+==== Generating a report of inventory by task: `generate inventory /task`
+
+Generates a PDF report containing all inventories grouped by tasks for easier sharing.
+
+Format: `generate inventory /task`
+
+Examples:
+* `generate inventory /task` + 
+File explorer pops up, triggering a message to allow the user to save the pdf file in the computer.
+
+==== Generating a report of inventory by people: `generate inventory /person`
+
+Generates a PDF report containing all inventories grouped by members for easier understanding of claims.
+
+Format: `generate inventory /person`
+
+Examples:
+
+* `generate inventory /person` + 
+File explorer pops up, triggering a message to allow the user to save the pdf file in the computer.
+
+////
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -297,21 +343,54 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+////
+
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Project dashboard*: `/home`
+
+* *Time management page*: `/calendar`
+
+* *Inventory management page*: `/inventory`
+
+* *Help*: `/help`
+
+* *Add member*: `add member [m/MEMBER_NAME]`
+
+* *List members*: `list members`
+
+* *Remove member*: `remove member [m/MEMBER_NAME]`
+
+* *Add task to member*: `assign [ti/TASK_ID] [mi/MEMBER_ID]`
+
+* *Remove task from member*: `fire [ti/TASK_ID] [mi/MEMBER_ID]`
+
+* *Add task*: `add task [t/TASK_NAME]  [m/MEMBER_NAME]`
+
+* *Doing task*: `doing task [ti/TASK_ID]`
+
+* *Done task*: `done task [ti/TASK_ID]`
+
+* *List tasks*: `list tasks`
+
+* *Remove task*: `remove task [ti/TASK_ID]`
+
+* *Deadline*:  `deadline task [ti/TASK_ID] [at/ dd-mm-yy hh:mm]`
+
+* *Generate timings*: `generate timings`
+
+* *add meeting*: `add meeting [at/ dd-mm-yyyy hh:mm - hh:mm]  [l/LOCATION]`
+
+* *Adding an inventory*: `add inventory`
+
+* *Deleting an inventory*: `delete inventory`
+
+* *Generating report of inventory by task*: `generate inventory /task`
+
+* *Generating report of inventory by person*: `generate inventory /person`
