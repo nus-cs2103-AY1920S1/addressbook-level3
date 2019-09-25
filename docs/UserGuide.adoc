@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`add member`**`Abhinav Ramnath` : Adds member m/Abhinav Ramnath
+* **`add task`**`t/Finish up milestone setting mi/1` : adds a task called 'Finish up milestone' and and assigns it to the first member, Gabriel Seow.
+* **`assign`**`ti/5 m/3` : assigns the 3rd member, Seah Lynn, to the 5th task
+* **`doing task`**`ti/3` : changes status of task 3 from 'to be done'to 'doing'
 
 .  Refer to <<Features>> for details of each command.
 
@@ -360,6 +360,18 @@ _{explain how the user can enable/disable data encryption}_
 
 *Q*: Can I use file formats other than ics for the calendar feature? +
 *A*: No, the file format has to be in ics folder, downloaded either from NUSmods or Google Calendar.
+
+*Q*: Can i export the claims report as a word document? +
+*A*: No, the application only supports pdf.
+
+*Q*: What if the calendar cannot find a timing where everyone is free? +
+*A*: There will be a grid showing the number of available members by time, so it will be easier for the user to choose the best possible time for the meeting.
+
+*Q*: My project has a budget, does the application help me keep track of the projects financial status? +
+*A*: Using /inventory the application can keep track of current expenses for each task and the member who purchased it, however, there are currently no accounting services available.
+
+*Q*: Some of the tasks for my project require sub tasks to be completed, is there a way to add them? +
+*A*: Ideally since the user is the project leader, they should only see the main tasks to be accomplished for the project. This would help facilitate their managerial role within the project. Hence, the application does not support subtasks.
 
 
 == Command Summary
