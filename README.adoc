@@ -1,10 +1,5 @@
-= Address Book (Level 3)
+= Keyboard Flashcard (KFC)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
-
-image:https://travis-ci.org/AY1920S1-CS2103T-T12-4/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-T12-4/main"]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,15 +9,13 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* This is a desktop Flashcard management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is developed mainly to assist students in learning and preparing for examinations.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
