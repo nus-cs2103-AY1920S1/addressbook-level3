@@ -21,8 +21,9 @@ public class ContainsKeywordsPredicate implements Predicate<Person> {
         return keywords.stream()
                 .anyMatch(keyword ->
                     StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)
-                    || StringUtil.containsIgnoreCase(person.getReferenceId().getReferenceIdentifier(), keyword)
-                    || StringUtil.containsIgnoreCase(person.getPhone().toString(), keyword));
+                    || (keyword.length() >= 3
+                            && StringUtil.containsIgnoreCase(person.getReferenceId().getReferenceIdentifier(), keyword))
+                    || (keyword.length() >= 4 && StringUtil.containsIgnoreCase(person.getPhone().toString(), keyword)));
     }
 
     @Override
