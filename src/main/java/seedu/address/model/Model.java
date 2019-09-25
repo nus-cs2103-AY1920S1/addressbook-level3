@@ -29,6 +29,8 @@ public interface Model {
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    //=========== UserPrefs ==================================================================================
+
     /**
      * Returns the user prefs.
      */
@@ -59,6 +61,8 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
+    //=========== AddressBook ================================================================================
+
     /**
      * Returns the AddressBook
      */
@@ -69,28 +73,7 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-    boolean deletePerson(PersonId personId);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    boolean addPerson(PersonDescriptor personDescriptor);
-
-    String personListToString();
-
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
+    //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the filtered person list
@@ -104,42 +87,134 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    boolean addGroup(GroupDescriptor groupDescriptor);
+    //=========== Person Accessors =============================================================
 
-    String list();
-
-    boolean addEvent(Name name, Event event);
-
-    boolean addPersonToGroupMapping(PersonToGroupMapping mapping);
-
-    Person findPerson(Name name);
-
-    Person findPerson(PersonId personId);
-
-    Group findGroup(GroupName groupName);
-
-    Group findGroup(GroupId groupId);
-
-    PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId);
-
-    boolean deletePersonToGroupMapping(PersonToGroupMapping mapping);
-
-    void deletePersonFromMapping(PersonId personId);
-
-    void deleteGroupFromMapping(GroupId groupId);
-
-    boolean deleteGroup(GroupId groupId);
-
-    ArrayList<GroupId> findGroupsOfPerson(PersonId personId);
-
-    ArrayList<PersonId> findPersonsOfGroup(GroupId groupId);
-
+    /**
+     * Returns the list of Persons.
+     */
     PersonList getPersonList();
 
+    /**
+     * Adds a person with personDescriptor to the list of Persons.
+     */
+    boolean addPerson(PersonDescriptor personDescriptor);
+
+    /**
+     * Finds a person with a given Name.
+     */
+    Person findPerson(Name name);
+
+    /**
+     * Finds a person with a given PersonId.
+     */
+    Person findPerson(PersonId personId);
+
+    /**
+     * Adds an Event to the schedule of a Person with the given Name.
+     */
+    boolean addEvent(Name name, Event event);
+
+    /**
+     * Edits the person with given Name with given PersonDescriptor.
+     */
+    Person editPerson(Name name, PersonDescriptor personDescriptor);
+
+    /**
+     * Deletes a person with given PersonId.
+     */
+    boolean deletePerson(PersonId personId);
+
+    /**
+     * Returns the list of GroupIds which person with PersonId is in.
+     */
+    ArrayList<GroupId> findGroupsOfPerson(PersonId personId);
+
+    //=========== Group Accessors =============================================================
+
+    /**
+     * Returns the list of Groups.
+     */
     GroupList getGroupList();
 
+    /**
+     * Adds a Group with groupDescriptor into the list of Groups.
+     */
+    boolean addGroup(GroupDescriptor groupDescriptor);
+
+    /**
+     * Finds a Group with given GroupName.
+     */
+    Group findGroup(GroupName groupName);
+
+    /**
+     * Finds a Group with given GroupId.
+     */
+    Group findGroup(GroupId groupId);
+
+    /**
+     * Deletes a Group with given GroupId.
+     */
+    boolean deleteGroup(GroupId groupId);
+
+    /**
+     * Returns a list of PersonId that is in a Group with given GroupId.
+     */
+    ArrayList<PersonId> findPersonsOfGroup(GroupId groupId);
+
+    //=========== Mapping Accessors =============================================================
+
+    /**
+     * Returns the list of PersonToGroupMappings.
+     */
     PersonToGroupMappingList getPersonToGroupMappingList();
 
-    Person editPerson(Name name, PersonDescriptor personDescriptor);
+    /**
+     * Adds a person to group mapping to the list of mappings.
+     */
+    boolean addPersonToGroupMapping(PersonToGroupMapping mapping);
+
+    /**
+     * Returns a mapping with given PersonId and GroupId.
+     */
+    PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId);
+
+    /**
+     * Deletes a mapping with given PersonId and GroupId.
+     */
+    boolean deletePersonToGroupMapping(PersonToGroupMapping mapping);
+
+    /**
+     * Deletes all mappings with PersonId.
+     */
+    void deletePersonFromMapping(PersonId personId);
+
+    /**
+     * Deletes all mappings with GroupId.
+     */
+    void deleteGroupFromMapping(GroupId groupId);
+
+    //=========== Others =============================================================
+
+    /**
+     * Returns a summary of all Persons, Groups, and Mappings.
+     */
+    String list();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

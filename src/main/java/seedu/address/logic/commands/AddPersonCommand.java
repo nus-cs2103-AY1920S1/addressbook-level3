@@ -40,9 +40,8 @@ public class AddPersonCommand extends Command {
         if(model.findPerson(name) != null){
             return new CommandResult(MESSAGE_FAILURE + MESSAGE_DUPLICATE_PERSON);
         } else {
-            Person person = new Person(personDescriptor);
-            if(model.addPerson(person)){
-                return new CommandResult(MESSAGE_SUCCESS + " " + person.details());
+            if(model.addPerson(personDescriptor)){
+                return new CommandResult(MESSAGE_SUCCESS + " " + personDescriptor.getName().toString());
             } else {
                 return new CommandResult(MESSAGE_FAILURE + MESSAGE_DUPLICATE_PERSON);
             }

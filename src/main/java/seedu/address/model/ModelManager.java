@@ -68,6 +68,25 @@ public class ModelManager implements Model {
         this(new AddressBook(), new PersonList(), new GroupList(), new PersonToGroupMappingList(), new UserPrefs());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return addressBook.equals(other.addressBook)
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons);
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -115,13 +134,6 @@ public class ModelManager implements Model {
         this.addressBook.resetData(addressBook);
     }
 
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -139,24 +151,6 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
-    }
 
     //=========== Person Accessors =============================================================
 
@@ -208,11 +202,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
     public boolean deletePerson(PersonId personId) {
         deletePersonFromMapping(personId);
         return personList.deletePerson(personId);
@@ -221,11 +210,6 @@ public class ModelManager implements Model {
     @Override
     public ArrayList<GroupId> findGroupsOfPerson(PersonId personId) {
         return personToGroupMappingList.findGroupsOfPerson(personId);
-    }
-
-    @Override
-    public String personListToString() {
-        return personList.toString();
     }
 
     //=========== Group Accessors =============================================================
