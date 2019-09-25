@@ -16,7 +16,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]]
 
-Role: The Myth
+Role: Lecturer
 
 '''
 
@@ -24,12 +24,12 @@ Role: The Myth
 image::kthSim.png[width="150", align="left"]
 {empty}[https://github.com/kthSim[github]]
 
-Role: Avenger
+Role: Teaching Assistant
 
 '''
 
 === Oliver Cheok
-image::lejolly.jpg[width="150", align="left"]
+image::olivercheok20.png[width="150", align="left"]
 {empty}[http://github.com/olivercheok20[github]] [<<OliverCheok#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Search function
 '''
 
 === Chow Yi Yin
-image::lejolly.jpg[width="150", align="left"]
+image::chowyiyin.png[width="150", align="left"]
 {empty}[http://github.com/chowyiyin[github]] [<<ChowYiYin#, portfolio>>]
 
 Role: Developer +
@@ -47,8 +47,8 @@ Responsibilities: Input Validation
 '''
 
 === Chen Yuan Bo
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/ybchen97[github]] [<<ChenYuanBo#, portfolio>>]
+image::ybchen97.png[width="150", align="left"]
+{empty}[https://ybchen97.github.io/[homepage]][http://github.com/ybchen97[github]] [<<ChenYuanBo#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Recycling Bin
@@ -56,8 +56,8 @@ Responsibilities: Recycling Bin
 '''
 
 === Chaitanya Baranwal
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/chaitanyabaranwal[github]] [<<ChaitanyaBaranwal#, portfolio>>]
+image::chaitanyabaranwal.png[width="150", align="left"]
+{empty}[http://chaitanyabaranwal.netlify.com[homepage]][github] [<<ChaitanyaBaranwal#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Undo/Redo

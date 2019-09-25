@@ -321,6 +321,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user who prefers typing over using a mouse |interact with all aspects of GUI using commands only |
 
+|`* * *` |insurance agent | view the key KPIs of my address book | track my performance
+
 |`* *` |user with not a strong memory |view all commands as a dropdown list |
 
 |`* *` |insurance agent prone to making mistakes during manual entry |I want to be sure that the details of buyers are valid without having to manually check every record |
@@ -349,6 +351,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
+|`* *` |insurance agent who prefers visualisation | view key performance indicators as diagrams |
+
 |`*` |insurance agent with many clients |configure automatic greeting emails to policyholders |so I can maintain a good relationship with clients without manually sending individual emails
 
 |`*` |user with personal preferences |configure the CLI |so I can speed up my workflow
@@ -366,6 +370,73 @@ _{More to be added}_
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+[discrete]
+=== Use case: Add person
+Guarantees: +
+
+1. Person is added even if input fields might be invalid (see 1a).
+
+*MSS*
+
+1.  User requests to add a person.
+2.  AddressBook adds the person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Either of the given NRIC, contact number, or email address is invalid.
++
+[none]
+** 1a1. AddressBook adds the person into address book.
+** 1a1. AddressBook shows a warning.
+
+* 1b. Duplicate profile is added.
++
+[none]
+** 1a1. AddressBook shows an error message and will attempt to merge the profile.
++
+
+
+[discrete]
+=== Use case: Edit person
+Guarantees: +
+
+1. Person is editted even if input fields might be invalid (see 3a).
+
+*MSS*
+
+1.  User requests to find a person
+2.  AddressBook shows details of the person
+3.  User requests to edit that specific person.
+4.  AddressBook edits the person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Person is not found
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+* 3a. Either of the given NRIC, contact number, or email address is invalid.
++
+[none]
+** 3a1. AddressBook adds the person into address book.
+** 3a2. AddressBook shows a warning.
++
+
+* *a. At any time, User requests to cancel the edit.
++
+[none]
+** *a1. Address books requests to confirm the cancellation.
+** *a1. User confirms the cancellation.
+Use case ends.
 
 [discrete]
 === Use case: Delete contact
@@ -488,6 +559,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should display visual representations as long as Excel is installed.
 
 _{More to be added}_
 
