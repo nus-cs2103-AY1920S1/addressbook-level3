@@ -1,7 +1,0 @@
-{
-    "moduleCode": "SG5229",
-    "description": "Software evolution refers to the study and management of the process of making changes to software over time. Therefore, it comprises maintenance, enhancement and re-engineering activities.\n\nOver several decades, studies have shown that 75% of software personnel spend their time on activities involving software evolution, which comprise 50% of IT costs. Hence, these activities constitute a significant proportion of work performed by most software professionals during their careers.\n\nThe aim of this course is to teach a systematic approach to software maintenance and evolution. The course will not only discuss the engineering aspects, but also the applicable management practices.",
-    "title": "Software Maintenance and Evolution",
-    "faculty": "Institute of Systems Science",
-    "moduleCredit": "3"
-}

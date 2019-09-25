@@ -1,0 +1,12 @@
+{
+    "description": "",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "OT5305"
+    ],
+    "moduleCode": "ME3233",
+    "moduleCredit": "4",
+    "preclusion": "ME3231",
+    "prereqTree": "ME2134",
+    "title": "Unsteady Flow in Fluid Systems"
+}

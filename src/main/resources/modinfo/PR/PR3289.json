@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "urop": true
+    },
+    "description": "Please see section 4.4.3. Target students: Pharmacy Year Three and Science",
+    "faculty": "Science",
+    "moduleCode": "PR3289",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "PR2288",
+            "PR2289"
+        ]
+    },
+    "title": "Advanced UROPS in Pharmacy II"
+}

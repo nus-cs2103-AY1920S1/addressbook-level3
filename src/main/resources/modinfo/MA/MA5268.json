@@ -1,0 +1,14 @@
+{
+    "description": "This module provides a comprehensive introduction to the basic theory and algorithms for nonlinear optimization problems with polyhedral and non-polyhedral constraints. Major topics to be covered include: smooth optimization, constraint qualifications, second order necessary and sufficient conditions, composite nonsmooth optimization, first and second order methods for large scale problems.",
+    "faculty": "Science",
+    "moduleCode": "MA5268",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MA3252",
+            "BDC6111",
+            "IE6001"
+        ]
+    },
+    "title": "Theory and algorithms for nonlinear optimization"
+}

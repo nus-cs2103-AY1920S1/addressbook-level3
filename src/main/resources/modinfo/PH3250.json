@@ -1,8 +1,0 @@
-{
-    "moduleCode": "PH3250",
-    "description": "According to classical logic all names refer to existing\nthings, and it\u2019s a tautology that something exists.\nMoreover, the simplest combination of propositional\nmodal logic with classical predicate logic is constant\ndomain modal logic, according to which everything\nwhich in fact exists necessarily exists. This course\ninvestigates free logics, which relax the assumptions of\nclassical predicate logic, and variable domain modal\nlogics, which allow different things to exist in different\npossibilities. Finally, it covers quantification in\nintuitionist, many-valued and relevant logics.",
-    "title": "Quantification and Modality",
-    "faculty": "Arts and Social Science",
-    "moduleCredit": "4",
-    "prereqTree": "PH2112"
-}

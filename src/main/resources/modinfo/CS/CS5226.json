@@ -1,0 +1,8 @@
+{
+    "description": "This module is concerned with the performance related database administration issues. The topics include: an overview of query optimisation techniques, physical data base design, system configuration, buffer management, performance analysis and tuning techniques.",
+    "faculty": "Computing",
+    "moduleCode": "CS5226",
+    "moduleCredit": "4",
+    "prereqTree": "CS3223",
+    "title": "Database Tuning"
+}

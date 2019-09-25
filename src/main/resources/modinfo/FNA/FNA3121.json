@@ -1,0 +1,11 @@
+{
+    "description": "This module provides the knowledge and understanding of the audit process required by assurance and attestation engagements. It aims to ensure students acquire the necessary attitude, skills, and knowledge for a career in auditing in the accounting profession or in business management.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC3613",
+        "ACC4615"
+    ],
+    "moduleCode": "FNA3121",
+    "moduleCredit": "4",
+    "title": "Assurance and Attestation"
+}

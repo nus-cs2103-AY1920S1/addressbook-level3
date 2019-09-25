@@ -1,8 +1,0 @@
-{
-    "moduleCode": "LSM3264",
-    "description": "The module introduces various approaches based on current knowledge of biochemistry and molecular and cell biology to deal with various environmental issues in an urban city like Singapore. The major environmental issues\nsuch as global warming, air and water pollution, and energy crisis, need our immediate attention. Major topics include biomass, bioremediation, microbial metabolism for reduction of carbon dioxide, recovery of precious metals\nfrom electronic wastes, algae for biofuel production, waste water treatment and CO2 emissions, monitoring and treatment of water.",
-    "title": "Environmental Biochemistry",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "LSM1106"
-}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "In architectural practice, computation has grown in importance and is fundamentally changing the nature of the design process itself. Performance Based Design is a computational design approach in which design options are iteratively explored based on feedback from performance simulations. This module will introduce the overall design approach and will teach both theoretical and practical aspects of building performance simulation. Simulations will include shadowcasting, daylighting, and solar radiation.",
+    "faculty": "Design and Environment",
+    "moduleCode": "AR2522",
+    "moduleCredit": "2",
+    "title": "Computational Thinking: Performance Based Design"
+}

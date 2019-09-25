@@ -1,0 +1,9 @@
+{
+    "description": "Topics in Economics",
+    "faculty": "Arts and Social Science",
+    "moduleCode": "EC5880R",
+    "moduleCredit": "5",
+    "preclusion": "EC5220",
+    "prereqTree": "EC4101",
+    "title": "Topics in Economics"
+}

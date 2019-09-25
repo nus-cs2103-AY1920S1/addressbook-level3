@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "description": "This module will cover the practical design of different types of floating structures, including semi-submersibles, FPSOs, spar platforms and tension-leg platforms. Design criteria in relation to design codes will also be covered.",
+    "faculty": "Engineering",
+    "moduleCode": "OT5203B",
+    "moduleCredit": "2",
+    "title": "Design of Floating Offshore Structures"
+}

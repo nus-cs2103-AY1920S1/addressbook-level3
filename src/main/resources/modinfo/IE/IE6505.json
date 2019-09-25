@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "description": "This module aims to provide the first-year PhD students with a rigorous introduction to the fundamentals of stochastic processes. Topics include (i) Continuous-time Markov chains, (ii) Renewal processes, (iii) Brownian motions, and (iv) Stochastic orders",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BDC6303",
+        "IE6507"
+    ],
+    "moduleCode": "IE6505",
+    "moduleCredit": "4",
+    "preclusion": "BDC6306 Stochastic Processes II",
+    "prereqTree": {
+        "or": [
+            "BDC6112",
+            "IE6004"
+        ]
+    },
+    "title": "Stochastic Processes II"
+}

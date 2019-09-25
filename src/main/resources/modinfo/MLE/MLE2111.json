@@ -1,0 +1,10 @@
+{
+    "description": "Laboratory class in which students will conduct hands on experiments to probe the mechanical (e.g. hardness, strength, etc), chemical (e.g. corrosion) and electrical (e.g. semiconducting, superconducting) properties of polymers, ceramics, metals and composites.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE3111"
+    ],
+    "moduleCode": "MLE2111",
+    "moduleCredit": "3",
+    "title": "Materials Properties Laboratory"
+}

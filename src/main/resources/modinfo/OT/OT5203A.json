@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "description": "This module is concerned with the hydrostatics and hydrodynamics of floating structures, which include semisubmersibles, FPSOs, spar platforms and tension-leg platforms. Stability analysis, wave loads and dynamic analysis of floating structures will be covered.",
+    "faculty": "Engineering",
+    "moduleCode": "OT5203A",
+    "moduleCredit": "2",
+    "title": "Analysis of Floating Offshore Structures"
+}

@@ -1,0 +1,13 @@
+{
+    "description": "This module is targeted at computer science graduate students and covers the major aspects of building streaming media applications -- from coding to transmission to playback. Issues such as transport protocols, control protocols, caching, buffering, synchronisation and adaptations will be examined.",
+    "faculty": "Computing",
+    "moduleCode": "CS5248",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "CS2106",
+            "CS4226"
+        ]
+    },
+    "title": "Systems Support for Continuous Media"
+}

@@ -1,0 +1,18 @@
+{
+    "description": "This is an introductory course on the formal theory of computable functions. In particular, we will describe the notion of computability and answer the question whether every function from N (the set of natural numbers) to N is computable. Major topics: Turing machines. Partial recursive functions. Recursive sets. Recursively enumerable sets. Unsolvable problems.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4207"
+    ],
+    "moduleCode": "MA3219",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MA1100",
+            "MA1100S",
+            "CS1231",
+            "CS1231S"
+        ]
+    },
+    "title": "Computability Theory"
+}

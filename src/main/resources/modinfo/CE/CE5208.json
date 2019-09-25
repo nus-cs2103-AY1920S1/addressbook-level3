@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "description": "Urban smart cities consist of highly integrative multimodal transportation infrastructural assets that require condition monitoring, performance prediction, selection of treatment alternatives to ensure that the overall systemic transport infrastructures are performing to standards, reliable and resilient. This module aims to equip students with the engineering skills required for managing urban streets/highway and urban rail transport infrastructural assets.",
+    "faculty": "Engineering",
+    "moduleCode": "CE5208",
+    "moduleCredit": "4",
+    "prereqTree": "CE3121",
+    "title": "Transport Infrastructure Asset Management"
+}

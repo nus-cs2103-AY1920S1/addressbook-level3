@@ -1,8 +1,0 @@
-{
-    "moduleCode": "ST5221",
-    "description": "This module aims to provide graduate students in the PhD Biostatistics program a solid background and a good understanding of basic results and methods in probability theory and stochastic models. These skills are relevant for\nthem to take advanced modules in biostatistics, and to apply state-of-the-art Biostatistics research methodologies.",
-    "title": "Probability and Stochastic Processes",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "ST2131"
-}

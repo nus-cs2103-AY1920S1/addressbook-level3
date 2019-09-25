@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "A practical course for a clear understanding of rhythmic subdivisions and groupings. These concepts are the foundation for a thorough understanding of how rhythm works in composed music, improvised music and interactive musical performance. The devices learned include a system of rhythmic counting based on South Indian Konnakkol. Score examples will be studied in order to show students how the learned skills are applied in polyrhythm and score memorization.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2210"
+    ],
+    "moduleCode": "MUA2205",
+    "moduleCredit": "2",
+    "preclusion": "Only open to students at Yong Siew Toh Conservatory",
+    "title": "Rhythmic Devices in Performance 1"
+}

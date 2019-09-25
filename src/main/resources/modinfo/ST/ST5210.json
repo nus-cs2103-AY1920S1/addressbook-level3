@@ -1,0 +1,8 @@
+{
+    "description": "Dimension reduction, cluster analysis, classification, multivariate, dependencies and multivariate statistical model assessment with emphasis on non-normal theory, computer intensive data-dependent methods. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "moduleCode": "ST5210",
+    "moduleCredit": "4",
+    "prereqTree": "ST3240",
+    "title": "Multivariate Data Analysis"
+}

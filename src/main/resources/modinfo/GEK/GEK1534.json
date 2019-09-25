@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "The primary aim of the module is to introduce students to the nature of infectious diseases and their impact on human activities. At the end of the module, students will be able to understand the interactions between microorganisms and human, and the position and role of human in the living world.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "moduleCode": "GEK1534",
+    "moduleCredit": "4",
+    "preclusion": "GEH1043",
+    "title": "Microbes which Changed Human History"
+}

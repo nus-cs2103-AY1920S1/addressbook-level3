@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "description": "This module provides students lacking the basic mathematical and engineering backgrounds for the Graduate Certificate in Petroleum Engineering and Geosciences programme.",
+    "faculty": "Engineering",
+    "moduleCode": "OT5400",
+    "moduleCredit": "0",
+    "title": "Engineering Fundamentals for Petroleum Engineering"
+}

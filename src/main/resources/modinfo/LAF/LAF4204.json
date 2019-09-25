@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "This module is based on selected readings in literature. The approach will be thematic.",
+    "faculty": "Arts and Social Science",
+    "moduleCode": "LAF4204",
+    "moduleCredit": "5",
+    "prereqTree": "LAF4203",
+    "title": "French Studies 2"
+}

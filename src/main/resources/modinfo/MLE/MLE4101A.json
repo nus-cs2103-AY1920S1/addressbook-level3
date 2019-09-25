@@ -1,0 +1,15 @@
+{
+    "description": "A research project conducted over one semester carried out under the supervision of an academic staff of the Department. The project will be closely related with the research activities in the Department.",
+    "faculty": "Engineering",
+    "moduleCode": "MLE4101A",
+    "moduleCredit": "6",
+    "preclusion": "MLE4101",
+    "prereqTree": {
+        "and": [
+            "MLE2103",
+            "MLE2104",
+            "MLE3101"
+        ]
+    },
+    "title": "BEng Dissertation"
+}

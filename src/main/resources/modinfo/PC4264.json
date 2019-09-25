@@ -1,8 +1,0 @@
-{
-    "moduleCode": "PC4264",
-    "description": "This course is a follow-up of PC3241 Solid State Devices and is designed for those intending to join the semiconductor industry. The course is intended to give the students an understanding of the physics behind selected devices and that of some of their fabrication technologies. Devices examined are: MOSC & MOSFET, CCD, majority carrier diodes, transferred electron devices, non-volatile memory devices, thyristors and heterojunction devices.",
-    "title": "Advanced Solid State Devices",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "PC3241"
-}

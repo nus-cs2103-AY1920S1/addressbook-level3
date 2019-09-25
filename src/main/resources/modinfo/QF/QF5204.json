@@ -1,0 +1,7 @@
+{
+    "description": "This module is designed for graduate students in quantitative finance. It covers the programming methodology, techniques, data structures and algorithms used by practitioners in finance in the valuation of investment instruments. Numerical methods and implementations will be discussed.",
+    "faculty": "Science",
+    "moduleCode": "QF5204",
+    "moduleCredit": "4",
+    "title": "Numerical Methods in Quantitative Finance"
+}

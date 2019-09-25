@@ -1,8 +1,0 @@
-{
-    "moduleCode": "PR3144",
-    "description": "This module provides pharmacy students with a comprehensive understanding on the basic principles, concepts and methodology in clinical and pre-clinical research, including applying statistical knowledge in research design. Research examples are chosen to illustrate and facilitate the learning process. Major topics include: selection and formulation of research hypothesis, study designs used in pharmacy practice and clinical research, hierarchy of evidence, potential biases associated with various designs, data acquisition and handling approaches, statistical data analyses, general methodology in basic science research, and techniques in scientific communication.",
-    "title": "Principles of Research Methods",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "GER1000"
-}

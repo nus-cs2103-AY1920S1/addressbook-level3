@@ -1,0 +1,9 @@
+{
+    "description": "Topics covered include quasi-permanent regime, mechanics, thermodynamics and optics.",
+    "faculty": "Science",
+    "moduleCode": "FDP2022",
+    "moduleCredit": "4",
+    "preclusion": "FDP2002 Special Class in Physics 1,2 & 3",
+    "prereqTree": "FDP2021",
+    "title": "Special Physics Class 3"
+}

@@ -1,0 +1,11 @@
+{
+    "description": "Topics covered include vectorial calculus, electrostatics, magnetostatics and electromagnetism.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FDP2022"
+    ],
+    "moduleCode": "FDP2021",
+    "moduleCredit": "8",
+    "preclusion": "FDP2002 Special Physics Class 1, 2 & 3",
+    "title": "Special Physics Class 1, 2"
+}

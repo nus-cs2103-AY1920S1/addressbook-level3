@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true,
+        "year": true
+    },
+    "description": "",
+    "faculty": "Dentistry",
+    "fulfillRequirements": [
+        "OMS2100",
+        "OMS3100"
+    ],
+    "moduleCode": "AY1111",
+    "moduleCredit": "1",
+    "title": "Anatomy"
+}

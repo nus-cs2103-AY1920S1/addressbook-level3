@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "description": "",
+    "faculty": "Computing",
+    "moduleCode": "CP3108A",
+    "moduleCredit": "2",
+    "preclusion": "CS3108A",
+    "title": "Independent Work"
+}

@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "Korean 4 is a continuation of Korean 3. It is an integrated module which will help students gain higher intermediate proficiency in the four skills (listening, speaking, reading, and writing), grammar, and vocabulary, for personal interaction and communication in authentic situations.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAK4201"
+    ],
+    "moduleCode": "LAK3202",
+    "moduleCredit": "4",
+    "preclusion": "LAK3203 Korean for Academic Purpose",
+    "prereqTree": "LAK3201",
+    "title": "Korean 4"
+}

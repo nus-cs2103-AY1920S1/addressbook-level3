@@ -1,8 +1,0 @@
-{
-    "moduleCode": "BN4403",
-    "description": "A multidisciplinary module which describes the processes on a cellular level. It provides the link between molecular level biochemical and biophysical phenomena and the processes on the physiological level, where specifics of tissue and organs become important. Cellular mechanisms of solvent, noncharged solutes and ions transport through ion channels in relationship to bioelectric phenomena and cellular homeostasis will be described. The module explains how do the cells maintain their composition, structure and volume, how do they form membrane potential and how do they communicate and form the contacts in epithelium.",
-    "title": "Cellular Bioengineering",
-    "faculty": "Engineering",
-    "moduleCredit": "4",
-    "prereqTree": "LSM2103"
-}

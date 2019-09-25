@@ -1,8 +1,0 @@
-{
-    "moduleCode": "ST5206",
-    "description": "Model fitting and selection, models for continuous and discrete data, models for polytomous data, log-linear models, conditional and quasi-likelihoods, diagnostics. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
-    "title": "Generalized Linear Models",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "ST4233"
-}

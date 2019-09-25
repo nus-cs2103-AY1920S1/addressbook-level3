@@ -1,8 +1,0 @@
-{
-    "moduleCode": "CS5331",
-    "description": "This module aims to prepare graduate students for understanding the security of the latest web platform and its interplay with operating systems and the cloud infrastructure. The topics covered include the design of web browsers and web \napplications, vulnerabilities in web applications and web browsers, design of web scanners, authentication in web-based platforms, security policies and enforcement mechanisms. This module also covers security topics on the interface between the \nweb platform and the backend systems, such as the underlying database systems and cloud infrastructure.",
-    "title": "Web Security",
-    "faculty": "Computing",
-    "moduleCredit": "4",
-    "prereqTree": "CS3235"
-}

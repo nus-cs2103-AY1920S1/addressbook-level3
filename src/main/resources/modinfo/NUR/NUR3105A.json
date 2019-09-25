@@ -1,0 +1,11 @@
+{
+    "description": "",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "NUR3118"
+    ],
+    "moduleCode": "NUR3105A",
+    "moduleCredit": "2",
+    "preclusion": "NUR3105 Clinical Practicum 3.1 is precluded.",
+    "title": "Nursing Practice Experience 3.1"
+}

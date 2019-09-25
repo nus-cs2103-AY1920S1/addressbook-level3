@@ -1,0 +1,8 @@
+{
+    "description": "This module will cover the following topics: Non-linear effects of small amplitude waves Stokes wave theories Depth-integrated wave theories Applications to various geophysical flow problems",
+    "faculty": "Engineering",
+    "moduleCode": "CE5307C",
+    "moduleCredit": "2",
+    "preclusion": "CE5307, OT5201",
+    "title": "Finite Amplitude Wave Theories & Their Applications"
+}

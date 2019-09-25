@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "description": "This module will cover wireless networks that are relevant to Internet of Things (IoT). The module provides the concepts and operational details of multi-hop, mesh, ad hoc and personal area networks. It also covers aspects such as medium access control, routing and transport protocols.",
+    "faculty": "Engineering",
+    "moduleCode": "EE5023",
+    "moduleCredit": "2",
+    "title": "Wireless Networks"
+}

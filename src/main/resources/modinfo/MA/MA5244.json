@@ -1,0 +1,7 @@
+{
+    "description": "This module is an advanced course on operations research. It covers topics which will be chosen from the following: Large-scale linear and nonlinear programming; Global Optimisation; Variational inequality problems; NP-hard problems in combinatorial Optimisation; Stochastic programming; Multi-objective mathematical programming. The course is for mathematics graduate students with interest in operations research.",
+    "faculty": "Science",
+    "moduleCode": "MA5244",
+    "moduleCredit": "4",
+    "title": "Advanced Topics in Operations Research"
+}

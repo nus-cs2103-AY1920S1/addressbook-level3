@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "description": "Moorings and risers are critical components of floating systems. In this module, the students will be taught the fundamental concepts of analysis and design of different mooring and riser systems, focusing on the static aspects.",
+    "faculty": "Engineering",
+    "moduleCode": "OT5204A",
+    "moduleCredit": "2",
+    "title": "Moorings and Risers - Statics"
+}

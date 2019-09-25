@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "description": "Undertake a year-long research project and submit a written thesis for examination.",
+    "faculty": "Science",
+    "moduleCode": "LSM4199",
+    "moduleCredit": "16",
+    "preclusion": "LSM4299",
+    "title": "Honours Project in Life Sciences"
+}

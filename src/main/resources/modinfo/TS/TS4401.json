@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "description": "The Honours Thesis is usually done in the second semester of a student's registration in the Honours Degree Programme.",
+    "faculty": "Arts and Social Science",
+    "moduleCode": "TS4401",
+    "moduleCredit": "15",
+    "preclusion": "TS4660",
+    "title": "Honours Thesis"
+}

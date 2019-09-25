@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "description": "",
+    "faculty": "Engineering",
+    "moduleCode": "ESE5608",
+    "moduleCredit": "4",
+    "prereqTree": "ESE5003",
+    "title": "Heavy Metals in the Environment"
+}

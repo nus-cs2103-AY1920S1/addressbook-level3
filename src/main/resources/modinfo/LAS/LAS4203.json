@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "The Level of instruction will be B2.1, according to the CERF. This module aims to broaden the students\u2019 understanding and knowledge of the society, culture and history of the Spanish-speaking countries. Along with the proposed textbook, authentic source materials will be used to convey an updated and comprehensive view of current issues in the Hispanic world, and to provide students with the tools necessary to comprehend the relationship between language and culture. This module is designed from a communicative approach, prioritising the active use of the language and encouraging interaction in Spanish at an intermediate/advanced level.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAS4204"
+    ],
+    "moduleCode": "LAS4203",
+    "moduleCredit": "5",
+    "prereqTree": "LAS4202",
+    "title": "Spanish 7"
+}

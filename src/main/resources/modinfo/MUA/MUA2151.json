@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "Assesses the overall progress and determines whether the student should be advised to continue in the chosen major study.",
+    "faculty": "YST Conservatory of Music",
+    "moduleCode": "MUA2151",
+    "moduleCredit": "2",
+    "title": "Second Year Jury"
+}

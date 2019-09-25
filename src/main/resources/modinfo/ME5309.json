@@ -1,8 +1,0 @@
-{
-    "moduleCode": "ME5309",
-    "description": "In this module, the graduate students will apply the\nfundamental principles of fluid mechanics and\nthermodynamics to jet and rocket propulsion. The\nemphasis of this course will be on thermodynamic cycles,\nthe mechanics and thermodynamics of combustion,\ncomponent and cycle analysis of jet engines, and the\nperformance characteristics of chemical rockets.\nThe detailed analysis of operating characteristics of\nturbojet, turbofan, turboprop, afterburning, and ramjet\npropulsion systems will be covered. The major focus will\nbe placed towards the analysis and design of inlet,\ndiffuser, combustor, compressor, turbine, and nozzle.",
-    "title": "Aircraft Engines and Rocket Propulsion",
-    "faculty": "Engineering",
-    "moduleCredit": "4",
-    "prereqTree": "ME2134"
-}

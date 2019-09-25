@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "description": "This module allows students to undertake an individual research project under staff supervision. Students wishing to take this module are advised to obtain additional details from the Department.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PL3261"
+    ],
+    "moduleCode": "PL3231",
+    "moduleCredit": "4",
+    "title": "Independent Research Project"
+}

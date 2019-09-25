@@ -1,8 +1,0 @@
-{
-    "moduleCode": "IS5117",
-    "description": "The goal of the module is to provide a deep understanding of key digital government concepts and\nissues such as: digital policies, integration and whole-of-government approach, management of\ndigital government projects, public-private partnerships, public sector innovation, security and\nprivacy, open government data, social media in government, digital democracy, and smart cities. The\nmodule also covers emerging trends in digital government such as the application of cloud, IoT,\nartificial intelligence, and blockchain technologies.",
-    "title": "Digital Government",
-    "faculty": "Computing",
-    "moduleCredit": "4",
-    "prereqTree": "IS3103"
-}

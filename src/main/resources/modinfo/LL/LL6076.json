@@ -1,0 +1,12 @@
+{
+    "description": "",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5283V",
+        "LL6283V",
+        "LL4283V"
+    ],
+    "moduleCode": "LL6076",
+    "moduleCredit": "4",
+    "title": "IT Law I"
+}

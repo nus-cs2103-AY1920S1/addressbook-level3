@@ -1,8 +1,0 @@
-{
-    "moduleCode": "YSC2208",
-    "description": "This module is an introduction to laboratory techniques in organic chemistry. It focuses on basic methods of organic synthesis, and the purification and characterization of organic compounds. It can be taken together with Techniques in Analytical Chemistry.",
-    "title": "Techniques in Organic Chemistry",
-    "faculty": "Yale-NUS College",
-    "moduleCredit": "2",
-    "prereqTree": "YCC2132"
-}

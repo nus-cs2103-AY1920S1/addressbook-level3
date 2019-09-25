@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "faculty": "Engineering",
+    "moduleCode": "ME3232",
+    "moduleCredit": "4",
+    "preclusion": "ME3231",
+    "prereqTree": "ME2134",
+    "title": "Compressible Flow"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "",
+    "faculty": "Dentistry",
+    "fulfillRequirements": [
+        "OMS2100",
+        "OMS3100"
+    ],
+    "moduleCode": "RY2000",
+    "moduleCredit": "1",
+    "title": "Oral And Dental Radiology"
+}

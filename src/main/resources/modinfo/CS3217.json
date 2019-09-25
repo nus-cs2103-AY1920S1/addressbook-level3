@@ -1,8 +1,0 @@
-{
-    "moduleCode": "CS3217",
-    "description": "This module introduces students to the practice of software engineering on modern application platforms such as mobile devices, the Web and cloud systems. Students will work in small project teams to develop well-tested,\nproduction-quality software. This module focuses on building core software engineering skills and competencies in programming modern application platforms. It also trains students to work well in project teams. Students will be\nassessed on both their individual programming competencies and their software enginnering skills in final team project.",
-    "title": "Software Engineering on Modern Application Platforms",
-    "faculty": "Computing",
-    "moduleCredit": "5",
-    "prereqTree": "CS2103"
-}

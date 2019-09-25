@@ -1,0 +1,14 @@
+{
+    "description": "Laboratory work in Inorganic and Organic chemistry. This module is a major requirement for Chemistry students.",
+    "faculty": "Science",
+    "moduleCode": "CM3291",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "CM2111",
+            "CM2121",
+            "CM2191"
+        ]
+    },
+    "title": "Advanced Experiments In Organic & Inorganic Chemistry"
+}

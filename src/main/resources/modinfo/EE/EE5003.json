@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "description": "",
+    "faculty": "Engineering",
+    "moduleCode": "EE5003",
+    "moduleCredit": "8",
+    "preclusion": "EE5001",
+    "title": "Electrical Engineering Project"
+}

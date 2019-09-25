@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "urop": true
+    },
+    "description": "",
+    "faculty": "Science",
+    "moduleCode": "CM2288",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CM1111",
+            "CM1121",
+            "CM1131"
+        ]
+    },
+    "title": "Basic UROPS in Chemistry I"
+}

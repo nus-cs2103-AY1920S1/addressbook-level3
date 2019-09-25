@@ -1,0 +1,8 @@
+{
+    "description": "Brownian motion. Quadratic variations. Martingales. Levy's martingale characterisation. Ito integral: Definition and construction. Properties of Ito integrals. Stochastic differential and Ito formula. Ito processes. Integration by parts formula. Stochastic differential equations (SDEs). Examples of some solvable SDEs. Girsanov transform.",
+    "faculty": "Science",
+    "moduleCode": "MA5267",
+    "moduleCredit": "4",
+    "prereqTree": "MA5260",
+    "title": "Stochastic Calculus"
+}

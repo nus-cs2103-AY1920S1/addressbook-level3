@@ -1,0 +1,13 @@
+{
+    "description": "",
+    "faculty": "Computing",
+    "moduleCode": "CS5342",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CS4341",
+            "CS3246"
+        ]
+    },
+    "title": "Multimedia Computing and Applications"
+}

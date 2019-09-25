@@ -1,8 +1,0 @@
-{
-    "moduleCode": "CM4258",
-    "description": "This module will be focused on some advanced topics which are not covered in basic polymer science. The topics include:\n\n(1)    new polymerization methods (e.g. controlled radical polymerization, metallocene polymerization and olefin metathesis polymerization);\n\n(2)    block copolymers and their applications;\n\n(3)    dendritic macromolecules;\n\n(4)    naturally occurring polymers and biopolymers;\n\n(5)    inorganic and organometallic polymers;\n\n(6)    supramolecular polymers and smart polymers;\n\n(7)    conducting polymers and their applications",
-    "title": "Advanced Polymer Science",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "CM3252"
-}

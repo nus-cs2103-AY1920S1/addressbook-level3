@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "description": "This module aims to provide the concept and principles of smart buildings and facilities. It discusses the concept of how building performance can be optimized using software and hardware. Students are exposed to building control systems, software, analytics and several case studies are discussed.",
+    "faculty": "Design and Environment",
+    "moduleCode": "BPS5226",
+    "moduleCredit": "4",
+    "title": "Smart Buildings and Facilities"
+}

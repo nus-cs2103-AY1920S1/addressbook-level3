@@ -1,8 +1,0 @@
-{
-    "moduleCode": "PC3240",
-    "description": "This module will cover the basic physical principles and mathematical theories essential for understanding the dynamics of the atmosphere, ocean and climate.   \n\nThe aim is to provide students with an introductory but rigorous course, so that they will be well-prepared for postgraduate studies or a career as research scientist at \nweather services or climate research establishments.    \n\nThe major topics to be covered include: radiative energy balance and green-house effect, dynamics of the atmosphere in the mid-latitudes and the tropics, dynamics \nof the wind driven, thermohaline ocean circulations, and numerical simulations of the atmosphere-ocean systems for weather prediction and climate projects.",
-    "title": "Atmosphere, Ocean and Climate Dynamics",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "PC3238"
-}

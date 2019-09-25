@@ -1,0 +1,37 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "description": "",
+    "faculty": "Computing",
+    "moduleCode": "CP3106",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    {
+                        "or": [
+                            "CS2102",
+                            "CS2102S"
+                        ]
+                    },
+                    "CS2105",
+                    {
+                        "or": [
+                            "CS3214",
+                            "CS3215"
+                        ]
+                    }
+                ]
+            },
+            "IS3102",
+            "IS4102",
+            "CS3201",
+            "CS3281",
+            "CS4201",
+            "CS4203"
+        ]
+    },
+    "title": "Independent Project"
+}

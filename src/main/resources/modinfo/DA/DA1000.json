@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true,
+        "year": true
+    },
+    "description": "",
+    "faculty": "Dentistry",
+    "moduleCode": "DA1000",
+    "moduleCredit": "1",
+    "title": "Dental Anatomy & Histology"
+}

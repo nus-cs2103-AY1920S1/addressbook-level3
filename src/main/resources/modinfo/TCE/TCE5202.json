@@ -1,0 +1,9 @@
+{
+    "description": "This module provides students with design knowledge on steel offshore structures. The major topics covered include planning considerations; design criteria and procedures; methods for determining loads; structural analysis methods; member and joint designs; material selection and welding requirements; and design for fabrication, transportation and installation phases. The module will be valuable to students interested in offshore engineering.",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCode": "TCE5202",
+    "moduleCredit": "4",
+    "preclusion": "OT5202",
+    "prereqTree": "TCE2155",
+    "title": "Analysis & Design of Offshore Structures"
+}

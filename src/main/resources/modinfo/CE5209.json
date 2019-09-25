@@ -1,8 +1,0 @@
-{
-    "moduleCode": "CE5209",
-    "description": "The transportation industry has been collecting massive amounts of data captured from different sources and modern transport systems uses this data for planning,\ndesign, operations and management. In this module, students will learn the various forms of transportation data that are collected from modern systems and how to analyse this data. Skills such as statistical modeling, spatial and temporal data analytics, discrete choice modeling and machine learning will be covered in the module.",
-    "title": "Transportation Data Analytics and Modeling",
-    "faculty": "Engineering",
-    "moduleCredit": "4",
-    "prereqTree": "CE3121"
-}

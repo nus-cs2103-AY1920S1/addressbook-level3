@@ -1,7 +1,0 @@
-{
-    "moduleCode": "ID2112",
-    "description": "Students are brought beyond foundational usage of CAD tools for design visualization and construction. Three areas covered are: Advanced Surfacing, Parametric & Generative CAD Modelling, and Digital Manufacturing.\nAdvanced Surfacing covers principles and methods to craft high precision, manufacturing-quality CAD models with complex, continuous organic surfaces that are water-tight. Parametric & Generative CAD teaches programming and algorithm-scripting-based methods to digitally generate and control 3D geometry. Digital Manufacturing introduces methods to translate 3D data to produce physical objects via digital manufacturing equipment.\nStudents are expected to gain an operationally-ready level of mastery through hands-on experimentation in projects for all three areas.",
-    "title": "Digital Design & Fabrication",
-    "faculty": "Design and Environment",
-    "moduleCredit": "4"
-}

@@ -1,7 +1,0 @@
-{
-    "moduleCode": "QT5201Q",
-    "description": "This module will be devoted to in-depth study of quantum algorithms. The module will cover main research areas in this field, such as algorithms for number-theoretic problems, unstructured search and quantum walks, Hamiltonian simulation, query complexity lower bounds, and linear system solvers.",
-    "title": "Quantum Algorithms",
-    "faculty": "NUS Graduate Sch for Int Science and Engineering",
-    "moduleCredit": "4"
-}

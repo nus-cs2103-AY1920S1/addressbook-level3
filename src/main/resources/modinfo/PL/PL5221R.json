@@ -1,0 +1,19 @@
+{
+    "description": "",
+    "faculty": "Arts and Social Science",
+    "moduleCode": "PL5221R",
+    "moduleCredit": "5",
+    "preclusion": "PL5102/PL6102",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PL2101Y",
+                    "PL2131"
+                ]
+            },
+            "PL2132"
+        ]
+    },
+    "title": "Analysis of Psychological Data using GLM"
+}

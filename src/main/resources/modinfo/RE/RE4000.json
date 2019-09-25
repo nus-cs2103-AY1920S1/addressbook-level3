@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "description": "This module aims at developing students\u2019 capability in conducting research. Students are expected to formulate a research problem, and to demonstrate the ability to pursue unaided investigations relevant to their research problem, in data collection, analysis, and interpretation of the results.",
+    "faculty": "Design and Environment",
+    "moduleCode": "RE4000",
+    "moduleCredit": "8",
+    "preclusion": "RE4181 Dissertation",
+    "title": "Dissertation"
+}

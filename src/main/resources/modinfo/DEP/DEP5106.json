@@ -1,0 +1,13 @@
+{
+    "description": "",
+    "faculty": "Design and Environment",
+    "moduleCode": "DEP5106",
+    "moduleCredit": "8",
+    "prereqTree": {
+        "or": [
+            "UP5101",
+            "UD5622"
+        ]
+    },
+    "title": "Integrated Urban Planning Studio"
+}

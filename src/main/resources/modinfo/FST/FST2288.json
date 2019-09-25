@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "urop": true
+    },
+    "description": "This module is designed to give level 2 students an introduction to research. The student will undertake a laboratory based investigation on a topic proposed by the supervisor. Students work independently but under the close supervision of the supervisor.",
+    "faculty": "Science",
+    "moduleCode": "FST2288",
+    "moduleCredit": "4",
+    "prereqTree": "FST1101",
+    "title": "Basic UROPS in Food Science & Technology I"
+}

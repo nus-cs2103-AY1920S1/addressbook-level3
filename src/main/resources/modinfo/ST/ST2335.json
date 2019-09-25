@@ -1,0 +1,14 @@
+{
+    "description": "Descriptive statistics, conditional expectation, correlation coefficient, bivariate normal distribution, simple linear regression, analysis of variance, nonparametric methods. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "moduleCode": "ST2335",
+    "moduleCredit": "4",
+    "preclusion": "ST3131",
+    "prereqTree": {
+        "or": [
+            "ST1131",
+            "ST2334"
+        ]
+    },
+    "title": "Statistical Methods"
+}

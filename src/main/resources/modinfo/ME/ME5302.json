@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "description": "This graduate level module introduces students to the application of numerical methods for solving incompressible fluid flow and convective heat transfer problems. Major topics covered include: review of theory of numerical discretisation/approximations numerical techniques for elliptic and parabolic PDEs; conservation form; finite-volume discretisation; boundary layer problems; solving Navier-Stokes equations in streamfunction-vorticity and primitive-variables formulations; SIMPLE/R and related procedures; Artificial Compressibility Method; Marker-Cell procedures; steady-state, transient and pseudo-transient methods/approaches. Knowledge in fluid dynamics and heat transfer is presumed. Theory is reinforced by mini-projects. The module is recommended for students who intend to pursue graduate research that requires the application of CFD.",
+    "faculty": "Engineering",
+    "moduleCode": "ME5302",
+    "moduleCredit": "4",
+    "prereqTree": "ME2135",
+    "title": "Computational Fluid Mechanics"
+}

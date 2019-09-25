@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "description": "Every student majoring Materials Science and Engineering is assigned a research project, which is normally over 2 semesters. This project is carried out under the supervision of an academic staff of the Department and is closely related with the research activities in the Department with the two focus areas of Biomateirals and Nanomaterials/Nanotechnology.",
+    "faculty": "Engineering",
+    "moduleCode": "MLE4101",
+    "moduleCredit": "12",
+    "prereqTree": {
+        "and": [
+            "MLE2103",
+            "MLE2104",
+            "MLE2105",
+            "MLE3101"
+        ]
+    },
+    "title": "B.Eng. Dissertation"
+}

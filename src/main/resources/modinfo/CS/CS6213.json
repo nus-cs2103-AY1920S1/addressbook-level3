@@ -1,0 +1,13 @@
+{
+    "description": "",
+    "faculty": "Computing",
+    "moduleCode": "CS6213",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CS3211",
+            "CS4231"
+        ]
+    },
+    "title": "Special Topics in Distributed Computing"
+}

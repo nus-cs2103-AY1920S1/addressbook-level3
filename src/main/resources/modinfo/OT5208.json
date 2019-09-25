@@ -1,8 +1,0 @@
-{
-    "moduleCode": "OT5208",
-    "description": "The primary objective of this module is to equip graduatelevel students in civil engineering with sufficient fundamental knowledge and skills on the fatigue and fracture mechanics for offshore structures, which will build a firm technical ground for their future research work and engineering professions. This module introduces the principles of mechanics for fracture and fatigue covering\nthe linear-elastic fracture mechanics, elastic-plastic fracture theories, fatigue and fracture mechanism, stress and strain based approaches for fatigue design in offshore structures, with assignments and projects cultivating the students\u2019 understanding on both the fundamental principles and the practical applications.",
-    "title": "Fatigue and Fracture for Offshore Structures",
-    "faculty": "Engineering",
-    "moduleCredit": "4",
-    "prereqTree": "CE4257"
-}

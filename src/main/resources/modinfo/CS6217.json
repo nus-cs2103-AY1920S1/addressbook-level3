@@ -1,7 +1,0 @@
-{
-    "moduleCode": "CS6217",
-    "description": "This module is aimed at graduate students who are doing\nor intend to do advanced research in programming\nlanguages and software engineering. It exposes students\nto recent advances in topics that include, but not limited\nto, software requirements modelling, design, testing,\nanalysis and verification, with focus on emerging\ntechnologies from research which have found increased\nindustry adoption such as software model checking,\nsymbolic execution based testing and automated program\nrepair.",
-    "title": "Topics in Prog. Languages & Software Engineering",
-    "faculty": "Computing",
-    "moduleCredit": "4"
-}

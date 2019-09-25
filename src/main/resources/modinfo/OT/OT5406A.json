@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "description": "This module will cover basic concepts of Petroleum Production Systems including inflow-outflow, skin concept, production from undersaturated oil reservoirs two-phase reservoirs and natural gas reservoirs.",
+    "faculty": "Engineering",
+    "moduleCode": "OT5406A",
+    "moduleCredit": "2",
+    "title": "Petroleum Production Engineering"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "description": "",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3240",
+        "MUA3241",
+        "MUA3242",
+        "MUA3243"
+    ],
+    "moduleCode": "MUA2155",
+    "moduleCredit": "4",
+    "title": "Collaborative Piano Studies"
+}

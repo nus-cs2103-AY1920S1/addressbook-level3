@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "description": "This module measures the student\u2019s effort in pursuing his/her entrepreneurial aspirations and in further developing his/her potential beyond their internship given the NOC opportunity.Taken together with TR3202 Start-up Internship Programme, the student will be assessed on his/her internship by regular reviews and presentations to companies and consulting professor. He/she will also need to prepare a business pitch at the end of the internship.",
+    "faculty": "NUS",
+    "moduleCode": "TR3201",
+    "moduleCredit": "8",
+    "preclusion": "TR3101",
+    "title": "Entrepreneurship Practicum"
+}

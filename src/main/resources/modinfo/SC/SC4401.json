@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "description": "This module requires students to conduct an independent research project on an approved topic under the supervision of an academic staff. The research project, which usually includes some fieldwork, will be submitted as an Honours Thesis.",
+    "faculty": "Arts and Social Science",
+    "moduleCode": "SC4401",
+    "moduleCredit": "15",
+    "preclusion": "SC4660",
+    "title": "Honours Thesis"
+}

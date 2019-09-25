@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "description": "",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "MD2140"
+    ],
+    "moduleCode": "MD1140",
+    "moduleCredit": "1",
+    "title": "Normal Structure and Function"
+}
