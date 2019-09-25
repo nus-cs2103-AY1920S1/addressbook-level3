@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Alias;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.UserAliases;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -39,43 +39,22 @@ public interface Model {
 
     // ======== ALIAS SETTINGS ===========
     /**
-     * Return's the user prefs' user aliases.
+     * Return's the user prefs' alias mappings.
      */
-    UserAliases getUserAliases();
+    AliasMappings getAliasMappings();
 
     /**
-     * Sets the user prefs' user aliases.
+     * Sets the user prefs' alias mappings.
      */
-    void setUserAliases(UserAliases userAliases);
+    void setAliasMappings(AliasMappings aliasMappings);
 
     /**
-     * Add an alias to the user prefs' user aliases.
+     * Add a user defined alias to the user prefs' alias mappings.
      */
     void addUserAlias(Alias alias);
 
-    /**
-     * Returns true is the alias name is a reserved command word.
-     *
-     * @param aliasName
-     */
-    boolean aliasNameIsReserved(String aliasName);
 
-    /**
-     * Returns true if the alias' command word is another alias
-     *
-     * @param aliasName
-     */
-    boolean aliasCommandWordIsAlias(String aliasName);
-
-    /**
-     * Get the Alias which an alias name to.
-     */
-    Alias getUserAlias(String aliasName);
-
-    boolean hasAlias(String aliasName);
-
-
-        // ======== ADDRESS BOOK SETTINGS ===============
+    // ======== ADDRESS BOOK SETTINGS ===============
     /**
      * Returns the user prefs' address book file path.
      */

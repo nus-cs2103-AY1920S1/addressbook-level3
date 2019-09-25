@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.Alias;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.UserAliases;
 
 /**
  * Represents User's preferences.
@@ -17,7 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-    private UserAliases userAliases = new UserAliases();
+    private AliasMappings aliasMappings = new AliasMappings();
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -39,7 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
-        setUserAliases(newUserPrefs.getUserAliases());
+        setAliasMappings(newUserPrefs.getAliasMappings());
     }
 
     public GuiSettings getGuiSettings() {
@@ -60,33 +60,49 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public UserAliases getUserAliases() {
-        return userAliases;
+    public AliasMappings getAliasMappings() {
+        return aliasMappings;
     }
 
-    public void setUserAliases(UserAliases userAliases) {
-        requireNonNull(userAliases);
-        this.userAliases = userAliases;
+    public void setAliasMappings(AliasMappings aliasMappings) {
+        requireNonNull(aliasMappings);
+        this.aliasMappings = aliasMappings;
     }
 
+    /**
+     * Add a user defined {@code Alias} to the user prefs' {@code AliasMappings}
+     * @param alias
+     */
     public void addUserAlias(Alias alias) {
         requireNonNull(alias);
-        this.userAliases = userAliases.addAlias(alias);
+        this.aliasMappings = aliasMappings.addAlias(alias);
     }
 
-    public Alias getUserAlias(String aliasName) {
+    public Alias getAlias(String aliasName) {
         requireNonNull(aliasName);
-        return this.userAliases.getAlias(aliasName);
+        return this.aliasMappings.getAlias(aliasName);
     }
 
+    @Override
+    public boolean hasAlias(String aliasName) {
+        return this.aliasMappings.aliasExists(aliasName);
+    }
+
+    /**
+     * Returns true if the {@code String aliasName} is a reserved command word, and false otherwise.
+     */
     public boolean aliasNameIsReserved(String aliasName) {
         requireNonNull(aliasName);
-        return this.userAliases.aliasNameIsReserved(aliasName);
+        return this.aliasMappings.aliasNameIsReserved(aliasName);
     }
 
+    /**
+     * Returns true if the {@code String commandWord} of an {@code Alias} is an alias name mapped to an
+     * existing {@code Alias}, and false otherwise.
+     */
     public boolean aliasCommandWordIsAlias(String commandWord) {
         requireNonNull(commandWord);
-        return this.userAliases.aliasCommandWordIsAlias(commandWord);
+        return this.aliasMappings.aliasCommandWordIsAlias(commandWord);
     }
 
     @Override
@@ -102,12 +118,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
-                && userAliases.equals(o.userAliases);
+                && aliasMappings.equals(o.aliasMappings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, userAliases);
+        return Objects.hash(guiSettings, addressBookFilePath, aliasMappings);
     }
 
     @Override

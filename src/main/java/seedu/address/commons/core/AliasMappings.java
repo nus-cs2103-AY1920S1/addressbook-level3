@@ -1,5 +1,11 @@
 package seedu.address.commons.core;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AliasCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -10,41 +16,52 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * A Serializable class that contains the user's created Aliases.
- * Guarantees: immutable.
+ * A Serializable class that represents the user's {@code Alias} settings.
+ * Guarantees: fields are present, immutable.
  */
-public class UserAliases implements Serializable {
+public class AliasMappings implements Serializable {
 
     private Map<String, Alias> aliasesMappings;
 
     // Constructors
-    public UserAliases() {
+    public AliasMappings() {
         this.aliasesMappings = new HashMap<>();
     }
 
-    public UserAliases(UserAliases userAliases) {
-        this.aliasesMappings = new HashMap<>(userAliases.aliasesMappings);
+    private AliasMappings(AliasMappings aliasMappings) {
+        requireNonNull(aliasMappings);
+        this.aliasesMappings = new HashMap<>(aliasMappings.aliasesMappings);
     }
 
     public Alias getAlias(String aliasName) {
         return aliasesMappings.get(aliasName);
     }
 
-    public UserAliases addAlias(Alias alias) {
-        UserAliases userAliases = new UserAliases(this);
-        userAliases.aliasesMappings.put(alias.getAliasName(), alias);
-        return userAliases;
+    /**
+     * Returns a {@code UserAliasSettings} with an added {@code Alias}.
+     */
+    public AliasMappings addAlias(Alias alias) {
+        AliasMappings aliasMappings = new AliasMappings(this);
+        aliasMappings.aliasesMappings.put(alias.getAliasName(), alias);
+        return aliasMappings;
     }
 
+    /**
+     * Returns true if an {@code Alias} is mapped to the given {@code String aliasName}, and false otherwise.
+     * @param aliasName The alias name to check if it has a mapped {@code Alias}.
+     * @return true if an {@code Alias} is mapped to the given {@code String aliasName}, and false otherwise.
+     */
     public boolean aliasExists(String aliasName) {
         return aliasesMappings.containsKey(aliasName);
     }
 
+    /**
+     * Returns true if an alias name is not a reserved command word and false otherwise.
+     * @param aliasName The alias name which needs to be checked.
+     * @return true if an alias name is not a reserved command word and false otherwise.
+     */
     public boolean aliasNameIsReserved(String aliasName) {
         switch (aliasName) {
         case AddCommand.COMMAND_WORD:
@@ -70,6 +87,9 @@ public class UserAliases implements Serializable {
         }
     }
 
+    /**
+     * Returns true if the Alias' command word references another Alias' alias name.
+     */
     public boolean aliasCommandWordIsAlias(String commandWord) {
         return aliasesMappings.containsKey(commandWord);
     }
@@ -84,11 +104,11 @@ public class UserAliases implements Serializable {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof UserAliases)) {
+        if (!(obj instanceof AliasMappings)) {
             return false;
         }
 
-        UserAliases other = (UserAliases) obj;
+        AliasMappings other = (AliasMappings) obj;
 
         // contains the same keys, for the keys it contains, it maps to the same inputs
         if (!aliasesMappings.keySet().equals(other.aliasesMappings.keySet())) {
@@ -100,13 +120,4 @@ public class UserAliases implements Serializable {
                 .allMatch(key -> aliasesMappings.get(key).equals(other.aliasesMappings.get(key)));
     }
 
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("Aliases : ");
-//        for (Alias alias : aliasesMappings.values(UserAliases)) {
-//            sb.append("\n").append(alias.toString());
-//        }
-//        return sb.toString();
-//    }
 }

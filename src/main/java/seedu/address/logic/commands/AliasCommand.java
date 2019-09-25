@@ -7,7 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Create a shortcut for another Command.
+ * Create an alias for common user input.
  */
 public class AliasCommand extends Command {
 
@@ -15,7 +15,7 @@ public class AliasCommand extends Command {
     public static final String COMMAND_WORD = "alias";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a shortcut for commonly used Commands.\n"
-            + "Parameters: ALIAS_NAME COMMAND_WORD [ARGUMENTS]\n"
+            + "Parameters: ALIAS_NAME USER_INPUT [more USER_INPUT]\n"
             + "Example: findAnimal find rat rats mouse mice cow cows ox oxen tiger tigers";
 
     public static final String MESSAGE_SUCCESS = "Alias created: %1$s";
@@ -25,9 +25,6 @@ public class AliasCommand extends Command {
 
     public static final String MESSAGE_RECURSIVE_WARNING =
             "This alias is not allowed because it may possibly be recursive";
-
-    //public static final String MESSAGE_REFERS_TO_ALIAS =
-    //        "%1$s references another alias (%2$s) and may not be used";
 
     private Alias toAdd;
 
@@ -45,15 +42,15 @@ public class AliasCommand extends Command {
 
         // if command_word is reserved
         String aliasName = toAdd.getAliasName();
-        if (model.aliasNameIsReserved(aliasName)) {
+        if (model.getUserPrefs().aliasNameIsReserved(aliasName)) {
             throw new CommandException(String.format(MESSAGE_RESERVED_NAME, aliasName));
         }
 
         // if recursive
         String commandWord = toAdd.getInput().stripLeading().split("\\s+")[0];
         if (commandWord.equalsIgnoreCase(aliasName)
-                ||commandWord.equalsIgnoreCase(COMMAND_WORD)
-                ||model.aliasCommandWordIsAlias(commandWord)) {
+                || commandWord.equalsIgnoreCase(COMMAND_WORD)
+                || model.getUserPrefs().aliasCommandWordIsAlias(commandWord)) {
             throw new CommandException(MESSAGE_RECURSIVE_WARNING);
         }
 
@@ -63,9 +60,9 @@ public class AliasCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AliasCommand // instanceof handles nulls
-                && toAdd.equals(((AliasCommand) other).toAdd));
+    public boolean equals(Object obj) {
+        return obj == this // short circuit if same object
+                || (obj instanceof AliasCommand // instanceof handles nulls
+                && this.toAdd.equals(((AliasCommand) obj).toAdd));
     }
 }

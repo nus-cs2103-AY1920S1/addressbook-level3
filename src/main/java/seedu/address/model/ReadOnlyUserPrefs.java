@@ -2,8 +2,9 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 
+import seedu.address.commons.core.Alias;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.UserAliases;
 
 /**
  * Unmodifiable view of user prefs.
@@ -14,6 +15,14 @@ public interface ReadOnlyUserPrefs {
 
     Path getAddressBookFilePath();
 
-    UserAliases getUserAliases();
+    AliasMappings getAliasMappings();
+
+    Alias getAlias(String aliasName);
+
+    boolean hasAlias(String aliasName);
+
+    boolean aliasNameIsReserved(String aliasName);
+
+    boolean aliasCommandWordIsAlias(String commandWord);
 
 }

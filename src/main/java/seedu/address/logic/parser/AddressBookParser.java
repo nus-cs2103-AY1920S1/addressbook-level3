@@ -18,7 +18,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyUserPrefs;
 
 /**
  * Parses user input.
@@ -34,11 +34,11 @@ public class AddressBookParser {
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
-     * @param model
+     * @param readOnlyUserPrefs read only user preferences to check for aliases
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, Model model) throws ParseException {
+    public Command parseCommand(String userInput, ReadOnlyUserPrefs readOnlyUserPrefs) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -77,9 +77,9 @@ public class AddressBookParser {
 
         default:
             // check if alias exists
-            if (model.hasAlias(commandWord)) {
-                Alias alias = model.getUserAlias(commandWord);
-                return parseCommand(alias.getInput(), model);
+            if (readOnlyUserPrefs.hasAlias(commandWord)) {
+                Alias alias = readOnlyUserPrefs.getAlias(commandWord);
+                return parseCommand(alias.getInput() + " " + arguments, readOnlyUserPrefs);
             }
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

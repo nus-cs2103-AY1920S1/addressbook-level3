@@ -1,11 +1,17 @@
 package seedu.address.commons.core;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a user defined alias which can be used at the start of input.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Alias implements Serializable {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -16,6 +22,7 @@ public class Alias implements Serializable {
     private final String input;
 
     public Alias(String aliasName, String input) {
+        requireAllNonNull(aliasName, input);
         checkArgument(isValidAliasName(aliasName), MESSAGE_CONSTRAINTS);
         this.aliasName = aliasName;
         this.input = input;
@@ -31,7 +38,7 @@ public class Alias implements Serializable {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new String[]{aliasName, input});
+        return Objects.hash(aliasName, input);
     }
 
     @Override
@@ -44,19 +51,17 @@ public class Alias implements Serializable {
         }
 
         Alias other = (Alias) obj;
-        return getAliasName().equals(other.getAliasName())
-                && getInput().equals(other.getInput());
+        return aliasName.equals(other.aliasName)
+                && input.equals(other.input);
     }
 
-    public boolean isValidAliasName(String aliasName) {
+    public static boolean isValidAliasName(String aliasName) {
         return Pattern.matches(VALIDATION_REGEX, aliasName);
     }
 
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("AliasName : ").append(aliasName);
-//        sb.append("\nInput : ").append(input);
-//        return sb.toString();
-//    }
+    @Override
+    public String toString() {
+        return "Alias: " + aliasName + " Input: " + input;
+    }
+
 }
