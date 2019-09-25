@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= EzWatchlist - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main.git
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `NUS`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+EzWatchList is for those who *prefer to use a desktop app for managing movies and tv series watchlist*. More importantly, EzWatchList is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, EzWatchList can get your watchlist faster than traditional GUI apps. Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `ezwatchlist.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your watchlist.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add`**`Titanic` : adds the movie named `Titanic` to the Watchlist.
+* **`search`**`Titanic` : Searched for movie named `Titanic` in all movies
+* **`delete`**`3` : deletes the 3rd movie shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -43,61 +43,109 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+=== User-Interface
+
+==== Watchlist Page
+
+The watchlist is the default page that is opened upon start-up of ezwatchlist. It shows the user’s unwatched movies and television series. The watchlist page also contains a command bar to allow the user to input commands.
+
+**Characteristics of the watchlist page:**
+
+.  Shows that are added more recently are at the bottom of the list
+.  Each show has the following visible characteristics:
+* Movie/TV show poster
+* Name of show (and year in brackets?)
+* Remarks
+* Progress bar showing number of episodes watched (For TV series)
+* Checkbox to indicate if the show has been watched
+
+image::watchlist_page.png[width="790"]
+
+
+==== Watched List
+
+The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `ctrl + tab`.
+
+==== Search Page
+
+The user can navigate to the search page to find a specific movie or television by searching for its name.
+
+image::search_page.png[width="790"]
+
+
+==== Statistics Page
+
+The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc.
+
+image::statistics_page.png[width="790"]
+
+==== Sidebar
+
+Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Alternatively, the user can also make use of keyboard shortcut `ctrl + tab` to scroll through the different pages.
+
+==== Details Page
+
+Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
+
+image::details_page.png[width="790"]
+
+=== User Commands
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/MOVIE_NAME`, `MOVIE_NAME` is a parameter which can be used as `add n/The Angry Birds Movie 2`.
+* Items in square brackets are optional e.g `n/MOVIE_NAME [t/TAG]` can be used as `n/The Angry Birds Movie 2 t/Oscar-worthy` or as `n/The Angry Birds Movie`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Oscar-worthy`, `t/Tear-jerking t/Good for kids` etc.
+* Parameters can be in any order e.g. if the command specifies `n/MOVIE_NAME t/TAG`, `t/TAG n/MOVIE_NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Adding a show: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a show to the watchlist +
+Format: `add n/MOVIE_NAME [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A show can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Titanic t/Romance t/Drama`
+* `add n/The Angry Birds Movie 2`
 
-=== Listing all persons : `list`
+==== Mark as watched : `watch`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Marks an unwatched show in the watchlist as watched. +
+Format: `watch INDEX`
 
-=== Editing a person : `edit`
+==== Editing a show's details : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing show in the list +
+Format: `edit INDEX [n/NAME] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the show will be removed i.e adding of tags is not cumulative.
+* You can remove all the show's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 n/Titanic t/Favourites` +
+Edits the name and tag of the 1st show in the list to be `Titanic` and `Favourites` respectively.
+* `edit 2 t/` +
+Clears all existing tags of the 2nd show in the list.
 
-=== Locating persons by name: `find`
+==== Search for a show by name: `search`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds shows whose names contain any of the given keywords. +
+Format: `search KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -109,69 +157,74 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `search Angry` +
+Returns `The Angry Birds Movie 2`
+* `search John Angry` +
+Returns any person having names `John` or `Angry`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+==== Deleting a show : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified show from the watchlist. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the show at the specified `INDEX`.
+* The index refers to the index number shown in the displayed watchlist.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+*`delete 2` +
+Deletes the 2nd show in the watchlist.
+* `search Angry` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st show in the results of the `search` command.
 
 // end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Ezwatchlist data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+=== Advanced Features
+
+==== Parsing of Movie Information
+In ezwatchlist, we access a movie database so that we can get information about your movies and tv series that you want to watch and have watched. This means that pictures and information will be readily available to you with a proper internet connection.
+
+==== Recommendations
+Ezwatchlist will recommend movies to you based on your ratings and your existing watchlist to create a personalized recommendation just for you.
+
+==== Auto-Correct
+All typing in the application will be spell-checked and corrected for you to help ease you into the application.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Ezwatchlist folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
+* *Add* `add n/MOVIE_NAME [t/TAG]...` +
+e.g. `add n/John Wick t/action t/puppies`
+* *Watch* : `watch INDEX`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Edit* : `edit INDEX [n/MOVIE_NAME] [t/TAG]...` +
+e.g. `edit 2 n/John Wick t/favourite movie`
+* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
+e.g. `search John`
+* *Exit* : `exit`
 * *Help* : `help`
