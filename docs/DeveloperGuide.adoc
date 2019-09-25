@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Seller Manager Lite - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-4/main
 
 By: `Team T09-4`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -510,6 +510,12 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Single User for each session
+.  No internet required
+.  Quality and helpful information/feedback upon user action
+.  System should ideally respond within 5 seconds
+.  System allows for wrong input from user and recovers from erroneous input
+.  App can be downloaded and run via a jar file
 
 _ {More to be added}_
 
@@ -521,6 +527,12 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[order]] Order::
+A order consisting of customer and phone
+
+[[Phone]] Phone::
+Any mobile device being sold by seller
 
 [appendix]
 == Product Survey
