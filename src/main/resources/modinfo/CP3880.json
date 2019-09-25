@@ -1,0 +1,29 @@
+{
+    "moduleCode": "CP3880",
+    "description": "",
+    "title": "Advanced Technology Attachment Programme",
+    "faculty": "Computing",
+    "moduleCredit": "12",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "IS2101",
+                    "CS2101"
+                ]
+            },
+            {
+                "or": [
+                    "CS2103",
+                    "CS2103T",
+                    "IS2103",
+                    "IS2150",
+                    "BT2101"
+                ]
+            }
+        ]
+    },
+    "fulfillRequirements": [
+        "IFS4201"
+    ]
+}

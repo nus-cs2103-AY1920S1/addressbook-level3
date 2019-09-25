@@ -1,0 +1,10 @@
+{
+    "moduleCode": "MUA4231",
+    "description": "",
+    "title": "Orchestral Excerpts for Strings 4A",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "fulfillRequirements": [
+        "MUA4232"
+    ]
+}

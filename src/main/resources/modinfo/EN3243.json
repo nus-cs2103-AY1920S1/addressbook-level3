@@ -1,0 +1,27 @@
+{
+    "moduleCode": "EN3243",
+    "description": "The module examines the appeal of s/f as a serious fictional engagement with our consensual sense of reality. It addresses fantasy, speculative fiction, and science fiction as forms of narrative engaged in &quot;world-building&quot; and &quot;word-shaping,&quot; studying such fictional constructs as forms of sociological and anthropological knowledge. It also examines the relation between the &quot;strange&quot; and the &quot;real&quot; in terms of the shared and the antithetical elements that relate s/f to realism.",
+    "title": "S/F: Science Fiction and Fantasy",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    }
+}

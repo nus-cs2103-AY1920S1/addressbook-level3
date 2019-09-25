@@ -1,0 +1,13 @@
+{
+    "moduleCode": "MUL1106",
+    "description": "This module serves as the second semester of Italian language studies for music majors.  Basic grammar, morphology, syntax and, especially, conversation will be emphasized.  Required for all voice majors.  Open to all NUS students.",
+    "title": "Italian for Musicians 2",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "LAI1731",
+            "MUL1105"
+        ]
+    }
+}

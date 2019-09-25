@@ -1,0 +1,7 @@
+{
+    "moduleCode": "EE5026",
+    "description": "This course introduces machine learning methods and\ntheir applications for data analytics. Students taking this\ncourse will learn modern machine learning techniques\nincluding classification, regression and generative models\nand algorithms as well as how to apply them to data\nanalytics. The course starts with machine learning basics\nand some classical machine learning methods, followed by\nsupervised and unsupervised data clustering, data\ndimensionaliy reduction for visualization and data\nclassification. The students are expected to have solid\nbackground knowledge on calculus, linear algebra,\nprobability and basic statistics.",
+    "title": "Machine Learning for Data Analytics",
+    "faculty": "Engineering",
+    "moduleCredit": "2"
+}

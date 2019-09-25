@@ -1,0 +1,12 @@
+{
+    "moduleCode": "PR4106",
+    "description": "Learning Objectives: To understand the Science and Technology of solid dosage forms for the delivery of therapeutic agents with coverage of the basic concepts and fundamental principles in the design and manufacture of drug delivery systems. Lectures will include topics on certain pharmaceutical operations, pre-formulation studies, science and characteristics of particulate systems, dosage forms such as pellets, capsules and tablets, basic controlled delivery technology, product quality and packaging. Target students: Pharmacy Final Year",
+    "title": "Dosage Form Design III",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "PR1102",
+    "fulfillRequirements": [
+        "PR5302",
+        "PR5303"
+    ]
+}

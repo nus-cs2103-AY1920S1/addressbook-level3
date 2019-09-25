@@ -1,0 +1,10 @@
+{
+    "moduleCode": "CP3200",
+    "description": "The IT industry and related businesses are developing rapidly for which students need to have an opportunity to expose themselves to the latest industry developments. This internship module requires students to work in a\ncompany for a period of three months. Their progress on projects will be monitored during attachment, and their performance will be graded as \u201cCompleted\nSatisfactory/Completed Unsatisfactory (CS/CU)\u201d at the end of the attachment, based on the final project report. During the attachment, students are not expected to take other modules offered by the university.",
+    "title": "Internship",
+    "faculty": "Computing",
+    "moduleCredit": "6",
+    "fulfillRequirements": [
+        "CP3202"
+    ]
+}

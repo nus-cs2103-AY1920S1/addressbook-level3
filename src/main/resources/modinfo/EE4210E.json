@@ -1,0 +1,8 @@
+{
+    "moduleCode": "EE4210E",
+    "description": "The course will enable students to know the basics and theories of Internet-related tenchologies which offer the background knowledge & skills required for computer or network engineers.  Contents covered include Internet Architecture & client/server applications, Client & Server Computing, Internetworking concepts & Architectural Model, Transport protocols:  UDP/TCP, TCP/IP socket programming, Routing protocols, Domain Name System, Mobile IP, and Next Generation IP.",
+    "title": "Network Protocols and Applications",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4",
+    "prereqTree": "TE2003"
+}

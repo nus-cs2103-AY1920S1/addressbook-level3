@@ -1,0 +1,23 @@
+{
+    "moduleCode": "IS2150",
+    "description": "This module aims to train students to be conversant in the technologies, approaches, principles and issues in designing effective e-commerce and e-business systems.\n\nMajor topics include: J2EE and .NET for e-commerce, scripting languages (Javascript/JSP/ASP/PHP/Perl), development frameworks (Flex, AJAX, servlets), database design and management for the internet, tracking and analysis of customers, payment services/verification, implementing security, XML,\ninventory/order/shipping management services and systems, planning, designing and deploying web services, and operational considerations and technical tradeoffs.",
+    "title": "E-Business Design and Implementation",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS1020",
+                    "CS1102",
+                    "CS1102S"
+                ]
+            },
+            "IS1112"
+        ]
+    },
+    "fulfillRequirements": [
+        "CP3880",
+        "UIS3951R"
+    ]
+}

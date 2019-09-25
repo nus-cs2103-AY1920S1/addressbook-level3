@@ -1,0 +1,8 @@
+{
+    "moduleCode": "YSS3206",
+    "description": "An introduction to the relationship between law and economics, including the practical application of microeconomics to several common legal issues: torts, contracts, property, and crime.",
+    "title": "Law and Economics",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": "YSS2203"
+}

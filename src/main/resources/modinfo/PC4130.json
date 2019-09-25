@@ -1,0 +1,13 @@
+{
+    "moduleCode": "PC4130",
+    "description": "This module is a continuation of module PC3130. It is targeted at physics majors. The algebraic structure of angular momentum is developed with an emphasis on the addition of two angular momenta. The properties of systems consisting of identical particles are studied. The last part of the module focuses on time-dependent perturbation calculus and scattering theory. The module is mainly targeted at physics majors.",
+    "title": "Quantum Mechanics III",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "PC3130",
+    "fulfillRequirements": [
+        "PC5206",
+        "PC5212",
+        "QT5201F"
+    ]
+}

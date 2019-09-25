@@ -1,0 +1,8 @@
+{
+    "moduleCode": "MA4268",
+    "description": "This multi-disciplinary module focuses on various\nimportant mathematical methods addressing problems\narising in imaging and vision. Topics covered include:\nContinuous and discrete Fourier transform, Gabor\ntransform, Wiener filter, variational principle, level set\nmethod, applied differential geometry, linear and nonlinear\nleast squares, regularization methods.",
+    "title": "Mathematics for Visual Data Processing",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "MA2213"
+}

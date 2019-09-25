@@ -1,0 +1,12 @@
+{
+    "moduleCode": "EB5002",
+    "description": "This course provides essential knowledge and skills required to perform deep learning based text processing in common tasks encountered in industries. A combination of lectures, case studies, and workshops will be used to cover the application of DL techniques such as wordembedding, Convolutional Neural Networks (CNNs), Recurrent Neural Networks (RNNs), LSTMs, characterbased language modelling, encoder-decoder models, reinforcement learning, etc.",
+    "title": "Text Processing Using Machine Learning",
+    "faculty": "Institute of Systems Science",
+    "moduleCredit": "4",
+    "prereqTree": "KE5205",
+    "fulfillRequirements": [
+        "EB5103",
+        "EB5105"
+    ]
+}

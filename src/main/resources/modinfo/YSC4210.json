@@ -1,0 +1,12 @@
+{
+    "moduleCode": "YSC4210",
+    "description": "This course deals with the theory of functions of a complex variable. The\ntopics to be covered are the Cauchy-Riemann equations and power\nseries, the properties of analytic and entire functions, such as the\nmaximum-modulus principle and the open mapping theorem, line and\ncontour integrals, the residue theorem, and conformal mappings. If time\npermits, the analytic continuation as well as the gamma and zeta\nfunctions will be also treated.",
+    "title": "Complex Analysis",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSC3206"
+        ]
+    }
+}

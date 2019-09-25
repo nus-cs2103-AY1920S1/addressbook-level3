@@ -1,0 +1,16 @@
+{
+    "moduleCode": "CM2192",
+    "description": "",
+    "title": "Experiments in Chemistry 3",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "CM1191",
+    "fulfillRequirements": [
+        "CM3242",
+        "CM3261",
+        "CM3292",
+        "CM3295",
+        "CM3267",
+        "CM3241"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "moduleCode": "YSC3244",
+    "description": "This course is an introduction to the numerical analysis. The primary objective of the course is to develop the basic understanding of numerical algorithms and skills to implement algorithms to solve mathematical problems on the computer.",
+    "title": "Numerical Analysis",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": "YSC2232"
+}

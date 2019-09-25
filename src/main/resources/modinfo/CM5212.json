@@ -1,0 +1,8 @@
+{
+    "moduleCode": "CM5212",
+    "description": "Students will learn the principles and applications of crystal growth and engineering.  This knowledge is relevant to the crystallization of active pharmaceutical ingredients in the pharmaceutical industry.  Topics include: crystal structure & design, crystallization & growth, polymorphism, and multi-component crystals.  Students will receive practical training in in crystal-structure visualization & data mining.",
+    "title": "Crystal Engineering",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "CM4214"
+}

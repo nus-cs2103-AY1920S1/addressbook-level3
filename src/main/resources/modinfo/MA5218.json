@@ -1,0 +1,11 @@
+{
+    "moduleCode": "MA5218",
+    "description": "This module is an introduction to representation theory of finite groups and other related topics. The first third of the course is devoted to the study of semisimple rings and algebras, culminating in the Wedderburn-Artin structure theorem. The remainder of the course is devoted to representation theory of finite groups, character theory and applications such as Burnside\u2019s theorem. If time permits, further topics may be discussed, such as Artin\u2019s and Brauer\u2019s theorems, rationality questions or representations of compact groups",
+    "title": "Graduate Algebra IIB",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "MA5203",
+    "fulfillRequirements": [
+        "MA5211"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "moduleCode": "CE5807",
+    "description": "Digital technology is rapidly changing the face of construction and has a significant effect on improving project delivery. Technologies are impacting construction logistics. The objective of this module is to introduce students to the current state-of-the-art in terms of digital technology implementations in building and construction. This module will also introduce students to several data analytic techniques often used in conjunction with these digital technologies. It also examines supply and demand planning for an agile and lean logistics, and the application of technologies in this aspect of the project. It also covers management of subcontractors to improve project delivery.",
+    "title": "Integrated Digital Delivery (IDD)",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": "CE2409"
+}

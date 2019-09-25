@@ -1,0 +1,7 @@
+{
+    "moduleCode": "SDM5010",
+    "description": "Model-Based Systems Engineering (MBSE) is fast\nbecoming the industry standard for describing systems to\nsupport performance of key systems engineering tasks.\n\nThe module shows how a model-based view is fundamental to systems development. It describes the use of the four fundamental views of a system defined in SysML, for the purpose of performing SE tasks. It demonstrates how these views can be systematically developed using an MBSE methodology, and then used in requirements specification, architecting, trade-off analysis, testing and verification. The coverage also includes the transformation of SysML diagrams into executable models useful for systems-level analysis.",
+    "title": "Model-Based Systems Engineering",
+    "faculty": "Engineering",
+    "moduleCredit": "4"
+}

@@ -1,0 +1,18 @@
+{
+    "moduleCode": "ACC2706",
+    "description": "This course covers major concepts, tools and techniques in managerial accounting. It provides students with an appreciation of how managerial accounting evolves with changes in the business environment and why the usefulness of managerial accounting systems depends on the organisational context. The emphasis is on the use of managerial accounting information for decision-making, planning, and controlling activities. Students are introduced to both traditional and contemporary managerial accounting concepts and techniques.",
+    "title": "Managerial Accounting",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "ACC1701",
+            "ACC1701X",
+            "EC2204"
+        ]
+    },
+    "fulfillRequirements": [
+        "ACC3711",
+        "ACC4761A"
+    ]
+}

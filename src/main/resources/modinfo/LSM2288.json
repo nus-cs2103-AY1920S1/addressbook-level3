@@ -1,0 +1,14 @@
+{
+    "moduleCode": "LSM2288",
+    "description": "",
+    "title": "Basic UROPS in Life Sciences I",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1105",
+            "LSM1106"
+        ]
+    }
+}

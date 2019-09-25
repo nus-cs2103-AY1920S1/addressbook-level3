@@ -1,0 +1,13 @@
+{
+    "moduleCode": "MNO3317",
+    "description": "Students will be exposed to leadership decisions at the advanced level. Senior and top executives typically have to create and deal with a leadership environment and culture at the organizational level that is consistent and supportive\nof organizational mission and strategy. The challenges facing these executives at the institutional level are quite different from those actually practising leadership skills at the operational level. Students will learn the skills needed\nto do the following: \n1. Creating Leadership Vision and Strategic Directions\n2. Shaping leadership Culture and Values\n3. Designing and Leading a Leadership Learning\nOrganization\n4. Leading Leaders in Change Situations",
+    "title": "Advanced Leadership",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "MNO1001",
+            "MNO2007"
+        ]
+    }
+}

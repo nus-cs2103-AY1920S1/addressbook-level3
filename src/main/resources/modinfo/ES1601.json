@@ -1,0 +1,14 @@
+{
+    "moduleCode": "ES1601",
+    "description": "Communication is key to sharing ideas and influencing others in the university and the workplace.  By examining communication in different contexts, students will learn to express informative and persuasive messages for academic and workplace audiences. Specifically, they will hone their ability to communicate information meaningfully. ES1601 supports other RVRC first year courses GEQ1917 Understanding and Critiquing Sustainability and WR1401 Workplace Readiness in that the focus is on language use in context.  The module is taught over two semesters with one 2-hour tutorial per week.",
+    "title": "Professional and Academic Communication",
+    "faculty": "NUS",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1102",
+            "ES1103"
+        ]
+    }
+}

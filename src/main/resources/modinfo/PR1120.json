@@ -1,0 +1,11 @@
+{
+    "moduleCode": "PR1120",
+    "description": "This module gives an insight into the nature of microorganisms, with greater emphasis on bacteria and their significance to the pharmaceutical industry and medicine. The fundamentals of basic microbiology, such as the characteristics, morphology, classification, cultivation, enumeration and identification of bacteria, as well as fungi and viruses, will be discussed. Concepts of disinfection and sterility, disinfectants and sterilization methods will also be covered.",
+    "title": "Microbiology in Pharmacy",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "PR3124",
+        "PR3123"
+    ]
+}

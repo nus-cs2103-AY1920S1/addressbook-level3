@@ -1,0 +1,16 @@
+{
+    "moduleCode": "YSC3232",
+    "description": "This course will teach principles of software engineering and object oriented programming as well as UI and Android. In this module, students will first learn about the Java language and the object paradigm (field encapsulation, object, polymorphism), as well as useful tools for software development (e.g. version control, debugging). The next part of the module will focus on how to write code properly and work on larger scale projects using MVC framework. Finally, the last part of the course will cover User Interfaces in Java, Threads, synchronization and Android Programming.",
+    "title": "Software Engineering",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSC2221",
+            "YSC1212"
+        ]
+    },
+    "fulfillRequirements": [
+        "YSC4215"
+    ]
+}

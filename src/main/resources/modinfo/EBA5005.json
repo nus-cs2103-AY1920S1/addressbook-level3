@@ -1,0 +1,13 @@
+{
+    "moduleCode": "EBA5005",
+    "description": "This module teaches the advanced concepts of predictive modeling and Time Series Forecasting and their application in few special areas like Health Care & Service Industry in addition to other domains like Public Services, IT Services, Finance, Airlines, Logistics, Transport, Hotel & Tourism Industries. The topics include GLM, ARIMA & SARIMA, Transfer Functions, Survival Analysis, Image Analysis for Health Care, Management of Health & Medical Data, Service Quality Frame Work, Service Process Improvement Techniques etc.",
+    "title": "Specialized Predictive Modelling and Forecasting",
+    "faculty": "Institute of Systems Science",
+    "moduleCredit": "10",
+    "prereqTree": {
+        "or": [
+            "EBA5002",
+            "EBA5001"
+        ]
+    }
+}

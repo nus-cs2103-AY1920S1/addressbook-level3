@@ -1,0 +1,43 @@
+{
+    "moduleCode": "CS3230",
+    "description": "This module introduces different techniques of designing and analysing algorithms. Students will learn about the framework for algorithm analysis, for example, lower bound arguments, average case analysis, and the theory of NP-completeness. In addition, students are exposed to various algorithm design paradigms. The module serves two purposes: to improve the students' ability to design algorithms in different areas, and to prepare students for the study of more advanced algorithms. The module covers lower and upper bounds, recurrences, basic algorithm paradigms (such as prune-and-search, dynamic programming, branch-and-bound, graph traversal, and randomised approaches), amortized analysis, NP-completeness, and some selected advanced topics.",
+    "title": "Design and Analysis of Algorithms",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    "CS2040"
+                ]
+            },
+            {
+                "or": [
+                    "MA1100",
+                    "CS1231"
+                ]
+            }
+        ]
+    },
+    "fulfillRequirements": [
+        "CS5206",
+        "CS5234",
+        "CS5237",
+        "CS5238",
+        "CS6244",
+        "CS6210",
+        "CS6281",
+        "CS6283",
+        "CS6285",
+        "CS5330",
+        "CS6215",
+        "CS6235",
+        "CS4231",
+        "CS4235",
+        "CS4234",
+        "CS4257",
+        "CS4268"
+    ]
+}

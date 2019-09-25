@@ -1,0 +1,13 @@
+{
+    "moduleCode": "CE4231",
+    "description": "This course introduces the basic scientific principles of how the Earth\u2019s climate system. This is done by first introducing and analyzing measurements of the climate system. This will then be followed-up with consideration of the basic physical processes involved. Finally, simple models will be introduced to allow students to explore and understand more deeply.\n\nThe following topics will be covered:\n1. Conservation of energy & radiative forcing\n2. Large-scale flows on a rotating sphere\n3. Atmospheric thermodynamics\n4. Physics and chemistry of greenhouse gases & aerosols\n5. Land surface change\n6. Coupling Across Scales & non-linearities",
+    "title": "Earth's Climate: Science & Modelling",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "MA1505",
+            "MA1506"
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "moduleCode": "SPH5005",
+    "description": "This module is both a practice as well as a seminar\ncourse. Module requirements are fulfilled by planning and\nconducting a project in cooperation with an advisor over\nthe course of 6 - 12 months. The project should involve\ncollection of primary data, or an in-depth analysis of\nsecondary data, and should be in the student\u2019s selected\nfocus area, if they\u2019ve chosen one.",
+    "title": "Practicum",
+    "faculty": "SSH School of Public Health",
+    "moduleCredit": "8",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "SPH5002",
+                    "CO5102"
+                ]
+            },
+            "CO5103"
+        ]
+    }
+}

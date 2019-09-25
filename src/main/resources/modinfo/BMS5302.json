@@ -1,0 +1,13 @@
+{
+    "moduleCode": "BMS5302",
+    "description": "In this course, we will place our emphasis on the\ninternational financial system, international investments,\nand international financial management, particularly in\nAsia. This course is especially helpful for a student\npursuing a career in international banking, global asset\nmanagement, or international corporate finance. Our\ncourse begins with a thorough analysis of international\nbusiness risks and the structure of the international\nmonetary system. We will then cover the following topics:\ncurrency risk management; international asset allocation;\nexchange-rate determination; international investments;\ninternational capital raising and budgeting; foreign direct\ninvestment; and corporate governance in Asia.",
+    "title": "International Finance",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "FIN2004",
+            "FIN2004X"
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "moduleCode": "LAG4202",
+    "description": "This module aims to provide students with further training in skills and strategies to engage in authentic discourse and more complex argumentative writing. Topics of social, historical and cultural interest will be introduced through authentic materials such as selected works of literature, texts from newspapers and magazines, and audio or video recordings.",
+    "title": "German 6",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "5",
+    "prereqTree": "LAG4201",
+    "fulfillRequirements": [
+        "LAG4203"
+    ]
+}

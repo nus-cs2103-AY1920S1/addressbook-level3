@@ -1,0 +1,13 @@
+{
+    "moduleCode": "EL3880",
+    "description": "This module is designed to cover selected topics in English Language. The topic to be covered will depend on the interest and expertise of regular or visiting staff member in the department.",
+    "title": "Topics in English Language",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    }
+}

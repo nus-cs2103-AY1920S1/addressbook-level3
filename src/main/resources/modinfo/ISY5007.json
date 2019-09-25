@@ -1,0 +1,13 @@
+{
+    "moduleCode": "ISY5007",
+    "description": "This module will enable the students to put into practice the skills learned during their Masters studies. They will gain valuable hands-on experience designing and bulding an Intelligent System to solve a real business or engineering problem.",
+    "title": "Capstone Project in Intelligent Systems",
+    "faculty": "Institute of Systems Science",
+    "moduleCredit": "6",
+    "prereqTree": {
+        "or": [
+            "ISY5001",
+            "ISY5002"
+        ]
+    }
+}

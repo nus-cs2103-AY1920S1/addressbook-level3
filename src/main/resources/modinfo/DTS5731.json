@@ -1,0 +1,10 @@
+{
+    "moduleCode": "DTS5731",
+    "description": "This module is an introductory module on systems\nengineering providing an overview of the topic and the\ndetails which should be more fully explored in depth\nthrough other modules. It explains systems, systems\nengineering, systems development lifecycles and\nprocesses, applications and methods to mitigate risks.",
+    "title": "Fundamentals of Systems Engineering",
+    "faculty": "Temasek Defence Sys. Institute",
+    "moduleCredit": "2",
+    "fulfillRequirements": [
+        "DTS5736"
+    ]
+}

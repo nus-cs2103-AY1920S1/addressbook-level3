@@ -1,0 +1,10 @@
+{
+    "moduleCode": "MUT2205",
+    "description": "This module surveys the relationship between text and music in different eras and genres through vocal, instrumental, and electronic music. Students will examine\nworks set to, inspired by, or including text from literary and non-literary sources in the medieval through contemporary eras.\n\nThe module includes both theoretical and practical components. Students will analyse works to further their understanding of module topics and compose short works to demonstrate their comprehension of module content.",
+    "title": "Text and Music",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "MUT3202"
+    ]
+}

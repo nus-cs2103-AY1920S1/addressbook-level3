@@ -1,0 +1,20 @@
+{
+    "moduleCode": "BSP3012",
+    "description": "The course is grounded on doing business in open economies with international trade and exchange. This model is applicable to small and open city-state Singapore and enables it to first tap the Association of Southeast Asian Nations (ASEAN) before wider outreaches to billion-plus populated China and India. An ASEAN that is tighter in economic integration is pivotal as China is more aggressively competitive since the 1970s with India awakening as well. This course will focus on ASEAN-plus business opportunities for Singapore-based companies to forge business alliances and ventures to tap natural resources in production and markets for sales and revenue.",
+    "title": "Singapore and ASEAN: Geoeconomics and Geopolitics for Business",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "BSP1703",
+                    "BSP1707",
+                    "EC1101E",
+                    "EC1301"
+                ]
+            },
+            "BSP2701"
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "moduleCode": "LSM3235",
+    "description": "This module introduces the concept of epigenetics, the relationship between the genome and the epigenome, and the translational aspects of epigenetics in relation to human health and diseases. The topics that will be covered include epigenetic variation, genomic technologies to study epigenetics, epigenetics in development, epimedicine, epigenetics in human diseases and epigenetics in ageing.",
+    "title": "Epigenetics in Human Health and Diseases",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "LSM2232",
+    "fulfillRequirements": [
+        "LSM4245"
+    ]
+}

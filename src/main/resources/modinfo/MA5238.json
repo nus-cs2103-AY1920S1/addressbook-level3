@@ -1,0 +1,14 @@
+{
+    "moduleCode": "MA5238",
+    "description": "This module is designed for graduate students in mathematics. It covers the following major topics: Fourier series, Fourier transform on R^n, distributions\nand generalized functions, Sobolev spaces and their applications to partial differential equations. Introduction to singular integrals.",
+    "title": "Fourier Analysis",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MA5205",
+            "MA3266",
+            "MA3266S"
+        ]
+    }
+}

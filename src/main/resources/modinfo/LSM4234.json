@@ -1,0 +1,13 @@
+{
+    "moduleCode": "LSM4234",
+    "description": "This module introduces students to mechanobiology, an emerging field of life sciences that explores mechanical regulation and implications underlying numerous biological events from prokaryotes to higher organisms. It covers regulation of cell functions by cytoskeletal networks, mechanics of movement of tissue/cell/sub-cellular\norganelle, cellular/molecular force-sensing, mechanical modulation of biochemical signaling, physical landscapes of peri-/trans-/intra-nuclear events including transcription,\nand mechanical control of multicellular living organization.\nIt also refers to physical and engineering aspects of\nphysiological or pathological backgrounds of human health\nand diseases. In addition, students learn cutting-edge\ntechnologies to dissect mechanical/physical aspects of\ncellular/molecular functions.",
+    "title": "Mechanobiology",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "LSM2232",
+            "LSM2233"
+        ]
+    }
+}

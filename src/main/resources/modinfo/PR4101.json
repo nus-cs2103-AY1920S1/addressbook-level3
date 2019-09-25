@@ -1,0 +1,11 @@
+{
+    "moduleCode": "PR4101",
+    "description": "Learning objectives: To provide an introduction to the management of commonly encountered human disease states, focusing on rational drug therapy to optimize patient outcomes.Major topics: Parameters which affect drug therapy decisions in selected diseases: neurology, peptic ulcer, cardiovascular and infectious diseases.Target students: Pharmacy Final Year",
+    "title": "Pharmacotherapy II",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "PR3105",
+    "fulfillRequirements": [
+        "PR4102"
+    ]
+}

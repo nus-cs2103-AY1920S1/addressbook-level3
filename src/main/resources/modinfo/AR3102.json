@@ -1,0 +1,13 @@
+{
+    "moduleCode": "AR3102",
+    "description": "The objective of the program is to develop a level of competence in design skills and thinking. It involves the integration of technology with the natural environment, and urban context. Students address a generic brief by building upon it with emphasis in Urban, Environment, and/or Technological issues in a given site to demonstrate the acquisition of a level of competence in research, design thinking, operational skills and communication.",
+    "title": "Design 6",
+    "faculty": "Design and Environment",
+    "moduleCredit": "8",
+    "fulfillRequirements": [
+        "LA4701",
+        "LA4702",
+        "AR3411",
+        "AR4421"
+    ]
+}

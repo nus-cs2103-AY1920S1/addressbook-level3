@@ -1,0 +1,7 @@
+{
+    "moduleCode": "TIE3110",
+    "description": "This course introduces students to the basic concepts of discrete-event simulation systems and application to problems that have no closed-form solutions. The course will cover modelling techniques, random number generators, discrete event simulation approaches, simulated data analysis, simulation variance reduction techniques and state-of-the-art simulation software. At the end of this course, students will be able to analyse and develop simulation models of given problems.",
+    "title": "Simulation",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "5"
+}

@@ -1,0 +1,13 @@
+{
+    "moduleCode": "IS4228",
+    "description": "The main objective of this course is to educate the students on how and to what extent can information technologies (IT) support the financial services industry, in order for a student to seek a career in this industry sector. It is designed to\nprovide the students with a broad overview and thematic case studies of how each major business segment of the financial services industry employs IT to maintain a competitive edge, and to comply with laws and regulations.",
+    "title": "Information Technologies in Financial Services",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "IS3101",
+            "IS3103"
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "moduleCode": "DEP5109",
+    "description": "DEP5109 is the last studio project of the MUP programme.\nIn coordination with the supervising tutor(s), students can\nchoose topic and content of an individual final project\n(master project) in the field of urban planning. The aims of\nthe module are twofold: On the one hand students should\nprove their ability to undertake complex urban planning\nand research projects on an individual basis. On the other\nhand students have the opportunity to specialise\nthemselves with a project in a specific field of urban\nplanning that align their individual interest and their\nintended professional perspective.",
+    "title": "Integrated Planning Project",
+    "faculty": "Design and Environment",
+    "moduleCredit": "8",
+    "prereqTree": {
+        "and": [
+            "DEP5101",
+            "DEP5103",
+            "UD5601",
+            "DEP5101A",
+            "DEP5103A",
+            "DEP5102",
+            "DEP5104",
+            "DEP5105",
+            "UD5521"
+        ]
+    }
+}

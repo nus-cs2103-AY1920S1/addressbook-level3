@@ -1,0 +1,8 @@
+{
+    "moduleCode": "CS6216",
+    "description": "This graduate level module covers advanced topics in\nmachine learning that are of current research or\napplication interests. The exact topics to be taught will\ndepend on the lecturers teaching the module. Upon\ncompletion of this module, the student will have a deeper\nunderstanding on some of the latest research problems in\nmachine learning as well as the state-of-the-art\napproaches and solutions. This module will help prepare\nstudents towards doing research in machine learning.",
+    "title": "Advanced Topics in Machine Learning",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": "CS3244"
+}

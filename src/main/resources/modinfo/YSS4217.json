@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSS4217",
+    "description": "This course is an Elective in Global Affairs that offers students an in-depth\nand advanced level exposure to the organization of production networks\n(aka commodity, value, supply chains) in the global economy. It will enable\nstudents to understand globalization from the ground up by giving them\nhistorical background on the increasing complexity and transnational\ncontent of global production, and analytic tools to understand why and\nhow firms and governments make choices that produce the production\nnetworks we see today. The course will also examine Singapore\u2019s role as a\ncentral node in Asian production networks. Specific details are in the\nsyllabus.",
+    "title": "Production Networks in the Global Economy",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSS1203",
+            "YSS2218"
+        ]
+    }
+}

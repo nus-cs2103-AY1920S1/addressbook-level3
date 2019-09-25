@@ -1,0 +1,10 @@
+{
+    "moduleCode": "DEP5104",
+    "description": "",
+    "title": "Urban and Regional Economics",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "DEP5109"
+    ]
+}

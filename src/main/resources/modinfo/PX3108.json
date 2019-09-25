@@ -1,0 +1,18 @@
+{
+    "moduleCode": "PX3108",
+    "description": "Pathology is a bridging discipline involving both basic science and clinical practice and is devoted to the study of structural and functional changes in cells, tissues and organs that underlie diseases. It attempts to explain the \"whys\" of the signs and symptoms manifested by patients while providing a sound foundation for rational clinical care and therapy \n\n\n\nThe four aspects of a disease process that form the core of pathology are:\n\n\n\n(a) its cause (aetiology)\n\n(b) the mechanisms of its development (pathogenesis)\n\n(c) the structural alterations induced in the cells and organs of the body (morphologic changes)\n\n(d) the functional consequences of the morphologic changes (clinical significance and manifestations) \n\nThe new pathology course for pharmacy students will be focused on general pathology, which is the study of basic reactions of cells and tissues to abnormal stimuli that underlie all diseases",
+    "title": "Pathology",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "AY1104",
+            "PR1906",
+            "PY1106",
+            "PR1908"
+        ]
+    },
+    "fulfillRequirements": [
+        "PR3105"
+    ]
+}

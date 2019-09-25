@@ -1,0 +1,14 @@
+{
+    "moduleCode": "RE3701",
+    "description": "This module examines real estate and infrastructure as an asset class and equips students with the essential skills for analysing a real estate and infrastructure investment problems. The topics include: investment objectives; leasing structure and income analysis; characteristics of real estate and infrastructure returns and risks; capitalization rates; capital budgeting; financial leverage and after-tax returns; equity versus debt investment; and real estate and infrastructure equity investment strategies.",
+    "title": "Real Estate Investment Analysis",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "RE3805",
+        "RE3807",
+        "RE4803",
+        "RE4804",
+        "RE4807"
+    ]
+}

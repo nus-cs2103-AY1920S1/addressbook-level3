@@ -1,0 +1,10 @@
+{
+    "moduleCode": "SH5203",
+    "description": "",
+    "title": "Emergency Planning",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "SH5205"
+    ]
+}

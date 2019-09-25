@@ -1,0 +1,15 @@
+{
+    "moduleCode": "SG5118",
+    "description": "The Individual Software Practicum is designed to allow students to experience entrepreneurial enterprises, such as high technology start-up companies, and contribute to those companies by playing a significant role in the\ndevelopment of an advanced software product.\n\nThe practicum allows students to apply their knowledge in a real world context, demonstrating their mastery of a range of Software skills, such as in project management, requirements analysis, architecture and design, software construction, verification and validation.",
+    "title": "Individual Software Practicum",
+    "faculty": "Institute of Systems Science",
+    "moduleCredit": "12",
+    "prereqTree": {
+        "or": [
+            "SG4101",
+            "SG5101",
+            "SG5102",
+            "SG5103"
+        ]
+    }
+}

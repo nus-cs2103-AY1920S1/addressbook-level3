@@ -1,0 +1,13 @@
+{
+    "moduleCode": "CS5476",
+    "description": "With the advent of the Internet-of-Things, the computing\nparadigm is quickly changing from the traditional cyber\ndomain to cyber-physical domain. This is made possible\nfrom devices that are equipped with sensors and actuators\nthat interact with the physical world. In this module, we will\ninvestigate how such sensing systems affect the notion of\ncomputer security. We will also explore the state-of-the-art\nresearch in the areas of sensing systems and how they\ncan provide benefits to the security of the Internet-ofThings. Furthermore, this module will also investigate how\nan attacker may compromise the sensing information to\nexploit security vulnerabilities in these systems.",
+    "title": "IoT Security",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CG3002",
+            "CS3237"
+        ]
+    }
+}

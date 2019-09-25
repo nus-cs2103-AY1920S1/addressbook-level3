@@ -1,0 +1,13 @@
+{
+    "moduleCode": "FAS1101",
+    "description": "This module develops and applies the core strategies that underlie successful academic writing. These include writing with clarity and precision, analysing how authors argue, organizing and expressing ideas to guide readers through a line of reasoning, citing and documenting sources, revising the content, wording, and organization of a paper, as well as surface features such as spelling and punctuation. Students gain an appreciation of the basics of academic writing through three units, which correspond to the three stages of writing \u2013 introduction, body, and conclusion.",
+    "title": "Writing Academically: Arts and Social Sciences",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1103"
+        ]
+    }
+}

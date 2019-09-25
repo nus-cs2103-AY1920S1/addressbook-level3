@@ -1,0 +1,8 @@
+{
+    "moduleCode": "FE5210",
+    "description": "This module will provide guidance for students in choosing their topic for the compulsory module FE5110. A specific research area will be explored to introduce relevant research topics. The research area may change from year to year, and examples are credit rating methodologies or volatility modelling.\n\nIn addition, this module will benefit students looking to take on research related or analytical roles in the financial industry. Statistical methods required for the research area will be covered, as well as the proper presentation of results, both in written and oral form.",
+    "title": "Research Methods in Finance",
+    "faculty": "Risk Management Institute",
+    "moduleCredit": "4",
+    "prereqTree": "FE5102"
+}

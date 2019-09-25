@@ -1,0 +1,8 @@
+{
+    "moduleCode": "SP4261",
+    "description": "Probability and statistics provide powerful tools for\nquantifying the weight of forensic evidence. These\nquantities often come along with associated assumptions\nand need to be interpreted and articulated in a manner that\nis easily understood. Students will learn the necessary\nprobability and statistical techniques in quantifying forensic\nevidence and error evaluation metrics. The fallacies and\nerrors in interpreting results of selected forensic topics such\nas paternity testing and representative drug sampling will be\ncovered. Additionally, students will learn the art of\narticulating these quantitative findings to non-scientists\nthrough real case studies involving DNA evidence, illegal\ndrugs, forensic toxicology and criminalistics.",
+    "title": "Articulating Probability and Statistics in Court",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "LSM1306"
+}

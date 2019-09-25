@@ -1,0 +1,8 @@
+{
+    "moduleCode": "PC4242",
+    "description": "This advanced module presents the fundamentals of classical electrodynamics in much depth. It covers the following topics: relativistic formulation of the electromagnetic field, covariance of electrodynamics, conservation laws, radiation by moving charges, Lienard-Wiechert potentials, Larmor's formula, angular distribution of radiation, spectral properties of radiation, Cherenkov radiation, Bremsstrahlung, synchrotron radiation, multipole expansions, and applications. A good mathematical foundation is required.",
+    "title": "Electricity and Magnetism III",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "PC3231"
+}

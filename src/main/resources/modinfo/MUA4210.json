@@ -1,0 +1,11 @@
+{
+    "moduleCode": "MUA4210",
+    "description": "A continuation of MUA4110, students will further study\nand perform works of chamber music for undirected\nensembles as defined in the description of module\nMUA2110.\nStudents should participate in at least one public\nperformance as well as in a final examination of the\nprepared work(s).",
+    "title": "Chamber Music in Mixed Ensemble 4",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "prereqTree": "MUA4110",
+    "fulfillRequirements": [
+        "MUA4310"
+    ]
+}

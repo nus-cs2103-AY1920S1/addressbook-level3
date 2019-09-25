@@ -1,0 +1,11 @@
+{
+    "moduleCode": "CE2409",
+    "description": "This module is designed to give civil engineering students an introduction to computer organization and operation, a knowledge of mathematical problem description and algorithm formulation, a competence in engineering problem solving using computers and equips them with fundamental knowledge and skill in computer-aided engineering graphics.\n\n\n\nThe computer-aided engineering graphics includes the basic concepts in general engineering drawing, with additional focus on the drawings for Civil engineering profession. This includes the structural plan and cross section drawing, structural detailing, etc. The use of CAD software will be emphasized through hands-on sessions.",
+    "title": "Computer Applications in Civil Engineering",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "CE5807",
+        "CE5808"
+    ]
+}

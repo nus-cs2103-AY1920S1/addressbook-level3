@@ -1,0 +1,11 @@
+{
+    "moduleCode": "SA4102",
+    "description": "- Application Development Life Cycle I\n- Application Development Life Cycle II",
+    "title": "Enterprise Solutions Design and Development",
+    "faculty": "Institute of Systems Science",
+    "moduleCredit": "8",
+    "fulfillRequirements": [
+        "SA4109",
+        "SA4109A"
+    ]
+}

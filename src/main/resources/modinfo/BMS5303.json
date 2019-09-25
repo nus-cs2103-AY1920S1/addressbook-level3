@@ -1,0 +1,13 @@
+{
+    "moduleCode": "BMS5303",
+    "description": "The objective of this course is to give students a well rounded understanding of mergers & acquisitions (M&A), and the essential role that valuation analysis plays as part of an M&A transaction. Specifically, we will study the strategic, economic, financial and governance issues associated with M&A transactions, perform valuation analyses of different transactions, as well as learn how to\nassess whether a transaction is properly valued. Ultimately, this course will provide the students with a framework for analyzing M&A transactions, including\nunderstanding strategic rationale, valuation methodologies, deal structures and bidding strategies.",
+    "title": "Valuation and Mergers & Acquisitions",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "FIN2004",
+            "FIN2004X"
+        ]
+    }
+}

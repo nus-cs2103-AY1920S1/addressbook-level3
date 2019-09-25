@@ -1,0 +1,7 @@
+{
+    "moduleCode": "IE5001B",
+    "description": "This module introduces some of the advanced models and\ntechniques of operations research. These include\nmodeling techniques in integer programming and\nnonlinear programming, as well as basic inventory control\nand queuing models. This module also illustrates how\nthese models and techniques can be applied to solve\nmany decision making problems encountered in the\nindustry.",
+    "title": "Advanced Models and Techniques",
+    "faculty": "Engineering",
+    "moduleCredit": "2"
+}

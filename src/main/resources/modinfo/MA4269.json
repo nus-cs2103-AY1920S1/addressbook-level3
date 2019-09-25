@@ -1,0 +1,28 @@
+{
+    "moduleCode": "MA4269",
+    "description": "This module imparts to students in-depth knowledge of pricing and hedging of financial derivatives in equity, currency and fixed income markets. Major topics include fundamental of asset pricing, basic stochastic calculus, Ito\u2019s formula, Black-Scholes models for European, American, path-dependent options such as Barrier, Asian and Lookback options, as well as multi-asset options and\nAmerican exchange options.",
+    "title": "Mathematical Finance II",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1104",
+                    "MA1506",
+                    "MA1507",
+                    "MA1511",
+                    "MA2104",
+                    "MA2311"
+                ]
+            },
+            "MA3269"
+        ]
+    },
+    "fulfillRequirements": [
+        "QF5210A",
+        "MA5248",
+        "MA5245",
+        "QF5210"
+    ]
+}

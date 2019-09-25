@@ -1,0 +1,10 @@
+{
+    "moduleCode": "MUA3227",
+    "description": "Through projects designed in collaboration between\nstudents and mentors, Collaboratory is a place to pursue\ninterests in experimental music realization, collaborative\ncomposition, free and structured improvisation, electronic\nmusic, or the realization of student compositional work.\nProjects must be mentored. The project proposal must be\napproved by both the mentor and the module coordinator\nby the end of the semester prior to starting the project.\nProjects should include consistent meetings (weekly or\nfortnightly), guided by the mentor, and a public\npresentation of the final musical result.",
+    "title": "Collaboratory B",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "fulfillRequirements": [
+        "MUA4226"
+    ]
+}

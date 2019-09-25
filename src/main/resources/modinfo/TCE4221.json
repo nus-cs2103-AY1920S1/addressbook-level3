@@ -1,0 +1,8 @@
+{
+    "moduleCode": "TCE4221",
+    "description": "This module equips students with the knowledge in\nthe design of land transport infrastructures in the\ncontext of the multimodal nature of modern\ntransportation systems. With a focus on the\nmovement of people and vehicles, the planning and\nmanagement of land transport infrastructural\ncapacities and operations as well as the design of\nterminal and link facilities shall be examined.\nTopics covered include: design of highway\ninfrastructures, bus transit and urban street\ninfrastructural design; design of rail transit\ninfrastructures; and stops, stations and terminal\ndesign.",
+    "title": "Design of Land Transport Infrastructures",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4",
+    "prereqTree": "TCE3121"
+}

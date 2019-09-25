@@ -1,0 +1,17 @@
+{
+    "moduleCode": "MUT3202",
+    "description": "This module is designed for students who wish to further\nexplore the depth and diversity of the most complex of all\ntonal forms: sonata.\nSonata form has been the most important vehicle of the\nidea of \u2018absolute\u2019 music and functioned as the archetypal\nformal design from the 18th to the 20th centuries. After\nreviewing its historical predecessors (binary and ternary\nforms), formal principles, and terminology,this course\nlooks into the structure and techniques of the sonata form\nthrough analysis and some creative writing exercises.",
+    "title": "Sonata Form",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MUT1101",
+            "MUT2201",
+            "MUT2202",
+            "MUT2203",
+            "MUT2204",
+            "MUT2205"
+        ]
+    }
+}

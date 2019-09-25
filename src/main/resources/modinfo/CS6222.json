@@ -1,0 +1,8 @@
+{
+    "moduleCode": "CS6222",
+    "description": "This lecture/seminar-based module introduces some biological investigations enabled by the latest experimental technologies in biology. We focus on the role of computing in helping biologists with these investigations. Students are\nexpected to attend lectures, give seminars, and do projects. The seminars require the students to read papers related to the selected biological investigations, the\nenabling experimental technologies, and associated computational solutions. For the projects, students need to develop some methods/algorithms, integrate existing tools, or enhance existing tools with new functions.",
+    "title": "Advanced Topics in Computational Biology",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": "CS2220"
+}

@@ -1,0 +1,10 @@
+{
+    "moduleCode": "ME2143",
+    "description": "This module introduces various components that are useful in the analysis, design and synthesis of mechatronic systems. The topics mainly include electronic circuits (analog and digital), sensors, actuators, etc. For the analog circuits, the operational amplifiers and its applications will be introduced. The working principles of semiconductor devices such as diodes and transistors will be explained. The digital circuits will then be introduced for digital electronics applications. For the sensors part, the basic principles and characteristics of various sensors for the measurement of physical quantities such as position, strain, temperature, etc will be introduced. The actuators section mainly covers the electric motors which include DC motors, stepper motors and AC motors.",
+    "title": "Sensors & Actuators",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "ME4256"
+    ]
+}

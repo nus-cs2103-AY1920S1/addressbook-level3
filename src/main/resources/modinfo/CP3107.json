@@ -1,0 +1,30 @@
+{
+    "moduleCode": "CP3107",
+    "description": "This is a project-based module that provides students with\ntraining in software engineering by working on an actual\nsoftware system that supports a local voluntary welfare\norganisation. This module is graded on a Completed\nSatisfactorily/Completed Unsatisfactorily (CS/CU) basis.",
+    "title": "Computing for Voluntary Welfare Organisations",
+    "faculty": "Computing",
+    "moduleCredit": "6",
+    "prereqTree": {
+        "or": [
+            "CS2010",
+            "CS2020",
+            {
+                "and": [
+                    {
+                        "or": [
+                            "CS2030",
+                            "CS2113",
+                            "CS2113T"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "CS2040",
+                            "CS2040C"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "moduleCode": "PS3257",
+    "description": "This module examines the theories of knowledge and\n\nmethods of inquiry appropriate to studying politics. It\n\nintroduces students to alternative understandings of\n\nthe social sciences and to the empirical, critical, and\n\nanalytical skills they imply. It pays particular attention\n\nto helping students understand the basics of good\n\nresearch and to acquire skills essential to conducting\n\ntheir own research.",
+    "title": "Political Inquiry",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "PS3258",
+        "PS3880F"
+    ]
+}

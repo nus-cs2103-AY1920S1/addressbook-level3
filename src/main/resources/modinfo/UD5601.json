@@ -1,0 +1,10 @@
+{
+    "moduleCode": "UD5601",
+    "description": "The urban design studio is where the synthesis of theoretical and practical aspects of urban analysis and design takes place. Using urban design projects of different scales that deal with programming, planning and design, the studio encourages the integration of political, social, economic, environmental, and physical concerns in the design of urban spaces. The studio will also analyse successful urban design projects in the form of case studies.",
+    "title": "Urban Design Studio 1",
+    "faculty": "Design and Environment",
+    "moduleCredit": "8",
+    "fulfillRequirements": [
+        "DEP5109"
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "moduleCode": "TCE3115",
+    "description": "This is an introductory module in slope stability and\nearth retaining structures. The topics covered\ninclude slopes and embankments, earth pressure\nand retaining structures, and basic deep\nexcavations. Students will learn how to check\nultimate limit states using limit equilibrium\nmethods and appreciate that such checks are\nnecessary but not sufficient (serviceability to be\ndiscussed in advanced modules). The goal is to\nteach an assessment of force and/or moment\nequilibrium for slopes, calculation of active and\npassive earth pressures, and appreciation of\nvarious important design considerations pertaining\nto earth retaining structures and basic deep\nexcavations.",
+    "title": "Geotechnical Engineering",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4",
+    "prereqTree": "TCE2112",
+    "fulfillRequirements": [
+        "TCE4258"
+    ]
+}

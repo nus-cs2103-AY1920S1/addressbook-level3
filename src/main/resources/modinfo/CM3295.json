@@ -1,0 +1,13 @@
+{
+    "moduleCode": "CM3295",
+    "description": "Laboratory work in Analytical Restriction: This module is offered only to students taking Minor in Analytical Chemistry.",
+    "title": "Selected Experiments in Analytical Chemistry",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CM2142",
+            "CM2192"
+        ]
+    }
+}

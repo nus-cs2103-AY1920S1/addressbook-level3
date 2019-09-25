@@ -1,0 +1,13 @@
+{
+    "moduleCode": "IE4243",
+    "description": "This module introduces the fundamental theory and method modelling and risk analysis for rational decision under uncertainty with applications in but not limited to medical & healthcare decisions and financial decision in capital investments & systems engineering.\nTopics covered include foundation of decision theory, risk aversion and measurement, decision analysis methods, Bayesian statistical approach,Bayesian networks modelling, inference, and learning, Advance financial decision making models, and Real options analysis.",
+    "title": "Decision Modeling & Risk Analysis",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "IE2100",
+            "IE2111"
+        ]
+    }
+}

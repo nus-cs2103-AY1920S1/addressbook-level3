@@ -1,0 +1,11 @@
+{
+    "moduleCode": "MUA2186",
+    "description": "Orchestral Repertoire for Harp is an orchestral repertory class designed to give orchestral playing experience to the Harp majors of YSTCM. In 13 sessions throughout the semester, the class will read and rehearse significant orchestral\nrepertoire for Harp. Harp students are expected to demonstrate aptitude in large ensemble playing including: orchestral concepts in sound, intonation, and blend, as well as a professional attitude in working with conductors and colleagues. This module also teaches them essential audition techniques and skills.",
+    "title": "Orchestral Repertoire for Harp 2A",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "prereqTree": "MUA1107",
+    "fulfillRequirements": [
+        "MUA2187"
+    ]
+}

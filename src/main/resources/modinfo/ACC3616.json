@@ -1,0 +1,20 @@
+{
+    "moduleCode": "ACC3616",
+    "description": "The module covers corporate governance from a multidisciplinary\nperspective including law, finance, accounting\nand economics. The module covers enterprise risk\nmanagement in terms of the Integrated Framework issued\nby the Committee of Sponsoring Organizations of the\nTreadway Commission (COSO).",
+    "title": "Corporate Governance and Risk Management",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "ACC1002",
+            "BSP1004",
+            "FIN2004"
+        ]
+    },
+    "fulfillRequirements": [
+        "ACC4612A",
+        "ACC4612G",
+        "ACC4612H",
+        "ACC4614"
+    ]
+}

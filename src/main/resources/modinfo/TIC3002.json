@@ -1,0 +1,13 @@
+{
+    "moduleCode": "TIC3002",
+    "description": "This module focuses on human-computer interaction and covers the common principles, design guidelines, prototyping techniques, evaluation techniques, as well as implementation of modern computer user interfaces.",
+    "title": "User Interface Design and Implementation",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "TIC2002",
+            "TIC2601"
+        ]
+    }
+}

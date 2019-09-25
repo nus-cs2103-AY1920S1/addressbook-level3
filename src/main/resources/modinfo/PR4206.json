@@ -1,0 +1,23 @@
+{
+    "moduleCode": "PR4206",
+    "description": "Learning objectives: To understand that the total control of quality in drug industry is a plant-wide activity and involves careful attention to a number of factors including the selection of quality components and materials, adequate product and process design, and control (statistical) of process through in-process and end-product testing. Major topics: Good Manufacturing Practices. Statistical quality control. Microbiological quality control\n\ntechniques. Target students: Pharmacy Final Year",
+    "title": "Industrial Pharmacy",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PR1142",
+                    "GER1000"
+                ]
+            },
+            {
+                "or": [
+                    "PR3117",
+                    "PR3301"
+                ]
+            }
+        ]
+    }
+}

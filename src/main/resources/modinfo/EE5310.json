@@ -1,0 +1,14 @@
+{
+    "moduleCode": "EE5310",
+    "description": "This course introduces students to the fundamental principles and concepts of computer communication networks. The course covers four main layers of the\nnetwork protocol stack: link, network, transport and application. The fundamental design principles of each layer are presented. Issues related to the performance of each layer are explored in detail. The course uses case studies to expose students to real-world networking protocols and presents the design principles that motivated the development of these protocols. The course also includes an examination of the security aspects of each layer.",
+    "title": "Communication Networking Fundamentals",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "EE2012",
+            "EE3204",
+            "EE4210"
+        ]
+    }
+}

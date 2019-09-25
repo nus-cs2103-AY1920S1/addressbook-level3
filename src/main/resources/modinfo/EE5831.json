@@ -1,0 +1,10 @@
+{
+    "moduleCode": "EE5831",
+    "description": "This module teaches basic theories and applications of electromagnetic waves. Topics include: Fundamentals include quasi-static and dynamic solutions to Maxwell's equations, plane-wave propagation and scattering, guiding structure and cavity, behavior at interface between media, Green's functions, and method of moment.",
+    "title": "Electromagnetic Wave Theory",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "EE6831"
+    ]
+}

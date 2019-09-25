@@ -1,0 +1,11 @@
+{
+    "moduleCode": "TBA3204",
+    "description": "Web analytics is the practice of collecting website traffic data to understand visitor activity and interactions. The insights gained through web analytics allow website developers to make informed decisions about how to improve site efficacy (e.g., landing page optimisation) and user experience (flow). Tools such as Google! Analytics could be used for exercises.",
+    "title": "Web Analytics",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4",
+    "prereqTree": "TBA2102",
+    "fulfillRequirements": [
+        "TBA4212"
+    ]
+}

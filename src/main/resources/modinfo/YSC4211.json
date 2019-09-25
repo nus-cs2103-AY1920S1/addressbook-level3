@@ -1,0 +1,14 @@
+{
+    "moduleCode": "YSC4211",
+    "description": "This course fulfils one of the upper division requirements for the Life Science Major. This course aims to be an advanced research seminar examining the latest findings in Molecular, Cellular and Developmental Biology. The focus will be on analysis of primary literature. Students will work on scientific writing and presentation.",
+    "title": "Adv Topics Molecular, Cellular & Developmental Biology",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSC3233",
+            "YSC3238",
+            "YSC3214"
+        ]
+    }
+}

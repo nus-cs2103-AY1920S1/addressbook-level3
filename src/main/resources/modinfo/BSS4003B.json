@@ -1,0 +1,15 @@
+{
+    "moduleCode": "BSS4003B",
+    "description": "This module introduces recent research in the\nmicroeconomics of innovation and productivity, focusing on\nimplications for management and economic policy. The\nmodule runs as an interactive seminar, and aims to\ncritically appreciate current research. The instructor and\nstudents will present and discuss recently published and\nongoing empirical studies, with particular emphasis on\ncausal inference.\nStudents will be required to carry out econometric\nestimation of innovation and productivity using recently\ncurated datasets.",
+    "title": "Innovation and Productivity (with Econometrics)",
+    "faculty": "NUS Business School",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "EC3303",
+            "BSE3703",
+            "BSP4513",
+            "ST3131"
+        ]
+    }
+}

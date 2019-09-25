@@ -1,0 +1,7 @@
+{
+    "moduleCode": "DSA5231",
+    "description": "This course will provide participants with a foundation in\ndata science, and introduce several essential tools and\ntechniques for this field. These tools include the Python\nprogramming language; the techniques include frequently\nused predictive models such as deep learning, regression\nand random forests.\n\nEvery industry domain collects more data today than it did\njust five years ago. This course will utilise real datasets from\nthe manufacturing, human resource, and customer\nanalytics fields to demonstrate how the vast amounts of\ndata collected can be used to improve processes and\ndecision-making.",
+    "title": "Data Analytics for the Digital Workplace",
+    "faculty": "Science",
+    "moduleCredit": "4"
+}

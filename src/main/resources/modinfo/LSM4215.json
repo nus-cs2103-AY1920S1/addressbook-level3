@@ -1,0 +1,13 @@
+{
+    "moduleCode": "LSM4215",
+    "description": "This module describes how the human body responds to exposure and exercise in environmental extremes such as hypoxic and hyperbaric conditions, thermal stressors, microgravity and trauma. Latest research findings, including some of the controversial topics, will be presented and discussed. Students will understand what the physiological changes are under extreme conditions and how acute and chronic adaptations occur in response to these stresses. This will allow students to appreciate how the human body adapts to changing environments.",
+    "title": "Extreme Physiology",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "LSM3212",
+            "LSM3214"
+        ]
+    }
+}

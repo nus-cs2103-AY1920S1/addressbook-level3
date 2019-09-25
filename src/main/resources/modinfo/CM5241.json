@@ -1,0 +1,8 @@
+{
+    "moduleCode": "CM5241",
+    "description": "Sample preparation, including miniaturised procedures of extraction; advanced coupled chromatography/mass spectrometry; advanced mass spectrometric techniques. Capillary electrophoresis: different modes of capillary electrophoresis, injection techniques, detection techniques and column technology. Scanning probe microscopy: scanning tunneling microscopy, atomic force microscopy, scanning electrochemical microscopy and scanning near-field optical microscopy. Determination of crystal and molecular structures by single crystal x-ray diffraction techniques.",
+    "title": "Modern Analytical Techniques",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "CM4242"
+}

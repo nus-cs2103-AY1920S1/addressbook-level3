@@ -1,0 +1,19 @@
+{
+    "moduleCode": "GL3201",
+    "description": "This course examines the contributions made by the\nhumanities to the study of globalization. Globalization\nis most often conceived in economic or political\nterms; approaches which often fail to fully understand\ncultural norms, interaction, and exchange, or the\nshifting problems of meaning-making surrounding\nglobalization. To address these issues, this module\nwill take a dual approach. First, students will engage\nwith texts that provide a set of concepts, theories, and\nmethodological approaches distinct to or common in\nhumanities disciplines. Second, students will interpret\ntexts from a range of genres such as films, visual art,\nnovels, television, music, philosophical texts, etc.",
+    "title": "Global Studies and Humanities Research",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "GL1101E",
+            {
+                "or": [
+                    "GL2101",
+                    "GL2102",
+                    "GL2103"
+                ]
+            }
+        ]
+    }
+}

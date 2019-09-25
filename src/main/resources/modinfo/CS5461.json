@@ -1,0 +1,42 @@
+{
+    "moduleCode": "CS5461",
+    "description": "Recent years have seen a dramatic rise in the use of\nalgorithms for solving problems involving strategic\ndecision makers. Deployed algorithms now assist in a\nvariety of economic interactions: assigning medical\nresidents to schools, allocating students to courses,\nallocating security resources in airports, allocating\ncomputational resources and dividing rent. We will\nexplore foundational topics at the intersection of\neconomics and computation, starting with the foundations\nof game theory: Nash equilibria, the theory of cooperative\ngames, before proceeding to covering more advanced\ntopics: matching algorithms, allocation of indivisible goods,\nand mechanism design.",
+    "title": "Algorithmic Mechanism Design",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ESP1107",
+                    "ESP2107",
+                    "ST1232",
+                    "ST2132",
+                    "ST2334"
+                ]
+            },
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    "CS2040",
+                    "CS2040C"
+                ]
+            },
+            {
+                "or": [
+                    "BT2101",
+                    "CS1231"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            }
+        ]
+    }
+}

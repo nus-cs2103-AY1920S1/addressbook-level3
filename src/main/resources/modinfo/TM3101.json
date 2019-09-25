@@ -1,0 +1,13 @@
+{
+    "moduleCode": "TM3101",
+    "description": "This is a group-based project that focuses on the design of a complete mechanical design product, emphasizing the design process, analysis and drawings. The major project may be preceded by smaller projects to instill familiarity and experience. Elements of commercialization (e.g. market survey) and form-giving (aesthetics) may be incorporated. Students are required to submit a report, drawings, do a presentation, and take oral examinations. Effective group dynamics and experience of the process and problems involved in translating paper design to prototype are the key objectives of this module.",
+    "title": "Mechanical Systems Design",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "6",
+    "prereqTree": {
+        "or": [
+            "TM2101",
+            "ME2101E"
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "moduleCode": "RE1704",
+    "description": "This module helps students build up the foundation for the economic analysis of cities and real estate markets. In addition to introducing basic micro- and macro- economic concepts, this module combines microeconomic theories\nwith application in urban topics and real estate markets. It also elaborates on relevant macroeconomics concepts to understand housing cycles, urban planning, and regional economic growth in the real estate market.",
+    "title": "Principles of Real Estate Economics",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "EC2383"
+    ]
+}

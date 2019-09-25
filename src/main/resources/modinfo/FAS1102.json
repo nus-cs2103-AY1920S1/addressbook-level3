@@ -1,0 +1,13 @@
+{
+    "moduleCode": "FAS1102",
+    "description": "This module develops the rhetorical knowledge, the composing practices, and the critical thinking skills that are necessary to understand and shape meaning for different audiences. Students gain a deeper appreciation for the roles of public writing and speaking among engaged citizens. They will analyze, research, and contribute to discussions about pressing social issues that face contemporary Singapore (e.g., aging, culture, environment, family, inequality). Students will research, adapt, and strengthen their abilities to communicate to multiple audiences across multiple modalities. Students will compose in non\u2010fiction genres/media such as email, blogs, presentations, and reviews.",
+    "title": "Public Writing and Communication",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1103"
+        ]
+    }
+}

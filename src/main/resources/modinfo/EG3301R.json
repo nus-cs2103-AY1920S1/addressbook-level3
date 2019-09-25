@@ -1,0 +1,10 @@
+{
+    "moduleCode": "EG3301R",
+    "description": "This module focuses on the implementation and realization of an engineering design concept. It provides an avenue for students to experience an integrated design process\nwhere technology plays a central role. Students will go through thorough design steps from reviewing the conceptual system design, breaking down the system\ndesign into component design, prototyping at various stages of design, fabrication, and validating the design intents.",
+    "title": "DCP Project",
+    "faculty": "Engineering",
+    "moduleCredit": "12",
+    "fulfillRequirements": [
+        "EG4301A"
+    ]
+}

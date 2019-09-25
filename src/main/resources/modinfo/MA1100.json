@@ -1,0 +1,27 @@
+{
+    "moduleCode": "MA1100",
+    "description": "This is the entry-level module for a sound education in modern mathematics, to prepare students for higher\nlevel mathematics courses. The first goal is to build the necessary mathematical foundation by introducing\nthe basic language, concepts, and methods of contemporary mathematics, with focus on discrete and\nalgebraic notions. The second goal is to develop student\u2019s ability to construct rigorous arguments and\nformal proofs based on logical reasoning. Main topics: logic, sets, maps, equivalence relations, natural\nnumbers, integers, rational numbers, congruences, counting and cardinality. Major results include:\nbinomial theorem, fundamental theorem of arithmetic, infinitude of primes, Chinese remainder theorem,\nFermat-Euler theorem.",
+    "title": "Basic Discrete Mathematics",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "CS5232",
+        "CS5469",
+        "CS2102",
+        "CS2309",
+        "CS3230",
+        "CS3234",
+        "CS3243",
+        "CS4236",
+        "CS2102R",
+        "CS3236",
+        "CS2040S",
+        "CS4269",
+        "MA3219",
+        "MA3205",
+        "MA2219",
+        "MA2214",
+        "MA2202S",
+        "MA2202"
+    ]
+}

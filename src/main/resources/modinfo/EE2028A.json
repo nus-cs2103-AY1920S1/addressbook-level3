@@ -1,0 +1,7 @@
+{
+    "moduleCode": "EE2028A",
+    "description": "This is a first course that introduces programming in C\nlanguage. It exposes fundamental programming\nmethodologies to be followed which involves capturing the\nspecifications provided, designing and scripting a solution,\ncoding and compiling towards solving real-life complex\nproblems. Emphasis will be given on problems in\nElectrical Engineering topics. Topics in the module\ninclude, introduction to C language programming\nconstructs (variables, types, expressions, assignments,\nfunctions, arrays, structures, basic pointer operations\netc.), writing pseudo-codes, problem solving using\nElectrical Engineering applications, program development,\ncoding, testing and debugging facilitating a design\ntowards solving complex problems.",
+    "title": "C Programming",
+    "faculty": "Engineering",
+    "moduleCredit": "2"
+}

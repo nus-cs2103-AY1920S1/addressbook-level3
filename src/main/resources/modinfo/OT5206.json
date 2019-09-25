@@ -1,0 +1,8 @@
+{
+    "moduleCode": "OT5206",
+    "description": "This module is concerned with the analysis and design of foundations for offshore structures. Students will learn the principles, concepts and design considerations that are peculiar to the offshore environment. The major topics covered include: offshore design considerations; foundations for jack-up rigs and offshore gravity platforms; offshore pile foundations installation, analysis and design.",
+    "title": "Offshore Foundations",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": "CE2112"
+}

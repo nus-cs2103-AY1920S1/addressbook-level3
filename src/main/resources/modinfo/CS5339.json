@@ -1,0 +1,8 @@
+{
+    "moduleCode": "CS5339",
+    "description": "The module aims to provide a broad theoretical understanding of machine learning and how the theory guides the development of algorithms and applications. Topics covered include the approximation capabilities of common function classes used for machine learning, such as decision trees, neural networks, and support vector machines, the sample complexity of learning different function classes and methods of reducing the estimation error such as regularization and model selection, and computational methods used for learning such as convex optimization, greedy methods, and stochastic gradient\ndescent.",
+    "title": "Theory and Algorithms for Machine Learning",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": "CS3244"
+}

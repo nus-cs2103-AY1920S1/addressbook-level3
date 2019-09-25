@@ -1,0 +1,13 @@
+{
+    "moduleCode": "PLC5011A",
+    "description": "",
+    "title": "Clinical Placement 1",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "6",
+    "prereqTree": {
+        "and": [
+            "PLC5004",
+            "PLC5001"
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "moduleCode": "LAG2201",
+    "description": "This module aims to further enhance students' proficiency in the four basic skills of listening, speaking, reading and writing as well as increase their knowledge of the syntactical, morphological, phonetic and lexical aspects of the German language. Students will also acquire a better grasp of learning and communicative strategies. Authentic texts from daily communicative situations will serve as the main source of learning materials.",
+    "title": "German 2",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": "LAG1201",
+    "fulfillRequirements": [
+        "LAG3201"
+    ]
+}

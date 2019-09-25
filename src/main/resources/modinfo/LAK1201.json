@@ -1,0 +1,10 @@
+{
+    "moduleCode": "LAK1201",
+    "description": "Korean 1 is a beginners module. This is an integrated course which will help students gain basic proficiency in the four skills (listening, speaking, reading and writing), grammar and vocabulary (including Hanguel, the Korean alphabet) for personal interaction and communication in authentic situations.",
+    "title": "Korean 1",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "LAK2201"
+    ]
+}

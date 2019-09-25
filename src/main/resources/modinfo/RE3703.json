@@ -1,0 +1,12 @@
+{
+    "moduleCode": "RE3703",
+    "description": "This module covers three major components related to real estate economics from both theoretical and practical perspectives. First, it introduces the broad linkages between real estate markets and the macro-economy, and the relevant theoretical frameworks for analysing the demand, supply, and\nmarket equilibrium of properties in different real estate sectors. Second, it discusses the availability and interpretations of real estate market data in practice. Third, it touches upon popular modelling techniques to evaluate real estate market conditions using statistical softwares.",
+    "title": "Advanced Real Estate Economics",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "prereqTree": "RE2705",
+    "fulfillRequirements": [
+        "RE4701",
+        "RE4808"
+    ]
+}

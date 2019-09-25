@@ -1,0 +1,36 @@
+{
+    "moduleCode": "MA1104",
+    "description": "This is a module in the calculus of functions of several real variables, applications of which abound in mathematics, the physical sciences and engineering.   The aim is for students to acquire computational skills, ability for 2- and 3-D visualization and to understand conceptually fundamental results such as Greens Theorem, Stokes Theorem and the Divergence Theorem. Major topics: Euclidean distance and elementary topological concepts in R^2 and R^3, limit and continuity, implicit functions. Partial differentiation, differentiable functions, differentials, chain rules, directional derivatives, gradients, mean value theorem, Taylor's formula, extreme value theorem, Lagrange multipliers. Multiple integrals and iterated integrals change of order, applications, change of variables in multiple integrals. Line integrals and Green's theorem. Surface integrals, Stokes Theorem, Divergence Theorem.",
+    "title": "Multivariable Calculus",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MA1102",
+            "MA1102R",
+            "MA1505",
+            "MA1505C",
+            "MA1521",
+            "EE1401",
+            "EE1461",
+            "EG1402"
+        ]
+    },
+    "fulfillRequirements": [
+        "MA4269A",
+        "DSA3102",
+        "MA4271",
+        "MA4269",
+        "MA3266",
+        "QF3101",
+        "MA3264",
+        "MA3236",
+        "MA3229",
+        "MA3227",
+        "MA3220",
+        "MA3209",
+        "MA3111S",
+        "MA3111",
+        "DSA4212"
+    ]
+}

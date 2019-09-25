@@ -1,0 +1,14 @@
+{
+    "moduleCode": "YSS3264",
+    "description": "Financial markets are subject to periodic bouts of \u201cirrational exuberance\u201d that lead to bubbles in asset prices, frequently followed by a crash. These afflict particularly stock and foreign exchange markets and the banking industry. Despite repeated attempts to regulate finance, crises recur with remarkable frequency and regularity. In \u201cThis Time is Different\u201d, Ken Rogoff and Carmen Reinhart document eight centuries of financial folly. These crises have profound effects on the real economy, leaving a legacy of unemployment and slow growth. We use economic analysis to study several financial, foreign exchange, and banking crises in their historical and social contexts.",
+    "title": "Bubbles, Crashes, Panics and Crises",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSS2203",
+            "YSS2214",
+            "YSS1203"
+        ]
+    }
+}

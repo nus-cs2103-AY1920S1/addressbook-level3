@@ -1,0 +1,12 @@
+{
+    "moduleCode": "YSC2233",
+    "description": "This course illustrates basic principles of genetics using examples from prokaryote and eukaryote organisms. It emphasizes classical genetic techniques and how genetics is used to gain understanding of whole organisms. The gene, its context and the genome are the primary concepts covered. The focus will be on Drosophila developmental genetics, yeast cell biology and human disease.",
+    "title": "Genetics",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "fulfillRequirements": [
+        "YSC4211A",
+        "YSC3241",
+        "YSC4211B"
+    ]
+}

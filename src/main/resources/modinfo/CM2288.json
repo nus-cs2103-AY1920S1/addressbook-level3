@@ -1,0 +1,14 @@
+{
+    "moduleCode": "CM2288",
+    "description": "",
+    "title": "Basic UROPS in Chemistry I",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CM1111",
+            "CM1121",
+            "CM1131"
+        ]
+    }
+}

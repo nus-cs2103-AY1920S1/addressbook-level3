@@ -1,0 +1,15 @@
+{
+    "moduleCode": "EE2211",
+    "description": "This module introduces students to various machine\nlearning concepts and applications, and the mathematical\ntools needed to understand them. Topics include\nsupervised and unsupervised machine learning\ntechniques, optimization, overfitting, regularization, crossvalidation and evaluation metrics. The mathematical tools\ninclude basic topics in probability and statistics, linear\nalgebra, and optimization. These concepts will be\nillustrated through various machine learning techniques\nand examples, such as forecasting population growth,\nclassifying E-mail as spam or non-spam and predicting\nheart disease.",
+    "title": "Introduction to Machine Learning",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CS1010E",
+            "MA1511",
+            "MA1512",
+            "MA1513"
+        ]
+    }
+}

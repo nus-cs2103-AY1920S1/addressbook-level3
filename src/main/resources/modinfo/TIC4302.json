@@ -1,0 +1,13 @@
+{
+    "moduleCode": "TIC4302",
+    "description": "This module is one of the two modules where students get to practice information security concepts learned in the classroom and gain hands on experience. Students work in a team environment on an information security-related projects. Project activities can include analysing the security requirements, designing and implementing security systems, attacking and defending a system, developing and deploying an information security policy, etc.",
+    "title": "Information Security Practicum II",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "TIC3301",
+            "TIC3302"
+        ]
+    }
+}

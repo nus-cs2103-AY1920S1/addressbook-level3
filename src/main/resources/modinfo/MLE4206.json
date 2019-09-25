@@ -1,0 +1,13 @@
+{
+    "moduleCode": "MLE4206",
+    "description": "This module provides students with an understanding of the size effect of properties; students will learn unique properties of nanomateirals: mechanical, electronic, magnetic and optical. This module is designed for students who has materials science and engineering background and interested in properties of nanomaterials.",
+    "title": "Current topics on Nanomaterials",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "MLE2104",
+            "MLE2105"
+        ]
+    }
+}

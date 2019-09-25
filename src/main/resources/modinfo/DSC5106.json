@@ -1,0 +1,10 @@
+{
+    "moduleCode": "DSC5106",
+    "description": "This module aims to provide a foundation for data analytics techniques and applications. It aims at\n\n(1) Emphasizing on understanding of intuitions behind the tools, and not on mathematical derivations;\n(2) Incorporating real-world datasets and analytics projects to help students bridge theories and practices; and\n(3) Equipping students with hands-on experiences in using data analysis software to visualize the concepts and ideas, and also to practise solving problems.\n\nThe module covers commonly used analytics tools such as logistic regression and decision tree.\n\nStudents are expected to get their hands really dirty by applying the tools in the analytics software (Python).",
+    "title": "Foundation in Data Analytics I",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "BT5151"
+    ]
+}

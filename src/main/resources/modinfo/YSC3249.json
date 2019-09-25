@@ -1,0 +1,8 @@
+{
+    "moduleCode": "YSC3249",
+    "description": "This module in statistical inference, which is essential for many Mathematical, Computational and Statistical Sciences (MCS) modules, as well as in other scientific disciplines, such as Physics and Economics. The course covers the basic principles of frequentist and likelihood based inference.",
+    "title": "Statistical Inference",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": "YSC2243"
+}

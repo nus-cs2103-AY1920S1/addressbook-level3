@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSS4228",
+    "description": "This course is a comparative examination of the different ways people\nsleep and understand dreams, and the social consequences of these\ndifferences across cultures. It explores how people sleep and experience\ndreams shapes the broader ways knowledge, social relations, and wellbeing\nare conceived and enacted in human societies.",
+    "title": "The Anthropology of Dreams and Sleep",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "and": [
+            "YCC1121",
+            "YCC2121"
+        ]
+    }
+}

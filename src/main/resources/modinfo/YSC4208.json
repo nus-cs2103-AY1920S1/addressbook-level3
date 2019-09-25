@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSC4208",
+    "description": "Monte Carlo simulations are computer experiments that solve numerical problems by using random number generators. At first glance, it may seem bizarre to use a computer, arguably the most accurate and deterministic of all human inventions, to perform random experiments. However, Monte Carlo simulations are nowadays an essential component in many quantitative studies. They are used in the natural sciences, industrial engineering, finance and statistics. This course teaches how to write elegant and efficient Monte Carlo simulations for concrete real-world examples. You will also learn the theoretical foundations of pseudorandom number generators, Markov chain Monte Carlo and the Metropolis-Hastings algorithm.",
+    "title": "Monte Carlo Simulations in Science and Statistics",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSC3216",
+            "YSC2230"
+        ]
+    }
+}

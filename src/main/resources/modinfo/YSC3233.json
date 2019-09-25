@@ -1,0 +1,14 @@
+{
+    "moduleCode": "YSC3233",
+    "description": "This course fulfils one of the upper division requirements for the Life Science Major. It is considered one of the \u201cFoundations of Advanced Biology\u201d options, of which majors must take four. This course examines the central dogma of biology and how gene products are applied to basic intracellular mechanisms. The focus will be on protein targeting to organelles, membrane and vesicle trafficking, cell-cell communication, the cytoskeleton, adhesion, and the cell cycle. The course will outline how recombinant DNA techniques have been used to dissect cellular processes and will draw on basic experimental results to describe experimental design and its limitations.",
+    "title": "Molecular Cell Biology",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "fulfillRequirements": [
+        "YSC3238",
+        "YSC4211",
+        "YSC4211A",
+        "YSC3241",
+        "YSC4211B"
+    ]
+}

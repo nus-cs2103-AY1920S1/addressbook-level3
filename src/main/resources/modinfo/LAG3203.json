@@ -1,0 +1,11 @@
+{
+    "moduleCode": "LAG3203",
+    "description": "This module is specially aimed at teaching students who are interested in studying in a German-speaking country. They will be taught to comprehend longer listening and reading texts on more complex topics of academic interest as well as on aspects of German culture, society and life.",
+    "title": "German for Academic Purposes",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": "LAG3201",
+    "fulfillRequirements": [
+        "LAG4201"
+    ]
+}

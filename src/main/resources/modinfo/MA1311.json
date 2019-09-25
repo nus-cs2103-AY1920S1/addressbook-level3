@@ -1,0 +1,31 @@
+{
+    "moduleCode": "MA1311",
+    "description": "This module introduces the basic concepts in matrix algebra which has applications in science, engineering, statistics, economics and operations research. The main objective is to equip students with the basic skills in computing with real vectors and matrices.  Specially designed for students not majoring in mathematics, in particular those who read a minor in mathematics, it is also suitable for students who are keen to pick up mathematical skills that will be useful in their own areas of studies. \n\n \n\nMajor topics: Gaussian elimination, solutions to simultaneous equations, matrices, vectors, special matrices, matrix inverses, linear independence, rank, determinants, vectors in geometry, and cross product,\n\nintroduction to eigenvalues and eigenvectors.",
+    "title": "Matrix Algebra",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "DSC3214",
+        "CS5240",
+        "CS5246",
+        "CS6244",
+        "CS5461",
+        "CS3244",
+        "CS4243",
+        "CS3242",
+        "CS4347",
+        "CS4234",
+        "CS4268",
+        "BT4240",
+        "MA3238",
+        "MA3252",
+        "MA3220",
+        "MA2312",
+        "MA2214",
+        "MA2213",
+        "ST3236",
+        "CS5477",
+        "CS4277",
+        "IT3011"
+    ]
+}

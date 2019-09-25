@@ -1,0 +1,15 @@
+{
+    "moduleCode": "IE3102",
+    "description": "This systems engineering project requires a student to study, formulate and analyze problems using systems engineering tools and methodologies. The student is also expected to develop alternate solutions based on requirements and tradeoffs and verify them in meeting the requirements through testing and evaluation. It provides an opportunity for students to gain practical experience for industry-type projects.\n\nThey will also develop communication skills in technical report writing, oral presentations and project management.",
+    "title": "Systems Engineering Project",
+    "faculty": "Engineering",
+    "moduleCredit": "8",
+    "prereqTree": {
+        "or": [
+            "IE1112",
+            "IE2110",
+            "IE2150",
+            "IE3105"
+        ]
+    }
+}

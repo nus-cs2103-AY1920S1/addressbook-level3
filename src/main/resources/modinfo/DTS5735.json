@@ -1,0 +1,7 @@
+{
+    "moduleCode": "DTS5735",
+    "description": "This module introduces cybersecurity concepts and their\napplications. It aims to illustrate how systems can fail\nunder malicious activities, and how the threats can be\nmitigated and managed. Topics include cryptography,\ncommunication channel security, system security, trusted\ncomputing, policy making, human factors, etc. Applications\nsuch as cloud security, IOT security, security operations\ncentres, AI in cybersecurity, and case studies on wellknown\nattacks will be used to reinforce the learning of\nvarious foundational concepts.",
+    "title": "Cybersecurity",
+    "faculty": "Temasek Defence Sys. Institute",
+    "moduleCredit": "4"
+}

@@ -1,0 +1,11 @@
+{
+    "moduleCode": "PP2107",
+    "description": "",
+    "title": "Pharmacology 2",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "moduleCredit": "4",
+    "prereqTree": "PP2106",
+    "fulfillRequirements": [
+        "PR3105"
+    ]
+}

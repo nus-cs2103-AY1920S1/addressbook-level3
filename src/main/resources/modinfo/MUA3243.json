@@ -1,0 +1,22 @@
+{
+    "moduleCode": "MUA3243",
+    "description": "A continuation from MUA2243, piano students will continue to collaborate with students from other departments, forming undirected groups consisting of three or more players, to study and perform selected works of chamber music. Students are expected to participate in at least one public performance as well as in a final examination of the prepared work(s).",
+    "title": "Collaborative Piano - Chamber Music",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "prereqTree": {
+        "or": [
+            "MUA2243",
+            "MUA2155",
+            {
+                "and": [
+                    "MUA2241",
+                    "MUA2242"
+                ]
+            }
+        ]
+    },
+    "fulfillRequirements": [
+        "MUA4243"
+    ]
+}

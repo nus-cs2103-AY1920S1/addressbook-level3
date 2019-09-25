@@ -1,0 +1,10 @@
+{
+    "moduleCode": "MUH1101",
+    "description": "An introduction to the study of music, necessary for\nsuccess as a music student and professional\nmusician in the 21st century.\n\nFocusing on research, communication and critical\nthinking, students will acquire a shared vocabulary to\ntalk and write about music, and an understanding of\nmusical concepts and genres.\n\nStudents will also study music as a cultural and\nsocial phenomenon and contrast historical and\npresent performance practice, with emphasis on\nworks currently being performed in the Conservatory.\nStudents will develop confidence in expressing their\nown artistic perspectives and evaluate what it means\nto be part of an evolving musical ecosystem.",
+    "title": "Foundations for Musical Discovery",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "MUH3205"
+    ]
+}

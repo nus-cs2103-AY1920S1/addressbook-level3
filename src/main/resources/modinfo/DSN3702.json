@@ -1,0 +1,8 @@
+{
+    "moduleCode": "DSN3702",
+    "description": "R is the language of analytics in academic institutions, and increasingly also in corporations. This module introduces R, and then use it to manipulate data, compute summaries, construct visual analytics, and do statistical tests of relationships.",
+    "title": "Descriptive Analytics with R",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": "DSC1704"
+}

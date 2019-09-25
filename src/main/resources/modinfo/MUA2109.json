@@ -1,0 +1,10 @@
+{
+    "moduleCode": "MUA2109",
+    "description": "Students will form undirected ensembles of three or more players, consisting of instruments within a single instrumental family:\n-\tstrings (including harp)\n-\twoodwinds\n-\tbrass\n-\tpercussion\nin order to study and perform selected works of chamber music. The standard wind quintet configuration is considered to fall under this module.\nStudents should participate in at least one public performance as well as in a final examination of the prepared work(s), and to reflect upon their learning process in the context of this module by updating their e-portfolios.",
+    "title": "Chamber Music",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "MUA3109"
+    ]
+}

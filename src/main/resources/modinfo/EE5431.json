@@ -1,0 +1,17 @@
+{
+    "moduleCode": "EE5431",
+    "description": "This module focuses on the theory and fundamental aspects of nanoscale electronics. The module is designed to equip students with the basic knowledge of the fundamentals and theoretical methods required for understanding quantum electronic behaviour in current and future nanoelectronic applications. The module will cover the basic aspects of quantum theory which are relevant for electronic transport and dynamics, such as quantum operators, time-dependent quantum theory, spin dynamics and carrier statistics. The latter part of the module will\ncover the basic topics of solid state theory relevant for nanoelectronics, such as bandstructure, electronic transport in solids, and phonons.",
+    "title": "Fundamentals of Nanoelectronics",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "PC2232",
+            "EE3431C"
+        ]
+    },
+    "fulfillRequirements": [
+        "EE6435",
+        "EE6438"
+    ]
+}

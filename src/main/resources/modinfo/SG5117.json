@@ -1,0 +1,15 @@
+{
+    "moduleCode": "SG5117",
+    "description": "The Software Engineering Overseas Practicum is designed to allow students to experience entrepreneurial enterprises, such as high technology start-up companies, in rapidly developing economies, such as Israel and China, and\ncontribute to those companies by playing a significant role in the development of an advanced software product.\n\nThe practicum allows students to apply their knowledge in a real world context, demonstrating their mastery of a range of Software Engineering skills, such as project management, requirements analysis, architecture and design, software construction, verification and validation.\n\nThis module is conducted in collaboration with the NUS Overseas Colleges (NOC).",
+    "title": "Software Engineering Overseas Practicum",
+    "faculty": "Institute of Systems Science",
+    "moduleCredit": "12",
+    "prereqTree": {
+        "or": [
+            "SG4101",
+            "SG5101",
+            "SG5102",
+            "SG5103"
+        ]
+    }
+}

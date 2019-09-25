@@ -1,0 +1,7 @@
+{
+    "moduleCode": "EE5020",
+    "description": "This module covers data science for the Internet of Things.\nThe topics include data science fundamentals such as\nBayesian statisitcs, classification, supervised learning,\nunsupervised learning, and deep learning. The module will\nalso cover several basic machine learning algorithms such\nas decision trees, logistic regression, support vector\nmachines, and neural networks. Students will visualize\nand analyze real-world data sets via practical IoT case\nstudies.",
+    "title": "Data Science for Internet of Things",
+    "faculty": "Engineering",
+    "moduleCredit": "2"
+}

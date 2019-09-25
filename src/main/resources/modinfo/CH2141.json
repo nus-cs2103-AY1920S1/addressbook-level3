@@ -1,0 +1,11 @@
+{
+    "moduleCode": "CH2141",
+    "description": "An essential module for students majoring in Chinese Studies, this is a general survey of the socio-political and intellectual developments in China from ancient times to the Opium War (1842). The characteristics of each Chinese imperial dynasty and the relationship between China and other Asian countries will also be examined. The course is also offered to students across the University with an interest in the history of traditional China.",
+    "title": "General History of China",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "CH2161",
+        "CH2162"
+    ]
+}

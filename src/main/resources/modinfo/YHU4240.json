@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YHU4240",
+    "description": "This module provides an opportunity for a detailed study of the\ninterface between American poetry of the first half of the 20th century\nand the concept of literary modernism. A close reading of selections\nfrom six major poets will address the following questions: How and\nwhy did the major poets of America dominate Western literary culture?\nWhat was the unique nature of their contribution to the many ideas\nand practices that go under the name of Modernism? What are the\ncreative possibilities they explored, whose influence continues to\ndominate global writing in English in the 21st century?",
+    "title": "American Modernist Poetry",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    }
+}

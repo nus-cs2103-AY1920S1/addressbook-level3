@@ -1,0 +1,16 @@
+{
+    "moduleCode": "LAS2201",
+    "description": "This module is a continuation of Spanish 1. Spanish 2 pays close attention to aural/oral practice while strengthening basic grammar skills, writing, and reading comprehension. Students will continue to learn about the Hispanic world via readings and a variety of audiovisual materials. The module covers the second half of the textbook used in Spanish 1.",
+    "title": "Spanish 2",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "LAS1201",
+            "YLS1201"
+        ]
+    },
+    "fulfillRequirements": [
+        "LAS3201"
+    ]
+}

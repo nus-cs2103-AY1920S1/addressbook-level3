@@ -1,0 +1,8 @@
+{
+    "moduleCode": "ME5304",
+    "description": "This module teaches techniques and skills in carrying out fluid mechanics experiments and data analyses. Major topics include: Similitude and modelling; Wind tunnel design; Velocity measurement; Pressure measurement; Shear stress measurement; Volume flow rate measurement; Wind tunnel blockage correction; End plate configurations; Flow visualization; Signal analysis. This module is primarily targeted at graduate students who are conducting experimental fluid mechanics research and those who have interests in experimental fluid mechanics. This module is also appropriate for undergraduate students enrolled in the department\u2019s Aeronautical Engineering Specialization, especially those who are working on experimental fluid mechanics research for their final year projects.",
+    "title": "Experimental Fluid Mechanics",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": "ME2135"
+}

@@ -1,0 +1,7 @@
+{
+    "moduleCode": "ST5219",
+    "description": "The objective of the module is to familiarize the students with\nadvanced strategies for Bayesian modelling. The major topics to\nbe covered are:\n\u2022 Bayesian treatment of non-hierarchical regression\nmodels.\n\u2022 Simulation based computation for inference and\nposterior predictive model checking.\n\u2022 Multilevel structures in Bayesian regression.\n\u2022 Multilevel models and analysis of variance.\n\u2022 Prior sensitivity analysis\n\u2022 Advanced modelling and computation using statistical\nsoftware packages.",
+    "title": "Bayesian hierarchical modelling",
+    "faculty": "Science",
+    "moduleCredit": "4"
+}

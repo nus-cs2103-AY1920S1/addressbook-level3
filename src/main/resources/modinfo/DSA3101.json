@@ -1,0 +1,13 @@
+{
+    "moduleCode": "DSA3101",
+    "description": "This module is designed to be a continuation of DSA1101\nIntroduction to Data Science. It focuses on data science\nmethodology and the ability to apply such methodology to\npractical applications. Real-world problems will be\nprovided by both industrial and academic partners in\ndomains such as transportation, consulting, finance,\npharmaceutics, life sciences and physics.",
+    "title": "Data Science in Practice",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "DSA2101",
+            "ST2132"
+        ]
+    }
+}

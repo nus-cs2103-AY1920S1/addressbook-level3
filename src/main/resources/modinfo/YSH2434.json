@@ -1,0 +1,7 @@
+{
+    "moduleCode": "YSH2434",
+    "description": "In this course, students will learn how to model mathematically the\nmeasurements as well as the challenges of noise and incompleteness.\nStudents will cover a set of techniques, broadly known as \"regularization\"\nmethods, which utilize so-called constraints to improve the condition of\nthe inverse problem and arrive at solutions that are closer to the true\nsource than the level of noise and incompleteness might have led one to\nexpect. The course will investigate on the so-called \"sparsity-based\" or\n\"compressive\" regularizers, which during the last decade emerged as very\npowerful for several applications (notably, medical imaging,) despite being\ncomputationally rather complex.",
+    "title": "Introduction to Imaging Science",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "1"
+}

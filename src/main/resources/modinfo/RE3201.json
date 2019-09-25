@@ -1,0 +1,13 @@
+{
+    "moduleCode": "RE3201",
+    "description": "Students will be introduced to the mechanics and process of research. This module covers topics such as:  problem identification and formulation, statement of research objectives, literature review, development of relevant hypothesis, research design and methodologies, data collection, statistical analyses, report writing and presentation.\n\nStatistical techniques such as descriptive and inferential statistics, time series, and multivariate statistical methods will be introduced. The emphasis is on the application of the statistical tools to real estate research questions. Students will also learn to apply basic statistical tools with hands-on practices on software like SPSS and Eview.",
+    "title": "Research Methodology",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "RE2101",
+            "RE2104"
+        ]
+    }
+}

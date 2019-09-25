@@ -1,0 +1,14 @@
+{
+    "moduleCode": "CM2111",
+    "description": "Structure and properties of solids; coordination chemistry: nomenclature, stability constants and isomerism.",
+    "title": "Inorganic Chemistry 2",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "CM1111",
+    "fulfillRequirements": [
+        "CM3211",
+        "CM3212",
+        "CM3291",
+        "CM3253"
+    ]
+}

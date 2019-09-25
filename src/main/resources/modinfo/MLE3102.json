@@ -1,0 +1,19 @@
+{
+    "moduleCode": "MLE3102",
+    "description": "Corrosion of metals and alloys: Economics of corrosion, Thermodynamics and electrochemistry of corrosion, Types of corrosion, Environmental effects on corrosion, Corrosion of selected metals and alloys, Corrosion protection, Corrosion monitoring; Degradation of nonmetallic materials: Biological, chemical and photodegradation of polymers, Environmental degradation, Photocorrosion of semiconductors; Failure mechanisms of materials. Failure analysis and Non-destructive testing: techniques and\n\nmethodology, case histories.",
+    "title": "Degradation and Failure of Materials",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MLE1101",
+            "MLE2102",
+            "MLE1111",
+            "MLE1001",
+            "MLE1002"
+        ]
+    },
+    "fulfillRequirements": [
+        "MLE4212"
+    ]
+}

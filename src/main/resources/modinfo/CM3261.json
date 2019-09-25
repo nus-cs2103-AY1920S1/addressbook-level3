@@ -1,0 +1,13 @@
+{
+    "moduleCode": "CM3261",
+    "description": "Environmental terms and concepts; scope of environmental chemistry; the atmosphere, lithosphere and hydrosphere; soil, water and air pollution; chemical toxicology; methods of environmental analysis and monitoring; global environmental problems; natural resources and energy; environmental management; risk assessment.",
+    "title": "Environmental Chemistry",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CM2142",
+            "CM2192"
+        ]
+    }
+}

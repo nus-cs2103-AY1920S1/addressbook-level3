@@ -1,0 +1,20 @@
+{
+    "moduleCode": "TCE2155",
+    "description": "This module equips students with knowledge and\nskills in structural mechanics, and concrete and\nsteel as structural materials. The topics introduce\nthe fundamentals of material constitutive\nbehaviours and failure models to appreciate the\nuse of materials in structural design. The topics\nalso cover the applications of concrete and steel as\nstructural materials including its properties, design\nand quality control in practice. The module is\ncompulsory for civil engineering undergraduate\nstudents without which he will not be qualified to\npractise as a professional civil engineer.",
+    "title": "Structural Mechanics and Materials",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "EG1109FC",
+            "EG1109"
+        ]
+    },
+    "fulfillRequirements": [
+        "TCE5604",
+        "TCE5202",
+        "TCE3155",
+        "TCE3165",
+        "TCE3166"
+    ]
+}

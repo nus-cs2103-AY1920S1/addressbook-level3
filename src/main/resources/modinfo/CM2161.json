@@ -1,0 +1,8 @@
+{
+    "moduleCode": "CM2161",
+    "description": "Process variables; measurement and estimation of properties; homogeneous and heterogeneous systems, filtration, distillation, fractional distillation, extraction, crystallization, drying.",
+    "title": "Principles of Chemical Process II",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "CM1161"
+}

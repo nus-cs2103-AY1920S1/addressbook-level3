@@ -1,0 +1,21 @@
+{
+    "moduleCode": "ACC3701",
+    "description": "This module provides the knowledge and understanding of the audit process required by assurance and attestation engagements. It aims to ensure students acquire the necessary attitude, skills, and knowledge for a career in auditing, in the accounting profession or in business management.",
+    "title": "Assurance and Attestation",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "ACC2707",
+            "ACC2709"
+        ]
+    },
+    "fulfillRequirements": [
+        "ACC4714",
+        "ACC3712",
+        "ACC4712",
+        "ACC4713",
+        "ACC4761A",
+        "ACC4761E"
+    ]
+}

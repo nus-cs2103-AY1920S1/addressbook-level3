@@ -1,0 +1,24 @@
+{
+    "moduleCode": "CLC3305",
+    "description": "As social service organisations in Singapore move\ntowards evidence-based practice, there is need to conduct\nfield research to better understand the communities that\nthey work with, and to assess the impact of their\ncommunity development programs. This module is a\nfollow-up from CLC2202 Community Development\nPracticum I, that offers students the opportunity to partner\nwith specific organisations to conduct field research on\ncommunity or social issues. Students interested either in\nexploring a different issue, or extending their research in\nCLC2202 may undertake this module.",
+    "title": "Community Development Practicum II",
+    "faculty": "NUS",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CLC1101",
+                    {
+                        "or": [
+                            "CLC2201",
+                            "SC2101",
+                            "SW3101"
+                        ]
+                    }
+                ]
+            },
+            "CLC2202"
+        ]
+    }
+}

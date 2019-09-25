@@ -1,0 +1,10 @@
+{
+    "moduleCode": "MUA1123",
+    "description": "",
+    "title": "Bassoon Major Study 1A",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "5",
+    "fulfillRequirements": [
+        "MUA1158"
+    ]
+}

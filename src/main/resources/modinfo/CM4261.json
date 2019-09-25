@@ -1,0 +1,8 @@
+{
+    "moduleCode": "CM4261",
+    "description": "Physics and chemistry of surfaces; techniques of surface preparation; physical characterisation; chemical characterisation; properties of clean surfaces; adsorption; oxidation and corrosion.",
+    "title": "Surface Science",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "CM2101"
+}

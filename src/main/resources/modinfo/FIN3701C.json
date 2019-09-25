@@ -1,0 +1,13 @@
+{
+    "moduleCode": "FIN3701C",
+    "description": "This course provides students with an in-depth understanding of the key financial issues faced by modern-day financial managers of corporations. It will equip students with conceptual and analytical skills necessary to make sound financial decisions. Topics to be covered include risk and return, capital budgeting, capital structure, dividend policy and mergers and acquisitions. Cases will be used to illustrate the concepts taught.",
+    "title": "Corporate Finance",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "FIN2704",
+            "FIN2704X"
+        ]
+    }
+}

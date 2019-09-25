@@ -1,0 +1,10 @@
+{
+    "moduleCode": "ESE5003",
+    "description": "This module is designed to provide students with the chemical basis for understanding our surroundings, the global environment. Emphasis will be on the composition of the natural environment, the processes that take place within it, and the kind of changes which come about as a result of human activities. The students, upon completion of this module, should have a comprehensive knowledge of the fundamentals of chemistry of components and contaminants in acquatic, atmospheric and terrestrial environments.",
+    "title": "Environmental Chemical Principles",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "ESE5608"
+    ]
+}

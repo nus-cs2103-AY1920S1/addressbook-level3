@@ -1,0 +1,13 @@
+{
+    "moduleCode": "ST2289",
+    "description": "",
+    "title": "Basic UROPS in Statistics and Applied Probability II",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "ST1131",
+            "ST1232"
+        ]
+    }
+}

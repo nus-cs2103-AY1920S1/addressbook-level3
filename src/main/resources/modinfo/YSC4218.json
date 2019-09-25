@@ -1,0 +1,8 @@
+{
+    "moduleCode": "YSC4218",
+    "description": "From synthetic to natural macromolecules, we encounter polymers everywhere and everyday. This course explores the multitude of synthetic techniques available and discusses how structure defines function. Topics include condensation and chain (anionic, cationic, radical) polymerizations, dendrimers, controlling molecular weight, ring opening, and biopolymer syntheses. Fundamentals of composition and physical properties of polymers, and methods of characterization are also covered.",
+    "title": "Advanced Polymer Chemistry",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": "YSC2224"
+}

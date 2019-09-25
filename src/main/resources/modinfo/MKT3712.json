@@ -1,0 +1,13 @@
+{
+    "moduleCode": "MKT3712",
+    "description": "This course focuses on the development and application of marketing strategies for entrepreneurs, start-up firms, and small and medium sized enterprises (SMEs), taking into account specific constraints faced by these set-ups. The major topics covered are: understanding constraints of SMEs, critical evaluation of extant analytical tools and strategic prescription for SME marketing, game theoretic applications in the formulation of SME marketing strategies, developing a formal decision framework for SME marketing strategies. One unique feature of this course is that students will work, either individually or as a group, with an entrepreneurship, start-up firm, or an SME during the duration of the course to get a first-hand experience of running such an organisation.",
+    "title": "SME Marketing Strategy",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MKT1705",
+            "MKT1705X"
+        ]
+    }
+}

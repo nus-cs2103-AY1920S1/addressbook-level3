@@ -1,0 +1,8 @@
+{
+    "moduleCode": "ESE5203",
+    "description": "Aerosol science deals with the behaviour of very fine particles in fluid media which finds many areas such as biosolid management, air pollution control, ultra-cleaning manufacturing technology, and advanced materials. In this module, the basic principles of aerosol science and the corresponding industrial applications will be covered. Topics include physics of aerosols, size distributions, mechanics and transport of particles, aerosol dynamics, nanoparticle synthesis, comubstion aerosols, and pharmaceutical aerosols.",
+    "title": "Aerosol Science and Technology",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": "CE2134"
+}

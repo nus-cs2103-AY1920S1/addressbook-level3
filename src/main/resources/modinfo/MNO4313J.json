@@ -1,0 +1,13 @@
+{
+    "moduleCode": "MNO4313J",
+    "description": "This module aims to equip students with the knowledge and skills that will help prepare them for the transition to the global workforce. Specifically, the module will examine the critical success factors for sustaining high performance in a rapidly changing business environment. Some of the questions that will be discussed and addressed include: \n\n- What criteria do companies use to identify and assess talent? \n- How do companies develop talent, leadership and succession planning? \n- How do individuals sustain high performance in the ever-evolving global workplace?",
+    "title": "SILHCM: Talent Development and Performing with Impact",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X"
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSC4217",
+    "description": "Mechanised Reasoning studies how mathematical logic is used to reason about, and in, computational systems, including potential applications to areas such as computer reliability and security. Possible topics include type systems, verification, formally certified software development, model checking, machine-checked proof, and semantic models.",
+    "title": "Mechanised Reasoning",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "and": [
+            "YSC1212",
+            "YSC3236"
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "moduleCode": "EL3222",
+    "description": "This module will introduce students to some of the basic ideas in cinema analysis that have a relationship with some of the concepts of linguistics and discourse\nanalysis. The students will be exposed to a critical assessment of some of the early associations of cinema with linguistics. They will then learn about the\napproach to cinema as discourse, and of its relationship to the analysis of linguistic discourse. It is hoped that eventually, students will not only attain a\nbetter understanding of cinematic discourse, but also, of the concept of discourse in general.",
+    "title": "Cinematic Discourse and Language",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    }
+}

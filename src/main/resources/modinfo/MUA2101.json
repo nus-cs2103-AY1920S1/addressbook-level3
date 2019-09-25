@@ -1,0 +1,11 @@
+{
+    "moduleCode": "MUA2101",
+    "description": "The module offers instruction in music composition for\nstudents enrolled in the BMUS program in music\ncomposition or appropriate related majors. Its main\ncomponent is a weekly one-hour consultation with a major\nstudy teacher. Students attend weekly composition\nseminars and other events related to contemporary music\nstudy, and receive training in atonal aural skills and\nadvanced rhythm. Students are required to compose a\nminimum of 10 minutes of music and submit a portfolio of\nworks at the end of the semester for juried evaluation. In\nconsultation with their instructor, students define their\ncomposition projects in terms of form and instrumentation.",
+    "title": "Composition Major Study 2A",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "6",
+    "prereqTree": "MUA1102",
+    "fulfillRequirements": [
+        "MUA2102"
+    ]
+}

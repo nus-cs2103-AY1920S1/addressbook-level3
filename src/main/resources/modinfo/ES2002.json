@@ -1,0 +1,11 @@
+{
+    "moduleCode": "ES2002",
+    "description": "This module aims to equip students with the business communication skills they need to be recognized as leaders among stakeholders \u2013 colleagues, superiors, and customers/clients. Working within a dynamic and connected 21st century simulated workplace, students as \u201cexecutives\u201d will learn critical skill-sets in influential leadership communication in formal and informal business settings: pitching; teamwork, meeting and negotiation; relationship, goodwill and trust-building; and thinking on their feet. The module will emphasise core principles of audience-centred, objective-driven, and context-sensitive communication; intentional, reflective and mindful communication; oral communication fundamentals of verbal, vocal, visual and aural skills; and the 7 C\u2019s of effective business communication.",
+    "title": "Business Communication for Leaders (BBA)",
+    "faculty": "NUS",
+    "moduleCredit": "4",
+    "prereqTree": "ES1000",
+    "fulfillRequirements": [
+        "DOS4812"
+    ]
+}

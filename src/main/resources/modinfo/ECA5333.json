@@ -1,0 +1,11 @@
+{
+    "moduleCode": "ECA5333",
+    "description": "This module is to offer a broad overview of financial assets traded in the money, options, and stock markets. It includes valuation of bonds and securities, analysis of options and futures contracts, asset pricing models and some applications.",
+    "title": "Financial Markets & Portfolio Management",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "ECA5315",
+        "ECA5334"
+    ]
+}

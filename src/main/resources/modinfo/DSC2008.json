@@ -1,0 +1,14 @@
+{
+    "moduleCode": "DSC2008",
+    "description": "Business decisions are often made under uncertainty. In the modern business environment, technological advances facilitate the collection of huge amounts of data which can potentially improve the decision making process. Successful businesses make use of Business Analytics and Business Intelligence, which are fundamentally based on quantitative statistical methods, to identify patterns and\ntrends in their data which eventually lead to insightful projections and realistic predictions. This module introduces students to the fundamental\nconcepts of statistical inference such as confidence intervals and hypothesis testing, as well as to statistical tools useful in business analysis, such as regression analysis and time series analysis.",
+    "title": "Business Analytics - Data & Decisions",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "BSS4003A",
+        "DSC4217",
+        "FIN4124",
+        "FIN4719",
+        "SPH3101"
+    ]
+}

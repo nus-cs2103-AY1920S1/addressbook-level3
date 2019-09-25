@@ -1,0 +1,11 @@
+{
+    "moduleCode": "MUA4443",
+    "description": "A continuation from MUA4343, piano students will\ncontinue to collaborate with students from other\ndepartments, forming undirected groups consisting of\nthree or more players, to study and perform selected\nworks of chamber music. Students are expected to\nparticipate in at least one public performance as well as in\na final examination of the prepared work(s).",
+    "title": "Collaborative Piano - Chamber Music 5",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "prereqTree": "MUA4343",
+    "fulfillRequirements": [
+        "MUA4543"
+    ]
+}

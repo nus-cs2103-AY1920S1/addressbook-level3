@@ -1,0 +1,13 @@
+{
+    "moduleCode": "MA5261",
+    "description": "This module is a course on stochastic processes and their applications. It covers topics in stochastic processes emphasizing applications, branching processes, point processes, reliability theory, renewal theory. The course is for graduate students with interest in the applications of stochastic processes.",
+    "title": "Applied Stochastic Processes",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MA3238",
+            "ST3236"
+        ]
+    }
+}

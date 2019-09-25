@@ -1,0 +1,12 @@
+{
+    "moduleCode": "RE4211",
+    "description": "The emergence and rapid expansion of REIT markets globally and in Asia have been an important development in real estate capital market. This module is designed to cover topics on REIT concepts and models; REIT experience in the US and other Asia markets; asset characteristics and types of REIT; tax efficient model; growth and acquisition strategies; financing and dividend policies of REITs; cross-border REITs, stapled REITs and UPREIT; Business Trust models; and institutional investment\nin REITs.",
+    "title": "Reit Management",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "prereqTree": "RE3104",
+    "fulfillRequirements": [
+        "RE4210",
+        "RE4213"
+    ]
+}

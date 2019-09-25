@@ -1,0 +1,7 @@
+{
+    "moduleCode": "ST5222",
+    "description": "Topics requiring a high level of statistical computing and some optimization can be covered here, for example, discriminant analysis, machine learning, highdimensionality and false discovery rates, stochastic search, MCMC, Monte Carlo integration, kernel smoothing and EM optimization methods.",
+    "title": "Advanced Topics in Applied Statistics",
+    "faculty": "Science",
+    "moduleCredit": "4"
+}

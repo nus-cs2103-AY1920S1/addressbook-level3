@@ -1,0 +1,8 @@
+{
+    "moduleCode": "MA5243",
+    "description": "This module is designed for graduate students in mathematics.  It covers the following major topics:\nIntroduction to convex analysis;  Theory of constrained optimization; Lagrangian duality;  \nAlgorithms for constrained optimization, in particular, penalty, barrier and augmented Lagrangian methods; Interior-point methods for convex programming, in particular, linear and semidefinite programming.",
+    "title": "Advanced Mathematical Programming",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": "MA3236"
+}

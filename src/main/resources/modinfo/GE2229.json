@@ -1,0 +1,11 @@
+{
+    "moduleCode": "GE2229",
+    "description": "Water is crucial for the survival of living organisms. The current emphasis on the availability and supply of water in Singapore and on a global scale points to the need for increased knowledge and awareness of this vital resource. This course provides a basic introduction to the subject of hydrology. Hydrology processes will be covered in detail in addition to lectures on relevant water-related issues at the global and regional scale with examples taken from the region.",
+    "title": "Water and the Environment",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "GE3223",
+        "SP3203"
+    ]
+}

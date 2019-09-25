@@ -1,0 +1,10 @@
+{
+    "moduleCode": "DSC5211B",
+    "description": "Business analysts and consultants hold strategic positions within the knowledge-oriented firm. They play a major role in making the Supply Chain, Marketing, Finance and HR departments more efficient, customer-centric and profitable.\nThe course prepares participants for the work environment and the diverse challenges faced by business analysts and consultants. Specifically, they will develop analytical models and gain experience with software used in the\nindustry to garner insights into contemporaneous managerial challenges such as optimization of resources, pricing, business expansion decisions, risk management etc.",
+    "title": "Analytical Tools for Consulting",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "DSC5222B"
+    ]
+}

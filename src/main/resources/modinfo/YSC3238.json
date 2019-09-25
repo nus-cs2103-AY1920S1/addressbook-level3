@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSC3238",
+    "description": "This course fulfils one of the upper division requirements for the Life\nScience Major.\nThis course examines how cells and genes collaborate to establish\nmulticellular organisms. The course will focus on vertebrate and\ninvertebrate embryology emphasizing cellular, molecular, and genetic mechanisms. Topics include descriptive embryology, developmental\ncontrol of gene expression, mechanisms of differentiation and\nmorphogenesis, stem cells, and developmental genetics. The course will use modern molecular techniques and basic experimental results to describe how\nexperiments address developmental questions.",
+    "title": "Developmental Biology",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": "YSC3233",
+    "fulfillRequirements": [
+        "YSC4211",
+        "YSC4211A",
+        "YSC4211B"
+    ]
+}

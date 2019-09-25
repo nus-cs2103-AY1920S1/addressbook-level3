@@ -1,0 +1,11 @@
+{
+    "moduleCode": "TCE3166",
+    "description": "This module aims to equip undergraduate civil engineering\nstudents with sufficient design knowledge and skills on\nsteel structures both for their further education and\nengineering career. This module provides students with\nfundamental approaches (based on Eurocode 3) in\ndesigning structural steel components and steel buildings.\nThe scope of this module aligns with the fundamental\nrequirement outlined by the Board of Singapore\nProfessional Engineers on the design of steel structures.\nThe students will acquire fundamental knowledge and\napproaches to perform structural design for steel beams,\naxially loaded members, connections, portal/industrial\nbuildings, multi-storey frames, and plated structures. This\nenables the students to conceive a safe and economical\nstructural steel system. The module is targeted at third\nyear civil engineering students and those with a keen\ninterest on steel structural design.",
+    "title": "Structural Steel Design and System",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4",
+    "prereqTree": "TCE2155",
+    "fulfillRequirements": [
+        "TCE5509"
+    ]
+}

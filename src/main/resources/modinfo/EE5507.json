@@ -1,0 +1,12 @@
+{
+    "moduleCode": "EE5507",
+    "description": "This module provides an in-depth coverage of the analysis and design of analog integrated circuits. The topics taught in this module include single transistor amplifiers, current sources and mirrors, current and voltage references, operational amplifiers, feedback theory and stability, noise analysis, oscillators, S/H circuits and comparators. This module is targeted at those electrical engineering students who have interests in IC design.",
+    "title": "Analog Integrated Circuits Design",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": "EE3408",
+    "fulfillRequirements": [
+        "EE6230",
+        "EE6506"
+    ]
+}

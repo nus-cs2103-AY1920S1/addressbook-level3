@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSS4234",
+    "description": "The course offers an advanced-level, in-depth understanding urban\nheritage, both as it manifests in the built environment but also in\nintangible social and cultural phenomena. The course begins by\ndefining what heritage is in urban contexts, and inquiring into the\nspecial pressures urbanisation places on \u201cinherited\u201d built forms and\nways of life. The module will draw on historical developments in urban\nheritage politics and planning in both North America and Europe, but\nthe key emphasis will be on in-depth understanding of the emergence\nof urban heritage landscapes in Asian cities.\nThe course offers an advanced-level, in-depth understanding urban\nheritage, both as it manifests in the built environment but also in intangible social and cultural phenomena. The course begins by\ndefining what heritage is in urban contexts, and inquiring into the\nspecial pressures urbanisation places on \u201cinherited\u201d built forms and\nways of life. The course will tackle the following topics:\n\u2022 the contested politics of whose past becomes heritage, and why?\n\u2022 the relationship between urban heritage places, memory and identity\n\u2022 civil society interests and political activism\n\u2022 scholarly architectural debates about how to preserve the past:\nrestoration, preservation, conservation, renewal etc (Ruskin et al)\n\u2022 state-based processes of recognition and preservation\n\u2022 international frameworks for conservation\n\u2022 The tensions between heritage, tourism and authenticity\nThe module will draw on historical developments in urban heritage\npolitics and planning in both North America and Europe, but the key\nemphasis will be on in-depth understanding of the emergence of urban\nheritage landscapes in Asian cities.",
+    "title": "Urban Heritage: Place, Memory, Identity",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSS2220",
+            "YHU3276"
+        ]
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "moduleCode": "IT5006",
+    "description": "This module introduces students to the fundamental concepts in business analytics. They can learn how to apply basic business analytics tools (such as R), and how\nto effectively use and interpret analytic models and results for making informed business decisions. The module prepares students without any analytics background to pursue advanced modules in business and data analytics.",
+    "title": "Fundamentals of Data Analytics",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": "IT5001"
+}

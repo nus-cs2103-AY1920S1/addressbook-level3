@@ -1,0 +1,10 @@
+{
+    "moduleCode": "EG1311",
+    "description": "This module covers the fundamentals of engineering\ndesign and prototyping. Students will learn design\nprinciples and tools through lectures and engage in\nexperiential learning through group design projects. A\nstage-based design process will be covered. Students will\ndevelop their skills in eliciting user needs, ideating\nsolutions, and making prototypes to demonstrate their\nideas.",
+    "title": "Design and Make",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "CE5808"
+    ]
+}

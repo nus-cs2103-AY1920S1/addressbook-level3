@@ -1,0 +1,20 @@
+{
+    "moduleCode": "CH2162",
+    "description": "Students are taught how to critically read, appreciate and analyze texts in classical Chinese in their specific historical, literary and philosophical contexts. Translating the original texts into modern Chinese is an integral part of the course. This is a compulsory module for students majoring in Chinese Studies. Readings include representative works of prose and rhyme-prose from the pre-Qin to the Qing period.",
+    "title": "Reading Classical Chinese Texts",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "CH1101E",
+            {
+                "or": [
+                    "CH2121",
+                    "CL2121",
+                    "CH2141",
+                    "CL2241"
+                ]
+            }
+        ]
+    }
+}

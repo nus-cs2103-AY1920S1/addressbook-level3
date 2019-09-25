@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSS4212",
+    "description": "This advanced seminar will focus on classic and recent research in the area\nof social cognition, loosely defined as the study of cognitive processes in\nsocial judgment and behaviour. The overarching goal of this course is to\nprovide students with an in-depth, advanced review of research and theory\nin social cognition.",
+    "title": "Advanced Seminar in Social Cognition",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSS2201",
+            "YSS2216"
+        ]
+    }
+}

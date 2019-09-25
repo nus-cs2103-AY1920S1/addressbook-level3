@@ -1,0 +1,11 @@
+{
+    "moduleCode": "MUA4101",
+    "description": "The module offers instruction in music composition for\nstudents enrolled in the BMUS program in music\ncomposition or appropriate related majors. Its main\ncomponent is a weekly one-hour consultation with a major\nstudy teacher. Students attend weekly composition\nseminars and other events related to contemporary music\nstudy. This is the first of a 2-semester departmentapproved capstone project. The capstone project (Final\nYear Project) must include a minimum of 25 minutes of\nmusic and fulfil the requirements set out in the\ndepartment's handbook. At the end of the semester,\nstudents submit a portfolio reflecting the state of the FYP\nfor evaluation.",
+    "title": "Composition Major Study 4A",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "6",
+    "prereqTree": "MUA3102",
+    "fulfillRequirements": [
+        "MUA4102"
+    ]
+}

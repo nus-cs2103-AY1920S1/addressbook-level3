@@ -1,0 +1,13 @@
+{
+    "moduleCode": "PL3244",
+    "description": "Adolescence is a period of many transitions. This module will explore some of these transitions, ranging from the physical changes related to puberty to the psychological processes of identity formation to the social challenges of negotiating new patterns of relationships with family and peers.",
+    "title": "Adolescent Psychology",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL3234"
+        ]
+    }
+}

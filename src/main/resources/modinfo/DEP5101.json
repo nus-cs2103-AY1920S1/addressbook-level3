@@ -1,0 +1,11 @@
+{
+    "moduleCode": "DEP5101",
+    "description": "",
+    "title": "Urban Analysis Workshop",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "DEP5109",
+        "DEP5110"
+    ]
+}

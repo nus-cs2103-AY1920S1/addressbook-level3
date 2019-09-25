@@ -1,0 +1,8 @@
+{
+    "moduleCode": "BN3202",
+    "description": "The module aims to introduce students to the principles of biomechanics in performing force analysis of the human musculoskeletal system; give an appreciation of the musculoskeletal system in producing body movements and functions; apply the fundamentals of biomechanics in analysing musculoskeletal disorders in areas such as orthopaedics, occupational health and sports.",
+    "title": "Musculoskeletal Biomechanics",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": "BN2204"
+}

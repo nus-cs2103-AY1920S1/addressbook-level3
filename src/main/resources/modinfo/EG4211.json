@@ -1,0 +1,7 @@
+{
+    "moduleCode": "EG4211",
+    "description": "Energy storage is essential for the large scale storage of\nelectrical energy to cushion the energy supply-demand\nmismatch. This module introduces the design, operation\nand analysis of energy storage systems (EES) for the\nelectricity grid. It integrates the knowledge from different\nengineering disciplines (chemical, electrical, materials,\nmechanical and systems) with socioeconomic elements to\naddress the issues in the implementation of large scale\nengineering systems. The module begins with an\nintroduction of electricity grids, followed by the design of\nthe ESS hardware (batteries and battery systems, thermal\nmanagement and battery management systems), ESS\ndcata analytics, techno-economic considerations and\npolicy studies.",
+    "title": "Energy Storage Systems for Electric Grids",
+    "faculty": "Engineering",
+    "moduleCredit": "4"
+}

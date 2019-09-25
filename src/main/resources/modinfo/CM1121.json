@@ -1,0 +1,18 @@
+{
+    "moduleCode": "CM1121",
+    "description": "This module covers the characteristic properties, methods of preparation, and reactions of alkanes/cycloalkanes, alkenes, alkynes, benzene and other aromatic compounds, alkyl halides; alcohols; ethers; epoxides, phenols, aldehydes and ketones; carboxylic acids and their derivatives; amines.",
+    "title": "Organic Chemistry 1",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "BN3301",
+        "BN3402",
+        "MLE3104",
+        "CM2121",
+        "CM2288",
+        "CM2289",
+        "CM4269",
+        "CM4227",
+        "FST2102B"
+    ]
+}

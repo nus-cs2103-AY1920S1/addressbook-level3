@@ -1,0 +1,7 @@
+{
+    "moduleCode": "EE5024",
+    "description": "Sensor networks feature prominently in the Internet of\nthings (IoT). This module covers the principles of wireless\nsensor networks that enables visibility into the physical\nprocesses happening around us. Pertinent issues such as\nenergy management and distributed information\nprocessing leading to applications such as event detection\nwill be covered. The coupled relationship between wireless\nsensor network performance, information processing, e.g.\nat edge computing nodes, and networking protocols,\ntogether with energy considerations will be emphasized.",
+    "title": "Sensor Networks",
+    "faculty": "Engineering",
+    "moduleCredit": "2"
+}

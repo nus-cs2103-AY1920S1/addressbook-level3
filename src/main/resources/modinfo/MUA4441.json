@@ -1,0 +1,11 @@
+{
+    "moduleCode": "MUA4441",
+    "description": "A continuation from MUA4341, piano students will\ncontinue to work closely with the Voice department.\nStudents will participate in at least one public performance\nand/or a final examination of the prepared work(s).",
+    "title": "Collaborative Piano - Vocal Accompaniment 5",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "prereqTree": "MUA4341",
+    "fulfillRequirements": [
+        "MUA4541"
+    ]
+}

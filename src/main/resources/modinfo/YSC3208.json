@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSC3208",
+    "description": "We study the theory of programming languages and their implementation.\nTopics may include automata, semantics, verification, interpreters,\ncompilers, and runtime systems. This course includes a substantial project.",
+    "title": "Programming Language Design and Implementation",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "and": [
+            "YSC2229",
+            "YSC2204"
+        ]
+    }
+}

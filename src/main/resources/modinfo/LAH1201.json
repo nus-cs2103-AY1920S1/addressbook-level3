@@ -1,0 +1,10 @@
+{
+    "moduleCode": "LAH1201",
+    "description": "Hindi 1 is a beginners' module. This is an integrated course which will help students gain basic proficiency in the four skills (listening, speaking, reading, and writing), grammar, vocabulary (including Devanagari, the Hindi alphabet), for personal interaction and communication in authentic situations.",
+    "title": "Hindi 1",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "LAH2201"
+    ]
+}

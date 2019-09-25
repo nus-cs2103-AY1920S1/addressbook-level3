@@ -1,0 +1,10 @@
+{
+    "moduleCode": "DEP5105",
+    "description": "",
+    "title": "Urban Infrastructure and Mobility Systems",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "DEP5109"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "moduleCode": "FIN3120E",
+    "description": "This module aims to do the following:\n- To provide students with an overview of the commodity markets as an asset class\n- To introduce key concepts for commodity trading and investing businesses\n- To provide a framework for assessing risks and opportunities for investors in physical commodity assets.",
+    "title": "TIF: Phy. Comdty Mkt & Assets",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "FIN2004",
+            "FIN3103"
+        ]
+    }
+}

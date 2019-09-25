@@ -1,0 +1,10 @@
+{
+    "moduleCode": "DTS2701",
+    "description": "The module aims to refresh students on fundamental engineering mathematics. Topics covered include MATLAB, ordinary differential equations, vector calculus, matrices, complex numbers, Fourier analysis and probability and statistics.",
+    "title": "Engineering Mathematics",
+    "faculty": "Temasek Defence Sys. Institute",
+    "moduleCredit": "2",
+    "fulfillRequirements": [
+        "DTS5734"
+    ]
+}

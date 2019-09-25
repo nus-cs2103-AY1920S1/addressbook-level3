@@ -1,0 +1,12 @@
+{
+    "moduleCode": "PR2103",
+    "description": "Learning objectives: To understand some basic concepts in statistics and their applications in pharmacy.  To use statistical computer package to perform data management and analysis.  To be able to interpret the statistical portions of most articles in pharmaceutical and clinical journals.  Major Topics:  Descriptive statistics and graphical methods.  Basic concepts of probability.  Statistical estimation.  Hypothesis testing.  Comparison of two means.  Linear regression.  Correlation.  Target students: Pharmacy Year Two",
+    "title": "Pharmacostatistics",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "PR4103",
+        "ST5318",
+        "SPH3101"
+    ]
+}

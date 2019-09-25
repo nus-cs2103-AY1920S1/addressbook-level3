@@ -1,0 +1,13 @@
+{
+    "moduleCode": "UIS3954R",
+    "description": "",
+    "title": "Independent Study Module (Ride-On)",
+    "faculty": "Computing",
+    "moduleCredit": "8",
+    "prereqTree": {
+        "and": [
+            "IS2101",
+            "IS2103"
+        ]
+    }
+}

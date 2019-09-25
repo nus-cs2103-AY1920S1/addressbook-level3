@@ -1,0 +1,15 @@
+{
+    "moduleCode": "MLE3103",
+    "description": "Engineering aspects of materials design and selection; Basics and procedure for materials selection: selection strategy, screening and ranking, deriving property limits, materials processes; Various aspects and factors in materials selection and design: functions, objectives,\n\nconstraints and limits, performance maximising criteria, environmental condition, economics and business issues; Case studies: metals, ceramics, semiconductors, polymers and biomaterials; Case study by industrial practitioners.",
+    "title": "Materials Design and Selection",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MLE1101",
+            "MLE2104",
+            "MLE1001",
+            "MLE1002"
+        ]
+    }
+}

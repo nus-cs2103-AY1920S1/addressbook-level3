@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSC3248",
+    "description": "This module will cover main concepts and programming paradigms for developing parallel concurrent and distributed systems, which is vital for implementing high-performance applications in areas such as machine learning, cloud computing, and databases --- areas with an extremely high demand for well-trained software engineers.  \n \nThe course contents will include both practical (about 70%) as well as a theoretical component, giving the students the basis to design concurrent algorithms, and reason about their correctness, as well as to be able to design experiments for estimating the performance of the designed algorithms.",
+    "title": "Parallel, Concurrent and Distributed Programming",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "and": [
+            "YSC1212",
+            "YSC2229"
+        ]
+    }
+}

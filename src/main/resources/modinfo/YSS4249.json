@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSS4249",
+    "description": "Due to the fact that it is rising and more visible than in the past economic inequality is emerging as an important social concern. This course covers the basic facts of the matter and the models used to understand the causes and consequences of the phenomenon.",
+    "title": "The Economics of Inequality",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSS2203",
+            "YSS2214"
+        ]
+    }
+}

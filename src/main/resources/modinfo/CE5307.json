@@ -1,0 +1,12 @@
+{
+    "moduleCode": "CE5307",
+    "description": "This module is aimed at introducing the student to wave hydrodynamics and the resulting wave loads on offshore structures. It covers linear wave theory together with its engineering properties such as particle kinematics, pressure fields, energy propagation, shoaling, and diffraction. Nonlinear wave theory and the resulting properties such as mass transport are also introduced. The module covers random waves and their short-term and long-term statistics which are useful in design wave selection. The wave forces on offshore structures of different sizes are then discussed, including Morison equation for small structures, and diffraction theory for large structures. Accordingly, the corresponding numerical techniques are introduced.",
+    "title": "Wave Hydrodynamics",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": "CE2134",
+    "fulfillRequirements": [
+        "CE5308",
+        "OT5204"
+    ]
+}

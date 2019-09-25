@@ -1,0 +1,12 @@
+{
+    "moduleCode": "CS3247",
+    "description": "The objective of this module is to introduce techniques for electronic game design and programming. This module covers a range of important topics including 3D maths, game physics, game AI, sound, as well as user interface for computer games. Furthermore, it will give an overview of computer game design to the students. Through laboratory programming exercises, the students will have hands-on programming experience with popular game engines and will develop basic games using those engines.",
+    "title": "Game Development",
+    "faculty": "Computing",
+    "moduleCredit": "4",
+    "prereqTree": "CS3241",
+    "fulfillRequirements": [
+        "CS3283",
+        "CS4350"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "moduleCode": "MA5211",
+    "description": "This module studies Lie groups/algebras and their finite dimensional representations. It covers the following topics: Lie groups and Lie algebras, maximal tori, Weyl group, root systems and Dynkin diagram, structure of (compact) semisimple Lie groups/algebras representations, highest weight theory and Weyl character formula. The course is suitable for graduate students with interest in number theory, representation theory, topology or geometry.",
+    "title": "Lie Theory",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "MA3201",
+            "MA5203",
+            "MA5218"
+        ]
+    }
+}

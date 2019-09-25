@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSC3203",
+    "description": "We study the design and rigorous analysis of algorithms and data structures.\nTopics may include dynamic programming, Fibonacci heaps, graph\nalgorithms, string algorithms, parallel algorithms, and concurrent data\nstructures.",
+    "title": "Advanced Algorithms and Data Structures",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "and": [
+            "YSC2229",
+            "YSC2204"
+        ]
+    }
+}

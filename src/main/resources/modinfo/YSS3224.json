@@ -1,0 +1,13 @@
+{
+    "moduleCode": "YSS3224",
+    "description": "This course is an overview of international macroeconomic theory and policy.\nIt presents economic theories to foster understanding of international\nfinancial markets and the interrelationships of economic aggregates such as\nGDP, exchange rates, trade balances, etc. Models will be applied to\nunderstand the effects and implications of macroeconomic policies in the\ninternational arena. The course will also look at relevant current issues: the global financial crisis, international coordination in macroeconomic policy,\nthe economics of the Euro, etc. Students should have a working knowledge\nof algebra, graphical techniques and the basics of micro\u2010 and macroeconomics.",
+    "title": "International Finance",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "YSS2203",
+            "YSS2214"
+        ]
+    }
+}

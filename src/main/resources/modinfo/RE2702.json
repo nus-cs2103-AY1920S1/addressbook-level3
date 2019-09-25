@@ -1,0 +1,11 @@
+{
+    "moduleCode": "RE2702",
+    "description": "The module covers basic concepts in Land Law, including the doctrine of estates and tenures, rights in land, transfer of title, strata law, landlord and tenant law and estate agency. Through content knowledge, students will gain an appreciation of legal analysis and reasoning, as well as the rationale\nfor the current state of real estate law.",
+    "title": "Land Law",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "prereqTree": "RE1703",
+    "fulfillRequirements": [
+        "RE3804"
+    ]
+}

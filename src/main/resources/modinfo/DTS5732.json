@@ -1,0 +1,7 @@
+{
+    "moduleCode": "DTS5732",
+    "description": "This is an introductory module to artificial intelligence (AI)\nand data analytics (DA). It covers various topics of AI and\nDA. The AI topics include heuristic search, constraint\nsatisfaction, logic and inference, and natural language\nprocessing. The DA topics include data preprocessing,\ndata visualization, classification, model evaluation,\ndecision trees, neural networks, deep learning, association\nanalysis, and clustering.",
+    "title": "Artificial Intelligence and Data Analytics",
+    "faculty": "Temasek Defence Sys. Institute",
+    "moduleCredit": "4"
+}

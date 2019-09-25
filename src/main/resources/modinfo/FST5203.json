@@ -1,0 +1,13 @@
+{
+    "moduleCode": "FST5203",
+    "description": "This module provides a specialized case study of food poisoning outbreaks caused by food-borne pathogens, Topics covered includes methods used in tracing the origins of the outbreak, the investigation of etiological agents, and preventive measures. Advanced concepts in food microbiology related to prevention of food-borne disease will also be covered.",
+    "title": "Advanced Food Microbiology and Safety",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "FST3101",
+            "LSM3232"
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "moduleCode": "LSM4229",
+    "description": "Toxins are thought as villains as they cause death and debilitation. In reality, they have contributed more to improving our lives than cause death. This module will introduce the contributions of toxins to our knowledge in biomedical and pharmacological fields. Toxin research has helped in understanding molecular mechanisms of a number of processes such as neurotransmission, blood coagulation and platelet aggregation. Toxins have been useful in the development of therapeutic agents, diagnostic reagents and research tools. The module will examine the recent advances and future prospects in toxin research.",
+    "title": "Therapeutic and diagnostic agents from animal toxins",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "LSM3211",
+            "LSM3231"
+        ]
+    }
+}

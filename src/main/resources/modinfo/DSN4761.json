@@ -1,0 +1,8 @@
+{
+    "moduleCode": "DSN4761",
+    "description": "This module is a placeholder for experimental or ad hoc elective modules in Analytics.",
+    "title": "Seminars in Analytics",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "prereqTree": "DSC1704"
+}

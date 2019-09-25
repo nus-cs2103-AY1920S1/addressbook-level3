@@ -1,0 +1,7 @@
+{
+    "moduleCode": "EE5404",
+    "description": "This module provides students with an under-standing of the fundamentals and design of satellite communication systems. It includes interference and propagation link analysis, earth station and satellite technology, antenna, RF/microwave transceiver and architecture, modulation and coding, multiple access techniques, as well as advanced technologies such as multibeam, inter satellite link, and regenerative satellite transponders. On completion of the module, students should be able to describe and analyse the RF and baseband subsystems, calculate satellite link budget, understand the requirements and operation of satellite communications systems, and appreciate the design issues and relative strength of various types of satellite systems.",
+    "title": "Satellite Communications",
+    "faculty": "Engineering",
+    "moduleCredit": "4"
+}

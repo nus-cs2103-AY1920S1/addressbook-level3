@@ -1,0 +1,12 @@
+{
+    "moduleCode": "YSC3214",
+    "description": "This course will provide a broad foundation to Biochemistry, the study of the\nchemistry of life. Students will learn about the chemical and molecular\ncomposition of a cell, the structures, functions and transformations of\nbiomolecules and the flows of energy and information in biological systems\nat the biochemical level. This course will be particularly important for\nstudents intending to pursue further studies and/or future careers in medicine, veterinary, biomedical, pharmaceutical or forensic sciences and\nbiotechnology.",
+    "title": "Biochemistry",
+    "faculty": "Yale-NUS College",
+    "moduleCredit": "5",
+    "fulfillRequirements": [
+        "YSC4211",
+        "YSC4211A",
+        "YSC4211B"
+    ]
+}

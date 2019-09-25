@@ -1,0 +1,12 @@
+{
+    "moduleCode": "MA1421",
+    "description": "The objective of this module is to equip science students with the basic mathematics concepts and techniques required in many scientific disciplines, notably chemistry. \n\n\n\nMajor topics include mathematical fundamentals (basics of calculus, matrix algebra and differential equations), graphical, numerical and statistical methods, and techniques in data processing.",
+    "title": "Basic Applied Mathematics for Sciences",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "CM3201",
+        "MA2312",
+        "MA2311"
+    ]
+}

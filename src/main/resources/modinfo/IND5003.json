@@ -1,0 +1,7 @@
+{
+    "moduleCode": "IND5003",
+    "description": "Technological advancements such as cyberphysical systems and the Internet of Things are\nenabling connected machines which collect a\ntremendous volume of structured and\nunstructured data. This module covers essential\nanalytics tools and techniques for performing\nsupervised and unsupervised learning on that\ndata. It focuses on applications in such domains\nas consumer, human resource, manufacturing,\nmedical and retail to identify patterns and\ninsights for process improvements and decisionmaking. These tools include the Python\nprogramming language; the techniques include\nfrequently used time series models and\npredictive models such as regression, random\nforests, neural networks and deep learning.",
+    "title": "Data Analytics for Sense-making",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4"
+}

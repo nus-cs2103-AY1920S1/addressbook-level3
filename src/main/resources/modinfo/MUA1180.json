@@ -1,0 +1,12 @@
+{
+    "moduleCode": "MUA1180",
+    "description": "First Year Brass Class (FYBC) is a class designed to introduce and familiarize the student with the skills and knowledge necessary for professional-level brass playing. The course will consist of two primary components divided over 10 sessions throughout the semester. One: \u201cLearning through Listening,\u201d will be classroom based and will introduce the history and literature of orchestral brass\nplaying. Two: \u201cApplied Brass Techniques,\u201d will be playing based and will utilize in-class \u201cbrass lab\u201d activities to apply basic brass playing and brass ensemble techniques in a group setting.",
+    "title": "First Year Brass Class A",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "fulfillRequirements": [
+        "MUA1181",
+        "MUA1156",
+        "MUA1150"
+    ]
+}

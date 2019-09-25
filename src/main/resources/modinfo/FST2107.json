@@ -1,0 +1,16 @@
+{
+    "moduleCode": "FST2107",
+    "description": "The module covers fundamental analytical chemistry principle and emphasizes learning experience in lab sessions. The lecture topics will cover sample preparation techniques, liquid and solid phase extraction techniques, gravimetry, colorimetry, gas and liquid chromatography. Students will learn hands-on skills in regard to sample preparation and extraction and apply analytical techniques to quantification of food components. These techniques include gravimetry, gas and liquid chromatography systems (GC and HPLC), UV-VIS spectrophotometers, and atomic absorption/emission spectrometry.",
+    "title": "Food Analysis and Lab",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "FST1101",
+            "CM1191"
+        ]
+    },
+    "fulfillRequirements": [
+        "FST3105"
+    ]
+}

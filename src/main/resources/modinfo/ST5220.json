@@ -1,0 +1,13 @@
+{
+    "moduleCode": "ST5220",
+    "description": "The goal of this module is to develop the skills needed by a statistical consultant. Emphasized topics include data analysis, problem solving, report writing, oral communication with clients, issues in planning experiments and collecting data, and practical aspects of consulting management.",
+    "title": "Statistical Consulting",
+    "faculty": "Science",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "and": [
+            "ST3131",
+            "ST3232"
+        ]
+    }
+}

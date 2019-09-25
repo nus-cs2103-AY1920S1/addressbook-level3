@@ -1,0 +1,10 @@
+{
+    "moduleCode": "MUA1167",
+    "description": "The compulsory module for first year students builds upon\nThe Profession of Music 1 and continue to focus on\nequipping students with relevant knowledge and skills\nnecessary for their self-development as a professional\nmusician.\n\nStudents continue to develop their own E-portfolio while\nalso get a chance to engage with various current\npractitioners and professionals in music and related fields",
+    "title": "The Profession of Music 2",
+    "faculty": "YST Conservatory of Music",
+    "moduleCredit": "2",
+    "fulfillRequirements": [
+        "MUA2163"
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "moduleCode": "RY2000",
+    "description": "",
+    "title": "Oral And Dental Radiology",
+    "faculty": "Dentistry",
+    "moduleCredit": "1",
+    "fulfillRequirements": [
+        "OMS2100",
+        "OMS3100"
+    ]
+}

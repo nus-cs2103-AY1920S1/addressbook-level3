@@ -1,0 +1,8 @@
+{
+    "moduleCode": "EE4510",
+    "description": "Energy sustainability is important both due to the limited global petroleum reserves and due to the global warming effects of greenhouse gases released by the use of fossil fuels. This module focuses on the types of electrical components and schemes used in solar photovoltaic (PV) energy systems. Besides the characteristics of solar radiation, stand-alone PV schemes with battery energy storage and grid-connected PV schemes will be covered.",
+    "title": "Solar Photovoltaic Energy Systems",
+    "faculty": "Engineering",
+    "moduleCredit": "4",
+    "prereqTree": "EE2025"
+}

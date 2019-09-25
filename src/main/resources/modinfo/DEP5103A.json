@@ -1,0 +1,10 @@
+{
+    "moduleCode": "DEP5103A",
+    "description": "Working with quantitative data is common in the planning profession. This module provides planning students with an introduction to the quantitative methods and techniques used in planning practice and urban research. It will prepare students to conduct basic statistical analysis of data themselves as well as to critically review analyses prepared by others. The emphasis is on how to develop sound arguments and research design, such that students appreciate both the power and limitation of quantitative analysis in planning discussions.",
+    "title": "Quantitative Methods for Urban Planning",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "DEP5109"
+    ]
+}

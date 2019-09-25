@@ -1,0 +1,16 @@
+{
+    "moduleCode": "RE4701",
+    "description": "This module examines the entire development process for the different types of property development and redevelopment projects. Discussions will cover a broad range of topics including the property development cycle, conception of the development project, feasibility study, project financing, project construction, real estate marketing, project completion, management of the completed development and exit strategies. Students are to conduct an integrated project as part of the requirement of this module.",
+    "title": "Real Estate Development",
+    "faculty": "Design and Environment",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "RE3703",
+            "RE3704"
+        ]
+    },
+    "fulfillRequirements": [
+        "RE4805"
+    ]
+}

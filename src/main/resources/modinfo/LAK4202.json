@@ -1,0 +1,11 @@
+{
+    "moduleCode": "LAK4202",
+    "description": "Korean 6 is a continuation of Korean 5. It is an integrated module which will help students gain higher proficiency in the four skills (listening, speaking, reading and writing),\ngrammar and vocabulary, for personal interaction and communication in authentic situation. This module aims to provide students with further training in skills and strategies to engage in authentic discourse and more complex argumentative writing.\nTopics of social , historical and cultural interest will be introduced through authentic materials such as selected works of literature , text from news papers and\nmagazines and audio and video recordings",
+    "title": "Korean 6",
+    "faculty": "Arts and Social Science",
+    "moduleCredit": "5",
+    "prereqTree": "LAK4201",
+    "fulfillRequirements": [
+        "LAK4203"
+    ]
+}

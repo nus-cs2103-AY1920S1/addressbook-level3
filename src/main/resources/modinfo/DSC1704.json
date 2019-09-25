@@ -1,0 +1,13 @@
+{
+    "moduleCode": "DSC1704",
+    "description": "This module prepares students with theory and skills to capture business insights from data for decision making using spreadsheets. Practical examples and cases with rich data are used to stimulate students\u2019 interest and\nforster understanding of the use of Business Analytics in management.",
+    "title": "Decision Analytics using Spreadsheets",
+    "faculty": "NUS Business School",
+    "moduleCredit": "4",
+    "fulfillRequirements": [
+        "DSC2702",
+        "DSN3702",
+        "DSN4712",
+        "DSN4761"
+    ]
+}

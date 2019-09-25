@@ -1,0 +1,20 @@
+{
+    "moduleCode": "MA2202S",
+    "description": "The objective of this module is to develop the learning\n\ncapabilities and hone the problem solving skills of talented\n\nstudents at a mathematically deeper and more rigorous\n\nlevel. The contents of this module will consist of those in\n\nthe regular module (MA2202 Algebra I) and the following\n\nadditional topics: Group action, group representations,\n\nprofinite groups and classical groups.",
+    "title": "Algebra I (S)",
+    "faculty": "Science",
+    "moduleCredit": "5",
+    "prereqTree": {
+        "or": [
+            "MA1100",
+            "MA1100S",
+            "CS1231",
+            "CS1231S"
+        ]
+    },
+    "fulfillRequirements": [
+        "MA4263",
+        "MA3265",
+        "MA3201"
+    ]
+}

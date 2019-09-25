@@ -1,0 +1,7 @@
+{
+    "moduleCode": "TIE2030",
+    "description": "This modules introduces fundamental programming methodologies for solving real-life complex problem using Python with emphasis in industrial operations and supply chains management oriented applications. Topics include problem solving by computing, writing pseudo-codes, problem formulation and problem solving, program development, coding, testing and debugging, fundamental programming constructs (variables, types, expressions, assignments, functions, control structures, etc.), fundamental data structures: arrays, strings and structures, data processing using large scale data sets from files, visualization, facilitating a design towards solving complex problems. Module will expose both Python and one or more of its variants used for scientific computations such as SciPy and NumPy.",
+    "title": "Programming Methodology with Python",
+    "faculty": "Cont and Lifelong Education",
+    "moduleCredit": "4"
+}

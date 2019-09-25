@@ -1,0 +1,17 @@
+{
+    "moduleCode": "CLC2202",
+    "description": "This module provides students with a foundational\nunderstanding of both qualitative and quantitative\nresearch methods useful in community settings, including\nobservations, interviews, focus group discussions,\nsurveys, experiments, community mapping, community\nnarratives, participatory action research, appreciative\ninquiry, as well as techniques for program and process\nevaluations. The module will guide students on research\ndesign and execution within the context of a community\nproject, including data collection, data analysis, and\ndissemination of results.",
+    "title": "Research Methods for Community Development",
+    "faculty": "NUS",
+    "moduleCredit": "4",
+    "prereqTree": {
+        "or": [
+            "CLC1101",
+            "CLC2101"
+        ]
+    },
+    "fulfillRequirements": [
+        "CLC2201",
+        "CLC3305"
+    ]
+}
