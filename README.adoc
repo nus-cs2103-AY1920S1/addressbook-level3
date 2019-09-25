@@ -11,9 +11,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop AlgoBase application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+Technical interviews are hard. Unless you are extraordinarily gifted, you will likely have to do tonnes of practice questions to ace them. And there are so many practice websites to choose from - Leetcode, Kattis and UVa, just to name a few. Wouldn't it be nice if you could just consolidate all those questions into a single platform? Introducing AlgoBase (AB), a one stop desktop application designed for managing algorithm problems! AlgoBase can let you establish and modify your own training plan for algorithm problems flexibly and it can save several training plans at the same time on your local storage!  Also, you can use diverse tags and search to manage your questions and training plans conveniently. More importantly, AlgoBase is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ALgoBase can get your problem management tasks done faster than traditional GUI apps.
 
 == Site Map
 
@@ -25,8 +23,7 @@ endif::[]
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* We would like to acknowledge the original source of the code, AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
