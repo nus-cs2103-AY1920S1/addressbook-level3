@@ -1,12 +1,27 @@
 package seedu.address.model.group;
 
+/**
+ * Descriptor of a group for group construction.
+ */
 public class GroupDescriptor {
     private GroupName groupName;
     private GroupRemark groupRemark;
 
-    public GroupDescriptor(){
+    public GroupDescriptor() {
         this.groupName = null;
         this.groupRemark = null;
+    }
+
+    /**
+     * Checks if any field has been edited.
+     * @return boolean
+     */
+    public boolean isAnyFieldEdited() {
+        if (this.groupName == null && this.groupRemark == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public GroupName getGroupName() {

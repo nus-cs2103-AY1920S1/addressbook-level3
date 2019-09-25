@@ -33,7 +33,7 @@ public class FindPersonCommand extends Command {
             ArrayList<GroupId> groups = model.findGroupsOfPerson(person.getPersonId());
             String s = "===== GROUPS ===== \n";
             int i;
-            if(groups.size() == 0){
+            if (groups.size() == 0) {
                 s += "NO GROUPS AVAILABLE";
             }
             for (i = 0; i < groups.size(); i++) {

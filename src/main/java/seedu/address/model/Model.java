@@ -97,7 +97,7 @@ public interface Model {
     /**
      * Adds a person with personDescriptor to the list of Persons.
      */
-    boolean addPerson(PersonDescriptor personDescriptor);
+    Person addPerson(PersonDescriptor personDescriptor);
 
     /**
      * Finds a person with a given Name.
@@ -139,7 +139,12 @@ public interface Model {
     /**
      * Adds a Group with groupDescriptor into the list of Groups.
      */
-    boolean addGroup(GroupDescriptor groupDescriptor);
+    Group addGroup(GroupDescriptor groupDescriptor);
+
+    /**
+     * Edits the person with given Name with given PersonDescriptor.
+     */
+    Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor);
 
     /**
      * Finds a Group with given GroupName.
@@ -199,22 +204,6 @@ public interface Model {
      * Returns a summary of all Persons, Groups, and Mappings.
      */
     String list();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

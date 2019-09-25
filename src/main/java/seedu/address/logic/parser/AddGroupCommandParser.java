@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
@@ -34,7 +33,7 @@ public class AddGroupCommandParser implements Parser<AddGroupCommand> {
         GroupDescriptor groupDescriptor = new GroupDescriptor();
         groupDescriptor.setGroupName(new GroupName(argMultimap.getValue(PREFIX_GROUPNAME).get()));
 
-        if(argMultimap.getValue(PREFIX_REMARK).isPresent()){
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
             groupDescriptor.setGroupRemark(new GroupRemark(argMultimap.getValue(PREFIX_REMARK).get()));
         }
 

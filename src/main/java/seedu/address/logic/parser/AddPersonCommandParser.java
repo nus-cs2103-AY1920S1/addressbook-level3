@@ -13,13 +13,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,7 +37,8 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
      */
     public AddPersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -54,7 +49,7 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
 
         personDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
 
-        if(argMultimap.getValue(PREFIX_PHONE).isPresent()){
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             personDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
 

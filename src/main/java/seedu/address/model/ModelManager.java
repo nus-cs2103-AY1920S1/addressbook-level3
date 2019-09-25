@@ -60,7 +60,7 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = personToGroupMappingList;
     }
 
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs){
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         this(addressBook, new PersonList(), new GroupList(), new PersonToGroupMappingList(), userPrefs);
     }
 
@@ -160,8 +160,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addPerson(PersonDescriptor personDescriptor) {
-        boolean isAdded = this.personList.addPerson(personDescriptor);
+    public Person addPerson(PersonDescriptor personDescriptor) {
+        Person isAdded = this.personList.addPerson(personDescriptor);
         return isAdded;
     }
 
@@ -220,9 +220,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addGroup(GroupDescriptor groupDescriptor) {
-        boolean isAdded = this.groupList.addGroup(groupDescriptor);
+    public Group addGroup(GroupDescriptor groupDescriptor) {
+        Group isAdded = this.groupList.addGroup(groupDescriptor);
         return isAdded;
+    }
+
+    @Override
+    public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor) {
+        return groupList.editGroup(groupName, groupDescriptor);
     }
 
     @Override

@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.GroupName;
+import seedu.address.model.group.GroupRemark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -50,6 +52,16 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code GroupName}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static GroupName parseGroupName(String name) {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        return new GroupName(trimmedName);
     }
 
     /**
@@ -122,6 +134,20 @@ public class ParserUtil {
         String trimmedRemark = remark.trim();
 
         return new Remark(trimmedRemark);
+    }
+
+    /**
+     * Parse a String remark, and trims the String.
+     *
+     * @param remark String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static GroupRemark parseGroupRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+
+        return new GroupRemark(trimmedRemark);
     }
 
     /**

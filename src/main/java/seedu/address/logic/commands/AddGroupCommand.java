@@ -6,7 +6,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
-import seedu.address.model.group.GroupName;
 
 /**
  * Add a group.
@@ -27,12 +26,13 @@ public class AddGroupCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if(model.findGroup(groupDescriptor.getGroupName()) != null){
+        if (model.findGroup(groupDescriptor.getGroupName()) != null) {
             return new CommandResult(MESSAGE_FAILURE);
         }
 
-        if (model.addGroup(groupDescriptor)) {
-            return new CommandResult(MESSAGE_SUCCESS + groupDescriptor.getGroupName().toString());
+        Group group = model.addGroup(groupDescriptor);
+        if (group != null) {
+            return new CommandResult(MESSAGE_SUCCESS + group.details());
         } else {
             return new CommandResult(MESSAGE_FAILURE);
         }

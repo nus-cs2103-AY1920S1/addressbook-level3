@@ -16,16 +16,9 @@ public class Group {
         counter += 1;
     }
 
-    public GroupName getGroupName() {
-        return this.groupName;
-    }
-
-    public GroupId getGroupId() {
-        return this.groupId;
-    }
-
     /**
      * Converts to String.
+     *
      * @return String
      */
     public String toString() {
@@ -33,6 +26,46 @@ public class Group {
         output += "(" + groupId.toString() + ") ";
         output += groupName.toString();
         return output;
+    }
+
+    /**
+     * Prints out all details of the group.
+     * @return String
+     */
+    public String details() {
+        String output = "";
+        String notAvailable = "NOT AVAILABLE";
+        output += this.toString() + "\n";
+
+        output += "Description: ";
+        if (groupRemark == null) {
+            output += notAvailable + "\n";
+        } else {
+            output += groupRemark.toString() + "\n";
+        }
+        output += "\n";
+
+        return output;
+    }
+
+    public GroupRemark getGroupRemark() {
+        return groupRemark;
+    }
+
+    public void setGroupRemark(GroupRemark groupRemark) {
+        this.groupRemark = groupRemark;
+    }
+
+    public GroupName getGroupName() {
+        return this.groupName;
+    }
+
+    public void setGroupName(GroupName groupName) {
+        this.groupName = groupName;
+    }
+
+    public GroupId getGroupId() {
+        return this.groupId;
     }
 
 

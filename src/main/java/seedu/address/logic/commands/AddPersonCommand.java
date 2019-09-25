@@ -37,11 +37,12 @@ public class AddPersonCommand extends Command {
         requireNonNull(model);
 
         Name name = personDescriptor.getName();
-        if(model.findPerson(name) != null){
+        if (model.findPerson(name) != null) {
             return new CommandResult(MESSAGE_FAILURE + MESSAGE_DUPLICATE_PERSON);
         } else {
-            if(model.addPerson(personDescriptor)){
-                return new CommandResult(MESSAGE_SUCCESS + " " + personDescriptor.getName().toString());
+            Person person = model.addPerson(personDescriptor);
+            if (person != null) {
+                return new CommandResult(MESSAGE_SUCCESS + person.details());
             } else {
                 return new CommandResult(MESSAGE_FAILURE + MESSAGE_DUPLICATE_PERSON);
             }

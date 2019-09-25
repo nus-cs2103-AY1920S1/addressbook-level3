@@ -17,8 +17,8 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
-    private static Integer counter = 0;
     // Identity fields
+    private static Integer counter = 0;
     private final PersonId personId;
     // Data fields
     private Name name;
@@ -29,33 +29,6 @@ public class Person {
     private Set<Tag> tags = new HashSet<>();
     private Schedule schedule;
 
-    public void setName(Name name) {
-        this.name = name;
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setRemark(Remark remark) {
-        this.remark = remark;
-    }
-
-    public void addTags(Set<Tag> tags) {
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Every field must be present and not null.
-     */
     public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
         requireAllNonNull(name);
         this.name = name;
@@ -69,7 +42,7 @@ public class Person {
         counter += 1;
     }
 
-    public Person(PersonDescriptor personDescriptor){
+    public Person(PersonDescriptor personDescriptor) {
         this.name = personDescriptor.getName();
         this.phone = personDescriptor.getPhone();
         this.email = personDescriptor.getEmail();
@@ -79,6 +52,10 @@ public class Person {
         this.schedule = new Schedule();
         this.personId = new PersonId(counter);
         counter += 1;
+    }
+
+    public void addTags(Set<Tag> tags) {
+        this.tags.addAll(tags);
     }
 
     public void addEvent(Event event) {
@@ -93,20 +70,44 @@ public class Person {
         return name;
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
     public Phone getPhone() {
         return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
     }
 
     public Email getEmail() {
         return email;
     }
 
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
     public Address getAddress() {
         return address;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Remark getRemark() {
         return remark;
+    }
+
+    public void setRemark(Remark remark) {
+        this.remark = remark;
+    }
+
+    public Schedule getSchedule() {
+        return this.schedule;
     }
 
     /**
@@ -170,34 +171,38 @@ public class Person {
         return output;
     }
 
-    public String details(){
+    /**
+     * Prints of all details of a person.
+     * @return String
+     */
+    public String details() {
         String output = "";
         String notAvailable = "NOT AVAILABLE";
         output += this.toString() + "\n";
 
         output += "Phone: ";
-        if(phone == null){
+        if (phone == null) {
             output += notAvailable + "\n";
         } else {
             output += phone.toString() + "\n";
         }
 
         output += "Email: ";
-        if(email == null){
+        if (email == null) {
             output += notAvailable + "\n";
         } else {
             output += email.toString() + "\n";
         }
 
         output += "Address: ";
-        if(address == null){
+        if (address == null) {
             output += notAvailable + "\n";
         } else {
             output += address.toString() + "\n";
         }
 
         output += "Remark: ";
-        if(remark == null){
+        if (remark == null) {
             output += notAvailable + "\n";
         } else {
             output += remark.toString() + "\n";
