@@ -1,5 +1,7 @@
-package seedu.address.logic.commands.common;
+package seedu.address.logic.commands.utils;
 
+import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.UndoableCommand;
 import seedu.address.model.Model;
 
 /**

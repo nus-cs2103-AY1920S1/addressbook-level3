@@ -64,6 +64,11 @@ public class CommandResult {
     }
 
     @Override
+    public String toString() {
+        return feedbackToUser;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }

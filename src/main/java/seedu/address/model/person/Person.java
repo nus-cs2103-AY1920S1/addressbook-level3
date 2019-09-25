@@ -79,8 +79,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getReferenceId().equals(getReferenceId())
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getReferenceId().equals(getReferenceId());
     }
 
     /**

@@ -53,6 +53,7 @@ public class EditCommand extends UndoableCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
+
     public static final String MESSAGE_UNDO_EDIT_ERROR = "Could not undo the entry edit.";
     public static final String MESSAGE_UNDO_EDIT_SUCCESS = "Undo successful!"
             + "Changes to person '%1$s' details has been undone.";
@@ -90,9 +91,15 @@ public class EditCommand extends UndoableCommand {
             editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
         }
 
-        if (personToEdit == null || editedPerson == null
-            || personToEdit.equals(editedPerson)
-            || model.hasExactPerson(editedPerson)) {
+        if (personToEdit.equals(editedPerson)) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+
+        if (personToEdit == null || editedPerson == null || !model.hasExactPerson(personToEdit)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        if (model.hasPerson(editedPerson) && !personToEdit.isSamePerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -105,9 +112,20 @@ public class EditCommand extends UndoableCommand {
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (personToEdit == null || editedPerson == null
-                || !model.hasExactPerson(editedPerson) || model.hasExactPerson(personToEdit)) {
+        if (personToEdit == null || editedPerson == null || !model.hasExactPerson(editedPerson)) {
             throw new CommandException(MESSAGE_UNDO_EDIT_ERROR);
+        }
+
+        if (personToEdit.equals(editedPerson)) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+
+        if (model.hasExactPerson(personToEdit)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        if (model.hasPerson(personToEdit) && !personToEdit.isSamePerson(editedPerson)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
         model.setPerson(editedPerson, personToEdit);
