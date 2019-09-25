@@ -531,7 +531,7 @@ A contact detail that is not meant to be shared with others
 [[order]] Order::
 A order consisting of customer and phone
 
-[[Phone]] Phone:: 
+[[Phone]] Phone::
 Any mobile device being sold by seller
 
 [appendix]
