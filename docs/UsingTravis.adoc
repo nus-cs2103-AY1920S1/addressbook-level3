@@ -67,10 +67,10 @@ image:travis_build.png[Travis build]
 
 .  Ensure that you have followed the steps above to set up Travis CI.
 .  On GitHub, create a new user account and give this account collaborator and admin access to the repo. +
-   Using this account, generate a personal access token https://github.com/settings/tokens/new[here].
+   Using this account, generate a Personal access token https://github.com/settings/tokens/new[here].
 +
 [NOTE]
-Personal access tokens are like passwords so make sure you keep them secret! If the personal access token is leaked, please delete it and generate a new one.
+Personal access tokens are like passwords so make sure you keep them secret! If the Personal access token is leaked, please delete it and generate a new one.
 +
 [NOTE]
 We use a new user account to generate the token for team projects to prevent team members from gaining access to other team members' repos. +
@@ -79,7 +79,7 @@ If you are the only one with write access to the repo, you can use your own acco
 --
 * Add a description for the token. (e.g. `Travis CI - deploy docs to gh-pages`)
 * Check the `public_repo` checkbox.
-* Click `Generate Token` and copy your new personal access token.
+* Click `Generate Token` and copy your new Personal access token.
 --
 We will use this token to grant Travis access to the repo.
 +
@@ -93,14 +93,14 @@ image:flick_repository_switch.png[Activate the switch]
 +
 --
 * name: `GITHUB_TOKEN`
-* value: personal access token copied in step 1
+* value: Personal access token copied in step 1
 * Display value in build log: `OFF`
 --
 image:travis_add_token.png[Travis add token]
 +
 [NOTE]
 *Make sure you set `Display value in build log` to `OFF`.* +
-Otherwise, other people will be able to see the personal access token and thus have access this repo. +
+Otherwise, other people will be able to see the Personal access token and thus have access this repo. +
 Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis scripts as the logs are viewable by the public.
 
 .  Now, whenever there's a new commit to master branch, Travis will push the latest documentation to gh-pages branch.
