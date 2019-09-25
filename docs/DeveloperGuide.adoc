@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= CS ModBuddy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-F09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -355,11 +355,197 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[[active-study-plan]] Active study plan::
+The study plan that is currently editable by various commands. Also known as the active plan for short.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[CLI]] CLI::
+Abbreviation for Command Line Interface, which is a text-based user interface used to view and manage information
+related to study plans in our application.
+
+[[command]] Command::
+An instruction that the user enters into the text input field of our application. A valid command will result
+in a successful operation on viewing or manipulating the study plan(s).
+
+[[commit]] Commit::
+A version of a study plan that the user saves to a local file. The user may opt to view or revert to a particular
+version of any study plan.
+
+[[core-module]] Core module::
+A core module is compulsory for all students in the NUS Computer Science course in order to fulfill the graduation
+requirements. Such modules include:
+
+** Computer Science Foundation
+* CS1101S Programming Methodology
+* CS1231S Discrete Structures
+* CS2030 Programming Methodology II
+* CS2040S Data Structures and Algorithms
+* CS2100 Computer Organisation
+* CS2103T Software Engineering
+* CS2105 Introduction to Computer Networks
+* CS2106 Introduction to Operating Systems
+* CS3230 Design and Analysis of Algorithms
+
+** IT Professionalism
+* IS1103/X IS Innovations in Organisations and Society
+* CS2101 Effective Communication for Computing Professionals
+* ES2660 Communicating in the Information Age
+
+** Mathematics & Sciences
+* MA1521 Calculus for Computing
+* MA1101R Linear Algebra I
+* ST2334 Probability and Statistics
+* One Science Module
+
+[[co-requisite]] Co-requisite::
+Co-requisites are modules that are to be taken concurrently.
+
+[[CS]] CS::
+Abbreviation for Computer Science, the study of processes that interact with data and that can be represented
+as data in the form of programs. In particular, CS here refers to the course for Bachelor of Computing in Computer
+Science (with Honours) offered by School of Computing (SoC), National University of Singapore (NUS).
+
+[[current-semester]] Current Semester::
+The semester in which the user is currently taking modules. All modules taken in and before the current semester are locked
+and uneditable. The user may manipulate modules after the current semester.
+
+[[default-study-plan]] Default study plan::
+The recommended study plan for a CS freshman, pre-populated with core modules arranged in their recommended semesters of
+study.
+
+[[elective]] Elective::
+Refer to UE.
+
+[[feasibility]] Feasibility::
+The feasibility of a study plan, or part of a study plan, refers to whether the following conditions are met:
+** All modules are taken after their prerequisites have been taken.
+** All modules are not taken together with any of their respective preclusions.
+** The user, by following this study plan, satisfies their graduation requirements and will be able to graduate without
+extending their candidature in NUS.
+
+[[focus-area]] Focus area::
+CS modules are organised into Focus Areas of coherent modules according to technical areas of study.
+A CS Focus Area is satisfied by completing 3 modules from the Area Primaries, with at least one module at 4000-level or
+above. CS Foundation Modules (CFM) that appear in the Area Primaries can be counted as one of the 3 modules towards
+satisfying a Focus Area. In this case, a student has to read just two other modules in the Area Primaries to satisfy
+the Focus Area. The ten Focus Areas are listed below:
+** Algorithms & Theory
+** Artificial Intelligence
+** Computer Graphics and Games
+** Computer Security
+** Database Systems
+** Multimedia Information Retrieval
+** Networking and Distributed Systems
+** Parallel Computing
+** Programming Languages
+** Software Engineering
+
+[[graduation]] Graduation::
+To graduate from NUS CS means to complete all the stipulated requirements within the user's candidature period,
+and finish their studies with a Bachelor's degree.
+
+[[GUI]] GUI::
+Abbreviation for the Graphical User Interface, which allows users to interact with electronic devices through
+graphical icons and visual indicators as opposed to a Command Line Interface (CLI).
+
+[[leave-of-absence]] Leave of Absence::
+Also known as LOA for short. During LOA, students will temporarily stop taking NUS modules for an extended period
+of time, usually one semester. Students may be granted leave of absence for the following reasons:
+** Medical reasons
+** Academic reasons
+** Personal reasons
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X.
+
+[[major]] Major::
+An academic major is the academic discipline to which an undergraduate student formally commits. A student who
+successfully completes all modules required for the major qualifies for an undergraduate degree.
+
+[[minor]] Minor::
+A Minor programme is a coherent course of study providing significant depth in a certain area outside that of the Major,
+within or outside the student's department.The modular credit (MC) requirement for a Minor programme should be at least
+24MCs, of which up to 8MCs may be used to meet the requirements for both the Minor and a Major or another Minor subject
+to the agreement of the particular department(s), faculty/faculties or programme(s) hosting the Minor.
+
+[[modular-credits]] Modular credits::
+The undergraduate and graduate curricula are based on a modular system. Under this system, workloads are expressed
+in terms of Modular Credits (MCs), and academic performance is measured by grade points on a 5-point scale.
+
+[[module]] Module::
+A module (colloquially _mod_) is a class of a specific topic that generally runs for an entire semester. Each module carries a stipulated
+number of Modular Credits and requires weekly contact hours for students.
+
+[[module-code]] Module code::
+Each module of study has a unique module code consisting of a two- or three-letter prefix that denotes the discipline,
+and four digits, the first of which indicates the level of the module (e.g., 1000 indicates a Level 1 module and 2000,
+a Level 2 module). Modules offered by the Department of Computer Science generally start with CS.
+
+[[nus-overseas-colleges]] NUS Overseas Colleges::
+The NUS Overseas Colleges Programme, or NOC for short, is an internship programme with strong emphasis on technology
+entrepreneurship. Selected candidates will spend either 6 or 12 months with a high-tech start-up and take
+entrepreneurship courses at a designated partner university. NOC students will be full-time interns and
+part-time students.
+
+[[nus]] NUS::
+The National University of Singapore (NUS) is the first autonomous research university in Singapore.
+NUS is a comprehensive research university, offering a wide range of disciplines, including the sciences,
+medicine and dentistry, design and environment, law, arts and social sciences, engineering, business,
+computing and music at both the undergraduate and postgraduate levels. Computer Science (CS) is one of the
+undergraduate programmes offered by NUS.
+
+[[preclusion]] Preclusion::
+A module may also specify certain preclusions. These are modules that have similar emphases and may not be taken
+together with that particular module.
+
+[[prerequisite]] Prerequisite::
+Pre-requisites indicate the base of knowledge on which the subject matter of a particular module will be built.
+Before taking a module, a student should complete any pre-requisite module(s) listed for that particular module.
+Where pre-requisites are specified, equivalent modules will also be accepted. If in doubt, students should consult
+the module instructor or the Department academic advisor regarding the acceptable equivalent modules.
+
+[[semester]] Semester::
+An academic year in NUS consists of two regular semesters, each spanning 13 weeks excluding the recess and reading
+weeks. In our application, a semester is defined as a regular semester (as opposed to special semesters).
+
+[[student]] Student::
+Our application is specifically targeted to students who study Computer Science (CS) in the School of
+Computing in the National University of Singapore (NUS).
+
+[[student-exchange-programme]] Student exchange programme::
+The NUS Student Exchange Programme, or SEP for short, provides students with the opportunity to study in an overseas partner
+university, usually for a semester or two, with approval of the School, to further enhance their learning experience.
+Students from either partner university pay fees only at their home institution while on exchange.
+
+[[study-plan]] Study plan::
+A study plan is an academic plan detailing all modules that a student plans to take in all the semesters in their
+candidature in NUS. One study plan comprises 8 semesters of modules. The user may have multiple alternative study plans.
+
+[[tag]] Tag::
+A module can be added a tag or multiple tags, which include the following:
+** core module
+** UE
+** focus area
+etc
+
+[[UE]] UE::
+UE stands for Unrestricted Elective. Unrestricted Electives enable students to pursue their academic interests and aspirations.
+Students may also use Unrestricted Electives to satisfy partially or wholly the requirements of other programmes.
+As long as the appropriate prerequisites are met, students can satisfy the Unrestricted Electives requirement by taking
+modules from any of the Departments/Faculties at any level. The limit on the number of Level-1000 modules to be counted
+towards fulfilment of graduation requirements is 60 MCs for 160-MC programmes. In CS, a student needs to
+fulfill at least 32 MCs of UEs before graduation.
+
+[[valid-module]] Valid module::
+A module is said to be valid if its prerequisites have been fulfilled and none of its preclusions are being
+taken at the same time as the student takes that particular module.
+
+[[year-of-study]] Year of study::
+A student's year refers to whether the student is in their first (Y1), second (Y2), third (Y3), fourth (Y4), or fifth (Y5)
+year of undergraduate studies in NUS.
+
+
+
+
 
 [appendix]
 == Product Survey
