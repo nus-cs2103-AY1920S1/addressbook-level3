@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 public class Remark {
     public final String value;
+    public static final String MESSAGE_CONSTRAINTS = "Remark should not be empty";
 
     public Remark(String remark) {
         requireNonNull(remark);
