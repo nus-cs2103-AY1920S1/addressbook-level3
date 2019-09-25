@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
@@ -14,6 +15,7 @@ import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
@@ -68,11 +70,6 @@ public interface Model {
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -83,7 +80,7 @@ public interface Model {
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    boolean addPerson(Person person);
+    boolean addPerson(PersonDescriptor personDescriptor);
 
     String personListToString();
 
@@ -107,7 +104,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    boolean addGroup(Group group);
+    boolean addGroup(GroupDescriptor groupDescriptor);
 
     String list();
 
@@ -142,5 +139,7 @@ public interface Model {
     GroupList getGroupList();
 
     PersonToGroupMappingList getPersonToGroupMappingList();
+
+    Person editPerson(Name name, PersonDescriptor personDescriptor);
 
 }

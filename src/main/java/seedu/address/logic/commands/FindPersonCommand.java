@@ -31,12 +31,15 @@ public class FindPersonCommand extends Command {
         Person person = model.findPerson(name);
         if (person != null) {
             ArrayList<GroupId> groups = model.findGroupsOfPerson(person.getPersonId());
-            String s = "Groups: \n";
+            String s = "===== GROUPS ===== \n";
             int i;
-            for (i = 0; i < groups.size(); i++) {
-                s += model.findGroup(groups.get(i)).toString();
+            if(groups.size() == 0){
+                s += "NO GROUPS AVAILABLE";
             }
-            return new CommandResult(MESSAGE_SUCCESS + person.toString() + s);
+            for (i = 0; i < groups.size(); i++) {
+                s += "    " + model.findGroup(groups.get(i)).toString() + "\n";
+            }
+            return new CommandResult(MESSAGE_SUCCESS + person.details() + s);
         } else {
             return new CommandResult(MESSAGE_FAILURE);
         }

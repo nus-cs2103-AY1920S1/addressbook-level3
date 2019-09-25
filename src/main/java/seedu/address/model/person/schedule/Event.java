@@ -40,13 +40,10 @@ public class Event {
      */
     public String toString() {
         String output = "";
-        output += "Event: " + eventName + ": ";
+        output += "Event: " + eventName + ": \n";
         int i;
         for (i = 0; i < timeslots.size(); i++) {
-            output += timeslots.get(i).toString();
-            if (i + 1 != timeslots.size()) {
-                output += ", ";
-            }
+            output += "    " + timeslots.get(i).toString() + "\n";
         }
         return output;
     }

@@ -14,12 +14,12 @@ public class GroupList {
 
     /**
      * Adds a Group to the list of groups.
-     * @param group group to be added
+     * @param groupDescriptor group to be added
      * @return true when successfully added group
      */
-    public boolean addGroup(Group group) {
-        if (findGroup(group.getGroupName()) == null) {
-            this.groups.add(group);
+    public boolean addGroup(GroupDescriptor groupDescriptor) {
+        if (findGroup(groupDescriptor.getGroupName()) == null) {
+            this.groups.add(new Group(groupDescriptor));
             return true;
         } else {
             return false;
@@ -65,6 +65,7 @@ public class GroupList {
         String output = "";
         for (i = 0; i < groups.size(); i++) {
             output += groups.get(i).toString();
+            output += "\n";
         }
         return output;
     }

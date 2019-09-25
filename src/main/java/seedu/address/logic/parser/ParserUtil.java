@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -107,6 +108,20 @@ public class ParserUtil {
         requireNonNull(module);
         String trimmedModule = module.trim();
         return trimmedModule;
+    }
+
+    /**
+     * Parse a String remark, and trims the String.
+     *
+     * @param remark String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static Remark parseRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+
+        return new Remark(trimmedRemark);
     }
 
     /**

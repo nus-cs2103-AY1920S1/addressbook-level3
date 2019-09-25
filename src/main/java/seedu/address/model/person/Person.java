@@ -21,32 +21,72 @@ public class Person {
     // Identity fields
     private final PersonId personId;
     // Data fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
-    private final Address address;
-    private final Remark remark;
-    private final Set<Tag> tags = new HashSet<>();
+    private Name name;
+    private Phone phone;
+    private Email email;
+    private Address address;
+    private Remark remark;
+    private Set<Tag> tags = new HashSet<>();
     private Schedule schedule;
+
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setRemark(Remark remark) {
+        this.remark = remark;
+    }
+
+    public void addTags(Set<Tag> tags) {
+        this.tags.addAll(tags);
+    }
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.remark = remark;
         this.tags.addAll(tags);
-        this.personId = new PersonId(counter);
         this.schedule = new Schedule();
+        this.personId = new PersonId(counter);
+        counter += 1;
+    }
+
+    public Person(PersonDescriptor personDescriptor){
+        this.name = personDescriptor.getName();
+        this.phone = personDescriptor.getPhone();
+        this.email = personDescriptor.getEmail();
+        this.address = personDescriptor.getAddress();
+        this.remark = personDescriptor.getRemark();
+        this.tags.addAll(personDescriptor.getTags());
+        this.schedule = new Schedule();
+        this.personId = new PersonId(counter);
         counter += 1;
     }
 
     public void addEvent(Event event) {
         this.schedule.addEvent(event);
+    }
+
+    public PersonId getPersonId() {
+        return this.personId;
     }
 
     public Name getName() {
@@ -106,7 +146,8 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
+        return otherPerson.getPersonId().equals(getPersonId())
+                && otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
@@ -123,15 +164,50 @@ public class Person {
     @Override
     public String toString() {
         String output = "";
-        output += "ID: " + personId.toString() + " ";
-        output += "Name: " + name.toString() + "\n";
-        output += "Scedule: ";
-        output += schedule.toString() + "\n";
+        output += "(" + personId.toString() + ") ";
+        output += name.toString();
+
         return output;
     }
 
-    public PersonId getPersonId() {
-        return this.personId;
+    public String details(){
+        String output = "";
+        String notAvailable = "NOT AVAILABLE";
+        output += this.toString() + "\n";
+
+        output += "Phone: ";
+        if(phone == null){
+            output += notAvailable + "\n";
+        } else {
+            output += phone.toString() + "\n";
+        }
+
+        output += "Email: ";
+        if(email == null){
+            output += notAvailable + "\n";
+        } else {
+            output += email.toString() + "\n";
+        }
+
+        output += "Address: ";
+        if(address == null){
+            output += notAvailable + "\n";
+        } else {
+            output += address.toString() + "\n";
+        }
+
+        output += "Remark: ";
+        if(remark == null){
+            output += notAvailable + "\n";
+        } else {
+            output += remark.toString() + "\n";
+        }
+
+        output += "Tags: " + tags.toString() + "\n\n";
+        output += schedule.toString();
+
+        return output;
     }
+
 
 }

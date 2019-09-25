@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonDescriptor;
 
 /**
  * Adds a person.
@@ -17,27 +19,33 @@ public class AddPersonCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME";
 
     public static final String MESSAGE_SUCCESS = "New person added: ";
-    public static final String MESSAGE_FAILURE = "Unable to add person";
+    public static final String MESSAGE_FAILURE = "Unable to add person: ";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Person toAdd;
+    private final PersonDescriptor personDescriptor;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddPersonCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddPersonCommand(PersonDescriptor personDescriptor) {
+        requireNonNull(personDescriptor);
+        this.personDescriptor = personDescriptor;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.addPerson(toAdd)) {
-            return new CommandResult(MESSAGE_SUCCESS + " " + toAdd.toString());
+        Name name = personDescriptor.getName();
+        if(model.findPerson(name) != null){
+            return new CommandResult(MESSAGE_FAILURE + MESSAGE_DUPLICATE_PERSON);
         } else {
-            return new CommandResult(MESSAGE_FAILURE);
+            Person person = new Person(personDescriptor);
+            if(model.addPerson(person)){
+                return new CommandResult(MESSAGE_SUCCESS + " " + person.details());
+            } else {
+                return new CommandResult(MESSAGE_FAILURE + MESSAGE_DUPLICATE_PERSON);
+            }
         }
     }
 
@@ -45,6 +53,6 @@ public class AddPersonCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddPersonCommand // instanceof handles nulls
-                && toAdd.equals(((AddPersonCommand) other).toAdd));
+                && personDescriptor.equals(((AddPersonCommand) other).personDescriptor));
     }
 }

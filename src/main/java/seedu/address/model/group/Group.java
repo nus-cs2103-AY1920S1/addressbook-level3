@@ -7,9 +7,11 @@ public class Group {
     private static Integer counter = 0;
     private final GroupId groupId;
     private GroupName groupName;
+    private GroupRemark groupRemark;
 
-    public Group(GroupName groupName) {
-        this.groupName = groupName;
+    public Group(GroupDescriptor groupDescriptor) {
+        this.groupName = groupDescriptor.getGroupName();
+        this.groupRemark = groupDescriptor.getGroupRemark();
         this.groupId = new GroupId(counter);
         counter += 1;
     }
@@ -28,8 +30,8 @@ public class Group {
      */
     public String toString() {
         String output = "";
-        output += "ID: " + groupId.toString() + " ";
-        output += "Name: " + groupName.toString() + "\n";
+        output += "(" + groupId.toString() + ") ";
+        output += groupName.toString();
         return output;
     }
 

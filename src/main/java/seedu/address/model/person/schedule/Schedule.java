@@ -21,20 +21,17 @@ public class Schedule {
      * @return String
      */
     public String toString() {
-        String output = "";
+        String output = "===== SCHEDULE =====\n";
         int i;
 
         if (events.size() == 0) {
-            output += "No Events Available";
+            output += "NO EVENTS AVAILABLE\n\n";
         } else {
             for (i = 0; i < events.size(); i++) {
-                output += events.get(i).toString();
-                if (i + 1 != events.size()) {
-                    output += " || ";
-                }
+                output += events.get(i).toString() + "\n";
             }
         }
+        output += "\n";
         return output;
     }
-
 }

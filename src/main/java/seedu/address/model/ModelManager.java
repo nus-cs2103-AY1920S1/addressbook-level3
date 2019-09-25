@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
@@ -20,6 +21,7 @@ import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
@@ -56,6 +58,10 @@ public class ModelManager implements Model {
         this.personList = personList;
         this.groupList = groupList;
         this.personToGroupMappingList = personToGroupMappingList;
+    }
+
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs){
+        this(addressBook, new PersonList(), new GroupList(), new PersonToGroupMappingList(), userPrefs);
     }
 
     public ModelManager() {
@@ -110,17 +116,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public String personListToString() {
-        return personList.toString();
-    }
-
-    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
@@ -171,8 +166,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addPerson(Person person) {
-        boolean isAdded = this.personList.addPerson(person);
+    public boolean addPerson(PersonDescriptor personDescriptor) {
+        boolean isAdded = this.personList.addPerson(personDescriptor);
         return isAdded;
     }
 
@@ -208,9 +203,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person editPerson(Name name, PersonDescriptor personDescriptor) {
+        return personList.editPerson(name, personDescriptor);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
+
     @Override
     public boolean deletePerson(PersonId personId) {
         deletePersonFromMapping(personId);
@@ -222,6 +223,11 @@ public class ModelManager implements Model {
         return personToGroupMappingList.findGroupsOfPerson(personId);
     }
 
+    @Override
+    public String personListToString() {
+        return personList.toString();
+    }
+
     //=========== Group Accessors =============================================================
 
     @Override
@@ -230,8 +236,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addGroup(Group group) {
-        boolean isAdded = this.groupList.addGroup(group);
+    public boolean addGroup(GroupDescriptor groupDescriptor) {
+        boolean isAdded = this.groupList.addGroup(groupDescriptor);
         return isAdded;
     }
 

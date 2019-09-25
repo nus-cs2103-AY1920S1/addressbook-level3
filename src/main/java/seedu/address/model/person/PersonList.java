@@ -15,12 +15,12 @@ public class PersonList {
     /**
      * Adds a person into the list of persons.
      *
-     * @param person to be added
+     * @param personDescriptor to be added
      * @return return true when successfully added
      */
-    public boolean addPerson(Person person) {
-        if (findPerson(person.getName()) == null) {
-            this.persons.add(person);
+    public boolean addPerson(PersonDescriptor personDescriptor) {
+        if (findPerson(personDescriptor.getName()) == null) {
+            this.persons.add(new Person(personDescriptor));
             return true;
         }
         return false;
@@ -36,6 +36,7 @@ public class PersonList {
         String output = "";
         for (i = 0; i < persons.size(); i++) {
             output += persons.get(i).toString();
+            output += "\n";
         }
         return output;
     }
@@ -84,6 +85,31 @@ public class PersonList {
             }
         }
         return false;
+    }
+
+    public Person editPerson(Name name, PersonDescriptor personDescriptor){
+        Person toEdit = findPerson(name);
+
+        if(personDescriptor.getName() != null){
+            toEdit.setName(personDescriptor.getName());
+        }
+        if(personDescriptor.getPhone() != null){
+            toEdit.setPhone(personDescriptor.getPhone());
+        }
+        if(personDescriptor.getEmail() != null){
+            toEdit.setEmail(personDescriptor.getEmail());
+        }
+        if(personDescriptor.getAddress() != null){
+            toEdit.setAddress(personDescriptor.getAddress());
+        }
+        if(personDescriptor.getRemark() != null){
+            toEdit.setRemark(personDescriptor.getRemark());
+        }
+        if(personDescriptor.getTags() != null){
+            toEdit.addTags(personDescriptor.getTags());
+        }
+
+        return toEdit;
     }
 
 }
