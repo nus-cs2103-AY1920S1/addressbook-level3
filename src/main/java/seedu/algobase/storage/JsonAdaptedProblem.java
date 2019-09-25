@@ -12,8 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
 import seedu.algobase.model.problem.Name;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
 import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 
@@ -29,14 +32,19 @@ class JsonAdaptedProblem {
     private final String weblink;
     private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String difficulty;
+    private final String remark;
+    private final String source;
 
     /**
      * Constructs a {@code JsonAdaptedProblem} with the given Problem details.
      */
     @JsonCreator
     public JsonAdaptedProblem(@JsonProperty("name") String name, @JsonProperty("author") String author,
-            @JsonProperty("weblink") String weblink, @JsonProperty("description") String description,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("weblink") String weblink, @JsonProperty("description") String description,
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("difficulty") String difficulty,
+                              @JsonProperty("remark") String remark, @JsonProperty("source") String source) {
         this.name = name;
         this.author = author;
         this.weblink = weblink;
@@ -44,19 +52,25 @@ class JsonAdaptedProblem {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.difficulty = difficulty;
+        this.remark = remark;
+        this.source = source;
     }
 
     /**
      * Converts a given {@code Problem} into this class for Jackson use.
      */
-    public JsonAdaptedProblem(Problem source) {
-        name = source.getName().fullName;
-        author = source.getAuthor().value;
-        weblink = source.getWebLink().value;
-        description = source.getDescription().value;
-        tagged.addAll(source.getTags().stream()
+    public JsonAdaptedProblem(Problem problem) {
+        name = problem.getName().fullName;
+        author = problem.getAuthor().value;
+        weblink = problem.getWebLink().value;
+        description = problem.getDescription().value;
+        tagged.addAll(problem.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        difficulty = Double.toString(problem.getDifficulty().value);
+        remark = problem.getRemark().value;
+        source = problem.getSource().value;
     }
 
     /**
@@ -105,7 +119,43 @@ class JsonAdaptedProblem {
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(problemTags);
-        return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags);
+
+        if (difficulty == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                            Difficulty.class.getSimpleName())
+            );
+        }
+        if (!Difficulty.isValidDifficulty(difficulty)) {
+            throw new IllegalValueException(Difficulty.MESSAGE_CONSTRAINTS);
+        }
+        final Difficulty modelDifficulty = new Difficulty(difficulty);
+
+        if (remark == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                            Remark.class.getSimpleName())
+            );
+        }
+        if (!Remark.isValidRemark(remark)) {
+            throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
+        }
+        final Remark modelRemark = new Remark(remark);
+
+
+        if (source == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                            Source.class.getSimpleName())
+            );
+        }
+        if (!Source.isValidSource(source)) {
+            throw new IllegalValueException(Source.MESSAGE_CONSTRAINTS);
+        }
+        final Source modelSource = new Source(source);
+
+        return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags, modelDifficulty,
+                modelRemark, modelSource);
     }
 
 }

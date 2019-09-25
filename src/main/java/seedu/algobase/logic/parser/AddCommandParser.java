@@ -3,7 +3,10 @@ package seedu.algobase.logic.parser;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
@@ -14,8 +17,11 @@ import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
 import seedu.algobase.model.problem.Name;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
 import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 
@@ -44,8 +50,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         WebLink webLink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+        Source source = ParserUtil.parseSource(argMultimap.getValue(PREFIX_SOURCE).get());
 
-        Problem problem = new Problem(name, author, webLink, description, tagList);
+        Problem problem = new Problem(name, author, webLink, description, tagList, difficulty, remark, source);
 
         return new AddCommand(problem);
     }

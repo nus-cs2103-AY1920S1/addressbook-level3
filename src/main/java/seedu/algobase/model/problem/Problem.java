@@ -23,18 +23,26 @@ public class Problem {
     // Data fields
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
+    private final Difficulty difficulty;
+    private final Remark remark;
+    private final Source source;
 
     /**
      * Every field must be present and not null.
      */
-    public Problem(Name name, Author author, WebLink webLink, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, author, webLink, description, tags);
+    public Problem(Name name, Author author, WebLink webLink, Description description, Set<Tag> tags,
+                   Difficulty difficulty, Remark remark, Source source) {
+        requireAllNonNull(name, author, webLink, description, tags, difficulty, remark, source);
         this.name = name;
         this.author = author;
         this.webLink = webLink;
         this.description = description;
         this.tags.addAll(tags);
+        this.difficulty = difficulty;
+        this.remark = remark;
+        this.source = source;
     }
+
 
     public Name getName() {
         return name;
@@ -58,6 +66,18 @@ public class Problem {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public Remark getRemark() {
+        return remark;
+    }
+
+    public Source getSource() {
+        return source;
     }
 
     /**
@@ -93,13 +113,15 @@ public class Problem {
                 && otherProblem.getAuthor().equals(getAuthor())
                 && otherProblem.getWebLink().equals(getWebLink())
                 && otherProblem.getDescription().equals(getDescription())
-                && otherProblem.getTags().equals(getTags());
+                && otherProblem.getTags().equals(getTags())
+                && otherProblem.getRemark().equals(getRemark())
+                && otherProblem.getSource().equals(getSource());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, author, webLink, description, tags);
+        return Objects.hash(name, author, webLink, description, tags, remark, source);
     }
 
     @Override
@@ -114,6 +136,10 @@ public class Problem {
                 .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Remark: ")
+                .append(getRemark())
+                .append(" Source: ")
+                .append(getSource());
         return builder.toString();
     }
 

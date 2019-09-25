@@ -21,8 +21,11 @@ import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
 import seedu.algobase.model.problem.Name;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
 import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 
@@ -98,8 +101,12 @@ public class EditCommand extends Command {
         WebLink updatedWebLink = editProblemDescriptor.getWebLink().orElse(problemToEdit.getWebLink());
         Description updatedDescription = editProblemDescriptor.getDescription().orElse(problemToEdit.getDescription());
         Set<Tag> updatedTags = editProblemDescriptor.getTags().orElse(problemToEdit.getTags());
+        Difficulty updatedDifficulty = editProblemDescriptor.getDifficulty().orElse(problemToEdit.getDifficulty());
+        Remark updatedRemark = editProblemDescriptor.getRemark().orElse(problemToEdit.getRemark());
+        Source updatedSource = editProblemDescriptor.getSource().orElse(problemToEdit.getSource());
 
-        return new Problem(updatedName, updatedAuthor, updatedWebLink, updatedDescription, updatedTags);
+        return new Problem(updatedName, updatedAuthor, updatedWebLink, updatedDescription, updatedTags,
+                updatedDifficulty, updatedRemark, updatedSource);
     }
 
     @Override
@@ -130,6 +137,9 @@ public class EditCommand extends Command {
         private WebLink webLink;
         private Description description;
         private Set<Tag> tags;
+        private Difficulty difficulty;
+        private Remark remark;
+        private Source source;
 
         public EditProblemDescriptor() {}
 
@@ -143,13 +153,16 @@ public class EditCommand extends Command {
             setWebLink(toCopy.webLink);
             setDescription(toCopy.description);
             setTags(toCopy.tags);
+            setDifficulty(toCopy.difficulty);
+            setRemark(toCopy.remark);
+            setSource(toCopy.source);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, author, webLink, description, tags);
+            return CollectionUtil.isAnyNonNull(name, author, webLink, description, tags, difficulty, remark, source);
         }
 
         public void setName(Name name) {
@@ -182,6 +195,30 @@ public class EditCommand extends Command {
 
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
+        }
+
+        public void setDifficulty(Difficulty difficulty) {
+            this.difficulty = difficulty;
+        }
+
+        public Optional<Difficulty> getDifficulty() {
+            return Optional.ofNullable(difficulty);
+        }
+
+        public void setRemark(Remark remark) {
+            this.remark = remark;
+        }
+
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
+        }
+
+        public void setSource(Source source) {
+            this.source = source;
+        }
+
+        public Optional<Source> getSource() {
+            return Optional.ofNullable(source);
         }
 
         /**
