@@ -38,9 +38,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`delete`**`3` : deletes the 3rd movie shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<UserCommands>> for details of each command.
 
-[[Features]]
 == Features
 
 === User-Interface
@@ -89,6 +88,7 @@ Upon clicking a movie or tv show title, a pop-up window will emerge, with a deta
 
 image::details_page.png[width="790"]
 
+[[UserCommands]]
 === User Commands
 
 ====
@@ -176,7 +176,7 @@ Format: `delete INDEX`
 
 Examples:
 
-*`delete 2` +
+* `delete 2` +
 Deletes the 2nd show in the watchlist.
 * `search Angry` +
 `delete 1` +
