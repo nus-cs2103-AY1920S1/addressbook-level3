@@ -22,7 +22,7 @@ public class MatricNum {
     /**
      * Constructs an {@code MatricNum}.
      *
-     * @param matric A valid matriculation number.
+     * @param matricNum A valid matriculation number.
      */
     public MatricNum(String matricNum) {
         requireNonNull(matricNum);
