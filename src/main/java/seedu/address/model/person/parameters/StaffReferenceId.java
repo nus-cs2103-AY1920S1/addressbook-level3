@@ -1,4 +1,4 @@
-package seedu.address.model.common;
+package seedu.address.model.person.parameters;
 
 /**
  * Represents a Reference ID for Patient.

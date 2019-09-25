@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.common.PatientReferenceId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
+import seedu.address.model.person.parameters.PatientReferenceId;
 import seedu.address.model.person.parameters.Phone;
 import seedu.address.model.tag.Tag;
 
