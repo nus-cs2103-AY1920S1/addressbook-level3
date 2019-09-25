@@ -497,7 +497,48 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `THRIFT` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Shows help window
+=== Use case: Add an expense/income transaction
+
+*MSS*
+
+1. User requests to add a new spending or income into the records.
+2. THRIFT processes the request and adds the expense/income into the transactions list.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. THRIFT displays an invalid parameter error to the user and the transactions list is not updated.
++
+Use case ends
+
+[discrete]
+=== Use case: Delete a transaction
+
+*MSS*
+
+1. User requests to delete an existing transaction from the records.
+2. THRIFT processes the request and removes the transaction from the transactions list.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The command or transaction specified by the user is not valid.
++
+[none]
+** 1a1. THRIFT displays an invalid parameter error to the user and the transactions list is not updated.
++
+Use case ends
+
+
+[discrete]
+=== Use case: Show help window
 
 *MSS*
 
@@ -577,15 +618,25 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Adding a transaction
+. Adding a transaction, be it income or expense.
 
-. Deleting a person while all persons are listed
+.. Test case: `add_expense n/Bought a pair of Apple Earpods c/350` +
+    Expected: A new expense transaction is added into the list. Details of the expense transaction shown in the status message. The date string is automatically saved into the transaction list.
+.. Test case: `add_income n/Awarded bursary prize c/500` +
+    Expected: A new income transaction is added into the list. Details of the income transaction shown in the status message. The date string is automatically saved into the transactions list.
+.. Test case: `add_expense n/Lunch in school` +
+    Expected: No transaction is added. Error details shown in the status message (missing `c/COST` parameter). Status bar remains the same.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+=== Deleting a transaction
+
+. Deleting a transaction while all transactions are listed
+
+.. Prerequisites: List all transactions using the `list` command. Multiple transactions in the list.
+.. Test case: `delete i/1` +
+   Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete i/0` +
+   Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
