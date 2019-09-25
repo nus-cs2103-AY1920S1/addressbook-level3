@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.common.PatientReferenceId;
 import seedu.address.model.common.PersonReferenceId;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.parameters.Address;
+import seedu.address.model.person.parameters.Email;
+import seedu.address.model.person.parameters.Name;
+import seedu.address.model.person.parameters.Phone;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_ID1 = "123-312*";
