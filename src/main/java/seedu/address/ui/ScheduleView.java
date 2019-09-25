@@ -2,11 +2,8 @@ package seedu.address.ui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -30,15 +27,21 @@ public class ScheduleView extends Application {
 
     private void initialiseHeaders() {
         //initialise headers
-        Rectangle placeHolder = new Rectangle(preferredWidth, 50);
-        placeHolder.setStyle("-fx-fill: lightgrey");
+        Region placeHolder = new Region();
+        placeHolder.setStyle("-fx-background-color: lightgrey");
         scheduleView.add(placeHolder, 0, 0);
+        ColumnConstraints colCOffset = new ColumnConstraints();
+        colCOffset.setPercentWidth(12.5);
+        scheduleView.getColumnConstraints().add(colCOffset);
         //day headers
         for (int i = 0; i < dayNames.size(); i++) {
             StackPane sp = new StackPane();
             Text dayText = new Text(dayNames.get(i));
             Region dayLabelRegion = new Region();
             dayLabelRegion.setPrefSize(preferredWidth, 50);
+            ColumnConstraints colC = new ColumnConstraints();
+            colC.setPercentWidth(12.5);
+            scheduleView.getColumnConstraints().add(colC);
             dayLabelRegion.setStyle("-fx-background-color: white; -fx-border-width: 2");
             sp.getChildren().addAll(dayLabelRegion, dayText);
             scheduleView.add(sp, i + 1, 0);
@@ -70,9 +73,15 @@ public class ScheduleView extends Application {
                 StackPane timeslotRegion = new StackPane();
                 Region timeslotMajorRegion = new Region();
                 timeslotMajorRegion.setStyle("-fx-border-color: lightgrey; -fx-border-style: solid none none solid;");
-                Line timeslotMinorRegion = new Line(0.0, oneHourLength / 2, preferredWidth, oneHourLength/2);
-                timeslotMinorRegion.getStrokeDashArray().addAll(2d);
-                timeslotMinorRegion.setStyle("-fx-stroke: silver;");
+                VBox timeslotMinorRegion = new VBox();
+                Region offset = makeEmptyTimeslot(30);
+                Region timeslotMinorRegion1 = new Region();
+                timeslotMinorRegion1.setStyle("-fx-border-color: lightgrey; -fx-border-style: dashed none none dashed");
+                timeslotMinorRegion1.setPrefSize(preferredWidth, oneHourLength / 2.0);
+                timeslotMinorRegion.getChildren().addAll(offset, timeslotMinorRegion1);
+                //Line timeslotMinorRegion = new Line(0.0, oneHourLength / 2, preferredWidth, oneHourLength/2);
+                //timeslotMinorRegion.getStrokeDashArray().addAll(2d);
+                //timeslotMinorRegion.setStyle("-fx-stroke: silver;");
                 if (k == endTime - 1) {
                     timeslotMajorRegion.setPrefSize(preferredWidth, oneHourLength / 2);
                     timeslotRegion.getChildren().addAll(timeslotMajorRegion);
@@ -98,13 +107,13 @@ public class ScheduleView extends Application {
         return result;
     }
 
-    private Region makeColouredTimeslot(int durationMinutes) {
+    private Region makeColouredTimeslot(int durationMinutes, String color) {
         Region result = new Region();
         int hours = durationMinutes / 60;
         int minutes = durationMinutes % 60;
         double heightOfTimeslot = hours * oneHourLength + (minutes / 60.0) * oneHourLength;
         result.setPrefSize(blockWidth, heightOfTimeslot);
-        result.setStyle("-fx-background-color: darkblue; -fx-border-width: 2; -fx-background-radius: 5;");
+        result.setStyle("-fx-background-color: " + color + "; -fx-border-width: 2; -fx-background-radius: 5;");
         return result;
     }
 
@@ -126,7 +135,7 @@ public class ScheduleView extends Application {
                 Pair<Integer, Integer> timeslot = daySchedule.get(j);
                 int startTime = (int) timeslot.getKey();
                 int endTime = (int) timeslot.getValue();
-                Region busyTimeslot = makeColouredTimeslot(getTimeDifference(startTime, endTime));
+                Region busyTimeslot = makeColouredTimeslot(getTimeDifference(startTime, endTime), "red");
                 if (originalTimeStamp != startTime) {
                     int timeUntilBusy = getTimeDifference(originalTimeStamp, startTime);
                     Region freeTimeslot = makeEmptyTimeslot(timeUntilBusy);
@@ -147,6 +156,8 @@ public class ScheduleView extends Application {
         initialise(ss);
         ScrollPane mainLayout = new ScrollPane();
         mainLayout.setContent(scheduleView);
+        mainLayout.setFitToHeight(true);
+        mainLayout.setFitToWidth(true);
         Scene scene = new Scene(mainLayout);
         stage.setScene(scene);
         stage.show();
