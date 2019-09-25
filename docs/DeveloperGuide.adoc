@@ -516,6 +516,26 @@ Use case ends
 +
 Use case ends.
 
+[discrete]
+=== Use case: Listing monthly expenses
+
+*MSS*
+
+1. User requests to view list of expenses for a specific month.
+2. THRIFT displays expenses of that month.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The command specified by the user is not valid.
++
+[none]
+** 1a1. THRIFT displays an invalid command error to user.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
