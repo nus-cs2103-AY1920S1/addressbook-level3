@@ -1,4 +1,4 @@
-j= Xpire - User Guide
+= Xpire - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:

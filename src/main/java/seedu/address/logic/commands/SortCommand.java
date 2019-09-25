@@ -16,7 +16,7 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all items according the the method specified"
             + "and displays them as a list with index numbers.\n"
             + "Parameters: METHOD\n"
-            + "Example: " + COMMAND_WORD + " name";
+            + "Example: " + COMMAND_WORD + "|name";
     public static final String MESSAGE_SUCCESS = "Sorted all items";
     private final MethodOfSorting method;
 
