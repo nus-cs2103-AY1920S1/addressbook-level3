@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -282,6 +282,7 @@ Refer to the guide <<DevOps#, here>>.
 * has a need to manage a significant number of phones, orders and customers.
 * prefer desktop apps over other types
 * is a one-man/two-man handphone re-seller who has multiple phones to sell.
+* likes single view application.
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
@@ -509,7 +510,8 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-_{More to be added}_
+
+_ {More to be added}_
 
 [appendix]
 == Glossary
