@@ -9,18 +9,18 @@ import javafx.collections.ObservableList;
 import seedu.address.model.events.exceptions.EventNotFoundException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
-public class EventsList implements Iterable<Event> {
+public class EventsList implements Iterable<EventSource> {
 
-    private final ObservableList<Event> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Event> internalUnmodifiableList =
+    private final ObservableList<EventSource> internalList = FXCollections.observableArrayList();
+    private final ObservableList<EventSource> internalUnmodifiableList =
         FXCollections.unmodifiableObservableList(internalList);
 
-    public boolean contains(Event toCheck) {
+    public boolean contains(EventSource toCheck) {
         requireNonNull(toCheck);
         return internalList.contains(toCheck);
     }
 
-    public void add(Event toAdd) {
+    public void add(EventSource toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -28,7 +28,7 @@ public class EventsList implements Iterable<Event> {
         internalList.add(toAdd);
     }
 
-    public void setEvent(Event target, Event editedPerson) {
+    public void setEvent(EventSource target, EventSource editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         int index = internalList.indexOf(target);
@@ -39,7 +39,7 @@ public class EventsList implements Iterable<Event> {
         internalList.set(index, editedPerson);
     }
 
-    public void remove(Event toRemove) {
+    public void remove(EventSource toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new EventNotFoundException();
@@ -51,17 +51,17 @@ public class EventsList implements Iterable<Event> {
         internalList.setAll(replacement.internalList);
     }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(List<EventSource> events) {
         requireAllNonNull(events);
         internalList.setAll(events);
     }
 
-    public ObservableList<Event> asUnmodifiableObservableList() {
+    public ObservableList<EventSource> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Event> iterator() {
+    public Iterator<EventSource> iterator() {
         return internalList.iterator();
     }
 }

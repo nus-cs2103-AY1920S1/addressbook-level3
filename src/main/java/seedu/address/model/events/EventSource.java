@@ -11,7 +11,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Event {
+public class EventSource {
 
     // Identity fields
     private final Name name;
@@ -24,7 +24,7 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Time time, Duration duration, Set<Tag> tags) {
+    public EventSource(Name name, Time time, Duration duration, Set<Tag> tags) {
         requireAllNonNull(name, time, duration, tags);
         this.name = name;
         this.time = time;

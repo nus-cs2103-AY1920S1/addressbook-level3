@@ -3,7 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import java.util.List;
 import javafx.collections.ObservableList;
-import seedu.address.model.events.Event;
+import seedu.address.model.events.EventSource;
 import seedu.address.model.events.EventsList;
 
 public class EventsBook implements ReadOnlyEventsBook {
@@ -24,7 +24,7 @@ public class EventsBook implements ReadOnlyEventsBook {
 
     //// list overwrite operations
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(List<EventSource> events) {
         this.events.setEvents(events);
     }
 
@@ -36,29 +36,29 @@ public class EventsBook implements ReadOnlyEventsBook {
 
     //// person-level operations
 
-    public boolean hasPerson(Event event) {
+    public boolean hasPerson(EventSource event) {
         requireNonNull(event);
         return events.contains(event);
     }
 
-    public void addEvent(Event event) {
+    public void addEvent(EventSource event) {
         events.add(event);
     }
 
-    public void setEvent(Event target, Event editedPerson) {
+    public void setEvent(EventSource target, EventSource editedPerson) {
         requireNonNull(editedPerson);
 
         events.setEvent(target, editedPerson);
     }
 
-    public void removePerson(Event key) {
+    public void removePerson(EventSource key) {
         events.remove(key);
     }
 
     //// util methods
 
     @Override
-    public ObservableList<Event> getEventList() {
+    public ObservableList<EventSource> getEventList() {
         return events.asUnmodifiableObservableList();
     }
 }

@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.events.Event;
+import seedu.address.model.events.EventSource;
 import seedu.address.model.person.Person;
 
 /**
@@ -96,11 +96,11 @@ public interface Model {
 
     void setEventsBook(ReadOnlyEventsBook eventsBook);
 
-    boolean hasEvent(Event event);
+    boolean hasEvent(EventSource event);
 
-    void deletePerson(Event target);
+    void deletePerson(EventSource target);
 
-    void addEvent(Event event);
+    void addEvent(EventSource event);
 
-    void setEvent(Event target, Event editedEvent);
+    void setEvent(EventSource target, EventSource editedEvent);
 }

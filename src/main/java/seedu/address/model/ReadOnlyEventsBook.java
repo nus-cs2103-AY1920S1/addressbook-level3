@@ -1,10 +1,10 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.events.Event;
+import seedu.address.model.events.EventSource;
 
 public interface ReadOnlyEventsBook {
 
-    ObservableList<Event> getEventList();
+    ObservableList<EventSource> getEventList();
 
 }

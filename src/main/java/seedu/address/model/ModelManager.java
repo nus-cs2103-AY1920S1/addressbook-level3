@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.events.Event;
+import seedu.address.model.events.EventSource;
 import seedu.address.model.person.Person;
 
 /**
@@ -126,23 +126,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event) {
+    public boolean hasEvent(EventSource event) {
         requireNonNull(event);
         return eventsBook.hasPerson(event);
     }
 
     @Override
-    public void deletePerson(Event target) {
+    public void deletePerson(EventSource target) {
         eventsBook.removePerson(target);
     }
 
     @Override
-    public void addEvent(Event event) {
+    public void addEvent(EventSource event) {
         eventsBook.addEvent(event);
     }
 
     @Override
-    public void setEvent(Event target, Event editedEvent) {
+    public void setEvent(EventSource target, EventSource editedEvent) {
         requireAllNonNull(target, editedEvent);
 
         eventsBook.setEvent(target, editedEvent);
