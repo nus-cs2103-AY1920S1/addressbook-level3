@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,11 +26,13 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+    private final Model eventModel;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Model eventModel, Storage storage) {
         this.model = model;
+        this.eventModel = eventModel;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
     }
@@ -40,7 +43,12 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        if (command instanceof ListEventCommand) {
+            logger.info("----------------[TEST]");
+            commandResult = command.execute(eventModel);
+        } else {
+            commandResult = command.execute(model);
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());

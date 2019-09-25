@@ -20,7 +20,6 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
