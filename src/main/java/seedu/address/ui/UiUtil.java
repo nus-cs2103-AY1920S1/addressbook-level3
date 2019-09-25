@@ -2,15 +2,12 @@ package seedu.address.ui;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -21,8 +18,6 @@ import javafx.stage.Window;
  * Contains utility methods used by the various *UiPart classes.
  */
 public class UiUtil {
-    private static final Map<Node, List<Consumer<Scene>>> SCENE_READY_CONSUMERS = new WeakHashMap<>();
-
     /**
      * Schedules the {@code onSceneReady} code to run when the {@code targetNode} is added to a {@link Scene}
      *
@@ -32,40 +27,46 @@ public class UiUtil {
     public static void onSceneReady(final Node targetNode, final Consumer<Scene> onSceneReady) {
         requireAllNonNull(targetNode, onSceneReady);
 
-        List<Consumer<Scene>> list = SCENE_READY_CONSUMERS.get(targetNode);
-        if (list == null) {
-            list = new ArrayList<>();
-            SCENE_READY_CONSUMERS.put(targetNode, list);
-
-            final List<Consumer<Scene>> finalList = list;
-            final ChangeListener<Scene> listener = (unused1, oldScene, newScene) -> {
-                if (!(oldScene == null && newScene != null)) {
-                    return;
-                }
-
-                for (final Consumer<Scene> sceneConsumer : finalList) {
-                    sceneConsumer.accept(newScene);
-                }
-
-                finalList.clear();
-            };
-
-            targetNode.sceneProperty().addListener(listener);
-        }
-
-        list.add(onSceneReady);
+        oncePropertyNotNull(targetNode.sceneProperty(), onSceneReady::accept);
     }
 
     /**
-     * Schedules the {@code onSceneReady} code to run when the {@code targetNode} is added to a {@link Window}
+     * Schedules the {@code onWindowReady} code to run when the {@code targetNode} is added to a {@link Window}
      *
      * @param targetNode    The {@link Node} whose {@link Node#sceneProperty()} to wait on.
      * @param onWindowReady The code to execute once the {@code targetNode}'s {@link Node#sceneProperty()} is ready.
      */
     public static void onWindowReady(final Node targetNode, final Consumer<Window> onWindowReady) {
-        onSceneReady(targetNode, scene -> {
-            onWindowReady.accept(scene.getWindow());
+        requireAllNonNull(targetNode, onWindowReady);
+
+        oncePropertyNotNull(targetNode.sceneProperty(), (scene) -> {
+            oncePropertyNotNull(scene.windowProperty(), onWindowReady::accept);
         });
+    }
+
+    /**
+     * Schedules the {@code onPropertyNotNull} code to run only once, when the {@code property}'s
+     * {@link ObservableValue#getValue()} is not null.
+     *
+     * @param property          The {@link ObservableValue} whose {@link ObservableValue#getValue()} to wait on.
+     * @param onPropertyNotNull The code to execute once the {@code property}'s {@link ObservableValue#getValue()} is
+     *                          not null.
+     */
+    private static <T> void oncePropertyNotNull(final ObservableValue<T> property,
+                                                final Consumer<T> onPropertyNotNull) {
+        requireAllNonNull(property, onPropertyNotNull);
+
+        final T value = property.getValue();
+        if (value != null) {
+            onPropertyNotNull.accept(value);
+        } else {
+            property.addListener((unused1, oldValue, newValue) -> {
+                if (!(oldValue == null && newValue != null)) {
+                    return;
+                }
+                onPropertyNotNull.accept(newValue);
+            });
+        }
     }
 
     /**
