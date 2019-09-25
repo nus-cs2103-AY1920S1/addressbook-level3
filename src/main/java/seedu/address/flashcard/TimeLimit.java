@@ -1,7 +1,11 @@
-package seedu.address.Flashcard;
+package seedu.address.flashcard;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * The time limit for doing a quiz
+ * Guarantees: Does not exceed an hour, minutes and seconds are both between 0 and 60.
+ */
 public class TimeLimit {
 
     private static final String MESSAGE_CONSTRAINTS = "Time limit must be in the format of two integers,"

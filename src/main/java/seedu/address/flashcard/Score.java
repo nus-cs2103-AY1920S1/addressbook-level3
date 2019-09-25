@@ -1,4 +1,4 @@
-package seedu.address.Flashcard;
+package seedu.address.flashcard;
 
 /**
  * The record of how many correct and wrong answers has the user done.

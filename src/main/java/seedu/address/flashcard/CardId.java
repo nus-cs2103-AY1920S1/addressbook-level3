@@ -1,19 +1,19 @@
-package seedu.address.Flashcard;
+package seedu.address.flashcard;
 
 /**
  * The unique identity number for each flash card.
  * Guarantees: Each card's id number is unique.
  */
-public class CardID {
+public class CardId {
 
-    private final int identityNumber;
     // The id number for the next flash card generated.
     private static int frontier = 0;
+    private final int identityNumber;
 
     /**
      * Constructor of the class, automatically generate a unique identity number.
      */
-    public CardID() {
+    public CardId() {
         identityNumber = frontier;
         frontier++;
     }
@@ -22,6 +22,11 @@ public class CardID {
         return identityNumber;
     }
 
+    /**
+     * While finding a flashcard, compare that the id number of this card matches the search string or not.
+     * @param s The search parameter, target string.
+     * @return true if the id number indeed contains the target information, false otherwise.
+     */
     public boolean contains(String s) {
         String idAsString = Integer.toString(identityNumber);
         return idAsString.contains(s);
@@ -37,10 +42,10 @@ public class CardID {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof CardID)) {
+        if (!(other instanceof CardId)) {
             return false;
         }
-        return identityNumber == ((CardID) other).getIdentityNumber();
+        return identityNumber == ((CardId) other).getIdentityNumber();
     }
 
     @Override
