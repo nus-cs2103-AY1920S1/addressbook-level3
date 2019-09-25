@@ -4,6 +4,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Remark;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -26,6 +27,6 @@ public class RemarkCommandParser implements Parser<RemarkCommand>{
 
         String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
 
-        return new RemarkCommand(index, remark);
+        return new RemarkCommand(index, new Remark(remark));
     }
 }
