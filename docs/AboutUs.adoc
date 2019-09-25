@@ -17,11 +17,22 @@ image::limerencee.png[width="150", align="left"]
 Role: Project Manager/Developer +
 Responsibilities: Deliverables and Deadlines
 
+'''
+
 === Lee Bo Qiang
 image::lightz96.png[width="150", align="left"]
 {empty}[https://github.com/lightz96[github]] [<<lightz96#, portfolio>>]
 
 Role: User Experience Developer +
 Responsibilities: UI
+
+'''
+
+=== Lye Jian Wen
+image::lye-jw.png[width="150", align="left"]
+link:https://github.com/lye-jw[[github]] [<<lye-jw#, portfolio>>]
+
+Role: Quality Assurance Manager/Developer +
+Responsibilities: Meeting of user needs and Proper function of app
 
 '''

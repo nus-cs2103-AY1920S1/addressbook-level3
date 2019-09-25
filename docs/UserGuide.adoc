@@ -43,7 +43,7 @@ Command format:
 *   Items with `...` after them can be used multiple times including zero times e.g. `[t/TAG] …` can be used as ` ` (i.e. 0 times), `t/Food t/Dinner` etc.
 *   Parameters can be in any order e.g. if the command specifies `n/EXPENSE_NAME c/COST`, `c/COST n/EXPENSE_NAME` will achieve the same outcome.
 
-
+[[ExpenseTag]]
 === Adding an expense: `add expense`
 
 Format: `add expense n/EXPENSE_NAME c/COST [t/TAG]...`
@@ -60,7 +60,7 @@ Expected output:
 *   `New entry added: 1. [-] Laksa ($10.50) [Lunch][Food]`
 *   `New entry added: 2. [-] Travel ($53) [Travel]`
 
-
+[[IncomeTag]]
 === Adding an income: `add income`
 
 Format: `add income n/INCOME_NAME c/COST [t/TAG]...`
@@ -73,6 +73,7 @@ Expected output:
 
 *   `New entry added: 3. [+] Allowance ($1000) [Monthly]`
 
+[[DeleteTag]]
 === Deleting a Transaction: `delete`
 
 Format: `delete i/INDEX`
@@ -91,6 +92,57 @@ Expected output:
 
 *   `Entry deleted: 1. Laksa ($10.50) [Lunch][Food]`
 
+// tag::update[]
+[[UpdateTag]]
+=== Updating a Transaction’s details: `update`
+
+Format: `update i/INDEX | PREFIX_LETTER/UPDATED_DETAILS`
+
+****
+* Updates the Transaction's details at the specified `INDEX`.
+** `INDEX` refers to the index number currently shown in the UI, and must be a *positive integer*.
+* `PREFIX_LETTER` specifies type of detail to be updated, e.g. `n/` for name.
+* `UPDATED_DETAILS` are the new details of type corresponding to `PREFIX_LETTER` that the Transaction is to be updated with.
+****
+
+Examples:
+
+*   `update i/1 | n/Curry Laksa`
+*   `update i/1 | c/11`
+
+Expected output: +
+
+NOTE: Assume 2nd command occurs after 1st
+
+*   `Entry name updated: 1. [-] Curry Laksa ($10.50) [Lunch][Food] +
+Original name was: Laksa`
+*   `Entry cost updated: 1. [-] Curry Laksa ($11) [Lunch][Food] +
+Original cost was: $10.50`
+// end::update[]
+
+// tag::clone[]
+[[CloneTag]]
+=== Cloning a Transaction: `clone`
+
+Format: `clone i/INDEX`
+
+****
+* Clones (creates a duplicate of) a Transaction.
+* Clone produced is added to a new index at the bottom of the list.
+****
+
+Examples:
+
+*   `clone i/1`
+
+Expected output: +
+
+NOTE: Assume entry at index 1 is `1. [-] Laksa ($10.50) [Lunch][Food]` and there are no other entries.
+
+*   `New entry added: 2. [-] Laksa ($10.50) [Lunch][Food]`
+// end::clone[]
+
+[[UndoTag]]
 === Undoing the previous undoable command: `undo`
 
 Format: `undo`
@@ -119,6 +171,7 @@ Expected output:
 * Deletes the expense spent on Laksa from THRIFT.
 * Deletes the allowance income from THRIFT.
 
+[[RedoTag]]
 === Redoing the undone command: `redo`
 
 Redo the <<Undoable, undoable command>> that was previously undone by the user.
@@ -135,6 +188,7 @@ Expected output:
 
 * Adds the expense spent on Laksa back to THRIFT.
 
+[[HelpTag]]
 === Displaying help page: `help`
 
 Format: `help [COMMAND]`
@@ -149,6 +203,7 @@ Expected output:
 * Displays a detailed list of information regarding all the THRIFT commands.
 * Returns syntax of `delete` command.
 
+[[ExitTag]]
 === Exiting THRIFT application: `exit`
 
 Format: `exit`
@@ -174,15 +229,18 @@ If you are especially conscious about having your data spied on, this function w
 *A*: Runs the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous THRIFT application.
 
 == Command summary
-* *Expense*:  `add expense n/EXPENSE_NAME c/COST [t/TAG]...` +
+* <<ExpenseTag, *Expense*>>:  `add expense n/EXPENSE_NAME c/COST [t/TAG]...` +
 Example: `add expense n/Laksa c/10.50 t/Lunch t/Food`
-* *Income*: `add income n/INCOME_NAME c/COST [t/TAG]...` +
+* <<IncomeTag, *Income*>>: `add income n/INCOME_NAME c/COST [t/TAG]...` +
 Example: `add income n/Allowance c/1000 t/Monthly`
-* *Delete*: `delete i/INDEX` +
+* <<DeleteTag, *Delete*>>: `delete i/INDEX` +
 Example: `delete i/1`
-* *Undo*: `undo`
-* *Redo*: `redo`
-* *Help*: `help [COMMAND]` +
+* <<UpdateTag, *Update*>>: `update i/INDEX | PREFIX_LETTER/UPDATED_DETAILS` +
+Example: `update i/1 | n/Curry Laksa`
+* <<CloneTag, *Clone*>>: `clone i/INDEX` +
+Example: `clone i/1`
+* <<UndoTag, *Undo*>>: `undo`
+* <<RedoTag, *Redo*>>: `redo`
+* <<HelpTag, *Help*>>: `help [COMMAND]` +
 Example: `help delete`
-* *Exit*: `exit`
-
+* <<ExitTag, *Exit*>>: `exit`
