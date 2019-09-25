@@ -69,6 +69,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 
+'''
+
 === Universal Commands
 
 ==== Accessing project dashboard page: `/home` + 
@@ -86,6 +88,8 @@ Format: `/inventory`
 ==== View help: `/help` +
 Displays a list of possible commands for the user +
 Format: `/help`
+
+'''
 
 === Member-related Commands
 
@@ -130,7 +134,7 @@ Example:
 * `fire ti/9 mi/3` +
 Removes the task with ID 9 from the team member with ID 3
 
-
+'''
 
 === Task-related Commands
 	
@@ -200,12 +204,13 @@ Example:
 * `deadline task ti/21 at/21-09-19 15:00`  +
 Deadline for task 21 will be specified as 21/09/19 1500
 
+'''
 
 === Calendar Commands
 
-==== Add a member’s calendar: `add calendar`
+==== Add a member’s calendar
 
-Adds a members calendar to the required
+Adds a calendar to the required member's profile 
 
 ****
 
@@ -246,6 +251,8 @@ Example:
 
 * `add meeting at/10-10-2018 19:00 l/COM2-0204` +
 User chooses the meeting time from the grid displayed from generate timings commands (3.4.2) . A meeting is added to the internal calendar of the application, which will be displayed on the dashboard.
+
+'''
 
 === Inventory Commands
 
@@ -323,17 +330,23 @@ Deletes the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
-////
+
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
+////
+
+'''
+
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+////
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -341,11 +354,12 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+////
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: Can I use file formats other than ics for the calendar feature? +
+*A*: No, the file format has to be in ics folder, downloaded either from NUSmods or Google Calendar.
 
 
 == Command Summary
