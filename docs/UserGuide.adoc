@@ -219,6 +219,9 @@ Export any of the data in SML to PDF format.
 
 * *Clear* : `clear`
 
+* *Complete* +
+** order : `complete -o INDEX`
+
 * *Copy* +
 ** customer : `copy -c <field>`
 ** phone : `copy -p <field>`
@@ -259,9 +262,11 @@ Export any of the data in SML to PDF format.
 
 * *Redo* : `redo`
 
+* *Schedule* +
+** order : `schedule -o INDEX DD/MM/YY HHMM`
+
 * *Undo* : `undo`
 
 * *Update* +
 ** customer : `update -c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 ** phone : `update -p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
-** order : `update -o INDEX`
