@@ -1,0 +1,6 @@
+= Oen Qi Han, Kenson - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: THRIFT

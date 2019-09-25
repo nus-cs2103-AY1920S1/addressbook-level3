@@ -26,6 +26,13 @@ image::lightz96.png[width="150", align="left"]
 Role: User Experience Developer +
 Responsibilities: UI
 
+=== Oen Qi Han, Kenson
+image::kensonoenqh.png[width="150", align="left"]
+{empty}[https://github.com/kensonoenqh[github]] [<<kensonoenqh#, portfolio>>]
+
+Role: Process Analyst/ Developer +
+Responsibilities: Business use-case modeling
+
 '''
 
 === Lye Jian Wen

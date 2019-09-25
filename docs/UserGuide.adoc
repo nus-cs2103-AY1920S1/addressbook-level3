@@ -188,6 +188,21 @@ Expected output:
 
 * Adds the expense spent on Laksa back to THRIFT.
 
+[[ListTag]]
+=== List expenses for the month: `list`
+
+Format: `list [m/MONTH] [t/TAG]`
+
+Examples:
+
+*  `list`
+*  `list m/Jan t/Food`
+
+Expected output:
+
+* Returns a list of all expenses for the current month.
+* Returns a list of all food expenses for the specified month.
+
 [[HelpTag]]
 === Displaying help page: `help`
 
@@ -241,6 +256,8 @@ Example: `update i/1 | n/Curry Laksa`
 Example: `clone i/1`
 * <<UndoTag, *Undo*>>: `undo`
 * <<RedoTag, *Redo*>>: `redo`
+* <<ListTag, *List*>>: `list [m/MONTH] [t/TAG]` +
+Example: `list m/Jan t/Food`
 * <<HelpTag, *Help*>>: `help [COMMAND]` +
 Example: `help delete`
 * <<ExitTag, *Exit*>>: `exit`
