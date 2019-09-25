@@ -26,7 +26,7 @@ public class AliasCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid aliasname
-        assertParseFailure(parser, "#asd@## nothing",  Alias.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "#asd@## nothing",  Alias.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
@@ -36,5 +36,4 @@ public class AliasCommandParserTest {
         assertParseSuccess(parser,
                 "name input input", new AliasCommand(new Alias("name", "input input")));
     }
-
 }

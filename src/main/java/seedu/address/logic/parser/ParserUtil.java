@@ -98,7 +98,10 @@ public class ParserUtil {
      */
     public static Alias parseAlias(String aliasName, String input) throws ParseException {
         if (!Alias.isValidAliasName(aliasName)) {
-            throw new ParseException(Alias.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Alias.MESSAGE_NAME_CONSTRAINTS);
+        }
+        if (!Alias.isValidInput(input)) {
+            throw new ParseException(Alias.MESSAGE_INPUT_CONSTRAINTS);
         }
         return new Alias(aliasName, input);
     }

@@ -14,16 +14,21 @@ import java.util.regex.Pattern;
  */
 public class Alias implements Serializable {
 
-    public static final String MESSAGE_CONSTRAINTS =
+    public static final String MESSAGE_NAME_CONSTRAINTS =
             "Alias names can only consist of alphanumeric characters";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_INPUT_CONSTRAINTS =
+            "Alias inputs must contain at least 1 non-whitespace character";
+    public static final String NAME_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String INPUT_VALIDATION_REGEX = "[\\s\\S]*\\S[\\s\\S]*";
+
 
     private final String aliasName;
     private final String input;
 
     public Alias(String aliasName, String input) {
         requireAllNonNull(aliasName, input);
-        checkArgument(isValidAliasName(aliasName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAliasName(aliasName), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument(isValidInput(input), MESSAGE_INPUT_CONSTRAINTS);
         this.aliasName = aliasName;
         this.input = input;
     }
@@ -56,7 +61,12 @@ public class Alias implements Serializable {
     }
 
     public static boolean isValidAliasName(String aliasName) {
-        return Pattern.matches(VALIDATION_REGEX, aliasName);
+        return Pattern.matches(NAME_VALIDATION_REGEX, aliasName);
+    }
+
+
+    public static boolean isValidInput(String input) {
+        return Pattern.matches(INPUT_VALIDATION_REGEX, input);
     }
 
     @Override
