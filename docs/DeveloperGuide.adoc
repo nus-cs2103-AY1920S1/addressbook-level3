@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -281,6 +281,8 @@ Refer to the guide <<DevOps#, here>>.
 
 * has a need to manage a significant number of phones, orders and customers.
 * prefer desktop apps over other types
+* is a one-man/two-man handphone re-seller who has multiple phones to sell.
+* likes single view application.
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
@@ -299,13 +301,61 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |handphone seller |schedule my orders| deconflict and view the schedule of my sales meetings.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |handphone seller |generate an invoice |give my customers the invoice.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |handphone seller |sort my sales statistics|find out which products are selling well.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |handphone seller |generate sales report |track my revenues, profits and costs.
+
+|`* * *` |handphone seller |find my handphone model easily| not waste time searching for the handphone.
+
+|`* * *`|handphone seller |record and track the quantity of my phones |decide when to get more phones.
+
+|`* * *`|handphone seller |copy the email address/handphone number of my customer easily |email them/text them easily.
+
+|`* *`| handphone seller |use a price optimization algorithm| easily price my products.
+
+|`* *`|handphone seller | find out the market price of the phones| decide what price to set for my phones.
+
+|`* *`|handphone seller | generate a visualisation of my meeting schedule | have a better idea of my schedule
+
+|`* *`|handphone seller |use an auto-generated mailing list |keep track of the mails that I have to send out.
+
+|`*`|handphone seller|organise my replies in terms of hot, medium, cold |find out how to best reply to a certain type of customer.
+
+|`*`|handphone seller|use the trust meter system|remember which buyers cheated me before.
+
+|`* *`|handphone seller|check notification dialog|see upcoming deadlines
+
+|`*`|handphone seller|add images to my handphone| better visualise my products.
+
+|`*`|handphone seller|integrate the app with an e-commerce platform|automatically update my order in my app and on the platform.
+
+|`*`|handphone seller|view customer profile|see the number of transactions and the types of goods they bought.
+
+|`* *`|handphone seller|undo and redo|correct my mistakes.
+
+|`* *`|handphone seller|import my sales data from csv file|save the trouble of manual importing.
+
+|`* * *`|handphone seller|add, edit and delete the phones that I have|update when there is a need to.
+
+|`* * *`|handphone seller|create a new order|schedule the order.
+
+|`* * *`|handphone seller|cancel order|reflect the changes made by customer.
+
+|`* * *`|handphone seller|sort statistics by brand|find out which brand is the most popular.
+
+|`* * *`|handphone seller|generate statistics for total sales or total profit per month| find out how much I earn.
+
+|`* * *`|handphone seller|find the details of the order that I want easily| save time searching for an order.
+
+|`* * *`|handphone seller|delete a phone that I am no longer selling| get rid of it on the database.
+
+|`*`|handphone seller|track my customer age|know the suitability of my product.
+
+|`*`|handphone seller|use an in-built messenger to communicate with my customer| talk to them without switching to another application.
 |=======================================================================
 
 _{More to be added}_
@@ -461,7 +511,7 @@ _{More to be added}_
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
+_ {More to be added}_
 
 [appendix]
 == Glossary
