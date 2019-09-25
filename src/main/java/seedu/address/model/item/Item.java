@@ -2,6 +2,7 @@ package seedu.address.model.item;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -46,6 +47,21 @@ public class Item {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Tests if this item is expiring before the specified date.
+     *
+     * @param when a date
+     * @return {@Code true} if and only if the expiry date of this {@Code Item} is strictly earlier
+     * than {@Code when}; {@Code false} otherwise.
+     */
+    public boolean isExpiring(LocalDate when) {
+        if (this.getExpiryDate().getDate().isBefore(when)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

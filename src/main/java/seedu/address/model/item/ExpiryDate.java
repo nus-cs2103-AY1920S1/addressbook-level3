@@ -3,9 +3,9 @@ package seedu.address.model.item;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an Item's expiry date in the expiry date tracker.
@@ -13,15 +13,18 @@ import java.util.Date;
  */
 public class ExpiryDate {
 
-
-    public static final String MESSAGE_CONSTRAINTS =
-            "Expiry dates should only contain numbers, and they should be in the format dd/MM/yyyy";
+    /*
     public static final String VALIDATION_REGEX = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))"
-        + "\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^"
-        + "(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:"
-        + "(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])"
-        + "|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
-    private Date date;
+            + "\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^"
+            + "(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:"
+            + "(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])"
+            + "|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
+     */
+    public static final String MESSAGE_CONSTRAINTS =
+            "Expiry dates should only contain numbers, in the format dd/MM/yyyy";
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private LocalDate date;
 
     /**
      * Constructs a {@code ExpiryDate}.
@@ -31,27 +34,31 @@ public class ExpiryDate {
     public ExpiryDate(String expiryDate) {
         requireNonNull(expiryDate);
         try {
-            this.date = new SimpleDateFormat("dd/MM/yyyy").parse(expiryDate);
-            checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
-        } catch (ParseException e) {
+            this.date = LocalDate.parse(expiryDate, DATE_FORMAT);
+        } catch (DateTimeParseException e) {
             checkArgument(false, MESSAGE_CONSTRAINTS);
         }
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid expiry date.
      */
     public static boolean isValidExpiryDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            LocalDate.parse(test, DATE_FORMAT);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
     @Override
     public String toString() {
-        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+        return this.date.format(DATE_FORMAT);
     }
 
     @Override
