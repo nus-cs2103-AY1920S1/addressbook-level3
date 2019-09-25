@@ -1,12 +1,14 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.core.Alias;
-import seedu.address.logic.commands.AliasCommand;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.Alias;
+import seedu.address.logic.commands.AliasCommand;
+
 
 
 public class AliasCommandParserTest {
@@ -26,7 +28,7 @@ public class AliasCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid aliasname
-        assertParseFailure(parser, "#asd@## nothing",  Alias.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure(parser, "#asd@## nothing", Alias.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test

@@ -1,12 +1,14 @@
 package seedu.address.commons.core;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.AliasCommand;
-import seedu.address.testutil.AliasTestUtil;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_ADD_WITH_ARGUMENTS;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_A_TO_B;
+
+import org.junit.jupiter.api.Test;
+
 
 class AliasMappingsTest {
 
@@ -35,10 +37,10 @@ class AliasMappingsTest {
     @Test
     void aliasCommandWordIsAlias() {
         // returns true after alias with that name is added, false before
-        AliasMappings aliasMappings = new AliasMappings();
-        assertFalse(aliasMappings.aliasCommandWordIsAlias("a"));
-        aliasMappings.addAlias(ALIAS_A_TO_B);
-        assertTrue(aliasMappings.aliasCommandWordIsAlias("a"));
+        assertFalse(new AliasMappings().aliasCommandWordIsAlias("a"));
+        assertTrue(
+                new AliasMappings().addAlias(ALIAS_A_TO_B)
+                        .aliasCommandWordIsAlias(ALIAS_A_TO_B.getAliasName()));
     }
 
     @Test
@@ -48,7 +50,7 @@ class AliasMappingsTest {
         AliasMappings oneAlias = empty.addAlias(ALIAS_A_TO_B);
         AliasMappings oneAlias2 = empty2.addAlias(ALIAS_A_TO_B);
         AliasMappings oneAlias3 = empty.addAlias(new Alias("a", "b"));
-        AliasMappings oneAlias4 = new AliasMappings().addAlias(ALIAS_ADD_WITH_ARGUMENTS)
+        AliasMappings oneAlias4 = new AliasMappings().addAlias(ALIAS_ADD_WITH_ARGUMENTS);
         // different empty -> true
         assertEquals(empty, empty2);
         // different empty add same -> true

@@ -1,9 +1,13 @@
 package seedu.address.commons.core;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_A_TO_B;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
 
 class AliasTest {
 
@@ -33,7 +37,7 @@ class AliasTest {
     }
 
     @Test
-    void isValidAliasName_validAliasName_returnsTrue() {
+    void isValidAliasName_invalidAliasName_returnsTrue() {
         assertFalse(Alias.isValidAliasName(INVALID_ALIAS_NAME));
         assertFalse(Alias.isValidAliasName(WHITE_SPACE));
     }

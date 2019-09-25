@@ -8,7 +8,6 @@ import seedu.address.commons.core.AliasMappings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AliasCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -45,7 +44,7 @@ public class AliasTestUtil {
     public static final Alias ALIAS_NAME_LIST = new Alias(ListCommand.COMMAND_WORD, "a");
 
 
-    public static AliasMappings VALID_ALIAS_MAPPINGS = new AliasMappings()
+    public static final AliasMappings VALID_ALIAS_MAPPINGS = new AliasMappings()
             .addAlias(ALIAS_LIST_SHORTCUT)
             .addAlias(ALIAS_ADD_WITH_ARGUMENTS)
             .addAlias(ALIAS_FIND_SHORTCUT_INCOMPLETE)
