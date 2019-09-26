@@ -1,21 +1,23 @@
 package seedu.address.model.person;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonDescriptorBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PersonDescriptorBuilder;
+
 class PersonListTest {
 
-    PersonList personList;
+    private PersonList personList;
 
     @BeforeEach
-    void init(){
+    void init() {
         personList = new PersonList();
         personList.addPerson(new PersonDescriptorBuilder(ALICE).build());
         personList.addPerson(new PersonDescriptorBuilder(BENSON).build());

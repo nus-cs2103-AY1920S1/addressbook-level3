@@ -149,7 +149,7 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return  otherPerson.getName().equals(getName())
+        return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())

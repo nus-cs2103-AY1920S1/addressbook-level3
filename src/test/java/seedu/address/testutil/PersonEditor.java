@@ -4,15 +4,23 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 
+/**
+ * Edits a person.
+ */
 public class PersonEditor {
 
     private Person person;
 
-    public PersonEditor(Person person){
+    public PersonEditor(Person person) {
         this.person = person;
     }
 
-    public Person edit(PersonDescriptor personDescriptor){
+    /**
+     * edits a person
+     * @param personDescriptor to edit
+     * @return person
+     */
+    public Person edit(PersonDescriptor personDescriptor) {
         if (personDescriptor.getName() != null) {
             Name otherName = personDescriptor.getName();
             person.setName(personDescriptor.getName());

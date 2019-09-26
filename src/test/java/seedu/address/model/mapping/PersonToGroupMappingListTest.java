@@ -1,25 +1,31 @@
 package seedu.address.model.mapping;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.address.model.group.GroupId;
-import seedu.address.model.person.PersonId;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.group.GroupId;
+import seedu.address.model.person.PersonId;
 
 class PersonToGroupMappingListTest {
 
-    PersonToGroupMappingList mappingList;
-    PersonToGroupMapping map11;
-    PersonToGroupMapping map12;
-    PersonToGroupMapping map13;
-    PersonToGroupMapping map21;
-    PersonToGroupMapping map22;
-    PersonToGroupMapping map33;
+    private PersonToGroupMappingList mappingList;
+    private PersonToGroupMapping map11;
+    private PersonToGroupMapping map12;
+    private PersonToGroupMapping map13;
+    private PersonToGroupMapping map21;
+    private PersonToGroupMapping map22;
+    private PersonToGroupMapping map33;
+
     @BeforeEach
-    void init(){
+    void init() {
         mappingList = new PersonToGroupMappingList();
         map11 = new PersonToGroupMapping(new PersonId(1), new GroupId(1));
         map12 = new PersonToGroupMapping(new PersonId(1), new GroupId(2));

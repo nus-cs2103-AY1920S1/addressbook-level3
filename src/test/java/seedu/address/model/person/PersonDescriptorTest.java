@@ -1,17 +1,21 @@
 package seedu.address.model.person;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.PersonDescriptorBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.PersonDescriptorBuilder;
+
 class PersonDescriptorTest {
 
-    PersonDescriptor personDescriptorEmpty = new PersonDescriptor();
-    PersonDescriptor personDescriptorAlice = new PersonDescriptorBuilder(ALICE).build();
+    private PersonDescriptor personDescriptorEmpty = new PersonDescriptor();
+    private PersonDescriptor personDescriptorAlice = new PersonDescriptorBuilder(ALICE).build();
 
     @Test
     void isAnyFieldEdited() {

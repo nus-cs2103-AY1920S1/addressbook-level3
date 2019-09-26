@@ -1,17 +1,17 @@
 package seedu.address.model.person.schedule;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class TimeslotTest {
 
-    LocalDateTime time1 = LocalDateTime.parse("2007-12-03T10:15:30");
-    LocalDateTime time2 = LocalDateTime.parse("2007-12-03T10:16:30");
-    Venue venue = new Venue("venue");
-    Timeslot timeslot = new Timeslot(time1, time2, venue);
+    private LocalDateTime time1 = LocalDateTime.parse("2007-12-03T10:15:30");
+    private LocalDateTime time2 = LocalDateTime.parse("2007-12-03T10:16:30");
+    private Venue venue = new Venue("venue");
+    private Timeslot timeslot = new Timeslot(time1, time2, venue);
 
 
     @Test

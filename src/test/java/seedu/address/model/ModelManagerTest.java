@@ -2,20 +2,20 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,7 +49,7 @@ public class ModelManagerTest {
     private Timeslot timeslot;
 
     @BeforeEach
-    void init(){
+    void init() {
         PersonList personList = new PersonList();
         GroupList groupList = new GroupList();
         PersonToGroupMappingList personToGroupMappingList = new PersonToGroupMappingList();
@@ -60,9 +60,12 @@ public class ModelManagerTest {
         Group group1 = groupList.addGroup(new GroupDescriptor(new GroupName("group1"), new GroupRemark("remark1")));
         Group group2 = groupList.addGroup(new GroupDescriptor(new GroupName("group2"), new GroupRemark("remark2")));
 
-        personToGroupMappingList.addPersonToGroupMapping(new PersonToGroupMapping(alice.getPersonId(), group1.getGroupId()));
-        personToGroupMappingList.addPersonToGroupMapping(new PersonToGroupMapping(alice.getPersonId(), group2.getGroupId()));
-        personToGroupMappingList.addPersonToGroupMapping(new PersonToGroupMapping(benson.getPersonId(), group1.getGroupId()));
+        personToGroupMappingList.addPersonToGroupMapping(
+                new PersonToGroupMapping(alice.getPersonId(), group1.getGroupId()));
+        personToGroupMappingList.addPersonToGroupMapping(
+                new PersonToGroupMapping(alice.getPersonId(), group2.getGroupId()));
+        personToGroupMappingList.addPersonToGroupMapping(
+                new PersonToGroupMapping(benson.getPersonId(), group1.getGroupId()));
 
         modelManager = new ModelManager(personList, groupList, personToGroupMappingList);
 

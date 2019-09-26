@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class PersonIdTest {
 
-    PersonId personId = new PersonId(1);
+    private PersonId personId = new PersonId(1);
 
     @Test
     void getIdentifier() {

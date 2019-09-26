@@ -14,9 +14,9 @@ public class Venue {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Venue)){
+        if (!(obj instanceof Venue)) {
             return false;
-        } else if (((Venue) obj).getVenue().equals(venue)){
+        } else if (((Venue) obj).getVenue().equals(venue)) {
             return true;
         } else {
             return false;

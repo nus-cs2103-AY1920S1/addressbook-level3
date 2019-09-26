@@ -18,6 +18,7 @@ public class Schedule {
 
     /**
      * Converts to String.
+     *
      * @return String
      */
     public String toString() {
@@ -35,7 +36,7 @@ public class Schedule {
         return output;
     }
 
-    public ArrayList<Event> getEvents(){
+    public ArrayList<Event> getEvents() {
         return this.events;
     }
 }

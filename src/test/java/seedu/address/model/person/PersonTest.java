@@ -35,23 +35,30 @@ public class PersonTest {
         assertFalse(ALICE.isSamePerson(null));
 
         // different phone and email -> returns true
-        Person editedAlice = new PersonEditor(ALICE).edit(new PersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build());
+        Person editedAlice = new PersonEditor(ALICE).edit(
+                new PersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build());
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different name -> returns true
-        editedAlice = new PersonEditor(ALICE).edit(new PersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+        editedAlice = new PersonEditor(ALICE).edit(
+                new PersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonEditor(ALICE).edit(new PersonDescriptorBuilder().withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build());
+        editedAlice = new PersonEditor(ALICE).edit(
+                new PersonDescriptorBuilder().withEmail(VALID_EMAIL_BOB)
+                        .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build());
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new PersonEditor(ALICE).edit(new PersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build());
+        editedAlice = new PersonEditor(ALICE).edit(
+                new PersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+                        .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build());
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PersonEditor(ALICE).edit(new PersonDescriptorBuilder().withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build());
+        editedAlice = new PersonEditor(ALICE).edit(
+                new PersonDescriptorBuilder().withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build());
         assertTrue(ALICE.isSamePerson(editedAlice));
     }
 
@@ -73,7 +80,8 @@ public class PersonTest {
         assertFalse(ALICE.equals(BOB));
 
         // different phone and email -> returns true
-        Person editedAlice = new PersonEditor(ALICE).edit(new PersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build());
+        Person editedAlice = new PersonEditor(ALICE).edit(
+                new PersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build());
         assertTrue(ALICE.equals(editedAlice));
 
         PersonDescriptor personDescriptor = new PersonDescriptorBuilder(ALICE).build();

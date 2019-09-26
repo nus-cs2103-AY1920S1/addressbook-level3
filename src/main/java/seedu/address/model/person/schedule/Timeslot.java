@@ -18,34 +18,40 @@ public class Timeslot {
         this.venue = venue;
     }
 
-    public boolean equals(Timeslot timeslot){
-        if(startTime.compareTo(timeslot.getStartTime()) != 0){
+    /**
+     * Compares if it is equal to another timeslot object.
+     * @param timeslot to be compared
+     * @return boolean
+     */
+    public boolean equals(Timeslot timeslot) {
+        if (startTime.compareTo(timeslot.getStartTime()) != 0) {
             return false;
-        } else if (endTime.compareTo(timeslot.getEndTime()) != 0){
+        } else if (endTime.compareTo(timeslot.getEndTime()) != 0) {
             return false;
-        } else if (!venue.equals(timeslot.getVenue())){
+        } else if (!venue.equals(timeslot.getVenue())) {
             return false;
-        } else if(timeslot == null){
+        } else if (timeslot == null) {
             return false;
         } else {
             return true;
         }
     }
 
-    public LocalDateTime getStartTime(){
+    public LocalDateTime getStartTime() {
         return this.startTime;
     }
 
-    public LocalDateTime getEndTime(){
+    public LocalDateTime getEndTime() {
         return this.endTime;
     }
 
-    public Venue getVenue(){
+    public Venue getVenue() {
         return this.venue;
     }
 
     /**
      * Converts to String.
+     *
      * @return String
      */
     public String toString() {

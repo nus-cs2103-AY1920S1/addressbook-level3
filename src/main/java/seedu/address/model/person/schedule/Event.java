@@ -21,10 +21,11 @@ public class Event {
 
     /**
      * Adds a timeslot to the Event.
+     *
      * @param timeslots to be added
      */
     public boolean addTimeslot(ArrayList<Timeslot> timeslots) {
-        if(timeslots == null){
+        if (timeslots == null) {
             return false;
         }
 
@@ -35,8 +36,13 @@ public class Event {
         return true;
     }
 
+    /**
+     * Adds a timeslot to the Event.
+     * @param timeslot to be added
+     * @return boolean
+     */
     public boolean addTimeslot(Timeslot timeslot) {
-        if(timeslot == null){
+        if (timeslot == null) {
             return false;
         } else {
             this.timeslots.add(timeslot);
@@ -46,6 +52,7 @@ public class Event {
 
     /**
      * Converts to String.
+     *
      * @return String
      */
     public String toString() {
@@ -58,25 +65,30 @@ public class Event {
         return output;
     }
 
-    public ArrayList<Timeslot> getTimeslots(){
+    public ArrayList<Timeslot> getTimeslots() {
         return this.timeslots;
     }
 
-    public String getEventName(){
+    public String getEventName() {
         return this.eventName;
     }
 
-    public boolean equals(Event otherEvent){
-        if(otherEvent == null){
+    /**
+     * Compares and checks if it is equal to another Event.
+     * @param otherEvent to be compared
+     * @return boolean
+     */
+    public boolean equals(Event otherEvent) {
+        if (otherEvent == null) {
             return false;
-        } else if (!eventName.equals(otherEvent.getEventName())){
+        } else if (!eventName.equals(otherEvent.getEventName())) {
             return false;
-        } else if(otherEvent.getTimeslots().size() != timeslots.size()){
+        } else if (otherEvent.getTimeslots().size() != timeslots.size()) {
             return false;
         } else {
             int i;
-            for(i = 0; i < timeslots.size(); i++){
-                if(!timeslots.get(i).equals(otherEvent.getTimeslots().get(i))){
+            for (i = 0; i < timeslots.size(); i++) {
+                if (!timeslots.get(i).equals(otherEvent.getTimeslots().get(i))) {
                     return false;
                 }
             }

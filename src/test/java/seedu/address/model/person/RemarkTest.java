@@ -1,13 +1,16 @@
 package seedu.address.model.person;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+
+import org.junit.jupiter.api.Test;
 
 class RemarkTest {
 
-    Remark remark = new Remark("Remark");
+    private Remark remark = new Remark("Remark");
 
     @Test
     void testToString() {

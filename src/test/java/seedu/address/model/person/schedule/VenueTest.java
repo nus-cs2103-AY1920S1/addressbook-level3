@@ -1,15 +1,18 @@
 package seedu.address.model.person.schedule;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class VenueTest {
 
     private Venue venue;
+
     @BeforeEach
-    void init(){
+    void init() {
         venue = new Venue("venue");
     }
 

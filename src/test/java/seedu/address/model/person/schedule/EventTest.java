@@ -1,31 +1,31 @@
 package seedu.address.model.person.schedule;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class EventTest {
 
-    String eventName;
-    ArrayList<Timeslot> timeslots;
-    Event event;
+    private String eventName;
+    private ArrayList<Timeslot> timeslots;
+    private Event event;
 
-    LocalDateTime startTime1 = LocalDateTime.parse("2007-12-03T10:15:30");
-    LocalDateTime endTime1 = LocalDateTime.parse("2007-12-03T10:16:30");
-    Venue venue1 = new Venue("venue1");
-    Timeslot timeslot1 = new Timeslot(startTime1, endTime1, venue1);
+    private LocalDateTime startTime1 = LocalDateTime.parse("2007-12-03T10:15:30");
+    private LocalDateTime endTime1 = LocalDateTime.parse("2007-12-03T10:16:30");
+    private Venue venue1 = new Venue("venue1");
+    private Timeslot timeslot1 = new Timeslot(startTime1, endTime1, venue1);
 
-    LocalDateTime startTime2 = LocalDateTime.parse("2007-12-03T10:17:30");
-    LocalDateTime endTime2 = LocalDateTime.parse("2007-12-03T10:18:30");
-    Venue venue2 = new Venue("venue2");
-    Timeslot timeslot2 = new Timeslot(startTime2, endTime2, venue2);
+    private LocalDateTime startTime2 = LocalDateTime.parse("2007-12-03T10:17:30");
+    private LocalDateTime endTime2 = LocalDateTime.parse("2007-12-03T10:18:30");
+    private Venue venue2 = new Venue("venue2");
+    private Timeslot timeslot2 = new Timeslot(startTime2, endTime2, venue2);
 
     @BeforeEach
-    void init(){
+    void init() {
         eventName = "event name";
         timeslots = new ArrayList<Timeslot>();
         event = new Event(eventName, timeslots);

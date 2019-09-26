@@ -1,18 +1,22 @@
 package seedu.address.model.group;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class GroupListTest {
 
-    GroupList groupList;
-    GroupDescriptor groupDescriptor1;
-    GroupDescriptor groupDescriptor2;
+    private GroupList groupList;
+    private GroupDescriptor groupDescriptor1;
+    private GroupDescriptor groupDescriptor2;
 
     @BeforeEach
-    void init(){
+    void init() {
         groupList = new GroupList();
         groupDescriptor1 = new GroupDescriptor(new GroupName("group1"), new GroupRemark("remark1"));
         groupDescriptor2 = new GroupDescriptor(new GroupName("group2"), new GroupRemark("remark2"));

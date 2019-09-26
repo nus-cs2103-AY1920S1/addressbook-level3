@@ -64,7 +64,7 @@ public class ModelManager implements Model {
         this(addressBook, new PersonList(), new GroupList(), new PersonToGroupMappingList(), userPrefs);
     }
 
-    public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList){
+    public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
     }
 

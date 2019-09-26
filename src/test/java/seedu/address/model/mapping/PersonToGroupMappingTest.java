@@ -1,18 +1,21 @@
 package seedu.address.model.mapping;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.group.GroupId;
 import seedu.address.model.person.PersonId;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class PersonToGroupMappingTest {
 
-    PersonToGroupMapping mapping;
+    private PersonToGroupMapping mapping;
 
     @BeforeEach
-    void init(){
+    void init() {
         mapping = new PersonToGroupMapping(new PersonId(1), new GroupId(2));
     }
 

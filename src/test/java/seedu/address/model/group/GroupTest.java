@@ -1,16 +1,18 @@
 package seedu.address.model.group;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class GroupTest {
 
-    Group group;
+    private Group group;
 
     @BeforeEach
-    void init(){
+    void init() {
         GroupDescriptor groupDescriptor = new GroupDescriptor(new GroupName("name"), new GroupRemark("remark"));
         group = new Group(groupDescriptor);
     }
