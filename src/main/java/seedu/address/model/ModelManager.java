@@ -106,8 +106,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addItem(Item person) {
-        expiryDateTracker.addItem(person);
+    public void addItem(Item item) {
+        expiryDateTracker.addItem(item);
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
     }
 

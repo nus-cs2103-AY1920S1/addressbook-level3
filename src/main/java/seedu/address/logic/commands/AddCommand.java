@@ -18,25 +18,25 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the expiry date tracker. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_EXPIRY_DATE + "EXPIRY DATE "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + "| "
-            + PREFIX_NAME + "Strawberry "
-            + PREFIX_EXPIRY_DATE + "11/12/1999 "
-            + PREFIX_TAG + "fruit";
+            + "NAME|"
+            + "EXPIRY DATE "
+            + "[|TAG]...\n"
+            + "Example: " + COMMAND_WORD + "|"
+            + "Strawberry|"
+            + "11/12/1999|"
+            + "fruit";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the expiry date tracker";
 
     private final Item toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Item}
      */
-    public AddCommand(Item person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Item item) {
+        requireNonNull(item);
+        toAdd = item;
     }
 
     @Override
