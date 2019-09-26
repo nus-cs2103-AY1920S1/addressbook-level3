@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Vortex`      Since: `Sept 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,12 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* anyone who engages in group activities that involves spending
 * prefer desktop apps over other types
-* can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage debts faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,35 +294,74 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` | user | add contacts| so that I can keep track of my list of contacts.
 
-|`* * *` |user |add a new person |
+|`* * *` | user | set how much each of my contacts owe me| so that I know the amount of money each person owes me.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` | user | set how much I owe one of my contacts| so that I know who I owe money to.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` | user | see the details of the balances of each contact| so that I know which activity each transactions were from.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` | user | create a group activity with multiple contacts| so that is easier for us to keep track of the group's expenditure.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` | user | see how much each person should be paying each other at the end of the activity| so that I can avoid confusion
+
+|`* * *` | user | delete expenses| remove incorrect entries
+
+|`* * *` | user | delete group activities| remove activities that are over
+
+|`* *` | user | specify when a contact borrowed money from me| know how long he has owed me money for.
+
+|`* *` | user | specify when I borrowed money from a contact| know how long I have owed money for.
+
+|`* *` | user | sort my contacts| filter through information.
+
+|`* *` | traveller | add expenses in other currencies | keep track of debts.
+
+|`* *` | traveller | have expenses in other currencies to be converted to a single currency | simplify my life.
+
+|`* *` | user | attach tags to individual expenses and activities | search more conveniently.
+
+|`* *` | user | tag an expense with a picture | keep electronic copies of receipts or invoices as proof.
+
+|`* *` | user | see all my activities in a calendar view | keep track of what has happened.
+
+|`* *` | user | set a recurring reminder for contacts that owes me money | know when to request people to pay back.
+
+|`* *` | user | set a recurring reminder for contacts I loaned from | know when to pay them back
+
+|`* *` | user | add profile picture to a contact | know how they look like.
+
+|`* *` | user | export my data and import it from a different application| can sync my debt through multiple devices.
+
+|`*` | user| set up automated periodic notifications (emails, etc.) to people who owe me money | remind them to pay me back.
+
+|`*` | user| keep track of objects that I lent and borrowed from other people | remember to return them.
+
+|`*` | user| specify conditions on the loans | assure the loaned items are returned in a specified condition.
+
+|`*` | user| export the data to other format (.ics etc.)i | export the data to other applications.
+
+|`*` | traveller| create a common pool of funds to spend for large group activities| simplify tracking of common expenses
+
+|`*` | user| extract information from a picture of a bill| save the trouble of entering expense details myself.
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Splitwiser` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete contactgg
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list contacts
+2.  SplitWiser shows a list of contacts
+3.  User requests to delete a specific contact in the list
+4.  SplitWiser deletes the person
 +
 Use case ends.
 
@@ -337,26 +375,58 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. SplitWiser shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+== Use case: List contacts
+
+*MSS*
+
+1. User requests to list contacts
+2. SplitWiser shows a list of contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of contacts is empty
++
+Use case ends.
+
+[discrete]
+== Use case: List activites
+
+*MSS*
+
+1. User requests to list activities
+2. SplitWiser shows a list of activities
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of activities is empty
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has `Java 11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should be able to run smoothly on reasonably lower spec computers.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, *nix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
@@ -391,7 +461,9 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+.. Open the terminal.
+.. Navigate to where you saved the jar file.
+.. Execute the file with `java -jar <name of jar>` +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
@@ -399,8 +471,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a person
 
@@ -413,8 +483,6 @@ _{ more test cases ... }_
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
