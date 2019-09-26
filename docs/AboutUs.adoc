@@ -16,6 +16,7 @@ image::nanosync.png[width="150", align="left"]
 {empty} [https://github.com/Nanosync[github]]
 
 *Role*: Team Lead
+
 *Responsibilities*: IntelliJ/Git Expert
 
 '''
@@ -25,6 +26,7 @@ image::austinsantoso.png[width="150", align="left"]
 {empty}[https://github.com/austinsantoso[github]]
 
 *Role*: Developer
+
 *Responsibilities*: Code Quality
 
 '''
@@ -34,6 +36,7 @@ image::choongyx.png[width="150", align="left"]
 {empty}[https://github.com/choongyxl[github]]
 
 *Role*: Developer
+
 *Responsibilities*: Documentation
 
 '''
@@ -43,6 +46,7 @@ image::jonathantjendana.png[width="150", align="left"]
 {empty}[https://github.com/jonathantjendana[github]]
 
 *Role*: Developer
+
 *Responsibilities*: Integration, Scheduling and Tracking, JavaFX expert
 
 '''
@@ -52,6 +56,7 @@ image::minpyaemoe.png[width="150", align="left"]
 {empty}[https://github.com/minpyaemoe[github]]
 
 *Role*: Developer
+
 *Responsibilities*: Testing, Deliverables and Deadlines
 
 '''
