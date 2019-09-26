@@ -68,7 +68,7 @@ Format:
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-*`edit John(accesses the person 'John')
+* `edit John(accesses the person 'John')
   1. `add ProjectExpenses(adds a claim called 'ProjectExpenses' under John's Name`
 
 
