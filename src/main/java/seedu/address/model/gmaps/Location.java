@@ -1,5 +1,7 @@
 package seedu.address.model.gmaps;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represent a location object for the various venues in NUS
  */
@@ -11,6 +13,9 @@ public class Location {
     public final String longitude;
 
     public Location(String locationName, String latitude, String longitude) {
+        requireNonNull(locationName);
+        requireNonNull(latitude);
+        requireNonNull(longitude);
         this.locationName = locationName;
         this.latitude = latitude;
         this.longitude = longitude;
