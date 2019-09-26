@@ -1,10 +1,14 @@
 package seedu.address.flashcard;
 
+import java.util.ArrayList;
+
 public class McqFlashcard extends Flashcard {
 
-    public McqFlashcard(Question question, Answer answer) {
-        this.question = question;
-        this.answer = answer;
-        this.tags = new FlashcardTagList();
+    public McqFlashcard(McqQuestion question, Answer answer) {
+        super(question, answer);
+    }
+
+    public void setOptions(ArrayList<String> newOptions) {
+        ((McqQuestion) getQuestion()).setOptions(newOptions);
     }
 }

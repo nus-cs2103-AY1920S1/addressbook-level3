@@ -19,7 +19,7 @@ public abstract class Question {
     /**
      * Modify the question on the flashcard
      * @param newQuestion The updated question of the flashcard
-     * @return The message about resetting the question
+     * @return the message about resetting the question
      */
     public void setQuestion(String newQuestion) {
         question = newQuestion;

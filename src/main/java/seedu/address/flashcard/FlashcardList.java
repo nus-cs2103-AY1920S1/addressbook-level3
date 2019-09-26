@@ -1,79 +1,138 @@
 package seedu.address.flashcard;
 
 import java.util.ArrayList;
+import seedu.address.flashcard.Exceptions.CardNotFoundException;
+import seedu.address.flashcard.Exceptions.DuplicateTagException;
+import seedu.address.flashcard.Exceptions.TagNotFoundException;
 
+/**
+ * The list of all flashcard list, meanwhile, holding the {@Code TagManager}
+ */
 public class FlashcardList {
+
     private ArrayList<Flashcard> flashcards;
     private TagManager tagManager;
-    private static Integer ID = 0;
 
-    public FlashcardList(){
+    public FlashcardList() {
         flashcards = new ArrayList<Flashcard>();
-        tagManager = new TagManager(new ArrayList<Tag>());
+        tagManager = new TagManager();
     }
 
-    public Flashcard getFlashcard(int flashccardId){
+    /**
+     * Fetch the particular flashcard based on its id number
+     * @param flashcardId the id number of the flashcard we are looking for
+     * @return the flashcard with this id number
+     * @throws CardNotFoundException if flashcard with this number was not found
+     */
+    public Flashcard getFlashcard(int flashcardId) throws CardNotFoundException {
         for (Flashcard flashcard : flashcards){
-            if (flashcard.getId().getId() == flashccardId) {
+            if (flashcard.getId().getIdentityNumber() == flashcardId) {
                 return flashcard;
             }
         }
-        return null;
+        throw new CardNotFoundException();
     }
 
-    public void setFlashcard(int flashcardId, String answer,
-                             String question, ArrayList<String> options){
+    /**
+     * Edit the question on a particular flashcard
+     * @param flashcardId the id number of the flashcard we want to edit
+     * @param newQuestion the updated question for the target flashcard
+     */
+    public void setFlashcard(int flashcardId, String newQuestion) {
         Flashcard editFlashcard = getFlashcard(flashcardId);
-        Flashcard edittedFlashcard;
-        if(!options.isEmpty()) {
-           edittedFlashcard = new McqFlashcard(new McqQuestion(question, options), new Answer(answer));
-        } else {
-            edittedFlashcard = new ShortAnswerFlashcard(new ShortAnswerQuestion(question), new Answer(answer));
+        editFlashcard.setQuestion(newQuestion);
+    }
+
+    /**
+     * Edit the answer on a particular flashcard
+     * @param flashcardId the id number of the flashcard we want to edit
+     * @param newAnswer the updated answer for the target flashcard
+     */
+    public void setFlashcardAnswer(int flashcardId, String newAnswer) {
+        Flashcard editFlashcard = getFlashcard(flashcardId);
+        editFlashcard.setAnswer(newAnswer);
+    }
+
+    /**
+     * Edit the options on a particular MCQ flash card
+     * @param flashcardId the id number of the flashcard we want to edit
+     * @param newOptions the updated options for the target flashcard
+     * @throws RuntimeException if the card with this id is not found or the corresponding card is not an MCQ card.
+     */
+    public void setFlashcardOptions(int flashcardId, ArrayList<String> newOptions) throws RuntimeException{
+        Flashcard editFlashcard = getFlashcard(flashcardId);
+        if (!(editFlashcard instanceof McqFlashcard)) {
+            throw new RuntimeException();
         }
-
-        edittedFlashcard.setId(flashcardId);
-        edittedFlashcard.setflashcardTagList(editFlashcard.getTags().getTags());
-        flashcards.remove(editFlashcard);
-        flashcards.add(edittedFlashcard);
-
+        ((McqFlashcard) editFlashcard).setOptions(newOptions);
     }
 
 
-    public ArrayList<Flashcard> findFlashcard(String search){
+    /**
+     * Look up for a flashcard whose id number, question or answer contains this specific keyword
+     * @param search the keyword we want to look up for
+     * @return list of the flashcards that matches the keyword
+     * @throws CardNotFoundException when no cards of this keyword was found
+     */
+    public ArrayList<Flashcard> findFlashcard(String search) throws CardNotFoundException {
         ArrayList<Flashcard> matchingFlashcards = new ArrayList<Flashcard>();
         for(Flashcard flashcard : flashcards){
-            if(flashcard.equals(search)){
+            if(flashcard.contains(search)){
                 matchingFlashcards.add(flashcard);
             }
+        }
+        if (matchingFlashcards.isEmpty()) {
+            throw new CardNotFoundException();
         }
         return matchingFlashcards;
     }
 
-    public Tag getTag(String tagName) {
-        for(Tag tag : tagManager.getTags()){
-            if (tag.getName() == tagName){
-                return tag;
-            }
-        }
-    }
-
-    public void deleteFlashcard (int flashcardId){
+    /**
+     * delete the flashcard based on its id
+     * @param flashcardId the id of the flashcard we want to delete
+     */
+    public void deleteFlashcard (int flashcardId) throws CardNotFoundException {
         Flashcard flashcardDelete = getFlashcard(flashcardId);
-        for (Tag tag : flashcardDelete.getTags().getTags()){
-            tag.deleteFlashcard(flashcardId); //idk what to use here new id object or int id
+        for (Tag tag : flashcardDelete.getTags()){
+            tag.deleteFlashcard(flashcardId);
         }
         flashcards.remove(flashcardDelete);
     }
 
-    public void addFlashcard (String question, ArrayList<String> options, String answer){
-        if (options.size()>1){
-            flashcards.add(new McqFlashcard(new McqQuestion(question, options), new Answer(answer));
-        }else {
-            flashcards.add(new ShortAnswerFlashcard(new ShortAnswerQuestion(question), new Answer(answer)));
-        }
+    /**
+     * add an MCQ flash card into the list
+     * @param question the question of the flashcard
+     * @param options the options of the flashcard
+     * @param answer the answer of this MCQ, simply "A", "B", "C", "D".
+     */
+    public void addFlashcard (String question, ArrayList<String> options, String answer) {
+        flashcards.add(new McqFlashcard(new McqQuestion(question, options), new Answer(answer)));
     }
 
+    /**
+     * add a shortAnswer flash card into the list
+     * @param question the question of the flashcard
+     * @param answer the options of the flashcard
+     */
+    public void addFlashcard(String question, String answer) {
+        flashcards.add(new ShortAnswerFlashcard(new ShortAnswerQuestion(question), new Answer(answer)));
+    }
 
-
-
+    /**
+     * Give the target flashcard a tag. If this tag currently does not exist, create a new one in the TagManager
+     * @param flashcardId the flashcard to be tagged
+     * @param tagName the tag to be added to the flashcard
+     */
+    public void tagFlashcard(int flashcardId, String tagName) throws DuplicateTagException {
+        if (!tagManager.hasTag(tagName)) {
+            tagManager.addTag(tagName);
+        }
+        Flashcard targetCard = getFlashcard(flashcardId);
+        Tag targetTag = tagManager.getTag(tagName);
+        if (targetTag.hasCard(targetCard)) {
+            throw new DuplicateTagException();
+        }
+        targetCard.addTag(targetTag);
+        targetTag.addFlashcard(targetCard);
+    }
 }
