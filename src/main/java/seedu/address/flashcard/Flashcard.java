@@ -1,6 +1,8 @@
 package seedu.address.flashcard;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import seedu.address.flashcard.Exceptions.DuplicateTagException;
+import seedu.address.flashcard.Exceptions.TagNotFoundException;
 
 /**
  * A flashcard must contain the following components
@@ -16,7 +18,7 @@ public abstract class Flashcard {
     private Answer answer;
     private Score score;
     private CardId id;
-    private HashSet<Tag> tags;
+    private ArrayList<Tag> tags;
 
     /**
      * Question and Answer must be specified.
@@ -42,44 +44,67 @@ public abstract class Flashcard {
         return id;
     }
 
-    public HashSet<Tag> getTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
 
-    public void addTag(Tag t) {
+    /**
+     * Add a new tag to the flash card
+     * Guarantees there are no duplicate tags
+     * @param t the tag to be added to the card
+     * @throws DuplicateTagException if this card already has this tag
+     */
+    public void addTag(Tag t) throws DuplicateTagException {
+        if (tags.contains(t)) {
+            throw new DuplicateTagException();
+        }
         tags.add(t);
     }
 
-    public void setId(int flashcardId){
-        Id = new Id(flashcardId); // im assuming this will be possible
+    /**
+     * Delete the given tag from the flash card
+     * Guarantees non-existing tags cannot be deleted
+     * @param t the tag to be deleted from the card
+     * @throws TagNotFoundException if this flashcard does not have the given tag
+     */
+    public void deleteTag(Tag t) throws TagNotFoundException {
+        if (!tags.contains(t)) {
+            throw new TagNotFoundException();
+        }
+        tags.remove(t);
     }
 
-    public void setflashcardTagList (ArrayList<Tag> tags){
-        this.tags = new FlashcarTagList(tags);
+    /**
+     * While searching for a flashcard, decide that whether this flashcard contains the keyword or not.
+     * @param s the keyword we are looking for
+     * @return true if question, answer or the id contains the keyword, false otherwise
+     */
+    public boolean contains(String s) {
+        return question.contains(s) || answer.contains(s) || id.contains(s);
     }
 
-    public String deleteTag(Tag t) {
-        tags.deleteTag(t);
-        return "You've deleted this tag.";
-    }
-
+    /**
+     * comparing whether two flash cards are the same or not.
+     * Since each flashcard has a unique id number, only comparing this id is enough
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
-
         if (!(other instanceof Flashcard)) {
             return false;
         }
-
         Flashcard otherFlashcard = (Flashcard) other;
         return otherFlashcard.getId() == this.getId();
     }
 
+    /**
+     * While showing a card in the form of a string, we show its id number and its question.
+     */
     @Override
     public String toString() {
-        return String.format("Question: %s, id: %d", this.getQuestion(), this.Id.getId());
+        return String.format("Question: %s, id: %d", getQuestion(), id.getIdentityNumber());
     }
 
     @Override

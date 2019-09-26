@@ -19,7 +19,6 @@ public class Answer {
     /**
      * Modify the answer on the flashcard
      * @param newAnswer the updated answer of the flashcard
-     * @return The message about resetting the answer
      */
     public void setAnswer(String newAnswer) {
         answer = newAnswer;
@@ -32,7 +31,16 @@ public class Answer {
      * @return true if the answer matches, false otherwise
      */
     public boolean compareAnswer(String input) {
-        return input.equals(this.answer);
+        return input.equals(answer);
+    }
+
+    /**
+     * While searching for a flashcard by keyword s, decide whether this answer matches the keyword or not
+     * @param s The target keyword
+     * @return true if the answer contains the keyword, false otherwise
+     */
+    public boolean contains(String s) {
+        return answer.contains(s);
     }
 
     @Override
