@@ -19,7 +19,10 @@ endif::[]
 
 ## About
 
-Ever did group activities where everyone paid different amounts, and it became so troublesome and confusing to figure out how to redistribute costs evenly? Fret no more because with SplitWiser is here! SplitWiser is a free tool for friends and roommates to track bills and other shared expenses, so that everyone gets paid back, and everyone is happy. 
+Ever did group activities where everyone paid different amounts, 
+and it became so troublesome and confusing to figure out how to redistribute costs evenly?
+Fret no more because with SplitWiser is here! SplitWiser is a free tool for friends and roommates 
+to track bills and other shared expenses, so that everyone gets paid back, and everyone is happy. 
 
 ## Features
 
