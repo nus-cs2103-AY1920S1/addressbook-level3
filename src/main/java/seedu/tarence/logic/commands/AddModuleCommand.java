@@ -22,21 +22,31 @@ public class AddModuleCommand extends Command {
             + PREFIX_MODULE + "MODULE "
             +"Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS1010S ";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists!";
+    public static final String MESSAGE_SUCCESS = "New module added: %1$s";
 
-    private Module newModule;
+    private Module module;
 
     /**
      * Creates an AddModuleCommand to add the specified {@code Module}
      */
     public AddModuleCommand(Module newModule) {
         requireNonNull(newModule);
-        this.newModule = newModule;
+        this.module = newModule;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        throw new CommandException("Hello from execute AddModuleCommand");
+
+        if (model.hasModule(module)) {
+            throw new CommandException((MESSAGE_DUPLICATE_MODULE));
+        }
+
+        model.addModule(module);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, module));
+
     }
 
     /**

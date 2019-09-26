@@ -49,6 +49,7 @@ public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
         ArrayList<Integer> weeks = ParserUtil.parseWeeks(tutorialWeeks);
         LocalTime startTime = ParserUtil.parseLocalTime(tutorialStartTime);
 
+        // Empty list of Students is created for a new
         ArrayList<Student> emptyListOfStudents = new ArrayList<Student>();
 
         // Creates a new Tutorial object with the user String.
