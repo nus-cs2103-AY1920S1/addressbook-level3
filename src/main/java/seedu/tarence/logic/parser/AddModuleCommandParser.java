@@ -16,7 +16,7 @@ import seedu.tarence.model.module.ModCode;
  */
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
-    public AddModuleCommand parse (String args) throws ParseException {
+    public AddModuleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE)
