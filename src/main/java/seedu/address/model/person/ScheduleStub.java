@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
+
+import javafx.util.Pair;
 
 public class ScheduleStub {
     private ArrayList<ArrayList<Pair<Integer, Integer>>> schedule;
@@ -31,6 +31,11 @@ public class ScheduleStub {
                     daySchedule.add(new Pair(1200, 1400));
                     daySchedule.add(new Pair(1800, 1900));
                 }
+                schedule.add(daySchedule);
+            }
+        } else {
+            for (int i = 0; i < 7; i++) {
+                ArrayList<Pair<Integer, Integer>> daySchedule = new ArrayList<Pair<Integer, Integer>>();
                 schedule.add(daySchedule);
             }
         }

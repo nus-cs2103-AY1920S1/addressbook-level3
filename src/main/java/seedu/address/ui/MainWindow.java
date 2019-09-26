@@ -55,8 +55,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+//    @FXML
+//    private StackPane scheduleViewPlaceholder;
+
     @FXML
-    private StackPane scheduleViewPlaceholder;
+    private StackPane detailsViewPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -128,12 +131,16 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //Setting up of scheduleview
-        ScheduleStub stub = new ScheduleStub(1);
-        ScheduleStub stub2 = new ScheduleStub(2);
-        ScheduleView sv = new ScheduleView(new ArrayList<ScheduleStub>(List.of(stub, stub2, stub, stub2)));
-        ScrollPane sp = new ScrollPane();
-        sp.setContent(sv.getScheduleView());
-        scheduleViewPlaceholder.getChildren().add(sp);
+//        ScheduleStub stub = new ScheduleStub(1);
+//        ScheduleStub stub2 = new ScheduleStub(2);
+//        ScheduleView sv = new ScheduleView(new ArrayList<ScheduleStub>(List.of(stub, stub2, stub, stub2)));
+//        ScrollPane sp = new ScrollPane();
+//        sp.setContent(sv.getScheduleView());
+//        scheduleViewPlaceholder.getChildren().add(sp);
+
+        //setting up detailsview
+        DetailsView detailsView = new DetailsView(logic.getFilteredPersonList().get(0));
+        detailsViewPlaceholder.getChildren().add(detailsView.getDetailsView());
     }
 
     /**

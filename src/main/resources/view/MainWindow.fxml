@@ -43,10 +43,11 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="scheduleViewPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS"
+          <StackPane fx:id="detailsViewPlaceholder" VBox.vgrow="ALWAYS"
           GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="3" GridPane.rowSpan="2"/>
         </GridPane>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                    minHeight="75" prefHeight="75" maxHeight="75">

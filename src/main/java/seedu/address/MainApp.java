@@ -15,6 +15,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -30,6 +31,7 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.address.ui.UiViewManager;
 
 /**
  * Runs the application.
@@ -65,7 +67,9 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        Ui uiUsed = new UiManager(logic);
+        ui = uiUsed;
+        UiViewManager.setUi(uiUsed);
     }
 
     /**
