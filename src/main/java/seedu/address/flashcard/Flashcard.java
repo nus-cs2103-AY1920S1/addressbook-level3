@@ -1,5 +1,7 @@
 package seedu.address.flashcard;
 
+import java.util.ArrayList;
+
 public abstract class Flashcard {
 
     Question question;
@@ -31,6 +33,14 @@ public abstract class Flashcard {
     public String addTag(Tag t) {
         tags.addTag(t);
         return "You've successfully added a tag.";
+    }
+
+    public void setId(int flashcardId){
+        Id = new Id(flashcardId); // im assuming this will be possible
+    }
+
+    public void setflashcardTagList (ArrayList<Tag> tags){
+        this.tags = new FlashcarTagList(tags);
     }
 
     public String deleteTag(Tag t) {
