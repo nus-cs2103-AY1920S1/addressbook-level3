@@ -12,17 +12,17 @@ import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
 import seedu.mark.model.bookmark.exceptions.BookmarkNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A bookmark is considered unique by comparing using {@code Bookmark#isSameBookmark(Bookmark)}. As such, adding and updating of
- * persons uses Bookmark#isSameBookmark(Bookmark) for equality so as to ensure that the bookmark being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a bookmark uses Bookmark#equals(Object) so
- * as to ensure that the bookmark with exactly the same fields will be removed.
+ * A list of bookmarks that enforces uniqueness between its elements and does not allow nulls.
+ * A bookmark is considered unique by comparing using {@code Bookmark#isSameBookmark(Bookmark)}. As such, adding and
+ * updating of bookmarks uses Bookmark#isSameBookmark(Bookmark) for equality so as to ensure that the bookmark being
+ * added or updated is unique in terms of identity in the UniqueBookmarkList. However, the removal of a bookmark uses
+ * Bookmark#equals(Object) so as to ensure that the bookmark with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see Bookmark#isSameBookmark(Bookmark)
  */
-public class UniquePersonList implements Iterable<Bookmark> {
+public class UniqueBookmarkList implements Iterable<Bookmark> {
 
     private final ObservableList<Bookmark> internalList = FXCollections.observableArrayList();
     private final ObservableList<Bookmark> internalUnmodifiableList =
@@ -53,7 +53,7 @@ public class UniquePersonList implements Iterable<Bookmark> {
      * {@code target} must exist in the list.
      * The bookmark identity of {@code editedBookmark} must not be the same as another existing bookmark in the list.
      */
-    public void setPerson(Bookmark target, Bookmark editedBookmark) {
+    public void setBookmark(Bookmark target, Bookmark editedBookmark) {
         requireAllNonNull(target, editedBookmark);
 
         int index = internalList.indexOf(target);
@@ -79,7 +79,7 @@ public class UniquePersonList implements Iterable<Bookmark> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setBookmarks(UniqueBookmarkList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,9 +88,9 @@ public class UniquePersonList implements Iterable<Bookmark> {
      * Replaces the contents of this list with {@code bookmarks}.
      * {@code bookmarks} must not contain duplicate bookmarks.
      */
-    public void setPersons(List<Bookmark> bookmarks) {
+    public void setBookmarks(List<Bookmark> bookmarks) {
         requireAllNonNull(bookmarks);
-        if (!personsAreUnique(bookmarks)) {
+        if (!bookmarksAreUnique(bookmarks)) {
             throw new DuplicateBookmarkException();
         }
 
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Bookmark> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueBookmarkList // instanceof handles nulls
+                        && internalList.equals(((UniqueBookmarkList) other).internalList));
     }
 
     @Override
@@ -124,7 +124,7 @@ public class UniquePersonList implements Iterable<Bookmark> {
     /**
      * Returns true if {@code bookmarks} contains only unique bookmarks.
      */
-    private boolean personsAreUnique(List<Bookmark> bookmarks) {
+    private boolean bookmarksAreUnique(List<Bookmark> bookmarks) {
         for (int i = 0; i < bookmarks.size() - 1; i++) {
             for (int j = i + 1; j < bookmarks.size(); j++) {
                 if (bookmarks.get(i).isSameBookmark(bookmarks.get(j))) {
