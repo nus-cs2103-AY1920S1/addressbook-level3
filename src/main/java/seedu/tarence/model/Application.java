@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.tarence.model.module.UniqueModuleList;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.person.UniquePersonList;
 
@@ -15,6 +16,7 @@ import seedu.tarence.model.person.UniquePersonList;
 public class Application implements ReadOnlyApplication {
 
     private final UniquePersonList persons;
+    // private final UniqueModuleList modules;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
