@@ -16,7 +16,7 @@ import seedu.address.model.person.parameters.PatientReferenceId;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
 import seedu.address.model.person.parameters.StaffReferenceId;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.common.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

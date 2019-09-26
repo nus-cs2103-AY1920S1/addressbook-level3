@@ -18,7 +18,7 @@ import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PatientReferenceId;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.common.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.

@@ -27,7 +27,7 @@ import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.common.Tag;
 
 /**
  * Edits the details of an existing person in the address book.

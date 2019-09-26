@@ -12,7 +12,7 @@ import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.common.Tag;
 
 /**
  * Represents a Person who can be either a patient or staff doctor.
