@@ -35,9 +35,9 @@ public class ExpiryDateTrackerParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Item person = new ItemBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(ItemUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Item item = new ItemBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(ItemUtil.getAddCommand(item));
+        assertEquals(new AddCommand(item), command);
     }
 
     @Test

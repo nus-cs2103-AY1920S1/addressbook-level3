@@ -78,7 +78,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + "|" + NAME_DESC_KIWI + EXPIRY_DATE_DESC_KIWI;
+        String addCommand = AddCommand.COMMAND_WORD + "|" + NAME_DESC_KIWI + "|" + EXPIRY_DATE_DESC_KIWI;
         Item expectedPerson = new ItemBuilder(KIWI).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addItem(expectedPerson);

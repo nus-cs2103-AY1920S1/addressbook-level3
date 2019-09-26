@@ -27,12 +27,13 @@ public class ItemUtil {
      * Returns the part of command string for the given {@code person}'s details.
      */
     public static String getItemDetails(Item item) {
-        StringBuilder sb = new StringBuilder(" ");
-        sb.append(PREFIX_NAME + item.getName().fullName + " ");
-        sb.append(PREFIX_EXPIRY_DATE + item.getExpiryDate().toString() + " ");
-        item.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        StringBuilder sb = new StringBuilder("");
+        sb.append(item.getName().fullName + "|");
+        sb.append(item.getExpiryDate().toString());
+        if (!item.getTags().isEmpty()) {
+            sb.append("|");
+            item.getTags().stream().forEach(s -> sb.append(s.tagName + " "));
+        }
         return sb.toString();
     }
 
