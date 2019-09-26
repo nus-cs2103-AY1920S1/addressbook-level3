@@ -23,6 +23,14 @@ public class Location {
 
     @Override
 
+    public boolean equals(Object other) {
+        return other == this || other instanceof Location
+                && ((Location) other).locationName.equals(locationName)
+                && ((Location) other).latitude.equals(latitude)
+                && ((Location) other).longitude.equals(longitude);
+    }
+
+    @Override
     public String toString() {
         return "Location: " + locationName + " at latitude: " + latitude + ", longitude: " + longitude;
     }

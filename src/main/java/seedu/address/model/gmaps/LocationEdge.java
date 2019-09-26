@@ -20,6 +20,18 @@ public class LocationEdge {
         this.travellingTime = travellingTime;
     }
 
+    public String getLocationName() {
+        return location.locationName;
+    }
+
+    @Override
+
+    public boolean equals(Object obj) {
+        return obj == this || obj instanceof LocationEdge
+                && ((LocationEdge) obj).location.equals(location)
+                && ((LocationEdge) obj).travellingTime == travellingTime;
+    }
+
     @Override
     public String toString() {
         return travellingTime + "min to reach " + location.locationName;

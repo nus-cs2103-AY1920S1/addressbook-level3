@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 /**
  * Test LocationEdge object.
  */
-public class LocationEdge {
+public class LocationEdgeTest {
 
     @Test
     public void test_toString() {
         Location location = new Location("Singapore", "1.2345", "6.7890");
-        LocationEdge locationEdge = new LocationEdge(location, 123);
-        assertTrue(locationEdge.toString().equals("30 min to reach Singapore"));
+        LocationEdge locationEdge = new LocationEdge(location, 30);
+        assertTrue(locationEdge.toString().equals("30min to reach Singapore"));
     }
 }
