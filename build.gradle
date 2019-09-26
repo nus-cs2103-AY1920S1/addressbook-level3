@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.bookmark.Main'
+mainClassName = 'seedu.mark.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
