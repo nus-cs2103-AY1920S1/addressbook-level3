@@ -58,18 +58,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person or claim: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Adds a person or a claim to the general claims list +
+Format: 
+1. `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS ...`
+2. `add name of claim`
 
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+*`edit John(accesses the person 'John')
+  1. `add ProjectExpenses(adds a claim called 'ProjectExpenses' under John's Name`
+
 
 === Listing all persons : `list`
 
