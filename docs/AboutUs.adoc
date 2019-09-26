@@ -33,7 +33,7 @@ image::austinsantoso.png[width="150", align="left"]
 
 === Choong Yong Xin
 image::choongyx.png[width="150", align="left"]
-{empty}[https://github.com/choongyxl[github]]
+{empty}[https://github.com/choongyx[github]]
 
 *Role*: Developer
 
