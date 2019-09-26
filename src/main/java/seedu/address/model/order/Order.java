@@ -16,23 +16,23 @@ import seedu.address.model.tag.Tag;
 public class Order {
 
     // Identity fields
-    private final OrderId orderId;
+    private final Id id;
 
     // Data fields
     private final Customer customer;
     private final Phone phone;
-    private final OrderStatus orderStatus;
+    private final Status status;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Phone phone, OrderId orderId, Set<Tag> tags) {
-        requireAllNonNull(customer, phone, orderId, tags);
+    public Order(Customer customer, Phone phone, Id id, Set<Tag> tags) {
+        requireAllNonNull(customer, phone, id, tags);
         this.customer = customer;
         this.phone = phone;
-        this.orderId = orderId;
-        orderStatus = OrderStatus.UNSCHEDULED;
+        this.id = id;
+        status = Status.UNSCHEDULED;
         this.tags.addAll(tags);
     }
 
@@ -44,12 +44,12 @@ public class Order {
         return phone;
     }
 
-    public OrderId getOrderId() {
-        return orderId;
+    public Id getId() {
+        return id;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public Status getStatus() {
+        return status;
     }
 
     /**
@@ -70,7 +70,7 @@ public class Order {
         }
 
         return otherOrder != null
-                && otherOrder.getOrderId().equals(getOrderId());
+                && otherOrder.getId().equals(getId());
     }
 
     /**
@@ -88,30 +88,30 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getOrderId().equals(getOrderId())
+        return otherOrder.getId().equals(getId())
                 && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getPhone().equals(getPhone())
-                && otherOrder.getOrderStatus().equals(getOrderStatus())
+                && otherOrder.getStatus().equals(getStatus())
                 && otherOrder.getTags().equals((getTags()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(orderId, customer, phone, orderStatus, tags);
+        return Objects.hash(id, customer, phone, status, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("#")
-                .append(getOrderId())
+                .append(getId())
                 .append(" Customer: ")
                 .append(getCustomer())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Order Status: ")
-                .append(getOrderStatus())
+                .append(getStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

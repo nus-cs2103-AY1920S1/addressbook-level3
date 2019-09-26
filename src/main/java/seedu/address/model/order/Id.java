@@ -5,9 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Order's ID in the SML.
- * Guarantees: immutable; is valid as declared in {@link #isValidOrderId(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidId(String)}
  */
-public class OrderId {
+public class Id {
 
     public static final String MESSAGE_CONSTRAINTS = "Order ID can take any unique values, and it should not be blank";
 
@@ -18,18 +18,18 @@ public class OrderId {
     /**
      * Constructs an {@code ID}.
      *
-     * @param orderId A valid order ID.
+     * @param id A valid order ID.
      */
-    public OrderId(String orderId) {
-        requireNonNull(orderId);
-        checkArgument(isValidOrderId(orderId), MESSAGE_CONSTRAINTS);
-        id = orderId;
+    public Id(String id) {
+        requireNonNull(id);
+        checkArgument(isValidId(id), MESSAGE_CONSTRAINTS);
+        this.id = id;
     }
 
     /**
      * Returns true if a given string is a valid order ID.
      */
-    public static boolean isValidOrderId(String test) {
+    public static boolean isValidId(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -41,8 +41,8 @@ public class OrderId {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof OrderId // instanceof handles nulls
-                && id.equals(((OrderId) other).id)); // state check
+                || (other instanceof Id // instanceof handles nulls
+                && id.equals(((Id) other).id)); // state check
     }
 
     @Override
