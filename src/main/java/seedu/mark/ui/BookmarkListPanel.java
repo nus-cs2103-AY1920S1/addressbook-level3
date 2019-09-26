@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.mark.commons.core.LogsCenter;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 
 /**
  * Panel containing the list of persons.
@@ -18,27 +18,27 @@ public class BookmarkListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(BookmarkListPanel.class);
 
     @FXML
-    private ListView<Person> bookmarkListView;
+    private ListView<Bookmark> bookmarkListView;
 
-    public BookmarkListPanel(ObservableList<Person> personList) {
+    public BookmarkListPanel(ObservableList<Bookmark> bookmarkList) {
         super(FXML);
-        bookmarkListView.setItems(personList);
-        bookmarkListView.setCellFactory(listView -> new PersonListViewCell());
+        bookmarkListView.setItems(bookmarkList);
+        bookmarkListView.setCellFactory(listView -> new BookmarkListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code BookmarkCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Bookmark} using a {@code BookmarkCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class BookmarkListViewCell extends ListCell<Bookmark> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Bookmark bookmark, boolean empty) {
+            super.updateItem(bookmark, empty);
 
-            if (empty || person == null) {
+            if (empty || bookmark == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BookmarkCard(person, getIndex() + 1).getRoot());
+                setGraphic(new BookmarkCard(bookmark, getIndex() + 1).getRoot());
             }
         }
     }

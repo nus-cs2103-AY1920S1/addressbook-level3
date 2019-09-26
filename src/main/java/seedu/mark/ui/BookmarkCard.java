@@ -7,10 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Bookmark}.
  */
 public class BookmarkCard extends UiPart<Region> {
 
@@ -24,7 +24,7 @@ public class BookmarkCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Bookmark bookmark;
 
     @FXML
     private HBox cardPane;
@@ -41,15 +41,15 @@ public class BookmarkCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public BookmarkCard(Person person, int displayedIndex) {
+    public BookmarkCard(Bookmark bookmark, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.bookmark = bookmark;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        url.setText(person.getUrl().value);
-        person.getTags().stream()
+        name.setText(bookmark.getName().fullName);
+        phone.setText(bookmark.getPhone().value);
+        address.setText(bookmark.getAddress().value);
+        url.setText(bookmark.getUrl().value);
+        bookmark.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -69,6 +69,6 @@ public class BookmarkCard extends UiPart<Region> {
         // state check
         BookmarkCard card = (BookmarkCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && bookmark.equals(card.bookmark);
     }
 }

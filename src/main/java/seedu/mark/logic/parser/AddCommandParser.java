@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Address;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
-import seedu.mark.model.bookmark.Person;
 import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.tag.Tag;
 
@@ -44,9 +44,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, url, address, tagList);
+        Bookmark bookmark = new Bookmark(name, phone, url, address, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(bookmark);
     }
 
     /**

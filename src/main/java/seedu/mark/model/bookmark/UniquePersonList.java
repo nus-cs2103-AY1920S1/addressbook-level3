@@ -13,34 +13,34 @@ import seedu.mark.model.bookmark.exceptions.BookmarkNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A bookmark is considered unique by comparing using {@code Bookmark#isSamePerson(Bookmark)}. As such, adding and updating of
+ * persons uses Bookmark#isSamePerson(Bookmark) for equality so as to ensure that the bookmark being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a bookmark uses Bookmark#equals(Object) so
+ * as to ensure that the bookmark with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see Bookmark#isSamePerson(Bookmark)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Bookmark> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Person> internalUnmodifiableList =
+    private final ObservableList<Bookmark> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Bookmark> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent bookmark as the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(Bookmark toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a bookmark to the list.
+     * The bookmark must not already exist in the list.
      */
-    public void add(Person toAdd) {
+    public void add(Bookmark toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateBookmarkException();
@@ -49,30 +49,30 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the bookmark {@code target} in the list with {@code editedBookmark}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The bookmark identity of {@code editedBookmark} must not be the same as another existing bookmark in the list.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPerson(Bookmark target, Bookmark editedBookmark) {
+        requireAllNonNull(target, editedBookmark);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new BookmarkNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!target.isSamePerson(editedBookmark) && contains(editedBookmark)) {
             throw new DuplicateBookmarkException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedBookmark);
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent bookmark from the list.
+     * The bookmark must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(Bookmark toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new BookmarkNotFoundException();
@@ -85,27 +85,27 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code bookmarks}.
+     * {@code bookmarks} must not contain duplicate bookmarks.
      */
-    public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
+    public void setPersons(List<Bookmark> bookmarks) {
+        requireAllNonNull(bookmarks);
+        if (!personsAreUnique(bookmarks)) {
             throw new DuplicateBookmarkException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(bookmarks);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<Bookmark> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Bookmark> iterator() {
         return internalList.iterator();
     }
 
@@ -122,12 +122,12 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code bookmarks} contains only unique bookmarks.
      */
-    private boolean personsAreUnique(List<Person> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+    private boolean personsAreUnique(List<Bookmark> bookmarks) {
+        for (int i = 0; i < bookmarks.size() - 1; i++) {
+            for (int j = i + 1; j < bookmarks.size(); j++) {
+                if (bookmarks.get(i).isSamePerson(bookmarks.get(j))) {
                     return false;
                 }
             }

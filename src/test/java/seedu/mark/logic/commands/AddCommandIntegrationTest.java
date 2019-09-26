@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.testutil.PersonBuilder;
 
 /**
@@ -27,19 +27,19 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+        Bookmark validBookmark = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        expectedModel.addPerson(validBookmark);
 
-        assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        assertCommandSuccess(new AddCommand(validBookmark), model,
+                String.format(AddCommand.MESSAGE_SUCCESS, validBookmark), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        Bookmark bookmarkInList = model.getAddressBook().getPersonList().get(0);
+        assertCommandFailure(new AddCommand(bookmarkInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

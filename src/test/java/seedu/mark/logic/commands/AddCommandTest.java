@@ -20,7 +20,7 @@ import seedu.mark.model.AddressBook;
 import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyAddressBook;
 import seedu.mark.model.ReadOnlyUserPrefs;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -33,27 +33,27 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        Bookmark validBookmark = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validBookmark).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBookmark), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validBookmark), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        Bookmark validBookmark = new PersonBuilder().build();
+        AddCommand addCommand = new AddCommand(validBookmark);
+        ModelStub modelStub = new ModelStubWithPerson(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Bookmark alice = new PersonBuilder().withName("Alice").build();
+        Bookmark bob = new PersonBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -70,7 +70,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different bookmark -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -109,7 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addPerson(Bookmark bookmark) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,65 +124,65 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasPerson(Bookmark bookmark) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deletePerson(Bookmark target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setPerson(Bookmark target, Bookmark editedBookmark) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Bookmark> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPersonList(Predicate<Bookmark> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single bookmark.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+        private final Bookmark bookmark;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithPerson(Bookmark bookmark) {
+            requireNonNull(bookmark);
+            this.bookmark = bookmark;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasPerson(Bookmark bookmark) {
+            requireNonNull(bookmark);
+            return this.bookmark.isSamePerson(bookmark);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the bookmark being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Bookmark> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasPerson(Bookmark bookmark) {
+            requireNonNull(bookmark);
+            return personsAdded.stream().anyMatch(bookmark::isSamePerson);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addPerson(Bookmark bookmark) {
+            requireNonNull(bookmark);
+            personsAdded.add(bookmark);
         }
 
         @Override

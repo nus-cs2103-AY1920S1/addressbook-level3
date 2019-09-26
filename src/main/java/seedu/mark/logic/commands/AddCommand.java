@@ -9,16 +9,16 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * Adds a person to the address book.
+ * Adds a bookmark to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bookmark to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -33,17 +33,17 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New bookmark added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This bookmark already exists in the address book";
 
-    private final Person toAdd;
+    private final Bookmark toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Bookmark}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Bookmark bookmark) {
+        requireNonNull(bookmark);
+        toAdd = bookmark;
     }
 
     @Override

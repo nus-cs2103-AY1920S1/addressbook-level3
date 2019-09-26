@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.UniquePersonList;
 
 /**
@@ -40,11 +40,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the bookmark list with {@code bookmarks}.
+     * {@code bookmarks} must not contain duplicate bookmarks.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Bookmark> bookmarks) {
+        this.persons.setPersons(bookmarks);
     }
 
     /**
@@ -56,40 +56,40 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// bookmark-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a bookmark with the same identity as {@code bookmark} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Bookmark bookmark) {
+        requireNonNull(bookmark);
+        return persons.contains(bookmark);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a bookmark to the address book.
+     * The bookmark must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Bookmark p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given bookmark {@code target} in the list with {@code editedBookmark}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The bookmark identity of {@code editedBookmark} must not be the same as another existing bookmark in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Bookmark target, Bookmark editedBookmark) {
+        requireNonNull(editedBookmark);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedBookmark);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Bookmark key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Bookmark> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

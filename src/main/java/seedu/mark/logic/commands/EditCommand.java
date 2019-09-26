@@ -20,21 +20,21 @@ import seedu.mark.commons.util.CollectionUtil;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Address;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
-import seedu.mark.model.bookmark.Person;
 import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing bookmark in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the bookmark identified "
+            + "by the index number used in the displayed bookmark list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -46,16 +46,16 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Bookmark: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This bookmark already exists in the address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the bookmark in the filtered bookmark list to edit
+     * @param editPersonDescriptor details to edit the bookmark with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
@@ -68,38 +68,38 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Bookmark> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Bookmark bookmarkToEdit = lastShownList.get(index.getZeroBased());
+        Bookmark editedBookmark = createEditedPerson(bookmarkToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!bookmarkToEdit.isSamePerson(editedBookmark) && model.hasPerson(editedBookmark)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setPerson(bookmarkToEdit, editedBookmark);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedBookmark));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code Bookmark} with the details of {@code bookmarkToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Bookmark createEditedPerson(Bookmark bookmarkToEdit, EditPersonDescriptor editPersonDescriptor) {
+        assert bookmarkToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Url updatedUrl = editPersonDescriptor.getUrl().orElse(personToEdit.getUrl());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Name updatedName = editPersonDescriptor.getName().orElse(bookmarkToEdit.getName());
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(bookmarkToEdit.getPhone());
+        Url updatedUrl = editPersonDescriptor.getUrl().orElse(bookmarkToEdit.getUrl());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(bookmarkToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(bookmarkToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedUrl, updatedAddress, updatedTags);
+        return new Bookmark(updatedName, updatedPhone, updatedUrl, updatedAddress, updatedTags);
     }
 
     @Override
@@ -121,8 +121,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the bookmark with. Each non-empty field value will replace the
+     * corresponding field value of the bookmark.
      */
     public static class EditPersonDescriptor {
         private Name name;

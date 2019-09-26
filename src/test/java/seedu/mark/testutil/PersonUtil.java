@@ -10,31 +10,31 @@ import java.util.Set;
 
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Bookmark.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code bookmark}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Bookmark bookmark) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(bookmark);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code bookmark}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(Bookmark bookmark) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getUrl().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + bookmark.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + bookmark.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + bookmark.getUrl().value + " ");
+        sb.append(PREFIX_ADDRESS + bookmark.getAddress().value + " ");
+        bookmark.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();

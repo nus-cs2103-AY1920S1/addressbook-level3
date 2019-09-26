@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.model.Model;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 
 /**
  * A utility class for test cases.
@@ -33,23 +33,23 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the middle index of the bookmark in the {@code model}'s bookmark list.
      */
     public static Index getMidIndex(Model model) {
         return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the last index of the bookmark in the {@code model}'s bookmark list.
      */
     public static Index getLastIndex(Model model) {
         return Index.fromOneBased(model.getFilteredPersonList().size());
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Returns the bookmark in the {@code model}'s bookmark list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
+    public static Bookmark getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
     }
 }

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.AddressBook;
 import seedu.mark.model.ReadOnlyAddressBook;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -19,7 +19,7 @@ import seedu.mark.model.bookmark.Person;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate bookmark(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -48,11 +48,11 @@ class JsonSerializableAddressBook {
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+            Bookmark bookmark = jsonAdaptedPerson.toModelType();
+            if (addressBook.hasPerson(bookmark)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            addressBook.addPerson(bookmark);
         }
         return addressBook;
     }

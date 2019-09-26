@@ -23,8 +23,8 @@ import seedu.mark.logic.commands.FindCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ListCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
-import seedu.mark.model.bookmark.Person;
 import seedu.mark.testutil.EditPersonDescriptorBuilder;
 import seedu.mark.testutil.PersonBuilder;
 import seedu.mark.testutil.PersonUtil;
@@ -35,9 +35,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Bookmark bookmark = new PersonBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(bookmark));
+        assertEquals(new AddCommand(bookmark), command);
     }
 
     @Test
@@ -55,8 +55,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Bookmark bookmark = new PersonBuilder().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(bookmark).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

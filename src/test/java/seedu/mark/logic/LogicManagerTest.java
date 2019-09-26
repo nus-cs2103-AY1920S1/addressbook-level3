@@ -26,7 +26,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.ReadOnlyAddressBook;
 import seedu.mark.model.UserPrefs;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.storage.JsonAddressBookStorage;
 import seedu.mark.storage.JsonUserPrefsStorage;
 import seedu.mark.storage.StorageManager;
@@ -81,9 +81,9 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Bookmark expectedBookmark = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.addPerson(expectedBookmark);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

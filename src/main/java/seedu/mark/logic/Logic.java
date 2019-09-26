@@ -8,7 +8,7 @@ import seedu.mark.logic.commands.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.ReadOnlyAddressBook;
-import seedu.mark.model.bookmark.Person;
+import seedu.mark.model.bookmark.Bookmark;
 
 /**
  * API of the Logic component
@@ -31,7 +31,7 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Bookmark> getFilteredPersonList();
 
     /**
      * Returns the user prefs' address book file path.
