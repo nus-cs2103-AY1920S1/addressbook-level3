@@ -60,7 +60,6 @@ public class ApplicationParser {
             return new HelpCommand();
         } else if (AddModuleCommand.isMatchingCommandWord(commandWord)) {
             return new AddModuleCommandParser().parse(arguments);
-            //return new AddModuleCommand(SampleDataUtil.getSampleModule());
         } else if (AddTutorialCommand.isMatchingCommandWord(commandWord)) {
             return new AddTutorialCommandParser().parse(arguments);
         } else {

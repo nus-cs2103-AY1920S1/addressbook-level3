@@ -76,4 +76,17 @@ public class Tutorial {
         return builder.toString();
     }
 
+    /**
+     * Returns true if both Tutorials have the same name & timetable.
+     *
+     */
+    public boolean isSameTutorial(Tutorial otherTutorial) {
+        if (otherTutorial == this) {
+            return true;
+        }
+        return otherTutorial != null
+                && otherTutorial.getTimeTable().equals(getTimeTable())
+                && otherTutorial.getTutName().equals(getTutName());
+    }
+
 }

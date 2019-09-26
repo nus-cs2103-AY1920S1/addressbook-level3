@@ -13,6 +13,7 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.tutorial.Tutorial;
 
 /**
  * Represents the in-memory model of the application data.
@@ -126,6 +127,21 @@ public class ModelManager implements Model {
         requireNonNull(module);
         return application.hasModule(module);
     }
+
+    //=========== T.A.rence: Tutorial methods ========================================================================
+
+    @Override
+    public void addTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        application.addTutorial(tutorial);
+    }
+
+    @Override
+    public boolean hasTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        return application.hasTutorial(tutorial);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

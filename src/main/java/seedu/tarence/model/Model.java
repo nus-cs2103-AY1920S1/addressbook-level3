@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.tutorial.Tutorial;
 
 /**
  * The API of the Model component.
@@ -96,4 +97,8 @@ public interface Model {
      * {@code module} must not already exist in the application.
      */
     void addModule(Module module);
+
+    boolean hasTutorial(Tutorial tutorial);
+
+    void addTutorial(Tutorial tutorial);
 }
