@@ -16,7 +16,7 @@ public class Phone {
     public final String value;
 
     /**
-     * Constructs a {@code ContactNumber}.
+     * Constructs a {@code Phone}.
      *
      * @param phone A valid phone number.
      */
