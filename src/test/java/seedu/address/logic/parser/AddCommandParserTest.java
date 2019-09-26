@@ -1,7 +1,20 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_APPLE;
+import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_KIWI;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPIRY_DATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_APPLE;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_KIWI;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRUIT;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_GREEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_APPLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRUIT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_GREEN;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalItems.APPLE;
@@ -35,8 +48,8 @@ public class AddCommandParserTest {
         // multiple tags - all accepted
         Item expectedItemMultipleTags = new ItemBuilder(KIWI).withTags(VALID_TAG_FRUIT, VALID_TAG_GREEN)
                                                               .build();
-        assertParseSuccess(parser, NAME_DESC_KIWI + "|" +  EXPIRY_DATE_DESC_KIWI
-                + "|" +  TAG_DESC_FRUIT + "|" + TAG_DESC_GREEN, new AddCommand(expectedItemMultipleTags));
+        assertParseSuccess(parser, NAME_DESC_KIWI + "|" + EXPIRY_DATE_DESC_KIWI
+                + "|" + TAG_DESC_FRUIT + "|" + TAG_DESC_GREEN, new AddCommand(expectedItemMultipleTags));
     }
 
     @Test
