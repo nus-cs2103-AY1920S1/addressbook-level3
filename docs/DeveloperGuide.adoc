@@ -287,7 +287,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: Keep track of your contactNumber, orders and customers faster than a typical mouse/GUI driven app
+*Value proposition*: Keep track of your phone, orders and customers faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -351,7 +351,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|handphone seller|find the details of the order that I want easily| save time searching for an order.
 
-|`* * *`|handphone seller|delete a contactNumber that I am no longer selling| get rid of it on the database.
+|`* * *`|handphone seller|delete a phone that I am no longer selling| get rid of it on the database.
 
 |`*`|handphone seller|track my customer age|know the suitability of my product.
 
@@ -392,11 +392,11 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add new contactNumber (UC02)
+=== Use case: Add new phone (UC02)
 
 *MSS*
 
-1. Actor input contactNumber name and quantity.
+1. Actor input phone name and quantity.
 2. System adds contactNumber to the list of phones.
 3. System shows the new list of phones.
 
@@ -412,21 +412,21 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Check quantity of contactNumber (UC03)
+=== Use case: Check quantity of phone (UC03)
 
 *MSS*
 
-1. Actor requests to check stock of a contactNumber.
-2. System displays the stock status for a contactNumber.
+1. Actor requests to check stock of a phone.
+2. System displays the stock status for a phone.
 
 *Extensions*
 
 [none]
-* 1a. System is unable to find the contactNumber as it does not exist.
+* 1a. System is unable to find the phone as it does not exist.
 +
 Use case ends.
 [none]
-** 1a1. System shows error message that contactNumber does not exist.
+** 1a1. System shows error message that phone does not exist.
 +
 Use case resumes at step 1.
 
@@ -435,7 +435,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. Actor requests to check stock of a contactNumber (UC03).
+1. Actor requests to check stock of a phone (UC03).
 2. Actor add order to the system. System displays the new order list.
 3. Actor schedule order. (UC05)
 4. Actor mark order as completed. System displays completed order message.
@@ -529,7 +529,7 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [[order]] Order::
-A order consisting of customer and contactNumber
+A order consisting of customer and phone
 
 [[Phone]] Phone::
 Any mobile device being sold by seller
