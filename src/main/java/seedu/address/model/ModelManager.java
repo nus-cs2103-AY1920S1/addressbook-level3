@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Expense> filteredExpenses;
+    private final FilteredList<Event> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
     }
 
@@ -127,7 +130,7 @@ public class ModelManager implements Model {
     @Override
     public void addEvent(Event event) {
         addressBook.addEvent(event);
-        // updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES); TBI
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
 //    @Override
@@ -154,6 +157,21 @@ public class ModelManager implements Model {
         filteredExpenses.setPredicate(predicate);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return filteredEvents;
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        filteredEvents.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -170,7 +188,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredExpenses.equals(other.filteredExpenses);
+                && filteredExpenses.equals(other.filteredExpenses)
+                && filteredEvents.equals(other.filteredEvents);
     }
 
 }

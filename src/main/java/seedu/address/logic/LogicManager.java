@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,7 +15,9 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Timekeeper;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Reminder;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,11 +29,13 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final Timekeeper timekeeper;
     private final AddressBookParser addressBookParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, Timekeeper timekeeper) {
         this.model = model;
         this.storage = storage;
+        this.timekeeper = timekeeper;
         addressBookParser = new AddressBookParser();
     }
 
@@ -49,6 +54,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public List<Reminder> getReminders() {
+        return timekeeper.getReminders();
     }
 
     @Override

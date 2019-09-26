@@ -82,23 +82,23 @@ public class UniqueEventList implements Iterable<Event> {
 //        }
 //    } IMPLEMENT AFTER WK 7
 
-//    public void setExpenses(UniqueExpenseList replacement) {
-//        requireNonNull(replacement);
-//        internalList.setAll(replacement.internalList);
-//    }
+    public void setEvents(UniqueEventList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
 
     /**
      * Replaces the contents of this list with {@code expenses}.
      * {@code expenses} must not contain duplicate expenses.
      */
-//    public void setExpenses(List<Expense> expenses) {
-//        requireAllNonNull(expenses);
-//        if (!expensesAreUnique(expenses)) {
-//            throw new DuplicateExpenseException();
-//        }
-//
-//        internalList.setAll(expenses);
-//    }
+    public void setEvents(List<Event> events) {
+        requireAllNonNull(events);
+        if (!eventsAreUnique(events)) {
+            throw new DuplicateEventException();
+        }
+
+        internalList.setAll(events);
+    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

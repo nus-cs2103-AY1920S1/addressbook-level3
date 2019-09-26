@@ -53,12 +53,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the expense list with {@code expenses}.
+     * {@code expenses} must not contain duplicate expenses.
+     */
+    public void setEvents(List<Event> events) {
+        this.events.setEvents(events);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenseList());
+        setEvents(newData.getEventList());
     }
 
     //// expense-level operations
@@ -121,6 +130,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Expense> getExpenseList() {
         return expenses.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Event> getEventList() {
+        return events.asUnmodifiableObservableList();
     }
 
     @Override

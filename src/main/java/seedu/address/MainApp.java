@@ -15,12 +15,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -45,6 +40,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected Timekeeper timekeeper;
 
     @Override
     public void init() throws Exception {
@@ -63,7 +59,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        timekeeper = new Timekeeper(model);
+
+        logic = new LogicManager(model, storage, timekeeper);
 
         ui = new UiManager(logic);
     }

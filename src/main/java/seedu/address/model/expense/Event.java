@@ -18,13 +18,13 @@ public class Event {
     private final Description description;
     private final Price price;
     private final Timestamp timestamp;
-    private final Set<Tag> tags = new HashSet<>();
+    // private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Event(Description description, Price price, Timestamp timestamp) { // Set<Tag> tags) {
-        requireAllNonNull(description, price, tags);
+        requireAllNonNull(description, price, timestamp);
         this.description = description;
         this.price = price;
         this.timestamp = timestamp;

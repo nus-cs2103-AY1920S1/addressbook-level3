@@ -15,6 +15,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -87,6 +90,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenseList(Predicate<Expense> predicate);
+
+    /** Returns an unmodifiable view of the filtered expense list */
+    ObservableList<Event> getFilteredEventList();
+
+    /**
+     * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredEventList(Predicate<Event> predicate);
 
     boolean hasEvent(Event event);
 
