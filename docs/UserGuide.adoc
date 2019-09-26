@@ -1,3 +1,158 @@
+= StudyBuddy - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+:source-highlighter: rouge
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-3
+
+By: `Team AY1920S1-CS2103T-W13-3`
+
+== Introduction
+
+StudyBuddy Level 1 is for students in the School of Computing at NUS
+that prefer to use a desktop app to help their studies.
+StudyBuddy is also optimized for those who prefer to work with
+a Command Line Interface (CLI) while still having the benefits of a
+Graphical User Interface (GUI). Being highly familiar working with CLI,
+Computing Students can greatly benefit from the app to
+manage their studies efficiently and faster than traditional GUI apps.
+
+== Quick Start
+
+<NOT IN DRAFT>
+
+
+== Command Format
+
+****
+** Words in `UPPER_CASE` are the parameters to be supplied by the user
+e.g. in `add <n/NAME>`, `NAME` is a parameter which can be used as `add n/John Doe`.
+
+** Items in square brackets are optional
+e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+
+** Items with `…`​ after them can be used multiple times including zero times
+e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+****
+
+== Global Commands
+
+=== Getting into Flashcard function: `fc`
+
+Brings the user to the Flashcard section, regardless of where the user is.
+
+    Format: fc
+
+=== Getting into FiveNotes function: `fn`
+
+Brings the user to the FiveNotes section, regardless of where the user is.
+
+    Format: fn
+
+=== Viewing Help: `help`
+
+Views the help session of all the functionality.
+
+    Format: help [-fc] [-fn]
+
+****
+* Only ONE of the optional fields can be provided in one command.
+* If `fc` flag is raised, returns the help section of the 'Flashcard' feature.
+* If `fn` flag is raised, returns the help section of the 'FiveNotes' feature.
+****
+
+== Flashcards
+
+=== Creating flashcards: `new`
+=== Viewing flashcards: `view`
+=== Editing flashcards: `edit`
+=== Listing flashcards: `list`
+=== Deleting flashcards: `delete`
+=== Time Trial: `time`
+
+== FiveNotes
+
+=== Creating notes: `add`
+
+1. Adds a module named <MODULE_CODE> into the notes.
+
+   Format: add mc/MODULE_CODE
+
+2. Adds a note with title <NOTE_TITLE> and content <NOTE_CONTENT> to the module <MODULE_CODE>.
+
+   Format: add mc/MODULE_CODE nt/NOTE_TITLE nc/NOTE_CONTENT
+
+=== Deleting notes: `delete`
+
+1. Deletes all notes from module <MODULE_CODE>.
+
+   Format: delete mc/MODULE_CODE
+
+2. Deletes the note with title <NOTE_TITLE> from module <MODULE_CODE>.
+
+   Format: delete <MODULE_CODE> <NOTE_TITLE>
+
+=== Listing notes: `list`
+
+1. Lists all modules user is taking in the current semester.
+If -a flag is raised, lists all modules found in the user's notes.
+
+   Format: list [-a]
+
+2. Lists all note titles from module <MODULE_CODE>.
+If <NOTE_TITLE> is given, returns all notes with title containing the given <NOTE_TITLE>.
+
+   Format: list mc/MODULE_CODE [nt/NOTE_TITLE]
+
+****
+* The search is case insensitive. e.g 'lab' will match 'Lab'
+* Partial words will also be matched e.g. 'lab' will match with 'the laboratory 4'
+* The order of the keywords does not matter. e.g. 'Lab 4' will match '4 Lab'
+* Note titles matching ALL keywords will be returned.
+e.g. 'lab 4' will return 'the lab 4 exercise', 'the lab 4' but will NOT return 'the lab exercise', 'the 4'
+****
+
+=== Editing notes: `edit`
+
+1. Opens up the note with title index <NOTE_TITLE_ID> from module <MODULE_CODE> for editing.
+
+   Format: edit mc/MODULE_CODE nti/NOTE_TITLE_ID
+
+****
+* Title index MUST be positive integer (e.g. 1, 2, 3, ...). The title index refers to the index number shown in the displayed title list.
+* Only exact match of module code will be returned.
+* The search is case insensitive. e.g. 'cs2103t' will match 'CS2103T'
+****
+
+== FAQ
+
+<NOT INCLUDED IN DRAFT>
+
+== Command Summary
+
+
+== Mock-up User Interface
+
+image::UiMockUpDraft.png[width="790"]
+
+
+
+
+
+
+
+
+////
 = AddressBook Level 3 - User Guide
 :site-section: UserGuide
 :toc:
@@ -175,3 +330,5 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find James Jake`
 * *List* : `list`
 * *Help* : `help`
+////
+
