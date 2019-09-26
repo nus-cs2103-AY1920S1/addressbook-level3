@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Address;
-import seedu.mark.model.bookmark.Email;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.tag.Tag;
@@ -137,15 +137,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+        Url expectedUrl = new Url(VALID_EMAIL);
+        assertEquals(expectedUrl, ParserUtil.parseEmail(VALID_EMAIL));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+        Url expectedUrl = new Url(VALID_EMAIL);
+        assertEquals(expectedUrl, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
     @Test

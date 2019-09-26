@@ -37,7 +37,7 @@ import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.mark.model.bookmark.Address;
-import seedu.mark.model.bookmark.Email;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.tag.Tag;
@@ -83,7 +83,7 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Url.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 

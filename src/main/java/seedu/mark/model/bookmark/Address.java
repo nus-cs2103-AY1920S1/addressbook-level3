@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Bookmark's address in the bookmark manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class Address { // TODO: Delete the Address class
 
     public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
 
@@ -15,12 +15,12 @@ public class Address {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[^\\s].*"; // TODO: Add more sophisticated validation for URLs
 
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs a {@code Address}.
      *
      * @param address A valid address.
      */

@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.model.bookmark.Address;
-import seedu.mark.model.bookmark.Email;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Person;
 import seedu.mark.model.bookmark.Phone;
@@ -119,7 +119,7 @@ public class AddCommandParserTest {
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Url.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
