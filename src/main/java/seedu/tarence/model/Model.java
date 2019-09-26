@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
 
 /**
@@ -84,4 +85,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if a module with the same identity as {@code module} exists in the application.
+     */
+    boolean hasModule(Module module);
+
+    /**
+     * Adds the given module.
+     * {@code module} must not already exist in the application.
+     */
+    void addModule(Module module);
 }

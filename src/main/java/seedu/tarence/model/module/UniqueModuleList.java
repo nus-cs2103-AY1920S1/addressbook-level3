@@ -12,8 +12,6 @@ import seedu.tarence.model.module.exceptions.ModuleNotFoundException;
 public class UniqueModuleList implements Iterable<Module> {
 
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Module> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent module as the given argument.
@@ -23,12 +21,12 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.stream().anyMatch(toCheck::isSameModule);
     }
 
-    public void add(Module toAdd) {
-        requireNonNull(toAdd);
-        if (contains(toAdd)) {
+    public void add(Module newModule) {
+        requireNonNull(newModule);
+        if (contains(newModule)) {
             throw new DuplicateModuleException();
         }
-        internalList.add(toAdd);
+        internalList.add(newModule);
     }
 
     public void remove(Module toRemove) {

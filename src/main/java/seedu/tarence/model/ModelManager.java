@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
 
 /**
@@ -76,7 +77,7 @@ public class ModelManager implements Model {
         userPrefs.setApplicationFilePath(applicationFilePath);
     }
 
-    //=========== T.A.rence ================================================================================
+    //=========== T.A.rence: Person methods ============================================================================
 
     @Override
     public void setApplication(ReadOnlyApplication application) {
@@ -112,6 +113,19 @@ public class ModelManager implements Model {
         application.setPerson(target, editedPerson);
     }
 
+    //=========== T.A.rence: Module methods ============================================================================
+
+    @Override
+    public void addModule(Module module) {
+        requireNonNull(module);
+        application.addModule(module);
+    }
+
+    @Override
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return application.hasModule(module);
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**

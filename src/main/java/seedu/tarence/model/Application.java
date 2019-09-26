@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.module.UniqueModuleList;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.person.UniquePersonList;
@@ -16,7 +18,7 @@ import seedu.tarence.model.person.UniquePersonList;
 public class Application implements ReadOnlyApplication {
 
     private final UniquePersonList persons;
-    // private final UniqueModuleList modules;
+    private final UniqueModuleList modules;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -27,6 +29,7 @@ public class Application implements ReadOnlyApplication {
      */
     {
         persons = new UniquePersonList();
+        modules = new UniqueModuleList();
     }
 
     public Application() {}
@@ -95,6 +98,15 @@ public class Application implements ReadOnlyApplication {
         persons.remove(key);
     }
 
+    public void addModule(Module newModule) {
+        modules.add(newModule);
+    }
+
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
     //// util methods
 
     @Override
@@ -119,4 +131,6 @@ public class Application implements ReadOnlyApplication {
     public int hashCode() {
         return persons.hashCode();
     }
+
+
 }
