@@ -286,7 +286,9 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage a library system faster than a typical mouse/GUI driven app
+*Value proposition*: Many people visit the neighbourhood library to borrow books and also donate their books. There is
+always a long queue in this small library and the librarian would have to type quickly to handle the long queue. Liberry
+can manage a library system faster than a typical mouse/GUI driven app.
 
 [appendix]
 == User Stories
@@ -322,9 +324,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list books
-2.  AddressBook shows a list of books
+2.  Liberry shows a list of books
 3.  User requests to delete a specific book in the list
-4.  AddressBook deletes the book
+4.  Liberry deletes the book
 +
 Use case ends.
 
@@ -338,7 +340,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Liberry shows an error message.
 +
 Use case resumes at step 2.
 
@@ -348,8 +350,10 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 books without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to manage up to 20000 books and 5000 borrower records without a noticeable sluggishness in performance
+for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
+able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -359,8 +363,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
