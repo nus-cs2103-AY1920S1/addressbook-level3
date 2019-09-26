@@ -9,21 +9,21 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
+=== Lim Yu Rong, Samuel
+image::sam-limyr.png[width="150", align="left"]
+{empty}[http://github.com/Sam-limyr[github]] [<<samuel#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: FiveNotes
+
+'''
+
 === Chen Kaibin
 image::ckb055.png[width="150", align="left"]
 {empty}[http://github.com/ckb055[github]] [<<kaibin#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Tagging Implementation
-
-'''
-
-=== Lim Yu Rong, Samuel
-image::sam-limyr.png[width="150", align="left"]
-{empty}[http://github.com/Sam-limyr[github]] [<<samuel#, portfolio>>]
-
-Role: Developer +
-Responsibilities: FiveNotes
 
 '''
 
