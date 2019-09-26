@@ -10,5 +10,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_MATNO = new Prefix("mat/");
     public static final Prefix PREFIX_NUSID = new Prefix("nusid/");
+    public static final Prefix PREFIX_MODULE = new Prefix("m/");
 
 }

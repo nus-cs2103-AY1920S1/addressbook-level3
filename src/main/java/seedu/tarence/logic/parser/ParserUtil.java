@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.commons.util.StringUtil;
 import seedu.tarence.logic.parser.exceptions.ParseException;
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
 import seedu.tarence.model.student.MatricNum;
@@ -88,5 +89,14 @@ public class ParserUtil {
             throw new ParseException(MatricNum.MESSAGE_CONSTRAINTS);
         }
         return new NusnetId(trimmedNusnetId);
+    }
+
+    public static ModCode parseModCode(String modCode) throws ParseException {
+        requireNonNull(modCode);
+        String trimmedModCode = modCode.trim();
+        if (!ModCode.isValidModCode(trimmedModCode)) {
+            throw new ParseException(ModCode.MESSAGE_CONSTRAINTS);
+        }
+        return new ModCode(trimmedModCode);
     }
 }
