@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.model.bookmark.exceptions.DuplicatePersonException;
-import seedu.mark.model.bookmark.exceptions.PersonNotFoundException;
+import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
+import seedu.mark.model.bookmark.exceptions.BookmarkNotFoundException;
 import seedu.mark.testutil.PersonBuilder;
 
 public class UniquePersonListTest {
@@ -53,9 +53,9 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicatePerson_throwsDuplicateBookmarkException() {
         uniquePersonList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(ALICE));
+        assertThrows(DuplicateBookmarkException.class, () -> uniquePersonList.add(ALICE));
     }
 
     @Test
@@ -69,8 +69,8 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, ALICE));
+    public void setPerson_targetPersonNotInList_throwsBookmarkNotFoundException() {
+        assertThrows(BookmarkNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, ALICE));
     }
 
     @Test
@@ -103,10 +103,10 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicateBookmarkException() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
+        assertThrows(DuplicateBookmarkException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
     }
 
     @Test
@@ -115,8 +115,8 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.remove(ALICE));
+    public void remove_personDoesNotExist_throwsBookmarkNotFoundException() {
+        assertThrows(BookmarkNotFoundException.class, () -> uniquePersonList.remove(ALICE));
     }
 
     @Test
@@ -157,9 +157,9 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setPersons_listWithDuplicatePersons_throwsDuplicateBookmarkException() {
         List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicatePersons));
+        assertThrows(DuplicateBookmarkException.class, () -> uniquePersonList.setPersons(listWithDuplicatePersons));
     }
 
     @Test
