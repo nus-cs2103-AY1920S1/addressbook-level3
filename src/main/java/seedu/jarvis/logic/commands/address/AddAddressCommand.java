@@ -10,7 +10,7 @@ import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.person.Person;
 
 /**
@@ -68,20 +68,20 @@ public class AddAddressCommand extends Command {
     /**
      * Adds {@code Person} to the address book, if person is not already inside address book.
      *
-     * @param addressModel {@code AddressModel} which the command should operate on.
+     * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} that person was added successfully.
      * @throws CommandException If there already is a {@code Person} matching the person
      * to be added in the address book.
      */
     @Override
-    public CommandResult execute(AddressModel addressModel) throws CommandException {
-        requireNonNull(addressModel);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
 
-        if (addressModel.hasPerson(toAdd)) {
+        if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        addressModel.addPerson(toAdd);
+        model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
@@ -89,20 +89,20 @@ public class AddAddressCommand extends Command {
      * Deletes {@code Person} from address book that was added
      * by this command's execution if person is still in address book.
      *
-     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @param model {@code Model} which the command should inversely operate on.
      * @return {@code CommandResult} that person was removed if person was in address book, else
      * {@code CommandResult} that person was already not in address book.
      * @throws CommandException If person to be removed is not found in the address book.
      */
     @Override
-    public CommandResult executeInverse(AddressModel addressModel) throws CommandException {
-        requireNonNull(addressModel);
+    public CommandResult executeInverse(Model model) throws CommandException {
+        requireNonNull(model);
 
-        if (!addressModel.hasPerson(toAdd)) {
+        if (!model.hasPerson(toAdd)) {
             throw new CommandException(String.format(MESSAGE_INVERSE_PERSON_NOT_FOUND, toAdd));
         }
 
-        addressModel.deletePerson(toAdd);
+        model.deletePerson(toAdd);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
     }

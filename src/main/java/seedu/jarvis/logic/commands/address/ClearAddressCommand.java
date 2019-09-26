@@ -1,13 +1,13 @@
 package seedu.jarvis.logic.commands.address;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.model.AddressModel.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.person.Person;
 
 /**
@@ -39,16 +39,16 @@ public class ClearAddressCommand extends Command {
     /**
      * Clears all {@code Person} from address book.
      *
-     * @param addressModel {@code AddressModel} which the command should operate on.
+     * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful clear.
      */
     @Override
-    public CommandResult execute(AddressModel addressModel) {
-        requireNonNull(addressModel);
+    public CommandResult execute(Model model) {
+        requireNonNull(model);
 
-        addressModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        clearedPersons = addressModel.getFilteredPersonList();
-        addressModel.setAddressBook(new AddressBook());
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        clearedPersons = model.getFilteredPersonList();
+        model.setAddressBook(new AddressBook());
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -57,17 +57,17 @@ public class ClearAddressCommand extends Command {
      * Restores all {@code Person} that was cleared from address book from execution.
      * Any new {@code Person} that was added to address book after the clear execution is deleted.
      *
-     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @param model {@code Model} which the command should inversely operate on.
      * @return {@code CommandResult} of a successful restore.
      */
     @Override
-    public CommandResult executeInverse(AddressModel addressModel) {
-        requireNonNull(addressModel);
+    public CommandResult executeInverse(Model model) {
+        requireNonNull(model);
 
         // deletes persons that were not inside address book prior to the clear execution
-        addressModel.setAddressBook(new AddressBook());
+        model.setAddressBook(new AddressBook());
 
-        clearedPersons.forEach(addressModel::addPerson);
+        clearedPersons.forEach(model::addPerson);
         return new CommandResult(MESSAGE_INVERSE_SUCCESS_RESTORE);
     }
 

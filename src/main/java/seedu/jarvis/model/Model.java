@@ -8,9 +8,9 @@ import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.model.person.Person;
 
 /**
- * The API of the AddressModel component.
+ * The API of the Model component.
  */
-public interface AddressModel {
+public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 

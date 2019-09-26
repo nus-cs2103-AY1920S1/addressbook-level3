@@ -15,12 +15,8 @@ import seedu.jarvis.commons.util.ConfigUtil;
 import seedu.jarvis.commons.util.StringUtil;
 import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.LogicManager;
-import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.AddressModel;
-import seedu.jarvis.model.AddressModelManager;
-import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.ReadOnlyUserPrefs;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.*;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.util.SampleDataUtil;
 import seedu.jarvis.storage.AddressBookStorage;
 import seedu.jarvis.storage.AddressStorageManager;
@@ -43,7 +39,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected AddressModel addressModel;
+    protected Model model;
     protected Config config;
 
     @Override
@@ -61,20 +57,20 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        addressModel = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(addressModel, storage);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
     }
 
     /**
-     * Returns a {@code AddressModelManager} with the data from {@code storage}'s
+     * Returns a {@code ModelManager} with the data from {@code storage}'s
      * address book and {@code userPrefs}. <br>
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private AddressModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
@@ -91,7 +87,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new AddressModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -176,7 +172,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
-            storage.saveUserPrefs(addressModel.getUserPrefs());
+            storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

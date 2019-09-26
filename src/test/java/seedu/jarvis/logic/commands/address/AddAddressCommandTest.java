@@ -20,7 +20,7 @@ import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ReadOnlyAddressBook;
 import seedu.jarvis.model.ReadOnlyUserPrefs;
 import seedu.jarvis.model.person.Person;
@@ -45,7 +45,7 @@ public class AddAddressCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        AddressModelStubAcceptingPersonAdded modelStub = new AddressModelStubAcceptingPersonAdded();
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
         CommandResult commandResult = new AddAddressCommand(validPerson).execute(modelStub);
@@ -58,7 +58,7 @@ public class AddAddressCommandTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        AddressModelStub modelStub = new AddressModelStubWithPerson(validPerson);
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class,
                 AddAddressCommand.MESSAGE_DUPLICATE_PERSON, () -> addAddressCommand.execute(modelStub));
@@ -89,9 +89,9 @@ public class AddAddressCommandTest {
     }
 
     /**
-     * A default addressModel stub that have all of the methods failing.
+     * A default model stub that have all of the methods failing.
      */
-    private class AddressModelStub implements AddressModel {
+    private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -164,12 +164,12 @@ public class AddAddressCommandTest {
     }
 
     /**
-     * A AddressModel stub that contains a single person.
+     * A Model stub that contains a single person.
      */
-    private class AddressModelStubWithPerson extends AddressModelStub {
+    private class ModelStubWithPerson extends ModelStub {
         private final Person person;
 
-        AddressModelStubWithPerson(Person person) {
+        ModelStubWithPerson(Person person) {
             requireNonNull(person);
             this.person = person;
         }
@@ -182,9 +182,9 @@ public class AddAddressCommandTest {
     }
 
     /**
-     * A AddressModel stub that always accept the person being added.
+     * A Model stub that always accept the person being added.
      */
-    private class AddressModelStubAcceptingPersonAdded extends AddressModelStub {
+    private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override

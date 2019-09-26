@@ -10,17 +10,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
-import seedu.jarvis.model.AddressModelManager;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
 
 public class HelpCommandTest {
-    private AddressModel addressModel = new AddressModelManager();
-    private AddressModel expectedAddressModel = new AddressModelManager();
+    private Model model = new ModelManager();
+    private Model expectedModel = new ModelManager();
 
     @BeforeEach
     public void setUp() {
-        addressModel = new AddressModelManager();
-        expectedAddressModel = new AddressModelManager();
+        model = new ModelManager();
+        expectedModel = new ModelManager();
     }
 
     /**
@@ -35,7 +35,7 @@ public class HelpCommandTest {
     @Test
     public void execute_help_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
-        assertCommandSuccess(new HelpCommand(), addressModel, expectedCommandResult, expectedAddressModel);
+        assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 
     /**
@@ -46,6 +46,6 @@ public class HelpCommandTest {
     public void test_executeInverse_exceptionThrown() {
         HelpCommand helpCommand = new HelpCommand();
         assertThrows(CommandException.class,
-                HelpCommand.MESSAGE_NO_INVERSE, () -> helpCommand.executeInverse(addressModel));
+                HelpCommand.MESSAGE_NO_INVERSE, () -> helpCommand.executeInverse(model));
     }
 }
