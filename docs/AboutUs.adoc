@@ -38,7 +38,7 @@ Responsibilities:
 '''
 
 === Poon Jeun Hoe
-image::yijinl.jpg[width="150", align="left"]
+image::jeunhoe.png[width="150", align="left"]
 {empty}[https://github.com/jeunhoe[github]] [<<johndoe#, portfolio>>]
 
 Role: +
