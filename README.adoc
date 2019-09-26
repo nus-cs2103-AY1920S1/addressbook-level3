@@ -3,6 +3,7 @@
 :toclevels: 9
 
 # Splitwiser
+
 toc::[]
 
 ifdef::env-github,env-browser[:relfileprefix: docs/]
