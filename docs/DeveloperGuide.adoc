@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Vortex`      Since: `Sept 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -355,14 +355,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete contactgg
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list contacts
+2.  SplitWiser shows a list of contacts
+3.  User requests to delete a specific contact in the list
+4.  SplitWiser deletes the person
 +
 Use case ends.
 
@@ -376,11 +376,44 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. SplitWiser shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+== Use case: List contacts
+
+*MSS*
+
+1. User requests to list contacts
+2. SplitWiser shows a list of contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of contacts is empty
++
+Use case ends.
+
+[discrete]
+== Use case: List activites
+
+*MSS*
+
+1. User requests to list activities
+2. SplitWiser shows a list of activities
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of activities is empty
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
