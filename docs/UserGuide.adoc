@@ -1,177 +1,212 @@
-= AddressBook Level 3 - User Guide
-:site-section: UserGuide
-:toc:
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-:experimental:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+Teacher’s Notebook - User Guide
+By: Team CS2103-T14-1
 
-== Introduction
+1. Introduction
+2. Quick Start
+3. Features
+3.1 Adding 
+3.1.1 Classes
+3.1.2 Students
+3.1.3 Assignments
+3.2 Editing 
+3.2.1 Students’ information
+3.2.2 Assignment list
+3.2.3 Students’ grades for individual assignments
+3.3 Listing
+3.3.1 Class list
+3.3.2 Student list
+3.3.3 Assignment list
+3.4 Sending reminders to teachers
+3.5 Locating
+	3.5.1 Students by name
+	3.5.2 Assignments by name
+3.6 Deleting
+3.7 Undo
+3.8 History
+3.9 Generate file
+3.10 Exiting the programme
+3.11 Saving date
+4. FAQ
+5 Command Summary
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-== Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+1. Introduction
+Teacher’s Notebook is for teachers who prefer to make use of an application to keep track of the deliverables, tasks and students’ information. It is optimized for teachers who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a teacher who wants to manage your students and your tasks efficiently, and can type fast, Teacher’s Notebook can get your work done much faster than traditional applications! Jump to Section 2, “Quick Start” to get started! Enjoy!
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
 
-[[Features]]
-== Features
+2. Quick Start
+Do refer to our future updates on the installation guide for Teacher’s Notebook!
 
-====
-*Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
 
-=== Viewing help : `help`
+3. Features
 
-Format: `help`
+Command Format
+●	Words in UPPER_CASE are the parameters supplied by the user e.g. in add c/CLASS, CLASS is a parameter which can be used as add c/4C.
+●	Items in square brackets are optional e.g. n/NAME [a/ADDRESS] can be used as n/John Doe a/National University of Singapore or n/John Doe
+●	Items with … after them can be used multiple times including zero times e.g. [m/MEDICAL_CONDITIONS]... can be used as   (i.e. 0 times), m/Sinus, m/Sinus m/Asthma etc.
+●	Parameters can be in any order e.g. if the command specifies n/NAME i/INDEX, n/NAME, i/INDEX is also acceptable
 
-=== Adding a person: `add`
+3.1 Adding: add
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+3.1.1 Classes
+Adds a class to the class list.
+Format: add c/CLASS
 
 Examples:
+●	add c/4C
+●	add c/3E5
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+3.1.2 Students
+Adds a student to the student list.
+Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_CONDITIONS] [t/TAG]...
 
 Examples:
+●	add n/John Doe p/91234567 e/john.doe@gmail.com a/John Street, Block 123, #01-01
+●	add n/Jane Doe p/98765432 e/jane.doe@gmail.com a/Jane Street, Block 123, #10-10
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+3.1.3 Assignments
+Adds an assignment to the assignment list
+Format: add as/ASSIGNMENT d/DEADLINE
 
 Examples:
+●	add as/CS2103 Team Project d/31/10/2019
+●	add as/CS2103 Individual Project d/30/09/2019
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+3.2 Editing: edit
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+3.2.1 Students’ information
+Edits an existing student in the student list.
+Format: edit c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEDICAL_CONDITIONS], [t/TAG]...
 
 Examples:
+●	edit c/4C 2 p/91111111
+●	edit c/5E2 4 e/new_email@gmail.com
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+3.2.2 Assignment List
+Edits an existing assignment in the assignment list.
+Format: edit as/ASSIGNMENT [as/ASSIGNMENT] [d/DEADLINE]
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Examples:
+●	edit as/CS2103 Assignment 2 [as/CS2103 Assignment 3]
+●	edit as/CS2103 Examinations [d/19/09/2019]
 
-Clears all entries from the address book. +
-Format: `clear`
+3.2.3 Students’ grades for individual assignments
+Edits the grades for students in the individual assignments.
+Format: edit as/ASSIGNMENT GRADE_ONE/GRADE_TWO/GRADE_THREE/...
 
-=== Exiting the program : `exit`
+Examples:
+●	edit as/CS2103 70/30/50
+●	edit as/CS2103 Assignment 1 1/2/3/4/5/6/7/8/9/10
 
-Exits the program. +
-Format: `exit`
 
-=== Saving the data
+3.3 Listing: list
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+3.3.1 Class list
+Shows a list of all classes taken by the user.
+Format: list class
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+3.3.2 Student list
+Shows a list of all students in a particular class of the user.
+Format: list [c/CLASS] students
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Examples:
+●	list c/4E3 students
+●	list students
 
-== FAQ
+3.3.3 Assignment list
+Shows a list of all assignments of classes of the user.
+Format: list c/CLASS assignments
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+Examples:
+●	list c/4C assignments
+●	list c/5E3 assignments
 
-== Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+3.4 Sending reminders to teachers
+Sends system notification to user 10 minutes before event (assumes user keeps program running continuously).
+Format: none, reminder should come automatically
+
+
+3.5 Locating: find
+
+3.5.1 Students by name
+Find students whose name matches a given keyword.
+Format: find s/STUDENT_NAME
+
+Examples:
+●	find s/John Doe
+●	find s/Jane Doe
+
+3.5.2 Assignments by name
+Find assignments which name matches given keyword.
+Format: find [c/CLASS] as/ASSIGNMENT
+
+Examples:
+●	find c/4E3 as/CS2103
+●	find as/CS2103
+
+
+3.6 Deleting an assignment: delete
+Deletes the specified assignment from the assignment hashmap. The name refers to the key of the hashmap of assignments.
+Format: delete ASSIGNMENT
+
+Examples:
+●	delete CS2103 midterm
+●	delete CS2103 project
+
+
+3.7 Undo: undo
+Restores application to the state before previous before previous command was executed.
+Format: undo
+
+
+3.8 History
+Generates user’s last typed command.
+Format: up arrow key brings up last typed command into user input box.
+
+
+3.9 Generate file: generate
+Generate test score of class for every test into csv file. This will be in a more readable format for users to see.
+Format: generate CLASS_NAME
+
+Examples:
+●	generate 4C
+●	generate 5E3
+
+
+3.10 Saving data
+The programme automatically saves the data in a txt file whenever a command is issued.
+Format: none, saving data will be done automatically
+
+
+3.11 Exiting the programme: exit
+Exits the program.
+Format: exit
+
+
+
+4. FAQ
+Coming up soon!
+
+
+
+5. Command Summary
+●	Add: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_CONDITIONS] [t/TAG] …
+e.g. add n/John Doe p/91234567 e/john_doe@gmail.com 
+●	Edit: edit c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEDICAL_CONDITIONS], [t/TAG]
+e.g. edit c/4C 2 p/91111111
+●	List: list class
+●	Find: find s/STUDENT_NAME
+e.g. find s/John Doe
+●	Delete: delete ASSIGNMENT
+e.g. delete midterms
+●	Undo: undo
+●	Generate: generate CLASSNAME
+e.g. generate 4C
+●	Exit: exit
+
