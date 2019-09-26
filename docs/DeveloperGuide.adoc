@@ -279,13 +279,16 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is finance-oriented
+* has a need to store and track personal finances
+* wants to set a budget
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* wishes to import or export their data to a .csv file
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage budget quickly compared to a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -361,7 +364,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `MoneyGoWhere` and the *Actor* is the `user`, unless specified otherwise)
 
 === Use case: Add a spending
 
@@ -372,7 +375,7 @@ _{More to be added}_
 +
 Use case ends.
 
----
+'''
 === Use case: Update a spending
 
 *MSS*
@@ -398,7 +401,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
----
+'''
 === Use case: Delete a spending
 
 *MSS*
@@ -424,7 +427,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
----
+'''
 === Use case: Find a spending
 
 *MSS*
@@ -434,7 +437,7 @@ Use case resumes at step 2.
 +
 Use case ends.
 
----
+'''
 === Use case: Set a monthly budget
 
 *MSS*
@@ -455,7 +458,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
----
+'''
 === Use case: Generate statistics
 
 *MSS*
@@ -466,7 +469,7 @@ Use case resumes at step 1.
 Use case ends.
 [none]
 
----
+'''
 === Use case: List all the tags
 
 *MSS*
@@ -477,7 +480,7 @@ Use case ends.
 Use case ends.
 [none]
 
----
+'''
 === Use case: Import external data from a CSV file
 
 *MSS*
@@ -498,7 +501,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
----
+'''
 === Use case: Export data to a CSV file
 
 *MSS*
@@ -519,7 +522,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
----
+'''
 === Use case: Undo a command
 
 *MSS*
@@ -540,7 +543,7 @@ Use case ends.
 Use case ends.
 [none]
 
----
+'''
 === Use case: Redo a command
 
 *MSS*
@@ -561,7 +564,7 @@ Use case ends.
 Use case ends.
 [none]
 
----
+'''
 === Use case: Graphing Data
 
 *MSS*
@@ -572,7 +575,7 @@ Use case ends.
 Use case ends.
 [none]
 
----
+'''
 === Use case: Clear all spending
 
 *MSS*
@@ -610,23 +613,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
