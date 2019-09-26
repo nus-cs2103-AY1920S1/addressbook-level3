@@ -14,31 +14,15 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F13-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*MoneyGoWhere* is a budgeting application which helps tech-savvy finance-oriented users to store and track their personal finances. It enables users to track their spending, set their financial goals and budgets as well as export their data to a .csv file. +
 
-== Quick Start
+*MoneyGoWhere* is optimised for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Tech-savvy users who love to type fast will be able to complete tasks faster than traditional GUI apps.  +
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+What are you waiting for? Start tracking your finances now!
 
 [[Features]]
 == Features
@@ -46,78 +30,87 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/apple`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/apple t/fruit` or as `n/apple`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `add n/NAME [t/TAG]...` can be used as `t/vegetable`, `t/fruit` etc.
+* Parameters can be in any order e.g. if the command specifies `add n/NAME c/COST`, `add c/COST n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
+Shows a list of available commands and their usages. +
 Format: `help`
 
-=== Adding a person: `add`
+=== Flexible Date Format
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Whenever a particular command requires a `DATE` field, you can choose either of the following formats.
+
+* Formal Dates
+** 1978-01-28
+** 1984/04/02
+** 1/02/1980
+** 2/28/79
+* Relaxed Dates
+** The 31st of April in the year 2008
+** Fri, 21 Nov 1997
+** Jan 21,'97
+** jan 1st
+** february twenty-eight
+* Relative Dates
+** next thursday/ last wednesday
+** today/ tomorrow/ yesterday
+** next week/ next month / next year
+** 3 days from now
+** three weeks ago
+* Date Alternatives
+** next wed or thurs
+** oct 3rd or 4th
+* Prefixes
+** day after/ the day before
+** the monday after/ the monday before
+** 2 fridays before/ 4 tuesdays after
+
+=== Adding a Spending: `add`
+
+Adds a spending to the list +
+Format: `add n/NAME c/COST [t/TAG]... [r/REMARKS]`
 
 [TIP]
-A person can have any number of tags (including 0)
+A spending can have any number of tags (including 0)
 
-Examples:
+Examples: +
+* `add n/apple c/2.50 d/yesterday t/fruits r/Expensive apple` +
+* `add n/chicken breast c/1.80 t/meat` +
+* `add n/coffee c/1.20 d/today` +
+* `add n/milo c/1.50 r/I love milo` +
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+=== Updating a Spending : `update`
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Updates a spending in the specified index in the list. +
+Format: `update i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Updates the spending at the specified `INDEX`. The index refers to the index number shown in the displayed spending list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the spending will be removed i.e adding of tags is not cumulative.
+* You can remove all the spending's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `update 1 c/100` +
+Updates the cost of the first spending to `100`.
+* `edit 2 n/chicken rice` +
+Updates the name of the third spending to `chicken rice`.
+* `update 5 c/500 n/flight tickets` +
+Updates both the cost of the fifth spending to `500` and its name to `flight tickets`.
+* `update 10 t/vegetable` +
+Overwrites existing tags of the tenth spending to `vegetable`.
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Deletes a spending in the specified index from the list. +
 Format: `delete INDEX`
 
 ****
@@ -126,52 +119,147 @@ Format: `delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+Example:
+
+* `delete 2` +
+Deletes the second spending in the list based on the current results shown.
+
+=== Listing All Spending : `list`
+
+Displays a list of all spending. +
+Format: `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]`
+
 Examples:
 
 * `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Displays the list of all spending sorted by date in descending order (most recent on top).
+* `list r/01/09/2019-30/09/2019 t/groceries c/20-100` +
+Displays the list of all spending with date range between `01/09/2019 and 30/09/2019`, tagged `groceries` and cost ranging from `20 to 100`.
+* `list t/groceries o/ASC` +
+Displays the list of spending tagged with `groceries` in `ascending order by date`.
+* `list t/groceries o/DESC` +
+Displays the list of spending tagged with `groceries` in `descending order by date`.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Find by Keyword `find`
 
-Clears all entries from the address book. +
-Format: `clear`
+Searches for spending based on a given keyword. +
+Format: `find KEYWORD [MORE_KEYWORDS] [c/COST_RANGE] [r/DATE_RANGE]`
+
+Example:
+
+* `find book Java c/100-150 r/01/09/2019-30/09/2019` +
+Returns a list of spending with `book` and `Java` keywords within the cost range `100-150` and date range within `01/09/2019-30/09/2019`.
+
+=== Setting Monthly Budget: `budget`
+Sets a monthly budget in Singapore dollars. +
+Format: `budget m/MONTHLY_BUDGET` +
+
+Example:
+
+* `budget m/500000` +
+Sets a budget of `$500,000` for this month
+
+=== Generating Statistics: `stats`
+Returns an overview of all spending such as total spending. +
+Format: `stats`
+
+=== Listing All Tags: `ltags`
+Displays a list of all available tags. +
+Format: `ltags`
+
+=== Importing Data: `import`
+Imports data from a CSV file specified by file path. +
+Format: `import p/FILE_PATH` +
+
+Examples: +
+
+* `import p/data.csv`
+* `import p/C:\Users\User\Documents\importfile.csv`
+* `import p/~/data.csv`
+
+=== Exporting Data: `export`
+Exports data to a CSV file specified by file path. +
+Format: export `p/FILE_PATH` +
+
+Examples: +
+
+* `export p/data.csv`
+* `export p/C:\data.csv`
+* `export p/~/data.csv`
+
+=== Undoing Previous Command: `undo`
+Restores the list of spending to the state before the previous undoable command was executed. +
+Format: `undo` +
+
+Examples: +
+
+* `delete 1` +
+`list` +
+`undo` (reverses the delete 1 command)
+* `list` +
+`stats` +
+`undo` (command fails as there are no undoable commands executed previously)
+* `delete 1` +
+`add n/textbook c/100` +
+`undo` (reverses the add n/textbook c/100 command) +
+`undo` (reverses the delete 1 command)
+
+=== Redoing The Previously Undone Command: `redo`
+Reverses the most recent undo command. +
+Format: redo +
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the delete 1 command) +
+`redo` (reapplies the delete 1 command)
+* `list` +
+`redo` (command fails as there are no undo commands executed previously)
+* `delete` 1 +
+`add n/textbook c/100` +
+`undo` (reverses the add n/textbook c/100 command) +
+`undo` (reverses the delete 1 command) +
+`redo` (reapplies the delete 1 command) +
+`redo` (reapplies the add n/textbook c/100 command)
+
+=== Graphing The Data: `graph`
+Shows all spending in the form of a graph. +
+Format: `graph`
+
+=== Clear All Data: `clear`
+Clears all entries from the application. +
+Format: clear
+
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
+* *Add* `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
+e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
+* *Update* : `update i/INDEX [n/NAME] [c/COST] [n/NAME] [t/TAG]... [r/REMARKS]` +
+e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 * *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+e.g. `delete 123`
+* *Find* : `find KEYWORD [MORE_KEYWORDS] [c/COST_RANGE] [r/DATE_RANGE]` +
+e.g. `find apple orange c/1.00-200 r/19/09/2019-20/09/2019`
+* *List* : `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
+e.g. `list r/01/09/2019-30/09/2019 t/groceries c/20-100 o/ASC`
+* *Budget* : `budget m/MONTHLY_BUDGET` +
+e.g. `goal m/1800`
+* *Import data*: `import p/FILE_PATH` +
+e.g. `import p/C:\Users\User\Documents\importfile.csv`
+* *Export data*: `export p/FILE_PATH` +
+e.g. `export p/C:\Users\User\Documents\importfile.csv`
+* *Generate statistics*: `stats`
+* *List all tags*: `ltags`
+* *Undo*: `undo`
+* *Redo*: `redo`
+* *Graph*: `graph`
+* *Clear*: `clear`
+* *Exit*: `exit`
 * *Help* : `help`
