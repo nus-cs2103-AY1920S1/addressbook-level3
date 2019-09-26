@@ -13,14 +13,14 @@ import seedu.mark.model.bookmark.exceptions.BookmarkNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A bookmark is considered unique by comparing using {@code Bookmark#isSamePerson(Bookmark)}. As such, adding and updating of
- * persons uses Bookmark#isSamePerson(Bookmark) for equality so as to ensure that the bookmark being added or updated is
+ * A bookmark is considered unique by comparing using {@code Bookmark#isSameBookmark(Bookmark)}. As such, adding and updating of
+ * persons uses Bookmark#isSameBookmark(Bookmark) for equality so as to ensure that the bookmark being added or updated is
  * unique in terms of identity in the UniquePersonList. However, the removal of a bookmark uses Bookmark#equals(Object) so
  * as to ensure that the bookmark with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Bookmark#isSamePerson(Bookmark)
+ * @see Bookmark#isSameBookmark(Bookmark)
  */
 public class UniquePersonList implements Iterable<Bookmark> {
 
@@ -33,7 +33,7 @@ public class UniquePersonList implements Iterable<Bookmark> {
      */
     public boolean contains(Bookmark toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameBookmark);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UniquePersonList implements Iterable<Bookmark> {
             throw new BookmarkNotFoundException();
         }
 
-        if (!target.isSamePerson(editedBookmark) && contains(editedBookmark)) {
+        if (!target.isSameBookmark(editedBookmark) && contains(editedBookmark)) {
             throw new DuplicateBookmarkException();
         }
 
@@ -127,7 +127,7 @@ public class UniquePersonList implements Iterable<Bookmark> {
     private boolean personsAreUnique(List<Bookmark> bookmarks) {
         for (int i = 0; i < bookmarks.size() - 1; i++) {
             for (int j = i + 1; j < bookmarks.size(); j++) {
-                if (bookmarks.get(i).isSamePerson(bookmarks.get(j))) {
+                if (bookmarks.get(i).isSameBookmark(bookmarks.get(j))) {
                     return false;
                 }
             }

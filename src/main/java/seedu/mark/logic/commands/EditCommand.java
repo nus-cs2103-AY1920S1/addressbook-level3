@@ -77,7 +77,7 @@ public class EditCommand extends Command {
         Bookmark bookmarkToEdit = lastShownList.get(index.getZeroBased());
         Bookmark editedBookmark = createEditedPerson(bookmarkToEdit, editPersonDescriptor);
 
-        if (!bookmarkToEdit.isSamePerson(editedBookmark) && model.hasPerson(editedBookmark)) {
+        if (!bookmarkToEdit.isSameBookmark(editedBookmark) && model.hasPerson(editedBookmark)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

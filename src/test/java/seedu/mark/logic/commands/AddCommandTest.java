@@ -163,7 +163,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Bookmark bookmark) {
             requireNonNull(bookmark);
-            return this.bookmark.isSamePerson(bookmark);
+            return this.bookmark.isSameBookmark(bookmark);
         }
     }
 
@@ -176,7 +176,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Bookmark bookmark) {
             requireNonNull(bookmark);
-            return personsAdded.stream().anyMatch(bookmark::isSamePerson);
+            return personsAdded.stream().anyMatch(bookmark::isSameBookmark);
         }
 
         @Override
