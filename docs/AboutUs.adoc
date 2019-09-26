@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Lawnce Goh
 image::hehe2.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/lawncegoh] [<<Lawnce, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation and features
