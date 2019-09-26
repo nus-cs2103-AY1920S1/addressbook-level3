@@ -34,8 +34,29 @@ public class LogicManagerStub {
     public ObservableList<EventSourceStub> getFilteredEventSourceList() {
         // model.getFilteredPersonList();
         EventSourceStub a = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
-        System.out.println("EEEEEE");
-        ObservableList<EventSourceStub> list =  FXCollections.observableArrayList(a);
+        EventSourceStub b = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub c = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub d = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub e = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub f = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub g = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub h = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub i = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub j = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+
+        EventSourceStub k = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub l = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub m = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub n = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub o = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub p = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub q = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub r = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub s = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+        EventSourceStub t = new EventSourceStub(new NameStub("This is an event 1"), new TimeStub(Instant.now()));
+
+        ObservableList<EventSourceStub> list =  FXCollections.observableArrayList(a, b, c, d, e, f, g, h, i, j,
+                k,l,m,n,o,p,q,r,s,t);
         return list;
     }
 

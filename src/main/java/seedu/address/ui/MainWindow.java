@@ -9,11 +9,14 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
+import javafx.geometry.Rectangle2D;
 import seedu.address.commons.stub.LogicManagerStub;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.stub.LogicManagerStub;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,6 +29,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final int WIDTH_PADDING = 20;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -52,6 +56,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private GridPane  gridManager;
+
+    @FXML
+    private VBox vBoxPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -111,6 +121,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         personListPanel = new PersonListPanel(logicStub.getFilteredEventSourceList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -122,6 +133,18 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        editInnerParts();
+    }
+
+    private void editInnerParts() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        resultDisplayPlaceholder.setPrefHeight(primaryScreenBounds.getHeight());
+        personListPanelPlaceholder.setPrefHeight(primaryScreenBounds.getHeight());
+
+        resultDisplayPlaceholder.setMinWidth(primaryScreenBounds.getWidth() / 3);
+        personListPanelPlaceholder.setMinWidth(primaryScreenBounds.getWidth() / 2 - WIDTH_PADDING);
+
     }
 
     /**
