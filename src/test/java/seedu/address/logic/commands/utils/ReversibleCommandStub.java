@@ -1,16 +1,16 @@
 package seedu.address.logic.commands.utils;
 
 import seedu.address.logic.commands.common.CommandResult;
-import seedu.address.logic.commands.common.UndoableCommand;
+import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.model.Model;
 
 /**
  * Stubs an {@code UndoableCommand} for unit testing.
  */
-public class UndoableCommandStub extends UndoableCommand {
+public class ReversibleCommandStub extends ReversibleCommand {
     private final String result;
 
-    public UndoableCommandStub(String result) {
+    public ReversibleCommandStub(String result) {
         this.result = result;
     }
 

@@ -17,7 +17,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandResult;
-import seedu.address.logic.commands.common.UndoableCommand;
+import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -105,11 +105,11 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertUndoCommandSuccess(UndoableCommand, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertUndoCommandSuccess(ReversibleCommand, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertUndoCommandSuccess(UndoableCommand command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+    public static void assertUndoCommandSuccess(ReversibleCommand command, Model actualModel, String expectedMessage,
+                                                Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertUndoCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -119,7 +119,7 @@ public class CommandTestUtil {
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertUndoCommandSuccess(UndoableCommand command, Model actualModel,
+    public static void assertUndoCommandSuccess(ReversibleCommand command, Model actualModel,
                                                 CommandResult expectedCommandResult,
                                                 Model expectedModel) {
         try {
@@ -154,7 +154,7 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
-    public static void assertUndoCommandFailure(UndoableCommand command, Model actualModel, String expectedMessage) {
+    public static void assertUndoCommandFailure(ReversibleCommand command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());

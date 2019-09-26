@@ -6,7 +6,7 @@ import seedu.address.model.Model;
 /**
  * Represents a undoable command with hidden internal logic and the ability to be executed.
  */
-public abstract class UndoableCommand extends Command {
+public abstract class ReversibleCommand extends Command {
 
     /**
      * Undoes the command and returns the result message.
