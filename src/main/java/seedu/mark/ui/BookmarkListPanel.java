@@ -18,12 +18,12 @@ public class BookmarkListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(BookmarkListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Person> bookmarkListView;
 
     public BookmarkListPanel(ObservableList<Person> personList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        bookmarkListView.setItems(personList);
+        bookmarkListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
