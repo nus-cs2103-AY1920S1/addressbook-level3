@@ -315,8 +315,6 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-[none]
 === Use case: Add a spending
 
 *MSS*
@@ -326,7 +324,7 @@ _{More to be added}_
 +
 Use case ends.
 
-[none]
+---
 === Use case: Update a spending
 
 *MSS*
@@ -351,8 +349,8 @@ Use case ends.
 ** 3a1. MoneyGoWhere shows an error message.
 +
 Use case resumes at step 2.
-[none]
 
+---
 === Use case: Delete a spending
 
 *MSS*
@@ -377,8 +375,8 @@ Use case ends.
 ** 3a1. MoneyGoWhere shows an error message.
 +
 Use case resumes at step 2.
-[none]
 
+---
 === Use case: Find a spending
 
 *MSS*
@@ -387,8 +385,8 @@ Use case resumes at step 2.
 2.  MoneyGoWhere returns any spending found with the keyword or within a cost range or date range specified.
 +
 Use case ends.
-[none]
 
+---
 === Use case: Set a budget goal
 
 *MSS*
@@ -409,6 +407,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
+---
 === Use case: Generate statistics
 
 *MSS*
@@ -419,6 +418,7 @@ Use case resumes at step 1.
 Use case ends.
 [none]
 
+---
 === Use case: List all the tags
 
 *MSS*
@@ -429,6 +429,7 @@ Use case ends.
 Use case ends.
 [none]
 
+---
 === Use case: Import external data from a CSV file
 
 *MSS*
@@ -449,6 +450,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
+---
 === Use case: Export data to a CSV file
 
 *MSS*
@@ -469,6 +471,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
+---
 === Use case: Undo a command
 
 *MSS*
@@ -489,6 +492,7 @@ Use case ends.
 Use case ends.
 [none]
 
+---
 === Use case: Redo a command
 
 *MSS*
@@ -509,6 +513,7 @@ Use case ends.
 Use case ends.
 [none]
 
+---
 === Use case: Graphing Data
 
 *MSS*
@@ -519,6 +524,7 @@ Use case ends.
 Use case ends.
 [none]
 
+---
 === Use case: Clear all spending
 
 *MSS*
