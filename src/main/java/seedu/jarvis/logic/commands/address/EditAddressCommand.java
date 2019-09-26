@@ -6,7 +6,7 @@ import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.jarvis.model.AddressModel.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,7 +20,7 @@ import seedu.jarvis.commons.util.CollectionUtil;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.person.Address;
 import seedu.jarvis.model.person.Email;
 import seedu.jarvis.model.person.Name;
@@ -95,16 +95,16 @@ public class EditAddressCommand extends Command {
     /**
      * Edits a {@code Person} in address book with a new set of description from {@code EditPersonDescriptor}.
      *
-     * @param addressModel {@code AddressModel} which the command should operate on.
+     * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful edit.
      * @throws CommandException If the targetIndex is out of range of the number of persons in the address book in
      * zero-based indexing, or if the new edited description is already of an existing {@code Person} in address book.
      */
     @Override
-    public CommandResult execute(AddressModel addressModel) throws CommandException {
-        requireNonNull(addressModel);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
 
-        List<Person> lastShownList = addressModel.getFilteredPersonList();
+        List<Person> lastShownList = model.getFilteredPersonList();
 
         // checks if index is out of bounds.
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -115,13 +115,13 @@ public class EditAddressCommand extends Command {
         Person createdEditedPerson = createEditedPerson(originalPerson, editPersonDescriptor);
 
         // checks if edited person does not conflict with another existing person that is not the original person.
-        if (!originalPerson.isSamePerson(createdEditedPerson) && addressModel.hasPerson(createdEditedPerson)) {
+        if (!originalPerson.isSamePerson(createdEditedPerson) && model.hasPerson(createdEditedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         editedPerson = createdEditedPerson;
 
-        addressModel.setPerson(originalPerson, createdEditedPerson);
-        addressModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setPerson(originalPerson, createdEditedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
@@ -129,7 +129,7 @@ public class EditAddressCommand extends Command {
     /**
      * Reverts back the edits made to {@code Person} in address book by the command's execution.
      *
-     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @param model {@code Model} which the command should inversely operate on.
      * @return {@code CommandResult} of a successful revert of {@code Person} if the revert is possible, or a
      * {@code CommandResult} that the edited person is no longer in the address book, or a {@code CommandResult} that
      * there will be a conflict with an existing {@code Person} in the address book if the revert is made.
@@ -137,21 +137,21 @@ public class EditAddressCommand extends Command {
      * to the person will result in a conflict with another person in the address book.
      */
     @Override
-    public CommandResult executeInverse(AddressModel addressModel) throws CommandException {
-        requireNonNull(addressModel);
+    public CommandResult executeInverse(Model model) throws CommandException {
+        requireNonNull(model);
 
         // checks if person to be reverted is in address book.
-        if (!addressModel.hasPerson(editedPerson)) {
+        if (!model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_INVERSE_PERSON_NOT_FOUND);
         }
 
         // checks if reverting the person will be in conflict with another existing person in the address book.
-        if (!originalPerson.isSamePerson(editedPerson) && addressModel.hasPerson(originalPerson)) {
+        if (!originalPerson.isSamePerson(editedPerson) && model.hasPerson(originalPerson)) {
             throw new CommandException(MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_PERSON);
         }
 
-        addressModel.setPerson(editedPerson, originalPerson);
-        addressModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setPerson(editedPerson, originalPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
     }

@@ -12,22 +12,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
-import seedu.jarvis.model.AddressModelManager;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the AddressModel) and unit tests for ListAddressCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListAddressCommand.
  */
 public class ListAddressCommandTest {
 
-    private AddressModel addressModel;
-    private AddressModel expectedAddressModel;
+    private Model model;
+    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
-        addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
     /**
@@ -41,15 +41,15 @@ public class ListAddressCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListAddressCommand(), addressModel,
-                ListAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        assertCommandSuccess(new ListAddressCommand(), model,
+                ListAddressCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(addressModel, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListAddressCommand(), addressModel,
-                ListAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        assertCommandSuccess(new ListAddressCommand(), model,
+                ListAddressCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /**
@@ -60,6 +60,6 @@ public class ListAddressCommandTest {
     public void test_inverseExecute_exceptionThrown() {
         ListAddressCommand listAddressCommand = new ListAddressCommand();
         assertThrows(CommandException.class,
-                ListAddressCommand.MESSAGE_NO_INVERSE, () -> listAddressCommand.executeInverse(addressModel));
+                ListAddressCommand.MESSAGE_NO_INVERSE, () -> listAddressCommand.executeInverse(model));
     }
 }

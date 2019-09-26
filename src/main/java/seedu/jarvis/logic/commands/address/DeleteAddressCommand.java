@@ -9,7 +9,7 @@ import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.person.Person;
 
 /**
@@ -60,22 +60,22 @@ public class DeleteAddressCommand extends Command {
     /**
      * Deletes {@code Person} from address book.
      *
-     * @param addressModel {@code AddressModel} which the command should operate on.
+     * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful delete.
      * @throws CommandException If targetIndex is >= the number of persons in address book.
      */
     @Override
-    public CommandResult execute(AddressModel addressModel) throws CommandException {
-        requireNonNull(addressModel);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
 
-        List<Person> lastShownList = addressModel.getFilteredPersonList();
+        List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         deletedPerson = lastShownList.get(targetIndex.getZeroBased());
-        addressModel.deletePerson(deletedPerson);
+        model.deletePerson(deletedPerson);
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson));
     }
@@ -83,21 +83,21 @@ public class DeleteAddressCommand extends Command {
     /**
      * Adds back the {@code Person} that was deleted.
      *
-     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @param model {@code Model} which the command should inversely operate on.
      * @return {@code CommandResult} of a successful restore of the deleted {@code Person} if the {@code Person} is
      * not already inside the address book.
      * @throws CommandException If the person to be added will be in conflict with an existing person in the
      * address book.
      */
     @Override
-    public CommandResult executeInverse(AddressModel addressModel) throws CommandException {
-        requireNonNull(addressModel);
+    public CommandResult executeInverse(Model model) throws CommandException {
+        requireNonNull(model);
 
-        if (addressModel.hasPerson(deletedPerson)) {
+        if (model.hasPerson(deletedPerson)) {
             throw new CommandException(String.format(MESSAGE_INVERSE_PERSON_TO_ADD_ALREADY_EXIST, deletedPerson));
         }
 
-        addressModel.addPerson(deletedPerson);
+        model.addPerson(deletedPerson);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedPerson));
     }

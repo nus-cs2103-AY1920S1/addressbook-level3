@@ -10,17 +10,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
-import seedu.jarvis.model.AddressModelManager;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
 
 public class ExitCommandTest {
-    private AddressModel addressModel;
-    private AddressModel expectedAddressModel;
+    private Model model;
+    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
-        addressModel = new AddressModelManager();
-        expectedAddressModel = new AddressModelManager();
+        model = new ModelManager();
+        expectedModel = new ModelManager();
     }
 
     /**
@@ -35,7 +35,7 @@ public class ExitCommandTest {
     @Test
     public void execute_exit_success() {
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
-        assertCommandSuccess(new ExitCommand(), addressModel, expectedCommandResult, expectedAddressModel);
+        assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
     }
 
     /**
@@ -46,6 +46,6 @@ public class ExitCommandTest {
     public void test_executeInverse_exceptionThrown() {
         ExitCommand exitCommand = new ExitCommand();
         assertThrows(CommandException.class,
-                ExitCommand.MESSAGE_NO_INVERSE, () -> exitCommand.executeInverse(addressModel));
+                ExitCommand.MESSAGE_NO_INVERSE, () -> exitCommand.executeInverse(model));
     }
 }

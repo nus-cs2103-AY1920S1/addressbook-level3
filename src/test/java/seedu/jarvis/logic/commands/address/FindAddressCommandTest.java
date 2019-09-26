@@ -19,22 +19,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
-import seedu.jarvis.model.AddressModelManager;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the AddressModel) for {@code FindAddressCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindAddressCommand}.
  */
 public class FindAddressCommandTest {
-    private AddressModel addressModel;
-    private AddressModel expectedAddressModel;
+    private Model model;
+    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
-        addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedAddressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
 
     /**
@@ -79,9 +79,9 @@ public class FindAddressCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindAddressCommand command = new FindAddressCommand(predicate);
-        expectedAddressModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, addressModel, expectedMessage, expectedAddressModel);
-        assertEquals(Collections.emptyList(), addressModel.getFilteredPersonList());
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test
@@ -89,9 +89,9 @@ public class FindAddressCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindAddressCommand command = new FindAddressCommand(predicate);
-        expectedAddressModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, addressModel, expectedMessage, expectedAddressModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), addressModel.getFilteredPersonList());
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 
     /**
@@ -103,7 +103,7 @@ public class FindAddressCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindAddressCommand findAddressCommand = new FindAddressCommand(predicate);
         assertThrows(CommandException.class,
-                FindAddressCommand.MESSAGE_NO_INVERSE, () -> findAddressCommand.executeInverse(addressModel));
+                FindAddressCommand.MESSAGE_NO_INVERSE, () -> findAddressCommand.executeInverse(model));
     }
 
     /**

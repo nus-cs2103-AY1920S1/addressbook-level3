@@ -20,7 +20,7 @@ import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
  * Command object instances cannot be added more than once to the deque, commands that do the achieve the same purpose
  * but are distinct objects are allowed, only repeated storing of the same command object instance is not allowed.
  */
-public class CommandCache {
+public class CommandDeque {
     /** Starting default limit to be assigned to each instance. */
     private static final int DEFAULT_INITIAL_SIZE_LIMIT = 10;
     /**
@@ -37,18 +37,18 @@ public class CommandCache {
     private int limit;
 
     /**
-     * Creates a new {@code CommandCache} with the default size limit of DEFAULT_INITIAL_SIZE_LIMIT.
+     * Creates a new {@code CommandDeque} with the default size limit of DEFAULT_INITIAL_SIZE_LIMIT.
      * This size limit can be set to another number.
      */
-    public CommandCache() {
+    public CommandDeque() {
         commands = new ArrayDeque<>();
         commandTracker = new HashSet<>();
         limit = DEFAULT_INITIAL_SIZE_LIMIT;
     }
 
     /**
-     * Number of commands stored in {@code CommandCache}.
-     * @return The number of commands stored in {@code CommandCache}.
+     * Number of commands stored in {@code CommandDeque}.
+     * @return The number of commands stored in {@code CommandDeque}.
      */
     public int getSize() {
         assert commands.size() == commandTracker.size() : "command disparity between deque and set.";
@@ -56,8 +56,8 @@ public class CommandCache {
     }
 
     /**
-     * Gets the current command size limit of the {@code CommandCache}.
-     * @return current command size limit of {@code CommandCache}.
+     * Gets the current command size limit of the {@code CommandDeque}.
+     * @return current command size limit of {@code CommandDeque}.
      */
     public int getLimit() {
         return limit;
@@ -79,29 +79,29 @@ public class CommandCache {
     }
 
     /**
-     * Returns whether there are any commands stored in {@code CommandCache}.
-     * @return Whether the {@code CommandCache} is storing any commands.
+     * Returns whether there are any commands stored in {@code CommandDeque}.
+     * @return Whether the {@code CommandDeque} is storing any commands.
      */
     public boolean isEmpty() {
         return commands.isEmpty() && commandTracker.isEmpty();
     }
 
     /**
-     * Checks if this command object instance is already stored inside the {@code CommandCache}.
+     * Checks if this command object instance is already stored inside the {@code CommandDeque}.
      *
      * @param command Command object instance to be checked.
-     * @return Whether the command is stored inside the {@code CommandCache}.
+     * @return Whether the command is stored inside the {@code CommandDeque}.
      */
     public boolean hasCommand(Command command) {
         return !commands.isEmpty() && commandTracker.contains(command);
     }
 
     /**
-     * Gets the most recent {@code Command} added to {@code CommandCache} which is at the front of the deque.
-     * Returns null if the {@code CommandCache} is empty.
+     * Gets the most recent {@code Command} added to {@code CommandDeque} which is at the front of the deque.
+     * Returns null if the {@code CommandDeque} is empty.
      *
-     * @return The most recent {@code Command} added to {@code CommandCache}, returns null if
-     * {@code CommandCache#isEmpty()} is true.
+     * @return The most recent {@code Command} added to {@code CommandDeque}, returns null if
+     * {@code CommandDeque#isEmpty()} is true.
      */
     public Command getLatestCommand() {
         if (isEmpty()) {
@@ -111,12 +111,12 @@ public class CommandCache {
     }
 
     /**
-     * Adds a {@code Command} to {@code CommandCache}, given that the {@code Command} instance is not inside
-     * {@code CommandCache} already.
+     * Adds a {@code Command} to {@code CommandDeque}, given that the {@code Command} instance is not inside
+     * {@code CommandDeque} already.
      *
      * @param command {@code Command} to be added.
      * @throws DuplicateCommandException If the {@code Command} to be added is already inside the
-     * {@code CommandCache}, where {@code CommandCache#hasCommand(Command)} returns true.
+     * {@code CommandDeque}, where {@code CommandDeque#hasCommand(Command)} returns true.
      */
     public void addLatestCommand(Command command) throws DuplicateCommandException {
         requireNonNull(command);
@@ -131,10 +131,10 @@ public class CommandCache {
     }
 
     /**
-     * Deletes the oldest {@code Command} in {@code CommandCache}.
+     * Deletes the oldest {@code Command} in {@code CommandDeque}.
      * If there are no commands, return null.
      *
-     * @return Oldest {@code Command} in {@code CommandCache}, null if {@code CommandCache#isEmpty()} returns true.
+     * @return Oldest {@code Command} in {@code CommandDeque}, null if {@code CommandDeque#isEmpty()} returns true.
      */
     public Command deleteOldestCommand() {
         if (isEmpty()) {
@@ -146,7 +146,7 @@ public class CommandCache {
     }
 
     /**
-     * Clears all commands stored in {@code CommandCache}.
+     * Clears all commands stored in {@code CommandDeque}.
      */
     public void clearCache() {
         commands.clear();

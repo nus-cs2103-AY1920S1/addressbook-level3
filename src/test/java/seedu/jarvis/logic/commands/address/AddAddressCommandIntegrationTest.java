@@ -11,39 +11,39 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.AddressModel;
-import seedu.jarvis.model.AddressModelManager;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the AddressModel) for {@code AddAddressCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddAddressCommand}.
  */
 public class AddAddressCommandIntegrationTest {
 
-    private AddressModel addressModel;
+    private Model model;
 
     @BeforeEach
     public void setUp() {
-        addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
-        expectedAddressModel.addPerson(validPerson);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validPerson);
 
-        assertCommandSuccess(new AddAddressCommand(validPerson), addressModel,
-                String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
+        assertCommandSuccess(new AddAddressCommand(validPerson), model,
+                String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = addressModel.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddAddressCommand(personInList), addressModel,
+        Person personInList = model.getAddressBook().getPersonList().get(0);
+        assertCommandFailure(new AddAddressCommand(personInList), model,
                 AddAddressCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
@@ -55,15 +55,15 @@ public class AddAddressCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
 
-        AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
-        expectedAddressModel.addPerson(validPerson);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validPerson);
 
-        assertCommandSuccess(addAddressCommand, addressModel,
-                String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
+        assertCommandSuccess(addAddressCommand, model,
+                String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
 
-        addressModel.deletePerson(validPerson);
+        model.deletePerson(validPerson);
 
-        assertCommandInverseFailure(addAddressCommand, addressModel,
+        assertCommandInverseFailure(addAddressCommand, model,
                 String.format(AddAddressCommand.MESSAGE_INVERSE_PERSON_NOT_FOUND, validPerson));
     }
 
@@ -76,16 +76,16 @@ public class AddAddressCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
 
-        AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
-        expectedAddressModel.addPerson(validPerson);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validPerson);
 
-        assertCommandSuccess(addAddressCommand, addressModel,
-                String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
+        assertCommandSuccess(addAddressCommand, model,
+                String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
 
-        expectedAddressModel.deletePerson(validPerson);
+        expectedModel.deletePerson(validPerson);
 
-        assertCommandInverseSuccess(addAddressCommand, addressModel,
-                String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, validPerson), expectedAddressModel);
+        assertCommandInverseSuccess(addAddressCommand, model,
+                String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, validPerson), expectedModel);
     }
 
     /**
@@ -95,19 +95,19 @@ public class AddAddressCommandIntegrationTest {
     public void test_repeatedExecutionAndInverseExecution() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        AddressModel expectedAddressModel = new AddressModelManager(addressModel.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         int cycles = 1000;
         IntStream.range(0, cycles)
                 .forEach(index -> {
-                    expectedAddressModel.addPerson(validPerson);
-                    assertCommandSuccess(addAddressCommand, addressModel,
-                            String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedAddressModel);
+                    expectedModel.addPerson(validPerson);
+                    assertCommandSuccess(addAddressCommand, model,
+                            String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
 
-                    expectedAddressModel.deletePerson(validPerson);
-                    assertCommandInverseSuccess(addAddressCommand, addressModel,
+                    expectedModel.deletePerson(validPerson);
+                    assertCommandInverseSuccess(addAddressCommand, model,
                             String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, validPerson),
-                            expectedAddressModel);
+                            expectedModel);
                 });
     }
 

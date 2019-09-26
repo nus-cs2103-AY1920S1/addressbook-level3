@@ -12,18 +12,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.AddressModel;
-import seedu.jarvis.model.AddressModelManager;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class ClearAddressCommandTest {
-    private AddressModel addressModel;
+    private Model model;
 
     @BeforeEach
     public void setUp() {
-        addressModel = new AddressModelManager();
+        model = new ModelManager();
     }
 
     /**
@@ -37,20 +37,20 @@ public class ClearAddressCommandTest {
 
     @Test
     public void execute_emptyAddressBook_success() {
-        AddressModel expectedAddressModel = new AddressModelManager();
+        Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearAddressCommand(), addressModel,
-                ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        assertCommandSuccess(new ClearAddressCommand(), model,
+                ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
-        AddressModel expectedAddressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedAddressModel.setAddressBook(new AddressBook());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.setAddressBook(new AddressBook());
 
-        assertCommandSuccess(new ClearAddressCommand(), addressModel,
-                ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        assertCommandSuccess(new ClearAddressCommand(), model,
+                ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /**
@@ -60,19 +60,19 @@ public class ClearAddressCommandTest {
     @Test
     public void executeInverse_success() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Person validPerson = new PersonBuilder().build();
-        addressModel.addPerson(validPerson);
-        AddressModel expectedAddressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedAddressModel.setAddressBook(new AddressBook());
+        model.addPerson(validPerson);
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.setAddressBook(new AddressBook());
 
-        assertCommandSuccess(clearAddressCommand, addressModel,
-                ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+        assertCommandSuccess(clearAddressCommand, model,
+                ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
 
-        addressModel.setAddressBook(getTypicalAddressBook());
+        model.setAddressBook(getTypicalAddressBook());
 
-        assertCommandInverseSuccess(clearAddressCommand, addressModel,
-                ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedAddressModel);
+        assertCommandInverseSuccess(clearAddressCommand, model,
+                ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedModel);
     }
 
     /**
@@ -81,21 +81,21 @@ public class ClearAddressCommandTest {
     @Test
     public void test_repeatedExecutionAndInverseExecution() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        addressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
-        AddressModel expectedAddressModel = new AddressModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Person validPerson = new PersonBuilder().build();
 
         int cycles = 1000;
         IntStream.range(0, cycles)
                 .forEach(index -> {
-                    addressModel.addPerson(validPerson);
-                    expectedAddressModel.setAddressBook(new AddressBook());
-                    assertCommandSuccess(clearAddressCommand, addressModel,
-                            ClearAddressCommand.MESSAGE_SUCCESS, expectedAddressModel);
+                    model.addPerson(validPerson);
+                    expectedModel.setAddressBook(new AddressBook());
+                    assertCommandSuccess(clearAddressCommand, model,
+                            ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
 
-                    addressModel.setAddressBook(getTypicalAddressBook());
-                    assertCommandInverseSuccess(clearAddressCommand, addressModel,
-                            ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedAddressModel);
+                    model.setAddressBook(getTypicalAddressBook());
+                    assertCommandInverseSuccess(clearAddressCommand, model,
+                            ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedModel);
                 });
     }
 }

@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.person.Person;
 
 /**
@@ -33,23 +33,23 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code addressModel}'s person list.
+     * Returns the middle index of the person in the {@code model}'s person list.
      */
-    public static Index getMidIndex(AddressModel addressModel) {
-        return Index.fromOneBased(addressModel.getFilteredPersonList().size() / 2);
+    public static Index getMidIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code addressModel}'s person list.
+     * Returns the last index of the person in the {@code model}'s person list.
      */
-    public static Index getLastIndex(AddressModel addressModel) {
-        return Index.fromOneBased(addressModel.getFilteredPersonList().size());
+    public static Index getLastIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredPersonList().size());
     }
 
     /**
-     * Returns the person in the {@code addressModel}'s person list at {@code index}.
+     * Returns the person in the {@code model}'s person list at {@code index}.
      */
-    public static Person getPerson(AddressModel addressModel, Index index) {
-        return addressModel.getFilteredPersonList().get(index.getZeroBased());
+    public static Person getPerson(Model model, Index index) {
+        return model.getFilteredPersonList().get(index.getZeroBased());
     }
 }

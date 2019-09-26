@@ -1,7 +1,7 @@
 package seedu.jarvis.logic.commands;
 
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -20,19 +20,19 @@ public abstract class Command {
     /**
      * Executes the command and returns the result message.
      *
-     * @param addressModel {@code AddressModel} which the command should operate on.
+     * @param model {@code Model} which the command should operate on.
      * @return Feedback message of the operation result for display.
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(AddressModel addressModel) throws CommandException;
+    public abstract CommandResult execute(Model model) throws CommandException;
 
     /**
      * Executes the inverse of the command and returns the result message.
      *
-     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @param model {@code Model} which the command should inversely operate on.
      * @return Feedback message of the inverse operation result for display.
      * @throws CommandException If an error occurs during the command inverse execution.
      */
-    public abstract CommandResult executeInverse(AddressModel addressModel) throws CommandException;
+    public abstract CommandResult executeInverse(Model model) throws CommandException;
 
 }
