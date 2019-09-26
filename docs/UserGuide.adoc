@@ -58,54 +58,39 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person or claim: `add`
-
-Adds a person or a claim to the general claims list +
-Format: 
-1. `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS ...`
-2. `add name of claim`
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `edit John(accesses the person 'John')`
-  1. `add ProjectExpenses(adds a claim called 'ProjectExpenses' under John's Name`
-
-
-=== Listing all persons : `list`
+=== Changing Views : `goto`
 
 Displays a list of all people in the contact list +
 Keyword: `list`
-Additional Parameters: (-p), (-c)
+Additional Parameters: claims, contacts, income
 Format: `list (parameter)`
 
 Example: 
-`list -p` (lists names of all people in contact list)
-`list -c` (lists all the claims from all people)
+`list contacts` 
+`list claims`
+`list income`
 
+=== Adding a person `add`
 
-=== Editing a person : `edit`
-
-Edits an existing person or claim in the list (2 command process) +
-Keywords: `edit`(select person to edit), `change`(select parameter to change)
-
-Additional Parameters: (-name), (-status), (-value)
-
+Adds a person to the contacts list +
 Format: 
-`edit INDEX`
-`change PARAMETER [d/DESCRIPTION]
-
-****
-* -name: basically just changing the name of the specified index
-* -status: changes status from processing to approved, process is reversible
-* -value: weigen fill in
-****
+`add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
 
 Examples:
 
-* `edit 1` +
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `add_person n/John Doe p/98765432 e/johnd@example.com`
+
+=== Editing a person : `edit`
+
+Edits an existing person +
+Keywords: `edit_person`
+
+Format: 
+`edit_person INDEX n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
+
+Examples:
+
+* ` edit_person 2 n/john lim p/92222223 e/johnlim@gmail.com`
 
 === Locating persons by name: `find`
 
