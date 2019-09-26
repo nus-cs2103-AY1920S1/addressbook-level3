@@ -50,6 +50,14 @@ public abstract class Flashcard {
         tags.add(t);
     }
 
+    public void setId(int flashcardId){
+        Id = new Id(flashcardId); // im assuming this will be possible
+    }
+
+    public void setflashcardTagList (ArrayList<Tag> tags){
+        this.tags = new FlashcarTagList(tags);
+    }
+
     public String deleteTag(Tag t) {
         tags.deleteTag(t);
         return "You've deleted this tag.";
