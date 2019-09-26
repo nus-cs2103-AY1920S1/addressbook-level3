@@ -1,0 +1,13 @@
+{
+  "books": [ {
+    "title": "Harry Porrter",
+    "serialNumber": "0001",
+    "author": "Rowling",
+    "genres": [ "friends" ]
+  }, {
+    "title": "Harry Porrter",
+    "serialNumber": "0001",
+    "author": "Rowling",
+    "genres": [ "friends" ]
+  } ]
+}
