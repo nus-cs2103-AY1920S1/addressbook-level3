@@ -295,17 +295,65 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |add a spending |keep track of how much i spent on a particular item
 
-|`* * *` |user |add a new person |
+|`* * *` |user |update my spending | correct any mistakes
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a spending |remove spending that I keyed in wrongly
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |view my current monthly spending on different categories|keep track of my spending
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |budget conscious user |set budget goals|make sure I do not overspend
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |see the difference between my budget and spending|be aware of my finances
+
+|`* * *` |new user |view more information about a particular command|learn how to various commands
+
+|`* * *` |user |calculate my total spending |keep track of my total spending
+
+|`* *` |user |import data |have different data from external source
+
+|`* *` |user |export data |view my spending in another application
+
+|`* *` |user |undo my previous action | revert my mistakes
+
+|`* *` |user |redo my previous action | move forward in history
+
+|`* *` |financial analyst |view daily/monthly/yearly expenditure |have a projected view of all my spending
+
+|`* *` |advanced user |search partial keywords from the description of my spending |view more refined search results
+
+|`* *` |user |sort my spending | view my spending in a clear order
+
+|`* *` |user |use natural human language to type commands to the program |Do not have to type in a specific format
+
+|`*` |user who likes to keep notes |add a note for my spending |add additional information to my spending
+
+|`*` |user who likes to keep notes |update my notes |modify the notes as needed
+
+|`*` |user who likes to keep notes |delete my notes |delete the note as needed
+
+|`*` |user |generate statistics |have an overview of my spending
+
+|`*` |user |view my future outlook |reflect on my current spending habits
+
+|`*` |user |view my monthly spending in a graph |not see confusing numbers
+
+|`*` |user |view my spending based on a date range |fine-tune my spending based on a time period
+
+|`*` |user |filter my spending based on tag |view my spending on that tag
+
+|`*` |advanced user |use a shorter version of the command | type faster
+
+|`*` |user who travels often |see the exchange rates of other countries |view my spending with respect to my currency
+
+|`*` |forgetful user |set a reminder |reminded of my payment deadlines
+
+|`*` |housewife |view the cheapest price of an item |improve my savings
+
+|`*` |user who loves rewards |see how much more I should spend |earn rewards from places I spend at
+
+|`*` |investor |see how much I should invest | earn more money
 |=======================================================================
 
 _{More to be added}_
