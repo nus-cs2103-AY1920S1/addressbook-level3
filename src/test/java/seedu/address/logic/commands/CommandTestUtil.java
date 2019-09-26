@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -15,58 +14,53 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Catalog;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.TitleContainsKeywordPredicate;
+import seedu.address.testutil.EditBookDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TITLE_BOOK_1 = "Harry Botter";
+    public static final String VALID_TITLE_BOOK_2 = "Legend of the Condor Heroes";
+    public static final String VALID_TITLE_BOOK_3 = "Heavenly Sword and Dragon Saber";
+    public static final String VALID_SERIAL_NUMBER_BOOK_1 = "0001";
+    public static final String VALID_SERIAL_NUMBER_BOOK_2 = "0002";
+    public static final String VALID_SERIAL_NUMBER_BOOK_3 = "0005";
+    public static final String VALID_AUTHOR_BOOK_1 = "J K Rowling";
+    public static final String VALID_AUTHOR_BOOK_2 = "Jin Yong";
+    public static final String VALID_GENRE_ACTION = "Action";
+    public static final String VALID_GENRE_FICTION = "Fiction";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TITLE_DESC_BOOK_1 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_1;
+    public static final String TITLE_DESC_BOOK_2 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_2;
+    public static final String SERIAL_NUMBER_DESC_BOOK_1 = " " + PREFIX_SERIAL_NUMBER + VALID_SERIAL_NUMBER_BOOK_1;
+    public static final String SERIAL_NUMBER_DESC_BOOK_2 = " " + PREFIX_SERIAL_NUMBER + VALID_SERIAL_NUMBER_BOOK_2;
+    public static final String AUTHOR_DESC_BOOK_1 = " " + PREFIX_AUTHOR + VALID_AUTHOR_BOOK_1;
+    public static final String AUTHOR_DESC_BOOK_2 = " " + PREFIX_AUTHOR + VALID_AUTHOR_BOOK_2;
+    public static final String GENRE_DESC_FICTION = " " + PREFIX_GENRE + VALID_GENRE_FICTION;
+    public static final String GENRE_DESC_ACTION = " " + PREFIX_GENRE + VALID_GENRE_ACTION;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_SERIAL_NUMBER_DESC = " " + PREFIX_SERIAL_NUMBER + "9a"; // 'a' not allowed
+    public static final String INVALID_GENRE_DESC = " " + PREFIX_GENRE + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditBookDescriptor DESC_BOOK_1;
+    public static final EditCommand.EditBookDescriptor DESC_BOOK_2;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_BOOK_1 = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_1)
+                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_1).withAuthor(VALID_AUTHOR_BOOK_1)
+                .withGenres(VALID_GENRE_FICTION).build();
+        DESC_BOOK_2 = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_2)
+                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).withAuthor(VALID_AUTHOR_BOOK_2)
+                .withGenres(VALID_GENRE_ACTION, VALID_GENRE_FICTION).build();
     }
 
     /**
@@ -104,25 +98,25 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        Catalog expectedCatalog = new Catalog(actualModel.getCatalog());
+        List<Book> expectedFilteredList = new ArrayList<>(actualModel.getFilteredBookList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedCatalog, actualModel.getCatalog());
+        assertEquals(expectedFilteredList, actualModel.getFilteredBookList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the book at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    public static void showBookAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBookList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Book book = model.getFilteredBookList().get(targetIndex.getZeroBased());
+        final String[] splitName = book.getTitle().value.split("\\s+");
+        model.updateFilteredBookList(new TitleContainsKeywordPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredBookList().size());
     }
 
 }
