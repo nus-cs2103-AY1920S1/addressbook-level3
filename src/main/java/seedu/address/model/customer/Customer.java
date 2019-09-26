@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.customer;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -13,11 +13,11 @@ import seedu.address.model.tag.Tag;
  * Represents a Customer in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Customer {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final ContactNumber contactNumber;
     private final Email email;
 
     // Data fields
@@ -27,10 +27,10 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Customer(Name name, ContactNumber contactNumber, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, contactNumber, email, address, tags);
         this.name = name;
-        this.phone = phone;
+        this.contactNumber = contactNumber;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
@@ -40,8 +40,8 @@ public class Person {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public ContactNumber getContactNumber() {
+        return contactNumber;
     }
 
     public Email getEmail() {
@@ -64,14 +64,15 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameCustomer(Customer otherCustomer) {
+        if (otherCustomer == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return otherCustomer != null
+                && otherCustomer.getName().equals(getName())
+                && (otherCustomer.getContactNumber().equals(getContactNumber())
+                || otherCustomer.getEmail().equals(getEmail()));
     }
 
     /**
@@ -84,22 +85,22 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Customer)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Customer otherCustomer = (Customer) other;
+        return otherCustomer.getName().equals(getName())
+                && otherCustomer.getContactNumber().equals(getContactNumber())
+                && otherCustomer.getEmail().equals(getEmail())
+                && otherCustomer.getAddress().equals(getAddress())
+                && otherCustomer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, contactNumber, email, address, tags);
     }
 
     @Override
@@ -107,7 +108,7 @@ public class Person {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" ContactNumber: ")
-                .append(getPhone())
+                .append(getContactNumber())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")

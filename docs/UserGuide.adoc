@@ -57,28 +57,28 @@ Format: `help`
 === Phone Commands
 Commands that work on phones that you have in your inventory.
 
-==== Add a phone : `add -p`
-Adds a phone or updates the inventory. +
+==== Add a contactNumber : `add -p`
+Adds a contactNumber or updates the inventory. +
 Format: `add -p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…​`
 
-==== Delete a phone : `delete -p`
-Deletes a phone from the inventory. +
+==== Delete a contactNumber : `delete -p`
+Deletes a contactNumber from the inventory. +
 Format: `delete -p INDEX`
 
-==== Find a phone : `find -p`
-Returns all the information pertaining to phone with matching name. +
+==== Find a contactNumber : `find -p`
+Returns all the information pertaining to contactNumber with matching name. +
 Format: `find -p p/PHONE`
 
 ==== List the phones : `list -p`
 List all the phones in lexicographical order. +
 Format: `list -p`
 
-==== Update a phone : `update -p`
-Updates the appropriate fields of a phone. +
+==== Update a contactNumber : `update -p`
+Updates the appropriate fields of a contactNumber. +
 Format: `update -p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
 
-==== Copy phone field : `copy -p`
-Copies a phone field to clipboard. +
+==== Copy contactNumber field : `copy -p`
+Copies a contactNumber field to clipboard. +
 Format: `copy -p <field>`
 
 === Order Commands
@@ -123,7 +123,7 @@ Commands that work on customers in your list.
 Adds a customer to the address book. +
 Format: `add -c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 [TIP]
-A person can have any number of tags, including 0.
+A customer can have any number of tags, including 0.
 
 ==== Delete a customer : `delete -c`
 Deletes a customer in the address book. +
@@ -164,7 +164,7 @@ Possible type: `view` , `graph`
 ==== Check : `check`
 Check for stock etc. For stock, see the phones that have < threshold quantity.   +
 Format: `check <flag>` +
-Possible flag: `-p` for phone stock, `check -p <threshold>`
+Possible flag: `-p` for contactNumber stock, `check -p <threshold>`
 
 ==== Schedule : `schedule`
 Check for schedule.   +
@@ -183,7 +183,7 @@ Import csv file into the application. +
 Export application data into csv file. +
 Export application stats. +
 Format: `import <flag> <file name>` / `export <flag> <file name>` +
-Possible flag: `-p` for phone, `-c` for customer, `-o` for order.
+Possible flag: `-p` for contactNumber, `-c` for customer, `-o` for order.
 
 === Saving the data
 SML data are saved in the hard disk automatically after any command that changes the data. +
@@ -208,7 +208,7 @@ Export any of the data in SML to PDF format.
 == Command Summary
 * *Add* +
 ** customer : `add -c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
-** phone : `add -p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…`
+** contactNumber : `add -p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…`
 ** order : `add -o p/PHONE_NUMBER i/ITEM...`
 
 * *Cancel* +
@@ -224,12 +224,12 @@ Export any of the data in SML to PDF format.
 
 * *Copy* +
 ** customer : `copy -c <field>`
-** phone : `copy -p <field>`
+** contactNumber : `copy -p <field>`
 ** order : `copy -o <field>`
 
 * *Delete* +
 ** customer : `delete -c INDEX`
-** phone : `delete -p INDEX`
+** contactNumber : `delete -p INDEX`
 
 * *Duplicate* +
 ** order : `duplicate -o INDEX`
@@ -238,24 +238,24 @@ Export any of the data in SML to PDF format.
 
 * *Export* +
 ** customer : `export -c`
-** phone : `export -p`
+** contactNumber : `export -p`
 ** order : `export -o`
 
 * *Find* +
 ** customer : `find -c KEYWORD [MORE_KEYWORDS]`
-** phone : `find -p p/PHONE`
+** contactNumber : `find -p p/PHONE`
 ** order : `find -o INDEX`
 
 * *Generate* : `generate -s s/STAT -d d/ -t t/TYPE`
 
 * *Import* +
 ** customer : `import -c`
-** phone : `import -p`
+** contactNumber : `import -p`
 ** order : `import -o`
 
 * *List* +
 ** customer : `list -c`
-** phone : `list -p`
+** contactNumber : `list -p`
 ** order : `list -o`
 
 * *Help* : `help`
@@ -269,4 +269,4 @@ Export any of the data in SML to PDF format.
 
 * *Update* +
 ** customer : `update -c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-** phone : `update -p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
+** contactNumber : `update -p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
