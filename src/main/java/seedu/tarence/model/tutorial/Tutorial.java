@@ -25,11 +25,11 @@ public class Tutorial {
     /**
      * Every field must be present and not null.
      */
-    public Tutorial(TutName tutName, DayOfWeek day, LocalTime time,
+    public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
             List<Integer> weeks, Duration duration, List<Student> students) {
-        requireAllNonNull(tutName, day, time, weeks, students);
+        requireAllNonNull(tutName, day, startTime, weeks, students);
         this.tutName = tutName;
-        this.timeTable = new TimeTable(day, time, weeks, duration);
+        this.timeTable = new TimeTable(day, startTime, weeks, duration);
         this.students = students;
     }
 

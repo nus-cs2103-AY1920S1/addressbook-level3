@@ -32,6 +32,7 @@ public class TimeTable {
         }
         this.weeks = weeks;
         this.duration = duration;
+
     }
 
     public DayOfWeek getDay() {

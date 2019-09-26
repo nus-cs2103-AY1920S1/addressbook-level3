@@ -9,7 +9,7 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 public class TutName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "It should not be blank and should not start or end with whitespace.";
+            "Tutorial name should not be blank and should not start or end with whitespace.";
 
     /*
      * The first character of the tutorial name must not be a whitespace,
