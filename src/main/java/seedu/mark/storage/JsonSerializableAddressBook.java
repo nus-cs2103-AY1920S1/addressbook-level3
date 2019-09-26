@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.mark.commons.exceptions.IllegalValueException;
-import seedu.mark.model.AddressBook;
-import seedu.mark.model.ReadOnlyAddressBook;
+import seedu.mark.model.BookmarkManager;
+import seedu.mark.model.ReadOnlyBookmarkManager;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable BookmarkManager that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
@@ -32,27 +32,27 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyBookmarkManager} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+    public JsonSerializableAddressBook(ReadOnlyBookmarkManager source) {
+        persons.addAll(source.getBookmarkList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code BookmarkManager} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public BookmarkManager toModelType() throws IllegalValueException {
+        BookmarkManager addressBook = new BookmarkManager();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Bookmark bookmark = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(bookmark)) {
+            if (addressBook.hasBookmark(bookmark)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(bookmark);
+            addressBook.addBookmark(bookmark);
         }
         return addressBook;
     }

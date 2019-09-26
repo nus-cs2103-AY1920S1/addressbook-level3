@@ -7,7 +7,7 @@ import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.logic.commands.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
-import seedu.mark.model.ReadOnlyAddressBook;
+import seedu.mark.model.ReadOnlyBookmarkManager;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
@@ -24,11 +24,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the BookmarkManager.
      *
      * @see seedu.mark.model.Model#getAddressBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyBookmarkManager getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Bookmark> getFilteredPersonList();

@@ -1,34 +1,34 @@
 package seedu.mark.testutil;
 
-import seedu.mark.model.AddressBook;
+import seedu.mark.model.BookmarkManager;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code BookmarkManager ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private BookmarkManager addressBook;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        addressBook = new BookmarkManager();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
+    public AddressBookBuilder(BookmarkManager addressBook) {
         this.addressBook = addressBook;
     }
 
     /**
-     * Adds a new {@code Bookmark} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Bookmark} to the {@code BookmarkManager} that we are building.
      */
     public AddressBookBuilder withPerson(Bookmark bookmark) {
-        addressBook.addPerson(bookmark);
+        addressBook.addBookmark(bookmark);
         return this;
     }
 
-    public AddressBook build() {
+    public BookmarkManager build() {
         return addressBook;
     }
 }

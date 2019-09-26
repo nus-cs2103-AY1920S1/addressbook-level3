@@ -19,26 +19,26 @@ import seedu.mark.model.bookmark.Bookmark;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final BookmarkManager addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyBookmarkManager addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new BookmarkManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredBookmarks = new FilteredList<>(this.addressBook.getPersonList());
+        filteredBookmarks = new FilteredList<>(this.addressBook.getBookmarkList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new BookmarkManager(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,32 +76,32 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== BookmarkManager ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyBookmarkManager addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyBookmarkManager getAddressBook() {
         return addressBook;
     }
 
     @Override
     public boolean hasPerson(Bookmark bookmark) {
         requireNonNull(bookmark);
-        return addressBook.hasPerson(bookmark);
+        return addressBook.hasBookmark(bookmark);
     }
 
     @Override
     public void deletePerson(Bookmark target) {
-        addressBook.removePerson(target);
+        addressBook.removeBookmark(target);
     }
 
     @Override
     public void addPerson(Bookmark bookmark) {
-        addressBook.addPerson(bookmark);
+        addressBook.addBookmark(bookmark);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setPerson(Bookmark target, Bookmark editedBookmark) {
         requireAllNonNull(target, editedBookmark);
 
-        addressBook.setPerson(target, editedBookmark);
+        addressBook.setBookmark(target, editedBookmark);
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================

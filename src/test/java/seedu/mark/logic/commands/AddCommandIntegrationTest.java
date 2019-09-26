@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Bookmark bookmarkInList = model.getAddressBook().getPersonList().get(0);
+        Bookmark bookmarkInList = model.getAddressBook().getBookmarkList().get(0);
         assertCommandFailure(new AddCommand(bookmarkInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

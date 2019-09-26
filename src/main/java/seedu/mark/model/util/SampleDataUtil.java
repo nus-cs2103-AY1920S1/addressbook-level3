@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.mark.model.AddressBook;
-import seedu.mark.model.ReadOnlyAddressBook;
+import seedu.mark.model.BookmarkManager;
+import seedu.mark.model.ReadOnlyBookmarkManager;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
@@ -14,7 +14,7 @@ import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code BookmarkManager} with sample data.
  */
 public class SampleDataUtil {
     public static Bookmark[] getSamplePersons() {
@@ -40,10 +40,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyBookmarkManager getSampleAddressBook() {
+        BookmarkManager sampleAb = new BookmarkManager();
         for (Bookmark sampleBookmark : getSamplePersons()) {
-            sampleAb.addPerson(sampleBookmark);
+            sampleAb.addBookmark(sampleBookmark);
         }
         return sampleAb;
     }

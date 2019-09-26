@@ -13,7 +13,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.AddressBookParser;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Model;
-import seedu.mark.model.ReadOnlyAddressBook;
+import seedu.mark.model.ReadOnlyBookmarkManager;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.storage.Storage;
 
@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyBookmarkManager getAddressBook() {
         return model.getAddressBook();
     }
 

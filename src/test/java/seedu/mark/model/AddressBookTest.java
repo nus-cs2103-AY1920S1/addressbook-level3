@@ -24,11 +24,11 @@ import seedu.mark.testutil.PersonBuilder;
 
 public class AddressBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final BookmarkManager addressBook = new BookmarkManager();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getBookmarkList());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        BookmarkManager newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -49,52 +49,52 @@ public class AddressBookTest {
         Bookmark editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Bookmark> newBookmarks = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newBookmarks);
+        BookmarkManagerStub newData = new BookmarkManagerStub(newBookmarks);
 
         assertThrows(DuplicateBookmarkException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> addressBook.hasBookmark(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(addressBook.hasBookmark(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        addressBook.addBookmark(ALICE);
+        assertTrue(addressBook.hasBookmark(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+        addressBook.addBookmark(ALICE);
         Bookmark editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasBookmark(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getBookmarkList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose bookmarks list can violate interface constraints.
+     * A stub ReadOnlyBookmarkManager whose bookmarks list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class BookmarkManagerStub implements ReadOnlyBookmarkManager {
         private final ObservableList<Bookmark> bookmarks = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Bookmark> bookmarks) {
+        BookmarkManagerStub(Collection<Bookmark> bookmarks) {
             this.bookmarks.setAll(bookmarks);
         }
 
         @Override
-        public ObservableList<Bookmark> getPersonList() {
+        public ObservableList<Bookmark> getBookmarkList() {
             return bookmarks;
         }
     }

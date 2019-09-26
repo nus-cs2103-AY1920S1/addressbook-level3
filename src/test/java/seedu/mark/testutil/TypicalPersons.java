@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.mark.model.AddressBook;
+import seedu.mark.model.BookmarkManager;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
@@ -60,12 +60,12 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code BookmarkManager} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static BookmarkManager getTypicalAddressBook() {
+        BookmarkManager ab = new BookmarkManager();
         for (Bookmark bookmark : getTypicalPersons()) {
-            ab.addPerson(bookmark);
+            ab.addBookmark(bookmark);
         }
         return ab;
     }
