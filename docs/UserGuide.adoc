@@ -18,7 +18,9 @@ By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FinPlanner is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a CLI app. 
+The app focuses on the tracking of claims that will help the While FinPlanner has a Graphical User Interface (GUI), its main form of input is Command Line Interface (CLI) based, thus favoring people who can type fast. Starting using it now and enjoy!
+
 
 == Quick Start
 
