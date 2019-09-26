@@ -1,0 +1,158 @@
+package seedu.address.storage;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Team;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
+
+
+/**
+ * Jackson-friendly version of {@link Team}.
+ */
+class JsonAdaptedTeam {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Team's %s field is missing!";
+
+    private final String teamName;
+    private final String subject;
+    private final int score;
+    private final String projectName;
+    private final ProjectType projectType;
+    private final int location;
+    private final List<JsonAdaptedParticipant> pList = new ArrayList<>();
+    private final JsonAdaptedMentor mentor;
+    private final PrefixType prefixType;
+    private final int idNum;
+
+    /**
+     * Constructs a {@code JsonAdaptedTeam} with the given person details.
+     */
+    @JsonCreator
+    public JsonAdaptedTeam(@JsonProperty("teamName") String teamName, @JsonProperty("subject") String subject,
+                           @JsonProperty("score") int score, @JsonProperty("projectName") String projectName,
+                           @JsonProperty("projectType") ProjectType projectType, @JsonProperty("location") int location,
+                           @JsonProperty("participants") List<JsonAdaptedParticipant> pList,
+                           @JsonProperty("mentor") JsonAdaptedMentor mentor, @JsonProperty("PrefixType") PrefixType prefixType,
+                           @JsonProperty("idNum") int idNum) {
+
+        this.teamName = teamName;
+        this.subject = subject;
+        this.score = score;
+        this.projectName = projectName;
+        this.projectType = projectType;
+        this.location = location;
+        this.mentor = mentor;
+        this.prefixType = prefixType;
+        this.idNum = idNum;
+
+        if (pList != null) {
+            this.pList.addAll(pList);
+        }
+    }
+
+    /**
+     * Converts a given {@code Team} into this class for Jackson use.
+     */
+    public JsonAdaptedTeam(Team source) {
+        teamName = source.getTeamName().toString();
+        subject = source.getSubject().toString(); //This is an enum. Need to check this.
+        score = source.getScore.getValue(); //Not implemented currently
+        projectName = source.getProjectName().toString();
+        projectType = source.getProjectType().toString();
+        location = source.getLocation().getTableNumber();
+        mentor = JsonAdaptedMentor(source.getMentor().get()); //Must deal with Optional
+        prefixType = source.getId().getPrefix();
+        idNum = source.getId().getNumber();
+        pList.addAll(source.getParticipants().get().stream()
+                .map(JsonAdaptedParticipant::new)
+                .collect(Collectors.toList()));
+    }
+
+    /**
+     * Converts this Jackson-friendly adapted person object into the model's {@code Team} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     */
+    public Team toModelType() throws IllegalValueException {
+        final List<Participant> modelParticipants = new ArrayList<>();
+        for (JsonAdaptedParticipant p : pList) {
+            modelParticipants.add(p.toModelType());
+        }
+
+        if (teamName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()) + "(teamName)");
+        }
+        if (!Name.isValidName(teamName)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Name modelTeamName = new Name(teamName);
+
+        if (subject == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SubjectName.class.getSimpleName()));
+        }
+        if (!SubjectName.isValidSubjectName(subject)) {
+            throw new IllegalValueException(SubjectName.MESSAGE_CONSTRAINTS);
+        }
+        final SubjectName modelSubject = new SubjectName(subject);
+
+        if (!Score.isValidScore(score)){
+            throw new IllegalValueException(Score.MESSAGE_CONSTRAINTS);
+        }
+        final Score modelScore = new Score(score);
+
+        if (projectName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()) + "(projectName)");
+        }
+        if (!Name.isValidName(projectName)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Name modelProjectName = new Name(projectName);
+
+        if (projectType == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProjectType.class.getSimpleName()));
+        }
+        if (!ProjectType.isValidProjectType(projectType)) {
+            throw new IllegalValueException(ProjectType.MESSAGE_CONSTRAINTS);
+        }
+        final ProjectType modelProjectType = projectType;
+
+        if (location == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+        }
+        if (!Location.isValidLocation(location)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Location modelLocation = new Location(location);
+
+        if (mentor == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Mentor.class.getSimpleName()));
+        }
+        if (!Mentor.isValidLocation(location)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Mentor modelMentor = mentor.toModelType();
+
+        if (prefixType == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PrefixType.class.getSimpleName()));
+        }
+        if (!PrefixType.isValidPrefixType(prefixType)) {
+            throw new IllegalValueException(PrefixType.MESSAGE_CONSTRAINTS);
+        }
+        final PrefixType modelPrefixType = prefixType;
+        final int modelIdNum = idNum;
+        final Id modelId = new Id(modelPrefixType, modelIdNum);
+
+        return new Team(modelId, modelTeamName, modelParticipants, modelMentor, modelSubject, modelScore, modelProjectName, modelProjectType, modelLocation);
+    }
+
+}
+
