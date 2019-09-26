@@ -327,7 +327,7 @@ _{More to be added}_
 +
 Use case ends.
 
----
+'''
 === Use case: Update a spending
 
 *MSS*
@@ -353,7 +353,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
----
+'''
 === Use case: Delete a spending
 
 *MSS*
@@ -379,7 +379,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
----
+'''
 === Use case: Find a spending
 
 *MSS*
@@ -389,7 +389,7 @@ Use case resumes at step 2.
 +
 Use case ends.
 
----
+'''
 === Use case: Set a monthly budget
 
 *MSS*
@@ -410,7 +410,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
----
+'''
 === Use case: Generate statistics
 
 *MSS*
@@ -421,7 +421,7 @@ Use case resumes at step 1.
 Use case ends.
 [none]
 
----
+'''
 === Use case: List all the tags
 
 *MSS*
@@ -432,7 +432,7 @@ Use case ends.
 Use case ends.
 [none]
 
----
+'''
 === Use case: Import external data from a CSV file
 
 *MSS*
@@ -453,7 +453,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
----
+'''
 === Use case: Export data to a CSV file
 
 *MSS*
@@ -474,7 +474,7 @@ Use case ends.
 Use case resumes at step 1.
 [none]
 
----
+'''
 === Use case: Undo a command
 
 *MSS*
@@ -495,7 +495,7 @@ Use case ends.
 Use case ends.
 [none]
 
----
+'''
 === Use case: Redo a command
 
 *MSS*
@@ -516,7 +516,7 @@ Use case ends.
 Use case ends.
 [none]
 
----
+'''
 === Use case: Graphing Data
 
 *MSS*
@@ -527,7 +527,7 @@ Use case ends.
 Use case ends.
 [none]
 
----
+'''
 === Use case: Clear all spending
 
 *MSS*
