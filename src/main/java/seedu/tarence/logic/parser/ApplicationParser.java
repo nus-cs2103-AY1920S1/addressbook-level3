@@ -61,10 +61,10 @@ public class ApplicationParser {
         } else if (HelpCommand.isMatchingCommandWord(commandWord)) {
             return new HelpCommand();
         } else if (AddModuleCommand.isMatchingCommandWord(commandWord)) {
-            return new AddModuleCommand(SampleDataUtil.getSampleModule());
+            return new AddModuleCommandParser().parse(arguments);
+            //return new AddModuleCommand(SampleDataUtil.getSampleModule());
         } else if (AddTutorialCommand.isMatchingCommandWord(commandWord)) {
             return new AddTutorialCommandParser().parse(arguments);
-          // return new AddTutorialCommand(SampleDataUtil.getSampleTutorial());
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
