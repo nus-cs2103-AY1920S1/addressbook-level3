@@ -295,17 +295,58 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` | user | add contacts| so that I can keep track of my list of contacts.
 
-|`* * *` |user |add a new person |
+|`* * *` | user | set how much each of my contacts owe me| so that I know the amount of money each person owes me.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` | user | set how much I owe one of my contacts| so that I know who I owe money to.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` | user | see the details of the balances of each contact| so that I know which activity each transactions were from.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` | user | create a group activity with multiple contacts| so that is easier for us to keep track of the group's expenditure.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` | user | see how much each person should be paying each other at the end of the activity| so that I can avoid confusion
+
+|`* * *` | user | delete expenses| remove incorrect entries
+
+|`* * *` | user | delete group activities| remove activities that are over
+
+|`* *` | user | specify when a contact borrowed money from me| know how long he has owed me money for.
+
+|`* *` | user | specify when I borrowed money from a contact| know how long I have owed money for.
+
+|`* *` | user | sort my contacts| filter through information.
+
+|`* *` | traveller | add expenses in other currencies | keep track of debts.
+
+|`* *` | traveller | have expenses in other currencies to be converted to a single currency | simplify my life.
+
+|`* *` | user | attach tags to individual expenses and activities | search more conveniently.
+
+|`* *` | user | tag an expense with a picture | keep electronic copies of receipts or invoices as proof.
+
+|`* *` | user | see all my activities in a calendar view | keep track of what has happened.
+
+|`* *` | user | set a recurring reminder for contacts that owes me money | know when to request people to pay back.
+
+|`* *` | user | set a recurring reminder for contacts I loaned from | know when to pay them back
+
+|`* *` | user | add profile picture to a contact | know how they look like.
+
+|`* *` | user | export my data and import it from a different application| can sync my debt through multiple devices.
+
+|`*` | user| set up automated periodic notifications (emails, etc.) to people who owe me money | remind them to pay me back.
+
+|`*` | user| keep track of objects that I lent and borrowed from other people | remember to return them.
+
+|`*` | user| specify conditions on the loans | assure the loaned items are returned in a specified condition.
+
+|`*` | user| export the data to other format (.ics etc.)i | export the data to other applications.
+
+|`*` | traveller| create a common pool of funds to spend for large group activities| simplify tracking of common expenses
+
+|`*` | user| extract information from a picture of a bill| save the trouble of entering expense details myself.
+
 |=======================================================================
 
 _{More to be added}_
