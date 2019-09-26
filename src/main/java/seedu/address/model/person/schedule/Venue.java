@@ -1,5 +1,8 @@
 package seedu.address.model.person.schedule;
 
+/**
+ * Venue object.
+ */
 public class Venue {
     private String venue;
     private String coordinates;
@@ -9,7 +12,7 @@ public class Venue {
         this.coordinates = null;
     }
 
-    public String toString(){
+    public String toString() {
         return venue;
     }
 

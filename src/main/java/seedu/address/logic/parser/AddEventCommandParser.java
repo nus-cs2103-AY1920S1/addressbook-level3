@@ -41,7 +41,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         try {
             for (i = 0; i < timings.size(); i++) {
                 Timeslot timeslot = ParserUtil.parseTimeslot(timings.get(i));
-                if(timeslot != null){
+                if (timeslot != null) {
                     event.addTimeslot(timeslot);
                 } else {
                     return new AddEventCommand(name, null);

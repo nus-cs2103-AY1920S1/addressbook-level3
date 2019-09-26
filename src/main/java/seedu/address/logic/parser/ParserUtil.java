@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -187,17 +185,18 @@ public class ParserUtil {
 
     /**
      * Parses a String into a Timeslot object.
+     *
      * @param timeslot to be parsed
      * @return Timeslot object
      */
     public static Timeslot parseTimeslot(String timeslot) {
-        try{
+        try {
             String[] tokens = timeslot.split("-");
             LocalDateTime startTime = LocalDateTime.parse(tokens[0], DATE_TIME_FORMATTER);
             LocalDateTime endTime = LocalDateTime.parse(tokens[1], DATE_TIME_FORMATTER);
             Venue venue = new Venue(tokens[2].trim());
             return new Timeslot(startTime, endTime, venue);
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             return null;
         }
     }
