@@ -54,6 +54,7 @@
         </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        <StackPane fx:id="scheduleViewPlaceholder" VBox.vgrow="ALWAYS"/>
       </VBox>
     </Scene>
   </scene>

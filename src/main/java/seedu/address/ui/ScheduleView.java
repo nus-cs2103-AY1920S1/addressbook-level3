@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
@@ -13,23 +14,42 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class ScheduleView extends Application {
+public class ScheduleView extends UiPart<Region> {
     //Schedule to be received from logic MUST be in chronological order from Monday -> Friday and events must be
     //in chronological order as well.
+    //ScheduleView must be wrapped in a scroll pane otherwise the view will become distorted.
+    private static final String FXML = "ScheduleView.fxml";
     private ArrayList<String> dayNames = new ArrayList<String>(List.of("Sunday", "Monday", "Tuesday",
             "Wednesday", "Thursday", "Friday", "Saturday"));
     private ArrayList<String> listOfColors = new ArrayList<String>(List.of("darkred", "navy", "darkgreen",
             "darkorange", "lightslategray", "orchid", "teal", "darkmagenta"));
+    @FXML
     private GridPane scheduleView;
-    private ScheduleStub schedule;
+
     private ArrayList<StackPane> dayTimeslotStackPanes = new ArrayList<StackPane>();
-    private int oneHourLength = 48;
+    private int oneHourLength = 40;
     private int preferredWidth = 100;
     private double blockWidth = 100;
     private int startTime = 8;
     private int endTime = 20;
 
-    public ScheduleView initialise() {
+    public ScheduleView(ScheduleStub schedule) {
+        super(FXML);
+        initialise();
+        initialiseHeaders();
+        initialiseTableCells();
+        showIndividualSchedule(schedule, listOfColors.get((int) (Math.random() * (listOfColors.size() - 1))));
+    }
+
+    public ScheduleView(ArrayList<ScheduleStub> schedules) {
+        super(FXML);
+        initialise();
+        initialiseHeaders();
+        initialiseTableCells();
+        showGroupSchedule(schedules);
+    }
+
+    private ScheduleView initialise() {
         scheduleView = new GridPane();
         scheduleView.setStyle("-fx-border-width: 2; -fx-border-color: black;");
         return this;
@@ -201,6 +221,10 @@ public class ScheduleView extends Application {
         return scheduleView;
     }
 
+    public GridPane getScheduleView() {
+        return scheduleView;
+    }
+    /*
     public ScheduleStub getSchedule() {
         return this.schedule;
     }
@@ -216,27 +240,5 @@ public class ScheduleView extends Application {
                 return false;
             }
         }
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        initialise();
-        initialiseHeaders();
-        initialiseTableCells();
-        ScheduleStub s1 = new ScheduleStub(1);
-        ScheduleStub s2 = new ScheduleStub(2);
-        ScrollPane mainLayout = new ScrollPane();
-        //mainLayout.setContent(showIndividualSchedule(s1, "darkblue"));
-        mainLayout.setContent(showGroupSchedule(new ArrayList<ScheduleStub>(List.of(s1, s2))));
-        //mainLayout.setContent(scheduleView);
-        mainLayout.setFitToHeight(true);
-        mainLayout.setFitToWidth(true);
-        Scene scene = new Scene(mainLayout);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        Application.launch(ScheduleView.class, args);
-    }
+    }*/
 }
