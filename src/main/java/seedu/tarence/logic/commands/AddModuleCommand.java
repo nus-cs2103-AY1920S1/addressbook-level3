@@ -23,7 +23,7 @@ public class AddModuleCommand extends Command {
             +"Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS1010S ";
 
-    private final Module newModule;
+    private Module newModule;
 
     /**
      * Creates an AddModuleCommand to add the specified {@code Module}
