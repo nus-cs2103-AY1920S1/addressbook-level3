@@ -286,7 +286,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: Many people visit the neighbourhood library to borrow books and also donate their books. There is
+*Value proposition*: Many people visit the neighborhood library to borrow books and also donate their books. There is
 always a long queue in this small library and the librarian would have to type quickly to handle the long queue. Liberry
 can manage a library system faster than a typical mouse/GUI driven app.
 
@@ -369,7 +369,7 @@ I submit a book title query
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Liberry` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Liberry` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete book
