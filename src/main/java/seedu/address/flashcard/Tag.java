@@ -1,49 +1,26 @@
 package seedu.address.flashcard;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * A class that represents each individual tagged flashcard set
+ * Guarantees: every tag must have a unique name, no two tags can have the same name
  */
 public class Tag {
-    private ArrayList<Flashcard> cardList;
+
+    public static final String MESSAGE_CONSTRAINTS = "The tag name can take in any value, but it should not be empty ";
+
+    private HashSet<Flashcard> cardList;
     private String name;
 
     /**
-     * Constructor for a tag object.
+     * Constructs a tag object.
      *
-     * @param _name the name of the tag to be initialized.
+     * @param name the name of the tag to be initialized.
      */
-    public Tag(String _name) {
-        this.name = _name;
-        cardList = new ArrayList<>();
-    }
-
-    /**
-     * Give a list of all the flashcards under this tag.
-     *
-     * @return a list of all flashcards.
-     */
-    public ArrayList<Flashcard> getFlashcards() {
-        ArrayList<Flashcard> resultList = new ArrayList<>();
-        resultList.addAll(cardList);
-        return resultList;
-    }
-
-    /**
-     * Remove a particular flashcard from the tag based on the flashcard ID.
-     *
-     * @param id the ID of the flashcard to be removed.
-     */
-    public void deleteFlashcard(ID id) {
-        ArrayList<Flashcard> newList = new ArrayList<>();
-        newList.addAll(cardList);
-        for (Flashcard item: newList) {
-            if (item.getId() == id.getId()) { // there are two different getId() and ID stored as int
-                newList.remove(item);
-            }
-        }
-        this.cardList = newList;
+    public Tag(String name) {
+        this.name = name;
+        cardList = new HashSet<>();
     }
 
     /**
@@ -52,10 +29,31 @@ public class Tag {
      * @param c the flashcard to be added.
      */
     public void addFlashcard(Flashcard c) {
-        ArrayList<Flashcard> newList = new ArrayList<>();
-        newList.addAll(cardList);
-        newList.add(c);
-        this.cardList = newList;
+        cardList.add(c);
+    }
+
+    /**
+     * Give a list of all the flashcards under this tag.
+     *
+     * @return a list of all flashcards.
+     */
+    public HashSet<Flashcard> getFlashCards() {
+        return cardList;
+    }
+
+
+    /**
+     * Remove a particular flashcard from the tag based on the flashcard ID.
+     *
+     * @param id the ID of the flashcard to be removed.
+     */
+    public void deleteFlashcard(CardId id) {
+        for (Flashcard item: cardList) {
+            if (item.getId().getIdentityNumber() == id.getIdentityNumber()) { // there are two different getId() and ID stored as int
+                cardList.remove(item);
+                break;
+            }
+        }
     }
 
     /**
@@ -83,17 +81,17 @@ public class Tag {
      * @return whether the flashcard exists.
      */
     public boolean contains(Flashcard c) {
-        boolean isContain = false;
-        for (Flashcard item: cardList) {
-            if (item.equals(c)) {
-                isContain = true;
-            }
-        }
-        return isContain;
+        return cardList.contains(c);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     /**
      * Check if two tags are equivalent to each other.
+     * Two tags are the same if and only if their names are the same.
      *
      * @param other the other tag to be tested.
      * @return a boolean variable that informs whether the two tags are the same.
@@ -103,14 +101,15 @@ public class Tag {
         if (other == this) {
             return true;
         }
-
         if (!(other instanceof Tag)) {
             return false;
         }
-
         Tag otherTag = (Tag) other;
-        return otherTag.getName().equals(getName())
-                && otherTag.getFlashCards().equals(getFlashcards());
+        return otherTag.getName().equals(getName());
     }
 
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

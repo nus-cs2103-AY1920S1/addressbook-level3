@@ -1,20 +1,22 @@
 package seedu.address.flashcard;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *  A class for managing flashcard tagged sets.
  */
 public class TagManager {
-    private ArrayList<Tag> allTags;
+
+    private HashSet<Tag> allTags;
 
     /**
      * Constructor for TagManager.
      *
-     * @param _allTags a list of all the tagged sets.
+     * @param allTags a list of all the tagged sets.
      */
-    public TagManager(ArrayList<Tag> _allTags) {
-        this.allTags = _allTags;
+    public TagManager(HashSet<Tag> allTags) {
+        this.allTags = allTags;
     }
 
     /**
@@ -23,8 +25,8 @@ public class TagManager {
      * @param keyword the user input keyword for searching.
      * @return a list of all relevant tags.
      */
-    public ArrayList<Tag> findTag(String keyword) {
-        ArrayList<Tag> resultList = new ArrayList<>();
+    public HashSet<Tag> findTag(String keyword) {
+        HashSet<Tag> resultList = new HashSet<>();
         for (Tag item : allTags) {
             if (item.getName().contains(keyword)) {
                 resultList.add(item);
@@ -38,10 +40,8 @@ public class TagManager {
      *
      * @return a list of all the tags.
      */
-    public ArrayList<Tag> getTags() {
-        ArrayList<Tag> resultList = new ArrayList<>();
-        resultList.addAll(allTags);
-        return resultList;
+    public HashSet<Tag> getTags() {
+        return allTags;
     }
 
     /**
@@ -51,6 +51,8 @@ public class TagManager {
      * @param newName the new tag name.
      */
     public void setTagName(String tagName, String newName) {
+
+
         Tag cur = null;
         for (Tag item : allTags) {
             if (item.getName().equals(tagName)) {
@@ -66,11 +68,7 @@ public class TagManager {
      * @param name name of the new tag.
      */
     public void addTag(String name) {
-        Tag t = new Tag(name);
-        ArrayList<Tag> newTags = new ArrayList<>();
-        newTags.addAll(allTags);
-        newTags.add(t);
-        this.allTags = newTags;
+        allTags.add(new Tag(name));
     }
 
     /**
@@ -79,14 +77,7 @@ public class TagManager {
      * @param name the name of tag that is to be deleted.
      */
     public void deleteTag(String name) {
-        ArrayList<Tag> newTags = new ArrayList<>();
-        newTags.addAll(allTags);
-        for (Tag item : allTags) {
-            if (item.getName().equals(name)) {
-                newTags.remove(item);
-            }
-        }
-        this.allTags = newTags;
+        allTags.remove(new Tag(name));
     }
 
     /**
@@ -96,12 +87,6 @@ public class TagManager {
      * @return a boolean variable that informs either true or false
      */
     public boolean contains(String name) {
-        boolean isContain = false;
-        for (Tag item : allTags) {
-            if (item.getName().equals(name)) {
-                isContain = true;
-            }
-        }
-        return isContain;
+        return allTags.contains(new Tag(name));
     }
 }

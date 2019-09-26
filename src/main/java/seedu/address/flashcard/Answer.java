@@ -1,7 +1,12 @@
 package seedu.address.flashcard;
 
+/**
+ * Represent the answers of each flashcard
+ */
 public class Answer {
-    String answer;
+
+    public static final String MESSAGE_CONSTRAINTS = "The answer can take in any value, but it should not be empty.";
+    private String answer;
 
     public Answer(String answer) {
         this.answer = answer;
@@ -11,11 +16,21 @@ public class Answer {
         return answer;
     }
 
-    public String setAnswer() {
-        this.answer = answer;
-        return "You've set the answer to " + answer;
+    /**
+     * Modify the answer on the flashcard
+     * @param newAnswer the updated answer of the flashcard
+     * @return The message about resetting the answer
+     */
+    public void setAnswer(String newAnswer) {
+        answer = newAnswer;
     }
 
+    /**
+     * Compare with the user input to check if the answer is correct or not
+     * Only applies to MCQ questions
+     * @param input The answer input by the user
+     * @return true if the answer matches, false otherwise
+     */
     public boolean compareAnswer(String input) {
         return input.equals(this.answer);
     }
@@ -23,5 +38,10 @@ public class Answer {
     @Override
     public String toString() {
         return answer;
+    }
+
+    @Override
+    public int hashCode() {
+        return answer.hashCode();
     }
 }

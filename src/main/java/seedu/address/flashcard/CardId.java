@@ -50,6 +50,6 @@ public class CardId {
 
     @Override
     public int hashCode() {
-        return identityNumber;
+        return Integer.hashCode(identityNumber);
     }
 }

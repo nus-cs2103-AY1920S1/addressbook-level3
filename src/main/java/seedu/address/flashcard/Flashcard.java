@@ -1,12 +1,30 @@
 package seedu.address.flashcard;
 
+import java.util.HashSet;
+
+/**
+ * A flashcard must contain the following components
+ * 1. Question on the card
+ * 2. Answer on the card
+ * 3. A unique card ID to recognize itself to other cards
+ * 4. A score class to record how many correct and wrong answers from the user
+ * 5. A list of tags
+ */
 public abstract class Flashcard {
 
-    Question question;
-    Answer answer;
-    Score score;
-    Id id;
-    FlashcardTagList tags;
+    private Question question;
+    private Answer answer;
+    private Score score;
+    private CardId id;
+    private HashSet<Tag> tags;
+
+    /**
+     * Question and Answer must be specified.
+     */
+    public Flashcard(Question question, Answer answer) {
+        this.question = question;
+        this.answer = answer;
+    }
 
     public Question getQuestion() {
         return question;
@@ -20,17 +38,16 @@ public abstract class Flashcard {
         return score;
     }
 
-    public Id getId() {
+    public CardId getId() {
         return id;
     }
 
-    public FlashcardTagList getTags() {
+    public HashSet<Tag> getTags() {
         return tags;
     }
 
-    public String addTag(Tag t) {
-        tags.addTag(t);
-        return "You've successfully added a tag.";
+    public void addTag(Tag t) {
+        tags.add(t);
     }
 
     public String deleteTag(Tag t) {
@@ -55,7 +72,10 @@ public abstract class Flashcard {
     @Override
     public String toString() {
         return String.format("Question: %s, id: %d", this.getQuestion(), this.Id.getId());
-
     }
 
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
