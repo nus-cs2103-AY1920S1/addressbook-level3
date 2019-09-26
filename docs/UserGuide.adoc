@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`contact`**`n/John Doe hp/98765432` : adds a contact named `John Doe` to SplitWiser.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -55,7 +55,7 @@ There is no need to save manually - you don't have to worry about forgetting to 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact n/CONTACT_NAME`, `CONTACT_NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/ACTIVITY_NAME [p/PERSON_1]` can be used as `n/Drinks p/John Doe` or as `n/Drinks`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* NOT SURE ABOUT THIS ONE Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* (UNCONFIRMED, expense adding requires pairs of {p/ e/}) Parameters can be in any order e.g. if the command specifies `n/NAME hp/PHONE_NUMBER`, `hp/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -84,11 +84,31 @@ Creates a new activity with a name, contacts (optional) and no expenses. +
 
 The user creating that activity will be included automatically, and additional contacts can be specified - any contact not in the contact list will prompt the user for creation. Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called). +
 
-Format: `activity n/ACTIVITY_NAME [p/PERSON_1 ...]`
+Format: `activity n/ACTIVITY_NAME [p/PERSON ...]`
 
 Examples:
 
 * `activity n/Chalet p/John Doe`
+
+=== Add contacts to an activity: `invite`
+
+Adds a contact to an activity. Multiple contacts can be added at once.
+
+Format: `invite p/PERSON ...`
+
+Examples:
+
+* `invite p/John Doe p/Mary` adds John Doe and Mary to the current activity
+
+=== Remove contacts from an activity: `disinvite`
+
+Removes a contact from an activity. Multiple contacts can be removed at once. If a contact is involved in an expense, he/she cannot be deleted.
+
+Format: `disinvite p/PERSON ...`
+
+Examples:
+
+* `disinvite p/John Doe p/Mary` removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.
 
 === Add expenses to an activity : `expense`
 
@@ -96,17 +116,17 @@ Creates a new expense with a contact, amount and optional description, and adds 
 
 Multiple expenses can be added at once.
 
-Format: `expense n/CONTACT_NAME e/AMOUNT_PAID ... [d/DESCRIPTION]`
+Format: `expense p/PERSON e/AMOUNT_PAID ... [d/DESCRIPTION]`
 
 ****
 * At least one expense must be provided.
-* Expenses must be entered in pairs of `n/CONTACT_NAME` followed by `e/AMOUNT_PAID`
+* Expenses must be entered in pairs of `p/PERSON` followed by `e/AMOUNT_PAID`
 ****
 
 Examples:
 
-* `expense n/John Doe e/100` adds an expense of $100 by John Doe into the currently viewed activity
-* `expense n/Mary e/100 n/Joseph e/40 d/Drinks` Adds 2 expenses ($100 by Mary and $40 by Joseph), both named `Drinks`. If no activity is currently viewed, an activity titled `Drinks` will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.
+* `expense p/John Doe e/100` adds an expense of $100 by John Doe into the currently viewed activity. If John Doe is not in the current activity, no expense will be created.
+* `expense p/Mary e/100 p/Joseph e/40 d/Drinks` Adds 2 expenses ($100 by Mary and $40 by Joseph), both named `Drinks`. If no activity is currently viewed, an activity titled `Drinks` will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.
 
 === List all contacts or activities : `list`
 
@@ -134,7 +154,7 @@ Format: `edit [n/NAME] [hp/PHONE] ...` for contacts OR `edit [n/ACTIVITY_NAME] .
 ****
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Expenses in activities cannot be edited.
+* Expenses cannot be edited.
 ****
 
 Examples:
@@ -168,7 +188,7 @@ Returns any contact or activity having names `Betsy`, `Tim`, or `John`
 
 Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action. +
 If viewing a contact instead, the contact will be deleted. +
-If viewing an activity instead, it will delete an expense by index. Not specifying any index will result in the current activity being deleted. +
+If viewing an activity instead, it will delete an expense* by index. Not specifying any index will result in the current activity being deleted. +
 
 Multiple entries can be deleted.
 
@@ -178,6 +198,7 @@ Format: `delete [INDEX] ...`
 * Deletes the entry at the specified `INDEX`.
 * The index refers to the index number shown in the displayed contact or activity or expense list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* *Expenses cannot be completely deleted. It will instead be struck off (but still visible) in the activity view, and moved to the bottom of the list.
 ****
 
 Examples:
