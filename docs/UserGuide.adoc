@@ -206,7 +206,7 @@ Examples: +
 
 === Redoing The Previously Undone Command: `redo`
 Reverses the most recent undo command. +
-Format: redo +
+Format: `redo` +
 
 Examples:
 
@@ -228,7 +228,7 @@ Format: `graph`
 
 === Clear All Data: `clear`
 Clears all entries from the application. +
-Format: clear
+Format: `clear`
 
 
 === Exiting the program : `exit`
