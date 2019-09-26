@@ -22,6 +22,7 @@ import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.testutil.PersonBuilder;
 
 public class AddStudentCommandTest {
@@ -160,6 +161,17 @@ public class AddStudentCommandTest {
         @Override
         public void addModule(Module module) {
             // todo: Implement test for addModule
+        }
+
+        @Override
+        public boolean hasTutorial(Tutorial tutorial) {
+            // todo: Implement test for hasTutorial
+            return false;
+        }
+
+        @Override
+        public void addTutorial(Tutorial tutorial) {
+            // todo: Implement test for addTutorial
         }
     }
 
