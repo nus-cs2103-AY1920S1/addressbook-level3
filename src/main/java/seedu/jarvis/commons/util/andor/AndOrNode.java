@@ -1,7 +1,13 @@
 package seedu.jarvis.commons.util.andor;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static seedu.jarvis.commons.util.andor.AndOrOperation.AND;
+import static seedu.jarvis.commons.util.andor.AndOrOperation.OR;
+import static seedu.jarvis.commons.util.andor.AndOrOperation.LEAF;
 
 /**
  * A utility class representing a Node in this And-Or Tree.
@@ -14,21 +20,32 @@ class AndOrNode<T> {
     private AndOrNode parent;
     private List<AndOrNode> children;
 
-    AndOrNode(T data, AndOrOperation type, AndOrNode parent, List<AndOrNode> children) {
+    AndOrNode(T data, String type, AndOrNode parent, List<AndOrNode> children) {
         this.data = data;
-        this.type = type;
+        this.type = resolveType(type);
         this.parent = parent;
         this.children = children;
     }
 
-    AndOrNode(T data, AndOrOperation type) {
+    AndOrNode(T data, String type, AndOrNode parent) {
         this.data = data;
-        this.type = type;
-        this.parent = null;
+        this.type = resolveType(type);
+        this.parent = parent;
         this.children = new ArrayList<>();
     }
 
-     void insert(AndOrNode node) {
+    AndOrOperation resolveType(String type) {
+        switch (type) {
+            case "and":
+                return AND;
+            case "or":
+                return OR;
+            default:
+                return LEAF;
+        }
+    }
+
+    void insert(AndOrNode node) {
         this.children.add(node);
     }
 
@@ -36,12 +53,16 @@ class AndOrNode<T> {
          return this.data;
     }
 
+    List<AndOrNode> getChildren() {
+        return this.children;
+    }
+
     AndOrNode getParent() {
          return this.parent;
     }
 
     @Override
-     String toString() {
-        return String.format("{%s: %s}", type, children.toString());
+    public String toString() {
+        return String.format("{%s: %s}", type, data);
     }
 }
