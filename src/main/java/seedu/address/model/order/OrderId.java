@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents an Order's ID in SML.
+ * Represents an Order's ID in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidOrderId(String)}
  */
 public class OrderId {
 
     public static final String MESSAGE_CONSTRAINTS = "Order ID can take any unique values, and it should not be blank";
 
-    public static final String VALIDATION_REGEX = "[^\\s].*"; //TO CHANGE
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String id;
 
@@ -26,7 +26,6 @@ public class OrderId {
         id = orderId;
     }
 
-    //To change VALIDATION_REGEX
     /**
      * Returns true if a given string is a valid order ID.
      */

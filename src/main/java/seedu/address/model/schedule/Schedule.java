@@ -2,9 +2,13 @@ package seedu.address.model.schedule;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.model.order.Order;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Schedule, with the Order, Date, Time and Location of the meetup.
@@ -18,15 +22,17 @@ public class Schedule {
     // Data fields
     private final DateTime dateTime;
     private final Venue venue;
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Schedule(Order order, DateTime dateTime, Venue venue) {
-        requireAllNonNull(order, dateTime, venue);
+    public Schedule(Order order, DateTime dateTime, Venue venue, Set<Tag> tags) {
+        requireAllNonNull(order, dateTime, venue, tags);
         this.order = order;
         this.dateTime = dateTime;
         this.venue = venue;
+        this.tags.addAll(tags);
     }
 
     public Order getOrder() {
@@ -42,7 +48,15 @@ public class Schedule {
     }
 
     /**
-     * Returns true if both schedules have the same order.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns true if both schedules have the identity field.
      * This defines a weaker notion of equality between two schedules.
      */
     public boolean isSameSchedule(Schedule otherSchedule) {
@@ -55,7 +69,7 @@ public class Schedule {
     }
 
     /**
-     * Returns true if both persons have the same order and data fields.
+     * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two schedules.
      */
     @Override
@@ -71,13 +85,14 @@ public class Schedule {
         Schedule otherSchedule = (Schedule) other;
         return otherSchedule.getOrder().equals(getOrder())
                 && otherSchedule.getDateTime().equals(getDateTime())
-                && otherSchedule.getVenue().equals(getVenue());
+                && otherSchedule.getVenue().equals(getVenue())
+                && otherSchedule.getTags().equals((getTags()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(order, dateTime, venue);
+        return Objects.hash(order, dateTime, venue, tags);
     }
 
     @Override
@@ -88,7 +103,9 @@ public class Schedule {
                 .append(" Date and Time: ")
                 .append(getDateTime())
                 .append(" Venue: ")
-                .append(getVenue());
+                .append(getVenue())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 }

@@ -6,14 +6,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.Date;
 
 /**
- * Represents a schedule's date in SML.
+ * Represents a schedule's date in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}
  */
 public class DateTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "DateTime can take any valid date and time, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "DateTime can take any valid date and time";
 
-    public static final String VALIDATION_REGEX = "[^\\s].*"; //TO CHANGE
+    public static final String VALIDATION_REGEX = "[^\\s].*"; 
 
     public final Date dateTime;
 
@@ -28,7 +28,6 @@ public class DateTime {
         this.dateTime = dateTime;
     }
 
-    //To change VALIDATION_REGEX
     /**
      * Returns true if a given string is a valid order ID.
      */

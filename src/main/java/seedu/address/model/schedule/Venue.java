@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a schedule's venue in SML.
+ * Represents a schedule's venue in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidVenue(String)}
  */
 public class Venue {
 
     public static final String MESSAGE_CONSTRAINTS = "Venue can take any string, and it should not be blank";
 
-    public static final String VALIDATION_REGEX = "[^\\s].*"; //TO CHANGE
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String venue;
 
@@ -26,7 +26,6 @@ public class Venue {
         this.venue = venue;
     }
 
-    //To change VALIDATION_REGEX
     /**
      * Returns true if a given string is a valid location.
      */
