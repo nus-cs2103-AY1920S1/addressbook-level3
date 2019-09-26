@@ -13,21 +13,21 @@ import seedu.bookmark.model.person.Person;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class BookmarkListPanel extends UiPart<Region> {
+    private static final String FXML = "BookmarkListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(BookmarkListPanel.class);
 
     @FXML
     private ListView<Person> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public BookmarkListPanel(ObservableList<Person> personList) {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code BookmarkCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
         @Override
@@ -38,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new BookmarkCard(person, getIndex() + 1).getRoot());
             }
         }
     }
