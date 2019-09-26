@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -24,8 +28,6 @@ import seedu.address.testutil.EditItemDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String INPUT_SEPARATOR = "|";
-
     public static final String VALID_NAME_KIWI = "Kiwi";
     public static final String VALID_NAME_APPLE = "Apple";
     public static final String VALID_NAME_BANANA = "Banana";
@@ -40,25 +42,29 @@ public class CommandTestUtil {
     public static final String VALID_TAG_DRINK = "drink";
     public static final String VALID_TAG_GREEN = "green";
 
-    public static final String NAME_DESC_KIWI = VALID_NAME_KIWI;
-    public static final String NAME_DESC_APPLE = VALID_NAME_APPLE;
-    public static final String NAME_DESC_BANANA = VALID_NAME_BANANA;
-    public static final String NAME_DESC_MILK = VALID_NAME_MILK;
+    public static final String NAME_DESC_KIWI = " " + PREFIX_NAME + VALID_NAME_KIWI;
+    public static final String NAME_DESC_APPLE = " " + PREFIX_NAME + VALID_NAME_APPLE;
+    public static final String NAME_DESC_BANANA = " " + PREFIX_NAME + VALID_NAME_BANANA;
+    public static final String NAME_DESC_MILK = " " + PREFIX_NAME + VALID_NAME_MILK;
 
-    public static final String EXPIRY_DATE_DESC_KIWI = VALID_EXPIRY_DATE_KIWI;
-    public static final String EXPIRY_DATE_DESC_APPLE = VALID_EXPIRY_DATE_APPLE;
-    public static final String EXPIRY_DATE_DESC_BANANA = VALID_EXPIRY_DATE_BANANA;
-    public static final String EXPIRY_DATE_DESC_MILK = VALID_EXPIRY_DATE_MILK;
-    public static final String TAG_DESC_FRUIT = VALID_TAG_FRUIT;
-    public static final String TAG_DESC_DRINK = VALID_TAG_DRINK;
-    public static final String TAG_DESC_GREEN = VALID_TAG_GREEN;
+    public static final String EXPIRY_DATE_DESC_KIWI = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_KIWI;
+    public static final String EXPIRY_DATE_DESC_APPLE = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_APPLE;
+    public static final String EXPIRY_DATE_DESC_BANANA = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BANANA;
+    public static final String EXPIRY_DATE_DESC_MILK = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_MILK;
+    public static final String TAG_DESC_FRUIT = " " + PREFIX_TAG + VALID_TAG_FRUIT;
+    public static final String TAG_DESC_DRINK = " " + PREFIX_TAG + VALID_TAG_DRINK;
+    public static final String TAG_DESC_GREEN = " " + PREFIX_TAG + VALID_TAG_GREEN;
 
-    public static final String INVALID_NAME_DESC = "James&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_EXPIRY_DATE_DESC = ""; // '&' not allowed in names
-    public static final String INVALID_TAG_DESC = "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + ""; // '&' not allowed in names
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String INVALID_NAME = "James&";
+    public static final String INVALID_EXPIRY_DATE = "";
+    public static final String INVALID_TAG = "hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

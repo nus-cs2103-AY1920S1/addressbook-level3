@@ -3,8 +3,7 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_KIWI;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_KIWI;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalItems.KIWI;
 
@@ -78,7 +77,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + "|" + NAME_DESC_KIWI + "|" + EXPIRY_DATE_DESC_KIWI;
+        String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI;
         Item expectedPerson = new ItemBuilder(KIWI).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addItem(expectedPerson);
