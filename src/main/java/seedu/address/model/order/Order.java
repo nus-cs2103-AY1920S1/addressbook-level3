@@ -26,7 +26,7 @@ public class Order {
         this.customer = customer;
         this.phone = phone;
         this.orderId = orderId;
-        // ENUM STATUS
+        orderStatus = OrderStatus.UNSCHEDULED;
     }
 
     public Customer getCustomer() {
@@ -55,7 +55,7 @@ public class Order {
         }
 
         return otherOrder != null
-                && otherOrder.orderId().equals(orderId());
+                && otherOrder.getOrderId().equals(getOrderId());
     }
 
     /**
