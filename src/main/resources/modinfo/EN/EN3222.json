@@ -1,8 +1,8 @@
 {
+    "courseCode": "EN3222",
+    "courseCredit": "4",
     "description": "This module looks at the emergence of the novel, at its experiments with form, and at its characteristic modes of representation. It concentrates, in particular, on such matters as the restrictions and opportunities of the genre: on the practicalities of sustaining a long fiction in prose; how different writers meet the various challenges of plot, episode, characterisation and style; and on the emergence of a distinct sense of the individual.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EN3222",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

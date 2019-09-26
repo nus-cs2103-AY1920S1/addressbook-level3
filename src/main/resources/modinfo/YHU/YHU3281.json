@@ -1,8 +1,8 @@
 {
+    "courseCode": "YHU3281",
+    "courseCredit": "5",
     "description": "During the nineteenth century, England produced many important women novelists. Perhaps for the first time in history, women achieved parity with men in their contributions to a significant literary genre. In this coursee, we will consider the galling restrictions on form and content with which female novelists had to contend and how they dealt with those restrictions. We will examine what women novelists had to say about gender, including the contemporary ideologies of 'separate spheres' and 'the angel in the house'; about colonialism and industrialization; about social class; about sexuality; and about religious faith and religious doubt.",
     "faculty": "Yale-NUS College",
-    "moduleCode": "YHU3281",
-    "moduleCredit": "5",
     "preclusion": "NUS module EN4226",
     "prereqTree": {
         "and": [

@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "UIS3941",
+    "courseCredit": "4",
     "description": "",
     "faculty": "NUS Business School",
-    "moduleCode": "UIS3941",
-    "moduleCredit": "4",
     "title": "Independent Study Module"
 }

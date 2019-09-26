@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "ID1101",
+    "courseCredit": "9",
     "description": "",
     "faculty": "Design and Environment",
-    "moduleCode": "ID1101",
-    "moduleCredit": "9",
     "title": "Design 01 - Basic Design"
 }

@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6404",
+    "courseCredit": "6",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6404",
-    "moduleCredit": "6",
     "title": "Musculoskeletal Rotation"
 }

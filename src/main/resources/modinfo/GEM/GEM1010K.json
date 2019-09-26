@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "GEM1010K",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Design and Environment",
-    "moduleCode": "GEM1010K",
-    "moduleCredit": "4",
     "title": "Property Management"
 }

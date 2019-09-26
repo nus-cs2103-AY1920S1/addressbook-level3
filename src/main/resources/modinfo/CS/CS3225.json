@@ -1,8 +1,8 @@
 {
+    "courseCode": "CS3225",
+    "courseCredit": "4",
     "description": "After the complete sequencing of a number of genomes, we are in the stage to understand the mystery of our body, that is, we need to understand the information encoded in the genome and its relationship with RNA and protein. This aim of this module is to cover algorithms related to this stage. In the module, we will cover the algorithms related to genome annotation, motif identification, proteomics, population genetics, microarray, etc.",
     "faculty": "Computing",
-    "moduleCode": "CS3225",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

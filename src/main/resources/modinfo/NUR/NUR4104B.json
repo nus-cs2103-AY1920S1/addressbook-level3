@@ -3,10 +3,10 @@
         "fyp": true,
         "year": true
     },
+    "courseCode": "NUR4104B",
+    "courseCredit": "14",
     "description": "In this module, the student draws together the clinical experiences, theoretical knowledge and research skills gained through the programme to conduct a supervised research project. The student will design a research project (protocol), apply for ethical approval, and undertake a clinically focused research project under the supervision of an academic staff member and a clinical advisor. The student will undertake a clinically focussed, six month research project under the supervision of an academic staff member and clinical advisor.",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "NUR4104B",
-    "moduleCredit": "14",
     "preclusion": "NUR4104",
     "prereqTree": {
         "and": [

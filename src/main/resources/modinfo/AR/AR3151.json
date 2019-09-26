@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "AR3151",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Design and Environment",
-    "moduleCode": "AR3151",
-    "moduleCredit": "4",
     "title": "Design - ISM"
 }

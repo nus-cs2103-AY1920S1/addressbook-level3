@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MUA2111",
+    "courseCredit": "1",
     "description": "An introduction to the solo and chamber literature for keyboard instruments from the early eighteenth century through the Classical period.",
     "faculty": "YST Conservatory of Music",
-    "moduleCode": "MUA2111",
-    "moduleCredit": "1",
     "title": "Keyboard Literature I"
 }

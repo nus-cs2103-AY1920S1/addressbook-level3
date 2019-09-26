@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "UIS4924",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "UIS4924",
-    "moduleCredit": "4",
     "title": "Independent Study Module"
 }

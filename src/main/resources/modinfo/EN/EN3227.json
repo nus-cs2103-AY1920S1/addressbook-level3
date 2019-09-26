@@ -1,8 +1,8 @@
 {
+    "courseCode": "EN3227",
+    "courseCredit": "4",
     "description": "This module will look at 'Romanticism' as it manifests in English and European literature. The set of texts and supplementary readings are intended to provide the student with an introduction to the socio-historical background to the Romantic period and to some of the tropes and ideas that may be said to form the nucleus of the term 'Romanticism'; for example, feeling, liberty, the inner life, the overreacher, revolution, the relationship to the past, the relationship between the city and the country, etc. To complement the texts being taught, the contributions of the other arts (painting, music), will also be discussed.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EN3227",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

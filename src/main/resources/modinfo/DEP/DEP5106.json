@@ -1,8 +1,8 @@
 {
+    "courseCode": "DEP5106",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Design and Environment",
-    "moduleCode": "DEP5106",
-    "moduleCredit": "8",
     "prereqTree": {
         "or": [
             "UP5101",

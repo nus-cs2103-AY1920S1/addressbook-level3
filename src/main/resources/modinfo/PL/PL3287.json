@@ -1,8 +1,8 @@
 {
+    "courseCode": "PL3287",
+    "courseCredit": "4",
     "description": "This module provides the foundation training in the use of major research skills and techniques in clinical and abnormal psychology. Students will have opportunities to observe and conduct research in clinical settings. This module is particularly relevant for psychology major students who are interested in pursuing a postgraduate research or professional training program in clinical psychology.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "PL3287",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "PL1101E",

@@ -1,12 +1,12 @@
 {
+    "courseCode": "PR2289",
+    "courseCredit": "4",
     "description": "Please see section 4.4.3. Target students: Pharmacy Year Two or Year Three and Science",
     "faculty": "Science",
     "fulfillRequirements": [
         "PR3288",
         "PR3289"
     ],
-    "moduleCode": "PR2289",
-    "moduleCredit": "4",
     "prereqTree": "PR1110",
     "title": "Basic UROPS in Pharmacy II"
 }

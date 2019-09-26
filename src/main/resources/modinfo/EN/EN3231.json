@@ -1,8 +1,8 @@
 {
+    "courseCode": "EN3231",
+    "courseCredit": "4",
     "description": "This module examines selected texts of 19th century American writing through Reconstruction; it examines typical aspects of American character/imagination, and it trains students to read literary texts closely and to express their understanding of texts both in class discussion and in writing. The module is aimed at undergraduate English majors, but cross-faculty students who enjoy literature are welcome.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EN3231",
-    "moduleCredit": "4",
     "preclusion": "AS3231",
     "prereqTree": {
         "and": [

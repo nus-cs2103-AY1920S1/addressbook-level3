@@ -2,9 +2,9 @@
     "attributes": {
         "lab": true
     },
+    "courseCode": "SH5204",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "SH5204",
-    "moduleCredit": "4",
     "title": "Safety Engineering"
 }

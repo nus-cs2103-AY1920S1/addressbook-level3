@@ -1,8 +1,8 @@
 {
+    "courseCode": "EN3223",
+    "courseCredit": "4",
     "description": "The module will cover selected poetic and prose writings from the Victorian period, an age that witnessed the nineteenth century's most historically important developments. Students will be directed to study literary and other cultural works with the historical context in mind.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EN3223",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

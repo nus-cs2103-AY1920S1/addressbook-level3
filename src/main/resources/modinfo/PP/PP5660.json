@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "PP5660",
+    "courseCredit": "4",
     "description": "",
     "faculty": "LKY School of Public Policy",
-    "moduleCode": "PP5660",
-    "moduleCredit": "4",
     "title": "Independent Study Module"
 }

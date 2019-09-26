@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6204",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6204",
-    "moduleCredit": "8",
     "title": "Paediatrics Clerkship"
 }

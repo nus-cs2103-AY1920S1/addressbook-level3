@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MA1505",
+    "courseCredit": "4",
     "description": "Refer to link at http://ww1.math.nus.edu.sg/undergrad.aspx?file=stu-modules",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -51,8 +53,6 @@
         "ST2131",
         "IT3011"
     ],
-    "moduleCode": "MA1505",
-    "moduleCredit": "4",
     "preclusion": "Students reading a primary major in Mathematics/Applied Mathematics/Quantitative Finance/Data Science and Analytics, MA1102R, MA1312, MA1507, MA1511, MA1521, MA2311, MA2501",
     "title": "Mathematics I"
 }

@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6225B",
+    "courseCredit": "2",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6225B",
-    "moduleCredit": "2",
     "title": "Basic Radiology"
 }

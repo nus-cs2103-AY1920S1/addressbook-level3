@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6264B",
+    "courseCredit": "2",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6264B",
-    "moduleCredit": "2",
     "title": "Infectious Disease"
 }

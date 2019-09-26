@@ -2,10 +2,10 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "CE5203",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "CE5203",
-    "moduleCredit": "4",
     "prereqTree": "CE3121",
     "title": "Traffic Flow & Control"
 }

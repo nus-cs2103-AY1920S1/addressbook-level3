@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6267D",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6267D",
-    "moduleCredit": "4",
     "title": "Medical Oncology"
 }

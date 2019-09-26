@@ -1,11 +1,11 @@
 {
+    "courseCode": "PC2193",
+    "courseCredit": "4",
     "description": "This module provides a comprehensive training of both experimental and analytical skills in mechanics, thermal physics, electronics, magnetism, nuclear physics, semiconductors, optics and lasers. In particular, emphasis is placed on the measurement skill that will be required in the industries of semiconductors, optical communications and life sciences. While this module is mainly targeted at physics majors, it is also suitable for science and engineering students who are interested in a career in the above-mentioned industries.",
     "faculty": "Science",
     "fulfillRequirements": [
         "PC3193"
     ],
-    "moduleCode": "PC2193",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "PC1141",

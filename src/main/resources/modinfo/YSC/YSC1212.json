@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "YSC1212",
+    "courseCredit": "5",
     "description": "Computer science has improved human life dramatically in the last 50 years. This course explains how computational tasks are solved and computers are programmed. You will learn how to be a more careful and methodical thinker. Moreover, millions of people around the world enjoy programming and you can too!",
     "faculty": "Yale-NUS College",
     "fulfillRequirements": [
@@ -16,8 +18,6 @@
         "YSC2244",
         "YSC3248"
     ],
-    "moduleCode": "YSC1212",
-    "moduleCredit": "5",
     "prereqTree": "YCC1122",
     "title": "Introduction to Computer Science"
 }

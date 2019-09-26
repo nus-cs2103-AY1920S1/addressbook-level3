@@ -3,9 +3,9 @@
         "fyp": true,
         "year": true
     },
+    "courseCode": "XFE4401",
+    "courseCredit": "16",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "XFE4401",
-    "moduleCredit": "16",
     "title": "Integrated Honours Project"
 }

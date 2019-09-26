@@ -1,8 +1,8 @@
 {
+    "courseCode": "ST2288",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "ST2288",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "ST1131",

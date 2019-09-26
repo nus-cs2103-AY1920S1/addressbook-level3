@@ -1,8 +1,8 @@
 {
+    "courseCode": "PR2115A",
+    "courseCredit": "4",
     "description": "This module provides the basic principles of drug design, with the emphasis on the relationship between structure, physicochemical properties and the molecular basis of drug action.",
     "faculty": "Science",
-    "moduleCode": "PR2115A",
-    "moduleCredit": "4",
     "preclusion": "PR2115",
     "prereqTree": {
         "or": [

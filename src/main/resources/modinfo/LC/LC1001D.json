@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "LC1001D",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Law",
-    "moduleCode": "LC1001D",
-    "moduleCredit": "8",
     "title": "Criminal Law (D)"
 }

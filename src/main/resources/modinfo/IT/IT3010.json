@@ -1,4 +1,6 @@
 {
+    "courseCode": "IT3010",
+    "courseCredit": "4",
     "description": "This module is highly applied in nature with two important database topics, namely, traditional relational databases and SQL as well as non-traditional databases and NoSQL queries, to students outside School of Computing. Students are expected to know basic programming using Python.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -8,8 +10,6 @@
         "IS4241",
         "IS3221"
     ],
-    "moduleCode": "IT3010",
-    "moduleCredit": "4",
     "preclusion": "BT2102 and CS2102",
     "prereqTree": {
         "or": [

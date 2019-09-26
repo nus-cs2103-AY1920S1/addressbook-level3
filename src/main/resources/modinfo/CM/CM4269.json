@@ -1,8 +1,8 @@
 {
+    "courseCode": "CM4269",
+    "courseCredit": "4",
     "description": "The module covers: (i) introduction: origin, current status and future of green chemistry; (ii) concept of sustainability; (iii) environmental fate of chemicals; (iv) metrics for environmental risk evaluation of chemicals; (v) elements of green chemistry; (vi) energy balance in chemical reactions and separation processes; (vii) selectivity and yield improvements in chemical processes via statistical methods; (viii)fundamentals of industrial waste treatment; (ix) environmental consequences of burning fossil fuels for generation of energy; (x) renewable sources of fuels and chemical feedstocks; (xi) energy future beyond carbon; and (xii) advanced green chemistry techniques and process intensification",
     "faculty": "Science",
-    "moduleCode": "CM4269",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "CM1121",

@@ -2,10 +2,10 @@
     "attributes": {
         "urop": true
     },
+    "courseCode": "LSM2288",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "LSM2288",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "LSM1102",

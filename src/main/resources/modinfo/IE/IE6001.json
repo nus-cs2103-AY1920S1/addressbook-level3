@@ -2,14 +2,14 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "IE6001",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
     "fulfillRequirements": [
         "BDC6302",
         "MA5268"
     ],
-    "moduleCode": "IE6001",
-    "moduleCredit": "4",
     "preclusion": "BDC6111 Foundations of Optimization",
     "title": "Foundations of Optimization"
 }

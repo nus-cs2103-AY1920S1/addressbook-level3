@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "SP1630",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "SP1630",
-    "moduleCredit": "4",
     "title": "Science Research Programme Advanced Placement"
 }

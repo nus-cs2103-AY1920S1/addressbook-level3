@@ -1,8 +1,8 @@
 {
+    "courseCode": "AUD5216",
+    "courseCredit": "3",
     "description": "This module provides an advanced knowledge about the assessment and management of central vestibular disorders, neuro-otological disorders due to migraine and the psychological problems of dizzy patient. This module also describes various rehabilitative management options for patients with vestibular disorders.",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "AUD5216",
-    "moduleCredit": "3",
     "prereqTree": {
         "or": [
             "AUD5102",

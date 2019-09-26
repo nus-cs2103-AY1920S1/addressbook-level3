@@ -1,8 +1,8 @@
 {
+    "courseCode": "QF5210A",
+    "courseCredit": "4",
     "description": "The module provides both the relevant time series concepts and their financial applications. Potential application of financial time series models include modelling equity returns, volatility estimations, Value at Risk modelling an option valuation. This module targetshonous students in the Quantitative Finance Programme and students in the Master of Science in Quantitative Finance Programme.",
     "faculty": "Science",
-    "moduleCode": "QF5210A",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "QF3101",

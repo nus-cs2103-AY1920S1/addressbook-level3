@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6104",
+    "courseCredit": "18",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6104",
-    "moduleCredit": "18",
     "title": "Body & Disease"
 }

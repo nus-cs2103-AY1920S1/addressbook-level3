@@ -1,8 +1,8 @@
 {
+    "courseCode": "PL5221R",
+    "courseCredit": "5",
     "description": "",
     "faculty": "Arts and Social Science",
-    "moduleCode": "PL5221R",
-    "moduleCredit": "5",
     "preclusion": "PL5102/PL6102",
     "prereqTree": {
         "and": [

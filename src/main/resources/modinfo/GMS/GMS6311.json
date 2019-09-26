@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6311",
+    "courseCredit": "17",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6311",
-    "moduleCredit": "17",
     "title": "Research/Scholarship (Part 1)"
 }

@@ -1,8 +1,8 @@
 {
+    "courseCode": "LSM4212",
+    "courseCredit": "4",
     "description": "This module will examine the scientific bases for all aspects of human variability in clinical responses to drugs and other xenobiotics. The course will provide both the theoretical and technical know-how to conduct and interpret simple studies relating to intraindividual, interindividual as well as interpopulational differences in drug responses.",
     "faculty": "Science",
-    "moduleCode": "LSM4212",
-    "moduleCredit": "4",
     "prereqTree": "LSM3211",
     "title": "Pharmacogenetics and Drug Responses"
 }

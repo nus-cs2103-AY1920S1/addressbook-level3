@@ -1,4 +1,6 @@
 {
+    "courseCode": "CS2106",
+    "courseCredit": "4",
     "description": "This module introduces the basic concepts in operating systems and links it with contemporary operating systems (eg. Unix/Linux and Windows). It focuses on OS structuring and architecture, processes, memory management, concurrency and file systems. Topics include kernel architecture, system calls, interrupts, models of processes, process abstraction and services, scheduling, review of physical memory and memory management hardware, kernel memory management, virtual memory and paging, caches, working set, deadlock, mutual exclusion, synchronisation mechanisms, data and metadata in file systems, directories and structure, file system abstraction and operations, OS protection mechanisms, and user authentication.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -15,8 +17,6 @@
         "CS4344",
         "CS4223"
     ],
-    "moduleCode": "CS2106",
-    "moduleCredit": "4",
     "preclusion": "CG2271 or EE4214. CEG students are not allowed to take this module.",
     "prereqTree": {
         "or": [

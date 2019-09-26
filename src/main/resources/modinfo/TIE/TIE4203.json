@@ -3,10 +3,10 @@
         "sfs": true,
         "ssgf": true
     },
+    "courseCode": "TIE4203",
+    "courseCredit": "4",
     "description": "This module introduces the fundamental principles and practices for decision modelling and risk analysis in industrial engineering and operations management. It presents a set of analytical methods and tools with which stakeholders can deal with complex and uncertain decision situations leading to clear and defensible actions.",
     "faculty": "Cont and Lifelong Education",
-    "moduleCode": "TIE4203",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "TIE2120",

@@ -1,8 +1,8 @@
 {
+    "courseCode": "EU4214",
+    "courseCredit": "5",
     "description": "This module will explore and introduce different themes in Modern European History such as political changes, political leadership, diplomacy and interstate relations.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EU4214",
-    "moduleCredit": "5",
     "preclusion": "HY4212",
     "title": "Special Paper in Modern European History"
 }

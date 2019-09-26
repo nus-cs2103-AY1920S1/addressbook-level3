@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "UIS3912AX",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Arts and Social Science",
-    "moduleCode": "UIS3912AX",
-    "moduleCredit": "4",
     "title": "Independent Study Module"
 }

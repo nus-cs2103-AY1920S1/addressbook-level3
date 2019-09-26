@@ -3,9 +3,9 @@
         "fyp": true,
         "year": true
     },
+    "courseCode": "ZB4199",
+    "courseCredit": "12",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "ZB4199",
-    "moduleCredit": "12",
     "title": "Honours Project in Computational Biology"
 }

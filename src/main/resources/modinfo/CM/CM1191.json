@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "CM1191",
+    "courseCredit": "4",
     "description": "This is a module designed for chemistry majors and deals with laboratory experiments on selected topics of basic chemistry prinicples with theoretical contents selected from CM1111, CM1121 and CM1131. The experiments are designed to strengthen the students\u2019 understanding of basic organic, inorganic and physical chemistry. Upon completion of the module, students should have learnt some essential laboratory skills and be able to perform basic data processing and write lab reports. In addition to the aforementioned activities, CM1191 will also cover errors in chemical analysis which will be taught during the lectures.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -11,7 +13,5 @@
         "CM2192A",
         "FST2107"
     ],
-    "moduleCode": "CM1191",
-    "moduleCredit": "4",
     "title": "Experiments in Chemistry 1"
 }

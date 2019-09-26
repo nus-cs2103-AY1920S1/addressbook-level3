@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "CSX2994",
+    "courseCredit": "3",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "CSX2994",
-    "moduleCredit": "3",
     "title": "Exchange Breadth Module"
 }

@@ -3,6 +3,8 @@
         "sfs": true,
         "ssgf": true
     },
+    "courseCode": "TIC3001",
+    "courseCredit": "4",
     "description": "This module is a continuation of TIC2001 and explores in greater depth the practices of software requirements analysis and software design. The first part of this module focuses on how to capture, document, and validate the needs of the stake holders as software requirements. The second part focuses on the issues, techniques, strategies, representations, and patterns used to determine how to implement a software. Topics covered include design principles, architectural design, HCI design, and design patterns.",
     "faculty": "Cont and Lifelong Education",
     "fulfillRequirements": [
@@ -10,8 +12,6 @@
         "TIC4001",
         "TIC4002"
     ],
-    "moduleCode": "TIC3001",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "TIC2002",

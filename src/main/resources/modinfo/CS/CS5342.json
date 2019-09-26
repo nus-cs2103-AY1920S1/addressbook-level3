@@ -1,8 +1,8 @@
 {
+    "courseCode": "CS5342",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "CS5342",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "CS4341",

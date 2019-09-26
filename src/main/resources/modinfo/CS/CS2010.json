@@ -1,4 +1,6 @@
 {
+    "courseCode": "CS2010",
+    "courseCredit": "4",
     "description": "This module is the third part of a three-part series on introductory programming and problem solving by computing. It continues the introduction in CS1010 and CS1020, and emphasises object-oriented programming with application to complex data structures. Topics covered include trees, binary search trees, order property, prefix/infix/postfix expressions, heaps, priority queues, graphs and their algorithmic design, recursive algorithms, problem formulation and problem solving with applications of complex data structures, data structure design principles and implementation strategies, and algorithm analysis. Advanced data structures such as B-trees and AVL trees are also covered.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -23,8 +25,6 @@
         "CS4269",
         "BT4015"
     ],
-    "moduleCode": "CS2010",
-    "moduleCredit": "4",
     "preclusion": "CS2020, CS2030, CS2040, CS2040C",
     "prereqTree": {
         "or": [

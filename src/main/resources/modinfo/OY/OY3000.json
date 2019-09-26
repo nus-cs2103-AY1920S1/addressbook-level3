@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "OY3000",
+    "courseCredit": "1",
     "description": "",
     "faculty": "Dentistry",
-    "moduleCode": "OY3000",
-    "moduleCredit": "1",
     "title": "Oral Pathology"
 }

@@ -2,10 +2,10 @@
     "attributes": {
         "urop": true
     },
+    "courseCode": "PC2289",
+    "courseCredit": "4",
     "description": "Please note that only 4MCs can be accredited towards major requirements in case that a student undertakes 8MCs for both PC2288 and PC2289.",
     "faculty": "Science",
-    "moduleCode": "PC2289",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "PC1141",

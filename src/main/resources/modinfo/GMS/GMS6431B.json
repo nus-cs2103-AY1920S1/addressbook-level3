@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6431B",
+    "courseCredit": "2",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6431B",
-    "moduleCredit": "2",
     "title": "Paediatrics (General&Urological) Surgery"
 }

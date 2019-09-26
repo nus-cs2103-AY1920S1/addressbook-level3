@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "CS2006",
+    "courseCredit": "3",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "CS2006",
-    "moduleCredit": "3",
     "title": "Exchange CS Module"
 }

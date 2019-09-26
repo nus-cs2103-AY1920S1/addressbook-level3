@@ -1,8 +1,8 @@
 {
+    "courseCode": "SE5201",
+    "courseCredit": "8",
     "description": "This is a dedicated research module for MA coursework students designed to enable them to complete a research\u2010based thesis.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "SE5201",
-    "moduleCredit": "8",
     "preclusion": "SE5660 Independent Study",
     "title": "Supervised Research Project"
 }

@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MA1506",
+    "courseCredit": "4",
     "description": "Refer to link at http://ww1.math.nus.edu.sg/undergrad.aspx?file=stu-modules",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -54,8 +56,6 @@
         "CS4277",
         "IT3011"
     ],
-    "moduleCode": "MA1506",
-    "moduleCredit": "4",
     "preclusion": "MA1101R, MA1311, MA2312, MA1508, MA2501, EE1461, PC2174, MA1511, MA1512, MA1513, MA1508E",
     "prereqTree": {
         "or": [

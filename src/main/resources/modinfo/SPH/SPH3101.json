@@ -1,8 +1,8 @@
 {
+    "courseCode": "SPH3101",
+    "courseCredit": "4",
     "description": "This module will introduce the entire biostatistical data analysis workflow in public health, from data management to data analysis and the interpretation of results, translating data into reliable and consumable information for knowledge discovery in public health. Particular emphasis on the application of regression models in public health without the mathematical details and the proficiency in using statistical software (SPSS) to perform data analysis, integrating biostatistics, computer applications and public health for improving the health of mankind.",
     "faculty": "SSH School of Public Health",
-    "moduleCode": "SPH3101",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "BN2102",

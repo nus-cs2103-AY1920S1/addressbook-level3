@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MUA2155",
+    "courseCredit": "4",
     "description": "",
     "faculty": "YST Conservatory of Music",
     "fulfillRequirements": [
@@ -10,7 +12,5 @@
         "MUA3242",
         "MUA3243"
     ],
-    "moduleCode": "MUA2155",
-    "moduleCredit": "4",
     "title": "Collaborative Piano Studies"
 }

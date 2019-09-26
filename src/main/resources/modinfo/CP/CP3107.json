@@ -1,8 +1,8 @@
 {
+    "courseCode": "CP3107",
+    "courseCredit": "6",
     "description": "This is a project-based module that provides students with training in software engineering by working on an actual software system that supports a local voluntary welfare organisation. This module is graded on a Completed Satisfactorily/Completed Unsatisfactorily (CS/CU) basis.",
     "faculty": "Computing",
-    "moduleCode": "CP3107",
-    "moduleCredit": "6",
     "prereqTree": {
         "or": [
             "CS2010",

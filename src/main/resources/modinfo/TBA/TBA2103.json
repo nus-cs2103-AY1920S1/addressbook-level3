@@ -4,10 +4,10 @@
         "sfs": true,
         "ssgf": true
     },
+    "courseCode": "TBA2103",
+    "courseCredit": "4",
     "description": "This module aims to provide students with practical knowledge and understanding of basic issues and techniques in data visualisation principles, techniques and tools. The module covers data visualisation and dashboard design concepts, visual perception and design principles, visualisation techniques and tools for temporal and spatial data, proportions and relationships, multivariate and complex data, etc.",
     "faculty": "Cont and Lifelong Education",
-    "moduleCode": "TBA2103",
-    "moduleCredit": "4",
     "prereqTree": "TIC2001",
     "title": "Data Visualisation"
 }

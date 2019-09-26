@@ -1,4 +1,6 @@
 {
+    "courseCode": "PR2134",
+    "courseCredit": "4",
     "description": "Self-care is a continuum of behaviour initiated by a patient to establish and maintain health, prevent and deal with illness. In this module, students will be taught to integrate knowledge of non-prescription medications and non-pharmacological measures to counsel patients on the appropriate options for self-care management.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -9,8 +11,6 @@
         "PR3202",
         "PR4138"
     ],
-    "moduleCode": "PR2134",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "PX2108",

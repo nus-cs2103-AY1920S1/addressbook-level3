@@ -1,11 +1,11 @@
 {
+    "courseCode": "MLE2106",
+    "courseCredit": "4",
     "description": "Overview of crystal structure and bonds; Structures of metallic elements and alloys; Phase formation and development of microstrcutures; Basic processing technologies; Ferrous and non-ferrous metals; General properties and engineering applications: mechanical and functional.",
     "faculty": "Engineering",
     "fulfillRequirements": [
         "MLE4212"
     ],
-    "moduleCode": "MLE2106",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "MLE1101",

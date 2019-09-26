@@ -1,4 +1,6 @@
 {
+    "courseCode": "MLE2105",
+    "courseCredit": "4",
     "description": "Drude model of metal conduction; basic quantum mechanics; wave equations; quantum confinement; Bloch theory and periodic potential in solid; energy band structure; effective mass; Fermi Dirac statistics; Sommerfeld model of metallic conduction; semiconduct or: intrinsic, extrinsic, doping and conductivity; Boltzmann statistics; energy band structure; pn junction; selected examples of current devices and applications",
     "faculty": "Engineering",
     "fulfillRequirements": [
@@ -9,8 +11,6 @@
         "MLE4101",
         "MLE3105"
     ],
-    "moduleCode": "MLE2105",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "MLE1001",

@@ -1,4 +1,6 @@
 {
+    "courseCode": "PL2132",
+    "courseCredit": "4",
     "description": "This module builds on the methodological and statistical base prepared by PL2131. An essential module for psychology major students, it aims to provide knowledge and experience in conducting a psychological study. Methods of data collection in laboratory and field settings are taught alongside commonly-used statistical techniques for data analysis. Students are introduced to issues of design and analysis in factorial experiments and correlational studies. Students also do experiments in class and learn the use of computer statistical packages for data analysis. A group empirical project is required.",
     "faculty": "Arts and Social Science",
     "fulfillRequirements": [
@@ -35,7 +37,5 @@
         "PL3261",
         "PL3289"
     ],
-    "moduleCode": "PL2132",
-    "moduleCredit": "4",
     "title": "Research and Statistical Methods II"
 }

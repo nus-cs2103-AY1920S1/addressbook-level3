@@ -1,8 +1,8 @@
 {
+    "courseCode": "CS5239",
+    "courseCredit": "4",
     "description": "The objective of this module is to provide students a working knowledge of computer performance evaluation and capacity planning. They will be able to identify performance bottlenecks, to predict when performance limits of a system will be exceeded, and to characterise present and future workload to perform capacity planning activities. Topics include: performance analysis overview; measurement techniques and tools including workload characterisation, instrumentation, benchmarking, analytical modelling techniques including operational analysis, stochastic queuing network analysis; performance of client-server architectures; capacity planning; case studies.",
     "faculty": "Computing",
-    "moduleCode": "CS5239",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

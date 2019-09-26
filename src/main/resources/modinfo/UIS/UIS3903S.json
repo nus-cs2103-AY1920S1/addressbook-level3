@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "UIS3903S",
+    "courseCredit": "4",
     "description": "",
     "faculty": "University Scholars Programme",
-    "moduleCode": "UIS3903S",
-    "moduleCredit": "4",
     "title": "Independent Study Module (ST)"
 }

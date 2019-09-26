@@ -2,9 +2,9 @@
     "attributes": {
         "ssgf": true
     },
+    "courseCode": "PR5213",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "PR5213",
-    "moduleCredit": "4",
     "title": "Pharmaceutical Process Validation"
 }

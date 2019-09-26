@@ -1,4 +1,6 @@
 {
+    "courseCode": "BT3102",
+    "courseCredit": "4",
     "description": "Computers are becoming readily accessible, and its use in business analytics is growing more prevalent. This module will introduce students to computational methods, algorithms and techniques used in business fields such as finance, marketing and economics to address complex analytics problems. The course will cover topics and algorithms in areas such as optimization methods, numerical analysis, simulations, monte-carlo methods, graph and flow methods, and computational complexity issues to address business analytics related problems. Students will get the opportunity to learn about these computational methods and issues through hands-on practice assignments, case analysis discussions, and course projects.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -6,8 +8,6 @@
         "BT4012",
         "BT4103"
     ],
-    "moduleCode": "BT3102",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "BT2101",

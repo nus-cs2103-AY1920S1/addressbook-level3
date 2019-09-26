@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "FSE1203",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "FSE1203",
-    "moduleCredit": "4",
     "title": "Practices of Modern Engineering"
 }

@@ -1,8 +1,8 @@
 {
+    "courseCode": "CP3881",
+    "courseCredit": "12",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "CP3881",
-    "moduleCredit": "12",
     "preclusion": "CS3881",
     "title": "Incubation Project"
 }

@@ -1,4 +1,6 @@
 {
+    "courseCode": "ACC3706",
+    "courseCredit": "4",
     "description": "The module covers corporate governance from a multidisciplinary perspective including law, finance, accounting and economics. The module covers enterprise risk management in terms of the Integrated Framework issued by the Committee of Sponsoring Organizations of the Treadway Commission (COSO).",
     "faculty": "NUS Business School",
     "fulfillRequirements": [
@@ -7,8 +9,6 @@
         "ACC4761F",
         "ACC4761G"
     ],
-    "moduleCode": "ACC3706",
-    "moduleCredit": "4",
     "preclusion": "ACC3616",
     "prereqTree": {
         "and": [

@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "UIS4932",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "UIS4932",
-    "moduleCredit": "4",
     "title": "Independent Study Module"
 }

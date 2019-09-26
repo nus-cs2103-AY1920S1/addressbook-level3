@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6105",
+    "courseCredit": "6",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6105",
-    "moduleCredit": "6",
     "title": "Fundamentals of Clinical Practice"
 }

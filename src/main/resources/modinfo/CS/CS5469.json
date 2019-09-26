@@ -1,8 +1,8 @@
 {
+    "courseCode": "CS5469",
+    "courseCredit": "4",
     "description": "Logic is often called the \"calculus of computer science\" due to the central role played by logic in computer science akin to the role played by calculus in physics and engineering. This module will formally introduce and prove some of the fundamental results in logic to provide students with a rigorous introduction of syntax, semantics, decision procedures, and complexity of propositional and first-order logic. The course will be taught from a computer science perspective with particular emphasis on algorithmic and computational complexity components.",
     "faculty": "Computing",
-    "moduleCode": "CS5469",
-    "moduleCredit": "4",
     "preclusion": "CS4269",
     "prereqTree": {
         "and": [

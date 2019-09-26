@@ -1,8 +1,8 @@
 {
+    "courseCode": "PS5111R",
+    "courseCredit": "5",
     "description": "",
     "faculty": "Arts and Social Science",
-    "moduleCode": "PS5111R",
-    "moduleCredit": "5",
     "preclusion": "PS5101, PS6101",
     "title": "Research Design in Political Science"
 }

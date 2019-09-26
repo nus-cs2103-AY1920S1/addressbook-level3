@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "GEK1000",
+    "courseCredit": "4",
     "description": "Human beings are 'tale-telling animals'. We all tell stories, and we all listen to them, read them and watch them. This module looks at the ways in which people tell stories, the kinds of stories they tell, and the meanings those stories generate. It focuses, in particular, upon the telling, and gives special attention to questions concerned with that. Texts include a novel, a play, films, short stories, poems and oral tales.",
     "faculty": "Arts and Social Science",
     "fulfillRequirements": [
@@ -51,8 +53,6 @@
         "EN3251",
         "EN3252"
     ],
-    "moduleCode": "GEK1000",
-    "moduleCredit": "4",
     "preclusion": "EN1101E. Students who are majoring in EN, or intend to major in EN should not take GEK1000.",
     "title": "An Introduction to Literary Studies"
 }

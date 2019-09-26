@@ -1,10 +1,10 @@
 {
+    "courseCode": "ME6105",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
     "fulfillRequirements": [
         "ME6107"
     ],
-    "moduleCode": "ME6105",
-    "moduleCredit": "4",
     "title": "Continuum Mechanics"
 }

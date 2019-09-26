@@ -1,4 +1,6 @@
 {
+    "courseCode": "MLE2101",
+    "courseCredit": "4",
     "description": "Overview: symmetry, bonding, coordination number, packing fraction, order and disorder; Noncrystalline state: short-range order (SRO), pair distribution function, random walk, network and fractal models; Crystalline state: basic crystallography and structures, reciprocal lattice, quasicrystals, liquid crystalline state; Crystal vibrations, Brillouin zone; free electron model, energy bands; Structural effects on phase transformation; Fourier series.",
     "faculty": "Engineering",
     "fulfillRequirements": [
@@ -12,7 +14,5 @@
         "MLE2105",
         "MLE2104"
     ],
-    "moduleCode": "MLE2101",
-    "moduleCredit": "4",
     "title": "Introduction to Structure of Materials"
 }

@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "MD5171",
+    "courseCredit": "1",
     "description": "",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "MD5171",
-    "moduleCredit": "1",
     "title": "Urop"
 }

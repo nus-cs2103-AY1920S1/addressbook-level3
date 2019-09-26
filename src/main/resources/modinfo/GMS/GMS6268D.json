@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6268D",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6268D",
-    "moduleCredit": "4",
     "title": "Clinical Cardiology"
 }

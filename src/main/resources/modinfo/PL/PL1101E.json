@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "PL1101E",
+    "courseCredit": "4",
     "description": "This module introduces psychology as an empirical, behavioural science. The aim is to provide students with a broad overview of the different fields in psychology. The emphasis of the course is two-fold: first, so that students appreciate the diversity and richness of the psychology discipline; second, to acquaint students with the important principles, theories, concepts and findings in psychology. Topics covered include the biological bases of behaviours, developmental psychology, social psychology, cognitive psychology, and abnormal psychology.",
     "faculty": "Arts and Social Science",
     "fulfillRequirements": [
@@ -48,7 +50,5 @@
         "PL3260",
         "PL3289"
     ],
-    "moduleCode": "PL1101E",
-    "moduleCredit": "4",
     "title": "Introduction to Psychology"
 }

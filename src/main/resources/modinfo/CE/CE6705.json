@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "CE6705",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "CE6705",
-    "moduleCredit": "4",
     "title": "Analysis & Design of Buildings Against Hazards"
 }

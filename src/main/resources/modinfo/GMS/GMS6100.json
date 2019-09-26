@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6100",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6100",
-    "moduleCredit": "4",
     "title": "C.A.R.E. 1: Joining the Medical Profession"
 }

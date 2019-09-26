@@ -1,4 +1,6 @@
 {
+    "courseCode": "MLE3101",
+    "courseCredit": "3",
     "description": "Optical Microscopy; Scattering, diffraction and absorption of X-ray and electron; Braggs law, lattice parameter, peak profile analysis, grain size and strain analyses, diffraction of powder, thin film and single crystal, structure of biomolecules; Electron microscopy: SEM; TEM; Scanning probe microscopy: AFM, MFM, STM.",
     "faculty": "Engineering",
     "fulfillRequirements": [
@@ -7,8 +9,6 @@
         "MLE4201",
         "MLE4101"
     ],
-    "moduleCode": "MLE3101",
-    "moduleCredit": "3",
     "prereqTree": {
         "or": [
             "MLE1101",

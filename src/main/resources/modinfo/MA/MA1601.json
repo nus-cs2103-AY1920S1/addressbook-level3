@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MA1601",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "MA1601",
-    "moduleCredit": "4",
     "title": "Mathematics Advanced Placement"
 }

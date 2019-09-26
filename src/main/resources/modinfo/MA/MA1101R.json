@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MA1101R",
+    "courseCredit": "4",
     "description": "This module is a first course in linear algebra. Fundamental concepts of linear algebra will be introduced and investigated in the context of the Euclidean spaces R^n. Proofs of results will be presented in the concrete setting. Students are expected to acquire computational facilities and geometric intuition with regard to vectors and matrices. Some applications will be presented. Major topics: Systems of linear equations, matrices, determinants, Euclidean spaces, linear combinations and linear span, subspaces, linear independence, bases and dimension, rank of a matrix, inner products, eigenvalues and eigenvectors, diagonalization, linear transformations between Euclidean spaces, applications.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -50,8 +52,6 @@
         "CS4277",
         "IT3011"
     ],
-    "moduleCode": "MA1101R",
-    "moduleCredit": "4",
     "preclusion": "EG1401, EG1402, MA1101, MA1311, MA1506, MA1508, FOE students",
     "title": "Linear Algebra I"
 }

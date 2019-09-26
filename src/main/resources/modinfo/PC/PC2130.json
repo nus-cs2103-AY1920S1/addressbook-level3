@@ -1,4 +1,6 @@
 {
+    "courseCode": "PC2130",
+    "courseCredit": "4",
     "description": "This module provides a rigorous introduction to quantum mechanics. It covers the following list of topics: Description of quantum systems: Hilbert space; observables, eigenfunctions, the statistical interpretation, the uncertainty relations; pure and mixed states using 'density matrices' and the Dirac notation. Two-level systems are discussed as an example, considering Stern-Gerlach interferometer. Then the Schr\u00f6dinger equation and stationary states are discussed, using the free particle, the square well, barriers and the harmonic oscillator as examples. Furthermore, problems in three dimensions are discussed: spin and orbital angular momentum; the Schr\u00f6dinger equation in spherical coordinates; the hydrogen atom and the addition of angular momenta",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -9,8 +11,6 @@
         "PC3130",
         "QT5101"
     ],
-    "moduleCode": "PC2130",
-    "moduleCredit": "4",
     "preclusion": "Students who have passed PC2130B are not allowed to take this module.",
     "prereqTree": {
         "and": [

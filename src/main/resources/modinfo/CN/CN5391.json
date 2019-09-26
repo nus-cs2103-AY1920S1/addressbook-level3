@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "CN5391",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "CN5391",
-    "moduleCredit": "4",
     "title": "Selected Topics in Advanced Chemical Engineering I"
 }

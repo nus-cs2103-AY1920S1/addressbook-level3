@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6297",
+    "courseCredit": "2",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6297",
-    "moduleCredit": "2",
     "title": "Musculoskeletal Year 2 Program"
 }

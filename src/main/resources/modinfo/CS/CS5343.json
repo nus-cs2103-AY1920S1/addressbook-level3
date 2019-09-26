@@ -1,8 +1,8 @@
 {
+    "courseCode": "CS5343",
+    "courseCredit": "4",
     "description": "From the covert digital water in Titanic to the mixed real and virtual actors in Avatar, from the arm-controllable Wii games to the completely full-body-play Xbox Kinect games, computer animation technologies have advanced significantly during the past decades, both in the movie and the game industries. This module reveals all the exciting behind-the-scene techniques that make these movies and games possible, including but not limited to motion capture, fluid animation, facial animation, and fullbody character animation. This is a project-based course that aims to provide strong foundation on advanced computer animation methods and prepare students for research in animation.",
     "faculty": "Computing",
-    "moduleCode": "CS5343",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

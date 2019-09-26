@@ -2,10 +2,10 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "NUR1120",
+    "courseCredit": "4",
     "description": "Providing a holistic framework for contemporary nursing practice, the module encourages students to use critical thinking and problem solving skills to apply knowledge and skills of comprehensive health assessment to diverse clinical situations.",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "NUR1120",
-    "moduleCredit": "4",
     "preclusion": "NUR2115 Comprehensive Health Assessment is precluded.",
     "title": "Comprehensive Health Assessment"
 }

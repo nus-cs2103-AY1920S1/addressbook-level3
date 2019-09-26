@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "LSM1601",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "LSM1601",
-    "moduleCredit": "4",
     "title": "Biology Advanced Placement"
 }

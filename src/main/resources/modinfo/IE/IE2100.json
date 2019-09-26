@@ -1,4 +1,6 @@
 {
+    "courseCode": "IE2100",
+    "courseCredit": "4",
     "description": "The module builds upon the foundation in ST2131 and stresses on applications of stochastic modeling. Topics include: Review of exponential distribution; Conditional probability and conditional expectation; discrete time Markov chains; Poisson process; Basic queuing models and continuous time Markov chains and Renewal Theory. Students will eventually be conversant with the properties of these models and appreciate their roles in engineering applications.",
     "faculty": "Engineering",
     "fulfillRequirements": [
@@ -11,8 +13,6 @@
         "IE3100M",
         "IE3110R"
     ],
-    "moduleCode": "IE2100",
-    "moduleCredit": "4",
     "preclusion": "DBA3711",
     "prereqTree": {
         "or": [

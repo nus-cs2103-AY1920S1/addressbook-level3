@@ -2,9 +2,9 @@
     "attributes": {
         "lab": true
     },
+    "courseCode": "SH5107",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "SH5107",
-    "moduleCredit": "4",
     "title": "Industrial Ventilation"
 }

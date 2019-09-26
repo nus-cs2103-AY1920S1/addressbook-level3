@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MA1512",
+    "courseCredit": "2",
     "description": "This is a seven-week module specially designed for students majoring in Engineering. It introduces the basic concepts in differential equations with applications in engineering. Major topics: First order ordinary differential equations and applications. Second order ordinary differential equations and applications. Partial differential equations and applications. Laplace transforms and applications.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -23,8 +25,6 @@
         "IT3011",
         "EE2211"
     ],
-    "moduleCode": "MA1512",
-    "moduleCredit": "2",
     "preclusion": "MA1506, MA1507, EE1461, PC2134, PC2174 (2-way preclusion)",
     "title": "Differential Equations for Engineering"
 }

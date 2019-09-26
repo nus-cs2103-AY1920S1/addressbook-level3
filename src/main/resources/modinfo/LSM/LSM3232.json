@@ -1,4 +1,6 @@
 {
+    "courseCode": "LSM3232",
+    "courseCredit": "4",
     "description": "Principles of Microbiology, with emphasis on the properties, functions and classification of the major classes of microorganisms, especially bacteria, fungi and viruses. Understanding microbial activities and their influence on microbial diseases, industrial applications, ecology, food and water quality.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -7,8 +9,6 @@
         "FST5202",
         "FST5203"
     ],
-    "moduleCode": "LSM3232",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "LSM2211",

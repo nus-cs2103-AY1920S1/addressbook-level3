@@ -3,10 +3,10 @@
         "fyp": true,
         "year": true
     },
+    "courseCode": "CP4101",
+    "courseCredit": "12",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "CP4101",
-    "moduleCredit": "12",
     "preclusion": "CS4101",
     "title": "B.Comp. Dissertation"
 }

@@ -3,10 +3,10 @@
         "fyp": true,
         "year": true
     },
+    "courseCode": "CN4118E",
+    "courseCredit": "10",
     "description": "The module involves an assignment of a research project and safety education. Equipment training will be provided if required. Students need to spend at least eight-hours per week on the project under the guidance of the project supervisor and/or co-supervisor. A thesis is required at the end of the project, including literature survey, materials and method, results and discussion, and suggestions for further study. An oral presentation is also required. This module is targeted at all level 4 engineering students.",
     "faculty": "Cont and Lifelong Education",
-    "moduleCode": "CN4118E",
-    "moduleCredit": "10",
     "preclusion": "TC4118, CN4119E, TCN4119",
     "prereqTree": {
         "and": [

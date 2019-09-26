@@ -1,8 +1,8 @@
 {
+    "courseCode": "PR4197",
+    "courseCredit": "6",
     "description": "The 12 week programme provides an opportunity for pharmacy undergraduates to undertake experiential learning in work environments and situations of different pharmacy practice sectors.",
     "faculty": "Science",
-    "moduleCode": "PR4197",
-    "moduleCredit": "6",
     "prereqTree": {
         "and": [
             "PR2134",

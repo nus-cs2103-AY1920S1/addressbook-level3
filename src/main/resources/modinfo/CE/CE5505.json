@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "CE5505",
+    "courseCredit": "4",
     "description": "PLASTIC ANALYSIS OF STRUCTURES",
     "faculty": "Engineering",
-    "moduleCode": "CE5505",
-    "moduleCredit": "4",
     "title": "Plastic Analysis of Structures"
 }

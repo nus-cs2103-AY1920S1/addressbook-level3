@@ -1,4 +1,6 @@
 {
+    "courseCode": "LC3001A",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Law",
     "fulfillRequirements": [
@@ -9,7 +11,5 @@
         "LL4353",
         "LL4353V"
     ],
-    "moduleCode": "LC3001A",
-    "moduleCredit": "8",
     "title": "Evidence (A)"
 }

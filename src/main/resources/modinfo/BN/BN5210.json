@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "BN5210",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "BN5210",
-    "moduleCredit": "4",
     "title": "Biosensors and Biochips"
 }

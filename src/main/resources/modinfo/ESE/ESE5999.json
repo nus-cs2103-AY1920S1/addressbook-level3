@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "ESE5999",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "ESE5999",
-    "moduleCredit": "4",
     "title": "Graduate Seminars"
 }

@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "PP2106A",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "PP2106A",
-    "moduleCredit": "4",
     "title": "Pharmacology I"
 }

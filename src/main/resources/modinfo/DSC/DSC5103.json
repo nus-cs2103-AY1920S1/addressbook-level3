@@ -1,4 +1,6 @@
 {
+    "courseCode": "DSC5103",
+    "courseCredit": "4",
     "description": "",
     "faculty": "NUS Business School",
     "fulfillRequirements": [
@@ -6,7 +8,5 @@
         "BT5126",
         "BT5152"
     ],
-    "moduleCode": "DSC5103",
-    "moduleCredit": "4",
     "title": "Statistics"
 }

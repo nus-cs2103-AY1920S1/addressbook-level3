@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "MDG5102",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "MDG5102",
-    "moduleCredit": "4",
     "title": "Techniques in Biomedical Research"
 }

@@ -1,8 +1,8 @@
 {
+    "courseCode": "TS2880",
+    "courseCredit": "4",
     "description": "This module is designed to cover selected topics in Theatre and Performance Studies. The topic to be covered will depend on the interest and expertise of regular or visiting staff members in the department.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "TS2880",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "TS1101E",

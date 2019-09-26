@@ -1,4 +1,6 @@
 {
+    "courseCode": "CS2030",
+    "courseCredit": "4",
     "description": "This module is a follow up to CS1010. It explores two modern programming paradigms, object-oriented programming and functional programming. Through a series of integrated assignments, students will learn to develop medium-scale software programs in the order of thousands of lines of code and tens of classes using objectoriented design principles and advanced programming constructs available in the two paradigms. Topics include objects and classes, composition, association, inheritance, interface, polymorphism, abstract classes, dynamic binding, lambda expression, effect-free programming, first class functions, closures, continuations, monad, etc.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -25,8 +27,6 @@
         "IS2102",
         "IS2103"
     ],
-    "moduleCode": "CS2030",
-    "moduleCredit": "4",
     "preclusion": "CS1020 or its equivalent",
     "prereqTree": "CS1010",
     "title": "Programming Methodology II"

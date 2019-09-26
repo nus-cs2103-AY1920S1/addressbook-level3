@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "IE6005",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "IE6005",
-    "moduleCredit": "4",
     "title": "Stochastic Models and Optimization"
 }

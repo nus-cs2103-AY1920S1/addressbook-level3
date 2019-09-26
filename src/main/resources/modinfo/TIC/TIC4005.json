@@ -1,8 +1,8 @@
 {
+    "courseCode": "TIC4005",
+    "courseCredit": "4",
     "description": "This module provides a broad introduction to software engineering approaches specific to building a parallel/distributed software system. Such systems are challenging since they are concurrent, prone to components failure, and non-deterministic. This module begins by introducing students to the basics of concurrent and parallel programming, as well as common middleware and tools for building distributed systems. It then covers how behaviours and challenges specific to distributed and parallel software can be considered as part of the software engineering processes (including requirements, design, and testing).",
     "faculty": "Cont and Lifelong Education",
-    "moduleCode": "TIC4005",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "TIC3001",

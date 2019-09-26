@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "IE5506",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "IE5506",
-    "moduleCredit": "4",
     "title": "Computer-Based Decision Systems"
 }

@@ -1,8 +1,8 @@
 {
+    "courseCode": "YHU2296",
+    "courseCredit": "5",
     "description": "This course conducts a deep reading of four major world epics of antiquity: Homer\u2019s Iliad and Odyssey; Valmiki\u2019s Ramayana, and Vergil\u2019s Aeneid. How is epic constructed, and what makes this poetic form an effective medium to explore questions of mortality and human existence? What do these four epics have in common as literature, and how do they interact transculturally? We will explore the epics as aesthetic and cultural artifacts within their own historical contexts, and consider how they transcend their own chronological periods.",
     "faculty": "Yale-NUS College",
-    "moduleCode": "YHU2296",
-    "moduleCredit": "5",
     "prereqTree": {
         "and": [
             "YCC1111",

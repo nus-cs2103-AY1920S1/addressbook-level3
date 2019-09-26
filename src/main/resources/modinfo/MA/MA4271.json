@@ -1,8 +1,8 @@
 {
+    "courseCode": "MA4271",
+    "courseCredit": "4",
     "description": "Students of this module will learn how to apply their knowledge in advanced calculus and linear algebra to the study of the geometry of smooth curves and surfaces in the three dimensional Euclidean space. Major topics: theory of smooth space curves, differentiable structures on a smooth surface, local theory of the geometry of smooth surfaces, the first and second fundamental form, Guass map, parallel transport, geodesics, global properties of surfaces: triangulation, Euler number and orientation, global Gauss-Bonnet formula and its applications.",
     "faculty": "Science",
-    "moduleCode": "MA4271",
-    "moduleCredit": "4",
     "preclusion": "MA3215",
     "prereqTree": {
         "and": [

@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "MDG5205",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "MDG5205",
-    "moduleCredit": "4",
     "title": "Neuroscience"
 }

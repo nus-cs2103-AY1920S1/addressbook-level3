@@ -4,6 +4,8 @@
         "ssgf": true,
         "su": true
     },
+    "courseCode": "ACC1701X",
+    "courseCredit": "4",
     "description": "The course provides an introduction to accounting from a user perspective. Financial reporting is covered from the viewpoint of an external investor. The focus is on how accounting can help investors make better decisions. Book-keeping and preparation of financial statements are also covered at an introductory level, as investors need to be aware of how the financial statements are derived.",
     "faculty": "NUS Business School",
     "fulfillRequirements": [
@@ -18,8 +20,6 @@
         "FIN4713",
         "FIN2704X"
     ],
-    "moduleCode": "ACC1701X",
-    "moduleCredit": "4",
     "preclusion": "ACC1002; ACC1002X",
     "title": "Accounting for Decision Makers"
 }
