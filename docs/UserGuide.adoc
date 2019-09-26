@@ -1,4 +1,4 @@
-= FinPlanner - User Guide
+= FinSec - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,8 +18,8 @@ By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-FinPlanner is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a CLI app.
-The app focuses on the tracking of claims that will help the While FinPlanner has a Graphical User Interface (GUI), its main form of input is Command Line Interface (CLI) based, thus favoring people who can type fast. Starting using it now and enjoy!
+FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a CLI app.
+The app focuses on the tracking of claims that will help the While FinSec has a Graphical User Interface (GUI), its main form of input is Command Line Interface (CLI) based, thus favoring people who can type fast. Starting using it now and enjoy!
 
 
 == Quick Start
@@ -35,8 +35,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
