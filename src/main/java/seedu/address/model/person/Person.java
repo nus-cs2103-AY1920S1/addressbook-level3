@@ -119,22 +119,24 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both persons of the same IDs
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
             return true;
+        } else if (otherPerson == null) {
+            return false;
+        } else if (otherPerson.getPersonId().equals(this.getPersonId())) {
+            return true;
+        } else {
+            return false;
         }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Can have different IDs
      */
     @Override
     public boolean equals(Object other) {
@@ -147,12 +149,11 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getPersonId().equals(getPersonId())
-                && otherPerson.getName().equals(getName())
+        return  otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags())
+                //&& otherPerson.getTags().equals(getTags())
                 && otherPerson.getRemark().equals(getRemark());
     }
 
@@ -173,6 +174,7 @@ public class Person {
 
     /**
      * Prints of all details of a person.
+     *
      * @return String
      */
     public String details() {

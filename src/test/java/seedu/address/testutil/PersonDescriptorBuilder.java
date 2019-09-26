@@ -26,20 +26,18 @@ public class PersonDescriptorBuilder {
         descriptor.setName(new Name(DEFAULT_NAME));
     }
 
-    public PersonDescriptorBuilder(PersonDescriptor descriptor) {
-        this.descriptor = descriptor;
+    public PersonDescriptorBuilder(Person person){
+        this.descriptor = new PersonDescriptor();
+        this.descriptor.setName(person.getName());
+        this.descriptor.setPhone(person.getPhone());
+        this.descriptor.setEmail(person.getEmail());
+        this.descriptor.setAddress(person.getAddress());
+        this.descriptor.setTags(person.getTags());
+        this.descriptor.setRemark(person.getRemark());
     }
 
-    /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
-     */
-    public PersonDescriptorBuilder(Person person) {
-        descriptor = new PersonDescriptor();
-        descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
-        descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
-        descriptor.setTags(person.getTags());
+    public PersonDescriptorBuilder(PersonDescriptor descriptor) {
+        this.descriptor = descriptor;
     }
 
     /**

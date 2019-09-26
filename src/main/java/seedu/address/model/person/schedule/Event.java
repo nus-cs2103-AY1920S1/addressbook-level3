@@ -23,15 +23,25 @@ public class Event {
      * Adds a timeslot to the Event.
      * @param timeslots to be added
      */
-    public void addTimeslot(ArrayList<Timeslot> timeslots) {
+    public boolean addTimeslot(ArrayList<Timeslot> timeslots) {
+        if(timeslots == null){
+            return false;
+        }
+
         int i;
         for (i = 0; i < timeslots.size(); i++) {
             this.timeslots.add(timeslots.get(i));
         }
+        return true;
     }
 
-    public void addTimeslot(Timeslot timeslot) {
-        this.timeslots.add(timeslot);
+    public boolean addTimeslot(Timeslot timeslot) {
+        if(timeslot == null){
+            return false;
+        } else {
+            this.timeslots.add(timeslot);
+            return true;
+        }
     }
 
     /**
@@ -46,5 +56,31 @@ public class Event {
             output += "    " + timeslots.get(i).toString() + "\n";
         }
         return output;
+    }
+
+    public ArrayList<Timeslot> getTimeslots(){
+        return this.timeslots;
+    }
+
+    public String getEventName(){
+        return this.eventName;
+    }
+
+    public boolean equals(Event otherEvent){
+        if(otherEvent == null){
+            return false;
+        } else if (!eventName.equals(otherEvent.getEventName())){
+            return false;
+        } else if(otherEvent.getTimeslots().size() != timeslots.size()){
+            return false;
+        } else {
+            int i;
+            for(i = 0; i < timeslots.size(); i++){
+                if(!timeslots.get(i).equals(otherEvent.getTimeslots().get(i))){
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

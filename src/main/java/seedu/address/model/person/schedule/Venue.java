@@ -12,6 +12,17 @@ public class Venue {
         this.coordinates = null;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Venue)){
+            return false;
+        } else if (((Venue) obj).getVenue().equals(venue)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String toString() {
         return venue;
     }

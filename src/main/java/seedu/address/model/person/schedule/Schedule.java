@@ -34,4 +34,8 @@ public class Schedule {
         output += "\n";
         return output;
     }
+
+    public ArrayList<Event> getEvents(){
+        return this.events;
+    }
 }

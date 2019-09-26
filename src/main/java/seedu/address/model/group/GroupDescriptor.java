@@ -12,6 +12,11 @@ public class GroupDescriptor {
         this.groupRemark = null;
     }
 
+    public GroupDescriptor(GroupName groupName, GroupRemark groupRemark){
+        this.groupName = groupName;
+        this.groupRemark = groupRemark;
+    }
+
     /**
      * Checks if any field has been edited.
      * @return boolean
