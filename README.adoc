@@ -1,13 +1,12 @@
 = DukeCooks
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-Put build status of travis here?
-Put appveyor build status here?
-Put coverall build status here?
+https://travis-ci.org/AY1920S1-CS2103T-T10-2/main[image:https://travis-ci.org/AY1920S1-CS2103T-T10-2/main.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
+
 
 This is a lifestyle application. It's designed for health-conscious individuals with the preference of using *Command Line Interface (CLI)*.
 You'll be able to manage various aspects of your life, such as your diet, health and exercise regime.
