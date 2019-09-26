@@ -1,4 +1,10 @@
-= Address Book (Level 3)
+:toc: macro
+:toc-title:
+:toclevels: 9
+
+# Splitwiser
+toc::[]
+
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/AY1920S1-CS2103T-W11-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-W11-2/main"]
@@ -11,22 +17,32 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+## About
 
-== Site Map
+Ever did group activities where everyone paid different amounts, and it became so troublesome and confusing to figure out how to redistribute costs evenly? Fret no more because with SplitWiser is here! SplitWiser is a free tool for friends and roommates to track bills and other shared expenses, so that everyone gets paid back, and everyone is happy. 
+
+## Features
+
+* It just werks!
+* Aggregate and simplify debts between a group of friends!
+* Track your monthly expenses!
+* Add contacts and notes so you know you owe and who owes you!
+
+## Helpful Links
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
-== Acknowledgements
+## Acknowledgements
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
-== Licence : link:LICENSE[MIT]
+## Licence
+link:LICENSE[MIT]
+
+## Donate
+You can donate to us by emailing us a picture of your credit card.
