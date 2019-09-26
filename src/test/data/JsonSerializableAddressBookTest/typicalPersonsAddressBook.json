@@ -29,21 +29,18 @@
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
-    "remark": "",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
-    "remark": "",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
-    "remark": "",
     "tagged" : [ ]
   } ]
 }
