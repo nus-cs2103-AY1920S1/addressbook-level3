@@ -69,7 +69,7 @@ public class Module {
 
 
     /**
-     * Returns true if both modules have the same name
+     * Returns true if both modules have the same code.
      *
      */
     public boolean isSameModule(Module otherModule) {
