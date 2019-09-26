@@ -4,53 +4,58 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+MoneyGoWhere was morphed from AddressBook - Level 3, which was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Benedict Pak Hong Jun
+image::nanosync.png[width="150", align="left"]
+{empty} [https://github.com/Nanosync[github]]
 
-Role: Project Advisor
+*Role*: Team Lead
 
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+*Responsibilities*: IntelliJ/Git Expert
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Austin Santoso
+image::austinsantoso.png[width="150", align="left"]
+{empty}[https://github.com/austinsantoso[github]]
 
-Role: Developer +
-Responsibilities: Data
+*Role*: Developer
 
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+*Responsibilities*: Code Quality
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Choong Yong Xin
+image::choongyx.png[width="150", align="left"]
+{empty}[https://github.com/choongyx[github]]
 
-Role: Developer +
-Responsibilities: UI
+*Role*: Developer
+
+*Responsibilities*: Documentation
+
+'''
+
+=== Jonathan Tjendana
+image::jonathantjendana.png[width="150", align="left"]
+{empty}[https://github.com/jonathantjendana[github]]
+
+*Role*: Developer
+
+*Responsibilities*: Integration, Scheduling and Tracking, JavaFX expert
+
+'''
+
+=== Min Pyae Moe
+image::minpyaemoe.png[width="150", align="left"]
+{empty}[https://github.com/minpyaemoe[github]]
+
+*Role*: Developer
+
+*Responsibilities*: Testing, Deliverables and Deadlines
 
 '''
