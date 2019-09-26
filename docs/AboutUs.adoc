@@ -60,5 +60,3 @@ image::jxofficial.png[width="150", align="left"]
 
 Role: Testing +
 Responsibilities: Storage
-
-'''
