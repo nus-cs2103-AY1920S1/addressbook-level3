@@ -295,28 +295,81 @@ can manage a library system faster than a typical mouse/GUI driven app.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="75%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |librarian |add a book brought/donated by people to the library |keep track of the addition of the book
 
-|`* * *` |user |add a new book |
+|`* * *` |librarian |delete books that are no longer available |keep track of the deletion of the book
 
-|`* * *` |user |delete a book |remove entries that I no longer need
+|`* * *` |helpful librarian |search for certain book by the title/author/genre |help borrowers check if it is
+available
 
-|`* * *` |user |find a book by title |locate details of books without having to go through the entire list
+|`* * *` |forgetful librarian |mark a book as loaned out |tell borrowers if the book is available
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |forgetful librarian |mark a book as returned |let borrowers know that the book will now be available
 
-|`*` |user with many books in the catalog |sort books by title |locate a book easily
+|`* * *` |librarian |generate a list of overdue books and their borrowers |know which borrower has overdue books
+and which books are overdue
+
+|`* * *` |librarian |generate a list of currently loaned / available books |do inventory checks
+
+|`* * *` |meticulous librarian |record the movement of books in and out |keep track of available books here
+
+|`* * *` |helpful librarian |assist a borrower to registering in the system |help new borrowers start borrowing books
+
+|`* * *` |librarian |search for certain book by the author |recommend other books of the same author
+
+|`* * *` |librarian |search for certain book by its genre |recommend other books of the same genre
+
+|`* * *` |meticulous librarian |different physical books to have different serial numbers |distinguish between
+books of the same title
+
+|`* * *` |librarian |set the default loan period, renew period and fine amount |customize the app to
+suit my library's policies
+
+|`* *` |librarian |extend a book’s loan |help borrowers to borrow the book for a longer period
+
+|`* *` |lazy librarian |generate and record the fine of overdue books |keep track of overdue fines incurred by
+borrowers
+
+|`* *` |dutiful librarian |record that a fine is paid |keep track of accounting and prevent duplicate payments
+
+|`* *` |librarian |view details of a book |know more information about the book - author, genre, synopsis, etc
+
+|`* *` |careless librarian |be able to undo a command |undo my input mistakes
+
+|`* *` |careless librarian |be able to redo a command |undo my undo commands, in case I need it, without having to
+type out a possibly lengthy command
+
+|`* *` |health conscious, night-working librarian |change the user interface into a night mode |reduce the impact
+of light and glare on my eyes when I am working at night
+
+|`* *` |impatient librarian |have my command inputs returned within 1 sec |serve my customers quickly
+
+|`* *` |forgetful librarian |look at the help section |be reminded of the commands available
+
+|`* *` |helpful librarian |be able to reserve a currently on-loan book |allow borrowers to borrow the book once it
+is returned
+
+|`* *` |librarian |be able to see an image of the book cover |be reminded of the commands available
+
+|`*` |helpful librarian |be able generate a list of most popular books |recommend books to borrowers
+
+|`*` |helpful librarian |add a borrowers rating to the book |recommend books based on ratings
+
+|`*` |receptive librarian |add a borrower’s review to the book |recommend books based on reviews
+
+|`*` |lazy librarian |be able to auto-complete book title searches |reduce my search time and give me nearby titles when
+I submit a book title query
+
+|`*` |diligent librarian |search for user profiles by name |pull up his donate, borrowing, fine and payment history
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Liberry` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete book
