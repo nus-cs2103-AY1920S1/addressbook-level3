@@ -1,14 +1,9 @@
 package seedu.jarvis.commons.util.andor;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Iterator;
-import java.util.List;
 
 public class AndOrTree<T> {
     private String name;
@@ -17,16 +12,22 @@ public class AndOrTree<T> {
     private AndOrTree(String name, AndOrNode root) {
         this.name = name;
         this.root = root;
-        traverse();
     }
 
-    public static AndOrTree buildTree(String name, String jsonTreeFormat)
-            throws IOException {
+    /**
+     * Returns a new AndOr Tree with the given name, using a tree in json format.
+     *
+     * @param name of the tree
+     * @param jsonTreeFormat
+     * @return a new {@code AndOrTree} built with the given tree format
+     * @throws IOException if an I/O Exception occurs
+     */
+    public static AndOrTree buildTree(String name, String jsonTreeFormat) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(jsonTreeFormat);
+
         // build the root
         AndOrNode newRoot = new AndOrNode<>("CS3244", getKey(node), null);
-        System.out.println(newRoot);
 
         iterateAndBuildTree(node, newRoot);
 
@@ -38,41 +39,28 @@ public class AndOrTree<T> {
     }
 
     /**
-     * Adapted from https://stackoverflow.com/a/48645692.
+     * Helper method to build the tree from a JSON file.
      */
     private static void iterateAndBuildTree(JsonNode node, AndOrNode current) {
-        System.out.println(node);
         AndOrNode newNode;
         if (node.isArray()) {
             for (JsonNode el : node) {
-                // current.insert(new AndOrNode());
                 iterateAndBuildTree(el, current);
             }
         } else if (node.isObject()) {
             newNode = new AndOrNode<>("", getKey(node), current);
             current.insert(newNode);
             node.fields().forEachRemaining(entry -> {
-                // either "and" or "or"
                 iterateAndBuildTree(entry.getValue(), newNode);
             });
         } else {
             newNode = new AndOrNode<>(node.toString(), "leaf", current);
             current.insert(newNode);
-            // leaf
-            // current.insert(new AndOrNode());
         }
     }
 
-    public void traverse() {
-        traverse(root);
-    }
-
-    private void traverse(AndOrNode<T> curr) {
-        System.out.println(curr.getData());
-        System.out.println(curr.getChildren().toString());
-        List<AndOrNode> elements = curr.getChildren();
-        for (AndOrNode el : elements) {
-            traverse(el);
-        }
+    @Override
+    public String toString() {
+        return this.root.toString();
     }
 }

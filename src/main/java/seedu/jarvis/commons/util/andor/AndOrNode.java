@@ -1,13 +1,8 @@
 package seedu.jarvis.commons.util.andor;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import static seedu.jarvis.commons.util.andor.AndOrOperation.AND;
-import static seedu.jarvis.commons.util.andor.AndOrOperation.OR;
-import static seedu.jarvis.commons.util.andor.AndOrOperation.LEAF;
 
 /**
  * A utility class representing a Node in this And-Or Tree.
@@ -22,27 +17,16 @@ class AndOrNode<T> {
 
     AndOrNode(T data, String type, AndOrNode parent, List<AndOrNode> children) {
         this.data = data;
-        this.type = resolveType(type);
+        this.type = AndOrOperationMapper.resolveType(type);
         this.parent = parent;
         this.children = children;
     }
 
     AndOrNode(T data, String type, AndOrNode parent) {
         this.data = data;
-        this.type = resolveType(type);
+        this.type = AndOrOperationMapper.resolveType(type);
         this.parent = parent;
         this.children = new ArrayList<>();
-    }
-
-    AndOrOperation resolveType(String type) {
-        switch (type) {
-            case "and":
-                return AND;
-            case "or":
-                return OR;
-            default:
-                return LEAF;
-        }
     }
 
     void insert(AndOrNode node) {
@@ -50,19 +34,45 @@ class AndOrNode<T> {
     }
 
     T getData() {
-         return this.data;
+        return this.data;
     }
 
-    List<AndOrNode> getChildren() {
-        return this.children;
+    String getDataAsString() {
+        String typeAsString = AndOrOperationMapper.asString(type);
+        return typeAsString == null ? getData().toString() : typeAsString;
     }
 
-    AndOrNode getParent() {
-         return this.parent;
-    }
-
+    /**
+     * @@author ryanYtan-reused
+     * Reused from https://stackoverflow.com/a/8948691 with minor modifications
+     *
+     * @return a String containing the String representation of this {@code AndOrNode} object,
+     * and its sub-trees
+     */
     @Override
     public String toString() {
-        return String.format("{%s: %s}", type, data);
+        StringBuilder buffer = new StringBuilder();
+        asStringTreeForm(buffer, "", "");
+        return buffer.toString();
+    }
+
+    /**
+     * Helper method to get this node plus its sub-trees in String form.
+     *
+     * @@author ryanYtan-reused
+     * Reused from https://stackoverflow.com/a/8948691 with minor modifications
+     */
+    private void asStringTreeForm(StringBuilder buffer, String prefix, String childrenPrefix) {
+        buffer.append(prefix).append(getDataAsString()).append("\n");
+        for (Iterator<AndOrNode> it = children.iterator(); it.hasNext();) {
+            AndOrNode child = it.next();
+            if (it.hasNext()) {
+                child.asStringTreeForm(buffer, childrenPrefix
+                        + "├── ", childrenPrefix + "│   ");
+            } else {
+                child.asStringTreeForm(buffer, childrenPrefix
+                        + "└── ", childrenPrefix + "    ");
+            }
+        }
     }
 }
