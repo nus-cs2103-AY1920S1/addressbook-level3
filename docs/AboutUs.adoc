@@ -15,8 +15,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::nanosync.png[width="150", align="left"]
 {empty} [https://github.com/Nanosync[github]]
 
-Role: Team Lead
-{empty} Responsibilities: Team Lead, IntelliJ/Git Expert
+*Role*: Team Lead
+*Responsibilities*: IntelliJ/Git Expert
 
 '''
 
@@ -24,8 +24,8 @@ Role: Team Lead
 image::austinsantoso.png[width="150", align="left"]
 {empty}[https://github.com/austinsantoso[github]]
 
-Role: Developer
-{empty} Responsibilities: Code Quality
+*Role*: Developer
+*Responsibilities*: Code Quality
 
 '''
 
@@ -33,8 +33,8 @@ Role: Developer
 image::choongyx.png[width="150", align="left"]
 {empty}[https://github.com/choongyxl[github]]
 
-Role: Developer
-{empty} Responsibilities: Documentation
+*Role*: Developer
+*Responsibilities*: Documentation
 
 '''
 
@@ -42,8 +42,8 @@ Role: Developer
 image::jonathantjendana.png[width="150", align="left"]
 {empty}[https://github.com/jonathantjendana[github]]
 
-Role: Developer
-{empty} Responsibilities: Integration, Scheduling and Tracking, JavaFX expert
+*Role*: Developer
+*Responsibilities*: Integration, Scheduling and Tracking, JavaFX expert
 
 '''
 
@@ -51,7 +51,7 @@ Role: Developer
 image::minpyaemoe.png[width="150", align="left"]
 {empty}[https://github.com/minpyaemoe[github]]
 
-Role: Developer
-{empty} Responsibilities: Testing, Deliverables and Deadlines
+*Role*: Developer
+*Responsibilities*: Testing, Deliverables and Deadlines
 
 '''
