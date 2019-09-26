@@ -279,13 +279,16 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is finance-oriented
+* has a need to store and track personal finances
+* wants to set a budget
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* wishes to import or export their data to a .csv file
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage budget quickly compared to a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -562,23 +565,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
