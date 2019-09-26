@@ -1,6 +1,7 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
@@ -13,8 +14,14 @@ public class AddModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "addModule";
 
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
             "addMod", "addmod"};
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Module to the Application. "
+            + "Parameters: "
+            + PREFIX_MODULE + "MODULE "
+            +"Example: " + COMMAND_WORD + " "
+            + PREFIX_MODULE + "CS1010S ";
 
     private final Module newModule;
 
