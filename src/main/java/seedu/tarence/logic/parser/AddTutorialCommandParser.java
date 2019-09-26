@@ -11,18 +11,24 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.tarence.logic.commands.AddTutorialCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.student.Student;
-import seedu.tarence.model.tutorial.TimeTable;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
+/**
+ * Parses input arguments and creates a new AddMTutorialCommand object
+ */
 public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddTutorialCommand
+     * and returns an AddTutorialCommand object for execution.
+     * @throws ParseException if the user input does not match the expected formats for all the required arguments.
+     */
     public AddTutorialCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TUTORIAL_DAY,
                 PREFIX_TUTORIAL_DURATION_IN_MINUTES, PREFIX_TUTORIAL_NAME,

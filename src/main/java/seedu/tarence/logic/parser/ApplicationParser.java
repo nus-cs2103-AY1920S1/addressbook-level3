@@ -18,8 +18,6 @@ import seedu.tarence.logic.commands.HelpCommand;
 import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 
-import seedu.tarence.model.util.SampleDataUtil;
-
 /**
  * Parses user input.
  */

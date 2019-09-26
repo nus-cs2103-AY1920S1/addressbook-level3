@@ -20,6 +20,7 @@ import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.testutil.PersonBuilder;
 
@@ -148,6 +149,17 @@ public class AddStudentCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModule(Module module) {
+            // todo: Implement test for hasMpdule
+            return false;
+        }
+
+        @Override
+        public void addModule(Module module) {
+            // todo: Implement test for addModule
         }
     }
 

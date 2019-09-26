@@ -9,6 +9,9 @@ import javafx.collections.ObservableList;
 import seedu.tarence.model.module.exceptions.DuplicateModuleException;
 import seedu.tarence.model.module.exceptions.ModuleNotFoundException;
 
+/**
+ * Represents a list of modules.
+ */
 public class UniqueModuleList implements Iterable<Module> {
 
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
@@ -21,6 +24,10 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.stream().anyMatch(toCheck::isSameModule);
     }
 
+    /**
+     * Adds a module to the list.
+     * The module must not already exist in the list.
+     */
     public void add(Module newModule) {
         requireNonNull(newModule);
         if (contains(newModule)) {
@@ -29,6 +36,10 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.add(newModule);
     }
 
+    /**
+     * Removes the equivalent module from the list.
+     * The person must exist in the list.
+     */
     public void remove(Module toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {

@@ -12,6 +12,9 @@ import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.tutorial.Tutorial;
 
+/**
+ * Adds a tutorial into T.A.rence.
+ */
 public class AddTutorialCommand extends Command {
 
     public static final String COMMAND_WORD = "addTutorial";
@@ -30,8 +33,7 @@ public class AddTutorialCommand extends Command {
             + PREFIX_TUTORIAL_WEEKS + "7,10,12"
             + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "120";
 
-    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-            "addtut"};
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addtut"};
 
     private Tutorial tutorial;
 

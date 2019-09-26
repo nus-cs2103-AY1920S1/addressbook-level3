@@ -42,7 +42,7 @@ public class Application implements ReadOnlyApplication {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //// ============================== list overwrite operations    =================================================
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -61,7 +61,7 @@ public class Application implements ReadOnlyApplication {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    ////=================== person-level operations    =================================================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the application.
@@ -98,10 +98,19 @@ public class Application implements ReadOnlyApplication {
         persons.remove(key);
     }
 
+    ////=================== module-level operations    =================================================================
+
+    /**
+     * Adds a module to the application.
+     * The module must not already exist in the application.
+     */
     public void addModule(Module newModule) {
         modules.add(newModule);
     }
 
+    /**
+     * Returns true if a module with the same identity as {@code module} exists in the application.
+     */
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return modules.contains(module);
