@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import seedu.address.model.person.ScheduleStub;
@@ -28,8 +29,8 @@ public class ScheduleView extends UiPart<Region> {
 
     private ArrayList<StackPane> dayTimeslotStackPanes = new ArrayList<StackPane>();
     private int oneHourLength = 40;
-    private int preferredWidth = 100;
-    private double blockWidth = 100;
+    private int preferredWidth = 140;
+    private double blockWidth = 140;
     private int startTime = 8;
     private int endTime = 20;
 
@@ -60,8 +61,11 @@ public class ScheduleView extends UiPart<Region> {
         Region placeHolder = new Region();
         placeHolder.setStyle("-fx-background-color: lightgrey");
         scheduleView.add(placeHolder, 0, 0);
+        Region secondPlaceHolder = new Region();
+        secondPlaceHolder.setStyle("-fx-background-color: lightgrey");
+        scheduleView.add(secondPlaceHolder, 8, 0);
         ColumnConstraints colCOffset = new ColumnConstraints();
-        colCOffset.setPercentWidth(12.5);
+        colCOffset.setPercentWidth(11.2);
         scheduleView.getColumnConstraints().add(colCOffset);
         //day headers
         for (int i = 0; i < dayNames.size(); i++) {
@@ -70,22 +74,36 @@ public class ScheduleView extends UiPart<Region> {
             Region dayLabelRegion = new Region();
             dayLabelRegion.setPrefSize(preferredWidth, 50);
             ColumnConstraints colC = new ColumnConstraints();
-            colC.setPercentWidth(12.5);
+            colC.setPercentWidth(11.2);
             scheduleView.getColumnConstraints().add(colC);
             dayLabelRegion.setStyle("-fx-background-color: white; -fx-border-width: 2");
             sp.getChildren().addAll(dayLabelRegion, dayText);
             scheduleView.add(sp, i + 1, 0);
         }
+        ColumnConstraints colCOffset2 = new ColumnConstraints();
+        colCOffset2.setPercentWidth(11.2);
+        scheduleView.getColumnConstraints().add(colCOffset2);
         //timeslot headers
         for (int j = startTime; j < endTime; j++) {
-            Region timeslotLabelContainer = new Region();
-            timeslotLabelContainer.setPrefSize(preferredWidth, oneHourLength);
-            timeslotLabelContainer.setStyle("-fx-background-color: white; -fx-border-color: white;");
-            Text timeslotText = new Text(j * 100 + "");
-            timeslotText.setTranslateX(preferredWidth / 3);
-            StackPane stack = new StackPane();
-            stack.getChildren().addAll(timeslotLabelContainer, timeslotText);
-            scheduleView.add(stack, 0, j - startTime + 1);
+            //left-side headers
+            Region timeslotLeftLabelContainer = new Region();
+            timeslotLeftLabelContainer.setPrefSize(preferredWidth, oneHourLength);
+            timeslotLeftLabelContainer.setStyle("-fx-background-color: white; -fx-border-color: white;");
+            Text timeslotLeftText = new Text(j * 100 + "");
+            timeslotLeftText.setTranslateX(preferredWidth / 3);
+            StackPane leftTimeslotHeaderContainer = new StackPane();
+            leftTimeslotHeaderContainer.getChildren().addAll(timeslotLeftLabelContainer, timeslotLeftText);
+            scheduleView.add(leftTimeslotHeaderContainer, 0, j - startTime + 1);
+
+            //right-side headers
+            Region timeslotRightLabelContainer = new Region();
+            timeslotRightLabelContainer.setPrefSize(preferredWidth, oneHourLength);
+            timeslotRightLabelContainer.setStyle("-fx-background-color: white; -fx-border-color: white;");
+            Text timeslotRightText = new Text(j * 100 + "");
+            timeslotRightText.setTranslateX(-preferredWidth / 3);
+            StackPane rightTimeslotHeaderContainer = new StackPane();
+            rightTimeslotHeaderContainer.getChildren().addAll(timeslotRightLabelContainer, timeslotRightText);
+            scheduleView.add(rightTimeslotHeaderContainer, 8, j - startTime + 1);
         }
     }
 
