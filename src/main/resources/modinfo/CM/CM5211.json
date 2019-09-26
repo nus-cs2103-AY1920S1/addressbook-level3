@@ -1,8 +1,8 @@
 {
+    "courseCode": "CM5211",
+    "courseCredit": "4",
     "description": "Principles and applications of organometallic compounds: synthesis, reactivity and structural aspects.",
     "faculty": "Science",
-    "moduleCode": "CM5211",
-    "moduleCredit": "4",
     "prereqTree": "CM4212",
     "title": "Contemporary Organometallic Chemistry"
 }

@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "RD4100",
+    "courseCredit": "1",
     "description": "",
     "faculty": "Dentistry",
-    "moduleCode": "RD4100",
-    "moduleCredit": "1",
     "title": "Prosthodontics"
 }

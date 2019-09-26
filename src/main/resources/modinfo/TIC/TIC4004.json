@@ -1,8 +1,8 @@
 {
+    "courseCode": "TIC4004",
+    "courseCredit": "4",
     "description": "This module covers the concepts and practice of software quality control to ensure that a software that has been developed meets the stated requirements, through reviews and testing. This module first introduces students to various software review process, followed by testing methodologies used in the industry to ensure that the functional and non-functional requirements are met.",
     "faculty": "Cont and Lifelong Education",
-    "moduleCode": "TIC4004",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "TIC4001",

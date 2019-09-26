@@ -1,8 +1,8 @@
 {
+    "courseCode": "LSM4213",
+    "courseCredit": "4",
     "description": "The primary goal of this module is to understand how (a) neurons, assembled into circuits, mediate behavior and (b) pathophysiology of neurons leading to dysfunctional cellular and molecular processes and behavior. This course draws on basic knowledge of the cell biology and physiology of neurons.",
     "faculty": "Science",
-    "moduleCode": "LSM4213",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "LSM3215",

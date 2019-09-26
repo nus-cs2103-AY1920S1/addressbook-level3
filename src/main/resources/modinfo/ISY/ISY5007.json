@@ -1,8 +1,8 @@
 {
+    "courseCode": "ISY5007",
+    "courseCredit": "6",
     "description": "This module will enable the students to put into practice the skills learned during their Masters studies. They will gain valuable hands-on experience designing and bulding an Intelligent System to solve a real business or engineering problem.",
     "faculty": "Institute of Systems Science",
-    "moduleCode": "ISY5007",
-    "moduleCredit": "6",
     "prereqTree": {
         "or": [
             "ISY5001",

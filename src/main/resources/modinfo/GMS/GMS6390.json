@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6390",
+    "courseCredit": "2",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6390",
-    "moduleCredit": "2",
     "title": "C.a.r.e. 3"
 }

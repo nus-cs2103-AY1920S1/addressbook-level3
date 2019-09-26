@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MKT1601",
+    "courseCredit": "4",
     "description": "",
     "faculty": "NUS Business School",
-    "moduleCode": "MKT1601",
-    "moduleCredit": "4",
     "title": "Marketing Advanced Placement"
 }

@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "ME5506",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "ME5506",
-    "moduleCredit": "4",
     "title": "Corrosion of Materials"
 }

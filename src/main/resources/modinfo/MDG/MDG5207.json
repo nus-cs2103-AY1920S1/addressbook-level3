@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "MDG5207",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "MDG5207",
-    "moduleCredit": "4",
     "title": "Advanced Topics in Cellular & Translational Immunology"
 }

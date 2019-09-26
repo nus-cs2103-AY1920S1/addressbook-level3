@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "ME5611",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "ME5611",
-    "moduleCredit": "4",
     "title": "Sustainable Product Design & Manufacturing"
 }

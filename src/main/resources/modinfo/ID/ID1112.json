@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "ID1112",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Design and Environment",
-    "moduleCode": "ID1112",
-    "moduleCredit": "4",
     "title": "Modelling and Sketching for Design"
 }

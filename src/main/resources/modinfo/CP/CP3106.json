@@ -2,10 +2,10 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "CP3106",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "CP3106",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             {

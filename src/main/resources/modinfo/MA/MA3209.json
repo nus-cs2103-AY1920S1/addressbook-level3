@@ -2,6 +2,8 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "MA3209",
+    "courseCredit": "4",
     "description": "This module has two main objectives: to introduce analysis in the setting of metric spaces and to present multivariable differential calculus at a more advanced level. Major topics: Metric spaces and examples, topology of metric spaces, convergence of sequences., completeness, continuity of functions and uniform continuity, compactness, contraction mappings, Banach\u2019s fixed point theorem, differentiable functions from Rn to Rm, inverse function theorem and implicit function theorem.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -10,8 +12,6 @@
         "MA4262",
         "MA4211"
     ],
-    "moduleCode": "MA3209",
-    "moduleCredit": "4",
     "preclusion": "MA3213, MA3251",
     "prereqTree": {
         "and": [

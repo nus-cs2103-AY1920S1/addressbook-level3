@@ -1,4 +1,6 @@
 {
+    "courseCode": "UTC1702",
+    "courseCredit": "4",
     "description": "This will serve as an umbrella module for all Junior Seminars in Residential College 4. Each module under this umbrella will focus on a specific socially relevant theme to cultivate a 'big picture' thinking in students and help them to visualize how interconnections and interdependencies between various actors of a system result in interesting and complex behaviors. Students will develop qualitative and quantitative diagrammatic models using computational tools to analyze the theme of interest from multiple perspectives (social, economical, political etc.) and will use them to gain better understanding of issues and capacity for broader and deeper conversations.",
     "faculty": "Residential College",
     "fulfillRequirements": [
@@ -37,8 +39,6 @@
         "GEM2911X",
         "GEM2911"
     ],
-    "moduleCode": "UTC1702",
-    "moduleCredit": "4",
     "preclusion": "GEM1914 or GEM1915% or GEM1918 or GEM1919 or GET1011 or UTC1411 or UTC1702% or UTC1701 or UTC1700",
     "title": "Thinking in Systems"
 }

@@ -3,9 +3,9 @@
         "fyp": true,
         "year": true
     },
+    "courseCode": "PC4199",
+    "courseCredit": "12",
     "description": "",
     "faculty": "Science",
-    "moduleCode": "PC4199",
-    "moduleCredit": "12",
     "title": "Honours Project in Physics"
 }

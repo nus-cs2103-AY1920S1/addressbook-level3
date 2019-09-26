@@ -1,4 +1,6 @@
 {
+    "courseCode": "AUD5102",
+    "courseCredit": "2",
     "description": "This module provides an understanding of the structure (anatomy) and function (physiology) of the ear and the brain as well as the peripheral balance organ. Students will also be introduced to the peripheral organs involved in normal speech production.",
     "faculty": "Yong Loo Lin School (Medicine)",
     "fulfillRequirements": [
@@ -10,7 +12,5 @@
         "AUD5114",
         "AUD5216"
     ],
-    "moduleCode": "AUD5102",
-    "moduleCredit": "2",
     "title": "Anatomy & Physiology"
 }

@@ -1,8 +1,8 @@
 {
+    "courseCode": "ECA5374",
+    "courseCredit": "4",
     "description": "This module aims to provide students with a basic understanding of the contemporary Chinese economic system and an analytical framework for the study of the modern Chinese economy. Through lecturing and class discussions on the literature, the students will develop the ability to comprehend the major theoretical and policy issues in China's economic development and transformation. They will also attain confidence in applying theoretical-quantitative approaches to the analysis of these issues.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "ECA5374",
-    "moduleCredit": "4",
     "preclusion": "EC5271, EC5374",
     "prereqTree": {
         "or": [

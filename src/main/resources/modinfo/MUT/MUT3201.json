@@ -1,8 +1,8 @@
 {
+    "courseCode": "MUT3201",
+    "courseCredit": "4",
     "description": "",
     "faculty": "YST Conservatory of Music",
-    "moduleCode": "MUT3201",
-    "moduleCredit": "4",
     "prereqTree": "MUT2118",
     "title": "Modern Music"
 }

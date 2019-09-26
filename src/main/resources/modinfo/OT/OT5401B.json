@@ -2,9 +2,9 @@
     "attributes": {
         "lab": true
     },
+    "courseCode": "OT5401B",
+    "courseCredit": "2",
     "description": "Geoscience is integral to the petroleum industry and understanding the principles and applications of petroleum system geoscience is important for Petroleum Engineers. This module introduces the applications of geology for petroleum exploration. This shall address the applied aspects of geoscience used for the upstream petroleum industry.",
     "faculty": "Engineering",
-    "moduleCode": "OT5401B",
-    "moduleCredit": "2",
     "title": "Petroleum Geology"
 }

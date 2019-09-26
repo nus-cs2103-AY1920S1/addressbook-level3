@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6401",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6401",
-    "moduleCredit": "4",
     "title": "Advanced Medicine"
 }

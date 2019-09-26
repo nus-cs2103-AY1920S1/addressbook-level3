@@ -1,12 +1,12 @@
 {
+    "courseCode": "CS2309",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Computing",
     "fulfillRequirements": [
         "CP3209",
         "UIS3951R"
     ],
-    "moduleCode": "CS2309",
-    "moduleCredit": "4",
     "preclusion": "CS2305S",
     "prereqTree": {
         "and": [

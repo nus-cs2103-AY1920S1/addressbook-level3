@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "GEM2007K",
+    "courseCredit": "4",
     "description": "EAST ASIA",
     "faculty": "Arts and Social Science",
-    "moduleCode": "GEM2007K",
-    "moduleCredit": "4",
     "title": "East Asia"
 }

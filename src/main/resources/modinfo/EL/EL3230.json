@@ -1,8 +1,8 @@
 {
+    "courseCode": "EL3230",
+    "courseCredit": "4",
     "description": "This module explores the sound systems of human language. We will study the distribution and alternation of speech sounds. Topics include distinctive features, syllable structure, stress, and tone/intonation. Coursework will emphasise problem-solving skills and critical understanding.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EL3230",
-    "moduleCredit": "4",
     "preclusion": "EL3202 Phonetics and Phonology",
     "prereqTree": {
         "and": [

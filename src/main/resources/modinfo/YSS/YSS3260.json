@@ -1,8 +1,8 @@
 {
+    "courseCode": "YSS3260",
+    "courseCredit": "5",
     "description": "Moving beyond a focus on the individual, this module provides an overview of research methods and applications to assess and improve health of communities. Emphasis will be on practical skills building related to identifying community health problems and articulating evidence-based responses to promote resilience.",
     "faculty": "Yale-NUS College",
-    "moduleCode": "YSS3260",
-    "moduleCredit": "5",
     "prereqTree": {
         "or": [
             "YSS2216",

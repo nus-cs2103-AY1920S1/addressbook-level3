@@ -3,9 +3,9 @@
         "grsu": true,
         "lab": true
     },
+    "courseCode": "ME5207",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "ME5207",
-    "moduleCredit": "4",
     "title": "Solar Energy Systems"
 }

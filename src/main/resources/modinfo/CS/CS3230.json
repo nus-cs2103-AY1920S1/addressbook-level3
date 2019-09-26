@@ -1,4 +1,6 @@
 {
+    "courseCode": "CS3230",
+    "courseCredit": "4",
     "description": "This module introduces different techniques of designing and analysing algorithms. Students will learn about the framework for algorithm analysis, for example, lower bound arguments, average case analysis, and the theory of NP-completeness. In addition, students are exposed to various algorithm design paradigms. The module serves two purposes: to improve the students' ability to design algorithms in different areas, and to prepare students for the study of more advanced algorithms. The module covers lower and upper bounds, recurrences, basic algorithm paradigms (such as prune-and-search, dynamic programming, branch-and-bound, graph traversal, and randomised approaches), amortized analysis, NP-completeness, and some selected advanced topics.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -20,8 +22,6 @@
         "CS4257",
         "CS4268"
     ],
-    "moduleCode": "CS3230",
-    "moduleCredit": "4",
     "preclusion": "EEE and CPE students can only take this module as a technical elective to satisfy the program requirements or UEM but not CFM/ULR-Breadth.",
     "prereqTree": {
         "and": [

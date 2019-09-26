@@ -2,10 +2,10 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "CP3108B",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "CP3108B",
-    "moduleCredit": "4",
     "preclusion": "CS3108B",
     "title": "Independent Work"
 }

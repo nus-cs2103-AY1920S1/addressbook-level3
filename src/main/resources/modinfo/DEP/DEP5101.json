@@ -2,13 +2,13 @@
     "attributes": {
         "fyp": true
     },
+    "courseCode": "DEP5101",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Design and Environment",
     "fulfillRequirements": [
         "DEP5109",
         "DEP5110"
     ],
-    "moduleCode": "DEP5101",
-    "moduleCredit": "4",
     "title": "Urban Analysis Workshop"
 }

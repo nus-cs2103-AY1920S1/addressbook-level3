@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "ST1232",
+    "courseCredit": "4",
     "description": "This module introduces life science students to the basic principles and methods of biostatistics, and their applications and interpretation. A computer package is used to enhance learning and to enable students to analyze real life data sets. Topics include probability, probability distributions, sampling distributions, statistical inference for one and two sample problems, nonparametric tests, categorical data analysis, correlation and regression analysis, multi-sample inference. This module is essential to students of the Life Sciences.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -30,8 +32,6 @@
         "SPH3101",
         "IT3011"
     ],
-    "moduleCode": "ST1232",
-    "moduleCredit": "4",
     "preclusion": "ST1131, ST1131A, ST2334, CE2407, CN3421, EC2231, EC2303, PR2103, DSC2008.",
     "title": "Statistics for Life Sciences"
 }

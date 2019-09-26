@@ -1,8 +1,8 @@
 {
+    "courseCode": "UIS3954R",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "UIS3954R",
-    "moduleCredit": "8",
     "prereqTree": {
         "and": [
             "IS2101",

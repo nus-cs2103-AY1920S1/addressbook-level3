@@ -1,4 +1,6 @@
 {
+    "courseCode": "CS2113T",
+    "courseCredit": "4",
     "description": "This module introduces the necessary skills for systematic and rigorous development of software systems. It covers requirements, design, implementation, quality assurance, and project management aspects of small-to-medium size multi-person software projects. The module uses the Object Oriented Programming paradigm. Students of this module will receive hands-on practice of tools commonly used in the industry, such as test automation tools, build automation tools, and code revisioning tools will be covered.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -20,8 +22,6 @@
         "CG3002",
         "CG4002"
     ],
-    "moduleCode": "CS2113T",
-    "moduleCredit": "4",
     "preclusion": "CS2103, CS2103T, (CS2113T for CS2113), (CS2113 for CS2113T)",
     "prereqTree": {
         "or": [

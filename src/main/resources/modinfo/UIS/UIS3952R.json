@@ -1,8 +1,8 @@
 {
+    "courseCode": "UIS3952R",
+    "courseCredit": "4",
     "description": "The module follows CS3208 and completes the requirements of the UROP (Computing) project. Please see CS3208 for description.",
     "faculty": "Computing",
-    "moduleCode": "UIS3952R",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "CP3208",

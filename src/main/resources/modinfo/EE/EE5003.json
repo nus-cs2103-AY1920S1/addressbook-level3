@@ -2,10 +2,10 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "EE5003",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "EE5003",
-    "moduleCredit": "8",
     "preclusion": "EE5001",
     "title": "Electrical Engineering Project"
 }

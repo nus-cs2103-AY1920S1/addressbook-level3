@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "GEM1500K",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "GEM1500K",
-    "moduleCredit": "4",
     "title": "Inside Your Personal Computer"
 }

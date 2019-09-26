@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "IE5125",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "IE5125",
-    "moduleCredit": "4",
     "title": "Software Quality Engineering"
 }

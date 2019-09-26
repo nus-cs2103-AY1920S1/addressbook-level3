@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "FSE1202",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "FSE1202",
-    "moduleCredit": "4",
     "title": "Great discoveries & inventions in the Hist of Sci & Eng"
 }

@@ -1,8 +1,8 @@
 {
+    "courseCode": "IS4241",
+    "courseCredit": "4",
     "description": "The world of online social media is of much interest for academic, social and e-commerce studies. This module is about the analysis of social media networks. The module will cover the characteristics of social media networks, the analysis software and methods, case studies and projects of network analysis.",
     "faculty": "Computing",
-    "moduleCode": "IS4241",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             {

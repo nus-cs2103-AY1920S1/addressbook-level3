@@ -3,6 +3,8 @@
         "sfs": true,
         "ssgf": true
     },
+    "courseCode": "TCE2155",
+    "courseCredit": "4",
     "description": "This module equips students with knowledge and skills in structural mechanics, and concrete and steel as structural materials. The topics introduce the fundamentals of material constitutive behaviours and failure models to appreciate the use of materials in structural design. The topics also cover the applications of concrete and steel as structural materials including its properties, design and quality control in practice. The module is compulsory for civil engineering undergraduate students without which he will not be qualified to practise as a professional civil engineer.",
     "faculty": "Cont and Lifelong Education",
     "fulfillRequirements": [
@@ -12,8 +14,6 @@
         "TCE3165",
         "TCE3166"
     ],
-    "moduleCode": "TCE2155",
-    "moduleCredit": "4",
     "preclusion": "CE2155",
     "prereqTree": {
         "or": [

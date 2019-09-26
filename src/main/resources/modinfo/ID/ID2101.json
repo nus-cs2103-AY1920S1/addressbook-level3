@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "ID2101",
+    "courseCredit": "6",
     "description": "",
     "faculty": "Design and Environment",
-    "moduleCode": "ID2101",
-    "moduleCredit": "6",
     "title": "Design For the Tropical Environment"
 }

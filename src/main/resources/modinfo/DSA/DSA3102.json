@@ -3,10 +3,10 @@
         "sfs": true,
         "ssgf": true
     },
+    "courseCode": "DSA3102",
+    "courseCredit": "4",
     "description": "Convex optimisation is an indispensable technique in dealing with high-dimensional structured problems in data science. The module covers modelling examples; basic concepts for convex functions and sub-gradients; gradient and sub-gradient methods; accelerated proximal gradient methods; stochastic block coordinate descent methods; Lagrangian duals; splitting algorithms and implementations.",
     "faculty": "Science",
-    "moduleCode": "DSA3102",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

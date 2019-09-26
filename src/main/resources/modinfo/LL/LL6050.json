@@ -1,4 +1,6 @@
 {
+    "courseCode": "LL6050",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Law",
     "fulfillRequirements": [
@@ -21,7 +23,5 @@
         "LL4341",
         "LL4341V"
     ],
-    "moduleCode": "LL6050",
-    "moduleCredit": "4",
     "title": "Public International Law"
 }

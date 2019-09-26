@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6211",
+    "courseCredit": "1",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6211",
-    "moduleCredit": "1",
     "title": "Clinical Core 5"
 }

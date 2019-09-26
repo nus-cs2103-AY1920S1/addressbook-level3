@@ -3,10 +3,10 @@
         "fyp": true,
         "year": true
     },
+    "courseCode": "MLE4101R",
+    "courseCredit": "16",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "MLE4101R",
-    "moduleCredit": "16",
     "prereqTree": {
         "and": [
             "MLE2103",

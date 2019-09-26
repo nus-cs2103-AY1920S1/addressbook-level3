@@ -1,4 +1,6 @@
 {
+    "courseCode": "EBA5002",
+    "courseCredit": "13",
     "description": "This module teaches the fundamental concepts of analytics like managing business analytics projects, basic statistics, R programming, linear regression and logistic regression, time series analysis, recommender systems and text analytics.",
     "faculty": "Institute of Systems Science",
     "fulfillRequirements": [
@@ -8,7 +10,5 @@
         "EBA5005",
         "EBA5007"
     ],
-    "moduleCode": "EBA5002",
-    "moduleCredit": "13",
     "title": "Business Analytics Practice"
 }

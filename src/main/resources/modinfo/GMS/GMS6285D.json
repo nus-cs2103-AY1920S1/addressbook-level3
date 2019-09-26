@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6285D",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6285D",
-    "moduleCredit": "4",
     "title": "Neurosurgery"
 }

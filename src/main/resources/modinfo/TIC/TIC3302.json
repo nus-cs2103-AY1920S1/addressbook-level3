@@ -3,6 +3,8 @@
         "sfs": true,
         "ssgf": true
     },
+    "courseCode": "TIC3302",
+    "courseCredit": "4",
     "description": "This module aims to provide some in-depth discussions on selected topics in system and network security. This module covers the following topics: intrusion detection, DNS security, electronic mail security, authentication, access control, buffer overflow, memory and stack protection, selected topics in application security, for instance, web security, and well-known attacks.",
     "faculty": "Cont and Lifelong Education",
     "fulfillRequirements": [
@@ -11,8 +13,6 @@
         "TIC4304",
         "TIC4305"
     ],
-    "moduleCode": "TIC3302",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "TIC2301",

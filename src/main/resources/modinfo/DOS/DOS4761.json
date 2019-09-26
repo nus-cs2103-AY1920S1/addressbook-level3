@@ -1,8 +1,8 @@
 {
+    "courseCode": "DOS4761",
+    "courseCredit": "4",
     "description": "This module is designed primarily to provide B.B.A./B.B.A.(Acc.) Honours students specialising in operations and supply chain management with an opportunity for advanced study in that concentration. The course would be research-oriented involving extensive literature reviews. Students will be expected to read journal articles and make presentations on topics relevant to the module.",
     "faculty": "NUS Business School",
-    "moduleCode": "DOS4761",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "DAO2703",

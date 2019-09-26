@@ -1,4 +1,6 @@
 {
+    "courseCode": "IS2103",
+    "courseCredit": "4",
     "description": "This module aims to train students to be conversant in backend or server-side development for Enterprise Systems. It complements IS3106, which focuses on front-end development aspects for Enterprise Systems. Students will learn modern development techniques such as component-based development, service-oriented development and object-relational mapping. One or more established development platforms would be carefully chosen to allow students to put into practice the various concepts that are taught in the module. An emphasis would also be placed on Enterprise Systems security.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -12,8 +14,6 @@
         "IS4100",
         "IS4234"
     ],
-    "moduleCode": "IS2103",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "CS1020",

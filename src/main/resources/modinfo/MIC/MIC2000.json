@@ -2,10 +2,10 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MIC2000",
+    "courseCredit": "3",
     "description": "This is module focuses on the microbes which cause infections in man and the defences deployed by the body against them. The module is presented as two distinct components with the relationship between the components established throughout the module.",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "MIC2000",
-    "moduleCredit": "3",
     "preclusion": "MIC1000",
     "title": "Infection and Immunology"
 }

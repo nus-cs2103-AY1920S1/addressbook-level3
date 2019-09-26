@@ -1,8 +1,8 @@
 {
+    "courseCode": "FIN4123",
+    "courseCredit": "4",
     "description": "An overview of major technological trends reshaping the financial industry, including but not limited to payment systems, asset management, financial intermediation, etc.",
     "faculty": "NUS Business School",
-    "moduleCode": "FIN4123",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "FIN3101",

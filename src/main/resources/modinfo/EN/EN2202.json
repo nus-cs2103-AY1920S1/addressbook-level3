@@ -1,4 +1,6 @@
 {
+    "courseCode": "EN2202",
+    "courseCredit": "4",
     "description": "Critical reading is the essential skill of literary studies. It involves close attention to individual words and phrases, to figures of speech, to the structures of sentences and texts, to literary form and genre, and to historical context. It gives attention to the implicit connotations of language, as well as to its explicit denotations. This module sets out to inculcate in students the skills of critical reading and help them pay attention to and evaluate textual detail. It will be organised as a series of seminars in which students develop and practice skills by reading short texts and extracts.",
     "faculty": "Arts and Social Science",
     "fulfillRequirements": [
@@ -37,8 +39,6 @@
         "EN3251",
         "EN3252"
     ],
-    "moduleCode": "EN2202",
-    "moduleCredit": "4",
     "preclusion": "EN3274 Critical Reading",
     "prereqTree": {
         "or": [

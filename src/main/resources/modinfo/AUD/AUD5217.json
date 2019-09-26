@@ -1,8 +1,8 @@
 {
+    "courseCode": "AUD5217",
+    "courseCredit": "3",
     "description": "This module provides students the opportunity to learn about the psychological and social problems of hearing aid users and to develop and implement rehabilitation programs to suit individual needs.",
     "faculty": "Yong Loo Lin School (Medicine)",
-    "moduleCode": "AUD5217",
-    "moduleCredit": "3",
     "prereqTree": {
         "and": [
             "AUD5101",

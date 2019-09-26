@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "IE6125",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "IE6125",
-    "moduleCredit": "4",
     "title": "Advanced Software Quality Engineering"
 }

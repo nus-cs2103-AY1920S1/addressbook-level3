@@ -1,11 +1,11 @@
 {
+    "courseCode": "MLE3111",
+    "courseCredit": "4",
     "description": "Laboratory class in which students will conduct hands on experiments",
     "faculty": "Engineering",
     "fulfillRequirements": [
         "MLE4102A"
     ],
-    "moduleCode": "MLE3111",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "MLE1002",

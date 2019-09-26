@@ -1,8 +1,8 @@
 {
+    "courseCode": "EE5002",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "EE5002",
-    "moduleCredit": "4",
     "preclusion": "EE5003",
     "title": "Independent Study Module Ii"
 }

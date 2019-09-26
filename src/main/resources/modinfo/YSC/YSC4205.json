@@ -1,8 +1,8 @@
 {
+    "courseCode": "YSC4205",
+    "courseCredit": "5",
     "description": "Principles of structure and reactivity of transition metal containing organometallic compounds. Homogeneous catalytic chemistry, synthesis of organometallic compounds, mechanisms of organometallic reaction chemistry.",
     "faculty": "Yale-NUS College",
-    "moduleCode": "YSC4205",
-    "moduleCredit": "5",
     "prereqTree": {
         "or": [
             "YSC2224",

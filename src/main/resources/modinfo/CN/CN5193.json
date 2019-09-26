@@ -3,9 +3,9 @@
         "grsu": true,
         "lab": true
     },
+    "courseCode": "CN5193",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "CN5193",
-    "moduleCredit": "4",
     "title": "Instrumental Methods of Analysis"
 }

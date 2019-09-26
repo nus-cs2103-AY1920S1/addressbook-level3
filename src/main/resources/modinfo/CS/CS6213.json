@@ -1,8 +1,8 @@
 {
+    "courseCode": "CS6213",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Computing",
-    "moduleCode": "CS6213",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "CS3211",

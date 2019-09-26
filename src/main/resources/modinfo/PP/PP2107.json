@@ -1,11 +1,11 @@
 {
+    "courseCode": "PP2107",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Yong Loo Lin School (Medicine)",
     "fulfillRequirements": [
         "PR3105"
     ],
-    "moduleCode": "PP2107",
-    "moduleCredit": "4",
     "prereqTree": "PP2106",
     "title": "Pharmacology 2"
 }

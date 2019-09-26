@@ -1,4 +1,6 @@
 {
+    "courseCode": "NUR5601",
+    "courseCredit": "8",
     "description": "This module aims to provide a thorough understanding of paediatric health assessment and to develop competent skills in interviewing and physical examination technique for different developmental age. These skills are essential for differentiation of normal and abnormal findings, critical thinking and clinical decision\u2010making through problems related to child health. Principles and techniques from the physical and behavioral sciences are utilised to obtain assessment data and make differential diagnoses and subsequently, the final diagnosis.",
     "faculty": "Yong Loo Lin School (Medicine)",
     "fulfillRequirements": [
@@ -6,7 +8,5 @@
         "NUR5607",
         "NUR5608"
     ],
-    "moduleCode": "NUR5601",
-    "moduleCredit": "8",
     "title": "Advanced Health Assessment (Paediatrics)"
 }

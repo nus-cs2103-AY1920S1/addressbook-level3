@@ -1,4 +1,6 @@
 {
+    "courseCode": "ST2334",
+    "courseCredit": "4",
     "description": "Basic concepts of probability, conditional probability, independence, random variables, joint and marginal distributions, mean and variance, some common probability distributions, sampling distributions, estimation and hypothesis testing based on a normal population. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites. Preclude ME students taking or have taken ME4273.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -70,8 +72,6 @@
         "IT3011",
         "EE4205"
     ],
-    "moduleCode": "ST2334",
-    "moduleCredit": "4",
     "preclusion": "ST1131, ST1131A, ST1232, ST2131, MA2216, CE2407, EC2231, EC2303, PR2103, DSC2008. ME students taking or having taken ME4273. All ISE students.",
     "prereqTree": {
         "or": [

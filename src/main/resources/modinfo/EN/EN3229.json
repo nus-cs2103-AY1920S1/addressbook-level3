@@ -1,8 +1,8 @@
 {
+    "courseCode": "EN3229",
+    "courseCredit": "4",
     "description": "Shakespeare occupies an iconic position in English literature and acquaintance with his plays is expected of the informed reader. This module offers an introduction to a representative range of Shakespeare's works. It approaches them through genre and the informing background of English Renaissance history, culture, and politics. By the end of the module, students will have a good understanding of the major themes of Shakespeare\u2019s plays and the milieu within which he wrote and performed.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EN3229",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

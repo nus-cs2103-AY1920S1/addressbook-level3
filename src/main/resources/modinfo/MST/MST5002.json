@@ -3,9 +3,9 @@
         "grsu": true,
         "lab": true
     },
+    "courseCode": "MST5002",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "MST5002",
-    "moduleCredit": "4",
     "title": "Materials Characterisation"
 }

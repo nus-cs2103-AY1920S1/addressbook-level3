@@ -3,10 +3,10 @@
         "fyp": true,
         "year": true
     },
+    "courseCode": "PH4401",
+    "courseCredit": "15",
     "description": "A dissertation on an approved research topic not exceeding twelve thousand words.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "PH4401",
-    "moduleCredit": "15",
     "preclusion": "PH4660",
     "title": "Honours Thesis"
 }

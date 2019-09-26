@@ -1,4 +1,6 @@
 {
+    "courseCode": "BT2101",
+    "courseCredit": "4",
     "description": "This module provides a general introduction to using various IT-driven tools, software and techniques for decision making support. The module will start off by describing the decision-making process in businesses today. It will proceed to cover methods such as prediction and classification methods, markov chain monte carlo, simulation, forecasting time series, and neural network among others. Examples will also be drawn from various industry domains and applications.",
     "faculty": "Computing",
     "fulfillRequirements": [
@@ -15,8 +17,6 @@
         "BT3102",
         "BT3101"
     ],
-    "moduleCode": "BT2101",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "CS1010",

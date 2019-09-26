@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "ME3000",
+    "courseCredit": "2",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "ME3000",
-    "moduleCredit": "2",
     "title": "Independent Study 1"
 }

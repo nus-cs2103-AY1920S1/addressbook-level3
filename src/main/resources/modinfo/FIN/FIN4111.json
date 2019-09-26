@@ -1,8 +1,8 @@
 {
+    "courseCode": "FIN4111",
+    "courseCredit": "4",
     "description": "This is a research methodology course for BBA (Hons.) students majoring in Finance. The purpose of the course is to introduce students to empirical methods of research in Finance. Topics covered include Multivariate Regression Analysis, Univariate Time Series Models, Vector Autoregressive Models, Generalized Autoregressive Conditional Heteroskedasticity, Cointegration, Regime Switching, and Generalized Methods of Moments Estimation. The course examines some applications of these methods to various research areas in finance namely, the Statistical Properties of Prices and Asset Returns, the Efficient Market Hypothesis, Predictability of Returns, Stock Market Volatility, International Stock Markets, Models of Volatility, and Asset Pricing Tests.",
     "faculty": "NUS Business School",
-    "moduleCode": "FIN4111",
-    "moduleCredit": "4",
     "preclusion": "Students who have passed FNA4111 are not allowed to take FIN4111. Not for students who have passed FE5209.",
     "prereqTree": {
         "and": [

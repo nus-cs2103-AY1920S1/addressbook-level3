@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "IE5405",
+    "courseCredit": "4",
     "description": "This module introduces inventory theory and its application to the management of inventory systems. Many of the models developed will be for the single item, single stage inventory system, considering both stationary and time-varying conditions. There will be some coverage of multistage inventory systems and multiple-item problems under constraints.",
     "faculty": "Engineering",
-    "moduleCode": "IE5405",
-    "moduleCredit": "4",
     "title": "Inventory Systems"
 }

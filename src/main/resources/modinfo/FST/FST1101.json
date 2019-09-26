@@ -3,6 +3,8 @@
         "ssgf": true,
         "su": true
     },
+    "courseCode": "FST1101",
+    "courseCredit": "4",
     "description": "This module provides an overview of the major animal and plant based foods and how these need to be processed or treated before consumption in order to ensure that they are safe to consume Particular emphasis is given to the potential problems of spoilage by micro-organisms but also the usefulness of some micro-organisms inthe production of selected foods. The application of the concepts is tested by the development (in teams) of new snack type products.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -18,7 +20,5 @@
         "FST2102B",
         "FST2107"
     ],
-    "moduleCode": "FST1101",
-    "moduleCredit": "4",
     "title": "Science and Technology of Foods"
 }

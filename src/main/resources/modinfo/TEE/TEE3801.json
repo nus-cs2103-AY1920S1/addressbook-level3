@@ -1,8 +1,8 @@
 {
+    "courseCode": "TEE3801",
+    "courseCredit": "4",
     "description": "This purpose of this module is to learn the effects of, and ways of mitigating, random manufacturing variations and failure of components and systems. This module is targetted at students wishing to pursue careers in electronic manufacturing industries. Topics covered: Review of probability and statistics. Concepts of tolerance analysis and design. Methods of tolerance design including the Monte-Carlo method. Tolerance sensitivity and its applications. Reliability concepts. Device reliability. System reliability. Modelling and monitoring reliability. Burn-in and accelerated wear.",
     "faculty": "Cont and Lifelong Education",
-    "moduleCode": "TEE3801",
-    "moduleCredit": "4",
     "preclusion": "TE3801",
     "prereqTree": {
         "and": [

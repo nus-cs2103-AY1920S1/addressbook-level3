@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "OT5102",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "OT5102",
-    "moduleCredit": "4",
     "title": "Oil & Gas Technology"
 }

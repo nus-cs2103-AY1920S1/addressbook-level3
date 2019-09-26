@@ -2,9 +2,9 @@
     "attributes": {
         "lab": true
     },
+    "courseCode": "OT5405B",
+    "courseCredit": "2",
     "description": "Topics to be covered include polymer flood, micellarpolymer flood, ASP, miscible and immiscible carbon dioxide flood, thermal recovery, SAGD and advanced topics such as low-salinity waterflood and nano-enabled EOR.",
     "faculty": "Engineering",
-    "moduleCode": "OT5405B",
-    "moduleCredit": "2",
     "title": "Enhanced Oil Recovery Methods and Application"
 }

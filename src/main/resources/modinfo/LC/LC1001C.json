@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "LC1001C",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Law",
-    "moduleCode": "LC1001C",
-    "moduleCredit": "8",
     "title": "Criminal Law (C)"
 }

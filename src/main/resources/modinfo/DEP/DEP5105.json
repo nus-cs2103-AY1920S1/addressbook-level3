@@ -1,10 +1,10 @@
 {
+    "courseCode": "DEP5105",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Design and Environment",
     "fulfillRequirements": [
         "DEP5109"
     ],
-    "moduleCode": "DEP5105",
-    "moduleCredit": "4",
     "title": "Urban Infrastructure and Mobility Systems"
 }

@@ -2,10 +2,10 @@
     "attributes": {
         "urop": true
     },
+    "courseCode": "FST3289",
+    "courseCredit": "4",
     "description": "This module is an extension of FST3288 and involves a more detailed and prolonged study stretching over two semesters.",
     "faculty": "Science",
-    "moduleCode": "FST3289",
-    "moduleCredit": "4",
     "prereqTree": "FST3288",
     "title": "Advanced UROPS in Food Science & Technology II"
 }

@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "EC1101E",
+    "courseCredit": "4",
     "description": "This course introduces students to some of the basic concepts, methods, and models in economics to equip the students to think economically. These tools will enable students to understand current economic issues and appreciate economics in their everyday lives.",
     "faculty": "Arts and Social Science",
     "fulfillRequirements": [
@@ -25,8 +27,6 @@
         "MKT4714",
         "ENV3103"
     ],
-    "moduleCode": "EC1101E",
-    "moduleCredit": "4",
     "preclusion": "EC1301, BH1005/BSP1005/BSP1703, RE1704, USE2301. All BBA, BAC, BBA(Hons) and BAC(Hons) students are not allowed to take EC1101E.",
     "title": "Introduction to Economic Analysis"
 }

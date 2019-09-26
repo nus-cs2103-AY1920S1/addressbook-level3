@@ -1,4 +1,6 @@
 {
+    "courseCode": "PLC5011",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Arts and Social Science",
     "fulfillRequirements": [
@@ -6,8 +8,6 @@
         "PLC5012",
         "PLC5007"
     ],
-    "moduleCode": "PLC5011",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "PLC5004",

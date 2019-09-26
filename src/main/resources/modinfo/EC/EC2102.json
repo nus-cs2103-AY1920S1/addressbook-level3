@@ -1,4 +1,6 @@
 {
+    "courseCode": "EC2102",
+    "courseCredit": "4",
     "description": "This course develops the analytical tools to understand basic questions on short-run macroeconomic fluctuations, and shows how these tools can be applied to real world situations. In the process of developing these tools, we will discuss the determinants of consumption and investment. Next we turn to different business cycle theories. Specifically, we study the Keynesian, New Keynesian, Neo Classical and Real Business Cycle models, and examine their different assumptions and policy prescriptions for macroeconomic stabilization. IS-LM and AD-AS frameworks are employed in studying some or all of these paradigms. Finally, we evaluate the predictions of these models against business cycle facts. We will also briefly review national income accounting and discuss some measurement issues.",
     "faculty": "Arts and Social Science",
     "fulfillRequirements": [
@@ -14,8 +16,6 @@
         "EC3343",
         "EC3378"
     ],
-    "moduleCode": "EC2102",
-    "moduleCredit": "4",
     "preclusion": "BSP2001, BSE3701",
     "prereqTree": {
         "or": [

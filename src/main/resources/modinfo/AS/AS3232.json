@@ -1,8 +1,8 @@
 {
+    "courseCode": "AS3232",
+    "courseCredit": "4",
     "description": "This course concerns 20th century American writing from Reconstruction through present; it examines typical aspects of American character/imagination. The course trains students in the close reading of a variety of literary texts (naturalist, modernist, postmodernist) and a variety of literary forms (poetry, fiction, drama). The course is aimed at undergraduate English literature majors, but cross-faculty students who enjoy literature are welcome.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "AS3232",
-    "moduleCredit": "4",
     "preclusion": "EN3232",
     "prereqTree": {
         "and": [

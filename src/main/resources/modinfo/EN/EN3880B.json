@@ -1,8 +1,8 @@
 {
+    "courseCode": "EN3880B",
+    "courseCredit": "4",
     "description": "With particular focus on the works of Julian Barnes, JM Coetzee, William Boyd, and Don DeLillo, this module explores how these contemporary novelists get around the problem of the 'death of the author,' surpassing even reader-response theory, and transforming narratives into a question of what we will call 'reader responsibility.' Through analyses of DeLillo\u2019s Cosmopolis, Barnes\u2019s Sense of an Ending, Coetzee\u2019s Childhood of Jesus, and Boyd\u2019s Any Human Heart, this module examines how these novelists effectively make readers complicit with narrative developments.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EN3880B",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

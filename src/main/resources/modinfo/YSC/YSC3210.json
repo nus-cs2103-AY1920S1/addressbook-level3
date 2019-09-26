@@ -1,4 +1,6 @@
 {
+    "courseCode": "YSC3210",
+    "courseCredit": "5",
     "description": "This first course on quantum mechanics introduces students to the postulates of quantum theory and then applies it to discuss problems like two level systems, quantum harmonic oscillators, the variational principle and the WKB approximation.",
     "faculty": "Yale-NUS College",
     "fulfillRequirements": [
@@ -6,8 +8,6 @@
         "YSC4221",
         "YSC4223"
     ],
-    "moduleCode": "YSC3210",
-    "moduleCredit": "5",
     "prereqTree": {
         "and": [
             "YSC2203",

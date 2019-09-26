@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "EG2606B",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "EG2606B",
-    "moduleCredit": "4",
     "title": "Independent Work"
 }

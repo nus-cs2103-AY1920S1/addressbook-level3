@@ -1,4 +1,6 @@
 {
+    "courseCode": "PR2133",
+    "courseCredit": "4",
     "description": "This is a team-taught module that aims to prepare pharmacy students in the management of noncommunicable diseases through the intergration of pharmacology and pharmacotherapeutics. Major topics include: asthma, COPD, peptic ulcer disease, hypertension, dyslipidemia, and diabetes.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -6,8 +8,6 @@
         "PR4197",
         "PR4198"
     ],
-    "moduleCode": "PR2133",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "PA1113",

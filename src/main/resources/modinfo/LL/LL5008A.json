@@ -1,10 +1,10 @@
 {
+    "courseCode": "LL5008A",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Law",
     "fulfillRequirements": [
         "LL4008B"
     ],
-    "moduleCode": "LL5008A",
-    "moduleCredit": "4",
     "title": "Carriage of Goods By Sea"
 }

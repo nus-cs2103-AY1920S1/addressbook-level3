@@ -1,11 +1,11 @@
 {
+    "courseCode": "MA3259",
+    "courseCredit": "4",
     "description": "This module is an introduction to methods and popular software tools for solving computational problems in genomics. It studies exact algorithms for those problems that can be solved easily and approximation and/or heuristic algorithms for hard problems. The objective is to develop competitive knowledge in formulating biological problems in computational terms and solving these problems using algorithm approach. This module is for students with interests in computational molecular biology and bioinformatics. Major topics: Sequence analysis, multiple sequence alignment, phylogenetic analysis, genome sequencing, gene prediction and motif finding, genome rearrangement.",
     "faculty": "Science",
     "fulfillRequirements": [
         "MA5264"
     ],
-    "moduleCode": "MA3259",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "MA2216",

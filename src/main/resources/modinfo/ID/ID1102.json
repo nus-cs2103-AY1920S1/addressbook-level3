@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "ID1102",
+    "courseCredit": "9",
     "description": "",
     "faculty": "Design and Environment",
-    "moduleCode": "ID1102",
-    "moduleCredit": "9",
     "title": "Design 02 - Living & Workplace System"
 }

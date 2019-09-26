@@ -1,8 +1,8 @@
 {
+    "courseCode": "IT3011",
+    "courseCredit": "4",
     "description": "This module provides students with a broad understanding of the concepts, limitations, and applications of machine learning. Students will be exposed to the fundamental concepts of machine learning, including supervised learning (regression and classification), clustering, and methods such as SVM, neural networks, decision trees, and ensemble methods. Pitfalls and limitations such as overfitting, data leakage, bias, and ethical issues will be covered. This module also emphasizes on the applications of machine learning to problems in different domains (such as medicine, finance, engineering, science, business, social science) and is suitable for noncomputing students.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "IT3011",
-    "moduleCredit": "4",
     "preclusion": "CS3244",
     "prereqTree": {
         "and": [

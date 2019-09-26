@@ -1,8 +1,8 @@
 {
+    "courseCode": "MA5265",
+    "courseCredit": "4",
     "description": "Basic iterative methods. Projection methods. Krylov subspace methods. Preconditioned iteration and preconditioning techniques. Methods for nonlinear systems of equations: fixed point methods, Newton's method, quasi-Newton methods, steepest descent techniques, homotopy and continuation methods. Numerical ODEs: Euler's methods, Runge-Kutta Methods, multi-step method, shooting method. Numerical PDEs: Introduction to finite difference and finite element methods. Fast linear system solvers: FFT and multi-grid methods.",
     "faculty": "Science",
-    "moduleCode": "MA5265",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             {

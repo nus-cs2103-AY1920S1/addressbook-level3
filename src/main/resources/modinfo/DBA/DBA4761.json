@@ -1,8 +1,8 @@
 {
+    "courseCode": "DBA4761",
+    "courseCredit": "4",
     "description": "This module is a placeholder for experimental or ad hoc elective modules in Analytics.",
     "faculty": "NUS Business School",
-    "moduleCode": "DBA4761",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "DAO2702",

@@ -2,10 +2,10 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "OT5402",
+    "courseCredit": "4",
     "description": "This module introduces the basics of seismic surveys for petroleum reservoirs, from the physics to the acquisition and processing of seismic data. Both land and marine acquisition will be covered. Traditional and modern methods of seismic imaging will be covered.",
     "faculty": "Engineering",
-    "moduleCode": "OT5402",
-    "moduleCredit": "4",
     "preclusion": "OT5402A and OT5402B\n(i.e. Both completed as a pair)",
     "title": "Geophysical Imaging of the Earth Interior"
 }

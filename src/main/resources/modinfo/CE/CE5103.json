@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "CE5103",
+    "courseCredit": "4",
     "description": "TUNNELLING AND ROCK MECHANICS",
     "faculty": "Engineering",
-    "moduleCode": "CE5103",
-    "moduleCredit": "4",
     "title": "Tunnelling and Rock Mechanics"
 }

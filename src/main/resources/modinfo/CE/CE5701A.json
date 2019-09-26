@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "CE5701A",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "CE5701A",
-    "moduleCredit": "4",
     "title": "Engineering Fracture Mechanics (St)"
 }

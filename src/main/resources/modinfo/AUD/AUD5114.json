@@ -1,12 +1,12 @@
 {
+    "courseCode": "AUD5114",
+    "courseCredit": "2",
     "description": "This subject builds on the knowledge obtained in the Electrophysiological Assessment A subject. Students will have the opportunity to examine the principles and practices associated with advanced auditory evoked potential assessment in the clinic (NUH).",
     "faculty": "Yong Loo Lin School (Medicine)",
     "fulfillRequirements": [
         "AUD5218",
         "AUD5219"
     ],
-    "moduleCode": "AUD5114",
-    "moduleCredit": "2",
     "prereqTree": {
         "or": [
             "AUD5102",

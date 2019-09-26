@@ -2,9 +2,9 @@
     "attributes": {
         "ism": true
     },
+    "courseCode": "YIR3313",
+    "courseCredit": "2",
     "description": "Independent study in an area of special interest to the student(s), with the close guidance of a faculty member, leading to a final project/product.",
     "faculty": "Yale-NUS College",
-    "moduleCode": "YIR3313",
-    "moduleCredit": "2",
     "title": "Independent Reading and Research"
 }

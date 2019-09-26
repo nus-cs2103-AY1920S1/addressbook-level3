@@ -1,11 +1,11 @@
 {
+    "courseCode": "CS4243",
+    "courseCredit": "4",
     "description": "This module is for undergraduates who are interested in computer vision and its applications. It covers (a) the basic skills needed in handling images and videos, (b) the basic theories needed to understand geometrical computer vision, and (c) pattern recognition. Topics covered in image handling include: contrast stretch, histogram equalization, noise removal, and color space. Topics covered in geometrical vision include: affine transform, vanishing points, camera projection models, homography, camera calibration, rotation representations including quaternions, epipolar geometry, binocular stereo, structure from motion. Topics covered for pattern recognition include principal component analysis.",
     "faculty": "Computing",
     "fulfillRequirements": [
         "CS6240"
     ],
-    "moduleCode": "CS4243",
-    "moduleCredit": "4",
     "preclusion": "EE4212 Computer Vision",
     "prereqTree": {
         "and": [

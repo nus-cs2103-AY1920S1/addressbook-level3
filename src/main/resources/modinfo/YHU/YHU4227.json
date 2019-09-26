@@ -1,8 +1,8 @@
 {
+    "courseCode": "YHU4227",
+    "courseCredit": "5",
     "description": "What kinds of humour endure over time? This course examines the different genres of humour in ancient literature and their corresponding forms today: political satire in Attic comedy; sitcoms in Hellenistic comedy; farce in Roman comedy; 'stand up' in first person Roman satire. What does comedy tell us about the dynamics of power and gender in ancient cultures and today?",
     "faculty": "Yale-NUS College",
-    "moduleCode": "YHU4227",
-    "moduleCredit": "5",
     "prereqTree": {
         "and": [
             "YCC1111",

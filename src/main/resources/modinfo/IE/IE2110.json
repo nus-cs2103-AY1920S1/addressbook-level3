@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "IE2110",
+    "courseCredit": "4",
     "description": "This foundation module introduces students to some of the basic concepts of operations research. Topics include linear programming, network flow models, and nonlinear programming. Besides the basic concepts, students will also learn about the applications of these topics to complex engineering and management problems.",
     "faculty": "Engineering",
     "fulfillRequirements": [
@@ -15,8 +17,6 @@
         "IE4221",
         "IE3102"
     ],
-    "moduleCode": "IE2110",
-    "moduleCredit": "4",
     "preclusion": "DBA3701, MA2215, MA3236",
     "title": "Operations Research I"
 }

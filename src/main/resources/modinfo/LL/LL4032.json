@@ -1,4 +1,6 @@
 {
+    "courseCode": "LL4032",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Law",
     "fulfillRequirements": [
@@ -9,7 +11,5 @@
         "LL4356",
         "LL4356V"
     ],
-    "moduleCode": "LL4032",
-    "moduleCredit": "4",
     "title": "International Investment Law"
 }

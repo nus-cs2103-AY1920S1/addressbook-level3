@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6203",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6203",
-    "moduleCredit": "8",
     "title": "Obstetrics & Gynecology Clerkship"
 }

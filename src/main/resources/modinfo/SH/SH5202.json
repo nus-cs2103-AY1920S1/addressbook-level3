@@ -2,9 +2,9 @@
     "attributes": {
         "lab": true
     },
+    "courseCode": "SH5202",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "SH5202",
-    "moduleCredit": "4",
     "title": "Quantified Risk Analysis"
 }

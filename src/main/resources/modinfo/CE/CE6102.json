@@ -2,9 +2,9 @@
     "attributes": {
         "grsu": true
     },
+    "courseCode": "CE6102",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Engineering",
-    "moduleCode": "CE6102",
-    "moduleCredit": "4",
     "title": "Geotechnical Analysis"
 }

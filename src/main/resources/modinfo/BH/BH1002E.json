@@ -2,6 +2,8 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "BH1002E",
+    "courseCredit": "4",
     "description": "",
     "faculty": "NUS Business School",
     "fulfillRequirements": [
@@ -13,7 +15,5 @@
         "FNA3113",
         "FIN2004X"
     ],
-    "moduleCode": "BH1002E",
-    "moduleCredit": "4",
     "title": "Financial Accounting"
 }

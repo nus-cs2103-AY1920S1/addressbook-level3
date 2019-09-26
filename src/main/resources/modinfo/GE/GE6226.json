@@ -1,8 +1,8 @@
 {
+    "courseCode": "GE6226",
+    "courseCredit": "8",
     "description": "GE6226 GIS Research Project module provides students on the project track of the MSc in Applied GIS with an opportunity to conduct a professional GIS project that typically involves in-depth analysis of spatial/spatiotemporal data or develop new GIS tools or databases. Students are required to apply relevant GIS approaches and techniques under the guidance of an advisor to a live problem in the field.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "GE6226",
-    "moduleCredit": "8",
     "prereqTree": {
         "or": [
             "GE5223",

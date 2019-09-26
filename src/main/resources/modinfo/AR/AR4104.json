@@ -2,10 +2,10 @@
     "attributes": {
         "fyp": true
     },
+    "courseCode": "AR4104",
+    "courseCredit": "8",
     "description": "This module allows the students to employ digital design processes eg. Revit, CFD to simulate building performance impact on building form and configuration as an interactive design process in the development and study of optimal solutions.",
     "faculty": "Design and Environment",
-    "moduleCode": "AR4104",
-    "moduleCredit": "8",
     "preclusion": "All non architecture students",
     "title": "Architectural & Technology Design 2"
 }

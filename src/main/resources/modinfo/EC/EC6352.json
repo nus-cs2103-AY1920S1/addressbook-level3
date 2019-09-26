@@ -1,8 +1,8 @@
 {
+    "courseCode": "EC6352",
+    "courseCredit": "4",
     "description": "",
     "faculty": "Arts and Social Science",
-    "moduleCode": "EC6352",
-    "moduleCredit": "4",
     "preclusion": "EC6267",
     "title": "Advanced Public Economics"
 }

@@ -1,8 +1,8 @@
 {
+    "courseCode": "PL3258",
+    "courseCredit": "4",
     "description": "Decision Neuroscience is the study of the neural mechanisms of human decision making. This module will provide a broad introductory examination of this topic, to facilitate an intermediate understanding of cognitive neuroscience. This module builds upon the introductory level Biological Psychology module and helps prepare students for honours level discussion modules in the area.",
     "faculty": "Arts and Social Science",
-    "moduleCode": "PL3258",
-    "moduleCredit": "4",
     "prereqTree": {
         "and": [
             "PL1101E",

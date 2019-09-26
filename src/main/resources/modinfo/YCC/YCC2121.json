@@ -1,4 +1,6 @@
 {
+    "courseCode": "YCC2121",
+    "courseCredit": "5",
     "description": "This module will introduce students to foundational figures of modern social thought and explore the ways in which their writings have been taken up in contemporary social analysis and political practice in different parts of the world.",
     "faculty": "Yale-NUS College",
     "fulfillRequirements": [
@@ -27,8 +29,6 @@
         "YSS4246",
         "YHU3312"
     ],
-    "moduleCode": "YCC2121",
-    "moduleCredit": "5",
     "preclusion": "Not Applicable",
     "prereqTree": {
         "and": [

@@ -1,11 +1,11 @@
 {
+    "courseCode": "MUA4176",
+    "courseCredit": "4",
     "description": "This module offers students knowledge about music production with logic pro, acoustics design and microphone techniques for the performing space, and history and theory for pop music.",
     "faculty": "YST Conservatory of Music",
     "fulfillRequirements": [
         "MUA4177"
     ],
-    "moduleCode": "MUA4176",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "MUA1170",

@@ -1,4 +1,6 @@
 {
+    "courseCode": "CM2142",
+    "courseCredit": "4",
     "description": "Introduction to data treatment and analysis; discussion on sample treatment and extraction, and sample preparation techniques, separation science, electrochemistry. Topics covered will be selected from: liquid extraction and solid phase extraction, some novel extraction technologies; comparison of traditional and modern extraction procedures; introduction to chromatography, with special emphasis on planar chromatography; introduction to electroanalytical methods.",
     "faculty": "Science",
     "fulfillRequirements": [
@@ -7,8 +9,6 @@
         "CM3292",
         "CM3295"
     ],
-    "moduleCode": "CM2142",
-    "moduleCredit": "4",
     "prereqTree": {
         "or": [
             "CM1131",

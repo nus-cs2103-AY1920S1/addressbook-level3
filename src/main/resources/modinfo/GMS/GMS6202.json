@@ -2,9 +2,9 @@
     "attributes": {
         "year": true
     },
+    "courseCode": "GMS6202",
+    "courseCredit": "8",
     "description": "",
     "faculty": "Duke-NUS Medical School",
-    "moduleCode": "GMS6202",
-    "moduleCredit": "8",
     "title": "Surgery Clerkship"
 }

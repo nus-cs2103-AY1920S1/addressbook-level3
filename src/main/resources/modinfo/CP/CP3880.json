@@ -1,11 +1,11 @@
 {
+    "courseCode": "CP3880",
+    "courseCredit": "12",
     "description": "",
     "faculty": "Computing",
     "fulfillRequirements": [
         "IFS4201"
     ],
-    "moduleCode": "CP3880",
-    "moduleCredit": "12",
     "preclusion": "EG3601",
     "prereqTree": {
         "and": [

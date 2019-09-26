@@ -2,9 +2,9 @@
     "attributes": {
         "su": true
     },
+    "courseCode": "MUA2255",
+    "courseCredit": "2",
     "description": "",
     "faculty": "YST Conservatory of Music",
-    "moduleCode": "MUA2255",
-    "moduleCredit": "2",
     "title": "Applied Secondary A"
 }
