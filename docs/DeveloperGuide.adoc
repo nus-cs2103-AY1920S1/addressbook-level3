@@ -387,12 +387,12 @@ Use case resumes at step 2.
 Use case ends.
 
 ---
-=== Use case: Set a budget goal
+=== Use case: Set a monthly budget
 
 *MSS*
 
-1.  User requests to set a budget goal
-2.  MoneyGoWhere sets a specific budget goal
+1.  User requests to set a monthly budget
+2.  MoneyGoWhere sets a specific monthly budget
 +
 Use case ends.
 
