@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddEventCommand;
@@ -33,14 +34,18 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
 
         Name name = new Name(argMultimap.getValue(PREFIX_NAME).get());
         String eventName = argMultimap.getValue(PREFIX_EVENTNAME).get();
-        String[] timings = argMultimap.getValue(PREFIX_TIMING).get().split(" ");
+        List<String> timings = argMultimap.getAllValues(PREFIX_TIMING);
 
         int i;
         Event event = new Event(eventName);
         try {
-            for (i = 0; i < timings.length; i++) {
-                String[] details = timings[i].split("-");
-                event.addTimeslot(new Timeslot(details[0], details[1], details[2]));
+            for (i = 0; i < timings.size(); i++) {
+                Timeslot timeslot = ParserUtil.parseTimeslot(timings.get(i));
+                if(timeslot != null){
+                    event.addTimeslot(timeslot);
+                } else {
+                    return new AddEventCommand(name, null);
+                }
             }
         } catch (Exception e) {
             return new AddEventCommand(name, null);
