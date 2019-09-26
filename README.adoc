@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= FinSec
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
@@ -16,7 +16,8 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
+* It is a Java sample application intended to help computing students managing Finance for any clubs or organisations (e.g. Financial Secretary and Deputy Financial Secretary of Computing Club)
+
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
 == Site Map
