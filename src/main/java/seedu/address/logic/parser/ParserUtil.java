@@ -51,7 +51,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code ContactNumber}.
+     * Parses a {@code String phone} into a {@code phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.

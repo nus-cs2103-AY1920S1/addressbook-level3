@@ -51,13 +51,13 @@ public class UniqueCustomerList implements Iterable<Customer> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the customer {@code target} in the list with {@code editedCustomer}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The person identity of {@code editedCustomer} must not be the same as another existing customer in the list.
      * @param target
      * @param editedCustomer
      */
-    public void setPerson(Customer target, Customer editedCustomer) {
+    public void setCustomer(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
 
         int index = internalList.indexOf(target);
@@ -73,7 +73,7 @@ public class UniqueCustomerList implements Iterable<Customer> {
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent customer from the list.
      * The person must exist in the list.
      * @param toRemove
      */
@@ -84,7 +84,7 @@ public class UniqueCustomerList implements Iterable<Customer> {
         }
     }
 
-    public void setPersons(UniqueCustomerList replacement) {
+    public void setCustomers(UniqueCustomerList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -93,7 +93,7 @@ public class UniqueCustomerList implements Iterable<Customer> {
      * Replaces the contents of this list with {@code customers}.
      * {@code customers} must not contain duplicate customers.
      */
-    public void setPersons(List<Customer> customers) {
+    public void setCustomers(List<Customer> customers) {
         requireAllNonNull(customers);
         if (!customersAreUnique(customers)) {
             throw new DuplicateCustomerException();
