@@ -3,6 +3,7 @@ package seedu.jarvis.commons.util;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.io.IOException;
@@ -11,15 +12,10 @@ public class CourseUtilTest {
 
     @Test
     public void getCourseJsonStringTest() {
-        try {
-            CourseUtil.getCourseJsonString("CS", "CS3230.json");
-        } catch (IOException e) {
-            ;
-        }
-
         // bad path -> throws NullPointerException
-        //assertThrows(NullPointerException.class,
-        //        () -> CourseUtil.getCourseJsonString("invalidPath", "invalidFile.json"));
+        assertThrows(NullPointerException.class,
+                () -> CourseUtil.getCourseJsonString(
+                        "invalidPath", "invalidFile.json"));
     }
 
     @Test
