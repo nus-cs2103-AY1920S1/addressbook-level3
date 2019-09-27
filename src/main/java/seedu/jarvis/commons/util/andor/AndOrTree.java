@@ -5,34 +5,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
+/**
+ * A representation of an And-Or Tree. The tree represents the requirements for the root node
+ * to be {@code true}, and encapsulates some methods for operations in the tree.
+ *
+ * The tree is immutable once created.
+ *
+ * @param <T> generic type held by each node
+ */
 public class AndOrTree<T> {
-    private String name;
     private AndOrNode<T> root;
 
-    private AndOrTree(String name, AndOrNode root) {
-        this.name = name;
+    private AndOrTree(AndOrNode<T> root) {
         this.root = root;
-        System.out.println(this.toString());
     }
 
     /**
      * Returns a new AndOr Tree with the given name, using a tree in json format.
      *
-     * @param name of the tree
-     * @param jsonTreeFormat
+     * @param rootData of the tree
+     * @param jsonTreeFormat the tree in json format
      * @return a new {@code AndOrTree} built with the given tree format
      * @throws IOException if an I/O Exception occurs
      */
-    public static AndOrTree buildTree(String name, String jsonTreeFormat) throws IOException {
+    public static <T> AndOrTree<T> buildTree(T rootData, String jsonTreeFormat)
+            throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(jsonTreeFormat);
 
         // build the root
-        AndOrNode newRoot = new AndOrNode<>("CS3244", getKey(node), null);
+        AndOrNode<T> newRoot = AndOrNode.createAndOrNode(rootData, null,  "");
 
         iterateAndBuildTree(node, newRoot);
 
-        return new AndOrTree("name", newRoot);
+        return new AndOrTree<>(newRoot);
     }
 
     private static String getKey(JsonNode node) {
@@ -49,19 +55,19 @@ public class AndOrTree<T> {
                 iterateAndBuildTree(el, current);
             }
         } else if (node.isObject()) {
-            newNode = new AndOrNode<>("", getKey(node), current);
+            newNode = AndOrNode.createAndOrNode("", current, getKey(node));
             current.insert(newNode);
             node.fields().forEachRemaining(entry -> {
                 iterateAndBuildTree(entry.getValue(), newNode);
             });
         } else {
-            newNode = new AndOrNode<>(node.toString(), "leaf", current);
+            newNode = AndOrNode.createAndOrNode(node.toString(), current);
             current.insert(newNode);
         }
     }
 
     @Override
     public String toString() {
-        return this.root.toString();
+        return this.root.toTreeString();
     }
 }

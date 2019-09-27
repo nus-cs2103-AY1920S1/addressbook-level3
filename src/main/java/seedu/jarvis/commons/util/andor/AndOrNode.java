@@ -4,53 +4,57 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * A utility class representing a Node in this And-Or Tree.
- *
- * @param <T> a generic type
- */
-class AndOrNode<T> {
-    private T data;
-    private AndOrOperation type;
-    private AndOrNode parent;
-    private List<AndOrNode> children;
+public abstract class AndOrNode<T> {
+    protected T data;
+    protected AndOrNode parent;
+    protected List<AndOrNode> children;
 
-    AndOrNode(T data, String type, AndOrNode parent, List<AndOrNode> children) {
+    public abstract String toString();
+
+    protected AndOrNode(T data, AndOrNode parent, List<AndOrNode> children) {
         this.data = data;
-        this.type = AndOrOperationMapper.resolveType(type);
         this.parent = parent;
         this.children = children;
     }
 
-    AndOrNode(T data, String type, AndOrNode parent) {
+    protected AndOrNode(T data, AndOrNode parent) {
         this.data = data;
-        this.type = AndOrOperationMapper.resolveType(type);
         this.parent = parent;
         this.children = new ArrayList<>();
+    }
+
+    public T getData() {
+        return this.data;
     }
 
     void insert(AndOrNode node) {
         this.children.add(node);
     }
 
-    T getData() {
-        return this.data;
-    }
-
-    String getDataAsString() {
-        String typeAsString = AndOrOperationMapper.asString(type);
-        return typeAsString == null ? getData().toString() : typeAsString;
+    public static <T> AndOrNode<T> createAndOrNode(T data, AndOrNode parent, String... type) {
+        String nodeType = type.length == 0 ? "" : type[0];
+        AndOrOperation andOrNodeType = AndOrOperationMapper.resolveType(nodeType);
+        switch (andOrNodeType) {
+        case AND:
+            return new AndNode<T>(data, parent);
+        case OR:
+            return new OrNode<T>(data, parent);
+        default:
+            return new LeafNode<T>(data, parent);
+        }
     }
 
     /**
+     * Returns the {@code String} representation of this {@code AndOrNode} object and its
+     * sub-trees.
+     *
      * @@author ryanYtan-reused
      * Reused from https://stackoverflow.com/a/8948691 with minor modifications
      *
      * @return a String containing the String representation of this {@code AndOrNode} object,
      * and its sub-trees
      */
-    @Override
-    public String toString() {
+    public String toTreeString() {
         StringBuilder buffer = new StringBuilder();
         asStringTreeForm(buffer, "", "");
         return buffer.toString();
@@ -63,7 +67,7 @@ class AndOrNode<T> {
      * Reused from https://stackoverflow.com/a/8948691 with minor modifications
      */
     private void asStringTreeForm(StringBuilder buffer, String prefix, String childrenPrefix) {
-        buffer.append(prefix).append(getDataAsString()).append("\n");
+        buffer.append(prefix).append(this.toString()).append("\n");
         for (Iterator<AndOrNode> it = children.iterator(); it.hasNext();) {
             AndOrNode child = it.next();
             if (it.hasNext()) {
