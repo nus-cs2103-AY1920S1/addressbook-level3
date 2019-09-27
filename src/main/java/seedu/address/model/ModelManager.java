@@ -34,7 +34,7 @@ public class ModelManager implements Model {
         super();
 //        requireAllNonNull(addressBook, userPrefs, catalog);
 
-        logger.fine("Initializing with address book: " + catalog + " and user prefs " + userPrefs);
+        logger.fine("Initializing with catalog: " + catalog + " and user prefs " + userPrefs);
 
         this.userPrefs = new UserPrefs(userPrefs);
         // testing loan records
@@ -46,7 +46,7 @@ public class ModelManager implements Model {
         // testing
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         this.borrowerRecords.populateBorrowers();
-
+        SerialNumberGenerator.setCatalog((Catalog) catalog);
     }
 
     public ModelManager() {
@@ -88,6 +88,9 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setCatalogFilePath(addressBookFilePath);
     }
+
+
+    //=========== Catalog ================================================================================
 
     @Override
     public void setCatalog(ReadOnlyCatalog addressBook) {

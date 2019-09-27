@@ -14,27 +14,28 @@ public class SerialNumberTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
+    public void constructor_invalidSerialNumber_throwsIllegalArgumentException() {
         String invalidPhone = "";
         assertThrows(IllegalArgumentException.class, () -> new SerialNumber(invalidPhone));
     }
 
     @Test
-    public void isValidPhone() {
+    public void isValidSerialNumber() {
         // null phone number
-        assertThrows(NullPointerException.class, () -> SerialNumber.isValidPhone(null));
+        assertThrows(NullPointerException.class, () -> SerialNumber.isValidSerialNumber(null));
 
         // invalid phone numbers
-        assertFalse(SerialNumber.isValidPhone("")); // empty string
-        assertFalse(SerialNumber.isValidPhone(" ")); // spaces only
-        assertFalse(SerialNumber.isValidPhone("91")); // less than 3 numbers
-        assertFalse(SerialNumber.isValidPhone("phone")); // non-numeric
-        assertFalse(SerialNumber.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(SerialNumber.isValidPhone("9312 1534")); // spaces within digits
+        assertFalse(SerialNumber.isValidSerialNumber("")); // empty string
+        assertFalse(SerialNumber.isValidSerialNumber(" ")); // spaces only
+        assertFalse(SerialNumber.isValidSerialNumber("B91")); // less than 4 numbers
+        assertFalse(SerialNumber.isValidSerialNumber("C0001")); // different prefix
+        assertFalse(SerialNumber.isValidSerialNumber("phone")); // non-numeric
+        assertFalse(SerialNumber.isValidSerialNumber("9011p041")); // alphabets within digits
+        assertFalse(SerialNumber.isValidSerialNumber("9312 1534")); // spaces within digits
 
         // valid phone numbers
-        assertTrue(SerialNumber.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(SerialNumber.isValidPhone("93121534"));
-        assertTrue(SerialNumber.isValidPhone("124293842033123")); // long phone numbers
+        assertTrue(SerialNumber.isValidSerialNumber("B0911")); // exactly 4 numbers
+        assertTrue(SerialNumber.isValidSerialNumber("B0001")); // smallest serial number
+        assertTrue(SerialNumber.isValidSerialNumber("B9999")); // largest serial number
     }
 }

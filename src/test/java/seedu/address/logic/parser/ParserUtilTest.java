@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +26,7 @@ public class ParserUtilTest {
     private static final String INVALID_GENRE = "#friend";
 
     private static final String VALID_TITLE = "Rachel Walker";
-    private static final String VALID_SERIAL_NUMBER = "123456";
+    private static final String VALID_SERIAL_NUMBER = "B1234";
     private static final String VALID_AUTHOR = "rachel@example.com";
     private static final String VALID_GENRE_1 = "friend";
     private static final String VALID_GENRE_2 = "neighbour";
@@ -47,10 +47,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_BOOK, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_BOOK, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -77,23 +77,23 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
+    public void parseSerialNumber_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseSerialNumber((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
+    public void parseSerialNumber_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseSerialNumber(INVALID_SERIAL_NUMBER));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
+    public void parseSerialNumber_validValueWithoutWhitespace_returnsSerialNumber() throws Exception {
         SerialNumber expectedSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER);
         assertEquals(expectedSerialNumber, ParserUtil.parseSerialNumber(VALID_SERIAL_NUMBER));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
+    public void parseSerialNumber_validValueWithWhitespace_returnsTrimmedSerialNumber() throws Exception {
         String phoneWithWhitespace = WHITESPACE + VALID_SERIAL_NUMBER + WHITESPACE;
         SerialNumber expectedSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER);
         assertEquals(expectedSerialNumber, ParserUtil.parseSerialNumber(phoneWithWhitespace));

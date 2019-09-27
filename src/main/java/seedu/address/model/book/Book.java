@@ -23,7 +23,7 @@ public class Book {
 
 
     /**
-     * Every field must be present and not null.
+     * Constructor when loading the file from history or when loading sample data/tests.
      */
     public Book(Title title, SerialNumber serialNumber, Author author, Set<Genre> genres) {
         requireAllNonNull(title, serialNumber, author, genres);
