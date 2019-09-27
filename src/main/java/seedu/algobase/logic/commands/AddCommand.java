@@ -1,7 +1,13 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.algobase.logic.parser.CliSyntax.*;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;

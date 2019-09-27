@@ -12,6 +12,8 @@ public class Author {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Author numbers should only contain numbers, and it should be at least 3 digits long";
+    public static final Author DEFAULT_AUTHOR = new Author();
+
     /*
      * The first character of the author's name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -28,6 +30,10 @@ public class Author {
         requireNonNull(author);
         checkArgument(isValidAuthor(author), MESSAGE_CONSTRAINTS);
         value = author;
+    }
+
+    private Author() {
+        value = "User";
     }
 
     /**

@@ -15,6 +15,7 @@ public class WebLink {
     public static final String MESSAGE_CONSTRAINTS = "Weblinks should be parsable by java.net.URL";
     public static final String VALIDATION_REGEX =
             "<\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]>";
+    public static final WebLink DEFAULT_WEBLINK = new WebLink();
 
     public final String value;
 
@@ -27,6 +28,10 @@ public class WebLink {
         requireNonNull(weblink);
         checkArgument(isValidWeblink(weblink), MESSAGE_CONSTRAINTS);
         value = weblink;
+    }
+
+    private WebLink() {
+        value = "nil";
     }
 
     /**
