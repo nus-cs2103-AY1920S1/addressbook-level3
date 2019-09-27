@@ -12,6 +12,7 @@ public class AndOrTree<T> {
     private AndOrTree(String name, AndOrNode root) {
         this.name = name;
         this.root = root;
+        System.out.println(this.toString());
     }
 
     /**
