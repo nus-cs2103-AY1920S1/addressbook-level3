@@ -14,7 +14,7 @@ import seedu.mark.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path bookmarkManagerFilePath = Paths.get("data" , "bookmarker.json");
+    private Path bookmarkManagerFilePath = Paths.get("data" , "mark.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.

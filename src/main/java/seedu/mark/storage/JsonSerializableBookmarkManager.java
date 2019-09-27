@@ -16,7 +16,7 @@ import seedu.mark.model.bookmark.Bookmark;
 /**
  * An Immutable BookmarkManager that is serializable to JSON format.
  */
-@JsonRootName(value = "bookmarker")
+@JsonRootName(value = "mark")
 class JsonSerializableBookmarkManager {
 
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "Bookmarks list contains duplicate bookmark(s).";
