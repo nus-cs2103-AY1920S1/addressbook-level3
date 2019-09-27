@@ -19,7 +19,7 @@ Role: Project Advisor / Lecturer
 '''
 
 === Wilfred Bradley Tan
-image::lejolly.jpg[width="150", align="left"]
+image::wilfredbtan.png[width="150", align="left"]
 {empty}[http://github.com/wilfredbtan[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -28,7 +28,7 @@ Responsibilities: Parser
 '''
 
 === Neo Si Hao
-image::yijinl.jpg[width="150", align="left"]
+image::neoshh.png[width="150", align="left"]
 {empty}[http://github.com/neoshh[github]] [<<johndoe#, portfolio>>]
 
 Role: Scheduling and Tracking +
@@ -37,7 +37,7 @@ Responsibilities: UI
 '''
 
 === Ng Tze Xuan, Shuan
-image::m133225.jpg[width="150", align="left"]
+image::ShaunNgTX.png[width="150", align="left"]
 {empty}[http://github.com/ShaunNgTX[github]] [<<johndoe#, portfolio>>]
 
 Role: Code Quality +
@@ -46,7 +46,7 @@ Responsibilities: Logic
 '''
 
 === Sim Khiang Leon
-image::yl_coder.jpg[width="150", align="left"]
+image::khiangleon.png[width="150", align="left"]
 {empty}[http://github.com/khiangleon[github]] [<<johndoe#, portfolio>>]
 
 Role: Integration +
