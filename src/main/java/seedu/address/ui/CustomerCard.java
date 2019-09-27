@@ -47,7 +47,6 @@ public class CustomerCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(customer.getName().fullName);
         contactNumber.setText(customer.getContactNumber().value);
-        address.setText(customer.getAddress().value);
         email.setText(customer.getEmail().value);
         customer.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -21,18 +21,16 @@ public class Customer {
     private final Email email;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, ContactNumber contactNumber, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, contactNumber, email, address, tags);
+    public Customer(Name name, ContactNumber contactNumber, Email email, Set<Tag> tags) {
+        requireAllNonNull(name, contactNumber, email, tags);
         this.name = name;
         this.contactNumber = contactNumber;
         this.email = email;
-        this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -46,10 +44,6 @@ public class Customer {
 
     public Email getEmail() {
         return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     /**
@@ -93,14 +87,13 @@ public class Customer {
         return otherCustomer.getName().equals(getName())
                 && otherCustomer.getContactNumber().equals(getContactNumber())
                 && otherCustomer.getEmail().equals(getEmail())
-                && otherCustomer.getAddress().equals(getAddress())
                 && otherCustomer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, contactNumber, email, address, tags);
+        return Objects.hash(name, contactNumber, email, tags);
     }
 
     @Override
@@ -111,8 +104,6 @@ public class Customer {
                 .append(getContactNumber())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
