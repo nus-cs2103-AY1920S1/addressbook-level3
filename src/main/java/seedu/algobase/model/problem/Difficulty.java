@@ -13,6 +13,7 @@ public class Difficulty {
     public static final Difficulty DEFAULT_DIFFICULTY = new Difficulty();
     public final double value;
 
+
     /**
      * Constructs an {@code Difficulty} from a String representing a number.
      *
