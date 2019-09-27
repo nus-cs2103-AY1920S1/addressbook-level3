@@ -2,22 +2,34 @@ package seedu.jarvis.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
+import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
 import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
 
 /**
  * Tests the functionality of {@code CommandDeque}.
  */
 public class CommandDequeTest {
+
+    /**
+     * Verifies that the overloaded constructor to set a custom size limit works as intended.
+     */
+    @Test
+    public void test_customSizeLimitConstructor() {
+        int customSizeLimit = 5;
+        CommandDeque commandDeque = new CommandDeque(customSizeLimit);
+        assertEquals(customSizeLimit, commandDeque.getSizeLimit());
+    }
 
     /**
      * Verifies that {@code CommandDeque#addLatestCommand(Command)} adds the command correctly into the deque.
@@ -48,33 +60,59 @@ public class CommandDequeTest {
     }
 
     /**
+     * Verifies that {@code CommandDeque#deleteLatestCommand()} removes the correct command successfully.
+     */
+    @Test
+    public void deleteLatestCommand_nonEmpty_success() {
+        CommandDeque commandDeque = new CommandDeque();
+        Deque<Command> commands = new ArrayDeque<>();
+        int numberOfCommands = 10;
+        IntStream.range(0, numberOfCommands)
+                .mapToObj(index -> new ClearAddressCommand())
+                .forEach(commands::addLast);
+        commands.forEach(command -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(command)));
+        IntStream.range(0, numberOfCommands)
+                .forEach(index -> {
+                    Command c = assertDoesNotThrow(commandDeque::deleteLatestCommand);
+                    assertSame(c, commands.removeLast());
+                });
+    }
+
+    /**
+     * Verifies that {@code CommandDeque#deletelatestCommand()} throws {@code CommandNotFoundException} if it is empty.
+     */
+    @Test
+    public void deleteLatestCommand_empty_exceptionThrown() {
+        CommandDeque commandDeque = new CommandDeque();
+        assertThrows(CommandNotFoundException.class, commandDeque::deleteOldestCommand);
+    }
+
+    /**
      * Verifies that {@code CommandDeque#deleteOldestCommand()} removes the correct command successfully.
      */
     @Test
     public void deleteOldestCommand_nonEmpty_success() {
         CommandDeque commandDeque = new CommandDeque();
-        Command c1 = new ClearAddressCommand();
-        Command c2 = new ClearAddressCommand();
-        assertDoesNotThrow(() -> {
-            commandDeque.addLatestCommand(c1);
-            commandDeque.addLatestCommand(c2);
-        });
-        assertEquals(2, commandDeque.getSize()); // checks that commands were added.
-        assertSame(commandDeque.deleteOldestCommand(), c1); // checks that the correct command is deleted.
-        assertEquals(1, commandDeque.getSize()); // checks that the size reduced by 1.
-        assertSame(commandDeque.deleteOldestCommand(), c2); // checks that the correct command is deleted.
-        assertEquals(0, commandDeque.getSize()); // checks that the size reduced by 1.
+        ArrayDeque<Command> commands = new ArrayDeque<>();
+        int numberOfCommands = 10;
+        IntStream.range(0, numberOfCommands)
+                .mapToObj(index -> new ClearAddressCommand())
+                .forEach(commands::addLast);
+        commands.forEach(command -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(command)));
+        IntStream.range(0, numberOfCommands)
+                .forEach(index -> {
+                    Command c = assertDoesNotThrow(commandDeque::deleteOldestCommand);
+                    assertSame(c, commands.removeFirst());
+                });
     }
 
     /**
-     * Verifies that {@code CommandDeque#deleteOldestCommand()} returns null if it is empty.
+     * Verifies that {@code CommandDeque#deleteOldestCommand()} throws {@code CommandNotFoundException} if it is empty.
      */
     @Test
-    public void deleteOldestCommand_empty_success() {
+    public void deleteOldestCommand_empty_exceptionThrown() {
         CommandDeque commandDeque = new CommandDeque();
-
-        // checks that null is returned if there is no command to delete.
-        assertNull(commandDeque.deleteOldestCommand());
+        assertThrows(CommandNotFoundException.class, commandDeque::deleteOldestCommand);
     }
 
     /**
@@ -85,10 +123,11 @@ public class CommandDequeTest {
         CommandDeque commandDeque = new CommandDeque();
 
         // adds twice the amount of commands allowed by its size limit.
-        IntStream.range(0, commandDeque.getLimit() * 2)
+        IntStream.range(0, commandDeque.getSizeLimit() * 2)
                 .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new ClearAddressCommand())));
 
-        assertEquals(commandDeque.getLimit(), commandDeque.getSize()); // checks that it is size has not exceeded limit.
+        // checks that it is size has not exceeded limit.
+        assertEquals(commandDeque.getSizeLimit(), commandDeque.getSize());
     }
 
     /**
@@ -99,13 +138,13 @@ public class CommandDequeTest {
         CommandDeque commandDeque = new CommandDeque();
 
         // adds commands until it is at the size limit.
-        IntStream.range(0, commandDeque.getLimit())
+        IntStream.range(0, commandDeque.getSizeLimit())
                 .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new ClearAddressCommand())));
 
-        int updatedLimit = commandDeque.getLimit() / 2;
-        commandDeque.setLimit(updatedLimit);
+        int updatedLimit = commandDeque.getSizeLimit() / 2;
+        commandDeque.setSizeLimit(updatedLimit);
 
-        assertEquals(updatedLimit, commandDeque.getLimit()); // checks if limit is updated.
+        assertEquals(updatedLimit, commandDeque.getSizeLimit()); // checks if limit is updated.
         assertEquals(updatedLimit, commandDeque.getSize()); // checks if new limit is enforced.
     }
 
@@ -117,15 +156,15 @@ public class CommandDequeTest {
         CommandDeque commandDeque = new CommandDeque();
 
         // adds commands until it is at the size limit.
-        IntStream.range(0, commandDeque.getLimit())
+        IntStream.range(0, commandDeque.getSizeLimit())
                 .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new ClearAddressCommand())));
 
-        int limit = commandDeque.getLimit();
+        int limit = commandDeque.getSizeLimit();
 
         commandDeque.clearCache();
 
         assertTrue(commandDeque.isEmpty()); // checks that commands are all cleared.
-        assertEquals(limit, commandDeque.getLimit()); // checks that limit is unchanged.
+        assertEquals(limit, commandDeque.getSizeLimit()); // checks that limit is unchanged.
 
     }
 }

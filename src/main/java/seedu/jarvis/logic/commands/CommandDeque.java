@@ -7,6 +7,7 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
 import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
 
 /**
@@ -22,7 +23,7 @@ import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
  */
 public class CommandDeque {
     /** Starting default limit to be assigned to each instance. */
-    private static final int DEFAULT_INITIAL_SIZE_LIMIT = 10;
+    public static final int DEFAULT_INITIAL_SIZE_LIMIT = 10;
     /**
      * Deque to store commands. Deque is used to facilitate adding new commands to the start of the deque, and deleting
      * old commands from the back of the deque.
@@ -34,7 +35,7 @@ public class CommandDeque {
      */
     private Set<Command> commandTracker;
     /** Represents the maximum number of commands to store in the deque, that can be updated in value and enforced. */
-    private int limit;
+    private int sizeLimit;
 
     /**
      * Creates a new {@code CommandDeque} with the default size limit of DEFAULT_INITIAL_SIZE_LIMIT.
@@ -43,7 +44,16 @@ public class CommandDeque {
     public CommandDeque() {
         commands = new ArrayDeque<>();
         commandTracker = new HashSet<>();
-        limit = DEFAULT_INITIAL_SIZE_LIMIT;
+        sizeLimit = DEFAULT_INITIAL_SIZE_LIMIT;
+    }
+
+    /**
+     * Creates a new {@code CommandDeque} with a custom size limit.
+     * @param sizeLimit Custom size limit.
+     */
+    public CommandDeque(int sizeLimit) {
+        this();
+        this.sizeLimit = sizeLimit;
     }
 
     /**
@@ -59,8 +69,8 @@ public class CommandDeque {
      * Gets the current command size limit of the {@code CommandDeque}.
      * @return current command size limit of {@code CommandDeque}.
      */
-    public int getLimit() {
-        return limit;
+    public int getSizeLimit() {
+        return sizeLimit;
     }
 
     /**
@@ -68,13 +78,13 @@ public class CommandDeque {
      * Trims the deque to the new size if the new size limit is lower that the original.
      * Returns null if the limit is invalid, which is lesser than zero.
      *
-     * @param limit The new size limit.
+     * @param sizeLimit The new size limit.
      */
-    public void setLimit(int limit) {
-        if (limit < 0) {
+    public void setSizeLimit(int sizeLimit) {
+        if (sizeLimit < 0) {
             return;
         }
-        this.limit = limit;
+        this.sizeLimit = sizeLimit;
         trimSize();
     }
 
@@ -131,14 +141,29 @@ public class CommandDeque {
     }
 
     /**
-     * Deletes the oldest {@code Command} in {@code CommandDeque}.
-     * If there are no commands, return null.
+     * Deletes the latest {@code Command} in {@code CommandDeque}.
      *
-     * @return Oldest {@code Command} in {@code CommandDeque}, null if {@code CommandDeque#isEmpty()} returns true.
+     * @return Latest {@code Command} in {@code CommandDeque}
+     * @throws CommandNotFoundException if {@code CommandDeque} is empty.
      */
-    public Command deleteOldestCommand() {
+    public Command deleteLatestCommand() throws CommandNotFoundException {
         if (isEmpty()) {
-            return null;
+            throw new CommandNotFoundException();
+        }
+        Command command = commands.removeFirst();
+        commandTracker.remove(command);
+        return command;
+    }
+
+    /**
+     * Deletes the oldest {@code Command} in {@code CommandDeque}.
+     *
+     * @return Oldest {@code Command} in {@code CommandDeque}.
+     * @throws CommandNotFoundException If {@code CommandDeque} is empty.
+     */
+    public Command deleteOldestCommand() throws CommandNotFoundException {
+        if (isEmpty()) {
+            throw new CommandNotFoundException();
         }
         Command command = commands.removeLast();
         commandTracker.remove(command);
@@ -158,7 +183,7 @@ public class CommandDeque {
      * Commands are deleted starting from the oldest commands.
      */
     private void trimSize() {
-        while (commands.size() > limit) {
+        while (commands.size() > sizeLimit) {
             Command command = commands.removeLast();
             commandTracker.remove(command);
         }
