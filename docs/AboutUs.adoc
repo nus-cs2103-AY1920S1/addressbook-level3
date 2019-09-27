@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === Cheong Li Yuan
-image::lejolly.jpg[width="150", align="left"]
+image::cheongliyuan.png[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -47,7 +47,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Tan Wei Adam
-image::adam.jpg[width="150", align="left"]
+image::MistyRainforest.jpg[width="150", align="left"]
 {empty}[http://github.com/MistyRainforest[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
