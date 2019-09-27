@@ -34,6 +34,7 @@ public class DeleteCommand extends UndoableCommand {
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        this.personToDelete = null;
     }
 
     @Override
@@ -45,7 +46,12 @@ public class DeleteCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (personToDelete == null) {
+            personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        } else if (!model.hasPerson(personToDelete)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
