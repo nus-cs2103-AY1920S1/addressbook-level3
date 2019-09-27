@@ -35,7 +35,7 @@ image::Ui.png[width="790"]
 *Command Format*
 
 * Items in angle brackets are the parameters to be supplied by the user
-* Items in square brackets are optional i.e. user can omit input of the parameter
+* Items in square brackets are optional
 ====
 
 == Recipe Book
@@ -236,19 +236,21 @@ Adds a new start date record if DukeCooks finds no menstrual records for the mon
 
 === Edit Health Data:  `edit health`
 Edits an existing health record of specified record ID with input value to overwrite. + 
-Format: `edit health <record id> <value>` + 
+Format: `edit health <record id> <value>`
+
 * <record id> refers to the unique identifier attributed to each health record upon creation.
 
 Examples:
 
-* `edit health BP129391 133/80 ` + 
+* `edit health BP129391 133/80` + 
 Edits the existing blood pressure record from today 9am to 133/80 mmHg.
 * `edit health W000123 50` + 
 Edits weight record id of W000123 to 50kg.
 
 === Delete Health Data:  `delete health`
 Deletes an existing health record of specified record ID. + 
-Format: `delete health <record id> ` + 
+Format: `delete health <record id>`
+
 * <record id> refers to the unique identifier attributed to each health record upon creation.
 
 Examples:
@@ -260,7 +262,7 @@ Deletes the health record of W000123.
 
 === View Medical Appointments:  `[coming in v2.0]`
 Shows all the medical appointment for the month. + 
-Format: `view appt [time period] `
+Format: `view appt [time period]`
  
 Examples:
 
@@ -271,7 +273,8 @@ View all the medical appointments of the next 3 months.
 
 === Add Medical Appointment:  `[coming in v2.0]`
 Adds a new medical appointment where user can include an optional note. + 
-Format: `add appt <date time> [note]` + 
+Format: `add appt <date time> [note]`
+
 * DukeCooks will prompt reminder when appointment is in a week’s time.
  
 Examples:
@@ -283,7 +286,8 @@ Add a new medical appointment for 31st Dec 2019, 8AM with note “thomson medica
 
 === Edit Medical Appointment:  `[coming in v2.0]`
 Edits an existing medical appointment. + 
-Format: `edit appt <Appt ID> [date time] [note]` + 
+Format: `edit appt <Appt ID> [date time] [note]`
+
 * <Appt ID> refers to the unique identifier attributed to each medical appointment upon creation.
 * At least one of the optional fields must be provided
 * Existing value will be overwritten with the new inputs given
@@ -300,7 +304,8 @@ Change the medical appointment to be 31st Dec 2019, 1.30PM with “CGH - blood g
 
 === Delete Medical Appointment `[coming in v2.0]`
 Deletes an existing medical appointment. + 
-Format: `delete appt <APPT ID>` + 
+Format: `delete appt <APPT ID>`
+
 * <APPT ID> refers to the unique identifier attributed to each medical appointment upon creation.
  
 Examples:
@@ -310,7 +315,8 @@ Deletes the medical appointment of APPT0001.
  
 === Print Health Records to PDF `[coming in v2.0]`
 Generates a PDF copy of health records. + 
-Format: `print health <type> [MORE_TYPES] [time period]` + 
+Format: `print health <type> [MORE_TYPES] [time period]`
+
 * If more than one type of data to print, the data will be displayed in the order of input (refer to example).
 
 IMPORTANT: By default, DukeCooks will generate pdf with health records for the past 1 month if [time period] is not specified.
@@ -328,26 +334,26 @@ Generates a PDF copy of all the blood sugar and blood pressure records respectiv
 === Adding an exercise: `add exercise`
 Adds an exercise to exercise list. App will then prompt for the muscle type, level of intensity (out of 5), instructions as well as images of the steps (in directory form) (optional) in order.
 
-Once done you can add the recommended number of sets (optional), recommended number of repetitions (optional), recommended timing in minutes(optional), weight (optional) in the format: `s/SETS r/REPETITIONS w/WEIGHT t/TIMING`+ 
+Once done you can add the recommended number of sets (optional), recommended number of repetitions (optional), recommended timing in minutes(optional), weight (optional) in the format: `s/SETS r/REPETITIONS w/WEIGHT t/TIMING` +
 Format: `add exercise <name>`
 
 Examples:
 
-* ` add exercise Inclined Bench Press` + 
+* `add exercise Inclined Bench Press` + 
 Output: _Exercise “Inclined Bench Press” has been created. Please enter the muscle groups it trains, separating each muscle by a “/”._
-* ` lats/chest` + 
+* `lats/chest` + 
 Output: _Muscle group(s) have been added! Now lets add intensity level out of 5!_
-* ` 4` + 
+* `4` + 
 Output: _Now let’s add the instructions!_
-* ` Lie down on an inclined bench` + 
+* `Lie down on an inclined bench` + 
 Output: _Step 1 added! Type done when you’re done with all the instructions!_
-* ` Push weight above head` + 
+* `Push weight above head` + 
 Output: _Step 2 added! Type done when you’re done with all the instructions!_
-* ` done` + 
+* `done` + 
 Output: _Almost done! If you want to add an image please specify the folder! Otherwise type “/”._
-* ` /` + 
+* `/` + 
 Output: _If you want to specify your reps, sets and weight you may now do so. Otherwise type “/”._
-* ` w/30kg r/5 s/5 t/1:00` + 
+* `w/30kg r/5 s/5 t/1:00` + 
 Output: _Nice exercise has been created!_
 
 
@@ -397,7 +403,8 @@ Format: `run <index>`
 == Food Diary
 === Create Diary: `create diary`
 Creates a new diary with the specified name + 
-Format: `create diary <diary name>` + 
+Format: `create diary <diary name>`
+
 * Diary names are unique
  
 Examples:
@@ -407,7 +414,8 @@ Examples:
 
 === Delete Diary: `delete diary`
 Deletes the diary with the specified name + 
-Format: `delete diary <diary name>` + 
+Format: `delete diary <diary name>`
+
 * Diary name should already exist
  
 Examples:
@@ -420,7 +428,7 @@ Adds a page to the end of the specified diary +
 Format: `add page <type> <diary name>` + 
 * Diary should already exist
 
-IMPORTANT: Users can only add pages of types: health, food or exercise.
+NOTE: Users can only add pages of types: health, food or exercise.
  
 Examples:
 
@@ -435,7 +443,8 @@ Adds an exercise page to the diary named “Healthy Living”
 
 === Delete Page: `delete page`
 Deletes the specified page from the specified diary + 
-Format: `delete page <index> <diary name>` + 
+Format: `delete page <index> <diary name>`
+
 * Diary should already exist
 * Index should a positive integer
  
@@ -446,11 +455,12 @@ Examples:
 
 === Link Recipes: `[Coming in v2.0]`
 Creates a new food page in the specified diary, using pre-existing recipes + 
-Format: `link recipe <recipe name> /to <diary name>` + 
+Format: `link recipe <recipe name> /to <diary name>`
+
 * Diary should already exist
 * Recipe should already exist
 
-IMPORTANT: Deleting recipes will not delete the linked pages in diary!
+NOTE: Deleting recipes will not delete the linked pages in diary!
  
 Examples:
 
@@ -459,11 +469,12 @@ Examples:
 
 ===  Link Exercises: `[Coming in v2.0]`
 Creates a new exercise page in the specified diary, using pre-existing exercises + 
-Format: `link exercise <exercise name> /to <diary name>` + 
+Format: `link exercise <exercise name> /to <diary name>`
+
 * Diary should already exist
 * Exercise should already exist
 
-IMPORTANT: Deleting exercises will not delete the linked pages in diary!
+NOTE: Deleting exercises will not delete the linked pages in diary!
  
 Examples:
 
@@ -472,20 +483,22 @@ Examples:
 
 === Link Health Records: `[Coming in v2.0]`
 Creates a new health page in the specified diary, using pre-existing records + 
-Format: `link records <record id> /to <diary name>` + 
+Format: `link records <record id> /to <diary name>`
+
 * Diary should already exist
 * Records should already exist
 
-IMPORTANT: Deleting health records will not delete the linked pages in diary!
+NOTE: Deleting health records will not delete the linked pages in diary!
  
 Examples:
 
 * `link records BP129391 /to Healthy Living` + 
  Creates a health page about “BP129391” and adds it to the diary named “Healthy Living”
 
-5.8. Edit Diary: `[Coming in v2.0]`
+=== Edit Diary: `[Coming in v2.0]`
 Allows user to edit some basic information in the diary + 
-Format: `edit <diary name>` + 
+Format: `edit <diary name>`
+
 * Diary should already exist
  
 Examples:
@@ -493,9 +506,10 @@ Examples:
 * `edit Healthy Living` + 
  Users will now be able to edit basic information in the diary named “Healthy Living”
 
-5.9. Edit Page: `[Coming in v2.0]`
+=== Edit Page: `[Coming in v2.0]`
 Allows user to edit basic information in the specified page of the specified diary + 
-Format: `edit page <index> <diary name>` + 
+Format: `edit page <index> <diary name>`
+
 * Diary should already exist
 * Index should be a positive integer
  
@@ -504,9 +518,10 @@ Examples:
 * `edit page 2 Healthy Living` + 
  Users will be able to edit some basic information in page 2 of the diary named “Healthy Living”
 
-5.10. View Diary: `[Coming in v2.0]`
+=== View Diary: `[Coming in v2.0]`
 Allows user to view the specified diary in a page-form + 
-Format: `view  <diary name>` + 
+Format: `view  <diary name>`
+
 * Diary should already exist
  
 Examples:
@@ -514,9 +529,10 @@ Examples:
 * `view Healthy Living` + 
  Users will now be able to view the diary in a page-view in the GUI
 
-5.11. Print Diary: `[Coming in v2.0]`
+=== Print Diary: `[Coming in v2.0]`
 Allows user to print the specified diary in PDF format + 
-Format: `print <diary name>` +
+Format: `print <diary name>`
+
 * Diary should already exist
  
 Examples:
@@ -526,14 +542,56 @@ A PDF format of the diary named “Healthy Living” will be generated
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+*Recipe Book*
+
+* *Add recipe* : `add recipe <name>` +
+e.g. `add recipe Chicken Rice`
+* *Delete recipe* : `delete recipe <name>` +
+e.g. `delete recipe Chicken Rice`
+* *List recipes* : `list recipe`
+* *View recipe* : `view recipe` +
+e.g. `view recipe Chicken Rice`
+
+*Dashboard (Analytics & Suggestions)*
+
+* *Get suggestions* : `suggest`
+* *Get random food suggestions* : `suggest food`
+* *Get new food suggestions* : `suggest new food`
+* *Get statistics* : `stats`
+* *Get food statistics* : `stats food`
+* *Get exercise statistics* : `stats exercise`
+
+*Health Records*
+
+* *View User Profile* : `view profile`
+* *View health data* : `view health <type> [time period]` +
+e.g. `view health glucose 3 month`
+* *Add health data* : `add health <type> <value> [date] <time>` +
+e.g. `add health blood pressure 120/80 9am`
+* *Edit health data* : `edit health <record id> <value>` +
+e.g. `edit health BP129391 133/80`
+* *Delete health data* : `delete health <record id>` +
+e.g. `delete health BP129391`
+
+*Worker Tracker*
+
+* *Adding an exercise* : `add exercise <name>` +
+e.g. `add exercise Inclined Bench Press`
+* *List exercise* : `list exercise [MUSCLEGROUP] [INTENSITY]`
+* *Delete exercise* : `delete exercise <index>`
+* *View exercise* : `view exercise<index>`
+* *Create workout* : `workout <name>`
+* *List workout* : `list exercise [MUSCLEGROUP] [INTENSITY] [TOTALTIME]`
+* *Delete workout* : `delete workout <index>`
+* *Run workout* : `run <index>`
+
+*Food Diary*
+
+* *Create Diary* : `create diary` +
+e.g. `create diary Healthy Living`
+* *Delete Diary* : `delete diary <diary name>` +
+e.g. `delete diary Healthy Living`
+* *Add page* : `add page <type> <diary name>` +
+e.g. `add page health Healthy Living`
+* *Delete page* : `delete page <index> <diary name>` +
+e.g. `delete page 2 Healthy Living`
