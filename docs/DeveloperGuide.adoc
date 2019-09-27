@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Revision Software - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Group F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
