@@ -12,14 +12,14 @@ import seedu.address.model.customer.exceptions.CustomerNotFoundException;
 import seedu.address.model.customer.exceptions.DuplicateCustomerException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of customers that enforces uniqueness between its elements and does not allow nulls.
  * A customer is considered unique by comparing using {@code Customer#isSameCustomer(Customer)}.
  * As such, adding and updating of
  * customers uses Customer#isSameCustomer(Customer) for equality so as to ensure that the customers
  * being added or updated is
  * unique in terms of identity in the UniqueCustomerList. However, the removal of a customer uses
  * Customer#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * as to ensure that the customer with exactly the same fields will be removed.
  * Supports a minimal set of list operations.
  *
  * @see Customer#isSameCustomer(Customer)
@@ -31,7 +31,7 @@ public class UniqueCustomerList implements Iterable<Customer> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent customer as the given argument.
      */
     public boolean contains(Customer toCheck) {
         requireNonNull(toCheck);
