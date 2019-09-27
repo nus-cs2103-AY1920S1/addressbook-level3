@@ -72,7 +72,8 @@ public interface Model {
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
      * {@code target} must exist in the address book.
-     * The flashCard identity of {@code editedFlashCard} must not be the same as another existing flashCard in the address book.
+     * The flashCard identity of {@code editedFlashCard}
+     * must not be the same as another existing flashCard in the address book.
      */
     void setPerson(FlashCard target, FlashCard editedFlashCard);
 

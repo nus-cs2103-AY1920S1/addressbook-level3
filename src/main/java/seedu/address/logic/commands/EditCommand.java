@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -19,10 +19,10 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.Rating;
 import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Rating;
 
 /**
  * Edits the details of an existing flashCard in the address book.
@@ -73,7 +73,7 @@ public class EditCommand extends Command {
         FlashCard flashCardToEdit = lastShownList.get(index.getZeroBased());
         FlashCard editedFlashCard = createEditedPerson(flashCardToEdit, editPersonDescriptor);
 
-        if (!flashCardToEdit.isSamePerson(editedFlashCard) && model.hasFlashcard(editedFlashCard)) {
+        if (!flashCardToEdit.isSameFlashCard(editedFlashCard) && model.hasFlashcard(editedFlashCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

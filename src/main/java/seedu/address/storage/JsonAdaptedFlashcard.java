@@ -11,10 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.category.Category;
-import seedu.address.model.flashcard.Rating;
-import seedu.address.model.flashcard.Question;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Rating;
+
 
 /**
  * Jackson-friendly version of {@link FlashCard}.
@@ -26,7 +27,7 @@ class JsonAdaptedFlashcard {
     private final String question;
     private final String answer;
     private final String rating;
-    private final List<JsonAdaptedCategory> Categories = new ArrayList<>();
+    private final List<JsonAdaptedCategory> categories = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedFlashcard} with the given flashCard details.
@@ -40,7 +41,7 @@ class JsonAdaptedFlashcard {
         this.answer = answer;
         this.rating = rating;
         if (categories != null) {
-            this.Categories.addAll(categories);
+            this.categories.addAll(categories);
         }
     }
 
@@ -51,7 +52,7 @@ class JsonAdaptedFlashcard {
         question = source.getQuestion().fullQuestion;
         answer = source.getAnswer().fullAnswer;
         rating = source.getRating().value;
-        Categories.addAll(source.getCategories().stream()
+        categories.addAll(source.getCategories().stream()
                 .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
     }
@@ -63,12 +64,14 @@ class JsonAdaptedFlashcard {
      */
     public FlashCard toModelType() throws IllegalValueException {
         final List<Category> personCategories = new ArrayList<>();
-        for (JsonAdaptedCategory category : Categories) {
+        for (JsonAdaptedCategory category : categories) {
             personCategories.add(category.toModelType());
         }
 
         if (question == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Question.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                            Question.class.getSimpleName()));
         }
         if (!Question.isValidQuestion(question)) {
             throw new IllegalValueException(Question.MESSAGE_CONSTRAINTS);

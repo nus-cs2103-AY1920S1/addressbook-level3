@@ -6,30 +6,30 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.category.Category;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.Rating;
-import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Rating;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditFlashCardDescriptorBuilder {
 
     private EditPersonDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
+    public EditFlashCardDescriptorBuilder() {
         descriptor = new EditPersonDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
+    public EditFlashCardDescriptorBuilder(EditPersonDescriptor descriptor) {
         this.descriptor = new EditPersonDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code flashCard}'s details
      */
-    public EditPersonDescriptorBuilder(FlashCard flashCard) {
+    public EditFlashCardDescriptorBuilder(FlashCard flashCard) {
         descriptor = new EditPersonDescriptor();
         descriptor.setQuestion(flashCard.getQuestion());
         descriptor.setAnswer(flashCard.getAnswer());
@@ -40,7 +40,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Question} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withQuestion(String question) {
+    public EditFlashCardDescriptorBuilder withQuestion(String question) {
         descriptor.setQuestion(new Question(question));
         return this;
     }
@@ -48,7 +48,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Answer} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAnswer(String answer) {
+    public EditFlashCardDescriptorBuilder withAnswer(String answer) {
         descriptor.setAnswer(new Answer(answer));
         return this;
     }
@@ -57,7 +57,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Rating} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withRating (String rating) {
+    public EditFlashCardDescriptorBuilder withRating (String rating) {
         descriptor.setRating(new Rating(rating));
         return this;
     }
@@ -66,7 +66,7 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withCategories(String... categories) {
+    public EditFlashCardDescriptorBuilder withCategories(String... categories) {
         Set<Category> categorySet = Stream.of(categories).map(Category::new).collect(Collectors.toSet());
         descriptor.setCategories(categorySet);
         return this;

@@ -8,19 +8,21 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.flashcard.exceptions.DuplicatePersonException;
-import seedu.address.model.flashcard.exceptions.PersonNotFoundException;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
+import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A flashCard is considered unique by comparing using {@code FlashCard#isSamePerson(FlashCard)}. As such, adding and updating of
- * persons uses FlashCard#isSamePerson(FlashCard) for equality so as to ensure that the flashCard being added or updated is
- * unique in terms of identity in the UniqueFlashCardList. However, the removal of a flashCard uses FlashCard#equals(Object) so
+ * A list of flash cards that enforces uniqueness between its elements and does not allow nulls.
+ * A flash card is considered unique by comparing using {@code FlashCard#isSameFlashCard(FlashCard)}.
+ * As such, adding and updating of flash cards uses FlashCard#isSameFlashCard(FlashCard) for equality
+ * so as to ensure that the flash card being added or updated
+ * is unique in terms of identity in the UniqueFlashCardList.
+ * However, the removal of a flashCard uses FlashCard#equals(Object) so
  * as to ensure that the flashCard with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see FlashCard#isSamePerson(FlashCard)
+ * @see FlashCard#isSameFlashCard(FlashCard)
  */
 public class UniqueFlashCardList implements Iterable<FlashCard> {
 
@@ -33,7 +35,7 @@ public class UniqueFlashCardList implements Iterable<FlashCard> {
      */
     public boolean contains(FlashCard toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameFlashCard);
     }
 
     /**
@@ -43,7 +45,7 @@ public class UniqueFlashCardList implements Iterable<FlashCard> {
     public void add(FlashCard toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateFlashCardException();
         }
         internalList.add(toAdd);
     }
@@ -58,11 +60,11 @@ public class UniqueFlashCardList implements Iterable<FlashCard> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new FlashCardNotFoundException();
         }
 
-        if (!target.isSamePerson(editedFlashCard) && contains(editedFlashCard)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameFlashCard(editedFlashCard) && contains(editedFlashCard)) {
+            throw new DuplicateFlashCardException();
         }
 
         internalList.set(index, editedFlashCard);
@@ -75,11 +77,11 @@ public class UniqueFlashCardList implements Iterable<FlashCard> {
     public void remove(FlashCard toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new FlashCardNotFoundException();
         }
     }
 
-    public void setPersons(UniqueFlashCardList replacement) {
+    public void setFlashCards(UniqueFlashCardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,10 +90,10 @@ public class UniqueFlashCardList implements Iterable<FlashCard> {
      * Replaces the contents of this list with {@code flashCards}.
      * {@code flashCards} must not contain duplicate flashCards.
      */
-    public void setPersons(List<FlashCard> flashCards) {
+    public void setFlashCards(List<FlashCard> flashCards) {
         requireAllNonNull(flashCards);
-        if (!personsAreUnique(flashCards)) {
-            throw new DuplicatePersonException();
+        if (!flashCardsAreUnique(flashCards)) {
+            throw new DuplicateFlashCardException();
         }
 
         internalList.setAll(flashCards);
@@ -124,10 +126,10 @@ public class UniqueFlashCardList implements Iterable<FlashCard> {
     /**
      * Returns true if {@code flashCards} contains only unique flashCards.
      */
-    private boolean personsAreUnique(List<FlashCard> flashCards) {
+    private boolean flashCardsAreUnique(List<FlashCard> flashCards) {
         for (int i = 0; i < flashCards.size() - 1; i++) {
             for (int j = i + 1; j < flashCards.size(); j++) {
-                if (flashCards.get(i).isSamePerson(flashCards.get(j))) {
+                if (flashCards.get(i).isSameFlashCard(flashCards.get(j))) {
                     return false;
                 }
             }

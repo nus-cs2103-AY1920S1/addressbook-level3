@@ -3,11 +3,11 @@ package seedu.address.model.flashcard;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
 import static seedu.address.testutil.TypicalPersons.NUS;
+import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,9 +15,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.flashcard.exceptions.DuplicatePersonException;
-import seedu.address.model.flashcard.exceptions.PersonNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
+import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
+import seedu.address.testutil.FlashCardBuilder;
 
 public class UniqueFlashCardListTest {
 
@@ -42,8 +42,11 @@ public class UniqueFlashCardListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueFlashCardList.add(STORE_AND_FORWARD);
-        FlashCard editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_CATEGORY_HISTORY)
-                .build();
+        FlashCard editedAlice =
+                new FlashCardBuilder(STORE_AND_FORWARD)
+                        .withRating(VALID_RATING_2)
+                        .withTags(VALID_CATEGORY_HISTORY)
+                        .build();
         assertTrue(uniqueFlashCardList.contains(editedAlice));
     }
 
@@ -55,7 +58,7 @@ public class UniqueFlashCardListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniqueFlashCardList.add(STORE_AND_FORWARD);
-        assertThrows(DuplicatePersonException.class, () -> uniqueFlashCardList.add(STORE_AND_FORWARD));
+        assertThrows(DuplicateFlashCardException.class, () -> uniqueFlashCardList.add(STORE_AND_FORWARD));
     }
 
     @Test
@@ -70,7 +73,8 @@ public class UniqueFlashCardListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueFlashCardList.setFlashcard(STORE_AND_FORWARD, STORE_AND_FORWARD));
+        assertThrows(FlashCardNotFoundException.class, () ->
+                uniqueFlashCardList.setFlashcard(STORE_AND_FORWARD, STORE_AND_FORWARD));
     }
 
     @Test
@@ -85,8 +89,11 @@ public class UniqueFlashCardListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueFlashCardList.add(STORE_AND_FORWARD);
-        FlashCard editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_CATEGORY_HISTORY)
-                .build();
+        FlashCard editedAlice =
+                new FlashCardBuilder(STORE_AND_FORWARD)
+                        .withRating(VALID_RATING_2)
+                        .withTags(VALID_CATEGORY_HISTORY)
+                         .build();
         uniqueFlashCardList.setFlashcard(STORE_AND_FORWARD, editedAlice);
         UniqueFlashCardList expectedUniqueFlashCardList = new UniqueFlashCardList();
         expectedUniqueFlashCardList.add(editedAlice);
@@ -106,7 +113,8 @@ public class UniqueFlashCardListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueFlashCardList.add(STORE_AND_FORWARD);
         uniqueFlashCardList.add(NUS);
-        assertThrows(DuplicatePersonException.class, () -> uniqueFlashCardList.setFlashcard(STORE_AND_FORWARD, NUS));
+        assertThrows(DuplicateFlashCardException.class, () ->
+                uniqueFlashCardList.setFlashcard(STORE_AND_FORWARD, NUS));
     }
 
     @Test
@@ -116,7 +124,7 @@ public class UniqueFlashCardListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueFlashCardList.remove(STORE_AND_FORWARD));
+        assertThrows(FlashCardNotFoundException.class, () -> uniqueFlashCardList.remove(STORE_AND_FORWARD));
     }
 
     @Test
@@ -129,7 +137,7 @@ public class UniqueFlashCardListTest {
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueFlashCardList.setPersons((UniqueFlashCardList) null));
+        assertThrows(NullPointerException.class, () -> uniqueFlashCardList.setFlashCards((UniqueFlashCardList) null));
     }
 
     @Test
@@ -137,20 +145,20 @@ public class UniqueFlashCardListTest {
         uniqueFlashCardList.add(STORE_AND_FORWARD);
         UniqueFlashCardList expectedUniqueFlashCardList = new UniqueFlashCardList();
         expectedUniqueFlashCardList.add(NUS);
-        uniqueFlashCardList.setPersons(expectedUniqueFlashCardList);
+        uniqueFlashCardList.setFlashCards(expectedUniqueFlashCardList);
         assertEquals(expectedUniqueFlashCardList, uniqueFlashCardList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueFlashCardList.setPersons((List<FlashCard>) null));
+        assertThrows(NullPointerException.class, () -> uniqueFlashCardList.setFlashCards((List<FlashCard>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniqueFlashCardList.add(STORE_AND_FORWARD);
         List<FlashCard> flashCardList = Collections.singletonList(NUS);
-        uniqueFlashCardList.setPersons(flashCardList);
+        uniqueFlashCardList.setFlashCards(flashCardList);
         UniqueFlashCardList expectedUniqueFlashCardList = new UniqueFlashCardList();
         expectedUniqueFlashCardList.add(NUS);
         assertEquals(expectedUniqueFlashCardList, uniqueFlashCardList);
@@ -159,7 +167,8 @@ public class UniqueFlashCardListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<FlashCard> listWithDuplicateFlashCards = Arrays.asList(STORE_AND_FORWARD, STORE_AND_FORWARD);
-        assertThrows(DuplicatePersonException.class, () -> uniqueFlashCardList.setPersons(listWithDuplicateFlashCards));
+        assertThrows(DuplicateFlashCardException.class, () ->
+                uniqueFlashCardList.setFlashCards(listWithDuplicateFlashCards));
     }
 
     @Test

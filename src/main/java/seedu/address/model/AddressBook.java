@@ -10,7 +10,7 @@ import seedu.address.model.flashcard.UniqueFlashCardList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameFlashCard comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code flashCards} must not contain duplicate flashCards.
      */
     public void setFlashCards(List<FlashCard> flashCards) {
-        this.flashCards.setPersons(flashCards);
+        this.flashCards.setFlashCards(flashCards);
     }
 
     /**
@@ -77,7 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given flashCard {@code target} in the list with {@code editedFlashCard}.
      * {@code target} must exist in the address book.
-     * The flashCard identity of {@code editedFlashCard} must not be the same as another existing flashCard in the address book.
+     * The flashCard identity of {@code editedFlashCard} must not be the same as another existing
+     * flashCard in the address book.
      */
     public void setFlashcard(FlashCard target, FlashCard editedFlashCard) {
         requireNonNull(editedFlashCard);

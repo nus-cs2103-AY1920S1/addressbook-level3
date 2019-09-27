@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.category.Category;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.Rating;
 import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Rating;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

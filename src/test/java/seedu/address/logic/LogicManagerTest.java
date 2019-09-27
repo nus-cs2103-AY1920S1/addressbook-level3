@@ -3,9 +3,9 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_1;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_1;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_1;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_1;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.WWII;
 
@@ -29,7 +29,7 @@ import seedu.address.model.flashcard.FlashCard;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.FlashCardBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -80,7 +80,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_1 + ANSWER_DESC_1
                 + RATING_DESC_1;
-        FlashCard expectedFlashCard = new PersonBuilder(WWII).withTags().build();
+        FlashCard expectedFlashCard = new FlashCardBuilder(WWII).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedFlashCard);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

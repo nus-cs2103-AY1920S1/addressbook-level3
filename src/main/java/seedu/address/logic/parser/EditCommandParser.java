@@ -2,10 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -71,7 +71,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (categories.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> categorySet = categories.size() == 1 && categories.contains("") ? Collections.emptySet() : categories;
+        Collection<String> categorySet = categories.size() == 1
+                && categories.contains("") ? Collections.emptySet() : categories;
         return Optional.of(ParserUtil.parseCategories(categorySet));
     }
 

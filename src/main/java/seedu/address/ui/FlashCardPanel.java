@@ -35,7 +35,7 @@ public class FlashCardPanel extends UiPart<Region> {
     @FXML
     private Label answer;
     @FXML
-    private Label rating;
+    private FlowPane rating;
     @FXML
     private FlowPane categories;
 
@@ -44,8 +44,8 @@ public class FlashCardPanel extends UiPart<Region> {
         this.flashCard = flashCard;
         id.setText(displayedIndex + ". ");
         question.setText(flashCard.getQuestion().fullQuestion);
-        answer.setText(flashCard.getAnswer().fullAnswer);
-        rating.setText(flashCard.getRating().value);
+        answer.setText("Answer: " + flashCard.getAnswer().fullAnswer);
+        rating.getChildren().add(new Label(flashCard.getRating().value));
         flashCard.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
                 .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));

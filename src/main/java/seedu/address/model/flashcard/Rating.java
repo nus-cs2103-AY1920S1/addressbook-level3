@@ -15,11 +15,10 @@ public class Rating {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-//    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public static final String GOOD = "good";
     public static final String HARD = "hard";
-    public static final String EASY ="easy";
+    public static final String EASY = "easy";
 
     public final String value;
 

@@ -55,10 +55,10 @@ public class FlashCard {
     }
 
     /**
-     * Returns true if both persons of the same question have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both flash cards of the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two flash cards.
      */
-    public boolean isSamePerson(FlashCard otherFlashCard) {
+    public boolean isSameFlashCard(FlashCard otherFlashCard) {
         if (otherFlashCard == this) {
             return true;
         }
@@ -68,8 +68,8 @@ public class FlashCard {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both flash cards have the same identity and data fields.
+     * This defines a stronger notion of equality between two flash cards.
      */
     @Override
     public boolean equals(Object other) {

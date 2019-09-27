@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 
 import java.util.Set;
 
@@ -15,7 +15,7 @@ import seedu.address.model.flashcard.FlashCard;
 /**
  * A utility class for FlashCard.
  */
-public class PersonUtil {
+public class FlashCardUtil {
 
     /**
      * Returns an add command string for adding the {@code flashCard}.

@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -12,10 +12,10 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.Rating;
-import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Rating;
 
 /**
  * Parses input arguments and creates a new AddCommand object

@@ -21,7 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.flashcard.FlashCard;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.FlashCardBuilder;
 
 public class AddCommandTest {
 
@@ -33,7 +33,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        FlashCard validFlashCard = new PersonBuilder().build();
+        FlashCard validFlashCard = new FlashCardBuilder().build();
 
         CommandResult commandResult = new AddCommand(validFlashCard).execute(modelStub);
 
@@ -43,7 +43,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        FlashCard validFlashCard = new PersonBuilder().build();
+        FlashCard validFlashCard = new FlashCardBuilder().build();
         AddCommand addCommand = new AddCommand(validFlashCard);
         ModelStub modelStub = new ModelStubWithPerson(validFlashCard);
 
@@ -52,8 +52,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        FlashCard alice = new PersonBuilder().withQuestion("Alice").build();
-        FlashCard bob = new PersonBuilder().withQuestion("Bob").build();
+        FlashCard alice = new FlashCardBuilder().withQuestion("Alice").build();
+        FlashCard bob = new FlashCardBuilder().withQuestion("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -163,7 +163,7 @@ public class AddCommandTest {
         @Override
         public boolean hasFlashcard(FlashCard flashCard) {
             requireNonNull(flashCard);
-            return this.flashCard.isSamePerson(flashCard);
+            return this.flashCard.isSameFlashCard(flashCard);
         }
     }
 
@@ -176,7 +176,7 @@ public class AddCommandTest {
         @Override
         public boolean hasFlashcard(FlashCard flashCard) {
             requireNonNull(flashCard);
-            return personsAdded.stream().anyMatch(flashCard::isSamePerson);
+            return personsAdded.stream().anyMatch(flashCard::isSameFlashCard);
         }
 
         @Override

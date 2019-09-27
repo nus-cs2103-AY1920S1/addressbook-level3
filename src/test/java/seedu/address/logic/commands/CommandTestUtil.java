@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.QuestionContainsAllKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditFlashCardDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -34,19 +34,41 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_HISTORY = "history";
     public static final String VALID_CATEGORY_LOCATION = "location";
 
-    public static final String QUESTION_DESC_1 = " " + PREFIX_QUESTION + VALID_QUESTION_1;
-    public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
-    public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
-    public static final String ANSWER_DESC_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
-    public static final String RATING_DESC_1 = " " + PREFIX_RATING + VALID_RATING_1;
-    public static final String RATING_DESC_2 = " " + PREFIX_RATING + VALID_RATING_2;
-    public static final String CATEGORY_DESC_HISTORY = " " + PREFIX_CATEGORY + VALID_CATEGORY_LOCATION;
-    public static final String CATEGORY_DESC_LOCATION = " " + PREFIX_CATEGORY + VALID_CATEGORY_HISTORY;
+    public static final String QUESTION_DESC_1 =
+            " " + PREFIX_QUESTION + VALID_QUESTION_1;
 
-    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + " "; // ' ' not allowed in questions
-    public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER + " "; // ' ' not allowed in answers
-    public static final String INVALID_RATING_DESC = " " + PREFIX_RATING; // empty string not allowed for rating
-    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in categories
+    public static final String QUESTION_DESC_2 =
+            " " + PREFIX_QUESTION + VALID_QUESTION_2;
+
+    public static final String ANSWER_DESC_1 =
+            " " + PREFIX_ANSWER + VALID_ANSWER_1;
+
+    public static final String ANSWER_DESC_2 =
+            " " + PREFIX_ANSWER + VALID_ANSWER_2;
+
+    public static final String RATING_DESC_1 =
+            " " + PREFIX_RATING + VALID_RATING_1;
+
+    public static final String RATING_DESC_2 =
+            " " + PREFIX_RATING + VALID_RATING_2;
+
+    public static final String CATEGORY_DESC_HISTORY =
+            " " + PREFIX_CATEGORY + VALID_CATEGORY_LOCATION;
+
+    public static final String CATEGORY_DESC_LOCATION =
+            " " + PREFIX_CATEGORY + VALID_CATEGORY_HISTORY;
+
+    public static final String INVALID_QUESTION_DESC =
+            " " + PREFIX_QUESTION + " "; // ' ' not allowed in questions
+
+    public static final String INVALID_ANSWER_DESC =
+            " " + PREFIX_ANSWER + " "; // ' ' not allowed in answers
+
+    public static final String INVALID_RATING_DESC =
+            " " + PREFIX_RATING; // empty string not allowed for rating
+
+    public static final String INVALID_CATEGORY_DESC =
+            " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in categories
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -55,13 +77,13 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_2;
 
     static {
-        DESC_1 = new EditPersonDescriptorBuilder()
+        DESC_1 = new EditFlashCardDescriptorBuilder()
                 .withQuestion(VALID_QUESTION_1)
                 .withAnswer(VALID_ANSWER_1)
                 .withRating(VALID_RATING_1)
                 .withCategories(VALID_CATEGORY_LOCATION)
                 .build();
-        DESC_2 = new EditPersonDescriptorBuilder()
+        DESC_2 = new EditFlashCardDescriptorBuilder()
                 .withQuestion(VALID_QUESTION_2)
                 .withAnswer(VALID_ANSWER_2)
                 .withRating(VALID_RATING_2)
