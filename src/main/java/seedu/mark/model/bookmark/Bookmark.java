@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.mark.model.tag.Tag;
 
 /**
- * Represents a Bookmark in the address book.
+ * Represents a Bookmark in Mark.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Bookmark {
@@ -20,17 +20,17 @@ public class Bookmark {
     private final Url url;
 
     // Data fields
-    private final Address address;
+    private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Bookmark(Name name, Url url, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, url, address, tags);
+    public Bookmark(Name name, Url url, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, url, remark, tags);
         this.name = name;
         this.url = url;
-        this.address = address;
+        this.remark = remark;
         this.tags.addAll(tags);
     }
 
@@ -42,8 +42,8 @@ public class Bookmark {
         return url;
     }
 
-    public Address getAddress() {
-        return address;
+    public Remark getRemark() {
+        return remark;
     }
 
     /**
@@ -85,14 +85,14 @@ public class Bookmark {
         Bookmark otherBookmark = (Bookmark) other;
         return otherBookmark.getName().equals(getName())
                 && otherBookmark.getUrl().equals(getUrl())
-                && otherBookmark.getAddress().equals(getAddress())
+                && otherBookmark.getRemark().equals(getRemark())
                 && otherBookmark.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, url, address, tags);
+        return Objects.hash(name, url, remark, tags);
     }
 
     @Override
@@ -101,8 +101,8 @@ public class Bookmark {
         builder.append(getName())
                 .append(" URL: ")
                 .append(getUrl())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Remark: ")
+                .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

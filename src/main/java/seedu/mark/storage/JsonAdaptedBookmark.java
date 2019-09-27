@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.mark.commons.exceptions.IllegalValueException;
-import seedu.mark.model.bookmark.Address;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Url;
@@ -25,7 +25,7 @@ class JsonAdaptedBookmark {
 
     private final String name;
     private final String url;
-    private final String address;
+    private final String remark;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -33,11 +33,11 @@ class JsonAdaptedBookmark {
      */
     @JsonCreator
     public JsonAdaptedBookmark(@JsonProperty("name") String name,
-                               @JsonProperty("url") String url, @JsonProperty("address") String address,
+                               @JsonProperty("url") String url, @JsonProperty("remark") String remark,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.url = url;
-        this.address = address;
+        this.remark = remark;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -49,7 +49,7 @@ class JsonAdaptedBookmark {
     public JsonAdaptedBookmark(Bookmark source) {
         name = source.getName().fullName;
         url = source.getUrl().value;
-        address = source.getAddress().value;
+        remark = source.getRemark().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -82,16 +82,16 @@ class JsonAdaptedBookmark {
         }
         final Url modelUrl = new Url(url);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (remark == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Remark.isValidRemark(remark)) {
+            throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Remark modelRemark = new Remark(remark);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Bookmark(modelName, modelUrl, modelAddress, modelTags);
+        return new Bookmark(modelName, modelUrl, modelRemark, modelTags);
     }
 
 }

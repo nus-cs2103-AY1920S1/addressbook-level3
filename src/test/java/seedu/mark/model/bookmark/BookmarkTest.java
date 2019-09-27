@@ -2,7 +2,7 @@ package seedu.mark.model.bookmark;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_BOB;
@@ -39,7 +39,7 @@ public class BookmarkTest {
         assertFalse(ALICE.isSameBookmark(editedAlice));
 
         // same name, same url, different attributes -> returns true
-        editedAlice = new BookmarkBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameBookmark(editedAlice));
     }
@@ -71,7 +71,7 @@ public class BookmarkTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = new BookmarkBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

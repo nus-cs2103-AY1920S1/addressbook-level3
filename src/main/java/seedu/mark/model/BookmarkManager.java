@@ -30,7 +30,7 @@ public class BookmarkManager implements ReadOnlyBookmarkManager {
     public BookmarkManager() {}
 
     /**
-     * Creates an BookmarkManager using the Bookmarks in the {@code toBeCopied}
+     * Creates a BookmarkManager using the Bookmarks in the {@code toBeCopied}
      */
     public BookmarkManager(ReadOnlyBookmarkManager toBeCopied) {
         this();

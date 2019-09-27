@@ -3,7 +3,7 @@ package seedu.mark.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalBookmarks.ALICE;
@@ -46,7 +46,7 @@ public class BookmarkManagerTest {
     @Test
     public void resetData_withDuplicateBookmarks_throwsDuplicateBookmarkException() {
         // Two bookmarks with the same identity fields
-        Bookmark editedAlice = new BookmarkBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Bookmark editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Bookmark> newBookmarks = Arrays.asList(ALICE, editedAlice);
         BookmarkManagerStub newData = new BookmarkManagerStub(newBookmarks);
@@ -73,7 +73,7 @@ public class BookmarkManagerTest {
     @Test
     public void hasBookmark_bookmarkWithSameIdentityFieldsInBookmarkManager_returnsTrue() {
         bookmarkManager.addBookmark(ALICE);
-        Bookmark editedAlice = new BookmarkBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Bookmark editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(bookmarkManager.hasBookmark(editedAlice));
     }

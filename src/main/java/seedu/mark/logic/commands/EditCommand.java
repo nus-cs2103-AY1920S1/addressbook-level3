@@ -1,7 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
@@ -18,7 +18,7 @@ import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.CollectionUtil;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
-import seedu.mark.model.bookmark.Address;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Url;
@@ -37,7 +37,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_URL + "URL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_REMARK + "REMARK] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_URL + "johndoe@example.com"; // TODO: change EditCommand example
@@ -91,10 +91,10 @@ public class EditCommand extends Command {
 
         Name updatedName = editBookmarkDescriptor.getName().orElse(bookmarkToEdit.getName());
         Url updatedUrl = editBookmarkDescriptor.getUrl().orElse(bookmarkToEdit.getUrl());
-        Address updatedAddress = editBookmarkDescriptor.getAddress().orElse(bookmarkToEdit.getAddress());
+        Remark updatedRemark = editBookmarkDescriptor.getRemark().orElse(bookmarkToEdit.getRemark());
         Set<Tag> updatedTags = editBookmarkDescriptor.getTags().orElse(bookmarkToEdit.getTags());
 
-        return new Bookmark(updatedName, updatedUrl, updatedAddress, updatedTags);
+        return new Bookmark(updatedName, updatedUrl, updatedRemark, updatedTags);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class EditCommand extends Command {
     public static class EditBookmarkDescriptor {
         private Name name;
         private Url url;
-        private Address address;
+        private Remark remark;
         private Set<Tag> tags;
 
         public EditBookmarkDescriptor() {}
@@ -134,7 +134,7 @@ public class EditCommand extends Command {
         public EditBookmarkDescriptor(EditBookmarkDescriptor toCopy) {
             setName(toCopy.name);
             setUrl(toCopy.url);
-            setAddress(toCopy.address);
+            setRemark(toCopy.remark);
             setTags(toCopy.tags);
         }
 
@@ -142,7 +142,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, url, address, tags);
+            return CollectionUtil.isAnyNonNull(name, url, remark, tags);
         }
 
         public void setName(Name name) {
@@ -161,12 +161,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(url);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setRemark(Remark remark) {
+            this.remark = remark;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
         }
 
         /**
@@ -203,7 +203,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getUrl().equals(e.getUrl())
-                    && getAddress().equals(e.getAddress())
+                    && getRemark().equals(e.getRemark())
                     && getTags().equals(e.getTags());
         }
     }

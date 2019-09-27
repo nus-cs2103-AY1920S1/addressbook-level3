@@ -3,7 +3,7 @@ package seedu.mark.model.bookmark;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalBookmarks.ALICE;
@@ -42,7 +42,7 @@ public class UniqueBookmarkListTest {
     @Test
     public void contains_bookmarkWithSameIdentityFieldsInList_returnsTrue() {
         uniqueBookmarkList.add(ALICE);
-        Bookmark editedAlice = new BookmarkBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Bookmark editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueBookmarkList.contains(editedAlice));
     }
@@ -85,7 +85,7 @@ public class UniqueBookmarkListTest {
     @Test
     public void setBookmark_editedBookmarkHasSameIdentity_success() {
         uniqueBookmarkList.add(ALICE);
-        Bookmark editedAlice = new BookmarkBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Bookmark editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueBookmarkList.setBookmark(ALICE, editedAlice);
         UniqueBookmarkList expectedUniqueBookmarkList = new UniqueBookmarkList();

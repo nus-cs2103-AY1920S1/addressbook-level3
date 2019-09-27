@@ -3,7 +3,7 @@ package seedu.mark.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.mark.model.bookmark.Address;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Url;
@@ -17,17 +17,17 @@ public class BookmarkBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_URL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_REMARK = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Url url;
-    private Address address;
+    private Remark remark;
     private Set<Tag> tags;
 
     public BookmarkBuilder() {
         name = new Name(DEFAULT_NAME);
         url = new Url(DEFAULT_URL);
-        address = new Address(DEFAULT_ADDRESS);
+        remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
     }
 
@@ -37,7 +37,7 @@ public class BookmarkBuilder {
     public BookmarkBuilder(Bookmark bookmarkToCopy) {
         name = bookmarkToCopy.getName();
         url = bookmarkToCopy.getUrl();
-        address = bookmarkToCopy.getAddress();
+        remark = bookmarkToCopy.getRemark();
         tags = new HashSet<>(bookmarkToCopy.getTags());
     }
 
@@ -58,10 +58,10 @@ public class BookmarkBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Bookmark} that we are building.
+     * Sets the {@code Remark} of the {@code Bookmark} that we are building.
      */
-    public BookmarkBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public BookmarkBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
         return this;
     }
 
@@ -74,7 +74,7 @@ public class BookmarkBuilder {
     }
 
     public Bookmark build() {
-        return new Bookmark(name, url, address, tags);
+        return new Bookmark(name, url, remark, tags);
     }
 
 }

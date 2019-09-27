@@ -70,6 +70,6 @@ public class NameContainsKeywordsPredicateTest {
         // Keywords match url and address, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("alice@gmail.com", "Main", "Street"));
         assertFalse(predicate.test(new BookmarkBuilder().withName("Alice")
-                .withUrl("alice@url.com").withAddress("Main Street").build()));
+                .withUrl("alice@url.com").withRemark("Main Street").build()));
     }
 }

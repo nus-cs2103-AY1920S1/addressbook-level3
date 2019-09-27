@@ -1,39 +1,39 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalBookmarks#getTypicalBookmarkManager()",
+  "_comment": "Mark save file which contains the same Person values as in TypicalBookmarks#getTypicalBookmarkManager()",
   "bookmarks" : [ {
     "name" : "Alice Pauline",
     "url" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
+    "remark" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "url" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
+    "remark" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "url" : "heinz@example.com",
-    "address" : "wall street",
+    "remark" : "wall street",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "url" : "cornelia@example.com",
-    "address" : "10th street",
+    "remark" : "10th street",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "url" : "werner@example.com",
-    "address" : "michegan ave",
+    "remark" : "michegan ave",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "url" : "lydia@example.com",
-    "address" : "little tokyo",
+    "remark" : "little tokyo",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "url" : "anna@example.com",
-    "address" : "4th street",
+    "remark" : "4th street",
     "tagged" : [ ]
   } ]
 }

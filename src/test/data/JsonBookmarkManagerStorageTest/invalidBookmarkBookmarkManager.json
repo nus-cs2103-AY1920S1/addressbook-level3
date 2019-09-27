@@ -2,6 +2,6 @@
   "bookmarks": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "url": "hans@example.com",
-    "address": "4th street"
+    "remark": "4th street"
   } ]
 }

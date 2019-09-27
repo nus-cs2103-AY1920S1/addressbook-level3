@@ -2,6 +2,6 @@
   "bookmarks": [ {
     "name": "Hans Muster",
     "url": "invalid@email!3e",
-    "address": "4th street"
+    "remark": "4th street"
   } ]
 }

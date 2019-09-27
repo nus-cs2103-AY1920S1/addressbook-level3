@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.mark.logic.commands.EditCommand.EditBookmarkDescriptor;
-import seedu.mark.model.bookmark.Address;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Url;
@@ -33,7 +33,7 @@ public class EditBookmarkDescriptorBuilder {
         descriptor = new EditBookmarkDescriptor();
         descriptor.setName(bookmark.getName());
         descriptor.setUrl(bookmark.getUrl());
-        descriptor.setAddress(bookmark.getAddress());
+        descriptor.setRemark(bookmark.getRemark());
         descriptor.setTags(bookmark.getTags());
     }
 
@@ -54,10 +54,10 @@ public class EditBookmarkDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditBookmarkDescriptor} that we are building.
+     * Sets the {@code Remark} of the {@code EditBookmarkDescriptor} that we are building.
      */
-    public EditBookmarkDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditBookmarkDescriptorBuilder withRemark(String remark) {
+        descriptor.setRemark(new Remark(remark));
         return this;
     }
 
