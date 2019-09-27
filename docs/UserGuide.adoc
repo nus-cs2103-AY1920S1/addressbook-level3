@@ -573,7 +573,7 @@ e.g. `edit health BP129391 133/80`
 * *Delete health data* : `delete health <record id>` +
 e.g. `delete health BP129391`
 
-*Worker Tracker*
+*Workout Tracker*
 
 * *Adding an exercise* : `add exercise <name>` +
 e.g. `add exercise Inclined Bench Press`
