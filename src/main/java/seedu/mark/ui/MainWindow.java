@@ -107,7 +107,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        bookmarkListPanel = new BookmarkListPanel(logic.getFilteredPersonList());
+        bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

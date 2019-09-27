@@ -52,12 +52,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyBookmarkManager getAddressBook() {
+    public ReadOnlyBookmarkManager getBookmarkManager() {
         return model.getBookmarkManager();
     }
 
     @Override
-    public ObservableList<Bookmark> getFilteredPersonList() {
+    public ObservableList<Bookmark> getFilteredBookmarkList() {
         return model.getFilteredBookmarkList();
     }
 

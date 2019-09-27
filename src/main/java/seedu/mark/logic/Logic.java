@@ -28,13 +28,13 @@ public interface Logic {
      *
      * @see seedu.mark.model.Model#getBookmarkManager()
      */
-    ReadOnlyBookmarkManager getAddressBook();
+    ReadOnlyBookmarkManager getBookmarkManager();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Bookmark> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of bookmarks */
+    ObservableList<Bookmark> getFilteredBookmarkList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' bookmark manager file path.
      */
     Path getBookmarkManagerFilePath();
 
