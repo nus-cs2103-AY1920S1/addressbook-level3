@@ -29,7 +29,7 @@ Download JARVIS now to *_abstract_* your problems away.
 
 == Acknowledgements
 
-* Original source code is from https://se-education.org/[AddressBook Level 3] by the SE-EDU initiative.
+* Original source code is from https://se-education.org/[AddressBook Level 3] by the _SE-EDU initiative_.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
