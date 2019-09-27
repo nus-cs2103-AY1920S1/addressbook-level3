@@ -50,9 +50,9 @@ public class AddPersonCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddPersonCommand // instanceof handles nulls
-                && personDescriptor.equals(((AddPersonCommand) other).personDescriptor));
-    }
+    public boolean equals(Command command) {
+        return command == this // short circuit if same object
+                || (command instanceof AddPersonCommand // instanceof handles nulls
+                && personDescriptor.equals(((AddPersonCommand) command).personDescriptor));    }
+
 }

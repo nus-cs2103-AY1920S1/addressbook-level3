@@ -65,5 +65,19 @@ public class EditPersonCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS + person.details());
         }
     }
+
+    @Override
+    public boolean equals(Command command) {
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof EditPersonCommand)) {
+            return false;
+        } else if (((EditPersonCommand) command).name.equals(this.name)
+                && ((EditPersonCommand) command).personDescriptor.equals(this.personDescriptor)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 

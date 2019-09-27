@@ -51,4 +51,18 @@ public class EditGroupCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS + group.details());
         }
     }
+
+    @Override
+    public boolean equals(Command command) {
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof EditGroupCommand)) {
+            return false;
+        } else if (((EditGroupCommand) command).groupName.equals(this.groupName)
+                && ((EditGroupCommand) command).groupDescriptor.equals(this.groupDescriptor)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

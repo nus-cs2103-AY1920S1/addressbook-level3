@@ -46,4 +46,17 @@ public class FindPersonCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
     }
+
+    @Override
+    public boolean equals(Command command) {
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof FindPersonCommand)) {
+            return false;
+        } else if (((FindPersonCommand) command).name.equals(this.name)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

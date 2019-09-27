@@ -35,4 +35,17 @@ public class DeleteGroupCommand extends Command {
         }
         return new CommandResult(MESSAGE_FAILURE);
     }
+
+    @Override
+    public boolean equals(Command command) {
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof DeleteGroupCommand)) {
+            return false;
+        } else if (((DeleteGroupCommand) command).groupName.equals(this.groupName)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

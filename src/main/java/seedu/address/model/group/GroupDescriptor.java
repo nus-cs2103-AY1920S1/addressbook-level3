@@ -30,6 +30,17 @@ public class GroupDescriptor {
         }
     }
 
+    public boolean equals(GroupDescriptor groupDescriptor){
+        if(groupDescriptor == null){
+            return false;
+        } else if (this.groupName.equals(groupDescriptor.groupName)
+                && this.groupRemark.equals(groupDescriptor.groupRemark)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public GroupName getGroupName() {
         return groupName;
     }

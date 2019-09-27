@@ -35,4 +35,17 @@ public class DeletePersonCommand extends Command {
         }
         return new CommandResult(MESSAGE_FAILURE);
     }
+
+    @Override
+    public boolean equals(Command command) {
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof DeletePersonCommand)) {
+            return false;
+        } else if (((DeletePersonCommand) command).name.equals(this.name)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

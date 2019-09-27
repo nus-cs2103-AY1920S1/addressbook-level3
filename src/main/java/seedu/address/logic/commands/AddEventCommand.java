@@ -48,4 +48,18 @@ public class AddEventCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_UNABLE_TO_FIND_PERSON);
         }
     }
+
+    @Override
+    public boolean equals(Command command) {
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof AddEventCommand)) {
+            return false;
+        } else if (((AddEventCommand) command).event.equals(this.event)
+                && ((AddEventCommand) command).name.equals(this.name)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

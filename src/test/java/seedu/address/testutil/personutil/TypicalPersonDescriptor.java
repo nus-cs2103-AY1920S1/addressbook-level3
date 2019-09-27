@@ -8,6 +8,8 @@ import seedu.address.model.person.PersonList;
  */
 public class TypicalPersonDescriptor {
 
+    public static final String WHITESPACE = " ";
+
     public static final PersonDescriptor ALICE = new PersonDescriptorBuilder()
             .withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
             .withEmail("alice@example.com")

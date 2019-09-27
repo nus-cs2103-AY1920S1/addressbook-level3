@@ -39,6 +39,24 @@ public class PersonDescriptor {
         }
     }
 
+    public boolean equals(PersonDescriptor personDescriptor) {
+        if(personDescriptor == null){
+            return false;
+        } else if(!this.name.equals(personDescriptor.name)){
+            return false;
+        }else if(!this.phone.equals(personDescriptor.phone)){
+            return false;
+        }else if(!this.email.equals(personDescriptor.email)){
+            return false;
+        }else if(!this.address.equals(personDescriptor.address)){
+            return false;
+        }else if(!this.remark.equals(personDescriptor.remark)){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public Name getName() {
         return name;
     }

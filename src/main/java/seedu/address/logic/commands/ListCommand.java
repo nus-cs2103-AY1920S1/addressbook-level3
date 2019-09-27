@@ -21,4 +21,9 @@ public class ListCommand extends Command {
 
         return new CommandResult(model.list());
     }
+
+    @Override
+    public boolean equals(Command command) {
+        return false;
+    }
 }

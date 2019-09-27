@@ -39,4 +39,17 @@ public class AddGroupCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
     }
+
+    @Override
+    public boolean equals(Command command) {
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof AddGroupCommand)) {
+            return false;
+        } else if (((AddGroupCommand) command).groupDescriptor.equals(this.groupDescriptor)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

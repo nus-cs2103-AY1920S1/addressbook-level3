@@ -50,4 +50,18 @@ public class AddToGroupCommand extends Command {
             }
         }
     }
+
+    @Override
+    public boolean equals(Command command) {
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof AddToGroupCommand)) {
+            return false;
+        } else if (((AddToGroupCommand) command).name.equals(this.name)
+                && ((AddToGroupCommand) command).groupName.equals(this.groupName)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
