@@ -41,6 +41,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
+
+
 == Features
 
 ====
@@ -76,14 +78,55 @@ Format: `break break <ROOM_NUMBER>`
 Doctor resumes his/her duty and can now serve patients. +
 Format: `resume <ROOM_NUMBER>`
 
-Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+=== Patient Management
 
-=== Locating persons by name: `find`
+==== Searches patient by arguments: `patient` ====
+Finds patients whose names contain any of the given keywords +
+Format: `patient <PATIENT_REFERENCE_ID> | <PATIENT_NAME> | <PHONE_NUM>`
+
+==== Registers a new patient: `register` ====
+Registers a new patient +
+Format: ` register -name|-n <PATIENT_NAME> -ic|-i <PATIENT_IC> -hp <PHONE_NUM> -email|-e <EMAIL> [-address|-a <ADDRESS>] [-remark|-r <REMARK>]
+`
+
+==== Updates patients’ profiles: `update` ====
+If user is in the patients listing screen, updates any change for patients’ profiles +
+Format: `update <ENTRY_ID> [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]
+`
+=== Appointment Management
+
+==== Displays all appointments: `appointments` ====
+Displays a sorted list of upcoming appointments +
+Format: `appointments [-date|-d <DATE>] [-patient|-p <PATIENT_NAME | PATIENT_IC>]`
+
+==== Cancels an appointment: `cancel` ====
+Deletes the specified person from the date, use system time (TODAY) if not specified +
+Format: ` cancel <PATIENT_NAME | PATIENT_IC> -date|-d <DATETIME>
+`
+
+==== Changes the appointment date: ` change ` ====
+Changes and updates to a new appointment date for a patients, use system date (TODAY) if not  +
+Format: `change [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-date|-d <DATETIME>]`
+
+==== Shows the empty slots: ` slot ` ====
+List all the available empty slots (with the specific doctor) for patients to choose for appointment +
+Format: `slot [-date <DATETIME>] [-doctor <DOCTOR_NAME>]`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
