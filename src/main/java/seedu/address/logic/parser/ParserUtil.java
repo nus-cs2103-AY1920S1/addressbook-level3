@@ -36,18 +36,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Question}.
+     * Parses a {@code String question} into a {@code Question}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code question} is invalid.
      */
-    public static Question parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Question.isValidName(trimmedName)) {
+    public static Question parseQuestion(String question) throws ParseException {
+        requireNonNull(question);
+        String trimmedQuestion = question.trim();
+        if (!Question.isValidQuestion(trimmedQuestion)) {
             throw new ParseException(Question.MESSAGE_CONSTRAINTS);
         }
-        return new Question(trimmedName);
+        return new Question(trimmedQuestion);
     }
 
     /**

@@ -49,7 +49,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Question} of the {@code Person} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public PersonBuilder withQuestion(String name) {
         this.question = new Question(name);
         return this;
     }

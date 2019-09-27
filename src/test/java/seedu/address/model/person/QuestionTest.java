@@ -20,21 +20,19 @@ public class QuestionTest {
     }
 
     @Test
-    public void isValidName() {
+    public void isValidQuestion() {
         // null name
-        assertThrows(NullPointerException.class, () -> Question.isValidName(null));
+        assertThrows(NullPointerException.class, () -> Question.isValidQuestion(null));
 
         // invalid name
-        assertFalse(Question.isValidName("")); // empty string
-        assertFalse(Question.isValidName(" ")); // spaces only
-        assertFalse(Question.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Question.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(Question.isValidQuestion("")); // empty string
+        assertFalse(Question.isValidQuestion(" ")); // spaces only
 
         // valid name
-        assertTrue(Question.isValidName("peter jack")); // alphabets only
-        assertTrue(Question.isValidName("12345")); // numbers only
-        assertTrue(Question.isValidName("peter the 2nd")); // alphanumeric characters
-        assertTrue(Question.isValidName("Capital Tan")); // with capital letters
-        assertTrue(Question.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(Question.isValidQuestion("1 + 1 =")); // alphabets only
+        assertTrue(Question.isValidQuestion("39 + 40 =")); // numbers only
+        assertTrue(Question.isValidQuestion("What is time")); // alphanumeric characters
+        assertTrue(Question.isValidQuestion("What is environmental model")); // with capital letters
+        assertTrue(Question.isValidQuestion("Who is the fastest runner in the history")); // long names
     }
 }
