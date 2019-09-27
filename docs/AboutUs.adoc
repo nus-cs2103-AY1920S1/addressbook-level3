@@ -16,7 +16,7 @@ image::nanosync.png[width="150", align="left"]
 
 *Role*: Team Lead
 
-*Responsibilities*: IntelliJ/Git Expert
+*Responsibilities*: Integration, IntelliJ/Git Expert
 
 '''
 
@@ -46,7 +46,7 @@ image::jonathantjendana.png[width="150", align="left"]
 
 *Role*: Developer
 
-*Responsibilities*: Integration, Scheduling and Tracking, JavaFX expert
+*Responsibilities*: Scheduling and Tracking, JavaFX expert
 
 '''
 
