@@ -23,6 +23,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Timekeeper;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -45,7 +46,8 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        Timekeeper timekeeper = new Timekeeper(model);
+        logic = new LogicManager(model, storage, timekeeper);
     }
 
     @Test
@@ -74,7 +76,8 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        Timekeeper timekeeper = new Timekeeper(model);
+        logic = new LogicManager(model, storage, timekeeper);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN;
