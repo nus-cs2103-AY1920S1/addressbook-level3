@@ -9,9 +9,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.exercise.Exercise;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +20,29 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ExerciseBook exerciseBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Exercise> filteredExercises;
+    private final SortedList<Exercise> sortedExercises;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given exerciseBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExerciseBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.exerciseBook = new ExerciseBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredExercises = new FilteredList<>(this.exerciseBook.getExerciseList());
+        sortedExercises = new SortedList<>(this.exerciseBook.getExerciseList());
+
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ExerciseBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,67 +70,73 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getExerciseBookFilePath() {
+        return userPrefs.getExerciseBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setExerciseBookFilePath(Path exerciseBookFilePath) {
+        requireNonNull(exerciseBookFilePath);
+        userPrefs.setExerciseBookFilePath(exerciseBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ExerciseBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setExerciseBook(ReadOnlyExerciseBook anotherBook) {
+        this.exerciseBook.resetData(anotherBook);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyExerciseBook getAllData() {
+        return exerciseBook;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public boolean hasExercise(Exercise exercise) {
+        requireNonNull(exercise);
+        return exerciseBook.hasExercise(exercise);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void deleteExercise(Exercise target) {
+        exerciseBook.removeExercise(target);
     }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Adds an {@code Exercise} object into the exercise book.
+     */
+    public void addExercise(Exercise exercise) {
+        exerciseBook.addExercise(exercise);
+        updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+    }
+
+    public void setExercise(Exercise target, Exercise editedExercise) {
+        requireAllNonNull(target, editedExercise);
+
+        exerciseBook.setExercise(target, editedExercise);
+    }
+
+    //=========== Filtered Exercise List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return filteredExercises;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public ObservableList<Exercise> getSortedExerciseList() {
+        return sortedExercises;
+    }
+
+    @Override
+    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredExercises.setPredicate(predicate);
     }
 
     @Override
@@ -143,9 +153,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return exerciseBook.equals(other.exerciseBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredExercises.equals(other.filteredExercises)
+                && sortedExercises.equals(other.sortedExercises);
     }
-
 }

@@ -1,0 +1,46 @@
+{
+  "_comment": "ExerciseBook save file which contains the same Exercise values as in TypicalExercises#getTypicalExerciseBook()",
+  "exercises" : [ {
+    "name" : "Walking",
+    "date" : "26/09/2019",
+    "calories" : "222",
+    "quantity" : "Run for 30h",
+    "muscles" : [ "Legs" ]
+  }, {
+    "name" : "Swimming",
+    "date" : "26/09/2019",
+    "calories" : "333",
+    "quantity" : "10 laps",
+    "muscles" : [ "Legs", "Core" ]
+  }, {
+    "name" : "Dancing",
+    "date" : "26/09/2019",
+    "calories" : "456",
+    "quantity" : "Danced 2h",
+    "muscles" : [  ]
+  }, {
+    "name" : "Bench Press",
+    "date" : "26/09/2019",
+    "calories" : "234",
+    "quantity" : "10 counts of 5",
+    "muscles" : [ "Biceps" ]
+  }, {
+    "name" : "Skipping",
+    "date" : "26/09/2019",
+    "calories" : "333",
+    "quantity" : "160 skips",
+    "muscles" : [  ]
+  }, {
+    "name" : "Sprinting",
+    "date" : "26/09/2019",
+    "calories" : "345",
+    "quantity" : "30 sprints",
+    "muscles" : [  ]
+  }, {
+    "name" : "Snapping",
+    "date" : "26/09/2019",
+    "calories" : "332",
+    "quantity" : "Snap 800 times",
+    "muscles" : [  ]
+  } ]
+}
