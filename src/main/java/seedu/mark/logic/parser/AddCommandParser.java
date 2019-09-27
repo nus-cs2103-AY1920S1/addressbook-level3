@@ -2,9 +2,9 @@ package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -14,9 +14,9 @@ import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Phone;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
 /**
@@ -40,7 +40,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Url url = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_URL).get());
+        Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

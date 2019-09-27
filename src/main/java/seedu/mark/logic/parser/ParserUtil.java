@@ -10,9 +10,9 @@ import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Address;
-import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Phone;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
 /**
@@ -81,18 +81,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into a {@code Url}.
+     * Parses a {@code String url} into a {@code Url}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code url} is invalid.
      */
-    public static Url parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Url.isValidUrl(trimmedEmail)) {
+    public static Url parseUrl(String url) throws ParseException {
+        requireNonNull(url);
+        String trimmedUrl = url.trim();
+        if (!Url.isValidUrl(trimmedUrl)) {
             throw new ParseException(Url.MESSAGE_CONSTRAINTS);
         }
-        return new Url(trimmedEmail);
+        return new Url(trimmedUrl);
     }
 
     /**

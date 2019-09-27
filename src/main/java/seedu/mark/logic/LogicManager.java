@@ -10,7 +10,7 @@ import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.logic.parser.AddressBookParser;
+import seedu.mark.logic.parser.BookmarkManagerParser;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyBookmarkManager;
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final BookmarkManagerParser bookmarkManagerParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        bookmarkManagerParser = new BookmarkManagerParser();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = bookmarkManagerParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

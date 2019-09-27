@@ -3,9 +3,9 @@ package seedu.mark.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -50,7 +50,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editBookmarkDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_URL).isPresent()) {
-            editBookmarkDescriptor.setUrl(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_URL).get()));
+            editBookmarkDescriptor.setUrl(ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editBookmarkDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
