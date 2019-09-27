@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Represents an Order in the SML.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present, field values are validated.
  */
 public class Order implements Cloneable {
 
@@ -23,6 +23,7 @@ public class Order implements Cloneable {
     // Data fields
     private final Customer customer;
     private final Phone phone;
+    private final Price price;
     private final Status status;
     private final Schedule schedule;
     private final Set<Tag> tags = new HashSet<>();
@@ -30,14 +31,19 @@ public class Order implements Cloneable {
     /**
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Phone phone, Set<Tag> tags) {
-        requireAllNonNull(customer, phone, tags);
+    public Order(Customer customer, Phone phone, Price price, Set<Tag> tags) {
+        requireAllNonNull(customer, phone, price, tags);
         this.customer = (Customer) customer.clone();
         this.phone = (Phone) phone.clone();
+        this.price = price;
         this.id = UUID.randomUUID();
         this.status = Status.UNSCHEDULED;
-        schedule = null;
+        this.schedule = null;
         this.tags.addAll(tags);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Customer getCustomer() {
@@ -48,8 +54,8 @@ public class Order implements Cloneable {
         return phone;
     }
 
-    public UUID getId() {
-        return id;
+    public Price getPrice() {
+        return price;
     }
 
     public Status getStatus() {
@@ -99,25 +105,29 @@ public class Order implements Cloneable {
         return otherOrder.getId().equals(getId())
                 && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getPhone().equals(getPhone())
+                && otherOrder.getPrice().equals(getPrice())
                 && otherOrder.getStatus().equals(getStatus())
+                && otherOrder.getSchedule().equals(getSchedule())
                 && otherOrder.getTags().equals((getTags()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, customer, phone, status, tags);
+        return Objects.hash(id, customer, phone, price, status, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("ID: ")
+        builder.append(" # ")
                 .append(getId())
                 .append(" Customer: ")
                 .append(getCustomer())
                 .append(" Phone: ")
                 .append(getPhone())
+                .append(" Price: ")
+                .append(getPrice())
                 .append(" Order Status: ")
                 .append(getStatus())
                 .append(" Tags: ");
