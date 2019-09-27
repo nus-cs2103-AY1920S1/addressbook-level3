@@ -39,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all categories and difficulties for the user to choose.
 * **`add`**`mcq/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
-of the above x/Padifield` adds an mcq question with x/ (as in a cross for "wrong") marking the wrong answers and y/ (as in "yes") marking the correct answers.
+of the above x/Padifield` : adds an mcq question with x/ (as in a cross for "wrong") marking the wrong answers and y/ (as in "yes") marking the correct answers.
 * **`delete`**`3` : deletes the 3rd question shown in the current list.
 * *`exit`* : exits the app.
 
@@ -55,8 +55,7 @@ of the above x/Padifield` adds an mcq question with x/ (as in a cross for "wrong
 which can be used as `add mcq/What the recommended user story format?`.
 * Items in square brackets are optional e.g `mcq/QUESTION [cat/CATEGORY]` can be used as
 `mcq/What is the recommended user story format cat?/Requirements` or as `mcq/What is the recommended user story format?`.
-//TODO: Update this para
-* `*KIV*` Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[y/CORRECT_ANSWER]...` can be used as `{nbsp}` (i.e. 0 times), `y/Greenfield`, `y/Brownfield` etc.
 * Parameters can be in any order e.g. if the command specifies `mcq/QUESTION cat/CATEGORY`, `cat/CATEGORY mcq/QUESTION` is also acceptable.
 ====
 
@@ -71,7 +70,7 @@ User can start by choosing a `category`, `difficulty` or `recommended` bank of q
 Format: `start cat/[CATEGORY] diff/[difficulty]`
 
 [TIP]
-If no category or difficulty is stated i.e. `start`, program will start the quiz with a recommended list of questions based on categories
+If no category or difficulty is stated (i.e. `start`), program will start the quiz with a recommended list of questions based on categories
 that the user can improve on.
 
 Examples:
@@ -160,7 +159,7 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd question in the test bank list.
-* `find Betsy` +
+* `find Greenfield` +
 `delete 1 3 5` +
 Deletes the 1st, 3rd and 5th question in the test bank list.
 
@@ -175,7 +174,7 @@ Format: `list cat/[CATEGORY] diff/[DIFFICULTY]`
 Examples:
 
 * `list cat/requirements`
-* `list cat/reequiments diff/2`
+* `list cat/requiments diff/2`
 
 === Locating questions: `find`
 
