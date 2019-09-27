@@ -1,7 +1,5 @@
 package seedu.jarvis.model.course;
 
-import static java.util.Objects.requireNonNull;
-
 public class Faculty {
     public final String faculty;
 
@@ -11,7 +9,6 @@ public class Faculty {
      * @param faculty of the course
      */
     public Faculty(String faculty) {
-        requireNonNull(faculty);
         this.faculty = faculty;
     }
 
