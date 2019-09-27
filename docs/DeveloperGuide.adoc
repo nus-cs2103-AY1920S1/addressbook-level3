@@ -611,7 +611,7 @@ Use case ends.
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
 [appendix]
 == Instructions for Manual Testing
