@@ -1,5 +1,5 @@
 {
-  "persons": [ {
+  "bookmarks": [ {
     "name": "Valid Person",
     "phone": "9482424",
     "url": "hans@example.com",
