@@ -49,9 +49,36 @@ or as `newplan Algo and Graphics`.
 
 ====
 
-=== Viewing help : `help`
+=== Help and handling the GUI
 
+==== General Help: `help`
+Provides a list of possible commands the user can type.
 Format: `help`
+
+==== Help for a specific command: `help`
+Provides help for a specific command. +
+Format: `help COMMAND` +
+Example:
+
+* `help newplan`
+
+==== Autocompleting: `tab`
+Autocompletes command/module code if there is only one option left. +
+Shows a dropdown for selection if there is more than one option left. This is done through the tab key.
+
+==== Expanding a semester: `expand`
+Expands a semester so that more details can be seen. +
+Format: `expand SEMESTER` +
+Example:
+
+* `expand y1s1`
+
+==== Collapsing a semester: `collapse`
+Collapses a semester so that most details are hidden. +
+Format: `collapse SEMESTER` +
+Example:
+
+* `collapse y1s1`
 
 === Command Line Interface
 
