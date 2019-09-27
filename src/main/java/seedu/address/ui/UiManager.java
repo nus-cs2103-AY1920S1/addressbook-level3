@@ -51,8 +51,7 @@ public class UiManager implements Ui {
 
     @Override
     public void changeView(Person person) {
-        //detailsView = (new DetailsView(person)).getDetailsView();
-        return;
+        mainWindow.handleChangeOnDetailsView(new DetailsView(person).getDetailsView());
     }
 
     private Image getImage(String imagePath) {

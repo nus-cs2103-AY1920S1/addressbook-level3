@@ -144,6 +144,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Handles change of details view
+     * @param details details to be set inside detailsViewPlaceHolder in MainWindow.
+     */
+    public void handleChangeOnDetailsView(ScrollPane details) {
+        detailsViewPlaceholder.getChildren().clear();
+        detailsViewPlaceholder.getChildren().add(details);
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
