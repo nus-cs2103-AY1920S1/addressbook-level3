@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Luk Chi Heng
-image::yijinl.jpg[width="150", align="left"]
+image::AaronLuk.png[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
