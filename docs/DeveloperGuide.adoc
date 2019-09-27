@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Mark - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T13-4/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -279,33 +279,79 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of bookmarks
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage bookmarks faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="80%",cols="17%,<17%,<31%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new bookmark |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |bookmark the currently viewing website|do not need to copy paste the URL
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a bookmark |remove entries that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a bookmark by name, URL or tag |locate details of bookmarks without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |edit a bookmark |
+
+|`* * *` |user |undo the previous undoable command | reverse wrongly entered commands
+
+|`* * *` |user |redo the previous 'undo' command | reverse wrongly entered 'undo' command
+
+|`* * *` |user |add multiple tags to a bookmark |
+
+|`* * *` |user |auto tag a bookmark based on certain conditions (such as domain) |save time from tagging bookmarks from the same domain with the same tag
+
+|`* * *` |user with many bookmarks |organise all the bookmarks in a folder structure |
+
+|`* * *` |user |move a bookmark to a different folder |
+
+|`* * *` |user |open a bookmark within the App |easily visit a website without switching to other windows
+
+|`* * *` |user |view an offline copy of the content of a bookmark |still access the bookmark when there is no internet access
+
+|`* * *` |user |update the offline copy of bookmarks manually or automatically |keep offline copies updated
+
+|`* * *` |user |keep old offline copies |can still refer to them
+
+|`* * *` |user |remove an specific offline copy |remove cache that I no longer need
+
+|`* * *` |user |highlight and annotate specific paragraphs in a bookmark |refer to my notes easily
+
+|`* * *` |user |edit highlighting and annotations |
+
+|`* * *` |user |remove highlighting and annotations |
+
+|`* * *` |user |add reminders for a bookmark |remember to visit certain bookmarks at specified time
+
+|`* * *` |user |edit a reminder |
+
+|`* * *` |user |delete a reminder |
+
+|`* * *` |user |export and import all the bookmark data |easily migrate to another computer
+
+|`* *` |user |favorite a bookmark |
+
+|`* *` |user |mark a bookmark as 'read later' |know which bookmarks I have not read yet
+
+|`* *` |user |check my view history |see what websites I have visited
+
+|`* *` |user |automatically clean up old or outdated bookmarks |
+
+|`* *` |user |sort the bookmarks according to name |locate a specific bookmark
 |=======================================================================
 
 _{More to be added}_
@@ -313,17 +359,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete bookmark
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list bookmarks
+2.  Mark shows a list of bookmarks
+3.  User requests to delete a specific bookmark in the list
+4.  Mark deletes the bookmark
 +
 Use case ends.
 
@@ -337,7 +383,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Mark shows an error message.
 +
 Use case resumes at step 2.
 
@@ -357,9 +403,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
