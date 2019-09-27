@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
+import seedu.address.model.person.Rating;
 import seedu.address.model.person.Answer;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Question;
@@ -19,19 +19,19 @@ public class PersonBuilder {
     public static final String DEFAULT_QUESTION = "1 + 1";
     public static final String DEFAULT_ANSWER = "2";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_RATING = "good";
 
     private Question question;
     private Answer answer;
     private Email email;
-    private Address address;
+    private Rating rating;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         question = new Question(DEFAULT_QUESTION);
         answer = new Answer(DEFAULT_ANSWER);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        rating = new Rating(DEFAULT_RATING);
         tags = new HashSet<>();
     }
 
@@ -42,7 +42,7 @@ public class PersonBuilder {
         question = personToCopy.getQuestion();
         answer = personToCopy.getAnswer();
         email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
+        rating = personToCopy.getRating();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -63,10 +63,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Rating} of the {@code Person} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public PersonBuilder withRating (String rating) {
+        this.rating = new Rating(rating);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(question, answer, email, address, tags);
+        return new Person(question, answer, email, rating, tags);
     }
 
 }

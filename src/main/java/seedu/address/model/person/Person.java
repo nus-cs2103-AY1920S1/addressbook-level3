@@ -21,18 +21,18 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Rating rating;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Question question, Answer answer, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(question, answer, email, address, tags);
+    public Person(Question question, Answer answer, Email email, Rating rating, Set<Tag> tags) {
+        requireAllNonNull(question, answer, email, rating, tags);
         this.question = question;
         this.answer = answer;
         this.email = email;
-        this.address = address;
+        this.rating = rating;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +48,8 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Rating getRating() {
+        return rating;
     }
 
     /**
@@ -92,14 +92,14 @@ public class Person {
         return otherPerson.getQuestion().equals(getQuestion())
                 && otherPerson.getAnswer().equals(getAnswer())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getRating().equals(getRating())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, email, address, tags);
+        return Objects.hash(question, answer, email, rating, tags);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class Person {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress())
+                .append(getRating())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

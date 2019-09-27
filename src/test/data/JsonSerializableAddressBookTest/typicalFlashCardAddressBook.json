@@ -4,43 +4,43 @@
     "question" : "Store-and-forward",
     "answer": "Entire packet must arrive ar a router before it can be transmitted on the next link",
     "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
+    "rating": "good",
     "tagged" : [ "friends" ]
   }, {
     "question" : "End-to-end delay",
     "answer": "2L/R (assuming no other delay)",
     "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
+    "rating": "good",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "question" : "Sources of Packet Delay?",
     "answer": "Nodal processing, queuing, transmission, propagation",
     "email" : "heinz@example.com",
-    "address" : "wall street",
+    "rating": "good",
     "tagged" : [ ]
   }, {
     "question" : "Formula for propagation delay",
     "answer": "d, length of physical link (m) / s, progagation speed in medium (~2x10^8 m/sec) ",
     "email" : "cornelia@example.com",
-    "address" : "10th street",
+    "rating": "good",
     "tagged" : [ "friends" ]
   }, {
     "question" : "Formula for transmission delay",
     "answer": "L, packet length (bits) / R, link bandwidth (bps)",
     "email" : "werner@example.com",
-    "address" : "michegan ave",
+    "rating": "good",
     "tagged" : [ ]
   }, {
     "question" : "Throughput definition",
     "answer": "How many bits can be transmitted per unit time",
     "email" : "lydia@example.com",
-    "address" : "little tokyo",
+    "rating": "easy",
     "tagged" : [ ]
   }, {
     "question" : "What is a Protocol",
     "answer": "Protocols define format and order of messages exchanged and the action taken after messages are sent or received",
     "email" : "anna@example.com",
-    "address" : "4th street",
+    "rating": "easy",
     "tagged" : [ ]
   } ]
 }

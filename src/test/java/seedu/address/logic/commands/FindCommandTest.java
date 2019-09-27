@@ -5,11 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_FLASHCARD_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.PROP_DALAY;
 import static seedu.address.testutil.TypicalPersons.PROTOCOL;
-import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
 import static seedu.address.testutil.TypicalPersons.SOURCE_DELAY;
-import static seedu.address.testutil.TypicalPersons.TRANS_DELAY;
 import static seedu.address.testutil.TypicalPersons.THROUGHPUT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 

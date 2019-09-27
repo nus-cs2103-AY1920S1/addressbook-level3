@@ -3,12 +3,12 @@
     "question": "1 + 1",
     "answer": "2",
     "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
+    "rating": "good",
     "tagged": [ "friends" ]
   }, {
     "question": "1 + 1",
     "answer": "2",
     "email": "pauline@example.com",
-    "address": "4th street"
+    "rating": "easy"
   } ]
 }

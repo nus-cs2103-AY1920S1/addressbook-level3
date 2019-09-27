@@ -3,11 +3,11 @@
     "question": "Valid FlashCard",
     "answer": "Valid answer",
     "email": "hans@example.com",
-    "address": "4th street"
+    "rating": "good
   }, {
     "question": "FlashCard With Invalid Answer Field",
     "answer": " ",
     "email": "hans@example.com",
-    "address": "4th street"
+    "rating": "hard"
   } ]
 }

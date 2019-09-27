@@ -2,7 +2,7 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
@@ -40,17 +40,17 @@ public class PersonTest {
         assertFalse(STORE_AND_FORWARD.isSamePerson(editedAlice));
 
         // same name, same answer, different attributes -> returns true
-        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withEmail(VALID_EMAIL_BOB).withRating(VALID_RATING_2)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(STORE_AND_FORWARD.isSamePerson(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withAnswer(VALID_ANSWER_2).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withAnswer(VALID_ANSWER_2).withRating(VALID_RATING_2)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(STORE_AND_FORWARD.isSamePerson(editedAlice));
 
         // same name, same answer, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(STORE_AND_FORWARD.isSamePerson(editedAlice));
     }
 
@@ -85,7 +85,7 @@ public class PersonTest {
         assertFalse(STORE_AND_FORWARD.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withAddress(VALID_ADDRESS_BOB).build();
+        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).build();
         assertFalse(STORE_AND_FORWARD.equals(editedAlice));
 
         // different tags -> returns false

@@ -41,35 +41,35 @@ public class QuestionContainsAnyKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        QuestionContainsAnyKeywordsPredicate predicate = new QuestionContainsAnyKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PersonBuilder().withQuestion("Alice Bob").build()));
+        QuestionContainsAnyKeywordsPredicate predicate = new QuestionContainsAnyKeywordsPredicate(Collections.singletonList("remainder"));
+        assertTrue(predicate.test(new PersonBuilder().withQuestion("remainder quotient").build()));
 
         // Multiple keywords
-        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new PersonBuilder().withQuestion("Alice Bob").build()));
+        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("remainder", "quotient"));
+        assertTrue(predicate.test(new PersonBuilder().withQuestion("remainder quotient").build()));
 
         // Only one matching keyword
-        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PersonBuilder().withQuestion("Alice Carol").build()));
+        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("remainder", "divide"));
+        assertTrue(predicate.test(new PersonBuilder().withQuestion("remainder quotient").build()));
 
         // Mixed-case keywords
-        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new PersonBuilder().withQuestion("Alice Bob").build()));
+        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("reMaInDeR", "QuoTiEnT"));
+        assertTrue(predicate.test(new PersonBuilder().withQuestion("remainder quotient").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         QuestionContainsAnyKeywordsPredicate predicate = new QuestionContainsAnyKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withQuestion("Alice").build()));
+        assertFalse(predicate.test(new PersonBuilder().withQuestion("remainder").build()));
 
         // Non-matching keyword
-        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withQuestion("Alice Bob").build()));
+        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("addition"));
+        assertFalse(predicate.test(new PersonBuilder().withQuestion("remainder quotient").build()));
 
-        // Keywords match answer, email and address, but does not match name
-        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withQuestion("Alice").withAnswer("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+        // Keywords match answer, email and rating, but does not match name
+        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "good"));
+        assertFalse(predicate.test(new PersonBuilder().withQuestion("addition").withAnswer("12345")
+                .withEmail("alice@email.com").withRating("good").build()));
     }
 }
