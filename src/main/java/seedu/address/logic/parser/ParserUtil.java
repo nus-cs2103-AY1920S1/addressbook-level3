@@ -10,10 +10,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Rating;
-import seedu.address.model.person.Answer;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Question;
+import seedu.address.model.flashcard.Rating;
+import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.Question;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -79,21 +78,21 @@ public class ParserUtil {
         }
         return new Rating(trimmedRating);
     }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
+//not in used, maybe can be adapter for future features
+//    /**
+//     * Parses a {@code String email} into an {@code Email}.
+//     * Leading and trailing whitespaces will be trimmed.
+//     *
+//     * @throws ParseException if the given {@code email} is invalid.
+//     */
+//    public static Email parseEmail(String email) throws ParseException {
+//        requireNonNull(email);
+//        String trimmedEmail = email.trim();
+//        if (!Email.isValidEmail(trimmedEmail)) {
+//            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Email(trimmedEmail);
+//    }
 
     /**
      * Parses a {@code String category} into a {@code Category}.

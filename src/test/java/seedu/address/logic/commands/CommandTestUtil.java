@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -17,8 +16,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.QuestionContainsAllKeywordsPredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.QuestionContainsAllKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -30,8 +29,6 @@ public class CommandTestUtil {
     public static final String VALID_QUESTION_2 = "Where is NUS?";
     public static final String VALID_ANSWER_1 = "1 September 1939 – 2 September 1945";
     public static final String VALID_ANSWER_2 = "Kent Ridge";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_RATING_1 = "good";
     public static final String VALID_RATING_2 = "easy";
     public static final String VALID_CATEGORY_HISTORY = "history";
@@ -41,8 +38,6 @@ public class CommandTestUtil {
     public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
     public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
     public static final String ANSWER_DESC_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String RATING_DESC_1 = " " + PREFIX_RATING + VALID_RATING_1;
     public static final String RATING_DESC_2 = " " + PREFIX_RATING + VALID_RATING_2;
     public static final String CATEGORY_DESC_HISTORY = " " + PREFIX_CATEGORY + VALID_CATEGORY_LOCATION;
@@ -50,7 +45,6 @@ public class CommandTestUtil {
 
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + " "; // ' ' not allowed in questions
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER + " "; // ' ' not allowed in answers
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING; // empty string not allowed for rating
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in categories
 
@@ -61,12 +55,18 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_2;
 
     static {
-        DESC_1 = new EditPersonDescriptorBuilder().withQuestion(VALID_QUESTION_1)
-                .withAnswer(VALID_ANSWER_1).withEmail(VALID_EMAIL_AMY).withRating(VALID_RATING_1)
-                .withCategories(VALID_CATEGORY_LOCATION).build();
-        DESC_2 = new EditPersonDescriptorBuilder().withQuestion(VALID_QUESTION_2)
-                .withAnswer(VALID_ANSWER_2).withEmail(VALID_EMAIL_BOB).withRating(VALID_RATING_2)
-                .withCategories(VALID_CATEGORY_HISTORY, VALID_CATEGORY_LOCATION).build();
+        DESC_1 = new EditPersonDescriptorBuilder()
+                .withQuestion(VALID_QUESTION_1)
+                .withAnswer(VALID_ANSWER_1)
+                .withRating(VALID_RATING_1)
+                .withCategories(VALID_CATEGORY_LOCATION)
+                .build();
+        DESC_2 = new EditPersonDescriptorBuilder()
+                .withQuestion(VALID_QUESTION_2)
+                .withAnswer(VALID_ANSWER_2)
+                .withRating(VALID_RATING_2)
+                .withCategories(VALID_CATEGORY_HISTORY, VALID_CATEGORY_LOCATION)
+                .build();
     }
 
     /**
@@ -99,27 +99,27 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the address book, filtered flashCard list and selected flashCard in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredFlashCardList());
+        List<FlashCard> expectedFilteredList = new ArrayList<>(actualModel.getFilteredFlashCardList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredFlashCardList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the flashCard at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredFlashCardList().size());
 
-        Person person = model.getFilteredFlashCardList().get(targetIndex.getZeroBased());
-        final String[] question = person.getQuestion().fullQuestion.split("\\s+");
+        FlashCard flashCard = model.getFilteredFlashCardList().get(targetIndex.getZeroBased());
+        final String[] question = flashCard.getQuestion().fullQuestion.split("\\s+");
         model.updateFilteredPersonList(new QuestionContainsAllKeywordsPredicate(Arrays.asList(question)));
 
         assertEquals(1, model.getFilteredFlashCardList().size());

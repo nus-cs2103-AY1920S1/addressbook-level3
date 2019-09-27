@@ -1,15 +1,14 @@
-package seedu.address.model.person;
+package seedu.address.model.flashcard;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.person.Person;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Person}'s {@code Question} matches all of the keywords given.
+ * Tests that a {@code FlashCard}'s {@code Question} matches all of the keywords given.
  */
-public class QuestionContainsAllKeywordsPredicate implements Predicate<Person> {
+public class QuestionContainsAllKeywordsPredicate implements Predicate<FlashCard> {
     private final List<String> keywords;
 
     public QuestionContainsAllKeywordsPredicate(List<String> keywords) {
@@ -17,9 +16,9 @@ public class QuestionContainsAllKeywordsPredicate implements Predicate<Person> {
     }
 
     @Override
-    public boolean test(Person person) {
+    public boolean test(FlashCard flashCard) {
         return keywords.stream()
-                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getQuestion().fullQuestion, keyword));
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(flashCard.getQuestion().fullQuestion, keyword));
     }
 
     @Override

@@ -1,8 +1,7 @@
 {
-  "persons": [ {
+  "flashcards": [ {
     "question": "",
     "answer": "Valid Answer",
-    "email": "hans@example.com",
     "rating": "good"
   } ]
 }

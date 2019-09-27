@@ -6,11 +6,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Rating;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Question;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Answer;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Rating;
+import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Answer;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -28,15 +27,14 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code flashCard}'s details
      */
-    public EditPersonDescriptorBuilder(Person person) {
+    public EditPersonDescriptorBuilder(FlashCard flashCard) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setQuestion(person.getQuestion());
-        descriptor.setAnswer(person.getAnswer());
-        descriptor.setEmail(person.getEmail());
-        descriptor.setRating(person.getRating());
-        descriptor.setCategories(person.getCategories());
+        descriptor.setQuestion(flashCard.getQuestion());
+        descriptor.setAnswer(flashCard.getAnswer());
+        descriptor.setRating(flashCard.getRating());
+        descriptor.setCategories(flashCard.getCategories());
     }
 
     /**
@@ -55,13 +53,6 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditPersonDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
-        return this;
-    }
 
     /**
      * Sets the {@code Rating} of the {@code EditPersonDescriptor} that we are building.

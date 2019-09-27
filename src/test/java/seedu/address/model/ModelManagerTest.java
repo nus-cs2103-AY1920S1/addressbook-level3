@@ -16,7 +16,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.QuestionContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -75,18 +75,18 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasFlashcard(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(STORE_AND_FORWARD));
+        assertFalse(modelManager.hasFlashcard(STORE_AND_FORWARD));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(STORE_AND_FORWARD);
-        assertTrue(modelManager.hasPerson(STORE_AND_FORWARD));
+        assertTrue(modelManager.hasFlashcard(STORE_AND_FORWARD));
     }
 
     @Test

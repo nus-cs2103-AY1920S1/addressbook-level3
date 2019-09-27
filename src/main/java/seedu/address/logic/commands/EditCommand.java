@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -20,42 +19,39 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Rating;
-import seedu.address.model.person.Answer;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Question;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Rating;
+import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.Question;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing flashCard in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the flashCard identified "
+            + "by the index number used in the displayed flashCard list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_ANSWER + "ANSWER] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_RATING + "ADDRESS] "
-            + "[" + PREFIX_CATEGORY + "TAG]...\n"
+            + "[" + PREFIX_RATING + "RATING] "
+            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_ANSWER + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_ANSWER + "91234567 ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited FlashCard: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This flashCard already exists in the address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the flashCard in the filtered flashCard list to edit
+     * @param editPersonDescriptor details to edit the flashCard with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
@@ -68,38 +64,37 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredFlashCardList();
+        List<FlashCard> lastShownList = model.getFilteredFlashCardList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        FlashCard flashCardToEdit = lastShownList.get(index.getZeroBased());
+        FlashCard editedFlashCard = createEditedPerson(flashCardToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!flashCardToEdit.isSamePerson(editedFlashCard) && model.hasFlashcard(editedFlashCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setPerson(flashCardToEdit, editedFlashCard);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedFlashCard));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code FlashCard} with the details of {@code flashCardToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static FlashCard createEditedPerson(FlashCard flashCardToEdit, EditPersonDescriptor editPersonDescriptor) {
+        assert flashCardToEdit != null;
 
-        Question updatedQuestion = editPersonDescriptor.getQuestion().orElse(personToEdit.getQuestion());
-        Answer updatedAnswer = editPersonDescriptor.getAnswer().orElse(personToEdit.getAnswer());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Rating updatedRating = editPersonDescriptor.getRating().orElse(personToEdit.getRating());
-        Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(personToEdit.getCategories());
+        Question updatedQuestion = editPersonDescriptor.getQuestion().orElse(flashCardToEdit.getQuestion());
+        Answer updatedAnswer = editPersonDescriptor.getAnswer().orElse(flashCardToEdit.getAnswer());
+        Rating updatedRating = editPersonDescriptor.getRating().orElse(flashCardToEdit.getRating());
+        Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(flashCardToEdit.getCategories());
 
-        return new Person(updatedQuestion, updatedAnswer, updatedEmail, updatedRating, updatedCategories);
+        return new FlashCard(updatedQuestion, updatedAnswer, updatedRating, updatedCategories);
     }
 
     @Override
@@ -121,13 +116,12 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the flashCard with. Each non-empty field value will replace the
+     * corresponding field value of the flashCard.
      */
     public static class EditPersonDescriptor {
         private Question question;
         private Answer answer;
-        private Email email;
         private Rating rating;
         private Set<Category> categories;
 
@@ -140,7 +134,6 @@ public class EditCommand extends Command {
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setQuestion(toCopy.question);
             setAnswer(toCopy.answer);
-            setEmail(toCopy.email);
             setRating(toCopy.rating);
             setCategories(toCopy.categories);
         }
@@ -149,7 +142,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, answer, email, rating, categories);
+            return CollectionUtil.isAnyNonNull(question, answer, rating, categories);
         }
 
         public void setQuestion(Question question) {
@@ -166,14 +159,6 @@ public class EditCommand extends Command {
 
         public Optional<Answer> getAnswer() {
             return Optional.ofNullable(answer);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
         }
 
         public void setRating(Rating rating) {
@@ -218,7 +203,6 @@ public class EditCommand extends Command {
 
             return getQuestion().equals(e.getQuestion())
                     && getAnswer().equals(e.getAnswer())
-                    && getEmail().equals(e.getEmail())
                     && getRating().equals(e.getRating())
                     && getCategories().equals(e.getCategories());
         }

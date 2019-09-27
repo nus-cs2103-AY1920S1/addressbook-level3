@@ -1,8 +1,7 @@
 {
-  "persons": [ {
-    "question": "How are you?",
+  "flashcards": [ {
+    "question": " ",
     "answer": "I am fine, thank you and you?",
-    "email": "invalid@email!3e",
     "rating": "easy"
   } ]
 }

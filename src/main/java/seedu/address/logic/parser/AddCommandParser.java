@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -13,11 +12,10 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Rating;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Question;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Answer;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Rating;
+import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Answer;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,22 +29,21 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_EMAIL, PREFIX_RATING, PREFIX_CATEGORY);
+                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_RATING, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_RATING, PREFIX_ANSWER, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_RATING, PREFIX_ANSWER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Question question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
-        Person person = new Person(question, answer, email, rating, categoryList);
+        FlashCard flashCard = new FlashCard(question, answer, rating, categoryList);
 
-        return new AddCommand(person);
+        return new AddCommand(flashCard);
     }
 
     /**

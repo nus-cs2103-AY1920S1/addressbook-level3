@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.flashcard;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,15 +10,14 @@ import java.util.Set;
 import seedu.address.model.category.Category;
 
 /**
- * Represents a Person in the address book.
+ * Represents a FlashCard in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class FlashCard {
 
     // Identity fields
     private final Question question;
     private final Answer answer;
-    private final Email email;
 
     // Data fields
     private final Rating rating;
@@ -27,11 +26,10 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Question question, Answer answer, Email email, Rating rating, Set<Category> categories) {
-        requireAllNonNull(question, answer, email, rating, categories);
+    public FlashCard(Question question, Answer answer, Rating rating, Set<Category> categories) {
+        requireAllNonNull(question, answer, rating, categories);
         this.question = question;
         this.answer = answer;
-        this.email = email;
         this.rating = rating;
         this.categories.addAll(categories);
     }
@@ -42,10 +40,6 @@ public class Person {
 
     public Answer getAnswer() {
         return answer;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Rating getRating() {
@@ -64,14 +58,13 @@ public class Person {
      * Returns true if both persons of the same question have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(FlashCard otherFlashCard) {
+        if (otherFlashCard == this) {
             return true;
         }
-
-        return otherPerson != null
-                && otherPerson.getQuestion().equals(getQuestion())
-                && (otherPerson.getAnswer().equals(getAnswer()) || otherPerson.getEmail().equals(getEmail()));
+        return otherFlashCard != null
+                && otherFlashCard.getQuestion().equals(getQuestion())
+                && (otherFlashCard.getAnswer().equals(getAnswer()));
     }
 
     /**
@@ -84,22 +77,21 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof FlashCard)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getQuestion().equals(getQuestion())
-                && otherPerson.getAnswer().equals(getAnswer())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getRating().equals(getRating())
-                && otherPerson.getCategories().equals(getCategories());
+        FlashCard otherFlashCard = (FlashCard) other;
+        return otherFlashCard.getQuestion().equals(getQuestion())
+                && otherFlashCard.getAnswer().equals(getAnswer())
+                && otherFlashCard.getRating().equals(getRating())
+                && otherFlashCard.getCategories().equals(getCategories());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, email, rating, categories);
+        return Objects.hash(question, answer, rating, categories);
     }
 
     @Override
@@ -108,8 +100,6 @@ public class Person {
         builder.append(getQuestion())
                 .append(" Answer: ")
                 .append(getAnswer())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Rating: ")
                 .append(getRating())
                 .append(" Categories: ");

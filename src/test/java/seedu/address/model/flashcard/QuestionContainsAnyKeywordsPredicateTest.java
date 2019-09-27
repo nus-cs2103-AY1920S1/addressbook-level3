@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.flashcard;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,7 +34,7 @@ public class QuestionContainsAnyKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different flashCard -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
@@ -67,9 +67,12 @@ public class QuestionContainsAnyKeywordsPredicateTest {
         predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("addition"));
         assertFalse(predicate.test(new PersonBuilder().withQuestion("remainder quotient").build()));
 
-        // Keywords match answer, email and rating, but does not match name
-        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "good"));
-        assertFalse(predicate.test(new PersonBuilder().withQuestion("addition").withAnswer("12345")
-                .withEmail("alice@email.com").withRating("good").build()));
+        // Keywords match answer and rating, but does not match name
+        predicate = new QuestionContainsAnyKeywordsPredicate(Arrays.asList("12345", "Main", "good"));
+        assertFalse(predicate.test(
+                new PersonBuilder()
+                        .withQuestion("addition")
+                        .withAnswer("12345")
+                        .withRating("good").build()));
     }
 }

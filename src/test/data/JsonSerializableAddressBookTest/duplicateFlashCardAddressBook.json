@@ -1,14 +1,12 @@
 {
-  "persons": [ {
+  "flashcards": [ {
     "question": "1 + 1",
     "answer": "2",
-    "email": "alice@example.com",
     "rating": "good",
     "categories": [ "math" ]
   }, {
     "question": "1 + 1",
     "answer": "2",
-    "email": "pauline@example.com",
     "rating": "easy"
   } ]
 }

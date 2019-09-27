@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
@@ -15,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class EditFlashCardDescriptorTest {
 
     @Test
     public void equals() {
@@ -41,10 +40,6 @@ public class EditPersonDescriptorTest {
 
         // different answer -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_1).withAnswer(VALID_ANSWER_2).build();
-        assertFalse(DESC_1.equals(editedAmy));
-
-        // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_1).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(DESC_1.equals(editedAmy));
 
         // different address -> returns false

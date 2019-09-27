@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.FlashCard;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code FlashCard}.
  */
-public class PersonCard extends UiPart<Region> {
+public class FlashCardPanel extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "FlashCardListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final FlashCard flashCard;
 
     @FXML
     private HBox cardPane;
@@ -37,19 +37,16 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label rating;
     @FXML
-    private Label email;
-    @FXML
     private FlowPane categories;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public FlashCardPanel(FlashCard flashCard, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.flashCard = flashCard;
         id.setText(displayedIndex + ". ");
-        question.setText(person.getQuestion().fullQuestion);
-        answer.setText(person.getAnswer().fullAnswer);
-        rating.setText(person.getRating().value);
-        email.setText(person.getEmail().value);
-        person.getCategories().stream()
+        question.setText(flashCard.getQuestion().fullQuestion);
+        answer.setText(flashCard.getAnswer().fullAnswer);
+        rating.setText(flashCard.getRating().value);
+        flashCard.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
                 .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
     }
@@ -62,13 +59,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof FlashCardPanel)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        FlashCardPanel card = (FlashCardPanel) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && flashCard.equals(card.flashCard);
     }
 }

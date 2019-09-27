@@ -1,13 +1,11 @@
 {
-  "persons": [ {
+  "flashcards": [ {
     "question": "Valid FlashCard",
     "answer": "Valid answer",
-    "email": "hans@example.com",
     "rating": "good"
   }, {
     "question": "FlashCard With Invalid Answer Field",
     "answer": " ",
-    "email": "hans@example.com",
     "rating": "hard"
   } ]
 }

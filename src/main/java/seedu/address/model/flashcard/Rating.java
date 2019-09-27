@@ -1,10 +1,10 @@
-package seedu.address.model.person;
+package seedu.address.model.flashcard;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a FlashCard's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidRating(String)}
  */
 public class Rating {
@@ -35,7 +35,7 @@ public class Rating {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid rating.
      */
     public static boolean isValidRating(String test) {
         return test.matches(GOOD) || test.matches(EASY) || test.matches(HARD);

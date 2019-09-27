@@ -11,35 +11,33 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Rating;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Question;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Answer;
+import seedu.address.model.flashcard.Rating;
+import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Answer;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link FlashCard}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedFlashcard {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "FlashCard's %s field is missing!";
 
     private final String question;
     private final String answer;
-    private final String email;
     private final String rating;
     private final List<JsonAdaptedCategory> Categories = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedFlashcard} with the given flashCard details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
-            @JsonProperty("email") String email, @JsonProperty("rating") String rating,
-            @JsonProperty("categories") List<JsonAdaptedCategory> categories) {
+    public JsonAdaptedFlashcard(@JsonProperty("question") String question,
+                                @JsonProperty("answer") String answer,
+                                @JsonProperty("rating") String rating,
+                                @JsonProperty("categories") List<JsonAdaptedCategory> categories) {
         this.question = question;
         this.answer = answer;
-        this.email = email;
         this.rating = rating;
         if (categories != null) {
             this.Categories.addAll(categories);
@@ -47,12 +45,11 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code FlashCard} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Person source) {
+    public JsonAdaptedFlashcard(FlashCard source) {
         question = source.getQuestion().fullQuestion;
         answer = source.getAnswer().fullAnswer;
-        email = source.getEmail().value;
         rating = source.getRating().value;
         Categories.addAll(source.getCategories().stream()
                 .map(JsonAdaptedCategory::new)
@@ -60,11 +57,11 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted flashCard object into the model's {@code FlashCard} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted flashCard.
      */
-    public Person toModelType() throws IllegalValueException {
+    public FlashCard toModelType() throws IllegalValueException {
         final List<Category> personCategories = new ArrayList<>();
         for (JsonAdaptedCategory category : Categories) {
             personCategories.add(category.toModelType());
@@ -86,14 +83,6 @@ class JsonAdaptedPerson {
         }
         final Answer modelAnswer = new Answer(answer);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
-
         if (rating == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rating.class.getSimpleName()));
         }
@@ -103,7 +92,7 @@ class JsonAdaptedPerson {
         final Rating modelRating = new Rating(rating);
 
         final Set<Category> modelCategories = new HashSet<>(personCategories);
-        return new Person(modelQuestion, modelAnswer, modelEmail, modelRating, modelCategories);
+        return new FlashCard(modelQuestion, modelAnswer, modelRating, modelCategories);
     }
 
 }
