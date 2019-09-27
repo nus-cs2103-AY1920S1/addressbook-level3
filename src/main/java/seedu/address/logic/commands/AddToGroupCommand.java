@@ -43,7 +43,7 @@ public class AddToGroupCommand extends Command {
 
             PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
 
-            if (model.addPersonToGroupMapping(mapping)){
+            if (model.addPersonToGroupMapping(mapping)) {
                 return new CommandResult(MESSAGE_SUCCESS + mapping.toString());
             } else {
                 return new CommandResult(MESSAGE_DUPLICATE);

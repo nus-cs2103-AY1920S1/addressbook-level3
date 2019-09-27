@@ -10,9 +10,16 @@ import seedu.address.testutil.grouputil.TypicalGroups;
 import seedu.address.testutil.mappingutil.TypicalMappings;
 import seedu.address.testutil.personutil.TypicalPersonDescriptor;
 
+/**
+ * Typical Model.
+ */
 public class TypicalModel {
 
-    public static ModelManager generateTypicalModel(){
+    /**
+     * Generates a Typical Model.
+     * @return Model
+     */
+    public static ModelManager generateTypicalModel() {
         Person.counterReset();
         Group.counterReset();
 

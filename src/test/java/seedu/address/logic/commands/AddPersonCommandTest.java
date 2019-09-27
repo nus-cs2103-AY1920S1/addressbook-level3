@@ -1,12 +1,5 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ModelManager;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.modelutil.TypicalModel;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,9 +8,19 @@ import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ZACK;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ModelManager;
+import seedu.address.model.person.Person;
+import seedu.address.testutil.modelutil.TypicalModel;
+
+
+
 public class AddPersonCommandTest {
 
-    ModelManager model;
+    private ModelManager model;
 
     @BeforeEach
     void init() {
@@ -35,7 +38,8 @@ public class AddPersonCommandTest {
         CommandResult actualCommandResult = new AddPersonCommand(ZACK).execute(model);
         Person person = model.findPerson(ZACK.getName());
         assertNotNull(person);
-        CommandResult expectedCommandResult = new CommandResult(AddPersonCommand.MESSAGE_SUCCESS + person.details());
+        CommandResult expectedCommandResult =
+                new CommandResult(AddPersonCommand.MESSAGE_SUCCESS + person.details());
 
         assertTrue(expectedCommandResult.equals(actualCommandResult));
     }

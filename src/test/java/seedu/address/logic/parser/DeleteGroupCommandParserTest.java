@@ -1,10 +1,5 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.DeleteGroupCommand;
-import seedu.address.logic.commands.DeletePersonCommand;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -12,6 +7,10 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME2;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.WHITESPACE;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.DeleteGroupCommand;
 
 class DeleteGroupCommandParserTest {
 

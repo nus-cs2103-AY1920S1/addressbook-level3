@@ -1,24 +1,24 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ModelManager;
-import seedu.address.model.group.Group;
-import seedu.address.model.group.GroupName;
-import seedu.address.model.mapping.PersonToGroupMapping;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.modelutil.TypicalModel;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.DANIEL;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ModelManager;
+import seedu.address.model.group.Group;
+import seedu.address.model.mapping.PersonToGroupMapping;
+import seedu.address.model.person.Person;
+import seedu.address.testutil.modelutil.TypicalModel;
+
+
+
 class AddToGroupCommandTest {
 
-    ModelManager model;
+    private ModelManager model;
 
     @BeforeEach
     void init() {
@@ -39,6 +39,9 @@ class AddToGroupCommandTest {
                 new CommandResult(AddToGroupCommand.MESSAGE_SUCCESS + map.toString());
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
+    }
+
+    private void assertTrue(boolean equals) {
     }
 
     @Test

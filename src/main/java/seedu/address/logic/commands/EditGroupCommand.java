@@ -43,6 +43,10 @@ public class EditGroupCommand extends Command {
             return new CommandResult(MESSAGE_NOT_EDITED);
         }
 
+        if (model.findGroup(groupName) == null) {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
+
         Group group = model.editGroup(groupName, groupDescriptor);
 
         if (group == null) {

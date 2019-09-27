@@ -1,10 +1,5 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.testutil.scheduleutil.TypicalEvents;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -18,13 +13,17 @@ import static seedu.address.testutil.scheduleutil.TypicalTimeslots.ENDTIMETEXT1;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.STARTTIMETEXT1;
 import static seedu.address.testutil.scheduleutil.TypicalTimeslots.VENUE1;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.testutil.scheduleutil.TypicalEvents;
+
 class AddEventCommandParserTest {
 
     private AddEventCommandParser parser = new AddEventCommandParser();
 
     @Test
     void parse_success() {
-
         assertParseSuccess(parser,
                 WHITESPACE + PREFIX_NAME + ALICE.getName().toString() + WHITESPACE + PREFIX_EVENTNAME + EVENTNAME1
                         + WHITESPACE + PREFIX_TIMING + STARTTIMETEXT1 + ENDTIMETEXT1 + VENUE1,

@@ -57,6 +57,10 @@ public class EditPersonCommand extends Command {
             return new CommandResult(MESSAGE_NOT_EDITED);
         }
 
+        if (model.findPerson(name) == null) {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
+
         Person person = model.editPerson(name, personDescriptor);
 
         if (person == null) {

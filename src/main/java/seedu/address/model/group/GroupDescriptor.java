@@ -30,11 +30,17 @@ public class GroupDescriptor {
         }
     }
 
-    public boolean equals(GroupDescriptor groupDescriptor){
-        if(groupDescriptor == null){
+    /**
+     * Compares if this GroupDescriptor is equal to another.
+     *
+     * @param groupDescriptor to compare
+     * @return boolean
+     */
+    public boolean equals(GroupDescriptor groupDescriptor) {
+        if (groupDescriptor == null) {
             return false;
         } else if (this.groupName.equals(groupDescriptor.groupName)
-                && this.groupRemark.equals(groupDescriptor.groupRemark)){
+                && this.groupRemark.equals(groupDescriptor.groupRemark)) {
             return true;
         } else {
             return false;

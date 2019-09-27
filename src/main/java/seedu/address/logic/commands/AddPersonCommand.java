@@ -53,6 +53,7 @@ public class AddPersonCommand extends Command {
     public boolean equals(Command command) {
         return command == this // short circuit if same object
                 || (command instanceof AddPersonCommand // instanceof handles nulls
-                && personDescriptor.equals(((AddPersonCommand) command).personDescriptor));    }
+                && personDescriptor.equals(((AddPersonCommand) command).personDescriptor));
+    }
 
 }
