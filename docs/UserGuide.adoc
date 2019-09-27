@@ -74,7 +74,7 @@ Examples:
 
 ==== Moving a module from one semester to another. `move`
 Moves a given module from a source semester to a destination semester, as specified. +
-Format: `move MODULE SEMESTER_SRC SEMESTER_DEST`  +
+Format: `move MODULE SEMESTER_SRC SEMESTER_DEST` +
 Examples:
 
 * `move CS3243 y2s1 y2s2`

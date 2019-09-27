@@ -285,7 +285,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: 
+*Value proposition*:
 
 * Users will be able to check all the problems (e.g. graduation requirements, prerequisite for modules) with their current study plan with ModBuddy through a desktop application.
 * Have multiple study plans, and move semesters around quickly with a CLI.
