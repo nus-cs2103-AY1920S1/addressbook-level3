@@ -103,25 +103,25 @@ public interface Model {
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.
      */
-    boolean hasEvent(Event appt);
+//    boolean hasEvent(Event appt);
 
     /**
      * Deletes the given event.
      */
-    void deleteEvent(Event target);
+//    void deleteEvent(Event target);
 
     /**
      * Adds the given appointment.
      * {@code appt} must not already exist in the schedule.
      */
-    void addAppointment(Event appt);
+//    void addAppointment(Event appt);
 
     /**
      * Replaces the given appointment {@code appt} with {@code editedAppt}.
      * {@code appt} must exist in the schedule.
      * The appointment timing of {@code editedAppt} must not be the same as another existing appointment.
      */
-    void changeEvent(Event appt, Event editedAppt);
+//    void changeEvent(Event appt, Event editedAppt);
 
     
 }

@@ -16,7 +16,7 @@ public abstract class Event {
     // Identity fields
     private final ReferenceId personId;
     private final Timing timing;
-    private Status status = Status.NEW;
+    private final Status status;
 
     /**
      * Every field must be present and not null.

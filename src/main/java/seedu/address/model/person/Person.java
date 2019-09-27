@@ -26,7 +26,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private Optional<Event> event = Optional.empty();
+//    private Optional<Event> event = Optional.empty();
 
     /**
      * Every field must be present and not null.
