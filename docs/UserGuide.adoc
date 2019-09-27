@@ -12,33 +12,22 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T W13-4`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Budget Buddy is for computing students who prefer to use a desktop app to manage their expenses. More importantly, Budget Buddy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Budget Buddy can get your expense management tasks done faster than traditional GUI apps. Furthermore, computing students can take full advantage of Budget Buddy by adding their own functions through custom JavaScript files.
 
-== Quick Start
-
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+== Quick Start
 
-.  Refer to <<Features>> for details of each command.
+Nothing to see here.
+
 
 [[Features]]
 == Features
@@ -46,132 +35,247 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words within `<>` brackets are parameters to be supplied by the user.
+* Parameters within `[]` brackets are optional and can be omitted.
+* `|` indicates that a choice must be made between two parameters.
+* `...` indicates a variable number (at least 1) of the specified parameter.
 ====
 
 === Viewing help : `help`
 
-Format: `help`
+Displays help. If `command` is specified, view detailed help for that command.
 
-=== Adding a person: `add`
+Format: `help [<command]>`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Manage defaults : `default`
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Set default account : `default account`
 
-Examples:
+Sets the default account.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Format: `default account <id>`
 
-=== Listing all persons : `list`
+=== Manage the main transaction view : `view`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Filter transactions : `view filter`
 
-=== Editing a person : `edit`
+Filters the main transaction view. If no arguments are provided, all transactions are shown.
+Otherwise, only transactions meeting all the criteria are shown.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `view filter [a/<account>] [c/<category>] [f/<from date>] [t/<to date>]`
 
+==== Sort transactions : `view sort`
+
+Sorts transactions by (a)ccount, (c)ategory, (d)ate or (x)amount.
+Specify `o/a` to sort in ascending order, or `o/d` to sort in descending order.
+If omitted, sort in ascending order.
+
+Format: `view sort s/<a|c|d|x> [o/<a|d>]`
+
+=== Managing transactions : `transaction`
+
+==== Add a transaction : `transaction add`
+
+Adds a new transaction of the specified amount and with the given description.
+
+Format: `transaction add x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* If the account is not given, the transaction is inserted into the default account.
+* If the category is not given, the transaction is not categorised.
+* If the date is not given, the date is set to the current date.
+* If the argument ‘r’ is added, the transition is marked as recurring;
+identical entries will be added either daily, weekly, monthly, or yearly.
 ****
 
-Examples:
+==== Edit a transaction : `transaction edit`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Edits the specified transaction, setting the specified fields.
+If the ‘recurring’ field is modified, the app will ask if all previous recurring entries should be deleted.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Format: `transaction edit <id> [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Delete transaction(s) : `transaction delete`
 
+Deletes the transactions with the specified IDs.
+
+Format: `transaction delete <id ...>`
+
+=== Managing categories : `category`
+
+==== Adding a category
+
+Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
+
+==== List categories : `category list`
+
+Lists all categories.
+
+==== Rename a category : `category rename`
+
+Renames the specified category.
+Note that this is the same as setting the category of all transactions of category `old name` to `new name`.
+
+Format: `category rename o/<old name> n/<new name>`
+
+==== Delete a category : `category delete`
+
+Deletes the specified category.
+Note that this is the same as un-categorising all transactions under the specified category.
+
+Format: `category delete n/<name>`
+
+=== Managing accounts : `account`
+
+==== Add an account : `account add`
+
+Creates a new account with the given name. If the currency symbol is not specified, “$” is used.
+
+Format: `account add n/<name> [c/<currency symbol>]`
+
+==== List accounts : `account list`
+
+Lists all accounts.
+
+==== Edit an account : `account edit`
+
+Edits the specified account, setting the specified fields.
+
+Format: `account edit <id> [n/<name>] [c/<currency symbol>]`
+
+==== Delete account(s) : `account delete`
+
+Deletes the accounts with the specified IDs, as in `account list`.
+Note: you cannot delete an account if there are transactions associated with the account.
+
+Format: `account delete <id ...>`
+
+=== Viewing reports : `report`
+
+Displays a report.
+
+Format: `report [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [total|category]`
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* You can specify either the start and end date range, inclusive, or name a period.
+If no period is specified, it defaults to the current month-to-date.
+* You can see a total report that shows your total income and expenditure and budget information,
+if a budget has been set up,  or a report that breaks your income and expenditure down into categories.
+If the type is omitted, it defaults to a total report.
+* Your goal progress will also be shown in both reports.
 ****
 
-Examples:
+=== Managing budgets : `budget`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Displays or sets the budget for the specified period.
+If the period is omitted, it defaults to the entire current month.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Format: `budget [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [<amount>|unset]`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Viewing budgets
 
-=== Exiting the program : `exit`
+To view budgets, omit `[<amount>|unset]` from the command.
+All budgets overlapping the period specified will be displayed.
 
-Exits the program. +
-Format: `exit`
+==== Setting budgets
 
-=== Saving the data
+To set a budget, specify the `[<amount>]`. Note that budgets cannot overlap.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Removing budgets
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+To unset a budget, specify `[unset]`.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Goal setting : `goal`
+
+==== Adding a goal : `goal add`
+
+Adds a goal on the specified account to reach the specified amount by the target date or at the end of the specified period.
+
+Format: `goal add [a/<account>] [[d/<target date>] | [p/<this week|this month|next month|this year>]] x/[+]<amount>`
+****
+* If the account is omitted, the default account is set.
+* If the period is omitted, the target date is set to the last day of the current month.
+* If + is specified before amount, then the target amount is set as amount more than the current balance in the target account.
+****
+
+==== View goals : `goal list`
+
+List all goals.
+
+==== Delete goal(s) : `goal delete`
+
+Deletes the goals with the specified goal IDs. Goal IDs can be retrieved from `goal list`.
+
+Format: `goal delete <id ...>`
+
+=== Tracking loans : `loan`
+
+==== Add a new loan : `loan out|in`
+
+Adds a new loan out/in entry.
+Each entry has a unique ID (across both out and in entries).
+If date is not given, it is set to the default date.
+
+Format: `loan out|in x/<amount> d/<description> [w/<date>]`
+
+==== List loans : `loan list`
+
+Displays a list of all loans, sorted by newest first.
+
+Format: `loan list [o|i] [s/a]`
+****
+* Adding ‘o’ argument filters list to out loans only.
+* Adding ‘i’ argument filters list to in loans only.
+* Add `s/a` to sort the list by amount.
+****
+
+==== Edit loan : `loan edit`
+
+Edits the specified field of the loan entry with the specified ID.
+
+Format: `loan edit <id> [x/<amount>] [d/<description>] [w/<date>]`
+
+==== Mark loan(s) as paid : `loan paid`
+
+Marks the specified loan(s) as paid.
+
+Format: `loan paid <id ...>`
+
+==== Delete loan(s) : `loan delete`
+
+Deletes the loan(s) with the specified loan ID(s).
+
+Format: `loan delete <id ...>`
+
+==== Calculate loans : `loan split`
+
+Splits and calculates a group payment, then prints a list of who owes who.
+
+Format: `loan split n/<name> a/<amount paid> ...`
+
+=== Import and export : `import, export`
+
+==== Import a file : `import`
+
+Imports transactions from the file at the given path.
+
+Format: `import [f/<format>] [p/<file path>]`
+****
+* The file path can be relative to where you launched Budget Buddy from, or absolute.
+If the path is omitted, a file browser is opened for you to select the file.
+* Format is one of dbs (DBS Bank/POSB), ocbc (OCBC Bank), sc (Standard Chartered), csv (generic comma-separated values file).
+If the format is omitted, automatic detection is attempted.
+****
+
+==== Export transactions : `export`
+
+Exports all transactions to the given path.
+
+Format: `export [p/<file path>]`
+****
+* The file path can be relative to where you launched Budget Buddy from, or absolute.
+If the path is omitted, a file browser is opened for you to select where to save the file.
+* The file is a comma-separated values file.
+****
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
 == Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`

@@ -11,20 +11,20 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop expense manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is based on a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC) than what students usually write in beginner-level SE modules.
+* Budget Buddy is a desktop expense manager, capable of tracking your expenses, income and loans.
+* It aims to be the number one application of choice for **computing students** at the **National University of Singapore**.
+* User interaction occurs chiefly through a CLI (Command Line Interface).
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
+* The original source of the code is the AddressBook-Level3 project created by [SE-EDU initiative](https://se-education.org).
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
