@@ -74,7 +74,7 @@ Examples:
 * `list recipe` +
 Output: Lists all recipes.
 
-===  Viewing a recipe: `view recipe` 
+===  Viewing a recipe: `view recipe`
 Lists ingredients of specified recipe, nutritional value, and image, difficulty and preparation time, if applicable. +
 Format: `view recipe <name>`
 
@@ -221,7 +221,7 @@ User can add health data of the following 8 types:
 . Heart Rate (in BPM)
 . Blood Pressure (in Systolic/Diastolic mmHg)
 . Glucose (in mmol/L)
-. Menstrual Cycle (by date) 
+. Menstrual Cycle (by date)
 ** DukeCooks can recognise if it’s a start or end date.
 ****
 
@@ -263,7 +263,7 @@ Deletes the health record of W000123.
 === View Medical Appointments:  `[coming in v2.0]`
 Shows all the medical appointment for the month. +
 Format: `view appt [time period]`
- 
+
 Examples:
 
 * `view appt` +
@@ -276,7 +276,7 @@ Adds a new medical appointment where user can include an optional note. +
 Format: `add appt <date time> [note]`
 
 * DukeCooks will prompt reminder when appointment is in a week’s time.
- 
+
 Examples:
 
 * `add appt 31/12/2019 8am` +
@@ -292,7 +292,7 @@ Format: `edit appt <Appt ID> [date time] [note]`
 * At least one of the optional fields must be provided
 * Existing value will be overwritten with the new inputs given
 
- 
+
 Examples:
 
 * `edit appt APPT0001 CGH - blood glucose` +
@@ -307,12 +307,12 @@ Deletes an existing medical appointment. +
 Format: `delete appt <APPT ID>`
 
 * <APPT ID> refers to the unique identifier attributed to each medical appointment upon creation.
- 
+
 Examples:
 
 * `delete appt APPT0001` +
 Deletes the medical appointment of APPT0001.
- 
+
 === Print Health Records to PDF `[coming in v2.0]`
 Generates a PDF copy of health records. +
 Format: `print health <type> [MORE_TYPES] [time period]`
@@ -328,7 +328,7 @@ Generates a PDF copy of all the blood sugar records for the past month as of tod
 * `print health glucose blood pressure` +
 Generates a PDF copy of all the blood sugar and blood pressure records respectively from the past month as of today. Data on blood sugar will come before blood pressure.
 * `print health glucose blood pressure 01/01/2019 - 31/08/2019` +
-Generates a PDF copy of all the blood sugar and blood pressure records respectively from 1st Jan 2019 to 31st Aug 2019. 
+Generates a PDF copy of all the blood sugar and blood pressure records respectively from 1st Jan 2019 to 31st Aug 2019.
 
 == Workout Tracker
 === Adding an exercise: `add exercise`
@@ -406,7 +406,7 @@ Creates a new diary with the specified name +
 Format: `create diary <diary name>`
 
 * Diary names are unique
- 
+
 Examples:
 
 * `create diary Healthy Living` +
@@ -417,7 +417,7 @@ Deletes the diary with the specified name +
 Format: `delete diary <diary name>`
 
 * Diary name should already exist
- 
+
 Examples:
 
 * `delete diary Healthy Living` +
@@ -429,7 +429,7 @@ Format: `add page <type> <diary name>` +
 * Diary should already exist
 
 NOTE: Users can only add pages of types: health, food or exercise.
- 
+
 Examples:
 
 * `add page health Healthy Living` +
@@ -447,7 +447,7 @@ Format: `delete page <index> <diary name>`
 
 * Diary should already exist
 * Index should a positive integer
- 
+
 Examples:
 
 * `delete page 2 Healthy Living` +
@@ -461,7 +461,7 @@ Format: `link recipe <recipe name> /to <diary name>`
 * Recipe should already exist
 
 NOTE: Deleting recipes will not delete the linked pages in diary!
- 
+
 Examples:
 
 * `link recipe Caesar Salad /to Healthy Living` +
@@ -475,7 +475,7 @@ Format: `link exercise <exercise name> /to <diary name>`
 * Exercise should already exist
 
 NOTE: Deleting exercises will not delete the linked pages in diary!
- 
+
 Examples:
 
 * `link exercise Crunch /to Healthy Living` +
@@ -489,7 +489,7 @@ Format: `link records <record id> /to <diary name>`
 * Records should already exist
 
 NOTE: Deleting health records will not delete the linked pages in diary!
- 
+
 Examples:
 
 * `link records BP129391 /to Healthy Living` +
@@ -500,7 +500,7 @@ Allows user to edit some basic information in the diary +
 Format: `edit <diary name>`
 
 * Diary should already exist
- 
+
 Examples:
 
 * `edit Healthy Living` +
@@ -512,7 +512,7 @@ Format: `edit page <index> <diary name>`
 
 * Diary should already exist
 * Index should be a positive integer
- 
+
 Examples:
 
 * `edit page 2 Healthy Living` +
@@ -523,7 +523,7 @@ Allows user to view the specified diary in a page-form +
 Format: `view  <diary name>`
 
 * Diary should already exist
- 
+
 Examples:
 
 * `view Healthy Living` +
@@ -534,7 +534,7 @@ Allows user to print the specified diary in PDF format +
 Format: `print <diary name>`
 
 * Diary should already exist
- 
+
 Examples:
 
 * `print Healthy Living` +
