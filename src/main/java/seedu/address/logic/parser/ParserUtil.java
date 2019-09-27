@@ -57,11 +57,11 @@ public class ParserUtil {
      */
     public static SerialNumber parseSerialNumber(String serialNumber) throws ParseException {
         requireNonNull(serialNumber);
-        String trimmedPhone = serialNumber.trim();
-        if (!SerialNumber.isValidPhone(trimmedPhone)) {
+        String trimmedSerialNumber = serialNumber.trim();
+        if (!SerialNumber.isValidSerialNumber(trimmedSerialNumber)) {
             throw new ParseException(SerialNumber.MESSAGE_CONSTRAINTS);
         }
-        return new SerialNumber(trimmedPhone);
+        return new SerialNumber(trimmedSerialNumber);
     }
 
     /**

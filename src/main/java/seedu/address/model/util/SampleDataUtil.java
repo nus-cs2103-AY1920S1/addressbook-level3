@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.Catalog;
 import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 
@@ -18,15 +18,14 @@ import seedu.address.model.genre.Genre;
 public class SampleDataUtil {
     public static Book[] getSampleBooks() {
         return new Book[] {
-            new Book(new Title("Harry Botter"), new SerialNumber("0001"), new Author("J K Rowling"),
-                getTagSet("Fiction")),
-            new Book(new Title("Legend of the Condor Heroes"), new SerialNumber("0002"),
-                new Author("Jin Yong"), getTagSet("Fiction", "History")),
-            new Book(new Title("Animal the Farm"), new SerialNumber("0003"), new Author("George Orwell"),
-                getTagSet("Fiction")),
-            new Book(new Title("Harry Botter and the Full Blood Prince"),
-                new SerialNumber("0004"), new Author("J K Rowling"),
-                getTagSet("Fiction", "Action")),
+            new Book(new Title("Harry Botter"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("J K Rowling"), getTagSet("Fiction")),
+            new Book(new Title("Legend of the Condor Heroes"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("Jin Yong"), getTagSet("Fiction", "History")),
+            new Book(new Title("Animal the Farm"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("George Orwell"), getTagSet("Fiction")),
+            new Book(new Title("Harry Botter and the Full Blood Prince"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("J K Rowling"), getTagSet("Fiction", "Action")),
         };
     }
 

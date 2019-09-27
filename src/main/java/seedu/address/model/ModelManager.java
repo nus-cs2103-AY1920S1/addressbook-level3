@@ -24,16 +24,17 @@ public class ModelManager implements Model {
     private final FilteredList<Book> filteredBooks;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given catalog and userPrefs.
      */
-    public ModelManager(ReadOnlyCatalog addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyCatalog catalog, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(catalog, userPrefs);
 
-        logger.fine("Initializing with catalog: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with catalog: " + catalog + " and user prefs " + userPrefs);
 
-        this.catalog = new Catalog(addressBook);
+        this.catalog = new Catalog(catalog);
         this.userPrefs = new UserPrefs(userPrefs);
+        SerialNumberGenerator.setCatalog((Catalog) catalog);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
     }
 
@@ -76,7 +77,7 @@ public class ModelManager implements Model {
         userPrefs.setCatalogFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Catalog ================================================================================
 
     @Override
     public void setCatalog(ReadOnlyCatalog addressBook) {

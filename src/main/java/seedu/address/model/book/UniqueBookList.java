@@ -12,11 +12,11 @@ import seedu.address.model.book.exceptions.BookNotFoundException;
 import seedu.address.model.book.exceptions.DuplicateBookException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of books that enforces uniqueness between its elements and does not allow nulls.
+ * A book is considered unique by comparing using {@code Book#isSameBook(Book)}. As such, adding and updating of
+ * books uses Book#isSameBook(Book) for equality so as to ensure that the book being added or updated is
+ * unique in terms of identity in the UniqueBookList. However, the removal of a book uses Book#equals(Object) so
+ * as to ensure that the book with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -29,11 +29,19 @@ public class UniqueBookList implements Iterable<Book> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent book as the given argument.
      */
     public boolean contains(Book toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameBook);
+    }
+
+    /**
+     * Returns true if the list contains a book with the same serial number as the given argument.
+     */
+    public boolean containsSerialNumber(SerialNumber toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().map(b -> b.getSerialNumber()).anyMatch(sn -> sn.equals(toCheck));
     }
 
     /**

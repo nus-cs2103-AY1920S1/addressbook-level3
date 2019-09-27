@@ -27,7 +27,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newBook_success() {
-        Book validBook = new BookBuilder().withTitle("Hari").build();
+        Book validBook = new BookBuilder().withTitle("Hari").withSerialNumber("B0005").build();
 
         Model expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
         expectedModel.addBook(validBook);
