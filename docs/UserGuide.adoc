@@ -119,7 +119,8 @@ Examples:
 * `addmodule y1s1 CS1101S CS1231 MA1521`
 * `movemodule CS2105 y2s1 y2s2 && addmodule CS2106 y2s2`
 
-=== Viewing default tags : `viewdefaulttags`
+=== Data classification and management
+==== Viewing default tags : `viewdefaulttags`
 Shows all default tag types. +
 Format: `viewdefaulttags`
 ****
@@ -137,12 +138,12 @@ _UE_ modules are *Unrestricted Elective* modules.
 _ULR_ modules are modules that count towards *University Level Requirements*.
 ****
 
-=== Viewing all tags : `viewalltags`
+==== Viewing all tags : `viewalltags`
 Shows all tag types. +
 Format: `viewalltags`
 
-=== Adding new tags : `newtag`
-Adds a new tag type that can be used to keep track of other types of modules. +
+==== Creating new tags : `newtag`
+Creates a new tag type that can be used to keep track of other types of modules. +
 Format: `newtag TAG_NAME`
 
 [NOTE]
@@ -153,7 +154,7 @@ Example:
 * `newtag exchange` +
 Adds a tag called _exchange_ that can be used to tag modules that are to be taken during an overseas exchange.
 
-=== Renaming an existing tag : `renametag`
+==== Renaming an existing tag : `renametag`
 Renames a tag. +
 Format: `renametag ORIGINAL_TAG_NAME NEW_TAG_NAME`
 
@@ -165,7 +166,7 @@ Example:
 * `renametag exchange sep` +
 Renames the tag name from _exchange_ to _sep_.
 
-=== Tagging modules : `tag`
+==== Tagging modules : `tag`
 Attaches a tag to a module. +
 Format: `tag MODULE_CODE TAG_NAME`
 
@@ -177,7 +178,7 @@ Example:
 * `tag cs3230 exchange` +
 Attaches the tag with name _exchange_ to _CS3230_.
 
-=== Removing tags: `removetag`
+==== Removing a tag from a module: `removetag`
 Removes a tag from a module. +
 Format: `removetag MODULE_CODE TAG_NAME`
 
@@ -185,7 +186,26 @@ Example:
 
 * `removetag cs3230 exchange`
 
-=== Viewing modules with specific tags : `viewtagged`
+==== Removing a tag from all modules: `removeall`
+Removes a tag from all modules that it is attached to. +
+Format: `removeall TAG_NAME`
+
+Example:
+
+* `removeall exchange`
+
+==== Deleting tags: `deletetag`
+Deletes a tag completely and removes it from any module that it is attached to. +
+Format: `deletetag TAG_NAME`
+
+[NOTE]
+Only user-created tags can be deleted, i.e. default tag cannot be deleted.
+
+Example:
+
+* `deletetag exchange`
+
+==== Viewing modules with specific tags : `viewtagged`
 Shows all modules attached to all the specified tags. +
 Format: `viewtagged TAG_NAME ...`
 
@@ -196,7 +216,7 @@ Shows all modules that are tagged as _completed_.
 * `viewtagged core completed` +
 Shows all modules that are tagged as _core_ and _completed_.
 
-=== Viewing tags for a specific module : `viewtags`
+==== Viewing tags for a specific module : `viewtags`
 Shows all tags attached to the specified module. +
 Format `viewtags MODULE_CODE`
 
@@ -204,7 +224,7 @@ Examples:
 
 * `viewtags cs2030`
 
-=== Finding modules using the module code : `findmod`
+==== Finding modules using the module code : `findmod`
 Shows which semester the specified module is located at. +
 Format: `findmod MODULE_CODE`
 
@@ -213,7 +233,7 @@ Examples:
 * `findmod cs1101s`
 * `findmod cs2103`
 
-=== Finding module code using keywords : `getmodcode`
+==== Finding module code using keywords : `getmodcode`
 Shows module codes of all modules with names that contain the specified keywords. +
 Format: `getmodcode KEYWORDS`
 
@@ -222,7 +242,7 @@ Examples:
 * `getmodcode algorithms`
 * `getmodcode programming`
 
-=== Viewing prerequisites of a module : `prereq`
+==== Viewing prerequisites of a module : `prereq`
 Shows all prerequisite modules for the specified module. +
 Format: `prereq MODULE_CODE`
 
@@ -230,15 +250,15 @@ Example:
 
 * `prereq cs2040`
 
-=== Viewing total completed MCs : `mcs`
+==== Viewing total completed MCs : `mcs`
 Shows the current total MCs for all *completed* modules. +
 Format: `mcs`
 
-=== Viewing focus area : `viewfocusarea`
+==== Viewing focus area : `viewfocusarea`
 Shows the focus area that the user has previously declared. +
 Format: `viewfocusarea`
 
-=== Viewing modules that can be taken in a given semester : `validmods`
+==== Viewing modules that can be taken in a given semester : `validmods`
 Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
 Format: `validmods SEMESTER`
 
