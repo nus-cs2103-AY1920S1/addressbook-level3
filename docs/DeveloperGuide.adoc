@@ -359,8 +359,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |investor |see how much I should invest | earn more money
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -370,8 +368,8 @@ _{More to be added}_
 
 *MSS*
 
-1.  User enters a spending
-2.  MoneyGoWhere adds the specified spending inside the list of spending
+1.  User enters a spending.
+2.  MoneyGoWhere adds the specified spending inside the list of spending.
 +
 Use case ends.
 
@@ -380,10 +378,10 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to view the list of spending
-2.  MoneyGoWhere shows a list of spending
-3.  User requests to update name/cost/date of purchase/tag/remark of a spending
-4.  MoneyGoWhere updates the specified fields(s) of the spending
+1.  User requests to view the list of spending.
+2.  MoneyGoWhere shows a list of spending.
+3.  User requests to update name/cost/date of purchase/tag/remark of a spending.
+4.  MoneyGoWhere updates the specified fields(s) of the spending.
 +
 Use case ends.
 
@@ -406,8 +404,8 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to view the list of spending
-2.  MoneyGoWhere shows a list of spending
+1.  User requests to view the list of spending.
+2.  MoneyGoWhere shows a list of spending.
 3.  User requests to delete a specific spending from the list.
 4.  MoneyGoWhere deletes the spending.
 +
@@ -450,7 +448,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The given budget value is invalid
+* 1a. The given budget value is invalid.
 +
 [none]
 ** 1a1. MoneyGoWhere shows an error message.
@@ -463,8 +461,8 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to generate statistics
-2.  MoneyGoWhere generate statistical analysis such as total spending of each tag
+1.  User requests to generate statistics.
+2.  MoneyGoWhere generates statistical analysis such as total spending of each tag.
 +
 Use case ends.
 [none]
@@ -474,8 +472,8 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to list all the recorded tags
-2.  MoneyGoWhere lists all the recorded tags
+1.  User requests to list all the recorded tags.
+2.  MoneyGoWhere lists all the recorded tags.
 +
 Use case ends.
 [none]
@@ -485,15 +483,15 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to import data from CSV file by specifying the file path
-2.  MoneyGoWhere import the data from the CSV file located at specified file path
+1.  User requests to import data from CSV file by specifying the file path.
+2.  MoneyGoWhere imports the data from the CSV file located at specified file path.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The file path is invalid
+* 1a. The file path is invalid.
 +
 [none]
 ** 1a1. MoneyGoWhere shows an error message.
@@ -506,15 +504,15 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to export data from CSV file by specifying the file path
-2.  MoneyGoWhere export the data into the CSV file located at specified file path
+1.  User requests to export data from CSV file by specifying the file path.
+2.  MoneyGoWhere exports the data into the CSV file located at specified file path.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The file path is invalid
+* 1a. The file path is invalid.
 +
 [none]
 ** 1a1. MoneyGoWhere shows an error message.
@@ -527,15 +525,15 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to undo a command
-2.  MoneyGoWhere restores the list of spending to the state before the previous undoable command was executed.
+1.  User requests to undo a command.
+2.  MoneyGoWhere restores the list of spending to the state before the previous command was executed.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. There is no undoable commands executed previously.
+* 1a. There are no undo commands executed previously.
 +
 [none]
 ** 1a1. MoneyGoWhere shows an error message.
@@ -548,15 +546,15 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to redo a command
-2.  MoneyGoWhere restores the most recent undo command.
+1.  User requests to redo a command.
+2.  MoneyGoWhere executes the previous command that was undone.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. There is no undo commands executed previously.
+* 1a. There are no undo commands executed previously.
 +
 [none]
 ** 1a1. MoneyGoWhere shows an error message.
@@ -581,7 +579,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to clear all entries in the list of spending.
-2.  MoneyGoWhere deletes all spending.
+2.  MoneyGoWhere deletes all spending entries.
 +
 Use case ends.
 
