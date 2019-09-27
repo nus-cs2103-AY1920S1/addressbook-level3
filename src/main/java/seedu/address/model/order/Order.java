@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.tag.Tag;
 
@@ -13,10 +14,10 @@ import seedu.address.model.tag.Tag;
  * Represents an Order, with the Customer and Phone purchased included. .
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Order {
+public class Order implements Cloneable {
 
     // Identity fields
-    private final Id id;
+    private final UUID id;
 
     // Data fields
     private final Customer customer;
@@ -27,12 +28,12 @@ public class Order {
     /**
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Phone phone, Id id, Set<Tag> tags) {
-        requireAllNonNull(customer, phone, id, tags);
-        this.customer = customer;
-        this.phone = phone;
-        this.id = id;
-        status = Status.UNSCHEDULED;
+    public Order(Customer customer, Phone phone, Set<Tag> tags) {
+        requireAllNonNull(customer, phone, tags);
+        this.customer = (Customer) customer.clone();
+        this.phone = (Phone) phone.clone();
+        this.id = UUID.randomUUID();
+        this.status = Status.UNSCHEDULED;
         this.tags.addAll(tags);
     }
 
@@ -44,7 +45,7 @@ public class Order {
         return phone;
     }
 
-    public Id getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -104,8 +105,8 @@ public class Order {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("#")
-                .append(getId())
+        builder.append("ID: ")
+                .append(getId().toString())
                 .append(" Customer: ")
                 .append(getCustomer())
                 .append(" Phone: ")

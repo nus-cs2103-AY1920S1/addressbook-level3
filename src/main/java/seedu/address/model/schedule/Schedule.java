@@ -2,6 +2,7 @@ package seedu.address.model.schedule;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,17 +21,17 @@ public class Schedule {
     private final Order order;
 
     // Data fields
-    private final DateTime dateTime;
+    private final Calendar calendar;
     private final Venue venue;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Schedule(Order order, DateTime dateTime, Venue venue, Set<Tag> tags) {
-        requireAllNonNull(order, dateTime, venue, tags);
-        this.order = order;
-        this.dateTime = dateTime;
+    public Schedule(Order order, Calendar calendar, Venue venue, Set<Tag> tags) {
+        requireAllNonNull(order, calendar, venue, tags);
+        this.order = (Order) order.clone();
+        this.calendar = calendar;
         this.venue = venue;
         this.tags.addAll(tags);
     }
@@ -39,8 +40,8 @@ public class Schedule {
         return order;
     }
 
-    public DateTime getDateTime() {
-        return dateTime;
+    public Calendar getCalendar() {
+        return calendar;
     }
 
     public Venue getVenue() {
@@ -84,7 +85,7 @@ public class Schedule {
 
         Schedule otherSchedule = (Schedule) other;
         return otherSchedule.getOrder().equals(getOrder())
-                && otherSchedule.getDateTime().equals(getDateTime())
+                && otherSchedule.getCalendar().equals(getCalendar())
                 && otherSchedule.getVenue().equals(getVenue())
                 && otherSchedule.getTags().equals((getTags()));
     }
@@ -92,7 +93,7 @@ public class Schedule {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(order, dateTime, venue, tags);
+        return Objects.hash(order, calendar, venue, tags);
     }
 
     @Override
@@ -101,7 +102,7 @@ public class Schedule {
         builder.append("Order: ")
                 .append(getOrder())
                 .append(" Date and Time: ")
-                .append(getDateTime())
+                .append(getCalendar())
                 .append(" Venue: ")
                 .append(getVenue())
                 .append(" Tags: ");
