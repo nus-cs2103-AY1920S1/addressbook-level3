@@ -9,7 +9,7 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.mark.logic.commands.AddCommand;
-import seedu.mark.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.tag.Tag;
 
@@ -41,9 +41,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditBookmarkDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditCommand.EditBookmarkDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

@@ -15,7 +15,7 @@ import java.util.Set;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.EditCommand;
-import seedu.mark.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.mark.logic.commands.EditCommand.EditBookmarkDescriptor;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.tag.Tag;
 
@@ -42,26 +42,26 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditBookmarkDescriptor editBookmarkDescriptor = new EditCommand.EditBookmarkDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editBookmarkDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+            editBookmarkDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_URL).isPresent()) {
-            editPersonDescriptor.setUrl(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_URL).get()));
+            editBookmarkDescriptor.setUrl(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_URL).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editBookmarkDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editBookmarkDescriptor::setTags);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editBookmarkDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editBookmarkDescriptor);
     }
 
     /**

@@ -2,9 +2,9 @@ package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 
@@ -21,13 +21,13 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Phone;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
 /**
- * Edits the details of an existing bookmark in the address book.
+ * Edits the details of an existing bookmark in the bookmark manager.
  */
 public class EditCommand extends Command {
 
@@ -39,30 +39,30 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_URL + "EMAIL] "
+            + "[" + PREFIX_URL + "URL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_URL + "johndoe@example.com";
+            + PREFIX_URL + "johndoe@example.com"; // TODO: change EditCommand example
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Bookmark: %1$s";
+    public static final String MESSAGE_EDIT_BOOKMARK_SUCCESS = "Edited Bookmark: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This bookmark already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_BOOKMARK = "This bookmark already exists in the bookmark manager.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditBookmarkDescriptor editBookmarkDescriptor;
 
     /**
      * @param index of the bookmark in the filtered bookmark list to edit
-     * @param editPersonDescriptor details to edit the bookmark with
+     * @param editBookmarkDescriptor details to edit the bookmark with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditBookmarkDescriptor editBookmarkDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editBookmarkDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editBookmarkDescriptor = new EditBookmarkDescriptor(editBookmarkDescriptor);
     }
 
     @Override
@@ -75,29 +75,29 @@ public class EditCommand extends Command {
         }
 
         Bookmark bookmarkToEdit = lastShownList.get(index.getZeroBased());
-        Bookmark editedBookmark = createEditedPerson(bookmarkToEdit, editPersonDescriptor);
+        Bookmark editedBookmark = createEditedBookmark(bookmarkToEdit, editBookmarkDescriptor);
 
         if (!bookmarkToEdit.isSameBookmark(editedBookmark) && model.hasBookmark(editedBookmark)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_BOOKMARK);
         }
 
         model.setBookmark(bookmarkToEdit, editedBookmark);
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedBookmark));
+        return new CommandResult(String.format(MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark));
     }
 
     /**
      * Creates and returns a {@code Bookmark} with the details of {@code bookmarkToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editBookmarkDescriptor}.
      */
-    private static Bookmark createEditedPerson(Bookmark bookmarkToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Bookmark createEditedBookmark(Bookmark bookmarkToEdit, EditBookmarkDescriptor editBookmarkDescriptor) {
         assert bookmarkToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(bookmarkToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(bookmarkToEdit.getPhone());
-        Url updatedUrl = editPersonDescriptor.getUrl().orElse(bookmarkToEdit.getUrl());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(bookmarkToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(bookmarkToEdit.getTags());
+        Name updatedName = editBookmarkDescriptor.getName().orElse(bookmarkToEdit.getName());
+        Phone updatedPhone = editBookmarkDescriptor.getPhone().orElse(bookmarkToEdit.getPhone());
+        Url updatedUrl = editBookmarkDescriptor.getUrl().orElse(bookmarkToEdit.getUrl());
+        Address updatedAddress = editBookmarkDescriptor.getAddress().orElse(bookmarkToEdit.getAddress());
+        Set<Tag> updatedTags = editBookmarkDescriptor.getTags().orElse(bookmarkToEdit.getTags());
 
         return new Bookmark(updatedName, updatedPhone, updatedUrl, updatedAddress, updatedTags);
     }
@@ -117,27 +117,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editBookmarkDescriptor.equals(e.editBookmarkDescriptor);
     }
 
     /**
      * Stores the details to edit the bookmark with. Each non-empty field value will replace the
      * corresponding field value of the bookmark.
      */
-    public static class EditPersonDescriptor {
+    public static class EditBookmarkDescriptor {
         private Name name;
         private Phone phone;
         private Url url;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditBookmarkDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditBookmarkDescriptor(EditBookmarkDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setUrl(toCopy.url);
@@ -209,12 +209,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditBookmarkDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditBookmarkDescriptor e = (EditBookmarkDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

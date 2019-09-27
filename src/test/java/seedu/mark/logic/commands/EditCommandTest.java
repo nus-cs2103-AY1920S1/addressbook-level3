@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.mark.model.BookmarkManager;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
@@ -37,10 +36,10 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Bookmark editedBookmark = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedBookmark).build();
+        EditCommand.EditBookmarkDescriptor descriptor = new EditPersonDescriptorBuilder(editedBookmark).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBookmark);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
         Model expectedModel = new ModelManager(new BookmarkManager(model.getBookmarkManager()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
@@ -57,11 +56,11 @@ public class EditCommandTest {
         Bookmark editedBookmark = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditCommand.EditBookmarkDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBookmark);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
         Model expectedModel = new ModelManager(new BookmarkManager(model.getBookmarkManager()), new UserPrefs());
         expectedModel.setBookmark(lastBookmark, editedBookmark);
@@ -71,10 +70,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditCommand.EditBookmarkDescriptor());
         Bookmark editedBookmark = model.getFilteredBookmarkList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBookmark);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
         Model expectedModel = new ModelManager(new BookmarkManager(model.getBookmarkManager()), new UserPrefs());
 
@@ -90,7 +89,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBookmark);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
         Model expectedModel = new ModelManager(new BookmarkManager(model.getBookmarkManager()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
@@ -101,10 +100,10 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Bookmark firstBookmark = model.getFilteredBookmarkList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstBookmark).build();
+        EditCommand.EditBookmarkDescriptor descriptor = new EditPersonDescriptorBuilder(firstBookmark).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_BOOKMARK);
     }
 
     @Test
@@ -116,13 +115,13 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(bookmarkInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_BOOKMARK);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookmarkList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditBookmarkDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
@@ -150,7 +149,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
+        EditCommand.EditBookmarkDescriptor copyDescriptor = new EditCommand.EditBookmarkDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

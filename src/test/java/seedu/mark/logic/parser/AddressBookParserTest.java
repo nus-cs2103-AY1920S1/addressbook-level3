@@ -17,7 +17,6 @@ import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
-import seedu.mark.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.FindCommand;
 import seedu.mark.logic.commands.HelpCommand;
@@ -56,7 +55,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Bookmark bookmark = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(bookmark).build();
+        EditCommand.EditBookmarkDescriptor descriptor = new EditPersonDescriptorBuilder(bookmark).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
