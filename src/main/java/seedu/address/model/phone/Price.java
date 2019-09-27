@@ -1,49 +1,58 @@
 package seedu.address.model.phone;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Phone's price in the SML.
- * Guarantees: immutable; is valid as declared in {@link #isValidPrice(double)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
 public class Price {
 
-    public static final String MESSAGE_CONSTRAINTS = "Prices must be non-negative.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Prices must be non-negative, start with \'$\' and have at most 2 decimals.";
 
-    public final double value;
+    public final String value;
 
     /**
      * Constructs a {@code Price}.
      *
      * @param price A valid price.
      */
-    public Price(double price) {
+    public Price(String price) {
         checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
         value = price;
     }
 
     /**
-     * Returns true if a given double is a valid price.
+     * Returns true if a given string is a valid price.
      */
-    public static boolean isValidPrice(double price) {
-        return price >= 0;
+    public static boolean isValidPrice(String price) {
+        try {
+            Number number = NumberFormat.getCurrencyInstance().parse(price);
+            return number != null;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-        return "" + value;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Cost // instanceof handles nulls
-                && value == ((Cost) other).value); // state check
+                || (other instanceof Price // instanceof handles nulls
+                && value.equals(((Price) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return Double.valueOf(value).hashCode();
+        return value.hashCode();
     }
 
 }
