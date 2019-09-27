@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Liberry - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,31 +12,25 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Liberry is a desktop app for librarians to *quickly manage their community libraries!* Liberry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). You can type quickly and serve your long line of borrowers in a short amount of time. Liberry can manage all your books and borrowers efficiently and meticulously. Jump to <<Quick Start>> to get started now! Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `Liberry.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Liberry.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,132 +40,239 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find b/BOOK_TITLE`, `BOOK_TITLE` is a parameter which can be used as `find b/Harry Potter`.
+* Items in square brackets are optional e.g `b/BOOK_TITLE [g/GENRE]` can be used as `b/Harry Potter g/fiction` or as `b/Harry Potter`.
+* Items with `...`​ after them can be used multiple times including zero times e.g. `[g/GENRE]...` can be used as `{nbsp}` (i.e. 0 times), `g/fiction`, `g/fiction g/adventure` etc.
+* Parameters can be in any order e.g. if the command specifies `b/BOOK_TITLE a/AUTHOR`, `a/AUTHOR b/BOOK_TITLE` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Using Normal Mode
 
+The Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. The Normal Mode also provides some utility commands to help the librarian use Liberry. Commands that are specific to Serve Mode cannot be used while in Normal Mode.
+
+==== Viewing help : `help`
+
+Opens the help window, which includes a list of possible commands +
 Format: `help`
 
-=== Adding a book: `add`
+==== Locating books by title: `find`
 
-Adds a book to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Shows all relevant books found. +
+Format: `find [b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available]`
+
+****
+* The search is case insensitive. e.g `harry` will match `Harry`
+* Only full words will be matched e.g. `Har` will not match `Harry`
+* Books matching at least one keyword will be returned (i.e. `OR` search). e.g. `harry` will return both `Harry Potter` and `Harry Botter`
+* `[b/BOOK_TITLE]` will be used to search through book titles
+* `[a/AUTHOR]` will be used to search through or filter by authors
+* `[g/GENRE]` will be used to search through or filter by genre
+* `[sn/BOOK_SN]` will be used to search through book serial numbers
+* Only 1 of the following 3 flags can be used
+* `[-overdue]` will only show overdue books
+* `[-loaned]` will only show loaned books
+* `[-available]` will only show available books
+//* Adding one of the following will sort the books such that:
+//* `[-popular]` will list the top 10 most borrowed books
+//* `[-new]` will list the 10 newest books
+//* `[-rated]` will list the top 10 highly rated books
+//* `[NUMBER]` will list this NUMBER of books instead
+****
+
+Examples:
+
+* `find b/Animal Farm a/George Orwell` +
+Search for the book titled “Animal Farm” by the author “George Orwell”
+
+* `find g/mystery g/children -available` +
+Search for children mystery books that are not on loan
+
+==== Viewing a book: `info`
+
+View more information about a book in the results list +
+Format: `info INDEX`
+
+==== Clearing all entries : `clear`
+
+Clears the most recent search +
+Format: `clear`
+
+==== Adding a book: `add`
+
+Adds a new book to library records. +
+Format: `add b/BOOK_TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]`
 
 [TIP]
 A book can have any number of genres (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add b/Harry Botter and the Baby's Potty a/Raylei Jolking sn/02010 g/children`
+* `add b/Inferno a/Tande sn/24493 g/classic g/epic`
 
-=== Listing all books : `list`
-
-Shows a list of all books in the address book. +
-Format: `list`
-
-=== Editing a book : `edit`
-
-Edits an existing book in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the book at the specified `INDEX`. The index refers to the index number shown in the displayed book list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing genres, the existing genres of the book will be removed i.e adding of genres is not cumulative.
-* You can remove all the book's genres by typing `t/` without specifying any genres after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the serialNumber number and author address of the 1st book to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the title of the 2nd book to be `Betsy Crower` and clears all existing genres.
-
-=== Locating books by title: `find`
-
-Finds books whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the title is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any book having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a book : `delete`
+==== Deleting a book : `delete`
 
 Deletes the specified book from the address book. +
 Format: `delete INDEX`
+
+Deletes a book from the library records. Used when book is lost or trashed.
+Format: `delete [INDEX]` or `delete [sn/BOOK_SN]`
 
 ****
 * Deletes the book at the specified `INDEX`.
 * The index refers to the index number shown in the displayed book list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* `[INDEX]` will delete the book with the book at this index in the results list
+* `[sn/BOOK_SN]` will delete the book with this serial number
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd book in the address book.
-* `find Betsy` +
+* `find b/harry` +
 `delete 1` +
 Deletes the 1st book in the results of the `find` command.
+* `delete sn/20422` +
+Deletes the book with serial number `sn/20422`.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Registering a new borrower: `register`
 
-Clears all entries from the address book. +
-Format: `clear`
+Registers a new borrower to the library records. A unique ID associated with the borrower will automatically be generated. +
+Format: `register u/NAME p/PHONE_NUMBER a/ADDRESS`
 
-=== Exiting the program : `exit`
+Example:
+
+* `register u/matt p/83938249 a/8th Ave The Martian #02-21`
+
+==== Undoing: `undo`
+
+Undo the previous command/action. +
+Format: `undo`
+
+==== Redoing: redo
+
+Redo the most recent undo should there be no more commands/actions after the most recent undo +
+Format: `redo`
+
+==== Toggling night mode: `toggleui`
+
+Toggles between day mode and night mode for the UI +
+Format: `toggleui`
+
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+'''
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Using Serve Mode
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+The Serve Mode is for librarians to serve borrowers. All commands in Serve Mode are done on a specific borrower currently served by the librarian. All commands in Normal Mode can be used in Serve Mode too.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+'''
+==== Entering Serve Mode: `serve`
+
+Enters Serve Mode. All commands/actions will be done on this specific borrower. A list of the borrower’s currently loaned books and their serial numbers will be displayed. +
+Format: `serve id/BORROWER_ID`
+
+Example:
+
+* `serve id/peterparker` +
+Enters save mode serving borrower with id `peterparker`
+
+==== Exiting Serve Mode: `done`
+
+Exits Serve Mode. +
+Format: `done`
+
+==== Editing a borrower: `edit`
+
+Edit borrower’s particulars. +
+Format: `edit [u/NAME] [p/PHONE_NUMBER] [a/ADDRESS]`
+
+****
+* Edits the currently serving borrower's particulars.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `edit p/91234567 e/21 Jane St West Building` +
+Edits the phone number and borrower's address to be `91234567` and `21 Jane St West Building` respectively.
+* `edit n/Betsy Crower` +
+Edits the name of the borrower to be `Betsy Crower`
+
+==== Loaning books: `loan`
+
+Loan book(s) by their serial number +
+Format: `loan sn/BOOK_SN ... `
+
+Examples:
+
+* `loan sn/00041` +
+Loans the book with serial number 00041
+* `loan sn/00201 sn/12929 sn/00203` +
+Loans the books with serial numbers 00201, 12929 and 00203
+
+==== Renewing books: `renew`
+
+Renew book(s) from the list of currently loaned books, i.e., extend their due dates +
+Format: `renew INDEX… [-all]` +
+Including `-all` will renew all currently loaned books
+
+==== Returning books: `return`
+
+Return book(s) that were loaned by the borrower +
+Format: `return INDEX… [-all]` +
+Including `-all` will return all currently loaned books
+
+==== Paying fines: `pay`
+
+//==== Reserving books: `reserve`
+//Reserves a currently on-loan book based on search index. +
+//Format: reserve `INDEX`
+
+'''
+
+=== Saving the Data
+
+Liberry data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Liberry folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Find a book* : `find [[b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available]` +
+e.g. `find b/Animal Farm a/George Orwell`, `find g/mystery g/children -available`
+* *View book info* : `info INDEX`
+* *Clear results* : `clear`
+* *Add a book* : `add b/BOOK_TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]` +
+e.g. `add b/Harry Botter and the Baby's Potty a/Reali Jolking sn/02010 g/children`
+* *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
+* *Register a borrower* : `register u/NAME p/PHONE_NUMBER a/ADDRESS` +
+e.g. `register u/matt p/83938249 a/8th Ave The Martian #02-21`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Toggle night mode*: `toggleui`
+* *Exit* : `exit`
+//* *Rate a book* : `rate INDEX r/RATING`
+//* *Recommend books* : `list [[-popular] [-new] [-rating]] [NUMBER]`
+
+'''
+
+* *Serve mode* : `serve id/BORROWER_ID` +
+e.g. `serve id/peterparker`
+* *Exit serve mode* : `done`
+* *Edit a borrower* : `edit [[u/NAME] [p/PHONE_NUMBER] [a/ADDRESS]]` +
+e.g. `edit p/91234567 e/21 Jane St West Building`
+* *Loan* : `loan sn/BOOK_SN...` +
+e.g. `loan sn/00201 sn/12929 sn/00203`
+* *Renew* : `renew INDEX… [-all]`
+* *Return* : `return INDEX… [-all]`
+* *Pay fines* : `pay AMOUNT`
+//* *Reserve* : `reserve INDEX`
