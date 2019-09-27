@@ -285,7 +285,12 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Users will be able to check all the problems (e.g. graduation requirements, prerequisite for modules) with their current study plan with ModBuddy through a desktop application.
+* Have multiple study plans, and move semesters around quickly with a CLI.
+* Version control for saving history of study plans, ensuring that mistakes or past study plans are recoverable.
+* Suits users who are able to type fast and can manage their study plan faster.
 
 [appendix]
 == User Stories
