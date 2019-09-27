@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AndOrTreeTest {
     @Test
@@ -18,7 +20,15 @@ public class AndOrTreeTest {
                 + "\"MA1505\",{\"and\":[\"MA1511\",\"MA1512\"]},\"MA1521\"]},{\"or\":[\"MA1101R\","
                 + "\"MA1311\",\"MA1506\",\"MA1508E\"]}]}";
         try {
-            AndOrTree tree = AndOrTree.buildTree("CS3244", json);
+            AndOrTree<String> tree = AndOrTree.buildTree("CS3244", json);
+            boolean a = tree.fulfillsCondition(
+                    List.of("CS1010", "ST1232", "MA1511", "MA1512", "MA1101R"));
+            assertFalse(a);
+
+            boolean b = tree.fulfillsCondition(
+                    List.of("CS2040", "ST1232", "MA1511", "MA1512", "MA1101R"));
+            assertTrue(a);
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

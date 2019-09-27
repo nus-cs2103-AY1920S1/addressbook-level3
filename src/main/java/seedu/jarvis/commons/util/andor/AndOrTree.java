@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A representation of an And-Or Tree. The tree represents the requirements for the root node
@@ -48,22 +50,26 @@ public class AndOrTree<T> {
     /**
      * Helper method to build the tree from a JSON file.
      */
-    private static void iterateAndBuildTree(JsonNode node, AndOrNode current) {
-        AndOrNode newNode;
+    private static <T> void iterateAndBuildTree(JsonNode node, AndOrNode<T> current) {
+        AndOrNode<T> newNode;
         if (node.isArray()) {
             for (JsonNode el : node) {
                 iterateAndBuildTree(el, current);
             }
         } else if (node.isObject()) {
-            newNode = AndOrNode.createAndOrNode("", current, getKey(node));
+            newNode = AndOrNode.createAndOrNode((T)"", current, getKey(node));
             current.insert(newNode);
             node.fields().forEachRemaining(entry -> {
                 iterateAndBuildTree(entry.getValue(), newNode);
             });
         } else {
-            newNode = AndOrNode.createAndOrNode(node.toString(), current);
+            newNode = AndOrNode.createAndOrNode((T)node.toString(), current);
             current.insert(newNode);
         }
+    }
+
+    public boolean fulfillsCondition(Collection<T> collection) {
+        return root.getChildren().get(0).hasFulfilledCondition(collection);
     }
 
     @Override
