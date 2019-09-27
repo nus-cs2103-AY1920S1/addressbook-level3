@@ -4,9 +4,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Budget Buddy was developed by the https://github.com/AY1920S1-CS2103T-W13-4[W13-4] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Budget Buddy was developed by the https://github.com/AY1920S1-CS2103T-W13-4[W13-4] team.
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team

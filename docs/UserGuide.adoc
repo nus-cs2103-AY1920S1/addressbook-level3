@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Budget Buddy - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -27,7 +27,6 @@ Furthermore, computing students can take full advantage of Budget Buddy by addin
 == Quick Start
 
 Nothing to see here.
-
 
 [[Features]]
 == Features
