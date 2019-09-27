@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= CaloFit - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,10 +12,11 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CaloFit`      Since: `Sep 2019`      Licence: `MIT`
 
+////
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -23,6 +24,7 @@ Refer to the guide <<SettingUp#, here>>.
 == Design
 
 [[Design-Architecture]]
+
 === Architecture
 
 .Architecture Diagram
@@ -273,94 +275,85 @@ Refer to the guide <<Testing#, here>>.
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
+////
 
 [appendix]
 == Product Scope
+=== Target User Profile
+* Health-conscious people watching their diet
+* Prefer desktop applications over mobile apps
+* Comfortable enough to work with text command-based interfaces
 
-*Target user profile*:
-
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+=== Value Proposition
+The app is able to help the user keep track of their calorie consumption. This way, they can ensure that they keep to their own diet plans.
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="59%",cols="4*",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|&#11088;&#11088;&#11088;
+|new user
+|see usage instructions
+|refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|&#11088;&#11088;&#11088;
+|user
+|create a new meal entry
+|keep track of what I ate today
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|&#11088;&#11088;&#11088;
+|user
+|see how many calories I have left in today's budget
+|know what I can eat later, and stay in budget
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|&#11088;&#11088;&#11088;
+|user
+|be alerted if I missed a meal
+|be reminded to stick to my meal plans.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|&#11088;&#11088;
+|user
+|modify my previous meal entries
+|fix missing or inaccurate information
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|&#11088;&#11088;
+|user
+|generate a summary of meals over the past month
+|review my overall progress in keeping to my meal plan
+
+|&#11088;
+|user
+|create a new meal entry based of a meal I commonly eat
+|keep track of a meal I eat often
+
 |=======================================================================
-
 _{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
-[discrete]
-=== Use case: Delete person
-
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
-
 [appendix]
-== Non Functional Requirements
-
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+== Non-functional Requirements
+.	Should work on any mainstream OS as long as it has Java 11 or above installed.
+.	Should be able to hold up to 1000 meal entries without a noticeable sluggishness in performance for typical usage.
+.	A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
-
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, macOS
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[meal-entry]] Meal entry::
+An entry representing a eaten meal.
+Contains meal name, calories, and date/time consumed.
 
+// [[meal-db]] Meal database::
+
+
+
+////
 [appendix]
 == Product Survey
 
@@ -423,3 +416,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+////
