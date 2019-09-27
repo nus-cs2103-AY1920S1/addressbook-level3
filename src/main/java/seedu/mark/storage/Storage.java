@@ -12,7 +12,7 @@ import seedu.mark.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends BookmarkManagerStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -24,9 +24,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     Path getBookmarkManagerFilePath();
 
     @Override
-    Optional<ReadOnlyBookmarkManager> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyBookmarkManager> readBookmarkManager() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyBookmarkManager addressBook) throws IOException;
+    void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager) throws IOException;
 
 }

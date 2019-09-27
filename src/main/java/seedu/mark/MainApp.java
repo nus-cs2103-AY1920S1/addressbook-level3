@@ -22,8 +22,8 @@ import seedu.mark.model.ReadOnlyBookmarkManager;
 import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.util.SampleDataUtil;
-import seedu.mark.storage.AddressBookStorage;
-import seedu.mark.storage.JsonAddressBookStorage;
+import seedu.mark.storage.BookmarkManagerStorage;
+import seedu.mark.storage.JsonBookmarkManagerStorage;
 import seedu.mark.storage.JsonUserPrefsStorage;
 import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageManager;
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getBookmarkManagerFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        BookmarkManagerStorage bookmarkManagerStorage = new JsonBookmarkManagerStorage(userPrefs.getBookmarkManagerFilePath());
+        storage = new StorageManager(bookmarkManagerStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -77,7 +77,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyBookmarkManager> addressBookOptional;
         ReadOnlyBookmarkManager initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readBookmarkManager();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BookmarkManager");
             }

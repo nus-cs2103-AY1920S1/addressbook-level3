@@ -17,13 +17,13 @@ import seedu.mark.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private BookmarkManagerStorage bookmarkManagerStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(BookmarkManagerStorage bookmarkManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.bookmarkManagerStorage = bookmarkManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,29 +49,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getBookmarkManagerFilePath() {
-        return addressBookStorage.getBookmarkManagerFilePath();
+        return bookmarkManagerStorage.getBookmarkManagerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyBookmarkManager> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getBookmarkManagerFilePath());
+    public Optional<ReadOnlyBookmarkManager> readBookmarkManager() throws DataConversionException, IOException {
+        return readBookmarkManager(bookmarkManagerStorage.getBookmarkManagerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyBookmarkManager> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyBookmarkManager> readBookmarkManager(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return bookmarkManagerStorage.readBookmarkManager(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyBookmarkManager addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getBookmarkManagerFilePath());
+    public void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager) throws IOException {
+        saveBookmarkManager(bookmarkManager, bookmarkManagerStorage.getBookmarkManagerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyBookmarkManager addressBook, Path filePath) throws IOException {
+    public void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        bookmarkManagerStorage.saveBookmarkManager(bookmarkManager, filePath);
     }
 
 }

@@ -17,13 +17,13 @@ import seedu.mark.model.ReadOnlyBookmarkManager;
 /**
  * A class to access BookmarkManager data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonBookmarkManagerStorage implements BookmarkManagerStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonBookmarkManagerStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonBookmarkManagerStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -32,27 +32,27 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyBookmarkManager> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyBookmarkManager> readBookmarkManager() throws DataConversionException {
+        return readBookmarkManager(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readBookmarkManager()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyBookmarkManager> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyBookmarkManager> readBookmarkManager(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableBookmarkManager> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableBookmarkManager> jsonBookmarkManager = JsonUtil.readJsonFile(
                 filePath, JsonSerializableBookmarkManager.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonBookmarkManager.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonBookmarkManager.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyBookmarkManager addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager) throws IOException {
+        saveBookmarkManager(bookmarkManager, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyBookmarkManager)}.
+     * Similar to {@link #saveBookmarkManager(ReadOnlyBookmarkManager)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyBookmarkManager addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager, Path filePath) throws IOException {
+        requireNonNull(bookmarkManager);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableBookmarkManager(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableBookmarkManager(bookmarkManager), filePath);
     }
 
 }

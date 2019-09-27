@@ -24,7 +24,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonBookmarkManagerStorage addressBookStorage = new JsonBookmarkManagerStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -51,12 +51,12 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonBookmarkManagerStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonBookmarkManagerStorageTest} class.
          */
         BookmarkManager original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyBookmarkManager retrieved = storageManager.readAddressBook().get();
+        storageManager.saveBookmarkManager(original);
+        ReadOnlyBookmarkManager retrieved = storageManager.readBookmarkManager().get();
         assertEquals(original, new BookmarkManager(retrieved));
     }
 

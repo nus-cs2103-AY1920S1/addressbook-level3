@@ -11,7 +11,7 @@ import seedu.mark.model.ReadOnlyBookmarkManager;
 /**
  * Represents a storage for {@link BookmarkManager}.
  */
-public interface AddressBookStorage {
+public interface BookmarkManagerStorage {
 
     /**
      * Returns the file path of the data file.
@@ -24,23 +24,23 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyBookmarkManager> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyBookmarkManager> readBookmarkManager() throws DataConversionException, IOException;
 
     /**
      * @see #getBookmarkManagerFilePath()
      */
-    Optional<ReadOnlyBookmarkManager> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyBookmarkManager> readBookmarkManager(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyBookmarkManager} to the storage.
-     * @param addressBook cannot be null.
+     * @param bookmarkManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyBookmarkManager addressBook) throws IOException;
+    void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyBookmarkManager)
+     * @see #saveBookmarkManager(ReadOnlyBookmarkManager)
      */
-    void saveAddressBook(ReadOnlyBookmarkManager addressBook, Path filePath) throws IOException;
+    void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager, Path filePath) throws IOException;
 
 }
