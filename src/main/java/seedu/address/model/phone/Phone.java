@@ -2,7 +2,6 @@ package seedu.address.model.phone;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.awt.Color;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,13 +13,13 @@ import seedu.address.model.tag.Tag;
  * Represents a Phone in the SML.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Phone {
+public class Phone implements Cloneable {
 
     // Identity fields
     private final Name name;
     private final Brand brand;
     private final Capacity capacity;
-    private final Color color;
+    private final Colour colour;
 
     // Data fields
     private final Cost cost;
@@ -28,13 +27,13 @@ public class Phone {
     private final Quantity quantity;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Phone(Name name, Brand brand, Capacity capacity, Color color, Cost cost, Price price, Quantity quantity,
+    public Phone(Name name, Brand brand, Capacity capacity, Colour colour, Cost cost, Price price, Quantity quantity,
                  Set<Tag> tags) {
-        requireAllNonNull(name, brand, capacity, color, cost, price, quantity, tags);
+        requireAllNonNull(name, brand, capacity, colour, cost, price, quantity, tags);
         this.name = name;
         this.brand = brand;
         this.capacity = capacity;
-        this.color = color;
+        this.colour = colour;
         this.cost = cost;
         this.price = price;
         this.quantity = quantity;
@@ -53,8 +52,8 @@ public class Phone {
         return capacity;
     }
 
-    public Color getColor() {
-        return color;
+    public Colour getColour() {
+        return colour;
     }
 
     public Cost getCost() {
@@ -90,7 +89,7 @@ public class Phone {
                 && otherPhone.getName().equals(getName())
                 && otherPhone.getBrand().equals((getBrand()))
                 && otherPhone.getCapacity().equals((getCapacity()))
-                && otherPhone.getColor().equals((getColor()));
+                && otherPhone.getColour().equals((getColour()));
     }
 
     /**
@@ -112,7 +111,7 @@ public class Phone {
                 && otherPhone.getName().equals(getName())
                 && otherPhone.getBrand().equals((getBrand()))
                 && otherPhone.getCapacity().equals((getCapacity()))
-                && otherPhone.getColor().equals((getColor()))
+                && otherPhone.getColour().equals((getColour()))
                 && otherPhone.getCost().equals(getCost())
                 && otherPhone.getPrice().equals(getPrice())
                 && otherPhone.getQuantity().equals(getQuantity())
@@ -122,7 +121,7 @@ public class Phone {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, brand, capacity, color, cost, price, quantity, tags);
+        return Objects.hash(name, brand, capacity, colour, cost, price, quantity, tags);
     }
 
     @Override
@@ -134,7 +133,7 @@ public class Phone {
                 .append(" Capacity: ")
                 .append(getCapacity())
                 .append(" Color: ")
-                .append(getColor())
+                .append(getColour())
                 .append(" Cost: ")
                 .append(getCost())
                 .append(" Price: ")

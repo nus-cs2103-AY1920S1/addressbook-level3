@@ -10,5 +10,6 @@ public enum Capacity {
     SIZE_64GB,
     SIZE_128GB,
     SIZE_256GB,
-    SIZE_512GB
+    SIZE_512GB,
+    SIZE_1024GB
 }
