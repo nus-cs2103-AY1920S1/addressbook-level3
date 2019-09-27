@@ -279,14 +279,18 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Undergraduate CS student studying in NUS
+* Needs to manage his/her study plans and module planning
+* Needs to see whether his/her study plans are feasible 
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
 *Value proposition*:
 
+* Functionality is not offered by any other existing application.
+* Tailored to needs of NUS CS undergraduate students.
 * Users will be able to check all the problems (e.g. graduation requirements, prerequisite for modules) with their current study plan with ModBuddy through a desktop application.
 * Have multiple study plans, and move semesters around quickly with a CLI.
 * Version control for saving history of study plans, ensuring that mistakes or past study plans are recoverable.
@@ -300,20 +304,51 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |student | add modules to the planner |
+|`* * *` |student | remove modules from the planner |
+|`* * *` |student | search a module based on module code |
+|`* * *` |student | declare my focus area |
+|`* * *` |student | ensure that my modules can fulfill my focus area requirements |
+|`* * *` |student who wants to graduate | know whether I will fulfill my graduation requirements with my current study plan | I can graduate on time
+|`* * *` | user |check a module’s prerequisites |I can confirm I’ve satisfied them in previous semesters before taking the module this semester
+|`* * *` | user | set my current semester|
+|`* * *` | foolish user |be warned if any part of my study plan is not feasible|
+|`* * *` |indecisive user |move modules across semesters|I can change the order at which I plan to take my modules
+|`* * *` |forgetful user |view which modules I have already taken |I know what modules I do not have to take anymore
+|`* * *` |Year 1 user |view the core modules |I know which modules I should take first
+|`* * *` |new user |view help instructions |I know how to use the application easily
+|`* * *` |clumsy user |be greeted with helpful error messages when I enter commands or their arguments wrongly|
+|`* * *` |meticulous student|create multiple versions of study plan|I can toggle between them and choose the most suitable one when circumstances change
+|`* *`|Year 1 user|view which modules can be S/U-ed|I can prioritise those modules to be taken in Year 1
+|`* *`|user with friends|download a copy of my study plan|I can share it with others.
+|`* *`|user|check the total number of MCs in my module plan this semester|I know if I need to take more modules or if I’m overloading.
+|`* *`|foolish user| undo my previous command|I can restore the previous state whenever I make mistakes.
+|`* *`|Year 1 user|start out with a default module plan|I have an idea of what modules are recommended to be taken in which semesters
+|`* *`|ambitious student|to block out a semester|I can plan for SEP/NOC/industrial attachment.
+|`* *`|lazy student|see a brief description/name of a module|I don’t have to memorise all the module codes
+|`* *`|student|search a module based on keywords|
+|`* *`|diligent student|tag my modules so as to classify them better|
+|`* *`|student|fill my study plan with UEs too|
+|`* *`|student|rename UEs as their actual names|
+|`* *`|visual user|be able to visualise my modules in a GUI|
+|`* *`|experienced user| chain my commands together so that I can be more efficient|
+|`* *`|student who admires beauty| see different colours|
+|`* *`|forgetful student|attach more information to each semester|I will remember why I plan my modules this way
+|`* *`|fickle user|combine different semesters from different study plans into one new study plan (move semesters around)| I don’t have to repeat.
+|`* *`|student who wants to be a TA|indicate I will be TA-ing a module in a given semester|
+|`* *`|CS student with extra programmes| I want to verify that my study plan allows me to graduate with all the different requirements I have|
+|`*` |overachiever| I want to see how joining one of these Turing/von Neumann programmes affects my study plan|
+|`*` |student who wants to be a TA| indicate I will be TA-ing a module in a given semester|
+|`*` |CS student with extra programmes| I want to verify that my study plan allows me to graduate with all the different requirements I have|
+|`*` |CS student with friends| I want to plan modules with my friends | we can take the same modules every semester
+|`*` |student who cares about grades| I want to be able to analyse my CAP per module, semester, year and overall| I can be more aware of my grades
+|`*` |user who admires beauty| I want to set each module with a color 1-8 | I can customise the look of my study plan
+|`*` |user who admires beauty| I want to change the color theme | I can customise the look of my study plan
+|`*` |experienced user who admires beauty| I want to change specific colors with hex code | I can customise the look of my study plan
 
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -451,11 +486,17 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should work on any mainstream OS as long as it has Java 11 or above installed.
+.  Should be able to hold up to 10 study plans, each containing at least 40 modules, without a noticeable sluggishness in performance for typical usage.
+.  Should allow a user with above average typing speed for regular English text (i.e. not code, not system admin commands) to accomplish most of the tasks faster using commands than using the mouse.
+.  Should allow a user to accomplish all of the tasks without an Internet connection.
+.  The module information should be applicable to all NUS Computer Science students without additional programmes (such as Double Degree Programmes).
+.  Should allow a user who is relatively familiar with CS module codes to manipulate modules faster using module codes than using module names.
+.  The response to any use action should become visible within 1 second.
+.  The user interface should be intuitive enough for users who are not IT-savvy
+.  The source code should be open source.
+.  The product should be free for all NUS CS undergraduate students.
+.  Should warn the user that the developers will not be held liable for any failure to graduate within normal candidature period due to the use of the product.
 
 [appendix]
 == Glossary
@@ -649,68 +690,48 @@ A student's year refers to whether the student is in their first (Y1), second (Y
 year of undergraduate studies in NUS.
 
 
+// [appendix]
+// == Instructions for Manual Testing
 
+// Given below are instructions to test the app manually.
 
+// [NOTE]
+// These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-[appendix]
-== Product Survey
+// === Launch and Shutdown
 
-*Product Name*
+// . Initial launch
 
-Author: ...
+// .. Download the jar file and copy into an empty folder
+// .. Double-click the jar file +
+//    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-Pros:
+// . Saving window preferences
 
-* ...
-* ...
+// .. Resize the window to an optimum size. Move the window to a different location. Close the window.
+// .. Re-launch the app by double-clicking the jar file. +
+//    Expected: The most recent window size and location is retained.
 
-Cons:
+// _{ more test cases ... }_
 
-* ...
-* ...
+// === Deleting a person
 
-[appendix]
-== Instructions for Manual Testing
+// . Deleting a person while all persons are listed
 
-Given below are instructions to test the app manually.
+// .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+// .. Test case: `delete 1` +
+//    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+// .. Test case: `delete 0` +
+//    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+// .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+//    Expected: Similar to previous.
 
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+// _{ more test cases ... }_
 
-=== Launch and Shutdown
+// === Saving data
 
-. Initial launch
+// . Dealing with missing/corrupted data files
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+// .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+// _{ more test cases ... }_
