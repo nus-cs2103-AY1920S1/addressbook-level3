@@ -3,10 +3,10 @@ package seedu.mark.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.mark.testutil.Assert.assertThrows;
-import static seedu.mark.testutil.TypicalPersons.ALICE;
-import static seedu.mark.testutil.TypicalPersons.HOON;
-import static seedu.mark.testutil.TypicalPersons.IDA;
-import static seedu.mark.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.mark.testutil.TypicalBookmarks.ALICE;
+import static seedu.mark.testutil.TypicalBookmarks.HOON;
+import static seedu.mark.testutil.TypicalBookmarks.IDA;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,11 +26,11 @@ public class JsonBookmarkManagerStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readBookmarkManager_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readBookmarkManager(null));
     }
 
-    private java.util.Optional<ReadOnlyBookmarkManager> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyBookmarkManager> readBookmarkManager(String filePath) throws Exception {
         return new JsonBookmarkManagerStorage(Paths.get(filePath)).readBookmarkManager(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -42,69 +42,69 @@ public class JsonBookmarkManagerStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readBookmarkManager("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readBookmarkManager("notJsonFormatBookmarkManager.json"));
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+    public void readBookmarkManager_invalidBookmarkBookmarkManager_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readBookmarkManager("invalidBookmarkBookmarkManager.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    public void readBookmarkManager_invalidAndValidBookmarkBookmarkManager_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readBookmarkManager("invalidAndValidBookmarkBookmarkManager.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        BookmarkManager original = getTypicalAddressBook();
-        JsonBookmarkManagerStorage jsonAddressBookStorage = new JsonBookmarkManagerStorage(filePath);
+    public void readAndSaveBookmarkManager_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempBookmarkManager.json");
+        BookmarkManager original = getTypicalBookmarkManager();
+        JsonBookmarkManagerStorage jsonBookmarkManagerStorage = new JsonBookmarkManagerStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveBookmarkManager(original, filePath);
-        ReadOnlyBookmarkManager readBack = jsonAddressBookStorage.readBookmarkManager(filePath).get();
+        jsonBookmarkManagerStorage.saveBookmarkManager(original, filePath);
+        ReadOnlyBookmarkManager readBack = jsonBookmarkManagerStorage.readBookmarkManager(filePath).get();
         assertEquals(original, new BookmarkManager(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addBookmark(HOON);
         original.removeBookmark(ALICE);
-        jsonAddressBookStorage.saveBookmarkManager(original, filePath);
-        readBack = jsonAddressBookStorage.readBookmarkManager(filePath).get();
+        jsonBookmarkManagerStorage.saveBookmarkManager(original, filePath);
+        readBack = jsonBookmarkManagerStorage.readBookmarkManager(filePath).get();
         assertEquals(original, new BookmarkManager(readBack));
 
         // Save and read without specifying file path
         original.addBookmark(IDA);
-        jsonAddressBookStorage.saveBookmarkManager(original); // file path not specified
-        readBack = jsonAddressBookStorage.readBookmarkManager().get(); // file path not specified
+        jsonBookmarkManagerStorage.saveBookmarkManager(original); // file path not specified
+        readBack = jsonBookmarkManagerStorage.readBookmarkManager().get(); // file path not specified
         assertEquals(original, new BookmarkManager(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveBookmarkManager_nullBookmarkManager_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveBookmarkManager(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code bookmarkManager} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyBookmarkManager addressBook, String filePath) {
+    private void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager, String filePath) {
         try {
             new JsonBookmarkManagerStorage(Paths.get(filePath))
-                    .saveBookmarkManager(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveBookmarkManager(bookmarkManager, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new BookmarkManager(), null));
+    public void saveBookmarkManager_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveBookmarkManager(new BookmarkManager(), null));
     }
 }

@@ -5,20 +5,20 @@ import java.util.Set;
 
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Phone;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Bookmark objects.
  */
-public class PersonBuilder {
+public class BookmarkBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_URL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
@@ -27,18 +27,18 @@ public class PersonBuilder {
     private Address address;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public BookmarkBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        url = new Url(DEFAULT_EMAIL);
+        url = new Url(DEFAULT_URL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code bookmarkToCopy}.
+     * Initializes the BookmarkBuilder with the data of {@code bookmarkToCopy}.
      */
-    public PersonBuilder(Bookmark bookmarkToCopy) {
+    public BookmarkBuilder(Bookmark bookmarkToCopy) {
         name = bookmarkToCopy.getName();
         phone = bookmarkToCopy.getPhone();
         url = bookmarkToCopy.getUrl();
@@ -49,7 +49,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Name} of the {@code Bookmark} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public BookmarkBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -57,7 +57,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Bookmark} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public BookmarkBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -65,7 +65,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Address} of the {@code Bookmark} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public BookmarkBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
@@ -73,7 +73,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Phone} of the {@code Bookmark} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public BookmarkBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -81,8 +81,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Url} of the {@code Bookmark} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
-        this.url = new Url(email);
+    public BookmarkBuilder withUrl(String url) {
+        this.url = new Url(url);
         return this;
     }
 

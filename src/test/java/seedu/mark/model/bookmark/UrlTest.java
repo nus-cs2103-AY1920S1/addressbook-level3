@@ -20,7 +20,7 @@ public class UrlTest {
     }
 
     @Test
-    public void isValidEmail() {
+    public void isValidUrl() {
         // null url
         assertThrows(NullPointerException.class, () -> Url.isValidUrl(null));
 

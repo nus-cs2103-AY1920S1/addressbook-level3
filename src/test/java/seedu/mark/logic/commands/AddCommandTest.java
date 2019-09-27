@@ -21,39 +21,39 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyBookmarkManager;
 import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.testutil.PersonBuilder;
+import seedu.mark.testutil.BookmarkBuilder;
 
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullBookmark_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Bookmark validBookmark = new PersonBuilder().build();
+    public void execute_bookmarkAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded();
+        Bookmark validBookmark = new BookmarkBuilder().build();
 
         CommandResult commandResult = new AddCommand(validBookmark).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBookmark), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validBookmark), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validBookmark), modelStub.bookmarksAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Bookmark validBookmark = new PersonBuilder().build();
+    public void execute_duplicateBookmark_throwsCommandException() {
+        Bookmark validBookmark = new BookmarkBuilder().build();
         AddCommand addCommand = new AddCommand(validBookmark);
-        ModelStub modelStub = new ModelStubWithPerson(validBookmark);
+        ModelStub modelStub = new ModelStubWithBookmark(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOKMARK, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Bookmark alice = new PersonBuilder().withName("Alice").build();
-        Bookmark bob = new PersonBuilder().withName("Bob").build();
+        Bookmark alice = new BookmarkBuilder().withName("Alice").build();
+        Bookmark bob = new BookmarkBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -152,10 +152,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single bookmark.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithBookmark extends ModelStub {
         private final Bookmark bookmark;
 
-        ModelStubWithPerson(Bookmark bookmark) {
+        ModelStubWithBookmark(Bookmark bookmark) {
             requireNonNull(bookmark);
             this.bookmark = bookmark;
         }
@@ -170,19 +170,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the bookmark being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Bookmark> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingBookmarkAdded extends ModelStub {
+        final ArrayList<Bookmark> bookmarksAdded = new ArrayList<>();
 
         @Override
         public boolean hasBookmark(Bookmark bookmark) {
             requireNonNull(bookmark);
-            return personsAdded.stream().anyMatch(bookmark::isSameBookmark);
+            return bookmarksAdded.stream().anyMatch(bookmark::isSameBookmark);
         }
 
         @Override
         public void addBookmark(Bookmark bookmark) {
             requireNonNull(bookmark);
-            personsAdded.add(bookmark);
+            bookmarksAdded.add(bookmark);
         }
 
         @Override

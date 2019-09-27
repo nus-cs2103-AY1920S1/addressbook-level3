@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.mark.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.mark.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.mark.logic.commands.CommandTestUtil.showBookmarkAtIndex;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_BOOKMARK;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,12 +24,12 @@ import seedu.mark.model.bookmark.Bookmark;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBookmarkManager(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Bookmark bookmarkToDelete = model.getFilteredBookmarkList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Bookmark bookmarkToDelete = model.getFilteredBookmarkList().get(INDEX_FIRST_BOOKMARK.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_BOOKMARK);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete);
 
@@ -49,26 +49,26 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
 
-        Bookmark bookmarkToDelete = model.getFilteredBookmarkList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Bookmark bookmarkToDelete = model.getFilteredBookmarkList().get(INDEX_FIRST_BOOKMARK.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_BOOKMARK);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete);
 
         Model expectedModel = new ModelManager(model.getBookmarkManager(), new UserPrefs());
         expectedModel.deleteBookmark(bookmarkToDelete);
-        showNoPerson(expectedModel);
+        showNoBookmark(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        Index outOfBoundIndex = INDEX_SECOND_BOOKMARK;
+        // ensures that outOfBoundIndex is still in bounds of bookmark manager list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getBookmarkManager().getBookmarkList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
@@ -78,14 +78,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_BOOKMARK);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_BOOKMARK);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_BOOKMARK);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -101,7 +101,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoBookmark(Model model) {
         model.updateFilteredBookmarkList(p -> false);
 
         assertTrue(model.getFilteredBookmarkList().isEmpty());

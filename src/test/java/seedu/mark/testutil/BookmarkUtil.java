@@ -16,19 +16,19 @@ import seedu.mark.model.tag.Tag;
 /**
  * A utility class for Bookmark.
  */
-public class PersonUtil {
+public class BookmarkUtil {
 
     /**
      * Returns an add command string for adding the {@code bookmark}.
      */
     public static String getAddCommand(Bookmark bookmark) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(bookmark);
+        return AddCommand.COMMAND_WORD + " " + getBookmarkDetails(bookmark);
     }
 
     /**
      * Returns the part of command string for the given {@code bookmark}'s details.
      */
-    public static String getPersonDetails(Bookmark bookmark) {
+    public static String getBookmarkDetails(Bookmark bookmark) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + bookmark.getName().fullName + " ");
         sb.append(PREFIX_PHONE + bookmark.getPhone().value + " ");
@@ -43,7 +43,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditBookmarkDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditBookmarkDescriptor descriptor) {
+    public static String getEditBookmarkDescriptorDetails(EditCommand.EditBookmarkDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

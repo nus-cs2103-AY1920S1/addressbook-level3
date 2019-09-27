@@ -1,9 +1,9 @@
 package seedu.mark.logic.commands;
 
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.mark.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.mark.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.mark.logic.commands.CommandTestUtil.showBookmarkAtIndex;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalBookmarkManager(), new UserPrefs());
         expectedModel = new ModelManager(model.getBookmarkManager(), new UserPrefs());
     }
 
@@ -33,7 +33,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

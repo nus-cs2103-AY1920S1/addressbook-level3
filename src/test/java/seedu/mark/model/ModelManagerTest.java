@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 import static seedu.mark.testutil.Assert.assertThrows;
-import static seedu.mark.testutil.TypicalPersons.ALICE;
-import static seedu.mark.testutil.TypicalPersons.BENSON;
+import static seedu.mark.testutil.TypicalBookmarks.ALICE;
+import static seedu.mark.testutil.TypicalBookmarks.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
-import seedu.mark.testutil.AddressBookBuilder;
+import seedu.mark.testutil.BookmarkManagerBuilder;
 
 public class ModelManagerTest {
 
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setBookmarkManagerFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setBookmarkManagerFilePath(Paths.get("bookmark/manager/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setBookmarkManagerFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setBookmarkManagerFilePath(Paths.get("new/bookmark/manager/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -67,41 +67,41 @@ public class ModelManagerTest {
 
     @Test
     public void setBookmarkManagerFilePath_validPath_setsBookmarkManagerFilePath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("bookmark/manager/file/path");
         modelManager.setBookmarkManagerFilePath(path);
         assertEquals(path, modelManager.getBookmarkManagerFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasBookmark_nullBookmark_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasBookmark(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasBookmark_bookmarkNotInBookmarkManager_returnsFalse() {
         assertFalse(modelManager.hasBookmark(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasBookmark_bookmarkInBookmarkManager_returnsTrue() {
         modelManager.addBookmark(ALICE);
         assertTrue(modelManager.hasBookmark(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredBookmarkList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredBookmarkList().remove(0));
     }
 
     @Test
     public void equals() {
-        BookmarkManager addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        BookmarkManager differentAddressBook = new BookmarkManager();
+        BookmarkManager bookmarkManager = new BookmarkManagerBuilder().withBookmark(ALICE).withBookmark(BENSON).build();
+        BookmarkManager differentBookmarkManager = new BookmarkManager();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(bookmarkManager, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(bookmarkManager, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,13 +113,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different bookmarkManager -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentBookmarkManager, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredBookmarkList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(bookmarkManager, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
@@ -127,6 +127,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setBookmarkManagerFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(bookmarkManager, differentUserPrefs)));
     }
 }

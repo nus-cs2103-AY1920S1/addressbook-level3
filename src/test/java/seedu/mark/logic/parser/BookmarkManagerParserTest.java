@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.mark.testutil.Assert.assertThrows;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +24,9 @@ import seedu.mark.logic.commands.ListCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
-import seedu.mark.testutil.EditPersonDescriptorBuilder;
-import seedu.mark.testutil.PersonBuilder;
-import seedu.mark.testutil.PersonUtil;
+import seedu.mark.testutil.BookmarkBuilder;
+import seedu.mark.testutil.BookmarkUtil;
+import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
 public class BookmarkManagerParserTest {
 
@@ -34,8 +34,8 @@ public class BookmarkManagerParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Bookmark bookmark = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(bookmark));
+        Bookmark bookmark = new BookmarkBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(BookmarkUtil.getAddCommand(bookmark));
         assertEquals(new AddCommand(bookmark), command);
     }
 
@@ -48,17 +48,17 @@ public class BookmarkManagerParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_BOOKMARK), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Bookmark bookmark = new PersonBuilder().build();
-        EditCommand.EditBookmarkDescriptor descriptor = new EditPersonDescriptorBuilder(bookmark).build();
+        Bookmark bookmark = new BookmarkBuilder().build();
+        EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder(bookmark).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_BOOKMARK.getOneBased() + " " + BookmarkUtil.getEditBookmarkDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_BOOKMARK, descriptor), command);
     }
 
     @Test

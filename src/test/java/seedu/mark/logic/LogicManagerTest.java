@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX;
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.mark.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.mark.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.mark.testutil.Assert.assertThrows;
-import static seedu.mark.testutil.TypicalPersons.AMY;
+import static seedu.mark.testutil.TypicalBookmarks.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,7 +30,7 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.storage.JsonBookmarkManagerStorage;
 import seedu.mark.storage.JsonUserPrefsStorage;
 import seedu.mark.storage.StorageManager;
-import seedu.mark.testutil.PersonBuilder;
+import seedu.mark.testutil.BookmarkBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,10 +43,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonBookmarkManagerStorage addressBookStorage =
-                new JsonBookmarkManagerStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonBookmarkManagerStorage bookmarkManagerStorage =
+                new JsonBookmarkManagerStorage(temporaryFolder.resolve("mark.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(bookmarkManagerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -71,17 +71,18 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonBookmarkManagerIoExceptionThrowingStub
-        JsonBookmarkManagerStorage addressBookStorage =
-                new JsonBookmarkManagerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonBookmarkManagerStorage bookmarkManagerStorage =
+                new JsonBookmarkManagerIoExceptionThrowingStub(
+                        temporaryFolder.resolve("ioExceptionBookmarkManager.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(bookmarkManagerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + URL_DESC_AMY
                 + ADDRESS_DESC_AMY;
-        Bookmark expectedBookmark = new PersonBuilder(AMY).withTags().build();
+        Bookmark expectedBookmark = new BookmarkBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addBookmark(expectedBookmark);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -89,7 +90,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredBookmarkList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredBookmarkList().remove(0));
     }
 

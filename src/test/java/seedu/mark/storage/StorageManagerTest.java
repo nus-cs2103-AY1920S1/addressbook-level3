@@ -2,7 +2,7 @@ package seedu.mark.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.mark.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
 
 import java.nio.file.Path;
 
@@ -48,13 +48,13 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void bookmarkManagerReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonBookmarkManagerStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonBookmarkManagerStorageTest} class.
          */
-        BookmarkManager original = getTypicalAddressBook();
+        BookmarkManager original = getTypicalBookmarkManager();
         storageManager.saveBookmarkManager(original);
         ReadOnlyBookmarkManager retrieved = storageManager.readBookmarkManager().get();
         assertEquals(original, new BookmarkManager(retrieved));

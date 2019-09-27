@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the bookmark in the {@code model}'s bookmark list at {@code index}.
      */
-    public static Bookmark getPerson(Model model, Index index) {
+    public static Bookmark getBookmark(Model model, Index index) {
         return model.getFilteredBookmarkList().get(index.getZeroBased());
     }
 }
