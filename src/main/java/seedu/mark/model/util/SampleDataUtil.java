@@ -8,16 +8,16 @@ import seedu.mark.model.BookmarkManager;
 import seedu.mark.model.ReadOnlyBookmarkManager;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Phone;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code BookmarkManager} with sample data.
  */
 public class SampleDataUtil {
-    public static Bookmark[] getSamplePersons() {
+    public static Bookmark[] getSampleBookmarks() {
         return new Bookmark[] {
             new Bookmark(new Name("Alex Yeoh"), new Phone("87438807"), new Url("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
@@ -40,12 +40,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyBookmarkManager getSampleAddressBook() {
-        BookmarkManager sampleAb = new BookmarkManager();
-        for (Bookmark sampleBookmark : getSamplePersons()) {
-            sampleAb.addBookmark(sampleBookmark);
+    public static ReadOnlyBookmarkManager getSampleBookmarkManager() {
+        BookmarkManager sampleBm = new BookmarkManager();
+        for (Bookmark sampleBookmark : getSampleBookmarks()) {
+            sampleBm.addBookmark(sampleBookmark);
         }
-        return sampleAb;
+        return sampleBm;
     }
 
     /**
