@@ -1,9 +1,9 @@
-= AddressBook Level 3 - User Guide
+= DukeCooks - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
-:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -14,153 +14,515 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team 10`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+DukeCooks is a lifestyle app, specially designed for health-conscious individuals who are comfortable with the usage of Command Line Interface (CLI). You will be able to manage various aspects of your lifestyle through this app.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `DukeCooks`.
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
-
-[[Features]]
-== Features
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in angle brackets are the parameters to be supplied by the user
+* Items in square brackets are optional i.e. user can omit input of the parameter
 ====
 
-=== Viewing help : `help`
-
-Format: `help`
-
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+== Recipe Book
+=== Adding a recipe:  `add recipe`
+Initializes creation of a recipe with input name. DukeCooks will prompt for ingredients. User may key in ingredients with price, in the format: `<name>` `$<price>`. Once done, user may enter `done`. DukeCooks will prompt for nutritional value in the format: `<kcal> <carbs(g)> <fat(g)> <protein(g)>`.  + 
+Format: `add recipe <name>`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add recipe Chicken Rice` + 
+Output: Recipe “Chicken Rice” has been created! Please enter the ingredients.
+* `Chicken Breast $2` + 
+Output: _“Chicken Breast” has been added to the ingredients list. Anything else?_
+* `Seasoned Rice $1` + 
+Output: _“Seasoned Rice” has been added to the ingredients list. Anything else?_
+* `done` + 
+Output: _Ingredients list for “Chicken Rice” is complete! Please enter the nutritional value._
+* `666 55 44 30` + 
+Output: _Nutritional value for “Chicken Rice” captured. “Chicken Rice” successfully created!_
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+=== Deleting a recipe: `delete recipe`
+Deletes recipe with specified name. + 
+Format: `delete recipe <name>`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `delete recipe Chicken Rice` + 
+Output: _“Chicken Rice” has been deleted from the recipe book!_
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+=== Listing your recipes: `list recipe`
+Lists all recipe names. + 
+Format: `list recipe`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `list recipe` + 
+Output: Lists all recipes.
 
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+===  Viewing a recipe: `view recipe` 
+Lists ingredients of specified recipe, nutritional value, and image, difficulty and preparation time, if applicable. + 
+Format: `view recipe <name>`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `view recipe Chicken Rice` + 
+Output: Shows the recipe named “Chicken Rice”, as long as it exists in the recipe book.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Giving a recipe an image: `[coming in v2.0]`
+Adds image of recipe by retrieving the image with the specified file name. Files are to be placed in the folder [to be implemented]. + 
+Format: `recipe <name> image <filename>`
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Giving a recipe a difficulty level: `[coming in v2.0]`
+Tags the recipe specified with the difficulty, ranging from 1 to 3. + 
+Format: `recipe <name> difficulty <difficulty>`
 
-=== Exiting the program : `exit`
+=== Giving a recipe preparation timing: `[coming in v2.0]`
+Tags the recipe specified with the preparation time, in minutes. + 
+Format: `recipe <name> preptime <time(min)>`
 
-Exits the program. +
-Format: `exit`
+=== Adding a shopping list: `[coming in v2.0]`
+Creates a new shopping list with specified name. + 
+Format: `add shoplist <name>`
 
-=== Saving the data
+===  Deleting a shopping list: `[coming in v2.0]`
+Deletes specified shopping list. + 
+Format: `delete shoplist <name>`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Listing your shopping lists: `[coming in v2.0]`
+Lists all shopping list names. + 
+Format: `list shoplist`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Viewing a shopping list: `[coming in v2.0]`
+Collates the ingredients to be bought and returns them as a list. Also displays the total cost of the shopping list, and each ingredient’s individual price. + 
+Format: `view shoplist <name>`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Adding recipe to a shopping list: `[coming in v2.0]`
+Adds specified recipe to the shopping list. + 
+Format: `shoplist <name> add <recipe>`
 
-== FAQ
+=== Deleting a recipe from a shopping list: `[coming in v2.0]`
+Deletes specified recipe from the shopping list. + 
+Format: `shoplist <name> delete <recipe>`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+=== Add a meal plan: `[coming in v2.0]`
+Creates a new meal plan with specified name. + 
+Format: `add mealplan <name>`
+
+=== Delete a meal plan: `[coming in v2.0]`
+Deletes specified meal plan. + 
+Format: `delete mealplan <name>`
+
+=== List your meal plans: `[coming in v2.0]`
+Lists all meal plan names. + 
+Format: `list mealplan`
+
+=== View a meal plan: `[coming in v2.0]`
+Displays daily nutritional value of the meal plan. + 
+Format: `view mealplan <name>`
+
+=== Add recipe to a meal plan: `[coming in v2.0]`
+Adds the specified recipe to the specified meal plan, according to the day listed in the `<day>` field. The `<day>` field is a number ranging from 1 to 7, for the 7 days present in the meal plan. + 
+Format: `mealplan <name> <day> add <recipe name>`
+
+=== Generate a shopping list for a meal plan: `[coming in v2.0]`
+Generates a shopping list for the specified meal plan. If `<shoplist name>` is not specified, we use `<name>` by default. + 
+Format: `mealplan <name> shoplist <shoplist name>`
+
+== Dashboard (Analytics + Suggestions)
+=== Get suggestions: `suggest`
+Provides an overview analysis based on past records. Gives suggestions on things the user should do more or less on. + 
+Format: `suggest`
+
+=== Get random food suggestions: `suggest food`
+Gives a random food suggestion for the user. + 
+Format: `suggest food`
+
+=== Get new food suggestions: `suggest new food`
+Gives a recommendation of a food item that is not logged by the user. + 
+Format: `suggest new food`
+
+=== Get Statistics: `stats`
+Gives all the statistics available. + 
+Format: `stats`
+
+=== Get food statistics: `stats food`
+Gives the statistics of food recorded. + 
+Format: `stats food`
+
+=== Get exercise statistics: `stats exercise`
+Gives the statistics of exercise recorded. + 
+Format: `stats exercise`
+
+== Health Records
+=== View User Profile:  `view profile`
+Show a summary of user’s medical history, allergies, body measurements + 
+Format: `view profile`
+
+* Prompt to create profile if user profile does not exist
+
+NOTE: DukeCooks will only have one user profile!
+
+=== View Health Data:  `view health`
+Views Health Records of specific type. + 
+Format: `view health <type> [time period]`
+
+IMPORTANT:  By default, DukeCooks will show health records of past 1 month if [time period] is not specified.
+
+****
+User can view health data under the following 8 types:
+
+. Weight
+. Waist
+. Body Fat
+. Calories
+. Heart Rate
+. Blood Pressure
+. Glucose (i.e. blood sugar)
+. Menstrual Cycle
+****
+
+NOTE: Records of Menstrual Cycle will only be made available for users declared as female under *User Profile*.
+
+Examples:
+
+* `view health glucose 3 month` + 
+Shows user’s blood sugar records of the past 3 months as of today.
+* `view health weight` + 
+Shows user’s weight of the past *1* month as of today.
+
+=== Add Health Data:  `add health`
+Adds a health record of specified type with input value. + 
+Format: `add health <type> <value> [date] <time>`
+
+IMPORTANT:  if [date] is not specified, DukeCooks will set as *today* to be the default.
+
+****
+User can add health data of the following 8 types:
+
+. Weight (in KG)
+. Waist (in CM)
+. Body Fat (in %)
+. Calories (in KCAL)
+. Heart Rate (in BPM)
+. Blood Pressure (in Systolic/Diastolic mmHg)
+. Glucose (in mmol/L)
+. Menstrual Cycle (by date) 
+** DukeCooks can recognise if it’s a start or end date.
+****
+
+NOTE: Records of Menstrual Cycle will only be made available for users declared as female under *User Profile*.
+
+Examples:
+
+* `add health blood pressure 120/80 9am` + 
+Adds a new blood pressure record of 120/80 mmHg as of today 9am.
+* `add health menstrual` + 
+Adds a new start date record if DukeCooks finds no menstrual records for the month. Else, Dukecooks will add as new end date record.
+
+=== Edit Health Data:  `edit health`
+Edits an existing health record of specified record ID with input value to overwrite. + 
+Format: `edit health <record id> <value>` + 
+* <record id> refers to the unique identifier attributed to each health record upon creation.
+
+Examples:
+
+* `edit health BP129391 133/80 ` + 
+Edits the existing blood pressure record from today 9am to 133/80 mmHg.
+* `edit health W000123 50` + 
+Edits weight record id of W000123 to 50kg.
+
+=== Delete Health Data:  `delete health`
+Deletes an existing health record of specified record ID. + 
+Format: `delete health <record id> ` + 
+* <record id> refers to the unique identifier attributed to each health record upon creation.
+
+Examples:
+
+* `delete health BP129391` + 
+Deletes the health record of BP129391.
+* `delete health W000123` + 
+Deletes the health record of W000123.
+
+=== View Medical Appointments:  `[coming in v2.0]`
+Shows all the medical appointment for the month. + 
+Format: `view appt [time period] `
+ 
+Examples:
+
+* `view appt` + 
+View all the medical appointments for the month.
+* `view appt 3 month` + 
+View all the medical appointments of the next 3 months.
+
+=== Add Medical Appointment:  `[coming in v2.0]`
+Adds a new medical appointment where user can include an optional note. + 
+Format: `add appt <date time> [note]` + 
+* DukeCooks will prompt reminder when appointment is in a week’s time.
+ 
+Examples:
+
+* `add appt 31/12/2019 8am` + 
+Add a new medical appointment for 31st Dec 2019, 8AM.
+* `add appt 31/12/2019 8am thomson medical - blood glucose` + 
+Add a new medical appointment for 31st Dec 2019, 8AM with note “thomson medical - blood glucose” .
+
+=== Edit Medical Appointment:  `[coming in v2.0]`
+Edits an existing medical appointment. + 
+Format: `edit appt <Appt ID> [date time] [note]` + 
+* <Appt ID> refers to the unique identifier attributed to each medical appointment upon creation.
+* At least one of the optional fields must be provided
+* Existing value will be overwritten with the new inputs given
+
+ 
+Examples:
+
+* `edit appt APPT0001 CGH - blood glucose` + 
+Edits the note to “CGH - blood glucose”.
+* `edit appt APPT0001 31/12/2019 12pm` + 
+Change the medical appointment to be 31st Dec 2019, 12PM.
+* `edit appt APPT0001 31/12/2019 1.30pm CGH - blood glucose` + 
+Change the medical appointment to be 31st Dec 2019, 1.30PM with “CGH - blood glucose” note.
+
+=== Delete Medical Appointment `[coming in v2.0]`
+Deletes an existing medical appointment. + 
+Format: `delete appt <APPT ID>` + 
+* <APPT ID> refers to the unique identifier attributed to each medical appointment upon creation.
+ 
+Examples:
+
+* `delete appt APPT0001` + 
+Deletes the medical appointment of APPT0001.
+ 
+=== Print Health Records to PDF `[coming in v2.0]`
+Generates a PDF copy of health records. + 
+Format: `print health <type> [MORE_TYPES] [time period]` + 
+* If more than one type of data to print, the data will be displayed in the order of input (refer to example).
+
+IMPORTANT: By default, DukeCooks will generate pdf with health records for the past 1 month if [time period] is not specified.
+
+Examples:
+
+* `print health glucose` + 
+Generates a PDF copy of all the blood sugar records for the past month as of today
+* `print health glucose blood pressure` + 
+Generates a PDF copy of all the blood sugar and blood pressure records respectively from the past month as of today. Data on blood sugar will come before blood pressure.
+* `print health glucose blood pressure 01/01/2019 - 31/08/2019` + 
+Generates a PDF copy of all the blood sugar and blood pressure records respectively from 1st Jan 2019 to 31st Aug 2019. 
+
+== Workout Tracker
+=== Adding an exercise: `add exercise`
+Adds an exercise to exercise list. App will then prompt for the muscle type, level of intensity (out of 5), instructions as well as images of the steps (in directory form) (optional) in order.
+
+Once done you can add the recommended number of sets (optional), recommended number of repetitions (optional), recommended timing in minutes(optional), weight (optional) in the format: `s/SETS r/REPETITIONS w/WEIGHT t/TIMING`+ 
+Format: `add exercise <name>`
+
+Examples:
+
+* ` add exercise Inclined Bench Press` + 
+Output: _Exercise “Inclined Bench Press” has been created. Please enter the muscle groups it trains, separating each muscle by a “/”._
+* ` lats/chest` + 
+Output: _Muscle group(s) have been added! Now lets add intensity level out of 5!_
+* ` 4` + 
+Output: _Now let’s add the instructions!_
+* ` Lie down on an inclined bench` + 
+Output: _Step 1 added! Type done when you’re done with all the instructions!_
+* ` Push weight above head` + 
+Output: _Step 2 added! Type done when you’re done with all the instructions!_
+* ` done` + 
+Output: _Almost done! If you want to add an image please specify the folder! Otherwise type “/”._
+* ` /` + 
+Output: _If you want to specify your reps, sets and weight you may now do so. Otherwise type “/”._
+* ` w/30kg r/5 s/5 t/1:00` + 
+Output: _Nice exercise has been created!_
+
+
+=== List Exercise: `list exercise`
+List exercises which matches optional parameters specified eg. muscle type/intensity. + 
+Format: `list exercise m/MUSCLEGROUP i/INTENSITY`
+
+=== Delete exercise: `delete exercise`
+Deletes exercise of specified index. + 
+Format: `delete exercise <index>`
+
+=== View exercise: `view exercise`
+View all the details of an exercise of the specified index. + 
+Format: `view exercise<index>`
+
+=== Add calorie: `[coming in v1.3]`
+Tracks calorie burned per rep/set of the exercise in kcal. + 
+Format: `calorie <index> <calories>`
+
+=== Check History: `[coming in v2.0]`
+Checks the history of all the pass workouts as well as their statistics eg. weight used, number of times exercise is carried out, workouts that use this exercise.
+
+=== Preset Exercises: `[coming in v2.0]`
+If the list of exercises is empty, a list of preset exercises are generated.
+
+=== Create Workout: `workout`
+Adds a workout to workout list. The app will then display a list of exercises to be added to the workout, you can then filter this by adding specifications such as muscle type. To add an exercise, simply specify the index on the current list that is displayed. If the exercise has a recommended number or reps, sets, weight and timing you will be asked whether to follow it. Otherwise you can specify what you wish. Once you have added all the exercises, you will then be asked to specify the amount of time for rest in between sets. + 
+Format: `workout <name>`
+
+=== List Workout: `list workout`
+List exercises which matches optional parameters specified eg. muscle type/intensity/total time. + 
+Format: `list exercise m/MUSCLEGROUP i/INTENSITY t/TOTALTIME`
+
+=== Delete workout: `delete workout`
+Deletes workout of specified index. + 
+Format: `delete workout <index>`
+
+=== Run Workout: `run`
+Runs a workout with a timer. Shows the details of the exercise: instructions, reps, sets, weight as well images if provided. After workout, stats will be automatically be updated and weights of workout will be increased accordingly. + 
+Format: `run <index>`
+
+=== Schedule Workout: `[coming in v1.3]`
+
+=== Track Body Fitness: `[coming in v1.3]`
+
+
+== Food Diary
+=== Create Diary: `create diary`
+Creates a new diary with the specified name + 
+Format: `create diary <diary name>` + 
+* Diary names are unique
+ 
+Examples:
+
+* `create diary Healthy Living` + 
+ Creates a new diary with the name “Healthy Living”
+
+=== Delete Diary: `delete diary`
+Deletes the diary with the specified name + 
+Format: `delete diary <diary name>` + 
+* Diary name should already exist
+ 
+Examples:
+
+* `delete diary Healthy Living` + 
+ Deletes the diary with the name “Healthy Living”
+
+=== Add Page: `add page`
+Adds a page to the end of the specified diary + 
+Format: `add page <type> <diary name>` + 
+* Diary should already exist
+
+IMPORTANT: Users can only add pages of types: health, food or exercise.
+ 
+Examples:
+
+* `add page health Healthy Living` + 
+ Adds a health page to the diary named “Healthy Living”
+
+* `add page food Healthy Living` + 
+Adds a food page to the diary named “Healthy Living”
+
+* `add page exercise Healthy Living` + 
+Adds an exercise page to the diary named “Healthy Living”
+
+=== Delete Page: `delete page`
+Deletes the specified page from the specified diary + 
+Format: `delete page <index> <diary name>` + 
+* Diary should already exist
+* Index should a positive integer
+ 
+Examples:
+
+* `delete page 2 Healthy Living` + 
+ Deletes page 2 of the diary named “Healthy Living”
+
+=== Link Recipes: `[Coming in v2.0]`
+Creates a new food page in the specified diary, using pre-existing recipes + 
+Format: `link recipe <recipe name> /to <diary name>` + 
+* Diary should already exist
+* Recipe should already exist
+
+IMPORTANT: Deleting recipes will not delete the linked pages in diary!
+ 
+Examples:
+
+* `link recipe Caesar Salad /to Healthy Living` + 
+ Creates a food page about “Caesar Salad” and adds it to the diary named “Healthy Living”
+
+===  Link Exercises: `[Coming in v2.0]`
+Creates a new exercise page in the specified diary, using pre-existing exercises + 
+Format: `link exercise <exercise name> /to <diary name>` + 
+* Diary should already exist
+* Exercise should already exist
+
+IMPORTANT: Deleting exercises will not delete the linked pages in diary!
+ 
+Examples:
+
+* `link exercise Crunch /to Healthy Living` + 
+ Creates an exercise page about “Crunch” and adds it to the diary named “Healthy Living”
+
+=== Link Health Records: `[Coming in v2.0]`
+Creates a new health page in the specified diary, using pre-existing records + 
+Format: `link records <record id> /to <diary name>` + 
+* Diary should already exist
+* Records should already exist
+
+IMPORTANT: Deleting health records will not delete the linked pages in diary!
+ 
+Examples:
+
+* `link records BP129391 /to Healthy Living` + 
+ Creates a health page about “BP129391” and adds it to the diary named “Healthy Living”
+
+5.8. Edit Diary: `[Coming in v2.0]`
+Allows user to edit some basic information in the diary + 
+Format: `edit <diary name>` + 
+* Diary should already exist
+ 
+Examples:
+
+* `edit Healthy Living` + 
+ Users will now be able to edit basic information in the diary named “Healthy Living”
+
+5.9. Edit Page: `[Coming in v2.0]`
+Allows user to edit basic information in the specified page of the specified diary + 
+Format: `edit page <index> <diary name>` + 
+* Diary should already exist
+* Index should be a positive integer
+ 
+Examples:
+
+* `edit page 2 Healthy Living` + 
+ Users will be able to edit some basic information in page 2 of the diary named “Healthy Living”
+
+5.10. View Diary: `[Coming in v2.0]`
+Allows user to view the specified diary in a page-form + 
+Format: `view  <diary name>` + 
+* Diary should already exist
+ 
+Examples:
+
+* `view Healthy Living` + 
+ Users will now be able to view the diary in a page-view in the GUI
+
+5.11. Print Diary: `[Coming in v2.0]`
+Allows user to print the specified diary in PDF format + 
+Format: `print <diary name>` +
+* Diary should already exist
+ 
+Examples:
+
+* `print Healthy Living` + 
+A PDF format of the diary named “Healthy Living” will be generated
 
 == Command Summary
 
