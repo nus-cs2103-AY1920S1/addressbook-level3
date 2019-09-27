@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ComNurse - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-F10-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103-F10-1`      Since: `Sep 2019`      Licence: `MIT`
 
-== Introduction
+= Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ComNurse is designed for community nurses who make home visits to their patients. It is a laptop app that will allow nurses to keep track of their patients' data, appointments and visits. ComNurse is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-== Quick Start
+= Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `comnurse.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,54 +33,121 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`patient list`* : lists all contacts
+* **`patient add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`patient delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
-== Features
+= Features
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`. 
+* Parameters are additional pieces of information required/used when running a command.
+* Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items that are not in square brackets are required e.g. `n/NAME` from the `patient add` command.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Due to the number of commands, each command will follow the syntax of `*ENTITY ACTION [PARAMETERS]*`. For example, if you wanted to delete a patient, you would do something like `patient delete 3`.
 ====
-
+== Miscellaneous
 === Viewing help : `help`
+
+Directs you to this page.
 
 Format: `help`
 
-=== Adding a person: `add`
+== Basic Patient Features
+==== 
+*Basic Patient Features*
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+As a community nurse, you will often need to visit various patients at their homes. This section describes the features that will allow you to manage the list of patients and their information in the application. This section covers the management of patients and their data.
+====
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Listing All Patients: `patient list`
+You can see a list of all patients in the app by typing `patient list`.
+
+In the list displayed, each patient will have an *index* number which can then be used for other features that require you to select a patient by *index* e.g. `patient delete`. Take note that a patient will be given the same *index* regardless of other display commands such as `patient find`.
+
+Format: `patient list`
+
+=== Finding Patient(s): `patient find`
+
+You can find patients that fit the parameters given using `patient find`.
+
+In the list displayed, each patient will have an *index* number which can then be used for other features that require you to select a patient by *index* e.g. `patient delete`. Take note that a patient will be given the same *index* regardless of other display commands such as `patient list` or if different parameters are used.
+
+
+Format: `patient find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `patient find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+* Returns `john` and `John Doe`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Viewing a Patient: `patient view`
 
-=== Editing a person : `edit`
+You can see a patient's full details using `patient view`. The patient is selected by their *index*. This full details include everything from their todo list, medical conditions, prescriptions, notes, appointments etc.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `patient view INDEX`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* View the patient at the specified `INDEX`.
+* The index refers to the index number shown in the list of patients displayed by `patient list` or `patient find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `patient list` +
+`patient view 1`
+View the item with index number 1. This index can be found from the full list of patients.
+
+* `patient view 2`
+View the item with the index number 2.
+
+=== Adding a Patient: `patient add`
+
+You can add a patient to the list of all patients by using `patient add`.
+
+Format: `patient add pn/PATIENT_NAME pi/PATIENT_IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
+
+****
+ * A patient can have any number of tags.
+ * A patient can have next-of-kin contact details.
+ * Every patient is uniquely identified by their IC.
+ * Priority can take values from 0 to 10.
+****
+
+Examples:
+
+ * `patient add n/John Doe pi/S7012255C p/98765432 a/John street, block 123, #01-01`
+
+ * `patient add n/Choong Siew Hwang pi/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
+
+ * `patient add n/Betsy Crowe pi/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
+
+=== Editing a Patient: `patient edit`
+
+You can edit an existing patient in the app using `patient edit`.
+
+Format: `patient edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. 
+* The index refers to the index number shown in the list of patients displayed by `patient list` or `patient find`.
+* The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -89,89 +156,1193 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `patient list` +
+ `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person in the entire patient's list to be `91234567` and `johndoe@example.com` respectively.
+
+
 * `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Edits the name of the 2nd person with the index 1.`Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a Patient: `patient delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+You can delete a patient by *index* using `patient delete`.
+
+Format: `patient delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the patient at the specified `INDEX`.
+* The index refers to the index number shown in the list of patients displayed by `patient list` or `patient find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `patient list` +
+`patient delete 2` +
+Deletes the 2nd patient in the patient list.
+
+* `patient delete 1` +
+Deletes the patient which had been assigned the index 1.
 
 // end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+== Advanced Patient Features
+====
+*Advanced Patient Features*
 
-=== Exiting the program : `exit`
+On top of managing your patient data, you may need to assign patients to other items in the application e.g. medical conditions or medication. This section pertains to that.
+====
 
-Exits the program. +
-Format: `exit`
+=== Adding a Medical Condition to a Patient `patient add medcon`
 
-=== Saving the data
+You can add a medical condition to a patient using `patient add medcon`.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Format `patient add medcon p/PATIENT_INDEX m/MEDCON_INDEX`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* MEDCON_INDEX refers to the index of a medical condition (obtained using `medcon list` or `medcon find`).
+* If the medical condition can be found in the patient's list of medical conditions, then it will not be added.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+`patient add medcon p/1 m/2`
+Adds the medical condition that was assigned the index no. 2 to the patient that was assigned the index no. 1.
+
+=== Removing a Medical Condition from a Patient `patient rm medcon`
+
+You can remove a medical condition from a patient using `patient rm medcon`.
+
+Format: `patient rm medcon p/PATIENT_INDEX m/MEDCON_INDEX`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* MEDCON_INDEX refers to the index of a medical condition (obtained using `medcon list` or `medcon find`).
+* If the medical condition can be found in the patient's list of medical conditions, then it will be removed.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+`patient rm medcon p/1 m/2`
+Removes the medical condition that was assigned the index no. 2 from the patient that was assigned the index no. 1.
+
+=== Adding a Prescription to a Patient `patient add presc`
+
+You can add a prescription to a patient using `patient add presc`.
+
+You can view the list of prescriptions you add to a patient using `patient view`.
+
+Format `patient add presc p/PATIENT_INDEX m/MED_INDEX d/DOSAGE`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* MED_INDEX refers to the index of a medicine (obtained using `med list` or `med find`).
+* If the prescription can be found in the patient's list of prescriptions, then it will not be added.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+`patient add presc p/1 m/2 d/20mg 3 times a day`
+Prescribes the patient of index 1 the medicine of index 2 with a dosage of 20mg 3 times a day.
+
+=== Removing an Prescription from a Patient `patient rm presc`
+
+You can remove a prescription to a patient using `patient rm presc`.
+
+You can view the list of prescriptions of a patient using `patient view`.
+
+Format `patient rm presc p/PATIENT_INDEX pr/PRESCRIPTION_INDEX`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* PRESCRIPTION_INDEX refers to the index of a prescription (obtained using `patient view`).
+* If the prescription can be found in the patient's list of prescriptions, then it will be removed.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+`patient rm presc p/1 pr/2`
+Removes the 2nd prescription of the patient of index 1.
+
+=== Adding an Appointment to a Patient `patient add appt`
+//Can be based off adding & removing of prescriptions
+=== Removing an Appointment from a Patient `patient rm appt`
+//Can be based off adding & removing of prescriptions
+
+=== Assigning a Todo Template to a Patient `patient set todoform`
+//Can be based off adding & removing of medcon, but this is setting because a patient can only have 0..1 todo templates
+=== Unassigning a Todo Template from a Patient `patient unset todoform`
+//Can be based off adding & removing of medcon, but this is unsetting because a patient can only have 0..1 todo templates
+
+=== Adding an extra Todo to a Patient `patient add todo`
+
+You can add an extra todo item to the patient's visit todo list using `patient add todo`. This extra todo item will be added to the patient's list of extra todos.
+
+For more information on the differences between a patient's todo list template and extra todos, Refer to <<Visits>> for more elaboration.
+
+Format: `patient add todo p/PATIENT_INDEX t/TODO`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `patient add todo t/Check fridge for spoiled items` + 
+Adds a todo item "Check fridge for spoiled items" to the extra todo items list.
+
+=== Removing an extra Todo from a Patient `patient rm todo`
+
+You can remove an extra todo item from the patient's visit todo list using `patient rm todo`.
+
+Format: `patient rm todo p/PATIENT_INDEX t/TODO_INDEX`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* TODO_INDEX refers to the index of a todo item (obtained using `patient view`).
+* If the todo item can be found in the patient's list of todo items, then it will be removed.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+`patient rm todo p/1 pr/2`
+Removes the 2nd todo item of the patient of index 1.
+
+=== Adding a note to a Patient `patient add note`
+
+You can add a note to the patient's list of notes using `patient add note`.
+
+These notes are for you to take general notes on a patient. If you want to take notes on a specific visit / while you are visiting the patient, you will want to make an appointment with `patient add appt`, begin the appointment using `appt begin` and add details to the visit.
+
+Format: `patient add note p/PATIENT_INDEX t/NOTE`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `patient add note t/Check fridge for spoiled items` + 
+Adds a todo item "Check fridge for spoiled items" to the notes list.
+
+=== Removing a note from a Patient `patient rm note`
+
+You can remove a note from the patient's list of notes using `patient rm note`.
+
+Format: `patient rm note p/PATIENT_INDEX t/NOTE_INDEX`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* NOTE_INDEX refers to the index of a note (obtained using `patient view`).
+* If the note can be found in the patient's list of notes, then it will be removed.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+`patient rm note p/1 pr/2`
+Removes the 2nd note of the patient of index 1.
+
+== Medical Conditions [Parameters not updated]
+==== 
+*Medical Conditions*
+
+As a community nurse, you will often have to keep track of your patients' medical conditions. This section describes the features that will allow you to manage the full list of medical conditions, as well as the list of medical conditions of a patient.
+====
+
+=== Listing All Medical Conditions: `medcon list`
+You can see a list of all medical conditions in the app by typing `medcon list`.
+
+In the list displayed, each medical condition will have an *index* number which can then be used for other features that require you to select a medical condition by *index* e.g. `medcon delete`. Take note that a medical condition will be given the same *index* regardless of other display commands such as `medcon find`.
+
+Format: `medcon list`
+
+=== Finding Medical Condition(s): `medcon find`
+
+You can find medical conditions that fit the parameters given using `medcon find`.
+
+In the list displayed, each medical condition will have an *index* number which can then be used for other features that require you to select a medical condition by *index* e.g. `medcon delete`. Take note that a medical condition will be given the same *index* regardless of other display commands such as `medcon list` or if different parameters are used.
+
+
+Format: `medcon find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `medcon find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+
+* Returns `john` and `John Doe`
+
+=== Viewing a Medical Condition: `medcon view`
+
+You can see a medical condition's full details using `medcon view`. The medical condition is selected by their *index*.
+
+Format: `medcon view INDEX`
+
+****
+* View the medical condition at the specified `INDEX`.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon view 1`
+View the item with index number 1. This index can be found from the full list of medical conditions.
+
+* `medcon view 2`
+View the item with the index number 2.
+
+=== Adding a Medical Condition: `medcon add`
+
+You can add a medical condition to the list of all conditions by using `medcon add`.
+
+Format: `medcon add pn/PRESCRIPTION_NAME pi/PRESCRIPTION_IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
+
+****
+ * A medical condition can have any number of tags.
+ * A medical condition can have next-of-kin contact details.
+ * Every medical condition is uniquely identified by their IC.
+ * Priority can take values from 0 to 10.
+****
+
+Examples:
+
+ * `medcon add n/John Doe pi/S7012255C p/98765432 a/John street, block 123, #01-01`
+
+ * `medcon add n/Choong Siew Hwang pi/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
+
+ * `medcon add n/Betsy Crowe pi/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
+
+=== Editing a Medical Condition: `medcon edit`
+
+You can edit an existing medical condition in the app using `medcon edit`.
+
+Format: `medcon edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. 
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `medcon list` +
+ `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person in the entire medical condition's list to be `91234567` and `johndoe@example.com` respectively.
+
+
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person with the index 1.`Betsy Crower` and clears all existing tags.
+
+
+// tag::delete[]
+=== Deleting a Medical Condition: `medcon delete`
+
+You can delete a medical condition by *index* using `medcon delete`.
+
+Format: `medcon delete INDEX`
+
+****
+* Deletes the medical condition at the specified `INDEX`.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon delete 2` +
+Deletes the 2nd medical condition in the medical condition list.
+
+* `medcon delete 1` +
+Deletes the medical condition which had been assigned the index 1.
+
+// end::delete[]
+
+=== Deleting multiple Medical Conditions: `medcon delete` `[coming in V2.0]`
+
+You can delete a medical condition by *indexes* using `medcon delete`.
+
+Format: `medcon delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the medical condition at the specified `INDEX` es. You can put in as many indexes to delete as many medical conditions as you wish.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon delete 2` +
+Deletes the 2nd medical condition in the medical condition list.
+
+* `medcon delete 1 2` +
+Deletes the and 2nd medical conditions with which had been assigned the 1.command.
+
+== Medicines [Parameters not updated]
+==== 
+*Medicines*
+
+As a community nurse, you will often come across and use various medicines. This section describes the features that will allow you to manage the list of medicines and their information in the application.
+====
+
+=== Listing All Medicines: `med list`
+You can see a list of all medicines in the app by typing `med list`.
+
+In the list displayed, each medicine will have an *index* number which can then be used for other features that require you to select a medicine by *index* e.g. `med delete`. Take note that a medicine will be given the same *index* regardless of other display commands such as `med find`.
+
+Format: `med list`
+
+=== Finding Medicine(s): `med find`
+
+You can find medicines that fit the parameters given using `med find`.
+
+In the list displayed, each medicine will have an *index* number which can then be used for other features that require you to select a medicine by *index* e.g. `med delete`. Take note that a medicine will be given the same *index* regardless of other display commands such as `med list` or if different parameters are used.
+
+
+Format: `med find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `med find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+
+* Returns `john` and `John Doe`
+
+=== Viewing a Medicine: `med view`
+
+You can see a medicine's full details using `med view`. The medicine is selected by their *index*.
+
+Format: `med view INDEX`
+
+****
+* View the medicine at the specified `INDEX`.
+* The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `med list` +
+`med view 1`
+View the item with index number 1. This index can be found from the full list of medicines.
+
+* `med view 2`
+View the item with the index number 2..
+=== Adding a Medicine: `med add`
+
+You can add a medicine to the list of all medicines by using `med add`.
+
+Format: `med add pn/MEDICINE_NAME pi/MEDICINE_IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
+
+****
+ * A medicine can have any number of tags.
+ * A medicine can have next-of-kin contact details.
+ * Every medicine is uniquely identified by their IC.
+ * Priority can take values from 0 to 10.
+****
+
+Examples:
+
+ * `med add n/John Doe pi/S7012255C p/98765432 a/John street, block 123, #01-01`
+
+ * `med add n/Choong Siew Hwang pi/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
+
+ * `med add n/Betsy Crowe pi/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
+
+=== Editing a Medicine: `med edit`
+
+You can edit an existing medicine in the app using `med edit`.
+
+Format: `med edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. 
+* The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `med list` +
+ `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person in the entire medicine's list to be `91234567` and `johndoe@example.com` respectively.
+
+
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person with the index 1.Crower` and clears all existing tags.
+
+
+// tag::delete[]
+=== Deleting a Medicine: `med delete`
+
+You can delete a medicine by *index* using `med delete`.
+
+Format: `med delete INDEX`
+
+****
+* Deletes the medicine at the specified `INDEX`.
+* The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `med list` +
+`med delete 2` +
+Deletes the 2nd medicine in the medicine list.
+
+* `med delete 1` +
+Deletes the medicine which had been assigned the index 1.
+
+// end::delete[]
+
+=== Deleting multiple Medicines: `med delete` `[coming in V2.0]`
+
+You can delete a medicine by *indexes* using `med delete`.
+
+Format: `med delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the medicine at the specified `INDEX` es. You can put in as many indexes to delete as many medicines as you wish.
+* The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `med list` +
+`med delete 2` +
+Deletes the 2nd medicine in the medicine list.
+
+* `med delete 1 2` +
+Deletes the and 2nd medicines which had been assigned the index 1.
+
+== Appointments [Parameters not updated]
+==== 
+*Appointments*
+
+As a community nurse, you will often make home visits to your patients. and keep track of these appointments you make with your patients. You can use the application to manage and keep track of these appointments. This section describes the features that will allow you to manage your appointments.
+====
+
+=== Listing All Appointments: `appt list`
+You can see a list of all appointments in the app by typing `appt list`.
+
+In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt find`.
+
+Format: `appt list`
+
+=== Finding Appointment(s): `appt find`
+
+You can find appointments that fit the parameters given using `appt find`.
+
+In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt list` or if different parameters are used.
+
+
+Format: `appt find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `appt find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+
+* Returns `john` and `John Doe`
+
+=== Viewing an Appointment: `appt view`
+
+You can see an appointment's full details using `appt view`. The appointment is selected by their *index*.
+
+Format: `appt view INDEX`
+
+****
+* View the appointment at the specified `INDEX`.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `appt list` +
+`appt view 1`
+View the item with index number 1. This index can be found from the full list of appointments.
+
+* `appt view 2`
+View the item with the index number 2.
+
+=== Listing the next earliest Appointments: `appt next`
+
+You can list the next earliest appointments using `appt next`.
+
+Format: `appt next NUMBER`
+
+Examples: 
+
+`appt next 3` + 
+Displays the next 3 earliest appointments sorted by time.
+
+=== Editing an Appointment: `appt edit`
+
+You can edit an existing appointment in the app using `appt edit`.
+
+Format: `appt edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. 
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `appt list` +
+ `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person in the entire appointment's list to be `91234567` and `johndoe@example.com` respectively.
+
+
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person with the index 1.`Betsy Crower` and clears all existing tags.
+
+
+// tag::delete[]
+=== Deleting an Appointment: `appt delete`
+
+You can delete an appointment by *index* using `appt delete`.
+
+Format: `appt delete INDEX`
+
+****
+* Deletes the appointment at the specified `INDEX`.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `appt list` +
+`appt delete 2` +
+Deletes the 2nd appointment in the appointment list.
+
+* `appt delete 1` +
+Deletes the appointment which had been assigned the index 1.
+
+// end::delete[]
+
+=== Beginning an Appointment: `appt begin`
+
+You can begin an appointment (i.e. begin a house visit) by *index* using `appt begin`. 
+
+Format: `appt begin INDEX`
+
+OR
+
+If you want to begin the next appointment that you will have, you can begin the next appointment using `appt begin next`.
+
+****
+* Begins the appointment at the specified `INDEX` if using `INDEX`. If using `appt begin next`, begins the next appointment (the appointment that will happen the soonest). 
+* Beginning an appointment converts it into a visit. This allows you to use the visit's todo list as well as add details to the visit, before finally archiving the visit by marking it as finished using `visit finish`.
+* The appointment you are beginning must start within the next 3 hours (you cannot begin an appointment too early in advance). 
+* When you begin an appointment, the visit time will be updated using your system clock to reflect the actual start of the visit.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples: 
+
+* `appt next 2` +
+`appt begin 2` +
+Begins the 2nd earliest appointment (as shown by `appt next 2`).
+
+* `appt begin next` +
+Begins the next earliest appointment.
+
+=== Deleting multiple Appointments: `appt delete` `[coming in V2.0]`
+
+You can delete an appointment by *indexes* using `appt delete`.
+
+Format: `appt delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the appointment at the specified `INDEX` es. You can put in as many indexes to delete as many appointments as you wish.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `appt list` +
+`appt delete 2` +
+Deletes the 2nd appointment in the appointment list.
+
+* `appt delete 1 2` +
+Deletes the and 2nd appointments which had been assigned the index 1.
+
+== Visits [Parameters not updated]
+==== 
+*Visits*
+
+As a community nurse, you will often make home visits to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. You can use the application to mark the items you have done in a visit and add further details and notes about a visit (e.g. about a patient's symptoms). This section describes the features that will allow you to keep track of what you have to do during a visit and manage previous visits.
+
+****
+ * Adding of Visits is unallowed in the app because a community nurse should make an appointment with the patient before making a visit.
+****
+====
+
+=== Listing All Visits: `visit list`
+You can see a list of all visits in the app by typing `visit list`.
+
+In the list displayed, each visit will have an *index* number which can then be used for other features that require you to select a visit by *index* e.g. `visit delete`. Take note that a visit will be given the same *index* regardless of other display commands such as `visit find`.
+
+Format: `visit list`
+
+=== Finding Visit(s): `visit find`
+
+You can find visits that fit the parameters given using `visit find`.
+
+In the list displayed, each visit will have an *index* number which can then be used for other features that require you to select a visit by *index* e.g. `visit delete`. Take note that a visit will be given the same *index* regardless of other display commands such as `visit list` or if different parameters are used.
+
+
+Format: `visit find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `visit find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+
+* Returns `john` and `John Doe`
+
+=== Viewing a Visit: `visit view`
+
+You can see a visit's full details using `visit view`. The visit is selected by their *index*.
+
+Format: `visit view INDEX`
+
+****
+* View the visit at the specified `INDEX`.
+* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `visit list` +
+`visit view 1`
+View the item with index number 1. This index can be found from the full list of visits.
+
+* `visit view 2`
+View the item with the index number 2.
+
+=== Viewing the current Visit: `visit now`
+
+If you are currently visiting a patient, you can see the current visit's full details using `visit now`.
+
+Format: `visit now`
+
+=== Set details of a Todo Item of current Visit: `visit now todo note`
+
+You can set the details of a todo item of a current visit using `visit now todo note`.
+
+As a community nurse, some todo items require you to record some details (e.g. a todo item of "take blood pressure" would require you to record the blood pressure). If the index of the todo note is 2, you can do something like `visit now todo note t/2 n/120 over 80 mm HG`.
+
+Format: `visit now todo note t/INDEX n/NOTE`
+
+=== Mark a Todo Item of current Visit as done: `visit now todo done`
+//By index
+
+=== Add a note to the current Visit: `visit now add note`
+//Add a generic note to the current visit
+=== Remove a note from the current Visit: `visit now rm note`
+
+=== Finishing a Visit: `visit finish`
+
+If you have just finished your home visit to a patient, you can mark the visit as finished using `visit finish`.
+
+Format: `visit finish`.
+
+// tag::delete[]
+=== Deleting a Visit: `visit delete`
+
+You can delete a visit by *index* using `visit delete`.
+
+Format: `visit delete INDEX`
+
+****
+* Deletes the visit at the specified `INDEX`.
+* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `visit list` +
+`visit delete 2` +
+Deletes the 2nd visit in the visit list.
+
+* `visit delete 1` +
+Deletes the visit which had been assigned the index 1.
+// end::delete[]
+
+=== Deleting multiple Visits: `visit delete` `[coming in V2.0]`
+
+You can delete a visit by *indexes* using `visit delete`.
+
+Format: `visit delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the visit at the specified `INDEX` es. You can put in as many indexes to delete as many visits as you wish.
+* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `visit list` +
+`visit delete 2` +
+Deletes the 2nd visit in the visit list.
+
+* `visit delete 1 2` +
+Deletes the and 2nd visits which had been assigned the index 1.
+
+== Todo Templates [Parameters not updated]
+==== 
+*Todo Templates*
+
+As a community nurse, you will often use a todo list to keep track of things that you have (and have not) done during a visit. It is tedious, however, to add multiple things to do / take note of for every patient; in fact, there may be many duplicated items.
+
+To simplify the process, you can create a reusable checklist that you can then assign to your patients. We call this reusable checklist a "todo template" This section describes the features that will allow you to streamline the management of todo templates of your patients.
+====
+
+=== Listing All Todo Templates: `todoform list`
+You can see a list of all todo templates in the app by typing `todoform list`.
+
+In the list displayed, each todo template will have an *index* number which can then be used for other features that require you to select a todo template by *index* e.g. `todoform delete`. Take note that a todo template will be given the same *index* regardless of other display commands such as `todoform find`.
+
+Format: `todoform list`
+
+=== Finding Todo Template(s): `todoform find`
+
+You can find todo templates that fit the parameters given using `todoform find`.
+
+In the list displayed, each todo template will have an *index* number which can then be used for other features that require you to select a todo template by *index* e.g. `todoform delete`. Take note that a todo template will be given the same *index* regardless of other display commands such as `todoform list` or if different parameters are used.
+
+
+Format: `todoform find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `todoform find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+
+* Returns `john` and `John Doe`
+
+=== Viewing a Todo Template: `todoform view`
+
+You can see a todo template's full details using `todoform view`. The todo template is selected by their *index*.
+
+Format: `todoform view INDEX`
+
+****
+* View the todo template at the specified `INDEX`.
+* The index refers to the index number shown in the list of todo templates displayed by `todoform list` or `todoform find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `todoform list` +
+`todoform view 1`
+View the item with index number 1. This index can be found from the full list of todo templates.
+
+* `todoform view 2`
+View the item with the index number 2.
+
+=== Adding a Todo Template: `todoform add`
+
+You can add a todo template to the list of all templates by using `todoform add`.
+
+Format: `todoform add pn/PRESCRIPTION_NAME pi/PRESCRIPTION_IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
+
+****
+ * a todo template can have any number of tags.
+ * a todo template can have next-of-kin contact details.
+ * Every todo template is uniquely identified by their IC.
+ * Priority can take values from 0 to 10.
+****
+
+Examples:
+
+ * `todoform add n/John Doe pi/S7012255C p/98765432 a/John street, block 123, #01-01`
+
+ * `todoform add n/Choong Siew Hwang pi/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
+
+ * `todoform add n/Betsy Crowe pi/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
+
+=== Editing a Todo Template: `todoform edit`
+
+You can edit an existing todo template in the app using `todoform edit`.
+
+Format: `todoform edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. 
+* The index refers to the index number shown in the list of todo templates displayed by `todoform list` or `todoform find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `todoform list` +
+ `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person in the entire todo template's list to be `91234567` and `johndoe@example.com` respectively.
+
+
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person with the index 1.`Betsy Crower` and clears all existing tags.
+
+
+// tag::delete[]
+=== Deleting a Todo Template: `todoform delete`
+
+You can delete a todo template by *index* using `todoform delete`.
+
+Format: `todoform delete INDEX`
+
+****
+* Deletes the todo template at the specified `INDEX`.
+* The index refers to the index number shown in the list of todo templates displayed by `todoform list` or `todoform find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `todoform list` +
+`todoform delete 2` +
+Deletes the 2nd todo template in the todo template list.
+
+* `todoform delete 1` +
+Deletes the todo template which had been assigned the index 1.
+
+// end::delete[]
+
+=== Deleting multiple Todo Templates: `todoform delete` `[coming in V2.0]`
+
+You can delete a todo template by *indexes* using `todoform delete`.
+
+Format: `todoform delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the todo template at the specified `INDEX` es. You can put in as many indexes to delete as many todo templates as you wish.
+* The index refers to the index number shown in the list of todo templates displayed by `todoform list` or `todoform find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `todoform list` +
+`todoform delete 2` +
+Deletes the 2nd todo template in the todo template list.
+
+* `todoform delete 1 2` +
+Deletes the and 2nd todo templates with which had been assigned the 1.command.
+
+== Autocomplete
+==== 
+*Autocomplete*
+
+As a community nurse, you will be performing several commands through the Command Line Interface (CLI). In order to speed up the process, the application includes an autocomplete feature that allows you to more quickly and conveniently input your commands and parameters. This section describes the feature in further detail.
+====
+
+== Data Saving, Undo, Redo
+==== 
+*Data Saving, Undo, Redo*
+
+As a community nurse, you will often perform commands that modify information managed by the application (e.g. patient data). This section describes the features involving the storage of this data and features involving undo-ing / redo-ing commands.
+====
+
+=== Saving your data
+
+Your data are saved in the hard disk automatically after any command that changes the data.
+
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Undoing a command: `undo`
 
-_{explain how the user can enable/disable data encryption}_
+You can undo the changes of the last executed command that alters data using `undo`. 
+
+Up to the last 3(?) commands can be undone. 
+
+The command `undo` itself cannot be undone.
+
+Format: `undo`
+
+=== Redoing an undone command: `redo`
+
+You can redo and reapply the changes of the last undone command using `redo`. 
+
+Can only be used if the last data altering command is `undo`.
+Up to the last 3(?) undone commands can be redone.
+
+Format: `redo`
+
+== Importing and Exporting of Patient Data
+==== 
+*Importing and Exporting of Patient Data*
+
+As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses. To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
+====
+
+=== Importing patient data from a CSV file: `import`
+
+You can import patient data from a .csv file into the application using `import`.
+
+****
+ * Only the file format .csv is supported.
+ * The application will look for filename.csv in the ./import folder.
+ * Imported data can either replace or be combined with existing data.
+ * The .csv file must adhere to the following format: `example.csv`.
+****
+
+Format: `import [flag]/ filename.csv
+	 flag: r/ (replace) or c/ (combine) `
+
+Examples:
+ 
+ * `import r/ my_patients.csv`
+ * `import c/ my_new_patients.csv`
+
+=== Exporting data into .csv: `export`
+
+You can export patient data from the application into a .csv file using `export`.
+
+****
+ * Only the file format .csv is supported.
+ * Creates filename.csv in the ./export folder
+ * Exported data will be in the following format: example.csv
+ * Patient data can be selectively exported (?)
+****
+
+Format: `export filename.csv [flag?] [num...]
+	 flag: r/ (range) or i/ (indexes)`
+
+Examples:
+
+ * `export patients.csv`
+ * `export patients.csv r/ 5 10`
+ * `export patients.csv i/ 2 4 6 7 10`
+
+
+== Notifications
+==== 
+*Notifications*
+
+As a community nurse, you will often have deadlines to meet or appointments for home visits. You can schedule the application to notify you for these deadlines/events. This section describes the features that will allow you to manage such notifications.
+====
+
+=== Enabling the Notifications `notif enable`
+
+You can enable notifications for upcoming appointments using `notif enable`.
+
+Format: `notif enable`
+
+=== Disabling the Notifications `notif disable`
+
+You can disable notifications for upcoming appointments using `notif disable`.
+
+Format: `notif disable`
+
+=== Setting the Notification Time ahead of Appointments: `notif apptalert`
+
+By default, the application will prompt a notification 30 minutes before any of your appointments. You can change that using `notif apptalert`.
+
+Format: `notif apptalert m/MINUTES_BEFORE_APPOINTMENT`
+
+****
+ * The application will prompt a notification `MINUTES_BEFORE_APPOINTMENT` minutes before any of your appointments.
+ * `MINUTES_BEFORE_APPOINTMENT` is 30 minutes by default.
+****
+
+=== Listing all Notifications: `notif list`
+
+You can see the list of your notifications using `notif list`.
+
+Format: `notif list`
+
+=== Finding Notification(s): `notif find`
+
+You can find notifications that fit the parameters given using `notif find`.
+
+In the list displayed, each notification will have an *index* number which can then be used for other features that require you to select a notification by *index* e.g. `notif delete`. Take note that a notification will be given the same *index* regardless of other display commands such as `notif find` or if different parameters are used.
+
+Format: `notif find [n/NAME] [b/BODY] [d/DATE(DD-MM-YYYY)] [t/TIME(HH:mm)]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+
+* 
+=== Adding a Notification: `notif add`
+
+You can add your own notifications (that are not attached to any appointments) using `notif add`.
+
+Format: `notif add n/NAME b/BODY d/DATE(DD-MM-YYYY) t/TIME(HH:mm)`
+
+Example: `notif add n/Call Terry b/Remind Terry to take his medicine d/23-03-2019 t/13:00`
+
+// tag::delete[]
+=== Deleting a Notification: `notif delete`
+
+You can delete a notification by *index* using `notif delete`.
+
+Format: `notif delete INDEX`
+
+****
+* Deletes the notification at the specified `INDEX`.
+* The index refers to the index number shown in the list of notifications displayed by `notif list` or `notif find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Notifications that were added because of an appointment can be deleted.
+****
+
+Examples:
+
+* `notif list` +
+`notif delete 2` +
+Deletes the 2nd notification in the notification list.
+
+* `notif delete 1` +
+Deletes the notification which had been assigned the index 1.
+
+// end::delete[]
+
+== Login System & Security
+==== 
+*Login System & Security*
+
+As a community nurse, you will often be managing your patients' confidential data. A login system will be useful in helping you to ensure the confidentiality and security of your patients' information. This section describes the features that will allow you to manage this security system.
+====
+
+=== Enabling the Login System `login enable`
+
+If you haven't setup a login PIN, you can enable the login system by setting a login pin using `login enable`.
+
+Format: `login enable PIN`
+
+****
+ * The PIN is a series of 6 alphanumeric characters (case sensitive).
+****
+
+=== Disabling the Login System `login disable`
+
+If you have setup a login PIN, you can disable the login system using `login disable`.
+
+Format: `login disable CURRENT_PIN`
+
+****
+ * CURRENT_PIN refers to the PIN that you use to login.
+ * CURRENT_PIN is a series of 6 alphanumeric characters (case sensitive).
+****
+
+=== Changing the Login Pin `login changepin`
+
+If you have setup a login PIN, you can change the pin using `login changepin`.
+
+Format: `login changepin o/OLD_PIN n/NEW_PIN`
+
+****
+ * OLD_PIN refers to the PIN that you use to login.
+ * NEW_PIN refers to the new PIN that you want to use in the future.
+ * OLD_PIN and NEW_PIN are a series of 6 alphanumeric characters (case sensitive).
+****
+
+=== Locking the Application `login lock`
+
+If you have setup a login PIN, you can lock the application using `login lock`.
+
+Format: `login lock`
+
+=== Changing Login Lock Timeout `login timeout`
+
+If you have setup a login PIN, you can change the amount of time (in minutes) before the system automatically locks the application using `login timeout`.
+
+Format: `login timeout MINUTES`
+
+Example: `login timeout 3` will configure the system to automatically lock the application after 3 minutes.
+
+=== Logging in / Unlocking the Application
+
+On the lock screen you will be prompted to enter your PIN. Once you enter the correct and press kbd:[Enter], the application will unlock.
+
+
+// tag::dataencryption[]
+=== Data Encryption `[coming in v2.0]`
+
+The save files of the application will be automatically encrypted using your PIN.
 // end::dataencryption[]
 
-== FAQ
+== Exiting the program : `exit`
+
+You can exit the program using `exit`. +
+Format: `exit`
+
+= FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
