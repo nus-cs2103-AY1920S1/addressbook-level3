@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -19,12 +19,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Rating;
 import seedu.address.model.person.Answer;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Question;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -41,7 +41,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ANSWER + "ANSWER] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_RATING + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_CATEGORY + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ANSWER + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -97,9 +97,9 @@ public class EditCommand extends Command {
         Answer updatedAnswer = editPersonDescriptor.getAnswer().orElse(personToEdit.getAnswer());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Rating updatedRating = editPersonDescriptor.getRating().orElse(personToEdit.getRating());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(personToEdit.getCategories());
 
-        return new Person(updatedQuestion, updatedAnswer, updatedEmail, updatedRating, updatedTags);
+        return new Person(updatedQuestion, updatedAnswer, updatedEmail, updatedRating, updatedCategories);
     }
 
     @Override
@@ -129,27 +129,27 @@ public class EditCommand extends Command {
         private Answer answer;
         private Email email;
         private Rating rating;
-        private Set<Tag> tags;
+        private Set<Category> categories;
 
         public EditPersonDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code categories} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setQuestion(toCopy.question);
             setAnswer(toCopy.answer);
             setEmail(toCopy.email);
             setRating(toCopy.rating);
-            setTags(toCopy.tags);
+            setCategories(toCopy.categories);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, answer, email, rating, tags);
+            return CollectionUtil.isAnyNonNull(question, answer, email, rating, categories);
         }
 
         public void setQuestion(Question question) {
@@ -185,20 +185,20 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code categories} to this object's {@code categories}.
+         * A defensive copy of {@code categories} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setCategories(Set<Category> categories) {
+            this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code categories} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Category>> getCategories() {
+            return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
         }
 
         @Override
@@ -220,7 +220,7 @@ public class EditCommand extends Command {
                     && getAnswer().equals(e.getAnswer())
                     && getEmail().equals(e.getEmail())
                     && getRating().equals(e.getRating())
-                    && getTags().equals(e.getTags());
+                    && getCategories().equals(e.getCategories());
         }
     }
 }

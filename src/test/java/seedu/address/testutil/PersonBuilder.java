@@ -3,12 +3,12 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Rating;
 import seedu.address.model.person.Answer;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Question;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -25,14 +25,14 @@ public class PersonBuilder {
     private Answer answer;
     private Email email;
     private Rating rating;
-    private Set<Tag> tags;
+    private Set<Category> categories;
 
     public PersonBuilder() {
         question = new Question(DEFAULT_QUESTION);
         answer = new Answer(DEFAULT_ANSWER);
         email = new Email(DEFAULT_EMAIL);
         rating = new Rating(DEFAULT_RATING);
-        tags = new HashSet<>();
+        categories = new HashSet<>();
     }
 
     /**
@@ -43,7 +43,7 @@ public class PersonBuilder {
         answer = personToCopy.getAnswer();
         email = personToCopy.getEmail();
         rating = personToCopy.getRating();
-        tags = new HashSet<>(personToCopy.getTags());
+        categories = new HashSet<>(personToCopy.getCategories());
     }
 
     /**
@@ -55,10 +55,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public PersonBuilder withTags(String ... categories) {
+        this.categories = SampleDataUtil.getTagSet(categories);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(question, answer, email, rating, tags);
+        return new Person(question, answer, email, rating, categories);
     }
 
 }

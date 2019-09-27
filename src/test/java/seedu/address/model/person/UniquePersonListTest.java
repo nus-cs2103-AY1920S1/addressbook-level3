@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
 import static seedu.address.testutil.TypicalPersons.NUS;
@@ -42,7 +42,7 @@ public class UniquePersonListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(STORE_AND_FORWARD);
-        Person editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_CATEGORY_HISTORY)
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
@@ -85,7 +85,7 @@ public class UniquePersonListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(STORE_AND_FORWARD);
-        Person editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_CATEGORY_HISTORY)
                 .build();
         uniquePersonList.setPerson(STORE_AND_FORWARD, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();

@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
 import static seedu.address.testutil.TypicalPersons.NUS;
@@ -20,7 +20,7 @@ public class PersonTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> person.getCategories().remove(0));
     }
 
     @Test
@@ -41,16 +41,16 @@ public class PersonTest {
 
         // same name, same answer, different attributes -> returns true
         editedAlice = new PersonBuilder(STORE_AND_FORWARD).withEmail(VALID_EMAIL_BOB).withRating(VALID_RATING_2)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_CATEGORY_HISTORY).build();
         assertTrue(STORE_AND_FORWARD.isSamePerson(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice = new PersonBuilder(STORE_AND_FORWARD).withAnswer(VALID_ANSWER_2).withRating(VALID_RATING_2)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_CATEGORY_HISTORY).build();
         assertTrue(STORE_AND_FORWARD.isSamePerson(editedAlice));
 
         // same name, same answer, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_CATEGORY_HISTORY).build();
         assertTrue(STORE_AND_FORWARD.isSamePerson(editedAlice));
     }
 
@@ -88,8 +88,8 @@ public class PersonTest {
         editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).build();
         assertFalse(STORE_AND_FORWARD.equals(editedAlice));
 
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withTags(VALID_TAG_HUSBAND).build();
+        // different categories -> returns false
+        editedAlice = new PersonBuilder(STORE_AND_FORWARD).withTags(VALID_CATEGORY_HISTORY).build();
         assertFalse(STORE_AND_FORWARD.equals(editedAlice));
     }
 }

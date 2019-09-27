@@ -5,19 +5,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Rating;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Question;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Answer;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,7 +31,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_EMAIL, PREFIX_RATING, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_EMAIL, PREFIX_RATING, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_RATING, PREFIX_ANSWER, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -42,9 +42,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
-        Person person = new Person(question, answer, email, rating, tagList);
+        Person person = new Person(question, answer, email, rating, categoryList);
 
         return new AddCommand(person);
     }

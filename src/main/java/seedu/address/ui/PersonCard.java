@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane categories;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -49,9 +49,9 @@ public class PersonCard extends UiPart<Region> {
         answer.setText(person.getAnswer().fullAnswer);
         rating.setText(person.getRating().value);
         email.setText(person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getCategories().stream()
+                .sorted(Comparator.comparing(category -> category.categoryName))
+                .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override

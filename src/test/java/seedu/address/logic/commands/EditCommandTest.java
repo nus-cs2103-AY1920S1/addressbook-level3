@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -55,10 +55,10 @@ public class EditCommandTest {
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withQuestion(VALID_QUESTION_2).withAnswer(VALID_ANSWER_2)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_CATEGORY_HISTORY).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withQuestion(VALID_QUESTION_2)
-                .withAnswer(VALID_ANSWER_2).withTags(VALID_TAG_HUSBAND).build();
+                .withAnswer(VALID_ANSWER_2).withCategories(VALID_CATEGORY_HISTORY).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);

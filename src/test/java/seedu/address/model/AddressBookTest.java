@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -46,7 +46,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_CATEGORY_HISTORY)
                 .build();
         List<Person> newPersons = Arrays.asList(STORE_AND_FORWARD, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
@@ -73,7 +73,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(STORE_AND_FORWARD);
-        Person editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2).withTags(VALID_CATEGORY_HISTORY)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }

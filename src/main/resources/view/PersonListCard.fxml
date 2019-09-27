@@ -27,7 +27,7 @@
         </Label>
         <Label fx:id="question" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <FlowPane fx:id="tags" />
+      <FlowPane fx:id="categories" />
       <Label fx:id="answer" styleClass="cell_small_label" text="\$answer" />
       <Label fx:id="rating" styleClass="cell_small_label" text="\$rating" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />

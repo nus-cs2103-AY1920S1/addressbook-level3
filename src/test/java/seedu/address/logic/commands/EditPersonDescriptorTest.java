@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,8 +51,8 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_1).withRating(VALID_RATING_2).build();
         assertFalse(DESC_1.equals(editedAmy));
 
-        // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_1).withTags(VALID_TAG_HUSBAND).build();
+        // different categories -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_1).withCategories(VALID_CATEGORY_HISTORY).build();
         assertFalse(DESC_1.equals(editedAmy));
     }
 }
