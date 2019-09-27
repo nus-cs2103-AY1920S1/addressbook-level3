@@ -72,33 +72,33 @@ Examples:
 
 * `nameue y1s1 GER1000`
 
-==== Moving a module from one semester to another. move
+==== Moving a module from one semester to another. `move`
 Moves a given module from a source semester to a destination semester, as specified. +
 Format: `move MODULE SEMESTER_SRC SEMESTER_DEST`  +
 Examples:
 
 * `move CS3243 y2s1 y2s2`
 
-==== Setting the current semester. setcurrent
+==== Setting the current semester. `setcurrent`
 Sets the given semester as the current one. Semesters before the specified semester will be locked and therefore modules cannot be added or removed from them. +
 Format: `setcurrent SEMESTER` +
 Examples:
 
 * `setcurrent y1s2`
 
-==== Blocking off the given semester: block
+==== Blocking off the given semester: `block`
 Block off the given semester, for reasons such as exchange, LOA, etc. +
 Format:  `block SEMESTER [REASON]`
 
-==== Undo-ing the previous command: undo
+==== Undo-ing the previous command: `undo`
 Undo the previous command. The state of the application will revert back to that before the previous command. This command cannot undo itself. +
 Format: `undo`
 
-==== Redo-ing the previous undone command: redo
+==== Redo-ing the previous undone command: `redo`
 Redo the previous undone command. The state of the application will revert back to that before the undo. This command cannot redo itself. +
 Format:  `redo`
 
-==== Declaring a focus area: declarefocusarea
+==== Declaring a focus area: `declarefocusarea`
 Declares the given focus area as one of the focus areas of the study plan. This means that the requirements of the focus area has to be met to be eligible for graduation. +
 Format: `declarefocusarea FOCUS_AREA`
 
