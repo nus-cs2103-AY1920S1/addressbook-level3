@@ -5,9 +5,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -23,35 +23,35 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    public static final Person NEWTON = new PersonBuilder().withQuestion("What is Newton 2nd Law of motion")
+    public static final Person STORE_AND_FORWARD = new PersonBuilder().withQuestion("Store-and-forward")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253")
+            .withAnswer("Entire packet must arrive ar a router before it can be transmitted on the next link")
             .withTags("friends").build();
-    public static final Person ACCELERATION = new PersonBuilder().withQuestion("What is acceleration")
+    public static final Person DELAY = new PersonBuilder().withQuestion("End-to-end delay")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
+            .withEmail("johnd@example.com").withAnswer("2L/R (assuming no other delay)")
             .withTags("owesMoney", "friends").build();
-    public static final Person QUICK = new PersonBuilder().withQuestion("What is quick sort?").withPhone("95352563")
+    public static final Person SOURCE_DELAY = new PersonBuilder().withQuestion("Sources of Packet Delay?").withAnswer("Nodal processing, queuing, transmission, propagation")
             .withEmail("heinz@example.com").withAddress("wall street").build();
-    public static final Person MERGE = new PersonBuilder().withQuestion("What is merge sort").withPhone("87652533")
+    public static final Person PROP_DALAY = new PersonBuilder().withQuestion("Formula for propagation delay").withAnswer("d, length of physical link (m) / s, progagation speed in medium (~2x10^8 m/sec) ")
             .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
-    public static final Person SELECTION = new PersonBuilder().withQuestion("What is selection sort").withPhone("9482224")
+    public static final Person TRANS_DELAY = new PersonBuilder().withQuestion("Formula for transmission delay").withAnswer("L, packet length (bits) / R, link bandwidth (bps)")
             .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Person BUBBLE = new PersonBuilder().withQuestion("What is bubble sort").withPhone("9482427")
+    public static final Person THROUGHPUT = new PersonBuilder().withQuestion("Throughput definition").withAnswer("How many bits can be transmitted per unit time")
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Person SSSP = new PersonBuilder().withQuestion("SSSP definition").withPhone("9482442")
+    public static final Person PROTOCOL = new PersonBuilder().withQuestion("What is a Protocol").withAnswer("Protocols define format and order of messages exchanged and the action taken after messages are sent or received")
             .withEmail("anna@example.com").withAddress("4th street").build();
 
     // Manually added
-    public static final Person GREETING = new PersonBuilder().withQuestion("How are you?").withPhone("8482424")
+    public static final Person GREETING = new PersonBuilder().withQuestion("How are you?").withAnswer("I am fine, thank you and you?")
             .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Person SUM = new PersonBuilder().withQuestion("1 + 1 = ").withPhone("8482131")
+    public static final Person SUM = new PersonBuilder().withQuestion("1 + 1 = ").withAnswer("2")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person WWII = new PersonBuilder().withQuestion(VALID_QUESTION_1).withPhone(VALID_PHONE_AMY)
+    public static final Person WWII = new PersonBuilder().withQuestion(VALID_QUESTION_1).withAnswer(VALID_ANSWER_1)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Person NUS = new PersonBuilder().withQuestion(VALID_QUESTION_2).withPhone(VALID_PHONE_BOB)
+    public static final Person NUS = new PersonBuilder().withQuestion(VALID_QUESTION_2).withAnswer(VALID_ANSWER_2)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
@@ -71,6 +71,6 @@ public class TypicalPersons {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(NEWTON, ACCELERATION, QUICK, MERGE, SELECTION, BUBBLE, SSSP));
+        return new ArrayList<>(Arrays.asList(STORE_AND_FORWARD, DELAY, SOURCE_DELAY, PROP_DALAY, TRANS_DELAY, THROUGHPUT, PROTOCOL));
     }
 }

@@ -1,44 +1,44 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
-    "question" : "What is Newton 2nd Law of motion",
-    "phone" : "94351253",
+    "question" : "Store-and-forward",
+    "answer": "Entire packet must arrive ar a router before it can be transmitted on the next link",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ "friends" ]
   }, {
-    "question" : "What is acceleration",
-    "phone" : "98765432",
+    "question" : "End-to-end delay",
+    "answer": "2L/R (assuming no other delay)",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
-    "question" : "What is quick sort?",
-    "phone" : "95352563",
+    "question" : "Sources of Packet Delay?",
+    "answer": "Nodal processing, queuing, transmission, propagation",
     "email" : "heinz@example.com",
     "address" : "wall street",
     "tagged" : [ ]
   }, {
-    "question" : "What is merge sort",
-    "phone" : "87652533",
+    "question" : "Formula for propagation delay",
+    "answer": "d, length of physical link (m) / s, progagation speed in medium (~2x10^8 m/sec) ",
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "tagged" : [ "friends" ]
   }, {
-    "question" : "What is selection sort",
-    "phone" : "9482224",
+    "question" : "Formula for transmission delay",
+    "answer": "L, packet length (bits) / R, link bandwidth (bps)",
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "tagged" : [ ]
   }, {
-    "question" : "What is bubble sort",
-    "phone" : "9482427",
+    "question" : "Throughput definition",
+    "answer": "How many bits can be transmitted per unit time",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "tagged" : [ ]
   }, {
-    "question" : "SSSP definition",
-    "phone" : "9482442",
+    "question" : "What is a Protocol",
+    "answer": "Protocols define format and order of messages exchanged and the action taken after messages are sent or received",
     "email" : "anna@example.com",
     "address" : "4th street",
     "tagged" : [ ]

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -27,9 +27,9 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_QUESTION_1 = "When is WWII?";
-    public static final String VALID_QUESTION_2 = "Whe is NUS?";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_QUESTION_2 = "Where is NUS?";
+    public static final String VALID_ANSWER_1 = "1 September 1939 – 2 September 1945";
+    public static final String VALID_ANSWER_2 = "Kent Ridge";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
@@ -39,8 +39,8 @@ public class CommandTestUtil {
 
     public static final String QUESTION_DESC_1 = " " + PREFIX_QUESTION + VALID_QUESTION_1;
     public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
+    public static final String ANSWER_DESC_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
@@ -48,8 +48,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + " "; // '&' not allowed in questions
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + " "; // ' ' not allowed in questions
+    public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER + " "; // ' ' not allowed in answers
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -57,15 +57,15 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditPersonDescriptor DESC_1;
+    public static final EditCommand.EditPersonDescriptor DESC_2;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withQuestion(VALID_QUESTION_1)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+        DESC_1 = new EditPersonDescriptorBuilder().withQuestion(VALID_QUESTION_1)
+                .withAnswer(VALID_ANSWER_1).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withQuestion(VALID_QUESTION_2)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        DESC_2 = new EditPersonDescriptorBuilder().withQuestion(VALID_QUESTION_2)
+                .withAnswer(VALID_ANSWER_2).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

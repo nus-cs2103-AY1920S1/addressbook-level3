@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.NEWTON;
-import static seedu.address.testutil.TypicalPersons.ACCELERATION;
-import static seedu.address.testutil.TypicalPersons.SSSP;
+import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
+import static seedu.address.testutil.TypicalPersons.DELAY;
+import static seedu.address.testutil.TypicalPersons.PROTOCOL;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -80,13 +80,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(NEWTON));
+        assertFalse(modelManager.hasPerson(STORE_AND_FORWARD));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(NEWTON);
-        assertTrue(modelManager.hasPerson(NEWTON));
+        modelManager.addPerson(STORE_AND_FORWARD);
+        assertTrue(modelManager.hasPerson(STORE_AND_FORWARD));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(NEWTON).withPerson(ACCELERATION).build();
+        AddressBook addressBook = new AddressBookBuilder().withPerson(STORE_AND_FORWARD).withPerson(DELAY).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -118,7 +118,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = SSSP.getQuestion().fullQuestion.split("\\s+");
+        String[] keywords = PROTOCOL.getQuestion().fullQuestion.split("\\s+");
         modelManager.updateFilteredPersonList(new QuestionContainsAnyKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 

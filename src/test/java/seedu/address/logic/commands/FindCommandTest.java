@@ -5,11 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_FLASHCARD_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.MERGE;
-import static seedu.address.testutil.TypicalPersons.NEWTON;
-import static seedu.address.testutil.TypicalPersons.QUICK;
-import static seedu.address.testutil.TypicalPersons.SELECTION;
-import static seedu.address.testutil.TypicalPersons.BUBBLE;
+import static seedu.address.testutil.TypicalPersons.PROP_DALAY;
+import static seedu.address.testutil.TypicalPersons.PROTOCOL;
+import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
+import static seedu.address.testutil.TypicalPersons.SOURCE_DELAY;
+import static seedu.address.testutil.TypicalPersons.TRANS_DELAY;
+import static seedu.address.testutil.TypicalPersons.THROUGHPUT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -68,12 +69,12 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleFlashCardFound() {
-        String expectedMessage = String.format(MESSAGE_FLASHCARD_LISTED_OVERVIEW, 5);
-        QuestionContainsAnyKeywordsPredicate predicate = preparePredicate("law quick sort");
+        String expectedMessage = String.format(MESSAGE_FLASHCARD_LISTED_OVERVIEW, 3);
+        QuestionContainsAnyKeywordsPredicate predicate = preparePredicate("sources protocol throughput");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(NEWTON, QUICK, MERGE, SELECTION, BUBBLE), model.getFilteredFlashCardList());
+        assertEquals(Arrays.asList(SOURCE_DELAY, THROUGHPUT, PROTOCOL), model.getFilteredFlashCardList());
     }
 
     /**

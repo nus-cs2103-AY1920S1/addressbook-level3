@@ -97,7 +97,7 @@ image::ReadOnlyAddressBookUsage.png[width=500]
 * Add a `Printable` interface as follows.
 +
 image::PrintableInterface.png[width=400]
-* `Override` the `getPrintableString` in classes `Name`, `Phone`, `Email`, and `Address` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Phone: 12349862`
+* `Override` the `getPrintableString` in classes `Name`, `answer`, `Email`, and `Address` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Phone: 12349862`
 * Add the following method in a suitable place of some other class. Note how the method depends on the Interface.
 +
 [source,java]

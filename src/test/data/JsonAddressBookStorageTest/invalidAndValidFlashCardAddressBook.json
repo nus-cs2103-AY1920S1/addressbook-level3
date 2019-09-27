@@ -1,12 +1,12 @@
 {
   "persons": [ {
     "question": "Valid FlashCard",
-    "phone": "9482424",
+    "answer": "Valid answer",
     "email": "hans@example.com",
     "address": "4th street"
   }, {
-    "question": "FlashCard With Invalid Phone Field",
-    "phone": "948asdf2424",
+    "question": "FlashCard With Invalid Answer Field",
+    "answer": " ",
     "email": "hans@example.com",
     "address": "4th street"
   } ]
