@@ -60,8 +60,8 @@ public class JsonCatalogStorage implements CatalogStorage {
     }
 
     @Override
-    public void saveCatalog(ReadOnlyCatalog Catalog) throws IOException {
-        saveCatalog(Catalog, filePath);
+    public void saveCatalog(ReadOnlyCatalog catalog) throws IOException {
+        saveCatalog(catalog, filePath);
     }
 
     /**

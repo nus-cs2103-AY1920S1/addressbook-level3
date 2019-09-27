@@ -4,14 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.borrower.Borrower;
 
+/**
+ * Wraps all data at the address-book level
+ * Duplicates are not allowed (by .isSamePerson comparison)
+ */
 public class BorrowerRecords implements ReadOnlyBorrowerRecords {
 
     // Placeholder for UniqueBorrowerList
-    ObservableList<Borrower> listOfBorrowers = FXCollections.observableArrayList();
+    private ObservableList<Borrower> listOfBorrowers = FXCollections.observableArrayList();
 
     public BorrowerRecords(ReadOnlyBorrowerRecords toBeCopied) {
     }
-
+    /**
+     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     */
     public BorrowerRecords() {
 
     }
@@ -22,12 +28,6 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
 
     public void addBorrower(Borrower book) {
         listOfBorrowers.add(book);
-    }
-
-    public void populateBorrowers() {
-        for (int i = 0; i < 10; i++) {
-            listOfBorrowers.add(new Borrower("Lim Ah Meng" + i));
-        }
     }
 
     @Override

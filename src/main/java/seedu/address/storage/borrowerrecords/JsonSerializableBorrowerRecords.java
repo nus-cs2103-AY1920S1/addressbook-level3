@@ -46,15 +46,15 @@ class JsonSerializableBorrowerRecords {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public BorrowerRecords toModelType() throws IllegalValueException {
-        BorrowerRecords BorrowerRecords = new BorrowerRecords();
+        BorrowerRecords borrowerRecords = new BorrowerRecords();
         for (JsonAdaptedBorrower jsonAdaptedBorrower : borrowers) {
             Borrower borrower = jsonAdaptedBorrower.toModelType();
-            if (BorrowerRecords.hasBorrower(borrower)) {
+            if (borrowerRecords.hasBorrower(borrower)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BORROWER);
             }
-            BorrowerRecords.addBorrower(borrower);
+            borrowerRecords.addBorrower(borrower);
         }
-        return BorrowerRecords;
+        return borrowerRecords;
     }
 
 }

@@ -100,12 +100,6 @@ public class Catalog implements ReadOnlyCatalog {
         return books.asUnmodifiableObservableList().size() + " books";
         // TODO: refine later
     }
-  
-    public void populateBooks() {
-        for (int i = 0; i < 10; i++) {
-            listOfBooks.add(new Book("Harry Potter" + i));
-        }
-    }
 
     @Override
     public ObservableList<Book> getBookList() {

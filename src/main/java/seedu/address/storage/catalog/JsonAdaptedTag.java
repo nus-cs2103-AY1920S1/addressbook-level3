@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.catalog;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -9,7 +9,7 @@ import seedu.address.model.genre.Genre;
 /**
  * Jackson-friendly version of {@link Genre}.
  */
-class JsonAdaptedTag {
+public class JsonAdaptedTag {
 
     private final String tagName;
 

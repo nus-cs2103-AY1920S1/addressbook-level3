@@ -28,7 +28,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
-import seedu.address.storage.JsonCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.BookBuilder;

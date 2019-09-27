@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Catalog;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.catalog.JsonCatalogStorage;
 
 public class StorageManagerTest {
 

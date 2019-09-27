@@ -26,8 +26,6 @@ import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.CatalogStorage;
-import seedu.address.storage.JsonCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -68,8 +66,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         LoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(userPrefs.getLoanRecordsFilePath());
         CatalogStorage catalogStorage = new JsonCatalogStorage(userPrefs.getCatalogFilePath());
-        BorrowerRecordsStorage borrowerRecordsStorage
-                = new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
+        BorrowerRecordsStorage borrowerRecordsStorage =
+                new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
 
         storage = new StorageManager(userPrefsStorage,
                 loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
@@ -91,7 +89,7 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-      
+
         Optional<ReadOnlyLoanRecords> loanRecordsOptional;
         ReadOnlyLoanRecords initialLoanRecords;
         Optional<ReadOnlyCatalog> catalogOptional;
