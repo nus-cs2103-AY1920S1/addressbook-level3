@@ -68,13 +68,12 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         LoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(userPrefs.getLoanRecordsFilePath());
         CatalogStorage catalogStorage = new JsonCatalogStorage(userPrefs.getCatalogFilePath());
         BorrowerRecordsStorage borrowerRecordsStorage
                 = new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
 
-        storage = new StorageManager(addressBookStorage, userPrefsStorage,
+        storage = new StorageManager(userPrefsStorage,
                 loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
 
         initLogging(config);
@@ -94,29 +93,12 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialAddressBook;
         Optional<ReadOnlyLoanRecords> loanRecordsOptional;
         ReadOnlyLoanRecords initialLoanRecords;
         Optional<ReadOnlyCatalog> catalogOptional;
         ReadOnlyCatalog initialCatalog;
         Optional<ReadOnlyBorrowerRecords> borrowerRecordsOptional;
         ReadOnlyBorrowerRecords initialBorrowerRecords;
-
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialAddressBook = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialAddressBook = new AddressBook();
-        }
 
         try {
             loanRecordsOptional = storage.readLoanRecords();
@@ -160,7 +142,7 @@ public class MainApp extends Application {
             initialBorrowerRecords = new BorrowerRecords();
         }
 
-        return new ModelManager(initialAddressBook, userPrefs, initialLoanRecords,
+        return new ModelManager(userPrefs, initialLoanRecords,
                 initialCatalog, initialBorrowerRecords);
     }
 

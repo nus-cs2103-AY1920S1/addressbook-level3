@@ -18,7 +18,7 @@ import seedu.address.storage.loanrecord.LoanRecordsStorage;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage,
+public interface Storage extends UserPrefsStorage,
         LoanRecordsStorage, CatalogStorage, BorrowerRecordsStorage {
 
     // UserPrefStorage methods
@@ -28,17 +28,6 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage,
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
-
-    // AddressBookStorage methods
-
-    @Override
-    Path getAddressBookFilePath();
-
-    @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
-
-    @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     // LoanRecordsStorage methods
 

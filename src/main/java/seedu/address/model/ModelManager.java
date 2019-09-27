@@ -19,9 +19,7 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final LoanRecords loanRecords;
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
@@ -30,17 +28,15 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      * TODO change
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+    public ModelManager(ReadOnlyUserPrefs userPrefs,
                         ReadOnlyLoanRecords loanRecords, ReadOnlyCatalog catalog,
                         ReadOnlyBorrowerRecords borrowerRecords) {
         super();
-        requireAllNonNull(addressBook, userPrefs, catalog);
+//        requireAllNonNull(addressBook, userPrefs, catalog);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + catalog + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         // testing loan records
         this.loanRecords = new LoanRecords(loanRecords);
         this.loanRecords.populateLoans();
@@ -54,7 +50,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(),
+        this(new UserPrefs(),
                 new LoanRecords(), new Catalog(), new BorrowerRecords());
     }
 
@@ -126,59 +122,6 @@ public class ModelManager implements Model {
         userPrefs.setBorrowerRecordsFilePath(borrowerRecordsFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
     //=========== Loan Records ===============================================================================
 
     public ReadOnlyLoanRecords getLoanRecords() {
@@ -212,9 +155,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
+        return userPrefs.equals(other.userPrefs)
                 && loanRecords.equals(other.loanRecords)
                 && catalog.equals(other.catalog)
                 && borrowerRecords.equals(other.borrowerRecords);
