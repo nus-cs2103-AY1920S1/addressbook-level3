@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import seedu.address.model.customer.Customer;
+import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
@@ -30,13 +32,14 @@ public class Order implements Cloneable {
 
     /**
      * Every field must be present and not null.
+     * @throws CloneNotSupportedException If Customer/Phone class does not implement Cloneable interface.
      */
-    public Order(Customer customer, Phone phone, Price price, Set<Tag> tags) {
+    public Order(Customer customer, Phone phone, Price price, Set<Tag> tags) throws CloneNotSupportedException {
         requireAllNonNull(customer, phone, price, tags);
+        this.id = UUID.randomUUID();
         this.customer = (Customer) customer.clone();
         this.phone = (Phone) phone.clone();
         this.price = price;
-        this.id = UUID.randomUUID();
         this.status = Status.UNSCHEDULED;
         this.schedule = null;
         this.tags.addAll(tags);
@@ -88,7 +91,7 @@ public class Order implements Cloneable {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both orders have the same identity and data fields.
      * This defines a stronger notion of equality between two orders.
      */
     @Override
@@ -109,6 +112,11 @@ public class Order implements Cloneable {
                 && otherOrder.getStatus().equals(getStatus())
                 && otherOrder.getSchedule().equals(getSchedule())
                 && otherOrder.getTags().equals((getTags()));
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

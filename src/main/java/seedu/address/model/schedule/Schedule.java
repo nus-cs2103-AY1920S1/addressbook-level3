@@ -27,8 +27,9 @@ public class Schedule {
 
     /**
      * Every field must be present and not null.
+     * @throws CloneNotSupportedException If Order class does not implement Cloneable interface.
      */
-    public Schedule(Order order, Calendar calendar, Venue venue, Set<Tag> tags) {
+    public Schedule(Order order, Calendar calendar, Venue venue, Set<Tag> tags) throws CloneNotSupportedException {
         requireAllNonNull(order, calendar, venue, tags);
         this.order = (Order) order.clone();
         this.calendar = calendar;
@@ -70,7 +71,7 @@ public class Schedule {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both schedules have the same identity and data fields.
      * This defines a stronger notion of equality between two schedules.
      */
     @Override

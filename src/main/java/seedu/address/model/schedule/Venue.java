@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a schedule's venue in the SML.
+ * Represents a Schedule's venue in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidVenue(String)}
  */
 public class Venue {
@@ -27,7 +27,7 @@ public class Venue {
     }
 
     /**
-     * Returns true if a given string is a valid location.
+     * Returns true if a given string is a valid venue.
      */
     public static boolean isValidVenue(String test) {
         return test.matches(VALIDATION_REGEX);
