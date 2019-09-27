@@ -109,7 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(FlashCard flashCard) {
+        public void addFlashCard(FlashCard flashCard) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -129,12 +129,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deletePerson(FlashCard target) {
+        public void deleteFlashCard(FlashCard target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(FlashCard target, FlashCard editedFlashCard) {
+        public void setFlashCard(FlashCard target, FlashCard editedFlashCard) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -144,7 +144,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<FlashCard> predicate) {
+        public void updateFilteredFlashCardList(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -180,7 +180,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(FlashCard flashCard) {
+        public void addFlashCard(FlashCard flashCard) {
             requireNonNull(flashCard);
             personsAdded.add(flashCard);
         }

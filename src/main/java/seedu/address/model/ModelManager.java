@@ -95,18 +95,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePerson(FlashCard target) {
-        addressBook.removePerson(target);
+    public void deleteFlashCard(FlashCard target) {
+        addressBook.removeFlashCard(target);
     }
 
     @Override
-    public void addPerson(FlashCard flashCard) {
+    public void addFlashCard(FlashCard flashCard) {
         addressBook.addFlashcard(flashCard);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
     @Override
-    public void setPerson(FlashCard target, FlashCard editedFlashCard) {
+    public void setFlashCard(FlashCard target, FlashCard editedFlashCard) {
         requireAllNonNull(target, editedFlashCard);
 
         addressBook.setFlashcard(target, editedFlashCard);
@@ -124,7 +124,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<FlashCard> predicate) {
+    public void updateFilteredFlashCardList(Predicate<FlashCard> predicate) {
         requireNonNull(predicate);
         filteredFlashCards.setPredicate(predicate);
     }

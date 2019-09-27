@@ -142,7 +142,7 @@ public class CommandTestUtil {
 
         FlashCard flashCard = model.getFilteredFlashCardList().get(targetIndex.getZeroBased());
         final String[] question = flashCard.getQuestion().fullQuestion.split("\\s+");
-        model.updateFilteredPersonList(new QuestionContainsAllKeywordsPredicate(Arrays.asList(question)));
+        model.updateFilteredFlashCardList(new QuestionContainsAllKeywordsPredicate(Arrays.asList(question)));
 
         assertEquals(1, model.getFilteredFlashCardList().size());
     }

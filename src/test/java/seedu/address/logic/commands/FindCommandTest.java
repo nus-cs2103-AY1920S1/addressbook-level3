@@ -59,7 +59,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_FLASHCARD_LISTED_OVERVIEW, 0);
         QuestionContainsAnyKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredFlashCardList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredFlashCardList());
     }
@@ -69,7 +69,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_FLASHCARD_LISTED_OVERVIEW, 3);
         QuestionContainsAnyKeywordsPredicate predicate = preparePredicate("sources protocol throughput");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredFlashCardList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(SOURCE_DELAY, THROUGHPUT, PROTOCOL), model.getFilteredFlashCardList());
     }

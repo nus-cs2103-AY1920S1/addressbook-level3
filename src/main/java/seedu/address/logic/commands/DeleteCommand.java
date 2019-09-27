@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
         }
 
         FlashCard flashCardToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(flashCardToDelete);
+        model.deleteFlashCard(flashCardToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, flashCardToDelete));
     }
 

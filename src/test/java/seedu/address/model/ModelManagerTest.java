@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.DELAY;
 import static seedu.address.testutil.TypicalPersons.PROTOCOL;
@@ -85,7 +85,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(STORE_AND_FORWARD);
+        modelManager.addFlashCard(STORE_AND_FORWARD);
         assertTrue(modelManager.hasFlashcard(STORE_AND_FORWARD));
     }
 
@@ -119,11 +119,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = PROTOCOL.getQuestion().fullQuestion.split("\\s+");
-        modelManager.updateFilteredPersonList(new QuestionContainsAnyKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredFlashCardList(new QuestionContainsAnyKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

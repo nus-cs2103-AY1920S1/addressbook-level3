@@ -29,10 +29,5 @@
     "answer" : "L (bit) / R (bits.sec)",
     "rating" : "good",
     "categories" : [ ]
-  }, {
-    "question" : "Whats is UML",
-    "answer" : "IT is a diagram",
-    "rating" : "hard",
-    "categories" : [ ]
   } ]
 }

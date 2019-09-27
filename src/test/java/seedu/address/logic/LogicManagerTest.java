@@ -82,7 +82,7 @@ public class LogicManagerTest {
                 + RATING_DESC_1;
         FlashCard expectedFlashCard = new FlashCardBuilder(WWII).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedFlashCard);
+        expectedModel.addFlashCard(expectedFlashCard);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

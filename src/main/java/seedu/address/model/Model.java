@@ -12,7 +12,7 @@ import seedu.address.model.flashcard.FlashCard;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<FlashCard> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<FlashCard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -61,13 +61,13 @@ public interface Model {
      * Deletes the given flashCard.
      * The flashCard must exist in the address book.
      */
-    void deletePerson(FlashCard target);
+    void deleteFlashCard(FlashCard target);
 
     /**
      * Adds the given flashCard.
      * {@code flashCard} must not already exist in the address book.
      */
-    void addPerson(FlashCard flashCard);
+    void addFlashCard(FlashCard flashCard);
 
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
@@ -75,7 +75,7 @@ public interface Model {
      * The flashCard identity of {@code editedFlashCard}
      * must not be the same as another existing flashCard in the address book.
      */
-    void setPerson(FlashCard target, FlashCard editedFlashCard);
+    void setFlashCard(FlashCard target, FlashCard editedFlashCard);
 
     /** Returns an unmodifiable view of the filtered flashCard list */
     ObservableList<FlashCard> getFilteredFlashCardList();
@@ -84,5 +84,5 @@ public interface Model {
      * Updates the filter of the filtered flashCard list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<FlashCard> predicate);
+    void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
 }

@@ -28,7 +28,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredFlashCardList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_FLASHCARD_LISTED_OVERVIEW,
                         model.getFilteredFlashCardList().size()));

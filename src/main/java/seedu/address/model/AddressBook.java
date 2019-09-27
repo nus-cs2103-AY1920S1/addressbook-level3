@@ -30,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Flashcards in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -90,7 +90,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(FlashCard key) {
+    public void removeFlashCard(FlashCard key) {
         flashCards.remove(key);
     }
 
@@ -98,7 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return flashCards.asUnmodifiableObservableList().size() + " persons";
+        return flashCards.asUnmodifiableObservableList().size() + "flash cards";
         // TODO: refine later
     }
 
