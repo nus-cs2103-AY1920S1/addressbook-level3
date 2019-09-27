@@ -8,10 +8,11 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents an Order, with the Customer and Phone purchased included. .
+ * Represents an Order in the SML.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Order implements Cloneable {
@@ -23,6 +24,7 @@ public class Order implements Cloneable {
     private final Customer customer;
     private final Phone phone;
     private final Status status;
+    private final Schedule schedule;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -34,6 +36,7 @@ public class Order implements Cloneable {
         this.phone = (Phone) phone.clone();
         this.id = UUID.randomUUID();
         this.status = Status.UNSCHEDULED;
+        schedule = null;
         this.tags.addAll(tags);
     }
 
@@ -51,6 +54,10 @@ public class Order implements Cloneable {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
     }
 
     /**
@@ -106,7 +113,7 @@ public class Order implements Cloneable {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("ID: ")
-                .append(getId().toString())
+                .append(getId())
                 .append(" Customer: ")
                 .append(getCustomer())
                 .append(" Phone: ")

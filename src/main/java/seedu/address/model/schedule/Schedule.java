@@ -12,7 +12,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Schedule, with the Order, Date, Time and Location of the meetup.
+ * Represents a Schedule in the SML.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Schedule {
