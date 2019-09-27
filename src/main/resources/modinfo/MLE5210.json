@@ -1,7 +1,0 @@
-{
-    "moduleCode": "MLE5210",
-    "description": "This module provides a foundation for students interested\nin doing research in computational materials. It teaches\nstudents modelling methods ranging from continuum,\nmicroscopic, atomistic scales. Molecular dynamics\nmodelling of properties and processes in condensed\nmaterials. Continuum modelling of properties and\nprocesses in materials. Transport phenomena in solids\nfrom both continuum, microscopic viewpoint, random\nprocesses in solids. Fundamentals of ab initio modelling\napproaches.",
-    "title": "Modelling and Simulation of Materials",
-    "faculty": "Engineering",
-    "moduleCredit": "4"
-}

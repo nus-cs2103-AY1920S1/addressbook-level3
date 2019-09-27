@@ -1,8 +1,0 @@
-{
-    "moduleCode": "CS6203",
-    "description": "This module covers the topics in data base management systems with current research and industrial interests and importance. Examples of topics include multimedia data management, object-oriented database technology, data warehousing and data mining, integration of heterogeneous and legacy systems.",
-    "title": "Advanced Topics in Database Systems",
-    "faculty": "Computing",
-    "moduleCredit": "4",
-    "prereqTree": "CS3223"
-}

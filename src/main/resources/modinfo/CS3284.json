@@ -1,8 +1,0 @@
-{
-    "moduleCode": "CS3284",
-    "description": "This module is the second part of a two-part series on the development of media technology systems such as interactive systems, games, retrieval systems, multimedia computing applications, etc. Students will form project teams to work on media technology projects. This second part focuses on the development of algorithms required for the systems, implementation and testing of the algorithms and the systems, and evaluation of the systems according to the users\u2019 requirements.",
-    "title": "Media Technology Project II",
-    "faculty": "Computing",
-    "moduleCredit": "4",
-    "prereqTree": "CS3283"
-}

@@ -1,8 +1,0 @@
-{
-    "moduleCode": "TCE5108",
-    "description": "This is an advanced module in earth-retaining structures\nand deep excavations. Topics include earth pressure\ntheories, rigid retaining structures, flexible retaining\nstructures, cellular cofferdams, retaining walls for deep\nexcavations, support systems for deep excavations, and\nfield monitoring. Students are taught to deal with design and\nconstruction issues pertaining to a spectrum of earthretaining\nsystems from low rigid retaining walls to flexible\nsupport systems for deep excavations. Students will also\nlearn to apply the methods of limit state, such as BS8002\nand Eurocode7, to the design of rigid and flexible retaining\nwalls. Applications of commercial geotechnical FEM\nsoftwares are taught to aid in design of deep excavations to\nlimit ground deformations and satisfy SLS requirements. At\nthe end of the course, students are taught the application of\nadvanced earth pressure theories, selection of appropriate\nretaining structures, and verification of capacity and\nmovement requirements, using limit equilibrium and FEM\nanalysis tools.",
-    "title": "Earth Retaining Structures",
-    "faculty": "Cont and Lifelong Education",
-    "moduleCredit": "4",
-    "prereqTree": "TCE2112"
-}

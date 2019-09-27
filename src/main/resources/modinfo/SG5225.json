@@ -1,7 +1,0 @@
-{
-    "moduleCode": "SG5225",
-    "description": "This course aims to equip the participants with knowledge to build robust, scalable and maintainable software architectures. The participant will get to understand how the solution architecture fits into the broader context of\nsoftware development and enterprise architectures of the organization. The syllabus focuses on the understanding of architectural concepts, software qualities such as availability, performance and security and reusing of\narchitectural patterns. By combining lectures with scenario based workshops, the participant will apply the patterns and software qualities with respect to Web and middleware architectures.",
-    "title": "Architecting Software Solutions",
-    "faculty": "Institute of Systems Science",
-    "moduleCredit": "3"
-}

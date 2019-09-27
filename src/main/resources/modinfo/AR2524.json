@@ -1,7 +1,0 @@
-{
-    "moduleCode": "AR2524",
-    "description": "Spatial Computational Thinking is increasingly being\nrecognised as a fundamental method for various spatial\ndisciplines. It involves idea formulation, algorithm\ndevelopment, solution exploration, with a focus on the\nmanipulation of geometric and semantic datasets.\nStudents will use parametric modelling tools for generating\nand analysing building elements at varying scales. Such\ntools use visual programming interfaces to allow complex\nalgorithms to be developed and tested. Students will learn\nhow to structure their ideas as algorithmic procedures that\nintegrate data-structures, functions, and control flow.\nThrough this process, students will also become familiar\nwith higher-level computational concepts, such as\ndecomposition, encapsulation and abstraction.",
-    "title": "Spatial Computational Thinking",
-    "faculty": "Design and Environment",
-    "moduleCredit": "4"
-}

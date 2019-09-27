@@ -1,8 +1,0 @@
-{
-    "moduleCode": "YSC2238",
-    "description": "Traditional data structures are mutable, which is a challenge when they are shared across applications. Persistent data structures are immutable and are dealt with by sharing what does not change and allocating afresh the parts that do, comparably with the time machine for backups on a Mac which only backs up the parts of the data that have changed since the last backup. The course presents the theory and practice of persistent data structures and the corresponding algorithms, from their design to their testing, implementation, and computational complexity.",
-    "title": "Persistent Data Structures and Algorithms",
-    "faculty": "Yale-NUS College",
-    "moduleCredit": "2",
-    "prereqTree": "YSC1212"
-}

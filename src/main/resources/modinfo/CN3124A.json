@@ -1,7 +1,0 @@
-{
-    "moduleCode": "CN3124A",
-    "description": "This module introduces various multiphase processes that are important to Chemical Engineering\napplications. These include sedimentation, flow through packed beds, filtration, fluidisation,\npneumatic transport and cyclone separation. The concepts of single particle terminal velocity and hindered settling velocity in multiple particle systems are introduced and applied to engineering\ndesigns of continuous settling systems. Principles of flow through packed beds are discussed and\napplied towards engineering designs of filtration and fluidized bed systems. Pressure drop\ncalculations for pneumatic transport systems and engineering design calculations for gas cyclone\nsystems are discussed. The module concludes with the study of crystallisation, colloids and\nnanoparticles.",
-    "title": "Fluid-Particle Systems",
-    "faculty": "Engineering",
-    "moduleCredit": "4"
-}

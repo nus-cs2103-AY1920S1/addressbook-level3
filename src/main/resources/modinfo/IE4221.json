@@ -1,8 +1,0 @@
-{
-    "moduleCode": "IE4221",
-    "description": "This module provides an exploration of economic problems\nof moving goods and people in transportation industry.\nThis module introduces the basic economic concepts and\nprinciples as useful tools in the engineering context to\nformulate and analyze the decision-making of stakeholders\n(e.g., travelers, public sectors, shippers and operators).\nSpecial characteristics of transportation problems, such as\nthe derived demand, mobile supply, cost structure, pricing\nmechanism and government intervention and regulation\nwill be emphasized and some classic transportation\nmodels, such as user equilibrium model and discrete\nchoice model, will be introduced.",
-    "title": "Transportation Demand Modeling and Economics",
-    "faculty": "Engineering",
-    "moduleCredit": "4",
-    "prereqTree": "IE2110"
-}

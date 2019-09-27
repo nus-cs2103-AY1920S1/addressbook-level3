@@ -1,7 +1,0 @@
-{
-    "moduleCode": "CZ5103",
-    "description": "Introduction to mathematical models in science, engineering, industry and social science. Topics include basic model building (their simplification and interpretation), discrete, continuum and probabilistic models; dimensional analysis, asymptotic analysis, perturbation methods; numerical methods for solving differential equations, Monte Carlo methods for studying probabilistic models; the use of software environments for modeling and computation, including interpreted languages such as MATLAB, Mathematica or Maple for use in prototyping problem solutions.",
-    "title": "Modeling and Simulation",
-    "faculty": "Science",
-    "moduleCredit": "5"
-}

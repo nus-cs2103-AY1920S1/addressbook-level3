@@ -1,8 +1,0 @@
-{
-    "moduleCode": "UQR2211",
-    "description": "This module discusses on the implications of \u201ctime\u201d for quantitative analyses.  What is \u201ctime\u201d?  How is it important for understanding certain phenomena?  How might its passage, in and of itself, be of interest?  What econometric models are appropriate for quantitatively testing timerelated hypotheses? \n\nStudents will explore these questions using political science as a thematic topic.  They will first read substantive material, regarding the importance of time for understanding the processes that produce politics-related phenomena.  Students will then learn more advanced quantitative modelling strategies that can accommodate the implications of \u201ctime,\u201d allowing students to correctly test time-related hypotheses (e.g., survival analysis).",
-    "title": "Passing Time: Processes, Temporality, and  Econometrics",
-    "faculty": "University Scholars Programme",
-    "moduleCredit": "4",
-    "prereqTree": "UQF2101"
-}

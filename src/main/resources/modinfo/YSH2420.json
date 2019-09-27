@@ -1,7 +1,0 @@
-{
-    "moduleCode": "YSH2420",
-    "description": "Molecules never sit still. They jiggle, bend, twist and spin erratically. While\nthe movement of individual molecules is impossible to\nanticipate, the collective behavior of large numbers of molecules can be\npredicted with surprising precision.\n\nIn this short course, you\u2019ll learn how random processes play an essential role\nin the world around us. Our discussion will be driven by data from real\nexperiments in physics and biology. You\u2019ll learn some of the basic\nmathematics of random variables, and use a computer to simulate random\nprocesses. You\u2019ll apply these ideas to the behavior of individual molecules and\nexplore how predictable, and sometimes surprising, behavior can emerge in\nlarge systems. Examples will focus on the physics of everyday materials as\nwell as biology at the molecular and cellular scales.",
-    "title": "Short Course: Randomness in Physics and Biology",
-    "faculty": "Yale-NUS College",
-    "moduleCredit": "1"
-}

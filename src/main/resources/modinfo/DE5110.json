@@ -1,7 +1,0 @@
-{
-    "moduleCode": "DE5110",
-    "description": "Objective - This module introduces students to the basic concepts, operational skills, and applications of the Geographic Information Systems (GIS) in environmental assessment, planning, and management. On completion of the module students should have acquired: 1) \tan understanding of the nature of GIS and environmental data; 2)\tan appreciation of the utilities and limitations of GIS in environmental management \tdecision-making; 3)\tknowledge in GIS project design and implementation; and 4)\tskills in data input, manipulation, and modeling in a GIS environment. Major topics include GIS principles, vector and raster GIS, data input and editing, database query and analysis, global positioning systems (GPS), remote sensing and image processing, GIS applications in hazard assessment and management, and GIS design and implementation issues. Target Students - An Elective module for students on the M.Sc. (Environmental Management) program.  Research students and students from other graduate programmes in NUS may apply subject to suitability of candidate and availability of pl.",
-    "title": "Gis For Environmental Studies",
-    "faculty": "Design and Environment",
-    "moduleCredit": "4"
-}

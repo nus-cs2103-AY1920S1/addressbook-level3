@@ -1,8 +1,0 @@
-{
-    "moduleCode": "LSM3243",
-    "description": "This module provides a physical background of macromolecular conformations and a description of biophysical techniques for studies of structure, dynamics and interactions of biomolecules. Topics will include conformation of biological macromolecules, protein folding, protein-ligand interaction, biological membrane, and biophysical techniques.",
-    "title": "Molecular Biophysics",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "LSM1106"
-}

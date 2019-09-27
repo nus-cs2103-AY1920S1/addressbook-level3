@@ -1,8 +1,0 @@
-{
-    "moduleCode": "TCE5113",
-    "description": "This module teaches students the essential concepts and\nmethodology for the planning, design and implementation of\nsite investigation and ground instrumentation programmes.\nThe module will be broadly divided into two parts. The first\npart covers various aspects of site investigation such as the\nplanning, design, density of bore holes, sampling technology\nand disturbance, in-situ and laboratory testing and\ngeophysical methods. The second part covers various\naspects of ground instrumentation such as monitoring of\nground movement, drawdown, excess pore pressures, strut\nforces, wall deflection and observational methods. This\nmodule enables students to acquire the knowledge and\npractical skills through the lectures, case studies and\nprojects.",
-    "title": "Geotechnical Investigation & Monitoring",
-    "faculty": "Cont and Lifelong Education",
-    "moduleCredit": "4",
-    "prereqTree": "TCE2112"
-}

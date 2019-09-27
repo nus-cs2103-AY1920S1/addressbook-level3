@@ -1,7 +1,0 @@
-{
-    "moduleCode": "SG5236",
-    "description": "This course provides a thorough introduction to machine learning, datamining, and statistical pattern recognition. Topics include: \n\n(i) Supervised learning (parametric/non-parametric algorithms, support vector machines, kernels, neural networks).  \n(ii) Unsupervised learning (clustering, dimensionality reduction, recommender systems).  \n(iii) Best practices in machine learning (bias/variance theory; innovation process in machine learning and AI).  \n\nExtensive programming workshops are included.",
-    "title": "Machine Learning for Software Engineers",
-    "faculty": "Institute of Systems Science",
-    "moduleCredit": "3"
-}

@@ -1,8 +1,0 @@
-{
-    "moduleCode": "CN4229E",
-    "description": "This course provides an introduction to advanced computational methods and their application to problems commonly arising in chemical engineering. Tools and techniques from the areas of optimization, neural networks and artificial intelligence would be covered in the course. Practical aspects of recognizing problems in process operation and design that can be solved using these techniques, formulating the problem and solving them would be covered using commonly available software.",
-    "title": "Computer Aided Chemical Engineering",
-    "faculty": "Cont and Lifelong Education",
-    "moduleCredit": "4",
-    "prereqTree": "CN3421E"
-}

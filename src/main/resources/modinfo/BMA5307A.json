@@ -1,7 +1,0 @@
-{
-    "moduleCode": "BMA5307A",
-    "description": "This course will cover various types of derivative securities including forward, futures, options, swaps, swaptions etc. Students can appreciate the fundamental intuition involved in valuation of derivative securities by using Binomial Lattice (Binomial Tree)\n\nThe course will also cover various applications of derivative securities in managing various types of risks faced by corporations, non-profit institutions as well as sovereign entities. The discussion will cover the management and hedging of interest rate risks as well as commodity price risks including the use of stock index futures in changing CAPM beta and the use of bond futures in changing the duration of liabilities or bond portfolios.",
-    "title": "Topics in Options and Futures",
-    "faculty": "NUS Business School",
-    "moduleCredit": "2"
-}

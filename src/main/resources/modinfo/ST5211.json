@@ -1,8 +1,0 @@
-{
-    "moduleCode": "ST5211",
-    "description": "Survey data, basic sampling, stratified sampling, cluster sampling, double sampling, systematic sampling, non-response and missing values, multiple imputations, bootstrap of sampling error. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
-    "title": "Sampling from Finite Populations",
-    "faculty": "Science",
-    "moduleCredit": "4",
-    "prereqTree": "ST2132"
-}

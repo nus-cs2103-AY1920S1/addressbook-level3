@@ -1,7 +1,0 @@
-{
-    "moduleCode": "CS6218",
-    "description": "This module is aimed at graduate students who are doing\nor intend to do advanced research in programming\nlanguages and software engineering. It exposes students\nto recent advances in topics that include, but not limited\nto, deductive verification, program analysis, type systems,\nsoftware specification inference, search-based program\nverification such as model checking, as well as general\nconcepts such as abstraction and modularity in the\ncontext of object-oriented languages.",
-    "title": "Principles of Prog. Languages & Software Engineering",
-    "faculty": "Computing",
-    "moduleCredit": "4"
-}

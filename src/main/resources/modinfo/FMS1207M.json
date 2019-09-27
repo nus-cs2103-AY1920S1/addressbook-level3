@@ -1,7 +1,0 @@
-{
-    "moduleCode": "FMS1207M",
-    "description": "Mathematics plays an important role in computing:\nBoolean algebra and basic arithmetic is used for building\nthe basic elements of computers, mathematical logic is\nused to describe the theoretical foundations of computer\nscience, linear algebra and geometry are used when\nmodelling of physical environments and virtual realities for\nanimated movies and video games; game theory is\nemployed when programming strategic games like chess\nand go on computers. The seminar gives an overview of\nthe role of mathematics in computer science and the\nhistory of the two disciplines.",
-    "title": "FS: Mathematics and Computer Science",
-    "faculty": "Science",
-    "moduleCredit": "4"
-}
