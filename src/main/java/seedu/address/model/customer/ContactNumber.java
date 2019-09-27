@@ -11,14 +11,13 @@ public class ContactNumber {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "ContactNumber numbers should only contain numbers, and it should be at least 3 digits long";
+            "ContactNumber numbers should only contain numbers, and it should be at least 8 digits long";
     public static final String VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 
     /**
      * Constructs a {@code ContactNumber}.
-     *
-     * @param contactNumber A valid contactNumber number.
+     * @param contactNumber A valid contactNumber.
      */
     public ContactNumber(String contactNumber) {
         requireNonNull(contactNumber);
@@ -27,7 +26,7 @@ public class ContactNumber {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid contactNumber.
      */
     public static boolean isValidContactNumber(String test) {
         return test.matches(VALIDATION_REGEX);

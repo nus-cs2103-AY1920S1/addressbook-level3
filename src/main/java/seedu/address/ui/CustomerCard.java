@@ -35,8 +35,6 @@ public class CustomerCard extends UiPart<Region> {
     @FXML
     private Label contactNumber;
     @FXML
-    private Label address;
-    @FXML
     private Label email;
     @FXML
     private FlowPane tags;
