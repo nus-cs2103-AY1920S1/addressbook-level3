@@ -1,9 +1,9 @@
-package seedu.address.model.common;
-
-import seedu.address.model.person.Name;
+package seedu.address.model.person.parameters;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.model.common.ReferenceId;
 
 /**
  * Represents a Reference ID for Person.
@@ -12,12 +12,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public abstract class PersonReferenceId implements ReferenceId {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Reference Id should only contain alphanumeric characters and it should not be blank";
+        "Reference Id should only contain alphanumeric characters and it should be atleast 3 characters long";
 
     /*
      * The reference ID should only contain alphanumeric characters.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String VALIDATION_REGEX = "[a-zA-Z0-9]{3,}";
     public final String referenceId;
 
     /**
@@ -32,7 +32,7 @@ public abstract class PersonReferenceId implements ReferenceId {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid id.
      */
     public static boolean isValidId(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -46,13 +46,6 @@ public abstract class PersonReferenceId implements ReferenceId {
     @Override
     public String toString() {
         return referenceId;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof PersonReferenceId // instanceof handles nulls
-            && getReferenceIdentifier().equals(((PersonReferenceId) other).getReferenceIdentifier())); // state check
     }
 
     @Override

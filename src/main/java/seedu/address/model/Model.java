@@ -38,6 +38,7 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -47,6 +48,7 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
@@ -62,6 +64,11 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if an exact {@code person} exists in the address book.
+     */
+    boolean hasExactPerson(Person person);
 
     /**
      * Deletes the given person.
@@ -82,9 +89,8 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /**
-     * Returns an unmodifiable view of the filtered person list
-     */
+
+    /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
     /**

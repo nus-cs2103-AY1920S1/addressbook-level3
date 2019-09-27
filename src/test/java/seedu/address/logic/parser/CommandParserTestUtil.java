@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import seedu.address.logic.commands.core.Command;
+import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

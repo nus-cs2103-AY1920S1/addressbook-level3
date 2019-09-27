@@ -1,6 +1,12 @@
 package seedu.address.model.events;
 
-public enum Status {
+//TODO: Stub models for now
+
+/**
+ * Describes the status of an appointment
+ */
+public class Status {
+}
 
     WAITING("patient is waiting now"),
     MISSED("patient is waiting now"),

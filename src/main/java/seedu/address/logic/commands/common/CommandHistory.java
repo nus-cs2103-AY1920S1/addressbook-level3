@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.core;
+package seedu.address.logic.commands.common;
 
 import static java.util.Objects.requireNonNull;
 
@@ -16,8 +16,8 @@ public class CommandHistory {
     public static final String MESSAGE_NO_UNDO_HISTORY_ERROR = "Undo History is empty!";
     public static final String MESSAGE_NO_REDO_HISTORY_ERROR = "Redo History is empty!";
 
-    private final Stack<UndoableCommand> commandHistory = new Stack<>();
-    private final Stack<UndoableCommand> commandRedoHistory = new Stack<>();
+    private final Stack<ReversibleCommand> commandHistory = new Stack<>();
+    private final Stack<ReversibleCommand> commandRedoHistory = new Stack<>();
 
     /**
      * Checks if an undo operation is available.
@@ -42,7 +42,7 @@ public class CommandHistory {
      *
      * @param command to be added to the command history.
      */
-    public void addToCommandHistory(UndoableCommand command) {
+    public void addToCommandHistory(ReversibleCommand command) {
         requireNonNull(command);
         commandHistory.add(command);
         commandRedoHistory.clear();
@@ -61,7 +61,7 @@ public class CommandHistory {
             throw new CommandException(MESSAGE_NO_UNDO_HISTORY_ERROR);
         }
 
-        UndoableCommand command = commandHistory.pop();
+        ReversibleCommand command = commandHistory.pop();
         commandRedoHistory.add(command);
 
         return command.undo(model);
@@ -81,7 +81,7 @@ public class CommandHistory {
             throw new CommandException(MESSAGE_NO_REDO_HISTORY_ERROR);
         }
 
-        UndoableCommand command = commandRedoHistory.pop();
+        ReversibleCommand command = commandRedoHistory.pop();
         commandHistory.add(command);
 
         return command.execute(model);

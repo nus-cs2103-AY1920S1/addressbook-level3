@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.core;
+package seedu.address.logic.commands.common;
 
 import static java.util.Objects.requireNonNull;
 
@@ -61,6 +61,11 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
+    }
+
+    @Override
+    public String toString() {
+        return feedbackToUser;
     }
 
     @Override
