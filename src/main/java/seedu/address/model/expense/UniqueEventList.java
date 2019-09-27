@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.expense.exceptions.DuplicateEventException;
-import seedu.address.model.expense.exceptions.ExpenseNotFoundException;
 
 /**
  * A list of expenses that enforces uniqueness between its elements and does not allow nulls.
@@ -54,33 +53,33 @@ public class UniqueEventList implements Iterable<Event> {
      * {@code target} must exist in the list.
      * The expense identity of {@code editedExpense} must not be the same as another existing expense in the list.
      */
-//    IMPLEMENT AFTER WK 7
-//    public void setExpense(Expense target, Expense editedExpense) {
-//        requireAllNonNull(target, editedExpense);
-//
-//        int index = internalList.indexOf(target);
-//        if (index == -1) {
-//            throw new ExpenseNotFoundException();
-//        }
-//
-//        if (!target.isSameExpense(editedExpense) && contains(editedExpense)) {
-//            throw new DuplicateExpenseException();
-//        }
-//
-//        internalList.set(index, editedExpense);
-//    } IMPLEMENT AFTER WK 7
+    //    IMPLEMENT AFTER WK 7
+    //    public void setExpense(Expense target, Expense editedExpense) {
+    //        requireAllNonNull(target, editedExpense);
+    //
+    //        int index = internalList.indexOf(target);
+    //        if (index == -1) {
+    //            throw new ExpenseNotFoundException();
+    //        }
+    //
+    //        if (!target.isSameExpense(editedExpense) && contains(editedExpense)) {
+    //            throw new DuplicateExpenseException();
+    //        }
+    //
+    //        internalList.set(index, editedExpense);
+    //    } IMPLEMENT AFTER WK 7
 
     /**
      * Removes the equivalent expense from the list.
      * The expense must exist in the list.
      */
-//    IMPLEMENT AFTER WK 7
-//    public void remove(Expense toRemove) {
-//        requireNonNull(toRemove);
-//        if (!internalList.remove(toRemove)) {
-//            throw new ExpenseNotFoundException();
-//        }
-//    } IMPLEMENT AFTER WK 7
+    //    IMPLEMENT AFTER WK 7
+    //    public void remove(Expense toRemove) {
+    //        requireNonNull(toRemove);
+    //        if (!internalList.remove(toRemove)) {
+    //            throw new ExpenseNotFoundException();
+    //        }
+    //    } IMPLEMENT AFTER WK 7
 
     public void setEvents(UniqueEventList replacement) {
         requireNonNull(replacement);

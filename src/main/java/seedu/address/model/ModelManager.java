@@ -3,7 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -122,10 +121,10 @@ public class ModelManager implements Model {
         return addressBook.hasEvent(event);
     }
 
-//    @Override
-//    public void deleteEvent(Event target) {
-//        addressBook.removeEvent(target);
-//    }
+    //    @Override
+    //    public void deleteEvent(Event target) {
+    //        addressBook.removeEvent(target);
+    //    }
 
     @Override
     public void addEvent(Event event) {
@@ -133,12 +132,12 @@ public class ModelManager implements Model {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
-//    @Override
-//    public void setEvent(Event target, Event editedEvent) {
-//        requireAllNonNull(target, editedEvent);
-//
-//        addressBook.setEvent(target, editedEvent);
-//    }
+    //    @Override
+    //    public void setEvent(Event target, Event editedEvent) {
+    //        requireAllNonNull(target, editedEvent);
+    //
+    //        addressBook.setEvent(target, editedEvent);
+    //    }
 
     //=========== Filtered Expense List Accessors =============================================================
 

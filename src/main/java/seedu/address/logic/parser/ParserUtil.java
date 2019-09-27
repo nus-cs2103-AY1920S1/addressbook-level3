@@ -64,6 +64,12 @@ public class ParserUtil {
         return new Price(trimmedPrice);
     }
 
+    /**
+     * Parses a {@code String timestamp} into a {@code Timestamp}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code timestamp} is invalid.
+     */
     public static Timestamp parseTimestamp(String timestamp) throws ParseException {
         requireNonNull(timestamp);
         String trimmedTimestamp = timestamp.trim();

@@ -4,8 +4,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 
-import java.util.Arrays;
-
 /**
  * Unmodifiable view of an address book
  */

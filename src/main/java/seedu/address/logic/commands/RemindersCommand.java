@@ -5,6 +5,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import seedu.address.model.Model;
 
+/**
+ * Lists all reminders to the user.
+ */
 public class RemindersCommand extends Command {
 
     public static final String COMMAND_WORD = "reminders";

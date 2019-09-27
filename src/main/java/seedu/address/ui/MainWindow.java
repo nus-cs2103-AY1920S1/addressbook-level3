@@ -194,6 +194,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Displays Reminders of the user's upcoming Events.
+     */
     public void displayReminders() {
         // logger.info("Result: " + commandResult.getFeedbackToUser());
         // should not be formatting Reminders to Strings here, fix later

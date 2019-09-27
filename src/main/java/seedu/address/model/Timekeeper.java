@@ -1,21 +1,23 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.expense.Event;
-import seedu.address.model.expense.Reminder;
-import seedu.address.model.expense.Timestamp;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
+
+import seedu.address.model.expense.Event;
+import seedu.address.model.expense.Reminder;
+
+/**
+ * Compares system time with upcoming Events.
+ */
 public class Timekeeper {
     public static final LocalDate SYSTEM_DATE = LocalDate.now();
     public static final long THRESHOLD = 7;
-    public ObservableList<Event> events;
+    private ObservableList<Event> events;
 
     public Timekeeper(Model model) {
         events = model.getFilteredEventList();
@@ -33,9 +35,9 @@ public class Timekeeper {
     }
 
     /**
-     * Calculates the time left before the task has to be completed.
+     * Dummy.
      *
-     * @param timestamp The timestamp of the timed task.
+     * @param event dummy.
      */
     private static Optional<Reminder> createReminderIfValid(Event event) {
         LocalDate timestamp = event.getTimestamp().timestamp;
