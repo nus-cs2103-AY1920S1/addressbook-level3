@@ -318,35 +318,135 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ModBuddy` and the *Actor* is the `Student`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Create study plan
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User chooses to create a study plan.
+2. User enters the requested description.
+3. ModBuddy displays the new study plan.
+
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. User chooses not to enter a description.
+** 2a1. ModBuddy creates a new study plan with a default description.
+** 2a2. Use case resumes from step 4.
+
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+=== Use case: UC02 - Add module
 
-_{More to be added}_
+*MSS*
+
+1. Student requests to add a module to a particular semester.
+2. ModBuddy displays changes to study plan.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. ModBuddy detects that the module entered does not exist.
+** 1a1. ModBuddy prompts Student to enter a correct module code
+** 1a2. User enters new module. 
++
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case ends.
+
+=== Use case: UC03 - Commit a study plan
+
+*MSS*
+
+1. Student requests to save the current version of the study plan
+2. ModBuddy confirms that the version has been saved.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. ModBuddy detects that there have been no changes to the study plan from the previous commit.
+** 1a1. ModBuddy informs Student that the current version has already been saved.
++
+Use case ends.
+
+
+=== Use case: UC04 - Tag a module
+
+*MSS*
+
+1. Student requests to tag a module
+2. ModBuddy requests student to enter a tag name.
+3. ModBuddy displays changes to study plan.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. ModBuddy detects that the module entered does not exist.
+** 1a1. ModBuddy prompts Student to enter a correct module code
+** 1a2. User enters new module.
++
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes from step 3.
+* 2a. ModBuddy detects that the module already has the tag.
+** 2a1. ModBuddy does not add a new tag.
++
+Use case ends.
+
+
+=== Use case: UC05 - Correct modules without a prerequisite
+
+*MSS*
+
+1. ModBuddy highlights a module in red because its prerequisites have not been fulfilled.
+2. Student checks the prerequisites of the module.
+3. ModBuddy displays all a module’s prerequisites that have yet to be fulfilled in previous semesters.
+4. Student adds the unfulfilled module prerequisite to a selected previous semester.
+5. ModBuddy un-highlights the module now that its prerequisites have been fulfilled.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student decides not to take the module.
+** 1a1. Student removes the module from the semester.
++
+Use case ends.
+* 3a. ModBuddy suggests suitable semesters where the student can take the untaken prerequisites.
++
+Use case resumes from step 4.
+
+
+=== Use case: UC06 - Chaining commands
+
+*MSS*
+
+1. User chooses to chain multiple commands
+2. User inputs the multiple commands.
+3. ModBuddy displays the changes as specified.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User chooses to chain different commands with ‘&&’.
+* 2b. User chooses to chain same commands with multiple arguments.
 
 [appendix]
 == Non Functional Requirements
