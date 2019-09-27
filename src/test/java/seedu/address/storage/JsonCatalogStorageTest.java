@@ -83,7 +83,6 @@ public class JsonCatalogStorageTest {
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readCatalog().get(); // file path not specified
         assertEquals(original, new Catalog(readBack));
-
     }
 
     @Test
