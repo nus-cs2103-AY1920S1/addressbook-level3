@@ -32,8 +32,6 @@ What are you waiting for? Start tracking your finances now!
 == Acknowledgements
 
 * This application was built upon the AddressBook-Level3 project created by https://se-education.org[SE-EDU initiative].
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
