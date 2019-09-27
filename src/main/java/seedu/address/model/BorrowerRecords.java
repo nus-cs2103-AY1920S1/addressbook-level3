@@ -34,4 +34,11 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     public ObservableList<Borrower> getBorrowerList() {
         return FXCollections.unmodifiableObservableList(listOfBorrowers);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BorrowerRecords // instanceof handles nulls
+                && listOfBorrowers.equals(((BorrowerRecords) other).listOfBorrowers));
+    }
 }

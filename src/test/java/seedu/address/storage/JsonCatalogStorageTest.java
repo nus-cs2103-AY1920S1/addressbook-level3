@@ -68,20 +68,20 @@ public class JsonCatalogStorageTest {
         JsonCatalogStorage jsonAddressBookStorage = new JsonCatalogStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
+        jsonAddressBookStorage.saveCatalog(original, filePath);
         ReadOnlyCatalog readBack = jsonAddressBookStorage.readCatalog(filePath).get();
         assertEquals(original, new Catalog(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addBook(BOOK_5);
         original.removeBook(BOOK_2);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
+        jsonAddressBookStorage.saveCatalog(original, filePath);
         readBack = jsonAddressBookStorage.readCatalog(filePath).get();
         assertEquals(original, new Catalog(readBack));
 
         // Save and read without specifying file path
         original.addBook(BOOK_6);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
+        jsonAddressBookStorage.saveCatalog(original); // file path not specified
         readBack = jsonAddressBookStorage.readCatalog().get(); // file path not specified
         assertEquals(original, new Catalog(readBack));
     }
@@ -97,7 +97,7 @@ public class JsonCatalogStorageTest {
     private void saveAddressBook(ReadOnlyCatalog addressBook, String filePath) {
         try {
             new JsonCatalogStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveCatalog(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

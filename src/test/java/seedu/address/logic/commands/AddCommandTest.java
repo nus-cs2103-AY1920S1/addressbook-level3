@@ -18,7 +18,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Catalog;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.testutil.BookBuilder;
@@ -147,6 +149,38 @@ public class AddCommandTest {
         public void updateFilteredBookList(Predicate<Book> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Path getLoanRecordsFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setLoanRecordsFilePath(Path loanRecordsFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyLoanRecords getLoanRecords() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getBorrowerRecordsFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyBorrowerRecords getBorrowerRecords() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
     }
 
     /**

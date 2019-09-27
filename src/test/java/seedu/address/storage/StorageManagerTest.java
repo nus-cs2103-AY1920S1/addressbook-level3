@@ -14,7 +14,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Catalog;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
 import seedu.address.storage.catalog.JsonCatalogStorage;
+import seedu.address.storage.loanrecord.JsonLoanRecordsStorage;
 
 public class StorageManagerTest {
 
@@ -25,9 +27,14 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonCatalogStorage addressBookStorage = new JsonCatalogStorage(getTempFilePath("ab"));
+        JsonCatalogStorage catalogStorage = new JsonCatalogStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonLoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(getTempFilePath("lr"));
+        JsonBorrowerRecordsStorage borrowerRecordsStorage =
+                new JsonBorrowerRecordsStorage(getTempFilePath("br"));
+        storageManager = new StorageManager(
+                userPrefsStorage, loanRecordsStorage, catalogStorage, borrowerRecordsStorage
+        );
     }
 
     private Path getTempFilePath(String fileName) {
@@ -56,7 +63,7 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
         Catalog original = getTypicalCatalog();
-        storageManager.saveAddressBook(original);
+        storageManager.saveCatalog(original);
         ReadOnlyCatalog retrieved = storageManager.readCatalog().get();
         assertEquals(original, new Catalog(retrieved));
     }

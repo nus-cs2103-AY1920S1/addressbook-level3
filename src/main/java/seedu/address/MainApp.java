@@ -139,8 +139,8 @@ public class MainApp extends Application {
             initialBorrowerRecords = new BorrowerRecords();
         }
 
-        return new ModelManager(userPrefs, initialLoanRecords,
-                initialCatalog, initialBorrowerRecords);
+        return new ModelManager(initialCatalog, initialLoanRecords, initialBorrowerRecords, userPrefs
+        );
     }
 
     private void initLogging(Config config) {

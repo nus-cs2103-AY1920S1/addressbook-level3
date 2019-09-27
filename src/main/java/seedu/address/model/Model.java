@@ -33,14 +33,8 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
-    /**
-     * Returns the user prefs' loan records file path.
-     */
-    void setCatalog(ReadOnlyCatalog addressBook);
 
-    Path getLoanRecordsFilePath();
-
-    void setLoanRecordsFilePath(Path loanRecordsFilePath);
+    // ================================================================ Catalog
 
     public Path getCatalogFilePath();
 
@@ -48,6 +42,14 @@ public interface Model {
      * Returns the user prefs' catalog file path.
      */
     public void setCatalogFilePath(Path catalogFilePath);
+
+    /** Returns the Catalog*/
+    ReadOnlyCatalog getCatalog();
+
+    /**
+     * Returns the user prefs' loan records file path.
+     */
+    void setCatalog(ReadOnlyCatalog addressBook);
 
     /**
      * Sets the user prefs' loan records file path.
@@ -67,6 +69,17 @@ public interface Model {
 
     void updateFilteredBookList(Predicate<Book> predicate);
 
+    // ================================================================ LoanRecords
+
+    Path getLoanRecordsFilePath();
+
+    void setLoanRecordsFilePath(Path loanRecordsFilePath);
+
+    /** Returns the LoanRecords*/
+    ReadOnlyLoanRecords getLoanRecords();
+
+    // ================================================================ BorrowerRecords
+
     /**
      * Returns the user prefs' borrower records file path.
      */
@@ -76,13 +89,6 @@ public interface Model {
      * Sets the user prefs' address borrower records path.
      */
     void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath);
-
-
-    /** Returns the LoanRecords*/
-    ReadOnlyLoanRecords getLoanRecords();
-
-    /** Returns the Catalog*/
-    ReadOnlyCatalog getCatalog();
 
     /** Returns the BorrowerRecords*/
     ReadOnlyBorrowerRecords getBorrowerRecords();

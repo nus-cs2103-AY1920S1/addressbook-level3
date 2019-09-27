@@ -29,9 +29,10 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      * TODO change
      */
-    public ModelManager(ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyLoanRecords loanRecords, ReadOnlyCatalog catalog,
-                        ReadOnlyBorrowerRecords borrowerRecords) {
+    public ModelManager(ReadOnlyCatalog catalog,
+                        ReadOnlyLoanRecords loanRecords,
+                        ReadOnlyBorrowerRecords borrowerRecords,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(userPrefs, loanRecords, catalog, borrowerRecords);
 
@@ -49,7 +50,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new UserPrefs(), new LoanRecords(), new Catalog(), new BorrowerRecords());
+        this(new Catalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================

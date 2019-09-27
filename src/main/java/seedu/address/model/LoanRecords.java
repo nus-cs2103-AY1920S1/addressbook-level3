@@ -34,4 +34,11 @@ public class LoanRecords implements ReadOnlyLoanRecords {
     public void addLoan(Loan loan) {
         listOfLoans.add(loan);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof LoanRecords // instanceof handles nulls
+                && listOfLoans.equals(((LoanRecords) other).listOfLoans));
+    }
 }
