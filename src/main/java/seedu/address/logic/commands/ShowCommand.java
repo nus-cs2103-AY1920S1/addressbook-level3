@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -7,10 +11,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiViewManager;
 
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Shows details of a person or a group.
+ */
 public class ShowCommand extends Command {
 
     public static final String COMMAND_WORD = "show";
@@ -46,5 +49,12 @@ public class ShowCommand extends Command {
 
         uiViewManager.changeUiDetailsView(person.get());
         return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ShowCommand // instanceof handles nulls
+                && name.equals(((ShowCommand) other).name));
     }
 }
