@@ -25,19 +25,17 @@ public class Phone implements Cloneable {
 
     // Data fields
     private final Cost cost;
-    private final Price price;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Phone(Name name, Brand brand, Capacity capacity, Colour colour, Cost cost, Price price,
+    public Phone(Name name, Brand brand, Capacity capacity, Colour colour, Cost cost,
                  Set<Tag> tags) {
-        requireAllNonNull(name, brand, capacity, colour, cost, price, tags);
+        requireAllNonNull(name, brand, capacity, colour, cost, tags);
         this.id = UUID.randomUUID();
         this.name = name;
         this.brand = brand;
         this.capacity = capacity;
         this.colour = colour;
         this.cost = cost;
-        this.price = price;
         this.tags.addAll(tags);
     }
 
@@ -63,10 +61,6 @@ public class Phone implements Cloneable {
 
     public Cost getCost() {
         return cost;
-    }
-
-    public Price getPrice() {
-        return price;
     }
 
     /**
@@ -115,14 +109,13 @@ public class Phone implements Cloneable {
                 && otherPhone.getCapacity().equals((getCapacity()))
                 && otherPhone.getColour().equals((getColour()))
                 && otherPhone.getCost().equals(getCost())
-                && otherPhone.getPrice().equals(getPrice())
                 && otherPhone.getTags().equals((getTags()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, name, brand, capacity, colour, cost, price, tags);
+        return Objects.hash(id, name, brand, capacity, colour, cost, tags);
     }
 
     @Override
@@ -140,8 +133,6 @@ public class Phone implements Cloneable {
                 .append(getColour())
                 .append(" Cost: ")
                 .append(getCost())
-                .append(" Price: ")
-                .append(getPrice())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
