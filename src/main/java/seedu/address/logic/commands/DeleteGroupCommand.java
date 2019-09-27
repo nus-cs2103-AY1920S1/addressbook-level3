@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,6 +21,7 @@ public class DeleteGroupCommand extends Command {
     public final GroupName groupName;
 
     public DeleteGroupCommand(GroupName groupName) {
+        requireNonNull(groupName);
         this.groupName = groupName;
     }
 

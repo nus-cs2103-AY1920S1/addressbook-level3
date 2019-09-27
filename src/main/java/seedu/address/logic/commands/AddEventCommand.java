@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
@@ -30,6 +31,9 @@ public class AddEventCommand extends Command {
     public final Name name;
 
     public AddEventCommand(Name name, Event event) {
+        requireNonNull(name);
+        requireNonNull(event);
+
         this.event = event;
         this.name = name;
     }

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,6 +21,7 @@ public class DeletePersonCommand extends Command {
     public final Name name;
 
     public DeletePersonCommand(Name name) {
+        requireNonNull(name);
         this.name = name;
     }
 

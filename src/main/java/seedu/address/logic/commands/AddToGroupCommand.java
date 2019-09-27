@@ -22,6 +22,7 @@ public class AddToGroupCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Add to group success: ";
     public static final String MESSAGE_FAILURE = "Unable to find person or group";
+    public static final String MESSAGE_DUPLICATE = "Duplicate Mapping";
 
     public final Name name;
     public final GroupName groupName;
@@ -34,15 +35,19 @@ public class AddToGroupCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        Person person = model.findPerson(name);
-        Group group = model.findGroup(groupName);
-
-        if (person == null || group == null) {
+        if (name == null || groupName == null) {
             return new CommandResult(MESSAGE_FAILURE);
         } else {
+            Person person = model.findPerson(name);
+            Group group = model.findGroup(groupName);
+
             PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
-            model.addPersonToGroupMapping(mapping);
-            return new CommandResult(MESSAGE_SUCCESS + mapping.toString());
+
+            if (model.addPersonToGroupMapping(mapping)){
+                return new CommandResult(MESSAGE_SUCCESS + mapping.toString());
+            } else {
+                return new CommandResult(MESSAGE_DUPLICATE);
+            }
         }
     }
 }

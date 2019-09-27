@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class FindPersonCommand extends Command {
     public final Name name;
 
     public FindPersonCommand(Name name) {
+        requireNonNull(name);
         this.name = name;
     }
 
