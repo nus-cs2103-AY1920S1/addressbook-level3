@@ -1,8 +1,9 @@
 package seedu.address.flashcard;
 
 import java.util.ArrayList;
-import seedu.address.flashcard.Exceptions.DuplicateTagException;
-import seedu.address.flashcard.Exceptions.TagNotFoundException;
+
+import seedu.address.flashcard.exceptions.DuplicateTagException;
+import seedu.address.flashcard.exceptions.TagNotFoundException;
 
 /**
  * A flashcard must contain the following components
@@ -84,6 +85,17 @@ public abstract class Flashcard {
         }
         tags.remove(t);
     }
+
+    /**
+     * When the user make an answer to a question, change the score of this flashcard
+     */
+    public void isAnswerCorrect(boolean correct) {
+        if (correct) {
+            score.addCorrectAnswerNumber();
+        } else {
+            score.addWrongAnswerNumber();
+        }
+    };
 
     /**
      * While searching for a flashcard, decide that whether this flashcard contains the keyword or not.

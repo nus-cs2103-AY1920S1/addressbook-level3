@@ -1,9 +1,9 @@
 package seedu.address.flashcard;
 
 import java.util.ArrayList;
-import seedu.address.flashcard.Exceptions.CardNotFoundException;
-import seedu.address.flashcard.Exceptions.DuplicateTagException;
-import seedu.address.flashcard.Exceptions.TagNotFoundException;
+
+import seedu.address.flashcard.exceptions.CardNotFoundException;
+import seedu.address.flashcard.exceptions.DuplicateTagException;
 
 /**
  * The list of all flashcard list, meanwhile, holding the {@Code TagManager}
@@ -18,6 +18,10 @@ public class FlashcardList {
         tagManager = new TagManager();
     }
 
+    public ArrayList<Flashcard> getAllFlashcards() {
+        return flashcards;
+    }
+
     /**
      * Fetch the particular flashcard based on its id number
      * @param flashcardId the id number of the flashcard we are looking for
@@ -25,7 +29,7 @@ public class FlashcardList {
      * @throws CardNotFoundException if flashcard with this number was not found
      */
     public Flashcard getFlashcard(int flashcardId) throws CardNotFoundException {
-        for (Flashcard flashcard : flashcards){
+        for (Flashcard flashcard : flashcards) {
             if (flashcard.getId().getIdentityNumber() == flashcardId) {
                 return flashcard;
             }
@@ -59,12 +63,13 @@ public class FlashcardList {
      * @param newOptions the updated options for the target flashcard
      * @throws RuntimeException if the card with this id is not found or the corresponding card is not an MCQ card.
      */
-    public void setFlashcardOptions(int flashcardId, ArrayList<String> newOptions) throws RuntimeException{
+    public void setFlashcardOptions(int flashcardId, ArrayList<String> newOptions) throws RuntimeException {
         Flashcard editFlashcard = getFlashcard(flashcardId);
         if (!(editFlashcard instanceof McqFlashcard)) {
             throw new RuntimeException();
         }
-        ((McqFlashcard) editFlashcard).setOptions(newOptions);
+        McqFlashcard castedEditFlashcard = (McqFlashcard) editFlashcard;
+        castedEditFlashcard.setOptions(newOptions);
     }
 
 
@@ -76,8 +81,8 @@ public class FlashcardList {
      */
     public ArrayList<Flashcard> findFlashcard(String search) throws CardNotFoundException {
         ArrayList<Flashcard> matchingFlashcards = new ArrayList<Flashcard>();
-        for(Flashcard flashcard : flashcards){
-            if(flashcard.contains(search)){
+        for (Flashcard flashcard : flashcards) {
+            if (flashcard.contains(search)) {
                 matchingFlashcards.add(flashcard);
             }
         }
@@ -93,7 +98,7 @@ public class FlashcardList {
      */
     public void deleteFlashcard (int flashcardId) throws CardNotFoundException {
         Flashcard flashcardDelete = getFlashcard(flashcardId);
-        for (Tag tag : flashcardDelete.getTags()){
+        for (Tag tag : flashcardDelete.getTags()) {
             tag.deleteFlashcard(flashcardId);
         }
         flashcards.remove(flashcardDelete);

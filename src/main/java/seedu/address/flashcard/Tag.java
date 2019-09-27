@@ -1,8 +1,9 @@
 package seedu.address.flashcard;
 
 import java.util.ArrayList;
-import seedu.address.flashcard.Exceptions.CardNotFoundException;
-import seedu.address.flashcard.Exceptions.DuplicateCardException;
+
+import seedu.address.flashcard.exceptions.CardNotFoundException;
+import seedu.address.flashcard.exceptions.DuplicateCardException;
 
 /**
  * A class that represents each individual tagged flashcard set
@@ -25,7 +26,7 @@ public class Tag {
      * @param c the flashcard to be added.
      * @throws DuplicateCardException if the card is already under this tag
      */
-    public void addFlashcard(Flashcard c) throws DuplicateCardException{
+    public void addFlashcard(Flashcard c) throws DuplicateCardException {
         if (cardList.contains(c)) {
             throw new DuplicateCardException();
         }
@@ -46,7 +47,7 @@ public class Tag {
      * @param id the ID of the flashcard to be removed
      * @throws CardNotFoundException the card with this ID is not found under this tag
      */
-    public void deleteFlashcard(int id) throws CardNotFoundException{
+    public void deleteFlashcard(int id) throws CardNotFoundException {
         boolean cardWasFound = false;
         for (Flashcard item : cardList) {
             if (item.getId().getIdentityNumber() == id) {
@@ -108,7 +109,6 @@ public class Tag {
     /**
      * Check if two tags are equivalent to each other.
      * Two tags are the same if and only if their names are the same.
-     *
      * @param other the other tag to be tested.
      * @return a boolean variable that informs whether the two tags are the same.
      */

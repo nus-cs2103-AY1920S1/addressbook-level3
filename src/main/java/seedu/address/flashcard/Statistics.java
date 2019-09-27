@@ -1,102 +1,65 @@
 package seedu.address.flashcard;
 
-import java.util.ArrayList;
-
+/**
+ * Helps calculating the correct rate for each flashcard, tag and the whole flashcard set.
+ */
 public class Statistics {
 
-    public static ArrayList<String> getTagPercentage (ArrayList<Tag> tags){
-        int overallTotal = 0;
-        int overallTotalCorrectAns = 0;
-        int tagTotal = 0;
-
-        int tagTotalCorrect = 0;
-        ArrayList<String> results = new ArrayList<>();
-        for (Tag tag : tags){
-                tagTotal = 0;
-                tagTotalCorrect = 0;
-            for(Flashcard flashcard  : tag.getFlashcards()){
-                tagTotal += flashcard.getScore().getTotalAnswerNumber();
-                overallTotal += tagTotal;
-                tagTotalCorrect += flashcard.getScore().getCorrectAnswerNumber();
-                overallTotalCorrectAns += tagTotalCorrect;
-            }
-            String result = "Total percentage under " + tag.getName() + ": " + ((tagTotalCorrect/tagTotal)*100) +"%";
-            results.add(result);
+    /**
+     * Sum up all the correct answers in a tag
+     */
+    public static int getTagTotalCorrect(Tag tag) {
+        int overallCorrectAnswer = 0;
+        for (Flashcard card : tag.getFlashcards()) {
+            overallCorrectAnswer = overallCorrectAnswer + card.getScore().getCorrectAnswerNumber();
         }
-        if(tags.size() > 1){
-            String totalResult = "Total percentage for these tags: " + (overallTotalCorrectAns/overallTotal) + "%";
-            results.add(totalResult);
-        }
-
-        return results;
+        return overallCorrectAnswer;
     }
 
-    public static ArrayList<String> getFlashcardPercentage(ArrayList<Flashcard> flashcards){
-        int overallTotal = 0;
-        int overallTotalCorrectAns = 0;
-        ArrayList<String> results = new ArrayList<>();
-        for (Flashcard flashcard : flashcards) {
-            String result = "Percentage correct for " + flashcard.toString()
-                    + ": " + flashcard.getScore().getCorrectRate()*100 + "%";
-            results.add(flashcard.toString());
-            overallTotal += flashcard.getScore().getTotalAnswerNumber();
-            overallTotalCorrectAns += flashcard.getScore().getCorrectAnswerNumber();
+    /**
+     * Sum up all the wrong answers in a tag
+     */
+    public static int getTagTotalWrong(Tag tag) {
+        int overallWrongAnswers = 0;
+        for (Flashcard card : tag.getFlashcards()) {
+            overallWrongAnswers = overallWrongAnswers + card.getScore().getWrongAnswerNumber();
         }
-        if(flashcards.size() > 1){
-            String totalResult = "Total percentage for these tags: " + (overallTotalCorrectAns/overallTotal) + "%";
-            results.add(totalResult);
-        }
-        return results;
+        return overallWrongAnswers;
     }
 
-    public static ArrayList<String> getTagAnswerCount(ArrayList<Tag> tags){
-        int overallTotal = 0;
-        int tagTotal = 0;
-        ArrayList<String> results = new ArrayList<>();
-        for (Tag tag : tags){
-            tagTotal = 0;
-            for(Flashcard flashcard  : tag.getFlashcards()){
-                tagTotal += flashcard.getScore().getTotalAnswerNumber();
-                overallTotal += tagTotal;
-            }
-            String result = "Total attempts under " + tag.getName() + ": " + overallTotal;
-            results.add(result);
-        }
-        if(tags.size() > 1){
-            String totalResult = "Total attempts for these tags: " + overallTotal;
-            results.add(totalResult);
-        }
-
-        return results;
+    /**
+     * Sum up practice times in a tag
+     */
+    public static int getTagTotal(Tag tag) {
+        return getTagTotalCorrect(tag) + getTagTotalWrong(tag);
     }
 
-    public static ArrayList<String> getFlashcardAnswerCount(ArrayList<Flashcard> flashcards){
-        int overallTotal = 0;
-        ArrayList<String> results = new ArrayList<>();
-        for (Flashcard flashcard : flashcards) {
-            String result = "Total attempts for " + flashcard.toString()
-                    + ": " + flashcard.getScore().getTotalAnswerNumber();
-            overallTotal += flashcard.getScore().getTotalAnswerNumber();
+    /**
+     * Sum up all the correct answers in the cardList
+     */
+    public static int getTotalCorrect(FlashcardList cardList) {
+        int overallCorrectAnswer = 0;
+        for (Flashcard card : cardList.getAllFlashcards()) {
+            overallCorrectAnswer = overallCorrectAnswer + card.getScore().getCorrectAnswerNumber();
         }
-        if(flashcards.size() > 1){
-            String totalResult = "Total attempts: " + overallTotal;
-            results.add(totalResult);
-        }
-        return results;
+        return overallCorrectAnswer;
     }
 
-    public static ArrayList<String> getCardsRead(Tag tag){
-        return getCardsRead(tag.getFlashcards());
+    /**
+     * Sum up all the wrong answers in the cardList
+     */
+    public static int getTotalWrong(FlashcardList cardList) {
+        int overallWrongAnswer = 0;
+        for (Flashcard card : cardList.getAllFlashcards()) {
+            overallWrongAnswer = overallWrongAnswer + card.getScore().getWrongAnswerNumber();
+        }
+        return overallWrongAnswer;
     }
 
-    public static ArrayList<String> getCardsRead(ArrayList<Flashcard> flashcards){
-        ArrayList<String> cardsRead = new ArrayList<>();
-        for (Flashcard flashcard : flashcards){
-            if(flashcard.getScore().getTotalAnswerNumber()>0){
-                cardsRead.add(flashcard.toString());
-            }
-        }
-        cardsRead.add("total unread cards:" + (flashcards.size()-cardsRead.size()));
-        return cardsRead;
+    /**
+     * Sum up practice times in a cardList
+     */
+    public static int getTotal(FlashcardList cardList) {
+        return getTotalCorrect(cardList) + getTotalWrong(cardList);
     }
 }

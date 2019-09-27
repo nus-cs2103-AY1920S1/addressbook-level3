@@ -1,9 +1,9 @@
 package seedu.address.flashcard;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import seedu.address.flashcard.Exceptions.DuplicateTagException;
-import seedu.address.flashcard.Exceptions.TagNotFoundException;
+
+import seedu.address.flashcard.exceptions.DuplicateTagException;
+import seedu.address.flashcard.exceptions.TagNotFoundException;
 
 /**
  *  A class for managing flashcard tagged sets.
@@ -51,7 +51,7 @@ public class TagManager {
      * @return the tag with this name
      * @throws TagNotFoundException if such a tag does not exist
      */
-    public Tag getTag(String s) throws TagNotFoundException{
+    public Tag getTag(String s) throws TagNotFoundException {
         for (Tag item : allTags) {
             if (item.getName().equals(s)) {
                 return item;
@@ -85,7 +85,7 @@ public class TagManager {
      * @throws DuplicateTagException if this tag name already exists
      */
     public void addTag(String name) throws DuplicateTagException {
-        assert (!hasTag(name)): "Flashcard list failed to check for duplicate tags.";
+        assert (!hasTag(name)) : "Flashcard list failed to check for duplicate tags.";
         allTags.add(new Tag(name));
     }
 
