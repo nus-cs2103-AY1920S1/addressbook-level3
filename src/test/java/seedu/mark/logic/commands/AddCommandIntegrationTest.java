@@ -29,8 +29,8 @@ public class AddCommandIntegrationTest {
     public void execute_newPerson_success() {
         Bookmark validBookmark = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validBookmark);
+        Model expectedModel = new ModelManager(model.getBookmarkManager(), new UserPrefs());
+        expectedModel.addBookmark(validBookmark);
 
         assertCommandSuccess(new AddCommand(validBookmark), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validBookmark), expectedModel);
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Bookmark bookmarkInList = model.getAddressBook().getBookmarkList().get(0);
+        Bookmark bookmarkInList = model.getBookmarkManager().getBookmarkList().get(0);
         assertCommandFailure(new AddCommand(bookmarkInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

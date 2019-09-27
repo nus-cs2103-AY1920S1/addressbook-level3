@@ -109,42 +109,42 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Bookmark bookmark) {
+        public void addBookmark(Bookmark bookmark) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyBookmarkManager newData) {
+        public void setBookmarkManager(ReadOnlyBookmarkManager newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyBookmarkManager getAddressBook() {
+        public ReadOnlyBookmarkManager getBookmarkManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Bookmark bookmark) {
+        public boolean hasBookmark(Bookmark bookmark) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Bookmark target) {
+        public void deleteBookmark(Bookmark target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Bookmark target, Bookmark editedBookmark) {
+        public void setBookmark(Bookmark target, Bookmark editedBookmark) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Bookmark> getFilteredPersonList() {
+        public ObservableList<Bookmark> getFilteredBookmarkList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Bookmark> predicate) {
+        public void updateFilteredBookmarkList(Predicate<Bookmark> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Bookmark bookmark) {
+        public boolean hasBookmark(Bookmark bookmark) {
             requireNonNull(bookmark);
             return this.bookmark.isSameBookmark(bookmark);
         }
@@ -174,19 +174,19 @@ public class AddCommandTest {
         final ArrayList<Bookmark> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Bookmark bookmark) {
+        public boolean hasBookmark(Bookmark bookmark) {
             requireNonNull(bookmark);
             return personsAdded.stream().anyMatch(bookmark::isSameBookmark);
         }
 
         @Override
-        public void addPerson(Bookmark bookmark) {
+        public void addBookmark(Bookmark bookmark) {
             requireNonNull(bookmark);
             personsAdded.add(bookmark);
         }
 
         @Override
-        public ReadOnlyBookmarkManager getAddressBook() {
+        public ReadOnlyBookmarkManager getBookmarkManager() {
             return new BookmarkManager();
         }
     }

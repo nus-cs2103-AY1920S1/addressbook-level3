@@ -14,27 +14,27 @@ import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the bookmark manager data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final BookmarkManager addressBook;
+    private final BookmarkManager bookmarkManager;
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given bookmarkManager and userPrefs.
      */
-    public ModelManager(ReadOnlyBookmarkManager addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyBookmarkManager bookmarkManager, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(bookmarkManager, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with bookmark manager: " + bookmarkManager + " and user prefs " + userPrefs);
 
-        this.addressBook = new BookmarkManager(addressBook);
+        this.bookmarkManager = new BookmarkManager(bookmarkManager);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredBookmarks = new FilteredList<>(this.addressBook.getBookmarkList());
+        filteredBookmarks = new FilteredList<>(this.bookmarkManager.getBookmarkList());
     }
 
     public ModelManager() {
@@ -79,52 +79,52 @@ public class ModelManager implements Model {
     //=========== BookmarkManager ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyBookmarkManager addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setBookmarkManager(ReadOnlyBookmarkManager bookmarkManager) {
+        this.bookmarkManager.resetData(bookmarkManager);
     }
 
     @Override
-    public ReadOnlyBookmarkManager getAddressBook() {
-        return addressBook;
+    public ReadOnlyBookmarkManager getBookmarkManager() {
+        return bookmarkManager;
     }
 
     @Override
-    public boolean hasPerson(Bookmark bookmark) {
+    public boolean hasBookmark(Bookmark bookmark) {
         requireNonNull(bookmark);
-        return addressBook.hasBookmark(bookmark);
+        return bookmarkManager.hasBookmark(bookmark);
     }
 
     @Override
-    public void deletePerson(Bookmark target) {
-        addressBook.removeBookmark(target);
+    public void deleteBookmark(Bookmark target) {
+        bookmarkManager.removeBookmark(target);
     }
 
     @Override
-    public void addPerson(Bookmark bookmark) {
-        addressBook.addBookmark(bookmark);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addBookmark(Bookmark bookmark) {
+        bookmarkManager.addBookmark(bookmark);
+        updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
     }
 
     @Override
-    public void setPerson(Bookmark target, Bookmark editedBookmark) {
+    public void setBookmark(Bookmark target, Bookmark editedBookmark) {
         requireAllNonNull(target, editedBookmark);
 
-        addressBook.setBookmark(target, editedBookmark);
+        bookmarkManager.setBookmark(target, editedBookmark);
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Bookmark} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedBookmarkManager}
      */
     @Override
-    public ObservableList<Bookmark> getFilteredPersonList() {
+    public ObservableList<Bookmark> getFilteredBookmarkList() {
         return filteredBookmarks;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Bookmark> predicate) {
+    public void updateFilteredBookmarkList(Predicate<Bookmark> predicate) {
         requireNonNull(predicate);
         filteredBookmarks.setPredicate(predicate);
     }
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return bookmarkManager.equals(other.bookmarkManager)
                 && userPrefs.equals(other.userPrefs)
                 && filteredBookmarks.equals(other.filteredBookmarks);
     }

@@ -33,14 +33,14 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Bookmark> lastShownList = model.getFilteredPersonList();
+        List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Bookmark bookmarkToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(bookmarkToDelete);
+        model.deleteBookmark(bookmarkToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, bookmarkToDelete));
     }
 

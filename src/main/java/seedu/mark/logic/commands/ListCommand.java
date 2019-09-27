@@ -1,7 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 
 import seedu.mark.model.Model;
 
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

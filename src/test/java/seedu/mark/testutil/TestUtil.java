@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the bookmark in the {@code model}'s bookmark list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredBookmarkList().size() / 2);
     }
 
     /**
      * Returns the last index of the bookmark in the {@code model}'s bookmark list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredBookmarkList().size());
     }
 
     /**
      * Returns the bookmark in the {@code model}'s bookmark list at {@code index}.
      */
     public static Bookmark getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+        return model.getFilteredBookmarkList().get(index.getZeroBased());
     }
 }

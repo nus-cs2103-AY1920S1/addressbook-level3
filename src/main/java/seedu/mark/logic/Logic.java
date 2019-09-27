@@ -26,7 +26,7 @@ public interface Logic {
     /**
      * Returns the BookmarkManager.
      *
-     * @see seedu.mark.model.Model#getAddressBook()
+     * @see seedu.mark.model.Model#getBookmarkManager()
      */
     ReadOnlyBookmarkManager getAddressBook();
 

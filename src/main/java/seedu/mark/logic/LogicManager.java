@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getBookmarkManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,12 +53,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyBookmarkManager getAddressBook() {
-        return model.getAddressBook();
+        return model.getBookmarkManager();
     }
 
     @Override
     public ObservableList<Bookmark> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getFilteredBookmarkList();
     }
 
     @Override

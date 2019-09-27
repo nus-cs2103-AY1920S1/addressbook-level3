@@ -104,25 +104,25 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        BookmarkManager expectedAddressBook = new BookmarkManager(actualModel.getAddressBook());
-        List<Bookmark> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        BookmarkManager expectedAddressBook = new BookmarkManager(actualModel.getBookmarkManager());
+        List<Bookmark> expectedFilteredList = new ArrayList<>(actualModel.getFilteredBookmarkList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedAddressBook, actualModel.getBookmarkManager());
+        assertEquals(expectedFilteredList, actualModel.getFilteredBookmarkList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the bookmark at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBookmarkList().size());
 
-        Bookmark bookmark = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Bookmark bookmark = model.getFilteredBookmarkList().get(targetIndex.getZeroBased());
         final String[] splitName = bookmark.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredBookmarkList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredBookmarkList().size());
     }
 
 }

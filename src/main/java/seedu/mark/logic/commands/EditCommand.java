@@ -6,7 +6,7 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -68,7 +68,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Bookmark> lastShownList = model.getFilteredPersonList();
+        List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -77,12 +77,12 @@ public class EditCommand extends Command {
         Bookmark bookmarkToEdit = lastShownList.get(index.getZeroBased());
         Bookmark editedBookmark = createEditedPerson(bookmarkToEdit, editPersonDescriptor);
 
-        if (!bookmarkToEdit.isSameBookmark(editedBookmark) && model.hasPerson(editedBookmark)) {
+        if (!bookmarkToEdit.isSameBookmark(editedBookmark) && model.hasBookmark(editedBookmark)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(bookmarkToEdit, editedBookmark);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setBookmark(bookmarkToEdit, editedBookmark);
+        model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedBookmark));
     }
 

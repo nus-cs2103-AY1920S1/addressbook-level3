@@ -12,7 +12,7 @@ import seedu.mark.model.bookmark.Bookmark;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Bookmark> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Bookmark> PREDICATE_SHOW_ALL_BOOKMARKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -35,53 +35,53 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' bookmark manager file path.
      */
     Path getBookmarkManagerFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' bookmark manager file path.
      */
     void setBookmarkManagerFilePath(Path bookmarkManagerFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces bookmark manager data with the data in {@code bookmarkManager}.
      */
-    void setAddressBook(ReadOnlyBookmarkManager addressBook);
+    void setBookmarkManager(ReadOnlyBookmarkManager bookmarkManager);
 
     /** Returns the BookmarkManager */
-    ReadOnlyBookmarkManager getAddressBook();
+    ReadOnlyBookmarkManager getBookmarkManager();
 
     /**
-     * Returns true if a bookmark with the same identity as {@code bookmark} exists in the address book.
+     * Returns true if a bookmark with the same identity as {@code bookmark} exists in the bookmark manager.
      */
-    boolean hasPerson(Bookmark bookmark);
+    boolean hasBookmark(Bookmark bookmark);
 
     /**
      * Deletes the given bookmark.
-     * The bookmark must exist in the address book.
+     * The bookmark must exist in the bookmark manager.
      */
-    void deletePerson(Bookmark target);
+    void deleteBookmark(Bookmark target);
 
     /**
      * Adds the given bookmark.
-     * {@code bookmark} must not already exist in the address book.
+     * {@code bookmark} must not already exist in the bookmark manager.
      */
-    void addPerson(Bookmark bookmark);
+    void addBookmark(Bookmark bookmark);
 
     /**
      * Replaces the given bookmark {@code target} with {@code editedBookmark}.
-     * {@code target} must exist in the address book.
-     * The bookmark identity of {@code editedBookmark} must not be the same as another existing bookmark in the address book.
+     * {@code target} must exist in the bookmark manager.
+     * The bookmark identity of {@code editedBookmark} must not be the same as another existing bookmark in the bookmark manager.
      */
-    void setPerson(Bookmark target, Bookmark editedBookmark);
+    void setBookmark(Bookmark target, Bookmark editedBookmark);
 
     /** Returns an unmodifiable view of the filtered bookmark list */
-    ObservableList<Bookmark> getFilteredPersonList();
+    ObservableList<Bookmark> getFilteredBookmarkList();
 
     /**
      * Updates the filter of the filtered bookmark list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Bookmark> predicate);
+    void updateFilteredBookmarkList(Predicate<Bookmark> predicate);
 }
