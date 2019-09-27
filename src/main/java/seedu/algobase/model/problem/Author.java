@@ -12,7 +12,11 @@ public class Author {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Author numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+    /*
+     * The first character of the author's name must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     public final String value;
 
     /**
