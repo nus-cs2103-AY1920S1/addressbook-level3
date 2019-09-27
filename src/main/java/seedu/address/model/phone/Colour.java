@@ -1,5 +1,6 @@
 package seedu.address.model.phone;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -24,6 +25,7 @@ public class Colour {
      * @param colour A valid colour.
      */
     public Colour(String colour) {
+        requireNonNull(colour);
         checkArgument(isValidColour(colour), MESSAGE_CONSTRAINTS);
         value = colour;
     }

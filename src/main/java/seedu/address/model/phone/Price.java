@@ -1,9 +1,11 @@
 package seedu.address.model.phone;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Phone's price in the SML.
@@ -22,6 +24,7 @@ public class Price {
      * @param price A valid price.
      */
     public Price(String price) {
+        requireNonNull(price);
         checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
         value = price;
     }
