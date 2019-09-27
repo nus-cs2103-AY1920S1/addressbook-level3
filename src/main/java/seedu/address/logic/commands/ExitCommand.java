@@ -16,4 +16,13 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 
+    @Override
+    public boolean equals(Command command) {
+        if (command instanceof ExitCommand) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

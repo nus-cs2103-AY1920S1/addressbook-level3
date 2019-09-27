@@ -8,6 +8,9 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.group.GroupList;
+import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.person.PersonList;
 
 /**
  * API of the Storage component
@@ -28,5 +31,19 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+
+    void savePersonList(PersonList personList) throws IOException;
+
+    void saveGroupList(GroupList groupList) throws IOException;
+
+    void savePersonToGroupMappingList(PersonToGroupMappingList personToGroupMappingList) throws IOException;
+
+    PersonList getPersonList();
+
+    GroupList getGroupList();
+
+    PersonToGroupMappingList getPersonToGroupMappingList();
+
+
 
 }

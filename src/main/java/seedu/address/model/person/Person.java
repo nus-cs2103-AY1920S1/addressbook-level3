@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,46 +18,50 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private static Integer counter = 0;
+    private final PersonId personId;
 
     // Data fields
-    private final Address address;
-    private final Remark remark;
-    private final Set<Tag> tags = new HashSet<>();
+    private Name name;
+    private Phone phone;
+    private Email email;
+    private Address address;
+    private Remark remark;
+    private Set<Tag> tags = new HashSet<>();
+    private Schedule schedule;
 
-    /**
-     * Every field must be present and not null.
-     */
     public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.remark = remark;
         this.tags.addAll(tags);
+        this.personId = new PersonId(counter);
+        this.schedule = new Schedule(this.getPersonId());
+        counter += 1;
     }
 
-    public Name getName() {
-        return name;
+    public Person(PersonDescriptor personDescriptor) {
+        this.name = personDescriptor.getName();
+        this.phone = personDescriptor.getPhone();
+        this.email = personDescriptor.getEmail();
+        this.address = personDescriptor.getAddress();
+        this.remark = personDescriptor.getRemark();
+        if (personDescriptor.getTags() != null) {
+            this.tags.addAll(personDescriptor.getTags());
+        }
+        this.personId = new PersonId(counter);
+        this.schedule = new Schedule(this.getPersonId());
+        counter += 1;
     }
 
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public Remark getRemark() {
-        return remark;
+    /**
+     * Resets the counter for testing.
+     */
+    public static void counterReset() {
+        counter = 0;
     }
 
     /**
@@ -67,39 +73,31 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both persons are the same instance of person.
      */
-    public boolean isSamePerson(Person otherPerson) {
+    public boolean equals(Person otherPerson) {
         if (otherPerson == this) {
             return true;
+        } else if (otherPerson == null) {
+            return false;
+        } else if (!this.isSamePerson(otherPerson)) {
+            return false;
+        } else if (otherPerson.getPersonId().equals(this.getPersonId())) {
+            return true;
+        } else {
+            return false;
         }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns only if the two person's details are the same. Does not check if IDs are the same.
      */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Person)) {
-            return false;
-        }
-
-        Person otherPerson = (Person) other;
+    public boolean isSamePerson(Person otherPerson) {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags())
+                //&& otherPerson.getTags().equals(getTags())
                 && otherPerson.getRemark().equals(getRemark());
     }
 
@@ -111,19 +109,115 @@ public class Person {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Remarks: ")
-                .append(getRemark())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        return builder.toString();
+        String output = "";
+        output += "(" + personId.toString() + ") ";
+        output += name.toString();
+
+        return output;
+    }
+
+    public void addTags(Set<Tag> tags) {
+        this.tags.addAll(tags);
+    }
+
+    public void addEvent(Event event) {
+        this.schedule.addEvent(event);
+    }
+
+    public PersonId getPersonId() {
+        return this.personId;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Remark getRemark() {
+        return remark;
+    }
+
+    public void setRemark(Remark remark) {
+        this.remark = remark;
+    }
+
+    public Schedule getSchedule() {
+        return this.schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    /**
+     * Prints of all details of a person.
+     *
+     * @return String
+     */
+    public String details() {
+        String output = "";
+        String notAvailable = "NOT AVAILABLE";
+        output += this.toString() + "\n";
+
+        output += "Phone: ";
+        if (phone == null) {
+            output += notAvailable + "\n";
+        } else {
+            output += phone.toString() + "\n";
+        }
+
+        output += "Email: ";
+        if (email == null) {
+            output += notAvailable + "\n";
+        } else {
+            output += email.toString() + "\n";
+        }
+
+        output += "Address: ";
+        if (address == null) {
+            output += notAvailable + "\n";
+        } else {
+            output += address.toString() + "\n";
+        }
+
+        output += "Remark: ";
+        if (remark == null) {
+            output += notAvailable + "\n";
+        } else {
+            output += remark.toString() + "\n";
+        }
+
+        output += "Tags: " + tags.toString() + "\n\n";
+        output += schedule.toString();
+
+        return output;
     }
 
 }
