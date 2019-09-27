@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 import seedu.address.model.userprefs.UserPrefs;
@@ -22,26 +23,32 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final PatientSchedule patientSchedule;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Event> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyAddressBook addressBook,
+            ReadOnlySchedule patientSchedule) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(userPrefs, addressBook, patientSchedule);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.patientSchedule = new PatientSchedule(patientSchedule);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredEvents = new FilteredList<>(this.patientSchedule.getEventList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new UserPrefs(), new AddressBook(), new PatientSchedule());
     }
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -77,6 +84,7 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
+
 
     //=========== AddressBook ================================================================================
 
@@ -120,6 +128,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -137,6 +146,70 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+
+    //=========== Scheduler ==================================================================================
+
+    @Override
+    public void setSchedule(ReadOnlySchedule schedule) {
+        this.addressBook.resetData(addressBook);
+    }
+
+    @Override
+    public ReadOnlySchedule getSchedule() {
+        return patientSchedule;
+    }
+
+    @Override
+    public boolean hasEvent(Event event){
+        requireNonNull(event);
+        return patientSchedule.hasEvent(event);
+    }
+
+    @Override
+    public boolean hasExactEvent(Event event) {
+        requireNonNull(event);
+        return patientSchedule.hasExactEvent(event);
+    }
+
+    @Override
+    public void deleteEvent(Event event) {
+        patientSchedule.removeEvent(event);
+    }
+
+    @Override
+    public void addEvent(Event event) {
+        patientSchedule.addEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+    }
+
+    @Override
+    public void setEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        patientSchedule.setEvent(target, editedEvent);
+    }
+
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return filteredEvents;
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        filteredEvents.setPredicate(predicate);
+    }
+
+
+    //=========== Misc =======================================================================================
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -152,6 +225,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
+                && patientSchedule.equals(other.patientSchedule)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
