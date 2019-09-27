@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 public class AddEventCommand extends EventRelatedCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addevent";
 
     /*public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
@@ -31,7 +31,6 @@ public class AddEventCommand extends EventRelatedCommand {
      */
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This event already exists in the address book";
 
     private final Event toAdd;
 
@@ -41,8 +40,6 @@ public class AddEventCommand extends EventRelatedCommand {
     public AddEventCommand(Event event) {
         requireNonNull(event);
         toAdd = event;
-
-
     }
 
     @Override
@@ -51,7 +48,7 @@ public class AddEventCommand extends EventRelatedCommand {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }*/
 
-        model.addPerson(toAdd);
+        model.addEvent(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

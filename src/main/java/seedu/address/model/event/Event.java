@@ -20,9 +20,9 @@ public class Event {
     private final EventHoursNeeded hoursNeeded;
     private final EventStartDate startDate;
     private final EventEndDate endDate;
-    private final EventManpowerAllocatedList manpowerAllocatedList;
+    private final EventManpowerAllocatedList manpowerAllocatedList;*/
     private final Set<Tag> tags = new HashSet<>();
-
+    /*
     public Event(EventID id, EventName name, EventVenue venue, EventHoursNeeded hoursNeeded,
                  EventManpowerNeeded manpowerNeeded, EventStartDate startDate, EventEndDate endDate, Set<Tag> tags) {
         this.id = id;
@@ -46,12 +46,14 @@ public class Event {
 
 
 
-    /*
+
+
+
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
-     *
+     */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
@@ -59,20 +61,21 @@ public class Event {
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
-     *
+     */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
             return true;
         }
 
-        return otherEvent != null
+        /*return otherEvent != null
                 && otherEvent.getName().equals(getName())
-                && (otherEvent.getPhone().equals(getPhone()) || otherEvent.getEmail().equals(getEmail()));
+                && (otherEvent.getPhone().equals(getPhone()) || otherEvent.getEmail().equals(getEmail()));*/
+        return false;
     }
 
 
 
-    public boolean equals(Object other) {
+    /*public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
@@ -93,21 +96,19 @@ public class Event {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone, email, address, tags);
-    }
+    }*/
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
+        builder.append(getName());
+                /*.append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        getTags().forEach(builder::append);*/
         return builder.toString();
     }
-    */
+
 }

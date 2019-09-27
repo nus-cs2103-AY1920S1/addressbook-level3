@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEventBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -18,11 +19,11 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
-    private AddressBookStorage eventBookStorage;
+    private EventBookStorage eventBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, AddressBookStorage eventBookStorage
+    public StorageManager(AddressBookStorage addressBookStorage, EventBookStorage eventBookStorage
                           , UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
@@ -57,7 +58,7 @@ public class StorageManager implements Storage {
     }
 
     public Path getEventBookFilePath() {
-        return eventBookStorage.getAddressBookFilePath();
+        return eventBookStorage.getEventBookFilePath();
     }
 
     @Override
@@ -71,13 +72,13 @@ public class StorageManager implements Storage {
         return addressBookStorage.readAddressBook(filePath);
     }
     @Override
-    public Optional<ReadOnlyAddressBook> readEventBook() throws DataConversionException, IOException {
-        return readAddressBook(eventBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyEventBook> readEventBook() throws DataConversionException, IOException {
+        return readEventBook(eventBookStorage.getEventBookFilePath());
     }
 
-    public Optional<ReadOnlyAddressBook> readEventBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyEventBook> readEventBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return eventBookStorage.readAddressBook(filePath);
+        return eventBookStorage.readEventBook(filePath);
     }
 
 
@@ -93,13 +94,13 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveEventBook(ReadOnlyAddressBook eventBook) throws IOException {
-        saveAddressBook(eventBook, eventBookStorage.getAddressBookFilePath());
+    public void saveEventBook(ReadOnlyEventBook eventBook) throws IOException {
+        saveEventBook(eventBook, eventBookStorage.getEventBookFilePath());
     }
 
-    public void saveEventBook(ReadOnlyAddressBook eventBook, Path filePath) throws IOException {
+    public void saveEventBook(ReadOnlyEventBook eventBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        eventBookStorage.saveAddressBook(eventBook, filePath);
+        eventBookStorage.saveEventBook(eventBook, filePath);
     }
 
 }

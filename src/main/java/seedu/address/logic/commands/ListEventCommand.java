@@ -18,8 +18,8 @@ public class ListEventCommand extends EventRelatedCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        String test = model.getFilteredPersonList().toString();
+        //model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        String test = model.getFilteredEventList().toString();
         return new CommandResult(test);
     }
 }
