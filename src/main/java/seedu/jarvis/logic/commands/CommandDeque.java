@@ -47,6 +47,10 @@ public class CommandDeque {
         sizeLimit = DEFAULT_INITIAL_SIZE_LIMIT;
     }
 
+    /**
+     * Creates a new {@code CommandDeque} with a custom size limit.
+     * @param sizeLimit Custom size limit.
+     */
     public CommandDeque(int sizeLimit) {
         this();
         this.sizeLimit = sizeLimit;

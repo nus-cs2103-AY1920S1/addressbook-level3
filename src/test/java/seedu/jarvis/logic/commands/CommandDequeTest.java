@@ -22,6 +22,16 @@ import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
 public class CommandDequeTest {
 
     /**
+     * Verifies that the overloaded constructor to set a custom size limit works as intended.
+     */
+    @Test
+    public void test_customSizeLimitConstructor() {
+        int customSizeLimit = 5;
+        CommandDeque commandDeque = new CommandDeque(customSizeLimit);
+        assertEquals(customSizeLimit, commandDeque.getSizeLimit());
+    }
+
+    /**
      * Verifies that {@code CommandDeque#addLatestCommand(Command)} adds the command correctly into the deque.
      */
     @Test
