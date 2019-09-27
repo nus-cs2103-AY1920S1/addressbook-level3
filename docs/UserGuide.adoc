@@ -266,6 +266,31 @@ Example:
 
 * `validmods y2s1`
 
+=== Verification
+
+==== Error messages
+Displays a useful error message if the input is invalid. For example, it should highlight wrong commands, wrong numbers of arguments, or arguments in the wrong format.
+
+==== Checking a study plan's feasibility
+Shows details about what requirements are left to be fulfilled,
+such as modules that remain to be taken or prerequisites that have yet to be satisfied. +
+Format: `check [AREA]`
+
+Examples:
+
+* `check` -- checks all graduation requirements by default +
+* `check core` +
+* `check focus` +
+* `check prereq` +
+* `check mc` +
+* `check MODULE` -- checks if the module is valid, listing issues with its prerequisites +
+* `check SEMESTER` -- checks if all modules in the semester are valid
+
+==== Displays
+Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules as tags.
+
+The study plan will have a tick or cross beside it, which shows if the entire plan is feasible.
+
 // tag::dataencryption[]
 
 
