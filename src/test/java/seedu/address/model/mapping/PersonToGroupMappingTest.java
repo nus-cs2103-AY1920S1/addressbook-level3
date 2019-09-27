@@ -1,14 +1,13 @@
 package seedu.address.model.mapping;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP00;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP01;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP22;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import seedu.address.model.group.GroupId;
-import seedu.address.model.person.PersonId;
 
 class PersonToGroupMappingTest {
 
@@ -16,26 +15,26 @@ class PersonToGroupMappingTest {
 
     @BeforeEach
     void init() {
-        mapping = new PersonToGroupMapping(new PersonId(1), new GroupId(2));
+        mapping = MAP00;
     }
 
     @Test
     void getGroupId() {
-        assertEquals("2", mapping.getGroupId().toString());
+        assertTrue(MAP00.getGroupId().equals(mapping.getGroupId()));
+        assertFalse(MAP22.getGroupId().equals(mapping.getGroupId()));
     }
 
     @Test
     void getPersonId() {
-        assertEquals("1", mapping.getPersonId().toString());
+        assertTrue(MAP00.getPersonId().equals(mapping.getPersonId()));
+        assertFalse(MAP22.getPersonId().equals(mapping.getPersonId()));
     }
 
     @Test
     void testEquals() {
-        PersonToGroupMapping mapping2 = new PersonToGroupMapping(new PersonId(1), new GroupId(2));
-        PersonToGroupMapping mapping3 = new PersonToGroupMapping(new PersonId(1), new GroupId(3));
-
-        assertTrue(mapping.equals(mapping2));
-        assertFalse(mapping.equals(mapping3));
-
+        assertTrue(mapping.equals(MAP00));
+        assertTrue(MAP00.equals(MAP00));
+        assertFalse(mapping.equals(MAP22));
+        assertFalse(MAP00.equals(MAP01));
     }
 }

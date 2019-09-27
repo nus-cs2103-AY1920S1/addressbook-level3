@@ -20,6 +20,7 @@ public class Person {
     // Identity fields
     private static Integer counter = 0;
     private final PersonId personId;
+
     // Data fields
     private Name name;
     private Phone phone;
@@ -37,8 +38,8 @@ public class Person {
         this.address = address;
         this.remark = remark;
         this.tags.addAll(tags);
-        this.schedule = new Schedule();
         this.personId = new PersonId(counter);
+        this.schedule = new Schedule(this.getPersonId());
         counter += 1;
     }
 
@@ -48,10 +49,71 @@ public class Person {
         this.email = personDescriptor.getEmail();
         this.address = personDescriptor.getAddress();
         this.remark = personDescriptor.getRemark();
-        this.tags.addAll(personDescriptor.getTags());
-        this.schedule = new Schedule();
+        if (personDescriptor.getTags() != null) {
+            this.tags.addAll(personDescriptor.getTags());
+        }
         this.personId = new PersonId(counter);
+        this.schedule = new Schedule(this.getPersonId());
         counter += 1;
+    }
+
+    /**
+     * Resets the counter for testing.
+     */
+    public static void counterReset() {
+        counter = 0;
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns true if both persons are the same instance of person.
+     */
+    public boolean equals(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        } else if (otherPerson == null) {
+            return false;
+        } else if (!this.isSamePerson(otherPerson)) {
+            return false;
+        } else if (otherPerson.getPersonId().equals(this.getPersonId())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns only if the two person's details are the same. Does not check if IDs are the same.
+     */
+    public boolean isSamePerson(Person otherPerson) {
+        return otherPerson.getName().equals(getName())
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getAddress().equals(getAddress())
+                //&& otherPerson.getTags().equals(getTags())
+                && otherPerson.getRemark().equals(getRemark());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, phone, email, address, tags, remark);
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        output += "(" + personId.toString() + ") ";
+        output += name.toString();
+
+        return output;
     }
 
     public void addTags(Set<Tag> tags) {
@@ -110,66 +172,8 @@ public class Person {
         return this.schedule;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    /**
-     * Returns true if both persons of the same IDs
-     */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        } else if (otherPerson == null) {
-            return false;
-        } else if (otherPerson.getPersonId().equals(this.getPersonId())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    /**
-     * Returns true if both persons have the same identity and data fields.
-     * Can have different IDs
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Person)) {
-            return false;
-        }
-
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                //&& otherPerson.getTags().equals(getTags())
-                && otherPerson.getRemark().equals(getRemark());
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, remark);
-    }
-
-    @Override
-    public String toString() {
-        String output = "";
-        output += "(" + personId.toString() + ") ";
-        output += name.toString();
-
-        return output;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     /**
@@ -215,6 +219,5 @@ public class Person {
 
         return output;
     }
-
 
 }

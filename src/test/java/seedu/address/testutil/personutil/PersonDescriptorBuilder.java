@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.personutil;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,13 +18,13 @@ import seedu.address.model.tag.Tag;
  */
 public class PersonDescriptorBuilder {
 
-    public static final String DEFAULT_NAME = "Ally";
+    //public static final String DEFAULT_NAME = "Ally";
 
     private PersonDescriptor descriptor;
 
     public PersonDescriptorBuilder() {
         descriptor = new PersonDescriptor();
-        descriptor.setName(new Name(DEFAULT_NAME));
+        //descriptor.setName(new Name(DEFAULT_NAME));
     }
 
     public PersonDescriptorBuilder(Person person) {

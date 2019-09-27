@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP00;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP01;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP02;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP10;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP22;
 
 import java.util.ArrayList;
 
@@ -13,93 +18,102 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.group.GroupId;
 import seedu.address.model.person.PersonId;
+import seedu.address.testutil.mappingutil.TypicalMappings;
 
 class PersonToGroupMappingListTest {
 
     private PersonToGroupMappingList mappingList;
-    private PersonToGroupMapping map11;
-    private PersonToGroupMapping map12;
-    private PersonToGroupMapping map13;
-    private PersonToGroupMapping map21;
-    private PersonToGroupMapping map22;
-    private PersonToGroupMapping map33;
 
     @BeforeEach
     void init() {
         mappingList = new PersonToGroupMappingList();
-        map11 = new PersonToGroupMapping(new PersonId(1), new GroupId(1));
-        map12 = new PersonToGroupMapping(new PersonId(1), new GroupId(2));
-        map13 = new PersonToGroupMapping(new PersonId(1), new GroupId(3));
-        map21 = new PersonToGroupMapping(new PersonId(2), new GroupId(1));
-        map22 = new PersonToGroupMapping(new PersonId(2), new GroupId(2));
-        map33 = new PersonToGroupMapping(new PersonId(3), new GroupId(3));
-        mappingList.addPersonToGroupMapping(map11);
-        mappingList.addPersonToGroupMapping(map12);
-        mappingList.addPersonToGroupMapping(map13);
-        mappingList.addPersonToGroupMapping(map21);
-        mappingList.addPersonToGroupMapping(map22);
-        mappingList.addPersonToGroupMapping(map33);
     }
 
     @Test
     void addPersonToGroupMapping() {
-        PersonToGroupMapping map44 = new PersonToGroupMapping(new PersonId(4), new GroupId(4));
-        assertTrue(mappingList.addPersonToGroupMapping(map44));
+        // add new mappings -> true
+        assertTrue(mappingList.addPersonToGroupMapping(MAP00));
+        assertTrue(mappingList.addPersonToGroupMapping(MAP01));
 
-        assertFalse(mappingList.addPersonToGroupMapping(map11));
+        //add mappings that are already in maplist -> false
+        assertFalse(mappingList.addPersonToGroupMapping(MAP00));
+        assertFalse(mappingList.addPersonToGroupMapping(MAP01));
     }
 
     @Test
     void findPersonToGroupMapping() {
-        PersonToGroupMapping map = mappingList.findPersonToGroupMapping(map11.getPersonId(), map11.getGroupId());
-        assertTrue(map.getPersonId().equals(map11.getPersonId()));
-        assertTrue(map.getGroupId().equals(map11.getGroupId()));
-        assertFalse(map.getPersonId().equals(map22.getPersonId()));
-        assertFalse(map.getGroupId().equals(map22.getGroupId()));
+        mappingList.addPersonToGroupMapping(MAP00);
+        PersonToGroupMapping map = mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId());
+
+        assertTrue(map.equals(MAP00));
+        assertTrue(map.getPersonId().equals(MAP00.getPersonId()));
+        assertTrue(map.getGroupId().equals(MAP00.getGroupId()));
+
+        assertFalse(map.equals(MAP22));
+        assertFalse(map.getPersonId().equals(MAP22.getPersonId()));
+        assertFalse(map.getGroupId().equals(MAP22.getGroupId()));
     }
 
     @Test
     void deletePersonToGroupMapping() {
-        assertTrue(mappingList.deletePersonToGroupMapping(map11));
-        assertFalse(mappingList.deletePersonToGroupMapping(map11));
+        mappingList.addPersonToGroupMapping(MAP00);
+
+        // delete a map in the list -> true
+        assertTrue(mappingList.deletePersonToGroupMapping(MAP00));
+
+        // delete a map not in the list -> false
+        assertFalse(mappingList.deletePersonToGroupMapping(MAP00));
+        assertFalse(mappingList.deletePersonToGroupMapping(MAP22));
     }
 
     @Test
     void deletePersonFromMapping() {
-        mappingList.deletePersonFromMapping(map11.getPersonId());
+        mappingList = TypicalMappings.generateTypicalMappingList();
+        mappingList.deletePersonFromMapping(MAP00.getPersonId());
 
-        assertNotNull(mappingList.findPersonToGroupMapping(map21.getPersonId(), map21.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(map22.getPersonId(), map22.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(map33.getPersonId(), map33.getGroupId()));
+        // these maps are deleted
+        assertNull(mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertNull(mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
+        assertNull(mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
 
-        assertNull(mappingList.findPersonToGroupMapping(map11.getPersonId(), map11.getGroupId()));
-        assertNull(mappingList.findPersonToGroupMapping(map12.getPersonId(), map12.getGroupId()));
-        assertNull(mappingList.findPersonToGroupMapping(map13.getPersonId(), map13.getGroupId()));
+        // these maps are not deleted
+        assertNotNull(mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
+        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+
+
     }
 
     @Test
     void deleteGroupFromMapping() {
-        mappingList.deleteGroupFromMapping(map11.getGroupId());
+        mappingList = TypicalMappings.generateTypicalMappingList();
+        mappingList.deleteGroupFromMapping(MAP00.getGroupId());
 
-        assertNull(mappingList.findPersonToGroupMapping(map21.getPersonId(), map21.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(map22.getPersonId(), map22.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(map33.getPersonId(), map33.getGroupId()));
+        // these maps are deleted
+        assertNull(mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
+        assertNull(mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
 
-        assertNull(mappingList.findPersonToGroupMapping(map11.getPersonId(), map11.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(map12.getPersonId(), map12.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(map13.getPersonId(), map13.getGroupId()));
+        // these maps are not deleted
+        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertNotNull(mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
+        assertNotNull(mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
     }
 
     @Test
     void findGroupsOfPerson() {
-        ArrayList<GroupId> groups = mappingList.findGroupsOfPerson(map11.getPersonId());
+        mappingList = TypicalMappings.generateTypicalMappingList();
+
+        ArrayList<GroupId> groups = mappingList.findGroupsOfPerson(MAP00.getPersonId());
 
         assertEquals(3, groups.size());
     }
 
     @Test
     void findPersonsOfGroup() {
-        ArrayList<PersonId> persons = mappingList.findPersonsOfGroup(map11.getGroupId());
+        mappingList = TypicalMappings.generateTypicalMappingList();
+
+        ArrayList<PersonId> persons = mappingList.findPersonsOfGroup(MAP00.getGroupId());
 
         assertEquals(2, persons.size());
     }

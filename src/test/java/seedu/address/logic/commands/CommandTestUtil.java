@@ -20,7 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
-import seedu.address.testutil.PersonDescriptorBuilder;
+import seedu.address.testutil.personutil.PersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

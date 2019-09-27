@@ -17,6 +17,13 @@ public class Group {
     }
 
     /**
+     * Reset counter for testing purposes.
+     */
+    public static void counterReset() {
+        counter = 0;
+    }
+
+    /**
      * Converts to String.
      *
      * @return String
@@ -30,6 +37,7 @@ public class Group {
 
     /**
      * Prints out all details of the group.
+     *
      * @return String
      */
     public String details() {
@@ -46,6 +54,42 @@ public class Group {
         output += "\n";
 
         return output;
+    }
+
+    /**
+     * Checks if other group has the same details.
+     *
+     * @param other group to be compared
+     * @return boolean
+     */
+    public boolean isSameGroup(Group other) {
+        if (other == null) {
+            return false;
+        } else if (!other.getGroupRemark().equals(this.groupRemark)) {
+            return false;
+        } else if (!other.getGroupName().equals(this.groupName)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Checks if other group is same as this group.
+     *
+     * @param other group to be compared
+     * @return boolean
+     */
+    public boolean equals(Group other) {
+        if (other == null) {
+            return false;
+        } else if (!other.getGroupId().equals(this.groupId)) {
+            return false;
+        } else if (!this.isSameGroup(other)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public GroupRemark getGroupRemark() {

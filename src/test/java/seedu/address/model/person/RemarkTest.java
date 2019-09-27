@@ -23,4 +23,9 @@ class RemarkTest {
         assertTrue(remark.equals(remark));
         assertFalse(remark.equals(ALICE.getRemark()));
     }
+
+    @Test
+    void testEquals_null() {
+        assertFalse(remark.equals(ALICE.getRemark()));
+    }
 }

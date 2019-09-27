@@ -2,13 +2,17 @@ package seedu.address.model.person.schedule;
 
 import java.util.ArrayList;
 
+import seedu.address.model.person.PersonId;
+
 /**
  * Schedule of a person.
  */
 public class Schedule {
+    private final PersonId personId;
     private ArrayList<Event> events;
 
-    public Schedule() {
+    public Schedule(PersonId personId) {
+        this.personId = personId;
         this.events = new ArrayList<Event>();
     }
 
@@ -38,5 +42,9 @@ public class Schedule {
 
     public ArrayList<Event> getEvents() {
         return this.events;
+    }
+
+    public PersonId getPersonId() {
+        return this.personId;
     }
 }

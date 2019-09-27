@@ -4,66 +4,76 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import seedu.address.testutil.PersonDescriptorBuilder;
 
 class PersonDescriptorTest {
 
-    private PersonDescriptor personDescriptorEmpty = new PersonDescriptor();
-    private PersonDescriptor personDescriptorAlice = new PersonDescriptorBuilder(ALICE).build();
+    private PersonDescriptor personDescriptorEmpty;
+    private PersonDescriptor alice;
+
+    @BeforeEach
+    void init() {
+        personDescriptorEmpty = new PersonDescriptor();
+        alice = ALICE;
+    }
 
     @Test
-    void isAnyFieldEdited() {
+    void isAnyFieldEdited_false() {
         // empty descriptor -> false
         assertFalse(personDescriptorEmpty.isAnyFieldEdited());
+    }
 
+    @Test
+    void isAnyFieldEdited_onlyNameTrue() {
         // only name field edited -> true
-        personDescriptorEmpty.setName(new Name(VALID_NAME_AMY));
+        personDescriptorEmpty.setName(ALICE.getName());
         assertTrue(personDescriptorEmpty.isAnyFieldEdited());
+    }
 
+    @Test
+    void isAnyFieldEdited_allFieldsTrue() {
         // all fields edited -> true
-        assertTrue(personDescriptorAlice.isAnyFieldEdited());
+        assertTrue(alice.isAnyFieldEdited());
     }
 
 
     @Test
     void getName() {
-        assertEquals(personDescriptorAlice.getName(), ALICE.getName());
-        assertNotEquals(personDescriptorAlice.getName(), BENSON.getName());
+        assertEquals(alice.getName(), ALICE.getName());
+        assertNotEquals(alice.getName(), BENSON.getName());
     }
 
     @Test
     void getPhone() {
-        assertEquals(personDescriptorAlice.getPhone(), ALICE.getPhone());
-        assertNotEquals(personDescriptorAlice.getPhone(), BENSON.getPhone());
+        assertEquals(alice.getPhone(), ALICE.getPhone());
+        assertNotEquals(alice.getPhone(), BENSON.getPhone());
     }
 
     @Test
     void getEmail() {
-        assertEquals(personDescriptorAlice.getEmail(), ALICE.getEmail());
-        assertNotEquals(personDescriptorAlice.getEmail(), BENSON.getEmail());
+        assertEquals(alice.getEmail(), ALICE.getEmail());
+        assertNotEquals(alice.getEmail(), BENSON.getEmail());
     }
 
     @Test
     void getAddress() {
-        assertEquals(personDescriptorAlice.getAddress(), ALICE.getAddress());
-        assertNotEquals(personDescriptorAlice.getAddress(), BENSON.getAddress());
+        assertEquals(alice.getAddress(), ALICE.getAddress());
+        assertNotEquals(alice.getAddress(), BENSON.getAddress());
     }
 
     @Test
     void getRemark() {
-        assertEquals(personDescriptorAlice.getRemark(), ALICE.getRemark());
-        assertNotEquals(personDescriptorAlice.getRemark(), BENSON.getRemark());
+        assertEquals(alice.getRemark(), ALICE.getRemark());
+        assertNotEquals(alice.getRemark(), BENSON.getRemark());
     }
 
     @Test
     void getTags() {
-        assertEquals(personDescriptorAlice.getTags(), ALICE.getTags());
-        assertNotEquals(personDescriptorAlice.getTags(), BENSON.getTags());
+        assertEquals(alice.getTags(), ALICE.getTags());
+        assertNotEquals(alice.getTags(), BENSON.getTags());
     }
 }

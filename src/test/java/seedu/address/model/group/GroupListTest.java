@@ -2,61 +2,68 @@ package seedu.address.model.group;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP2;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.testutil.grouputil.TypicalGroups;
+
 class GroupListTest {
 
     private GroupList groupList;
-    private GroupDescriptor groupDescriptor1;
-    private GroupDescriptor groupDescriptor2;
 
     @BeforeEach
     void init() {
         groupList = new GroupList();
-        groupDescriptor1 = new GroupDescriptor(new GroupName("group1"), new GroupRemark("remark1"));
-        groupDescriptor2 = new GroupDescriptor(new GroupName("group2"), new GroupRemark("remark2"));
-
     }
 
     @Test
     void addGroup() {
-        Group group = groupList.addGroup(groupDescriptor1);
+        Group group1 = groupList.addGroup(GROUP1);
 
-        assertEquals(group.getGroupName().toString(), groupDescriptor1.getGroupName().toString());
-        assertEquals(group.getGroupRemark().toString(), groupDescriptor1.getGroupRemark().toString());
+        assertEquals(group1.getGroupName().toString(), GROUP1.getGroupName().toString());
+        assertEquals(group1.getGroupRemark().toString(), GROUP1.getGroupRemark().toString());
+
+        assertNotEquals(group1.getGroupName().toString(), GROUP2.getGroupName().toString());
+        assertNotEquals(group1.getGroupRemark().toString(), GROUP2.getGroupRemark().toString());
     }
 
     @Test
     void deleteGroup() {
-        Group group = groupList.addGroup(groupDescriptor1);
+        groupList = TypicalGroups.generateTypicalGroupList();
+        Group group = groupList.findGroup(GROUPNAME1);
+        assertNotNull(group);
+
         assertTrue(groupList.deleteGroup(group.getGroupId()));
         assertFalse(groupList.deleteGroup(group.getGroupId()));
     }
 
     @Test
     void editGroup() {
-        Group group1 = groupList.addGroup(groupDescriptor1);
-        Group group2 = groupList.editGroup(group1.getGroupName(), groupDescriptor2);
+        Group group1 = groupList.addGroup(GROUP1);
+        Group group2 = groupList.editGroup(group1.getGroupName(), GROUP2);
 
-        assertEquals(group2.getGroupName(), groupDescriptor2.getGroupName());
+        assertEquals(group2.getGroupName(), GROUP2.getGroupName());
         assertEquals(group1.getGroupId(), group2.getGroupId());
     }
 
     @Test
     void findGroup() {
-        assertNull(groupList.findGroup(groupDescriptor1.getGroupName()));
-        groupList.addGroup(groupDescriptor1);
-        assertNotNull(groupList.findGroup(groupDescriptor1.getGroupName()));
+        assertNull(groupList.findGroup(GROUP1.getGroupName()));
+        groupList.addGroup(GROUP1);
+        assertNotNull(groupList.findGroup(GROUP1.getGroupName()));
     }
 
     @Test
     void testFindGroup() {
-        Group group = groupList.addGroup(groupDescriptor1);
+        Group group = groupList.addGroup(GROUP1);
         assertNotNull(groupList.findGroup(group.getGroupId()));
     }
 }

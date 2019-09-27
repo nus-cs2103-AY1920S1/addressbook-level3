@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.personutil;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;

@@ -2,15 +2,14 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.CARL;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonDescriptorBuilder;
+import seedu.address.testutil.personutil.PersonBuilder;
 
 class PersonListTest {
 
@@ -19,16 +18,15 @@ class PersonListTest {
     @BeforeEach
     void init() {
         personList = new PersonList();
-        personList.addPerson(new PersonDescriptorBuilder(ALICE).build());
-        personList.addPerson(new PersonDescriptorBuilder(BENSON).build());
+        personList.addPerson(ALICE);
+        personList.addPerson(BENSON);
     }
 
     @Test
     void addPerson() {
-        PersonDescriptor personDescriptor = new PersonDescriptorBuilder(CARL).build();
-        PersonBuilder personBuilder = new PersonBuilder(personDescriptor);
-        Person person = personList.addPerson(personDescriptor);
-        assertTrue(person.equals(personBuilder.build()));
+        PersonBuilder personBuilder = new PersonBuilder(CARL);
+        Person person = personList.addPerson(CARL);
+        assertTrue(person.isSamePerson(personBuilder.build()));
     }
 
     @Test
@@ -41,24 +39,26 @@ class PersonListTest {
     @Test
     void editPerson() {
         Person person = personList.findPerson(ALICE.getName());
-        PersonDescriptor personDescriptor = new PersonDescriptorBuilder(CARL).build();
+        PersonDescriptor personDescriptor = CARL;
 
         Person editedPerson = personList.editPerson(person.getName(), personDescriptor);
         Person toCompare = new PersonBuilder(personDescriptor).build();
 
-        assertTrue(editedPerson.equals(toCompare));
+        assertTrue(editedPerson.isSamePerson(toCompare));
 
     }
 
     @Test
     void findPerson() {
         Person person = personList.findPerson(ALICE.getName());
-        assertTrue(ALICE.equals(person));
+        Person alice = new PersonBuilder(ALICE).build();
+        assertTrue(alice.isSamePerson(person));
     }
 
     @Test
     void testFindPerson() {
         Person person = personList.findPerson(BENSON.getName());
-        assertTrue(BENSON.equals(person));
+        Person benson = new PersonBuilder(BENSON).build();
+        assertTrue(benson.isSamePerson(person));
     }
 }

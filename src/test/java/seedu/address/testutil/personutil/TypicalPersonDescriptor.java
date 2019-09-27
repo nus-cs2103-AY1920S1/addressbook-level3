@@ -1,6 +1,7 @@
-package seedu.address.testutil;
+package seedu.address.testutil.personutil;
 
 import seedu.address.model.person.PersonDescriptor;
+import seedu.address.model.person.PersonList;
 
 /**
  * Typical person descriptors.
@@ -41,4 +42,27 @@ public class TypicalPersonDescriptor {
     public static final PersonDescriptor GEORGE = new PersonDescriptorBuilder()
             .withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
+
+    public static final PersonDescriptor ZACK = new PersonDescriptorBuilder()
+            .withName("Zack").withPhone("81231236")
+            .withEmail("zack@example.com").withAddress("loser street")
+            .withRemark("Im not on the list").withTags("blabla").build();
+
+    /**
+     * Generates a typical PersonList.
+     *
+     * @return PersonList
+     */
+    public static PersonList generateTypicalPersonList() {
+        PersonList personList = new PersonList();
+        personList.addPerson(ALICE);
+        personList.addPerson(BENSON);
+        personList.addPerson(CARL);
+        personList.addPerson(DANIEL);
+        personList.addPerson(ELLE);
+        personList.addPerson(FIONA);
+        personList.addPerson(GEORGE);
+
+        return personList;
+    }
 }
