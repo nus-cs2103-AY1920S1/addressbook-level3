@@ -11,23 +11,22 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class EventModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    //private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public EventModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -35,10 +34,10 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        //filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
-    public ModelManager() {
+    public EventModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
 
@@ -111,41 +110,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
-    }
-    //=========== EventBook ================================================================================
-
-    @Override
-    public void setEventBook(ReadOnlyAddressBook eventBook) {
-        this.eventBook.resetData(eventBook);
-    }
-
-    @Override
-    public ReadOnlyEventBook getEventBook() {
-        return eventBook;
-    }
-
-    @Override
-    public boolean hasEvent(Event event) {
-        requireNonNull(event);
-        return eventBook.hasEvent(event);
-    }
-
-    @Override
-    public void deleteEvent(Event target) {
-        eventBook.removeEvent(target);
-    }
-
-    @Override
-    public void addEvent(Event event) {
-        eventBook.addEvent(event);
-        //updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-    }
-
-    @Override
-    public void setEvent(Event target, Event editedEvent) {
-        requireAllNonNull(target, editedEvent);
-
-        eventBook.setEvent(target, editedEvent);
     }
 
     //=========== Filtered Person List Accessors =============================================================

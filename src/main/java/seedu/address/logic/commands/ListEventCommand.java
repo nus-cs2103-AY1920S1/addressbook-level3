@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListEventCommand extends Command {
+public class ListEventCommand extends EventRelatedCommand {
 
     public static final String COMMAND_WORD = "listevent";
 
