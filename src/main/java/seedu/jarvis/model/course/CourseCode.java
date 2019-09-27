@@ -3,6 +3,11 @@ package seedu.jarvis.model.course;
 import static java.util.Objects.requireNonNull;
 
 public class CourseCode {
+    public static final String MESSAGE_CONSTRAINTS = "The course code is usually a series of"
+            + "two or three letters, followed by four numbers. Sometimes, another letter at"
+            + "the end of the course code is used to refer to similar versions of the particular"
+            + "course";
+
     public final String code;
 
     /**
