@@ -34,6 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * `*view*` : views all items
+* `*check*|20` : views items that is going to expire within the given number of days
 * `*add*|Banana|25/9/2019` : adds an item named `Banana` with expiry date `25/9/2019` to list.
 * `*delete*|3` : deletes the 3rd item shown in the current list
 * `*exit*` : exits the app
@@ -101,12 +102,26 @@ Format: `sort|<method>`
 ****
 * Sorting by both name and date is done in ascending order.
 * For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
+=======
+=== Listing expiring items : `check`
+
+Shows expiring items in the list. +
+Format: `check|<days>`
+
+****
+* Lists items expiring within the specified number of `<days>`
+* Number of days *must be a positive integer* 1,2,3,..
+>>>>>>> 89c0e022a2a35f3662ce413282e4b3004b08b90a
 ****
 
 Examples:
 
 * `sort|name` +
 * `sort|date`
+=======
+* `check|20` +
+Lists items expiring in the next 20 days.
+>>>>>>> 89c0e022a2a35f3662ce413282e4b3004b08b90a
 
 === Searching item by name: `search`
 
@@ -191,5 +206,7 @@ e.g. `sort|date`
 * *Search* : `search|<keyword>|[other keywords...]` +
 e.g. `search|milk|tea|pearls`
 * *View* : `view`
+* *Check* : `check|<days>` +
+e.g. `check|20`
 * *Help* : `help`
 

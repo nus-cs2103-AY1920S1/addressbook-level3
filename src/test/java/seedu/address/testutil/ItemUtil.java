@@ -20,14 +20,14 @@ public class ItemUtil {
      * Returns an add command string for adding the {@code item}.
      */
     public static String getAddCommand(Item item) {
-        return AddCommand.COMMAND_WORD + " " + getItemDetails(item);
+        return AddCommand.COMMAND_WORD + "|" + getItemDetails(item);
     }
 
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
     public static String getItemDetails(Item item) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(" ");
         sb.append(PREFIX_NAME + item.getName().fullName + " ");
         sb.append(PREFIX_EXPIRY_DATE + item.getExpiryDate().toString() + " ");
         item.getTags().stream().forEach(
