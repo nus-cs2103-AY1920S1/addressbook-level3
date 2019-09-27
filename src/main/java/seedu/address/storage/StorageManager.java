@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
@@ -23,6 +22,7 @@ import seedu.address.storage.loanrecord.LoanRecordsStorage;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+  
     private UserPrefsStorage userPrefsStorage;
     private LoanRecordsStorage loanRecordsStorage;
     private CatalogStorage catalogStorage;

@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.book.Book;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -30,7 +30,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs,
                         ReadOnlyLoanRecords loanRecords, ReadOnlyCatalog catalog,
-                        ReadOnlyBorrowerRecords borrowerRecords) {
+                        ReadOnlyBorrowerRecords borrowerRecords) 
         super();
 //        requireAllNonNull(addressBook, userPrefs, catalog);
 
@@ -79,17 +79,50 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getCatalogFilePath() {
+        return userPrefs.getCatalogFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setCatalogFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setCatalogFilePath(addressBookFilePath);
     }
 
     @Override
+    public void setCatalog(ReadOnlyCatalog addressBook) {
+        this.catalog.resetData(addressBook);
+    }
+
+    @Override
+    public ReadOnlyCatalog getCatalog() {
+        return catalog;
+    }
+
+    @Override
+    public boolean hasBook(Book book) {
+        requireNonNull(book);
+        return catalog.hasBook(book);
+    }
+
+    @Override
+    public void deleteBook(Book target) {
+        catalog.removeBook(target);
+    }
+
+    @Override
+    public void addBook(Book book) {
+        catalog.addBook(book);
+        updateFilteredBookList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setBook(Book target, Book editedBook) {
+        requireAllNonNull(target, editedBook);
+
+        catalog.setBook(target, editedBook);
+    }
+    
     public Path getLoanRecordsFilePath() {
         return userPrefs.getLoanRecordsFilePath();
     }
@@ -130,8 +163,20 @@ public class ModelManager implements Model {
 
     //=========== Catalog ===============================================================================
 
-    public ReadOnlyCatalog getCatalog() {
-        return catalog;
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Book> getFilteredBookList() {
+        return filteredBooks;
+    }
+
+    @Override
+    public void updateFilteredBookList(Predicate<Book> predicate) {
+        requireNonNull(predicate);
+        filteredBooks.setPredicate(predicate);
     }
 
     //=========== BorrowerRecords ===============================================================================
