@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.tag.Tag;
 
@@ -16,6 +17,7 @@ import seedu.address.model.tag.Tag;
 public class Phone implements Cloneable {
 
     // Identity fields
+    private final UUID id;
     private final Name name;
     private final Brand brand;
     private final Capacity capacity;
@@ -24,20 +26,23 @@ public class Phone implements Cloneable {
     // Data fields
     private final Cost cost;
     private final Price price;
-    private final Quantity quantity;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Phone(Name name, Brand brand, Capacity capacity, Colour colour, Cost cost, Price price, Quantity quantity,
+    public Phone(Name name, Brand brand, Capacity capacity, Colour colour, Cost cost, Price price,
                  Set<Tag> tags) {
-        requireAllNonNull(name, brand, capacity, colour, cost, price, quantity, tags);
+        requireAllNonNull(name, brand, capacity, colour, cost, price, tags);
+        this.id = UUID.randomUUID();
         this.name = name;
         this.brand = brand;
         this.capacity = capacity;
         this.colour = colour;
         this.cost = cost;
         this.price = price;
-        this.quantity = quantity;
         this.tags.addAll(tags);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Name getName() {
@@ -64,10 +69,6 @@ public class Phone implements Cloneable {
         return price;
     }
 
-    public Quantity getQuantity() {
-        return quantity;
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -86,6 +87,7 @@ public class Phone implements Cloneable {
         }
 
         return otherPhone != null
+                && otherPhone.getId().equals(getId())
                 && otherPhone.getName().equals(getName())
                 && otherPhone.getBrand().equals((getBrand()))
                 && otherPhone.getCapacity().equals((getCapacity()))
@@ -107,27 +109,29 @@ public class Phone implements Cloneable {
         }
 
         Phone otherPhone = (Phone) other;
-        return otherPhone.getName().equals(getName())
+        return otherPhone.getId().equals(getId())
                 && otherPhone.getName().equals(getName())
                 && otherPhone.getBrand().equals((getBrand()))
                 && otherPhone.getCapacity().equals((getCapacity()))
                 && otherPhone.getColour().equals((getColour()))
                 && otherPhone.getCost().equals(getCost())
                 && otherPhone.getPrice().equals(getPrice())
-                && otherPhone.getQuantity().equals(getQuantity())
                 && otherPhone.getTags().equals((getTags()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, brand, capacity, colour, cost, price, quantity, tags);
+        return Objects.hash(id, name, brand, capacity, colour, cost, price, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(" # ")
+                .append(getId())
+                .append(" Name: ")
+                .append(getName())
                 .append(" Brand: ")
                 .append(getBrand())
                 .append(" Capacity: ")
@@ -138,8 +142,6 @@ public class Phone implements Cloneable {
                 .append(getCost())
                 .append(" Price: ")
                 .append(getPrice())
-                .append(" Quantity: ")
-                .append(getQuantity())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
