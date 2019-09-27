@@ -46,7 +46,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`. 
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Parameters are additional pieces of information required/used when running a command.
 * Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items that are not in square brackets are required e.g. `n/NAME` from the `patient add` command.
@@ -62,7 +62,7 @@ Directs you to this page.
 Format: `help`
 
 == Basic Patient Features
-==== 
+====
 *Basic Patient Features*
 
 As a community nurse, you will often need to visit various patients at their homes. This section describes the features that will allow you to manage the list of patients and their information in the application. This section covers the management of patients and their data.
@@ -145,7 +145,7 @@ You can edit an existing patient in the app using `patient edit`.
 Format: `patient edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. 
+* Edits the person at the specified `INDEX`.
 * The index refers to the index number shown in the list of patients displayed by `patient list` or `patient find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -272,14 +272,14 @@ Examples:
 `patient rm presc p/1 pr/2`
 Removes the 2nd prescription of the patient of index 1.
 
-=== Adding an Appointment to a Patient `patient add appt`
+=== Adding an Appointment to a Patient `patient add appt` [INCOMPLETE UG]
 //Can be based off adding & removing of prescriptions
-=== Removing an Appointment from a Patient `patient rm appt`
+=== Removing an Appointment from a Patient `patient rm appt` [INCOMPLETE UG]
 //Can be based off adding & removing of prescriptions
 
-=== Assigning a Todo Template to a Patient `patient set todoform`
+=== Assigning a Todo Template to a Patient `patient set todoform` [INCOMPLETE UG]
 //Can be based off adding & removing of medcon, but this is setting because a patient can only have 0..1 todo templates
-=== Unassigning a Todo Template from a Patient `patient unset todoform`
+=== Unassigning a Todo Template from a Patient `patient unset todoform` [INCOMPLETE UG]
 //Can be based off adding & removing of medcon, but this is unsetting because a patient can only have 0..1 todo templates
 
 === Adding an extra Todo to a Patient `patient add todo`
@@ -297,7 +297,7 @@ Format: `patient add todo p/PATIENT_INDEX t/TODO`
 
 Examples:
 
-* `patient add todo t/Check fridge for spoiled items` + 
+* `patient add todo t/Check fridge for spoiled items` +
 Adds a todo item "Check fridge for spoiled items" to the extra todo items list.
 
 === Removing an extra Todo from a Patient `patient rm todo`
@@ -333,7 +333,7 @@ Format: `patient add note p/PATIENT_INDEX t/NOTE`
 
 Examples:
 
-* `patient add note t/Check fridge for spoiled items` + 
+* `patient add note t/Check fridge for spoiled items` +
 Adds a todo item "Check fridge for spoiled items" to the notes list.
 
 === Removing a note from a Patient `patient rm note`
@@ -355,7 +355,7 @@ Examples:
 Removes the 2nd note of the patient of index 1.
 
 == Medical Conditions [Parameters not updated]
-==== 
+====
 *Medical Conditions*
 
 As a community nurse, you will often have to keep track of your patients' medical conditions. This section describes the features that will allow you to manage the full list of medical conditions, as well as the list of medical conditions of a patient.
@@ -438,7 +438,7 @@ You can edit an existing medical condition in the app using `medcon edit`.
 Format: `medcon edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. 
+* Edits the person at the specified `INDEX`.
 * The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -504,7 +504,7 @@ Deletes the 2nd medical condition in the medical condition list.
 Deletes the and 2nd medical conditions with which had been assigned the 1.command.
 
 == Medicines [Parameters not updated]
-==== 
+====
 *Medicines*
 
 As a community nurse, you will often come across and use various medicines. This section describes the features that will allow you to manage the list of medicines and their information in the application.
@@ -586,7 +586,7 @@ You can edit an existing medicine in the app using `med edit`.
 Format: `med edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. 
+* Edits the person at the specified `INDEX`.
 * The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -652,7 +652,7 @@ Deletes the 2nd medicine in the medicine list.
 Deletes the and 2nd medicines which had been assigned the index 1.
 
 == Appointments [Parameters not updated]
-==== 
+====
 *Appointments*
 
 As a community nurse, you will often make home visits to your patients. and keep track of these appointments you make with your patients. You can use the application to manage and keep track of these appointments. This section describes the features that will allow you to manage your appointments.
@@ -713,9 +713,9 @@ You can list the next earliest appointments using `appt next`.
 
 Format: `appt next NUMBER`
 
-Examples: 
+Examples:
 
-`appt next 3` + 
+`appt next 3` +
 Displays the next 3 earliest appointments sorted by time.
 
 === Editing an Appointment: `appt edit`
@@ -725,7 +725,7 @@ You can edit an existing appointment in the app using `appt edit`.
 Format: `appt edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. 
+* Edits the person at the specified `INDEX`.
 * The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -771,7 +771,7 @@ Deletes the appointment which had been assigned the index 1.
 
 === Beginning an Appointment: `appt begin`
 
-You can begin an appointment (i.e. begin a house visit) by *index* using `appt begin`. 
+You can begin an appointment (i.e. begin a house visit) by *index* using `appt begin`.
 
 Format: `appt begin INDEX`
 
@@ -780,15 +780,15 @@ OR
 If you want to begin the next appointment that you will have, you can begin the next appointment using `appt begin next`.
 
 ****
-* Begins the appointment at the specified `INDEX` if using `INDEX`. If using `appt begin next`, begins the next appointment (the appointment that will happen the soonest). 
+* Begins the appointment at the specified `INDEX` if using `INDEX`. If using `appt begin next`, begins the next appointment (the appointment that will happen the soonest).
 * Beginning an appointment converts it into a visit. This allows you to use the visit's todo list as well as add details to the visit, before finally archiving the visit by marking it as finished using `visit finish`.
-* The appointment you are beginning must start within the next 3 hours (you cannot begin an appointment too early in advance). 
+* The appointment you are beginning must start within the next 3 hours (you cannot begin an appointment too early in advance).
 * When you begin an appointment, the visit time will be updated using your system clock to reflect the actual start of the visit.
 * The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples: 
+Examples:
 
 * `appt next 2` +
 `appt begin 2` +
@@ -819,7 +819,7 @@ Deletes the 2nd appointment in the appointment list.
 Deletes the and 2nd appointments which had been assigned the index 1.
 
 == Visits [Parameters not updated]
-==== 
+====
 *Visits*
 
 As a community nurse, you will often make home visits to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. You can use the application to mark the items you have done in a visit and add further details and notes about a visit (e.g. about a patient's symptoms). This section describes the features that will allow you to keep track of what you have to do during a visit and manage previous visits.
@@ -892,12 +892,12 @@ As a community nurse, some todo items require you to record some details (e.g. a
 
 Format: `visit now todo note t/INDEX n/NOTE`
 
-=== Mark a Todo Item of current Visit as done: `visit now todo done`
+=== Mark a Todo Item of current Visit as done: `visit now todo done`[INCOMPLETE UG]
 //By index
 
-=== Add a note to the current Visit: `visit now add note`
+=== Add a note to the current Visit: `visit now add note`[INCOMPLETE UG]
 //Add a generic note to the current visit
-=== Remove a note from the current Visit: `visit now rm note`
+=== Remove a note from the current Visit: `visit now rm note`[INCOMPLETE UG]
 
 === Finishing a Visit: `visit finish`
 
@@ -950,7 +950,7 @@ Deletes the 2nd visit in the visit list.
 Deletes the and 2nd visits which had been assigned the index 1.
 
 == Todo Templates [Parameters not updated]
-==== 
+====
 *Todo Templates*
 
 As a community nurse, you will often use a todo list to keep track of things that you have (and have not) done during a visit. It is tedious, however, to add multiple things to do / take note of for every patient; in fact, there may be many duplicated items.
@@ -1035,7 +1035,7 @@ You can edit an existing todo template in the app using `todoform edit`.
 Format: `todoform edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. 
+* Edits the person at the specified `INDEX`.
 * The index refers to the index number shown in the list of todo templates displayed by `todoform list` or `todoform find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -1101,14 +1101,14 @@ Deletes the 2nd todo template in the todo template list.
 Deletes the and 2nd todo templates with which had been assigned the 1.command.
 
 == Autocomplete
-==== 
+====
 *Autocomplete*
 
 As a community nurse, you will be performing several commands through the Command Line Interface (CLI). In order to speed up the process, the application includes an autocomplete feature that allows you to more quickly and conveniently input your commands and parameters. This section describes the feature in further detail.
 ====
 
 == Data Saving, Undo, Redo
-==== 
+====
 *Data Saving, Undo, Redo*
 
 As a community nurse, you will often perform commands that modify information managed by the application (e.g. patient data). This section describes the features involving the storage of this data and features involving undo-ing / redo-ing commands.
@@ -1122,9 +1122,9 @@ There is no need to save manually.
 
 === Undoing a command: `undo`
 
-You can undo the changes of the last executed command that alters data using `undo`. 
+You can undo the changes of the last executed command that alters data using `undo`.
 
-Up to the last 3(?) commands can be undone. 
+Up to the last 3(?) commands can be undone.
 
 The command `undo` itself cannot be undone.
 
@@ -1132,7 +1132,7 @@ Format: `undo`
 
 === Redoing an undone command: `redo`
 
-You can redo and reapply the changes of the last undone command using `redo`. 
+You can redo and reapply the changes of the last undone command using `redo`.
 
 Can only be used if the last data altering command is `undo`.
 Up to the last 3(?) undone commands can be redone.
@@ -1140,7 +1140,7 @@ Up to the last 3(?) undone commands can be redone.
 Format: `redo`
 
 == Importing and Exporting of Patient Data
-==== 
+====
 *Importing and Exporting of Patient Data*
 
 As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses. To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
@@ -1161,7 +1161,7 @@ Format: `import [flag]/ filename.csv
 	 flag: r/ (replace) or c/ (combine) `
 
 Examples:
- 
+
  * `import r/ my_patients.csv`
  * `import c/ my_new_patients.csv`
 
@@ -1187,7 +1187,7 @@ Examples:
 
 
 == Notifications
-==== 
+====
 *Notifications*
 
 As a community nurse, you will often have deadlines to meet or appointments for home visits. You can schedule the application to notify you for these deadlines/events. This section describes the features that will allow you to manage such notifications.
@@ -1238,7 +1238,7 @@ Format: `notif find [n/NAME] [b/BODY] [d/DATE(DD-MM-YYYY)] [t/TIME(HH:mm)]`
 Examples:
 
 
-* 
+*
 === Adding a Notification: `notif add`
 
 You can add your own notifications (that are not attached to any appointments) using `notif add`.
@@ -1273,7 +1273,7 @@ Deletes the notification which had been assigned the index 1.
 // end::delete[]
 
 == Login System & Security
-==== 
+====
 *Login System & Security*
 
 As a community nurse, you will often be managing your patients' confidential data. A login system will be useful in helping you to ensure the confidentiality and security of your patients' information. This section describes the features that will allow you to manage this security system.
