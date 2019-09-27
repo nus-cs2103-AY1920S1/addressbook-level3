@@ -7,15 +7,14 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.BorrowerRecords;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBorrowerRecords;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
-import seedu.address.storage.catalogue.CatalogueStorage;
+import seedu.address.storage.catalog.CatalogStorage;
 import seedu.address.storage.loanrecord.LoanRecordsStorage;
 
 /**
@@ -27,17 +26,17 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private LoanRecordsStorage loanRecordsStorage;
-    private CatalogueStorage catalogueStorage;
+    private CatalogStorage catalogStorage;
     private BorrowerRecordsStorage borrowerRecordsStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          LoanRecordsStorage loanRecordsStorage, CatalogueStorage catalogueStorage,
+                          LoanRecordsStorage loanRecordsStorage, CatalogStorage catalogStorage,
                           BorrowerRecordsStorage borrowerRecordsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.loanRecordsStorage = loanRecordsStorage;
-        this.catalogueStorage = catalogueStorage;
+        this.catalogStorage = catalogStorage;
         this.borrowerRecordsStorage = borrowerRecordsStorage;
     }
 
@@ -117,33 +116,33 @@ public class StorageManager implements Storage {
         loanRecordsStorage.saveLoanRecords(loanRecords,  filePath);
     }
 
-    // ================ Catalogue methods ==============================
+    // ================ Catalog methods ==============================
 
     @Override
-    public Path getCatalogueFilePath() {
-        return catalogueStorage.getCatalogueFilePath();
+    public Path getCatalogFilePath() {
+        return catalogStorage.getCatalogFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyCatalogue> readCatalogue() throws DataConversionException, IOException {
-        return readCatalogue(catalogueStorage.getCatalogueFilePath());
+    public Optional<ReadOnlyCatalog> readCatalog() throws DataConversionException, IOException {
+        return readCatalog(catalogStorage.getCatalogFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyCatalogue> readCatalogue(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCatalog> readCatalog(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return catalogueStorage.readCatalogue(filePath);
+        return catalogStorage.readCatalog(filePath);
     }
 
     @Override
-    public void saveCatalogue(ReadOnlyCatalogue catalogue) throws IOException {
-        saveCatalogue(catalogue, catalogueStorage.getCatalogueFilePath());
+    public void saveCatalog(ReadOnlyCatalog catalog) throws IOException {
+        saveCatalog(catalog, catalogStorage.getCatalogFilePath());
     }
 
     @Override
-    public void saveCatalogue(ReadOnlyCatalogue catalogue, Path filePath) throws IOException {
+    public void saveCatalog(ReadOnlyCatalog catalog, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        catalogueStorage.saveCatalogue(catalogue, filePath);
+        catalogStorage.saveCatalog(catalog, filePath);
     }
 
     // ================ BorrowerRecords methods ==============================

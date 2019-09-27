@@ -6,13 +6,12 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.BorrowerRecords;
-import seedu.address.model.Catalogue;
+import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBorrowerRecords;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
-import seedu.address.model.loan.Loan;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -70,10 +69,10 @@ public class SampleDataUtil {
         return loanRecords;
     }
 
-    public static ReadOnlyCatalogue getSampleCatalogue() {
-        Catalogue catalogue = new Catalogue();
-        catalogue.populateBooks();
-        return catalogue;
+    public static ReadOnlyCatalog getSampleCatalog() {
+        Catalog catalog = new Catalog();
+        catalog.populateBooks();
+        return catalog;
     }
 
     public static ReadOnlyBorrowerRecords getSampleBorrowerRecords() {

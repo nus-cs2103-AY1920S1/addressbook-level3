@@ -5,8 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javax.swing.text.html.Option;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -19,13 +17,13 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.BorrowerRecords;
-import seedu.address.model.Catalogue;
+import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBorrowerRecords;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -38,8 +36,8 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
 import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
-import seedu.address.storage.catalogue.CatalogueStorage;
-import seedu.address.storage.catalogue.JsonCatalogueStorage;
+import seedu.address.storage.catalog.CatalogStorage;
+import seedu.address.storage.catalog.JsonCatalogStorage;
 import seedu.address.storage.loanrecord.JsonLoanRecordsStorage;
 import seedu.address.storage.loanrecord.LoanRecordsStorage;
 import seedu.address.ui.Ui;
@@ -72,12 +70,12 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         LoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(userPrefs.getLoanRecordsFilePath());
-        CatalogueStorage catalogueStorage = new JsonCatalogueStorage(userPrefs.getCatalogueFilePath());
+        CatalogStorage catalogStorage = new JsonCatalogStorage(userPrefs.getCatalogFilePath());
         BorrowerRecordsStorage borrowerRecordsStorage
                 = new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
 
         storage = new StorageManager(addressBookStorage, userPrefsStorage,
-                loanRecordsStorage, catalogueStorage, borrowerRecordsStorage);
+                loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
 
         initLogging(config);
 
@@ -100,8 +98,8 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialAddressBook;
         Optional<ReadOnlyLoanRecords> loanRecordsOptional;
         ReadOnlyLoanRecords initialLoanRecords;
-        Optional<ReadOnlyCatalogue> catalogueOptional;
-        ReadOnlyCatalogue initialCatalogue;
+        Optional<ReadOnlyCatalog> catalogOptional;
+        ReadOnlyCatalog initialCatalog;
         Optional<ReadOnlyBorrowerRecords> borrowerRecordsOptional;
         ReadOnlyBorrowerRecords initialBorrowerRecords;
 
@@ -135,17 +133,17 @@ public class MainApp extends Application {
         }
 
         try {
-            catalogueOptional = storage.readCatalogue();
-            if (!catalogueOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Catalogue");
+            catalogOptional = storage.readCatalog();
+            if (!catalogOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Catalog");
             }
-            initialCatalogue = catalogueOptional.orElseGet(SampleDataUtil::getSampleCatalogue);
+            initialCatalog = catalogOptional.orElseGet(SampleDataUtil::getSampleCatalog);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Catalogue");
-            initialCatalogue = new Catalogue();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Catalog");
+            initialCatalog = new Catalog();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Catalogue");
-            initialCatalogue = new Catalogue();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Catalog");
+            initialCatalog = new Catalog();
         }
 
         try {
@@ -163,7 +161,7 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialAddressBook, userPrefs, initialLoanRecords,
-                initialCatalogue, initialBorrowerRecords);
+                initialCatalog, initialBorrowerRecords);
     }
 
     private void initLogging(Config config) {

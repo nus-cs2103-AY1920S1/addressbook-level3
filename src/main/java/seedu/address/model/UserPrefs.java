@@ -16,7 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path loanRecordsFilePath = Paths.get("data", "loanrecords.json");
-    private Path catalogueFilePath = Paths.get("data", "catalogue.json");
+    private Path catalogFilePath = Paths.get("data", "catalog.json");
     private Path borrowerRecordsFilePath = Paths.get("data", "borrowerrecords.json");
 
     /**
@@ -40,7 +40,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setLoanRecordsFilePath(newUserPrefs.getLoanRecordsFilePath());
-        setCatalogueFilePath(newUserPrefs.getCatalogueFilePath());
+        setCatalogFilePath(newUserPrefs.getCatalogFilePath());
         setBorrowerRecordsFilePath(newUserPrefs.getBorrowerRecordsFilePath());
     }
 
@@ -71,13 +71,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.loanRecordsFilePath = loanRecordsFilePath;
     }
 
-    public Path getCatalogueFilePath() {
-        return catalogueFilePath;
+    public Path getCatalogFilePath() {
+        return catalogFilePath;
     }
 
-    public void setCatalogueFilePath(Path catalogueFilePath) {
-        requireNonNull(catalogueFilePath);
-        this.catalogueFilePath = catalogueFilePath;
+    public void setCatalogFilePath(Path catalogFilePath) {
+        requireNonNull(catalogFilePath);
+        this.catalogFilePath = catalogFilePath;
     }
 
     public Path getBorrowerRecordsFilePath() {
@@ -103,7 +103,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
                 && loanRecordsFilePath.equals(o.loanRecordsFilePath)
-                && catalogueFilePath.equals(o.catalogueFilePath)
+                && catalogFilePath.equals(o.catalogFilePath)
                 && borrowerRecordsFilePath.equals(o.borrowerRecordsFilePath);
     }
 
@@ -116,9 +116,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal Catalogue data file location : " + addressBookFilePath);
+        sb.append("\nLocal Catalog data file location : " + addressBookFilePath);
         sb.append("\nLocal LoanRecords data file location : " + loanRecordsFilePath);
-        sb.append("\nLocal Catalogue data file location : " + catalogueFilePath);
+        sb.append("\nLocal Catalog data file location : " + catalogFilePath);
         sb.append("\nLocal BorrowerRecords data file location : " + borrowerRecordsFilePath);
         return sb.toString();
     }

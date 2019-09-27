@@ -7,19 +7,19 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBorrowerRecords;
-import seedu.address.model.ReadOnlyCatalogue;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
-import seedu.address.storage.catalogue.CatalogueStorage;
+import seedu.address.storage.catalog.CatalogStorage;
 import seedu.address.storage.loanrecord.LoanRecordsStorage;
 
 /**
  * API of the Storage component
  */
 public interface Storage extends AddressBookStorage, UserPrefsStorage,
-        LoanRecordsStorage, CatalogueStorage, BorrowerRecordsStorage {
+        LoanRecordsStorage, CatalogStorage, BorrowerRecordsStorage {
 
     // UserPrefStorage methods
 
@@ -51,16 +51,16 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage,
     @Override
     void saveLoanRecords(ReadOnlyLoanRecords loanRecords) throws IOException;
 
-    // CatalogueStorage methods
+    // CatalogStorage methods
 
     @Override
-    Path getCatalogueFilePath();
+    Path getCatalogFilePath();
 
     @Override
-    Optional<ReadOnlyCatalogue> readCatalogue() throws DataConversionException, IOException;
+    Optional<ReadOnlyCatalog> readCatalog() throws DataConversionException, IOException;
 
     @Override
-    void saveCatalogue(ReadOnlyCatalogue Catalogue) throws IOException;
+    void saveCatalog(ReadOnlyCatalog Catalog) throws IOException;
 
     // BorrowerRecordsStorage methods
 

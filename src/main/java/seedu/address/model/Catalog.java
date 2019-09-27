@@ -4,15 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.book.Book;
 
-public class Catalogue implements ReadOnlyCatalogue {
+public class Catalog implements ReadOnlyCatalog {
 
     // Placeholder for UniqueBookList
     ObservableList<Book> listOfBooks = FXCollections.observableArrayList();
 
-    public Catalogue(ReadOnlyCatalogue toBeCopied) {
+    public Catalog(ReadOnlyCatalog toBeCopied) {
     }
 
-    public Catalogue() {
+    public Catalog() {
 
     }
 

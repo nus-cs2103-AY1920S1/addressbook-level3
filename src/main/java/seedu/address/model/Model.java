@@ -55,14 +55,14 @@ public interface Model {
     void setLoanRecordsFilePath(Path loanRecordsFilePath);
 
     /**
-     * Returns the user prefs' catalogue file path.
+     * Returns the user prefs' catalog file path.
      */
-    public Path getCatalogueFilePath();
+    public Path getCatalogFilePath();
 
     /**
-     * Returns the user prefs' catalogue file path.
+     * Returns the user prefs' catalog file path.
      */
-    public void setCatalogueFilePath(Path catalogueFilePath);
+    public void setCatalogFilePath(Path catalogFilePath);
 
     /**
      * Returns the user prefs' borrower records file path.
@@ -118,8 +118,8 @@ public interface Model {
     /** Returns the LoanRecords*/
     ReadOnlyLoanRecords getLoanRecords();
 
-    /** Returns the Catalogue*/
-    ReadOnlyCatalogue getCatalogue();
+    /** Returns the Catalog*/
+    ReadOnlyCatalog getCatalog();
 
     /** Returns the BorrowerRecords*/
     ReadOnlyBorrowerRecords getBorrowerRecords();
