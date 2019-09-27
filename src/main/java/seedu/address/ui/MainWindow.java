@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -63,6 +64,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox vBoxPane;
 
+    @FXML
+    private Label chatLog;
+
+    @FXML
+    private Label list;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -71,7 +78,6 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.logicStub = new LogicManagerStub();
 
-        // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
@@ -139,11 +145,23 @@ public class MainWindow extends UiPart<Stage> {
 
     private void editInnerParts() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        resultDisplayPlaceholder.setPrefHeight(primaryScreenBounds.getHeight());
-        personListPanelPlaceholder.setPrefHeight(primaryScreenBounds.getHeight());
+        double screenHeight = primaryScreenBounds.getHeight();
+        double screenWidth = primaryScreenBounds.getWidth();
 
-        resultDisplayPlaceholder.setMinWidth(primaryScreenBounds.getWidth() / 3);
-        personListPanelPlaceholder.setMinWidth(primaryScreenBounds.getWidth() / 2 - WIDTH_PADDING);
+        resultDisplayPlaceholder.setPrefHeight(screenHeight);
+        personListPanelPlaceholder.setPrefHeight(screenHeight);
+
+        personListPanelPlaceholder.setMinWidth(screenWidth / 2 - WIDTH_PADDING);
+
+        resultDisplayPlaceholder.setPrefWidth(screenWidth / 3);
+        personListPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
+
+        // Set the stage width and height
+        primaryStage.setMaxWidth(screenWidth);
+        primaryStage.setMaxHeight(screenHeight);
+        primaryStage.setMinHeight(screenHeight / 1.25);
+        primaryStage.setMinWidth(screenWidth / 1.25);
+
 
     }
 
@@ -217,4 +235,6 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+
 }
