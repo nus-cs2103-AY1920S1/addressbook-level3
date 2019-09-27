@@ -14,13 +14,10 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 == What is JARVIS
-JARVIS is a productivity manager tool for NUS students.
+JARVIS is a productivity manager tool designed for NUS students who want to consolidate
+their schedule, tasks, finances and modules in one place.
 
-As a NUS student, are'nt you overwhelmed with all the different aspects of your life?
-Managing your schedule, finances and mapping your modules can be very time consuming and confusing.
-JARVIS is here to help you macro manage all these aspects in your daily life.
-JARVIS will help you track your calendar, your to-dos, manage your budget and plan out your semesters, all in one place!
-
+Download JARVIS now to *abstract* your problems away.
 
 
 == Site Map
