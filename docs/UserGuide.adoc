@@ -104,63 +104,72 @@ Returns `john` and `John Doe`
 Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== On-Duty Doctors Management ===
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Views doctors on shift: `doctors` ====
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Displays doctors currently on shift +
+Format: `doctors [<DOCTOR_NAME>]`
 
-Examples:
+==== Register a new doctor: `newdoctor` ====
+Hires a new doctor. +
+Format: `newdoctor [-name|-n <DOCTOR_NAME>] [-hp <PHONE_NUM>] +
+ [-email|-e <EMAIL>] [-remark|-r <REMARK>]`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+==== Update a patient's profile: `update` ====
 
-// end::delete[]
-=== Clearing all entries : `clear`
+If user is in the doctors listing screen, updates any change for patients’ profiles. +
+Format: `update <ENTRY_ID> [-name|-n <DOCTOR_NAME>]+
+[-ic|-i <DOCTOR_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] +
+[-remark|-r <REMARK>]`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Updates patients’ profiles: `onduty` ====
+Marks the doctor as on-duty and stationed in the given room number. +
+Patients can be directed to the specified doctor. +
+Format: `onduty <ROOM_NUMBER> <DOCTOR_NAME>`
 
-=== Exiting the program : `exit`
+==== Updates patients’ profiles: `offduty` ====
+Marks the doctor as off-duty. Patients can not be directed to the specified doctor.
+Format: `offduty <DOCTOR_NAME>`
 
-Exits the program. +
+=== Inventory commands (v2.0) ===
+
+==== Views the inventory: `inventory` ====
+Displays the medicine inventory +
+Format: `inventory`
+
+==== Views the inventory: `prescription` ====
+Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
+Format: `prescription [-id] <PRESCRIPTION_ID>`
+
+=== User Accounts (v2.0) ===
+==== Login: `login` ====
+Login with your username and password. The user will then be prompted to enter their password. +
+Format: `login <USER_NAME>`
+
+==== Logout: `logout` ====
+Logout from your account +
+Format: `logout`
+
+=== General commands ===
+==== Viewing help: `help` ====
+Lists all the useful commands +
+Format: `help`
+
+==== Exits program: `exit` ====
+Exits the program +
 Format: `exit`
 
-=== Saving the data
+==== Undo action: `undo` ====
+Undo an action +
+Format: `undo`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Creates, updates or removes an alias command: `alias` ====
+Tags an alias name to a reserved command. More specifically,
+one of the following will happen depending on the parameters of the function.
+Please note that the user can not remap a reserved command.
+A new alias command is created if the alias does not exist.
+Remaps an existing alias command to a reserved command if the alias exist.
+If the reserved command is not specified, the alias is unregistered if it exists.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+Format: `alias <Alias_Name> [<Reserved_Command>]`
