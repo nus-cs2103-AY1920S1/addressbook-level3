@@ -71,7 +71,7 @@ public class EditCommand extends Command {
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
         }
 
         Bookmark bookmarkToEdit = lastShownList.get(index.getZeroBased());

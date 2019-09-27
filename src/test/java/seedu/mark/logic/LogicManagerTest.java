@@ -1,7 +1,7 @@
 package seedu.mark.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX;
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.mark.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -59,7 +59,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
     @Test
