@@ -48,13 +48,13 @@ public class StorageManager implements Storage {
     // ================ BookmarkManager methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getBookmarkManagerFilePath() {
+        return addressBookStorage.getBookmarkManagerFilePath();
     }
 
     @Override
     public Optional<ReadOnlyBookmarkManager> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return readAddressBook(addressBookStorage.getBookmarkManagerFilePath());
     }
 
     @Override
@@ -65,7 +65,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveAddressBook(ReadOnlyBookmarkManager addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, addressBookStorage.getBookmarkManagerFilePath());
     }
 
     @Override
