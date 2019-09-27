@@ -1,13 +1,11 @@
 {
   "bookmarks": [ {
     "name": "Valid Person",
-    "phone": "9482424",
     "url": "hans@example.com",
     "address": "4th street"
   }, {
-    "name": "Person With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "url": "hans@example.com",
+    "name": "Person With Invalid Url Field",
+    "url": "hans@invalid!3e",
     "address": "4th street"
   } ]
 }

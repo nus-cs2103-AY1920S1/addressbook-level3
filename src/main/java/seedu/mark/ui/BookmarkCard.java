@@ -33,8 +33,6 @@ public class BookmarkCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label address;
     @FXML
     private Label url;
@@ -46,7 +44,6 @@ public class BookmarkCard extends UiPart<Region> {
         this.bookmark = bookmark;
         id.setText(displayedIndex + ". ");
         name.setText(bookmark.getName().fullName);
-        phone.setText(bookmark.getPhone().value);
         address.setText(bookmark.getAddress().value);
         url.setText(bookmark.getUrl().value);
         bookmark.getTags().stream()

@@ -8,7 +8,6 @@ import seedu.mark.logic.commands.EditCommand.EditBookmarkDescriptor;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
-import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
@@ -33,7 +32,6 @@ public class EditBookmarkDescriptorBuilder {
     public EditBookmarkDescriptorBuilder(Bookmark bookmark) {
         descriptor = new EditBookmarkDescriptor();
         descriptor.setName(bookmark.getName());
-        descriptor.setPhone(bookmark.getPhone());
         descriptor.setUrl(bookmark.getUrl());
         descriptor.setAddress(bookmark.getAddress());
         descriptor.setTags(bookmark.getTags());
@@ -44,14 +42,6 @@ public class EditBookmarkDescriptorBuilder {
      */
     public EditBookmarkDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code EditBookmarkDescriptor} that we are building.
-     */
-    public EditBookmarkDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
         return this;
     }
 

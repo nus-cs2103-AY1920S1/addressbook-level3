@@ -3,7 +3,6 @@ package seedu.mark.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -21,13 +20,11 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bookmark to the bookmark manager. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
             + PREFIX_URL + "URL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe " // TODO: Change AddCommand example
-            + PREFIX_PHONE + "98765432 "
             + PREFIX_URL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "friends "

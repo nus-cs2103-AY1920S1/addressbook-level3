@@ -11,7 +11,6 @@ import seedu.mark.commons.util.StringUtil;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Name;
-import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
@@ -48,21 +47,6 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
-    }
-
-    /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
     }
 
     /**

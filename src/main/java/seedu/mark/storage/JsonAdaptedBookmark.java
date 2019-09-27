@@ -13,7 +13,6 @@ import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
-import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
@@ -25,7 +24,6 @@ class JsonAdaptedBookmark {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Bookmark's %s field is missing!";
 
     private final String name;
-    private final String phone;
     private final String url;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -34,11 +32,10 @@ class JsonAdaptedBookmark {
      * Constructs a {@code JsonAdaptedBookmark} with the given bookmark details.
      */
     @JsonCreator
-    public JsonAdaptedBookmark(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedBookmark(@JsonProperty("name") String name,
                                @JsonProperty("url") String url, @JsonProperty("address") String address,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
         this.url = url;
         this.address = address;
         if (tagged != null) {
@@ -51,7 +48,6 @@ class JsonAdaptedBookmark {
      */
     public JsonAdaptedBookmark(Bookmark source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
         url = source.getUrl().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
@@ -78,14 +74,6 @@ class JsonAdaptedBookmark {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
-
         if (url == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Url.class.getSimpleName()));
         }
@@ -103,7 +91,7 @@ class JsonAdaptedBookmark {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Bookmark(modelName, modelPhone, modelUrl, modelAddress, modelTags);
+        return new Bookmark(modelName, modelUrl, modelAddress, modelTags);
     }
 
 }

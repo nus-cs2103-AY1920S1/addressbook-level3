@@ -6,7 +6,6 @@ import java.util.Set;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
-import seedu.mark.model.bookmark.Phone;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.model.util.SampleDataUtil;
@@ -17,19 +16,16 @@ import seedu.mark.model.util.SampleDataUtil;
 public class BookmarkBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_URL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
-    private Phone phone;
     private Url url;
     private Address address;
     private Set<Tag> tags;
 
     public BookmarkBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
         url = new Url(DEFAULT_URL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -40,7 +36,6 @@ public class BookmarkBuilder {
      */
     public BookmarkBuilder(Bookmark bookmarkToCopy) {
         name = bookmarkToCopy.getName();
-        phone = bookmarkToCopy.getPhone();
         url = bookmarkToCopy.getUrl();
         address = bookmarkToCopy.getAddress();
         tags = new HashSet<>(bookmarkToCopy.getTags());
@@ -71,14 +66,6 @@ public class BookmarkBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Bookmark} that we are building.
-     */
-    public BookmarkBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
-        return this;
-    }
-
-    /**
      * Sets the {@code Url} of the {@code Bookmark} that we are building.
      */
     public BookmarkBuilder withUrl(String url) {
@@ -87,7 +74,7 @@ public class BookmarkBuilder {
     }
 
     public Bookmark build() {
-        return new Bookmark(name, phone, url, address, tags);
+        return new Bookmark(name, url, address, tags);
     }
 
 }

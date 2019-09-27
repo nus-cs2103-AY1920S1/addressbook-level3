@@ -5,7 +5,6 @@ import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYE
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.mark.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.mark.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalBookmarks.AMY;
@@ -80,7 +79,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + URL_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + URL_DESC_AMY
                 + ADDRESS_DESC_AMY;
         Bookmark expectedBookmark = new BookmarkBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

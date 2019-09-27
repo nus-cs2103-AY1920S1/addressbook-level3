@@ -17,7 +17,6 @@ public class Bookmark {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
     private final Url url;
 
     // Data fields
@@ -27,10 +26,9 @@ public class Bookmark {
     /**
      * Every field must be present and not null.
      */
-    public Bookmark(Name name, Phone phone, Url url, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, url, address, tags);
+    public Bookmark(Name name, Url url, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, url, address, tags);
         this.name = name;
-        this.phone = phone;
         this.url = url;
         this.address = address;
         this.tags.addAll(tags);
@@ -38,10 +36,6 @@ public class Bookmark {
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
     }
 
     public Url getUrl() {
@@ -71,7 +65,7 @@ public class Bookmark {
 
         return otherBookmark != null
                 && otherBookmark.getName().equals(getName())
-                && (otherBookmark.getPhone().equals(getPhone()) || otherBookmark.getUrl().equals(getUrl()));
+                && otherBookmark.getUrl().equals(getUrl());
     }
 
     /**
@@ -90,7 +84,6 @@ public class Bookmark {
 
         Bookmark otherBookmark = (Bookmark) other;
         return otherBookmark.getName().equals(getName())
-                && otherBookmark.getPhone().equals(getPhone())
                 && otherBookmark.getUrl().equals(getUrl())
                 && otherBookmark.getAddress().equals(getAddress())
                 && otherBookmark.getTags().equals(getTags());
@@ -99,15 +92,13 @@ public class Bookmark {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, url, address, tags);
+        return Objects.hash(name, url, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
                 .append(" URL: ")
                 .append(getUrl())
                 .append(" Address: ")

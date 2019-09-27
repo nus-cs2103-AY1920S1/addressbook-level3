@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_BOB;
 import static seedu.mark.testutil.Assert.assertThrows;
@@ -31,26 +30,17 @@ public class BookmarkTest {
         // null -> returns false
         assertFalse(ALICE.isSameBookmark(null));
 
-        // different phone and url -> returns false
-        Bookmark editedAlice = new BookmarkBuilder(ALICE).withPhone(VALID_PHONE_BOB).withUrl(VALID_URL_BOB).build();
+        // different url -> returns false
+        Bookmark editedAlice = new BookmarkBuilder(ALICE).withUrl(VALID_URL_BOB).build();
         assertFalse(ALICE.isSameBookmark(editedAlice));
 
         // different name -> returns false
         editedAlice = new BookmarkBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameBookmark(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new BookmarkBuilder(ALICE).withUrl(VALID_URL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameBookmark(editedAlice));
-
         // same name, same url, different attributes -> returns true
-        editedAlice = new BookmarkBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new BookmarkBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameBookmark(editedAlice));
-
-        // same name, same phone, same url, different attributes -> returns true
-        editedAlice = new BookmarkBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameBookmark(editedAlice));
     }
 
@@ -74,10 +64,6 @@ public class BookmarkTest {
 
         // different name -> returns false
         Bookmark editedAlice = new BookmarkBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different phone -> returns false
-        editedAlice = new BookmarkBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different url -> returns false

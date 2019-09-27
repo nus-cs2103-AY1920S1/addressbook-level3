@@ -1,14 +1,12 @@
 {
   "bookmarks": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
     "url": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253",
-    "url": "pauline@example.com",
+    "url": "alice@example.com",
     "address": "4th street"
   } ]
 }
