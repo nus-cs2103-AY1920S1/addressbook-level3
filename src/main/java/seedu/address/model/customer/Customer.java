@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Customer in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Customer {
+public class Customer implements Cloneable {
 
     // Identity fields
     private final Name name;
