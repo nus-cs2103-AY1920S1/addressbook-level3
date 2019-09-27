@@ -5,9 +5,9 @@ import static seedu.mark.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Bookmark's URL in the bookmark manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidUrl(String)}
  */
-public class Url { // TODO: Make proper URL validation
+public class Url { // TODO: Make proper URL validation and change MESSAGE_CONSTRAINTS
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -32,18 +32,18 @@ public class Url { // TODO: Make proper URL validation
     /**
      * Constructs a {@code Url}.
      *
-     * @param email A valid email address.
+     * @param email A valid URL.
      */
     public Url(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidUrl(email), MESSAGE_CONSTRAINTS);
         value = email;
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns if a given string is a URL.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidUrl(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

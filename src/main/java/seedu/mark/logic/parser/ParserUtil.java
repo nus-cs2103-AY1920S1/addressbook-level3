@@ -89,7 +89,7 @@ public class ParserUtil {
     public static Url parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Url.isValidEmail(trimmedEmail)) {
+        if (!Url.isValidUrl(trimmedEmail)) {
             throw new ParseException(Url.MESSAGE_CONSTRAINTS);
         }
         return new Url(trimmedEmail);

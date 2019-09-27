@@ -12,34 +12,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.bookmark.Address;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Phone;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Bookmark}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedBookmark {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Bookmark's %s field is missing!";
 
     private final String name;
     private final String phone;
-    private final String email;
+    private final String url;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given bookmark details.
+     * Constructs a {@code JsonAdaptedBookmark} with the given bookmark details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedBookmark(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                               @JsonProperty("url") String url, @JsonProperty("address") String address,
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
-        this.email = email;
+        this.url = url;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -49,10 +49,10 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Bookmark} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Bookmark source) {
+    public JsonAdaptedBookmark(Bookmark source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        email = source.getUrl().value;
+        url = source.getUrl().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -86,13 +86,13 @@ class JsonAdaptedPerson {
         }
         final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
+        if (url == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Url.class.getSimpleName()));
         }
-        if (!Url.isValidEmail(email)) {
+        if (!Url.isValidUrl(url)) {
             throw new IllegalValueException(Url.MESSAGE_CONSTRAINTS);
         }
-        final Url modelUrl = new Url(email);
+        final Url modelUrl = new Url(url);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
