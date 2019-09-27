@@ -1,6 +1,6 @@
 = Teacher’s Notebook - User Guide
 
-By: 'Team CS2103-T14-1'		Since: 'Sep 2019'
+By: 'Team CS2103-T14-1'	   Since: 'Sep 2019'
 
 == Introduction
 
