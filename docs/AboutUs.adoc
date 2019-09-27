@@ -47,7 +47,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Tan Wei Adam
-image::MistyRainforest.jpg[width="150", align="left"]
+image::MistyRainforest.png[width="150", align="left"]
 {empty}[http://github.com/MistyRainforest[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
