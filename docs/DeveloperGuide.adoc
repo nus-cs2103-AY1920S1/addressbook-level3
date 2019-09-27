@@ -603,9 +603,9 @@ Use case ends.
 .  Should be able to hold up to 1000 spending without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should not require user to install.
-.  Features implemented should be testable using automated and manual testing
+.  Features implemented should be testable using automated and manual testing.
 .  Should work for a single user only.
-.  Should be able to run with or without internet connection
+.  Should be able to run with or without internet connection.
 
 [appendix]
 == Glossary
