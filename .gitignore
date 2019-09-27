@@ -8,11 +8,6 @@ src/main/resources/docs/
 /out/
 /*.iml
 
-# Storage/log files
-/data/
-/config.json
-/preferences.json
-/*.log.*
 
 # Test sandbox files
 src/test/data/sandbox/
