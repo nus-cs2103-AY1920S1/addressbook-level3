@@ -6,7 +6,9 @@ import static seedu.tarence.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.tarence.logic.commands.AddModuleCommand;
 import seedu.tarence.logic.commands.AddStudentCommand;
+import seedu.tarence.logic.commands.AddTutorialCommand;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.DeleteStudentCommand;
 import seedu.tarence.logic.commands.EditCommand;
@@ -56,6 +58,10 @@ public class ApplicationParser {
             return new ExitCommand();
         } else if (HelpCommand.isMatchingCommandWord(commandWord)) {
             return new HelpCommand();
+        } else if (AddModuleCommand.isMatchingCommandWord(commandWord)) {
+            return new AddModuleCommandParser().parse(arguments);
+        } else if (AddTutorialCommand.isMatchingCommandWord(commandWord)) {
+            return new AddTutorialCommandParser().parse(arguments);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

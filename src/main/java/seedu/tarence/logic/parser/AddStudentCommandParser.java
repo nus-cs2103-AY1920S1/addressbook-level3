@@ -19,7 +19,7 @@ import seedu.tarence.model.student.NusnetId;
 import seedu.tarence.model.student.Student;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddStudentCommand object
  */
 public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 

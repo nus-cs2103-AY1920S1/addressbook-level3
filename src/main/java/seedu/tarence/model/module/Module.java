@@ -67,4 +67,17 @@ public class Module {
         return builder.toString();
     }
 
+
+    /**
+     * Returns true if both modules have the same code.
+     *
+     */
+    public boolean isSameModule(Module otherModule) {
+        if (otherModule == this) {
+            return true;
+        }
+        return otherModule != null
+                && otherModule.getModCode().equals(getModCode());
+    }
+
 }

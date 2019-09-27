@@ -25,11 +25,11 @@ public class Tutorial {
     /**
      * Every field must be present and not null.
      */
-    public Tutorial(TutName tutName, DayOfWeek day, LocalTime time,
+    public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
             List<Integer> weeks, Duration duration, List<Student> students) {
-        requireAllNonNull(tutName, day, time, weeks, students);
+        requireAllNonNull(tutName, day, startTime, weeks, students);
         this.tutName = tutName;
-        this.timeTable = new TimeTable(day, time, weeks, duration);
+        this.timeTable = new TimeTable(day, startTime, weeks, duration);
         this.students = students;
     }
 
@@ -74,6 +74,19 @@ public class Tutorial {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTutName());
         return builder.toString();
+    }
+
+    /**
+     * Returns true if both Tutorials have the same name & timetable.
+     *
+     */
+    public boolean isSameTutorial(Tutorial otherTutorial) {
+        if (otherTutorial == this) {
+            return true;
+        }
+        return otherTutorial != null
+                && otherTutorial.getTimeTable().equals(getTimeTable())
+                && otherTutorial.getTutName().equals(getTutName());
     }
 
 }

@@ -5,8 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
+import seedu.tarence.model.module.Module;
+import seedu.tarence.model.module.UniqueModuleList;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.person.UniquePersonList;
+import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.UniqueTutorialList;
 
 /**
  * Wraps all data at the application level
@@ -15,6 +20,8 @@ import seedu.tarence.model.person.UniquePersonList;
 public class Application implements ReadOnlyApplication {
 
     private final UniquePersonList persons;
+    private final UniqueModuleList modules;
+    private final UniqueTutorialList tutorials;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +32,8 @@ public class Application implements ReadOnlyApplication {
      */
     {
         persons = new UniquePersonList();
+        modules = new UniqueModuleList();
+        tutorials = new UniqueTutorialList();
     }
 
     public Application() {}
@@ -37,7 +46,7 @@ public class Application implements ReadOnlyApplication {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //// ============================== list overwrite operations    =================================================
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -56,7 +65,7 @@ public class Application implements ReadOnlyApplication {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    ////=================== person-level operations    =================================================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the application.
@@ -93,6 +102,44 @@ public class Application implements ReadOnlyApplication {
         persons.remove(key);
     }
 
+    ////=================== module-level operations    =================================================================
+
+    /**
+     * Adds a module to the application.
+     * The module must not already exist in the application.
+     */
+    public void addModule(Module newModule) {
+        requireNonNull(newModule);
+        modules.add(newModule);
+    }
+
+    /**
+     * Returns true if a module with the same identity as {@code module} exists in the application.
+     */
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
+    ////=================== tutorial-level operations    ==============================================================
+
+    /**
+     * Adds a tutorial to the application.
+     * The tutorial must not already exist in the application.
+     */
+    public void addTutorial(Tutorial newTutorial) {
+        requireNonNull(newTutorial);
+        tutorials.add(newTutorial);
+    }
+
+    /**
+     * Returns true if a tutorial with the same identity as {@code module} exists in the application.
+     */
+    public boolean hasTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        return tutorials.contains(tutorial);
+    }
+
     //// util methods
 
     @Override
@@ -117,4 +164,6 @@ public class Application implements ReadOnlyApplication {
     public int hashCode() {
         return persons.hashCode();
     }
+
+
 }
