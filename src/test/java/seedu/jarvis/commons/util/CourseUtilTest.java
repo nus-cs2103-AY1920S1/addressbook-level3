@@ -11,15 +11,20 @@ import java.io.IOException;
 public class CourseUtilTest {
 
     @Test
-    public void getCourseJsonStringTest() {
-        // bad path -> throws NullPointerException
+    public void getCourseJsonString_invalidPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class,
                 () -> CourseUtil.getCourseJsonString(
                         "invalidPath", "invalidFile.json"));
     }
 
     @Test
-    public void getCoursePrefixTest() {
+    public void getCourseJsonString_validPath_returnsFile() {
+        assertDoesNotThrow(
+                () -> CourseUtil.getCourseJsonString("MA", "MA1511.json"));
+    }
+
+    @Test
+    public void getCoursePrefix_courseCodeInputs_success() {
         assertEquals("MA", CourseUtil.getCoursePrefix("MA1511"));
         assertEquals("CS", CourseUtil.getCoursePrefix("CS1231"));
         assertEquals("AUD", CourseUtil.getCoursePrefix("AUD4321"));
