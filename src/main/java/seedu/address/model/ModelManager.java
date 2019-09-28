@@ -26,7 +26,7 @@ public class ModelManager implements Model {
     private final FilteredList<Book> filteredBooks;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given catalog and userPrefs.
      * TODO change
      */
     public ModelManager(ReadOnlyCatalog catalog,
@@ -36,13 +36,14 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(userPrefs, loanRecords, catalog, borrowerRecords);
 
-        logger.fine("Initializing with address book: " + catalog + " and user prefs " + userPrefs);
+        logger.fine("Initializing with catalog: " + catalog + " and user prefs " + userPrefs);
 
         this.userPrefs = new UserPrefs(userPrefs);
         // testing loan records
         this.loanRecords = new LoanRecords(loanRecords);
         // testing
         this.catalog = new Catalog(catalog);
+        SerialNumberGenerator.setCatalog((Catalog) catalog);
         // testing
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());

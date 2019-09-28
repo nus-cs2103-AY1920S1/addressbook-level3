@@ -4,32 +4,32 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents a Book's serial number in the catalog.
+ * Guarantees: immutable; is valid as declared in {@link #isValidSerialNumber(String)}
  */
 public class SerialNumber {
 
-
+    public static final String MESSAGE_NON_UNIQUE = "Serial number is not unique! Please input another serial number";
     public static final String MESSAGE_CONSTRAINTS =
-            "SerialNumber numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Serial numbers should start with prefix \"B\", followed by 4 digits. They should be unique.";
+    public static final String VALIDATION_REGEX = "B\\d{4}";
     public final String value;
 
     /**
      * Constructs a {@code SerialNumber}.
      *
-     * @param phone A valid phone number.
+     * @param serialNumber A valid serial number.
      */
-    public SerialNumber(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+    public SerialNumber(String serialNumber) {
+        requireNonNull(serialNumber);
+        checkArgument(isValidSerialNumber(serialNumber), MESSAGE_CONSTRAINTS);
+        value = serialNumber;
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid serial number.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidSerialNumber(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -22,6 +22,15 @@ public class LoanRecords implements ReadOnlyLoanRecords {
 
     }
 
+    /**
+     * Populate sample loans into the system.
+     */
+    public void populateLoans () {
+        for (int i = 0; i < 10; i++) {
+            listOfLoans.add(new Loan("01298" + i));
+        }
+    }
+
     @Override
     public ObservableList<Loan> getLoanList() {
         return FXCollections.unmodifiableObservableList(listOfLoans);

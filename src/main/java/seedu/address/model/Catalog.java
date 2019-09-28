@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.UniqueBookList;
 
 /**
@@ -30,7 +31,7 @@ public class Catalog implements ReadOnlyCatalog {
     public Catalog() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a Catalog using the Books in the {@code toBeCopied}
      */
     public Catalog(ReadOnlyCatalog toBeCopied) {
         this();
@@ -40,15 +41,15 @@ public class Catalog implements ReadOnlyCatalog {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the book list with {@code books}.
+     * {@code persons} must not contain duplicate books.
      */
     public void setBooks(List<Book> books) {
         this.books.setBooks(books);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Catalog} with {@code newData}.
      */
     public void resetData(ReadOnlyCatalog newData) {
         requireNonNull(newData);
@@ -59,7 +60,7 @@ public class Catalog implements ReadOnlyCatalog {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a book with the same identity as {@code book} exists in the catalog.
      */
     public boolean hasBook(Book book) {
         requireNonNull(book);
@@ -67,17 +68,17 @@ public class Catalog implements ReadOnlyCatalog {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a book to the catalog.
+     * The person must not already exist in the catalog.
      */
     public void addBook(Book p) {
         books.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given book {@code target} in the list with {@code editedBook}.
+     * {@code target} must exist in the catalog.
+     * The book identity of {@code editedBook} must not be the same as another existing book in the catalog.
      */
     public void setBook(Book target, Book editedBook) {
         requireNonNull(editedBook);
@@ -85,9 +86,13 @@ public class Catalog implements ReadOnlyCatalog {
         books.setBook(target, editedBook);
     }
 
+    boolean checkIfSerialNumberExists(SerialNumber sn) {
+        return books.containsSerialNumber(sn);
+    }
+
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Catalog}.
+     * {@code key} must exist in the catalog.
      */
     public void removeBook(Book key) {
         books.remove(key);

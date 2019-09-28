@@ -78,7 +78,7 @@ public class JsonAdaptedBook {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     SerialNumber.class.getSimpleName()));
         }
-        if (!SerialNumber.isValidPhone(serialNumber)) {
+        if (!SerialNumber.isValidSerialNumber(serialNumber)) {
             throw new IllegalValueException(SerialNumber.MESSAGE_CONSTRAINTS);
         }
         final SerialNumber modelSerialNumber = new SerialNumber(serialNumber);
