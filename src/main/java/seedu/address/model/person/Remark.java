@@ -16,6 +16,17 @@ public class Remark {
         value = remark;
     }
 
+    private Remark() {
+        value = "";
+    }
+
+    /**
+     * Static method to get an empty remark.
+     */
+    public static Remark emptyRemark() {
+        return new Remark();
+    }
+
     @Override
     public String toString() {
         return value;
