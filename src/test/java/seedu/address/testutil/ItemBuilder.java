@@ -28,7 +28,7 @@ public class ItemBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the ItemBuilder with the data of {@code itemToCopy}.
      */
     public ItemBuilder(Item personToCopy) {
         name = personToCopy.getName();
@@ -37,7 +37,7 @@ public class ItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Item} that we are building.
      */
     public ItemBuilder withName(String name) {
         this.name = new Name(name);
@@ -45,7 +45,7 @@ public class ItemBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Item} that we are building.
      */
     public ItemBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
