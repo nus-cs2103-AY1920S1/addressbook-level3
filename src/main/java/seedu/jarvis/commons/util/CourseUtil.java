@@ -1,8 +1,14 @@
 package seedu.jarvis.commons.util;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -42,13 +48,14 @@ public class CourseUtil {
      * Obtains course information as a {@code json String}.
      *
      * @param coursePrefix of the course
-     * @param fileName of the course
+     * @param courseName of the course
      * @return a {@code json String}
      * @throws IOException if the file is not found
      */
-    public static String getCourseJsonString(String coursePrefix, String fileName)
+    public static String getCourseJsonString(String coursePrefix, String courseName)
             throws IOException {
-        File file = getCourseFile(coursePrefix, fileName);
+        courseName = (courseName.contains(".json")) ? courseName : courseName + ".json";
+        File file = getCourseFile(coursePrefix, courseName);
 
         // read File as Stream into StringBuilder
         StringBuilder text = new StringBuilder();
@@ -60,7 +67,7 @@ public class CourseUtil {
         return removeSpacesNotWithinQuotes(text.toString());
     }
 
-    public static String removeSpacesNotWithinQuotes(String string) {
+    private static String removeSpacesNotWithinQuotes(String string) {
         return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();
     }
 
@@ -80,5 +87,26 @@ public class CourseUtil {
             prefix.append(code[i++]);
         }
         return prefix.toString();
+    }
+
+    /**
+     * Returns a {@code Map<String, String>} containing all fields in the specified
+     * course file.
+     *
+     * @param coursePrefix of the course
+     * @param fileName of the file
+     * @return a {@code Map<String, String>} of all values
+     * @throws IOException if the file is not found
+     */
+    public static Map<String, String> getJsonMap(String coursePrefix, String fileName)
+            throws IOException {
+        String json = getCourseJsonString(coursePrefix, fileName);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(json);
+        Map<String, String> courseProps = new HashMap<>();
+        root.fields().forEachRemaining(entry -> {
+            courseProps.put(entry.getKey(), entry.getValue().asText());
+        });
+        return courseProps;
     }
 }
