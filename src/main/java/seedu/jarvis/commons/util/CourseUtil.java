@@ -3,6 +3,7 @@ package seedu.jarvis.commons.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -25,23 +26,42 @@ public class CourseUtil {
         return newFilePath.toString();
     }
 
-    public static String getCourseJsonString(String coursePrefix, String fileName)
+    private static File getCourseFile(String coursePrefix, String fileName)
             throws IOException {
         // get File object to the desired file
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         String filePath = getFilePath(coursePrefix, fileName);
-        File file = new File(classLoader.getResource(filePath).getFile());
+        try {
+            return new File(Objects.requireNonNull(classLoader.getResource(filePath)).getFile());
+        } catch (NullPointerException e) {
+            throw new IOException(fileName + ": file not found");
+        }
+    }
+
+    /**
+     * Obtains course information as a {@code json String}.
+     *
+     * @param coursePrefix of the course
+     * @param fileName of the course
+     * @return a {@code json String}
+     * @throws IOException if the file is not found
+     */
+    public static String getCourseJsonString(String coursePrefix, String fileName)
+            throws IOException {
+        File file = getCourseFile(coursePrefix, fileName);
 
         // read File as Stream into StringBuilder
         StringBuilder text = new StringBuilder();
         try (Stream<String> fileStream = Files.lines(file.toPath())) {
             fileStream.forEach(text::append);
+        } catch (NullPointerException e) {
+            throw new IOException("File not found");
         }
         return removeSpacesNotWithinQuotes(text.toString());
     }
 
     public static String removeSpacesNotWithinQuotes(String string) {
-        return string.replaceAll(REMOVE_WHITESPACE_REGEX, "");
+        return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();
     }
 
     /**
