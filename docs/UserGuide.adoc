@@ -24,6 +24,24 @@ By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 What are you waiting for? Start tracking your finances now!
 
+== How To Use This Guide
+
+The following section details and previews a few legends and formatting that will
+be used throughout the user guide. These legends are used to represent
+special information such as tips.
+
+[NOTE]
+Important information that should be noted.
+
+[TIP]
+Tips that can help you better navigate the application.
+
+`test`: Command to be executed
+
+====
+Useful information for a deeper understanding of the command.
+====
+
 [[Features]]
 == Features
 
@@ -41,7 +59,7 @@ What are you waiting for? Start tracking your finances now!
 Shows a list of available commands and their usages. +
 Format: `help`
 
-=== Flexible Date Format
+=== Flexible date format
 
 Whenever a particular command requires a `DATE` field, you can choose either of the following formats.
 
@@ -70,21 +88,22 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 ** the monday after/ the monday before
 ** 2 fridays before/ 4 tuesdays after
 
-=== Adding a Spending: `add`
+=== Adding a spending : `add`
 
 Adds a spending to the list +
-Format: `add n/NAME c/COST [t/TAG]... [r/REMARKS]`
+Format: `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
 [TIP]
-A spending can have any number of tags (including 0)
+A spending can have any number of tags (including 0).
 
-Examples: +
+Examples:
+
 * `add n/apple c/2.50 d/yesterday t/fruits r/Expensive apple` +
 * `add n/chicken breast c/1.80 t/meat` +
 * `add n/coffee c/1.20 d/today` +
 * `add n/milo c/1.50 r/I love milo` +
 
-=== Updating a Spending : `update`
+=== Updating a spending : `update`
 
 Updates a spending in the specified index in the list. +
 Format: `update i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
@@ -108,7 +127,7 @@ Updates both the cost of the fifth spending to `500` and its name to `flight tic
 * `update 10 t/vegetable` +
 Overwrites existing tags of the tenth spending to `vegetable`.
 
-=== Deleting a person : `delete`
+=== Deleting a spending : `delete`
 
 Deletes a spending in the specified index from the list. +
 Format: `delete INDEX`
@@ -124,25 +143,28 @@ Example:
 * `delete 2` +
 Deletes the second spending in the list based on the current results shown.
 
-=== Listing All Spending : `list`
+=== Listing all spending : `list`
 
 Displays a list of all spending. +
 Format: `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]`
+
+[NOTE]
+If no 'SORT_ORDER' is specified, the default sort order is by date in descending order (most recent on top).
 
 Examples:
 
 * `list` +
 Displays the list of all spending sorted by date in descending order (most recent on top).
 * `list r/01/09/2019-30/09/2019 t/groceries c/20-100` +
-Displays the list of all spending with date range between `01/09/2019 and 30/09/2019`, tagged `groceries` and cost ranging from `20 to 100`.
+Displays the list of all spending with date range between `01/09/2019 and 30/09/2019`, tagged `groceries` and cost ranging from `20 to 100`. The entries are sorted by date in descending order (most recent on top).
 * `list t/groceries o/ASC` +
 Displays the list of spending tagged with `groceries` in `ascending order by date`.
 * `list t/groceries o/DESC` +
 Displays the list of spending tagged with `groceries` in `descending order by date`.
 
-=== Find by Keyword `find`
+=== Find by keyword : `find`
 
-Searches for spending based on a given keyword. +
+Searches for spending based on given keywords, cost range and date range. +
 Format: `find KEYWORD [MORE_KEYWORDS] [c/COST_RANGE] [r/DATE_RANGE]`
 
 Example:
@@ -150,24 +172,27 @@ Example:
 * `find book Java c/100-150 r/01/09/2019-30/09/2019` +
 Returns a list of spending with `book` and `Java` keywords within the cost range `100-150` and date range within `01/09/2019-30/09/2019`.
 
-=== Setting Monthly Budget: `budget`
-Sets a monthly budget in Singapore dollars. +
+=== Setting monthly budget : `budget`
+Sets a monthly budget for the current month in Singapore dollars. +
 Format: `budget m/MONTHLY_BUDGET` +
+
+[NOTE]
+Overwrites existing budget of current month if budget has already been set.
 
 Example:
 
 * `budget m/500000` +
 Sets a budget of `$500,000` for this month
 
-=== Generating Statistics: `stats`
+=== Generating statistics : `stats`
 Returns an overview of all spending such as total spending. +
 Format: `stats`
 
-=== Listing All Tags: `ltags`
+=== Listing all tags : `ltags`
 Displays a list of all available tags. +
 Format: `ltags`
 
-=== Importing Data: `import`
+=== Importing data : `import`
 Imports data from a CSV file specified by file path. +
 Format: `import p/FILE_PATH` +
 
@@ -177,7 +202,7 @@ Examples: +
 * `import p/C:\Users\User\Documents\importfile.csv`
 * `import p/~/data.csv`
 
-=== Exporting Data: `export`
+=== Exporting data : `export`
 Exports data to a CSV file specified by file path. +
 Format: export `p/FILE_PATH` +
 
@@ -187,9 +212,14 @@ Examples: +
 * `export p/C:\data.csv`
 * `export p/~/data.csv`
 
-=== Undoing Previous Command: `undo`
+=== Undoing previous command : `undo`
 Restores the list of spending to the state before the previous undoable command was executed. +
 Format: `undo` +
+
+[NOTE]
+====
+Undoable commands: commands that modifies any of the spending (`add`, `delete` and `update`).
+====
 
 Examples: +
 
@@ -204,7 +234,7 @@ Examples: +
 `undo` (reverses the add n/textbook c/100 command) +
 `undo` (reverses the delete 1 command)
 
-=== Redoing The Previously Undone Command: `redo`
+=== Redoing the previously undone command : `redo`
 Reverses the most recent undo command. +
 Format: `redo` +
 
@@ -222,11 +252,11 @@ Examples:
 `redo` (reapplies the delete 1 command) +
 `redo` (reapplies the add n/textbook c/100 command)
 
-=== Graphing The Data: `graph`
+=== Graphing the data : `graph`
 Shows all spending in the form of a graph. +
 Format: `graph`
 
-=== Clear All Data: `clear`
+=== Clear all data : `clear`
 Clears all entries from the application. +
 Format: `clear`
 
@@ -239,27 +269,31 @@ Format: `exit`
 
 == Command Summary
 
-* *Add* `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Feature | Command
+| *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
-* *Update* : `update i/INDEX [n/NAME] [c/COST] [n/NAME] [t/TAG]... [r/REMARKS]` +
+| *Update* | `update i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
 e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
-* *Delete* : `delete INDEX` +
+| *Delete* | `delete INDEX` +
 e.g. `delete 123`
-* *Find* : `find KEYWORD [MORE_KEYWORDS] [c/COST_RANGE] [r/DATE_RANGE]` +
+| *Find* | `find KEYWORD [MORE_KEYWORDS] [c/COST_RANGE] [r/DATE_RANGE]` +
 e.g. `find apple orange c/1.00-200 r/19/09/2019-20/09/2019`
-* *List* : `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
+| *List* | `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
 e.g. `list r/01/09/2019-30/09/2019 t/groceries c/20-100 o/ASC`
-* *Budget* : `budget m/MONTHLY_BUDGET` +
+| *Budget* | `budget m/MONTHLY_BUDGET` +
 e.g. `goal m/1800`
-* *Import data*: `import p/FILE_PATH` +
+| *Import data*| `import p/FILE_PATH` +
 e.g. `import p/C:\Users\User\Documents\importfile.csv`
-* *Export data*: `export p/FILE_PATH` +
+| *Export data*| `export p/FILE_PATH` +
 e.g. `export p/C:\Users\User\Documents\importfile.csv`
-* *Generate statistics*: `stats`
-* *List all tags*: `ltags`
-* *Undo*: `undo`
-* *Redo*: `redo`
-* *Graph*: `graph`
-* *Clear*: `clear`
-* *Exit*: `exit`
-* *Help* : `help`
+| *Generate statistics*| `stats`
+| *List all tags*| `ltags`
+| *Undo*| `undo`
+| *Redo*| `redo`
+| *Graph*| `graph`
+| *Clear*| `clear`
+| *Exit*| `exit`
+| *Help* | `help`
+|=======================================================================

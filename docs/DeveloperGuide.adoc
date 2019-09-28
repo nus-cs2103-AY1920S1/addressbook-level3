@@ -364,7 +364,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `MoneyGoWhere` and the *Actor* is the `user`, unless specified otherwise)
 
-=== Use case: Add a spending
+[discrete]
+=== UC01 Add a spending
 
 *MSS*
 
@@ -374,7 +375,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 Use case ends.
 
 '''
-=== Use case: Update a spending
+[discrete]
+=== UC02 Update a spending
 
 *MSS*
 
@@ -400,7 +402,8 @@ Use case ends.
 Use case resumes at step 2.
 
 '''
-=== Use case: Delete a spending
+[discrete]
+=== UC03 Delete a spending
 
 *MSS*
 
@@ -426,7 +429,8 @@ Use case ends.
 Use case resumes at step 2.
 
 '''
-=== Use case: Find a spending
+[discrete]
+=== UC04 Find a spending
 
 *MSS*
 
@@ -436,7 +440,8 @@ Use case resumes at step 2.
 Use case ends.
 
 '''
-=== Use case: Set a monthly budget
+[discrete]
+=== UC05 Set a monthly budget
 
 *MSS*
 
@@ -457,7 +462,8 @@ Use case resumes at step 1.
 [none]
 
 '''
-=== Use case: Generate statistics
+[discrete]
+=== UC06 Generate statistics
 
 *MSS*
 
@@ -468,7 +474,8 @@ Use case ends.
 [none]
 
 '''
-=== Use case: List all the tags
+[discrete]
+=== UC07 List all tags
 
 *MSS*
 
@@ -479,7 +486,8 @@ Use case ends.
 [none]
 
 '''
-=== Use case: Import external data from a CSV file
+[discrete]
+=== UC08 Import external data from a CSV file
 
 *MSS*
 
@@ -500,7 +508,8 @@ Use case resumes at step 1.
 [none]
 
 '''
-=== Use case: Export data to a CSV file
+[discrete]
+=== UC09 Export data to a CSV file
 
 *MSS*
 
@@ -521,7 +530,8 @@ Use case resumes at step 1.
 [none]
 
 '''
-=== Use case: Undo a command
+[discrete]
+=== UC10 Undo a command
 
 *MSS*
 
@@ -542,7 +552,8 @@ Use case ends.
 [none]
 
 '''
-=== Use case: Redo a command
+[discrete]
+=== UC11 Redo a command
 
 *MSS*
 
@@ -563,7 +574,8 @@ Use case ends.
 [none]
 
 '''
-=== Use case: Graphing Data
+[discrete]
+=== UC12 Graphing the data
 
 *MSS*
 
@@ -574,7 +586,8 @@ Use case ends.
 [none]
 
 '''
-=== Use case: Clear all spending
+[discrete]
+=== UC13 Clear all spending
 
 *MSS*
 
