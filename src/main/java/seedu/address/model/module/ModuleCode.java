@@ -3,12 +3,16 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Module's NUS code.
+ * Guarantees: immutable; is valid as declared in {@link #isValidCode(String)}
+ */
 public class ModuleCode {
 
-    public static final String MESSAGE_CONSTRAINTS = "Each module of study has a unique module code" +
-            " consisting of a two- or three-letter prefix that denotes the discipline, and four digits," +
-            " the first of which indicates the level of the module (e.g., 1000 indicates a Level 1 module" +
-            " and 2000, a Level 2 module).\n";
+    public static final String MESSAGE_CONSTRAINTS = "Each module of study has a unique module code"
+            + " consisting of a two- or three-letter prefix that denotes the discipline, and four digits,"
+            + " the first of which indicates the level of the module (e.g., 1000 indicates a Level 1 module"
+            + " and 2000, a Level 2 module).\n";
 
     public static final String VALIDATION_REGEX = "^[a-zA-z]{2,3}(\\d{4})";
 

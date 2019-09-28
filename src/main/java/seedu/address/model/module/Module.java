@@ -18,7 +18,7 @@ public class Module {
     // Identity fields
     private final Name name;
     private final ModuleCode moduleCode;
-    private final int McCount;
+    private final int mcCount;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -31,7 +31,7 @@ public class Module {
         requireAllNonNull(name, moduleCode, tags);
         this.name = name;
         this.moduleCode = moduleCode;
-        this.McCount = mcCount;
+        this.mcCount = mcCount;
         this.tags.addAll(tags);
         for (Module prerequisite : prerequisites) {
             this.prerequisites.add(prerequisite);
@@ -46,8 +46,8 @@ public class Module {
         return moduleCode;
     }
 
-    public int getMcCount() {
-        return McCount;
+    public int getmcCount() {
+        return mcCount;
     }
 
     /**
@@ -80,11 +80,11 @@ public class Module {
         }
 
         seedu.address.model.module.Module otherModule = (seedu.address.model.module.Module) other;
-        return otherModule.getName().equals(getName()) &&
-                otherModule.getModuleCode().equals(getModuleCode()) &&
-                otherModule.getMcCount() == getMcCount() &&
-                otherModule.getTags().equals(getTags()) &&
-                otherModule.getPrerequisites().equals(getPrerequisites());
+        return otherModule.getName().equals(getName())
+                && otherModule.getModuleCode().equals(getModuleCode())
+                && otherModule.getmcCount() == getmcCount()
+                && otherModule.getTags().equals(getTags())
+                && otherModule.getPrerequisites().equals(getPrerequisites());
     }
 
     @Override
@@ -100,7 +100,7 @@ public class Module {
                 .append(" Module code: ")
                 .append(getModuleCode())
                 .append(" MCs: ")
-                .append(getMcCount())
+                .append(getmcCount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
