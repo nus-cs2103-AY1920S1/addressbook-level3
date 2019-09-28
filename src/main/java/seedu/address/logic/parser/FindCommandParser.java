@@ -5,9 +5,9 @@ import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import java.util.Arrays;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

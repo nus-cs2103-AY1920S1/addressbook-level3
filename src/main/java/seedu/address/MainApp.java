@@ -7,12 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.deliverymans.commons.core.Config;
-import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.commons.core.Version;
-import seedu.deliverymans.commons.exceptions.DataConversionException;
-import seedu.deliverymans.commons.util.ConfigUtil;
-import seedu.deliverymans.commons.util.StringUtil;
+
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
@@ -30,6 +25,13 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.deliverymans.commons.core.Config;
+import seedu.deliverymans.commons.core.LogsCenter;
+import seedu.deliverymans.commons.core.Version;
+import seedu.deliverymans.commons.exceptions.DataConversionException;
+import seedu.deliverymans.commons.util.ConfigUtil;
+import seedu.deliverymans.commons.util.StringUtil;
+
 
 /**
  * Runs the application.

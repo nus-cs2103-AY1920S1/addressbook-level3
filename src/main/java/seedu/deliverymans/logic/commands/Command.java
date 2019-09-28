@@ -1,7 +1,7 @@
 package seedu.deliverymans.logic.commands;
 
-import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.deliverymans.logic.commands.exceptions.CommandException;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
