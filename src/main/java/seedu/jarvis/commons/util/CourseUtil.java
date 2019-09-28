@@ -23,6 +23,10 @@ public class CourseUtil {
 
     private static String COURSE_FOLDER = "modinfo";
 
+    private static String removeSpacesNotWithinQuotes(String string) {
+        return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();
+    }
+
     private static String getFilePath(String... paths) {
         StringBuilder newFilePath = new StringBuilder(COURSE_FOLDER);
         for (String s : paths) {
@@ -62,13 +66,9 @@ public class CourseUtil {
         try (Stream<String> fileStream = Files.lines(file.toPath())) {
             fileStream.forEach(text::append);
         } catch (NullPointerException e) {
-            throw new IOException("File not found");
+            throw new IOException(courseCode + ": file not found");
         }
         return removeSpacesNotWithinQuotes(text.toString());
-    }
-
-    private static String removeSpacesNotWithinQuotes(String string) {
-        return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();
     }
 
     /**
