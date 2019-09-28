@@ -17,10 +17,10 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Item[] getSampleItems() {
         return new Item[] {
-            new Item(new Name("Jermy Tan"), new ExpiryDate("12/03/1997"),
-                getTagSet("friends")),
-            new Item(new Name("Yeeyer"), new ExpiryDate("24/6/1999"),
-                getTagSet("colleagues", "friends")),
+            new Item(new Name("Ice Cream"), new ExpiryDate("12/10/2019"),
+                getTagSet("food")),
+            new Item(new Name("Jeremy Vaseline"), new ExpiryDate("30/06/2022"),
+                getTagSet("moisturiser", "lube")),
         };
     }
 

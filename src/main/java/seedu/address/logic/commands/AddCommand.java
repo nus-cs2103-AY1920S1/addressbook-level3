@@ -17,11 +17,11 @@ public class AddCommand extends Command {
             + "Parameters: "
             + "NAME|"
             + "EXPIRY DATE"
-            + "[|TAG]...\n"
+            + "[|#TAG...]\n"
             + "Example: " + COMMAND_WORD + "|"
             + "Strawberry|"
             + "11/12/1999|"
-            + "fruit";
+            + "#fruit";
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the expiry date tracker";
