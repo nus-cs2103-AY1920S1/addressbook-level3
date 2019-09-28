@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Meme;
+import seedu.address.model.meme.Meme;
 
 /**
  * Unmodifiable view of an address book

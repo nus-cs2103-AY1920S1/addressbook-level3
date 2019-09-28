@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
-import seedu.address.model.person.Meme;
+import seedu.address.model.meme.Meme;
 
 /**
  * A utility class for test cases.

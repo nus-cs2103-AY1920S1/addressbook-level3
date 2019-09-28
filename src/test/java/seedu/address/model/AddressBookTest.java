@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Meme;
-import seedu.address.model.person.exceptions.DuplicateMemeException;
+import seedu.address.model.meme.Meme;
+import seedu.address.model.meme.exceptions.DuplicateMemeException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {

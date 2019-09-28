@@ -1,4 +1,4 @@
-package seedu.address.model.person.exceptions;
+package seedu.address.model.meme.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Memes (Memes are considered duplicates if they have the same

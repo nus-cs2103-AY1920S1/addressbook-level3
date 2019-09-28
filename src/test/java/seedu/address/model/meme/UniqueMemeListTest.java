@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.meme;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.exceptions.DuplicateMemeException;
-import seedu.address.model.person.exceptions.MemeNotFoundException;
+import seedu.address.model.meme.exceptions.DuplicateMemeException;
+import seedu.address.model.meme.exceptions.MemeNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueMemeListTest {

@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Meme;
+import seedu.address.model.meme.Meme;
 
 /**
  * A utility class containing a list of {@code Meme} objects to be used in tests.

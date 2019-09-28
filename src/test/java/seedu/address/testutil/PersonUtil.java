@@ -10,7 +10,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Meme;
+import seedu.address.model.meme.Meme;
 import seedu.address.model.tag.Tag;
 
 /**

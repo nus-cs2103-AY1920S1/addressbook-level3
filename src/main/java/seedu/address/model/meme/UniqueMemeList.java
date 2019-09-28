@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.meme;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicateMemeException;
-import seedu.address.model.person.exceptions.MemeNotFoundException;
+import seedu.address.model.meme.exceptions.DuplicateMemeException;
+import seedu.address.model.meme.exceptions.MemeNotFoundException;
 
 /**
  * A list of memes that enforces uniqueness between its elements and does not allow nulls.

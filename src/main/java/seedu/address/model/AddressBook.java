@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Meme;
-import seedu.address.model.person.UniqueMemeList;
+import seedu.address.model.meme.Meme;
+import seedu.address.model.meme.UniqueMemeList;
 
 /**
  * Wraps all data at the address-book level
