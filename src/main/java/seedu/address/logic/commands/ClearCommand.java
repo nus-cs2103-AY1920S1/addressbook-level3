@@ -26,8 +26,8 @@ public class ClearCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    /*
-     * (To be added)
+    /**
+     * (to be added)
      */
     public static class SwitchCommand extends Command {
 

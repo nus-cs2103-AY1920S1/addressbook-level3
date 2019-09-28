@@ -17,7 +17,7 @@ import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.restaurant.RestaurantParser;
 
-/*
+/**
  * (To be added)
  */
 public class UniversalParser {
