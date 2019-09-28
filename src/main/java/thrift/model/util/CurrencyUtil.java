@@ -32,7 +32,7 @@ public class CurrencyUtil {
      * @return Amount in target currency as a double.
      */
     public static double convertFromDefaultCurrency(Map<String, Double> currencyMappings, double value,
-        String currency) {
+            String currency) {
         requireNonNull(currencyMappings);
         requireNonNull(value);
         requireNonNull(currency);

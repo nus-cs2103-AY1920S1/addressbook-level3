@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import thrift.commons.core.Messages;
 import thrift.commons.core.index.Index;
 import thrift.logic.commands.EditCommand.EditTransactionDescriptor;
-import thrift.model.AddressBook;
 import thrift.model.Model;
 import thrift.model.ModelManager;
+import thrift.model.Thrift;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Transaction;
@@ -25,7 +25,7 @@ import thrift.testutil.TypicalTransactions;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(TypicalTransactions.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -35,7 +35,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -53,7 +53,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
         expectedModel.setTransaction(lastTransaction, editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -87,7 +87,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -111,8 +111,8 @@ public class EditCommandTest {
     public void execute_invalidTransactionIndexFilteredList_failure() {
         CommandTestUtil.showTransactionAtIndex(model, TypicalIndexes.INDEX_FIRST_TRANSACTION);
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_TRANSACTION;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getTransactionList().size());
+        // ensures that outOfBoundIndex is still in bounds of thrift list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getThrift().getTransactionList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditTransactionDescriptorBuilder().withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA)

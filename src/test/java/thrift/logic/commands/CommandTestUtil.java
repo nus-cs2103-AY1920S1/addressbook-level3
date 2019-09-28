@@ -13,8 +13,8 @@ import java.util.List;
 
 import thrift.commons.core.index.Index;
 import thrift.logic.commands.exceptions.CommandException;
-import thrift.model.AddressBook;
 import thrift.model.Model;
+import thrift.model.Thrift;
 import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
 import thrift.model.transaction.Transaction;
 import thrift.testutil.EditTransactionDescriptorBuilder;
@@ -90,22 +90,22 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered transaction list and selected transaction in {@code actualModel} remain unchanged
+     * - thrift, filtered transaction list and selected transaction in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
 
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        Thrift expectedThrift = new Thrift(actualModel.getThrift());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedThrift, actualModel.getThrift());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s thrift.
      */
     public static void showTransactionAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());

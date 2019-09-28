@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import thrift.commons.exceptions.IllegalValueException;
+import thrift.model.transaction.Description;
 import thrift.model.transaction.Value;
 import thrift.testutil.TypicalTransactions;
 
@@ -31,6 +32,14 @@ public class JsonAdaptedTransactionTest {
     public void toModelType_validTransactionDetails_returnsTransaction() throws Exception {
         JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(TypicalTransactions.PENANG_LAKSA);
         assertEquals(TypicalTransactions.PENANG_LAKSA.toString(), transaction.toModelType().toString());
+    }
+
+    @Test
+    public void toModelType_nullDescription_throwsIllegalValueException() {
+        JsonAdaptedTransaction transaction =
+                new JsonAdaptedTransaction(VALID_TYPE, null, VALID_VALUE, VALID_DATE, VALID_TAGS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
 
     @Test

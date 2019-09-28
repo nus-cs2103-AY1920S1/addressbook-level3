@@ -7,13 +7,13 @@ import thrift.model.Model;
 import thrift.model.transaction.Expense;
 
 /**
- * Adds an expense transaction to the address book.
+ * Adds an expense transaction to the THRIFT.
  */
 public class AddExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "add_expense";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense transaction to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense transaction to THRIFT. "
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION "
             + CliSyntax.PREFIX_COST + "COST "

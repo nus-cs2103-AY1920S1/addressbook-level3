@@ -21,8 +21,8 @@ import thrift.testutil.TypicalTransactions;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(TypicalTransactions.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalTransactions.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
+    private Model expectedModel = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
 
     @Test
     public void equals() {

@@ -37,22 +37,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' THRIFT file path.
      */
-    Path getAddressBookFilePath();
+    Path getThriftFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' THRIFT file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setThriftFilePath(Path thriftFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces THRIFT data with the data in {@code thrift}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setThrift(ReadOnlyThrift thrift);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns THRIFT */
+    ReadOnlyThrift getThrift();
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the transactions list.
@@ -71,7 +71,7 @@ public interface Model {
     void addExpense(Expense expense);
 
     /**
-     * Adds teh given income.
+     * Adds the given income.
      */
     void addIncome(Income income);
 

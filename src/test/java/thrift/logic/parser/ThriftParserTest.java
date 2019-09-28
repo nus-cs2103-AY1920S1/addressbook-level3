@@ -30,9 +30,9 @@ import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.TransactionUtil;
 import thrift.testutil.TypicalIndexes;
 
-public class AddressBookParserTest {
+public class ThriftParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ThriftParser parser = new ThriftParser();
 
     @Test
     public void parseCommand_addExpense() throws Exception {

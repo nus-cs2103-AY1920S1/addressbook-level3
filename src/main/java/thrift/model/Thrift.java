@@ -9,10 +9,9 @@ import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the THRIFT level
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class Thrift implements ReadOnlyThrift {
 
     private final TransactionList transactions;
 
@@ -27,12 +26,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         transactions = new TransactionList();
     }
 
-    public AddressBook() {}
+    public Thrift() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an THRIFT using the Transaction in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public Thrift(ReadOnlyThrift toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -42,38 +41,38 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the contents of the transaction list with {@code transactions}.
      */
-    public void setTransactionss(List<Transaction> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions.setTransactions(transactions);
     }
 
     /**
      * Resets the existing data of this transactions list with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyThrift newData) {
         requireNonNull(newData);
 
-        setTransactionss(newData.getTransactionList());
+        setTransactions(newData.getTransactionList());
     }
 
     //// transaction-level operations
 
     /**
-     * Adds a transaction to the address book.
+     * Adds a transaction to THRIFT.
      */
     public void addTransaction(Transaction t) {
         transactions.add(t);
     }
 
     /**
-     * Replaces the given transaction {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The transaction identity of {@code editedPerson} must not be the same as another existing transaction in the
-     * address book.
+     * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
+     * {@code target} must exist in THRIFT.
+     * The transaction identity of {@code editedTransaction} must not be the same as another existing transaction in
+     * THRIFT.
      */
-    public void setTransaction(Transaction target, Transaction editedPerson) {
-        requireNonNull(editedPerson);
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireNonNull(editedTransaction);
 
-        transactions.setTransaction(target, editedPerson);
+        transactions.setTransaction(target, editedTransaction);
     }
 
     /**
@@ -85,8 +84,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Thrift}.
+     * {@code key} must exist in THRIFT.
      */
     public void removeTransaction(Transaction key) {
         transactions.remove(key);
@@ -108,8 +107,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && transactions.equals(((AddressBook) other).transactions));
+                || (other instanceof Thrift // instanceof handles nulls
+                && transactions.equals(((Thrift) other).transactions));
     }
 
     @Override

@@ -21,8 +21,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalTransactions.getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
+        expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
     }
 
     @Test

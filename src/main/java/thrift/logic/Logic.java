@@ -8,7 +8,7 @@ import thrift.logic.commands.CommandResult;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.Model;
-import thrift.model.ReadOnlyAddressBook;
+import thrift.model.ReadOnlyThrift;
 import thrift.model.transaction.Transaction;
 
 /**
@@ -25,20 +25,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the Thrift.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getThrift()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyThrift getThrift();
 
-    /** Returns an unmodifiable view of the filtered list of transactions
-     * @return*/
+    /** Returns an unmodifiable view of the filtered list of transactions*/
     ObservableList<Transaction> getFilteredTransactionList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' thrift file path.
      */
-    Path getAddressBookFilePath();
+    Path getThriftFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

@@ -11,7 +11,7 @@ import thrift.model.Model;
 import thrift.model.transaction.Transaction;
 
 /**
- * Deletes a transaction identified using it's displayed index from the address book.
+ * Deletes a transaction identified using it's displayed index from THRIFT.
  */
 public class DeleteCommand extends Command {
 

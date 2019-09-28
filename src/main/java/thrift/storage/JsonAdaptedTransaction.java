@@ -36,8 +36,8 @@ class JsonAdaptedTransaction {
      */
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("type") String type, @JsonProperty("description") String description,
-                                  @JsonProperty("value") String value, @JsonProperty("date") String date,
-                                  @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("value") String value, @JsonProperty("date") String date,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.type = type;
         this.description = description;
         this.value = value;
@@ -81,6 +81,10 @@ class JsonAdaptedTransaction {
         }
         final String modelType = type;
 
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
+        }
         final Description modelDescription = new Description(description);
 
         if (value == null) {
@@ -104,7 +108,6 @@ class JsonAdaptedTransaction {
         final Set<Tag> modelTags = new HashSet<>(transactionTags);
 
         if (modelType.equals("expense")) {
-            System.out.println(modelDescription.toString() + " " + modelValue.toString() + " " + modelDate.toString());
             return new Expense(modelDescription, modelValue, modelDate, modelTags);
         } else {
             return new Income(modelDescription, modelValue, modelDate, modelTags);

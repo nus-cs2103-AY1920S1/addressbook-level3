@@ -20,7 +20,7 @@ import thrift.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class ThriftParser {
 
     /**
      * Used for initial separation of command word and args.

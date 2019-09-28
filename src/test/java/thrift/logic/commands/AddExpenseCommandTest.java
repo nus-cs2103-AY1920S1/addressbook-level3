@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import thrift.commons.core.GuiSettings;
-import thrift.model.AddressBook;
 import thrift.model.Model;
-import thrift.model.ReadOnlyAddressBook;
+import thrift.model.ReadOnlyThrift;
 import thrift.model.ReadOnlyUserPrefs;
+import thrift.model.Thrift;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
@@ -33,7 +33,7 @@ public class AddExpenseCommandTest {
 
     @Test
     public void execute_expenseAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         Expense validExpense = new ExpenseBuilder().build();
 
         CommandResult commandResult = new AddExpenseCommand(validExpense).execute(modelStub);
@@ -91,12 +91,12 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getThriftFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setThriftFilePath(Path thriftFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -111,12 +111,12 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setThrift(ReadOnlyThrift newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyThrift getThrift() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -167,7 +167,7 @@ public class AddExpenseCommandTest {
     /**
      * A Model stub that always accept the transaction being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private class ModelStubAcceptingTransactionAdded extends ModelStub {
         final ArrayList<Transaction> transactionsAdded = new ArrayList<>();
 
         @Override
@@ -183,8 +183,8 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyThrift getThrift() {
+            return new Thrift();
         }
     }
 

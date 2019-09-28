@@ -23,7 +23,7 @@ import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
 
 /**
- * Edits the details of an existing transaction in the address book.
+ * Edits the details of an existing transaction in THRIFT.
  */
 public class EditCommand extends Command {
 

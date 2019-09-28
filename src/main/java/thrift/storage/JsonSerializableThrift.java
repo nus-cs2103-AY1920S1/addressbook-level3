@@ -9,48 +9,48 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import thrift.commons.exceptions.IllegalValueException;
-import thrift.model.AddressBook;
-import thrift.model.ReadOnlyAddressBook;
+import thrift.model.ReadOnlyThrift;
+import thrift.model.Thrift;
 import thrift.model.transaction.Transaction;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable THRIFT that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "thrift")
+class JsonSerializableThrift {
 
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given transactions.
+     * Constructs a {@code JsonSerializableThrift} with the given transactions.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions) {
+    public JsonSerializableThrift(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions) {
         this.transactions.addAll(transactions);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyThrift} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableThrift}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableThrift(ReadOnlyThrift source) {
         transactions.addAll(source.getTransactionList().stream().map(JsonAdaptedTransaction::new)
                 .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this THRIFT into the model's {@code Thrift} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public Thrift toModelType() throws IllegalValueException {
+        Thrift thrift = new Thrift();
         for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
             Transaction transaction = jsonAdaptedTransaction.toModelType();
-            addressBook.addTransaction(transaction);
+            thrift.addTransaction(transaction);
         }
-        return addressBook;
+        return thrift;
     }
 
 }

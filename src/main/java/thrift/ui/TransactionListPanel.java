@@ -11,7 +11,7 @@ import thrift.commons.core.LogsCenter;
 import thrift.model.transaction.Transaction;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of transactions.
  */
 public class TransactionListPanel extends UiPart<Region> {
     private static final String FXML = "TransactionListPanel.fxml";

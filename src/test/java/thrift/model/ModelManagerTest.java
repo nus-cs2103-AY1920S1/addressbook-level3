@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import thrift.commons.core.GuiSettings;
 import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
-import thrift.testutil.AddressBookBuilder;
+import thrift.testutil.ThriftBuilder;
 import thrift.testutil.TypicalTransactions;
 
 public class ModelManagerTest {
@@ -25,7 +25,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new Thrift(), new Thrift(modelManager.getThrift()));
     }
 
     @Test
@@ -36,14 +36,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setThriftFilePath(Paths.get("thrift/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setThriftFilePath(Paths.get("new/thrift/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -60,31 +60,31 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setThriftFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setThriftFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setThriftFilePath_validPath_setsThriftFilePath() {
+        Path path = Paths.get("thrift/file/path");
+        modelManager.setThriftFilePath(path);
+        assertEquals(path, modelManager.getThriftFilePath());
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredTransactionList().remove(0));
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withDescription(TypicalTransactions.LAKSA).build();
-        AddressBook differentAddressBook = new AddressBook();
+        Thrift thrift = new ThriftBuilder().withTransaction(TypicalTransactions.LAKSA).build();
+        Thrift differentThrift = new Thrift();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(thrift, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(thrift, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -96,20 +96,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different thrift -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentThrift, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = TypicalTransactions.PENANG_LAKSA.getDescription().toString().split("\\s+");
         modelManager.updateFilteredTransactionList(new DescriptionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(thrift, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setThriftFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(thrift, differentUserPrefs)));
     }
 }

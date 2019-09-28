@@ -30,7 +30,6 @@ public class Value {
      */
     public Value(String value) {
         requireNonNull(value);
-        System.out.println(value);
         checkArgument(isValidValue(value), VALUE_CONSTRAINTS);
         this.amount = Double.parseDouble(value);
         this.currency = DEFAULT_CURRENCY;
@@ -52,7 +51,7 @@ public class Value {
     }
 
     /**
-     * Returns rue if a given String is a valid currency type.
+     * Returns true if a given String is a valid currency type.
      *
      * @param currency Currency type to check if it is valid.
      * @return true if Currency type is supported.
