@@ -39,7 +39,8 @@ public class CommandDequeTest {
         CommandDeque commandDeque = new CommandDeque();
         Command command = new ClearAddressCommand();
         assertDoesNotThrow(() -> commandDeque.addLatestCommand(command)); // tests a successful add.
-        assertSame(commandDeque.getLatestCommand(), command); // making sure the command was added correctly.
+        Command latestCommand = assertDoesNotThrow(commandDeque::getLatestCommand);
+        assertSame(latestCommand, command); // making sure the command was added correctly.
     }
 
 
@@ -149,10 +150,10 @@ public class CommandDequeTest {
     }
 
     /**
-     * Verifies that {@code CommandDeque} is clear cache will correctly clear all commands stored.
+     * Verifies that {@code CommandDeque#clear()} will correctly clear all commands stored.
      */
     @Test
-    public void test_clearCache() {
+    public void test_clear() {
         CommandDeque commandDeque = new CommandDeque();
 
         // adds commands until it is at the size limit.
@@ -161,7 +162,7 @@ public class CommandDequeTest {
 
         int limit = commandDeque.getSizeLimit();
 
-        commandDeque.clearCache();
+        commandDeque.clear();
 
         assertTrue(commandDeque.isEmpty()); // checks that commands are all cleared.
         assertEquals(limit, commandDeque.getSizeLimit()); // checks that limit is unchanged.
