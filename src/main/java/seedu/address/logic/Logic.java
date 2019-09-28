@@ -7,8 +7,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyExerciseBook;
+import seedu.address.model.exercise.Exercise;
 
 /**
  * API of the Logic component
@@ -24,14 +24,16 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the ExerciseBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getAllData()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyExerciseBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Exercise> getFilteredExerciseList();
+
+    ObservableList<Exercise> getSortedExerciseList();
 
     /**
      * Returns the user prefs' address book file path.
@@ -47,4 +49,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }
