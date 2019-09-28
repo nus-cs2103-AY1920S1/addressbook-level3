@@ -6,6 +6,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ScheduleStub;
+import seedu.address.model.person.schedule.Schedule;
 
 public class DetailsView extends UiPart<Region> {
 
@@ -18,7 +19,7 @@ public class DetailsView extends UiPart<Region> {
         this.detailsView = new VBox();
         PersonCard personCard = new PersonCard(person, 1);
         ScheduleStub stub = new ScheduleStub(1);
-        ScheduleView scheduleView = new ScheduleView(stub);
+        ScheduleView scheduleView = new ScheduleView(stub.getSchedule());
         detailsView.getChildren().addAll(personCard.getRoot(), scheduleView.getScheduleView());
     }
 

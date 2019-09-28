@@ -9,20 +9,24 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.ScheduleStub;
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Schedule;
+import seedu.address.model.person.schedule.Timeslot;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.time.DayOfWeek;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ScheduleView extends UiPart<Region> {
     //Schedule to be received from logic MUST be in chronological order from Monday -> Friday and events must be
     //in chronological order as well.
     //ScheduleView must be wrapped in a scroll pane otherwise the view will become distorted.
     private static final String FXML = "ScheduleView.fxml";
-    private ArrayList<String> dayNames = new ArrayList<String>(List.of("Sunday", "Monday", "Tuesday",
-            "Wednesday", "Thursday", "Friday", "Saturday"));
-    private ArrayList<String> listOfColors = new ArrayList<String>(List.of("darkred", "navy", "darkgreen",
+    private static ArrayList<String> dayNames = new ArrayList<String>(List.of("Monday", "Tuesday",
+            "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
+    private static ArrayList<String> listOfColors = new ArrayList<String>(List.of("darkred", "navy", "darkgreen",
             "darkorange", "lightslategray", "orchid", "teal", "darkmagenta"));
     @FXML
     private GridPane scheduleView;
@@ -48,6 +52,15 @@ public class ScheduleView extends UiPart<Region> {
         initialiseHeaders();
         initialiseTableCells();
         showGroupSchedule(schedules);
+    }
+
+    public ScheduleView(Schedule schedule) {
+        super(FXML);
+        initialise();
+        initialiseHeaders();
+        initialiseTableCells();
+        HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> hashMap = getScheduleHashMap(schedule);
+        showIndividualSchedule(hashMap, listOfColors.get((int) (Math.random() * (listOfColors.size() - 1))));
     }
 
     private ScheduleView initialise() {
@@ -205,12 +218,67 @@ public class ScheduleView extends UiPart<Region> {
         return colors;
     }
 
+    private HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> getScheduleHashMap(Schedule schedule) {
+        HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> hashMap =
+                new HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>>();
+        //Initialise arraylist in hashmap. Pair<Integer, Integer> contains <startTime> and <endTime>.
+        PersonId personId = schedule.getPersonId();
+
+        for (int i = 1; i <= 7; i++) {
+            DayOfWeek day = DayOfWeek.of(i);
+            hashMap.put(day, new ArrayList<Pair<PersonId, Pair<Integer, Integer>>>());
+        }
+
+        //Looping through schedule and appending it to the correct place in the map.
+        ArrayList<Event> events = schedule.getEvents();
+        for (Event e : events) {
+            ArrayList<Timeslot> timeslots = e.getTimeslots();
+            for (Timeslot t : timeslots) {
+                DayOfWeek day = t.getStartTime().getDayOfWeek();
+                int startTime = t.getStartTime().getHour() * 100 + t.getStartTime().getMinute();
+                int endTime = t.getEndTime().getHour() * 100 + t.getEndTime().getMinute();
+                Pair<Integer, Integer> startAndEndTime = new Pair<>(startTime, endTime);
+                Pair<PersonId, Pair<Integer, Integer>> dataValue = new Pair(personId, startAndEndTime);
+                hashMap.get(day).add(dataValue);
+            }
+        }
+        //Sorting the arraylist according to timestamps.
+        Comparator<Pair<PersonId, Pair<Integer, Integer>>> comparator = new Comparator<Pair<PersonId, Pair<Integer, Integer>>>() {
+            @Override
+            public int compare(Pair<PersonId, Pair<Integer, Integer>> t1, Pair<PersonId, Pair<Integer, Integer>> t2) {
+                int t1Value = (int) t1.getValue().getKey();
+                int t2Value = (int) t2.getValue().getKey();
+                return t1Value - t2Value;
+            }
+        };
+        for (int i = 1; i <= 7; i++) {
+            DayOfWeek day = DayOfWeek.of(i);
+            hashMap.get(day).sort(comparator);
+        }
+
+        return hashMap;
+    }
+
     public GridPane showIndividualSchedule(ScheduleStub scheduleStub, String color) {
         for (int i = 1; i <= 7; i++) {
             ArrayList<Pair<Integer, Integer>> daySchedule = scheduleStub.getDaySchedule(i);
-            //Sunday -> 0, Monday -> 1.. for dayStackPane.
+            //Sunday -> 7, Monday -> 0.. for dayStackPane.
             StackPane dayStackPane = dayTimeslotStackPanes.get(i - 1);
             VBox timeslotContainer = getDayVBoxOfIndividualSchedule(daySchedule, color);
+            dayStackPane.getChildren().add(timeslotContainer);
+        }
+        return scheduleView;
+    }
+
+    public GridPane showIndividualSchedule(HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> hash,
+                                           String color) {
+        for (int i = 1; i <= 7; i++) {
+            ArrayList<Pair<PersonId, Pair<Integer, Integer>>> daySchedule = hash.get(DayOfWeek.of(i));
+            StackPane dayStackPane = dayTimeslotStackPanes.get(i - 1);
+            ArrayList<Pair<Integer, Integer>> startEndTimes = daySchedule.stream()
+                    .map(p -> p.getValue())
+                    .collect(Collectors.toCollection(ArrayList::new));
+            VBox timeslotContainer = getDayVBoxOfIndividualSchedule(startEndTimes, color);
             dayStackPane.getChildren().add(timeslotContainer);
         }
         return scheduleView;

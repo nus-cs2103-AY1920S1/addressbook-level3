@@ -1,8 +1,14 @@
 package seedu.address.model.person;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.util.Pair;
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Schedule;
+import seedu.address.model.person.schedule.Timeslot;
+import seedu.address.model.person.schedule.Venue;
 
 public class ScheduleStub {
     private ArrayList<ArrayList<Pair<Integer, Integer>>> schedule;
@@ -39,6 +45,21 @@ public class ScheduleStub {
                 schedule.add(daySchedule);
             }
         }
+    }
+
+    public Schedule getSchedule() {
+        Schedule schedule = new Schedule(new PersonId(12345));
+        Venue venue = new Venue("Central Library");
+        LocalDateTime startTime1 = LocalDateTime.of(2019,9, 23, 9, 0);
+        LocalDateTime endTime1 = LocalDateTime.of(2019, 9, 23, 11, 0);
+
+        LocalDateTime startTime2 = LocalDateTime.of(2019,9, 25, 13, 0);
+        LocalDateTime endTime2 = LocalDateTime.of(2019, 9, 25, 14, 0);
+        Timeslot timeslot1 = new Timeslot(startTime1, endTime1, venue);
+        Timeslot timeslot2 = new Timeslot(startTime2, endTime2, venue);
+        Event monday1pmTo3pm = new Event("Test", new ArrayList<>(List.of(timeslot1, timeslot2)));
+        schedule.addEvent(monday1pmTo3pm);
+        return schedule;
     }
 
     public ArrayList<Pair<Integer, Integer>> getDaySchedule(int dayNumber) {
