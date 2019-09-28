@@ -103,7 +103,7 @@ public class Schedule {
         builder.append("Order: ")
                 .append(getOrder())
                 .append(" Date and Time: ")
-                .append(getCalendar().getTime().toString())
+                .append(getCalendar().getTime())
                 .append(" Venue: ")
                 .append(getVenue())
                 .append(" Tags: ");
