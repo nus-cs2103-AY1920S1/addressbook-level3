@@ -4,15 +4,16 @@
 
 package seedu.address.model.flashcard;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.FlashCardBuilder;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.FlashCardBuilder;
 
 public class QuestionContainsAllKeywordsPredicateTest {
 
@@ -55,7 +56,7 @@ public class QuestionContainsAllKeywordsPredicateTest {
         predicate = new QuestionContainsAllKeywordsPredicate(Arrays.asList("remainder", "quotient"));
         assertTrue(predicate.test(new FlashCardBuilder().withQuestion("remainder quotient").build()));
 
-     assertTrue(predicate.test(new FlashCardBuilder().withQuestion("remainder quotient").build()));
+        assertTrue(predicate.test(new FlashCardBuilder().withQuestion("remainder quotient").build()));
 
         // Mixed-case keywords all match
         predicate = new QuestionContainsAllKeywordsPredicate(Arrays.asList("reMaInDeR", "QuoTiEnT"));
@@ -65,7 +66,8 @@ public class QuestionContainsAllKeywordsPredicateTest {
     @Test
     public void test_nameDoesNotAllContainKeywords_returnsFalse() {
         // Non-matching keyword
-        QuestionContainsAllKeywordsPredicate predicate = new QuestionContainsAllKeywordsPredicate(Arrays.asList("addition"));
+        QuestionContainsAllKeywordsPredicate predicate =
+                new QuestionContainsAllKeywordsPredicate(Arrays.asList("addition"));
         assertFalse(predicate.test(new FlashCardBuilder().withQuestion("remainder quotient").build()));
 
         // Only one matching keyword
