@@ -55,6 +55,7 @@ or as `newplan Algo and Graphics`.
 Creates a new study plan with an optional title. +
 Format: `newplan [TITLE]` +
 Examples:
+
 * `newplan noc half year`
 * `newplan minor in maths`
 
@@ -62,12 +63,14 @@ Examples:
 Deletes a study plan with a given index. +
 Format: `removeplan PLAN_NUMBER` +
 Example:
+
 * `removeplan 4`
 
 ==== Commiting edits to a study plan: `commit`
 Saves changes to a study plan with a short commit message +
 Format: `commit SHORT_MESSAGE` +
 Examples:
+
 * `commit planned until y2s2`
 * `commit haven’t added UEs`
 
@@ -80,6 +83,7 @@ Shows the version of the current study plan for a particular commit.This does no
 specified commit. +
 Format: `viewcommit COMMIT_NUMBER` +
 Example:
+
 * `viewcommit 1.1`
 * `This allows the user to view commit 1 of study plan 1.`
 
@@ -88,6 +92,7 @@ Reverts to the version of the current study plan for a particular commit. This d
 specified commit. +
 Format: `revert COMMIT_NUMBER` +
 Example:
+
 * `revert 1.1` +
 This allows the user to revert to commit 1 of study plan 1, discarding all commits after 1.1 (e.g. 1.2 and 1.3)
 
@@ -95,6 +100,7 @@ This allows the user to revert to commit 1 of study plan 1, discarding all commi
 Shows the study plan with a given index. +
 Format: `viewplan PLAN_NUMBER`
 Example:
+
 * `viewplan 3` +
 This allows the user to view the study plan with an index of 3.
 
@@ -102,6 +108,7 @@ This allows the user to view the study plan with an index of 3.
 Replace the current study plan with the specified study plan as the active one. +
 Format: `activate PLAN_NUMBER` +
 Example:
+
 * `activate 2`
 
 ==== Moving a semester to a study plan: `move`
@@ -110,6 +117,7 @@ Moves a semester of modules to another study plan with a specified index.
 command interpretation. +
 Format: `move SEMESTER SOURCE_PLAN DESTINATION_PLAN +
 Examples:
+
 * `move y2s2 1 3`
 * `move y3s1 2 1`
 
@@ -119,19 +127,22 @@ Deletes a semester of modules in the current active study plan, after which the 
 interpretation. +
 Format: `remove SEMESTER` +
 Example:
+
 * `remove y2s2`
 
 ==== Viewing description of a module: `description`
 Shows a short textual description of a particular module. +
 Format: `description MODULE_CODE` +
 Example:
+
 * `description cs2103`
 
 ==== Editing the title of current study plan: `title`
 Changes the title of the current active study plan. +
 Format: `title PLAN_TITLE` +
-Examples:
-`title Algo and Graphics`
+Example:
+
+* `title Algo and Graphics`
 
 ==== Setting default study plan: `default`
 Generates a study plan with pre-populated modules according to the recommended study plan for a year one student. +
