@@ -48,6 +48,14 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        try {
+            storage.savePersonList(model.getPersonList());
+            storage.saveGroupList(model.getGroupList());
+            storage.savePersonToGroupMappingList(model.getPersonToGroupMappingList());
+        } catch (IOException ioe) {
+            logger.severe("Unable to save data");
+        }
+
         return commandResult;
     }
 

@@ -68,4 +68,9 @@ public class NusmodCommand extends Command {
         }
 
     }
+
+    @Override
+    public boolean equals(Command command) {
+        return false;
+    }
 }

@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,10 +12,15 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.GroupName;
+import seedu.address.model.group.GroupRemark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
+import seedu.address.model.person.schedule.Timeslot;
+import seedu.address.model.person.schedule.Venue;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,10 +29,12 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy:HHmm");
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -48,6 +58,16 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code GroupName}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static GroupName parseGroupName(String name) {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        return new GroupName(trimmedName);
     }
 
     /**
@@ -97,6 +117,7 @@ public class ParserUtil {
 
     /**
      * Parses a String module, and trims the String.
+     *
      * @param module String to be trimmed
      * @return Trimmed String
      * @throws ParseException null
@@ -105,6 +126,34 @@ public class ParserUtil {
         requireNonNull(module);
         String trimmedModule = module.trim();
         return trimmedModule;
+    }
+
+    /**
+     * Parse a String remark, and trims the String.
+     *
+     * @param remark String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static Remark parseRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+
+        return new Remark(trimmedRemark);
+    }
+
+    /**
+     * Parse a String remark, and trims the String.
+     *
+     * @param remark String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static GroupRemark parseGroupRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+
+        return new GroupRemark(trimmedRemark);
     }
 
     /**
@@ -132,5 +181,23 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a String into a Timeslot object.
+     *
+     * @param timeslot to be parsed
+     * @return Timeslot object
+     */
+    public static Timeslot parseTimeslot(String timeslot) {
+        try {
+            String[] tokens = timeslot.split("-");
+            LocalDateTime startTime = LocalDateTime.parse(tokens[0], DATE_TIME_FORMATTER);
+            LocalDateTime endTime = LocalDateTime.parse(tokens[1], DATE_TIME_FORMATTER);
+            Venue venue = new Venue(tokens[2].trim());
+            return new Timeslot(startTime, endTime, venue);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 }

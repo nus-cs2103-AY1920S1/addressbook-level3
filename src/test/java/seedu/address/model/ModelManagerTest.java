@@ -2,25 +2,56 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME0;
+import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP00;
+import static seedu.address.testutil.mappingutil.TypicalMappings.MAP20;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
+import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ZACK;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.model.group.Group;
+import seedu.address.model.group.GroupId;
+import seedu.address.model.group.GroupList;
+import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonId;
+import seedu.address.model.person.PersonList;
+import seedu.address.testutil.grouputil.TypicalGroups;
+import seedu.address.testutil.mappingutil.TypicalMappings;
+import seedu.address.testutil.personutil.PersonBuilder;
+import seedu.address.testutil.personutil.TypicalPersonDescriptor;
+import seedu.address.testutil.scheduleutil.TypicalEvents;
 
 public class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager;
+
+    @BeforeEach
+    void init() {
+        Person.counterReset();
+        Group.counterReset();
+
+        PersonList personList = TypicalPersonDescriptor.generateTypicalPersonList();
+        GroupList groupList = TypicalGroups.generateTypicalGroupList();
+        PersonToGroupMappingList personToGroupMappingList = TypicalMappings.generateTypicalMappingList();
+
+        modelManager = new ModelManager(personList, groupList, personToGroupMappingList);
+    }
 
     @Test
     public void constructor() {
@@ -73,27 +104,11 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
-    @Test
+    /*@Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
@@ -128,5 +143,163 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }*/
+
+
+    @Test
+    void getPersonList() {
+        PersonList personList2 = modelManager.getPersonList();
+
+        assertNotNull(personList2);
+        assertNotNull(personList2.findPerson(ALICE.getName()));
+        assertNull(personList2.findPerson(ZACK.getName()));
+    }
+
+    @Test
+    void addPerson() {
+        Person person = modelManager.addPerson(ZACK);
+
+        assertNotNull(person);
+        assertTrue(person.isSamePerson(new PersonBuilder(ZACK).build()));
+        assertTrue(person.isSamePerson(person));
+
+        assertFalse(person.isSamePerson(new PersonBuilder(ALICE).build()));
+        assertFalse(person.equals(new PersonBuilder(ZACK).build()));
+    }
+
+    @Test
+    void findPerson() {
+        Person person = modelManager.findPerson(ALICE.getName());
+
+        assertTrue(person.isSamePerson(new PersonBuilder(ALICE).build()));
+        assertTrue(person.isSamePerson(person));
+    }
+
+    @Test
+    void testFindPerson() {
+        Person person = modelManager.findPerson(BENSON.getName());
+        assertTrue(person.isSamePerson(person));
+        assertTrue(person.equals(person));
+    }
+
+    @Test
+    void addEvent() {
+        assertTrue(modelManager.addEvent(BENSON.getName(), TypicalEvents.generateTypicalEvent2()));
+        assertTrue(modelManager.addEvent(ALICE.getName(), TypicalEvents.generateTypicalEvent1()));
+
+        assertFalse(modelManager.addEvent(ZACK.getName(), TypicalEvents.generateTypicalEvent2()));
+    }
+
+    @Test
+    void editPerson() {
+        assertNotNull(modelManager.editPerson(ALICE.getName(), ZACK));
+        assertNull(modelManager.editPerson(ALICE.getName(), BENSON));
+    }
+
+    @Test
+    void deletePerson() {
+        Person person = modelManager.findPerson(ALICE.getName());
+        assertTrue(modelManager.deletePerson(person.getPersonId()));
+    }
+
+    @Test
+    void findGroupsOfPerson() {
+        Person person = modelManager.findPerson(ALICE.getName());
+        ArrayList<GroupId> groups = modelManager.findGroupsOfPerson(person.getPersonId());
+        assertTrue(groups.size() == 3);
+    }
+
+    @Test
+    void getGroupList() {
+        assertNotNull(modelManager.getGroupList());
+        assertNotNull(modelManager.findGroup(GROUPNAME1));
+        assertNull(modelManager.findGroup(GROUPNAME0));
+    }
+
+    @Test
+    void addGroup() {
+        assertNull(modelManager.addGroup(GROUP1));
+        assertNotNull(modelManager.addGroup(GROUP0));
+        assertNull(modelManager.addGroup(GROUP0));
+    }
+
+    @Test
+    void editGroup() {
+        assertNull(modelManager.editGroup(GROUPNAME1, GROUP1));
+        assertNotNull(modelManager.editGroup(GROUPNAME1, GROUP0));
+    }
+
+    @Test
+    void findGroup() {
+        assertNull(modelManager.findGroup(GROUPNAME0));
+        assertNotNull(modelManager.findGroup(GROUPNAME1));
+    }
+
+    @Test
+    void testFindGroup() {
+        Group group = modelManager.findGroup(GROUPNAME1);
+        assertNotNull(group);
+
+        assertNotNull(modelManager.findGroup(group.getGroupId()));
+    }
+
+    @Test
+    void deleteGroup() {
+        Group group = modelManager.findGroup(GROUPNAME1);
+        assertTrue(modelManager.deleteGroup(group.getGroupId()));
+
+        assertFalse(modelManager.deleteGroup(group.getGroupId()));
+    }
+
+    @Test
+    void findPersonsOfGroup() {
+        Group group = modelManager.findGroup(GROUPNAME1);
+        assertNotNull(group);
+        ArrayList<PersonId> arr = modelManager.findPersonsOfGroup(group.getGroupId());
+        assertNotNull(arr);
+        assertTrue(arr.size() == 2);
+    }
+
+    @Test
+    void getPersonToGroupMappingList() {
+        assertNotNull(modelManager.getPersonToGroupMappingList());
+    }
+
+    @Test
+    void addPersonToGroupMapping() {
+        assertTrue(modelManager.addPersonToGroupMapping(MAP20));
+        assertFalse(modelManager.addPersonToGroupMapping(MAP00));
+    }
+
+    @Test
+    void findPersonToGroupMapping() {
+        assertNotNull(modelManager.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertNull(modelManager.findPersonToGroupMapping(MAP20.getPersonId(), MAP20.getGroupId()));
+    }
+
+    @Test
+    void deletePersonToGroupMapping() {
+        assertTrue(modelManager.deletePersonToGroupMapping(MAP00));
+        assertFalse(modelManager.deletePersonToGroupMapping(MAP00));
+    }
+
+    @Test
+    void deletePersonFromMapping() {
+        Person person = modelManager.findPerson(ALICE.getName());
+        assertNotNull(person);
+
+        modelManager.deletePersonFromMapping(person.getPersonId());
+        ArrayList<GroupId> arr = modelManager.findGroupsOfPerson(person.getPersonId());
+        assertTrue(arr.size() == 0);
+    }
+
+    @Test
+    void deleteGroupFromMapping() {
+        Group group = modelManager.findGroup(GROUPNAME1);
+        assertNotNull(group);
+
+        modelManager.deleteGroupFromMapping(group.getGroupId());
+        ArrayList<PersonId> arr = modelManager.findPersonsOfGroup(group.getGroupId());
+        assertTrue(arr.size() == 0);
     }
 }
