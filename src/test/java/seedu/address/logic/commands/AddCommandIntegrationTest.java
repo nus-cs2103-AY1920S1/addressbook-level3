@@ -7,6 +7,8 @@ import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.BorrowerRecords;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -22,14 +24,16 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalCatalog(), new UserPrefs());
+        // TODO implement and add getTypicalLoanRecords() and getTypicalBorrowerRecords()
+        model = new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
     }
 
     @Test
     public void execute_newBook_success() {
         Book validBook = new BookBuilder().withTitle("Hari").build();
 
-        Model expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
         expectedModel.addBook(validBook);
 
         assertCommandSuccess(new AddCommand(validBook), model,

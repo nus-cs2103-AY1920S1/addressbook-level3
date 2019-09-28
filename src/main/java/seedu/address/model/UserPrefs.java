@@ -51,15 +51,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getCatalogFilePath() {
-        return catalogFilePath;
-    }
-
-    public void setCatalogFilePath(Path catalogFilePath) {
-        requireNonNull(catalogFilePath);
-        this.catalogFilePath = catalogFilePath;
-    }
-
     public Path getLoanRecordsFilePath() {
         return loanRecordsFilePath;
     }
@@ -113,7 +104,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal Catalog data file location : " + addressBookFilePath);
         sb.append("\nLocal LoanRecords data file location : " + loanRecordsFilePath);
         sb.append("\nLocal Catalog data file location : " + catalogFilePath);
         sb.append("\nLocal BorrowerRecords data file location : " + borrowerRecordsFilePath);

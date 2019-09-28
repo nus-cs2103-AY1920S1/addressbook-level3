@@ -1,7 +1,11 @@
 package seedu.address.model.borrower;
 
+/**
+ * Represents a Person in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Borrower {
-    
+
     private String userName = "Adam Smith";
 
     public Borrower() {}
@@ -14,4 +18,3 @@ public class Borrower {
         return userName;
     }
 }
-

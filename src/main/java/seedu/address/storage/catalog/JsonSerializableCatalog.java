@@ -17,9 +17,9 @@ import seedu.address.model.book.Book;
  * An Immutable Catalog that is serializable to JSON format.
  */
 @JsonRootName(value = "Catalog")
-class JsonSerializableCatalog {
+public class JsonSerializableCatalog {
 
-    public static final String MESSAGE_DUPLICATE_book = "books list contains duplicate book(s).";
+    public static final String MESSAGE_DUPLICATE_BOOK = "books list contains duplicate book(s).";
 
     private final List<JsonAdaptedBook> books = new ArrayList<>();
 
@@ -46,15 +46,15 @@ class JsonSerializableCatalog {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public Catalog toModelType() throws IllegalValueException {
-        Catalog Catalog = new Catalog();
+        Catalog catalog = new Catalog();
         for (JsonAdaptedBook jsonAdaptedBook : books) {
             Book book = jsonAdaptedBook.toModelType();
-            if (Catalog.hasBook(book)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_book);
+            if (catalog.hasBook(book)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BOOK);
             }
-            Catalog.addBook(book);
+            catalog.addBook(book);
         }
-        return Catalog;
+        return catalog;
     }
 
 }
