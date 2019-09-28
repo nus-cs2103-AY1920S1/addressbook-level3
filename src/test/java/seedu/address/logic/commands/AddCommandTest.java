@@ -163,7 +163,7 @@ public class AddCommandTest {
         @Override
         public boolean hasMeme(Meme meme) {
             requireNonNull(meme);
-            return this.meme.isSamePerson(meme);
+            return this.meme.isSameMeme(meme);
         }
     }
 
@@ -176,7 +176,7 @@ public class AddCommandTest {
         @Override
         public boolean hasMeme(Meme meme) {
             requireNonNull(meme);
-            return personsAdded.stream().anyMatch(meme::isSamePerson);
+            return personsAdded.stream().anyMatch(meme::isSameMeme);
         }
 
         @Override

@@ -77,7 +77,7 @@ public class EditCommand extends Command {
         Meme memeToEdit = lastShownList.get(index.getZeroBased());
         Meme editedMeme = createEditedMeme(memeToEdit, editPersonDescriptor);
 
-        if (!memeToEdit.isSamePerson(editedMeme) && model.hasMeme(editedMeme)) {
+        if (!memeToEdit.isSameMeme(editedMeme) && model.hasMeme(editedMeme)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEME);
         }
 

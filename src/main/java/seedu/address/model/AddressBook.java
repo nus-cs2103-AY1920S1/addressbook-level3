@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Meme;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniqueMemeList;
 
 /**
  * Wraps all data at the address-book level
@@ -14,7 +14,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueMemeList memes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        memes = new UniqueMemeList();
     }
 
     public AddressBook() {}
@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code memes} must not contain duplicate memes.
      */
     public void setMemes(List<Meme> memes) {
-        this.persons.setPersons(memes);
+        this.memes.setMemes(memes);
     }
 
     /**
@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasMeme(Meme meme) {
         requireNonNull(meme);
-        return persons.contains(meme);
+        return memes.contains(meme);
     }
 
     /**
@@ -71,7 +71,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The meme must not already exist in the address book.
      */
     public void addMeme(Meme p) {
-        persons.add(p);
+        memes.add(p);
     }
 
     /**
@@ -82,7 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setMeme(Meme target, Meme editedMeme) {
         requireNonNull(editedMeme);
 
-        persons.setPerson(target, editedMeme);
+        memes.setMeme(target, editedMeme);
     }
 
     /**
@@ -90,31 +90,31 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeMeme(Meme key) {
-        persons.remove(key);
+        memes.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return memes.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Meme> getMemeList() {
-        return persons.asUnmodifiableObservableList();
+        return memes.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && memes.equals(((AddressBook) other).memes));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return memes.hashCode();
     }
 }
