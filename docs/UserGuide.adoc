@@ -43,7 +43,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add SEMESTER MODULE_CODE`, `SEMESTER`
 is a parameter which can be used as `add y1s1 cs1101s`.
-* Items in square brackets are optional e.g `newplan [SHORT_DESCRIPTION]` can be used as `newplan`
+* Items in square brackets are optional e.g `newplan [TITLE]` can be used as `newplan`
 or as `newplan Algo and Graphics`.
 * Items with ... after them can be used multiple times e.g. `TAG_NAME...` can be used as `core`, `core completed`, etc.
 
