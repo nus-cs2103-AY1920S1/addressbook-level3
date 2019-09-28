@@ -10,22 +10,22 @@ import java.io.IOException;
 import java.util.Map;
 
 public class CourseUtilTest {
-
     @Test
     public void getCourseJsonString_invalidPath_throwsNullPointerException() {
         // invalid path, throws IOException
         assertThrows(IOException.class,
-                () -> CourseUtil.getCourseJsonString(
-                        "invalidPath", "invalidFile.json"));
+                () -> CourseUtil.getCourseJsonString("invalid.json"));
+        assertThrows(IOException.class,
+                () -> CourseUtil.getCourseJsonString(""));
+        assertThrows(IOException.class,
+                () -> CourseUtil.getCourseJsonString("CS32333"));
     }
 
     @Test
     public void getCourseJsonString_validPath_returnsFile() {
         // valid path does not throw exception
-        assertDoesNotThrow(() -> CourseUtil.getCourseJsonString(
-                "MA", "MA1511.json"));
-        assertDoesNotThrow(() -> CourseUtil.getCourseJsonString(
-                "CS", "CS3230"));
+        assertDoesNotThrow(() -> CourseUtil.getCourseJsonString("MA1511"));
+        assertDoesNotThrow(() -> CourseUtil.getCourseJsonString("CS3230"));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class CourseUtilTest {
     @Test
     public void getJsonMap__success() {
         try {
-            Map<String, String> jsonMap = CourseUtil.getJsonMap("CS", "CS3230");
+            Map<String, String> jsonMap = CourseUtil.getJsonMap("CS3230");
             jsonMap.forEach((k, v) -> System.out.println(k + ", " + v));
         } catch (IOException e) {
             System.out.println(e.getMessage());

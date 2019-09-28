@@ -1,6 +1,5 @@
 package seedu.jarvis.commons.util;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,8 +31,11 @@ public class CourseUtil {
         return newFilePath.toString();
     }
 
-    private static File getCourseFile(String coursePrefix, String fileName)
+    private static File getCourseFile(String courseCode)
             throws IOException {
+        String coursePrefix = getCoursePrefix(courseCode);
+        String fileName = (courseCode.contains(".json")) ? courseCode : courseCode + ".json";
+
         // get File object to the desired file
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         String filePath = getFilePath(coursePrefix, fileName);
@@ -47,15 +49,13 @@ public class CourseUtil {
     /**
      * Obtains course information as a {@code json String}.
      *
-     * @param coursePrefix of the course
-     * @param courseName of the course
+     * @param courseCode of the course
      * @return a {@code json String}
      * @throws IOException if the file is not found
      */
-    public static String getCourseJsonString(String coursePrefix, String courseName)
+    public static String getCourseJsonString(String courseCode)
             throws IOException {
-        courseName = (courseName.contains(".json")) ? courseName : courseName + ".json";
-        File file = getCourseFile(coursePrefix, courseName);
+        File file = getCourseFile(courseCode);
 
         // read File as Stream into StringBuilder
         StringBuilder text = new StringBuilder();
@@ -93,14 +93,13 @@ public class CourseUtil {
      * Returns a {@code Map<String, String>} containing all fields in the specified
      * course file.
      *
-     * @param coursePrefix of the course
-     * @param fileName of the file
+     * @param courseCode the course code
      * @return a {@code Map<String, String>} of all values
      * @throws IOException if the file is not found
      */
-    public static Map<String, String> getJsonMap(String coursePrefix, String fileName)
+    public static Map<String, String> getJsonMap(String courseCode)
             throws IOException {
-        String json = getCourseJsonString(coursePrefix, fileName);
+        String json = getCourseJsonString(courseCode);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(json);
         Map<String, String> courseProps = new HashMap<>();
