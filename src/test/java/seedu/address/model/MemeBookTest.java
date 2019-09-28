@@ -22,25 +22,25 @@ import seedu.address.model.meme.Meme;
 import seedu.address.model.meme.exceptions.DuplicateMemeException;
 import seedu.address.testutil.MemeBuilder;
 
-public class AddressBookTest {
+public class MemeBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final MemeBook memeBook = new MemeBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getMemeList());
+        assertEquals(Collections.emptyList(), memeBook.getMemeList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> memeBook.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        MemeBook newData = getTypicalAddressBook();
+        memeBook.resetData(newData);
+        assertEquals(newData, memeBook);
     }
 
     @Test
@@ -51,36 +51,36 @@ public class AddressBookTest {
         List<Meme> newMemes = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newMemes);
 
-        assertThrows(DuplicateMemeException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateMemeException.class, () -> memeBook.resetData(newData));
     }
 
     @Test
     public void hasMeme_nullMeme_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasMeme(null));
+        assertThrows(NullPointerException.class, () -> memeBook.hasMeme(null));
     }
 
     @Test
     public void hasMeme_memeNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasMeme(ALICE));
+        assertFalse(memeBook.hasMeme(ALICE));
     }
 
     @Test
     public void hasMeme_memeInAddressBook_returnsTrue() {
-        addressBook.addMeme(ALICE);
-        assertTrue(addressBook.hasMeme(ALICE));
+        memeBook.addMeme(ALICE);
+        assertTrue(memeBook.hasMeme(ALICE));
     }
 
     @Test
     public void hasMeme_memeWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addMeme(ALICE);
+        memeBook.addMeme(ALICE);
         Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasMeme(editedAlice));
+        assertTrue(memeBook.hasMeme(editedAlice));
     }
 
     @Test
     public void getMemeList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getMemeList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> memeBook.getMemeList().remove(0));
     }
 
     /**

@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
     public void execute_newMeme_success() {
         Meme validMeme = new MemeBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.addMeme(validMeme);
 
         assertCommandSuccess(new AddCommand(validMeme), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateMeme_throwsCommandException() {
-        Meme memeInList = model.getAddressBook().getMemeList().get(0);
+        Meme memeInList = model.getMemeBook().getMemeList().get(0);
         assertCommandFailure(new AddCommand(memeInList), model, AddCommand.MESSAGE_DUPLICATE_MEME);
     }
 

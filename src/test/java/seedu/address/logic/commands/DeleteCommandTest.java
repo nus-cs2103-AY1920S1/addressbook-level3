@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
         showNoMeme(expectedModel);
 
@@ -69,7 +69,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_MEME;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getMemeList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getMemeBook().getMemeList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

@@ -29,7 +29,7 @@ import seedu.address.testutil.EditMemeDescriptorBuilder;
 import seedu.address.testutil.MemeBuilder;
 import seedu.address.testutil.MemeUtil;
 
-public class AddressBookParserTest {
+public class MemeBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
 

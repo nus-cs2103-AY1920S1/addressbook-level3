@@ -12,7 +12,7 @@ import seedu.address.model.meme.UniqueMemeList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class MemeBook implements ReadOnlyAddressBook {
 
     private final UniqueMemeList memes;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         memes = new UniqueMemeList();
     }
 
-    public AddressBook() {}
+    public MemeBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an MemeBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public MemeBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,7 +48,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code MemeBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code MemeBook}.
      * {@code key} must exist in the address book.
      */
     public void removeMeme(Meme key) {
@@ -109,8 +109,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && memes.equals(((AddressBook) other).memes));
+                || (other instanceof MemeBook // instanceof handles nulls
+                && memes.equals(((MemeBook) other).memes));
     }
 
     @Override

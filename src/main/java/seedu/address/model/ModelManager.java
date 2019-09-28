@@ -19,12 +19,12 @@ import seedu.address.model.meme.Meme;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final MemeBook memeBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given memeBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -32,13 +32,13 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.memeBook = new MemeBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredMemes = new FilteredList<>(this.addressBook.getMemeList());
+        filteredMemes = new FilteredList<>(this.memeBook.getMemeList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new MemeBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,42 +66,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getMemeBookFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setMemeBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== MemeBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setMemeBook(ReadOnlyAddressBook memeBook) {
+        this.memeBook.resetData(memeBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getMemeBook() {
+        return memeBook;
     }
 
     @Override
     public boolean hasMeme(Meme meme) {
         requireNonNull(meme);
-        return addressBook.hasMeme(meme);
+        return memeBook.hasMeme(meme);
     }
 
     @Override
     public void deleteMeme(Meme target) {
-        addressBook.removeMeme(target);
+        memeBook.removeMeme(target);
     }
 
     @Override
     public void addMeme(Meme meme) {
-        addressBook.addMeme(meme);
+        memeBook.addMeme(meme);
         updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setMeme(Meme target, Meme editedMeme) {
         requireAllNonNull(target, editedMeme);
 
-        addressBook.setMeme(target, editedMeme);
+        memeBook.setMeme(target, editedMeme);
     }
 
     //=========== Filtered Meme List Accessors =============================================================
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return memeBook.equals(other.memeBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredMemes.equals(other.filteredMemes);
     }

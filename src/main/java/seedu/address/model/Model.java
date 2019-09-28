@@ -37,20 +37,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getMemeBookFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setMemeBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code memeBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setMemeBook(ReadOnlyAddressBook memeBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the MemeBook */
+    ReadOnlyAddressBook getMemeBook();
 
     /**
      * Returns true if a meme with the same identity as {@code meme} exists in the address book.

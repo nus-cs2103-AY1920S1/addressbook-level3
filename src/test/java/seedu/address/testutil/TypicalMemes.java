@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MemeBook;
 import seedu.address.model.meme.Meme;
 
 /**
@@ -60,10 +60,10 @@ public class TypicalMemes {
     private TypicalMemes() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code MemeBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static MemeBook getTypicalAddressBook() {
+        MemeBook ab = new MemeBook();
         for (Meme meme : getTypicalMemes()) {
             ab.addMeme(meme);
         }

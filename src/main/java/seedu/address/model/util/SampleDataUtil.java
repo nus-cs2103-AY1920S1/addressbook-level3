@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MemeBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.meme.Address;
 import seedu.address.model.meme.Email;
@@ -14,7 +14,7 @@ import seedu.address.model.meme.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code MemeBook} with sample data.
  */
 public class SampleDataUtil {
     public static Meme[] getSampleMemes() {
@@ -41,11 +41,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+        MemeBook sampleMb = new MemeBook();
         for (Meme sampleMeme : getSampleMemes()) {
-            sampleAb.addMeme(sampleMeme);
+            sampleMb.addMeme(sampleMeme);
         }
-        return sampleAb;
+        return sampleMb;
     }
 
     /**

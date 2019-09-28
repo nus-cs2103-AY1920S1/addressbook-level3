@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditMemeDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.MemeBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -42,7 +42,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(lastMeme, editedMeme);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -112,7 +112,7 @@ public class EditCommandTest {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
 
         // edit meme in filtered list into a duplicate in address book
-        Meme memeInList = model.getAddressBook().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
+        Meme memeInList = model.getMemeBook().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME,
                 new EditMemeDescriptorBuilder(memeInList).build());
 
@@ -137,7 +137,7 @@ public class EditCommandTest {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
         Index outOfBoundIndex = INDEX_SECOND_MEME;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getMemeList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getMemeBook().getMemeList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditMemeDescriptorBuilder().withName(VALID_NAME_BOB).build());

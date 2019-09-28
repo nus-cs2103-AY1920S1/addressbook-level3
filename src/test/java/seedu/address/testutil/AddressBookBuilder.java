@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MemeBook;
 import seedu.address.model.meme.Meme;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code MemeBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private MemeBook memeBook;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        memeBook = new MemeBook();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+    public AddressBookBuilder(MemeBook memeBook) {
+        this.memeBook = memeBook;
     }
 
     /**
-     * Adds a new {@code Meme} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Meme} to the {@code MemeBook} that we are building.
      */
     public AddressBookBuilder withMeme(Meme meme) {
-        addressBook.addMeme(meme);
+        memeBook.addMeme(meme);
         return this;
     }
 
-    public AddressBook build() {
-        return addressBook;
+    public MemeBook build() {
+        return memeBook;
     }
 }
