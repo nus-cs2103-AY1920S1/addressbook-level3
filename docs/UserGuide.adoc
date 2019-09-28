@@ -49,9 +49,36 @@ or as `newplan Algo and Graphics`.
 
 ====
 
-=== Viewing help : `help`
+=== Help and handling the GUI
 
+==== General Help: `help`
+Provides a list of possible commands the user can type.
 Format: `help`
+
+==== Help for a specific command: `help`
+Provides help for a specific command. +
+Format: `help COMMAND` +
+Example:
+
+* `help newplan`
+
+==== Autocompleting: `tab`
+Autocompletes command/module code if there is only one option left. +
+Shows a dropdown for selection if there is more than one option left. This is done through the tab key.
+
+==== Expanding a semester: `expand`
+Expands a semester so that more details can be seen. +
+Format: `expand SEMESTER` +
+Example:
+
+* `expand y1s1`
+
+==== Collapsing a semester: `collapse`
+Collapses a semester so that most details are hidden. +
+Format: `collapse SEMESTER` +
+Example:
+
+* `collapse y1s1`
 
 === Command Line Interface
 
@@ -119,7 +146,8 @@ Examples:
 * `addmodule y1s1 CS1101S CS1231 MA1521`
 * `movemodule CS2105 y2s1 y2s2 && addmodule CS2106 y2s2`
 
-=== Viewing default tags : `viewdefaulttags`
+=== Data classification and management
+==== Viewing default tags : `viewdefaulttags`
 Shows all default tag types. +
 Format: `viewdefaulttags`
 ****
@@ -137,12 +165,12 @@ _UE_ modules are *Unrestricted Elective* modules.
 _ULR_ modules are modules that count towards *University Level Requirements*.
 ****
 
-=== Viewing all tags : `viewalltags`
+==== Viewing all tags : `viewalltags`
 Shows all tag types. +
 Format: `viewalltags`
 
-=== Adding new tags : `newtag`
-Adds a new tag type that can be used to keep track of other types of modules. +
+==== Creating new tags : `newtag`
+Creates a new tag type that can be used to keep track of other types of modules. +
 Format: `newtag TAG_NAME`
 
 [NOTE]
@@ -153,7 +181,7 @@ Example:
 * `newtag exchange` +
 Adds a tag called _exchange_ that can be used to tag modules that are to be taken during an overseas exchange.
 
-=== Renaming an existing tag : `renametag`
+==== Renaming an existing tag : `renametag`
 Renames a tag. +
 Format: `renametag ORIGINAL_TAG_NAME NEW_TAG_NAME`
 
@@ -165,7 +193,7 @@ Example:
 * `renametag exchange sep` +
 Renames the tag name from _exchange_ to _sep_.
 
-=== Tagging modules : `tag`
+==== Tagging modules : `tag`
 Attaches a tag to a module. +
 Format: `tag MODULE_CODE TAG_NAME`
 
@@ -177,7 +205,7 @@ Example:
 * `tag cs3230 exchange` +
 Attaches the tag with name _exchange_ to _CS3230_.
 
-=== Removing tags: `removetag`
+==== Removing a tag from a module: `removetag`
 Removes a tag from a module. +
 Format: `removetag MODULE_CODE TAG_NAME`
 
@@ -185,7 +213,26 @@ Example:
 
 * `removetag cs3230 exchange`
 
-=== Viewing modules with specific tags : `viewtagged`
+==== Removing a tag from all modules: `removeall`
+Removes a tag from all modules that it is attached to. +
+Format: `removeall TAG_NAME`
+
+Example:
+
+* `removeall exchange`
+
+==== Deleting tags: `deletetag`
+Deletes a tag completely and removes it from any module that it is attached to. +
+Format: `deletetag TAG_NAME`
+
+[NOTE]
+Only user-created tags can be deleted, i.e. default tag cannot be deleted.
+
+Example:
+
+* `deletetag exchange`
+
+==== Viewing modules with specific tags : `viewtagged`
 Shows all modules attached to all the specified tags. +
 Format: `viewtagged TAG_NAME ...`
 
@@ -196,7 +243,7 @@ Shows all modules that are tagged as _completed_.
 * `viewtagged core completed` +
 Shows all modules that are tagged as _core_ and _completed_.
 
-=== Viewing tags for a specific module : `viewtags`
+==== Viewing tags for a specific module : `viewtags`
 Shows all tags attached to the specified module. +
 Format `viewtags MODULE_CODE`
 
@@ -204,7 +251,7 @@ Examples:
 
 * `viewtags cs2030`
 
-=== Finding modules using the module code : `findmod`
+==== Finding modules using the module code : `findmod`
 Shows which semester the specified module is located at. +
 Format: `findmod MODULE_CODE`
 
@@ -213,7 +260,7 @@ Examples:
 * `findmod cs1101s`
 * `findmod cs2103`
 
-=== Finding module code using keywords : `getmodcode`
+==== Finding module code using keywords : `getmodcode`
 Shows module codes of all modules with names that contain the specified keywords. +
 Format: `getmodcode KEYWORDS`
 
@@ -222,7 +269,7 @@ Examples:
 * `getmodcode algorithms`
 * `getmodcode programming`
 
-=== Viewing prerequisites of a module : `prereq`
+==== Viewing prerequisites of a module : `prereq`
 Shows all prerequisite modules for the specified module. +
 Format: `prereq MODULE_CODE`
 
@@ -230,21 +277,46 @@ Example:
 
 * `prereq cs2040`
 
-=== Viewing total completed MCs : `mcs`
+==== Viewing total completed MCs : `mcs`
 Shows the current total MCs for all *completed* modules. +
 Format: `mcs`
 
-=== Viewing focus area : `viewfocusarea`
+==== Viewing focus area : `viewfocusarea`
 Shows the focus area that the user has previously declared. +
 Format: `viewfocusarea`
 
-=== Viewing modules that can be taken in a given semester : `validmods`
+==== Viewing modules that can be taken in a given semester : `validmods`
 Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
 Format: `validmods SEMESTER`
 
 Example:
 
 * `validmods y2s1`
+
+=== Verification
+
+==== Error messages
+Displays a useful error message if the input is invalid. For example, it should highlight wrong commands, wrong numbers of arguments, or arguments in the wrong format.
+
+==== Checking a study plan's feasibility
+Shows details about what requirements are left to be fulfilled,
+such as modules that remain to be taken or prerequisites that have yet to be satisfied. +
+Format: `check [AREA]`
+
+Examples:
+
+* `check` -- checks all graduation requirements by default +
+* `check core` +
+* `check focus` +
+* `check prereq` +
+* `check mc` +
+* `check MODULE` -- checks if the module is valid, listing issues with its prerequisites +
+* `check SEMESTER` -- checks if all modules in the semester are valid
+
+==== Displays
+Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules as tags.
+
+The study plan will have a tick or cross beside it, which shows if the entire plan is feasible.
 
 // tag::dataencryption[]
 
