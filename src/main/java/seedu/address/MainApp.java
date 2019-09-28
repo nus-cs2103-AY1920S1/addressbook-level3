@@ -34,8 +34,8 @@ import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
 import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
 import seedu.address.storage.catalog.CatalogStorage;
 import seedu.address.storage.catalog.JsonCatalogStorage;
-import seedu.address.storage.loanrecord.JsonLoanRecordsStorage;
-import seedu.address.storage.loanrecord.LoanRecordsStorage;
+import seedu.address.storage.loanrecords.JsonLoanRecordsStorage;
+import seedu.address.storage.loanrecords.LoanRecordsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 

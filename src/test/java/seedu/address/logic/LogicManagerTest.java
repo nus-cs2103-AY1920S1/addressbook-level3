@@ -32,7 +32,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
 import seedu.address.storage.catalog.JsonCatalogStorage;
-import seedu.address.storage.loanrecord.JsonLoanRecordsStorage;
+import seedu.address.storage.loanrecords.JsonLoanRecordsStorage;
 import seedu.address.testutil.BookBuilder;
 
 public class LogicManagerTest {

@@ -21,7 +21,7 @@ import seedu.address.model.genre.Genre;
  */
 public class JsonAdaptedBook {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Book's %s field is missing!";
 
     private final String title;
     private final String serialNumber;
@@ -29,7 +29,7 @@ public class JsonAdaptedBook {
     private final List<JsonAdaptedTag> genres = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedBook} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedBook(@JsonProperty("title") String title, @JsonProperty("serialNumber") String serialNumber,
@@ -44,7 +44,7 @@ public class JsonAdaptedBook {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Book} into this class for Jackson use.
      */
     public JsonAdaptedBook(Book source) {
         title = source.getTitle().value;
@@ -56,7 +56,7 @@ public class JsonAdaptedBook {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code Book} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */

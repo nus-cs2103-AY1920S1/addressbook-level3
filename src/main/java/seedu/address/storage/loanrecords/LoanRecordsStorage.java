@@ -1,4 +1,4 @@
-package seedu.address.storage.loanrecord;
+package seedu.address.storage.loanrecords;
 
 import java.io.IOException;
 import java.nio.file.Path;
