@@ -104,7 +104,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setMemeBookFilePath(Path addressBookFilePath) {
+        public void setMemeBookFilePath(Path memeBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

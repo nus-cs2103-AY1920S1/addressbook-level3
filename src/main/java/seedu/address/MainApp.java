@@ -22,8 +22,8 @@ import seedu.address.model.ReadOnlyMemeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.MemeBookStorage;
+import seedu.address.storage.JsonMemeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getMemeBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        MemeBookStorage memeBookStorage = new JsonMemeBookStorage(userPrefs.getMemeBookFilePath());
+        storage = new StorageManager(memeBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -77,11 +77,11 @@ public class MainApp extends Application {
         Optional<ReadOnlyMemeBook> addressBookOptional;
         ReadOnlyMemeBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readMemeBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample MemeBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleMemeBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MemeBook");
             initialData = new MemeBook();

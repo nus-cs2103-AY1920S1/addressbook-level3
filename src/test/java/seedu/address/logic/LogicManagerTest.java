@@ -27,7 +27,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyMemeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.meme.Meme;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonMemeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.MemeBuilder;
@@ -43,8 +43,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonMemeBookStorage addressBookStorage =
+                new JsonMemeBookStorage(temporaryFolder.resolve("weme.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -70,9 +70,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonMemeBookIoExceptionThrowingStub
+        JsonMemeBookStorage addressBookStorage =
+                new JsonMemeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
@@ -149,13 +149,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonMemeBookIoExceptionThrowingStub extends JsonMemeBookStorage {
+        private JsonMemeBookIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyMemeBook addressBook, Path filePath) throws IOException {
+        public void saveMemeBook(ReadOnlyMemeBook memeBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

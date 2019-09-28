@@ -17,36 +17,36 @@ import seedu.address.model.ReadOnlyMemeBook;
 /**
  * A class to access MemeBook data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonMemeBookStorage implements MemeBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonMemeBookStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonMemeBookStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getMemeBookFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyMemeBook> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyMemeBook> readMemeBook() throws DataConversionException {
+        return readMemeBook(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readMemeBook()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyMemeBook> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyMemeBook> readMemeBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializableMemeBook> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableMemeBook.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -60,21 +60,21 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMemeBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveMemeBook(ReadOnlyMemeBook memeBook) throws IOException {
+        saveMemeBook(memeBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyMemeBook)}.
+     * Similar to {@link #saveMemeBook(ReadOnlyMemeBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyMemeBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveMemeBook(ReadOnlyMemeBook memeBook, Path filePath) throws IOException {
+        requireNonNull(memeBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableMemeBook(memeBook), filePath);
     }
 
 }

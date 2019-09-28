@@ -71,9 +71,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setMemeBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setMemeBookFilePath(addressBookFilePath);
+    public void setMemeBookFilePath(Path memeBookFilePath) {
+        requireNonNull(memeBookFilePath);
+        userPrefs.setMemeBookFilePath(memeBookFilePath);
     }
 
     //=========== MemeBook ================================================================================

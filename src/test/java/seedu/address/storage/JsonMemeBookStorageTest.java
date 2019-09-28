@@ -31,7 +31,7 @@ public class JsonMemeBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyMemeBook> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonMemeBookStorage(Paths.get(filePath)).readMemeBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,41 +47,41 @@ public class JsonMemeBookStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatMemeBook.json"));
     }
 
     @Test
     public void readAddressBook_invalidMemeAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidMemeAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("invalidMemeMemeBook.json"));
     }
 
     @Test
     public void readAddressBook_invalidAndValidMemeAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidMemeAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidMemeMemeBook.json"));
     }
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
         MemeBook original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+        JsonMemeBookStorage jsonAddressBookStorage = new JsonMemeBookStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyMemeBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonAddressBookStorage.saveMemeBook(original, filePath);
+        ReadOnlyMemeBook readBack = jsonAddressBookStorage.readMemeBook(filePath).get();
         assertEquals(original, new MemeBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addMeme(HOON);
         original.removeMeme(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonAddressBookStorage.saveMemeBook(original, filePath);
+        readBack = jsonAddressBookStorage.readMemeBook(filePath).get();
         assertEquals(original, new MemeBook(readBack));
 
         // Save and read without specifying file path
         original.addMeme(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonAddressBookStorage.saveMemeBook(original); // file path not specified
+        readBack = jsonAddressBookStorage.readMemeBook().get(); // file path not specified
         assertEquals(original, new MemeBook(readBack));
 
     }
@@ -96,8 +96,8 @@ public class JsonMemeBookStorageTest {
      */
     private void saveAddressBook(ReadOnlyMemeBook addressBook, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonMemeBookStorage(Paths.get(filePath))
+                    .saveMemeBook(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

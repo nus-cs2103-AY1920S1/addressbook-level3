@@ -16,27 +16,27 @@ import seedu.address.model.meme.Meme;
 /**
  * An Immutable MemeBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "memebook")
+class JsonSerializableMemeBook {
 
     public static final String MESSAGE_DUPLICATE_MEME = "Memes list contains duplicate meme(s).";
 
     private final List<JsonAdaptedMeme> memes = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given memes.
+     * Constructs a {@code JsonSerializableMemeBook} with the given memes.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("memes") List<JsonAdaptedMeme> memes) {
+    public JsonSerializableMemeBook(@JsonProperty("memes") List<JsonAdaptedMeme> memes) {
         this.memes.addAll(memes);
     }
 
     /**
      * Converts a given {@code ReadOnlyMemeBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableMemeBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyMemeBook source) {
+    public JsonSerializableMemeBook(ReadOnlyMemeBook source) {
         memes.addAll(source.getMemeList().stream().map(JsonAdaptedMeme::new).collect(Collectors.toList()));
     }
 

@@ -17,13 +17,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private MemeBookStorage memeBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(MemeBookStorage memeBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.memeBookStorage = memeBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ MemeBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getMemeBookFilePath() {
+        return memeBookStorage.getMemeBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyMemeBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyMemeBook> readMemeBook() throws DataConversionException, IOException {
+        return readMemeBook(memeBookStorage.getMemeBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyMemeBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyMemeBook> readMemeBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return memeBookStorage.readMemeBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMemeBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveMemeBook(ReadOnlyMemeBook memeBook) throws IOException {
+        saveMemeBook(memeBook, memeBookStorage.getMemeBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMemeBook addressBook, Path filePath) throws IOException {
+    public void saveMemeBook(ReadOnlyMemeBook memeBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        memeBookStorage.saveMemeBook(memeBook, filePath);
     }
 
 }

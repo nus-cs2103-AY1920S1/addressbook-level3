@@ -42,7 +42,7 @@ public interface Model {
     /**
      * Sets the user prefs' address book file path.
      */
-    void setMemeBookFilePath(Path addressBookFilePath);
+    void setMemeBookFilePath(Path memeBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code memeBook}.

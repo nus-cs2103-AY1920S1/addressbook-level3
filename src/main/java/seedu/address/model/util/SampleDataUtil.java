@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyMemeBook getSampleAddressBook() {
+    public static ReadOnlyMemeBook getSampleMemeBook() {
         MemeBook sampleMb = new MemeBook();
         for (Meme sampleMeme : getSampleMemes()) {
             sampleMb.addMeme(sampleMeme);

@@ -11,12 +11,12 @@ import seedu.address.model.ReadOnlyMemeBook;
 /**
  * Represents a storage for {@link MemeBook}.
  */
-public interface AddressBookStorage {
+public interface MemeBookStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getMemeBookFilePath();
 
     /**
      * Returns MemeBook data as a {@link ReadOnlyMemeBook}.
@@ -24,23 +24,23 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyMemeBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyMemeBook> readMemeBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getMemeBookFilePath()
      */
-    Optional<ReadOnlyMemeBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyMemeBook> readMemeBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyMemeBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param memeBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyMemeBook addressBook) throws IOException;
+    void saveMemeBook(ReadOnlyMemeBook memeBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyMemeBook)
+     * @see #saveMemeBook(ReadOnlyMemeBook)
      */
-    void saveAddressBook(ReadOnlyMemeBook addressBook, Path filePath) throws IOException;
+    void saveMemeBook(ReadOnlyMemeBook memeBook, Path filePath) throws IOException;
 
 }
