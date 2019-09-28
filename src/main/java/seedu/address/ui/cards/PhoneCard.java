@@ -51,7 +51,7 @@ public class PhoneCard extends UiPart<Region> {
         this.phone = phone;
         id.setText(displayedIndex + ". ");
         brand.setText(phone.getBrand().value);
-        capacity.setText(phone.getCapacity().toString());
+        capacity.setText(phone.getCapacity().value);
         colour.setText(phone.getColour().value);
         cost.setText(phone.getCost().value);
         name.setText(phone.getName().fullName);

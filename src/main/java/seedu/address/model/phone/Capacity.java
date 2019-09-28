@@ -13,14 +13,14 @@ public enum Capacity {
     SIZE_512GB("512GB"),
     SIZE_1024GB("1024GB");
 
-    private final String label;
+    public final String value;
 
     private Capacity(String label) {
-        this.label = label;
+        this.value = label;
     }
 
     @Override
     public String toString() {
-        return this.label;
+        return this.value;
     }
 }
