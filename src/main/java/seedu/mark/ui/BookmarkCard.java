@@ -33,9 +33,9 @@ public class BookmarkCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label remark;
-    @FXML
     private Label url;
+    @FXML
+    private Label remark;
     @FXML
     private FlowPane tags;
 
@@ -44,8 +44,8 @@ public class BookmarkCard extends UiPart<Region> {
         this.bookmark = bookmark;
         id.setText(displayedIndex + ". ");
         name.setText(bookmark.getName().fullName);
-        remark.setText(bookmark.getRemark().value);
         url.setText(bookmark.getUrl().value);
+        remark.setText(bookmark.getRemark().value);
         bookmark.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
