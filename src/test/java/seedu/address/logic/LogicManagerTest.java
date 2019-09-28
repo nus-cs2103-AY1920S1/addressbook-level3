@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_1;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.WWII;
+import static seedu.address.testutil.TypicalFlashCards.WWII;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -88,8 +88,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getFilteredFlashCardList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredFlashCardList().remove(0));
     }
 
     /**

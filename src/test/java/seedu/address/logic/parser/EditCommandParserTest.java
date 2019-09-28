@@ -22,15 +22,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_FLASHCARD;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.model.category.Category;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Question;
@@ -106,11 +106,11 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_FLASHCARD;
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_2 + CATEGORY_DESC_LOCATION
                  + RATING_DESC_1 + QUESTION_DESC_1 + CATEGORY_DESC_HISTORY;
 
-        EditPersonDescriptor descriptor = new EditFlashCardDescriptorBuilder().withQuestion(VALID_QUESTION_1)
+        EditFlashCardDescriptor descriptor = new EditFlashCardDescriptorBuilder().withQuestion(VALID_QUESTION_1)
                 .withAnswer(VALID_ANSWER_2).withRating(VALID_RATING_1)
                 .withCategories(VALID_CATEGORY_HISTORY, VALID_CATEGORY_LOCATION).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -120,10 +120,10 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_FLASHCARD;
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_2;
 
-        EditPersonDescriptor descriptor = new EditFlashCardDescriptorBuilder().withAnswer(VALID_ANSWER_2).build();
+        EditFlashCardDescriptor descriptor = new EditFlashCardDescriptorBuilder().withAnswer(VALID_ANSWER_2).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -132,9 +132,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_FLASHCARD;
         String userInput = targetIndex.getOneBased() + QUESTION_DESC_1;
-        EditPersonDescriptor descriptor = new EditFlashCardDescriptorBuilder().withQuestion(VALID_QUESTION_1).build();
+        EditFlashCardDescriptor descriptor =
+                new EditFlashCardDescriptorBuilder().withQuestion(VALID_QUESTION_1).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -159,12 +160,12 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_FLASHCARD;
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_1 + RATING_DESC_1
                 + CATEGORY_DESC_HISTORY + ANSWER_DESC_1 + RATING_DESC_1 + CATEGORY_DESC_HISTORY
                 + ANSWER_DESC_2 + RATING_DESC_2 + CATEGORY_DESC_LOCATION;
 
-        EditPersonDescriptor descriptor = new EditFlashCardDescriptorBuilder().withAnswer(VALID_ANSWER_2)
+        EditFlashCardDescriptor descriptor = new EditFlashCardDescriptorBuilder().withAnswer(VALID_ANSWER_2)
                 .withRating(VALID_RATING_2).withCategories(VALID_CATEGORY_LOCATION, VALID_CATEGORY_HISTORY)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -175,9 +176,9 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_FLASHCARD;
         String userInput = targetIndex.getOneBased() + INVALID_ANSWER_DESC + ANSWER_DESC_2;
-        EditPersonDescriptor descriptor = new EditFlashCardDescriptorBuilder().withAnswer(VALID_ANSWER_2).build();
+        EditFlashCardDescriptor descriptor = new EditFlashCardDescriptorBuilder().withAnswer(VALID_ANSWER_2).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -192,10 +193,10 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_FLASHCARD;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditPersonDescriptor descriptor = new EditFlashCardDescriptorBuilder().withCategories().build();
+        EditFlashCardDescriptor descriptor = new EditFlashCardDescriptorBuilder().withCategories().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

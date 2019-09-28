@@ -26,28 +26,29 @@ import seedu.address.testutil.FlashCardBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullFlashCard_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_flashCardAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingFlashCardAdded modelStub = new ModelStubAcceptingFlashCardAdded();
         FlashCard validFlashCard = new FlashCardBuilder().build();
 
         CommandResult commandResult = new AddCommand(validFlashCard).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validFlashCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validFlashCard), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validFlashCard), modelStub.flashCardsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateFlashCard_throwsCommandException() {
         FlashCard validFlashCard = new FlashCardBuilder().build();
         AddCommand addCommand = new AddCommand(validFlashCard);
         ModelStub modelStub = new ModelStubWithPerson(validFlashCard);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_FLASHCARD, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -72,8 +73,43 @@ public class AddCommandTest {
 
         // different flashCard -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
+
+        //same question different answer
+        FlashCard aliceCopy = new FlashCardBuilder(alice).withAnswer("123098").build();
+        addAliceCommandCopy = new AddCommand(aliceCopy);
+        assertFalse(addAliceCommand.equals(addAliceCommandCopy));
+
+        //same question different category
+        aliceCopy = new FlashCardBuilder(alice).withTags("1234123").build();
+        addAliceCommandCopy = new AddCommand(aliceCopy);
+        assertFalse(addAliceCommand.equals(addAliceCommandCopy));
+
+        //same question different rating
+        aliceCopy = new FlashCardBuilder(alice).withRating("hard").build();
+        addAliceCommandCopy = new AddCommand(aliceCopy);
+        assertFalse(addAliceCommand.equals(addAliceCommandCopy));
+
+        //diff question others the same
+        aliceCopy = new FlashCardBuilder(alice).withQuestion("sky").build();
+        addAliceCommandCopy = new AddCommand(aliceCopy);
+        assertFalse(addAliceCommand.equals(addAliceCommandCopy));
     }
 
+    @Test
+    public void toStringTest() {
+        FlashCard validFlashCard = new FlashCardBuilder().build();
+        AddCommand addCommand = new AddCommand(validFlashCard);
+        //same object
+        assertTrue(addCommand.toString().equals(addCommand.toString()));
+
+        //same value
+        AddCommand addComandCopy = new AddCommand(validFlashCard);
+        assertTrue(addCommand.toString().equals(addComandCopy.toString()));
+
+        //same question diff answer
+        addComandCopy = new AddCommand(new FlashCardBuilder(validFlashCard).withAnswer("wrong").build());
+        assertFalse(addCommand.toString().equals(addComandCopy.toString()));
+    }
     /**
      * A default model stub that have all of the methods failing.
      */
@@ -170,19 +206,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the flashCard being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<FlashCard> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingFlashCardAdded extends ModelStub {
+        final ArrayList<FlashCard> flashCardsAdded = new ArrayList<>();
 
         @Override
         public boolean hasFlashcard(FlashCard flashCard) {
             requireNonNull(flashCard);
-            return personsAdded.stream().anyMatch(flashCard::isSameFlashCard);
+            return flashCardsAdded.stream().anyMatch(flashCard::isSameFlashCard);
         }
 
         @Override
         public void addFlashCard(FlashCard flashCard) {
             requireNonNull(flashCard);
-            personsAdded.add(flashCard);
+            flashCardsAdded.add(flashCard);
         }
 
         @Override

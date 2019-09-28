@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.model.category.Category;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
@@ -12,25 +12,25 @@ import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Rating;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditFlashCardDescriptor objects.
  */
 public class EditFlashCardDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditFlashCardDescriptor descriptor;
 
     public EditFlashCardDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditFlashCardDescriptor();
     }
 
-    public EditFlashCardDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditFlashCardDescriptorBuilder(EditFlashCardDescriptor descriptor) {
+        this.descriptor = new EditFlashCardDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code flashCard}'s details
+     * Returns an {@code EditFlashCardDescriptor} with fields containing {@code flashCard}'s details
      */
     public EditFlashCardDescriptorBuilder(FlashCard flashCard) {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditFlashCardDescriptor();
         descriptor.setQuestion(flashCard.getQuestion());
         descriptor.setAnswer(flashCard.getAnswer());
         descriptor.setRating(flashCard.getRating());
@@ -38,7 +38,7 @@ public class EditFlashCardDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Question} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Question} of the {@code EditFlashCardDescriptor} that we are building.
      */
     public EditFlashCardDescriptorBuilder withQuestion(String question) {
         descriptor.setQuestion(new Question(question));
@@ -46,7 +46,7 @@ public class EditFlashCardDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Answer} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Answer} of the {@code EditFlashCardDescriptor} that we are building.
      */
     public EditFlashCardDescriptorBuilder withAnswer(String answer) {
         descriptor.setAnswer(new Answer(answer));
@@ -55,7 +55,7 @@ public class EditFlashCardDescriptorBuilder {
 
 
     /**
-     * Sets the {@code Rating} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Rating} of the {@code EditFlashCardDescriptor} that we are building.
      */
     public EditFlashCardDescriptorBuilder withRating (String rating) {
         descriptor.setRating(new Rating(rating));
@@ -63,7 +63,7 @@ public class EditFlashCardDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code EditFlashCardDescriptor}
      * that we are building.
      */
     public EditFlashCardDescriptorBuilder withCategories(String... categories) {
@@ -72,7 +72,7 @@ public class EditFlashCardDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditFlashCardDescriptor build() {
         return descriptor;
     }
 }

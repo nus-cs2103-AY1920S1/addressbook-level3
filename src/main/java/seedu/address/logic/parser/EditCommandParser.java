@@ -14,7 +14,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 
@@ -41,23 +41,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditFlashCardDescriptor editFlashCardDescriptor = new EditFlashCardDescriptor();
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
-            editPersonDescriptor.setQuestion(ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get()));
+            editFlashCardDescriptor.setQuestion(ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get()));
         }
         if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
-            editPersonDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get()));
+            editFlashCardDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get()));
         }
         if (argMultimap.getValue(PREFIX_RATING).isPresent()) {
-            editPersonDescriptor.setRating(ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get()));
+            editFlashCardDescriptor.setRating(ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get()));
         }
-        parseCategoryForEdit(argMultimap.getAllValues(PREFIX_CATEGORY)).ifPresent(editPersonDescriptor::setCategories);
+        parseCategoryForEdit(
+                argMultimap.getAllValues(PREFIX_CATEGORY)).ifPresent(editFlashCardDescriptor::setCategories);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editFlashCardDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editFlashCardDescriptor);
     }
 
     /**

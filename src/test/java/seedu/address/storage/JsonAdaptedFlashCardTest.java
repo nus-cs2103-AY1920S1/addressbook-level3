@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedFlashcard.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.DELAY;
+import static seedu.address.testutil.TypicalFlashCards.DELAY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,64 +29,64 @@ public class JsonAdaptedFlashCardTest {
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedFlashcard person = new JsonAdaptedFlashcard(DELAY);
-        assertEquals(DELAY, person.toModelType());
+    public void toModelType_validFlashCardDetails_returnsFlashCard() throws Exception {
+        JsonAdaptedFlashcard flashCard = new JsonAdaptedFlashcard(DELAY);
+        assertEquals(DELAY, flashCard.toModelType());
     }
 
     @Test
     public void toModelType_invalidQuestion_throwsIllegalValueException() {
-        JsonAdaptedFlashcard person =
+        JsonAdaptedFlashcard flashCard =
                 new JsonAdaptedFlashcard(INVALID_QUESTION, VALID_ANSWER, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Question.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, flashCard::toModelType);
     }
 
     @Test
     public void toModelType_nullQuestion_throwsIllegalValueException() {
-        JsonAdaptedFlashcard person = new JsonAdaptedFlashcard(null, VALID_ANSWER, VALID_ADDRESS, VALID_TAGS);
+        JsonAdaptedFlashcard flashCard = new JsonAdaptedFlashcard(null, VALID_ANSWER, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Question.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, flashCard::toModelType);
     }
 
     @Test
     public void toModelType_invalidAnswer_throwsIllegalValueException() {
-        JsonAdaptedFlashcard person =
+        JsonAdaptedFlashcard flashCard =
                 new JsonAdaptedFlashcard(VALID_QUESTION, INVALID_ANSWER, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Answer.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, flashCard::toModelType);
     }
 
     @Test
     public void toModelType_nullAnswer_throwsIllegalValueException() {
-        JsonAdaptedFlashcard person = new JsonAdaptedFlashcard(VALID_QUESTION, null, VALID_ADDRESS, VALID_TAGS);
+        JsonAdaptedFlashcard flashCard = new JsonAdaptedFlashcard(VALID_QUESTION, null, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Answer.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, flashCard::toModelType);
     }
 
 
     @Test
     public void toModelType_invalidRating_throwsIllegalValueException() {
-        JsonAdaptedFlashcard person =
+        JsonAdaptedFlashcard flashCard =
                 new JsonAdaptedFlashcard(VALID_QUESTION, VALID_ANSWER, INVALID_RATING, VALID_TAGS);
         String expectedMessage = Rating.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, flashCard::toModelType);
     }
 
     @Test
     public void toModelType_nullRating_throwsIllegalValueException() {
-        JsonAdaptedFlashcard person = new JsonAdaptedFlashcard(VALID_QUESTION, VALID_ANSWER, null, VALID_TAGS);
+        JsonAdaptedFlashcard flashCard = new JsonAdaptedFlashcard(VALID_QUESTION, VALID_ANSWER, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Rating.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, flashCard::toModelType);
     }
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedCategory> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedCategory(INVALID_TAG));
-        JsonAdaptedFlashcard person =
+        JsonAdaptedFlashcard flashCard =
                 new JsonAdaptedFlashcard(VALID_QUESTION, VALID_ANSWER, VALID_ADDRESS, invalidTags);
-        assertThrows(IllegalValueException.class, person::toModelType);
+        assertThrows(IllegalValueException.class, flashCard::toModelType);
     }
 
 }

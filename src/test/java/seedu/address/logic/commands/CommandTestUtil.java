@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -73,8 +74,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_1;
-    public static final EditCommand.EditPersonDescriptor DESC_2;
+    public static final EditFlashCardDescriptor DESC_1;
+    public static final EditFlashCardDescriptor DESC_2;
 
     static {
         DESC_1 = new EditFlashCardDescriptorBuilder()
@@ -137,7 +138,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the flashCard at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showFlashCardAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredFlashCardList().size());
 
         FlashCard flashCard = model.getFilteredFlashCardList().get(targetIndex.getZeroBased());

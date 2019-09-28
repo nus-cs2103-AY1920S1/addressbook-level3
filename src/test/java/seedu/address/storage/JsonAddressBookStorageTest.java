@@ -3,10 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.GREETING;
-import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
-import static seedu.address.testutil.TypicalPersons.SUM;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalFlashCards.GREETING;
+import static seedu.address.testutil.TypicalFlashCards.STORE_AND_FORWARD;
+import static seedu.address.testutil.TypicalFlashCards.SUM;
+import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -51,12 +51,12 @@ public class JsonAddressBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
+    public void readAddressBook_invalidFlashCardAddressBook_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readAddressBook("invalidFlashCardAddressBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
+    public void readAddressBook_invalidAndValidFlashCardAddressBook_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidFlashCardAddressBook.json"));
     }
 

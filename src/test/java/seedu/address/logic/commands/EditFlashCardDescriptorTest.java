@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.testutil.EditFlashCardDescriptorBuilder;
 
 public class EditFlashCardDescriptorTest {
@@ -19,7 +19,7 @@ public class EditFlashCardDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_1);
+        EditFlashCardDescriptor descriptorWithSameValues = new EditFlashCardDescriptor(DESC_1);
         assertTrue(DESC_1.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -35,7 +35,7 @@ public class EditFlashCardDescriptorTest {
         assertFalse(DESC_1.equals(DESC_2));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy =
+        EditFlashCardDescriptor editedAmy =
                 new EditFlashCardDescriptorBuilder(DESC_1).withQuestion(VALID_QUESTION_2).build();
         assertFalse(DESC_1.equals(editedAmy));
 

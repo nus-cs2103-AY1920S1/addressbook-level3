@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTOR
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.NUS;
-import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
+import static seedu.address.testutil.TypicalFlashCards.NUS;
+import static seedu.address.testutil.TypicalFlashCards.STORE_AND_FORWARD;
 
 import org.junit.jupiter.api.Test;
 

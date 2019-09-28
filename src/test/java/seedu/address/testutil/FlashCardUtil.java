@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.model.category.Category;
 import seedu.address.model.flashcard.FlashCard;
 
@@ -21,13 +21,13 @@ public class FlashCardUtil {
      * Returns an add command string for adding the {@code flashCard}.
      */
     public static String getAddCommand(FlashCard flashCard) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(flashCard);
+        return AddCommand.COMMAND_WORD + " " + getFlashCardDetails(flashCard);
     }
 
     /**
      * Returns the part of command string for the given {@code flashCard}'s details.
      */
-    public static String getPersonDetails(FlashCard flashCard) {
+    public static String getFlashCardDetails(FlashCard flashCard) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_QUESTION + flashCard.getQuestion().fullQuestion + " ");
         sb.append(PREFIX_ANSWER + flashCard.getAnswer().fullAnswer + " ");
@@ -39,9 +39,9 @@ public class FlashCardUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditFlashCardDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditFlashCardDescriptorDetails(EditFlashCardDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getQuestion().ifPresent(name -> sb.append(PREFIX_QUESTION).append(name.fullQuestion).append(" "));
         descriptor.getAnswer().ifPresent(answer -> sb.append(PREFIX_ANSWER).append(answer.fullAnswer).append(" "));

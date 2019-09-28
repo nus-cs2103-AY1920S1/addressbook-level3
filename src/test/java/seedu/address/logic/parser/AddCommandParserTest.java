@@ -22,8 +22,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.NUS;
-import static seedu.address.testutil.TypicalPersons.WWII;
+import static seedu.address.testutil.TypicalFlashCards.NUS;
+import static seedu.address.testutil.TypicalFlashCards.WWII;
 
 import org.junit.jupiter.api.Test;
 

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalFlashCards.STORE_AND_FORWARD;
+import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -44,7 +44,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateFlashCards_throwsDuplicateFlashCardException() {
         // Two flashCards with the same identity fields
         FlashCard editedCard =
                 new FlashCardBuilder(STORE_AND_FORWARD)
@@ -58,23 +58,23 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasFlashCard_nullFlashCard_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasFlashcard(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasFlashCard_flashCardNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasFlashcard(STORE_AND_FORWARD));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasFlashCard_flashCardInAddressBook_returnsTrue() {
         addressBook.addFlashcard(STORE_AND_FORWARD);
         assertTrue(addressBook.hasFlashcard(STORE_AND_FORWARD));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasFlashCard_flashCardWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addFlashcard(STORE_AND_FORWARD);
         FlashCard editedAlice =
                 new FlashCardBuilder(STORE_AND_FORWARD)
@@ -85,7 +85,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFlashCardList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getFlashcardList().remove(0));
     }
 

@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.DELAY;
-import static seedu.address.testutil.TypicalPersons.PROTOCOL;
-import static seedu.address.testutil.TypicalPersons.STORE_AND_FORWARD;
+import static seedu.address.testutil.TypicalFlashCards.DELAY;
+import static seedu.address.testutil.TypicalFlashCards.PROTOCOL;
+import static seedu.address.testutil.TypicalFlashCards.STORE_AND_FORWARD;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -74,29 +74,30 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasFlashCard_nullFlashCard_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasFlashcard(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasFlashCard_flashCardNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasFlashcard(STORE_AND_FORWARD));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasFlashCard_flashCardInAddressBook_returnsTrue() {
         modelManager.addFlashCard(STORE_AND_FORWARD);
         assertTrue(modelManager.hasFlashcard(STORE_AND_FORWARD));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredFlashCardList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredFlashCardList().remove(0));
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(STORE_AND_FORWARD).withPerson(DELAY).build();
+        AddressBook addressBook =
+                new AddressBookBuilder().withFlashCard(STORE_AND_FORWARD).withFlashCard(DELAY).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

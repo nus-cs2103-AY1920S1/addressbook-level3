@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_CATEGORY + "computerNetworking";
 
     public static final String MESSAGE_SUCCESS = "New flashCard added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This flashCard already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashCard already exists in the address book";
 
     private final FlashCard toAdd;
 
@@ -48,7 +48,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasFlashcard(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);
         }
 
         model.addFlashCard(toAdd);
