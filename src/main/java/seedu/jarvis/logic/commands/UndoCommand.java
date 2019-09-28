@@ -1,5 +1,7 @@
 package seedu.jarvis.logic.commands;
 
+import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO;
+
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
 import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
@@ -12,7 +14,14 @@ import seedu.jarvis.model.Model;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_USAGE = "undo most recent action";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": undo actions. "
+            + "Parameters: " + PREFIX_UNDO + "UNDO (Must be a Positive Number or \"all\" [case insensitive], "
+            + "invalid numbers will set UNDO to default value of 1) "
+            + "Example: " + COMMAND_WORD
+            + ", " + COMMAND_WORD + " " + PREFIX_UNDO + "all"
+            + ", " + COMMAND_WORD + " " + PREFIX_UNDO + "5";
+
 
     public static final String MESSAGE_SUCCESS = "undone %1$d commands";
 
@@ -89,5 +98,12 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UndoCommand // instanceof handles nulls
+                && ((UndoCommand) other).numberOfTimes == numberOfTimes);
     }
 }

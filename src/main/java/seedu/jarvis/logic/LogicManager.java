@@ -47,9 +47,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = jarvisParser.parseCommand(commandText);
         commandResult = command.execute(model);
-        if (command.hasInverseExecution()) {
-            syncVersionControl(command);
-        }
+        syncVersionControl(command);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
@@ -68,6 +66,12 @@ public class LogicManager implements Logic {
      * {@code VersionControl}.
      */
     private void syncVersionControl(Command command) throws CommandException {
+
+        // if command is not invertible, do not add to version control.
+        if (!command.hasInverseExecution()) {
+            return;
+        }
+
         try {
             VersionControl.INSTANCE.addExecutedCommand(command);
         } catch (CommandNotInvertibleException cnie) {

@@ -68,6 +68,14 @@ public enum VersionControl {
     }
 
     /**
+     * Gets the number of available undoable commands in {@code executedCommands}.
+     * @return The number of undoable commands.
+     */
+    public int getTotalNumberOfUndoableCommands() {
+        return executedCommands.getSize();
+    }
+
+    /**
      * Sets the singleton instance to its initial state.
      */
     public void hardReset() {
