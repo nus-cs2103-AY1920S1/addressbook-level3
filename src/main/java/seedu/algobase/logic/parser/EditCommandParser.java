@@ -61,6 +61,16 @@ public class EditCommandParser implements Parser<EditCommand> {
                     ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editProblemDescriptor::setTags);
+        if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
+            editProblemDescriptor.setDifficulty(
+                    ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
+        }
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            editProblemDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+        }
+        if (argMultimap.getValue(PREFIX_SOURCE).isPresent()) {
+            editProblemDescriptor.setSource(ParserUtil.parseSource(argMultimap.getValue(PREFIX_SOURCE).get()));
+        }
 
         if (!editProblemDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
