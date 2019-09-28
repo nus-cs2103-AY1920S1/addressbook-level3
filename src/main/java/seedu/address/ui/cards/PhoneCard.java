@@ -42,14 +42,14 @@ public class PhoneCard extends UiPart<Region> {
     @FXML
     private Label brand;
     @FXML
-    private Label id;
+    private Label index;
     @FXML
     private FlowPane tags;
 
     public PhoneCard(Phone phone, int displayedIndex) {
         super(FXML);
         this.phone = phone;
-        id.setText(displayedIndex + ". ");
+        index.setText(displayedIndex + ". ");
         brand.setText(phone.getBrand().value);
         capacity.setText(phone.getCapacity().value);
         colour.setText(phone.getColour().value);
@@ -76,7 +76,7 @@ public class PhoneCard extends UiPart<Region> {
 
         // state check
         PhoneCard card = (PhoneCard) other;
-        return id.getText().equals(card.id.getText())
+        return index.getText().equals(card.index.getText())
                 && phone.equals(card.phone);
     }
 
