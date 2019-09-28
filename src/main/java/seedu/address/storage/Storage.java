@@ -12,7 +12,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
 import seedu.address.storage.catalog.CatalogStorage;
-import seedu.address.storage.loanrecord.LoanRecordsStorage;
+import seedu.address.storage.loanrecords.LoanRecordsStorage;
 
 /**
  * API of the Storage component

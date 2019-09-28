@@ -16,7 +16,7 @@ import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
 import seedu.address.storage.catalog.JsonCatalogStorage;
-import seedu.address.storage.loanrecord.JsonLoanRecordsStorage;
+import seedu.address.storage.loanrecords.JsonLoanRecordsStorage;
 
 public class StorageManagerTest {
 
