@@ -1,6 +1,5 @@
 package seedu.address.storage.loanrecords;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 

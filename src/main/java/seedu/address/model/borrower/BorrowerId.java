@@ -1,6 +1,8 @@
 package seedu.address.model.borrower;
 
-// TODO
+/**
+ * BorrowerID TODO
+ */
 public class BorrowerId {
 
     public static final String MESSAGE_CONSTRAINTS = "TODO"; // TODO
