@@ -17,6 +17,23 @@ public class ModulesInfo {
         this.modulesInfo = modulesInfo;
     }
 
+    /**
+     * Finds a specific module information that has the given module code.
+     * @param code Module code
+     * @return Module information
+     */
+    public ModuleInfo find(String code) {
+        for (ModuleInfo moduleInfo : modulesInfo) {
+            if (moduleInfo.getCode().equals(code)) {
+                return moduleInfo;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Parses the prerequisite tree for all modules with information.
+     */
     public void parsePrereqTrees() {
         for (ModuleInfo moduleInfo : modulesInfo) {
             moduleInfo.parsePrereqTree();

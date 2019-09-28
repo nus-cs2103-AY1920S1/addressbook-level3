@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ModuleInfo;
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -62,7 +64,15 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(config.getModulesInfoFilePath());
         ModulesInfo modulesInfo = initModulesInfo(modulesInfoStorage);
+
         // TODO: modulesInfo is not used from here on out -- use it with StorageManager/ModelManager/LogicManager
+        // These show how the module information could be used for verification. They should be tests too later on
+        // Remove this block once a proper place is found for modulesInfo (after refactoring)
+        ModuleInfo cs4248 = modulesInfo.find("CS4248");
+        cs4248.verify(Arrays.asList(new String[] {"CS3243", "ST2334"})); // true
+        cs4248.verify(Arrays.asList(new String[] {"CS3245", "ST2334"})); // true
+        cs4248.verify(Arrays.asList(new String[] {"CS3243", "ST2131"})); // false
+
         storage = new StorageManager(addressBookStorage, userPrefsStorage, modulesInfoStorage);
 
         initLogging(config);

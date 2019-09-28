@@ -1,5 +1,10 @@
 package seedu.address.model;
 
+import java.util.List;
+
+/**
+ * Leaf of a prerequisite tree. Represents a single module prerequisite.
+ */
 public class PrereqLeaf extends PrereqTree {
     private String code;
 
@@ -8,8 +13,8 @@ public class PrereqLeaf extends PrereqTree {
     }
 
     @Override
-    public boolean isLeaf() {
-        return true;
+    public boolean verify(List<String> prevSemCodes) {
+        return prevSemCodes.contains(this.code);
     }
 
     @Override

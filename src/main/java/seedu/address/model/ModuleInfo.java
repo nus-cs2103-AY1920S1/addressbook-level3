@@ -30,14 +30,24 @@ public class ModuleInfo {
         this.focusElectives = focusElectives;
         this.description = description;
         this.prereqTreeString = prereqTreeString;
+        this.prereqTree = null;
+    }
+
+    public String getCode() {
+        return this.code;
     }
 
     public void parsePrereqTree() {
         this.prereqTree = parsePrereqTree(this.prereqTreeString);
     }
 
+    /**
+     * Parses the prerequisite tree from a given string.
+     * @param s Given string representing the prerequisite tree. Either the empty string, a module code, or (OP _ _).
+     * @return Prerequisite tree
+     */
     private PrereqTree parsePrereqTree(String s) {
-        if (s.equals("")) {
+        if ("".equals(s)) {
             return null;
         } else if (s.charAt(0) != '(') {
             return new PrereqLeaf(s);
@@ -55,6 +65,12 @@ public class ModuleInfo {
         return new PrereqNode(operator, children);
     }
 
+    /**
+     * Splits the String of operands into its logical groupings.
+     * Example: "CS1 (AND (OR CS2 CS3) CS4) CS5" => ["CS1", "(AND (OR CS2 CS3) CS4)", "CS5"]
+     * @param operands String that represents the operands all together
+     * @return List of Strings, where each represents a single operand to be further parsed
+     */
     private List<String> splitOperands(String operands) {
         List<String> list = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -63,7 +79,7 @@ public class ModuleInfo {
             sb.append(c);
             if (c == ' ' && balance == 0) {
                 String trimmed = sb.toString().trim();
-                if (!trimmed.equals("")) {
+                if (!"".equals(trimmed)) {
                     list.add(trimmed);
                 }
                 sb.setLength(0);
@@ -78,6 +94,10 @@ public class ModuleInfo {
             list.add(sb.toString());
         }
         return list;
+    }
+
+    public boolean verify(List<String> prevSemCodes) {
+        return prereqTree.verify(prevSemCodes);
     }
 
     @Override

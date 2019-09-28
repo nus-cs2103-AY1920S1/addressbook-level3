@@ -25,22 +25,23 @@ public class JsonModulesInfoStorageTest {
     public Path testFolder;
 
     @Test
-    public void readUserPrefs_nullFilePath_throwsNullPointerException() {
+    public void readModulesInfo_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readModulesInfo(null));
     }
 
-    private Optional<ModulesInfo> readModulesInfo(String modulesInfoFileInTestDataFolder) throws DataConversionException {
+    private Optional<ModulesInfo> readModulesInfo(String modulesInfoFileInTestDataFolder)
+            throws DataConversionException {
         Path prefsFilePath = addToTestDataPathIfNotNull(modulesInfoFileInTestDataFolder);
         return new JsonModulesInfoStorage(prefsFilePath).readModulesInfo(prefsFilePath);
     }
 
     @Test
-    public void readUserPrefs_missingFile_emptyResult() throws DataConversionException {
+    public void readModulesInfo_missingFile_emptyResult() throws DataConversionException {
         assertFalse(readModulesInfo("NonExistentFile.json").isPresent());
     }
 
     @Test
-    public void readUserPrefs_notJsonFormat_exceptionThrown() {
+    public void readModulesInfo_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readModulesInfo("NotJsonFormatModulesInfo.json"));
     }
 
@@ -51,20 +52,20 @@ public class JsonModulesInfoStorageTest {
     }
 
     @Test
-    public void readUserPrefs_fileInOrder_successfullyRead() throws DataConversionException {
+    public void readModulesInfo_fileInOrder_successfullyRead() throws DataConversionException {
         ModulesInfo expected = getTypicalModulesInfo();
         ModulesInfo actual = readModulesInfo("TypicalModulesInfo.json").get();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void readUserPrefs_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
+    public void readModulesInfo_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
         ModulesInfo actual = readModulesInfo("EmptyModulesInfo.json").get();
         assertEquals(new ModulesInfo(), actual);
     }
 
     @Test
-    public void readUserPrefs_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
+    public void readModulesInfo_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         ModulesInfo expected = getTypicalModulesInfo();
         ModulesInfo actual = readModulesInfo("ExtraValuesModulesInfo.json").get();
 
