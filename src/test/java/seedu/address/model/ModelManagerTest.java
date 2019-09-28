@@ -98,10 +98,12 @@ public class ModelManagerTest {
         Catalog catalog = new CatalogBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();
         Catalog differentCatalog = new Catalog();
         UserPrefs userPrefs = new UserPrefs();
+        LoanRecords loanRecords = new LoanRecords();
+        BorrowerRecords borrowerRecords = new BorrowerRecords();
 
         // same values -> returns true
-        modelManager = new ModelManager(catalog, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(catalog, userPrefs);
+        modelManager = new ModelManager(catalog, loanRecords, borrowerRecords, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(catalog, loanRecords, borrowerRecords, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,12 +116,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentCatalog, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = BOOK_1.getTitle().value.split("\\s+");
         modelManager.updateFilteredBookList(new TitleContainsKeywordPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(catalog, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredBookList(PREDICATE_SHOW_ALL_PERSONS);
@@ -127,6 +129,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setCatalogFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(catalog, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(catalog, loanRecords, borrowerRecords, differentUserPrefs)));
     }
 }

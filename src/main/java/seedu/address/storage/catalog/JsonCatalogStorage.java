@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.catalog;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,7 +15,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyCatalog;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access Catalog data stored as a json file on the hard disk.
  */
 public class JsonCatalogStorage implements CatalogStorage {
 
@@ -45,14 +45,14 @@ public class JsonCatalogStorage implements CatalogStorage {
     public Optional<ReadOnlyCatalog> readCatalog(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableCatalog> jsonCatalogue = JsonUtil.readJsonFile(
+        Optional<JsonSerializableCatalog> jsonCatalog = JsonUtil.readJsonFile(
                 filePath, JsonSerializableCatalog.class);
-        if (!jsonCatalogue.isPresent()) {
+        if (!jsonCatalog.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonCatalogue.get().toModelType());
+            return Optional.of(jsonCatalog.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonCatalogStorage implements CatalogStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyCatalog addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveCatalog(ReadOnlyCatalog catalog) throws IOException {
+        saveCatalog(catalog, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyCatalog)}.
+     * Similar to {@link #saveCatalog(ReadOnlyCatalog)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyCatalog addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveCatalog(ReadOnlyCatalog catalog, Path filePath) throws IOException {
+        requireNonNull(catalog);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableCatalog(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCatalog(catalog), filePath);
     }
 
 }

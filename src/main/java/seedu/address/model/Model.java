@@ -34,54 +34,62 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getCatalogFilePath();
+    // ================================================================ Catalog
+
+    public Path getCatalogFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Returns the user prefs' catalog file path.
      */
-    void setCatalogFilePath(Path addressBookFilePath);
+    public void setCatalogFilePath(Path catalogFilePath);
 
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setCatalog(ReadOnlyCatalog addressBook);
-
-    /** Returns the AddressBook */
+    /** Returns the Catalog*/
     ReadOnlyCatalog getCatalog();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns the user prefs' loan records file path.
      */
-    boolean hasBook(Book book);
+    void setCatalog(ReadOnlyCatalog addressBook);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Sets the user prefs' loan records file path.
+     */
+    boolean hasBook(Book book);
+    /**
+     * Returns the user prefs' catalog file path.
      */
     void deleteBook(Book target);
 
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
     void addBook(Book book);
 
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
     void setBook(Book target, Book editedBook);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Book> getFilteredBookList();
 
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
     void updateFilteredBookList(Predicate<Book> predicate);
+
+    // ================================================================ LoanRecords
+
+    Path getLoanRecordsFilePath();
+
+    void setLoanRecordsFilePath(Path loanRecordsFilePath);
+
+    /** Returns the LoanRecords*/
+    ReadOnlyLoanRecords getLoanRecords();
+
+    // ================================================================ BorrowerRecords
+
+    /**
+     * Returns the user prefs' borrower records file path.
+     */
+    Path getBorrowerRecordsFilePath();
+
+    /**
+     * Sets the user prefs' address borrower records path.
+     */
+    void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath);
+
+    /** Returns the BorrowerRecords*/
+    ReadOnlyBorrowerRecords getBorrowerRecords();
 }
