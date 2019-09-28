@@ -26,6 +26,9 @@ public class ClearCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    /*
+     * (To be added)
+     */
     public static class SwitchCommand extends Command {
 
         public static final String COMMAND_WORD = "switch";

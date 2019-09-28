@@ -16,6 +16,9 @@ import seedu.deliverymans.logic.commands.customer.SortCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
+/*
+ * (To be added)
+ */
 public class CustomerParser {
     /**
      * Used for initial separation of command word and args.

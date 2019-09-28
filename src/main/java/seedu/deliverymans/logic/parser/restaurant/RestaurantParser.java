@@ -10,6 +10,9 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
+/*
+ * (To be added)
+ */
 public class RestaurantParser {
     /**
      * Used for initial separation of command word and args.
