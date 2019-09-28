@@ -32,7 +32,7 @@ public class CustomerCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label index;
+    private Label id;
     @FXML
     private Label contactNumber;
     @FXML
@@ -43,7 +43,7 @@ public class CustomerCard extends UiPart<Region> {
     public CustomerCard(Customer customer, int displayedIndex) {
         super(FXML);
         this.customer = customer;
-        index.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + ". ");
         name.setText(customer.getName().fullName);
         contactNumber.setText(customer.getContactNumber().value);
         email.setText(customer.getEmail().value);
@@ -66,7 +66,7 @@ public class CustomerCard extends UiPart<Region> {
 
         // state check
         CustomerCard card = (CustomerCard) other;
-        return index.getText().equals(card.index.getText())
+        return id.getText().equals(card.id.getText())
                 && customer.equals(card.customer);
     }
 }
