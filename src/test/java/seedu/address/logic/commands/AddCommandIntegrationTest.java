@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
@@ -18,26 +20,41 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class AddCommandIntegrationTest {
 
-    private Model model;
-
-    @BeforeEach
-    public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    }
-
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
+        AddCommand command = new AddCommand(validPerson);
 
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel1 = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel2 = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel1.addPerson(validPerson);
+
+        assertCommandSuccess(command, model,
+                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel1);
+
+        assertUndoCommandSuccess(command, model,
+                String.format(AddCommand.MESSAGE_UNDO_ADD_SUCCESS, validPerson), expectedModel2);
+    }
+
+    @Test
+    public void execute_undoNewPerson_throwsCommandException() {
+        Person validPerson = new PersonBuilder().build();
+        AddCommand command = new AddCommand(validPerson);
+
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
 
-        assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        assertUndoCommandFailure(command, model,
+                String.format(AddCommand.MESSAGE_UNDO_ADD_ERROR, validPerson));
+
+        // same object -> returns true
+        assertTrue(expectedModel.equals(model));
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
