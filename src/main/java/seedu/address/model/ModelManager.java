@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meme.Meme;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the meme book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -26,13 +26,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyMemeBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(memeBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with meme book: " + memeBook + " and user prefs " + userPrefs);
 
-        this.memeBook = new MemeBook(addressBook);
+        this.memeBook = new MemeBook(memeBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(this.memeBook.getMemeList());
     }

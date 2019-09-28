@@ -35,17 +35,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' meme book file path.
      */
     Path getMemeBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' meme book file path.
      */
     void setMemeBookFilePath(Path memeBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code memeBook}.
+     * Replaces meme book data with the data in {@code memeBook}.
      */
     void setMemeBook(ReadOnlyMemeBook memeBook);
 
@@ -53,26 +53,26 @@ public interface Model {
     ReadOnlyMemeBook getMemeBook();
 
     /**
-     * Returns true if a meme with the same identity as {@code meme} exists in the address book.
+     * Returns true if a meme with the same identity as {@code meme} exists in the meme book.
      */
     boolean hasMeme(Meme meme);
 
     /**
      * Deletes the given meme.
-     * The meme must exist in the address book.
+     * The meme must exist in the meme book.
      */
     void deleteMeme(Meme target);
 
     /**
      * Adds the given meme.
-     * {@code meme} must not already exist in the address book.
+     * {@code meme} must not already exist in the meme book.
      */
     void addMeme(Meme meme);
 
     /**
      * Replaces the given meme {@code target} with {@code editedMeme}.
-     * {@code target} must exist in the address book.
-     * The meme identity of {@code editedMeme} must not be the same as another existing meme in the address book.
+     * {@code target} must exist in the meme book.
+     * The meme identity of {@code editedMeme} must not be the same as another existing meme in the meme book.
      */
     void setMeme(Meme target, Meme editedMeme);
 

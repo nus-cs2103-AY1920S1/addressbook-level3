@@ -22,9 +22,9 @@ import seedu.address.model.ReadOnlyMemeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.MemeBookStorage;
 import seedu.address.storage.JsonMemeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.MemeBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -69,9 +69,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s meme book and {@code userPrefs}. <br>
+     * The data from the sample meme book will be used instead if {@code storage}'s meme book is not found,
+     * or an empty meme book will be used instead if errors occur when reading {@code storage}'s meme book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyMemeBook> addressBookOptional;

@@ -60,7 +60,7 @@ public class TypicalMemes {
     private TypicalMemes() {} // prevents instantiation
 
     /**
-     * Returns an {@code MemeBook} with all the typical persons.
+     * Returns an {@code MemeBook} with all the typical memes.
      */
     public static MemeBook getTypicalMemeBook() {
         MemeBook ab = new MemeBook();

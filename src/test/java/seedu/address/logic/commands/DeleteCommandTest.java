@@ -68,7 +68,7 @@ public class DeleteCommandTest {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
 
         Index outOfBoundIndex = INDEX_SECOND_MEME;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of meme book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getMemeBook().getMemeList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);

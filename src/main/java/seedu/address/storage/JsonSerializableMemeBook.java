@@ -41,7 +41,7 @@ class JsonSerializableMemeBook {
     }
 
     /**
-     * Converts this address book into the model's {@code MemeBook} object.
+     * Converts this meme book into the model's {@code MemeBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

@@ -8,8 +8,8 @@ import seedu.address.model.MemeBook;
 import seedu.address.model.ReadOnlyMemeBook;
 import seedu.address.model.meme.Address;
 import seedu.address.model.meme.Email;
-import seedu.address.model.meme.Name;
 import seedu.address.model.meme.Meme;
+import seedu.address.model.meme.Name;
 import seedu.address.model.meme.Phone;
 import seedu.address.model.tag.Tag;
 

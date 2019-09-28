@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Meme in the address book.
+ * Represents a Meme in the meme book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Meme {
@@ -75,7 +75,7 @@ public class Meme {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both memes have the same identity and data fields.
      * This defines a stronger notion of equality between two memes.
      */
     @Override

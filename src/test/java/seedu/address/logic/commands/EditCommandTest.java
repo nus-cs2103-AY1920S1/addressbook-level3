@@ -53,8 +53,8 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredMemeList().size());
         Meme lastMeme = model.getFilteredMemeList().get(indexLastPerson.getZeroBased());
 
-        MemeBuilder personInList = new MemeBuilder(lastMeme);
-        Meme editedMeme = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        MemeBuilder memeInList = new MemeBuilder(lastMeme);
+        Meme editedMeme = memeInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withName(VALID_NAME_BOB)
@@ -111,7 +111,7 @@ public class EditCommandTest {
     public void execute_duplicateMemeFilteredList_failure() {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
 
-        // edit meme in filtered list into a duplicate in address book
+        // edit meme in filtered list into a duplicate in meme book
         Meme memeInList = model.getMemeBook().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME,
                 new EditMemeDescriptorBuilder(memeInList).build());
@@ -130,13 +130,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of meme book
      */
     @Test
     public void execute_invalidMemeIndexFilteredList_failure() {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
         Index outOfBoundIndex = INDEX_SECOND_MEME;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of meme book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getMemeBook().getMemeList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,

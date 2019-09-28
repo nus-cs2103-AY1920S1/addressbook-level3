@@ -14,7 +14,7 @@ import seedu.address.model.meme.exceptions.MemeNotFoundException;
 /**
  * A list of memes that enforces uniqueness between its elements and does not allow nulls.
  * A meme is considered unique by comparing using {@code Meme#isSameMeme(Meme)}. As such, adding and updating of
- * persons uses Meme#isSameMeme(Meme) for equality so as to ensure that the meme being added or updated is
+ * memes uses Meme#isSameMeme(Meme) for equality so as to ensure that the meme being added or updated is
  * unique in terms of identity in the UniqueMemeList. However, the removal of a meme uses Meme#equals(Object) so
  * as to ensure that the meme with exactly the same fields will be removed.
  *

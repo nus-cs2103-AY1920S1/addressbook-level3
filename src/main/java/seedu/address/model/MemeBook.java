@@ -59,7 +59,7 @@ public class MemeBook implements ReadOnlyMemeBook {
     //// meme-level operations
 
     /**
-     * Returns true if a meme with the same identity as {@code meme} exists in the address book.
+     * Returns true if a meme with the same identity as {@code meme} exists in the meme book.
      */
     public boolean hasMeme(Meme meme) {
         requireNonNull(meme);
@@ -67,8 +67,8 @@ public class MemeBook implements ReadOnlyMemeBook {
     }
 
     /**
-     * Adds a meme to the address book.
-     * The meme must not already exist in the address book.
+     * Adds a meme to the meme book.
+     * The meme must not already exist in the meme book.
      */
     public void addMeme(Meme p) {
         memes.add(p);
@@ -76,8 +76,8 @@ public class MemeBook implements ReadOnlyMemeBook {
 
     /**
      * Replaces the given meme {@code target} in the list with {@code editedMeme}.
-     * {@code target} must exist in the address book.
-     * The meme identity of {@code editedMeme} must not be the same as another existing meme in the address book.
+     * {@code target} must exist in the meme book.
+     * The meme identity of {@code editedMeme} must not be the same as another existing meme in the meme book.
      */
     public void setMeme(Meme target, Meme editedMeme) {
         requireNonNull(editedMeme);
@@ -87,7 +87,7 @@ public class MemeBook implements ReadOnlyMemeBook {
 
     /**
      * Removes {@code key} from this {@code MemeBook}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the meme book.
      */
     public void removeMeme(Meme key) {
         memes.remove(key);
@@ -97,7 +97,7 @@ public class MemeBook implements ReadOnlyMemeBook {
 
     @Override
     public String toString() {
-        return memes.asUnmodifiableObservableList().size() + " persons";
+        return memes.asUnmodifiableObservableList().size() + " memes";
         // TODO: refine later
     }
 

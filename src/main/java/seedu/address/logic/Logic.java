@@ -34,7 +34,7 @@ public interface Logic {
     ObservableList<Meme> getFilteredMemeList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' meme book file path.
      */
     Path getMemeBookFilePath();
 

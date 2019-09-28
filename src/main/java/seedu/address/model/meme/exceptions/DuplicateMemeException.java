@@ -6,6 +6,6 @@ package seedu.address.model.meme.exceptions;
  */
 public class DuplicateMemeException extends RuntimeException {
     public DuplicateMemeException() {
-        super("Operation would result in duplicate persons");
+        super("Operation would result in duplicate memes");
     }
 }

@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.meme.Meme;
 
 /**
- * Deletes a meme identified using it's displayed index from the address book.
+ * Deletes a meme identified using it's displayed index from the meme book.
  */
 public class DeleteCommand extends Command {
 

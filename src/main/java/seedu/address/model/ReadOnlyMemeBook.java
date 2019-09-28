@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.meme.Meme;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an meme book
  */
 public interface ReadOnlyMemeBook {
 
