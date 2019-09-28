@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.deliverymans.commons.exceptions.DataConversionException;
-import seedu.deliverymans.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.deliverymans.commons.exceptions.DataConversionException;
+import seedu.deliverymans.commons.util.JsonUtil;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
