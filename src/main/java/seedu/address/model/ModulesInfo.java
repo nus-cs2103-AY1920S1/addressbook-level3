@@ -1,8 +1,15 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Represents module information, including its prerequisite tree.
+ * Represents a collection of module information.
  */
 public class ModulesInfo {
-    //private final modulesInfo;
+    private List<ModuleInfo> modulesInfo;
+
+    public ModulesInfo() {
+        this.modulesInfo = new ArrayList<>();
+    }
 }
