@@ -1,10 +1,10 @@
 = ClerkPro
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-image:https://travis-ci.org/CS2103-AY1819S1-W14-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/CS2103-AY1819S1-W14-1/main"]
-https://ci.appveyor.com/project/jjlee050/main[image:https://ci.appveyor.com/api/projects/status/myj0lvkne1ogeb2r?svg=true[Build status]]
-https://coveralls.io/github/CS2103-AY1819S1-W14-1/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-W14-1/main/badge.svg?branch=master[Coverage Status]]
-image:https://api.codacy.com/project/badge/Grade/2d09666283b1400681a519a45beaffd5[link="https://app.codacy.com/app/josephlee050/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S1-W14-1/main&utm_campaign=Badge_Grade_Dashboard"]
+image:https://travis-ci.org/AY1920S1-CS2103T-T09-3/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-T09-3/main"]
+https://coveralls.io/github/AY1920S1-CS2103T-T09-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T09-3/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.codacy.com/project/badge/Grade/ceb8f1f4a3b2465c973e0ba579f75c78["Codacy code quality", link="https://www.codacy.com/manual/SakuraBlossom/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-T09-3/main&utm_campaign=Badge_Grade"]
+https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
