@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.ExitCommand;
 import seedu.jarvis.logic.commands.HelpCommand;
+import seedu.jarvis.logic.commands.UndoCommand;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
@@ -86,6 +88,22 @@ public class JarvisParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListAddressCommand.COMMAND_WORD) instanceof ListAddressCommand);
         assertTrue(parser.parseCommand(ListAddressCommand.COMMAND_WORD + " 3") instanceof ListAddressCommand);
+    }
+
+    /**
+     * Verifies that parsing undo commands work as intended.
+     */
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO + "all")
+                instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO + "5")
+                instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO + "0")
+                instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO + "-5")
+                instanceof UndoCommand);
     }
 
     @Test
