@@ -18,13 +18,16 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonModulesInfoStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ModulesInfoStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -57,7 +60,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(config.getModulesInfoFilePath());
+        ModulesInfo modulesInfo = initModulesInfo(modulesInfoStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, modulesInfoStorage);
 
         initLogging(config);
 
@@ -163,6 +168,29 @@ public class MainApp extends Application {
         }
 
         return initializedPrefs;
+    }
+
+    /**
+     * Returns a {@code ModulesInfo} using the file at {@code storage}'s modules info file path.
+     */
+    protected ModulesInfo initModulesInfo(ModulesInfoStorage storage) {
+        Path prefsFilePath = storage.getModulesInfoPath();
+        logger.info("Using modules info file : " + prefsFilePath);
+
+        ModulesInfo initializedModulesInfo;
+        try {
+            Optional<ModulesInfo> prefsOptional = storage.readModulesInfo();
+            initializedModulesInfo = prefsOptional.orElse(new ModulesInfo());
+        } catch (DataConversionException e) {
+            logger.warning("ModulesInfo file at " + prefsFilePath + " is not in the correct format. "
+                    + "Will proceed without modules information");
+            initializedModulesInfo = new ModulesInfo();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting without modules information");
+            initializedModulesInfo = new ModulesInfo();
+        }
+
+        return initializedModulesInfo;
     }
 
     @Override
