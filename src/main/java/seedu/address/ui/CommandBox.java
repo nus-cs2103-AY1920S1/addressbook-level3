@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
@@ -50,14 +49,6 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleTextChanged() {
         autoCompleterUpdater.update(commandTextField.getText());
-    }
-
-    /**
-     * Handles the Key Press event.
-     */
-    @FXML
-    private void handleKeyPressed(Event e) {
-        //System.out.println(e);
     }
 
     /**

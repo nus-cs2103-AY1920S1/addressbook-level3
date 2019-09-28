@@ -11,9 +11,6 @@ import java.util.List;
 public class TrieNode {
     private HashMap<Character, TrieNode> children = new HashMap<>();
 
-    public TrieNode() {
-    }
-
     public HashMap<Character, TrieNode> getChildren() {
         return children;
     }
