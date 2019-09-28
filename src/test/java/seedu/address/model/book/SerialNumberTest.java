@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_NON_UNIQUE_SERIAL_NUMB
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
 import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_FICTION;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
