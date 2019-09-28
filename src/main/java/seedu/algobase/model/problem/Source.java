@@ -11,6 +11,7 @@ public class Source {
 
     public static final String MESSAGE_CONSTRAINTS = "Source should be alphanumeric.";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String DEFAULT_SOURCE_STRING = "";
     public static final Source DEFAULT_SOURCE = new Source();
 
     public final String value;
@@ -30,7 +31,7 @@ public class Source {
      * Constructs an empty {@code Source}.
      */
     private Source() {
-        value = "";
+        value = DEFAULT_SOURCE_STRING;
     }
 
     /**
@@ -41,7 +42,7 @@ public class Source {
     }
 
     public static boolean isDefaultSource(Source source) {
-        return source.equals(DEFAULT_SOURCE);
+        return source == DEFAULT_SOURCE;
     }
 
     @Override

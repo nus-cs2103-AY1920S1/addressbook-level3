@@ -10,6 +10,8 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class Difficulty {
 
     public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric.";
+    public static final double DIFFICULTY_LOWER_BOUND = 0.0;
+    public static final double DIFFICULTY_UPPER_BOUND = 5.0;
     public static final Difficulty DEFAULT_DIFFICULTY = new Difficulty();
     public final double value;
 
@@ -34,7 +36,9 @@ public class Difficulty {
     public static boolean isValidDifficulty(String test) {
         try {
             double parseResult = Double.parseDouble(test);
-            return parseResult > 0.0 && parseResult <= 5.0;
+            // Difficulty cannot be 0.0, and 0.0 is reserved for default difficulty
+            return parseResult > DIFFICULTY_LOWER_BOUND
+                    && parseResult <= DIFFICULTY_UPPER_BOUND;
         } catch (NumberFormatException ex) {
             return false;
         }
@@ -44,7 +48,7 @@ public class Difficulty {
      * Returns true if a given {@code Difficulty} is default.
      */
     public static boolean isDefaultDifficulty(Difficulty difficulty) {
-        return difficulty.equals(DEFAULT_DIFFICULTY);
+        return difficulty == DEFAULT_DIFFICULTY;
     }
 
     @Override
