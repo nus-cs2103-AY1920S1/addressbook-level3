@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Meme;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -40,11 +40,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the meme list with {@code memes}.
+     * {@code memes} must not contain duplicate memes.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setMemes(List<Meme> memes) {
+        this.persons.setPersons(memes);
     }
 
     /**
@@ -53,43 +53,43 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setMemes(newData.getMemeList());
     }
 
-    //// person-level operations
+    //// meme-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a meme with the same identity as {@code meme} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasMeme(Meme meme) {
+        requireNonNull(meme);
+        return persons.contains(meme);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a meme to the address book.
+     * The meme must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addMeme(Meme p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given meme {@code target} in the list with {@code editedMeme}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The meme identity of {@code editedMeme} must not be the same as another existing meme in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setMeme(Meme target, Meme editedMeme) {
+        requireNonNull(editedMeme);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedMeme);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removeMeme(Meme key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Meme> getMemeList() {
         return persons.asUnmodifiableObservableList();
     }
 
