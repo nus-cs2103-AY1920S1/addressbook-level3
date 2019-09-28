@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalMemes.ALICE;
 import static seedu.address.testutil.TypicalMemes.HOON;
 import static seedu.address.testutil.TypicalMemes.IDA;
-import static seedu.address.testutil.TypicalMemes.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMemes.getTypicalMemeBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,11 +26,11 @@ public class JsonMemeBookStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readMemeBook_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readMemeBook(null));
     }
 
-    private java.util.Optional<ReadOnlyMemeBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyMemeBook> readMemeBook(String filePath) throws Exception {
         return new JsonMemeBookStorage(Paths.get(filePath)).readMemeBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -42,28 +42,28 @@ public class JsonMemeBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readMemeBook("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatMemeBook.json"));
+        assertThrows(DataConversionException.class, () -> readMemeBook("notJsonFormatMemeBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidMemeAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidMemeMemeBook.json"));
+    public void readMemeBook_invalidMemeMemeBook_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMemeBook("invalidMemeMemeBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidMemeAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidMemeMemeBook.json"));
+    public void readMemeBook_invalidAndValidMemeMemeBook_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMemeBook("invalidAndValidMemeMemeBook.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveMemeBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        MemeBook original = getTypicalAddressBook();
+        MemeBook original = getTypicalMemeBook();
         JsonMemeBookStorage jsonAddressBookStorage = new JsonMemeBookStorage(filePath);
 
         // Save in new file and read back
@@ -87,14 +87,14 @@ public class JsonMemeBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveMemeBook_nullMemeBook_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveMemeBook(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code memeBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyMemeBook addressBook, String filePath) {
+    private void saveMemeBook(ReadOnlyMemeBook addressBook, String filePath) {
         try {
             new JsonMemeBookStorage(Paths.get(filePath))
                     .saveMemeBook(addressBook, addToTestDataPathIfNotNull(filePath));
@@ -104,7 +104,7 @@ public class JsonMemeBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new MemeBook(), null));
+    public void saveMemeBook_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveMemeBook(new MemeBook(), null));
     }
 }

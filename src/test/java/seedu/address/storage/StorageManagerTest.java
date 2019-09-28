@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalMemes.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMemes.getTypicalMemeBook;
 
 import java.nio.file.Path;
 
@@ -48,20 +48,20 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void memeBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonMemeBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonMemeBookStorageTest} class.
          */
-        MemeBook original = getTypicalAddressBook();
+        MemeBook original = getTypicalMemeBook();
         storageManager.saveMemeBook(original);
         ReadOnlyMemeBook retrieved = storageManager.readMemeBook().get();
         assertEquals(original, new MemeBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getMemeBookFilePath() {
         assertNotNull(storageManager.getMemeBookFilePath());
     }
 

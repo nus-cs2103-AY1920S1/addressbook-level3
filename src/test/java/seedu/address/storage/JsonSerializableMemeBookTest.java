@@ -25,7 +25,7 @@ public class JsonSerializableMemeBookTest {
         JsonSerializableMemeBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_MEMES_FILE,
                 JsonSerializableMemeBook.class).get();
         MemeBook memeBookFromFile = dataFromFile.toModelType();
-        MemeBook typicalMemesMemeBook = TypicalMemes.getTypicalAddressBook();
+        MemeBook typicalMemesMemeBook = TypicalMemes.getTypicalMemeBook();
         assertEquals(memeBookFromFile, typicalMemesMemeBook);
     }
 

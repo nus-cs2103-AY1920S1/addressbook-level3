@@ -62,7 +62,7 @@ public class TypicalMemes {
     /**
      * Returns an {@code MemeBook} with all the typical persons.
      */
-    public static MemeBook getTypicalAddressBook() {
+    public static MemeBook getTypicalMemeBook() {
         MemeBook ab = new MemeBook();
         for (Meme meme : getTypicalMemes()) {
             ab.addMeme(meme);

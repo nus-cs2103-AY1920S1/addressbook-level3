@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalMemes.ALICE;
-import static seedu.address.testutil.TypicalMemes.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMemes.getTypicalMemeBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,8 +37,8 @@ public class MemeBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        MemeBook newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyMemeBook_replacesData() {
+        MemeBook newData = getTypicalMemeBook();
         memeBook.resetData(newData);
         assertEquals(newData, memeBook);
     }
@@ -60,18 +60,18 @@ public class MemeBookTest {
     }
 
     @Test
-    public void hasMeme_memeNotInAddressBook_returnsFalse() {
+    public void hasMeme_memeNotInMemeBook_returnsFalse() {
         assertFalse(memeBook.hasMeme(ALICE));
     }
 
     @Test
-    public void hasMeme_memeInAddressBook_returnsTrue() {
+    public void hasMeme_memeInMemeBook_returnsTrue() {
         memeBook.addMeme(ALICE);
         assertTrue(memeBook.hasMeme(ALICE));
     }
 
     @Test
-    public void hasMeme_memeWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasMeme_memeWithSameIdentityFieldsInMemeBook_returnsTrue() {
         memeBook.addMeme(ALICE);
         Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();

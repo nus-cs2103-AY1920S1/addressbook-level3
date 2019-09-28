@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMemeAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEME;
-import static seedu.address.testutil.TypicalMemes.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMemes.getTypicalMemeBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ import seedu.address.testutil.MemeBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

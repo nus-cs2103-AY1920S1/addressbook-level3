@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.meme.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.MemeBookBuilder;
 
 public class ModelManagerTest {
 
@@ -61,12 +61,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setMemeBookFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setMemeBookFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setMemeBookFilePath_validPath_setsMemeBookFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setMemeBookFilePath(path);
         assertEquals(path, modelManager.getMemeBookFilePath());
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasMeme_memeNotInAddressBook_returnsFalse() {
+    public void hasMeme_memeNotInMemeBook_returnsFalse() {
         assertFalse(modelManager.hasMeme(ALICE));
     }
 
     @Test
-    public void hasMeme_memeInAddressBook_returnsTrue() {
+    public void hasMeme_memeInMemeBook_returnsTrue() {
         modelManager.addMeme(ALICE);
         assertTrue(modelManager.hasMeme(ALICE));
     }
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        MemeBook memeBook = new AddressBookBuilder().withMeme(ALICE).withMeme(BENSON).build();
+        MemeBook memeBook = new MemeBookBuilder().withMeme(ALICE).withMeme(BENSON).build();
         MemeBook differentMemeBook = new MemeBook();
         UserPrefs userPrefs = new UserPrefs();
 
