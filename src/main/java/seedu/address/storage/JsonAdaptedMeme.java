@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Meme}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedMeme {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Meme's %s field is missing!";
 
@@ -31,12 +31,12 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given meme details.
+     * Constructs a {@code JsonAdaptedMeme} with the given meme details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedMeme(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                           @JsonProperty("email") String email, @JsonProperty("address") String address,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -49,7 +49,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Meme} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Meme source) {
+    public JsonAdaptedMeme(Meme source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -65,9 +65,9 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted meme.
      */
     public Meme toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> memeTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            memeTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -102,7 +102,7 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(memeTags);
         return new Meme(modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 

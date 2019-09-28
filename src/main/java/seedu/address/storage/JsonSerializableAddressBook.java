@@ -19,16 +19,16 @@ import seedu.address.model.meme.Meme;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate meme(s).";
+    public static final String MESSAGE_DUPLICATE_MEME = "Memes list contains duplicate meme(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedMeme> memes = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given memes.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("memes") List<JsonAdaptedMeme> memes) {
+        this.memes.addAll(memes);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getMemeList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        memes.addAll(source.getMemeList().stream().map(JsonAdaptedMeme::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,10 +47,10 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Meme meme = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedMeme jsonAdaptedMeme : memes) {
+            Meme meme = jsonAdaptedMeme.toModelType();
             if (addressBook.hasMeme(meme)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEME);
             }
             addressBook.addMeme(meme);
         }
