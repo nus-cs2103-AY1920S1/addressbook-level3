@@ -42,26 +42,26 @@ public class CustomerParser {
         switch (commandWord) {
             // case add??
 
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommand(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommand(arguments);
 
-            case EditCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand(arguments);
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand(arguments);
 
-            case OrderCommand.COMMAND_WORD:
-                return new OrderCommandParser().parse(arguments);
+        case OrderCommand.COMMAND_WORD:
+            return new OrderCommandParser().parse(arguments);
 
-            case SortCommand.COMMAND_WORD:
-                return new SortCommand(arguments);
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

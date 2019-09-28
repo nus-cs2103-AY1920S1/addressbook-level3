@@ -1,5 +1,11 @@
 package seedu.deliverymans.logic.parser.deliveryman;
 
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
 import seedu.deliverymans.logic.commands.deliveryman.EditCommand;
@@ -9,12 +15,6 @@ import seedu.deliverymans.logic.commands.deliveryman.SortCommand;
 import seedu.deliverymans.logic.commands.deliveryman.StatusCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 public class DeliverymanParser {
     /**
@@ -42,26 +42,26 @@ public class DeliverymanParser {
         switch (commandWord) {
             // case add??
 
-            case AssignCommand.COMMAND_WORD:
-                return new AssignCommandParser().parse(arguments);
+        case AssignCommand.COMMAND_WORD:
+            return new AssignCommandParser().parse(arguments);
 
-            case EditCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand(arguments);
 
-            case ListAvailCommand.COMMAND_WORD:
-                return new ListAvailCommand(arguments);
+        case ListAvailCommand.COMMAND_WORD:
+            return new ListAvailCommand(arguments);
 
-            case SortCommand.COMMAND_WORD:
-                return new SortCommand(arguments);
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand(arguments);
 
-            case StatusCommand.COMMAND_WORD:
-                return new StatusCommand(arguments);
+        case StatusCommand.COMMAND_WORD:
+            return new StatusCommand(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

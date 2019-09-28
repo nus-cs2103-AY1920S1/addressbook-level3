@@ -1,14 +1,14 @@
 package seedu.deliverymans.logic.parser.restaurant;
 
-import seedu.deliverymans.logic.commands.Command;
-import seedu.deliverymans.logic.commands.universal.HelpCommand;
-import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.universal.HelpCommand;
+import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
 public class RestaurantParser {
     /**
@@ -34,8 +34,8 @@ public class RestaurantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }
