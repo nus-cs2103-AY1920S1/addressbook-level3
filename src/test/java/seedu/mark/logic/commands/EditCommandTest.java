@@ -9,9 +9,9 @@ import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.CommandTestUtil.showBookmarkAtIndex;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_BOOKMARK;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +22,8 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 import seedu.mark.testutil.BookmarkBuilder;
+import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -120,7 +120,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidBookmarkIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookmarkList().size() + 1);
-        EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder()
+                .withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);

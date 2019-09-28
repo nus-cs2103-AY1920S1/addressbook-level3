@@ -1,22 +1,22 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
-import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
-import static seedu.mark.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.mark.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_URL_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
+import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.mark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_BOB;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;
@@ -32,9 +32,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.EditCommand;
+import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
@@ -90,9 +90,12 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Bookmark} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_URL_DESC + VALID_REMARK_AMY,
@@ -130,7 +133,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_BOOKMARK;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder()
+                .withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -161,7 +165,8 @@ public class EditCommandParserTest {
                 + REMARK_DESC_BOB + URL_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder()
-                .withUrl(VALID_URL_BOB).withRemark(VALID_REMARK_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withUrl(VALID_URL_BOB).withRemark(VALID_REMARK_BOB)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -181,8 +186,8 @@ public class EditCommandParserTest {
         // other valid values specified
         userInput = targetIndex.getOneBased() + URL_DESC_BOB + INVALID_NAME_DESC + REMARK_DESC_BOB
                 + NAME_DESC_BOB;
-        descriptor = new EditBookmarkDescriptorBuilder().withName(VALID_NAME_BOB).withUrl(VALID_URL_BOB)
-                .withRemark(VALID_REMARK_BOB).build();
+        descriptor = new EditBookmarkDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withUrl(VALID_URL_BOB).withRemark(VALID_REMARK_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -192,7 +197,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_BOOKMARK;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder().withTags().build();
+        EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder()
+                .withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

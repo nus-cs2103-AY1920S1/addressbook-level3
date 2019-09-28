@@ -1,10 +1,10 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 
 import java.util.Collections;
@@ -18,9 +18,9 @@ import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.CollectionUtil;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
-import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
@@ -86,7 +86,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Bookmark} with the details of {@code bookmarkToEdit}
      * edited with {@code editBookmarkDescriptor}.
      */
-    private static Bookmark createEditedBookmark(Bookmark bookmarkToEdit, EditBookmarkDescriptor editBookmarkDescriptor) {
+    private static Bookmark createEditedBookmark(Bookmark bookmarkToEdit,
+                                                 EditBookmarkDescriptor editBookmarkDescriptor) {
         assert bookmarkToEdit != null;
 
         Name updatedName = editBookmarkDescriptor.getName().orElse(bookmarkToEdit.getName());

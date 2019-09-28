@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.mark.model.Mark;
 import seedu.mark.model.ReadOnlyMark;
-import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 

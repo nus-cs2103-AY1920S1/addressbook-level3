@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
 import seedu.mark.model.bookmark.exceptions.BookmarkNotFoundException;
+import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
 import seedu.mark.testutil.BookmarkBuilder;
 
 public class UniqueBookmarkListTest {
@@ -159,7 +159,8 @@ public class UniqueBookmarkListTest {
     @Test
     public void setBookmarks_listWithDuplicateBookmarks_throwsDuplicateBookmarkException() {
         List<Bookmark> listWithDuplicateBookmarks = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateBookmarkException.class, () -> uniqueBookmarkList.setBookmarks(listWithDuplicateBookmarks));
+        assertThrows(DuplicateBookmarkException.class, () ->
+                uniqueBookmarkList.setBookmarks(listWithDuplicateBookmarks));
     }
 
     @Test

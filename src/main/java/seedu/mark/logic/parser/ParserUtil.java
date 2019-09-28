@@ -9,8 +9,8 @@ import java.util.Set;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
 import seedu.mark.logic.parser.exceptions.ParseException;
-import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Name;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 

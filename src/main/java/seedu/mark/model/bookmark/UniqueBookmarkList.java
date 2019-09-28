@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
 import seedu.mark.model.bookmark.exceptions.BookmarkNotFoundException;
+import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
 
 /**
  * A list of bookmarks that enforces uniqueness between its elements and does not allow nulls.

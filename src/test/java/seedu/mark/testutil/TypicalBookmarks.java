@@ -1,9 +1,9 @@
 package seedu.mark.testutil;
 
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;

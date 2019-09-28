@@ -1,9 +1,9 @@
 package seedu.mark.testutil;
 
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
 import java.util.Set;
 

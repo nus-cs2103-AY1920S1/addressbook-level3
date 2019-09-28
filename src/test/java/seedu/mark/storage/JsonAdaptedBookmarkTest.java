@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.exceptions.IllegalValueException;
+import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.bookmark.Name;
 
 public class JsonAdaptedBookmarkTest {
     private static final String INVALID_NAME = "R@chel";

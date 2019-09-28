@@ -1,10 +1,10 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;

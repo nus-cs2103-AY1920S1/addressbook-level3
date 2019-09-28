@@ -1,22 +1,22 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
-import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
-import static seedu.mark.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.mark.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_URL_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.mark.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
+import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.mark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_BOB;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_BOB;
@@ -28,9 +28,9 @@ import static seedu.mark.testutil.TypicalBookmarks.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.AddCommand;
-import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.testutil.BookmarkBuilder;
