@@ -43,7 +43,7 @@ public class ParserUtilTest {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-                -> ParserUtil.parseIndex("-10"));
+            -> ParserUtil.parseIndex("-10"));
     }
 
     @Test
