@@ -7,8 +7,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.commons.util.FileUtil;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.FileUtil;
 
 /**
  * Represents the parsed command-line parameters given to the application.

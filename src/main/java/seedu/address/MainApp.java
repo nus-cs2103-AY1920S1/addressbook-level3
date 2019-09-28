@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.deliverymans.commons.core.Config;
-import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.commons.core.Version;
-import seedu.deliverymans.commons.exceptions.DataConversionException;
-import seedu.deliverymans.commons.util.ConfigUtil;
-import seedu.deliverymans.commons.util.StringUtil;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Version;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
