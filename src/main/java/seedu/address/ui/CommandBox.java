@@ -17,13 +17,15 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final AutoCompleterUpdater autoCompleterUpdater;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, AutoCompleterUpdater autoCompleterUpdater) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.autoCompleterUpdater = autoCompleterUpdater;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
@@ -39,6 +41,14 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
+    }
+
+    /**
+     * Handles the Text Change event.
+     */
+    @FXML
+    private void handleTextChanged() {
+        autoCompleterUpdater.update(commandTextField.getText());
     }
 
     /**
@@ -72,6 +82,17 @@ public class CommandBox extends UiPart<Region> {
          * @see seedu.address.logic.Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
+    }
+
+    /**
+     * Represents a function that updates the AutoCompleter.
+     */
+    @FunctionalInterface
+    public interface AutoCompleterUpdater {
+        /**
+         * Updates AutoCompleter of the command text.
+         */
+        void update(String commandText);
     }
 
 }
