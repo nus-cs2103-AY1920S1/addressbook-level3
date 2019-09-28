@@ -20,8 +20,8 @@ public class CustomerParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     public static final String COMMAND_WORD = "customer";
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -39,7 +39,7 @@ public class CustomerParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            // case add??
+        // case add??
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(arguments);
 
