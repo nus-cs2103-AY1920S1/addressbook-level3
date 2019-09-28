@@ -50,21 +50,7 @@ public class Module {
     }
 
     /**
-     * Returns true if both modules have both the same name and module code.
-     */
-    public boolean isSameModule(seedu.address.model.module.Module otherModule) {
-        if (otherModule == this) {
-            return true;
-        }
-
-        return otherModule != null
-                && otherModule.getName().equals(getName())
-                && (otherModule.getModuleCode().equals(getModuleCode()));
-    }
-
-    /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both modules have the same identity and data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -77,7 +63,9 @@ public class Module {
         }
 
         seedu.address.model.module.Module otherModule = (seedu.address.model.module.Module) other;
-        return otherModule.getName().equals(getName()) && otherModule.getModuleCode().equals(getModuleCode());
+        return otherModule.getName().equals(getName()) &&
+                otherModule.getModuleCode().equals(getModuleCode()) &&
+                otherModule.getTags().equals(getTags());
     }
 
     @Override
