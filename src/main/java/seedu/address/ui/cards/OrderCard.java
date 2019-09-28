@@ -51,13 +51,17 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         index.setText(displayedIndex + ". ");
+
         customerName.setText(order.getCustomer().getName().fullName);
+
         phoneName.setText(order.getPhone().getName().fullName);
         phoneColour.setText(order.getPhone().getColour().value);
-        phoneCapacity.setText(order.getPhone().getCapacity().toString());
+        phoneCapacity.setText(order.getPhone().getCapacity().value);
+
         orderId.setText(order.getId().toString());
         orderPrice.setText(order.getPrice().value);
         orderStatus.setText(order.getStatus().toString());
+
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
