@@ -21,39 +21,39 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meme.Meme;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.MemeBuilder;
 
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullMeme_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Meme validMeme = new PersonBuilder().build();
+    public void execute_memeAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingMemeAdded modelStub = new ModelStubAcceptingMemeAdded();
+        Meme validMeme = new MemeBuilder().build();
 
         CommandResult commandResult = new AddCommand(validMeme).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validMeme), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validMeme), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validMeme), modelStub.memesAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Meme validMeme = new PersonBuilder().build();
+    public void execute_duplicateMeme_throwsCommandException() {
+        Meme validMeme = new MemeBuilder().build();
         AddCommand addCommand = new AddCommand(validMeme);
-        ModelStub modelStub = new ModelStubWithPerson(validMeme);
+        ModelStub modelStub = new ModelStubWithMeme(validMeme);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MEME, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Meme alice = new PersonBuilder().withName("Alice").build();
-        Meme bob = new PersonBuilder().withName("Bob").build();
+        Meme alice = new MemeBuilder().withName("Alice").build();
+        Meme bob = new MemeBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -152,10 +152,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single meme.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithMeme extends ModelStub {
         private final Meme meme;
 
-        ModelStubWithPerson(Meme meme) {
+        ModelStubWithMeme(Meme meme) {
             requireNonNull(meme);
             this.meme = meme;
         }
@@ -170,19 +170,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the meme being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Meme> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingMemeAdded extends ModelStub {
+        final ArrayList<Meme> memesAdded = new ArrayList<>();
 
         @Override
         public boolean hasMeme(Meme meme) {
             requireNonNull(meme);
-            return personsAdded.stream().anyMatch(meme::isSameMeme);
+            return memesAdded.stream().anyMatch(meme::isSameMeme);
         }
 
         @Override
         public void addMeme(Meme meme) {
             requireNonNull(meme);
-            personsAdded.add(meme);
+            memesAdded.add(meme);
         }
 
         @Override

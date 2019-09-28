@@ -14,7 +14,7 @@ import seedu.address.model.util.SampleDataUtil;
 /**
  * A utility class to help with building Meme objects.
  */
-public class PersonBuilder {
+public class MemeBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -27,7 +27,7 @@ public class PersonBuilder {
     private Address address;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public MemeBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -36,9 +36,9 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code memeToCopy}.
+     * Initializes the MemeBuilder with the data of {@code memeToCopy}.
      */
-    public PersonBuilder(Meme memeToCopy) {
+    public MemeBuilder(Meme memeToCopy) {
         name = memeToCopy.getName();
         phone = memeToCopy.getPhone();
         email = memeToCopy.getEmail();
@@ -49,7 +49,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Name} of the {@code Meme} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public MemeBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -57,7 +57,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Meme} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public MemeBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -65,7 +65,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Address} of the {@code Meme} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public MemeBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
@@ -73,7 +73,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Phone} of the {@code Meme} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public MemeBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -81,7 +81,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code Meme} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public MemeBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }

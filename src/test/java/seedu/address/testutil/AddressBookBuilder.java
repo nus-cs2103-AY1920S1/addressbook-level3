@@ -23,7 +23,7 @@ public class AddressBookBuilder {
     /**
      * Adds a new {@code Meme} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withPerson(Meme meme) {
+    public AddressBookBuilder withMeme(Meme meme) {
         addressBook.addMeme(meme);
         return this;
     }

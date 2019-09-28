@@ -9,10 +9,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.showMemeAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEME;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEME;
+import static seedu.address.testutil.TypicalMemes.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +24,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.meme.Meme;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EditMemeDescriptorBuilder;
+import seedu.address.testutil.MemeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -36,9 +36,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Meme editedMeme = new PersonBuilder().build();
-        EditCommand.EditMemeDescriptor descriptor = new EditPersonDescriptorBuilder(editedMeme).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        Meme editedMeme = new MemeBuilder().build();
+        EditCommand.EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(editedMeme).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
@@ -53,11 +53,11 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredMemeList().size());
         Meme lastMeme = model.getFilteredMemeList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastMeme);
+        MemeBuilder personInList = new MemeBuilder(lastMeme);
         Meme editedMeme = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditMemeDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
@@ -71,8 +71,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditMemeDescriptor());
-        Meme editedMeme = model.getFilteredMemeList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME, new EditMemeDescriptor());
+        Meme editedMeme = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
@@ -83,12 +83,12 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showMemeAtIndex(model, INDEX_FIRST_MEME);
 
-        Meme memeInFilteredList = model.getFilteredMemeList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Meme editedMeme = new PersonBuilder(memeInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+        Meme memeInFilteredList = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
+        Meme editedMeme = new MemeBuilder(memeInFilteredList).withName(VALID_NAME_BOB).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME,
+                new EditMemeDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
@@ -99,30 +99,30 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Meme firstMeme = model.getFilteredMemeList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditMemeDescriptor descriptor = new EditPersonDescriptorBuilder(firstMeme).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+    public void execute_duplicateMemeUnfilteredList_failure() {
+        Meme firstMeme = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
+        EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(firstMeme).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_MEME, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_MEME);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_duplicateMemeFilteredList_failure() {
+        showMemeAtIndex(model, INDEX_FIRST_MEME);
 
         // edit meme in filtered list into a duplicate in address book
-        Meme memeInList = model.getAddressBook().getMemeList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(memeInList).build());
+        Meme memeInList = model.getAddressBook().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME,
+                new EditMemeDescriptorBuilder(memeInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_MEME);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidMemeIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMemeList().size() + 1);
-        EditMemeDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
@@ -133,25 +133,25 @@ public class EditCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+    public void execute_invalidMemeIndexFilteredList_failure() {
+        showMemeAtIndex(model, INDEX_FIRST_MEME);
+        Index outOfBoundIndex = INDEX_SECOND_MEME;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getMemeList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditMemeDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_MEME, DESC_AMY);
 
         // same values -> returns true
         EditMemeDescriptor copyDescriptor = new EditMemeDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_MEME, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -164,10 +164,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_MEME, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_MEME, DESC_BOB)));
     }
 
 }

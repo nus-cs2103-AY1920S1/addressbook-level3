@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMemes.ALICE;
+import static seedu.address.testutil.TypicalMemes.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,7 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.meme.Meme;
 import seedu.address.model.meme.exceptions.DuplicateMemeException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.MemeBuilder;
 
 public class AddressBookTest {
 
@@ -44,9 +44,9 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateMemes_throwsDuplicateMemeException() {
         // Two memes with the same identity fields
-        Meme editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Meme> newMemes = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newMemes);
@@ -55,31 +55,31 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasMeme_nullMeme_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasMeme(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasMeme_memeNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasMeme(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasMeme_memeInAddressBook_returnsTrue() {
         addressBook.addMeme(ALICE);
         assertTrue(addressBook.hasMeme(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasMeme_memeWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addMeme(ALICE);
-        Meme editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasMeme(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getMemeList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getMemeList().remove(0));
     }
 

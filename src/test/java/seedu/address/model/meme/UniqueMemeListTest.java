@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalMemes.ALICE;
+import static seedu.address.testutil.TypicalMemes.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,64 +17,64 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.meme.exceptions.DuplicateMemeException;
 import seedu.address.model.meme.exceptions.MemeNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.MemeBuilder;
 
 public class UniqueMemeListTest {
 
     private final UniqueMemeList uniqueMemeList = new UniqueMemeList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullMeme_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMemeList.contains(null));
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_memeNotInList_returnsFalse() {
         assertFalse(uniqueMemeList.contains(ALICE));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_memeInList_returnsTrue() {
         uniqueMemeList.add(ALICE);
         assertTrue(uniqueMemeList.contains(ALICE));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_memeWithSameIdentityFieldsInList_returnsTrue() {
         uniqueMemeList.add(ALICE);
-        Meme editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueMemeList.contains(editedAlice));
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullMeme_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMemeList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateMeme_throwsDuplicateMemeException() {
         uniqueMemeList.add(ALICE);
         assertThrows(DuplicateMemeException.class, () -> uniqueMemeList.add(ALICE));
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setMeme_nullTargetMeme_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMemeList.setMeme(null, ALICE));
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setMeme_nullEditedMeme_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMemeList.setMeme(ALICE, null));
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
+    public void setMeme_targetMemeNotInList_throwsMemeNotFoundException() {
         assertThrows(MemeNotFoundException.class, () -> uniqueMemeList.setMeme(ALICE, ALICE));
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setMeme_editedMemeIsSameMeme_success() {
         uniqueMemeList.add(ALICE);
         uniqueMemeList.setMeme(ALICE, ALICE);
         UniqueMemeList expectedUniqueMemeList = new UniqueMemeList();
@@ -83,9 +83,9 @@ public class UniqueMemeListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setMeme_editedMemeHasSameIdentity_success() {
         uniqueMemeList.add(ALICE);
-        Meme editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueMemeList.setMeme(ALICE, editedAlice);
         UniqueMemeList expectedUniqueMemeList = new UniqueMemeList();
@@ -94,7 +94,7 @@ public class UniqueMemeListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setMeme_editedMemeHasDifferentIdentity_success() {
         uniqueMemeList.add(ALICE);
         uniqueMemeList.setMeme(ALICE, BOB);
         UniqueMemeList expectedUniqueMemeList = new UniqueMemeList();
@@ -103,24 +103,24 @@ public class UniqueMemeListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setMeme_editedMemeHasNonUniqueIdentity_throwsDuplicateMemeException() {
         uniqueMemeList.add(ALICE);
         uniqueMemeList.add(BOB);
         assertThrows(DuplicateMemeException.class, () -> uniqueMemeList.setMeme(ALICE, BOB));
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullMeme_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMemeList.remove(null));
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_memeDoesNotExist_throwsMemeNotFoundException() {
         assertThrows(MemeNotFoundException.class, () -> uniqueMemeList.remove(ALICE));
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingMeme_removesMeme() {
         uniqueMemeList.add(ALICE);
         uniqueMemeList.remove(ALICE);
         UniqueMemeList expectedUniqueMemeList = new UniqueMemeList();
@@ -128,12 +128,12 @@ public class UniqueMemeListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setMemes_nullUniqueMemeList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMemeList.setMemes((UniqueMemeList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setMemes_uniqueMemeList_replacesOwnListWithProvidedUniqueMemeList() {
         uniqueMemeList.add(ALICE);
         UniqueMemeList expectedUniqueMemeList = new UniqueMemeList();
         expectedUniqueMemeList.add(BOB);
@@ -142,12 +142,12 @@ public class UniqueMemeListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setMemes_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMemeList.setMemes((List<Meme>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setMemes_list_replacesOwnListWithProvidedList() {
         uniqueMemeList.add(ALICE);
         List<Meme> memeList = Collections.singletonList(BOB);
         uniqueMemeList.setMemes(memeList);
@@ -157,7 +157,7 @@ public class UniqueMemeListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setMemes_listWithDuplicateMemes_throwsDuplicateMemeException() {
         List<Meme> listWithDuplicateMemes = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicateMemeException.class, () -> uniqueMemeList.setMemes(listWithDuplicateMemes));
     }

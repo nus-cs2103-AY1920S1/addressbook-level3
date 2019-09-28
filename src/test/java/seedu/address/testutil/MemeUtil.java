@@ -16,19 +16,19 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class for Meme.
  */
-public class PersonUtil {
+public class MemeUtil {
 
     /**
      * Returns an add command string for adding the {@code meme}.
      */
     public static String getAddCommand(Meme meme) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(meme);
+        return AddCommand.COMMAND_WORD + " " + getMemeDetails(meme);
     }
 
     /**
      * Returns the part of command string for the given {@code meme}'s details.
      */
-    public static String getPersonDetails(Meme meme) {
+    public static String getMemeDetails(Meme meme) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + meme.getName().fullName + " ");
         sb.append(PREFIX_PHONE + meme.getPhone().value + " ");
@@ -43,7 +43,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditMemeDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditMemeDescriptor descriptor) {
+    public static String getEditMemeDescriptorDetails(EditMemeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

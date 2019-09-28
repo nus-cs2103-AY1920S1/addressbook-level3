@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the meme in the {@code model}'s meme list at {@code index}.
      */
-    public static Meme getPerson(Model model, Index index) {
+    public static Meme getMeme(Model model, Index index) {
         return model.getFilteredMemeList().get(index.getZeroBased());
     }
 }
