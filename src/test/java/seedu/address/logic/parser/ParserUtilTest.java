@@ -24,6 +24,7 @@ public class ParserUtilTest {
     private static final String INVALID_ANSWER = " ";
     private static final String INVALID_RATING = " ";
     private static final String INVALID_CATEGORY = "#friend";
+
     private static final String VALID_QUESTION = "2 + 2";
     private static final String VALID_ANSWER = "4";
     private static final String VALID_RATING = "good";
@@ -41,6 +42,8 @@ public class ParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
+                -> ParserUtil.parseIndex("-10"));
     }
 
     @Test
@@ -73,6 +76,12 @@ public class ParserUtilTest {
         String questionWithWhitespace = WHITESPACE + VALID_QUESTION + WHITESPACE;
         Question expectedQuestion = new Question(VALID_QUESTION);
         assertEquals(expectedQuestion, ParserUtil.parseQuestion(questionWithWhitespace));
+        questionWithWhitespace = WHITESPACE + WHITESPACE + VALID_QUESTION + WHITESPACE + WHITESPACE;
+        assertEquals(expectedQuestion, ParserUtil.parseQuestion(questionWithWhitespace));
+        questionWithWhitespace = WHITESPACE + VALID_QUESTION;
+        assertEquals(expectedQuestion, ParserUtil.parseQuestion(questionWithWhitespace));
+        questionWithWhitespace = VALID_QUESTION + WHITESPACE;
+        assertEquals(expectedQuestion, ParserUtil.parseQuestion(questionWithWhitespace));
     }
 
     @Test
@@ -95,6 +104,12 @@ public class ParserUtilTest {
     public void parseAnswer_validValueWithWhitespace_returnsTrimmedAnswer() throws Exception {
         String answerWithWhitespace = WHITESPACE + VALID_ANSWER + WHITESPACE;
         Answer expectedAnswer = new Answer(VALID_ANSWER);
+        assertEquals(expectedAnswer, ParserUtil.parseAnswer(answerWithWhitespace));
+        answerWithWhitespace = WHITESPACE + WHITESPACE + VALID_ANSWER + WHITESPACE + WHITESPACE;
+        assertEquals(expectedAnswer, ParserUtil.parseAnswer(answerWithWhitespace));
+        answerWithWhitespace = WHITESPACE + VALID_ANSWER;
+        assertEquals(expectedAnswer, ParserUtil.parseAnswer(answerWithWhitespace));
+        answerWithWhitespace = VALID_ANSWER + WHITESPACE;
         assertEquals(expectedAnswer, ParserUtil.parseAnswer(answerWithWhitespace));
     }
 
@@ -119,6 +134,12 @@ public class ParserUtilTest {
         String ratingWithWhitespace = WHITESPACE + VALID_RATING + WHITESPACE;
         Rating expectedRating = new Rating(VALID_RATING);
         assertEquals(expectedRating, ParserUtil.parseRating(ratingWithWhitespace));
+        ratingWithWhitespace = WHITESPACE + WHITESPACE + VALID_RATING + WHITESPACE + WHITESPACE;
+        assertEquals(expectedRating, ParserUtil.parseRating(ratingWithWhitespace));
+        ratingWithWhitespace = WHITESPACE + VALID_RATING;
+        assertEquals(expectedRating, ParserUtil.parseRating(ratingWithWhitespace));
+        ratingWithWhitespace = VALID_RATING + WHITESPACE;
+        assertEquals(expectedRating, ParserUtil.parseRating(ratingWithWhitespace));
     }
 
     @Test
@@ -141,6 +162,12 @@ public class ParserUtilTest {
     public void parseCategory_validValueWithWhitespace_returnsTrimmedCategory() throws Exception {
         String categoryWithWhitespace = WHITESPACE + VALID_CATEGORY_1 + WHITESPACE;
         Category expectedCategory = new Category(VALID_CATEGORY_1);
+        assertEquals(expectedCategory, ParserUtil.parseCategory(categoryWithWhitespace));
+        categoryWithWhitespace = WHITESPACE + WHITESPACE + VALID_CATEGORY_1 + WHITESPACE + WHITESPACE;
+        assertEquals(expectedCategory, ParserUtil.parseCategory(categoryWithWhitespace));
+        categoryWithWhitespace = WHITESPACE + VALID_CATEGORY_1;
+        assertEquals(expectedCategory, ParserUtil.parseCategory(categoryWithWhitespace));
+        categoryWithWhitespace = VALID_CATEGORY_1 + WHITESPACE;
         assertEquals(expectedCategory, ParserUtil.parseCategory(categoryWithWhitespace));
     }
 
