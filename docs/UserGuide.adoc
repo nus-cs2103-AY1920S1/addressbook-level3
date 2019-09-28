@@ -28,8 +28,8 @@ THRIFT is for money-conscious NUS students who wish to track their spending, in 
 4. Double-click the file to start the app, the GUI should appear in a few seconds.
 5. Type the command in the command box and press `Enter` to execute it. e.g. typing `help` and pressing `Enter` will open the help window.
 6. Some example commands you can try:
-*   `add expense n/Apple Airpods c/200`: adds an expense called `Apple Airpods` which cost $`200`.
-*   `add income n/Bursary Award c/350`: adds an income called `Bursary Award` which incremented your budget by $`350`.
+*   `add_expense n/Apple Airpods c/200`: adds an expense called `Apple Airpods` which cost $`200`.
+*   `add_income n/Bursary Award c/350`: adds an income called `Bursary Award` which incremented your budget by $`350`.
 *   `delete i/1`: deletes the 1st transaction in the current list shown in the UI.
 
 
@@ -44,16 +44,16 @@ Command format:
 *   Parameters can be in any order e.g. if the command specifies `n/EXPENSE_NAME c/COST`, `c/COST n/EXPENSE_NAME` will achieve the same outcome.
 
 [[ExpenseTag]]
-=== Adding an expense: `add expense`
+=== Adding an expense: `add_expense`
 
-Format: `add expense n/EXPENSE_NAME c/COST [t/TAG]...`
+Format: `add_expense n/EXPENSE_NAME c/COST [t/TAG]...`
 
 TIP: The default currency is in Singapore Dollars (SGD). You are recommended to `convert` foreign currencies to SGD before adding the value as the COST.
 
 Examples:
 
-*   `add expense n/Laksa c/10.50 t/Lunch t/Food`
-*   `add expense n/Travel c/53 t/Travel`
+*   `add_expense n/Laksa c/10.50 t/Lunch t/Food`
+*   `add_expense n/Travel c/53 t/Travel`
 
 Expected output:
 
@@ -62,13 +62,13 @@ Expected output:
 
 
 [[IncomeTag]]
-=== Adding an income: `add income`
+=== Adding an income: `add_income`
 
-Format: `add income n/INCOME_NAME c/COST [t/TAG]...`
+Format: `add_income n/INCOME_NAME c/COST [t/TAG]...`
 
 Examples:
 
-*   `add income n/Allowance c/1000 t/Monthly`
+*   `add_income n/Allowance c/1000 t/Monthly`
 
 Expected output:
 
@@ -183,9 +183,9 @@ Format: `convert to/TARGET_CURRENCY (c/COST|i/INDEX)`
 
 Examples:
 
-*   `convert c/USD v/1000`
+*   `convert to/USD v/1000`
 
-*   `convert c/JPY i/8`
+*   `convert to/JPY i/8`
 
 Expected output:
 
@@ -222,8 +222,8 @@ Format: `undo`
 NOTE: Undoable commands are commands that modify the data of THRIFT application.
 
 .List of undoable commands[[Undoable]]:
-* <<Adding an expense: `add expense`, add expense>>
-* <<Adding an income: `add income`, add income>>
+* <<Adding an expense: `add_expense`, add_expense>>
+* <<Adding an income: `add_income`, add_income>>
 * <<Deleting a Transaction: `delete`, delete>>
 * update
 * clone
@@ -231,10 +231,10 @@ NOTE: Undoable commands are commands that modify the data of THRIFT application.
 
 Examples:
 
-* `add expense n/Laksa c/10.50 t/Lunch t/Food` +
+* `add_expense n/Laksa c/10.50 t/Lunch t/Food` +
   `undo`
 
-* `add income n/Allowance c/1000 t/Monthly` +
+* `add_income n/Allowance c/1000 t/Monthly` +
   `list` +
   `undo`
 
@@ -253,7 +253,7 @@ Format: `redo`
 
 Examples:
 
-* `add expense n/Laksa c/10.50 t/Lunch t/Food` +
+* `add_expense n/Laksa c/10.50 t/Lunch t/Food` +
   `undo` +
   `redo`
 
@@ -321,10 +321,10 @@ If you are especially conscious about having your data spied on, this function w
 *A*: Runs the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous THRIFT application.
 
 == Command summary
-* <<ExpenseTag, *Expense*>>:  `add expense n/EXPENSE_NAME c/COST [t/TAG]...` +
-Example: `add expense n/Laksa c/10.50 t/Lunch t/Food`
-* <<IncomeTag, *Income*>>: `add income n/INCOME_NAME c/COST [t/TAG]...` +
-Example: `add income n/Allowance c/1000 t/Monthly`
+* <<ExpenseTag, *Expense*>>:  `add_expense n/EXPENSE_NAME c/COST [t/TAG]...` +
+Example: `add_expense n/Laksa c/10.50 t/Lunch t/Food`
+* <<IncomeTag, *Income*>>: `add_income n/INCOME_NAME c/COST [t/TAG]...` +
+Example: `add_income n/Allowance c/1000 t/Monthly`
 * <<DeleteTag, *Delete*>>: `delete i/INDEX` +
 Example: `delete i/1`
 * <<UpdateTag, *Update*>>: `update i/INDEX | PREFIX_LETTER/UPDATED_DETAILS` +
