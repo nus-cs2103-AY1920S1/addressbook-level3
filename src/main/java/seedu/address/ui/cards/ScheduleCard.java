@@ -29,7 +29,7 @@ public class ScheduleCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label id;
+    private Label index;
     @FXML
     private Label customerName;
     @FXML
@@ -52,7 +52,7 @@ public class ScheduleCard extends UiPart<Region> {
     public ScheduleCard(Schedule schedule, int displayedIndex) {
         super(FXML);
         this.schedule = schedule;
-        id.setText(displayedIndex + ". ");
+        index.setText(displayedIndex + ". ");
 
         customerName.setText(schedule.getOrder().getCustomer().getName().fullName);
         customerNumber.setText(schedule.getOrder().getCustomer().getContactNumber().value);
@@ -84,7 +84,7 @@ public class ScheduleCard extends UiPart<Region> {
 
         // state check
         ScheduleCard card = (ScheduleCard) other;
-        return id.getText().equals(card.id.getText())
+        return index.getText().equals(card.index.getText())
                 && schedule.equals(card.schedule);
     }
 }

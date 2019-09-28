@@ -29,7 +29,7 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label id;
+    private Label index;
     @FXML
     private Label customerName;
     @FXML
@@ -41,23 +41,23 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label orderId;
     @FXML
-    private Label price;
+    private Label orderPrice;
     @FXML
-    private Label status;
+    private Label orderStatus;
     @FXML
     private FlowPane tags;
 
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.order = order;
-        id.setText(displayedIndex + ". ");
+        index.setText(displayedIndex + ". ");
         customerName.setText(order.getCustomer().getName().fullName);
         phoneName.setText(order.getPhone().getName().fullName);
         phoneColour.setText(order.getPhone().getColour().value);
         phoneCapacity.setText(order.getPhone().getCapacity().toString());
         orderId.setText(order.getId().toString());
-        price.setText(order.getPrice().value);
-        status.setText(order.getStatus().toString());
+        orderPrice.setText(order.getPrice().value);
+        orderStatus.setText(order.getStatus().toString());
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -77,7 +77,7 @@ public class OrderCard extends UiPart<Region> {
 
         // state check
         OrderCard card = (OrderCard) other;
-        return id.getText().equals(card.id.getText())
+        return index.getText().equals(card.index.getText())
                 && order.equals(card.order);
     }
 }
