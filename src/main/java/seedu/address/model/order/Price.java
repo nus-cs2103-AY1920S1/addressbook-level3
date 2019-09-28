@@ -1,4 +1,4 @@
-package seedu.address.model.phone;
+package seedu.address.model.order;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -8,7 +8,7 @@ import java.text.ParseException;
 
 
 /**
- * Represents a Phone's price in the SML.
+ * Represents a Phone's selling price in an Order in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
 public class Price {
