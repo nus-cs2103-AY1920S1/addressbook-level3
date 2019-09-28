@@ -1,9 +1,16 @@
 package seedu.address.logic.commands.exceptions;
 
+import seedu.address.AlfredException;
+
 /**
  * Represents an error which occurs during execution of a {@link Command}.
+ * There are 4 main scenario where CommandException is thrown:
+ * 1) Could not store data to file
+ * 2) Person index is invalid
+ * 3) Duplicate person with the same identity is added to model
+ * 4) Type of entity(mentor, participant, team) is invalid)
  */
-public class CommandException extends Exception {
+public class CommandException extends AlfredException {
     public CommandException(String message) {
         super(message);
     }
