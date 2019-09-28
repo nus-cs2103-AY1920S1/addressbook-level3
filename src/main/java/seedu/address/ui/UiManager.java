@@ -11,6 +11,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.model.person.Person;
 
 /**
  * The manager of the UI component.
@@ -46,6 +47,11 @@ public class UiManager implements Ui {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+    }
+
+    @Override
+    public void changeView(Person person) {
+        mainWindow.handleChangeOnDetailsView(new DetailsView(person).getDetailsView());
     }
 
     private Image getImage(String imagePath) {
