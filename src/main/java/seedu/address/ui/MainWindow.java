@@ -30,7 +30,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final int WIDTH_PADDING = 20;
+    public static final int WIDTH_PADDING = 20;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
+    private LogPanel logPanel;
     private HelpWindow helpWindow;
 
     @FXML
@@ -53,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane logPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -131,8 +131,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logicStub.getFilteredEventSourceList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        logPanel = new LogPanel();
+        logPanelPlaceholder.getChildren().add(logPanel.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -148,12 +148,12 @@ public class MainWindow extends UiPart<Stage> {
         double screenHeight = primaryScreenBounds.getHeight();
         double screenWidth = primaryScreenBounds.getWidth();
 
-        resultDisplayPlaceholder.setPrefHeight(screenHeight);
+        logPanelPlaceholder.setPrefHeight(screenHeight);
         personListPanelPlaceholder.setPrefHeight(screenHeight);
 
         personListPanelPlaceholder.setMinWidth(screenWidth / 2 - WIDTH_PADDING);
 
-        resultDisplayPlaceholder.setPrefWidth(screenWidth / 3);
+        logPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
         personListPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
 
         // Set the stage width and height
@@ -218,7 +218,9 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            System.out.println("yet");
+            logPanel.createLogBox(commandResult.getFeedbackToUser());
+            System.out.println("yeet");
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -231,7 +233,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            logPanel.createLogBox(e.getMessage());
             throw e;
         }
     }
