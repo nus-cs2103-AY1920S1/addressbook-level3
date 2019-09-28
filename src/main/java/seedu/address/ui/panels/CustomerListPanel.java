@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.panels;
 
 import java.util.logging.Logger;
 
@@ -9,9 +9,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.customer.Customer;
+import seedu.address.ui.UiPart;
+import seedu.address.ui.cards.CustomerCard;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of customers.
  */
 public class CustomerListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
@@ -27,7 +29,7 @@ public class CustomerListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Customer} using a {@code CustomerCard}.
      */
     class CustomerListViewCell extends ListCell<Customer> {
         @Override
