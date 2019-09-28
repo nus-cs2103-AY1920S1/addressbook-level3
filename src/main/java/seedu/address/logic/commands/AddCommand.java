@@ -8,9 +8,9 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.commands.Command;
 
 /**
  * Adds a person to the address book.

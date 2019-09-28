@@ -65,7 +65,7 @@ public class ClearCommand extends Command {
         public boolean equals(Object other) {
             return other == this // short circuit if same object
                     || (other instanceof SwitchCommand // instanceof handles nulls
-            );
+                );
         }
     }
 }
