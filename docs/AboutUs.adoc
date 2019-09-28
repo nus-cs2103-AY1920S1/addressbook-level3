@@ -4,8 +4,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
+Module Appeal Management System (MAMS) was developed by team AY19/20S1-CS2103-T11-2 based on AddressBook - Level 3 +
 AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -13,15 +13,15 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Chen Su
 image::chensu2436.png[width="150", align="central"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/chensu2436[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Documentation
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
+=== Cheong Li Yuan
+image::cheongliyuan.png[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -29,16 +29,18 @@ Responsibilities: UI
 
 '''
 
-=== Chen Su
-image::chensu2436.png[width="150", align="central"]
-{empty}[http://github.com/chensu2436[github]] [<<johndoe#, portfolio>>]
+
+=== Luk Chi Heng
+image::AaronLuk.png[width="150", align="left"]
+{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+
 
 Role: Developer +
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
+=== Ng Yong Kuan
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
@@ -47,9 +49,9 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tan Wei Adam
+image::MistyRainforest.png[width="150", align="left"]
+{empty}[http://github.com/MistyRainforest[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
