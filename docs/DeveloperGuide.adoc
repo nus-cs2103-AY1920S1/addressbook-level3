@@ -367,33 +367,140 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Ezwatchlist` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Movie
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User navigates to the main page
+2.  User enters 'Add' command
+3.  User enters the movie name
+4.  Ezwatchlist will display a list of movies found
+5.  User enters the index given by the list
+6.  Ezwatchlist will add the movie to their watchlist
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 3a. No movie is found
+[none]
+** 3a1. User enter movie information himself.
+** 3a2. User saves the movie
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
 [none]
-** 3a1. AddressBook shows an error message.
+* 5a. The given index is invalid.
+[none]
+** 5a1. System shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Mark as watched
+*MSS*
+
+1.  User navigates to the main page
+2.  User enters 'Watched' command giving the index of the item
+3.  Ezwatchlist will mark that item as watched
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The given index is invalid.
+[none]
+** 2a1. System shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Search locally
+*MSS*
+
+1.  User navigates to the main page
+2.  User enters 'search' command giving the name of the item
+3.  Ezwatchlist will bring the user to a search page with items found in a list
+4.  User enters View command of the index of the item.
+5.  Ezwatchlist will bring that item into details page
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The given name is not found.
+[none]
+** 2a1. System shows an error message.
++
+Use case ends.
+
+[none]
+* 4a. The given index is not valid.
+[none]
+** 4a1. System shows an error message.
++
+Use case resumes at step 3.
+
+
+[discrete]
+=== Use case: Edit item
+*MSS*
+
+1.  User navigates to the main page.
+2.  User enters 'edit' command giving the name of the item.
+3.  Ezwatchlist will bring the user to a details page of the item entered.
+4.  User edits the details of the item.
+5.  User saves the edits.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The given name is not found.
+[none]
+** 2a1. System shows an error message.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Delete item
+*MSS*
+
+1.  User navigates to the page containing the item to be deleted.
+2.  User enters 'delete' command giving the name of the item.
+3.  Ezwatchlist asks for confirmation from the user.
+4.  User confirms.
+5.  Ezwatchlist deletes the item.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The given name is not found.
+[none]
+** 2a1. System shows an error message.
++
+Use case ends.
+
+[none]
+* 3a. User cancels the deletion.
+[none]
+** Use case ends.
+
+
+[discrete]
+=== Use case: Statistics
+*MSS*
+
+1.  User navigates to the statistics page
+2.  Ezwatchlist displays the information.
++
+Use case ends.
 
 _{More to be added}_
 
