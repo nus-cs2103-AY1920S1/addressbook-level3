@@ -40,10 +40,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find b/BOOK_TITLE`, `BOOK_TITLE` is a parameter which can be used as `find b/Harry Potter`.
-* Items in square brackets are optional e.g `b/BOOK_TITLE [g/GENRE]` can be used as `b/Harry Potter g/fiction` or as `b/Harry Potter`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find t/TITLE`, `BOOK_TITLE` is a parameter which can be used as `find t/Harry Potter`.
+* Items in square brackets are optional e.g `t/TITLE [g/GENRE]` can be used as `t/Harry Potter g/fiction` or as `t/Harry Potter`.
 * Items with `...`​ after them can be used multiple times including zero times e.g. `[g/GENRE]...` can be used as `{nbsp}` (i.e. 0 times), `g/fiction`, `g/fiction g/adventure` etc.
-* Parameters can be in any order e.g. if the command specifies `b/BOOK_TITLE a/AUTHOR`, `a/AUTHOR b/BOOK_TITLE` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `t/TITLE a/AUTHOR`, `a/AUTHOR t/TITLE` is also acceptable.
 ====
 
 === Using Normal Mode
@@ -58,13 +58,13 @@ Format: `help`
 ==== Locating books by title: `find`
 
 Shows all relevant books found. +
-Format: `find [b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available]`
+Format: `find [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available]`
 
 ****
 * The search is case insensitive. e.g `harry` will match `Harry`
 * Only full words will be matched e.g. `Har` will not match `Harry`
 * Books matching at least one keyword will be returned (i.e. `OR` search). e.g. `harry` will return both `Harry Potter` and `Harry Botter`
-* `[b/BOOK_TITLE]` will be used to search through book titles
+* `[t/TITLE]` will be used to search through book titles
 * `[a/AUTHOR]` will be used to search through or filter by authors
 * `[g/GENRE]` will be used to search through or filter by genre
 * `[sn/BOOK_SN]` will be used to search through book serial numbers
@@ -81,7 +81,7 @@ Format: `find [b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-l
 
 Examples:
 
-* `find b/Animal Farm a/George Orwell` +
+* `find t/Animal Farm a/George Orwell` +
 Search for the book titled “Animal Farm” by the author “George Orwell”
 
 * `find g/mystery g/children -available` +
@@ -100,15 +100,15 @@ Format: `clear`
 ==== Adding a book: `add`
 
 Adds a new book to library records. +
-Format: `add b/BOOK_TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]`
+Format: `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]`
 
 [TIP]
 A book can have any number of genres (including 0)
 
 Examples:
 
-* `add b/Harry Botter and the Baby's Potty a/Raylei Jolking sn/02010 g/children`
-* `add b/Inferno a/Tande sn/24493 g/classic g/epic`
+* `add t/Harry Botter and the Baby's Potty a/Raylei Jolking sn/02010 g/children`
+* `add t/Inferno a/Tande sn/24493 g/classic g/epic`
 
 ==== Deleting a book : `delete`
 
@@ -128,7 +128,7 @@ Format: `delete [INDEX]` or `delete [sn/BOOK_SN]`
 
 Examples:
 
-* `find b/harry` +
+* `find t/harry` +
 `delete 1` +
 Deletes the 1st book in the results of the `find` command.
 * `delete sn/20422` +
@@ -247,12 +247,12 @@ Liberry data are saved in the hard disk automatically after any command that cha
 == Command Summary
 
 * *Help* : `help`
-* *Find a book* : `find [[b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available]` +
-e.g. `find b/Animal Farm a/George Orwell`, `find g/mystery g/children -available`
+* *Find a book* : `find [[t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available]` +
+e.g. `find t/Animal Farm a/George Orwell`, `find g/mystery g/children -available`
 * *View book info* : `info INDEX`
 * *Clear results* : `clear`
-* *Add a book* : `add b/BOOK_TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]` +
-e.g. `add b/Harry Botter and the Baby's Potty a/Reali Jolking sn/02010 g/children`
+* *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]` +
+e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/02010 g/children`
 * *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
 * *Register a borrower* : `register u/NAME p/PHONE_NUMBER a/ADDRESS` +
 e.g. `register u/matt p/83938249 a/8th Ave The Martian #02-21`
