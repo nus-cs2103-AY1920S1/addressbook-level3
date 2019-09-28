@@ -67,7 +67,7 @@ public class Schedule {
         }
 
         return otherSchedule != null
-                && otherSchedule.getOrder().equals(getOrder());
+                && otherSchedule.getOrder().isSameOrder(getOrder());
     }
 
     /**
@@ -103,7 +103,7 @@ public class Schedule {
         builder.append("Order: ")
                 .append(getOrder())
                 .append(" Date and Time: ")
-                .append(getCalendar())
+                .append(getCalendar().getTime().toString())
                 .append(" Venue: ")
                 .append(getVenue())
                 .append(" Tags: ");
