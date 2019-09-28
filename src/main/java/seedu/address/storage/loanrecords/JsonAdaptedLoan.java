@@ -17,7 +17,7 @@ import seedu.address.model.loan.Loan;
 class JsonAdaptedLoan {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
-    public static final String DATE_MESSAGE_CONSTRAINTS = "Date should be in the ISO-8601 format uuuu-MM-dd";
+    public static final String DATE_MESSAGE_CONSTRAINTS = "Date should be in the ISO-8601 format YYYY-MM-DD";
     public static final String START_DATE = "Start Date";
     public static final String DUE_DATE = "Due Date";
 
