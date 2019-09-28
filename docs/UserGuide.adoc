@@ -94,59 +94,8 @@ Format: ` register -name|-n <PATIENT_NAME> -ic|-i <PATIENT_IC> -hp <PHONE_NUM> -
 If user is in the patients listing screen, updates any change for patients’ profiles +
 Format: `update <ENTRY_ID> [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]
 `
-=== Appointment Management
-
-==== Displays all appointments: `appointments` ====
-Displays a sorted list of upcoming appointments +
-Format: `appointments [-date|-d <DATE>] [-patient|-p <PATIENT_NAME | PATIENT_IC>]`
-
-==== Cancels an appointment: `cancel` ====
-Deletes the specified person from the date, use system time (TODAY) if not specified +
-Format: ` cancel <PATIENT_NAME | PATIENT_IC> -date|-d <DATETIME>
-`
-
-==== Changes the appointment date: ` change ` ====
-Changes and updates to a new appointment date for a patients, use system date (TODAY) if not  +
-Format: `change [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-date|-d <DATETIME>]`
-
-==== Shows the empty slots: ` slot ` ====
-List all the available empty slots (with the specific doctor) for patients to choose for appointment +
-Format: `slot [-date <DATETIME>] [-doctor <DOCTOR_NAME>]`
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
 === On-Duty Doctors Management ===
 
 ==== Views doctors on shift: `doctors` ====
@@ -174,6 +123,35 @@ Format: `onduty <ROOM_NUMBER> <DOCTOR_NAME>`
 ==== Updates patients’ profiles: `offduty` ====
 Marks the doctor as off-duty. Patients can not be directed to the specified doctor.
 Format: `offduty <DOCTOR_NAME>`
+
+
+=== Appointment Management
+
+==== Displays all appointments: `appointments` ====
+Displays a sorted list of upcoming appointments +
+Format: `appointments [-date|-d <DATE>] [-patient|-p <PATIENT_NAME | PATIENT_IC>]`
+
+==== Cancels an appointment: `cancel` ====
+Deletes the specified person from the date, use system time (TODAY) if not specified +
+Format: ` cancel <PATIENT_NAME | PATIENT_IC> -date|-d <DATETIME>
+`
+
+==== Changes the appointment date: ` change ` ====
+Changes and updates to a new appointment date for a patients, use system date (TODAY) if not  +
+Format: `change [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-date|-d <DATETIME>]`
+
+==== Shows the empty slots: ` slot ` ====
+List all the available empty slots (with the specific doctor) for patients to choose for appointment +
+Format: `slot [-date <DATETIME>] [-doctor <DOCTOR_NAME>]`
+
+
+==== Display patients who have missed their appointment and have yet to be notified: `missed` ====
+Display all patients who have missed their appointments that are not yet settled. If date is given, display all patients who have missed their appointments on that specified date regardless if they have been contacted. Acts as a todo list when date is not given.
+Format: `missed [-date <DATETIME>]`
+
+==== Sets missed appointments as settled/notified: `settle` ====
+Settles the missed appointments for respective patients.
+Format: `settle <PATIENT_NAME|PATIENT_IC>`
 
 === Inventory commands (v2.0) ===
 
