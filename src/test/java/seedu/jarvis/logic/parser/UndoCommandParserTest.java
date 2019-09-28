@@ -53,20 +53,28 @@ public class UndoCommandParserTest {
      */
     @Test
     public void test_parse_all() {
-        String arguments = " " + PREFIX_UNDO + "all";
+        String arguments1 = " " + PREFIX_UNDO + "all";
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
-        assertParseSuccess(parser, arguments, new UndoCommand(
+        assertParseSuccess(parser, arguments1, new UndoCommand(
                 VersionControl.INSTANCE.getTotalNumberOfUndoableCommands()));
 
+        String arguments2 = " " + PREFIX_UNDO + "ALL";
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
-        assertParseSuccess(parser, arguments, new UndoCommand(
+        assertParseSuccess(parser, arguments2, new UndoCommand(
                 VersionControl.INSTANCE.getTotalNumberOfUndoableCommands()));
+
+        String arguments3 = " " + PREFIX_UNDO + "aLl";
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
+        assertParseSuccess(parser, arguments3, new UndoCommand(
+                VersionControl.INSTANCE.getTotalNumberOfUndoableCommands()));
+
     }
 
     /**
@@ -103,7 +111,7 @@ public class UndoCommandParserTest {
      */
     @Test
     public void test_parse_invalid() {
-        Stream.of("INVALID", "?", "Html Is A Programming Language")
+        Stream.of("1.1", " ", "INVALID", "?", "Html Is A Programming Language")
                 .map(invalidArgument -> " " + PREFIX_UNDO + invalidArgument)
                 .forEach(argument -> assertParseFailure(parser, argument,
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE)));
