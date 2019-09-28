@@ -101,8 +101,8 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + NAME_DESC_APPLE + EXPIRY_DATE_DESC_APPLE + TAG_DESC_FRUIT;
 
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_APPLE)
-                                                                         .withExpiryDate(VALID_EXPIRY_DATE_APPLE)
-                                                                         .withTags(VALID_TAG_FRUIT).build();
+                .withExpiryDate(VALID_EXPIRY_DATE_APPLE)
+                .withTags(VALID_TAG_FRUIT).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -149,8 +149,8 @@ public class EditCommandParserTest {
                 + EXPIRY_DATE_DESC_KIWI + TAG_DESC_FRUIT + EXPIRY_DATE_DESC_KIWI + TAG_DESC_FRUIT;
 
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withExpiryDate(VALID_EXPIRY_DATE_KIWI)
-                                                                       .withTags(VALID_TAG_FRUIT)
-                                                                       .build();
+                .withTags(VALID_TAG_FRUIT)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

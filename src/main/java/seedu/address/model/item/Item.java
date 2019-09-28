@@ -33,6 +33,17 @@ public class Item {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Every field must be present and not null.
+     * Tags are optional.
+     */
+    public Item(Name name, ExpiryDate expiryDate) {
+        requireAllNonNull(name, expiryDate);
+        this.name = name;
+        this.expiryDate = expiryDate;
+    }
+
+
     public Name getName() {
         return name;
     }
