@@ -334,6 +334,27 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
+// [discrete]
+=== Use Case: Add meal entry
+
+*MSS*
+
+1.	User enters meal information.
+2.	System adds entry into database.
+3.	System shows updated calorie budget for the day.
+Use case ends.
+
+*Extensions*
+
+* 1a.	The given meal entry has insufficient information (calories, meal name, etc.)
++
+[none]
+** 1a1.	CaloFit shows an error message.
++
+Use case restarts at step 1.
+
+_{More to be added}_
+
 [appendix]
 == Non-functional Requirements
 .	Should work on any mainstream OS as long as it has Java 11 or above installed.
@@ -343,7 +364,7 @@ _{More to be added}_
 [appendix]
 == Glossary
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, macOS
+Windows, Linux, macOS
 
 [[meal-entry]] Meal entry::
 An entry representing a eaten meal.
