@@ -15,8 +15,8 @@ public enum Capacity {
 
     public final String value;
 
-    private Capacity(String label) {
-        this.value = label;
+    private Capacity(String value) {
+        this.value = value;
     }
 
     @Override
