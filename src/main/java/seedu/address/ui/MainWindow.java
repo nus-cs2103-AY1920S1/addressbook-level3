@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private MemeListPanel memeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane memeListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -107,8 +107,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredMemeList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        memeListPanel = new MemeListPanel(logic.getFilteredMemeList());
+        memeListPanelPlaceholder.getChildren().add(memeListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,8 +160,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public MemeListPanel getMemeListPanel() {
+        return memeListPanel;
     }
 
     /**

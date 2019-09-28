@@ -12,9 +12,9 @@ import seedu.address.model.meme.Meme;
 /**
  * An UI component that displays information of a {@code Meme}.
  */
-public class PersonCard extends UiPart<Region> {
+public class MemeCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "MemeListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -41,7 +41,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Meme meme, int displayedIndex) {
+    public MemeCard(Meme meme, int displayedIndex) {
         super(FXML);
         this.meme = meme;
         id.setText(displayedIndex + ". ");
@@ -62,12 +62,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof MemeCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        MemeCard card = (MemeCard) other;
         return id.getText().equals(card.id.getText())
                 && meme.equals(card.meme);
     }
