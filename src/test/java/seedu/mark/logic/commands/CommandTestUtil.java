@@ -14,7 +14,7 @@ import java.util.List;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.model.BookmarkManager;
+import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
@@ -93,21 +93,21 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the bookmark manager, filtered bookmark list and selected bookmark in {@code actualModel} remain unchanged
+     * - the mark model, filtered bookmark list and selected bookmark in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        BookmarkManager expectedBookmarkManager = new BookmarkManager(actualModel.getBookmarkManager());
+        Mark expectedMark = new Mark(actualModel.getMark());
         List<Bookmark> expectedFilteredList = new ArrayList<>(actualModel.getFilteredBookmarkList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedBookmarkManager, actualModel.getBookmarkManager());
+        assertEquals(expectedMark, actualModel.getMark());
         assertEquals(expectedFilteredList, actualModel.getFilteredBookmarkList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the bookmark at the given {@code targetIndex} in the
-     * {@code model}'s bookmark manager.
+     * {@code model}'s mark.
      */
     public static void showBookmarkAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredBookmarkList().size());

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.model.BookmarkManager;
+import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
-import seedu.mark.model.ReadOnlyBookmarkManager;
+import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.testutil.BookmarkBuilder;
@@ -99,12 +99,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getBookmarkManagerFilePath() {
+        public Path getMarkFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setBookmarkManagerFilePath(Path bookmarkManagerFilePath) {
+        public void setMarkFilePath(Path markFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setBookmarkManager(ReadOnlyBookmarkManager newData) {
+        public void setMark(ReadOnlyMark newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyBookmarkManager getBookmarkManager() {
+        public ReadOnlyMark getMark() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,8 +186,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyBookmarkManager getBookmarkManager() {
-            return new BookmarkManager();
+        public ReadOnlyMark getMark() {
+            return new Mark();
         }
     }
 

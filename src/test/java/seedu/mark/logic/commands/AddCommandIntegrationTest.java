@@ -2,7 +2,7 @@ package seedu.mark.logic.commands;
 
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +22,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalBookmarkManager(), new UserPrefs());
+        model = new ModelManager(getTypicalMark(), new UserPrefs());
     }
 
     @Test
     public void execute_newBookmark_success() {
         Bookmark validBookmark = new BookmarkBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getBookmarkManager(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         expectedModel.addBookmark(validBookmark);
 
         assertCommandSuccess(new AddCommand(validBookmark), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateBookmark_throwsCommandException() {
-        Bookmark bookmarkInList = model.getBookmarkManager().getBookmarkList().get(0);
+        Bookmark bookmarkInList = model.getMark().getBookmarkList().get(0);
         assertCommandFailure(new AddCommand(bookmarkInList), model, AddCommand.MESSAGE_DUPLICATE_BOOKMARK);
     }
 

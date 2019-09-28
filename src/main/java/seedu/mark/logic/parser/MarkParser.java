@@ -20,7 +20,7 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class BookmarkManagerParser {
+public class MarkParser {
 
     /**
      * Used for initial separation of command word and args.

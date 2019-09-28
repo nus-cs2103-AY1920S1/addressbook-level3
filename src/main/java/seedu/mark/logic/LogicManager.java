@@ -10,10 +10,10 @@ import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.logic.parser.BookmarkManagerParser;
+import seedu.mark.logic.parser.MarkParser;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Model;
-import seedu.mark.model.ReadOnlyBookmarkManager;
+import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.storage.Storage;
 
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final BookmarkManagerParser bookmarkManagerParser;
+    private final MarkParser markParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        bookmarkManagerParser = new BookmarkManagerParser();
+        markParser = new MarkParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = bookmarkManagerParser.parseCommand(commandText);
+        Command command = markParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveBookmarkManager(model.getBookmarkManager());
+            storage.saveMark(model.getMark());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyBookmarkManager getBookmarkManager() {
-        return model.getBookmarkManager();
+    public ReadOnlyMark getMark() {
+        return model.getMark();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getBookmarkManagerFilePath() {
-        return model.getBookmarkManagerFilePath();
+    public Path getMarkFilePath() {
+        return model.getMarkFilePath();
     }
 
     @Override

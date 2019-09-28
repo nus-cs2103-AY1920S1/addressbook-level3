@@ -15,15 +15,15 @@ import seedu.mark.commons.util.ConfigUtil;
 import seedu.mark.commons.util.StringUtil;
 import seedu.mark.logic.Logic;
 import seedu.mark.logic.LogicManager;
-import seedu.mark.model.BookmarkManager;
+import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
-import seedu.mark.model.ReadOnlyBookmarkManager;
+import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.util.SampleDataUtil;
-import seedu.mark.storage.BookmarkManagerStorage;
-import seedu.mark.storage.JsonBookmarkManagerStorage;
+import seedu.mark.storage.MarkStorage;
+import seedu.mark.storage.JsonMarkStorage;
 import seedu.mark.storage.JsonUserPrefsStorage;
 import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageManager;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing BookmarkManager ]===========================");
+        logger.info("=============================[ Initializing Mark ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        BookmarkManagerStorage bookmarkManagerStorage = new JsonBookmarkManagerStorage(userPrefs.getBookmarkManagerFilePath());
-        storage = new StorageManager(bookmarkManagerStorage, userPrefsStorage);
+        MarkStorage markStorage = new JsonMarkStorage(userPrefs.getMarkFilePath());
+        storage = new StorageManager(markStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -74,20 +74,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyBookmarkManager> addressBookOptional;
-        ReadOnlyBookmarkManager initialData;
+        Optional<ReadOnlyMark> addressBookOptional;
+        ReadOnlyMark initialData;
         try {
-            addressBookOptional = storage.readBookmarkManager();
+            addressBookOptional = storage.readMark();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample BookmarkManager");
+                logger.info("Data file not found. Will be starting with a sample Mark");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleBookmarkManager);
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleMark);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty BookmarkManager");
-            initialData = new BookmarkManager();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Mark");
+            initialData = new Mark();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty BookmarkManager");
-            initialData = new BookmarkManager();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Mark");
+            initialData = new Mark();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty BookmarkManager");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Mark");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,7 +167,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting BookmarkManager " + MainApp.VERSION);
+        logger.info("Starting Mark " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

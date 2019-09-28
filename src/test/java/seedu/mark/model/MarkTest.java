@@ -7,7 +7,7 @@ import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalBookmarks.ALICE;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,25 +22,25 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
 import seedu.mark.testutil.BookmarkBuilder;
 
-public class BookmarkManagerTest {
+public class MarkTest {
 
-    private final BookmarkManager bookmarkManager = new BookmarkManager();
+    private final Mark mark = new Mark();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), bookmarkManager.getBookmarkList());
+        assertEquals(Collections.emptyList(), mark.getBookmarkList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> bookmarkManager.resetData(null));
+        assertThrows(NullPointerException.class, () -> mark.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyBookmarkManager_replacesData() {
-        BookmarkManager newData = getTypicalBookmarkManager();
-        bookmarkManager.resetData(newData);
-        assertEquals(newData, bookmarkManager);
+    public void resetData_withValidReadOnlyMark_replacesData() {
+        Mark newData = getTypicalMark();
+        mark.resetData(newData);
+        assertEquals(newData, mark);
     }
 
     @Test
@@ -49,47 +49,47 @@ public class BookmarkManagerTest {
         Bookmark editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Bookmark> newBookmarks = Arrays.asList(ALICE, editedAlice);
-        BookmarkManagerStub newData = new BookmarkManagerStub(newBookmarks);
+        MarkStub newData = new MarkStub(newBookmarks);
 
-        assertThrows(DuplicateBookmarkException.class, () -> bookmarkManager.resetData(newData));
+        assertThrows(DuplicateBookmarkException.class, () -> mark.resetData(newData));
     }
 
     @Test
     public void hasBookmark_nullBookmark_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> bookmarkManager.hasBookmark(null));
+        assertThrows(NullPointerException.class, () -> mark.hasBookmark(null));
     }
 
     @Test
-    public void hasBookmark_bookmarkNotInBookmarkManager_returnsFalse() {
-        assertFalse(bookmarkManager.hasBookmark(ALICE));
+    public void hasBookmark_bookmarkNotInMark_returnsFalse() {
+        assertFalse(mark.hasBookmark(ALICE));
     }
 
     @Test
-    public void hasBookmark_bookmarkInBookmarkManager_returnsTrue() {
-        bookmarkManager.addBookmark(ALICE);
-        assertTrue(bookmarkManager.hasBookmark(ALICE));
+    public void hasBookmark_bookmarkInMark_returnsTrue() {
+        mark.addBookmark(ALICE);
+        assertTrue(mark.hasBookmark(ALICE));
     }
 
     @Test
-    public void hasBookmark_bookmarkWithSameIdentityFieldsInBookmarkManager_returnsTrue() {
-        bookmarkManager.addBookmark(ALICE);
+    public void hasBookmark_bookmarkWithSameIdentityFieldsInMark_returnsTrue() {
+        mark.addBookmark(ALICE);
         Bookmark editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(bookmarkManager.hasBookmark(editedAlice));
+        assertTrue(mark.hasBookmark(editedAlice));
     }
 
     @Test
     public void getBookmarkList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> bookmarkManager.getBookmarkList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> mark.getBookmarkList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyBookmarkManager whose bookmarks list can violate interface constraints.
+     * A stub ReadOnlyMark whose bookmarks list can violate interface constraints.
      */
-    private static class BookmarkManagerStub implements ReadOnlyBookmarkManager {
+    private static class MarkStub implements ReadOnlyMark {
         private final ObservableList<Bookmark> bookmarks = FXCollections.observableArrayList();
 
-        BookmarkManagerStub(Collection<Bookmark> bookmarks) {
+        MarkStub(Collection<Bookmark> bookmarks) {
             this.bookmarks.setAll(bookmarks);
         }
 

@@ -7,5 +7,5 @@
       "y" : 100
     }
   },
-  "bookmarkManagerFilePath" : "mark.json"
+  "markFilePath" : "mark.json"
 }

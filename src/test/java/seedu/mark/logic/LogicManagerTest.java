@@ -23,10 +23,10 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
-import seedu.mark.model.ReadOnlyBookmarkManager;
+import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.storage.JsonBookmarkManagerStorage;
+import seedu.mark.storage.JsonMarkStorage;
 import seedu.mark.storage.JsonUserPrefsStorage;
 import seedu.mark.storage.StorageManager;
 import seedu.mark.testutil.BookmarkBuilder;
@@ -42,10 +42,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonBookmarkManagerStorage bookmarkManagerStorage =
-                new JsonBookmarkManagerStorage(temporaryFolder.resolve("mark.json"));
+        JsonMarkStorage markStorage =
+                new JsonMarkStorage(temporaryFolder.resolve("mark.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(bookmarkManagerStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(markStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -69,13 +69,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonBookmarkManagerIoExceptionThrowingStub
-        JsonBookmarkManagerStorage bookmarkManagerStorage =
-                new JsonBookmarkManagerIoExceptionThrowingStub(
-                        temporaryFolder.resolve("ioExceptionBookmarkManager.json"));
+        // Setup LogicManager with JsonMarkIoExceptionThrowingStub
+        JsonMarkStorage markStorage =
+                new JsonMarkIoExceptionThrowingStub(
+                        temporaryFolder.resolve("ioExceptionMark.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(bookmarkManagerStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(markStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -129,7 +129,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getBookmarkManager(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -149,13 +149,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonBookmarkManagerIoExceptionThrowingStub extends JsonBookmarkManagerStorage {
-        private JsonBookmarkManagerIoExceptionThrowingStub(Path filePath) {
+    private static class JsonMarkIoExceptionThrowingStub extends JsonMarkStorage {
+        private JsonMarkIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager, Path filePath) throws IOException {
+        public void saveMark(ReadOnlyMark mark, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

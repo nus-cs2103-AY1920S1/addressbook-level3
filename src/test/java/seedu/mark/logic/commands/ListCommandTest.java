@@ -3,7 +3,7 @@ package seedu.mark.logic.commands;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.CommandTestUtil.showBookmarkAtIndex;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalBookmarkManager(), new UserPrefs());
-        expectedModel = new ModelManager(model.getBookmarkManager(), new UserPrefs());
+        model = new ModelManager(getTypicalMark(), new UserPrefs());
+        expectedModel = new ModelManager(model.getMark(), new UserPrefs());
     }
 
     @Test

@@ -28,9 +28,9 @@ import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.BookmarkUtil;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
-public class BookmarkManagerParserTest {
+public class MarkParserTest {
 
-    private final BookmarkManagerParser parser = new BookmarkManagerParser();
+    private final MarkParser parser = new MarkParser();
 
     @Test
     public void parseCommand_add() throws Exception {

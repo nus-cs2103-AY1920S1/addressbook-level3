@@ -14,31 +14,31 @@ import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * Represents the in-memory model of the bookmark manager data.
+ * Represents the in-memory model of the Mark data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final BookmarkManager bookmarkManager;
+    private final Mark mark;
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
 
     /**
-     * Initializes a ModelManager with the given bookmarkManager and userPrefs.
+     * Initializes a ModelManager with the given mark and userPrefs.
      */
-    public ModelManager(ReadOnlyBookmarkManager bookmarkManager, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMark mark, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(bookmarkManager, userPrefs);
+        requireAllNonNull(mark, userPrefs);
 
-        logger.fine("Initializing with bookmark manager: " + bookmarkManager + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Mark: " + mark + " and user prefs " + userPrefs);
 
-        this.bookmarkManager = new BookmarkManager(bookmarkManager);
+        this.mark = new Mark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredBookmarks = new FilteredList<>(this.bookmarkManager.getBookmarkList());
+        filteredBookmarks = new FilteredList<>(this.mark.getBookmarkList());
     }
 
     public ModelManager() {
-        this(new BookmarkManager(), new UserPrefs());
+        this(new Mark(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,42 +66,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getBookmarkManagerFilePath() {
-        return userPrefs.getBookmarkManagerFilePath();
+    public Path getMarkFilePath() {
+        return userPrefs.getMarkFilePath();
     }
 
     @Override
-    public void setBookmarkManagerFilePath(Path bookmarkManagerFilePath) {
-        requireNonNull(bookmarkManagerFilePath);
-        userPrefs.setBookmarkManagerFilePath(bookmarkManagerFilePath);
+    public void setMarkFilePath(Path markFilePath) {
+        requireNonNull(markFilePath);
+        userPrefs.setMarkFilePath(markFilePath);
     }
 
-    //=========== BookmarkManager ================================================================================
+    //=========== Mark ================================================================================
 
     @Override
-    public void setBookmarkManager(ReadOnlyBookmarkManager bookmarkManager) {
-        this.bookmarkManager.resetData(bookmarkManager);
+    public void setMark(ReadOnlyMark mark) {
+        this.mark.resetData(mark);
     }
 
     @Override
-    public ReadOnlyBookmarkManager getBookmarkManager() {
-        return bookmarkManager;
+    public ReadOnlyMark getMark() {
+        return mark;
     }
 
     @Override
     public boolean hasBookmark(Bookmark bookmark) {
         requireNonNull(bookmark);
-        return bookmarkManager.hasBookmark(bookmark);
+        return mark.hasBookmark(bookmark);
     }
 
     @Override
     public void deleteBookmark(Bookmark target) {
-        bookmarkManager.removeBookmark(target);
+        mark.removeBookmark(target);
     }
 
     @Override
     public void addBookmark(Bookmark bookmark) {
-        bookmarkManager.addBookmark(bookmark);
+        mark.addBookmark(bookmark);
         updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
     }
 
@@ -109,14 +109,14 @@ public class ModelManager implements Model {
     public void setBookmark(Bookmark target, Bookmark editedBookmark) {
         requireAllNonNull(target, editedBookmark);
 
-        bookmarkManager.setBookmark(target, editedBookmark);
+        mark.setBookmark(target, editedBookmark);
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Bookmark} backed by the internal list of
-     * {@code versionedBookmarkManager}
+     * {@code versionedMark}
      */
     @Override
     public ObservableList<Bookmark> getFilteredBookmarkList() {
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return bookmarkManager.equals(other.bookmarkManager)
+        return mark.equals(other.mark)
                 && userPrefs.equals(other.userPrefs)
                 && filteredBookmarks.equals(other.filteredBookmarks);
     }

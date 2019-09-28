@@ -6,7 +6,7 @@ import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 import seedu.mark.model.Model;
 
 /**
- * Lists all bookmarks in the bookmark manager to the user.
+ * Lists all bookmarks in Mark to the user.
  */
 public class ListCommand extends Command {
 

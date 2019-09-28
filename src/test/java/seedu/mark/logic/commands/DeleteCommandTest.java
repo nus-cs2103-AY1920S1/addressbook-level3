@@ -7,7 +7,7 @@ import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.CommandTestUtil.showBookmarkAtIndex;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_BOOKMARK;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import seedu.mark.model.bookmark.Bookmark;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalBookmarkManager(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getBookmarkManager(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         expectedModel.deleteBookmark(bookmarkToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete);
 
-        Model expectedModel = new ModelManager(model.getBookmarkManager(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         expectedModel.deleteBookmark(bookmarkToDelete);
         showNoBookmark(expectedModel);
 
@@ -68,8 +68,8 @@ public class DeleteCommandTest {
         showBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
 
         Index outOfBoundIndex = INDEX_SECOND_BOOKMARK;
-        // ensures that outOfBoundIndex is still in bounds of bookmark manager list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getBookmarkManager().getBookmarkList().size());
+        // ensures that outOfBoundIndex is still in bounds of bookmark list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getMark().getBookmarkList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

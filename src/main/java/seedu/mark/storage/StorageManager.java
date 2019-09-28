@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.commons.exceptions.DataConversionException;
-import seedu.mark.model.ReadOnlyBookmarkManager;
+import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.UserPrefs;
 
 /**
- * Manages storage of BookmarkManager data in local storage.
+ * Manages storage of Mark data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private BookmarkManagerStorage bookmarkManagerStorage;
+    private MarkStorage markStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(BookmarkManagerStorage bookmarkManagerStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(MarkStorage markStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.bookmarkManagerStorage = bookmarkManagerStorage;
+        this.markStorage = markStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ BookmarkManager methods ==============================
+    // ================ Mark methods ==============================
 
     @Override
-    public Path getBookmarkManagerFilePath() {
-        return bookmarkManagerStorage.getBookmarkManagerFilePath();
+    public Path getMarkFilePath() {
+        return markStorage.getMarkFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyBookmarkManager> readBookmarkManager() throws DataConversionException, IOException {
-        return readBookmarkManager(bookmarkManagerStorage.getBookmarkManagerFilePath());
+    public Optional<ReadOnlyMark> readMark() throws DataConversionException, IOException {
+        return readMark(markStorage.getMarkFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyBookmarkManager> readBookmarkManager(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyMark> readMark(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return bookmarkManagerStorage.readBookmarkManager(filePath);
+        return markStorage.readMark(filePath);
     }
 
     @Override
-    public void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager) throws IOException {
-        saveBookmarkManager(bookmarkManager, bookmarkManagerStorage.getBookmarkManagerFilePath());
+    public void saveMark(ReadOnlyMark mark) throws IOException {
+        saveMark(mark, markStorage.getMarkFilePath());
     }
 
     @Override
-    public void saveBookmarkManager(ReadOnlyBookmarkManager bookmarkManager, Path filePath) throws IOException {
+    public void saveMark(ReadOnlyMark mark, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        bookmarkManagerStorage.saveBookmarkManager(bookmarkManager, filePath);
+        markStorage.saveMark(mark, filePath);
     }
 
 }

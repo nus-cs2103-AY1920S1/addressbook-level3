@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Bookmark's remark in the bookmark manager.
+ * Represents a Bookmark's remark in Mark.
  * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
  */
 public class Remark {

@@ -8,7 +8,7 @@ import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.testutil.TypicalBookmarks.CARL;
 import static seedu.mark.testutil.TypicalBookmarks.ELLE;
 import static seedu.mark.testutil.TypicalBookmarks.FIONA;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalBookmarkManager(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalBookmarkManager(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
 
     @Test
     public void equals() {

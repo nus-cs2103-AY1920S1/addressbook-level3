@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.mark.model.BookmarkManager;
+import seedu.mark.model.Mark;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
@@ -57,14 +57,14 @@ public class TypicalBookmarks {
     private TypicalBookmarks() {} // prevents instantiation
 
     /**
-     * Returns an {@code BookmarkManager} with all the typical bookmarks.
+     * Returns a {@code Mark} instance with all the typical bookmarks.
      */
-    public static BookmarkManager getTypicalBookmarkManager() {
-        BookmarkManager ab = new BookmarkManager();
+    public static Mark getTypicalMark() {
+        Mark mark = new Mark();
         for (Bookmark bookmark : getTypicalBookmarks()) {
-            ab.addBookmark(bookmark);
+            mark.addBookmark(bookmark);
         }
-        return ab;
+        return mark;
     }
 
     public static List<Bookmark> getTypicalBookmarks() {

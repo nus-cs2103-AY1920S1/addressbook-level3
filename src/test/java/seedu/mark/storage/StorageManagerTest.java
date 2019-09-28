@@ -2,7 +2,7 @@ package seedu.mark.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.mark.commons.core.GuiSettings;
-import seedu.mark.model.BookmarkManager;
-import seedu.mark.model.ReadOnlyBookmarkManager;
+import seedu.mark.model.Mark;
+import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,7 +24,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonBookmarkManagerStorage addressBookStorage = new JsonBookmarkManagerStorage(getTempFilePath("ab"));
+        JsonMarkStorage addressBookStorage = new JsonMarkStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void bookmarkManagerReadSave() throws Exception {
+    public void markReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonBookmarkManagerStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonBookmarkManagerStorageTest} class.
+         * {@link JsonMarkStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonMarkStorageTest} class.
          */
-        BookmarkManager original = getTypicalBookmarkManager();
-        storageManager.saveBookmarkManager(original);
-        ReadOnlyBookmarkManager retrieved = storageManager.readBookmarkManager().get();
-        assertEquals(original, new BookmarkManager(retrieved));
+        Mark original = getTypicalMark();
+        storageManager.saveMark(original);
+        ReadOnlyMark retrieved = storageManager.readMark().get();
+        assertEquals(original, new Mark(retrieved));
     }
 
     @Test
-    public void getBookmarkManagerFilePath() {
-        assertNotNull(storageManager.getBookmarkManagerFilePath());
+    public void getMarkFilePath() {
+        assertNotNull(storageManager.getMarkFilePath());
     }
 
 }

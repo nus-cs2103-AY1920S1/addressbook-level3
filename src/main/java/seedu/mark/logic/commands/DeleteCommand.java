@@ -11,7 +11,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * Deletes a bookmark identified using its displayed index from the bookmark manager.
+ * Deletes a bookmark identified using its displayed index from Mark.
  */
 public class DeleteCommand extends Command {
 

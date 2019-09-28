@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * Unmodifiable view of a bookmark manager
+ * Unmodifiable view of a Mark.
  */
-public interface ReadOnlyBookmarkManager {
+public interface ReadOnlyMark {
 
     /**
      * Returns an unmodifiable view of the bookmarks list.

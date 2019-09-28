@@ -14,7 +14,7 @@ import seedu.mark.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path bookmarkManagerFilePath = Paths.get("data" , "mark.json");
+    private Path markFilePath = Paths.get("data" , "mark.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setBookmarkManagerFilePath(newUserPrefs.getBookmarkManagerFilePath());
+        setMarkFilePath(newUserPrefs.getMarkFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +47,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getBookmarkManagerFilePath() {
-        return bookmarkManagerFilePath;
+    public Path getMarkFilePath() {
+        return markFilePath;
     }
 
-    public void setBookmarkManagerFilePath(Path bookmarkManagerFilePath) {
-        requireNonNull(bookmarkManagerFilePath);
-        this.bookmarkManagerFilePath = bookmarkManagerFilePath;
+    public void setMarkFilePath(Path markFilePath) {
+        requireNonNull(markFilePath);
+        this.markFilePath = markFilePath;
     }
 
     @Override
@@ -68,19 +68,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && bookmarkManagerFilePath.equals(o.bookmarkManagerFilePath);
+                && markFilePath.equals(o.markFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, bookmarkManagerFilePath);
+        return Objects.hash(guiSettings, markFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + bookmarkManagerFilePath);
+        sb.append("\nLocal data file location : " + markFilePath);
         return sb.toString();
     }
 

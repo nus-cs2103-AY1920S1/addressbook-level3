@@ -35,44 +35,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' bookmark manager file path.
+     * Returns the user prefs' Mark file path.
      */
-    Path getBookmarkManagerFilePath();
+    Path getMarkFilePath();
 
     /**
-     * Sets the user prefs' bookmark manager file path.
+     * Sets the user prefs' Mark file path.
      */
-    void setBookmarkManagerFilePath(Path bookmarkManagerFilePath);
+    void setMarkFilePath(Path markFilePath);
 
     /**
-     * Replaces bookmark manager data with the data in {@code bookmarkManager}.
+     * Replaces Mark data with the data in {@code mark}.
      */
-    void setBookmarkManager(ReadOnlyBookmarkManager bookmarkManager);
+    void setMark(ReadOnlyMark mark);
 
-    /** Returns the BookmarkManager */
-    ReadOnlyBookmarkManager getBookmarkManager();
+    /** Returns the Mark */
+    ReadOnlyMark getMark();
 
     /**
-     * Returns true if a bookmark with the same identity as {@code bookmark} exists in the bookmark manager.
+     * Returns true if a bookmark with the same identity as {@code bookmark} exists in Mark.
      */
     boolean hasBookmark(Bookmark bookmark);
 
     /**
      * Deletes the given bookmark.
-     * The bookmark must exist in the bookmark manager.
+     * The bookmark must exist in Mark.
      */
     void deleteBookmark(Bookmark target);
 
     /**
      * Adds the given bookmark.
-     * {@code bookmark} must not already exist in the bookmark manager.
+     * {@code bookmark} must not already exist in Mark.
      */
     void addBookmark(Bookmark bookmark);
 
     /**
      * Replaces the given bookmark {@code target} with {@code editedBookmark}.
-     * {@code target} must exist in the bookmark manager.
-     * The bookmark identity of {@code editedBookmark} must not be the same as another existing bookmark in the bookmark manager.
+     * {@code target} must exist in Mark.
+     * The bookmark identity of {@code editedBookmark} must not be the same as another existing bookmark in Mark.
      */
     void setBookmark(Bookmark target, Bookmark editedBookmark);
 

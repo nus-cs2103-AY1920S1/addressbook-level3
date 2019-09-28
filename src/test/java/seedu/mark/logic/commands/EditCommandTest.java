@@ -11,13 +11,13 @@ import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.CommandTestUtil.showBookmarkAtIndex;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_BOOKMARK;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarkManager;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.model.BookmarkManager;
+import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
@@ -30,7 +30,7 @@ import seedu.mark.testutil.BookmarkBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalBookmarkManager(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -40,7 +40,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
-        Model expectedModel = new ModelManager(new BookmarkManager(model.getBookmarkManager()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
-        Model expectedModel = new ModelManager(new BookmarkManager(model.getBookmarkManager()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(lastBookmark, editedBookmark);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -74,7 +74,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
-        Model expectedModel = new ModelManager(new BookmarkManager(model.getBookmarkManager()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -90,7 +90,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
-        Model expectedModel = new ModelManager(new BookmarkManager(model.getBookmarkManager()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -109,8 +109,8 @@ public class EditCommandTest {
     public void execute_duplicateBookmarkFilteredList_failure() {
         showBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
 
-        // edit bookmark in filtered list into a duplicate in bookmark manager
-        Bookmark bookmarkInList = model.getBookmarkManager().getBookmarkList().get(INDEX_SECOND_BOOKMARK.getZeroBased());
+        // edit bookmark in filtered list into a duplicate in Mark
+        Bookmark bookmarkInList = model.getMark().getBookmarkList().get(INDEX_SECOND_BOOKMARK.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_BOOKMARK,
                 new EditBookmarkDescriptorBuilder(bookmarkInList).build());
 
@@ -128,14 +128,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of bookmark manager
+     * but smaller than size of mark's bookmark list
      */
     @Test
     public void execute_invalidBookmarkIndexFilteredList_failure() {
         showBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
         Index outOfBoundIndex = INDEX_SECOND_BOOKMARK;
-        // ensures that outOfBoundIndex is still in bounds of bookmark manager list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getBookmarkManager().getBookmarkList().size());
+        // ensures that outOfBoundIndex is still in bounds of mark's bookmark list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getMark().getBookmarkList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditBookmarkDescriptorBuilder().withName(VALID_NAME_BOB).build());

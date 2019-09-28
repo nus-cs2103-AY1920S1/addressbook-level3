@@ -7,7 +7,7 @@ import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.logic.commands.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
-import seedu.mark.model.ReadOnlyBookmarkManager;
+import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
@@ -24,19 +24,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the BookmarkManager.
+     * Returns the Mark instance.
      *
-     * @see seedu.mark.model.Model#getBookmarkManager()
+     * @see seedu.mark.model.Model#getMark()
      */
-    ReadOnlyBookmarkManager getBookmarkManager();
+    ReadOnlyMark getMark();
 
     /** Returns an unmodifiable view of the filtered list of bookmarks */
     ObservableList<Bookmark> getFilteredBookmarkList();
 
     /**
-     * Returns the user prefs' bookmark manager file path.
+     * Returns the user prefs' mark file path.
      */
-    Path getBookmarkManagerFilePath();
+    Path getMarkFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
