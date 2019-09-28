@@ -105,7 +105,7 @@ Example:
 This allows the user to view the study plan with an index of 3.
 
 ==== Setting another study plan as active: `activate`
-Replace the current study plan with the specified study plan as the active one. +
+Replaces the current study plan with the specified study plan as the active one. +
 Format: `activate PLAN_NUMBER` +
 Example:
 
@@ -113,8 +113,11 @@ Example:
 
 ==== Moving a semester to a study plan: `move`
 Moves a semester of modules to another study plan with a specified index. +
-*Note that this is the same command as 3.4 (`move MODULE SEM_SRC SEM_DEST`). The parser will handle the different
-command interpretation. +
+
+[NOTE]
+This is the same command as 3.4 (`move MODULE SEM_SRC SEM_DEST`). The parser will handle the different
+command interpretation.
+
 Format: `move SEMESTER SOURCE_PLAN DESTINATION_PLAN` +
 Examples:
 
@@ -123,8 +126,11 @@ Examples:
 
 ==== Deleting a semester from a study plan: `remove`
 Deletes a semester of modules in the current active study plan, after which the semester will contain no modules. +
-*Note that this is the same command as 3.2 (`remove SEMESTER MODULE`). The parser will handle the different command
-interpretation. +
+
+[NOTE]
+This is the same command as 3.2 (`remove SEMESTER MODULE`). The parser will handle the different command
+interpretation.
+
 Format: `remove SEMESTER` +
 Example:
 
