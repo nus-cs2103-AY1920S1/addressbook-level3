@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= DeliveryMANs - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -280,12 +280,16 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * has a need to manage a significant number of contacts
+* has to juggle among several fronts (customer side, deliverymen side and restaurant side) and act as the point of contact among them
+* prefers a centralised app that brings all 3 fronts together for better management
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+_{More to be added}_
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Our application allows better management of all fronts for delivery-service-command-centre administrators, and allows for more efficiency and control in handling of daily tasks.
+_{More to be added}_
 
 [appendix]
 == User Stories
@@ -294,18 +298,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As an ... |I want to ... |So that I can...
+|`* * *` |Administrator |check on all of/ sort the deliverymen at once |better manage the deliverymen
 
-|`* * *` |user |add a new person |
+|`* * *` |Administrator |help customers add/edit/remove orders |better manage customers' orders
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Administrator |generate statistics |see which restaurants use our app the most
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Administrator |see the expected timings of the orders |know the priority of the orders
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Administrator |add or remove menu items from restaurant menus |restaurants can adjust their menus whenever without any delay
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |Administrator |sort restaurant by popularity/ food type/ availability |recommend restaurants to customers
+
+|`* *` |Administrator |see the location of the deliverymen currently |track the progress of delivery (and update customers accordingly)
+
+|`*` |Administrator |view the schedule of deliverymen |see how many times deliverymen have delivered and reward them for their hard work
 |=======================================================================
 
 _{More to be added}_

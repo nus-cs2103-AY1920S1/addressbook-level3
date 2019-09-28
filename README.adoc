@@ -1,10 +1,7 @@
-= Address Book (Level 3)
+= DeliveryMANS
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://travis-ci.org/AY1920S1-CS2103T-T12-2/main[image:https://travis-ci.org/AY1920S1-CS2103T-T12-2/main.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,15 +11,38 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+== About
+
+*DeliveryMANS* is an acronym for Delivery MAnagement System. This system is for administrators in food delivery services to manage the restaurants, customers and deliverymen using their food delivery services.
+
+=== All-in-one UI
+
+The UI allows the administrator to have a good overview of all the information needed for tasks to be done efficiently.
+
+=== ChefHat
+
+Administrators are able to set recommendations on the restaurant's menu using the ChefHat system.
+
+=== Deliverymen tracking
+
+Administrators will be able to track the deliverymen on deliveries at a glance. This allows the administrator to manage them better and efficiently queue the orders to each deliverymen.
+
+=== Customer reward tiers
+
+Customers have reward tiers depending on how much they order from the food service. Having higher tiers allows the administrator to assign for food to be delivered to them faster than normal.
+
+=== Customer recommendations
+
+Each food item on each restaurant's menu are tagged with a category. Depending on how many times the customer ordered that item, recommendations will be able to be assigned to the customer
+
+=== CLI based input
+
+The application is a combination of GUI outputs and CLI inputs to allow the administrator to input commands efficiently just using the keyboard.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
