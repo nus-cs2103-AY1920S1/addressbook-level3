@@ -12,6 +12,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -54,9 +55,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-//    @FXML
-//    private StackPane scheduleViewPlaceholder;
 
     @FXML
     private StackPane detailsViewPlaceholder;
@@ -130,9 +128,10 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        //setting up detailsview
-        //DetailsView detailsView = new DetailsView(logic.getFilteredPersonList().get(0));
-        //detailsViewPlaceholder.getChildren().add(detailsView.getDetailsView());
+        //setting up default detailsview
+        Region defaultRegion = new Region();
+        defaultRegion.setPrefHeight(750.0);
+        detailsViewPlaceholder.getChildren().add(defaultRegion);
     }
 
     /**
