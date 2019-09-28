@@ -7,36 +7,29 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+
 /**
- * Represents a Person in the address book.
+ * Represents a module for CS undergraduate students.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Module {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final ModuleCode moduleCode;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Module(Name name, ModuleCode moduleCode, Set<Tag> tags) {
+        requireAllNonNull(name, moduleCode, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.moduleCode = moduleCode;
         this.tags.addAll(tags);
     }
 
@@ -44,16 +37,8 @@ public class Module {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public ModuleCode getModuleCode() {
+        return moduleCode;
     }
 
     /**
@@ -65,17 +50,16 @@ public class Module {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both modules have both the same name and module code.
      */
-    public boolean isSamePerson(seedu.address.model.person.Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameModule(seedu.address.model.module.Module otherModule) {
+        if (otherModule == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return otherModule != null
+                && otherModule.getName().equals(getName())
+                && (otherModule.getModuleCode().equals(getModuleCode()));
     }
 
     /**
@@ -88,37 +72,28 @@ public class Module {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.person.Person)) {
+        if (!(other instanceof seedu.address.model.module.Module)) {
             return false;
         }
 
-        seedu.address.model.person.Person otherPerson = (seedu.address.model.person.Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        seedu.address.model.module.Module otherModule = (seedu.address.model.module.Module) other;
+        return otherModule.getName().equals(getName()) && otherModule.getModuleCode().equals(getModuleCode());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, moduleCode, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Module code: ")
+                .append(getModuleCode())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
