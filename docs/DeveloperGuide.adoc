@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T09-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team ExerHealth`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,87 +279,285 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* exercises on a regular basis
+* actively monitors exercise records
+* develops exercise regimes for the future
+* prefers desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* provides an integrated platform to track and access past exercise records
+* shows more complex data analytics than the statistics a standard tracking app provides
+* allows flexible and conflict-free scheduling of planned exercises
+* provides exercise suggestions based on past activities
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="<3%,<10%,<30%,<40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |student who exercises |monitors the types and quantity of the exercises I have completed |remember and have different variations to my exercises
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |athletic student |have a way to store all my exercises and their relative intensities |make reference to past exercises while scheduling future exercises
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |frequent gym-goer |keep track of my rep counts |know how hard I have pushed and how far I am from my target reps
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student who wants to get stronger |keep track of my the muscles my gym exercise works on |plan what kind of muscle groups I should target to get stronger
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |amateur at exercising |have the app come up with exercises for me based on my user profile |better plan future regimes based on my previous attempt
+
+|`* * *` |student who just got into exercising |have some sample training plans |have a starting point for my exercise regime
+
+|`* * *` |frequent gym-goer with targets |see my progression for every exercise and the date I completed them |see how much I have improved
+
+|`* * *` |Student who loves visual data |visualise my exercise statistics |understand all my relevant data immediately
+
+|`* * *` |student who is very busy |have the app detect clashes in my exercising schedules |reschedule some of my exercises somewhere else
+
+|`* * *` |person who likes customization |add in new attributes for exercises |tailor the app for my personal use
+
+|`* * *` |careless athletic student |be able to have a way to undo my actions |easily undo my command when I accidentally delete one of my training plans
+
+|`* * *` |careless athletic student |be able to have a way to redo my actions |simply redo my undone command when I realize I undid an important exercise
+
+|`* * *` |athletic student who has a fixed training plan |have a way to store this training plan permanently |save some trouble of constantly updating the app whenever I want to begin on that training plan
+
+|`* *` |student who is impatient |have simple commands |input new entries quickly
+
+|`* *` |health-conscious student |keep track of my daily calories burnt |monitor my calorie count over a specific duration
+
+|`* *` |student who wants to get stronger |Know what kind of muscles I have been training for the past month |take note of which muscles I have been focusing for training
+
+|`* *` |student who wants to track exercises quickly and efficiently |be able to add exercises from history |add the same thing without having to type it all out
+
+|`* *` |student who wants a balanced exercise regime |have the app auto suggest some forms of exercise |easily find new exercises to do
+
+|`* *` |athletic student |be able to modify my current training schedule |easily adapt my previous training plans into better plans that can help improve my physique
+
+|`* *` |athlete who wants to improves |save notes from my previous session |reflect and modify my training regime accordingly to suit my pace
+
+|`* *` |athletic student who loves to do things my way |be able to define my own command syntax |type the commands for the various features much easily and quickly
+
+|`*` |athletic student who uses the app often |have an auto-complete or input suggestion feature |easily add in reused exercises conveniently without having to type them out fully again
+
+|`*` |student who likes to keep things neat |be able to archive my older exercises |be more focused on recent exercises
+
+|`*` |student who just got into gyming |receive some tips on good gym practices |avoid injuring myself during training
+
+|`*` |student who just got into sports |Understand the most important tips on good exercise habits |maximise the benefits of my exercises
+
+|`*` |student who wants to get stronger |be advised on how much increment I should make for each exercise |train progressively
+
+|`*` |athletic student |be able to keep track of my recovery period |avoid doing harm to my body from excessive training
+
+|`*` |forgetful student |be reminded of when i have to exercise |set aside time for exercising
+
+|`*` |frequent gym-goer |be reminded of my exercise schedules |remember to go for my sessions
+
+|`*` |athletic student |monitor the list of equipment I need for each session |remember what I need for subsequent exercise sessions of the same kind
+
+|`*` |frequent gym-goer |store my workout music playlist |access my favourite gym workout playlist conveniently when gyming
+
+|`*` |student with a busy schedule |be able to export my files |to resolve conflicts between my exercise and work schedule
+
+|`*` |student who is very lazy |be able to mass import all my exercises data from other platforms |save the trouble of inputting an entire list of existing entries one by one
+
+|`*` |student who uses mobile running apps |import data from other application |avoid the time-consuming process of adding all exercises manually
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ExerHealth` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
+
+[Discrete]
+=== UC01: Statistics (bar chart)
+
+*System:* ExerHealth
+
+*Actor:* user
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User adds multiple exercises to the ExerHealth tracker
+2. User requests to see a bar chart of the most frequently
+done exercises within a range of date
+3. ExerHealth shows user the breakdown of exercises and
+their respective frequency for the date range
 +
 Use case ends.
+
+
+[Discrete]
+=== UC02: Schedule
+
+*System:* ExerHealth
+
+*Actor:* user
+
+*MSS*
+
+1. User requests for the list of exercises.
+2. ExerHealth displays the list of exercises it is tracking.
+3. User adds 1 or more exercises to a <<regime, regime>>
+4. ExerHealth adds the regime to the user's list of regime and display successful addition
+5. User <<schedule, schedules>> a regime at a date
+6. ExerHealth schedules regime at the date and displays successful scheduling
++
+Use case ends.
+
 
 *Extensions*
-
-[none]
-* 2a. The list is empty.
+[None]
+* 5a. ExerHealth detects more than one regime at the date
+[None]
+** 5a1. ExerHealth displays resolve window to user
+** 5a2. User enters which exercises they wish to schedule at the date from the conflicting regimes
+** 5a3. ExerHealth schedules the newly made regime at the date and closes resolve window
 +
-Use case ends.
+Use case ends
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
 
-_{More to be added}_
+[Discrete]
+=== UC03: Suggest
+*System:* Exerhealth
+
+*Actor:* user
+
+*MSS*
+
+1. User asks for suggestions
+2. System searches database for previous exercises done
+3. System creates a suggestion based on search and request type
++
+Use case ends
+
+*Extension*
+[None]
+* 1a. User does not have history
+[None]
+** 1a1. System provides user with preset suggestions
++
+Use case ends
+
+[Discrete]
+=== UC04: Configure Command
+
+*System:* ExerHealth
+
+*Actor:* user
+
+*MSS*
+
+1. User requests to add in a new user-defined <<property, property>> for exercises
+2. ExerHealth adds in the user-defined property for all exercises
+3. User adds a new exercise with the newly specified prefix and argument
+for the property
++
+Use case ends
+
+*Extensions*
+[None]
+* 1a. ExerHealth detects that the user-defined property is a duplicate
+of another property for exercises
+[None]
+** 1a1. ExerHealth informs the user that his/her new property is a
+duplicate of a current property.
++
+Use case ends
+
+[Discrete]
+=== UC05: Undo
+*System:* ExerHealth
+
+*Actor:* user
+
+*MSS*
+
+1. User executes an undoable command
+2. ExerHealth performs the change
+3. User undoes the latest command
+4. ExerHealth undoes the latest change
++
+Steps 3-4 can be repeated for as many times as required until there is
+no undoable command left to undo
++
+Use case ends
+
+*Extensions*
+[None]
+* 3a. The undo history is empty
+[None]
+** 3a1. ExerHealth informs user that undo is not allowed at this point
++
+Use case ends
+
+
+[Discrete]
+=== UC06: Redo
+*System:* ExerHealth
+
+*Actor:* user
+
+*MSS*
+
+1. User undoes the latest command
+2. ExerHealth undoes the latest change
+3. User redoes the latest undoable command that was undone
+4. ExerHealth redoes the command again
++
+Steps 3-4 can be repeated for as many times as required until there are no more
+undoable command left to redo
++
+Use case ends
+
+*Extensions*
+[None]
+* 3a. There is no action to redo as the user has not executed undo before
+[None]
+** 3a1. ExerHealth informs user that redo is not allowed at this point
++
+Use case ends
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 exercises without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work without requiring an installer.
+.  Should not depend on a remote server.
+.  Should be for a single user i.e. (not a multi-user product).
 
-_{More to be added}_
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[regime]] Regime::
+A specific set of exercises that are to be done together. For example,
+a *Legs* regime at the gym can include mutliple exercises such as
+squats, hamstring curl and calf raises.
+
+[[schedule]] Schedule::
+Planning of an exercise on a later day.
+
+[[property]] Property::
+An attribute of an exercise item. Pre-defined attributes include name,
+quantity, units and calories.
+
 
 [appendix]
 == Product Survey
