@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +22,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Catalog;
+import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.TitleContainsKeywordPredicate;
 import seedu.address.testutil.BookBuilder;
@@ -34,6 +36,7 @@ public class CatalogParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
+        SerialNumberGenerator.setCatalog(new Catalog());
         Book book = new BookBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(BookUtil.getAddCommand(book));
         assertEquals(new AddCommand(book), command);
@@ -48,8 +51,8 @@ public class CatalogParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOK.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_BOOK), command);
     }
 
     @Test
@@ -57,8 +60,8 @@ public class CatalogParserTest {
         Book book = new BookBuilder().build();
         EditCommand.EditBookDescriptor descriptor = new EditBookDescriptorBuilder(book).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + BookUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_BOOK.getOneBased() + " " + BookUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_BOOK, descriptor), command);
     }
 
     @Test

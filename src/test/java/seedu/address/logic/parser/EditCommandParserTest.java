@@ -20,9 +20,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_1;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BOOK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_BOOK;
 
 import org.junit.jupiter.api.Test;
 
@@ -101,7 +101,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_BOOK;
         String userInput = targetIndex.getOneBased() + SERIAL_NUMBER_DESC_BOOK_2
                 + AUTHOR_DESC_BOOK_1 + TITLE_DESC_BOOK_1 + GENRE_DESC_FICTION;
 
@@ -115,7 +115,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_BOOK;
         String userInput = targetIndex.getOneBased() + SERIAL_NUMBER_DESC_BOOK_2 + AUTHOR_DESC_BOOK_2;
 
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2)
@@ -128,7 +128,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // title
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_BOOK;
         String userInput = targetIndex.getOneBased() + TITLE_DESC_BOOK_1;
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_1).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -155,7 +155,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_BOOK;
         String userInput = targetIndex.getOneBased() + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_1
                 + GENRE_DESC_FICTION + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_1 + GENRE_DESC_FICTION
                 + SERIAL_NUMBER_DESC_BOOK_2 + AUTHOR_DESC_BOOK_2 + GENRE_DESC_ACTION;
@@ -172,7 +172,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_BOOK;
         String userInput = targetIndex.getOneBased() + INVALID_SERIAL_NUMBER_DESC + SERIAL_NUMBER_DESC_BOOK_2;
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder()
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
@@ -190,7 +190,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_BOOK;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withGenres().build();

@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.borrower.Borrower;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the catalog level
+ * Duplicates are not allowed (by .isSameBook comparison)
  */
 public class BorrowerRecords implements ReadOnlyBorrowerRecords {
 

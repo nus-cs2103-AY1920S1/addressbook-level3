@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyCatalog getAddressBook() {
+    public ReadOnlyCatalog getCatalog() {
         return model.getCatalog();
     }
 
@@ -64,7 +64,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getCatalogFilePath() {
         return model.getCatalogFilePath();
     }
 

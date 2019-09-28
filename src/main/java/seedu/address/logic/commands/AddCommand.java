@@ -17,21 +17,21 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalogue. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalog. "
             + "Parameters: "
-            + PREFIX_TITLE + "NAME "
-            + PREFIX_SERIAL_NUMBER + "PHONE "
-            + PREFIX_AUTHOR + "EMAIL "
-            + "[" + PREFIX_GENRE + "TAG]...\n"
+            + PREFIX_TITLE + "TITLE "
+            + "[ " + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER] "
+            + PREFIX_AUTHOR + "AUTHOR "
+            + "[" + PREFIX_GENRE + "GENRE]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "John Doe "
-            + PREFIX_SERIAL_NUMBER + "98765432 "
-            + PREFIX_AUTHOR + "johnd@example.com "
-            + PREFIX_GENRE + "friends "
-            + PREFIX_GENRE + "owesMoney";
+            + PREFIX_TITLE + "Harry Potter "
+            + PREFIX_SERIAL_NUMBER + "B0001 "
+            + PREFIX_AUTHOR + "J K Rowling"
+            + PREFIX_GENRE + "Fiction"
+            + PREFIX_GENRE + "Action";
 
     public static final String MESSAGE_SUCCESS = "New book added: %1$s";
-    public static final String MESSAGE_DUPLICATE_BOOK = "This book already exists in the catalogue "
+    public static final String MESSAGE_DUPLICATE_BOOK = "This book already exists in the catalog "
             + "(now only unique books)";
 
     private final Book toAdd;
