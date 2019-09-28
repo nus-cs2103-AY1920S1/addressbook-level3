@@ -51,18 +51,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditMemeDescriptor editMemeDescriptor;
 
     /**
      * @param index of the meme in the filtered meme list to edit
-     * @param editPersonDescriptor details to edit the meme with
+     * @param editMemeDescriptor details to edit the meme with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditMemeDescriptor editMemeDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editMemeDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editMemeDescriptor = new EditMemeDescriptor(editMemeDescriptor);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class EditCommand extends Command {
         }
 
         Meme memeToEdit = lastShownList.get(index.getZeroBased());
-        Meme editedMeme = createEditedMeme(memeToEdit, editPersonDescriptor);
+        Meme editedMeme = createEditedMeme(memeToEdit, editMemeDescriptor);
 
         if (!memeToEdit.isSameMeme(editedMeme) && model.hasMeme(editedMeme)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEME);
@@ -88,16 +88,16 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Meme} with the details of {@code memeToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editMemeDescriptor}.
      */
-    private static Meme createEditedMeme(Meme memeToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Meme createEditedMeme(Meme memeToEdit, EditMemeDescriptor editMemeDescriptor) {
         assert memeToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(memeToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(memeToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(memeToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(memeToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(memeToEdit.getTags());
+        Name updatedName = editMemeDescriptor.getName().orElse(memeToEdit.getName());
+        Phone updatedPhone = editMemeDescriptor.getPhone().orElse(memeToEdit.getPhone());
+        Email updatedEmail = editMemeDescriptor.getEmail().orElse(memeToEdit.getEmail());
+        Address updatedAddress = editMemeDescriptor.getAddress().orElse(memeToEdit.getAddress());
+        Set<Tag> updatedTags = editMemeDescriptor.getTags().orElse(memeToEdit.getTags());
 
         return new Meme(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -117,27 +117,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editMemeDescriptor.equals(e.editMemeDescriptor);
     }
 
     /**
      * Stores the details to edit the meme with. Each non-empty field value will replace the
      * corresponding field value of the meme.
      */
-    public static class EditPersonDescriptor {
+    public static class EditMemeDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditMemeDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditMemeDescriptor(EditMemeDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -209,12 +209,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditMemeDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditMemeDescriptor e = (EditMemeDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
