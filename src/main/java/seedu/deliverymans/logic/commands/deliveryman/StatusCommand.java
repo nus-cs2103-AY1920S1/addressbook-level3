@@ -5,7 +5,7 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 
-/*
+/**
  * (To be added)
  */
 public class StatusCommand extends Command {

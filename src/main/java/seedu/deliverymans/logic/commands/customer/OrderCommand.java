@@ -5,8 +5,8 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 
-/*
- * (To be added)
+/**
+ * (to be added)
  */
 public class OrderCommand extends Command {
     public static final String COMMAND_WORD = "order";

@@ -6,8 +6,8 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
-/*
- * (To be added)
+/**
+ * (to be added)
  */
 public class SwitchCommandParser implements Parser<ClearCommand.SwitchCommand> {
 

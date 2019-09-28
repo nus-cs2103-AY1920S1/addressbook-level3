@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
-/*
- * (To be added)
+/**
+ * (to be added)
  */
 public enum Context {
     RESTAURANT,
