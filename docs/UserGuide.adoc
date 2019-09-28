@@ -105,10 +105,14 @@ Format: `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]`
 [TIP]
 A book can have any number of genres (including 0)
 
+[TIP]
+You do not need to specify the serial number if you wish so. +
+Liberry will then auto-generate a valid serial number for the new book.
+
 Examples:
 
-* `add t/Harry Botter and the Baby's Potty a/Raylei Jolking sn/02010 g/children`
-* `add t/Inferno a/Tande sn/24493 g/classic g/epic`
+* `add t/Harry Botter and the Baby's Potty a/Raylei Jolking sn/B2010 g/children`
+* `add t/Inferno a/Tande g/classic g/epic`
 
 ==== Deleting a book : `delete`
 
@@ -131,8 +135,8 @@ Examples:
 * `find t/harry` +
 `delete 1` +
 Deletes the 1st book in the results of the `find` command.
-* `delete sn/20422` +
-Deletes the book with serial number `sn/20422`.
+* `delete sn/B0422` +
+Deletes the book with serial number `sn/B0422`.
 
 ==== Registering a new borrower: `register`
 
@@ -210,10 +214,10 @@ Format: `loan sn/BOOK_SN ... `
 
 Examples:
 
-* `loan sn/00041` +
-Loans the book with serial number 00041
-* `loan sn/00201 sn/12929 sn/00203` +
-Loans the books with serial numbers 00201, 12929 and 00203
+* `loan sn/B0041` +
+Loans the book with serial number B0041
+* `loan sn/B0201 sn/B2929 sn/B0203` +
+Loans the books with serial numbers B0201, B2929 and B0203
 
 ==== Renewing books: `renew`
 
@@ -271,7 +275,7 @@ e.g. `serve id/peterparker`
 * *Edit a borrower* : `edit [[u/NAME] [p/PHONE_NUMBER] [a/ADDRESS]]` +
 e.g. `edit p/91234567 e/21 Jane St West Building`
 * *Loan* : `loan sn/BOOK_SN...` +
-e.g. `loan sn/00201 sn/12929 sn/00203`
+e.g. `loan sn/B0201 sn/B2929 sn/B0203`
 * *Renew* : `renew INDEX… [-all]`
 * *Return* : `return INDEX… [-all]`
 * *Pay fines* : `pay AMOUNT`

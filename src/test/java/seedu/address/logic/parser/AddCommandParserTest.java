@@ -26,6 +26,8 @@ import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.Catalog;
+import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.genre.Genre;
@@ -57,21 +59,22 @@ public class AddCommandParserTest {
         Book expectedBook = new BookBuilder(BOOK_1).withGenres().build();
         assertParseSuccess(parser, TITLE_DESC_BOOK_1 + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_1,
                 new AddCommand(expectedBook));
+
+        // missing serial number
+        SerialNumberGenerator.setCatalog(new Catalog());
+        assertParseSuccess(parser, TITLE_DESC_BOOK_1 + AUTHOR_DESC_BOOK_1,
+                new AddCommand(expectedBook));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
-        // missing name prefix
+        // missing title prefix
         assertParseFailure(parser, VALID_TITLE_BOOK_2 + SERIAL_NUMBER_DESC_BOOK_2 + AUTHOR_DESC_BOOK_2,
                 expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser, TITLE_DESC_BOOK_2 + VALID_SERIAL_NUMBER_BOOK_2 + AUTHOR_DESC_BOOK_2,
-                expectedMessage);
-
-        // missing email prefix
+        // missing author prefix
         assertParseFailure(parser, TITLE_DESC_BOOK_2 + SERIAL_NUMBER_DESC_BOOK_2 + VALID_AUTHOR_BOOK_2,
                 expectedMessage);
 

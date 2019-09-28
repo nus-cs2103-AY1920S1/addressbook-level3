@@ -23,7 +23,7 @@ public class BookTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameBook() {
         // same object -> returns true
         assertTrue(BOOK_1.isSameBook(BOOK_1));
 

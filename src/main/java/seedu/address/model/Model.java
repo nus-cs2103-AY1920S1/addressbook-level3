@@ -43,7 +43,7 @@ public interface Model {
      */
     public void setCatalogFilePath(Path catalogFilePath);
 
-    /** Returns the Catalog*/
+    /** Returns the Catalog */
     ReadOnlyCatalog getCatalog();
 
     /**
@@ -52,7 +52,7 @@ public interface Model {
     void setCatalog(ReadOnlyCatalog addressBook);
 
     /**
-     * Sets the user prefs' loan records file path.
+     * Returns true if a book with the same identity as {@code book} exists in the catalog.
      */
     boolean hasBook(Book book);
     /**
