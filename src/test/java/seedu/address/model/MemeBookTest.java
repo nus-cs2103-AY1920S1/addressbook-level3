@@ -49,7 +49,7 @@ public class MemeBookTest {
         Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Meme> newMemes = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newMemes);
+        MemeBookStub newData = new MemeBookStub(newMemes);
 
         assertThrows(DuplicateMemeException.class, () -> memeBook.resetData(newData));
     }
@@ -84,12 +84,12 @@ public class MemeBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose memes list can violate interface constraints.
+     * A stub ReadOnlyMemeBook whose memes list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class MemeBookStub implements ReadOnlyMemeBook {
         private final ObservableList<Meme> memes = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Meme> memes) {
+        MemeBookStub(Collection<Meme> memes) {
             this.memes.setAll(memes);
         }
 

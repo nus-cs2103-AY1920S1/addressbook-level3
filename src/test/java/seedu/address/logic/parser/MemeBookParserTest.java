@@ -31,7 +31,7 @@ import seedu.address.testutil.MemeUtil;
 
 public class MemeBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final MemeBookParser parser = new MemeBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

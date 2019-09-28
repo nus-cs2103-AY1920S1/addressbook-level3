@@ -18,7 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.MemeBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMemeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meme.Meme;
 import seedu.address.testutil.MemeBuilder;
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setMemeBook(ReadOnlyAddressBook newData) {
+        public void setMemeBook(ReadOnlyMemeBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getMemeBook() {
+        public ReadOnlyMemeBook getMemeBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,7 +186,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getMemeBook() {
+        public ReadOnlyMemeBook getMemeBook() {
             return new MemeBook();
         }
     }

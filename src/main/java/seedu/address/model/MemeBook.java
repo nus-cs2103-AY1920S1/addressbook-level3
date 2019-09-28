@@ -12,7 +12,7 @@ import seedu.address.model.meme.UniqueMemeList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class MemeBook implements ReadOnlyAddressBook {
+public class MemeBook implements ReadOnlyMemeBook {
 
     private final UniqueMemeList memes;
 
@@ -32,7 +32,7 @@ public class MemeBook implements ReadOnlyAddressBook {
     /**
      * Creates an MemeBook using the Persons in the {@code toBeCopied}
      */
-    public MemeBook(ReadOnlyAddressBook toBeCopied) {
+    public MemeBook(ReadOnlyMemeBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,7 +50,7 @@ public class MemeBook implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code MemeBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyMemeBook newData) {
         requireNonNull(newData);
 
         setMemes(newData.getMemeList());

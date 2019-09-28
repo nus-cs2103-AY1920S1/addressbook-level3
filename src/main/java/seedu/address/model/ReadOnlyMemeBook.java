@@ -6,7 +6,7 @@ import seedu.address.model.meme.Meme;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyMemeBook {
 
     /**
      * Returns an unmodifiable view of the memes list.

@@ -47,10 +47,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code memeBook}.
      */
-    void setMemeBook(ReadOnlyAddressBook memeBook);
+    void setMemeBook(ReadOnlyMemeBook memeBook);
 
     /** Returns the MemeBook */
-    ReadOnlyAddressBook getMemeBook();
+    ReadOnlyMemeBook getMemeBook();
 
     /**
      * Returns true if a meme with the same identity as {@code meme} exists in the address book.

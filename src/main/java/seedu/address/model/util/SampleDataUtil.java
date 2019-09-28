@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.MemeBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMemeBook;
 import seedu.address.model.meme.Address;
 import seedu.address.model.meme.Email;
 import seedu.address.model.meme.Name;
@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyMemeBook getSampleAddressBook() {
         MemeBook sampleMb = new MemeBook();
         for (Meme sampleMeme : getSampleMemes()) {
             sampleMb.addMeme(sampleMeme);

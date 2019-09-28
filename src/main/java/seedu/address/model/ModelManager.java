@@ -26,7 +26,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMemeBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -67,24 +67,24 @@ public class ModelManager implements Model {
 
     @Override
     public Path getMemeBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getMemeBookFilePath();
     }
 
     @Override
     public void setMemeBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setMemeBookFilePath(addressBookFilePath);
     }
 
     //=========== MemeBook ================================================================================
 
     @Override
-    public void setMemeBook(ReadOnlyAddressBook memeBook) {
+    public void setMemeBook(ReadOnlyMemeBook memeBook) {
         this.memeBook.resetData(memeBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getMemeBook() {
+    public ReadOnlyMemeBook getMemeBook() {
         return memeBook;
     }
 
