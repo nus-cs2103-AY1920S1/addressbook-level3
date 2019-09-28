@@ -5,22 +5,19 @@ package seedu.address.model.order;
  * Guarantees: Only 4 valid status.
  */
 public enum Status {
-    UNSCHEDULED,
-    SCHEDULED,
-    COMPLETED,
-    CANCELLED;
+    UNSCHEDULED("Unscheduled"),
+    SCHEDULED("Scheduled"),
+    COMPLETED("Completed"),
+    CANCELLED("Cancelled");
+
+    private final String label;
+
+    private Status(String label) {
+        this.label = label;
+    }
 
     @Override
     public String toString() {
-        switch(this) {
-        case UNSCHEDULED:
-            return "Unscheduled";
-        case SCHEDULED:
-            return "Scheduled";
-        case COMPLETED:
-            return "Completed";
-        default: // case CANCELLED
-            return "Cancelled";
-        }
+        return this.label;
     }
 }
