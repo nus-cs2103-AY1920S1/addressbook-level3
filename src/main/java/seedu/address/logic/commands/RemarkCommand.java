@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
+import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.commands.Command;
 
 /**
  * Changes the remark of an existing person in the address book.

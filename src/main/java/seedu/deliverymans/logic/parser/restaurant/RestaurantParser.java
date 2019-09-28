@@ -14,9 +14,9 @@ public class RestaurantParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private final static Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public static final String COMMAND_WORD = "restaurant";
+    public final static String COMMAND_WORD = "restaurant";
 
     /**
      * Parses user input into command for execution.

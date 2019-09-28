@@ -1,5 +1,11 @@
 package seedu.deliverymans.logic.parser.customer;
 
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.customer.DeleteCommand;
 import seedu.deliverymans.logic.commands.customer.EditCommand;
@@ -10,19 +16,12 @@ import seedu.deliverymans.logic.commands.customer.SortCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 public class CustomerParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    public static final String COMMAND_WORD = "customer";
+    private final static Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public final static String COMMAND_WORD = "customer";
 
     /**
      * Parses user input into command for execution.
@@ -41,7 +40,6 @@ public class CustomerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
             // case add??
-
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(arguments);
 

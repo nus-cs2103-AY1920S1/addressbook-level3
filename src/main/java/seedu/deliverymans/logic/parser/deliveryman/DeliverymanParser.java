@@ -20,9 +20,9 @@ public class DeliverymanParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private final static Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public static final String COMMAND_WORD = "deliveryman";
+    public final static String COMMAND_WORD = "deliveryman";
 
     /**
      * Parses user input into command for execution.
@@ -40,7 +40,7 @@ public class DeliverymanParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            // case add??
+        // case add??
 
         case AssignCommand.COMMAND_WORD:
             return new AssignCommandParser().parse(arguments);
