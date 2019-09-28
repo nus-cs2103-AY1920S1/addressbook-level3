@@ -12,6 +12,15 @@ import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
+/**
+ * A list of modules that enforces uniqueness between its elements and does not allow nulls.
+ * A module is considered unique by comparing using {@code Module#equals(Module)}. As such, adding, updating and
+ * removing of modules uses Module#equals(Module) for equality so as to ensure that the module
+ * is unique in terms of identity in the UniquePersonList.
+ *
+ * Supports a minimal set of list operations.
+ *
+ */
 public class UniqueModuleList implements Iterable<Module> {
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
     private final ObservableList<Module> internalUnmodifiableList =
