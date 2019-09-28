@@ -33,7 +33,7 @@ public class Author {
     }
 
     private Author() {
-        value = "User";
+        value = "";
     }
 
     /**

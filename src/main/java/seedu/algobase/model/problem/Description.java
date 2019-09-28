@@ -32,7 +32,7 @@ public class Description {
     }
 
     private Description() {
-        value = "nil";
+        value = "";
     }
 
     /**

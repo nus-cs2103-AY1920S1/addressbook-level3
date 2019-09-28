@@ -31,7 +31,7 @@ public class WebLink {
     }
 
     private WebLink() {
-        value = "nil";
+        value = "";
     }
 
     /**
