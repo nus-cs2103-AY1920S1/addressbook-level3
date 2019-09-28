@@ -87,7 +87,7 @@ Example:
 * `viewcommit 1.1`
 * `This allows the user to view commit 1 of study plan 1.`
 
-==== Reverting to a commit: revert
+==== Reverting to a commit: `revert`
 Reverts to the version of the current study plan for a particular commit. This discards all the commits after the
 specified commit. +
 Format: `revert COMMIT_NUMBER` +
