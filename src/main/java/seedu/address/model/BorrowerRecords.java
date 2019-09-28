@@ -30,15 +30,6 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
         listOfBorrowers.add(book);
     }
 
-    /**
-     * Populate sample borrowers into the system.
-     */
-    public void populateBorrowers() {
-        for (int i = 0; i < 10; i++) {
-            listOfBorrowers.add(new Borrower("Lim Ah Meng" + i));
-        }
-    }
-
     @Override
     public ObservableList<Borrower> getBorrowerList() {
         return FXCollections.unmodifiableObservableList(listOfBorrowers);

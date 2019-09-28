@@ -7,16 +7,21 @@ import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
 import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_FICTION;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
+import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.AddCommandParser;
 import seedu.address.model.Catalog;
 import seedu.address.model.SerialNumberGenerator;
+import seedu.address.testutil.BookBuilder;
 
 public class SerialNumberTest {
 
@@ -58,8 +63,20 @@ public class SerialNumberTest {
         Catalog catalog = getTypicalCatalog();
         SerialNumberGenerator.setCatalog(catalog);
 
+        //Serial number B0001 is already in typical catalog
         assertParseFailure(parser, TITLE_DESC_BOOK_2 + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_2
                 + GENRE_DESC_ACTION + GENRE_DESC_FICTION, MESSAGE_NON_UNIQUE_SERIAL_NUMBER);
+
+    }
+
+    @Test
+    public void addSerialNumber_unique_assertParseSuccess() {
+        SerialNumberGenerator.setCatalog(new Catalog());
+
+        Book expectedBook = new BookBuilder(BOOK_2).build();
+        //Serial number B0001 is not in empty new catalog
+        assertParseSuccess(parser, TITLE_DESC_BOOK_2 + SERIAL_NUMBER_DESC_BOOK_2 + AUTHOR_DESC_BOOK_2
+                + GENRE_DESC_ACTION + GENRE_DESC_FICTION, new AddCommand(expectedBook));
 
     }
 }

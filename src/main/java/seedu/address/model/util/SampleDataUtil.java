@@ -53,13 +53,11 @@ public class SampleDataUtil {
 
     public static ReadOnlyLoanRecords getSampleLoanRecords() {
         LoanRecords loanRecords = new LoanRecords();
-        loanRecords.populateLoans();
         return loanRecords;
     }
 
     public static ReadOnlyBorrowerRecords getSampleBorrowerRecords() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
-        borrowerRecords.populateBorrowers();
         return borrowerRecords;
     }
 }
