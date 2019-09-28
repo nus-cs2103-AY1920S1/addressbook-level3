@@ -498,7 +498,7 @@ Use case resumes at step 1.
 [none]
 ** 1b1. System displays error message and does not add the new data from the file.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 
 
 
