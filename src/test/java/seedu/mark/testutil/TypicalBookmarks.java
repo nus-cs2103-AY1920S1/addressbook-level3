@@ -22,28 +22,28 @@ import seedu.mark.model.bookmark.Bookmark;
 public class TypicalBookmarks {
 
     public static final Bookmark ALICE = new BookmarkBuilder().withName("Alice Pauline")
-            .withRemark("123, Jurong West Ave 6, #08-111").withUrl("alice@example.com")
+            .withRemark("123, Jurong West Ave 6, #08-111").withUrl("https://alice@example.com")
             .withTags("friends").build();
     public static final Bookmark BENSON = new BookmarkBuilder().withName("Benson Meier")
             .withRemark("311, Clementi Ave 2, #02-25")
-            .withUrl("johnd@example.com")
+            .withUrl("https://johnd@example.com")
             .withTags("owesMoney", "friends").build();
     public static final Bookmark CARL = new BookmarkBuilder().withName("Carl Kurz")
-            .withUrl("heinz@example.com").withRemark("wall street").build();
+            .withUrl("https://heinz@example.com").withRemark("wall street").build();
     public static final Bookmark DANIEL = new BookmarkBuilder().withName("Daniel Meier")
-            .withUrl("cornelia@example.com").withRemark("10th street").withTags("friends").build();
+            .withUrl("https://cornelia@example.com").withRemark("10th street").withTags("friends").build();
     public static final Bookmark ELLE = new BookmarkBuilder().withName("Elle Meyer")
-            .withUrl("werner@example.com").withRemark("michegan ave").build();
+            .withUrl("https://werner@example.com").withRemark("michegan ave").build();
     public static final Bookmark FIONA = new BookmarkBuilder().withName("Fiona Kunz")
-            .withUrl("lydia@example.com").withRemark("little tokyo").build();
+            .withUrl("https://lydia@example.com").withRemark("little tokyo").build();
     public static final Bookmark GEORGE = new BookmarkBuilder().withName("George Best")
-            .withUrl("anna@example.com").withRemark("4th street").build();
+            .withUrl("https://anna@example.com").withRemark("4th street").build();
 
     // Manually added
     public static final Bookmark HOON = new BookmarkBuilder().withName("Hoon Meier")
-            .withUrl("stefan@example.com").withRemark("little india").build();
+            .withUrl("https://stefan@example.com").withRemark("little india").build();
     public static final Bookmark IDA = new BookmarkBuilder().withName("Ida Mueller")
-            .withUrl("hans@example.com").withRemark("chicago ave").build();
+            .withUrl("https://hans@example.com").withRemark("chicago ave").build();
 
     // Manually added - Bookmark's details found in {@code CommandTestUtil}
     public static final Bookmark AMY = new BookmarkBuilder().withName(VALID_NAME_AMY)

@@ -21,11 +21,11 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_URL + "URL "
-            + PREFIX_REMARK + "REMARK "
+            + PREFIX_REMARK + "REMARK " // TODO: Make REMARK an optional field
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe " // TODO: Change AddCommand example
-            + PREFIX_URL + "johnd@example.com "
+            + PREFIX_URL + "https://johnd-example.com "
             + PREFIX_REMARK + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";

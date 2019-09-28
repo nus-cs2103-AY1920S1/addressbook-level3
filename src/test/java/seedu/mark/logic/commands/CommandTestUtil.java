@@ -27,8 +27,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_URL_AMY = "amy@example.com";
-    public static final String VALID_URL_BOB = "bob@example.com";
+    public static final String VALID_URL_AMY = "https://amy-example.com";
+    public static final String VALID_URL_BOB = "https://bob-example.com";
     public static final String VALID_REMARK_AMY = "Block 312, Amy Street 1";
     public static final String VALID_REMARK_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -44,7 +44,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_URL_DESC = " " + PREFIX_URL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_URL_DESC = " " + PREFIX_URL + "bob??yahoo"; // double '?'
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK; // empty string not allowed for remarks
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 

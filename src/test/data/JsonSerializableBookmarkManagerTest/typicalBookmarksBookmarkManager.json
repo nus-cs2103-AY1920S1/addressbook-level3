@@ -2,37 +2,37 @@
   "_comment": "Mark save file which contains the same Person values as in TypicalBookmarks#getTypicalBookmarkManager()",
   "bookmarks" : [ {
     "name" : "Alice Pauline",
-    "url" : "alice@example.com",
+    "url" : "https://alice@example.com",
     "remark" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
-    "url" : "johnd@example.com",
+    "url" : "https://johnd@example.com",
     "remark" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
-    "url" : "heinz@example.com",
+    "url" : "https://heinz@example.com",
     "remark" : "wall street",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
-    "url" : "cornelia@example.com",
+    "url" : "https://cornelia@example.com",
     "remark" : "10th street",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
-    "url" : "werner@example.com",
+    "url" : "https://werner@example.com",
     "remark" : "michegan ave",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "url" : "lydia@example.com",
+    "url" : "https://lydia@example.com",
     "remark" : "little tokyo",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
-    "url" : "anna@example.com",
+    "url" : "https://anna@example.com",
     "remark" : "4th street",
     "tagged" : [ ]
   } ]

@@ -1,19 +1,19 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
-import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
+import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
 
