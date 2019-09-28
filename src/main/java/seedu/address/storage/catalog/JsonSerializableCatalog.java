@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.catalog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +14,12 @@ import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.book.Book;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable Catalog that is serializable to JSON format.
  */
-@JsonRootName(value = "catalogue")
-class JsonSerializableCatalog {
+@JsonRootName(value = "Catalog")
+public class JsonSerializableCatalog {
 
-    public static final String MESSAGE_DUPLICATE_BOOK = "Books list contains duplicate book(s).";
+    public static final String MESSAGE_DUPLICATE_BOOK = "books list contains duplicate book(s).";
 
     private final List<JsonAdaptedBook> books = new ArrayList<>();
 
@@ -41,7 +41,7 @@ class JsonSerializableCatalog {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code Catalog} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

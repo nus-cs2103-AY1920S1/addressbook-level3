@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.catalog;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import seedu.address.model.genre.Genre;
 /**
  * Jackson-friendly version of {@link Book}.
  */
-class JsonAdaptedBook {
+public class JsonAdaptedBook {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 

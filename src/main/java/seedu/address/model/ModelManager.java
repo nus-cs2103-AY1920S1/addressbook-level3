@@ -19,26 +19,38 @@ import seedu.address.model.book.Book;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Catalog catalog;
     private final UserPrefs userPrefs;
+    private final LoanRecords loanRecords;
+    private final Catalog catalog;
+    private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
+     * TODO change
      */
-    public ModelManager(ReadOnlyCatalog addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyCatalog catalog,
+                        ReadOnlyLoanRecords loanRecords,
+                        ReadOnlyBorrowerRecords borrowerRecords,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(userPrefs, loanRecords, catalog, borrowerRecords);
 
-        logger.fine("Initializing with catalog: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + catalog + " and user prefs " + userPrefs);
 
-        this.catalog = new Catalog(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        // testing loan records
+        this.loanRecords = new LoanRecords(loanRecords);
+        // testing
+        this.catalog = new Catalog(catalog);
+        // testing
+        this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
+
     }
 
     public ModelManager() {
-        this(new Catalog(), new UserPrefs());
+        this(new Catalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -65,18 +77,6 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override
-    public Path getCatalogFilePath() {
-        return userPrefs.getCatalogFilePath();
-    }
-
-    @Override
-    public void setCatalogFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setCatalogFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
 
     @Override
     public void setCatalog(ReadOnlyCatalog addressBook) {
@@ -112,7 +112,46 @@ public class ModelManager implements Model {
         catalog.setBook(target, editedBook);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    public Path getLoanRecordsFilePath() {
+        return userPrefs.getLoanRecordsFilePath();
+    }
+
+    @Override
+    public void setLoanRecordsFilePath(Path loanRecordsFilePath) {
+        requireNonNull(loanRecordsFilePath);
+        userPrefs.setLoanRecordsFilePath(loanRecordsFilePath);
+    }
+
+    @Override
+    public Path getCatalogFilePath() {
+        return userPrefs.getCatalogFilePath();
+    }
+
+    @Override
+    public void setCatalogFilePath(Path catalogFilePath) {
+        requireNonNull(catalogFilePath);
+        userPrefs.setCatalogFilePath(catalogFilePath);
+    }
+
+    @Override
+    public Path getBorrowerRecordsFilePath() {
+        return userPrefs.getBorrowerRecordsFilePath();
+    }
+
+    @Override
+    public void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath) {
+        requireNonNull(borrowerRecordsFilePath);
+        userPrefs.setBorrowerRecordsFilePath(borrowerRecordsFilePath);
+    }
+
+    //=========== Loan Records ===============================================================================
+
+    public ReadOnlyLoanRecords getLoanRecords() {
+        return loanRecords;
+    }
+
+    //=========== Catalog ===============================================================================
+
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -129,6 +168,13 @@ public class ModelManager implements Model {
         filteredBooks.setPredicate(predicate);
     }
 
+    //=========== BorrowerRecords ===============================================================================
+
+    public ReadOnlyBorrowerRecords getBorrowerRecords() {
+        return borrowerRecords;
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -143,9 +189,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return catalog.equals(other.catalog)
-                && userPrefs.equals(other.userPrefs)
-                && filteredBooks.equals(other.filteredBooks);
+        return userPrefs.equals(other.userPrefs)
+                && loanRecords.equals(other.loanRecords)
+                && catalog.equals(other.catalog)
+                && borrowerRecords.equals(other.borrowerRecords);
     }
 
 }

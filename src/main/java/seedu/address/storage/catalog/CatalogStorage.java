@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.catalog;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,7 +19,7 @@ public interface CatalogStorage {
     Path getCatalogFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyCatalog}.
+     * Returns Catalog data as a {@link ReadOnlyCatalog}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -33,14 +33,14 @@ public interface CatalogStorage {
 
     /**
      * Saves the given {@link ReadOnlyCatalog} to the storage.
-     * @param addressBook cannot be null.
+     * @param catalog cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyCatalog addressBook) throws IOException;
+    void saveCatalog(ReadOnlyCatalog catalog) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyCatalog)
+     * @see #saveCatalog(ReadOnlyCatalog)
      */
-    void saveAddressBook(ReadOnlyCatalog addressBook, Path filePath) throws IOException;
+    void saveCatalog(ReadOnlyCatalog catalog, Path filePath) throws IOException;
 
 }
