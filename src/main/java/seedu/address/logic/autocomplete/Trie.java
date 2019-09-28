@@ -1,31 +1,22 @@
 package seedu.address.logic.autocomplete;
 
+/**
+ * Trie for AutoComplete Searches.
+ */
 public class Trie {
     private TrieNode root = new TrieNode();
 
-    public Trie() {
-        this.insert("queue");
-        this.insert("add");
-        this.insert("dequeue");
-        this.insert("next");
-        this.insert("patient");
-        this.insert("register");
-        this.insert("update");
-        this.insert("doctors");
-        this.insert("onduty");
-        this.insert("offduty");
-        this.insert("appointments");
-        this.insert("cancel");
-        this.insert("change");
-        this.insert("slot");
-        this.insert("missed");
-        this.insert("ack");
-        this.insert("settle");
-        this.insert("help");
-        this.insert("exit");
-        this.insert("undo");
+    public Trie(String[] commandsToSupport) {
+        for (String command : commandsToSupport) {
+            this.insert(command);
+        }
     }
 
+    /**
+     * Inserts word into Trie.
+     *
+     * @param word
+     */
     protected void insert(String word) {
         TrieNode current = root;
         for (int i = 0; i < word.length(); i++) {
@@ -33,6 +24,12 @@ public class Trie {
         }
     }
 
+    /**
+     * Finds and returns the TrieNode of given prefix, returns null if does not exists.
+     *
+     * @param word
+     * @return TrieNode
+     */
     public TrieNode find(String word) {
         TrieNode current = root;
         for (int i = 0; i < word.length(); i++) {

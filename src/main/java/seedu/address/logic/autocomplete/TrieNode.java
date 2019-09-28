@@ -3,7 +3,11 @@ package seedu.address.logic.autocomplete;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
+/**
+ * TrieNode of Trie.
+ */
 public class TrieNode {
     private HashMap<Character, TrieNode> children = new HashMap<>();
 
@@ -14,7 +18,12 @@ public class TrieNode {
         return children;
     }
 
-    public ArrayList<String> getPossibilities() {
+    /**
+     * Get all possible word fragments from current TrieNode.
+     *
+     * @return List of word fragments
+     */
+    public List<String> getPossibilities() {
         if (children.isEmpty()) {
             return new ArrayList<String>(Collections.singleton(""));
         }
