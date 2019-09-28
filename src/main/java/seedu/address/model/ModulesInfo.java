@@ -17,6 +17,12 @@ public class ModulesInfo {
         this.modulesInfo = modulesInfo;
     }
 
+    public void parsePrereqTrees() {
+        for (ModuleInfo moduleInfo : modulesInfo) {
+            moduleInfo.parsePrereqTree();
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -62,6 +62,7 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(config.getModulesInfoFilePath());
         ModulesInfo modulesInfo = initModulesInfo(modulesInfoStorage);
+        // TODO: modulesInfo is not used from here on out -- use it with StorageManager/ModelManager/LogicManager
         storage = new StorageManager(addressBookStorage, userPrefsStorage, modulesInfoStorage);
 
         initLogging(config);
@@ -189,6 +190,9 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting without modules information");
             initializedModulesInfo = new ModulesInfo();
         }
+
+        // Parse the prereq trees from the prereq strings, as read from the JSON file
+        initializedModulesInfo.parsePrereqTrees();
 
         return initializedModulesInfo;
     }

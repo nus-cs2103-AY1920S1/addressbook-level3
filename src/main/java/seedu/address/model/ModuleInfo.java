@@ -1,6 +1,8 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents information about a module.
@@ -14,6 +16,7 @@ public class ModuleInfo {
     private List<String> focusElectives;
     private String description;
     private String prereqTreeString;
+    private PrereqTree prereqTree;
 
     public ModuleInfo() {
     }
@@ -30,7 +33,51 @@ public class ModuleInfo {
     }
 
     public void parsePrereqTree() {
-        // TODO
+        this.prereqTree = parsePrereqTree(this.prereqTreeString);
+    }
+
+    private PrereqTree parsePrereqTree(String s) {
+        if (s.equals("")) {
+            return null;
+        } else if (s.charAt(0) != '(') {
+            return new PrereqLeaf(s);
+        }
+
+        // Split the string into list of items
+        String removeBrackets = s.substring(1, s.length() - 1);
+        String[] operatorOperands = removeBrackets.split(" ", 2);
+        String operator = operatorOperands[0];
+        String operandsString = operatorOperands[1];
+        List<String> operands = splitOperands(operandsString);
+        List<PrereqTree> children = operands.stream()
+                .map(operand -> parsePrereqTree(operand))
+                .collect(Collectors.toList());
+        return new PrereqNode(operator, children);
+    }
+
+    private List<String> splitOperands(String operands) {
+        List<String> list = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        int balance = 0;
+        for (char c : operands.toCharArray()) {
+            sb.append(c);
+            if (c == ' ' && balance == 0) {
+                String trimmed = sb.toString().trim();
+                if (!trimmed.equals("")) {
+                    list.add(trimmed);
+                }
+                sb.setLength(0);
+            } else if (c == '(') {
+                balance++;
+            } else if (c == ')' && --balance == 0) {
+                list.add(sb.toString().trim());
+                sb.setLength(0);
+            }
+        }
+        if (sb.length() > 0) {
+            list.add(sb.toString());
+        }
+        return list;
     }
 
     @Override
