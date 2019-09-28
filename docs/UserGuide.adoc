@@ -60,6 +60,7 @@ Expected output:
 *   `New entry added: 1. [-] Laksa ($10.50) [Lunch][Food]`
 *   `New entry added: 2. [-] Travel ($53) [Travel]`
 
+
 [[IncomeTag]]
 === Adding an income: `add income`
 
@@ -72,6 +73,8 @@ Examples:
 Expected output:
 
 *   `New entry added: 3. [+] Allowance ($1000) [Monthly]`
+
+
 
 [[DeleteTag]]
 === Deleting a Transaction: `delete`
@@ -92,7 +95,7 @@ Expected output:
 
 *   `Entry deleted: 1. Laksa ($10.50) [Lunch][Food]`
 
-// tag::update[]
+
 [[UpdateTag]]
 === Updating a Transaction’s details: `update`
 
@@ -120,6 +123,77 @@ Original name was: Laksa`
 Original cost was: $10.50`
 // end::update[]
 
+//tag::tag[]
+[[TagTag]]
+=== Tag transaction: `tag`
+
+Format: `tag i/INDEX t/TAG_NAME`
+
+****
+* Tags the transaction at the specified `INDEX` with `TAG_NAME`.
+* `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+*   `tag i/8 t/Debt`
+
+Expected output:
+
+*   `Entry tagged: 8. Student Loan ($12000.00) [Debt]`
+
+// end::tag[]
+
+// tag::untag[]
+[[UntagTag]]
+=== Tag transaction: `untag`
+
+Format: `untag i/INDEX t/TAG_NAME`
+
+****
+* Untags `TAG_NAME` from the transaction at the specified `INDEX`.
+* `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+*   `untag i/7 t/Important`
+
+Expected output:
+
+*   `Entry untagged: 7. DoTA Arcanas ($49.00) [Game]`
+
+// end::untag[]
+
+// tag::convert[]
+[[ConvertTag]]
+=== Convert currency: `convert`
+
+Format: `convert to/TARGET_CURRENCY (c/COST|i/INDEX)`
+
+****
+* Converts the a fixed value or `Transaction` entry
+* Only one of either `VALUE` or `INDEX` is allowed per command
+* `VALUE` must be positive.
+* `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+*   `convert c/USD v/1000`
+
+*   `convert c/JPY i/8`
+
+Expected output:
+
+*   `Value converted: SGD1000 = USD725.82`
+
+*   `Entry converted: 8. Student Loan (¥934,566.00) [Debt]`
+// end::convert[]
+
 // tag::clone[]
 [[CloneTag]]
 === Cloning a Transaction: `clone`
@@ -130,8 +204,6 @@ Format: `clone i/INDEX`
 * Clones (creates a duplicate of) a Transaction.
 * Clone produced is added to a new index at the bottom of the list.
 ****
-
-Examples:
 
 *   `clone i/1`
 
@@ -171,6 +243,7 @@ Expected output:
 * Deletes the expense spent on Laksa from THRIFT.
 * Deletes the allowance income from THRIFT.
 
+
 [[RedoTag]]
 === Redoing the undone command: `redo`
 
@@ -188,6 +261,7 @@ Expected output:
 
 * Adds the expense spent on Laksa back to THRIFT.
 
+
 [[ListTag]]
 === List expenses for the month: `list`
 
@@ -204,6 +278,8 @@ Expected output:
 * Returns a list of all food expenses for the specified month.
 
 [[HelpTag]]
+
+
 === Displaying help page: `help`
 
 Format: `help [COMMAND]`
@@ -222,6 +298,7 @@ Expected output:
 === Exiting THRIFT application: `exit`
 
 Format: `exit`
+
 
 === Generating an external report `[coming in v2.0]`
 
@@ -258,6 +335,17 @@ Example: `clone i/1`
 * <<RedoTag, *Redo*>>: `redo`
 * <<ListTag, *List*>>: `list [m/MONTH] [t/TAG]` +
 Example: `list m/Jan t/Food`
+* <<HelpTag, *Help*>>: `help [COMMAND]` +
+* <<TagTag,*Tag*>>: `tag i/INDEX t/TAG_NAME` +
+Example: `tag i/8 t/Debt`
+* <<UntagTag, *Untag*>>: `untag i/INDEX t/TAG_NAME` +
+Example: `untag i/7 t/Important`
+* <<ConvertTag, *Convert*>>: `convert to/TARGET_CURRENCY (c/COST|i/INDEX)` +
+Examples: +
+ `convert c/USD v/1000` +
+ `convert c/JPY i/8`
+* <<UndoTag, *Undo*>>: `undo`
+* <<RedoTag, *Redo*>>: `redo`
 * <<HelpTag, *Help*>>: `help [COMMAND]` +
 Example: `help delete`
 * <<ExitTag, *Exit*>>: `exit`
