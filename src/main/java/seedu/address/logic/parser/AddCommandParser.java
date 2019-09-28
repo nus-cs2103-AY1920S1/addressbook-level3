@@ -21,6 +21,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
@@ -32,7 +33,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
         Item item;
         if (hasTags(arguments)) {
-            String[] tags = arguments[2].split("\\|");
+            String trimmedTags = arguments[2].trim();
+            String[] tags = trimmedTags.split("#");
             Set<Tag> tagList = ParserUtil.parseTags(Arrays.asList(tags));
             item = new Item(name, expiryDate, tagList);
         } else {

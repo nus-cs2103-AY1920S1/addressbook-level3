@@ -43,7 +43,7 @@ public class AddCommandParserTest {
         Item expectedItemMultipleTags = new ItemBuilder(KIWI).withTags(VALID_TAG_FRUIT, VALID_TAG_GREEN)
                                                               .build();
         assertParseSuccess(parser, VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI
-                + "|" + VALID_TAG_FRUIT + "|" + VALID_TAG_GREEN, new AddCommand(expectedItemMultipleTags));
+                + "|#" + VALID_TAG_FRUIT + "#" + VALID_TAG_GREEN, new AddCommand(expectedItemMultipleTags));
     }
 
     @Test
