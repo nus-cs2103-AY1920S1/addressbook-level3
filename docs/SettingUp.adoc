@@ -50,10 +50,10 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 . Select `Editor` > `Code Style` > `Java`
 . Click on the `Imports` tab to set the order
 
-* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to 999 to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
-Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure IntelliJ to check style-compliance as you write code.
 
 === Updating documentation to match your fork
 
