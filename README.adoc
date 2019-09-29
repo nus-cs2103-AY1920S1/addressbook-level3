@@ -1,8 +1,7 @@
-= Address Book (Level 3)
+= NUStudy
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/AY1920S1-CS2103T-F11-4/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-F11-4/main"]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -12,21 +11,20 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is Cam Ranh.
-
-== Site Map
-
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
+* <<UserGuide#, User guide>>
+* <<DeveloperGuide#, Developer guide>>
 * <<AboutUs#, About>>
 * <<ContactUs#, Contact>>
+
+*NUStudy* is an application for managing your lecture notes and flash cards,
+so you can _study and play at the same time_. All university members – students,
+lecturers, tutors, even research staff – can come together and share the
+foundation of their existence for the greater good.
 
 == Acknowledgements
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
-
-== Licence : link:LICENSE[MIT]
-
-AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
+* AddressBook-Level3, which this application is a fork of, was created by the National University of Singapore (NUS) https://se-education.org[SE-EDU].
+* link:LICENSE[MIT licence]
