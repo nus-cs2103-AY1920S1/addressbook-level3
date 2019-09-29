@@ -30,7 +30,9 @@ public class RedoCommand extends Command {
 
     public static final boolean HAS_INVERSE = false;
 
-    /** Number of commands to undo. */
+    /**
+     * Number of commands to undo.
+     */
     private int numberOfTimes;
 
     /**
@@ -114,6 +116,7 @@ public class RedoCommand extends Command {
 
     /**
      * Checks for equality of {@code numberOfTimes} if {@code other} is a {@code RedoCommand}.
+     *
      * @param other {@code Object} to compare with.
      * @return Whether {@code other} is a {@code RedoCommand} with the same {@code numberOfTimes}.
      */
@@ -123,5 +126,6 @@ public class RedoCommand extends Command {
                 || (other instanceof RedoCommand // instanceof handles nulls
                 && ((RedoCommand) other).numberOfTimes == numberOfTimes);
     }
- }
+
+}
 
