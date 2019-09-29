@@ -18,17 +18,22 @@ import java.util.stream.Collectors;
 public class SampleDataUtil {
     public static Card[] getSampleCards() {
         return new Card[] {
-            new Card(new Name("Pikachu"), new Description("PIKAPIKAAAAA"),
+            new Card(new Name("Abra"), new Description("It sleeps eighteen hours a day, but employs telekinesis even " +
+                    "while sleeping."),
                     getTagSet("friends")),
-            new Card(new Name("Eevee"), new Description("Woah! So many possible evolutions."),
+            new Card(new Name("Butterfree"), new Description("Its wings are covered with poisonous dust. If you see " +
+                    "one flapping its wings, be careful not to inhale any of the dust."),
                     getTagSet("friends")),
-            new Card(new Name("Ditto"), new Description("I can transform and breed with anyone."),
+            new Card(new Name("Charizard"), new Description(" It flies around the sky in search of powerful " +
+                    "opponents. It breathes fire of such great heat that it melts anything. However, it never turns " +
+                    "its fiery breath on any opponent weaker than itself."),
                     getTagSet("friends")),
-            new Card(new Name("Magikarp"), new Description("Just wait.. I'm going to evolve to something STRONG!"),
+            new Card(new Name("Ditto"), new Description("Its transformation ability is perfect. However, if it " +
+                    "is made to laugh, it can't maintain its disguise."),
                     getTagSet("friends")),
-            new Card(new Name("Snorlax"), new Description("ZZzzZZzzzzZZzzz"),
-                    getTagSet("friends")),
-            new Card(new Name("Psyduck"), new Description("PSY DUCK!"), getTagSet("friends"))
+            new Card(new Name("Eevee"), new Description("Possessing an unbalanced and unstable genetic makeup, it " +
+                    "conceals many possible evolutions"),
+                    getTagSet("friends"))
         };
     }
 

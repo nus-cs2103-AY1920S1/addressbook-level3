@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalCards.ABRA;
+import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.WordBankBuilder;
 
 public class ModelManagerTest {
 
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasCard(ALICE));
+        assertFalse(modelManager.hasCard(ABRA));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addCard(ALICE);
-        assertTrue(modelManager.hasCard(ALICE));
+        modelManager.addCard(ABRA);
+        assertTrue(modelManager.hasCard(ABRA));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        WordBank wordBank = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        WordBank wordBank = new WordBankBuilder().withCard(ABRA).withCard(BUTTERFREE).build();
         WordBank differentWordBank = new WordBank();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentWordBank, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().value.split("\\s+");
+        String[] keywords = ABRA.getName().value.split("\\s+");
         modelManager.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(wordBank, userPrefs)));
 

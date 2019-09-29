@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCards.ABRA;
+import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,7 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CardBuilder;
 
 public class WordBankTest {
 
@@ -37,65 +37,65 @@ public class WordBankTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        WordBank newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyWordBank_replacesData() {
+        WordBank newData = getTypicalWordBank();
         wordBank.resetData(newData);
         assertEquals(newData, wordBank);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Card editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateCards_throwsDuplicateCardException() {
+        // Two Cards with the same identity fields
+        Card editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).withTags(VALID_TAG_BUG)
                 .build();
-        List<Card> newPersons = Arrays.asList(ALICE, editedAlice);
-        WordBankStub newData = new WordBankStub(newPersons);
+        List<Card> newCards = Arrays.asList(ABRA, editedAbra);
+        WordBankStub newData = new WordBankStub(newCards);
 
         assertThrows(DuplicateCardException.class, () -> wordBank.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasCard_nullCard_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> wordBank.hasCard(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(wordBank.hasCard(ALICE));
+    public void hasCard_CardNotInWordBank_returnsFalse() {
+        assertFalse(wordBank.hasCard(ABRA));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        wordBank.addCard(ALICE);
-        assertTrue(wordBank.hasCard(ALICE));
+    public void hasCard_CardInWordBank_returnsTrue() {
+        wordBank.addCard(ABRA);
+        assertTrue(wordBank.hasCard(ABRA));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        wordBank.addCard(ALICE);
-        Card editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void hasCard_CardWithSameIdentityFieldsInWordBank_returnsTrue() {
+        wordBank.addCard(ABRA);
+        Card editedABRA = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).withTags(VALID_TAG_BUG)
                 .build();
-        assertTrue(wordBank.hasCard(editedAlice));
+        assertTrue(wordBank.hasCard(editedABRA));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getCardList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> wordBank.getCardList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyWordBank whose cards list can violate interface constraints.
      */
     private static class WordBankStub implements ReadOnlyWordBank {
-        private final ObservableList<Card> persons = FXCollections.observableArrayList();
+        private final ObservableList<Card> Cards = FXCollections.observableArrayList();
 
-        WordBankStub(Collection<Card> persons) {
-            this.persons.setAll(persons);
+        WordBankStub(Collection<Card> Cards) {
+            this.Cards.setAll(Cards);
         }
 
         @Override
         public ObservableList<Card> getCardList() {
-            return persons;
+            return Cards;
         }
     }
 

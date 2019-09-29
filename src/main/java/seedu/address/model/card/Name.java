@@ -9,13 +9,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Name {
 
+    public static final int MAX_LEN = 256;
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should be 1-256 characters long.";
+            "Names should be 1-" + MAX_LEN + " characters long.";
 
     /*
      * The name should contain 1-256 characters.
      */
-    public static final String VALIDATION_REGEX = "^(?=.{1,256}$).*";
+    public static final String VALIDATION_REGEX = String.format("^(?=.{1,%d}$).*", MAX_LEN);
 
     public final String value;
 

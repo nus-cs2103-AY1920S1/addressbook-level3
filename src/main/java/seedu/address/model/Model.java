@@ -59,13 +59,13 @@ public interface Model {
 
     /**
      * Deletes the given card.
-     * The card must exist in the address book.
+     * The card must exist in the word bank.
      */
     void deleteCard(Card target);
 
     /**
      * Adds the given card.
-     * {@code card} must not already exist in the address book.
+     * {@code card} must not already exist in the word bank.
      */
     void addCard(Card card);
 

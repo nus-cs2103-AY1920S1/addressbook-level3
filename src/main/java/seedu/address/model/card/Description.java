@@ -9,13 +9,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Description {
 
+    public static final int MAX_LEN = 512;
     public static final String MESSAGE_CONSTRAINTS =
-            "Descriptions should be 1-512 characters long.";
+            "Descriptions should be 1-" + MAX_LEN +" characters long.";
 
     /*
-     * The description should contain 1-512 characters.
+     * The description should contain 1-MAX_LEN characters.
      */
-    public static final String VALIDATION_REGEX = "^(?=.{1,512}$).*";
+    public static final String VALIDATION_REGEX = String.format("^(?=.{1,%d}$).*", MAX_LEN);
 
     public final String value;
 
