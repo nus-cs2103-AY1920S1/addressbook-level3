@@ -59,7 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.
 * Items in square brackets are optional.
-* Items with `…`​ after them can be used multiple times including zero times.
+* Items with `…` after them can be used multiple times including zero times.
 * Parameters can be in any order.
 ====
 
@@ -86,12 +86,12 @@ Notice:
 
 === Importing flashcards from disk : `import`
 
-Adds a deck of flashcards from a JSON file path to FlashCard Pro's library +
+Adds a deck of flashcards from a JSON file path to FlashCard Pro's library 
 Format: `import filepath/FILE_NAME`
 
 === Exporting flashcards to disk: `export`
 
-Saves the deck of flashcards to a JSON file in the specified file path +
+Saves the deck of flashcards to a JSON file in the specified file path 
 Format: `export deck/DECK_NAME FILE_NAME`
 
 [TIP]
@@ -103,33 +103,33 @@ Examples:
 
 === Viewing user statistics : `stats`
 
-Shows your usage statistics, such as time spent and usage count in general of for a deck of cards in a graphical format (i.e. pie charts, bar graphs etc) +
+Shows your usage statistics, such as time spent and usage count in general of for a deck of cards in a graphical format (i.e. pie charts, bar graphs etc) 
 Format: `stats [deck/DECK_NAME]`
 
 Examples:
 
-* `stats`+
+* `stats` 
 Displays the overview of the time spent and usage count of all decks of cards.
-* `stats deck/science_deck`+
+* `stats deck/science_deck`
 Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 
 
 === Viewing flashcards in library: `view`
 
-View the flashcard decks or the individual flashcards in a specific deck +
+View the flashcard decks or the individual flashcards in a specific deck 
 Format: `view [deck/DECK_NAME]`
 
 Examples:
 
-* `view` +
+* `view` 
 Displays all the decks of cards in the library
-* `view deck/science_deck` +
+* `view deck/science_deck` 
 Displays all the cards in the deck of cards, `science_deck`
 
 
 === Creating new flashcards : `create`
 
-Create a new deck of flashcards +
+Create a new deck of flashcards 
 Format: `create deck/DECK_NAME`
 
 ****
@@ -152,14 +152,14 @@ Format: `create deck/DECK_NAME`
 
 === Start test with flashcards : `test`
 
-Starts a test with a deck of flashcards, with the choice of a timed or untimed test +
+Starts a test with a deck of flashcards, with the choice of a timed or untimed test 
 Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME`
 
 Examples:
 
-* `test deck/science_deck` +
+* `test deck/science_deck` 
 Starts a untimed test with the deck of cards, `science_deck`
-* `test duration/50 deck/science_deck` +
+* `test duration/50 deck/science_deck` 
 Starts a timed test with the deck of cards, `science_deck`
 
 ****
@@ -171,7 +171,7 @@ Starts a timed test with the deck of cards, `science_deck`
 
 === Quit test or flashcard creation : `exit`
 
-Exits the test or flashcard creation process +
+Exits the test or flashcard creation process 
 Format: `exit`
 
 
