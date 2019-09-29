@@ -127,6 +127,6 @@ public class RedoCommandTest {
         String expectedMessage = String.format(AddAddressCommand.MESSAGE_SUCCESS, person) + "\n"
                 + String.format(RedoCommand.MESSAGE_SUCCESS, numberOfCommandsToRedo);
 
-        assertCommandSuccess(new RedoCommand(numberOfCommandsToRedo), model, expectedMessage, expectedModel);
+        assertCommandSuccess(redoCommand, model, expectedMessage, expectedModel);
     }
 }
