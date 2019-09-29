@@ -15,6 +15,7 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
+import seedu.address.storage.catalog.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Book}.
