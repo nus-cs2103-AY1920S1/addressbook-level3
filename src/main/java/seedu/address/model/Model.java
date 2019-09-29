@@ -4,17 +4,10 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.itinerary.Date;
-import seedu.address.model.itinerary.Expenditure;
-import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Name;
-import seedu.address.model.itinerary.day.DayId;
-import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.model.itinerary.trip.TripId;
 import seedu.address.model.pagestatus.PageStatus;
-import seedu.address.model.pagestatus.PageType;
 import seedu.address.model.person.Person;
 
 /**
@@ -55,12 +48,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code travelPal}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setTravelPal(ReadOnlyTravelPal travelPal);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the TravelPal */
+    ReadOnlyTravelPal getTravelPal();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -86,15 +79,15 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    void setPageStatus(PageStatus target, PageStatus editedPageStatus);
+    void setPageStatus(PageStatus editedPageStatus);
 
     PageStatus getPageStatus();
-
-    void setTrip(Trip target, Trip editedTrip);
 
     void addTrip(Trip trip);
 
     void deleteTrip(Trip target);
+
+    FilteredList<Trip> getFilteredTripList();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
