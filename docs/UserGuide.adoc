@@ -30,7 +30,6 @@ After sets of flashcards (known as “decks”) have been created, the user may 
 
 As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming. For example, teachers may define basic coding problems which their students can attempt to answer. FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress.
 
-
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -63,20 +62,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order.
 ====
 
-
 === Show help page for commands available : `help`
 
-Shows the help page and guides you through the available commands for FlashCard Pro. You can also choose a specific command to look up how to use it 
+Shows the help page and guides you through the available commands for FlashCard Pro. You can also choose a specific command to look up how to use it
 
 Format: `help [command/COMMAND_NAME]`
-
 
 ****
 * Shows all the available commands and syntax in the application if user supplied no parameters except command.
 * Shows the specific command syntax if the command is specified in the optional parameters.
 * All commands that are available, except for help, can be queried, and other non-valid commands will give a “command not found” message.
 ****
-
 
 Examples:
 
@@ -85,16 +81,15 @@ Displays the commands available for FlashCard Pro
 * `help command/view`
 Displays the syntax to use command `view`
 
-
 === Importing flashcards from disk : `import`
 
-Adds a deck of flashcards from a JSON file path to FlashCard Pro's library 
+Adds a deck of flashcards from a JSON file path to FlashCard Pro's library
 
 Format: `import filepath/FILE_NAME`
 
 === Exporting flashcards to disk: `export`
 
-Saves the deck of flashcards to a JSON file in the specified file path 
+Saves the deck of flashcards to a JSON file in the specified file path
 
 Format: `export deck/DECK_NAME FILE_NAME`
 
@@ -107,35 +102,33 @@ Examples:
 
 === Viewing user statistics : `stats`
 
-Shows your usage statistics, such as time spent and usage count in general of for a deck of cards in a graphical format (i.e. pie charts, bar graphs etc) 
+Shows your usage statistics, such as time spent and usage count in general of for a deck of cards in a graphical format (i.e. pie charts, bar graphs etc)
 
 Format: `stats [deck/DECK_NAME]`
 
 Examples:
 
-* `stats` 
+* `stats`
 Displays the overview of the time spent and usage count of all decks of cards.
 * `stats deck/science_deck`
 Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 
-
 === Viewing flashcards in library: `view`
 
-View the flashcard decks or the individual flashcards in a specific deck 
+View the flashcard decks or the individual flashcards in a specific deck
 
 Format: `view [deck/DECK_NAME]`
 
 Examples:
 
-* `view` 
+* `view`
 Displays all the decks of cards in the library
-* `view deck/science_deck` 
+* `view deck/science_deck`
 Displays all the cards in the deck of cards, `science_deck`
-
 
 === Creating new flashcards : `create`
 
-Create a new deck of flashcards 
+Create a new deck of flashcards
 
 Format: `create deck/DECK_NAME`
 
@@ -169,10 +162,9 @@ Format: `create deck/DECK_NAME`
 `You have created the deck ‘Japanese’ with a total of 2 cards!`
 ****
 
-
 === Start test with flashcards : `test`
 
-Starts a test with a deck of flashcards, with the choice of a timed or untimed test 
+Starts a test with a deck of flashcards, with the choice of a timed or untimed test
 
 ****
 * Starts the test and the timer for the specified duration `TIME_LIMIT_ALLOWED`.
@@ -186,22 +178,16 @@ Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME`
 
 Examples:
 
-* `test deck/science_deck` 
+* `test deck/science_deck`
 Starts a untimed test with the deck of cards, `science_deck`
-* `test duration/50 deck/science_deck` 
+* `test duration/50 deck/science_deck`
 Starts a timed test with the deck of cards, `science_deck`
-
-
-
-
 
 === Quit test or flashcard creation : `exit`
 
-Exits the test or flashcard creation process 
+Exits the test or flashcard creation process
 
 Format: `exit`
-
-
 
 === Editing the cards of an existing deck of flashcards : `edit`
 
@@ -212,7 +198,6 @@ Extensions/to discuss:
 - To allow the user to import cards from a file to an existing deck (instead of to a new deck).
 - To allow the user to edit cards easily while in view mode.
 Format: edit DECK_NAME CARD_INDEX
-
 
 == FAQ
 
@@ -233,4 +218,4 @@ e.g. `view deck/science_deck`
 * *test* : `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` +
 e.g. `test deck/science_deck`
 * *exit* : `exit`
-* *edit* : `Format: edit deck/DECK_NAME index/CARD_INDEX` 
+* *edit* : `Format: edit deck/DECK_NAME index/CARD_INDEX`
