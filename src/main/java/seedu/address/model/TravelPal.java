@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.itinerary.trip.TripList;
+import seedu.address.model.pagestatus.PageStatus;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -12,9 +15,10 @@ import seedu.address.model.person.UniquePersonList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class TravelPal implements ReadOnlyTravelPal {
 
     private final UniquePersonList persons;
+    private final TripList tripList;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,14 +29,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        tripList = new TripList();
     }
 
-    public AddressBook() {}
+    public TravelPal() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an TravelPal using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public TravelPal(ReadOnlyTravelPal toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +53,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code TravelPal} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTravelPal newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -86,7 +91,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TravelPal}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -109,12 +114,32 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof TravelPal // instanceof handles nulls
+                && persons.equals(((TravelPal) other).persons));
     }
 
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    public void setPageStatus(PageStatus editedPageStatus) {
+    }
+
+    public PageStatus getPageStatus() {
+        return null;
+    }
+
+    public void addTrip(Trip trip) {
+        tripList.add(trip);
+    }
+
+    public void deleteTrip(Trip trip) {
+        tripList.remove(trip);
+    }
+
+    @Override
+    public ObservableList<Trip> getTripList() {
+        return tripList.asUnmodifiableObservableList();
     }
 }

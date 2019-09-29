@@ -13,7 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TravelPalParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 import seedu.address.ui.Ui;
@@ -45,10 +45,10 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = travelPalParser.parseCommand(commandText, model.getPageStatus());
-        commandResult = command.execute(model);
+        commandResult = command.execute(model, ui);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getTravelPal());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

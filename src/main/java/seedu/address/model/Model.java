@@ -4,7 +4,10 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.pagestatus.PageStatus;
 import seedu.address.model.person.Person;
 
 /**
@@ -45,12 +48,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code travelPal}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setTravelPal(ReadOnlyTravelPal travelPal);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the TravelPal */
+    ReadOnlyTravelPal getTravelPal();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -75,6 +78,16 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    void setPageStatus(PageStatus editedPageStatus);
+
+    PageStatus getPageStatus();
+
+    void addTrip(Trip trip);
+
+    void deleteTrip(Trip target);
+
+    FilteredList<Trip> getFilteredTripList();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
