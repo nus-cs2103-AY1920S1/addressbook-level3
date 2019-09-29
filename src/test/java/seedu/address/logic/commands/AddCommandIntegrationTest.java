@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BOOK;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
@@ -41,9 +42,9 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateBook_throwsCommandException() {
         Book bookInList = model.getCatalog().getBookList().get(0);
-        assertCommandFailure(new AddCommand(bookInList), model, AddCommand.MESSAGE_DUPLICATE_BOOK);
+        assertCommandFailure(new AddCommand(bookInList), model, MESSAGE_DUPLICATE_BOOK);
     }
 
 }

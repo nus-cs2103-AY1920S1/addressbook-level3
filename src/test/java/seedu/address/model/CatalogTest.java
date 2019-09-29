@@ -36,41 +36,48 @@ public class CatalogTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyCatalog_replacesData() {
         Catalog newData = getTypicalCatalog();
         catalog.resetData(newData);
         assertEquals(newData, catalog);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Book editedAlice = new BookBuilder(BOOK_1).withGenres(VALID_GENRE_ACTION)
-                .build();
-        List<Book> newBooks = Arrays.asList(BOOK_1, editedAlice);
+    public void resetData_withDuplicateBookDifferentSerialNumber_success() {
+        // Two books with the same identity fields but different serial number
+        Book editedBook1 = new BookBuilder(BOOK_1).withSerialNumber("B0002").build();
+        List<Book> newBooks = Arrays.asList(BOOK_1, editedBook1);
         CatalogStub newData = new CatalogStub(newBooks);
+        assertTrue(true);
+    }
 
+    @Test
+    public void resetData_withDuplicateBook_throwsDuplicateBookException() {
+        // Two books with the same identity fields and same serial number
+        Book editedBook1 = new BookBuilder(BOOK_1).build();
+        List<Book> newBooks = Arrays.asList(BOOK_1, editedBook1);
+        CatalogStub newData = new CatalogStub(newBooks);
         assertThrows(DuplicateBookException.class, () -> catalog.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasBook_nullBook_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> catalog.hasBook(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasBook_bookNotInCatalog_returnsFalse() {
         assertFalse(catalog.hasBook(BOOK_1));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasBook_bookInCatalog_returnsTrue() {
         catalog.addBook(BOOK_1);
         assertTrue(catalog.hasBook(BOOK_1));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasBook_bookWithSameIdentityFieldsInCatalog_returnsTrue() {
         catalog.addBook(BOOK_1);
         Book editedAlice = new BookBuilder(BOOK_1).withGenres(VALID_GENRE_ACTION)
                 .build();
@@ -78,7 +85,7 @@ public class CatalogTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getBookList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> catalog.getBookList().remove(0));
     }
 

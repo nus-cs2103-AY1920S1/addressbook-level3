@@ -6,7 +6,7 @@ import seedu.address.model.borrower.Borrower;
 
 /**
  * Wraps all data at the catalog level
- * Duplicates are not allowed (by .isSameBook comparison)
+ * Duplicates are not allowed (by .equals comparison)
  */
 public class BorrowerRecords implements ReadOnlyBorrowerRecords {
 

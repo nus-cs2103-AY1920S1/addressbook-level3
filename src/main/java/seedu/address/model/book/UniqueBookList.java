@@ -13,14 +13,13 @@ import seedu.address.model.book.exceptions.DuplicateBookException;
 
 /**
  * A list of books that enforces uniqueness between its elements and does not allow nulls.
- * A book is considered unique by comparing using {@code Book#isSameBook(Book)}. As such, adding and updating of
- * books uses Book#isSameBook(Book) for equality so as to ensure that the book being added or updated is
+ * A book is considered unique by comparing using {@code Book#equals(Book)}. As such, adding and updating of
+ * books uses Book#equals(Book) for equality so as to ensure that the book being added or updated is
  * unique in terms of identity in the UniqueBookList. However, the removal of a book uses Book#equals(Object) so
  * as to ensure that the book with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Book#isSameBook(Book)
  */
 public class UniqueBookList implements Iterable<Book> {
 
@@ -33,7 +32,7 @@ public class UniqueBookList implements Iterable<Book> {
      */
     public boolean contains(Book toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameBook);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -69,7 +68,7 @@ public class UniqueBookList implements Iterable<Book> {
             throw new BookNotFoundException();
         }
 
-        if (!target.isSameBook(editedBook) && contains(editedBook)) {
+        if (!target.equals(editedBook) && contains(editedBook)) {
             throw new DuplicateBookException();
         }
 
@@ -135,7 +134,7 @@ public class UniqueBookList implements Iterable<Book> {
     private boolean booksAreUnique(List<Book> books) {
         for (int i = 0; i < books.size() - 1; i++) {
             for (int j = i + 1; j < books.size(); j++) {
-                if (books.get(i).isSameBook(books.get(j))) {
+                if (books.get(i).equals(books.get(j))) {
                     return false;
                 }
             }

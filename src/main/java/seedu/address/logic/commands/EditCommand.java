@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
@@ -31,7 +32,7 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the book identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -43,9 +44,8 @@ public class EditCommand extends Command {
             + PREFIX_SERIAL_NUMBER + "0001"
             + PREFIX_AUTHOR + "J K Rowling";
 
-    public static final String MESSAGE_EDIT_BOOK_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_BOOK_SUCCESS = "Edited Book: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_BOOK = "This person already exists in the address book.";
 
     private final Index index;
     private final EditBookDescriptor editBookDescriptor;
@@ -68,13 +68,13 @@ public class EditCommand extends Command {
         List<Book> lastShownList = model.getFilteredBookList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
 
         Book bookToEdit = lastShownList.get(index.getZeroBased());
         Book editedBook = createEditedBook(bookToEdit, editBookDescriptor);
 
-        if (!bookToEdit.isSameBook(editedBook) && model.hasBook(editedBook)) {
+        if (model.excludeBookBeingReplaced(bookToEdit).hasBook(editedBook)) {
             throw new CommandException(MESSAGE_DUPLICATE_BOOK);
         }
 
@@ -117,8 +117,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the book with. Each non-empty field value will replace the
+     * corresponding field value of the book.
      */
     public static class EditBookDescriptor {
         private Title title;
