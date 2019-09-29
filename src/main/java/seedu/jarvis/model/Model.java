@@ -5,7 +5,7 @@ import seedu.jarvis.commons.core.GuiSettings;
 /**
  * The API of the Model component.
  */
-public interface Model extends AddressModel, HistoryModel {
+public interface Model extends AddressModel {
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
