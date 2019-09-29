@@ -151,7 +151,7 @@ public class Application implements ReadOnlyApplication {
     public boolean hasModuleOfCode(ModCode modCode) {
         requireNonNull(modCode);
         boolean hasMod = false;
-        for (Module module :  modules) {
+        for (Module module : modules) {
             if (module.getModCode().equals(modCode)) {
                 hasMod = true;
                 break;
@@ -160,6 +160,9 @@ public class Application implements ReadOnlyApplication {
         return hasMod;
     }
 
+    /**
+     * Adds a tutorial to its associated module. Assumes that a module of the given code exists.
+     */
     public void addTutorialToModule(Tutorial tutorial) {
         requireNonNull(tutorial);
         Module targetModule = null;
