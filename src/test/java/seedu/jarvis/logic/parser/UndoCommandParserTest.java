@@ -2,7 +2,7 @@ package seedu.jarvis.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO;
+import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO_REDO;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -53,7 +53,7 @@ public class UndoCommandParserTest {
      */
     @Test
     public void test_parse_all() {
-        String arguments1 = " " + PREFIX_UNDO + "all";
+        String arguments1 = " " + PREFIX_UNDO_REDO + "all";
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
@@ -62,14 +62,14 @@ public class UndoCommandParserTest {
         assertParseSuccess(parser, arguments1, new UndoCommand(
                 VersionControl.INSTANCE.getTotalNumberOfUndoableCommands()));
 
-        String arguments2 = " " + PREFIX_UNDO + "ALL";
+        String arguments2 = " " + PREFIX_UNDO_REDO + "ALL";
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertParseSuccess(parser, arguments2, new UndoCommand(
                 VersionControl.INSTANCE.getTotalNumberOfUndoableCommands()));
 
-        String arguments3 = " " + PREFIX_UNDO + "aLl";
+        String arguments3 = " " + PREFIX_UNDO_REDO + "aLl";
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new ClearAddressCommand()));
         assertParseSuccess(parser, arguments3, new UndoCommand(
@@ -83,7 +83,7 @@ public class UndoCommandParserTest {
     @Test
     public void test_parse_validNumeric() {
         String validNumber = "5";
-        String arguments = " " + PREFIX_UNDO + validNumber;
+        String arguments = " " + PREFIX_UNDO_REDO + validNumber;
         assertParseSuccess(parser, arguments, new UndoCommand(Integer.parseInt(validNumber)));
     }
 
@@ -93,7 +93,7 @@ public class UndoCommandParserTest {
     @Test
     public void test_parse_negativeNumeric() {
         String negativeNumber = "-5";
-        String arguments = " " + PREFIX_UNDO + negativeNumber;
+        String arguments = " " + PREFIX_UNDO_REDO + negativeNumber;
         assertParseSuccess(parser, arguments, new UndoCommand());
     }
 
@@ -102,7 +102,7 @@ public class UndoCommandParserTest {
      */
     @Test
     public void test_parse_zero() {
-        String arguments = " " + PREFIX_UNDO + "0";
+        String arguments = " " + PREFIX_UNDO_REDO + "0";
         assertParseSuccess(parser, arguments, new UndoCommand());
     }
 
@@ -112,7 +112,7 @@ public class UndoCommandParserTest {
     @Test
     public void test_parse_invalid() {
         Stream.of("1.1", " ", "INVALID", "?", "Html Is A Programming Language")
-                .map(invalidArgument -> " " + PREFIX_UNDO + invalidArgument)
+                .map(invalidArgument -> " " + PREFIX_UNDO_REDO + invalidArgument)
                 .forEach(argument -> assertParseFailure(parser, argument,
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE)));
     }

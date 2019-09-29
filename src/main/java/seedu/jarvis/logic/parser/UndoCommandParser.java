@@ -1,7 +1,7 @@
 package seedu.jarvis.logic.parser;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO;
+import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO_REDO;
 
 import java.util.Optional;
 
@@ -23,8 +23,8 @@ public class UndoCommandParser implements Parser<UndoCommand> {
      */
     @Override
     public UndoCommand parse(String args) throws ParseException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_UNDO);
-        Optional<String> optionalArgument = argumentMultimap.getValue(PREFIX_UNDO);
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_UNDO_REDO);
+        Optional<String> optionalArgument = argumentMultimap.getValue(PREFIX_UNDO_REDO);
 
         // if no argument is given, create an undo command for one action.
         if (optionalArgument.isEmpty()) {
