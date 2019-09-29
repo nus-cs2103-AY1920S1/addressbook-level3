@@ -40,7 +40,7 @@ public class EventBook implements ReadOnlyEventBook{
      * Replaces the contents of the event list with {@code events}.
      * {@code persons} must not contain duplicate events.
      */
-    public void setPersons(List<Event> events) {
+    public void setEvents(List<Event> events) {
         this.events.setEvents(events);
     }
 
@@ -49,7 +49,7 @@ public class EventBook implements ReadOnlyEventBook{
      */
     public void resetData(ReadOnlyEventBook newData) {
         requireNonNull(newData);
-        setPersons(newData.getEventList());
+        setEvents(newData.getEventList());
     }
 
     //// person-level operations

@@ -17,7 +17,7 @@ import seedu.address.model.person.Person;
 /**
  * Represents the in-memory model of the address book data.
  */
-public abstract class EventModelManager implements Model {
+public abstract class EventModelManager implements Model { //never use
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final EventBook eventBook;

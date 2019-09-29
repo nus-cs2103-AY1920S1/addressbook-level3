@@ -43,6 +43,10 @@ public class ModelManager implements Model {
         filteredEvents = new FilteredList<>(this.eventBook.getEventList());
     }
 
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        this(addressBook, new EventBook(), userPrefs);
+    }
+
     public ModelManager() {
         this(new AddressBook(), new EventBook(), new UserPrefs());
     }
@@ -153,7 +157,7 @@ public class ModelManager implements Model {
     @Override
     public void addEvent(Event event) {
         eventBook.addEvent(event);
-        //updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
@@ -212,6 +216,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return eventBook.equals(other.eventBook)
+                && addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredEvents.equals(other.filteredEvents);

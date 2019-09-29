@@ -24,6 +24,7 @@ public class JsonEventBookStorage implements EventBookStorage {
 
     private Path filePath;
 
+    public JsonEventBookStorage() {}
     public JsonEventBookStorage(Path filePath) {
         this.filePath = filePath;
     }
