@@ -22,23 +22,23 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 
 == Features
 
-. Manage your classes
+. *Manage your classes*
 .. Attendance taking
 .. Note taking
 .. Record student scores
-. Creating questions
+. *Creating questions*
 .. Easy input
 .. Repeatable
-. Generate quizzes
+. *Generate quizzes*
 .. Type once, generate anytime
 .. Randomised
 .. Distribution
-. Timetable Manager
+. *Timetable Manager*
 .. Create and manage
 .. Schedule classes
 .. Class Reminders
 .. Repeatable daily/monthly and even yearly
-. Statistics
+. *Statistics*
 .. View underperforming students
 .. Trends of the academic year
 
@@ -48,7 +48,7 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 . Download the njoy.jar file
 . Double click on ‘njoy.jar’ file to run the application
 
-*If you are not able to run the application using the method above, use the following:
+_If you are not able to run the application using the method above, use the following:_
 . Open Terminal(Mac)/Command Prompt(Windows)
 . Type cd [path to directory containing jar file]
 . Type ‘java -jar njoy.jar’ to run the application.
@@ -150,5 +150,5 @@ Show all available commands usable in the application.
 
 == FAQ
 
-*Q*: Typing a command result in “Invalid command entered.”
+*Q*: Typing a command result in “Invalid command entered.” +
 *A*: Please ensure that the command is entered as specified in the format above. Note that all fields all mandatory except those marked as ​(optional).​
