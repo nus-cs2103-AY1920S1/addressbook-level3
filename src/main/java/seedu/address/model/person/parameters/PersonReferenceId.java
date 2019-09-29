@@ -28,7 +28,7 @@ public abstract class PersonReferenceId implements ReferenceId {
     public PersonReferenceId(String referenceId) {
         requireNonNull(referenceId);
         checkArgument(isValidId(referenceId), MESSAGE_CONSTRAINTS);
-        this.referenceId = referenceId;
+        this.referenceId = referenceId.toUpperCase();
     }
 
     /**
