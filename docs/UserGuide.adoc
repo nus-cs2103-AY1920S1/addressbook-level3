@@ -184,9 +184,10 @@ Starts a timed test with the deck of cards, `science_deck`
 
 
 ****
-Notice:
 * Starts the test and the timer for the specified duration `TIME_LIMIT_ALLOWED`.
+
 * The duration TIME_LIMIT_ALLOWED refers to the time allowed for the test. The test will proceed with a countdown until the time hits 00:00.
+
 * The duration must be a positive integer in minutes e.g. 1, 2, 3, …
 ****
 
