@@ -35,6 +35,7 @@ public class DescriptionTest {
 
         // valid descriptions
         assertTrue(Description.isValidDescription("I need help."));
+        assertTrue(Description.isValidDescription("Ineedhelp."));
         assertTrue(Description.isValidDescription("-")); // one character
         StringBuilder maxLenDescription = new StringBuilder();
         for (int i = 0; i < Description.MAX_LEN; ++i) {

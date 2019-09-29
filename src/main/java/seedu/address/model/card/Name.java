@@ -11,12 +11,12 @@ public class Name {
 
     public static final int MAX_LEN = 256;
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should be 1-" + MAX_LEN + " characters long.";
+            "Names should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
 
     /*
-     * The name should contain 1-256 characters.
+     * The name should contain 1-256 characters, and not all are white spaces.
      */
-    public static final String VALIDATION_REGEX = String.format("^(?=.{1,%d}$).*", MAX_LEN);
+    public static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN +"}$";
 
     public final String value;
 

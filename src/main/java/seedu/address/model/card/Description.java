@@ -11,12 +11,12 @@ public class Description {
 
     public static final int MAX_LEN = 512;
     public static final String MESSAGE_CONSTRAINTS =
-            "Descriptions should be 1-" + MAX_LEN +" characters long.";
+            "Descriptions should be 1-" + MAX_LEN +" characters long, and not all are white spaces.";
 
     /*
-     * The description should contain 1-MAX_LEN characters.
+     * The description should contain 1-MAX_LEN characters, and not all are white spaces.
      */
-    public static final String VALIDATION_REGEX = String.format("^(?=.{1,%d}$).*", MAX_LEN);
+    public static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN +"}$";
 
     public final String value;
 

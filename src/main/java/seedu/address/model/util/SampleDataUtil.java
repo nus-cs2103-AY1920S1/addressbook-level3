@@ -24,7 +24,7 @@ public class SampleDataUtil {
             new Card(new Name("Butterfree"), new Description("Its wings are covered with poisonous dust. If you see " +
                     "one flapping its wings, be careful not to inhale any of the dust."),
                     getTagSet("friends")),
-            new Card(new Name("Charizard"), new Description(" It flies around the sky in search of powerful " +
+            new Card(new Name("Charizard"), new Description("It flies around the sky in search of powerful " +
                     "opponents. It breathes fire of such great heat that it melts anything. However, it never turns " +
                     "its fiery breath on any opponent weaker than itself."),
                     getTagSet("friends")),
