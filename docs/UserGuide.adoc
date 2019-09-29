@@ -67,6 +67,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Show help page for commands available : `help`
 
 Shows the help page and guides you through the available commands for FlashCard Pro. You can also choose a specific command to look up how to use it 
+
 Format: `help [command/COMMAND_NAME]`
 
 Examples:
@@ -87,11 +88,13 @@ Notice:
 === Importing flashcards from disk : `import`
 
 Adds a deck of flashcards from a JSON file path to FlashCard Pro's library 
+
 Format: `import filepath/FILE_NAME`
 
 === Exporting flashcards to disk: `export`
 
 Saves the deck of flashcards to a JSON file in the specified file path 
+
 Format: `export deck/DECK_NAME FILE_NAME`
 
 [TIP]
@@ -104,6 +107,7 @@ Examples:
 === Viewing user statistics : `stats`
 
 Shows your usage statistics, such as time spent and usage count in general of for a deck of cards in a graphical format (i.e. pie charts, bar graphs etc) 
+
 Format: `stats [deck/DECK_NAME]`
 
 Examples:
@@ -117,6 +121,7 @@ Display the overview of time spend and usage count of the deck of cards, `scienc
 === Viewing flashcards in library: `view`
 
 View the flashcard decks or the individual flashcards in a specific deck 
+
 Format: `view [deck/DECK_NAME]`
 
 Examples:
@@ -130,6 +135,7 @@ Displays all the cards in the deck of cards, `science_deck`
 === Creating new flashcards : `create`
 
 Create a new deck of flashcards 
+
 Format: `create deck/DECK_NAME`
 
 ****
@@ -166,6 +172,7 @@ Format: `create deck/DECK_NAME`
 === Start test with flashcards : `test`
 
 Starts a test with a deck of flashcards, with the choice of a timed or untimed test 
+
 Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME`
 
 Examples:
@@ -187,6 +194,7 @@ Notice:
 === Quit test or flashcard creation : `exit`
 
 Exits the test or flashcard creation process 
+
 Format: `exit`
 
 
