@@ -24,15 +24,15 @@ public class ModelManager implements Model {
     private final FilteredList<Card> filteredCards;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given wordBank and userPrefs.
      */
-    public ModelManager(ReadOnlyWordBank addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyWordBank wordBank, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(wordBank, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
 
-        this.wordBank = new WordBank(addressBook);
+        this.wordBank = new WordBank(wordBank);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
