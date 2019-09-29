@@ -35,7 +35,7 @@ public class RedoCommandParser implements Parser<RedoCommand> {
 
         // if argument is all, create a redo command for all available actions.
         if (argument.equalsIgnoreCase(ARGUMENT_UNDO_ALL)) {
-            return new RedoCommand(VersionControl.INSTANCE.getTotalNumberOfUndoableCommands());
+            return new RedoCommand(VersionControl.INSTANCE.getTotalNumberOfRedoableCommands());
         }
 
         int numberOfTimes;

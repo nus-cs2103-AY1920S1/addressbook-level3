@@ -14,17 +14,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.logic.commands.UndoCommand;
+import seedu.jarvis.logic.commands.RedoCommand;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.version.VersionControl;
 import seedu.jarvis.model.Model;
 
 /**
- * Tests UndoCommandParser's behaviour on parsing arguments.
+ * Tests RedoCommandParser's behaviour on parsing arguments.
  */
-public class UndoCommandParserTest {
+public class RedoCommandParserTest {
 
-    private Parser<UndoCommand> parser = new UndoCommandParser();
+    private Parser<RedoCommand> parser = new RedoCommandParser();
 
     /**
      * Resets version control before each test.
@@ -48,7 +48,7 @@ public class UndoCommandParserTest {
     @Test
     public void test_parse_noArguments() {
         String arguments = "";
-        assertParseSuccess(parser, arguments, new UndoCommand());
+        assertParseSuccess(parser, arguments, new RedoCommand());
     }
 
     /**
@@ -57,56 +57,48 @@ public class UndoCommandParserTest {
     @Test
     public void test_parse_all() {
         String arguments1 = " " + PREFIX_UNDO_REDO + "all";
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertParseSuccess(parser, arguments1, new UndoCommand(
-                VersionControl.INSTANCE.getTotalNumberOfUndoableCommands()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        System.out.println(VersionControl.INSTANCE.getTotalNumberOfRedoableCommands());
+        assertParseSuccess(parser, arguments1, new RedoCommand(
+                VersionControl.INSTANCE.getTotalNumberOfRedoableCommands()));
 
         String arguments2 = " " + PREFIX_UNDO_REDO + "ALL";
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertParseSuccess(parser, arguments2, new UndoCommand(
-                VersionControl.INSTANCE.getTotalNumberOfUndoableCommands()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertParseSuccess(parser, arguments2, new RedoCommand(
+                VersionControl.INSTANCE.getTotalNumberOfRedoableCommands()));
 
         String arguments3 = " " + PREFIX_UNDO_REDO + "aLl";
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(new InvertibleCommandStub()));
-        assertParseSuccess(parser, arguments3, new UndoCommand(
-                VersionControl.INSTANCE.getTotalNumberOfUndoableCommands()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertDoesNotThrow(() -> VersionControl.INSTANCE.addInverselyExecutedCommand(new InvertibleCommandStub()));
+        assertParseSuccess(parser, arguments3, new RedoCommand(
+                VersionControl.INSTANCE.getTotalNumberOfRedoableCommands()));
 
     }
 
     /**
-     * Verifies that parsing a valid numeric value would return an undo command to undo that many actions.
+     * Verifies that parsing a valid numeric value would return an redo command to undo that many actions.
      */
     @Test
     public void test_parse_validNumeric() {
         String validNumber = "5";
         String arguments = " " + PREFIX_UNDO_REDO + validNumber;
-        assertParseSuccess(parser, arguments, new UndoCommand(Integer.parseInt(validNumber)));
+        assertParseSuccess(parser, arguments, new RedoCommand(Integer.parseInt(validNumber)));
     }
 
     /**
-     * Verifies that parsing a negative number as argument returns an undo command of 1 action.
+     * Verifies that parsing a negative number as argument returns an redo command of 1 action.
      */
     @Test
     public void test_parse_negativeNumeric() {
         String negativeNumber = "-5";
         String arguments = " " + PREFIX_UNDO_REDO + negativeNumber;
-        assertParseSuccess(parser, arguments, new UndoCommand());
-    }
-
-    /**
-     * Verifies that parsing zero as argument returns an undo command of 1 action.
-     */
-    @Test
-    public void test_parse_zero() {
-        String arguments = " " + PREFIX_UNDO_REDO + "0";
-        assertParseSuccess(parser, arguments, new UndoCommand());
+        assertParseSuccess(parser, arguments, new RedoCommand());
     }
 
     /**
@@ -117,7 +109,7 @@ public class UndoCommandParserTest {
         Stream.of("1.1", " ", "INVALID", "?", "Html Is A Programming Language")
                 .map(invalidArgument -> " " + PREFIX_UNDO_REDO + invalidArgument)
                 .forEach(argument -> assertParseFailure(parser, argument,
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE)));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE)));
     }
 
     /**
@@ -139,4 +131,5 @@ public class UndoCommandParserTest {
             return null;
         }
     }
+
 }
