@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Tag;
+import seedu.address.model.events.Timing;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
@@ -157,5 +159,13 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static Timing parseTiming(String stringTiming) throws ParseException {
+        requireNonNull(stringTiming);
+        if (!Timing.isValidTiming(stringTiming)) {
+            throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
+        }
+        return new Timing(stringTiming);
     }
 }
