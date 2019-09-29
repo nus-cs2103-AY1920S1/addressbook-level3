@@ -16,35 +16,49 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public abstract class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> {
+
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-    protected Stage primaryStage;
-    protected Logic logic;
-    protected Model model;
+
+    private Stage primaryStage;
+    private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    PersonListPanel personListPanel;
-    ResultDisplay resultDisplay;
-    HelpWindow helpWindow;
+    private PersonListPanel personListPanel;
+    private ResultDisplay resultDisplay;
+    private HelpWindow helpWindow;
+
+    @FXML
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
-    public MainWindow(String fxmlFileName, Stage primaryStage, Logic logic, Model model) {
-        super(fxmlFileName, primaryStage);
+    @FXML
+    private StackPane personListPanelPlaceholder;
 
+    @FXML
+    private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
+
+    public MainWindow(Stage primaryStage, Logic logic) {
+        super(FXML, primaryStage);
+
+        // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.model = model;
 
-        setWindowDefaultSize(model.getGuiSettings());
+        // Configure the UI
+        setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
 
@@ -92,7 +106,19 @@ public abstract class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    abstract void fillInnerParts();
+    void fillInnerParts() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -129,7 +155,7 @@ public abstract class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        model.setGuiSettings(guiSettings);
+        logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -143,7 +169,7 @@ public abstract class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -164,5 +190,4 @@ public abstract class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
-
 }
