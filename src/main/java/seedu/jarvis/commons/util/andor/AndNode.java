@@ -1,23 +1,25 @@
 package seedu.jarvis.commons.util.andor;
 
+import seedu.jarvis.model.course.Course;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AndNode<T> extends AndOrNode<T> {
-    protected AndNode(T data, AndOrNode<T> parent, List<AndOrNode<T>> children) {
+public class AndNode extends AndOrNode {
+    protected AndNode(Course data, AndOrNode parent, List<AndOrNode> children) {
         super(data, parent, children);
     }
 
-    protected AndNode(T data, AndOrNode<T> parent) {
+    protected AndNode(Course data, AndOrNode parent) {
         super(data, parent);
     }
 
     @Override
-    public boolean hasFulfilledCondition(Collection<T> collection) {
+    public boolean hasFulfilledCondition(Collection<Course> collection) {
         Set<Boolean> bool = new HashSet<>();
-        for (AndOrNode<T> node : children) {
+        for (AndOrNode node : children) {
             bool.add(node.hasFulfilledCondition(collection));
         }
         return !bool.contains(false);

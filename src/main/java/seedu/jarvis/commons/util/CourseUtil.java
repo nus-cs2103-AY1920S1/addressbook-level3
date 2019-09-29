@@ -80,7 +80,7 @@ public class CourseUtil {
      * @param courseCode the course code
      * @return a {@code String} containing the course prefix
      */
-    public static String getCoursePrefix(String courseCode) {
+    private static String getCoursePrefix(String courseCode) {
         StringBuilder prefix = new StringBuilder();
         char[] code = courseCode.toCharArray();
         int i = 0;
@@ -114,6 +114,13 @@ public class CourseUtil {
         return courseProps;
     }
 
+    /**
+     * Returns a Course object
+     *
+     * @param courseCode
+     * @return
+     * @throws IOException
+     */
     public static Course getCourse(String courseCode) throws IOException {
         Map<String, String> courseInformation = getCourseMap(courseCode);
         return new Course(
@@ -124,7 +131,7 @@ public class CourseUtil {
                 new CourseCredit(courseInformation.get("courseCredit")),
                 new PrereqTree(courseInformation.get("prereqTree")),
                 new Preclusion(courseInformation.get("preclusion")),
-                null
+                new FulfillRequirements(courseInformation.get("fulfillRequirements"))
         );
     }
 }

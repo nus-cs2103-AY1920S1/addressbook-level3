@@ -1,29 +1,26 @@
 package seedu.jarvis.commons.util.andor;
 
+import seedu.jarvis.model.course.Course;
+
 import java.util.Collection;
 import java.util.List;
 
-public class LeafNode<T> extends AndOrNode<T> {
-    protected LeafNode(T data, AndOrNode<T> parent, List<AndOrNode<T>> children) {
+public class LeafNode extends AndOrNode {
+    protected LeafNode(Course data, AndOrNode parent, List<AndOrNode> children) {
         super(data, parent, children);
     }
 
-    protected LeafNode(T data, AndOrNode<T> parent) {
+    protected LeafNode(Course data, AndOrNode parent) {
         super(data, parent);
     }
 
     @Override
-    public boolean hasFulfilledCondition(Collection<T> collection) {
-        System.out.println("=================");
-        System.out.println(data);
-        System.out.println(collection.toString());
-        System.out.println(collection.contains(data));
-        System.out.println("=================");
+    public boolean hasFulfilledCondition(Collection<Course> collection) {
         return collection.contains(data);
     }
 
     @Override
     public String toString() {
-        return this.getData().toString();
+        return (this.data == null) ? "null" : this.getData().getCourseCode().toString();
     }
 }
