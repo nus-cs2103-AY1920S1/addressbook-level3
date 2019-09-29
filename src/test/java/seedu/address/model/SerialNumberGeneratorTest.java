@@ -5,7 +5,9 @@ import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.testutil.BookBuilder;
 
 class SerialNumberGeneratorTest {
     private final Catalog catalog = new Catalog();
@@ -26,4 +28,13 @@ class SerialNumberGeneratorTest {
         assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0005"));
     }
 
+    @Test
+    void generateSerialNumber_nonConcurrentSerialNumber_autoGenerateSuccess() {
+        Catalog catalog = getTypicalCatalog();
+        Book newBook = new BookBuilder().withTitle("testBook").withSerialNumber("B0006").build();
+        catalog.addBook(newBook);
+        SerialNumberGenerator.setCatalog(catalog);
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0005"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0007"));
+    }
 }

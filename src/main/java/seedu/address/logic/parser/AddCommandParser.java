@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_NON_UNIQUE_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
@@ -45,10 +44,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         SerialNumber serialNumber;
         if (haveSerialNumber) {
             serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER).get());
-            boolean alreadyInUse = SerialNumberGenerator.serialNumberExists(serialNumber);
-            if (alreadyInUse) {
-                throw new ParseException(MESSAGE_NON_UNIQUE_SERIAL_NUMBER);
-            }
         } else {
             // serial number generator already configured to current catalog in Model
             serialNumber = SerialNumberGenerator.generateSerialNumber();

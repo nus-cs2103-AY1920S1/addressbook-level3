@@ -69,6 +69,8 @@ public interface Model {
 
     void updateFilteredBookList(Predicate<Book> predicate);
 
+    Model excludeBookBeingReplaced(Book toBeReplaced);
+
     // ================================================================ LoanRecords
 
     Path getLoanRecordsFilePath();

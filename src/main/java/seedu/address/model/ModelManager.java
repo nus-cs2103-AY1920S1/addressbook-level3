@@ -80,8 +80,8 @@ public class ModelManager implements Model {
 
 
     @Override
-    public void setCatalog(ReadOnlyCatalog addressBook) {
-        this.catalog.resetData(addressBook);
+    public void setCatalog(ReadOnlyCatalog catalog) {
+        this.catalog.resetData(catalog);
     }
 
     @Override
@@ -98,11 +98,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteBook(Book target) {
         catalog.removeBook(target);
+        SerialNumberGenerator.setCatalog(catalog);
     }
 
     @Override
     public void addBook(Book book) {
         catalog.addBook(book);
+        SerialNumberGenerator.setCatalog(catalog);
         updateFilteredBookList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -111,6 +113,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedBook);
 
         catalog.setBook(target, editedBook);
+        SerialNumberGenerator.setCatalog(catalog);
     }
 
     public Path getLoanRecordsFilePath() {
@@ -167,6 +170,13 @@ public class ModelManager implements Model {
     public void updateFilteredBookList(Predicate<Book> predicate) {
         requireNonNull(predicate);
         filteredBooks.setPredicate(predicate);
+    }
+
+    @Override
+    public Model excludeBookBeingReplaced(Book toBeReplaced) {
+        Catalog tempCatalog = new Catalog(this.getCatalog());
+        tempCatalog.removeBook(toBeReplaced);
+        return new ModelManager(tempCatalog, this.getLoanRecords(), this.getBorrowerRecords(), this.getUserPrefs());
     }
 
     //=========== BorrowerRecords ===============================================================================

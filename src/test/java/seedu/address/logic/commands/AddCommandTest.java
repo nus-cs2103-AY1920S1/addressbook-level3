@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BOOK;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -33,7 +34,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_bookAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingBookAdded modelStub = new ModelStubAcceptingBookAdded();
         Book validBook = new BookBuilder().build();
 
@@ -44,36 +45,36 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateBook_throwsCommandException() {
         Book validBook = new BookBuilder().build();
         AddCommand addCommand = new AddCommand(validBook);
         ModelStub modelStub = new ModelStubWithBook(validBook);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOK, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_BOOK, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Book alice = new BookBuilder().withTitle("Alice").build();
-        Book bob = new BookBuilder().withTitle("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Book a = new BookBuilder().withTitle("A").withSerialNumber("B0001").build();
+        Book b = new BookBuilder().withTitle("B").withSerialNumber("B0002").build();
+        AddCommand addACommand = new AddCommand(a);
+        AddCommand addBCommand = new AddCommand(b);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addACommand.equals(addACommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addACommandCopy = new AddCommand(a);
+        assertTrue(addACommand.equals(addACommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addACommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addACommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addACommand.equals(addBCommand));
     }
 
     /**
@@ -180,6 +181,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public Model excludeBookBeingReplaced(Book toBeReplaced) {
+            throw new AssertionError(" This method should not be called.");
+        }
+
 
     }
 
@@ -197,7 +203,7 @@ public class AddCommandTest {
         @Override
         public boolean hasBook(Book book) {
             requireNonNull(book);
-            return this.book.isSameBook(book);
+            return this.book.equals(book);
         }
     }
 
@@ -210,7 +216,7 @@ public class AddCommandTest {
         @Override
         public boolean hasBook(Book book) {
             requireNonNull(book);
-            return booksAdded.stream().anyMatch(book::isSameBook);
+            return booksAdded.stream().anyMatch(book::equals);
         }
 
         @Override

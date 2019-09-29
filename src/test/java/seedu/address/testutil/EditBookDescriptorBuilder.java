@@ -38,7 +38,7 @@ public class EditBookDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditBookDescriptor} that we are building.
      */
     public EditBookDescriptorBuilder withTitle(String title) {
         descriptor.setTitle(new Title(title));
@@ -46,7 +46,7 @@ public class EditBookDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code SerialNumber} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code SerialNumber} of the {@code EditBookDescriptor} that we are building.
      */
     public EditBookDescriptorBuilder withSerialNumber(String serialNumber) {
         descriptor.setSerialNumber(new SerialNumber(serialNumber));
@@ -54,7 +54,7 @@ public class EditBookDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Author} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Author} of the {@code EditBookDescriptor} that we are building.
      */
     public EditBookDescriptorBuilder withAuthor(String author) {
         descriptor.setAuthor(new Author(author));
@@ -62,7 +62,7 @@ public class EditBookDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Genre>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Genre>} and set it to the {@code EditBookDescriptor}
      * that we are building.
      */
     public EditBookDescriptorBuilder withGenres(String... genres) {

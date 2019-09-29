@@ -42,7 +42,7 @@ public class Catalog implements ReadOnlyCatalog {
 
     /**
      * Replaces the contents of the book list with {@code books}.
-     * {@code persons} must not contain duplicate books.
+     * {@code books} must not contain duplicate books.
      */
     public void setBooks(List<Book> books) {
         this.books.setBooks(books);
@@ -60,16 +60,16 @@ public class Catalog implements ReadOnlyCatalog {
     //// person-level operations
 
     /**
-     * Returns true if a book with the same identity as {@code book} exists in the catalog.
+     * Returns true if a book with the same serial number as {@code book} exists in the catalog.
      */
     public boolean hasBook(Book book) {
         requireNonNull(book);
-        return books.contains(book);
+        return checkIfSerialNumberExists(book.getSerialNumber());
     }
 
     /**
      * Adds a book to the catalog.
-     * The person must not already exist in the catalog.
+     * The book must not already exist in the catalog.
      */
     public void addBook(Book p) {
         books.add(p);

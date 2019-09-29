@@ -9,7 +9,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class SerialNumber {
 
-    public static final String MESSAGE_NON_UNIQUE = "Serial number is not unique! Please input another serial number";
     public static final String MESSAGE_CONSTRAINTS =
             "Serial numbers should start with prefix \"B\", followed by 4 digits. They should be unique.";
     public static final String VALIDATION_REGEX = "B\\d{4}";
