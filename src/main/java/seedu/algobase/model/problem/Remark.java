@@ -10,6 +10,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class Remark {
 
     public static final String MESSAGE_CONSTRAINTS = "Remark can take any values, and it should not be blank.";
+    public static final String DEFAULT_REMARK_STRING = "";
     public static final Remark DEFAULT_REMARK = new Remark();
 
     /*
@@ -32,10 +33,12 @@ public class Remark {
     }
 
     /**
-     * Constructs an empty {@code Remark}.
+     * Constructs a {@code Remark} which is empty.
+     * Since public constructor of Remark disallows empty remark,
+     * this private constructor uses empty string distinguish itself from normal remarks.
      */
     private Remark() {
-        value = "";
+        value = DEFAULT_REMARK_STRING;
     }
 
     /**
@@ -46,7 +49,7 @@ public class Remark {
     }
 
     public static boolean isDefaultRemark(Remark remark) {
-        return remark.equals(DEFAULT_REMARK);
+        return remark == DEFAULT_REMARK;
     }
 
     @Override
