@@ -4,53 +4,48 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+_Modulo_ - a java application that enable students to keep track of their studies
+by enabling them to create modules, plans, quizzes and managing their finances.
+
+This application was adapted from the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore]. +
+Tutor: Kyler Wong
+
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Joanna Sara Susan Purba
+image::joannasara.png[width="150", align="left"]
+{empty}About: [https://github.com/joannasara[Github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Calendar
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Tuan Ding Wei
+image::tuandingwei.png[width="150", align="left"]
+{empty}About: [https://github.com/tuandingwei[Github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Modules
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Victor Varian
+image::victorvic54.png[width="150", align="left"]
+{empty}About: [https://github.com/victorvic54[Github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Quizzes
 
 '''
+
+=== Jasmine
+image::tohcejasmine.png[width="150", align="left"]
+{empty}About: [https://github.com/tohcejasmine[Github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Finance
