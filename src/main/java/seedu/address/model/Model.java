@@ -5,6 +5,16 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.itinerary.Date;
+import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.itinerary.Location;
+import seedu.address.model.itinerary.Name;
+import seedu.address.model.itinerary.day.DayId;
+import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.itinerary.trip.TripId;
+import seedu.address.model.pagestatus.PageStatus;
+import seedu.address.model.pagestatus.PageType;
 import seedu.address.model.person.Person;
 
 /**
@@ -75,6 +85,16 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    void setPageStatus(PageStatus target, PageStatus editedPageStatus);
+
+    PageStatus getPageStatus();
+
+    void setTrip(Trip target, Trip edited);
+
+    void addTrip(Trip trip);
+
+    void deleteTrip(Trip target);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
