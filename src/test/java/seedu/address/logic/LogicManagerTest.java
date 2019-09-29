@@ -2,7 +2,7 @@ package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
@@ -28,9 +28,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
-import seedu.address.storage.JsonCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
+import seedu.address.storage.catalog.JsonCatalogStorage;
+import seedu.address.storage.loanrecords.JsonLoanRecordsStorage;
 import seedu.address.testutil.BookBuilder;
 
 public class LogicManagerTest {
@@ -44,10 +46,16 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonCatalogStorage addressBookStorage =
+        JsonCatalogStorage catalogStorage =
                 new JsonCatalogStorage(temporaryFolder.resolve("addressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        JsonLoanRecordsStorage loanRecordsStorage =
+                new JsonLoanRecordsStorage(temporaryFolder.resolve("loanRecords.json"));
+        JsonBorrowerRecordsStorage borrowerRecordsStorage =
+                new JsonBorrowerRecordsStorage(temporaryFolder.resolve("borrowerRecords.json"));
+        StorageManager storage = new StorageManager(
+                userPrefsStorage, loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -60,7 +68,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -72,11 +80,16 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonCatalogStorage addressBookStorage =
+        JsonCatalogStorage catalogStorage =
                 new JsonCatalogIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonBorrowerRecordsStorage borrowerRecordsStorage =
+                new JsonBorrowerRecordsStorage(temporaryFolder.resolve("ioExceptionBorrowerRecords.json"));
+        JsonLoanRecordsStorage loanRecordsStorage =
+                new JsonLoanRecordsStorage(temporaryFolder.resolve("ioExceptionLoanRecords.json"));
+        StorageManager storage = new StorageManager(
+                userPrefsStorage, loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -130,7 +143,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -156,7 +170,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyCatalog addressBook, Path filePath) throws IOException {
+        public void saveCatalog(ReadOnlyCatalog addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

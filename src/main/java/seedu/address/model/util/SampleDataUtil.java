@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+<<<<<<< HEAD
 import seedu.address.model.Catalog;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.SerialNumberGenerator;
@@ -12,25 +13,26 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.AddressBook;
+=======
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.SerialNumberGenerator;
+import seedu.address.model.book.Author;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.Title;
+import seedu.address.model.genre.Genre;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
     public static Book[] getSampleBooks() {
+        SerialNumberGenerator.setCatalog(new Catalog());
         return new Book[] {
             new Book(new Title("Harry Botter"), SerialNumberGenerator.generateSerialNumber(),
                     new Author("J K Rowling"), getTagSet("Fiction")),
@@ -62,19 +64,11 @@ public class SampleDataUtil {
 
     public static ReadOnlyLoanRecords getSampleLoanRecords() {
         LoanRecords loanRecords = new LoanRecords();
-        loanRecords.populateLoans();
         return loanRecords;
-    }
-
-    public static ReadOnlyCatalog getSampleCatalog() {
-        Catalog catalog = new Catalog();
-        catalog.populateBooks();
-        return catalog;
     }
 
     public static ReadOnlyBorrowerRecords getSampleBorrowerRecords() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
-        borrowerRecords.populateBorrowers();
         return borrowerRecords;
     }
 }

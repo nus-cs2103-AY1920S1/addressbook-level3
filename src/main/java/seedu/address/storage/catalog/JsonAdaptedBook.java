@@ -1,103 +1,95 @@
 package seedu.address.storage.catalog;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.Title;
+import seedu.address.model.genre.Genre;
 
 /**
  * Jackson-friendly version of {@link Book}.
  */
-class JsonAdaptedBook {
+public class JsonAdaptedBook {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Book's %s field is missing!";
 
     private final String title;
-//    private final String phone;
-//    private final String email;
-//    private final String address;
-//    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String serialNumber;
+    private final String author;
+    private final List<JsonAdaptedTag> genres = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedBook} with the given book details.
+     * Constructs a {@code JsonAdaptedBook} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedBook(@JsonProperty("title") String title) {
+    public JsonAdaptedBook(@JsonProperty("title") String title, @JsonProperty("serialNumber") String serialNumber,
+                           @JsonProperty("author") String author,
+                           @JsonProperty("genres") List<JsonAdaptedTag> genres) {
         this.title = title;
-//        this.phone = phone;
-//        this.email = email;
-//        this.address = address;
-//        if (tagged != null) {
-//            this.tagged.addAll(tagged);
-//        }
+        this.serialNumber = serialNumber;
+        this.author = author;
+        if (genres != null) {
+            this.genres.addAll(genres);
+        }
     }
 
     /**
      * Converts a given {@code Book} into this class for Jackson use.
      */
     public JsonAdaptedBook(Book source) {
-
-        // TODO
-        title = source.getTitle();
-//        phone = source.getPhone().value;
-//        email = source.getEmail().value;
-//        address = source.getAddress().value;
-//        tagged.addAll(source.getTags().stream()
-//                .map(JsonAdaptedTag::new)
-//                .collect(Collectors.toList()));
+        title = source.getTitle().value;
+        serialNumber = source.getSerialNumber().value;
+        author = source.getAuthor().value;
+        genres.addAll(source.getGenres().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this Jackson-friendly adapted book object into the model's {@code Book} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code Book} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted book.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Book toModelType() throws IllegalValueException {
-
-        // TODO
-        /*
-        final List<Tag> bookTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            bookTags.add(tag.toModelType());
+        final List<Genre> personGenres = new ArrayList<>();
+        for (JsonAdaptedTag tag : genres) {
+            personGenres.add(tag.toModelType());
         }
 
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        if (title == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Title modelTitle = new Title(title);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (serialNumber == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    SerialNumber.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!SerialNumber.isValidSerialNumber(serialNumber)) {
+            throw new IllegalValueException(SerialNumber.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final SerialNumber modelSerialNumber = new SerialNumber(serialNumber);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (author == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Author.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
+        final Author modelAuthor = new Author(author);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
-
-        final Set<Tag> modelTags = new HashSet<>(bookTags);
-
-         */
-        return new Book();
+        final Set<Genre> modelGenres = new HashSet<>(personGenres);
+        return new Book(modelTitle, modelSerialNumber, modelAuthor, modelGenres);
     }
 
 }

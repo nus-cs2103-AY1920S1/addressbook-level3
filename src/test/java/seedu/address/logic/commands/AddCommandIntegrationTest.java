@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BOOK;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
@@ -7,6 +8,8 @@ import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.BorrowerRecords;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -22,14 +25,16 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalCatalog(), new UserPrefs());
+        // TODO implement and add getTypicalLoanRecords() and getTypicalBorrowerRecords()
+        model = new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
     }
 
     @Test
     public void execute_newBook_success() {
         Book validBook = new BookBuilder().withTitle("Hari").withSerialNumber("B0005").build();
 
-        Model expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
         expectedModel.addBook(validBook);
 
         assertCommandSuccess(new AddCommand(validBook), model,
@@ -37,9 +42,9 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateBook_throwsCommandException() {
         Book bookInList = model.getCatalog().getBookList().get(0);
-        assertCommandFailure(new AddCommand(bookInList), model, AddCommand.MESSAGE_DUPLICATE_BOOK);
+        assertCommandFailure(new AddCommand(bookInList), model, MESSAGE_DUPLICATE_BOOK);
     }
 
 }

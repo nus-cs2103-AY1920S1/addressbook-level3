@@ -4,14 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.borrower.Borrower;
 
+/**
+ * Wraps all data at the catalog level
+ * Duplicates are not allowed (by .equals comparison)
+ */
 public class BorrowerRecords implements ReadOnlyBorrowerRecords {
 
     // Placeholder for UniqueBorrowerList
-    ObservableList<Borrower> listOfBorrowers = FXCollections.observableArrayList();
+    private ObservableList<Borrower> listOfBorrowers = FXCollections.observableArrayList();
 
     public BorrowerRecords(ReadOnlyBorrowerRecords toBeCopied) {
     }
-
+    /**
+     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     */
     public BorrowerRecords() {
 
     }
@@ -24,14 +30,15 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
         listOfBorrowers.add(book);
     }
 
-    public void populateBorrowers() {
-        for (int i = 0; i < 10; i++) {
-            listOfBorrowers.add(new Borrower("Lim Ah Meng" + i));
-        }
-    }
-
     @Override
     public ObservableList<Borrower> getBorrowerList() {
         return FXCollections.unmodifiableObservableList(listOfBorrowers);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BorrowerRecords // instanceof handles nulls
+                && listOfBorrowers.equals(((BorrowerRecords) other).listOfBorrowers));
     }
 }

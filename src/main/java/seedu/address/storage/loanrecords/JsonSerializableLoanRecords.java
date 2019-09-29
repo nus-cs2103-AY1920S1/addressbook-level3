@@ -1,4 +1,4 @@
-package seedu.address.storage.loanrecord;
+package seedu.address.storage.loanrecords;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +17,9 @@ import seedu.address.model.loan.Loan;
  * An Immutable LoanRecords that is serializable to JSON format.
  */
 @JsonRootName(value = "loanrecords")
-class JsonSerializableLoanRecords {
+public class JsonSerializableLoanRecords {
     // NOT IMPORTANT
     public static final String MESSAGE_DUPLICATE_LOAN = "loans list contains duplicate loan(s).";
-    
     private final List<JsonAdaptedLoan> loans = new ArrayList<>();
 
     /**
@@ -46,15 +45,15 @@ class JsonSerializableLoanRecords {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public LoanRecords toModelType() throws IllegalValueException {
-        LoanRecords LoanRecords = new LoanRecords();
-        for (JsonAdaptedLoan JsonAdaptedLoan : loans) {
-            Loan loan = JsonAdaptedLoan.toModelType();
-            if (LoanRecords.hasLoan(loan)) {
+        LoanRecords loanRecords = new LoanRecords();
+        for (JsonAdaptedLoan jsonAdaptedLoan : loans) {
+            Loan loan = jsonAdaptedLoan.toModelType();
+            if (loanRecords.hasLoan(loan)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_LOAN);
             }
-            LoanRecords.addLoan(loan);
+            loanRecords.addLoan(loan);
         }
-        return LoanRecords;
+        return loanRecords;
     }
 
 }

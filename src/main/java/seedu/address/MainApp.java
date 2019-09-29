@@ -26,8 +26,6 @@ import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.CatalogStorage;
-import seedu.address.storage.JsonCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -36,8 +34,8 @@ import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
 import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
 import seedu.address.storage.catalog.CatalogStorage;
 import seedu.address.storage.catalog.JsonCatalogStorage;
-import seedu.address.storage.loanrecord.JsonLoanRecordsStorage;
-import seedu.address.storage.loanrecord.LoanRecordsStorage;
+import seedu.address.storage.loanrecords.JsonLoanRecordsStorage;
+import seedu.address.storage.loanrecords.LoanRecordsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -68,8 +66,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         LoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(userPrefs.getLoanRecordsFilePath());
         CatalogStorage catalogStorage = new JsonCatalogStorage(userPrefs.getCatalogFilePath());
-        BorrowerRecordsStorage borrowerRecordsStorage
-                = new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
+        BorrowerRecordsStorage borrowerRecordsStorage =
+                new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
 
         storage = new StorageManager(userPrefsStorage,
                 loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
@@ -91,7 +89,7 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-      
+
         Optional<ReadOnlyLoanRecords> loanRecordsOptional;
         ReadOnlyLoanRecords initialLoanRecords;
         Optional<ReadOnlyCatalog> catalogOptional;
@@ -141,8 +139,8 @@ public class MainApp extends Application {
             initialBorrowerRecords = new BorrowerRecords();
         }
 
-        return new ModelManager(userPrefs, initialLoanRecords,
-                initialCatalog, initialBorrowerRecords);
+        return new ModelManager(initialCatalog, initialLoanRecords, initialBorrowerRecords, userPrefs
+        );
     }
 
     private void initLogging(Config config) {

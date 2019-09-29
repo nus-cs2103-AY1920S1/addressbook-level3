@@ -2,11 +2,34 @@ package seedu.address.model.book;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.GENRE_DESC_FICTION;
+import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_2;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalBooks.BOOK_2;
+import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.AddCommandParser;
+import seedu.address.model.BorrowerRecords;
+import seedu.address.model.Catalog;
+import seedu.address.model.LoanRecords;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.SerialNumberGenerator;
+import seedu.address.model.UserPrefs;
+import seedu.address.testutil.BookBuilder;
+
 public class SerialNumberTest {
+
+    private AddCommandParser parser = new AddCommandParser();
+    private Model model = new ModelManager();
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -15,8 +38,13 @@ public class SerialNumberTest {
 
     @Test
     public void constructor_invalidSerialNumber_throwsIllegalArgumentException() {
+<<<<<<< HEAD
         String invalidPhone = "";
         assertThrows(IllegalArgumentException.class, () -> new SerialNumber(invalidPhone));
+=======
+        String invalidSerialNumber = "";
+        assertThrows(IllegalArgumentException.class, () -> new SerialNumber(invalidSerialNumber));
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 
     @Test
@@ -37,5 +65,65 @@ public class SerialNumberTest {
         assertTrue(SerialNumber.isValidSerialNumber("B0911")); // exactly 4 numbers
         assertTrue(SerialNumber.isValidSerialNumber("B0001")); // smallest serial number
         assertTrue(SerialNumber.isValidSerialNumber("B9999")); // largest serial number
+<<<<<<< HEAD
+=======
+    }
+
+    @Test
+    public void addSerialNumber_notUnique_assertCommandExceptionThrown() {
+        Catalog catalog = getTypicalCatalog();
+        SerialNumberGenerator.setCatalog(catalog);
+        Model model = new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
+
+        //Serial number B0002 is already in typical catalog
+        Book validBook2 = new BookBuilder(BOOK_2).build();
+        AddCommand addCommand = new AddCommand(validBook2);
+        assertCommandExceptionThrown(addCommand, model);
+    }
+
+    @Test
+    public void addSerialNumber_unique_assertParseSuccess() {
+        SerialNumberGenerator.setCatalog(new Catalog());
+
+        Book expectedBook = new BookBuilder(BOOK_2).build();
+        //Serial number B0002 of BOOK_2 is not in empty new catalog
+        assertParseSuccess(parser, TITLE_DESC_BOOK_2 + SERIAL_NUMBER_DESC_BOOK_2 + AUTHOR_DESC_BOOK_2
+                + GENRE_DESC_ACTION + GENRE_DESC_FICTION, new AddCommand(expectedBook));
+    }
+
+    @Test
+    public void toString_correctStringRepresentation_assertTrue() {
+        SerialNumberGenerator.setCatalog(new Catalog());
+        assertTrue(SerialNumberGenerator.generateSerialNumber().toString().equals("B0001"));
+    }
+
+    @Test
+    public void equals_sameSerialNumber_assertTrue() {
+        SerialNumber sn1 = new SerialNumber("B0001");
+        SerialNumber sn2 = new SerialNumber("B0001");
+        assertTrue(sn1.equals(sn2));
+    }
+
+    @Test
+    public void hashCode_sameSerialNumberSameHashCode_assertTrue() {
+        SerialNumber sn1 = new SerialNumber("B0001");
+        SerialNumber sn2 = new SerialNumber("B0001");
+        assertTrue(sn1.hashCode() == sn2.hashCode());
+    }
+
+    /**
+     * Asserts if CommandException is being thrown.
+     *
+     * @param command command to be executed.
+     * @param model model to be tested on.
+     */
+    private void assertCommandExceptionThrown(AddCommand command, Model model) {
+        try {
+            command.execute(model);
+            assertTrue(false);
+        } catch (CommandException e) {
+            assertTrue(true);
+        }
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 }

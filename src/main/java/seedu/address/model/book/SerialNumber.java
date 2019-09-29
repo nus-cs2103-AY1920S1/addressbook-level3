@@ -4,21 +4,32 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
+<<<<<<< HEAD
  * Represents a Person's phone number in the address book.
+=======
+ * Represents a Book's serial number in the catalog.
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
  * Guarantees: immutable; is valid as declared in {@link #isValidSerialNumber(String)}
  */
 public class SerialNumber {
 
-
     public static final String MESSAGE_CONSTRAINTS =
+<<<<<<< HEAD
             "Serial numbers should have a prefix \"B\" followed by 4 digits.";
+=======
+            "Serial numbers should start with prefix \"B\", followed by 4 digits. They should be unique.";
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     public static final String VALIDATION_REGEX = "B\\d{4}";
     public final String value;
 
     /**
      * Constructs a {@code SerialNumber}.
      *
+<<<<<<< HEAD
      * @param serialNumber A valid phone number.
+=======
+     * @param serialNumber A valid serial number.
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
      */
     public SerialNumber(String serialNumber) {
         requireNonNull(serialNumber);

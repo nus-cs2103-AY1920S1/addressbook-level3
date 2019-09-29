@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.genre.Genre;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Book in the Catalog.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Book {
@@ -55,22 +55,8 @@ public class Book {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameBook(Book otherBook) {
-        if (otherBook == this) {
-            return true;
-        }
-
-        return otherBook != null
-                && otherBook.getTitle().equals(getTitle())
-                && (otherBook.getSerialNumber().equals(getSerialNumber()) || otherBook.getAuthor().equals(getAuthor()));
-    }
-
-    /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both books have the same identity and data fields.
+     * This defines a stronger notion of equality between two books.
      */
     @Override
     public boolean equals(Object other) {
@@ -83,10 +69,8 @@ public class Book {
         }
 
         Book otherBook = (Book) other;
-        return otherBook.getTitle().equals(getTitle())
-                && otherBook.getSerialNumber().equals(getSerialNumber())
-                && otherBook.getAuthor().equals(getAuthor())
-                && otherBook.getGenres().equals(getGenres());
+        // allow for same books but different copies
+        return otherBook.getSerialNumber().equals(getSerialNumber());
     }
 
     @Override
@@ -99,12 +83,14 @@ public class Book {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
-                .append(" SerialNumber: ")
+                .append(" Serial Number: ")
                 .append(getSerialNumber())
                 .append(" Author: ")
-                .append(getAuthor())
-                .append(" Tags: ");
-        getGenres().forEach(builder::append);
+                .append(getAuthor());
+        if (!getGenres().isEmpty()) {
+            builder.append(" Genres: ");
+            getGenres().forEach(genre -> builder.append(genre + " "));
+        }
         return builder.toString();
     }
 

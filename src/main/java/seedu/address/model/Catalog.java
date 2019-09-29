@@ -31,7 +31,7 @@ public class Catalog implements ReadOnlyCatalog {
     public Catalog() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a Catalog using the Books in the {@code toBeCopied}
      */
     public Catalog(ReadOnlyCatalog toBeCopied) {
         this();
@@ -41,15 +41,15 @@ public class Catalog implements ReadOnlyCatalog {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the book list with {@code books}.
+     * {@code books} must not contain duplicate books.
      */
     public void setBooks(List<Book> books) {
         this.books.setBooks(books);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Catalog} with {@code newData}.
      */
     public void resetData(ReadOnlyCatalog newData) {
         requireNonNull(newData);
@@ -60,11 +60,15 @@ public class Catalog implements ReadOnlyCatalog {
     //// person-level operations
 
     /**
+<<<<<<< HEAD
      * Returns true if a book with the same identity as {@code book} exists in the address book.
+=======
+     * Returns true if a book with the same serial number as {@code book} exists in the catalog.
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
      */
     public boolean hasBook(Book book) {
         requireNonNull(book);
-        return books.contains(book);
+        return checkIfSerialNumberExists(book.getSerialNumber());
     }
 
     /**
@@ -91,7 +95,11 @@ public class Catalog implements ReadOnlyCatalog {
     }
 
     /**
+<<<<<<< HEAD
      * Removes {@code key} from this {@code catalog}.
+=======
+     * Removes {@code key} from this {@code Catalog}.
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
      * {@code key} must exist in the catalog.
      */
     public void removeBook(Book key) {
@@ -104,12 +112,6 @@ public class Catalog implements ReadOnlyCatalog {
     public String toString() {
         return books.asUnmodifiableObservableList().size() + " books";
         // TODO: refine later
-    }
-  
-    public void populateBooks() {
-        for (int i = 0; i < 10; i++) {
-            listOfBooks.add(new Book("Harry Potter" + i));
-        }
     }
 
     @Override

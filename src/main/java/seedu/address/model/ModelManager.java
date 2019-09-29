@@ -23,35 +23,40 @@ public class ModelManager implements Model {
     private final LoanRecords loanRecords;
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
+    private final FilteredList<Book> filteredBooks;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given catalog and userPrefs.
      * TODO change
      */
-    public ModelManager(ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyLoanRecords loanRecords, ReadOnlyCatalog catalog,
-                        ReadOnlyBorrowerRecords borrowerRecords) 
+    public ModelManager(ReadOnlyCatalog catalog,
+                        ReadOnlyLoanRecords loanRecords,
+                        ReadOnlyBorrowerRecords borrowerRecords,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-//        requireAllNonNull(addressBook, userPrefs, catalog);
+        requireAllNonNull(userPrefs, loanRecords, catalog, borrowerRecords);
 
         logger.fine("Initializing with catalog: " + catalog + " and user prefs " + userPrefs);
 
         this.userPrefs = new UserPrefs(userPrefs);
         // testing loan records
         this.loanRecords = new LoanRecords(loanRecords);
-        this.loanRecords.populateLoans();
         // testing
         this.catalog = new Catalog(catalog);
-        this.catalog.populateBooks();
+        SerialNumberGenerator.setCatalog((Catalog) catalog);
         // testing
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
+<<<<<<< HEAD
         this.borrowerRecords.populateBorrowers();
         SerialNumberGenerator.setCatalog((Catalog) catalog);
+=======
+        filteredBooks = new FilteredList<>(this.catalog.getBookList());
+
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 
     public ModelManager() {
-        this(new UserPrefs(),
-                new LoanRecords(), new Catalog(), new BorrowerRecords());
+        this(new Catalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -78,12 +83,9 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override
-    public Path getCatalogFilePath() {
-        return userPrefs.getCatalogFilePath();
-    }
 
     @Override
+<<<<<<< HEAD
     public void setCatalogFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setCatalogFilePath(addressBookFilePath);
@@ -95,6 +97,10 @@ public class ModelManager implements Model {
     @Override
     public void setCatalog(ReadOnlyCatalog addressBook) {
         this.catalog.resetData(addressBook);
+=======
+    public void setCatalog(ReadOnlyCatalog catalog) {
+        this.catalog.resetData(catalog);
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 
     @Override
@@ -111,11 +117,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteBook(Book target) {
         catalog.removeBook(target);
+        SerialNumberGenerator.setCatalog(catalog);
     }
 
     @Override
     public void addBook(Book book) {
         catalog.addBook(book);
+        SerialNumberGenerator.setCatalog(catalog);
         updateFilteredBookList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -124,8 +132,9 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedBook);
 
         catalog.setBook(target, editedBook);
+        SerialNumberGenerator.setCatalog(catalog);
     }
-    
+
     public Path getLoanRecordsFilePath() {
         return userPrefs.getLoanRecordsFilePath();
     }
@@ -180,6 +189,13 @@ public class ModelManager implements Model {
     public void updateFilteredBookList(Predicate<Book> predicate) {
         requireNonNull(predicate);
         filteredBooks.setPredicate(predicate);
+    }
+
+    @Override
+    public Model excludeBookBeingReplaced(Book toBeReplaced) {
+        Catalog tempCatalog = new Catalog(this.getCatalog());
+        tempCatalog.removeBook(toBeReplaced);
+        return new ModelManager(tempCatalog, this.getLoanRecords(), this.getBorrowerRecords(), this.getUserPrefs());
     }
 
     //=========== BorrowerRecords ===============================================================================

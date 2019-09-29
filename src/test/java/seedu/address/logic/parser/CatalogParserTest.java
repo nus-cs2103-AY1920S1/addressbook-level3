@@ -22,6 +22,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Catalog;
+import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.TitleContainsKeywordPredicate;
 import seedu.address.testutil.BookBuilder;
@@ -34,6 +36,7 @@ public class CatalogParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
+        SerialNumberGenerator.setCatalog(new Catalog());
         Book book = new BookBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(BookUtil.getAddCommand(book));
         assertEquals(new AddCommand(book), command);

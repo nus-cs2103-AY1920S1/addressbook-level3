@@ -26,7 +26,11 @@ public class ParserUtilTest {
     private static final String INVALID_GENRE = "#friend";
 
     private static final String VALID_TITLE = "Rachel Walker";
+<<<<<<< HEAD
     private static final String VALID_SERIAL_NUMBER = "B1234";
+=======
+    private static final String VALID_SERIAL_NUMBER = "B3456";
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     private static final String VALID_AUTHOR = "rachel@example.com";
     private static final String VALID_GENRE_1 = "friend";
     private static final String VALID_GENRE_2 = "neighbour";
@@ -94,9 +98,13 @@ public class ParserUtilTest {
 
     @Test
     public void parseSerialNumber_validValueWithWhitespace_returnsTrimmedSerialNumber() throws Exception {
+<<<<<<< HEAD
         String phoneWithWhitespace = WHITESPACE + VALID_SERIAL_NUMBER + WHITESPACE;
+=======
+        String serialNumberWithWhitespace = WHITESPACE + VALID_SERIAL_NUMBER + WHITESPACE;
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
         SerialNumber expectedSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER);
-        assertEquals(expectedSerialNumber, ParserUtil.parseSerialNumber(phoneWithWhitespace));
+        assertEquals(expectedSerialNumber, ParserUtil.parseSerialNumber(serialNumberWithWhitespace));
     }
 
     @Test

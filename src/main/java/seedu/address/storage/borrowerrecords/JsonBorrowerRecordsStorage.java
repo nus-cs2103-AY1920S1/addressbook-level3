@@ -60,8 +60,8 @@ public class JsonBorrowerRecordsStorage implements BorrowerRecordsStorage {
     }
 
     @Override
-    public void saveBorrowerRecords(ReadOnlyBorrowerRecords BorrowerRecords) throws IOException {
-        saveBorrowerRecords(BorrowerRecords, filePath);
+    public void saveBorrowerRecords(ReadOnlyBorrowerRecords borrowerRecords) throws IOException {
+        saveBorrowerRecords(borrowerRecords, filePath);
     }
 
     /**

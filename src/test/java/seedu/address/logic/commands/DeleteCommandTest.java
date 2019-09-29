@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.BorrowerRecords;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -23,17 +25,19 @@ import seedu.address.model.book.Book;
  * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
-
-    private Model model = new ModelManager(getTypicalCatalog(), new UserPrefs());
+    // TODO implement and add getTypicalLoanRecords() and getTypicalBorrowerRecords()
+    private Model model = new ModelManager(
+            getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Book bookToDelete = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_BOOK);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, bookToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(
+                model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
         expectedModel.deleteBook(bookToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -44,7 +48,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -54,9 +58,10 @@ public class DeleteCommandTest {
         Book bookToDelete = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_BOOK);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, bookToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete);
 
-        Model expectedModel = new ModelManager(model.getCatalog(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
         expectedModel.deleteBook(bookToDelete);
         showNoPerson(expectedModel);
 
@@ -73,7 +78,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
     }
 
     @Test

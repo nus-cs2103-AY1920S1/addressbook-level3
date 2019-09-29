@@ -1,4 +1,4 @@
-package seedu.address.storage.loanrecord;
+package seedu.address.storage.loanrecords;
 
 import static java.util.Objects.requireNonNull;
 

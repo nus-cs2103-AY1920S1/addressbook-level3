@@ -14,7 +14,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
 import seedu.address.storage.catalog.CatalogStorage;
-import seedu.address.storage.loanrecord.LoanRecordsStorage;
+import seedu.address.storage.loanrecords.LoanRecordsStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -22,7 +22,7 @@ import seedu.address.storage.loanrecord.LoanRecordsStorage;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-  
+
     private UserPrefsStorage userPrefsStorage;
     private LoanRecordsStorage loanRecordsStorage;
     private CatalogStorage catalogStorage;
@@ -81,7 +81,7 @@ public class StorageManager implements Storage {
     @Override
     public void saveLoanRecords(ReadOnlyLoanRecords loanRecords, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        loanRecordsStorage.saveLoanRecords(loanRecords,  filePath);
+        loanRecordsStorage.saveLoanRecords(loanRecords, filePath);
     }
 
     // ================ Catalog methods ==============================
@@ -121,12 +121,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords() throws DataConversionException, IOException {
+    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords()
+            throws DataConversionException, IOException {
         return readBorrowerRecords(borrowerRecordsStorage.getBorrowerRecordsFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return borrowerRecordsStorage.readBorrowerRecords(filePath);
     }

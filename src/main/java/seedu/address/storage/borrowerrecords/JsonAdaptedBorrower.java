@@ -14,23 +14,12 @@ class JsonAdaptedBorrower {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Borrower's %s field is missing!";
 
     private final String userName;
-//    private final String phone;
-//    private final String email;
-//    private final String address;
-//    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-
     /**
      * Constructs a {@code JsonAdaptedBorrower} with the given book details.
      */
     @JsonCreator
     public JsonAdaptedBorrower(@JsonProperty("userName") String userName) {
         this.userName = userName;
-//        this.phone = phone;
-//        this.email = email;
-//        this.address = address;
-//        if (tagged != null) {
-//            this.tagged.addAll(tagged);
-//        }
     }
 
     /**
@@ -40,12 +29,6 @@ class JsonAdaptedBorrower {
 
         // TODO
         userName = source.getUserName();
-//        phone = source.getPhone().value;
-//        email = source.getEmail().value;
-//        address = source.getAddress().value;
-//        tagged.addAll(source.getTags().stream()
-//                .map(JsonAdaptedTag::new)
-//                .collect(Collectors.toList()));
     }
 
     /**
@@ -73,7 +56,7 @@ class JsonAdaptedBorrower {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
+        if (!Phone.isValidSerialNumber(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_BOOKS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
@@ -17,6 +17,8 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.BorrowerRecords;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -26,8 +28,11 @@ import seedu.address.model.book.TitleContainsKeywordPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalCatalog(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCatalog(), new UserPrefs());
+    // TODO implement and add getTypicalLoanRecords() and getTypicalBorrowerRecords()
+    private Model model =
+            new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
+    private Model expectedModel =
+            new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -58,7 +63,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 0);
         TitleContainsKeywordPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookList(predicate);
@@ -68,7 +73,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 3);
         TitleContainsKeywordPredicate predicate = preparePredicate("the");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookList(predicate);

@@ -34,6 +34,16 @@ public class SerialNumberGenerator {
         return new SerialNumber(PREFIX + padding + currentSerialNumberIndex);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Checks if a certain serial number is already in the catalog.
+     */
+    public static boolean serialNumberExists(SerialNumber sn) {
+        return catalog.checkIfSerialNumberExists(sn);
+    }
+
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     private static int getPaddingLength() {
         String stringRepresentation = Integer.toString(currentSerialNumberIndex);
         return SERIAL_NUMBER_LENGTH - stringRepresentation.length();
@@ -41,7 +51,12 @@ public class SerialNumberGenerator {
 
     private static String getPadding(int paddingLength) {
         return IntStream.rangeClosed(1, paddingLength)
+<<<<<<< HEAD
                         .mapToObj(x -> "0")
                         .reduce("", (a, b) -> a + b);
+=======
+                .mapToObj(x -> "0")
+                .reduce("", (a, b) -> a + b);
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 }

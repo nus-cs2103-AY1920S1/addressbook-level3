@@ -26,6 +26,8 @@ import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.Catalog;
+import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.genre.Genre;
@@ -59,6 +61,10 @@ public class AddCommandParserTest {
                 new AddCommand(expectedBook));
 
         // missing serial number
+<<<<<<< HEAD
+=======
+        SerialNumberGenerator.setCatalog(new Catalog());
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
         assertParseSuccess(parser, TITLE_DESC_BOOK_1 + AUTHOR_DESC_BOOK_1,
                 new AddCommand(expectedBook));
     }
@@ -71,7 +77,11 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_TITLE_BOOK_2 + SERIAL_NUMBER_DESC_BOOK_2 + AUTHOR_DESC_BOOK_2,
                 expectedMessage);
 
+<<<<<<< HEAD
         // missing email prefix
+=======
+        // missing author prefix
+>>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
         assertParseFailure(parser, TITLE_DESC_BOOK_2 + SERIAL_NUMBER_DESC_BOOK_2 + VALID_AUTHOR_BOOK_2,
                 expectedMessage);
 

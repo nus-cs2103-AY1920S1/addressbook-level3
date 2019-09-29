@@ -33,14 +33,14 @@ public interface CatalogStorage {
 
     /**
      * Saves the given {@link ReadOnlyCatalog} to the storage.
-     * @param Catalog cannot be null.
+     * @param catalog cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveCatalog(ReadOnlyCatalog Catalog) throws IOException;
+    void saveCatalog(ReadOnlyCatalog catalog) throws IOException;
 
     /**
      * @see #saveCatalog(ReadOnlyCatalog)
      */
-    void saveCatalog(ReadOnlyCatalog Catalog, Path filePath) throws IOException;
+    void saveCatalog(ReadOnlyCatalog catalog, Path filePath) throws IOException;
 
 }
