@@ -66,12 +66,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Show help page for commands available : `help`
 
-Shows the help page and guides you through the available commands for FlashCard Pro. You can also choose a specific command to look up how to use it +
+Shows the help page and guides you through the available commands for FlashCard Pro. You can also choose a specific command to look up how to use it 
 Format: `help [command/COMMAND_NAME]`
 
 Examples:
 
-* `help`+
+* `help`
 Displays the commands available for FlashCard Pro
 * `help command/view`
 Displays the syntax to use command `view`
@@ -134,19 +134,32 @@ Format: `create deck/DECK_NAME`
 
 ****
 * Creates a deck of cards with a series of prompt steps:
+
 `create japanese`
-“Let’s begin creating the deck ‘Japanese’. When done, simply type ‘quit’!”
-“Type the front of your 1st card…”
+
+`Let’s begin creating the deck ‘Japanese’. When done, simply type ‘quit’!`
+
+`Type the front of your 1st card…`
+
 `apple`
-“Type the back of your 1st card…”
+
+`Type the back of your 1st card…`
+
 `ringo`
-“Type the front of your 2nd card…”
+
+`Type the front of your 2nd card…`
+
 `watermelon`
-“Type the back of your 2nd card…”
+
+`Type the back of your 2nd card…`
+
 `suika`
-“Type the back of your 3rd card…”
+
+`Type the back of your 3rd card…`
+
 `quit`
-“You have created the deck ‘Japanese’ with a total of 2 cards!”
+
+`You have created the deck ‘Japanese’ with a total of 2 cards!`
 ****
 
 
@@ -162,7 +175,9 @@ Starts a untimed test with the deck of cards, `science_deck`
 * `test duration/50 deck/science_deck` 
 Starts a timed test with the deck of cards, `science_deck`
 
+
 ****
+Notice:
 * Starts the test and the timer for the specified duration `TIME_LIMIT_ALLOWED`.
 * The duration TIME_LIMIT_ALLOWED refers to the time allowed for the test. The test will proceed with a countdown until the time hits 00:00.
 * The duration must be a positive integer in minutes e.g. 1, 2, 3, …
@@ -196,11 +211,10 @@ Format: edit DECK_NAME CARD_INDEX
 
 * *help* `help [command/COMMAND_NAME]` +
 e.g. `help command/view`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *import* : `import filepath/FILE_NAME`
+* *export* : `export deck/DECK_NAME FILE_NAME`
+* *stats* : `stats [deck/DECK_NAME]` +
+e.g. `stats deck/science_deck`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
