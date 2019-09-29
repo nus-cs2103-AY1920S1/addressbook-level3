@@ -10,12 +10,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should be 8-256 characters long.";
+            "Names should be 1-256 characters long.";
 
     /*
-     * The name should contain 8-256 characters.
+     * The name should contain 1-256 characters.
      */
-    public static final String VALIDATION_REGEX = "^\\w{8,256}$";
+    public static final String VALIDATION_REGEX = "^(?=.{1,256}$).*";
 
     public final String value;
 

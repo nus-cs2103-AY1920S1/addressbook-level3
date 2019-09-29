@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.exceptions.DuplicatePersonException;
+import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.testutil.PersonBuilder;
 
 public class WordBankTest {
@@ -51,7 +51,7 @@ public class WordBankTest {
         List<Card> newPersons = Arrays.asList(ALICE, editedAlice);
         WordBankStub newData = new WordBankStub(newPersons);
 
-        assertThrows(DuplicatePersonException.class, () -> wordBank.resetData(newData));
+        assertThrows(DuplicateCardException.class, () -> wordBank.resetData(newData));
     }
 
     @Test

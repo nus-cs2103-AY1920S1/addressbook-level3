@@ -49,7 +49,7 @@ public class Card {
      * Returns true if both cards have the same name.
      */
     public boolean isSameName(Card other) {
-        return getName().equals(getName());
+        return getName().equals(other.getName());
     }
 
     /**

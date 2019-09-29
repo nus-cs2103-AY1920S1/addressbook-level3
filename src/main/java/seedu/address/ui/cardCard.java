@@ -10,9 +10,9 @@ import javafx.scene.layout.Region;
 import seedu.address.model.card.Card;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Card}.
  */
-public class PersonCard extends UiPart<Region> {
+public class cardCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -24,7 +24,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Card person;
+    public final Card card;
 
     @FXML
     private HBox cardPane;
@@ -33,24 +33,18 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label description;
-    @FXML
-    private Label email;
+    private Label address; // todo this should be called description instead
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Card person, int displayedIndex) {
+    public cardCard(Card card, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.card = card;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().value);
-        description.setText(person.getDescription().value);
+        name.setText(card.getName().value);
+        address.setText(card.getDescription().value);
 
-        phone.setText(person.getPhone().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
+        card.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -63,13 +57,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof cardCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        cardCard card = (cardCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && this.card.equals(card.card);
     }
 }
