@@ -4,17 +4,6 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-<<<<<<< HEAD
-import seedu.address.model.Catalog;
-import seedu.address.model.ReadOnlyCatalog;
-import seedu.address.model.SerialNumberGenerator;
-import seedu.address.model.book.Author;
-import seedu.address.model.book.Book;
-import seedu.address.model.book.Title;
-import seedu.address.model.genre.Genre;
-import seedu.address.model.AddressBook;
-=======
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;

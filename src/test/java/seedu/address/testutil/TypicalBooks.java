@@ -13,11 +13,7 @@ import seedu.address.model.book.Book;
 public class TypicalBooks {
 
     public static final Book BOOK_1 = new BookBuilder().withTitle("Harry Botter")
-<<<<<<< HEAD
-            .withSerialNumber("B0001").withGenres("Fiction").build();
-=======
             .withSerialNumber("B0001").withAuthor("J K Rowling").withGenres("Fiction").build();
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     public static final Book BOOK_2 = new BookBuilder().withTitle("Legend of the Condor Heroes")
             .withAuthor("Jin Yong").withSerialNumber("B0002").withGenres("Fiction", "Action").build();
     public static final Book BOOK_3 = new BookBuilder().withTitle("Animal the Farm").withSerialNumber("B0003")

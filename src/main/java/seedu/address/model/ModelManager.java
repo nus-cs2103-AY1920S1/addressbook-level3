@@ -46,13 +46,8 @@ public class ModelManager implements Model {
         SerialNumberGenerator.setCatalog((Catalog) catalog);
         // testing
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
-<<<<<<< HEAD
-        this.borrowerRecords.populateBorrowers();
-        SerialNumberGenerator.setCatalog((Catalog) catalog);
-=======
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
 
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 
     public ModelManager() {
@@ -85,22 +80,8 @@ public class ModelManager implements Model {
 
 
     @Override
-<<<<<<< HEAD
-    public void setCatalogFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setCatalogFilePath(addressBookFilePath);
-    }
-
-
-    //=========== Catalog ================================================================================
-
-    @Override
-    public void setCatalog(ReadOnlyCatalog addressBook) {
-        this.catalog.resetData(addressBook);
-=======
     public void setCatalog(ReadOnlyCatalog catalog) {
         this.catalog.resetData(catalog);
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 
     @Override

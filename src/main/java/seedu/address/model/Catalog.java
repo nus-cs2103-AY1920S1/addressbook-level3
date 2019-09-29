@@ -60,11 +60,7 @@ public class Catalog implements ReadOnlyCatalog {
     //// person-level operations
 
     /**
-<<<<<<< HEAD
-     * Returns true if a book with the same identity as {@code book} exists in the address book.
-=======
      * Returns true if a book with the same serial number as {@code book} exists in the catalog.
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
      */
     public boolean hasBook(Book book) {
         requireNonNull(book);
@@ -95,11 +91,7 @@ public class Catalog implements ReadOnlyCatalog {
     }
 
     /**
-<<<<<<< HEAD
-     * Removes {@code key} from this {@code catalog}.
-=======
      * Removes {@code key} from this {@code Catalog}.
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
      * {@code key} must exist in the catalog.
      */
     public void removeBook(Book key) {

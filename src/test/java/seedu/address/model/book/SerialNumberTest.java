@@ -38,13 +38,8 @@ public class SerialNumberTest {
 
     @Test
     public void constructor_invalidSerialNumber_throwsIllegalArgumentException() {
-<<<<<<< HEAD
-        String invalidPhone = "";
-        assertThrows(IllegalArgumentException.class, () -> new SerialNumber(invalidPhone));
-=======
         String invalidSerialNumber = "";
         assertThrows(IllegalArgumentException.class, () -> new SerialNumber(invalidSerialNumber));
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 
     @Test
@@ -65,8 +60,6 @@ public class SerialNumberTest {
         assertTrue(SerialNumber.isValidSerialNumber("B0911")); // exactly 4 numbers
         assertTrue(SerialNumber.isValidSerialNumber("B0001")); // smallest serial number
         assertTrue(SerialNumber.isValidSerialNumber("B9999")); // largest serial number
-<<<<<<< HEAD
-=======
     }
 
     @Test

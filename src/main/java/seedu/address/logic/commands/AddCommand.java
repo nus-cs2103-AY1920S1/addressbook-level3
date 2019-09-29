@@ -20,17 +20,6 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalog. "
             + "Parameters: "
-<<<<<<< HEAD
-            + PREFIX_TITLE + "BOOK_TITLE "
-            + PREFIX_AUTHOR + "AUTHOR "
-            + "[" + PREFIX_SERIAL_NUMBER + "CUSTOM_SERIAL_NUMBER]...\n"
-            + "[" + PREFIX_GENRE + "GENRE]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "John Doe "
-            + PREFIX_AUTHOR + "J K Rowling"
-            + PREFIX_GENRE + "Fiction"
-            + PREFIX_GENRE + "History";
-=======
             + PREFIX_TITLE + "TITLE "
             + PREFIX_AUTHOR + "AUTHOR "
             + "[ " + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER] "
@@ -41,7 +30,6 @@ public class AddCommand extends Command {
             + PREFIX_AUTHOR + "J K Rowling "
             + PREFIX_GENRE + "Fiction "
             + PREFIX_GENRE + "Action ";
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
 
     public static final String MESSAGE_SUCCESS = "New book added: %1$s";
 

@@ -45,10 +45,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (haveSerialNumber) {
             serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER).get());
         } else {
-<<<<<<< HEAD
-=======
             // serial number generator already configured to current catalog in Model
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
             serialNumber = SerialNumberGenerator.generateSerialNumber();
         }
         Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));

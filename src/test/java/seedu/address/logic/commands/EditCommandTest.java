@@ -110,11 +110,7 @@ public class EditCommandTest {
     }
 
     @Test
-<<<<<<< HEAD
-    public void execute_duplicatePersonUnfilteredList_failure() {
-=======
     public void execute_duplicateBookUnfilteredList_failure() {
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
         Book firstBook = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder(firstBook).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_BOOK, descriptor);
@@ -123,17 +119,10 @@ public class EditCommandTest {
     }
 
     @Test
-<<<<<<< HEAD
-    public void execute_duplicatePersonFilteredList_failure() {
-        showBookAtIndex(model, INDEX_FIRST_BOOK);
-
-        // edit person in filtered list into a duplicate in address book
-=======
     public void execute_duplicateBookFilteredList_failure() {
         showBookAtIndex(model, INDEX_FIRST_BOOK);
 
         // edit book in filtered list into a duplicate in address book
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
         Book bookInList = model.getCatalog().getBookList().get(INDEX_SECOND_BOOK.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_BOOK,
                 new EditBookDescriptorBuilder(bookInList).build());
@@ -155,11 +144,7 @@ public class EditCommandTest {
      * but smaller than size of catalog
      */
     @Test
-<<<<<<< HEAD
-    public void execute_invalidPersonIndexFilteredList_failure() {
-=======
     public void execute_invalidBookIndexFilteredList_failure() {
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
         showBookAtIndex(model, INDEX_FIRST_BOOK);
         Index outOfBoundIndex = INDEX_SECOND_BOOK;
         // ensures that outOfBoundIndex is still in bounds of address book list

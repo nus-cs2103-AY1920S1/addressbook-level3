@@ -13,13 +13,8 @@ import seedu.address.model.book.exceptions.DuplicateBookException;
 
 /**
  * A list of books that enforces uniqueness between its elements and does not allow nulls.
-<<<<<<< HEAD
- * A book is considered unique by comparing using {@code Book#isSameBook(Book)}. As such, adding and updating of
- * books uses Book#isSameBook(Book) for equality so as to ensure that the book being added or updated is
-=======
  * A book is considered unique by comparing using {@code Book#equals(Book)}. As such, adding and updating of
  * books uses Book#equals(Book) for equality so as to ensure that the book being added or updated is
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
  * unique in terms of identity in the UniqueBookList. However, the removal of a book uses Book#equals(Object) so
  * as to ensure that the book with exactly the same fields will be removed.
  *
@@ -49,13 +44,8 @@ public class UniqueBookList implements Iterable<Book> {
     }
 
     /**
-<<<<<<< HEAD
-     * Adds a person to the list.
-     * The person must not already exist in the list.
-=======
      * Adds a book to the list.
      * The book must not already exist in the list.
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
      */
     public void add(Book toAdd) {
         requireNonNull(toAdd);
