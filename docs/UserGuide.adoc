@@ -22,7 +22,7 @@ FlashCard Pro is an application designed for students of all fields who prefer t
 
 FlashCard Pro is optimised for users who are comfortable with Command Line Interface-based interaction, allowing them to work more efficiently than with traditional Graphical User Interface (GUI)-based flashcard apps, while still being able to use their flashcards in a familiar GUI format.
 
-== Flash Cards
+== Flashcards
 
 What is a flashcard? Flashcards are containers for information. Each card has a “front” and a “back”. Although FlashCard Pro is agnostic in its implementation, one recommended use case is such: the user stores a question on the “front” of the card and the answer on the “back”.
 
@@ -57,17 +57,21 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+* Items in square brackets are optional.
+* Items with `…`​ after them can be used multiple times including zero times.
+* Parameters can be in any order.
 ====
 
-=== Viewing help : `help`
 
-Format: `help`
 
-=== Adding a person: `add`
+=== Import flashcards from disk : `import`
+
+Adds a deck of files from a JSON file path to FlashCard Pro +
+
+Format: `import FILE_NAME`
+
+=== Export flashcards to disk: `export`
 
 Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
