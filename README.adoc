@@ -5,7 +5,7 @@ https://travis-ci.com/AY1920S1-CS2103-T11-2/main[image:https://travis-ci.org/se-
 
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/MAMS-UI.png[width="600"]
 endif::[]
 
 ifndef::env-github[]

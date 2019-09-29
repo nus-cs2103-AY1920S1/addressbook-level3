@@ -303,6 +303,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |add a module to a student |
+
+|`* * *` |user |remove a module from a student |
+
+|`* * *` |user |check for clashes between modules |determine if a student can take up the module he/she requested for
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
@@ -313,7 +319,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `MAMS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -343,6 +349,31 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+=== Use case: Add module to a student
+
+*MSS*
+
+1.  User requests to view appeal details uploaded by student A on right pane
+2.  MAMS shows the appeal details(student particulars, module requested)
+3.  User requests to check potential clash of module requested by student with student's existing modules
+4.  MAMS shows that there are no clashes
+5.  User requests to add module to student
+6.  MAMS adds module to student
+7.  User requests to approve appeal
+8.  MAMS marks appeal as approved
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. MAMS shows that there is a clash between requested module and a module student A is currently taking
+[none]
+** 4a1. User requests to reject appeal
+** 4a2. MAMS marks appeal as rejected
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
@@ -352,7 +383,11 @@ _{More to be added}_
 
 _{More to be added}_
 
+.  Should be able to hold up to 40000 students and 1000 modules without a noticeable sluggishness in performance for typical usage.
 [appendix]
+
+
+
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
