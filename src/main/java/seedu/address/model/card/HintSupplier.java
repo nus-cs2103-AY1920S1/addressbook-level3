@@ -5,6 +5,10 @@ import seedu.address.commons.core.index.Index;
 import java.util.*;
 import java.util.function.Supplier;
 
+/**
+ * Supplies a hint consisting of a letter and the index the letter occurs.
+ * Each character in the string is output once in random order.g
+ */
 public class HintSupplier implements Supplier<Hint> {
 
     private List<Hint> hints;
