@@ -11,9 +11,8 @@ public class Difficulty {
 
     public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric.";
     public static final Difficulty DEFAULT_DIFFICULTY = new Difficulty();
-    public final double value;
-
     public static final String VALIDATION_REGEX = "\\d+.\\d+";
+    public final double value;
 
     /**
      * Constructs an {@code Difficulty} from a String representing a number.
