@@ -13,6 +13,7 @@ public class Difficulty {
     public static final double DIFFICULTY_LOWER_BOUND = 0.0;
     public static final double DIFFICULTY_UPPER_BOUND = 5.0;
     public static final Difficulty DEFAULT_DIFFICULTY = new Difficulty();
+    public static final String VALIDATION_REGEX = "\\d+.\\d+";
     public final double value;
 
     /**

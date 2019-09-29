@@ -10,6 +10,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values, and it should not be blank";
+    public static final Description DEFAULT_DESCRIPTION = new Description();
 
     /*
      * The first character of the description must not be a whitespace,
@@ -28,6 +29,10 @@ public class Description {
         requireNonNull(description);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
+    }
+
+    private Description() {
+        value = "";
     }
 
     /**

@@ -10,6 +10,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -38,21 +39,62 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_WEBLINK, PREFIX_DESCRIPTION,
-                        PREFIX_TAG);
+                        PREFIX_TAG, PREFIX_DIFFICULTY, PREFIX_REMARK, PREFIX_SOURCE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_AUTHOR, PREFIX_WEBLINK)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Author author = ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get());
-        WebLink webLink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
-        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
-        Source source = ParserUtil.parseSource(argMultimap.getValue(PREFIX_SOURCE).get());
+
+        Author author;
+        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+            author = ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get());
+        } else {
+            author = Author.DEFAULT_AUTHOR;
+        }
+
+        WebLink webLink;
+        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+            webLink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
+        } else {
+            webLink = WebLink.DEFAULT_WEBLINK;
+        }
+
+        Description description;
+        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+            description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        } else {
+            description = Description.DEFAULT_DESCRIPTION;
+        }
+
+        Set<Tag> tagList;
+        if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+            tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        } else {
+            tagList = new HashSet<>();
+        }
+
+        Difficulty difficulty;
+        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+            difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+        } else {
+            difficulty = Difficulty.DEFAULT_DIFFICULTY;
+        }
+
+        Remark remark;
+        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+            remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+        } else {
+            remark = Remark.DEFAULT_REMARK;
+        }
+
+        Source source;
+        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+            source = ParserUtil.parseSource(argMultimap.getValue(PREFIX_SOURCE).get());
+        } else {
+            source = Source.DEFAULT_SOURCE;
+        }
 
         Problem problem = new Problem(name, author, webLink, description, tagList, difficulty, remark, source);
 

@@ -46,8 +46,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_AUTHOR + "91234567 "
-            + PREFIX_WEBLINK + "johndoe@example.com";
+            + PREFIX_AUTHOR + "Tung Kam Chuen "
+            + PREFIX_WEBLINK + "https://open.kattis.com/problems/sequences";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Problem: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
