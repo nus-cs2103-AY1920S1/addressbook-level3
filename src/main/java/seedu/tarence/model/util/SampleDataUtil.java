@@ -55,7 +55,9 @@ public class SampleDataUtil {
         NusnetId nusnetId = new NusnetId("E1234567");
         Name alice = new Name("Alice");
         Email email = new Email ("E1234567@u.nus.edu");
-        return new Student(alice, email, Optional.of(matricNum), Optional.of(nusnetId));
+        ModCode modCode = new ModCode("CS1101S");
+        TutName tutName = new TutName("T01");
+        return new Student(alice, email, Optional.of(matricNum), Optional.of(nusnetId), modCode, tutName);
     }
 
     /**
@@ -95,9 +97,10 @@ public class SampleDataUtil {
         weekFiveTutorial.add(5);
         ArrayList<Student> students = new ArrayList<Student>();
         students.add(getSampleStudent());
+        ModCode modCode = new ModCode("CS1101S");
 
         return new Tutorial(new TutName("Sectional"), DayOfWeek.MONDAY, time, weekFiveTutorial, Duration.ofHours(1),
-                students);
+                students, modCode);
     }
 
     /**

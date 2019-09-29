@@ -11,8 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -110,8 +113,13 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         application.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public void addStudentToTutorial(Student student) {
+        requireNonNull(student);
+        application.addStudentToTutorial(student);
     }
 
     //=========== T.A.rence: Module methods ============================================================================
@@ -128,6 +136,18 @@ public class ModelManager implements Model {
         return application.hasModule(module);
     }
 
+    @Override
+    public boolean hasModuleOfCode(ModCode modCode) {
+        requireNonNull(modCode);
+        return application.hasModuleOfCode(modCode);
+    }
+
+    @Override
+    public void addTutorialToModule(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        application.addTutorialToModule(tutorial);
+    }
+
     //=========== T.A.rence: Tutorial methods ========================================================================
 
     @Override
@@ -140,6 +160,12 @@ public class ModelManager implements Model {
     public boolean hasTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
         return application.hasTutorial(tutorial);
+    }
+
+    @Override
+    public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
+        requireAllNonNull(modCode, tutName);
+        return application.hasTutorialInModule(modCode, tutName);
     }
 
     //=========== Filtered Person List Accessors =============================================================

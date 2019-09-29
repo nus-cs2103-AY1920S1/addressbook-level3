@@ -5,8 +5,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -93,6 +96,11 @@ public interface Model {
     boolean hasModule(Module module);
 
     /**
+     * Checks if a module of the given code exists.
+     */
+    boolean hasModuleOfCode(ModCode modCode);
+
+    /**
      * Adds the given module.
      * {@code module} must not already exist in the application.
      */
@@ -101,4 +109,13 @@ public interface Model {
     boolean hasTutorial(Tutorial tutorial);
 
     void addTutorial(Tutorial tutorial);
+
+    void addTutorialToModule(Tutorial tutorial);
+
+    void addStudentToTutorial(Student student);
+
+    /**
+     * Checks if a tutorial of the given name exists in a module of the given code.
+     */
+    boolean hasTutorialInModule(ModCode modCode, TutName tutName);
 }
