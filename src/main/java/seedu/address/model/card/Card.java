@@ -15,9 +15,13 @@ import seedu.address.model.tag.Tag;
  */
 public class Card {
 
+    // field values
     private final Name name;
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
+
+    // stateful objects
+    private HintSupplier hintSupplier;
 
     /**
      * Every field must be present and not null.
@@ -27,6 +31,7 @@ public class Card {
         this.name = name;
         this.description = description;
         this.tags.addAll(tags);
+        this.hintSupplier = new HintSupplier(name.value);
     }
 
     public Name getName() {
@@ -53,6 +58,13 @@ public class Card {
             return false;
         }
         return getName().equals(other.getName());
+    }
+
+    /**
+     * Returns the next hint of the name.
+     */
+    public Hint getHint() {
+        return hintSupplier.get();
     }
 
     /**
