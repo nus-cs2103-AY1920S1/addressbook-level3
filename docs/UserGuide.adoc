@@ -70,19 +70,20 @@ Shows the help page and guides you through the available commands for FlashCard 
 
 Format: `help [command/COMMAND_NAME]`
 
+
+****
+* Shows all the available commands and syntax in the application if user supplied no parameters except command.
+* Shows the specific command syntax if the command is specified in the optional parameters.
+* All commands that are available, except for help, can be queried, and other non-valid commands will give a “command not found” message.
+****
+
+
 Examples:
 
 * `help`
 Displays the commands available for FlashCard Pro
 * `help command/view`
 Displays the syntax to use command `view`
-
-****
-Notice:
-* Shows all the available commands and syntax in the application if user supplied no parameters except command.
-* Shows the specific command syntax if the command is specified in the optional parameters.
-* All commands that are available, except for help, can be queried, and other non-valid commands will give a “command not found” message.
-****
 
 
 === Importing flashcards from disk : `import`
@@ -173,6 +174,14 @@ Format: `create deck/DECK_NAME`
 
 Starts a test with a deck of flashcards, with the choice of a timed or untimed test 
 
+****
+* Starts the test and the timer for the specified duration `TIME_LIMIT_ALLOWED`.
+
+* The duration TIME_LIMIT_ALLOWED refers to the time allowed for the test. The test will proceed with a countdown until the time hits 00:00.
+
+* The duration must be a positive integer in minutes e.g. 1, 2, 3, …
+****
+
 Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME`
 
 Examples:
@@ -183,13 +192,7 @@ Starts a untimed test with the deck of cards, `science_deck`
 Starts a timed test with the deck of cards, `science_deck`
 
 
-****
-* Starts the test and the timer for the specified duration `TIME_LIMIT_ALLOWED`.
 
-* The duration TIME_LIMIT_ALLOWED refers to the time allowed for the test. The test will proceed with a countdown until the time hits 00:00.
-
-* The duration must be a positive integer in minutes e.g. 1, 2, 3, …
-****
 
 
 === Quit test or flashcard creation : `exit`
@@ -224,7 +227,10 @@ e.g. `help command/view`
 * *export* : `export deck/DECK_NAME FILE_NAME`
 * *stats* : `stats [deck/DECK_NAME]` +
 e.g. `stats deck/science_deck`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *view* : `view [deck/DECK_NAME]` +
+e.g. `view deck/science_deck`
+* *create* : `create deck/DECK_NAME`
+* *test* : `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` +
+e.g. `test deck/science_deck`
+* *exit* : `exit`
+* *edit* : `Format: edit deck/DECK_NAME index/CARD_INDEX` 
