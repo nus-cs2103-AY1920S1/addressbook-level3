@@ -13,14 +13,14 @@ import java.util.Objects;
  * Represents a Date time in the schedule.
  * Guarantees: immutable; is valid as declared in {@link #isValidTiming(String)}
  */
-public class Timing<Date> {
+public class Timing {
     private static SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
     private static int PERIOD = 30;
 
     public static final String MESSAGE_CONSTRAINTS =
         "The event start datetime must be before the end datetime.";
-    private final Date startTiming;
-    private final Date endTiming;
+    private static Date startTiming;
+    private static Date endTiming;
 
     /**
      * Constructs a {@code Timing}.
@@ -33,7 +33,7 @@ public class Timing<Date> {
 ////        checkArgument(isValidTiming(startTiming, endTiming), MESSAGE_CONSTRAINTS);
 //
 //        this.startTiming = startTiming;
-//        this.endTiming = endTiming.plusMinutes(PERIOD);
+//        this.endTiming = endTiming;
 //    }
 
     /**
@@ -44,9 +44,8 @@ public class Timing<Date> {
     public Timing(String stringTiming) {
         requireAllNonNull(stringTiming);
         checkArgument(isValidTiming(stringTiming), MESSAGE_CONSTRAINTS);
-
-        this.startTiming = formatter.parse(stringTiming);
-        this.endTiming = addMinutesToDate(PERIOD, startTiming);
+//        this.startTiming = formatter.parse(stringTiming);
+//        this.endTiming = addMinutesToDate(PERIOD, startTiming);
     }
 
     /**
@@ -55,11 +54,17 @@ public class Timing<Date> {
 
     public static boolean isValidTiming(String testStart) {
         try{
-            formatter.parse(testStart);
+
+            startTiming = formatter.parse(testStart);
+            endTiming = addMinutesToDate(PERIOD, startTiming);
             return true;
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    public static Date getStartingDate(String stingTime) throws ParseException {
+        return formatter.parse(stingTime);
     }
 
 
@@ -71,7 +76,7 @@ public class Timing<Date> {
         return endTiming;
     }
 
-    private Date addMinutesToDate(int minutes, Date beforeTime){
+    private static Date addMinutesToDate(int minutes, Date beforeTime){
         final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
 
         long curTimeInMs = beforeTime.getTime();
