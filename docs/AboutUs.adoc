@@ -4,22 +4,19 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+NUStudy was developed by the following students at the https://www.comp.nus.edu.sg[School of Computing, National University of Singapore]:
 
-== Project Team
+== {empty}
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Jeremy Tan Jie Rui
+image::parcly-taxel.png[width="150", align="left"]
+{empty}[https://github.com/Parcly-Taxel[github]]
 
-Role: Project Advisor
+Lead integrator and task manager, Git expert, lecture note implementer
 
 '''
 
-=== John Roe
+=== B
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
@@ -28,7 +25,7 @@ Responsibilities: UI
 
 '''
 
-=== Johnny Doe
+=== C
 image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
@@ -37,7 +34,7 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
+=== D
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
@@ -46,7 +43,7 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
+=== E
 image::yl_coder.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
