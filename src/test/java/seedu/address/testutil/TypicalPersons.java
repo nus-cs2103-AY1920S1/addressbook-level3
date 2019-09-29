@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.WordBank;
 import seedu.address.model.card.Card;
 
 /**
@@ -62,10 +62,10 @@ public class TypicalPersons {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static WordBank getTypicalAddressBook() {
+        WordBank ab = new WordBank();
         for (Card person : getTypicalPersons()) {
-            ab.addPerson(person);
+            ab.addCard(person);
         }
         return ab;
     }

@@ -19,26 +19,26 @@ import seedu.address.model.card.Card;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final WordBank wordBank;
     private final UserPrefs userPrefs;
-    private final FilteredList<Card> filteredPersons;
+    private final FilteredList<Card> filteredCards;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyWordBank addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.wordBank = new WordBank(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new WordBank(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -79,29 +79,29 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setWordBank(ReadOnlyWordBank wordBank) {
+        this.wordBank.resetData(wordBank);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyWordBank getWordBank() {
+        return wordBank;
     }
 
     @Override
     public boolean hasPerson(Card person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return wordBank.hasCard(person);
     }
 
     @Override
     public void deletePerson(Card target) {
-        addressBook.removePerson(target);
+        wordBank.removePerson(target);
     }
 
     @Override
     public void addPerson(Card person) {
-        addressBook.addPerson(person);
+        wordBank.addCard(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setPerson(Card target, Card editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        wordBank.setCard(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -120,13 +120,13 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredPersonList() {
-        return filteredPersons;
+        return filteredCards;
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredCards.setPredicate(predicate);
     }
 
     @Override
@@ -143,9 +143,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return wordBank.equals(other.wordBank)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredCards.equals(other.filteredCards);
     }
 
 }
