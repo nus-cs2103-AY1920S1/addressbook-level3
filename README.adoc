@@ -1,12 +1,9 @@
 = FlashCard Pro
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://https://travis-ci.org/AY1920S1-CS2103-F09-2/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/AY1920S1-CS2103-F09-2/addressbook-level3?branch=master[image:https://https://coveralls.io/github/AY1920S1-CS2103-F09-2/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-
+image:https://travis-ci.org/AY1920S1-CS2103-F09-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103-F09-2/main"]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
-
+image:https://coveralls.io/repos/github/AY1920S1-CS2103-F09-2/addressbook-level3/badge.svg?branch=master[]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -18,6 +15,10 @@ endif::[]
 
 * is an application designed for students of all fields who prefer to use a desktop app for managing flashcards, as well as teachers who would like to provide resources (in the form of custom flashcard decks) to support their students’ learning.
 * It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+
+== Who is FlashCard Pro for?
+Have you ever felt like there should be more kinds of flashcards you could create in order to learn different things? Like flashcards that require you to complete code snippets, or flashcards with multiple choice?
+FlashcardPro allows you to create these kinds of flashcards!
 
 == Site Map
 
