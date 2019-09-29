@@ -18,11 +18,16 @@ Role: Developer +
 Responsibilities: TBC
 
 '''
+
 === Leong Jia Hao, Timothy
 image::timothy.png[width="150", align="left"]
 {empty}[http://github.com/timothyleong97[github]] [<<timothyleong#, portfolio>>]
 
 Role: Developer +
 Responsibilities: TBC
+
 '''
+
+
+
 
