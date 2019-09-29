@@ -1,10 +1,15 @@
 package seedu.tarence.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -16,6 +21,9 @@ import seedu.tarence.logic.Logic;
 import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
+import seedu.tarence.model.module.Module;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Tutorial;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,9 +39,14 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private TutorialListPanel tutorialListPanel;
     private PersonListPanel personListPanel;
+    private StudentListPanel studentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ObservableList<Module> modList;
+    private ObservableList<Student> studentList;
+    private ObservableList<Tutorial> tutorialList;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +55,16 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private SplitPane splitPane;
+
+    @FXML
+    private StackPane tutorialListPanelPlaceholder;
+
+    @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane studentListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -52,6 +74,9 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
+
+        // TODO: uncheck this once the getFilteredModulesList is implemented
+        //initializeLists(logic.getFilteredModulesList());
 
         // Set dependencies
         this.primaryStage = primaryStage;
@@ -107,8 +132,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        studentListPanel = new StudentListPanel(this.studentList);
+        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+
+        tutorialListPanel = new TutorialListPanel(this.tutorialList);
+        tutorialListPanelPlaceholder.getChildren().add(tutorialListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -188,6 +219,40 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Initializes all the standard lists that are to be accessed by the list display
+     * @param modList - existing lists of modules
+     */
+    private void initializeLists(ObservableList<Module> modList) {
+        this.modList = modList;
+        List<Tutorial> tuts = new ArrayList<Tutorial>();
+        List<Student> students = new ArrayList<Student>();
+        for (int i = 0; i < modList.size(); i++) {
+            List<Tutorial> tutList = modList.get(i).getTutorials();
+            tuts.addAll(modList.get(i).getTutorials());
+            for (int j = 0; j < tutList.size(); j++) {
+                students.addAll(tutList.get(i).getStudents());
+            }
+        }
+        this.tutorialList = FXCollections.observableArrayList(tuts);
+        this.studentList = FXCollections.observableArrayList(students);
+    }
+
+    /**
+     * TODO: to be updated
+     */
+    private void updateStudList(int idx) {
+        if (idx == -1) {
+            this.studentList.clear();
+            for (int i = 0; i < this.tutorialList.size(); i++) {
+                this.studentList.addAll(this.tutorialList.get(i).getStudents());
+            }
+        } else {
+            this.studentList.clear();
+            this.studentList.addAll(this.tutorialList.get(idx).getStudents());
         }
     }
 }
