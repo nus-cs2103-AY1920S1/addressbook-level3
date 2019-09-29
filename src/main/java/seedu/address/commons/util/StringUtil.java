@@ -65,4 +65,24 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Capitalizes given string and returns it.
+     * The first letter is capitalized while the rest are lower-cased. <br>
+     * e.g.
+     * <ul>
+     *     <li>capitalize("") -> ""
+     *     <li>capitalize("alfred") -> "Alfred"
+     *     <li>capitalize("aLFRed") -> "Alfred"
+     * </ul>
+     * @param s String to be capitalized.
+     * @return Capitalized string.
+     */
+    public static String capitalize(String s) {
+        if (s.isEmpty()) {
+            return s;
+        }
+        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+    }
+
 }
