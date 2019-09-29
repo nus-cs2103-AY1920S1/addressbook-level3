@@ -1,34 +1,40 @@
-= Address Book (Level 3)
+= NurseTraverse
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
+https://travis-ci.org/AY1920S1-CS2103-F10-1/main[image:https://travis-ci.org/AY1920S1-CS2103-F10-1/main.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.png[width="800"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+NurseTraverse is a desktop application meant for community nurses.
+A community nurse has many things to keep in mind: the day's schedule, patient address, contact details, medications, medical conditions, allergies, ...
+
+Fret not! NurseTraverse is built to help manage all the data that a community nurse might need. Let NurseTraverse handle the details, the nurse can focus on the patient.
+
+* NurseTraverse helps to manage and store patient details, as well as scheduling information.
+
+* User interaction takes place through a Command Line Interface (CLI) for quick user input.
+
+* Information is displayed on a Graphical User Interface (GUI) - important data can be easily glanced.
+
+* [Coming in v2.0] Patient visit and todo tracking, data encryption.
+
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* Built upon the AddressBook-Level3 project created by the https://se-education.org[SE-EDU initiative].
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]

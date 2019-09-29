@@ -4,53 +4,52 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+NurseTraverse was developed by https://se-edu.github.io/docs/Team.html[CS2103-F10-1] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Lee Wei Ren Matthew
+image::crazoter.png[width="150", align="left"]
+{empty}[https://github.com/crazoter[github]] [<<crazoter#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Team lead +
+Responsibilities: Documentation, Scheduling and tracking
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Ramachandran Sandhya
+image::sandydays.png[width="150", align="left"]
+{empty}[https://github.com/sandydays[github]] [<<sandydays#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: In charge of `UI`, Deliverables and deadlines
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Cheong Siu Hong
+image::cheongsiuhong.png[width="150", align="left"]
+{empty}[http://github.com/cheongsiuhong[github]] [<<cheongsiuhong#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: In charge of `Storage`, Testing
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Francis Low Siu Yuan
+image::francislow.png[width="150", align="left"]
+{empty}[http://github.com/francislow[github]] [<<francislow#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: In charge of `UI`, Code quality
+
+'''
+
+=== Chao Fang How, Gabriel
+image::gabrielchao.png[width="150", align="left"]
+{empty}[http://github.com/gabrielchao[github]] [<<gabrielchao#, portfolio>>]
+
+Role: Developer +
+Responsibilities: In charge of `Storage`, Integration
 
 '''
