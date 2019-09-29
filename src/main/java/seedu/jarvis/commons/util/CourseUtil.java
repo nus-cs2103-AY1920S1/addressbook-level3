@@ -97,7 +97,7 @@ public class CourseUtil {
      * @return a {@code Map<String, String>} of all values
      * @throws IOException if the file is not found
      */
-    public static Map<String, String> getJsonMap(String courseCode)
+    public static Map<String, String> getCourseMap(String courseCode)
             throws IOException {
         String json = getCourseJsonString(courseCode);
         ObjectMapper mapper = new ObjectMapper();
