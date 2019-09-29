@@ -15,6 +15,17 @@ public class Course {
     private final Preclusion preclusion;
     private final FulfillRequirements fulfillRequirements;
 
+    public Course() {
+        this.title = null;
+        this.faculty = null;
+        this.description = null;
+        this.courseCode = null;
+        this.courseCredit = null;
+        this.prereqTree = null;
+        this.preclusion = null;
+        this.fulfillRequirements = null;
+    }
+
     public Course(Title title, Faculty faculty, Description description,CourseCode courseCode,
                   CourseCredit courseCredit, PrereqTree prereqTree, Preclusion preclusion,
                   FulfillRequirements fulfillRequirements) {
@@ -26,18 +37,6 @@ public class Course {
         this.prereqTree = prereqTree;
         this.fulfillRequirements = fulfillRequirements;
         this.preclusion = preclusion;
-    }
-
-    public PrereqTree getPrereqTree() {
-        return prereqTree;
-    }
-
-    public Preclusion getPreclusion() {
-        return preclusion;
-    }
-
-    public FulfillRequirements getFulfillRequirements() {
-        return fulfillRequirements;
     }
 
     public Title getTitle() {
@@ -60,15 +59,36 @@ public class Course {
         return courseCredit;
     }
 
+    public PrereqTree getPrereqTree() {
+        return prereqTree;
+    }
+
+    public Preclusion getPreclusion() {
+        return preclusion;
+    }
+
+    public FulfillRequirements getFulfillRequirements() {
+        return fulfillRequirements;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(title, faculty, description, courseCode, courseCredit);
+        return Objects.hash(title, faculty, description, courseCode, courseCredit, prereqTree,
+                preclusion, fulfillRequirements);
     }
 
     @Override
     public String toString() {
         // TODO implement toString when class is done
         final StringBuilder builder = new StringBuilder("");
+        builder.append(getTitle()).append(", ")
+                .append(getFaculty()).append(", ")
+                .append(getDescription()).append(", ")
+                .append(getCourseCode()).append(", ")
+                .append(getCourseCredit()).append(", ")
+                .append(getPrereqTree()).append(", ")
+                .append(getPreclusion()).append(", ")
+                .append(getFulfillRequirements()).append(", ");
         return builder.toString();
     }
 }

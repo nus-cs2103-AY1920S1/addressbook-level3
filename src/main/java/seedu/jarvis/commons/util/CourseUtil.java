@@ -2,6 +2,7 @@ package seedu.jarvis.commons.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import seedu.jarvis.model.course.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,8 +105,26 @@ public class CourseUtil {
         JsonNode root = mapper.readTree(json);
         Map<String, String> courseProps = new HashMap<>();
         root.fields().forEachRemaining(entry -> {
-            courseProps.put(entry.getKey(), entry.getValue().asText());
+            if (entry.getValue().isObject() || entry.getValue().isArray()) {
+                courseProps.put(entry.getKey(), entry.getValue().toString());
+            } else {
+                courseProps.put(entry.getKey(), entry.getValue().asText());
+            }
         });
         return courseProps;
+    }
+
+    public static Course getCourse(String courseCode) throws IOException {
+        Map<String, String> courseInformation = getCourseMap(courseCode);
+        return new Course(
+                new Title(courseInformation.get("title")),
+                new Faculty(courseInformation.get("faculty")),
+                new Description(courseInformation.get("description")),
+                new CourseCode(courseInformation.get("courseCode")),
+                new CourseCredit(courseInformation.get("courseCredit")),
+                new PrereqTree(courseInformation.get("prereqTree")),
+                new Preclusion(courseInformation.get("preclusion")),
+                null
+        );
     }
 }

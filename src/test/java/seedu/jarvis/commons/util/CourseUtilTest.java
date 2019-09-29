@@ -1,6 +1,7 @@
 package seedu.jarvis.commons.util;
 
 import org.junit.jupiter.api.Test;
+import seedu.jarvis.model.course.Course;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,8 +42,18 @@ public class CourseUtilTest {
     @Test
     public void getJsonMap__success() {
         try {
-            Map<String, String> jsonMap = CourseUtil.getJsonMap("CS3230");
+            Map<String, String> jsonMap = CourseUtil.getCourseMap("CS3230");
             jsonMap.forEach((k, v) -> System.out.println(k + ", " + v));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void getCourse_validInput_success() {
+        try {
+            Course c = CourseUtil.getCourse("CS2102");
+            System.out.println(c);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

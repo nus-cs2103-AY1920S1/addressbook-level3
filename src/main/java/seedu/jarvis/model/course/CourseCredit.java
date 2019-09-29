@@ -15,6 +15,11 @@ public class CourseCredit {
         this.credit = credit;
     }
 
+    public CourseCredit(String credit) {
+        requireNonNull(credit);
+        this.credit = Integer.parseInt(credit);
+    }
+
     @Override
     public String toString() {
         return credit + "";
