@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.pagestatus.PageStatus;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -116,5 +118,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    public void setPageStatus(PageStatus target, PageStatus editedPageStatus) {
+    }
+
+    public PageStatus getPageStatus() {
+        return null;
+    }
+
+    public void setTrip(Trip target, Trip editedTrip) {
+
+    }
+
+    public void addTrip() {
+    }
+
+    public void deleteTrip() {
     }
 }

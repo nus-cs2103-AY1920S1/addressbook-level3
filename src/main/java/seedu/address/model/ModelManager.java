@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.pagestatus.PageStatus;
 import seedu.address.model.person.Person;
 
 /**
@@ -148,4 +150,32 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
+    public void setPageStatus(PageStatus target, PageStatus editedPageStatus) {
+        requireAllNonNull(target, editedPageStatus);
+        addressBook.setPageStatus(target,editedPageStatus);
+    }
+
+    @Override
+    public PageStatus getPageStatus() {
+        return addressBook.getPageStatus();
+    }
+
+    @Override
+    public void setTrip(Trip target, Trip editedTrip) {
+        requireAllNonNull(target);
+        addressBook.setTrip(target, editedTrip);
+    }
+
+    @Override
+    public void addTrip(Trip trip) {
+        requireNonNull(trip);
+        addressBook.addTrip();
+    }
+
+    @Override
+    public void deleteTrip(Trip target) {
+        requireNonNull(target);
+        addressBook.deleteTrip();
+    }
 }

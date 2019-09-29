@@ -90,7 +90,7 @@ public interface Model {
 
     PageStatus getPageStatus();
 
-    void setTrip(Trip target, Trip edited);
+    void setTrip(Trip target, Trip editedTrip);
 
     void addTrip(Trip trip);
 

@@ -11,7 +11,7 @@ public class Trip {
     private final Date from;
     private final Date to;
     private final Location destintaion;
-    private final Expenditure TotalBudget;
+    private final Expenditure totalBudget;
     private final DayList dayList;
 
     public Trip(Name name, Date from, Date to, Location destintaion, Expenditure totalBudget, DayList dayList) {
@@ -19,7 +19,7 @@ public class Trip {
         this.from = from;
         this.to = to;
         this.destintaion = destintaion;
-        TotalBudget = totalBudget;
+        this.totalBudget = totalBudget;
         this.dayList = dayList;
     }
 
@@ -40,10 +40,30 @@ public class Trip {
     }
 
     public Expenditure getTotalBudget() {
-        return TotalBudget;
+        return totalBudget;
     }
 
     public DayList getDayList() {
         return dayList;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Trip)) {
+            return false;
+        }
+
+        Trip otherTrip = (Trip) other;
+        return otherTrip.getName().equals(getName())
+                && otherTrip.getName().equals(getName())
+                && otherTrip.getFrom().equals(getFrom())
+                && otherTrip.getTo().equals(getTo())
+                && otherTrip.getDestintaion().equals(getDestintaion())
+                && otherTrip.getDayList().equals(getDayList());
+
     }
 }

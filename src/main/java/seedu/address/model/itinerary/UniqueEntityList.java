@@ -6,13 +6,11 @@ import javafx.collections.ObservableList;
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-public abstract class UniqueEntityList<T> {
+public abstract class UniqueEntityList<T> implements Iterable<T>{
 
-    private final ObservableList<T> internalList = FXCollections.observableArrayList();
-    private final ObservableList<T> internalUnmodifiableList =
+    public final ObservableList<T> internalList = FXCollections.observableArrayList();
+    public final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
@@ -40,12 +38,12 @@ public abstract class UniqueEntityList<T> {
      */
     public abstract void remove(T toRemove);
 
-    public abstract void setPersons(UniqueEntityList<T> replacement);
+    public abstract void set(UniqueEntityList<T> replacement);
     /**
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public abstract void setPersons(List<T> persons);
+    public abstract void set(List<T> entities);
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
@@ -74,6 +72,6 @@ public abstract class UniqueEntityList<T> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    abstract boolean AreUnique(List<T> persons);
+    public abstract boolean areUnique(List<T> persons);
 
 }
