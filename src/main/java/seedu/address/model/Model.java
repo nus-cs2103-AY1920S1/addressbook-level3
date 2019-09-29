@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.book.Book;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Book> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -34,54 +34,64 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
+    // ================================================================ Catalog
+
+    public Path getCatalogFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Returns the user prefs' catalog file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    public void setCatalogFilePath(Path catalogFilePath);
+
+    /** Returns the Catalog */
+    ReadOnlyCatalog getCatalog();
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Returns the user prefs' loan records file path.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    void setCatalog(ReadOnlyCatalog addressBook);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a book with the same identity as {@code book} exists in the catalog.
      */
-    boolean hasPerson(Person person);
-
+    boolean hasBook(Book book);
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Returns the user prefs' catalog file path.
      */
-    void deletePerson(Person target);
+    void deleteBook(Book target);
 
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
+    void addBook(Book book);
 
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
+    void setBook(Book target, Book editedBook);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Book> getFilteredBookList();
+
+    void updateFilteredBookList(Predicate<Book> predicate);
+
+    Model excludeBookBeingReplaced(Book toBeReplaced);
+
+    // ================================================================ LoanRecords
+
+    Path getLoanRecordsFilePath();
+
+    void setLoanRecordsFilePath(Path loanRecordsFilePath);
+
+    /** Returns the LoanRecords*/
+    ReadOnlyLoanRecords getLoanRecords();
+
+    // ================================================================ BorrowerRecords
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Returns the user prefs' borrower records file path.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    Path getBorrowerRecordsFilePath();
+
+    /**
+     * Sets the user prefs' address borrower records path.
+     */
+    void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath);
+
+    /** Returns the BorrowerRecords*/
+    ReadOnlyBorrowerRecords getBorrowerRecords();
 }

@@ -1,0 +1,24 @@
+{
+  "_comment": "Catalog save file which contains the same Book values as in TypicalBooks#getTypicalCatalog()",
+  "books" : [ {
+    "title": "Harry Botter",
+    "serialNumber": "B0001",
+    "author": "J K Rowling",
+    "genres" : [ "Fiction" ]
+  }, {
+    "title": "Legend of the Condor Heroes",
+    "serialNumber": "B0002",
+    "author": "Jin Yong",
+    "genres" : [ "Fiction", "Action" ]
+  }, {
+    "title": "Animal the Farm",
+    "serialNumber": "B0003",
+    "author": "George Orwell",
+    "genres" : [ ]
+  }, {
+    "title": "Harri Botter and the Full Blood Prince",
+    "serialNumber": "B0004",
+    "author": "J K Rowling",
+    "genres" : [ "Fiction", "Action" ]
+  }]
+}

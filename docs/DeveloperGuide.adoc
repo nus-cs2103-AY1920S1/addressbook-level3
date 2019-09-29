@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a book).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -173,18 +173,18 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th book in the catalog. The `delete` command calls `Model#commitCatalog()`, causing the modified state of the catalog after the `delete 5` command executes to be saved in the `catalogStateList`, and the `currentStatePointer` is shifted to the newly inserted catalog state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new book. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -222,7 +222,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the book being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -279,51 +279,107 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* a librarian in a small town library that has to serve many library users (borrowers) quickly
+* has a need to manage a significant number of books and borrowers
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Many people visit the neighborhood library to borrow books and also donate their books. There is
+always a long queue in this small library and the librarian would have to type quickly to handle the long queue. Liberry
+can manage a library system faster than a typical mouse/GUI driven app.
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="75%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |librarian |add a book brought/donated by people to the library |keep track of the addition of the book
 
-|`* * *` |user |add a new person |
+|`* * *` |librarian |delete books that are no longer available |keep track of the deletion of the book
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |helpful librarian |search for certain book by the title/author/genre |help borrowers check if it is
+available
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |forgetful librarian |mark a book as loaned out |tell borrowers if the book is available
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |forgetful librarian |mark a book as returned |let borrowers know that the book will now be available
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |librarian |generate a list of overdue books and their borrowers |know which borrower has overdue books
+and which books are overdue
+
+|`* * *` |librarian |generate a list of currently loaned / available books |do inventory checks
+
+|`* * *` |meticulous librarian |record the movement of books in and out |keep track of available books here
+
+|`* * *` |helpful librarian |assist a borrower to registering in the system |help new borrowers start borrowing books
+
+|`* * *` |librarian |search for certain book by the author |recommend other books of the same author
+
+|`* * *` |librarian |search for certain book by its genre |recommend other books of the same genre
+
+|`* * *` |meticulous librarian |different physical books to have different serial numbers |distinguish between
+books of the same title
+
+|`* * *` |librarian |set the default loan period, renew period and fine amount |customize the app to
+suit my library's policies
+
+|`* *` |librarian |extend a book’s loan |help borrowers to borrow the book for a longer period
+
+|`* *` |lazy librarian |generate and record the fine of overdue books |keep track of overdue fines incurred by
+borrowers
+
+|`* *` |dutiful librarian |record that a fine is paid |keep track of accounting and prevent duplicate payments
+
+|`* *` |librarian |view details of a book |know more information about the book - author, genre, synopsis, etc
+
+|`* *` |careless librarian |be able to undo a command |undo my input mistakes
+
+|`* *` |careless librarian |be able to redo a command |undo my undo commands, in case I need it, without having to
+type out a possibly lengthy command
+
+|`* *` |health conscious, night-working librarian |change the user interface into a night mode |reduce the impact
+of light and glare on my eyes when I am working at night
+
+|`* *` |impatient librarian |have my command inputs returned within 1 sec |serve my customers quickly
+
+|`* *` |forgetful librarian |look at the help section |be reminded of the commands available
+
+|`* *` |helpful librarian |be able to reserve a currently on-loan book |allow borrowers to borrow the book once it
+is returned
+
+|`* *` |librarian |be able to see an image of the book cover |be reminded of the commands available
+
+|`*` |helpful librarian |be able generate a list of most popular books |recommend books to borrowers
+
+|`*` |helpful librarian |add a borrowers rating to the book |recommend books based on ratings
+
+|`*` |receptive librarian |add a borrower’s review to the book |recommend books based on reviews
+
+|`*` |lazy librarian |be able to auto-complete book title searches |reduce my search time and give me nearby titles when
+I submit a book title query
+
+|`*` |diligent librarian |search for user profiles by name |pull up his donate, borrowing, fine and payment history
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Liberry` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete book
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list books
+2.  Liberry shows a list of books
+3.  User requests to delete a specific book in the list
+4.  Liberry deletes the book
 +
 Use case ends.
 
@@ -337,7 +393,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Liberry shows an error message.
 +
 Use case resumes at step 2.
 
@@ -347,8 +403,10 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to manage up to 20000 books and 5000 borrower records without a noticeable sluggishness in performance
+for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
+able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -358,8 +416,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
@@ -402,15 +458,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a book
 
-. Deleting a person while all persons are listed
+. Deleting a book while all books are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all books using the `list` command. Multiple books in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import java.nio.file.Path;
 
@@ -11,9 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Catalog;
+import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
+import seedu.address.storage.catalog.JsonCatalogStorage;
+import seedu.address.storage.loanrecords.JsonLoanRecordsStorage;
 
 public class StorageManagerTest {
 
@@ -24,9 +27,14 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonCatalogStorage catalogStorage = new JsonCatalogStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonLoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(getTempFilePath("lr"));
+        JsonBorrowerRecordsStorage borrowerRecordsStorage =
+                new JsonBorrowerRecordsStorage(getTempFilePath("br"));
+        storageManager = new StorageManager(
+                userPrefsStorage, loanRecordsStorage, catalogStorage, borrowerRecordsStorage
+        );
     }
 
     private Path getTempFilePath(String fileName) {
@@ -54,15 +62,15 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        Catalog original = getTypicalCatalog();
+        storageManager.saveCatalog(original);
+        ReadOnlyCatalog retrieved = storageManager.readCatalog().get();
+        assertEquals(original, new Catalog(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getCatalogFilePath());
     }
 
 }
