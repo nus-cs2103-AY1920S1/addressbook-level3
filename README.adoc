@@ -14,8 +14,8 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 * Dukemon is a desktop Flashcard style program designed to help YOU revise your work. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a program intended to help *troubled students* revise definitions and important keywords that they encounter in their studies. 
-* Subjects like Biology, Physics and Chemistry are especially compatible with our program. You will be able to create and save your own flashcards and datasets to test yourself. 
+* It is a program intended to help *troubled students* revise definitions and important keywords that they encounter in their studies.
+* Subjects like Biology, Physics and Chemistry are especially compatible with our program. You will be able to create and save your own flashcards and datasets to test yourself.
 * The flow of the program is simple - the question appears and you type in the matching answer.
 * There are different game modes (Timed vs. Non-Timed, Hints vs. No-Hints) and difficulties that you can configure to challenge yourself.
 * You will also be able to keep track of your statistics and progress.
