@@ -320,10 +320,10 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list persons.
+2.  AddressBook shows a list of persons.
+3.  User requests to delete a specific person in the list.
+4.  AddressBook deletes the person.
 +
 Use case ends.
 
@@ -341,14 +341,61 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Show reminders
+*MSS*
+
+1.  User requests to see reminders.
+2.  AddressBook shows a list of reminders.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no reminders.
++
+Use case ends.
+
 _{More to be added}_
+
+[discrete]
+=== Use case: Add event
+
+*MSS*
+
+1.  User adds an event.
+2.  AddressBook tells the user that the event has been successfully added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The event is formatted incorrectly (e.g. the date is invalid).
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
+* 3a. The same event has been previously stored.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 expenses without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be at the least usable for a novice to command line interfaces.
+.  Data entered must not be volatile (i.e. can only be changed at the user's command).
+.  Past data must be saved permanently unless deleted at the user's command.
+.  Not required to have digital wallet support.
 
 _{More to be added}_
 
@@ -361,22 +408,55 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[alias]] Alias::
+A user-defined keyword that represents a specific Expense, acting as a quality-of-life replacement for common Expenses.
+
 [appendix]
 == Product Survey
 
-*Product Name*
+*Budgie*
 
-Author: ...
+Author: STUCK
 
 Pros:
 
-* ...
-* ...
+* Remembers and approximates frequently entered expenses
+* Provides temporary budget accounts for special occasions (i.e. vacationing, sponsored events)
+* Pleasing and easily navigable interface due to a relatively small number of features
 
 Cons:
 
-* ...
-* ...
+* Expenses are kept very simple: There is no way to enter the location of the expense or place a tag on it
+* Does not link to any financial accounts or digital wallets
+
+*Wally*
+
+Author: Wally Global Inc.
+
+Pros:
+
+* Almost every foreign currency is supported, and can be converted to and from each other
+* Each expense can be tagged with an accompanying photo (e.g. a receipt)
+* Can set a password
+* Can split group payments
+
+Cons:
+
+* Complex interface due to the large amount of features
+
+*YNAB (You Need A Budget)*
+
+Author: You Need A Budget LLC
+
+Pros:
+
+* Portions of a budget can be transferred to another easily in cases of underspending/overspending
+* Innovative way of budgeting: every single dollar from your income must be assigned a 'job' (e.g. fun money, subscriptions)
+* Can set budgeting goals
+
+Cons:
+
+* Can be rather stressful due to its obsession to categorise every single dollar you earned that month
 
 [appendix]
 == Instructions for Manual Testing
