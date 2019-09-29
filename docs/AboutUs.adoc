@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === James Pang
 image::jamessspanggg.png[width="150", align="left"]
-{empty}[http://github.com/jamessspanggg[homepage]] [https://github.com/jamessspanggg] [<<jamessspanggg#, portfolio>>]
+{empty}[http://github.com/jamessspanggg[homepage]] [https://github.com/jamessspanggg[github]] [<<jamessspanggg#, portfolio>>]
 
 Role: Project Advisor + TA
 
