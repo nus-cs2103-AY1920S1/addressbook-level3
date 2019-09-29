@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= FlashCard Pro
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level3[image:https://https://travis-ci.org/AY1920S1-CS2103-F09-2/addressbook-level3.svg?branch=master[Build Status]]
