@@ -14,6 +14,18 @@ public class PageStatus {
         this.dayId = dayId;
     }
 
+    public PageStatus withNewPageType(PageType pageType) {
+        return new PageStatus(pageType, getTripId(), getDayId());
+    }
+
+    public PageStatus withNewTripId(TripId tripId) {
+        return new PageStatus(getPageType(), tripId, getDayId());
+    }
+
+    public PageStatus withNewDayId(DayId dayId) {
+        return new PageStatus(getPageType(), getTripId(), dayId);
+    }
+
     public PageType getPageType() {
         return pageType;
     }

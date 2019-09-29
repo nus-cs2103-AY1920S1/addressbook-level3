@@ -16,7 +16,8 @@ public class AddTripCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Ui ui) throws CommandException {
-        model.getPageStatus().setPageType(PageType.ADD_TRIP);
+        model.setPageStatus(
+                model.getPageStatus().withNewPageType(PageType.ADD_TRIP));
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
