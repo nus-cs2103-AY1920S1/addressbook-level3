@@ -1,4 +1,4 @@
-package seedu.address.model.Entity;
+package seedu.address.model.entity;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

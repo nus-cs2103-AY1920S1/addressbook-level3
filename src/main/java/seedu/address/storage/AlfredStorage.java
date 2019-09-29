@@ -5,14 +5,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
-import seedu.address.model.EntityList.TeamList;
-import seedu.address.model.EntityList.IssueList;
-import seedu.address.model.EntityList.ParticipantList;
-import seedu.address.model.EntityList.MentorList;
+import seedu.address.model.entitylist.TeamList;
+import seedu.address.model.entitylist.IssueList;
+import seedu.address.model.entitylist.ParticipantList;
+import seedu.address.model.entitylist.MentorList;
 
 public interface AlfredStorage extends UserPrefsStorage, TeamListStorage,
         ParticipantListStorage, IssueListStorage, MentorListStorage {

@@ -1,4 +1,4 @@
-package seedu.address.model.Entity;
+package seedu.address.model.entity;
 
 public enum SubjectName {
     PLACEHOLDER("placeholder");

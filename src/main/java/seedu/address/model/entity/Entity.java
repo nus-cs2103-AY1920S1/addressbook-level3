@@ -1,4 +1,4 @@
-package seedu.address.model.Entity;
+package seedu.address.model.entity;
 
 import java.util.HashMap;
 
@@ -49,9 +49,16 @@ public abstract class Entity {
     }
 
     /**
-     * View the bare details of the entity.
+     * View the bare details of the entity There is the default implementation.
+     *
+     * @return HashMap<String, String>
      */
-    abstract public HashMap<String, String> viewMinimal();
+    public HashMap<String, String> viewMinimal() {
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("name", this.getName().toString());
+        fields.put("id", this.getId().toString());
+        return fields;
+    };
 
     /**
      * View the full details of the entity.

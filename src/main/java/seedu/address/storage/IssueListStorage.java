@@ -5,10 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
 
 /**
- * Represents a storage for {@link seedu.address.model.EntityList.IssueList}
+ * Represents a storage for {@link seedu.address.model.entitylist.IssueList}
  */
 public interface IssueListStorage {
     /**
