@@ -6,7 +6,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
-import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
 
 /**
  * Adds a person into T.A.rence.
@@ -24,19 +24,20 @@ public class AddStudentCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com ";
 
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists!";
+    public static final String MESSAGE_INVALID_CLASS = "No such module and/or tutorial class exists.";
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
         "addstu", "addstud"};
 
-    private final Person toAdd;
+    private final Student toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddStudentCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddStudentCommand(Student student) {
+        requireNonNull(student);
+        toAdd = student;
     }
 
     @Override
@@ -47,7 +48,12 @@ public class AddStudentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        if (!model.hasTutorialInModule(toAdd.getModCode(), toAdd.getTutName())) {
+            throw new CommandException(MESSAGE_INVALID_CLASS);
+        }
+
         model.addPerson(toAdd);
+        model.addStudentToTutorial(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

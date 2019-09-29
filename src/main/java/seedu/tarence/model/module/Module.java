@@ -34,6 +34,10 @@ public class Module {
         return tutorials;
     }
 
+    public void addTutorial(Tutorial tutorial) {
+        tutorials.add(tutorial);
+    }
+
     /**
      * Returns true if both modules have the same module code.
      */

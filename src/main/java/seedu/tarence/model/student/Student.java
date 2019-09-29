@@ -5,9 +5,11 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.tutorial.TutName;
 
 /**
  * Represents a Student.
@@ -19,15 +21,21 @@ public class Student extends Person {
     protected Optional<MatricNum> matricNum;
     protected Optional<NusnetId> nusnetId;
 
+    protected ModCode modCode;
+    protected TutName tutName;
+
     /**
      * Every field must be present and not null.
      */
     public Student(Name name, Email email,
-            Optional<MatricNum> matricNum, Optional<NusnetId> nusnetId) {
+            Optional<MatricNum> matricNum, Optional<NusnetId> nusnetId,
+            ModCode modCode, TutName tutName) {
         super(name, email);
         requireAllNonNull(matricNum, nusnetId);
         this.matricNum = matricNum;
         this.nusnetId = nusnetId;
+        this.modCode = modCode;
+        this.tutName = tutName;
     }
 
     public Optional<MatricNum> getMatricNum() {
@@ -36,6 +44,14 @@ public class Student extends Person {
 
     public Optional<NusnetId> getNusnetId() {
         return nusnetId;
+    }
+
+    public ModCode getModCode() {
+        return modCode;
+    }
+
+    public TutName getTutName() {
+        return tutName;
     }
 
     /**

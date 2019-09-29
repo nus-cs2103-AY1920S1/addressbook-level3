@@ -24,9 +24,11 @@ import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.testutil.EditPersonDescriptorBuilder;
 import seedu.tarence.testutil.PersonBuilder;
 import seedu.tarence.testutil.PersonUtil;
+import seedu.tarence.testutil.StudentBuilder;
 
 public class ApplicationParserTest {
 
@@ -34,9 +36,9 @@ public class ApplicationParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddStudentCommand command = (AddStudentCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddStudentCommand(person), command);
+        Student student = new StudentBuilder().build();
+        AddStudentCommand command = (AddStudentCommand) parser.parseCommand(PersonUtil.getAddStudentCommand(student));
+        assertEquals(new AddStudentCommand(student), command);
     }
 
     @Test

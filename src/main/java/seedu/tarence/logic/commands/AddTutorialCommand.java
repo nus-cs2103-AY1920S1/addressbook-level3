@@ -2,6 +2,7 @@ package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DAY;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DURATION_IN_MINUTES;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
@@ -28,12 +29,14 @@ public class AddTutorialCommand extends Command {
             + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "TUTORIAL_DURATION_IN_MINUTES "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "LAB SESSION "
-            + PREFIX_TUTORIAL_DAY + "MONDAY,FRIDAY "
+            + PREFIX_MODULE + "PC1431 "
+            + PREFIX_TUTORIAL_DAY + "MONDAY "
             + PREFIX_TUTORIAL_START_TIME + "1200 "
-            + PREFIX_TUTORIAL_WEEKS + "7,10,12"
+            + PREFIX_TUTORIAL_WEEKS + "7,10,12 "
             + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "120";
 
     public static final String MESSAGE_DUPLICATE_TUTORIAL = "Wow, this tutorial already exists!";
+    public static final String MESSAGE_INVALID_MODULE = "Error: No such module exists.";
 
     public static final String MESSAGE_SUCCESS = "New tutorial added: %1$s. Day: %2$s. Weeks: %3$s. "
                                                 + "Start Time: %4$s. Duration: %5$s MINS.";
@@ -53,7 +56,11 @@ public class AddTutorialCommand extends Command {
         if (model.hasTutorial(tutorial)) {
             throw new CommandException(MESSAGE_DUPLICATE_TUTORIAL);
         }
+        if (!model.hasModuleOfCode(tutorial.getModCode())) {
+            throw new CommandException(MESSAGE_INVALID_MODULE);
+        }
         model.addTutorial(tutorial);
+        model.addTutorialToModule(tutorial);
         return new CommandResult(String.format(MESSAGE_SUCCESS, tutorial, tutorial.getTimeTable().getDay(),
                 tutorial.getTimeTable().getWeeks(), tutorial.getTimeTable().getTime(),
                 tutorial.getTimeTable().getDuration().toMinutes()));

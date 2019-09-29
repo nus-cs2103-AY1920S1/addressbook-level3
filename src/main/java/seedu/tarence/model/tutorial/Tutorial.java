@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
 
 /**
@@ -21,16 +22,18 @@ public class Tutorial {
     protected final TutName tutName;
     protected final TimeTable timeTable;
     protected List<Student> students;
+    protected ModCode modCode;
 
     /**
      * Every field must be present and not null.
      */
     public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
-            List<Integer> weeks, Duration duration, List<Student> students) {
-        requireAllNonNull(tutName, day, startTime, weeks, students);
+            List<Integer> weeks, Duration duration, List<Student> students, ModCode modCode) {
+        requireAllNonNull(tutName, day, startTime, weeks, students, modCode);
         this.tutName = tutName;
         this.timeTable = new TimeTable(day, startTime, weeks, duration);
         this.students = students;
+        this.modCode = modCode;
     }
 
     public TutName getTutName() {
@@ -43,6 +46,14 @@ public class Tutorial {
 
     public List<Student> getStudents() {
         return students;
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public ModCode getModCode() {
+        return modCode;
     }
 
     /**

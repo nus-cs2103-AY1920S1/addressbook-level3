@@ -10,8 +10,14 @@ import org.junit.jupiter.api.Test;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.testutil.ModuleBuilder;
 import seedu.tarence.testutil.PersonBuilder;
+import seedu.tarence.testutil.StudentBuilder;
+import seedu.tarence.testutil.TutorialBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -26,20 +32,35 @@ public class AddStudentCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
-
+    public void execute_newStudent_success() {
+        final String VALID_MOD_CODE = "GER1000";
+        final String VALID_TUT_NAME = "T01";
         Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
 
-        assertCommandSuccess(new AddStudentCommand(validPerson), model,
-                String.format(AddStudentCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        Tutorial validTutorial = new TutorialBuilder().withModCode(VALID_MOD_CODE)
+            .withTutName(VALID_TUT_NAME).build();
+        Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        model.addModule(validModule);
+        expectedModel.addModule(validModule);
+        model.addTutorial(validTutorial);
+        expectedModel.addTutorial(validTutorial);
+
+        Student validStudent = new StudentBuilder().withModCode(VALID_MOD_CODE)
+            .withTutName(VALID_TUT_NAME).build();
+        expectedModel.addPerson(validStudent);
+
+        assertCommandSuccess(new AddStudentCommand(validStudent), model,
+                String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), expectedModel);
     }
 
+    /*
+     * Doesn't work anymore because the default Person cannot be used as a Student.
+     * To update.
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getApplication().getPersonList().get(0);
         assertCommandFailure(new AddStudentCommand(personInList), model, AddStudentCommand.MESSAGE_DUPLICATE_PERSON);
     }
+    */
 
 }

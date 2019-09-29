@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -20,10 +21,16 @@ import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.testutil.ModuleBuilder;
 import seedu.tarence.testutil.PersonBuilder;
+import seedu.tarence.testutil.StudentBuilder;
+import seedu.tarence.testutil.TutorialBuilder;
 
 public class AddStudentCommandTest {
 
@@ -34,21 +41,25 @@ public class AddStudentCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+        final String VALID_MODCODE = "ES1601";
+        final String VALID_TUTNAME = "T02";
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        modelStub.addModule(new ModuleBuilder().withModCode(VALID_MODCODE).build());
+        modelStub.addTutorial(new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build());
+        Student validStudent = new StudentBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
 
-        CommandResult commandResult = new AddStudentCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddStudentCommand(validStudent).execute(modelStub);
 
-        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validPerson),
+        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validStudent), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddStudentCommand addStudentCommand = new AddStudentCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        Student validStudent = new StudentBuilder().build();
+        AddStudentCommand addStudentCommand = new AddStudentCommand(validStudent);
+        ModelStub modelStub = new ModelStubWithPerson(validStudent);
 
         assertThrows(CommandException.class,
             AddStudentCommand.MESSAGE_DUPLICATE_PERSON, () -> addStudentCommand.execute(modelStub));
@@ -56,8 +67,8 @@ public class AddStudentCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Student alice = new StudentBuilder().withName("Alice").build();
+        Student bob = new StudentBuilder().withName("Bob").build();
         AddStudentCommand addAliceCommand = new AddStudentCommand(alice);
         AddStudentCommand addBobCommand = new AddStudentCommand(bob);
 
@@ -154,7 +165,7 @@ public class AddStudentCommandTest {
 
         @Override
         public boolean hasModule(Module module) {
-            // todo: Implement test for hasMpdule
+            // todo: Implement test for hasModule
             return false;
         }
 
@@ -172,6 +183,28 @@ public class AddStudentCommandTest {
         @Override
         public void addTutorial(Tutorial tutorial) {
             // todo: Implement test for addTutorial
+        }
+
+        @Override
+        public boolean hasModuleOfCode(ModCode modCode) {
+            // to implement
+            return false;
+        }
+
+        @Override
+        public void addTutorialToModule(Tutorial tutorial) {
+            // to implement
+        }
+
+        @Override
+        public void addStudentToTutorial(Student student) {
+            // to implement
+        }
+
+        @Override
+        public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
+            // to implement
+            return false;
         }
     }
 
@@ -198,6 +231,8 @@ public class AddStudentCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Module> modules = new ArrayList<>();
+        final ArrayList<Tutorial> tutorials = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -209,6 +244,39 @@ public class AddStudentCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        public void addModule(Module module) {
+            requireNonNull(module);
+            modules.add(module);
+        }
+
+        public void addTutorial(Tutorial tutorial) {
+            requireNonNull(tutorial);
+            tutorials.add(tutorial);
+        }
+
+        @Override
+        public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
+            requireAllNonNull(modCode, tutName);
+            boolean hasMod = false;
+            for (Module module : modules) {
+                if (module.getModCode().equals(modCode)) {
+                    hasMod = true;
+                    break;
+                }
+            }
+            if (!hasMod) {
+                return false;
+            }
+            boolean hasTut = false;
+            for (Tutorial tutorial : tutorials) {
+                if (tutorial.getTutName().equals(tutName)) {
+                    hasTut = true;
+                    break;
+                }
+            }
+            return hasTut;
         }
 
         @Override

@@ -18,7 +18,7 @@ public class ModCode {
      * The first character of the module code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[A-Z]{2,3}[0-9]{4}[A-Z]?$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z]{2,3}[0-9]{4}[a-zA-Z]?$";
 
     public final String modCode;
 
