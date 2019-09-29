@@ -27,7 +27,3 @@ Role: Developer +
 Responsibilities: TBC
 
 '''
-
-
-
-
