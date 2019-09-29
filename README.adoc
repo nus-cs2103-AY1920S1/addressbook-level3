@@ -16,6 +16,10 @@ endif::[]
 * is an application designed for students of all fields who prefer to use a desktop app for managing flashcards, as well as teachers who would like to provide resources (in the form of custom flashcard decks) to support their students’ learning.
 * It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
+== Who is FlashCard Pro for?
+Have you ever felt like there should be more kinds of flashcards you could create in order to learn different things? Like flashcards that require you to complete code snippets, or flashcards with multiple choice?
+FlashcardPro allows you to create these kinds of flashcards!
+
 == Site Map
 
 * <<UserGuide#, User Guide>>
