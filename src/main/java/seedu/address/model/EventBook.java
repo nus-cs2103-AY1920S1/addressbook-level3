@@ -1,14 +1,18 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
-public class EventBook implements ReadOnlyEventBook{
+/**
+ * Wraps all data at the event-book level
+ * Duplicates are not allowed (by .isSameEvent comparison)
+ */
+public class EventBook implements ReadOnlyEventBook {
     private final UniqueEventList events;
 
     /*
@@ -22,7 +26,8 @@ public class EventBook implements ReadOnlyEventBook{
         events = new UniqueEventList();
     }
 
-    public EventBook() {}
+    public EventBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -31,7 +36,6 @@ public class EventBook implements ReadOnlyEventBook{
         this();
         resetData(toBeCopied);
     }
-
 
 
     //// list overwrite operations

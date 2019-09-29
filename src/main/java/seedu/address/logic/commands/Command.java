@@ -6,7 +6,7 @@ import seedu.address.model.Model;
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public abstract class Command extends AllCommands{
+public abstract class Command extends AllCommands {
 
     /**
      * Executes the command and returns the result message.

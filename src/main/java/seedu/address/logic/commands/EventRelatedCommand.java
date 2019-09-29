@@ -3,7 +3,10 @@ package seedu.address.logic.commands;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-public abstract class EventRelatedCommand extends AllCommands{
+/**
+ * Represents Event Commands to be executed.
+ */
+public abstract class EventRelatedCommand extends AllCommands {
     /**
      * Executes the command and returns the result message.
      *
