@@ -39,6 +39,7 @@ public class UiManager implements Ui {
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);
+            MainWindow.class.getConstructor(Stage.class, Logic.class).newInstance(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
