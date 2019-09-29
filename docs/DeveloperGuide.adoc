@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= FlashCard Pro - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F09-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F09-2`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
