@@ -1,4 +1,4 @@
-package seedu.address.model.Entity;
+package seedu.address.model.entity;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,38 +17,6 @@ public class Team extends Entity {
     private Location location;
 
     /**
-     * Constructor without mentor.
-     *
-     * @param teamId
-     * @param teamName
-     * @param participants
-     * @param subject
-     * @param score
-     * @param projectName
-     * @param projectType
-     * @param location
-     */
-    public Team(
-            Id teamId,
-            Name teamName,
-            List<Participant> participants,
-            SubjectName subject,
-            Score score,
-            Name projectName,
-            ProjectType projectType,
-            Location location
-    ) {
-        super(teamId, teamName);
-        this.participants = participants;
-        this.mentor = Optional.empty();
-        this.subject = subject;
-        this.score = score;
-        this.projectName = projectName;
-        this.projectType = projectType;
-        this.location = location;
-    }
-
-    /**
      * Constructor with mentor.
      *
      * @param teamId
@@ -64,7 +32,7 @@ public class Team extends Entity {
             Id teamId,
             Name teamName,
             List<Participant> participants,
-            Mentor mentor,
+            Optional<Mentor> mentor,
             SubjectName subject,
             Score score,
             Name projectName,
@@ -73,7 +41,7 @@ public class Team extends Entity {
     ) {
         super(teamId, teamName);
         this.participants = participants;
-        this.mentor = Optional.of(mentor);
+        this.mentor = mentor;
         this.subject = subject;
         this.score = score;
         this.projectName = projectName;

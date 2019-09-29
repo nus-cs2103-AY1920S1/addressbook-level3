@@ -1,4 +1,4 @@
-package seedu.address.model.Entity;
+package seedu.address.model.entity;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -6,7 +6,6 @@ import java.util.Objects;
 public class Participant extends Entity {
     private Email email;
     private Phone phone;
-    private Team team;
 
     /**
      * Constructor without team.
@@ -16,19 +15,10 @@ public class Participant extends Entity {
      * @param phone
      * @param id
      */
-    public Participant(Name name, Email email, Phone phone, Id id) {
+    public Participant(Name name, Id id, Email email, Phone phone) {
         super(id, name);
         this.email = email;
         this.phone = phone;
-        // TODO: Make this case impossible? because participants cannot exist w/o team
-        this.team = null;
-    }
-
-    public Participant(Name name, Email email, Phone phone, Id id, Team team) {
-        super(id, name);
-        this.email = email;
-        this.phone = phone;
-        this.team = team;
     }
 
     // Getters - Note the return types will be changed from phone and email to the respective types - Just for demo
@@ -49,15 +39,6 @@ public class Participant extends Entity {
      */
     public Phone getPhone() {
         return this.phone;
-    }
-
-    /**
-     * Gets the team.
-     *
-     * @return team
-     */
-    public Team getTeam() {
-        return this.team;
     }
 
     // Setters - Argument types will be changed
@@ -85,7 +66,6 @@ public class Participant extends Entity {
         HashMap<String, String> result = new HashMap<>();
         result.put("name", getName().toString());
         result.put("phone", getPhone().toString());
-        result.put("team", getTeam().toString());
         return result;
     }
 
@@ -95,13 +75,12 @@ public class Participant extends Entity {
         result.put("name", getName().toString());
         result.put("phone", getPhone().toString());
         result.put("email", getEmail().toString());
-        result.put("team", getTeam().toString());
         return result;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, phone, team);
+        return Objects.hash(id, name, email, phone);
     }
 
     @Override
@@ -118,8 +97,7 @@ public class Participant extends Entity {
         return otherParticipant.getName() == this.getName()
                 && otherParticipant.getId() == this.getId()
                 && otherParticipant.getPhone() == this.getPhone()
-                && otherParticipant.getEmail() == this.getEmail()
-                && otherParticipant.getTeam() == this.getTeam();
+                && otherParticipant.getEmail() == this.getEmail();
     }
 
     @Override
@@ -132,9 +110,7 @@ public class Participant extends Entity {
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
-                .append(getEmail())
-                .append(" Team: ")
-                .append(getTeam());
+                .append(getEmail());
 
         return builder.toString();
     }

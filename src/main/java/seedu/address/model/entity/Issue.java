@@ -1,4 +1,4 @@
-package seedu.address.model.Entity;
+package seedu.address.model.entity;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -10,29 +10,6 @@ public class Issue extends Entity {
     private IssueType type;
     private boolean isCompleted;
     private Optional<Date> time;
-
-    /**
-     * Constructor without date.
-     *
-     * @param name
-     * @param id
-     * @param description
-     * @param type
-     * @param isCompleted
-     */
-    public Issue(
-            Name name,
-            Id id,
-            String description,
-            IssueType type,
-            boolean isCompleted
-    ) {
-        super(id, name);
-        this.description = description;
-        this.type = type;
-        this.isCompleted = isCompleted;
-        this.time = Optional.empty();
-    }
 
     /**
      * Constructor with date.
