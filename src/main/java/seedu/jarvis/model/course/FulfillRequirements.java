@@ -1,22 +1,20 @@
 package seedu.jarvis.model.course;
 
-import java.util.List;
-
 public class FulfillRequirements {
-    public final List<String> fulfillRequirements;
+    public final String fulfillRequirements;
 
     /**
      * Constructs a {@code FulfillRequirements}
      *
      * @param fulfillRequirements of the course
      */
-    public FulfillRequirements(List<String> fulfillRequirements) {
+    public FulfillRequirements(String fulfillRequirements) {
         this.fulfillRequirements = fulfillRequirements;
     }
 
     @Override
     public String toString() {
-        return fulfillRequirements.toString();
+        return fulfillRequirements;
     }
 
     @Override

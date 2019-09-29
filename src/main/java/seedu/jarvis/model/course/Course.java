@@ -78,17 +78,24 @@ public class Course {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return getCourseCode().equals(course.getCourseCode());
+    }
+
+    @Override
     public String toString() {
-        // TODO implement toString when class is done
         final StringBuilder builder = new StringBuilder("");
-        builder.append(getTitle()).append(", ")
-                .append(getFaculty()).append(", ")
-                .append(getDescription()).append(", ")
-                .append(getCourseCode()).append(", ")
-                .append(getCourseCredit()).append(", ")
-                .append(getPrereqTree()).append(", ")
-                .append(getPreclusion()).append(", ")
-                .append(getFulfillRequirements()).append(", ");
+        builder.append("[Title]: ").append(getTitle())
+                .append(" [Faculty]: ").append(getFaculty())
+                .append(" [Description]: ").append(getDescription())
+                .append(" [CourseCode]: ").append(getCourseCode())
+                .append(" [CourseCredit]: ").append(getCourseCredit())
+                .append(" [PrereqTree]: ").append(getPrereqTree())
+                .append(" [Preclusions]: ").append(getPreclusion())
+                .append(" [FulfillRequirements]: ").append(getFulfillRequirements());
         return builder.toString();
     }
 }
