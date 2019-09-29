@@ -46,7 +46,7 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-                new Event(new EventName("Alex Yeoh"))
+            new Event(new EventName("Alex Yeoh"))
         };
     }
 

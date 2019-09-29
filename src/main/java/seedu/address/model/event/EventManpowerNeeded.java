@@ -1,8 +1,10 @@
 package seedu.address.model.event;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents the number of manpower needed for an Event.
+ */
 public class EventManpowerNeeded {
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers should only contain numbers, and it should be at least 3 digits long";

@@ -23,8 +23,8 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, EventBookStorage eventBookStorage
-                          , UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, EventBookStorage eventBookStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.eventBookStorage = eventBookStorage;
@@ -71,11 +71,13 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to read data from file: " + filePath);
         return addressBookStorage.readAddressBook(filePath);
     }
+
     @Override
     public Optional<ReadOnlyEventBook> readEventBook() throws DataConversionException, IOException {
         return readEventBook(eventBookStorage.getEventBookFilePath());
     }
 
+    @Override
     public Optional<ReadOnlyEventBook> readEventBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return eventBookStorage.readEventBook(filePath);
@@ -98,6 +100,7 @@ public class StorageManager implements Storage {
         saveEventBook(eventBook, eventBookStorage.getEventBookFilePath());
     }
 
+    @Override
     public void saveEventBook(ReadOnlyEventBook eventBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         eventBookStorage.saveEventBook(eventBook, filePath);

@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Superparent Command class.
+ */
 public abstract class AllCommands {
     /**
      * Executes the command and returns the result message.

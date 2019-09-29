@@ -1,10 +1,13 @@
 package seedu.address.model.event;
 
-import seedu.address.model.person.Name;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.person.Name;
+
+/**
+ * Represents the Event's name.
+ */
 public class EventName {
     public static final String MESSAGE_CONSTRAINTS =
             "Event names should only contain alphanumeric characters and spaces, and it should not be blank";

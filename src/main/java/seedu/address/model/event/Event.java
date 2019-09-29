@@ -2,16 +2,17 @@ package seedu.address.model.event;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Represents an Event in the AddMin app.
+ */
 public class Event {
 
     //Identity Fields
-    //private final EventID id;
+    //private final EventId id;
     private final EventName name;
 
     //Data Fields
@@ -23,7 +24,7 @@ public class Event {
     private final EventManpowerAllocatedList manpowerAllocatedList;*/
     private final Set<Tag> tags = new HashSet<>();
     /*
-    public Event(EventID id, EventName name, EventVenue venue, EventHoursNeeded hoursNeeded,
+    public Event(EventId id, EventName name, EventVenue venue, EventHoursNeeded hoursNeeded,
                  EventManpowerNeeded manpowerNeeded, EventStartDate startDate, EventEndDate endDate, Set<Tag> tags) {
         this.id = id;
         this.name = name;
@@ -43,11 +44,6 @@ public class Event {
     public EventName getName() {
         return name;
     }
-
-
-
-
-
 
 
     /**
@@ -102,12 +98,13 @@ public class Event {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-                /*.append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);*/
+        /*.append(" Email: ")
+        .append(getEmail())
+        .append(" Address: ")
+        .append(getAddress())
+        .append(" Tags: ");
+        getTags().forEach(builder::append);
+        */
         return builder.toString();
     }
 

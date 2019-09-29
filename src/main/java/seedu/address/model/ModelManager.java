@@ -33,8 +33,8 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(addressBook, eventBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " Initializing with event book:" +
-                eventBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + " Initializing with event book:"
+                + eventBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.eventBook = new EventBook(eventBook);
@@ -77,7 +77,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getEventBookFilePath() { return userPrefs.getEventBookFilePath(); }
+    public Path getEventBookFilePath() {
+        return userPrefs.getEventBookFilePath();
+    }
 
     @Override
     public void setEventBookFilePath(Path eventBookFilePath) {
