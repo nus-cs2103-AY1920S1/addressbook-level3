@@ -99,17 +99,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getWordBankFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setWordBankFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Card person) {
+        public void addCard(Card person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,27 +124,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Card person) {
+        public boolean hasCard(Card person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Card target) {
+        public void deleteCard(Card target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Card target, Card editedPerson) {
+        public void setCard(Card target, Card editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Card> getFilteredPersonList() {
+        public ObservableList<Card> getFilteredCardList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Card> predicate) {
+        public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Card person) {
+        public boolean hasCard(Card person) {
             requireNonNull(person);
             return this.person.isSamePerson(person);
         }
@@ -174,13 +174,13 @@ public class AddCommandTest {
         final ArrayList<Card> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Card person) {
+        public boolean hasCard(Card person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
         }
 
         @Override
-        public void addPerson(Card person) {
+        public void addCard(Card person) {
             requireNonNull(person);
             personsAdded.add(person);
         }

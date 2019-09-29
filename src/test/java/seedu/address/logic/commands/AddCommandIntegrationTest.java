@@ -30,7 +30,7 @@ public class AddCommandIntegrationTest {
         Card validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getWordBank(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        expectedModel.addCard(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);

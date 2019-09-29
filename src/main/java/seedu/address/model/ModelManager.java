@@ -66,17 +66,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getWordBankFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setWordBankFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== WordBank ================================================================================
 
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
@@ -89,42 +89,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Card person) {
+    public boolean hasCard(Card person) {
         requireNonNull(person);
         return wordBank.hasCard(person);
     }
 
     @Override
-    public void deletePerson(Card target) {
+    public void deleteCard(Card target) {
         wordBank.removePerson(target);
     }
 
     @Override
-    public void addPerson(Card person) {
+    public void addCard(Card person) {
         wordBank.addCard(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
-    public void setPerson(Card target, Card editedPerson) {
+    public void setCard(Card target, Card editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         wordBank.setCard(target, editedPerson);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Card List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code versionedAddressBook} // todo what is this versionedAddressBook?
      */
     @Override
-    public ObservableList<Card> getFilteredPersonList() {
+    public ObservableList<Card> getFilteredCardList() {
         return filteredCards;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Card> predicate) {
+    public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
         filteredCards.setPredicate(predicate);
     }

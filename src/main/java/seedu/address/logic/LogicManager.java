@@ -57,12 +57,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Card> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getFilteredCardList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getWordBankFilePath();
     }
 
     @Override
