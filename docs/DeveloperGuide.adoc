@@ -1,4 +1,4 @@
-= Revision Guide - Developer Guide
+= Test Bank - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
 
 By: `Group F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `RevisionGuideParser` class to parse the user command.
+.  `Logic` uses the `TestBankParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a question).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -121,13 +121,13 @@ image::ModelClassDiagram.png[]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `Question Bank` object that represents the Question Bank.
+* stores the Test Bank data.
+* exposes an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Revision Guide`, which `Question` can reference. This would allow `Revision Guide` to only require one `Tag` object per unique `Tag`, instead of each `Question` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Test Bank`, which `Question` can reference. This would allow `Test Bank` to only require one `Tag` object per unique `Tag`, instead of each `Question` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -141,8 +141,8 @@ image::StorageClassDiagram.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Revision Guide data in json format and read it back.
+* can save `Question Bank` objects in json format and read it back.
+* can save the Test Bank data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
