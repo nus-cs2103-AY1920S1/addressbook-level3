@@ -3,7 +3,6 @@ package seedu.tarence.testutil;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MATRIC_AMY;
-import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MODULE_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MODULE_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_AMY;

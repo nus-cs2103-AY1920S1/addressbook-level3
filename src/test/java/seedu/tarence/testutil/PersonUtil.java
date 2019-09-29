@@ -1,10 +1,8 @@
 package seedu.tarence.testutil;
 
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MATNO;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NUSID;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import seedu.tarence.logic.commands.AddStudentCommand;
@@ -49,7 +47,7 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + student.getName().fullName + " ");
         sb.append(PREFIX_EMAIL + student.getEmail().value + " ");
         sb.append(student.getNusnetId().get().nusnetId + " ");
-        sb.append( student.getMatricNum().get().value + " ");
+        sb.append(student.getMatricNum().get().value + " ");
         sb.append(PREFIX_MODULE + student.getModCode().modCode + " ");
         sb.append(PREFIX_TUTORIAL_NAME + student.getTutName().tutName + " ");
         return sb.toString();

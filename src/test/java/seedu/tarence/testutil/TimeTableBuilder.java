@@ -7,10 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.tarence.model.module.ModCode;
-import seedu.tarence.model.module.Module;
 import seedu.tarence.model.tutorial.TimeTable;
-import seedu.tarence.model.tutorial.Tutorial;
 
 
 /**
@@ -19,7 +16,7 @@ import seedu.tarence.model.tutorial.Tutorial;
 public class TimeTableBuilder {
 
     public static final int DEFAULT_DURATION = 100;
-    public static final String DEFAULT_DAY= "MONDAY";
+    public static final String DEFAULT_DAY = "MONDAY";
     public static final String DEFAULT_TIME = "12:00:00";
     public static final List<Integer> DEFAULT_WEEKS = new ArrayList<>();
 

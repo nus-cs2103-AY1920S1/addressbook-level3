@@ -19,8 +19,8 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.tarence.testutil.TypicalStudents.BOB;
 import static seedu.tarence.testutil.TypicalStudents.AMY;
+import static seedu.tarence.testutil.TypicalStudents.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +54,7 @@ public class AddStudentCommandParserTest {
     }
 
     @Test
-    public void parse_OptionalFields_success() {
+    public void parse_optionalFields_success() {
         Student expectedStudentAmy = new StudentBuilder(AMY).build();
         Student expectedStudentBob = new StudentBuilder(BOB).withoutMatricNum().withoutNusnetId().build();
 

@@ -1,6 +1,5 @@
 package seedu.tarence.logic.commands;
 
-import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
@@ -11,11 +10,9 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
 import seedu.tarence.model.module.Module;
-import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.testutil.ModuleBuilder;
-import seedu.tarence.testutil.PersonBuilder;
 import seedu.tarence.testutil.StudentBuilder;
 import seedu.tarence.testutil.TutorialBuilder;
 
@@ -33,20 +30,20 @@ public class AddStudentCommandIntegrationTest {
 
     @Test
     public void execute_newStudent_success() {
-        final String VALID_MOD_CODE = "GER1000";
-        final String VALID_TUT_NAME = "T01";
+        final String validModCode = "GER1000";
+        final String validTutName = "T01";
         Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
 
-        Tutorial validTutorial = new TutorialBuilder().withModCode(VALID_MOD_CODE)
-            .withTutName(VALID_TUT_NAME).build();
-        Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        Tutorial validTutorial = new TutorialBuilder().withModCode(validModCode)
+            .withTutName(validTutName).build();
+        Module validModule = new ModuleBuilder().withModCode(validModCode).build();
         model.addModule(validModule);
         expectedModel.addModule(validModule);
         model.addTutorial(validTutorial);
         expectedModel.addTutorial(validTutorial);
 
-        Student validStudent = new StudentBuilder().withModCode(VALID_MOD_CODE)
-            .withTutName(VALID_TUT_NAME).build();
+        Student validStudent = new StudentBuilder().withModCode(validModCode)
+            .withTutName(validTutName).build();
         expectedModel.addPerson(validStudent);
 
         assertCommandSuccess(new AddStudentCommand(validStudent), model,

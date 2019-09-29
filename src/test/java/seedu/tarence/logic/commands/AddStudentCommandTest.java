@@ -28,7 +28,6 @@ import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.testutil.ModuleBuilder;
-import seedu.tarence.testutil.PersonBuilder;
 import seedu.tarence.testutil.StudentBuilder;
 import seedu.tarence.testutil.TutorialBuilder;
 
@@ -41,12 +40,12 @@ public class AddStudentCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        final String VALID_MODCODE = "ES1601";
-        final String VALID_TUTNAME = "T02";
+        final String validModCode = "ES1601";
+        final String validTutName = "T02";
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        modelStub.addModule(new ModuleBuilder().withModCode(VALID_MODCODE).build());
-        modelStub.addTutorial(new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build());
-        Student validStudent = new StudentBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
+        modelStub.addModule(new ModuleBuilder().withModCode(validModCode).build());
+        modelStub.addTutorial(new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
+        Student validStudent = new StudentBuilder().withModCode(validModCode).withTutName(validTutName).build();
 
         CommandResult commandResult = new AddStudentCommand(validStudent).execute(modelStub);
 
