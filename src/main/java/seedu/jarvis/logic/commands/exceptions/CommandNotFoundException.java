@@ -5,7 +5,7 @@ package seedu.jarvis.logic.commands.exceptions;
  */
 public class CommandNotFoundException extends Exception {
     public CommandNotFoundException() {
-        super("Command Not Found.");
+        super("Command Not Found");
     }
 
     public CommandNotFoundException(String message) {

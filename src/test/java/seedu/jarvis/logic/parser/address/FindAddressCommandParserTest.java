@@ -1,4 +1,4 @@
-package seedu.jarvis.logic.parser;
+package seedu.jarvis.logic.parser.address;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -9,7 +9,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.address.FindAddressCommand;
-import seedu.jarvis.logic.parser.address.FindAddressCommandParser;
 import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
 
 public class FindAddressCommandParserTest {

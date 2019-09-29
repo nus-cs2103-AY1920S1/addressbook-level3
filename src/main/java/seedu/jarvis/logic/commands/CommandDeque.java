@@ -108,14 +108,13 @@ public class CommandDeque {
 
     /**
      * Gets the most recent {@code Command} added to {@code CommandDeque} which is at the front of the deque.
-     * Returns null if the {@code CommandDeque} is empty.
      *
-     * @return The most recent {@code Command} added to {@code CommandDeque}, returns null if
-     * {@code CommandDeque#isEmpty()} is true.
+     * @return The most recent {@code Command} added to {@code CommandDeque}.
+     * @throws CommandNotFoundException If {@code CommandDeque} is empty.
      */
-    public Command getLatestCommand() {
+    public Command getLatestCommand() throws CommandNotFoundException {
         if (isEmpty()) {
-            return null;
+            throw new CommandNotFoundException();
         }
         return commands.getFirst();
     }
@@ -173,7 +172,7 @@ public class CommandDeque {
     /**
      * Clears all commands stored in {@code CommandDeque}.
      */
-    public void clearCache() {
+    public void clear() {
         commands.clear();
         commandTracker.clear();
     }

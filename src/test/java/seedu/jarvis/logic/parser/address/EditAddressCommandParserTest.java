@@ -1,4 +1,4 @@
-package seedu.jarvis.logic.parser;
+package seedu.jarvis.logic.parser.address;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -36,7 +36,6 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
-import seedu.jarvis.logic.parser.address.EditAddressCommandParser;
 import seedu.jarvis.model.person.Address;
 import seedu.jarvis.model.person.Email;
 import seedu.jarvis.model.person.Name;

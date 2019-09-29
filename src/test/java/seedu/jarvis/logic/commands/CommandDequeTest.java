@@ -12,9 +12,10 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.logic.commands.address.ClearAddressCommand;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
 import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
+import seedu.jarvis.model.Model;
 
 /**
  * Tests the functionality of {@code CommandDeque}.
@@ -37,9 +38,10 @@ public class CommandDequeTest {
     @Test
     public void addLatestCommand_success() {
         CommandDeque commandDeque = new CommandDeque();
-        Command command = new ClearAddressCommand();
+        Command command = new InvertibleCommandStub();
         assertDoesNotThrow(() -> commandDeque.addLatestCommand(command)); // tests a successful add.
-        assertSame(commandDeque.getLatestCommand(), command); // making sure the command was added correctly.
+        Command latestCommand = assertDoesNotThrow(commandDeque::getLatestCommand);
+        assertSame(latestCommand, command); // making sure the command was added correctly.
     }
 
 
@@ -50,7 +52,7 @@ public class CommandDequeTest {
     @Test
     public void addLatestCommand_duplicateCommand_exceptionThrown() {
         CommandDeque commandDeque = new CommandDeque();
-        Command command = new ClearAddressCommand();
+        Command command = new InvertibleCommandStub();
 
         // adds command the first time.
         assertDoesNotThrow(() -> commandDeque.addLatestCommand(command));
@@ -68,7 +70,7 @@ public class CommandDequeTest {
         Deque<Command> commands = new ArrayDeque<>();
         int numberOfCommands = 10;
         IntStream.range(0, numberOfCommands)
-                .mapToObj(index -> new ClearAddressCommand())
+                .mapToObj(index -> new InvertibleCommandStub())
                 .forEach(commands::addLast);
         commands.forEach(command -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(command)));
         IntStream.range(0, numberOfCommands)
@@ -96,7 +98,7 @@ public class CommandDequeTest {
         ArrayDeque<Command> commands = new ArrayDeque<>();
         int numberOfCommands = 10;
         IntStream.range(0, numberOfCommands)
-                .mapToObj(index -> new ClearAddressCommand())
+                .mapToObj(index -> new InvertibleCommandStub())
                 .forEach(commands::addLast);
         commands.forEach(command -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(command)));
         IntStream.range(0, numberOfCommands)
@@ -124,7 +126,7 @@ public class CommandDequeTest {
 
         // adds twice the amount of commands allowed by its size limit.
         IntStream.range(0, commandDeque.getSizeLimit() * 2)
-                .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new ClearAddressCommand())));
+                .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new InvertibleCommandStub())));
 
         // checks that it is size has not exceeded limit.
         assertEquals(commandDeque.getSizeLimit(), commandDeque.getSize());
@@ -139,7 +141,7 @@ public class CommandDequeTest {
 
         // adds commands until it is at the size limit.
         IntStream.range(0, commandDeque.getSizeLimit())
-                .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new ClearAddressCommand())));
+                .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new InvertibleCommandStub())));
 
         int updatedLimit = commandDeque.getSizeLimit() / 2;
         commandDeque.setSizeLimit(updatedLimit);
@@ -149,22 +151,42 @@ public class CommandDequeTest {
     }
 
     /**
-     * Verifies that {@code CommandDeque} is clear cache will correctly clear all commands stored.
+     * Verifies that {@code CommandDeque#clear()} will correctly clear all commands stored.
      */
     @Test
-    public void test_clearCache() {
+    public void test_clear() {
         CommandDeque commandDeque = new CommandDeque();
 
         // adds commands until it is at the size limit.
         IntStream.range(0, commandDeque.getSizeLimit())
-                .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new ClearAddressCommand())));
+                .forEach(index -> assertDoesNotThrow(() -> commandDeque.addLatestCommand(new InvertibleCommandStub())));
 
         int limit = commandDeque.getSizeLimit();
 
-        commandDeque.clearCache();
+        commandDeque.clear();
 
         assertTrue(commandDeque.isEmpty()); // checks that commands are all cleared.
         assertEquals(limit, commandDeque.getSizeLimit()); // checks that limit is unchanged.
 
+    }
+
+    /**
+     * A stub command class to store in {@code VersionControl}.
+     */
+    private static class InvertibleCommandStub extends Command {
+        @Override
+        public boolean hasInverseExecution() {
+            return true;
+        }
+
+        @Override
+        public CommandResult execute(Model model) throws CommandException {
+            return null;
+        }
+
+        @Override
+        public CommandResult executeInverse(Model model) throws CommandException {
+            return null;
+        }
     }
 }
