@@ -20,7 +20,7 @@ Responsibilities: Deliverables and deadlines, In charge of Storage
 '''
 
 === Fang WeiWen
-image::lejolly.jpg[width="150", align="left"]
+image::waynefong0401.png[width="150", align="left"]
 {empty}[http://github.com/waynefong0401[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: In charge of Model, Testing
 '''
 
 === Huang WeiJie
-image::yijinl.jpg[width="150", align="left"]
+image::weiijiie.png[width="150", align="left"]
 {empty}[http://github.com/weiijiie[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Integration, Code Quality
 '''
 
 === Lee WaiFong
-image::m133225.jpg[width="150", align="left"]
+image::waifonglee.png[width="150", align="left"]
 {empty}[http://github.com/waifonglee[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Javafx expert
 '''
 
 === Zhou XinMing
-image::yl_coder.jpg[width="150", align="left"]
+image::xinmingzh.png[width="150", align="left"]
 {empty}[http://github.com/xinmingzh[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
