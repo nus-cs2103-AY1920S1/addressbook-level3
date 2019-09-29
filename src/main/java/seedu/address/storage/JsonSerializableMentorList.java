@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 
@@ -31,7 +35,11 @@ class JsonSerializableMentorList {
      * @param source future changes to this will not affect the created {@code JsonSerializableMentorList}.
      */
     public JsonSerializableMentorList(MentorList source) {
-        mentors.addAll(source.list().stream().map(JsonAdaptedMentor::new).collect(Collectors.toList()));
+        //mentors.addAll(source.list().stream().map(JsonAdaptedMentor::new).collect(Collectors.toList()));
+        mentors.addAll(source.list()
+                             .stream()
+                             .map((Entity m) -> new JsonAdaptedMentor((Mentor) m))
+                             .collect(Collectors.toList()));
     }
 
     /**
@@ -43,9 +51,10 @@ class JsonSerializableMentorList {
         MentorList mentorList = new MentorList();
         for (JsonAdaptedMentor jsonAdaptedMentor : mentors) {
             Mentor mentor = jsonAdaptedMentor.toModelType();
-            if (mentorList.hasMentor(mentor)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
-            }
+            //TODO: Check whether this checking of existing mentors is necessary with the team
+            //if (mentorList.hasMentor(mentor)) {
+            //    throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
+            //}
             mentorList.addMentor(mentor);
         }
         return mentorList;

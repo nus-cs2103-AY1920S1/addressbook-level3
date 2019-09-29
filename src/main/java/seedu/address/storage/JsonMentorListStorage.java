@@ -60,8 +60,8 @@ public class JsonMentorListStorage implements MentorListStorage {
     }
 
     @Override
-    public void saveMentorList(MentorList pList) throws IOException {
-        saveMentorList(pList, filePath);
+    public void saveMentorList(MentorList mList) throws IOException {
+        saveMentorList(mList, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonMentorListStorage implements MentorListStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveMentorList(MentorList pList, Path filePath) throws IOException {
-        requireNonNull(pList);
+    public void saveMentorList(MentorList mList, Path filePath) throws IOException {
+        requireNonNull(mList);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableMentorList(pList), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableMentorList(mList), filePath);
     }
 }
 

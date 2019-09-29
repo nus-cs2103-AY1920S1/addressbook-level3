@@ -1,18 +1,11 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Email;
+import seedu.address.model.entity.Name;
+import seedu.address.model.entity.Phone;
+import seedu.address.model.entity.Participant;
 
 
 /**
@@ -21,12 +14,11 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedParticipant {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Participant's %s field is missing!";
-    private static final PrefixType[] prefixTypes = PrefixType.values();
 
     private final String name;
     private final String phone;
     private final String email;
-    private final PrefixType prefixType;
+    private final String prefixTypeStr;
     private final int idNum;
 
     /**
@@ -34,12 +26,12 @@ class JsonAdaptedParticipant {
      */
     @JsonCreator
     public JsonAdaptedParticipant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("prefixType") PrefixType prefixType,
+                             @JsonProperty("email") String email, @JsonProperty("prefixTypeStr") String prefixTypeStr,
                              @JsonProperty("idNum") int idNum) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.prefixType = prefixType;
+        this.prefixTypeStr = prefixTypeStr;
         this.idNum = idNum;
     }
 
@@ -47,10 +39,10 @@ class JsonAdaptedParticipant {
      * Converts a given {@code Participant} into this class for Jackson use.
      */
     public JsonAdaptedParticipant(Participant source) {
-        name = source.getName().toString();
-        phone = source.getPhone().toString();
-        email = source.getEmail().toString();
-        prefixType = source.getId().getPrefix();
+        name = source.getName().toStorageValue();
+        phone = source.getPhone().toStorageValue();
+        email = source.getEmail().toStorageValue();
+        prefixTypeStr = source.getId().getPrefix().name();
         idNum = source.getId().getNumber();
     }
 
@@ -84,18 +76,17 @@ class JsonAdaptedParticipant {
         }
         final Email modelEmail = new Email(email);
 
-        if (prefixType == null) {
+        if (prefixTypeStr == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PrefixType.class.getSimpleName()));
         }
-        if (!PrefixType.isValidPrefixType(prefixType)) {
+        if (!PrefixType.isValidPrefixType(prefixTypeStr)) {
             throw new IllegalValueException(PrefixType.MESSAGE_CONSTRAINTS);
         }
-        final PrefixType modelPrefixType = prefixType;
+        final PrefixType modelPrefixType = PrefixType.valueOf(prefixTypeStr);
 
-//        if (idNum == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ID Number in ID object");
-//        }
-        //Must find a way to validate idNum
+        if (!Id.isValidNumber(idNum)) {
+            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS_INVALID_NUMBER);
+        }
         final int modelIdNum = idNum;
         final Id modelId = new Id(modelPrefixType, modelIdNum);
 

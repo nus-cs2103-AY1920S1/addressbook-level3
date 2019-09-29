@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 
@@ -31,7 +35,10 @@ class JsonSerializableTeamList {
      * @param source future changes to this will not affect the created {@code JsonSerializableTeamList}.
      */
     public JsonSerializableTeamList(TeamList source) {
-        teams.addAll(source.list().stream().map(JsonAdaptedTeam::new).collect(Collectors.toList()));
+        teams.addAll(source.list()
+                           .stream()
+                           .map((Entity t) -> new JsonAdaptedTeam((Team) t))
+                           .collect(Collectors.toList()));
     }
 
     /**
@@ -43,9 +50,10 @@ class JsonSerializableTeamList {
         TeamList teamList = new TeamList();
         for (JsonAdaptedTeam jsonAdaptedTeam : teams) {
             Team team = jsonAdaptedTeam.toModelType();
-            if (teamList.hasTeam(team)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
-            }
+            //TODO: Check whether this checking of existing teams is necessary with the project team
+            //if (teamList.hasTeam(team)) {
+            //    throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
+            //}
             teamList.addTeam(team);
         }
         return teamList;

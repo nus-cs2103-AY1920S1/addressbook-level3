@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 
@@ -31,7 +35,10 @@ class JsonSerializableIssueList {
      * @param source future changes to this will not affect the created {@code JsonSerializableIssueList}.
      */
     public JsonSerializableIssueList(IssueList source) {
-        issues.addAll(source.list().stream().map(JsonAdaptedIssue::new).collect(Collectors.toList()));
+        issues.addAll(source.list()
+                            .stream()
+                            .map((Entity i) -> new JsonAdaptedIssue((Issue) i))
+                            .collect(Collectors.toList()));
     }
 
     /**
@@ -43,10 +50,11 @@ class JsonSerializableIssueList {
         IssueList issueList = new IssueList();
         for (JsonAdaptedIssue jsonAdaptedIssue : issues) {
             Issue issue = jsonAdaptedIssue.toModelType();
-            if (issueList.hasIssue(issue)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
-            }
-            issueList.addIssue(issue);
+            //TODO: Check whether this checking of existing issues is necessary with the team
+            //if (issueList.hasIssue(issue)) {
+            //    throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
+            //}
+            issueList.add(issue);
         }
         return issueList;
     }

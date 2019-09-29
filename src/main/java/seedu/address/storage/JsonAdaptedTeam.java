@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.entity.Id;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -23,35 +24,35 @@ class JsonAdaptedTeam {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Team's %s field is missing!";
 
     private final String teamName;
+    private final JsonAdaptedMentor mentor;
     private final String subject;
     private final int score;
     private final String projectName;
-    private final ProjectType projectType;
+    private final String projectType;
     private final int location;
     private final List<JsonAdaptedParticipant> pList = new ArrayList<>();
-    private final JsonAdaptedMentor mentor;
-    private final PrefixType prefixType;
+    private final String prefixTypeStr;
     private final int idNum;
 
     /**
      * Constructs a {@code JsonAdaptedTeam} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedTeam(@JsonProperty("teamName") String teamName, @JsonProperty("subject") String subject,
+    public JsonAdaptedTeam(@JsonProperty("teamName") String teamName, @JsonProperty("mentor") JsonAdaptedMentor mentor,
+                           @JsonProperty("subject") String subject,
                            @JsonProperty("score") int score, @JsonProperty("projectName") String projectName,
-                           @JsonProperty("projectType") ProjectType projectType, @JsonProperty("location") int location,
+                           @JsonProperty("projectType") String projectType, @JsonProperty("location") int location,
                            @JsonProperty("participants") List<JsonAdaptedParticipant> pList,
-                           @JsonProperty("mentor") JsonAdaptedMentor mentor, @JsonProperty("PrefixType") PrefixType prefixType,
-                           @JsonProperty("idNum") int idNum) {
+                           @JsonProperty("prefixTypeStr") String prefixTypeStr, @JsonProperty("idNum") int idNum) {
 
         this.teamName = teamName;
+        this.mentor = mentor;
         this.subject = subject;
         this.score = score;
         this.projectName = projectName;
         this.projectType = projectType;
         this.location = location;
-        this.mentor = mentor;
-        this.prefixType = prefixType;
+        this.prefixTypeStr = prefixTypeStr;
         this.idNum = idNum;
 
         if (pList != null) {
@@ -63,14 +64,27 @@ class JsonAdaptedTeam {
      * Converts a given {@code Team} into this class for Jackson use.
      */
     public JsonAdaptedTeam(Team source) {
-        teamName = source.getTeamName().toString();
-        subject = source.getSubject().toString(); //This is an enum. Need to check this.
-        score = source.getScore.getValue(); //Not implemented currently
-        projectName = source.getProjectName().toString();
-        projectType = source.getProjectType().toString();
-        location = source.getLocation().getTableNumber();
+        this.teamName = teamName;
+        this.mentor = mentor;
+        this.subject = subject;
+        this.score = score;
+        this.projectName = projectName;
+        this.projectType = projectType;
+        this.location = location;
+        this.prefixTypeStr = prefixTypeStr;
+        this.idNum = idNum;
+
+        if (pList != null) {
+            this.pList.addAll(pList);
+        }
+        teamName = source.getTeamName().toStorageValue();
+        subject = source.getSubject().name();
+        score = source.getScore.toStorageValue(); //Not implemented currently
+        projectName = source.getProjectName().toStorageValue();
+        projectType = source.getProjectType().name();
+        location = source.getLocation().toStorageValue();
         mentor = JsonAdaptedMentor(source.getMentor().get()); //Must deal with Optional
-        prefixType = source.getId().getPrefix();
+        prefixTypeStr = source.getId().getPrefix().name();
         idNum = source.getId().getNumber();
         pList.addAll(source.getParticipants().get().stream()
                 .map(JsonAdaptedParticipant::new)
@@ -102,7 +116,7 @@ class JsonAdaptedTeam {
         if (!SubjectName.isValidSubjectName(subject)) {
             throw new IllegalValueException(SubjectName.MESSAGE_CONSTRAINTS);
         }
-        final SubjectName modelSubject = new SubjectName(subject);
+        final SubjectName modelSubject = SubjectName.valueOf(subject);
 
         if (!Score.isValidScore(score)){
             throw new IllegalValueException(Score.MESSAGE_CONSTRAINTS);
@@ -123,11 +137,8 @@ class JsonAdaptedTeam {
         if (!ProjectType.isValidProjectType(projectType)) {
             throw new IllegalValueException(ProjectType.MESSAGE_CONSTRAINTS);
         }
-        final ProjectType modelProjectType = projectType;
+        final ProjectType modelProjectType = ProjectType.valueOf(projectType);
 
-        if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
-        }
         if (!Location.isValidLocation(location)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -136,18 +147,23 @@ class JsonAdaptedTeam {
         if (mentor == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Mentor.class.getSimpleName()));
         }
-        if (!Mentor.isValidLocation(location)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }
+        //Todo: Check whether mentor validation is necessary
+        //if (!Mentor.isValidLocation(location)) {
+        //    throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        //}
         final Mentor modelMentor = mentor.toModelType();
 
-        if (prefixType == null) {
+        if (prefixTypeStr == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PrefixType.class.getSimpleName()));
         }
-        if (!PrefixType.isValidPrefixType(prefixType)) {
+        if (!PrefixType.isValidPrefixType(prefixTypeStr)) {
             throw new IllegalValueException(PrefixType.MESSAGE_CONSTRAINTS);
         }
-        final PrefixType modelPrefixType = prefixType;
+        final PrefixType modelPrefixType = PrefixType.valueOf(prefixTypeStr);
+
+        if (!Id.isValidNumber(idNum)) {
+            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS_INVALID_NUMBER);
+        }
         final int modelIdNum = idNum;
         final Id modelId = new Id(modelPrefixType, modelIdNum);
 
