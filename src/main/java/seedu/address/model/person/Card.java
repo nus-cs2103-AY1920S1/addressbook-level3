@@ -10,42 +10,27 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Card.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Card {
 
-    // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
-
-    // Data fields
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, description, tags);
+    public Card(Name name, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, description, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
         this.description = description;
         this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Description getDescription() {
@@ -61,21 +46,15 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both cards have the same name.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+    public boolean isSameName(Card other) {
+        return getName().equals(getName());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both cards have the same name, description, and tags.
+     * Defines a stronger equality than {@link Card#isSameName(Card)}.
      */
     @Override
     public boolean equals(Object other) {
@@ -83,14 +62,12 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Card)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
+        Card otherPerson = (Card) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getDescription().equals(getDescription())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -98,17 +75,13 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, description, tags);
+        return Objects.hash(name, description, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Tags: ");

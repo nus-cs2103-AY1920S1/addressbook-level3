@@ -20,9 +20,9 @@ public class Description {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs a {@code Description}.
      *
-     * @param description A valid description.Z
+     * @param description A valid description.
      */
     public Description(String description) {
         requireNonNull(description);
