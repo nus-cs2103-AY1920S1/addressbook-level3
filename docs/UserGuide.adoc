@@ -48,7 +48,7 @@ Starts the flashcard test (assuming you are in the category ‘folder’)
 `start`
 
 Starts the flashcard test from any specific category
-`start [category]`  
+`start [category]`
 
 === Add new category: cat [`name]`
 
