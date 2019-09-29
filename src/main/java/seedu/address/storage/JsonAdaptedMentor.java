@@ -7,12 +7,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+
+import seedu.address.model.entity.PrefixType;
+import seedu.address.model.entity.Name;
+import seedu.address.model.entity.Email;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Phone;
 
 
 /**
@@ -21,14 +21,13 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedMentor {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Mentor's %s field is missing!";
-    private static final PrefixType[] prefixTypes = PrefixType.values();
 
     private final String name;
     private final String phone;
     private final String email;
     private final String organization;
     private final String subject;
-    private final PrefixType prefixType;
+    private final String prefixTypeStr;
     private final int idNum;
 
     /**
@@ -37,14 +36,14 @@ class JsonAdaptedMentor {
     @JsonCreator
     public JsonAdaptedMentor(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("organization") String organization,
-                             @JsonProperty("subject") String subject, @JsonProperty("prefixType") PrefixType prefixType,
+                             @JsonProperty("subject") String subject, @JsonProperty("prefixTypeStr") String prefixTypeStr,
                              @JsonProperty("idNum") int idNum) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.organization = organization;
         this.subject = subject;
-        this.prefixType = prefixType;
+        this.prefixTypeStr = prefixTypeStr;
         this.idNum = idNum;
     }
 
@@ -52,12 +51,12 @@ class JsonAdaptedMentor {
      * Converts a given {@code Mentor} into this class for Jackson use.
      */
     public JsonAdaptedMentor(Mentor source) {
-        name = source.getName().toString();
-        phone = source.getPhone().toString();
-        email = source.getEmail().toString();
-        organization = source.getOrganization().toString();
-        subject = source.getSubject().toString();
-        prefixType = source.getId().getPrefix();
+        name = source.getName().toStorageValue();
+        phone = source.getPhone().toStorageValue();
+        email = source.getEmail().toStorageValue();
+        organization = source.getOrganization().toStorageValue();
+        subject = source.getSubject().toStorageValue();
+        prefixTypeStr = source.getId().getPrefix().name();
         idNum = source.getId().getNumber();
     }
 
@@ -102,23 +101,22 @@ class JsonAdaptedMentor {
         if (subject == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SubjectName.class.getSimpleName()));
         }
-        if (!SubjectName.isValidName(subject)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!SubjectName.isValidSubjectName(subject)) {
+            throw new IllegalValueException(SubjectName.MESSAGE_CONSTRAINTS);
         }
-        final SubjectName modelSubjectName = new SubjectName(subject);
+        final SubjectName modelSubjectName = SubjectName.valueOf(subject);
 
-        if (prefixType == null) {
+        if (prefixTypeStr == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PrefixType.class.getSimpleName()));
         }
-        if (!PrefixType.isValidPrefixType(prefixType)) {
+        if (!PrefixType.isValidPrefixType(prefixTypeStr)) {
             throw new IllegalValueException(PrefixType.MESSAGE_CONSTRAINTS);
         }
-        final PrefixType modelPrefixType = prefixType;
+        final PrefixType modelPrefixType = PrefixType.valueOf(prefixTypeStr);
 
-//        if (idNum == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ID Number in ID object");
-//        }
-        //Must find a way to validate idNum
+        if (!Id.isValidNumber(idNum)) {
+            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS_INVALID_NUMBER);
+        }
         final int modelIdNum = idNum;
         final Id modelId = new Id(modelPrefixType, modelIdNum);
 

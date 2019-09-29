@@ -47,9 +47,23 @@ public class Email {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns string representation of object.
+     *
+     * @return Email address in string format.
+     */
     @Override
     public String toString() {
         return value;
+    }
+
+    /**
+     * Returns string representation of object, for storage.
+     *
+     * @return Email address in string format.
+     */
+    public String toStorageValue() {
+        return this.toString();
     }
 
     @Override

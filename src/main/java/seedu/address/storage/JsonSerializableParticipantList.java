@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
+import seedu.address.model.entity.Participant;
+import seedu.address.model.entitylist.ParticipantList;
+
 
 /**
  * An Immutable ParticipantList that is serializable to JSON format.
@@ -21,8 +27,8 @@ class JsonSerializableParticipantList {
      * Constructs a {@code JsonSerializableParticipantList} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableParticipantList(@JsonProperty("participants") List<JsonAdaptedParticipant> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableParticipantList(@JsonProperty("participants") List<JsonAdaptedParticipant> participants) {
+        this.participants.addAll(participants);
     }
 
     /**
@@ -31,7 +37,11 @@ class JsonSerializableParticipantList {
      * @param source future changes to this will not affect the created {@code JsonSerializableParticipantList}.
      */
     public JsonSerializableParticipantList(ParticipantList source) {
-        persons.addAll(source.list().stream().map(JsonAdaptedParticipant::new).collect(Collectors.toList()));
+        // participants.addAll(source.list().stream().map(JsonAdaptedParticipant::new).collect(Collectors.toList()));
+        participants.addAll(source.list()
+                             .stream()
+                             .map((Entity p) -> new JsonAdaptedParticipant((Participant) p))
+                             .collect(Collectors.toList()));
     }
 
     /**
@@ -43,10 +53,11 @@ class JsonSerializableParticipantList {
         ParticipantList participantList = new ParticipantList();
         for (JsonAdaptedParticipant jsonAdaptedParticipant : participants) {
             Participant participant = jsonAdaptedParticipant.toModelType();
-            if (participantList.hasParticipant(participant)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
-            }
-            participantList.addParticipant(participant);
+            //TODO: Check whether this checking of existing participants is necessary with the team
+            //if (participantList.hasParticipant(participant)) {
+            //    throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
+            //}
+            participantList.add(participant);
         }
         return participantList;
     }

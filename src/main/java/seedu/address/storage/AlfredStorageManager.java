@@ -7,9 +7,13 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+
+import seedu.address.model.entitylist.ParticipantList;
+import seedu.address.model.entitylist.MentorList;
+import seedu.address.model.entitylist.TeamList;
+import seedu.address.model.entitylist.IssueList;
 
 /**
  * Manages storage of Entity (Participant, Mentor, Issue, Team) and UserPref data in local storage.
