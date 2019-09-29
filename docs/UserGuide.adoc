@@ -28,8 +28,8 @@ KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study u
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
-+
-[[Features]]
+
+
 == Features
 
 ====
@@ -116,23 +116,31 @@ There is no need to save manually.
 
 == FAQ
 
-*Q*: How will the program know the correct answer to the questions? +
+*Q*: How will the program know the correct answer to the questions?
 *A*: You have to key in the answer manually when you create the question - it’s similar to a real set of flashcards.
-*Q*: How does the reminder system work? +
+
+*Q*: How does the reminder system work?
 *A*: You select a category and a date, and the program will remind you to revise that category when the date comes.
-*Q*: How will the program know if my answer is good or bad? +
+
+*Q*: How will the program know if my answer is good or bad?
 *A*: It doesn’t know - you have to decide for yourself whether you are satisfied with your answer.
-*Q*: Will I be able to resume the test from where I left off after I have stopped? +
+
+*Q*: Will I be able to resume the test from where I left off after I have stopped?
 *A*: No. The program does not support that.
-*Q*: Can I undo the commands that I have entered? +
+
+*Q*: Can I undo the commands that I have entered?
 *A*: No. However, a confirmation will be displayed before any potentially-hard-to-reverse actions are done.
-*Q*: Can I change the category of a flashcard? +
+
+*Q*: Can I change the category of a flashcard?
 *A*: Yes, it will be one of the fields you can change when you edit the flashcard. Do note that after you change the category, you will have to refer to it using its new category and ID.
-*Q*: Can I use my mouse to interact with the user interface? +
+
+*Q*: Can I use my mouse to interact with the user interface?
 *A*: Yes, but only to a very small extent, like closing the window. This application is targeted primarily at keyboard users.
-*Q*: What if I forget the format of a command’s arguments? +
+
+*Q*: What if I forget the format of a command’s arguments?
 *A*: Don’t worry! You will be shown the expected format once you have keyed in the whole command.
-*Q*: Is there an autocomplete functionality? +
+
+*Q*: Is there an autocomplete functionality?
 *A*: Yes, you can press Tab to use this feature.
 
 == Command Summary
