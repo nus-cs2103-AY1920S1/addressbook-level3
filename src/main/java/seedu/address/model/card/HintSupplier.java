@@ -1,9 +1,11 @@
 package seedu.address.model.card;
 
-import seedu.address.commons.core.index.Index;
-
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Supplier;
+
+import seedu.address.commons.core.index.Index;
 
 /**
  * Supplies a hint consisting of a letter and the index the letter occurs.

@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.WordBank;
 import seedu.address.model.ReadOnlyWordBank;
+import seedu.address.model.WordBank;
 import seedu.address.model.card.Card;
 
 /**
@@ -21,13 +21,13 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedCard> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedCard> persons) {
         this.persons.addAll(persons);
     }
 
@@ -37,7 +37,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyWordBank source) {
-        persons.addAll(source.getCardList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,8 +47,8 @@ class JsonSerializableAddressBook {
      */
     public WordBank toModelType() throws IllegalValueException {
         WordBank wordBank = new WordBank();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Card person = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedCard jsonAdaptedCard : persons) {
+            Card person = jsonAdaptedCard.toModelType();
             if (wordBank.hasCard(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }

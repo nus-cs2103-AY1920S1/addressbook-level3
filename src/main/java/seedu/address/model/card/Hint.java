@@ -1,10 +1,10 @@
 package seedu.address.model.card;
 
-import seedu.address.commons.core.index.Index;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.commons.core.index.Index;
 
 /**
  * Represents a Hint of a String.

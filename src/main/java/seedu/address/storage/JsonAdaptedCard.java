@@ -10,15 +10,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.card.Card;
 import seedu.address.model.card.Description;
 import seedu.address.model.card.Name;
-import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Card}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedCard {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
 
@@ -27,12 +27,12 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedCard} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("description") String description,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedCard(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                           @JsonProperty("email") String email, @JsonProperty("description") String description,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.description = description;
         if (tagged != null) {
@@ -43,7 +43,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Card source) {
+    public JsonAdaptedCard(Card source) {
         name = source.getName().value;
         description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
@@ -71,7 +71,8 @@ class JsonAdaptedPerson {
         final Name modelName = new Name(name);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);

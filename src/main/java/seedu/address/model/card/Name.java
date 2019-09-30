@@ -16,7 +16,7 @@ public class Name {
     /*
      * The name should contain 1-256 characters, and not all are white spaces.
      */
-    public static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN +"}$";
+    public static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN + "}$";
 
     public final String value;
 
