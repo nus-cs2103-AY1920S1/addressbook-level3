@@ -14,16 +14,18 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/Ellieyee/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103-T14-2`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+T.A.rence is for Teaching Assistants (TAs) who prefer to use a desktop app for managing their TA responsibilities. T.A.rence is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `.jar` link:{URL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,9 +35,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all contacts `[coming in v2.0]`
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com m/CS2100, tn/Tutorial-01` : adds a student named `John Doe` into the `Tutorial-01` class inside module `CS2100`.
+* **`delete`**`3` : deletes the student `[coming in v2.0]`
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -47,31 +49,28 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME e/EMAIL`, `e/EMAIL n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a module: `addModule`
 
-Adds a person to the address book +
-Format: `add n/NAME e/EMAIL...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Adds a module to T.A.rence +
+Format: `addModule m/MODULE_CODE`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addModule m/CS1010
+* `addModule m/ST2132`
 
-=== Listing all persons : `list`
+=== Adding a Tutorial slot : `addTutorial`
 
-Shows a list of all persons in the address book. +
+Adds a tutorial slot into the specified module 
+Pre-condition: Module must already exist inside T.A.rence  +
+
 Format: `list`
 
 === Editing a person : `edit`
