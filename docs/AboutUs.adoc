@@ -4,53 +4,56 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Powerlifting Competition Coordinator (PCC) is being developed by https://github.com/AY1920S1-CS2103-T11-3[T11-Team 3]. +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
-== Project Team
+== PCC Project Team
 
-=== John Doe
+=== Professor Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Ho Wei Chin
+image::HoWeiChin.png[width="180", align="left"]
+{empty}[https://github.com/HoWeiChin[github]] [<<howeichin#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Deliverable, Tracking, User Interface +
+Component IC: Athletes
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Ooi Ming Sheng
+image::ooimingsheng.png[width="180", align="left"]
+{empty}[https://github.com/ooimingsheng[github]] [<<ooimingsheng#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Integration, Code Quality +
+Component IC: Leaderboard
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Shawn Koh
+image::shawnkoh.png[width="180", align="left"]
+{empty}[https://github.com/shawnkoh[github]] [<<shawnkoh#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Project Workflow, User interface, Code Quality +
+Component IC: Competitions Overview
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Christabel Teo
+image::belbel98.png[width="180", align="left"]
+{empty}[https://github.com/belbel98[github]] [<<christabelteo#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Documentation, Testing +
+Component IC: Session Handling
 
 '''

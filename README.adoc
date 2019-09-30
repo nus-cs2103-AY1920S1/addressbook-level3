@@ -1,35 +1,42 @@
-= Address Book (Level 3)
+= Powerlifting Competition Coordinator
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/AY1920S1-CS2103-T08-3/main[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://travis-ci.org/AY1920S1-CS2103-T11-3/main[image:https://travis-ci.org/AY1920S1-CS2103-T11-3/main.svg?branch=master[Build Status]]
 
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
+//ifdef::env-github[]
+//image::docs/images/Ui.png[width="600"]
+//endif::[]
+//
+//ifndef::env-github[]
+//image::images/Ui.png[width="600"]
+//endif::[]
 
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
-endif::[]
+A powerlifting competition consists of 3 lifts, the Squat, Bench, and Deadlift.
+With 3 attempts, athletes will try to outdo and challenge themselves and lift as heavy as they can. +
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+The *Powerlifting Competition Coordinator* (PCC) is for powerlifting competitions organisers.
+The desktop application will help event organisers keep a record of past competitions and competitors.
+It can also facilitate the competition during the actual session,
+by continuously updating records of the athletes attempts on their lifts.
+Finally, PCC will keep its leader board up to date,
+to keep spectators and athletes hyped up and to find out who is the strongest lifter. +
+
+To support the ease of data-entry, we have provided a Command Line Interface (CLI) that is augmented with a
+Graphical User Interface (GUI) to help them better administer such powerlifting competitions. +
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* AddressBook-Level3 project is created by SE-EDU initiative at https://se-education.org
+* Some parts of this sample application were inspired by the excellent
+http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by _Marco Jakob_.
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson],
+https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
