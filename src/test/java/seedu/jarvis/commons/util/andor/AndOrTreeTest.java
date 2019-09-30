@@ -12,6 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AndOrTreeTest {
     @Test
+    public void buildTree_invalidCourse_returnsEmptyTree() {
+        List<String> toTest = List.of("CS1231", "", "34542SD", "randomstring", "CS1231SS");
+        for (String course : toTest) {
+            assertThrows(IOException.class, () -> AndOrTree.buildTree(course));
+        }
+    }
+
+    @Test
     public void fulfillsCondition_sufficientRequirements_returnsTrue() {
         try {
             Map<String, List<Course>> toTest = Map.of(
