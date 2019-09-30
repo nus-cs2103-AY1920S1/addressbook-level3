@@ -1,14 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT;
+import static seedu.address.logic.parser.CliSyntax.*;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -19,6 +14,7 @@ import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.Tag;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
@@ -38,18 +34,21 @@ public class AddAppCommandParser implements Parser<AddAppCommand> {
      */
     public AddAppCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_EVENT);
+                ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_START, PREFIX_END);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_EVENT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START, PREFIX_END)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE));
         }
 
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
-        Timing timing = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_EVENT).get());
 
-        Appointment event = new Appointment(referenceId, timing, null);
+        String startString = argMultimap.getValue(PREFIX_START).get();
+        String endString = argMultimap.getValue(PREFIX_END).get();
 
+        Timing timing = ParserUtil.parseTiming(startString, endString);
+
+        Appointment event = new Appointment(referenceId, timing, Status.APPROVED);
         return new AddAppCommand(event);
     }
 

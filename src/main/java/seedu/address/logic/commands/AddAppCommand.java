@@ -1,9 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 
 import seedu.address.logic.commands.common.CommandResult;
@@ -23,12 +21,12 @@ public class AddAppCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a appointment to the address book. "
             + "Parameters: "
             + PREFIX_ID + "REFERENCE ID "
-            + PREFIX_NAME + "PREFIX_NAME "
-            + PREFIX_EVENT + "PREFIX_EVENT \n"
+            + PREFIX_START + "PREFIX_EVENT "
+            + PREFIX_END + "PREFIX_EVENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "001A "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_EVENT + "01/01/2001 1900";
+            + PREFIX_START + "01/11/2019 1800 "
+            + PREFIX_END + "01/11/2019 1900";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This appointment already exists in the address book";

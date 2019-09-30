@@ -169,12 +169,4 @@ public class ParserUtil {
         return new Timing(startTiming, endTiming);
     }
 
-    public static Timing parseTiming(String startTiming) throws ParseException {
-        requireNonNull(startTiming);
-        if (!Timing.isValidTiming(startTiming)) {
-            throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
-        }
-        return new Timing(startTiming);
-    }
-
 }

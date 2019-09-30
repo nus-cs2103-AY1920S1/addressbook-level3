@@ -1,10 +1,9 @@
+//shawns version
 package seedu.address.model.events;
-//Date have problem.
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,11 +12,9 @@ import java.util.Objects;
  * Guarantees: immutable; is valid as declared in {@link #isValidTiming(DateTime, DateTime)}
  */
 public class Timing {
-    private static SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
-    private static int PERIOD = 30;
 
     public static final String MESSAGE_CONSTRAINTS =
-        "The event start timing must be before the end timing.";
+            "The event start timing must be before the end timing.";
 
     private final DateTime startTiming;
     private final DateTime endTiming;
@@ -32,16 +29,22 @@ public class Timing {
         requireAllNonNull(startTiming, endTiming);
         checkArgument(isValidTiming(startTiming, endTiming), MESSAGE_CONSTRAINTS);
 
+        this.startTiming = startTiming;
+        this.endTiming = endTiming;
+    }
+
     /**
      * Constructs a {@code Timing}.
      *
-     * @param stringTiming A valid dateTime describing the start of event.
+     * @param startTiming A valid string describing the start of event.
+     * @param endTiming   A valid string describing the end of event.
      */
-    public Timing(String stringTiming) {
-        requireAllNonNull(stringTiming);
-        checkArgument(isValidTiming(stringTiming), MESSAGE_CONSTRAINTS);
-//        this.startTiming = formatter.parse(stringTiming);
-//        this.endTiming = addMinutesToDate(PERIOD, startTiming);
+    public Timing(String startTiming, String endTiming) {
+        requireAllNonNull(startTiming, endTiming);
+        checkArgument(isValidTiming(startTiming, endTiming), MESSAGE_CONSTRAINTS);
+
+        this.startTiming = DateTime.tryParseSimpleDateFormat(startTiming);
+        this.endTiming = DateTime.tryParseSimpleDateFormat(endTiming);
     }
 
     /**
@@ -57,7 +60,10 @@ public class Timing {
      * Returns true if the start dateTime is before the end dateTime.
      */
     public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
-        return testStart != null && testEnd != null && testStart.getTime().before(testEnd.getTime());
+        Date current = Date.now();
+        Date current = new Date()
+        return testStart != null && testEnd != null && testStart.getTime().before(testEnd.getTime())
+                && ;
     }
 
     public DateTime getStartTime() {
@@ -66,14 +72,6 @@ public class Timing {
 
     public DateTime getEndTime() {
         return endTiming;
-    }
-
-    private static Date addMinutesToDate(int minutes, Date beforeTime){
-        final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
-
-        long curTimeInMs = beforeTime.getTime();
-        Date afterAddingMins = new Date(curTimeInMs + (minutes * ONE_MINUTE_IN_MILLIS));
-        return afterAddingMins;
     }
 
     @Override
@@ -93,7 +91,7 @@ public class Timing {
 
         Timing otherTiming = (Timing) other;
         return otherTiming.getStartTime().equals(getStartTime())
-            && otherTiming.getEndTime().equals(getEndTime());
+                && otherTiming.getEndTime().equals(getEndTime());
     }
 
     @Override
@@ -101,4 +99,3 @@ public class Timing {
         return Objects.hash(startTiming, endTiming);
     }
 }
-
