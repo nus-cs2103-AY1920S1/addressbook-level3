@@ -61,7 +61,7 @@ public class Card {
     }
 
     /**
-     * Returns the next hint of the name.
+     * Returns the next hint of the name, and null if no more hints available.
      */
     public Hint getHint() {
         return hintSupplier.get();
