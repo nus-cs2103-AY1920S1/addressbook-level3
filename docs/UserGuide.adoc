@@ -110,3 +110,4 @@ e.g. `delete 3`
 * *Set* : `set CALORIES` +
 e.g. `set 2600`
 * *Report* : `report`
+* *Help* : `help`
