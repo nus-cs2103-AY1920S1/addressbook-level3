@@ -62,8 +62,8 @@ public class ScheduleView extends UiPart<Region> {
         initialise();
         initialiseHeaders();;
         initialiseTableCells();
-        ArrayList<HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>>> scheduleMapsList
-                = new ArrayList<>();
+        ArrayList<HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>>> scheduleMapsList =
+                new ArrayList<>();
         for (Schedule s : schedules) {
             HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> scheduleMap = getScheduleMap(s);
             scheduleMapsList.add(scheduleMap);
@@ -77,6 +77,9 @@ public class ScheduleView extends UiPart<Region> {
         return this;
     }
 
+    /**
+     * Helper method to initialise the headers in the table view.
+     */
     private void initialiseHeaders() {
         //initialise headers
         Region placeHolder = new Region();
@@ -128,6 +131,9 @@ public class ScheduleView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Helper method to initialise table cells and grid lines in the table view.
+     */
     private void initialiseTableCells() {
         //timeslot data
         for (int l = 0; l < dayNames.size(); l++) {
@@ -163,6 +169,11 @@ public class ScheduleView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Method to create a transparent block in the table view to indicate free time.
+     * @param durationMinutes Length of the block in minutes.
+     * @return Region that represents the free time in the schedule.
+     */
     private Region makeEmptyTimeslot(int durationMinutes) {
         Region result = new Region();
         int hours = durationMinutes / 60;
@@ -172,6 +183,12 @@ public class ScheduleView extends UiPart<Region> {
         return result;
     }
 
+    /**
+     * Helper method to create a block of coloured timeslot in the table view.
+     * @param durationMinutes Length of the block in minutes.
+     * @param color Color of the block.
+     * @return Region to be placed in the table view.
+     */
     private Region makeColouredTimeslot(int durationMinutes, String color) {
         Region result = new Region();
         int hours = durationMinutes / 60;
@@ -210,6 +227,11 @@ public class ScheduleView extends UiPart<Region> {
         return timeslotContainer;
     }
 
+    /**
+     * Method to generate a random list of colors to tag each group member with a particular colour.
+     * @param groupSize The group size.
+     * @return A list of unique colors for the group's schedule view.
+     */
     private ArrayList<String> generateColorList(int groupSize) {
         ArrayList<String> colors = new ArrayList<String>();
         HashSet<String> colorChecker = new HashSet<String>();
@@ -251,7 +273,8 @@ public class ScheduleView extends UiPart<Region> {
             }
         }
         //Sorting the arraylist according to timestamps.
-        Comparator<Pair<PersonId, Pair<Integer, Integer>>> comparator = new Comparator<Pair<PersonId, Pair<Integer, Integer>>>() {
+        Comparator<Pair<PersonId, Pair<Integer, Integer>>> comparator = new Comparator<Pair<PersonId,
+                Pair<Integer, Integer>>>() {
             @Override
             public int compare(Pair<PersonId, Pair<Integer, Integer>> t1, Pair<PersonId, Pair<Integer, Integer>> t2) {
                 int t1Value = (int) t1.getValue().getKey();
@@ -267,10 +290,16 @@ public class ScheduleView extends UiPart<Region> {
         return hashMap;
     }
 
-    public GridPane showIndividualSchedule(HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> hash,
+    /**
+     * Method to obtain a table view of an individual's schedule.
+     * @param map ScheduleMap obtained by calling getScheduleMap on a Schedule object.
+     * @param color Color of the blocks in the table view.
+     * @return  GridPane table view of the individual's schedule.
+     */
+    public GridPane showIndividualSchedule(HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> map,
                                            String color) {
         for (int i = 1; i <= 7; i++) {
-            ArrayList<Pair<PersonId, Pair<Integer, Integer>>> daySchedule = hash.get(DayOfWeek.of(i));
+            ArrayList<Pair<PersonId, Pair<Integer, Integer>>> daySchedule = map.get(DayOfWeek.of(i));
             StackPane dayStackPane = dayTimeslotStackPanes.get(i - 1);
             ArrayList<Pair<Integer, Integer>> startEndTimes = daySchedule.stream()
                     .map(p -> p.getValue())
@@ -281,6 +310,11 @@ public class ScheduleView extends UiPart<Region> {
         return scheduleView;
     }
 
+    /**
+     * Method to obtain a table view of the all the schedules present in a group.
+     * @param schedules An array list of schedule maps obtained from calling getScheduleMap on a Schedule Object.
+     * @return  GridPane table view of schedules.
+     */
     public GridPane showGroupSchedule(ArrayList<HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>>>
                                               schedules) {
         //Assign colors to each schedule.

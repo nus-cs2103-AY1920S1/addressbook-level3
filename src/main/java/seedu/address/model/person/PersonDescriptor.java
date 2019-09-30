@@ -9,10 +9,10 @@ import seedu.address.model.tag.Tag;
  */
 public class PersonDescriptor {
 
-    private static Phone DEFAULT_PHONE = Phone.emptyPhone();
-    private static Email DEFAULT_EMAIL = Email.emptyEmail();
-    private static Address DEFAULT_ADDRESS = Address.emptyAddress();
-    private static Remark DEFAULT_REMARK = Remark.emptyRemark();
+    private static final Phone DEFAULT_PHONE = Phone.emptyPhone();
+    private static final Email DEFAULT_EMAIL = Email.emptyEmail();
+    private static final Address DEFAULT_ADDRESS = Address.emptyAddress();
+    private static final Remark DEFAULT_REMARK = Remark.emptyRemark();
 
     private Name name;
     private Phone phone;

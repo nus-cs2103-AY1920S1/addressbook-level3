@@ -2,8 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.util.SampleDataUtil.EMPTY_REMARK;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -21,7 +19,11 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonDescriptor;
+import seedu.address.model.person.PersonId;
+import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
 
 
