@@ -12,6 +12,7 @@ public class Difficulty {
     public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric.";
     public static final double DIFFICULTY_LOWER_BOUND = 0.0;
     public static final double DIFFICULTY_UPPER_BOUND = 5.0;
+    public static final double DEFAULT_DIFFICULTY_VALUE = DIFFICULTY_LOWER_BOUND;
     public static final Difficulty DEFAULT_DIFFICULTY = new Difficulty();
     public static final String VALIDATION_REGEX = "\\d+.\\d+";
     public final double value;
@@ -28,7 +29,25 @@ public class Difficulty {
     }
 
     private Difficulty() {
-        value = 0.0;
+        value = DEFAULT_DIFFICULTY_VALUE;
+    }
+
+    /**
+     * Returns true if a given string matches the default difficulty value.
+     */
+    public static boolean isDefaultDifficulty(String test) {
+        try {
+            return Double.parseDouble(test) == DEFAULT_DIFFICULTY_VALUE;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if a given {@code Difficulty} is the default difficulty.
+     */
+    public static boolean isDefaultDifficulty(Difficulty test) {
+        return test == DEFAULT_DIFFICULTY;
     }
 
     /**
@@ -43,13 +62,6 @@ public class Difficulty {
         } catch (NumberFormatException ex) {
             return false;
         }
-    }
-
-    /**
-     * Returns true if a given {@code Difficulty} is default.
-     */
-    public static boolean isDefaultDifficulty(Difficulty difficulty) {
-        return difficulty == DEFAULT_DIFFICULTY;
     }
 
     @Override
