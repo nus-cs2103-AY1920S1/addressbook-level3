@@ -19,9 +19,9 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Ko Gi Hun
+image::gihunk.jpg[width="150", align="left"]
+{empty}[http://github.com/nordic96[github]] [<<gihunk#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
