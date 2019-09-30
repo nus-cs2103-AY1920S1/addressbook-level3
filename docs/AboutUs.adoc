@@ -20,7 +20,7 @@ Role: Project Advisor
 
 === Eugene Lim
 image::nexolute.png[width="150", align="left"]
-{empty}[http://github.com/nexolute[github]] [<<eugenelim#, portfolio>>]
+{empty}[http://github.com/nexolute[github]] [<<nexolute#, portfolio>>]
 
 Role: Team Lead and Git Expert
 
@@ -36,7 +36,7 @@ Role: Code Quality and Integration
 
 === Tan Wei Yang
 image::weiyang13.png[width="150", align="left"]
-{empty}[http://github.com/weiyang13[github]] [<<tanweiyang#, portfolio>>]
+{empty}[http://github.com/weiyang13[github]] [<<weiyang13#, portfolio>>]
 
 Role: Documentation
 
@@ -44,7 +44,7 @@ Role: Documentation
 
 === Olivia Yu
 image::alaete.png[width="150", align="left"]
-{empty}[http://github.com/Alaete[github]] [<<oliviayu#, portfolio>>]
+{empty}[http://github.com/Alaete[github]] [<<alaete#, portfolio>>]
 
 Role: Testing
 
@@ -52,7 +52,7 @@ Role: Testing
 
 === Kartike Khandelwal
 image::troomtroom.png[width="150", align="left"]
-{empty}[http://github.com/troomtroom[github]] [<<kartike#, portfolio>>]
+{empty}[http://github.com/troomtroom[github]] [<<troomtroom#, portfolio>>]
 
 Role: In Charge of UI
 
