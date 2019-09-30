@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S1-CS2103T-T13-4/main[image:https://travis-ci.org/AY1920S1-CS2103T-T13-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/Na-Nazhou/main-s7pnr[image:https://ci.appveyor.com/api/projects/status/uudh03pfcj3d2skk?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T13-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T13-4/main/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://www.codacy.com/manual/Na-Nazhou/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-T13-4/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/acdf3b37edfe40dbab7320f740928c89[Codacy Badge]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
