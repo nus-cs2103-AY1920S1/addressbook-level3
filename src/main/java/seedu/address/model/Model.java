@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
+import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
 import seedu.address.model.pagestatus.PageStatus;
 import seedu.address.model.person.Person;
 
@@ -83,9 +85,11 @@ public interface Model {
 
     PageStatus getPageStatus();
 
-    void addTrip(Trip trip);
+    void addTrip(Trip trip) throws ClashingTripException;
 
-    void deleteTrip(Trip target);
+    void setTrip(Trip target, Trip replacement) throws ClashingTripException, TripNotFoundException;
+
+    void deleteTrip(Trip target) throws TripNotFoundException;
 
     FilteredList<Trip> getFilteredTripList();
 

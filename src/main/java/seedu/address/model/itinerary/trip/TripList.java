@@ -24,28 +24,35 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
     }
 
     @Override
-    public void add(Trip toAdd) {
+    public void add(Trip toAdd) throws ClashingTripException {
         requireNonNull(toAdd);
+
+        if (containsClashing(toAdd)) {
+            throw new ClashingTripException();
+        }
+
         internalList.add(toAdd);
     }
 
     @Override
-    public void set(Trip targetTrip, Trip editedTrip) {
+    public void set(Trip targetTrip, Trip editedTrip) throws TripNotFoundException, ClashingTripException {
         requireAllNonNull(targetTrip, editedTrip);
         int index = internalList.indexOf(targetTrip);
-        if(index == -1){
+        if (index == -1) {
             throw new TripNotFoundException();
         }
 
-        if (!targetTrip.isClashingWith(editedTrip) && contains(editedTrip)) {
+        internalList.remove(index);
+        if (containsClashing(editedTrip)) {
+            internalList.add(index, targetTrip);
             throw new ClashingTripException();
         }
 
-        internalList.set(index, editedTrip);
+        internalList.add(index, editedTrip);
     }
 
     @Override
-    public void remove(Trip toRemove) {
+    public void remove(Trip toRemove) throws TripNotFoundException {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new TripNotFoundException();

@@ -1,27 +1,28 @@
 package seedu.address.model.itinerary.trip;
 
-import seedu.address.model.itinerary.Date;
+import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
 
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 public class Trip {
     private final Name name;
-    private final Date from;
-    private final Date to;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
     private final TripId tripId;
-    private final Location destintaion;
+    private final Location destination;
     private final Expenditure totalBudget;
     private final DayList dayList;
 
-    public Trip(Name name, Date from, Date to, Location destintaion, Expenditure totalBudget, DayList dayList) {
+    public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate,
+                Location destination, Expenditure totalBudget, DayList dayList) {
         this.name = name;
-        this.from = from;
-        this.to = to;
-        this.destintaion = destintaion;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.destination = destination;
         this.totalBudget = totalBudget;
         this.dayList = dayList;
         this.tripId = new TripId();
@@ -31,23 +32,23 @@ public class Trip {
         return name;
     }
 
-    public Date getFrom() {
-        return from;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public Date getTo() {
-        return to;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
     public TripId getTripId() {
         return tripId;
     }
 
-    public Location getDestintaion() {
-        return destintaion;
+    public Location getDestination() {
+        return destination;
     }
 
-    public Expenditure getTotalBudget() {
+    public Expenditure getBudget() {
         return totalBudget;
     }
 
@@ -64,9 +65,9 @@ public class Trip {
             return true;
         } else {
             return otherTrip.getName().equals(getName())
-                    && otherTrip.getFrom().equals(getFrom())
-                    && otherTrip.getTo().equals(getTo())
-                    && otherTrip.getDestintaion().equals(getDestintaion());
+                    && otherTrip.getStartDate().equals(getStartDate())
+                    && otherTrip.getEndDate().equals(getEndDate())
+                    && otherTrip.getDestination().equals(getDestination());
         }
     }
 
@@ -82,15 +83,17 @@ public class Trip {
 
         Trip otherTrip = (Trip) other;
         return otherTrip.getName().equals(getName())
-                && otherTrip.getFrom().equals(getFrom())
-                && otherTrip.getTo().equals(getTo())
-                && otherTrip.getDestintaion().equals(getDestintaion())
+                && otherTrip.getStartDate().equals(getStartDate())
+                && otherTrip.getEndDate().equals(getEndDate())
+                && otherTrip.getDestination().equals(getDestination())
                 && otherTrip.getDayList().equals(getDayList());
     }
 
     public boolean isClashingWith(Trip other){
-        return (this.getFrom().compareTo(other.getTo()) == -1 && this.getTo().compareTo(other.getFrom()) == 1)
-                || (this.getTo().compareTo(other.getFrom()) == -1 && this.getFrom().compareTo(other.getTo()) == 1);
+        return (this.getStartDate().compareTo(other.getEndDate()) == -1
+                && this.getEndDate().compareTo(other.getStartDate()) == 1)
+                || (this.getEndDate().compareTo(other.getStartDate()) == -1
+                        && this.getStartDate().compareTo(other.getEndDate()) == 1);
     }
 
     @Override
@@ -100,11 +103,11 @@ public class Trip {
                 .append(" Name: ")
                 .append(name.toString())
                 .append(" From: ")
-                .append(from.toString())
+                .append(ParserDateUtil.getDisplayTime(startDate))
                 .append(" To: ")
-                .append(to.toString())
+                .append(ParserDateUtil.getDisplayTime(endDate))
                 .append(" Destination: ")
-                .append(destintaion.toString())
+                .append(destination.toString())
                 .append(" Total Budget: ")
                 .append(totalBudget.toString());
 

@@ -25,11 +25,10 @@ public class EditTripParser implements PageParser {
         }
 
         switch (commandType) {
-        case NAME:
-        case FROM:
-        case TO:
-        case LOCATION:
-        case BUDGET:
+        case EDIT:
+            return new EditTripFieldParser().parse(arguments);
+        case DONE:
+            return new DoneEditTripParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

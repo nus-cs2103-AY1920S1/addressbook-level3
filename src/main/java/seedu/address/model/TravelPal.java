@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.model.itinerary.trip.TripList;
+import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
+import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
 import seedu.address.model.pagestatus.PageStatus;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -141,11 +143,15 @@ public class TravelPal implements ReadOnlyTravelPal {
         return null;
     }
 
-    public void addTrip(Trip trip) {
+    public void addTrip(Trip trip) throws ClashingTripException {
         tripList.add(trip);
     }
 
-    public void deleteTrip(Trip trip) {
+    public void setTrip(Trip target, Trip replacement) throws ClashingTripException, TripNotFoundException {
+        tripList.set(target, replacement);
+    }
+
+    public void deleteTrip(Trip trip) throws TripNotFoundException {
         tripList.remove(trip);
     }
 

@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Location {
     /**
      * Represents a Person's address in the address book.
-     * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+     * Guarantees: immutable; is valid as declared in {@link #isValidLocation(String)}
      */
         public static final String MESSAGE_CONSTRAINTS = "Location can take any values, and it should not be blank";
 
@@ -25,14 +25,14 @@ public class Location {
          */
         public Location(String location) {
             requireNonNull(location);
-            checkArgument(isValidAddress(location), MESSAGE_CONSTRAINTS);
+            checkArgument(isValidLocation(location), MESSAGE_CONSTRAINTS);
             value = location;
         }
 
         /**
          * Returns true if a given string is a valid location.
          */
-        public static boolean isValidAddress(String test) {
+        public static boolean isValidLocation(String test) {
             return test.matches(VALIDATION_REGEX);
         }
 

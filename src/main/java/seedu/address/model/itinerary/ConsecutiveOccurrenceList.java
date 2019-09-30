@@ -2,6 +2,8 @@ package seedu.address.model.itinerary;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
+import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -26,21 +28,21 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public abstract void add(T toAdd);
+    public abstract void add(T toAdd) throws ClashingTripException;
 
     /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public abstract void set(T target, T edited);
+    public abstract void set(T target, T edited) throws TripNotFoundException, ClashingTripException;
 
 
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public abstract void remove(T toRemove);
+    public abstract void remove(T toRemove) throws TripNotFoundException;
 
     public void set(ConsecutiveOccurrenceList<T> replacement){
         requireNonNull(replacement);

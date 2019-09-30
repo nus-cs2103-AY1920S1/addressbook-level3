@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.itinerary.Expenditure;
@@ -11,6 +10,7 @@ import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.itinerary.trip.Trip;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +20,8 @@ public class JsonAdaptedTrip {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Trip's %s field is missing!";
 
     private final String name;
-    private final Date from;
-    private final Date to;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
     private final String destination;
     private final double totalBudget;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
@@ -29,15 +29,15 @@ public class JsonAdaptedTrip {
     @JsonCreator
     public JsonAdaptedTrip(
             @JsonProperty("name") String name
-            , @JsonProperty("from")Date from
-            , @JsonProperty("to") Date to
+            , @JsonProperty("from")LocalDateTime startDate
+            , @JsonProperty("to") LocalDateTime endDate
             , @JsonProperty("destination")String destination
             , @JsonProperty("totalBudget")double totalBudget
             , @JsonProperty("dayList")List<JsonAdaptedDay> dayList
     ) {
         this.name = name;
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.destination = destination;
         this.totalBudget = totalBudget;
         if(dayList != null) {
@@ -45,11 +45,11 @@ public class JsonAdaptedTrip {
         }
     }
 
-    public JsonAdaptedTrip(Trip source){
+    public JsonAdaptedTrip(Trip source) {
         this.name = source.getName().fullName;
-        this.from = source.getFrom().date.getTime();
-        this.to = source.getTo().date.getTime();
-        this.destination = source.getDestintaion().value;
+        this.startDate = source.getStartDate();
+        this.endDate = source.getEndDate();
+        this.destination = source.getDestination().value;
         this.totalBudget = source.getTotalBudget().value;
         this.dayList.addAll(source.getDayList()
                 .asUnmodifiableObservableList()
@@ -74,31 +74,31 @@ public class JsonAdaptedTrip {
 
         final Name modelName = new Name(name);
 
-        if(from == null){
+        if(startDate == null){
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, seedu.address.model.itinerary.Date.class.getSimpleName()));
         }
 
-        if (!seedu.address.model.itinerary.Date.isValidDate(from)){
+        if (!seedu.address.model.itinerary.Date.isValidDate(startDate)){
             throw new IllegalValueException(seedu.address.model.itinerary.Date.MESSAGE_CONSTRAINTS);
         }
 
-        final seedu.address.model.itinerary.Date modelFrom = new seedu.address.model.itinerary.Date(from);
+        final seedu.address.model.itinerary.Date modelFrom = new seedu.address.model.itinerary.Date(startDate);
 
-        if (to == null){
+        if (endDate == null){
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, seedu.address.model.itinerary.Date.class.getSimpleName()));
         }
 
-        if (!seedu.address.model.itinerary.Date.isValidDate(to)){
+        if (!seedu.address.model.itinerary.Date.isValidDate(endDate)){
             throw new IllegalValueException(seedu.address.model.itinerary.Date.MESSAGE_CONSTRAINTS);
         }
 
-        final seedu.address.model.itinerary.Date modelTo = new seedu.address.model.itinerary.Date(to);
+        final seedu.address.model.itinerary.Date modelTo = new seedu.address.model.itinerary.Date(endDate);
 
         if(destination == null){
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
         }
 
-        if(!Location.isValidAddress(destination)){
+        if(!Location.isValidLocation(destination)){
             throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
         }
 

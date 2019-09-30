@@ -60,9 +60,9 @@ class JsonSerializableTravelPal {
             }
             travelPal.addPerson(person);
         }
-        for(JsonAdaptedTrip jsonAdaptedTrip : trips) {
+        for (JsonAdaptedTrip jsonAdaptedTrip : trips) {
             Trip trip = jsonAdaptedTrip.toModelType();
-            if(travelPal.hasTrip(trip)){
+            if (travelPal.hasTrip(trip)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRIP);
             } if (travelPal.hasClashingTrip(trip)){
                 throw new IllegalValueException(MESSAGE_CLASHING_TRIP);

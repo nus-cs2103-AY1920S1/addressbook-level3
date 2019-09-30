@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
+import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
 import seedu.address.model.pagestatus.PageStatus;
 import seedu.address.model.person.Person;
 
@@ -169,13 +171,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addTrip(Trip trip) {
+    public void addTrip(Trip trip) throws ClashingTripException {
         requireNonNull(trip);
         travelPal.addTrip(trip);
     }
 
     @Override
-    public void deleteTrip(Trip target) {
+    public void setTrip(Trip target, Trip replacement) throws ClashingTripException, TripNotFoundException {
+        requireAllNonNull(target, replacement);
+        travelPal.setTrip(target, replacement);
+    }
+
+    @Override
+    public void deleteTrip(Trip target) throws TripNotFoundException {
         requireNonNull(target);
         travelPal.deleteTrip(target);
     }

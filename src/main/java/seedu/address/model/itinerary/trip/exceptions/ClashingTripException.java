@@ -1,4 +1,4 @@
 package seedu.address.model.itinerary.trip.exceptions;
 
-public class ClashingTripException extends RuntimeException{
+public class ClashingTripException extends Exception {
 }
