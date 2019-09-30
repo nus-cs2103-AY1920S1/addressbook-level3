@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ClerkPro - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -214,7 +214,7 @@ Format: `exit`
 Undo an action +
 Format: `undo`
 
-==== Creates, updates or removes an alias command: ` alias ` ====
+==== Creates, updates or removes an alias command: `alias` ====
 
 Tags an alias name to a reserved command. More specifically,
 one of the following will happen depending on the parameters of the function.
