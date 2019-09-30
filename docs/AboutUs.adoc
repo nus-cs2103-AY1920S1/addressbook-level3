@@ -16,7 +16,7 @@ image::De_Xun_Picture.png[width="150", align="left"]
 {empty}[https://github.com/DivineDX[github]] [<<de_xun#, portfolio>>]
 
 Role: Team Lead
-Responsibilities: 
+Responsibilities:
 
 '''
 
@@ -24,7 +24,7 @@ Responsibilities:
 image::Shi_Hao_Picture.png[width="150", align="left"]
 {empty}[https://github.com/shihaoyap[github]] [<<johndoe#, portfolio>>]
 
-Role: 
+Role:
 Responsibilities: UI
 
 '''
@@ -34,7 +34,7 @@ image::Eshwar_Picture.png[width="150", align="left"]
 {empty}[https://github.com/eshwarkp[github]] [<<johndoe#, portfolio>>]
 
 Role: Software Tester
-Responsibilities: 
+Responsibilities:
 
 '''
 
