@@ -1,4 +1,4 @@
-= EatMe User Guide
+= AddressBook Level 3 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
