@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Njoy Assistant
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103T-W13-2/main[image:https://travis-ci.org/CS2103T-W13-2/main.svg?branch=master[Build Status]]
@@ -14,22 +14,21 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* This is a teaching assistant program. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is a Java application intended for teachers to manage their classes better. Some key features of this application include timetable scheduling, attendance and questions generation.
+* It is *written in OOP fashion*.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* The contributors of the application are: lumwb, Russell-Loh-NUS, jeongyh99, fabbbbbyy, alages97
+* This application is based on the AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
