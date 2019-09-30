@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= AlgoBase - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-W11-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -285,7 +285,9 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* To manage algorithmic problems and training plans faster than using Excel sheets
 
 [appendix]
 == User Stories
@@ -297,76 +299,270 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new problem |keep track of the problems for future usage
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a problem |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a problem by keyword |locate details of problems without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |do advanced search on problems |locate details of problems without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user |do fuzzy search on problems |locate details of problems without having to go through the entire list
+
+|`* * *` |user |create custom tags |categorize problems via tags
+
+|`* * *` |user |add tags to problems |categorize problems via tags
+
+|`* *` |user |sort problems according to difficulty |locate problems easily
+
+|`* *` |user |add remarks to problems |have reference in the future
+
+|`* * *` |user |create plans containing problems |better prepare for interview
+
+|`* * *` |user |add problems to a plan |better prepare for interview
+
+|`* * *` |user |mark problems as complete/incomplete within plans |better prepare for interview
+
+|`* * *` |user |import database from <<json,JSON>> files |easily transfer data from one computer to another
+
+|`* * *` |user |export data into JSON format |easily transfer data from one computer to another
+
+|`* *` |advanced user |export data into CSV format |do some manipulation/processing on the data
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AlgoBase` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case 1: Add Problem
+
+*Guarantees*
+
+Problem will be added to the application if and only if the required fields are specified and the details entered are all valid.
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User launches AlgoBase.
+2.  User adds a new problem by entering the name of the problem, optionally specifying the description, author, weblink, source as well as any remarks or tags.
+3.  AlgoBase indicates successful addition of new problem.
+4.  AlgoBase displays details of problem added.
 +
 Use case ends.
 
 *Extensions*
-
 [none]
-* 2a. The list is empty.
+* 2a. AlgoBase detects that an existing name already exists.
++
+[none]
+** 2a1. AlgoBase informs user that problem was not successfully added because the name already exists.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 2b. AlgoBase detects a missing name or invalid format for some field(s).
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2b1. AlgoBase informs user that problem was not successfully added because the format is invalid.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use Case 2: Edit Problem
+
+*Preconditions*
+
+1.  There are existing problems in the storage of AlgoBase.
+2.  The command is formatted correctly and the provided arguments meet the requirement for corresponding fields.
+
+*Guarantees*
+
+The matched problem in the application will be edited with the provided fields.
+
+*MSS*
+
+1.  User launches AlgoBase.
+2.  User edits an existing problem by entering the index, followed by fields that the user intends to edit (including name, description, weblink, author, source, remark, tag, etc.).
+3.  AlgoBase indicates successful edition of the existing problem.
+4.  AlgoBase updates the UI with the updated problem.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects the index is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the edition is unsuccessful because the index is out of bounds.
++
+Use case ends.
+
+* 2b. AlgoBase detects no provided fields.
++
+[none]
+** 2b1. AlgoBase informs user that nothing is updated.
++
+Use case ends.
+
+[discrete]
+=== Use Case 3: Delete Problem
+
+*Guarantees*
+
+Problem will be deleted and removed from local storage of AlgoBase and cannot find from relevant tags.
+
+*MSS*
+
+1.  User launches AlgoBase.
+2.  User deletes an existing problem by entering index.
+3.  AlgoBase indicates successful deletion of the existing problem.
+4.  AlgoBase updates the UI with the remaining problems.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects the index is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the deletion is unsuccessful because the index is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 4: List Problem
+
+*Guarantees*
+
+A list of existing problems will be returned.
+
+*MSS*
+
+1.  User launches AlgoBase.
+2.  User requests for a list of all existing problems.
+3.  AlgoBase returns a list of problems stored in AlgoBase.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. There is no existing problems stored in AlgoBase.
++
+[none]
+** 2a1. AlgoBase informs user that there is no existing problems.
++
+Use case ends.
+
+[discrete]
+=== Use Case 5: Find Problem
+
+*Guarantees*
+
+A list of existing problems with matching fields will be returned.
+
+*MSS*
+
+1.  User launches AlgoBase.
+2.  User requests to find a problem by specifying keywords in certain fields.
+3.  AlgoBase returns a list of problems that have matching keywords in specified fields.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The user specifies no keywords in any fields.
++
+[none]
+** 2a1. AlgoBase returns a list of all existing problems.
++
+Use case ends.
+
+[none]
+* 2b. There is no problem that matches the user’s requirement.
++
+[none]
+** 2b1. AlgoBase informs user there is no matching problem.
++
+Use case ends.
+
+[none]
+* 2c. There is no existing problems stored in AlgoBase.
++
+[none]
+** 2c1. AlgoBase informs user that there is currently no problems.
++
+Use case ends.
+
+[discrete]
+=== Use Case 6: Sort Problem
+
+*Guarantees*
+
+A list of problems will be returned in a specific order restricted by user.
+
+*MSS*
+
+1.  User launches AlgoBase.
+2.  User requests to sort a set of problems by specifying rules of ordering.
+3.  AlgoBase show the set of questions in sorted order.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The user specifies no sort order.
++
+[none]
+** 2a1. AlgoBase informs user that no sort order is given.
++
+Use case ends.
+
+[none]
+* 2b. There is no existing problems stored in AlgoBase.
++
+[none]
+** 2b1. AlgoBase informs user that there is currently no problems.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
+.  Every change is saved immediately and no manual saving is needed.
+.  A user with above average typing speed for regular Unix commands should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should work on both `32-bit` and `64-bit` <<environment,environments>>.
+.  Should be able to hold up to 1000 problems with <<response-time,response time>> less than 1 second for typical usage.
+.  Should work without installation (i.e. portable).
+.  Should be for a single user i.e. (not a multi-user product).
+.  Storage file should be human interpretable and editable for someone who’s familiar with JSON.
+.  Not required to store <<solutions,solutions to problems>>.
 
 [appendix]
 == Glossary
 
+[[json]] JSON::
+JavaScript Object Notation
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[environment]] Environment::
+An execution environment offered by mainstream OSes as defined above
+
+[[response-time]] Response Time::
+An execution environment offered by mainstream OSes as defined above
+
+[[solutions]] Solutions to Problems::
+Source code or executable that aims to solve the corresponding problem
 
 [appendix]
 == Product Survey
 
 *Product Name*
 
-Author: ...
+Author: `Team CS2103T-W11-1`
 
 Pros:
 
@@ -392,7 +588,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample problems. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -400,13 +596,11 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a problem
 
-=== Deleting a person
+. Deleting a problem while all problems are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all problems using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -414,12 +608,9 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
