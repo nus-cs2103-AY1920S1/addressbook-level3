@@ -11,7 +11,7 @@ public class Expense extends Record {
 
     /**
      * Constructor for Expense.
-     * Throw error if there is no amount description or wrong format.
+     * Throw an error if there is no amount description or wrong format.
      *
      * @param description  Description for the Expense.
      * @param amount  Amount for the Expense Record.
