@@ -42,6 +42,12 @@ public class Date {
         this.date = date;
     }
 
+    public Date (java.util.Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        this.date = calendar;
+    }
+
     /**
      * Returns true if a given string is a valid email.
      */
@@ -56,6 +62,17 @@ public class Date {
                 && isValidYear
                 && isValidHour
                 && isValidMinute;
+    }
+
+    public static boolean isValidDate (java.util.Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return isValidDate(calendar.get(Calendar.DAY_OF_WEEK)
+                , calendar.get(calendar.get(Calendar.MONTH))
+                , calendar.get(Calendar.YEAR)
+                , calendar.get(Calendar.HOUR_OF_DAY)
+                , calendar.get(Calendar.MINUTE)
+        );
     }
 
     @Override

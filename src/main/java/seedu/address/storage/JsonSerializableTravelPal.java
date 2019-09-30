@@ -11,33 +11,39 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.TravelPal;
+import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.model.person.Person;
 
 /**
  * An Immutable TravelPal that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "travelpal")
+class JsonSerializableTravelPal {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_TRIP = "Trip list contains duplicate trip(s).";
+    public static final String MESSAGE_CLASHING_TRIP = "Trip list contains clashing trip";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedTrip> trips = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableTravelPal} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableTravelPal(@JsonProperty("persons") List<JsonAdaptedPerson> persons, List<JsonAdaptedTrip> trips) {
         this.persons.addAll(persons);
+        this.trips.addAll(trips);
     }
 
     /**
      * Converts a given {@code ReadOnlyTravelPal} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableTravelPal}.
      */
-    public JsonSerializableAddressBook(ReadOnlyTravelPal source) {
+    public JsonSerializableTravelPal(ReadOnlyTravelPal source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        trips.addAll(source.getTripList().stream().map(JsonAdaptedTrip::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +59,15 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             travelPal.addPerson(person);
+        }
+        for(JsonAdaptedTrip jsonAdaptedTrip : trips) {
+            Trip trip = jsonAdaptedTrip.toModelType();
+            if(travelPal.hasTrip(trip)){
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TRIP);
+            } if (travelPal.hasClashingTrip(trip)){
+                throw new IllegalValueException(MESSAGE_CLASHING_TRIP);
+            }
+            travelPal.addTrip(trip);
         }
         return travelPal;
     }

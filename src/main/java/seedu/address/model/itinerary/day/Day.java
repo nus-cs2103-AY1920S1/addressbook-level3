@@ -8,4 +8,12 @@ public class Day {
     public Day(EventList eventList){
         this.eventList = eventList;
     }
+
+    public boolean isSameDay(Day day) {
+        return false;
+    }
+
+    public boolean isClashingWith(Day editedDay) {
+        return false;
+    }
 }
