@@ -77,3 +77,4 @@ public class AddAppCommand extends ReversibleCommand {
                 && appointment.equals(((AddAppCommand) other).appointment));
     }
 }
+
