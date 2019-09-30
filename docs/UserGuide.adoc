@@ -22,23 +22,23 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 
 == Features
 
-. *Manage your classes*
+. *Manage your classes* easily with just a few strokes of your keyboard.
 .. Attendance taking
-.. Note taking
+//.. Note taking
 .. Record student scores
-. *Creating questions*
+. *Creating questions* is simple. Simply type a topic and an answer and it is done.
 .. Easy input
 .. Repeatable
-. *Generate quizzes*
+. *Generate quizzes* for your students.
 .. Type once, generate anytime
 .. Randomised
-.. Distribution
-. *Timetable Manager*
+.. Distribute
+. *Timetable Manager* for scheduling your classes.
 .. Create and manage
 .. Schedule classes
 .. Class Reminders
 .. Repeatable daily/monthly and even yearly
-. *Statistics*
+. *Statistics* provide a comprehensive view of your students' performance.
 .. View underperforming students
 .. Trends of the academic year
 
@@ -48,7 +48,7 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 . Download the njoy.jar file
 . Double click on ‘njoy.jar’ file to run the application
 
-_If you are not able to run the application using the method above, use the following:_
+_If you are not able to run the application using the method above, use the following:_ +
 . Open Terminal(Mac)/Command Prompt(Windows)
 . Type cd [path to directory containing jar file]
 . Type ‘java -jar njoy.jar’ to run the application.
@@ -83,7 +83,7 @@ Manage classes and manage students within the class.
 
 . *Create class*​ - `/class create [class id] [description]​(optional)` +
 e.g. `/class create unity “My First Class”`
-. *Edit class description ​- `/class edit [class id] [description]​(optional)` +
+. *Edit class description* ​- `/class edit [class id] [description]​(optional)` +
 e.g. `/class edit unity “My Second Class”`
 . *Delete class* ​- `/class delete [class id]` +
 e.g. `/class delete unity`
