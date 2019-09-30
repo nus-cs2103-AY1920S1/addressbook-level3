@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Alfred - The Hackathon Butler (User Guide)
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,16 +14,25 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F11-1`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Alfred is a desktop application for helping Human Resource managers organise a Hackathon event.
+Hackathons are difficult to manage manually as they involve different groups of individuals, each
+of whom have a different role to play and agenda to fulfill in the Hackathon. Alfred helps streamline
+this organisation and management process, allowing you to quickly get up to speed with the logistics
+and administrative details of the Hackathon you are organising.
+
+Furthermore, Alfred is *optimized for those who prefer to work with a Command Line Interface (CLI)*, while
+maintaining the benefits of having visual responses in a Graphical User Interface.
+
+Interested? Well, head to <<Quick Start>> to get started. We hope Alfred serves you well!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `alfred.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -46,116 +55,166 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add mentor n/NAME`, `NAME` is a parameter which can be used as `add mentor n/John Doe`.
+* Words in {curly braces} indicate values for the command that need to be supplied e.g. in `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
+This command displays a help page in a separate pop-up window. Should you require further information,
+the pop-up window also includes links to further references and documentation. +
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding an Entity: `add {participant/mentor/team}`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds an entity for Alfred to keep track of +
+****
+* Creates an Entity. Each Entity object will have a unique ID assigned to it.
+* As of version 1.1, all the fields must be provided. There are no optional fields.
+****
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Adding a Participant: `add participant [PARAMETERS]`
+Format: `add participant n/NAME`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add participant n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add participant n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+==== Adding a Mentor: `add mentor [PARAMETERS]`
+Format: `add mentor n\NAME`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Examples:
 
-=== Editing a person : `edit`
+* `add mentor /nProfessor Superman`
+* `add mentor /nDoctor Batman`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== Adding a Team: `add team [PARAMETERS]`
+Format: `add team n\NAME`
+
+Examples:
+* `add team /nTeam01`
+* `add team /nHackathonWinnersForSure`
+
+=== Updating an Entity: `edit {mentor/participant/team} ID [PARAMETERS]`
+
+Edits an entity based on the supplied parameter values
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Updates the Entity with the specified `ID`. The ID is a unique identifier for the Entity.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
+* `edit mentor M01 \nNewMentorName`
+* `edit team T01 \nNewTeamName`
+* `edit participant P01 \nNewParticipantNAme`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+=== Listing all Entities : `list {mentor/team/participant}`
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Shows a list of all the Entities that Alfred keeps track of +
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The fields of the Entity will be displayed on the Graphical User Interface.
 ****
 
 Examples:
+* `list mentor`
+* `list participant`
+* `list team`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+=== Deleting an Entity: `delete {participant/mentor/team} ID`
+Deletes an Entity, so that Alfred will no longer keep track of that Entity.
+This is a permanent operation, so please be careful.
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the Entity with the specified ID.
+* As of version 1.1, the delete operation is permanent and irreversible. Be careful.
 ****
 
 Examples:
+* `delete mentor M01`
+* `delete participant P01`
+* `delete team T01`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+=== Saving the data: `save`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Data in Alfred is saved to the hard disk automatically after any command that changes the data. +
+There is no need to save the data manually.
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Finding a Specific Entity: `find {mentor/team/participant} NAME`
 
-=== Exiting the program : `exit`
+A single Entity can be searched for via their name, instead of the ID, which is hard to remember. +
 
-Exits the program. +
-Format: `exit`
+Examples:
+* `find participant n/John Doe`
+* `find mentor n/Joshua Wong`
+* `find team n/FutureHackathonWinner`
 
-=== Saving the data
+=== Judging and Leaderboard Features
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== List Team Ranking: `listDescending`
+Lists the teams in descending order by the team
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Get the top k teams: `getTopK NUMBER`
+List the top k teams in descending order
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Example:
+* `getTopK 5`
+
+==== Update points: `updatePoints TEAM_ID NEW_POINTS`
+Update the points that a particular team receives.
+
+==== Update Winner: `updateWinnerCategiry PRIZE_CATEGORY TEAM_ID`
+Updates the winner of a particular prize category
+
+==== List Prize Categories: `listPrizes`
+Lists the prize categories and their winners (if any)
+
+
+=== Bulk Registration: `addBulk PATH_TO_CSV_FILE`
+Allow the addition of multiple participants at once through the specification of a .csv file
+
+Example:
+* `addBulk C:\User\Hackathon2019\participant.csv`
+
+=== Seating: `locate {participant_name/team_name}` (Coming in v2.0)
+Track where participants are seated
+
+Examples:
+* `locate n/ParticipantName`
+* `locate n/TeamName`
+
+=== Swag (Coming in v2.0)
+==== Add Swag: `add swag DESCRIPTION QUANTITY`
+Add swag to inventory
+Examples: `add swag Android Plushie 5`
+==== Track inventory of available swags: `list swag`
+List the currently available swag
+
+=== Schedule (Coming in v2.0)
+==== Add schedule: `addSchedule TIME TEAM_ID MENTOR_ID`
+Add a schedule for a team
+
+==== Update schedule: `updateSchedule SCHEDULE_ID TIME TEAM_ID MENTOR_ID`
+Update a schedule for a team
+
+==== Delete schedule: `deleteSchedule SCHEDULE_ID`
+Delete a Schedule for a Team
+
+=== Food (Coming in v2.0)
+==== Add Food Company and Inventory: `addFoodCompany COMPANY_NAME INVENTORY QUANTITY`
+==== Mark Food as Received: `receiveFood COMPANY_NAME INVENTORY QUANTITY`
+==== List Food Inventory: `list food`
+
+=== Waitlist (Coming in v2.0)
+==== Add to waitlist: `addToWaitList USER_ID`
+==== Remove from waitlist: `removeFromWaitList USER_ID`
+==== List by Registration Time: `listWaitList`
+
+
 
 == FAQ
 
