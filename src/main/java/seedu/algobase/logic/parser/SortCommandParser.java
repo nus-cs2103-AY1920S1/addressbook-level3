@@ -8,6 +8,9 @@ import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new SortCommand object.
+ */
 public class SortCommandParser implements Parser<SortCommand> {
 
     /**

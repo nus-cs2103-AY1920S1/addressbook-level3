@@ -26,8 +26,8 @@ public class SortCommand extends Command {
         byDifficulty,
         bySource;
 
-        public static final String MESSAGE_CONSTRAINTS = "Sorting method should be one of \"name\", " +
-            "\"author\", \"weblink\", \"difficulty\" or \"source\"";
+        public static final String MESSAGE_CONSTRAINTS = "Sorting method should be one of \"name\", "
+            + "\"author\", \"weblink\", \"difficulty\" or \"source\"";
     }
 
     /**
