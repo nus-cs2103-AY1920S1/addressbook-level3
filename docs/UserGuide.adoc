@@ -75,7 +75,7 @@ Adds a policy to the list of policies +
 Format: `addpolicy  add pol n/NAME d/DESCRIPTION c/TIME_PERIOD p/PRICE [sa/START_AGE] [ea/END_AGE]... [t/TAGS]...`
 
 ****
-* A person can have any number of tags (including 0)
+* A policy can have any number of tags (including 0)
 ****
 Examples:
 
@@ -163,6 +163,32 @@ Examples:
 Returns `senior care` and `Care for seniors`
 * `find family children` +
 Returns any policy having names or descriptions containing `family` of `children`
+
+=== Locating people by keywords: `findtagpeople`
+
+Finds people who have the specified tag(s). +
+Format: `findtagpeople KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive
+* The order of the keywords does not matter
+* Only full words will be matched
+* People matching at least one keyword will be returned
+* People matching more keywords will be presented first
+****
+
+=== Locating policies by keywords: `findtagpolicy`
+
+Finds policies who have the specified tag(s) +
+Format: `findtagpolicy KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive
+* The order of the keywords does not matter
+* Only full words will be matched
+* People matching at least one keyword will be returned
+* People matching more keywords will be presented first
+****
 
 === Adding policies to a person : `assignpolicy`
 
@@ -345,7 +371,7 @@ if present.
 * All details except the NRIC will be added.
 ****
 
-Example:
+Examples:
 
 `add n/John Doe ic/Q9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
 
@@ -366,7 +392,7 @@ if present.
 * All details except the phone number will be added.
 ****
 
-Example:
+Examples:
 
 `add n/John Doe ic/S9999999J p/48765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
 
@@ -387,7 +413,7 @@ if present.
 * All details except the email address will be added.
 ****
 
-Example:
+Examples:
 
 `add n/John Doe ic/S9999999J p/98765432 e/@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
 
@@ -407,7 +433,7 @@ Returns a warning message to inform the user of a potential typo in email addres
 * These warnings can be turned off.
 ****
 
-Example:
+Examples:
 
 `add n/John Doe ic/Q9999999J p/48765432 e/johnd@gmal.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
 
@@ -424,7 +450,7 @@ User can input `yes` or `no` to use the original input email or the suggested em
 
 Returns an error message and a suggestion of a correct command when a command is typed incorrectly.
 
-Example:
+Examples:
 
 `dlete 2`
 
@@ -449,7 +475,7 @@ Returns an error if a person is ineligible for the insurance policy and provides
 * The new information will be accepted and updated except for the updated policy.
 ****
 
-Example:
+Examples:
 
 `edit n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 pol/SeniorCare`
 
@@ -464,7 +490,7 @@ John Doe is ineligible for this policy. These are other possible policies that J
 Returns an error message of an existing person and will attempt to merge the profiles.
 For each different attribute, there will be a prompt to suggest a change from the original attribute to the new one.
 
-Example:
+Examples:
 
 `add n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 pol/SeniorCare`
 
@@ -490,6 +516,196 @@ You may edit John Doe’s profile using the edit command. For more information, 
 === Reminders of expiring policies
 
 Displays a list of people whose policies are expiring in the current month on the start up page. This list will be updated every month.
+
+=== Generate Report: `report`
+Generates report of key performance indicators (KPI). Report is saved in the same directory as the application, or the file path if specified.
+
+Format:
+`report [f/FILEPATH]`
+
+Examples:
+
+`report f/~/reports/` +
+Saves report in `~/reports` directory.
+
+Expected Output:
+
+image::Report.png[width="400", align="left"]
+
+=== Export to Excel: `export`
+Exports contact details to an excel sheet in the same directory as the application, or the file path if specified.
+Depending on what the user specifies as arguments,
+different fields of the contacts can be exported. Arguments can also be chained to export multiple fields together at once.
+
+Format:
+`export [name] [phone] [email] [address] [insurance] [f/FILEPATH]`
+
+****
+* If no arguments are provided, all possible fields are exported.
+****
+
+Examples:
+
+`export` +
+Exports all possible fields in the address book.
+
+`export name phone email f/~/sheets/` +
+Exports name, phone, and email into `~/sheets` directory.
+
+=== Display Indicator `display`
+Displays indicator according to specified format.
+
+Format:
+`display i/INDICATOR [c/CHART]`
+
+****
+* Indicators include:
+- Policy Popularity breakdown
+- Age Group breakdown
+- Gender breakdown
+- Contact List growth rate
+****
+
+Examples:
+
+`display i/policy-popularity-breakdown c/piechart` +
+Displays policy popularity breakdown as a piechart.
+
+Expected Output: +
+
+image::PolicyPopBreakdown.png[width="400", align="left"]
+
+=== List Recycling Bin: `bin`
+Shows recently deleted contacts that are stored inside `bin`.
+
+Format:
+`bin`
+
+****
+* Items inside the bin can be restored within its expiration time, which is 30 days since it has been deleted,
+after which it is removed forever.
+****
+
+Examples:
+
+`bin`
+
+Expected Output: +
+```
+1. Contact 1 expires in 30 mins
+2. Contact 2 expires in 5 days
+3. Contact 3 expires in 30 days
+```
+
+
+=== Restore Recycling Bin: `restore`
+Restores the contact specified by the user.
+
+Format:
+`restore INDEX`
+
+****
+* Mass restoration by field is also possible by specifying `field:value`.
+****
+
+Examples:
+
+`restore 1` +
+Restores first index of contacts listed in `bin`
+
+Expected Output: +
+```
+The following contact has been restored:
+Contact 1
+```
+
+=== Undo recently entered commands
+Displaying a list of recently entered commands, and the user can select the range of commands the user wants to undo.
+
+Example:
+
+`undo list`
+
+Expected Output:
+```
+Here is the list of recently entered commands:
+1. Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
+2. Delete Person - Name: Jane Doe IC: S9999999J Phone: 123456789 Email: janedoe@example.com
+3. Edit Person - Name: Jonathan Doe IC: S9999999J Phone: 123456789 Email: jonathandoe@example.com
+
+```
+
+Example:
+
+`undo 3`
+
+Expected Output:
+```
+Undoing the following commands:
+1. Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
+2. Delete Person - Name: Jane Doe IC: S9999999J Phone: 123456789 Email: janedoe@example.com
+3. Edit Person - Name: Jonathan Doe IC: S9999999J Phone: 123456789 Email: jonathandoe@example.com
+
+Okay! Commands have been undone.
+```
+
+The user can also simply enter the command `undo` to undo the most recent command.
+
+Example:
+
+`undo`
+
+Expected Output:
+```
+Undoing the following command:
+Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
+
+Okay! Command has been undone.
+```
+
+=== Redo recently undone commands
+Displaying a list of recently entered commands, and the user can select the range of commands the user wants to undo.
+
+Example:
+
+`redo list`
+
+Expected Output:
+```
+Here is the list of recently undone commands:
+1. Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
+2. Delete Person - Name: Jane Doe IC: S9999999J Phone: 123456789 Email: janedoe@example.com
+3. Edit Person - Name: Jonathan Doe IC: S9999999J Phone: 123456789 Email: jonathandoe@example.com
+
+```
+
+Example:
+
+`redo 3`
+
+Expected Output:
+```
+Redoing the following commands:
+1. Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
+2. Delete Person - Name: Jane Doe IC: S9999999J Phone: 123456789 Email: janedoe@example.com
+3. Edit Person - Name: Jonathan Doe IC: S9999999J Phone: 123456789 Email: jonathandoe@example.com
+
+Okay! Commands have been redone.
+```
+
+The user can also simply enter the command `redo` to undo the most recent command.
+
+Example:
+
+`redo`
+
+Expected Output:
+```
+Redoing the following command:
+Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
+
+Okay! Command has been redone.
+```
 
 === Exiting the program : `exit`
 
@@ -528,6 +744,10 @@ e.g. `editpolicy 1 n/Seniors`
 e.g. `find James Jake`
 * *Find Policy* : `findpolicy KEYWORD [MORE_KEYWORDS]` +
 e.g. `findpolicy senior`
+* *Find people by keywords*: `findtagpeople KEYWORD [MORE_KEYWORDS]` +
+e.g. `findtagpeople smoker diabetic`
+* *Find policy by keywords*: `findtagpolicy KEYWORD [MORE_KEYWORDS]` +
+e.g. `findtagpolicy smoker diabetic`
 * *Assign Policy* : `assignpolicy INDEX pol/POLICY [MORE_POLICIES]` +
 e.g. `assignpolicy 2 pol/SeniorCare`
 * *Add Tag To Person* : `addtag INDEX t/TAG [MORE_TAGS]` +
@@ -544,5 +764,19 @@ e.g. `unassignpolicy 2 pol/SeniorCare`
 e.g. `deletetag 3 t/high_priority`
 * *Delete Tag From Policy* : `deletepolicytag INDEX t/TAG [MORE_TAGS]` +
 e.g. `deletepolicytag 2 t/lifeinsurance`
+* *Generate Report*: `report [f/FILEPATH]` +
+e.g. `report f/~/reports/`
+* *Export to Excel*: `export [name] [phone] [email] [address] [insurance] [f/FILEPATH]` +
+e.g. `export name phone email f/~/sheets/`
+* *Display*: `display i/INDICATOR [c/CHART]` +
+e.g. `display i/policy-popularity-breakdown c/piechart`
+* *List of undone commands*: `undo list`
+* *Undo till a particular command*: `undo INDEX` +
+e.g. `undo 3`
+* *Undo the most recent command*: `undo`
+* *List of undone commands*: `redo list`
+* *Undo till a particular command*: `redo INDEX` +
+e.g. `redo 3`
+* *Undo the most recent command*: `redo`
 * *Clear* : `clear`
 * *Help* : `help`
