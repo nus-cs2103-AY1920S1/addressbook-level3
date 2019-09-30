@@ -42,7 +42,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 
-
 == Features
 
 ====
@@ -57,10 +56,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Queue
 
 ==== Add a patient to the queue: `enqueue` ====
+
 Adds a patient to the queue +
 Format: `enqueue <PATIENT_REFERENCE_ID>`
 
 ==== Remove a patient from the queue: `dequeue` ====
+
 Removes a patient from the queue +
 Format: `dequeue <PATIENT_REFERENCE_ID>`
 
@@ -75,6 +76,7 @@ Doctor takes a break, the room becomes unavailable. +
 Format: `break <ROOM_NUMBER>`
 
 ==== Doctor resumes his/her duty: `resume` ====
+
 Doctor resumes his/her duty and can now serve patients. +
 Format: `resume <ROOM_NUMBER>`
 
@@ -82,15 +84,18 @@ Format: `resume <ROOM_NUMBER>`
 === Patient Management
 
 ==== Searches patient by arguments: `patient` ====
+
 Finds patients whose names contain any of the given keywords +
 Format: `patient <PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>`
 
 ==== Registers a new patient: `register` ====
+
 Registers a new patient +
 Format:  `register -name|-n <PATIENT_NAME> -id|-i <PATIENT_REFERENCE_ID> -phone|-p <PHONE_NUM> [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
 
 
 ==== Updates patients’ profiles: `update` ====
+
 If user is in the patients listing screen, updates any change for patients’ profiles +
 Format: `update <ENTRY_ID> [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
 
@@ -103,6 +108,7 @@ Displays doctors registered in system +
 Format: `doctors [<DOCTOR_NAME>]`
 
 ==== Register a new doctor: `newdoctor` ====
+
 Hires a new doctor. +
 Format: `newdoctor [-name|-n <DOCTOR_NAME>] [-hp <PHONE_NUM>] +
  [-email|-e <EMAIL>] [-remark|-r <REMARK>]`
@@ -115,11 +121,13 @@ Format: `update <<DOCTOR_ENTRY_INDEX>> [-name|-n <DOCTOR_NAME>]+
 [-remark|-r <REMARK>]`
 
 ==== Updates Doctors’ profiles: `onduty` ====
+
 Marks the doctor as on-duty and stationed in the given room number. +
 Patients can be directed to the specified doctor. +
 Format: `onduty <ROOM_NUMBER> <DOCTOR_ENTRY_INDEX>`
 
 ==== Updates patients’ profiles: `offduty` ====
+
 Marks the doctor as off-duty. Patients can not be directed to the specified doctor. +
 Format: `offduty <ROOM_NUMBER>`
 
@@ -127,63 +135,78 @@ Format: `offduty <ROOM_NUMBER>`
 === Appointment Management
 
 ==== Displays all appointments: `appointments` ====
+
 Displays a sorted list of upcoming appointments +
 Format: `appointments [-date|-d <DATE>] [-patient|-p <PATIENT_NAME | PATIENT_IC>]`
 
 ==== Cancels an appointment: `cancel` ====
+
 Deletes the specified person from the date, use system time (TODAY) if not specified +
 Format: `cancel <PATIENT_NAME | PATIENT_IC> -date|-d <DATETIME>`
 
 ==== Changes the appointment date: ` change ` ====
+
 Changes and updates to a new appointment date for a patients, use system date (TODAY) if not  +
 Format: `change [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-date|-d <DATETIME>]`
 
 ==== Shows the empty slots: ` slot ` ====
+
 List all the available empty slots (with the specific doctor) for patients to choose for appointment +
 Format: `slot [-date <DATETIME>] [-doctor <DOCTOR_NAME>]`
 
-
 ==== Display patients who have missed their appointment and have yet to be notified: `missed` ====
+
 Display all patients who have missed their appointments that are not yet settled. If date is given, display all patients who have missed their appointments on that specified date regardless if they have been contacted. Acts as a todo list when date is not given. +
 Format: `missed [-date <DATETIME>]`
 
 ==== Sets missed appointments as settled/notified: `settle` ====
+
 Settles the missed appointments for respective patients. +
 Format: `settle <PATIENT_REFERENCE_ID>`
 
 === Inventory commands (v2.0) ===
 
 ==== Views the inventory: `inventory` ====
+
 Displays the medicine inventory +
 Format: `inventory`
 
 ==== Views the inventory: `prescription` ====
+
 Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
 Format: `prescription [-id] <PRESCRIPTION_ID>`
 
 === User Accounts (v2.0) ===
+
 ==== Login: `login` ====
+
 Login with your username and password. The user will then be prompted to enter their password. +
 Format: `login <USER_NAME>`
 
 ==== Logout: `logout` ====
+
 Logout from your account +
 Format: `logout`
 
 === General commands ===
+
 ==== Viewing help: `help` ====
+
 Lists all the useful commands +
 Format: `help`
 
 ==== Exits program: `exit` ====
+
 Exits the program +
 Format: `exit`
 
 ==== Undo action: `undo` ====
+
 Undo an action +
 Format: `undo`
 
 ==== Creates, updates or removes an alias command: `alias` ====
+
 Tags an alias name to a reserved command. More specifically,
 one of the following will happen depending on the parameters of the function.
 Please note that the user can not remap a reserved command.
