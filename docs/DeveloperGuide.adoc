@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= DukeCooks v1.1 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -279,13 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* health conscious individuals
+* prefers to have a complete health monitoring all in one app
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: monitors all aspects of health in one application
 
 [appendix]
 == User Stories
@@ -295,35 +296,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Home Cook |store all my recipes |easily list out all the ingredients I have to buy for a weekly meal plan
 
-|`* * *` |user |add a new person |
+|`* * *` |Indecisive person |get food suggestions |save time when deciding what to eat
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Health conscious person |track my health progress |manage my diet
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Fitness enthusiast |track my exercises |keep a history of my fitness progress
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Food Blogger |consolidate my food and exercise plan |share them with other interested individuals
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |Foodie |find new places to eat |try out new places and share the experience with others
+
+|`*` |Fun Seeker |keep track of my health in a game like way |have fun and be healthy at the same time
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `DukeCooks` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add recipe
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list recipes
+2.  DukeCooks shows a list of recipes
+3.  User requests to add a recipe to the list
+4.  DukeCooks adds the recipe to the list
 +
 Use case ends.
 
@@ -337,17 +339,115 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. DukeCooks shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Suggest Food
+
+*MSS*
+
+1.  User requests for a food suggestion
+2.  DukeCooks gives a food recommendation
+3.  User is satisfied with the recommendation
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User is unsatisfied with the food recommendations.
++
+[none]
+** 3a1. User asks for another suggestion.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add Calorie Intake
+
+*MSS*
+
+1.  User requests to add calorie intake for the day
+2.  DukeCooks shows a list of Nutrition (Breakdown)
+3.  User requests to add certain nutrition value fields
+4.  DukeCooks updates Health Records
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The Nutrition list is empty (User did not give any nutrition inputs).
++
+[none]
+** 2a1. DukeCooks updates calorie count in Health Records (omit nutritional information).
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. DukeCooks shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Create Workout
+
+*MSS*
+
+1.  User requests to list <<exercise>>
+2.  DukeCooks shows a list of <<exercise>>
+3.  User requests to add an exercise into their <<workout>>
+4.  DukeCooks adds the exercise into the <<workout>>
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The exercise list is empty
++
+[none]
+** 2a1. DukeCooks updates the list with pre-made exercises.
++
+Use case resumes at step 2.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. DukeCooks shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Create a new diary
+
+*MSS*
+
+1.  User requests to create a new diary
+2.  A new diary is created with the specified name
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Diary name already exists.
++
+[none]
+** 1a1. DukeCooks displays an error message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 recipes without a significant reduction in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -358,8 +458,11 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[workout]] Workout::
+A list of <<exercise>> planned to be done in one session.
+
+[[exercise]] Exercise::
+An activity that works a specific or multiple muscles, usually a repetition of an action.
 
 [appendix]
 == Product Survey
