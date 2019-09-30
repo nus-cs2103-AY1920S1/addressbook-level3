@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`i/001A n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -47,10 +47,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/<NAME> p/<PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
 ====
 
 === Queue
@@ -62,22 +62,22 @@ Format: `enqueue <PATIENT_REFERENCE_ID>`
 
 ==== Remove a patient from the queue: `dequeue` ====
 
-Removes a patient from the queue +
-Format: `dequeue <PATIENT_REFERENCE_ID>`
+Removes a patient from the queue based on their queue position +
+Format: `dequeue <QUEUE_NUMBER>`
 
 ==== Assign next patient to an available doctor : `next` ====
 
-Assign next patient to an available doctor. Only used when a patient exits the room. +
-Format: `next` <ROOM_ID>
+Assigns next patient to an available doctor based on the room number. +
+Format: `next <ROOM_ID>`
 
 ==== Doctor takes a break: `break`  ====
 
-Doctor takes a break, the room becomes unavailable. +
+Avoids directing patients to a given Doctor based on the room number. +
 Format: `break <ROOM_NUMBER>`
 
 ==== Doctor resumes his/her duty: `resume` ====
 
-Doctor resumes his/her duty and can now serve patients. +
+Allows patients to be directed to a given Doctor based on the room number. +
 Format: `resume <ROOM_NUMBER>`
 
 
@@ -85,8 +85,10 @@ Format: `resume <ROOM_NUMBER>`
 
 ==== Searches patient by arguments: `patient` ====
 
-Finds patients whose names contain any of the given keywords +
-Format: `patient <PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>`
+Finds patients whose reference ids, names or phone numbers containing any of the given keywords. +
+If search keywords are empty, all registered patients will be displayed. +
+Note: Requires at least 4 characters to search by a reference id or phone numbers. +
+Format: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
 
 ==== Registers a new patient: `register` ====
 
@@ -96,73 +98,80 @@ Format:  `register -name|-n <PATIENT_NAME> -id|-i <PATIENT_REFERENCE_ID> -phone|
 
 ==== Updates patients’ profiles: `update` ====
 
-If user is in the patients listing screen, updates any change for patients’ profiles +
+If user is in the patients listing screen,
+Updates any change for patients’ profiles +
 Format: `update <ENTRY_ID> [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
 
 
 === On-Duty Doctors Management ===
 
-==== Views doctors on shift: `doctors` ====
+==== Views doctors: `doctors` ====
 
-Displays doctors registered in system +
+Finds doctors whose names contains any of the given keywords. +
+If search keywords are empty, all registered doctors will be displayed. +
 Format: `doctors [<DOCTOR_NAME>]`
 
 ==== Register a new doctor: `newdoctor` ====
 
-Hires a new doctor. +
-Format: `newdoctor [-name|-n <DOCTOR_NAME>] [-hp <PHONE_NUM>] +
+Registers a new doctor. +
+Format: `newdoctor -name|-n <DOCTOR_NAME> [-hp <PHONE_NUM>] +
  [-email|-e <EMAIL>] [-remark|-r <REMARK>]`
 
-==== Update a patient's profile: `update` ====
+==== Update a doctor's profile: `update` ====
 
-If user is in the doctors listing screen, updates any change for patients’ profiles. +
-Format: `update <<DOCTOR_ENTRY_INDEX>> [-name|-n <DOCTOR_NAME>]+
+If user is in the doctors listing screen, updates any change for doctor’s profiles. +
+Format: `updatedoctor <ENTRY_ID> [-name|-n <DOCTOR_NAME>]+
 [-ic|-i <DOCTOR_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] +
 [-remark|-r <REMARK>]`
 
-==== Updates Doctors’ profiles: `onduty` ====
+==== Unregister a doctor's profile: `resign` ====
+
+If user is in the doctors listing screen, removes a doctor’s profile. +
+Format: `resign <ENTRY_ID>`
+
+==== Updates a doctor's profiles: `onduty` ====
 
 Marks the doctor as on-duty and stationed in the given room number. +
 Patients can be directed to the specified doctor. +
-Format: `onduty <ROOM_NUMBER> <DOCTOR_ENTRY_INDEX>`
+Format: `onduty -d <DOCTOR_ENTRY_INDEX> -r <ROOM_NUMBER>`
 
-==== Updates patients’ profiles: `offduty` ====
+==== Updates doctor's profiles: `offduty` ====
 
 Marks the doctor as off-duty. Patients can not be directed to the specified doctor. +
 Format: `offduty <ROOM_NUMBER>`
-
 
 === Appointment Management
 
 ==== Displays all appointments: `appointments` ====
 
-Displays a sorted list of upcoming appointments +
-Format: `appointments [-date|-d <DATE>] [-patient|-p <PATIENT_NAME | PATIENT_IC>]`
+Displays a sorted list of upcoming appointments whose appointment is within +
+If search keywords are empty, only upcoming appointments within the next 7 days will be displayed. +
+Format: `appointments [-patient|-p <PATIENT_NAME | PATIENT_IC>] [-start|-s <START_DATE>] [-end|-e <END_DATE>]`
 
 ==== Cancels an appointment: `cancel` ====
 
-Deletes the specified person from the date, use system time (TODAY) if not specified +
-Format: `cancel <PATIENT_NAME | PATIENT_IC> -date|-d <DATETIME>`
+Cancels the specified appointment. +
+Format: `cancel <ENTRY_ID>`
 
 ==== Changes the appointment date: ` change ` ====
 
-Changes and updates to a new appointment date for a patients, use system date (TODAY) if not  +
-Format: `change [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-date|-d <DATETIME>]`
+Changes and updates to a new appointment detail in the appointment listing screen +
+Format: `change <ENTRY_ID> [-id|-i <PATIENT_IC>] [-start|-s <START_DATE>] [-end|-e <END_DATE>]`
 
 ==== Shows the empty slots: ` slot ` ====
 
-List all the available empty slots (with the specific doctor) for patients to choose for appointment +
-Format: `slot [-date <DATETIME>] [-doctor <DOCTOR_NAME>]`
+List all the available empty slots for patients to make appointments +
+Format: `slot -start|-s <START_DATE> -end|-e <END_DATE>`
 
-==== Display patients who have missed their appointment and have yet to be notified: `missed` ====
+==== Displays patients who have missed their appointments and have yet to be notified: ` missed ` ====
 
-Display all patients who have missed their appointments that are not yet settled. If date is given, display all patients who have missed their appointments on that specified date regardless if they have been contacted. Acts as a todo list when date is not given. +
+Displays all patients who have missed their appointments that are not yet settled. +
 Format: `missed [-date <DATETIME>]`
 
 ==== Sets missed appointments as settled/notified: `settle` ====
 
 Settles the missed appointments for respective patients. +
-Format: `settle <PATIENT_REFERENCE_ID>`
+Format: `settle <ENTRY_ID>`
 
 === Inventory commands (v2.0) ===
 
