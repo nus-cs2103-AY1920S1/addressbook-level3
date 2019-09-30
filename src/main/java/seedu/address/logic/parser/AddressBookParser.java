@@ -74,6 +74,10 @@ public class AddressBookParser {
         case AddAppCommand.COMMAND_WORD:
                 return new AddAppCommandParser().parse(arguments);
 
+        case AppointmentsCommand.COMMAND_WORD:
+            return new AppointmentsCommandParser().parse(arguments);
+
+
 //        case AckAppCommand.COMMAND_WORD:
 //                return new AckAppCommandParser().parse(arguments);
 
