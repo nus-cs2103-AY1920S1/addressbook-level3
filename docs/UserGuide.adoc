@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-W11-1/main
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-1/main/tree/master
 
-By: `Team AY1920S1-CS2103T-W11-1`      Since: `Sep 2019`      Licence: `MIT`
+By: `Team CS2103T-W11-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
