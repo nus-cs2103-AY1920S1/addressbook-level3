@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,21 +15,22 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.testutil.TestUtil;
 
 class CommandHistoryTest {
-
     private CommandHistory history;
+    private ModelManager model;
+    private ModelManager expectedModel;
 
     @BeforeEach
     public void setUp() {
         history = new CommandHistory();
+        model = TestUtil.getTypicalModelManager();
+        expectedModel = TestUtil.getTypicalModelManager();
     }
 
     @Test
     void execute_performUndo_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
         assertFalse(history.canUndo());
 
         history.addToCommandHistory(new ReversibleCommandStub("cmd 1"));
@@ -56,9 +58,6 @@ class CommandHistoryTest {
 
     @Test
     void canRedo() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
         assertFalse(history.canRedo());
 
         history.addToCommandHistory(new ReversibleCommandStub("cmd 1"));

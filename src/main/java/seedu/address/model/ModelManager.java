@@ -155,7 +155,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyAppointmentBook getSchedule() {
+    public ReadOnlyAppointmentBook getAppointmentBook() {
         return appointmentBook;
     }
 

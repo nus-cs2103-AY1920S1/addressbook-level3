@@ -114,9 +114,9 @@ public interface Model {
     void setSchedule(ReadOnlyAppointmentBook schedule);
 
     /**
-     * Returns the schedule
+     * Returns the schedule of appointments.
      */
-    ReadOnlyAppointmentBook getSchedule();
+    ReadOnlyAppointmentBook getAppointmentBook();
 
     /**
      * Returns true if an event with the same identity as {@code event} exists in the schedule.

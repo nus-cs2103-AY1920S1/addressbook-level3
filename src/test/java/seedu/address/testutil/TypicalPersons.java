@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.AppointmentBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -87,5 +88,12 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    /**
+     * Returns an {@code AppointmentBook} with all the typical appointments.
+     */
+    public static AppointmentBook getTypicalAppointmentBook() {
+        return new AppointmentBook();
     }
 }

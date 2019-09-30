@@ -13,6 +13,7 @@ import seedu.address.logic.commands.utils.ReversibleCommandStub;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.testutil.TestUtil;
 
 /*
  * Contains integration tests (interaction with the Model and CommandHistory) and unit tests for UndoCommand.
@@ -23,8 +24,8 @@ class UndoCommandTest {
     public void execute_performUndo_success() {
 
         CommandHistory history = new CommandHistory();
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model model = TestUtil.getTypicalModelManager();
+        Model expectedModel = TestUtil.getTypicalModelManager();
 
         UndoCommand undoCommand = new UndoCommand(history);
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_NO_UNDO_HISTORY_ERROR);
