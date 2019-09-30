@@ -19,26 +19,31 @@ public class SortCommand extends Command {
     /**
      * Possible sorting methods for {@code SortCommand}.
      */
-    enum SortingMethod {
+    public enum SortingMethod {
         byName,
         byAuthor,
         byWebLink,
         byDifficulty,
-        bySource
+        bySource;
+
+        public static final String MESSAGE_CONSTRAINTS = "Sorting method should be one of \"name\", " +
+            "\"author\", \"weblink\", \"difficulty\" or \"source\"";
     }
 
     /**
      * Possible sorting orders for {@code SortCommand}.
      */
-    enum SortingOrder {
+    public enum SortingOrder {
         ascend,
-        descend
+        descend;
+
+        public static final String MESSAGE_CONSTRAINTS = "Sorting order should be either \"ascend\" or \"descend\"";
     }
 
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the current view in a certain order."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the current view in a certain order. "
             + "Parameters: "
-            + PREFIX_SORTING_METHOD + "SORTING_METHOD"
+        + PREFIX_SORTING_METHOD + "SORTING_METHOD "
             + PREFIX_SORTING_ORDER + "SORTING_ORDER\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_SORTING_METHOD + "time"
@@ -162,6 +167,6 @@ public class SortCommand extends Command {
         default:
             throw new IllegalArgumentException("Sorting method doesn't exist.");
         }
-        return null;
+        return new CommandResult("Problem list sorted!");
     }
 }

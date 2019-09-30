@@ -139,8 +139,9 @@ public class ModelManager implements Model {
     @Override
     public void updateSortedProblemList(Comparator<Problem> problemComparator) {
         requireNonNull(problemComparator);
-        filteredProblems.sort(problemComparator);
+        algoBase.getProblemList().sorted(problemComparator);
     }
+
 
     @Override
     public boolean equals(Object obj) {

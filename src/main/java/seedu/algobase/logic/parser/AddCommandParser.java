@@ -9,10 +9,10 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
+import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -100,13 +100,4 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         return new AddCommand(problem);
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }
