@@ -22,7 +22,7 @@ Role: Project Advisor
 image::nexolute.jpg[width="150", align="left"]
 {empty}[http://github.com/nexolute[github]] [<<eugenelim#, portfolio>>]
 
-Role: Developer
+Role: Team Lead and Git Expert
 
 '''
 
@@ -30,7 +30,7 @@ Role: Developer
 image::leeyiyuan.jpg[width="150", align="left"]
 {empty}[http://github.com/LeeYiyuan[github]] [<<leeyiyuan#, portfolio>>]
 
-Role: Developer
+Role: Code Quality and Integration
 
 '''
 
@@ -38,7 +38,7 @@ Role: Developer
 image::weiyang13.jpg[width="150", align="left"]
 {empty}[http://github.com/weiyang13[github]] [<<tanweiyang#, portfolio>>]
 
-Role: Developer
+Role: Documentation
 
 '''
 
@@ -46,7 +46,7 @@ Role: Developer
 image::alaete.jpg[width="150", align="left"]
 {empty}[http://github.com/Alaete[github]] [<<oliviayu#, portfolio>>]
 
-Role: Developer
+Role: Testing
 
 '''
 
@@ -54,6 +54,6 @@ Role: Developer
 image::troomtroom.jpg[width="150", align="left"]
 {empty}[http://github.com/troomtroom[github]] [<<kartike#, portfolio>>]
 
-Role: Developer
+Role: In Charge of UI
 
 '''
