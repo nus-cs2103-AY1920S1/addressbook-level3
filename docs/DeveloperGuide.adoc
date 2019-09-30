@@ -295,17 +295,67 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |have as much information on hand as possible |get all the information I have collected and tagged as part of my revision and ensure that I have all the necessary information at hand.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |save time in creating cheatsheet | spend more time on revision
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |tailor the information I have in my cheatsheet |choose which types of tags I want to include in my cheatsheet.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |familiarise with some common programs from the pre-set flashcards in the question bank |learn more useful tips and snippets of information
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |quickly store tutorial questions for revision |just store a screenshot of the question for future reference
+
+|`* * *` |user |lighten the weight of my bag |cure my back pain from carrying a heavy bag and still store my notes conveniently.
+
+|`* * *` |user |find my notes efficiently for reference |write as much notes as possible during studies without worries
+
+|`* * *` |user who constantly misplace notes |keep myself more organized |effectively see what notes are missing
+
+|`* * *` |user |sort and skim through long lists of notes quickly |take notes during class without missing out important pointers
+
+|`* * *` |user |take charge of my learning by having multiple “filters” or “levels” to my learning |be a proactive learner
+
+|`* * *` |user who is forgetful |practice spaced retention |better memorize and recall the topics
+
+|`* * *` |user |better understand or memorize the topics |improve my results
+
+|`* * *` |university educator teaching multiple modules |easily categorize and organize the notes I create for my students |easily search by the tags for relevant notes
+
+|`* *` |user |make cheatsheets from exams |organize and collate the best pointers to be made into a cheatsheet
+
+|`* *` |user |creatively create and implement notes |be more effective with my studies
+
+|`* *` |user |not take break for too long |be effective with my revision using the pomodoro technique
+
+|`* *` |user |have suggestions on what to do during breaks | be more productive and on-track with tasks
+
+|`* *` |user |make sure that my notes doesn’t miss out important points |collate and compare my notes with my friends’ efficiently
+
+|`* *` |user |be reminded at appropriate times to revise my work |revise regularly and consistently
+
+|`* *` |user |disseminate information efficiently |save the work amongst different teammates
+
+|`* *` |user |better understand or memorize the topics |improve my results
+
+|`* *` |user |connect different parts of questions together | easily link concepts together
+
+|`* *` |user |share notes with my friends and for them to share notes with me, for ease of discussion |be able to study with others
+
+|`* *` |user |answer the questions within a certain time frame |boost my confidence and proficiency in a subject
+
+|`* *` |user |keep track of the harder questions |revise more effectively
+
+|`* *` |university educator |keep track of my students' progress and evaluate who are the stronger/weaker students so they can help each other |help my students do well in their studies
+
+|`* *` |university educator |distribute the flashcards I create to my students so they can use them to practice |help my students better memorise and recall my class content
+
+|`* *` |university educator |give my students quizzes during lecture using the flashcards | make sure that they will not fall asleep during lecture.
+
+|`*` |user |download flashcards from online sources |save time for other revisions
+
+|`*` |user |create notes without papers | save the earth
+
 |=======================================================================
 
 _{More to be added}_
