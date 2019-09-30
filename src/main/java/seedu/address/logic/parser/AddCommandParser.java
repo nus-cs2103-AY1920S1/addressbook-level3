@@ -35,8 +35,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (hasTags(arguments)) {
             String trimmedTags = arguments[2].trim();
             String[] tags = trimmedTags.split("#");
-            Set<Tag> tagList = ParserUtil.parseTags(Arrays.asList(tags));
-            item = new Item(name, expiryDate, tagList);
+            Set<Tag> tagSet = ParserUtil.parseTags(Arrays.asList(tags));
+            item = new Item(name, expiryDate, tagSet);
         } else {
             item = new Item(name, expiryDate);
         }
