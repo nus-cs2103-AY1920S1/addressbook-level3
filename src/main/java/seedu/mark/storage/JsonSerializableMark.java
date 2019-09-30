@@ -19,7 +19,7 @@ import seedu.mark.model.bookmark.Bookmark;
 @JsonRootName(value = "mark")
 class JsonSerializableMark {
 
-    public static final String MESSAGE_DUPLICATE_BOOKMARK = "Bookmarks list contains duplicate bookmark(s).";
+    public static final String MESSAGE_DUPLICATE_BOOKMARK = "Bookmark list contains duplicate bookmark(s).";
 
     private final List<JsonAdaptedBookmark> bookmarks = new ArrayList<>();
 

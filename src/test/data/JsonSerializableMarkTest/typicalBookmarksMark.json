@@ -1,5 +1,5 @@
 {
-  "_comment": "Mark save file which contains the same Person values as in TypicalBookmarks#getTypicalMark()",
+  "_comment": "Mark save file which contains the same Bookmark values as in TypicalBookmarks#getTypicalMark()",
   "bookmarks" : [ {
     "name" : "Alice Pauline",
     "url" : "https://alice@example.com",

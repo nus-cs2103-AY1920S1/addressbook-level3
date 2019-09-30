@@ -46,7 +46,7 @@ public class Url {
      *
      * @param email A valid URL.
      */
-    public Url(String email) {
+    public Url(String url) {
         requireNonNull(email);
         checkArgument(isValidUrl(email), MESSAGE_CONSTRAINTS);
         value = email;

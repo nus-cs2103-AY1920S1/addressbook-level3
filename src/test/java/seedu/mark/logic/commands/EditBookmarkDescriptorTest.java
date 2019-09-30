@@ -42,7 +42,7 @@ public class EditBookmarkDescriptorTest {
         editedAmy = new EditBookmarkDescriptorBuilder(DESC_AMY).withUrl(VALID_URL_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different address -> returns false
+        // different remark -> returns false
         editedAmy = new EditBookmarkDescriptorBuilder(DESC_AMY).withRemark(VALID_REMARK_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 

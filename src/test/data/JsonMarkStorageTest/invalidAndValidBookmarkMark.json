@@ -1,10 +1,10 @@
 {
   "bookmarks": [ {
-    "name": "Valid Person",
+    "name": "Valid Bookmark",
     "url": "https://hans@example.com",
     "remark": "4th street"
   }, {
-    "name": "Person With Invalid Url Field",
+    "name": "Bookmark With Invalid Url Field",
     "url": "hans@invalid!3e",
     "remark": "4th street"
   } ]
