@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W12-2/main
 
+image::logo/logo.png[align="center"]
+
 By: `Team THRIFT`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction

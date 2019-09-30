@@ -14,7 +14,26 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W12-2/main
 
+image::logo/logo.png[align="center"]
+
 By: `Team THRIFT`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+<<thrift, THRIFT>> is an application for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money.
+It maintain records of your daily incoming and outgoing transactions and constantly keep track of the user's spending and income.
+THRIFT is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI).
+It is a simple, no-frills finance tracker made for the target user.
+
+=== Purpose
+
+This developer guide aims to communicate to the developers working on THRIFT the design and architecture of the implementation.
+It also includes non-technical details to give the developers an idea of the direction THRIFT intends to take on both current and future features.
+A developer should be able to understand the design, architecture and goals of THRIFT after reading this guide.
+
+=== Scope
+
+This developer guide specifies the technical and non-technical details of THRIFT.
+The technical aspects include the design and architecture while the non-technical aspects include the user stories, use cases and <<nfr, NFRs>>.
 
 == Setting up
 
@@ -616,12 +635,93 @@ _Use case ends_
 +
 _Use case ends_
 
+[discrete]
+=== Use case: Tagging a transaction
+
+*MSS*
+
+1. User requests to tag a specific transaction.
+2. THRIFT processes the request and adds the tag to the specific transaction.
++
+_Use case ends_
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. THRIFT displays an invalid parameter error to the user and the transaction is not updated.
++
+_Use case ends_
+
+
+[discrete]
+=== Use case: Untagging a transaction
+
+*MSS*
+
+1. User requests to untag a specific transaction.
+2. THRIFT processes the request and removes the tag from the specific transaction.
++
+_Use case ends_
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. THRIFT displays an invalid parameter error to the user and the transaction is not updated.
++
+_Use case ends_
+
+[discrete]
+=== Use case: Convert a transaction
+
+*MSS*
+
+1. User requests to convert the currency of a specific transaction to a new currency.
+2. THRIFT processes the request and updates specific transaction with the new value in the new currency.
++
+_Use case ends_
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. THRIFT displays an invalid parameter error to the user and the transaction is not updated.
++
+_Use case ends_
+
+[discrete]
+=== Use case: Convert a value
+
+*MSS*
+
+1. User requests to convert a value in SGD to a specific currency.
+2. THRIFT processes the request and displays the new value in the new currency.
++
+_Use case ends_
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. THRIFT displays an invalid parameter error to the user.
++
+_Use case ends_
+
 [appendix]
 == Non Functional Requirements
 
-. THRIFT should be able to run on any <<mainstream-os, mainstream OS>> as long as it has Java `11` installed.
-. THRIFT should be able to hold up to 250 persons without a noticeable sluggishness in performance for typical usage.
-. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. THRIFT should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
+. THRIFT should be able to hold up to 250 transactions without a noticeable drop in performance for typical usage.
+. A user with above average typing speed for <<regular-english-text, regular English text>> (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 . THRIFT should be able to run with or without internet connection.
 . THRIFT should work for a single user only.
 . THRIFT should not require user to install.
@@ -630,8 +730,24 @@ _Use case ends_
 [appendix]
 == Glossary
 
+[[thrift]] THRIFT::
+Stands for "Terminal-input Human Readable Interactive Finance Tracker". It is the application this developer guide is for.
+
+[[nfr]] NFR::
+Stands for "Non-functional Requirement"
+
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X
+
+[[regular-english-text]] Regular English Text::
+Stands for text with ordinary english grammar structures and vocabulary generally used by the public.
+It excludes syntax related to programming and <<system-administration, system administration>>.
+
+[[system-administration]] System Administration::
+Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
+with the goal of ensuring the systems are running efficiently and effectively.
+
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -708,6 +824,63 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No changes. Error details shown in status message.
 .. Test case: `clone` +
    Expected: No changes. Error details shown in status message.
+
+=== Tagging a transaction
+
+. Tagging a transaction and reflecting changes in the list.
+
+.. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
+.. Test case: `tag i/1 t/EXPENSIVE`
+Expected: Details of the tagged transaction shown in status message. Listing the transaction reflects changes.
+.. Test case: `tag i/INVALID_INDEX` t/VALID_TAG` where `INVALID_INDEX` is a number less than 1 or more than list size and VALID_TAG is a valid tag. +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `tag firstTransaction` +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `tag` +
+   Expected: No changes. Error details shown in status message.
+
+=== Untagging a transaction
+
+. Untagging a transaction and reflecting changes in the list.
+
+.. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
+.. Test case: `untag i/1 t/FOOD` +
+   Expected: Details of the untagged transaction shown in status message. Listing the transaction reflects changes.
+.. Test case: `untag i/INVALID_INDEX t/VALID_TAG` where `INVALID_INDEX` is a number less than 1 or more than list size and VALID_TAG is a valid tag. +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `untag i/VALID_INDEX t/NOT_INSIDE_TAG` where `VALID_INDEX` is a valid transaction index and NOT_INSIDE_TAG is not inside the transaction specified. +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `untag firstTransaction` +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `untag` +
+   Expected: No changes. Error details shown in status message.
+
+=== Converting a transaction
+
+. Converting a transaction's currency and reflecting changes in the list.
+
+.. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
+.. Test case: `convert to/USD i/1` +
+   Expected: Details of the converted transaction shown in status message. Listing the transaction reflects changes.
+.. Test case: `convert to/USD i/INVALID_INDEX` where `INVALID_INDEX` is a number less than 1 or more than list size. +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `convert to/INVALID_CURRENCY i/VALID_INDEX ` where `INVALID_CURRENCY` is not a supported currency and `VALID_INDEX` is a valid transaction index. +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `convert firstTransaction` +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `convert` +
+   Expected: No changes. Error details shown in status message.
+
+=== Converting a value
+
+. Converting a values's currency and displaying it
+
+.. Test case: `convert from/SGD to/USD c/cost`. +
+   Expected: Original value and converted value displayed to the user.
+.. Test case: `convert from/SGD to/INVALID_CURRENCY c/cost ` where `INVALID_CURRENCY` is not a supported currency. +
+   Expected: Error details shown in status message.
+.. Test case: `convert from/INVALID_CURRENCY to/USD c/cost ` where `INVALID_CURRENCY` is not a supported currency. +
+   Expected: Error details shown in status message.
 
 _{ more test cases ... }_
 
