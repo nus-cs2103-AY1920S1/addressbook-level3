@@ -18,6 +18,12 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
     }
 
     @Override
+    public boolean containsClashing(Trip toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isClashingWith);
+    }
+
+    @Override
     public void add(Trip toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);

@@ -20,6 +20,8 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
      */
     public abstract boolean contains(T toCheck);
 
+    public abstract boolean containsClashing(T toCheck);
+
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.TravelPal;
+import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,6 +21,8 @@ import seedu.address.model.person.Person;
 class JsonSerializableTravelPal {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_TRIP = "Trip list contains duplicate trip(s).";
+    public static final String MESSAGE_CLASHING_TRIP = "Trip list contains clashing trip";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedTrip> trips = new ArrayList<>();
@@ -56,6 +59,15 @@ class JsonSerializableTravelPal {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             travelPal.addPerson(person);
+        }
+        for(JsonAdaptedTrip jsonAdaptedTrip : trips) {
+            Trip trip = jsonAdaptedTrip.toModelType();
+            if(travelPal.hasTrip(trip)){
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TRIP);
+            } if (travelPal.hasClashingTrip(trip)){
+                throw new IllegalValueException(MESSAGE_CLASHING_TRIP);
+            }
+            travelPal.addTrip(trip);
         }
         return travelPal;
     }
