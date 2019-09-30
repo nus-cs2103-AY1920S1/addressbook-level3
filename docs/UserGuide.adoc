@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= AddMin+ - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,32 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*AddMin+* is an all in one administration desktop application, that is specially designed for *ABC Company*, a tech startup company with only 6 full-time employees. ABC Company is still a relatively small company and it could only afford to hire 1 full-time employee to deal with all administrative matters. *AddMin+* is specially designed to help ease the workload by offering a one-stop platform to help deal with the various administrative needs of the company. Addmin+ uses a Command Line Interface(CLI) and displays the results through a Graphical User Interface(GUI) to assist the employee in their specific needs.
+
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `AddMin+.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for AddMin+
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
+.  Click on the specific function you want, Finance, Manpower or Event
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Employee List.
+* **`delete`**`3` : deletes the 3rd Employee shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -44,6 +46,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General. The commands that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands, for new users do refer to Section 3.1 till Section 3.4 for the specific command and how to use them. For more advanced users, you could refer to Section 4.1 for the full list of Command Summary.
+
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
