@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all problems
-* **`add`**`n/factorial m/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Wee Han` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
+* **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Wee Han` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -56,14 +56,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ==== Adding a problem: `add`
 
 Generates a new problem. +
-Format: `add n/NAME [m/DESCRIPTION] [a/AUTHOR] [t/TAG]...`
+Format: `add n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...`
 
 [TIP]
 A problem can have any number of tags (including 0)
 
 Examples:
 
-* `add  n/factorial m/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
+* `add  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
 
 ==== Listing all problems : `list`
 
@@ -73,7 +73,7 @@ Format: `list`
 ==== Editing a problem : `edit`
 
 Edits an existing problem. +
-Format: `edit n/NAME [d/DELETE] [n/NAME] [m/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
+Format: `edit INDEX [d/DELETE] [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
 
 * Edits the problem at the specified `INDEX`. The index refers to the index number shown in the displayed problem list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -93,11 +93,11 @@ Edits the name of the 2nd problem to be `permutations` and clears all existing t
 Finds problems whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `henz` will match `Henz`
+* The order of the keywords does not matter. e.g. `Henz Martin` will match `Martin Henz`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Problems matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Hen` will not match `Henz`
+* Problems matching at least one keyword will be returned (i.e. `OR` search). e.g. `Henz Ben` will return `Henz Martin`, `Ben Leong`
 
 Examples:
 
@@ -125,31 +125,31 @@ Deletes the 2nd problem in the displayed list.
 Deletes the 1st problem in the results of the `find` command.
 
 
-==== Sorting problem: `sort`
+==== Sorting problems: `sort`
 
 Sorts the current list of results by a specified order and direction. +
 Format: `sort m/METHOD [d/DIRECTION]`
 
-* Method can be `alphabetical` or `chronological`.
+* Method can be `alphabetical`, `chronological` or `difficulty`.
 * Direction can be `ASC` or `DESC` representing ascending and descending order. The default is in ascending order.
 
 === Tags
 
-==== Create new tags: `newtag`
+==== Creating new tags: `newtag`
 
 Generates a new tag. +
 Format: `newtag n/NAME`
 
 Examples:
 
-* `newtag  n/sssp`
+* `newtag n/sssp`
 
 ==== Listing tags: `lstag`
 
 Displays a list of all existing tags. +
 Format: `lstag`
 
-==== Create new tags: `deletetag`
+==== Deleting new tags: `deletetag`
 
 Deletes an existing tag. +
 Format: `deletetag INDEX`
@@ -171,11 +171,11 @@ Examples:
 ==== Editing a training plan `editplan`
 
 Edits an existing training plan. +
-Format: `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [r/DELETE_PROBLEM_INDEX_LIST] [n/NAME]`
+Format: `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME]`
 
 Examples:
 
-* `editplan 1 a/1 2 3 r/4 5 6 n/training set 1`
+* `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 
 ==== Locating training plans by name: `findplan`
 
@@ -271,10 +271,10 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add n/NAME [m/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
-e.g. `add  n/factorial m/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
+* *Add* `add n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+e.g. `add  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
 * *List* : `list` +
-* *Edit* : `edit n/NAME [d/DELETE] [n/NAME] [m/DESCRIPTION] [a/AUTHOR]  [t/TAG]...` +
+* *Edit* : `edit INDEX [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
 e.g. `edit 2 n/permutations t/`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find factorial permutations`
@@ -291,8 +291,8 @@ e.g. `deletetag 3`
 
 * *Add Training Plan* : `addplan n/NAME` +
 e.g. `addplan n/CS2040`
-* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [r/DELETE_PROBLEM_INDEX_LIST] [n/NAME]` +
-e.g. `editplan 1 a/1 2 3 r/4 5 6 n/training set 1`
+* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME]` +
+e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 * *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
 e.g. `find training set`
 * *List Training Plans* : `lsplan`
