@@ -18,3 +18,9 @@ image::damithc.jpg[width="150", align="left"]
 Role: Project Advisor
 
 '''
+
+=== Yehezkiel Raymundo Theodoroes
+image::yehezkiel.png[width="150", align="left"]
+{empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel#, portfolio>>]
+
+Role: Team Member
