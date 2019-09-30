@@ -50,7 +50,7 @@ Command format:
 
 Format: `add_expense n/EXPENSE_NAME c/COST [t/TAG]...`
 
-TIP: The default currency is in Singapore Dollars (SGD). You are recommended to `convert` foreign currencies to SGD before adding the value as the COST.
+TIP: The default currency is in Singapore Dollars (SGD). You are recommended to `convert` foreign currencies to SGD before adding the value as the `COST`.
 
 Examples:
 
@@ -79,7 +79,7 @@ Expected output:
 
 
 [[DeleteTag]]
-=== Deleting a Transaction: `delete`
+=== Deleting a transaction: `delete`
 
 Format: `delete i/INDEX`
 
@@ -99,15 +99,15 @@ Expected output:
 
 
 [[UpdateTag]]
-=== Updating a Transaction’s details: `update`
+=== Updating a transaction’s details: `update`
 
 Format: `update i/INDEX | PREFIX_LETTER/UPDATED_DETAILS`
 
 ****
-* Updates the Transaction's details at the specified `INDEX`.
+* Updates the transaction's details at the specified `INDEX`.
 ** `INDEX` refers to the index number currently shown in the UI, and must be a *positive integer*.
 * `PREFIX_LETTER` specifies type of detail to be updated, e.g. `n/` for name.
-* `UPDATED_DETAILS` are the new details of type corresponding to `PREFIX_LETTER` that the Transaction is to be updated with.
+* `UPDATED_DETAILS` are the new details of type corresponding to `PREFIX_LETTER` that the transaction is to be updated with.
 ****
 
 Examples:
@@ -127,7 +127,7 @@ Original cost was: $10.50`
 
 //tag::tag[]
 [[TagTag]]
-=== Tag transaction: `tag`
+=== Tagging a transaction: `tag`
 
 Format: `tag i/INDEX t/TAG_NAME`
 
@@ -149,7 +149,7 @@ Expected output:
 
 // tag::untag[]
 [[UntagTag]]
-=== Tag transaction: `untag`
+=== Untagging a transaction: `untag`
 
 Format: `untag i/INDEX t/TAG_NAME`
 
@@ -171,7 +171,7 @@ Expected output:
 
 // tag::convert[]
 [[ConvertTag]]
-=== Convert currency: `convert`
+=== Converting currency: `convert`
 
 Format: `convert to/TARGET_CURRENCY (c/COST|i/INDEX)`
 
@@ -198,12 +198,12 @@ Expected output:
 
 // tag::clone[]
 [[CloneTag]]
-=== Cloning a Transaction: `clone`
+=== Cloning a transaction: `clone`
 
 Format: `clone i/INDEX`
 
 ****
-* Clones (creates a duplicate of) a Transaction.
+* Clones (creates a duplicate of) a `Transaction` entry.
 * Clone produced is added to a new index at the bottom of the list.
 ****
 
@@ -226,7 +226,7 @@ NOTE: Undoable commands are commands that modify the data of THRIFT application.
 .List of undoable commands[[Undoable]]:
 * <<Adding an expense: `add_expense`, add_expense>>
 * <<Adding an income: `add_income`, add_income>>
-* <<Deleting a Transaction: `delete`, delete>>
+* <<Deleting a transaction: `delete`, delete>>
 * update
 * clone
 * tag

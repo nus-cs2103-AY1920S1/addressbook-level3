@@ -22,7 +22,7 @@ By: `Team THRIFT`      Since: `Sept 2019`      Licence: `MIT`
 <<thrift, THRIFT>> is an application for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money.
 It maintain records of your daily incoming and outgoing transactions and constantly keep track of the user's spending and income.
 THRIFT is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI).
-It is a simple, no-frills finance tracker made for the target user.
+It is a simple, no-frills finance tracker made for the target user group.
 
 === Purpose
 
@@ -299,17 +299,16 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * money-conscious NUS students
-* has a need to manage a significant number of transactions
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* number of transactions are significant and needs to be managed
+* apps are preferred on desktop over other platforms
+* typists that type quickly and prefers typing over mouse input
+* CLI usage does not pose any discomfort
 
 *Value proposition*:
 
 * provides a more effective financial management compared to typical mouse/GUI driven app
-* easier to plan for future spending
-* keeps all info regarding fees and costs in a single location
+* plans for future spending are made easier
+* congregates all info regarding fees and costs in a single location
 
 [appendix]
 == User Stories
@@ -520,7 +519,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1. User requests to add a new spending or income into the records.
+1. User requests to add a new expense or income into the records.
 2. THRIFT processes the request and adds the expense/income into the transactions list.
 +
 _Use case ends_
@@ -576,7 +575,7 @@ _Use case ends_
 _Use case ends_
 
 [discrete]
-=== Use case: Clone (create duplicate of) a transaction
+=== Use case: Clone a transaction
 
 *MSS*
 
@@ -626,7 +625,7 @@ _Use case ends_
 _Use case ends_
 
 [discrete]
-=== Use case: Tagging a transaction
+=== Use case: Tag a transaction
 
 *MSS*
 = *Extensions*
@@ -648,7 +647,7 @@ _Use case ends_
 
 
 [discrete]
-=== Use case: Untagging a transaction
+=== Use case: Untag a transaction
 
 *MSS*
 
@@ -748,7 +747,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launching and shutting down
 
 . Initial launch
 
