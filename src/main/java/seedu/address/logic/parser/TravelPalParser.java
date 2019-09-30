@@ -22,8 +22,9 @@ import seedu.address.logic.parser.itinerary.dayview.DayViewParser;
 import seedu.address.logic.parser.itinerary.eventview.EventViewParser;
 import seedu.address.logic.parser.itinerary.overallview.OverallViewParser;
 import seedu.address.logic.parser.preferences.PreferencesParser;
-import seedu.address.logic.parser.trips.AddTripParser;
+import seedu.address.logic.parser.trips.EnterCreateTripParser;
 import seedu.address.logic.parser.trips.TripManagerParser;
+import seedu.address.logic.parser.trips.edit.EditTripParser;
 import seedu.address.model.pagestatus.PageStatus;
 import seedu.address.model.pagestatus.PageType;
 
@@ -72,47 +73,34 @@ public class TravelPalParser {
         PageType currentPage = pageStatus.getPageType();
 
         switch (currentPage) {
-            case PREFERENCES:
-                return new PreferencesParser().parse(commandWord, arguments);
-                break;
-            case TRIP_MANAGER:
-                return new TripManagerParser().parse(commandWord, arguments);
-                break;
-            case ADD_TRIP:
-                return new AddTripParser().parse(commandWord, arguments);
-                break;
-            case ADD_DAY:
-                return new AddDayParser().parse(commandWord, arguments);
-                break;
-            case ADD_EVENT:
-                return new AddEventParser().parse(commandWord, arguments);
-                break;
-            case ITINERARY:
-                return new DayViewParser().parse(commandWord, arguments);
-                break;
-            case OVERALL_VIEW:
-                return new OverallViewParser().parse(commandWord, arguments);
-                break;
-            case EVENT_PAGE:
-                return new EventViewParser().parse(commandWord, arguments);
-                break;
-            case PRETRIP_INVENTORY:
-                return new InventoryParser().parse(commandWord, arguments);
-                break;
-            case EXPENSE_MANAGER:
-                return new ExpenseParser().parse(commandWord, arguments);
-                break;
-            case DIARY:
-                return new DiaryParser().parse(commandWord, arguments);
-                break;
-            case CONTACTS_MANAGER:
-                return new ContactsParser().parse(commandWord, arguments);
-                break;
-            case BOOKINGS:
-                return new BookingsParser().parse(commandWord, arguments);
-                break;
-            default:
-                throw new ParseException(UNKNOWN_PAGE_MESSAGE);
+        case PREFERENCES:
+            return new PreferencesParser().parse(commandWord, arguments);
+        case TRIP_MANAGER:
+            return new TripManagerParser().parse(commandWord, arguments);
+        case ADD_TRIP:
+            return new EditTripParser().parse(commandWord, arguments);
+        case ADD_DAY:
+            return new AddDayParser().parse(commandWord, arguments);
+        case ADD_EVENT:
+            return new AddEventParser().parse(commandWord, arguments);
+        case ITINERARY:
+            return new DayViewParser().parse(commandWord, arguments);
+        case OVERALL_VIEW:
+            return new OverallViewParser().parse(commandWord, arguments);
+        case EVENT_PAGE:
+            return new EventViewParser().parse(commandWord, arguments);
+        case PRETRIP_INVENTORY:
+            return new InventoryParser().parse(commandWord, arguments);
+        case EXPENSE_MANAGER:
+            return new ExpenseParser().parse(commandWord, arguments);
+        case DIARY:
+            return new DiaryParser().parse(commandWord, arguments);
+        case CONTACTS_MANAGER:
+            return new ContactsParser().parse(commandWord, arguments);
+        case BOOKINGS:
+            return new BookingsParser().parse(commandWord, arguments);
+        default:
+            throw new ParseException(UNKNOWN_PAGE_MESSAGE);
         }
     }
 

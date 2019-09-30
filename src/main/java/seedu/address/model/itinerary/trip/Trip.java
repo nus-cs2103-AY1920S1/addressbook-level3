@@ -6,10 +6,13 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
 
+import java.util.UUID;
+
 public class Trip {
     private final Name name;
     private final Date from;
     private final Date to;
+    private final TripId tripId;
     private final Location destintaion;
     private final Expenditure totalBudget;
     private final DayList dayList;
@@ -21,6 +24,7 @@ public class Trip {
         this.destintaion = destintaion;
         this.totalBudget = totalBudget;
         this.dayList = dayList;
+        this.tripId = new TripId();
     }
 
     public Name getName() {
@@ -33,6 +37,10 @@ public class Trip {
 
     public Date getTo() {
         return to;
+    }
+
+    public TripId getTripId() {
+        return tripId;
     }
 
     public Location getDestintaion() {
@@ -65,5 +73,23 @@ public class Trip {
                 && otherTrip.getDestintaion().equals(getDestintaion())
                 && otherTrip.getDayList().equals(getDayList());
 
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Name: ")
+                .append(name.toString())
+                .append(" From: ")
+                .append(from.toString())
+                .append(" To: ")
+                .append(to.toString())
+                .append(" Destination: ")
+                .append(destintaion.toString())
+                .append(" Total Budget: ")
+                .append(totalBudget.toString());
+
+        return builder.toString();
     }
 }

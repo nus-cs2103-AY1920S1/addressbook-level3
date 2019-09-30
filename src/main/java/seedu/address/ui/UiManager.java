@@ -24,6 +24,7 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
+    private Stage primaryStage;
     private MainWindow mainWindow;
     private Model model;
 
@@ -37,6 +38,7 @@ public class UiManager implements Ui {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
 
+        this.primaryStage = primaryStage;
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
@@ -86,7 +88,7 @@ public class UiManager implements Ui {
         System.exit(1);
     }
 
-    public void switchWindow(Class<? extends MainWindow> mainWindowClass, Stage primaryStage) {
+    public void switchWindow(Class<? extends MainWindow> mainWindowClass) {
         WindowNavigation navigation = null;
         if (TripsPage.class.equals(mainWindowClass)) {
             navigation = TripsPage::switchTo;
