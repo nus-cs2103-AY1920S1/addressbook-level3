@@ -1,44 +1,82 @@
 package seedu.jarvis.commons.util.andor;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.model.course.Course;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AndOrTreeTest {
     @Test
+    public void fulfillsCondition_sufficientRequirements_returnsTrue() {
+        try {
+            Map<String, List<Course>> toTest = Map.of(
+                    "CS3244", List.of(
+                            CourseUtil.getCourse("CS2040"),
+                            CourseUtil.getCourse("ST2334"),
+                            CourseUtil.getCourse("MA1505"),
+                            CourseUtil.getCourse("MA1101R")
+                    ),
+                    "CS3230", List.of(
+                            CourseUtil.getCourse("CS2040"),
+                            CourseUtil.getCourse("CS1231")
+                    ),
+                    "CS2102", List.of(
+                            CourseUtil.getCourse("CS1010"),
+                            CourseUtil.getCourse("CS2040"),
+                            CourseUtil.getCourse("CS1231")
+                    ),
+                    "CS2040", List.of(
+                            CourseUtil.getCourse("CS1010")
+                    )
+            );
+
+            toTest.forEach((course, taken) -> {
+                AndOrTree tree = assertDoesNotThrow(() -> AndOrTree.buildTree(course));
+                assertTrue(tree.fulfillsCondition(taken));
+            });
+        } catch (IOException e) {
+            fail("IOException thrown.");
+        }
+    }
+
+    @Test
     public void fulfillsCondition_insufficientRequirements_returnsFalse() {
         try {
-            AndOrTree tree = AndOrTree.buildTree("CS3244");
-            System.out.println(tree.toString());
-            Collection<Course> col = List.of(
-                    CourseUtil.getCourse("CS2040"),
-                    CourseUtil.getCourse("ST2334"),
-                    CourseUtil.getCourse("MA1505"),
-                    CourseUtil.getCourse("MA1101R")
+            Map<String, List<Course>> toTest = Map.of(
+                    "CS3244", List.of(
+                            CourseUtil.getCourse("CS2040"),
+                            CourseUtil.getCourse("ST2334"),
+                            CourseUtil.getCourse("MA1511"),
+                            CourseUtil.getCourse("MA1101R")
+                    ),
+                    "CS3230", List.of(
+                            CourseUtil.getCourse("CS2040"),
+                            CourseUtil.getCourse("CS1010"),
+                            CourseUtil.getCourse("MA1521")
+                    ),
+                    "CS2102", List.of(
+                            CourseUtil.getCourse("CS1010"),
+                            CourseUtil.getCourse("CS2040"),
+                            CourseUtil.getCourse("CS2030"),
+                            CourseUtil.getCourse("CS2010")
+                    ),
+                    "CS2040", List.of(
+                            CourseUtil.getCourse("CS1101S"),
+                            CourseUtil.getCourse("CS1010J")
+                    )
             );
-            System.out.println("fulfill: " + tree.fulfillsCondition(col));
 
-            AndOrTree tree2 = AndOrTree.buildTree("MA1511");
-            System.out.println(tree2.toString());
-
-            AndOrTree tree3 = AndOrTree.buildTree("CS2102");
-            System.out.println(tree3.toString());
-
-            AndOrTree tree4 = AndOrTree.buildTree("CS2030");
-            System.out.println(tree4.toString());
+            toTest.forEach((course, taken) -> {
+                AndOrTree tree = assertDoesNotThrow(() -> AndOrTree.buildTree(course));
+                assertFalse(tree.fulfillsCondition(taken));
+            });
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            fail("IOException thrown.");
         }
     }
 }
