@@ -67,7 +67,7 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new BookmarkBuilder().withName("Alice Bob").build()));
 
-        // Keywords match url and address, but does not match name
+        // Keywords match url and remark, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("https://alice-gmail.com", "Main", "Street"));
         assertFalse(predicate.test(new BookmarkBuilder().withName("Alice")
                 .withUrl("https://alice-url.com").withRemark("Main Street").build()));

@@ -54,7 +54,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_AMY + URL_DESC_BOB
                 + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
 
-        // multiple addresses - last address accepted
+        // multiple remarks - last remark accepted
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_BOB + REMARK_DESC_AMY
                 + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
 
@@ -85,7 +85,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + VALID_URL_BOB + REMARK_DESC_BOB,
                 expectedMessage);
 
-        // missing address prefix
+        // missing remark prefix
         assertParseFailure(parser, NAME_DESC_BOB + URL_DESC_BOB + VALID_REMARK_BOB,
                 expectedMessage);
 
@@ -104,7 +104,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_URL_DESC + REMARK_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Url.MESSAGE_CONSTRAINTS);
 
-        // invalid address
+        // invalid remark
         assertParseFailure(parser, NAME_DESC_BOB + URL_DESC_BOB + INVALID_REMARK_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Remark.MESSAGE_CONSTRAINTS);
 

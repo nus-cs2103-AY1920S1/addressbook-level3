@@ -70,7 +70,7 @@ public class BookmarkTest {
         editedAlice = new BookmarkBuilder(ALICE).withUrl(VALID_URL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
+        // different remark -> returns false
         editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 

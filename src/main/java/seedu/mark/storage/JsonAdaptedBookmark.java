@@ -63,7 +63,7 @@ class JsonAdaptedBookmark {
     public Bookmark toModelType() throws IllegalValueException {
         final List<Tag> bookmarkTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            bookmarkTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -90,7 +90,7 @@ class JsonAdaptedBookmark {
         }
         final Remark modelRemark = new Remark(remark);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(bookmarkTags);
         return new Bookmark(modelName, modelUrl, modelRemark, modelTags);
     }
 

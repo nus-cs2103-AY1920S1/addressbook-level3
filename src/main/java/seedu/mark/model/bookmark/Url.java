@@ -44,12 +44,12 @@ public class Url {
     /**
      * Constructs a {@code Url}.
      *
-     * @param email A valid URL.
+     * @param url A valid URL.
      */
     public Url(String url) {
-        requireNonNull(email);
-        checkArgument(isValidUrl(email), MESSAGE_CONSTRAINTS);
-        value = email;
+        requireNonNull(url);
+        checkArgument(isValidUrl(url), MESSAGE_CONSTRAINTS);
+        value = url;
     }
 
     /**
