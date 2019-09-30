@@ -4,9 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.tarence.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.tarence.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.MODULE_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.NUSNET_DESC_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.TUTORIAL_DESC_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MODULE_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_AMY;
 import static seedu.tarence.testutil.Assert.assertThrows;
-import static seedu.tarence.testutil.TypicalPersons.AMY;
+import static seedu.tarence.testutil.TypicalStudents.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,11 +30,15 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.UserPrefs;
-import seedu.tarence.model.person.Person;
+import seedu.tarence.model.module.Module;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.storage.JsonApplicationStorage;
 import seedu.tarence.storage.JsonUserPrefsStorage;
 import seedu.tarence.storage.StorageManager;
-import seedu.tarence.testutil.PersonBuilder;
+import seedu.tarence.testutil.ModuleBuilder;
+import seedu.tarence.testutil.StudentBuilder;
+import seedu.tarence.testutil.TutorialBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -77,10 +87,18 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddStudentCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).build();
+        String addCommand = AddStudentCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + MODULE_DESC_AMY
+            + TUTORIAL_DESC_AMY + MATRIC_DESC_AMY + NUSNET_DESC_AMY;
+        Student expectedStudent = new StudentBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        Module validModule = new ModuleBuilder().withModCode(VALID_MODULE_AMY).build();
+        Tutorial validTutorial = new TutorialBuilder().withTutName(VALID_TUTORIAL_AMY)
+                .withModCode(VALID_MODULE_AMY).build();
+        expectedModel.addModule(validModule);
+        model.addModule(validModule);
+        expectedModel.addTutorial(validTutorial);
+        model.addTutorial(validTutorial);
+        expectedModel.addPerson(expectedStudent);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

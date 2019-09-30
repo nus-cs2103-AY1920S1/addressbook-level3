@@ -1,6 +1,7 @@
 package seedu.tarence.logic.parser;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DAY;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DURATION_IN_MINUTES;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
@@ -15,6 +16,7 @@ import java.util.stream.Stream;
 
 import seedu.tarence.logic.commands.AddTutorialCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
@@ -30,11 +32,11 @@ public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
      * @throws ParseException if the user input does not match the expected formats for all the required arguments.
      */
     public AddTutorialCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TUTORIAL_DAY,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TUTORIAL_DAY, PREFIX_MODULE,
                 PREFIX_TUTORIAL_DURATION_IN_MINUTES, PREFIX_TUTORIAL_NAME,
                 PREFIX_TUTORIAL_START_TIME, PREFIX_TUTORIAL_WEEKS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_DAY,
+        if (!arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_DAY, PREFIX_MODULE,
                 PREFIX_TUTORIAL_DURATION_IN_MINUTES, PREFIX_TUTORIAL_NAME,
                 PREFIX_TUTORIAL_START_TIME, PREFIX_TUTORIAL_WEEKS)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -43,6 +45,7 @@ public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
 
         String tutorialName = argMultimap.getValue(PREFIX_TUTORIAL_NAME).get();
         TutName tutName = ParserUtil.parseTutorialName(tutorialName);
+        ModCode modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
 
         // Attributes for TimeTable class.
         String tutorialDay = argMultimap.getValue(PREFIX_TUTORIAL_DAY).get();
@@ -59,7 +62,7 @@ public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
         ArrayList<Student> emptyListOfStudents = new ArrayList<Student>();
 
         // Creates a new Tutorial object with the user String.
-        Tutorial newTutorial = new Tutorial(tutName, day, startTime, weeks, duration, emptyListOfStudents);
+        Tutorial newTutorial = new Tutorial(tutName, day, startTime, weeks, duration, emptyListOfStudents, modCode);
 
         return new AddTutorialCommand(newTutorial);
     }

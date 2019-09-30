@@ -1,15 +1,19 @@
 package seedu.tarence.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.module.UniqueModuleList;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.person.UniquePersonList;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.UniqueTutorialList;
 
@@ -90,7 +94,6 @@ public class Application implements ReadOnlyApplication {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
     }
 
@@ -100,6 +103,26 @@ public class Application implements ReadOnlyApplication {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Adds a student to their associated tutorial in its associated module.
+     */
+    public void addStudentToTutorial(Student student) {
+        requireNonNull(student);
+        Module targetModule = null;
+        for (Module module : modules) {
+            if (module.getModCode().equals(student.getModCode())) {
+                targetModule = module;
+                break;
+            }
+        }
+        for (Tutorial tutorial : targetModule.getTutorials()) {
+            if (tutorial.getTutName().equals(student.getTutName())) {
+                tutorial.addStudent(student);
+                break;
+            }
+        }
     }
 
     ////=================== module-level operations    =================================================================
@@ -121,6 +144,36 @@ public class Application implements ReadOnlyApplication {
         return modules.contains(module);
     }
 
+    /**
+     * Returns true if a module of the given code exists. Used to check whether a tutorial command contains a valid
+     * module code.
+     */
+    public boolean hasModuleOfCode(ModCode modCode) {
+        requireNonNull(modCode);
+        boolean hasMod = false;
+        for (Module module : modules) {
+            if (module.getModCode().equals(modCode)) {
+                hasMod = true;
+                break;
+            }
+        }
+        return hasMod;
+    }
+
+    /**
+     * Adds a tutorial to its associated module. Assumes that a module of the given code exists.
+     */
+    public void addTutorialToModule(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        Module targetModule = null;
+        for (Module module : modules) {
+            if (module.getModCode().equals(tutorial.getModCode())) {
+                targetModule = module;
+                break;
+            }
+        }
+        targetModule.addTutorial(tutorial);
+    }
     ////=================== tutorial-level operations    ==============================================================
 
     /**
@@ -133,11 +186,37 @@ public class Application implements ReadOnlyApplication {
     }
 
     /**
-     * Returns true if a tutorial with the same identity as {@code module} exists in the application.
+     * Returns true if a tutorial with the same identity as {@code tutorial} exists in the application.
      */
     public boolean hasTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
         return tutorials.contains(tutorial);
+    }
+
+    /**
+     * Returns true if a module with a tutorial of the given name exists. Used to check whether a student command
+     * contains a valid module code and tutorial name.
+     */
+    public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
+        requireAllNonNull(modCode, tutName);
+        boolean hasMod = false;
+        for (Module module : modules) {
+            if (module.getModCode().equals(modCode)) {
+                hasMod = true;
+                break;
+            }
+        }
+        if (!hasMod) {
+            return false;
+        }
+        boolean hasTut = false;
+        for (Tutorial tutorial : tutorials) {
+            if (tutorial.getTutName().equals(tutName)) {
+                hasTut = true;
+                break;
+            }
+        }
+        return hasTut;
     }
 
     //// util methods

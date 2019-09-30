@@ -6,26 +6,28 @@ import static seedu.tarence.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.tarence.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.MODULE_DESC_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.MODULE_DESC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.NUSNET_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.tarence.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.tarence.logic.commands.CommandTestUtil.TUTORIAL_DESC_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.TUTORIAL_DESC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.tarence.testutil.TypicalPersons.BOB;
 import static seedu.tarence.testutil.TypicalStudents.AMY;
+import static seedu.tarence.testutil.TypicalStudents.BOB;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
-import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
-import seedu.tarence.testutil.PersonBuilder;
 import seedu.tarence.testutil.StudentBuilder;
 
 public class AddStudentCommandParserTest {
@@ -33,34 +35,38 @@ public class AddStudentCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).build();
+        Student expectedStudent = new StudentBuilder(AMY).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + EMAIL_DESC_BOB,
-                new AddStudentCommand(expectedPerson));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_AMY + EMAIL_DESC_AMY
+                        + MATRIC_DESC_AMY + NUSNET_DESC_AMY + MODULE_DESC_AMY + TUTORIAL_DESC_AMY,
+                new AddStudentCommand(expectedStudent));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + EMAIL_DESC_BOB,
-                new AddStudentCommand(expectedPerson));
+        assertParseSuccess(parser, NAME_DESC_BOB + NAME_DESC_AMY + EMAIL_DESC_AMY
+                        + MATRIC_DESC_AMY + NUSNET_DESC_AMY + MODULE_DESC_AMY + TUTORIAL_DESC_AMY,
+                new AddStudentCommand(expectedStudent));
 
         // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB,
-                new AddStudentCommand(expectedPerson));
+        assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY + EMAIL_DESC_AMY
+                        + MATRIC_DESC_AMY + NUSNET_DESC_AMY + MODULE_DESC_AMY + TUTORIAL_DESC_AMY,
+                new AddStudentCommand(expectedStudent));
     }
 
     @Test
-    public void parse_withOptionalFields_success() {
-        Student expectedStudent = new StudentBuilder(AMY).build();
+    public void parse_optionalFields_success() {
+        Student expectedStudentAmy = new StudentBuilder(AMY).build();
+        Student expectedStudentBob = new StudentBuilder(BOB).withoutMatricNum().withoutNusnetId().build();
 
-        // MatricNum and NusnetID both present
-        assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY
-                + MATRIC_DESC_AMY + NUSNET_DESC_AMY,
-                new AddStudentCommand(expectedStudent));
+        // Missing optional fields
+        assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_BOB
+                + MODULE_DESC_BOB + TUTORIAL_DESC_BOB,
+                new AddStudentCommand(expectedStudentBob));
 
         // random ordering of optional fields
-        assertParseSuccess(parser, MATRIC_DESC_AMY + NAME_DESC_AMY
-                + NUSNET_DESC_AMY + EMAIL_DESC_AMY ,
-                new AddStudentCommand(expectedStudent));
+        assertParseSuccess(parser, NAME_DESC_AMY + NUSNET_DESC_AMY
+                + TUTORIAL_DESC_AMY + MODULE_DESC_AMY + EMAIL_DESC_AMY + MATRIC_DESC_AMY,
+                new AddStudentCommand(expectedStudentAmy));
     }
 
     @Test
@@ -83,17 +89,20 @@ public class AddStudentCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + EMAIL_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + EMAIL_DESC_BOB
+                + MODULE_DESC_BOB + TUTORIAL_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_EMAIL_DESC
+                + MODULE_DESC_BOB + TUTORIAL_DESC_BOB, Email.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + EMAIL_DESC_BOB,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + EMAIL_DESC_BOB
+                + MODULE_DESC_BOB + TUTORIAL_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + EMAIL_DESC_BOB
+                        + MODULE_DESC_BOB + TUTORIAL_DESC_BOB,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
     }
 }
