@@ -236,4 +236,4 @@ e.g. `view deck/science_deck`
 * *test* : `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` +
 e.g. `test deck/science_deck`
 * *exit* : `exit`
-* *edit* : `Format: edit deck/DECK_NAME index/CARD_INDEX`
+* *edit* : `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]` + e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
