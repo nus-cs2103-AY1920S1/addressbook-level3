@@ -30,7 +30,7 @@ Responsibilities: UI
 '''
 
 === Felix
-image::felix.jpg[width="150", align="left"]
+image::felix.png[width="150", align="left"]
 {empty}[http://github.com/FelixNWJ[Github]]
 
 Role: Chief Operating Officer +
@@ -39,7 +39,7 @@ Responsibilities: Data
 '''
 
 === Ryan
-image::ryan.jpg[width="150", align="left"]
+image::ryan.png[width="150", align="left"]
 {empty}[http://github.com/iltep64[Github]]
 
 Role: Chief Technical Officer +
@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Pin Sern
-image::pinsern.jpg[width="150", align="left"]
+image::pinsern.png[width="150", align="left"]
 {empty}[http://github.com/fangpinsern[Github]]
 
 Role: Intern +
