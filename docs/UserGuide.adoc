@@ -36,7 +36,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Employee List.
+* **`add`**`n/John Doe no/98765432 p/Event Coordinator e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Employee List.
 * **`delete`**`3` : deletes the 3rd Employee shown in the current list
 * *`exit`* : exits the app
 
@@ -59,63 +59,51 @@ The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower
 === General Commands
 
 ==== Viewing help : `help`
+
 Opens a help guide, a list of all commands for the user as a reference to.
 
 Format: `help`
 
 ==== Viewing help : `search`
+
 Search for specific functions/properties
 
-Format: `help`
+Format: `search`
 
 ==== Viewing help : `exit`
+
 Exits and shuts down the program
 
 Format: `exit`
 
 === Employee Management
 
-==== Adding a person: `add`
+==== List all Employees: `emplist`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Shows the list of all employees on the company’s roster. Employee details are truncated.
 
-[TIP]
-A person can have any number of tags (including 0)
+Format: `emplist`
 
-Examples:
+==== Fetch Full Details of Employee: `fetch`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Fetch the full details of a specific employee. Returns one employee only. +
+Finds persons whose names contain any of the given keywords. 
 
-==== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-==== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `fetch EMPLOYEE_ID`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* `EMPLOYEE_ID` must be a positive integer and exist within the list of employees. 
+* If not found, 'Employee Not Found' will be displayed.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `fetch 2` +
+Returns employee at index 2
 
-==== Locating persons by name: `find`
+==== Find Employee: `find`
+Find employees whose names contain any of the given keywords.
 
-Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -133,10 +121,67 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-// tag::delete[]
+==== Adding an employee person: `add`
+
+Adds an employee to the employee list
+
+Format: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+
+[TIP]
+A person can have any number of tags (including 0)
+
+Examples:
+
+* `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/Enthusiastic p/CFO e/betsycrowe@example.com a/Newgate Prison no/1234567 t/criminal`
+
+==== Editing an employee details : `edit`
+
+Edits an existing employee in the employee list.
+
+Format: `edit INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+
+****
+* Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 no/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+==== Log Working Hours: `log`
+
+Logs the working hours of the current employee for today. Useful for employees who are paid by the hour.
+
+Format: `log INDEX DDMMYYYY HOURSWORKED`
+
+****
+* Logs working hours of a person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* `HOURSWORKED` must be a positive integer.
+* If the hours worked for that day is already recorded, a new entry will override the previous log.
+****
+
+Examples:
+
+* `list` +
+`log 2 30092019 8` +
+2nd Employee in the employee list is logged with 8 hours on the 30th September
+* `log 2 30092019 7` +
+2nd Employee in the employee list has 8 hours previously logged, is now overwritten with 7 hours.
+
 ==== Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified person from the address book.
+
 Format: `delete INDEX`
 
 ****
@@ -154,13 +199,16 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-// end::delete[]
 === Event Management
+
 === Finance Management
+
 === Miscellaneous
+
 ==== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the address book.
+
 Format: `clear`
 
 ==== Saving the data
