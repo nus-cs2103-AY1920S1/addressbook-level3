@@ -18,6 +18,10 @@ public class AndOrOperationMapper {
      * @return an {@code AndOrOperation enum} type
      */
     static AndOrOperation resolveType(String type) {
+        if (type == null) {
+            return LEAF;
+        }
+
         switch (type) {
         case "and":
             return AND;
