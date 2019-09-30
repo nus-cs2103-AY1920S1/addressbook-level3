@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Modulo
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-T16-2/main[image:https://travis-ci.org/AY1920S1-CS2103-T16-2/main.svg?branch=master[Build Status]]
@@ -12,22 +12,20 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* _Modulo_ is a desktop application developed to help National University of Singapore (NUS) students manage their studies and expenditures.
+* With _Modulo_, you no longer need to multiple different applications to organise your student life. Things like scheduling your timetable, recording down the tasks and events you need to do and attend, reviewing your academic progress and keeping track of your expenses; _Modulo_ will handle it all.
+* The application has a GUI (Graphical User Interface) but most user interactions happen using a CLI (Command Line Interface).
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* The original source of the code comes from https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3 project], created by SE-EDU initiative at https://se-education.org[SE-EDU initiative].
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
