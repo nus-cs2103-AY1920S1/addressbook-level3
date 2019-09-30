@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Daryl Tan
 image::Daryl.png[width="150", align="left"]
-{empty}[https://github.com/openorclose[github]] [<<Daryle#, portfolio>>]
+{empty}[https://github.com/openorclose[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage
@@ -22,7 +22,7 @@ Responsibilities: Storage
 
 === Dorcas Tabitha Tan
 image::Dorcas.jpeg[width="150", align="left"]
-{empty}[https://github.com/dorcastan[github]] [<<Dorcas#, portfolio>>]
+{empty}[https://github.com/dorcastan[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Model
@@ -31,7 +31,7 @@ Responsibilities: Model
 
 === Na Nazhou
 image::Nazhou.jpeg[width="150", align="left"]
-{empty}[https://github.com/Na-Nazhou[github]] [<<Nazhou#, portfolio>>]
+{empty}[https://github.com/Na-Nazhou[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic
@@ -40,7 +40,7 @@ Responsibilities: Logic
 
 === Yoke Kai Xin
 image::KaiXin.jpeg[width="150", align="left"]
-{empty}[https://github.com/kxyoke[github]] [<<KaiXin#, portfolio>>]
+{empty}[https://github.com/kxyoke[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
