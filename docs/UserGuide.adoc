@@ -103,8 +103,26 @@ Examples:
 Edits the description of the first transaction to "Dinner", and its amount to $32.30.
 
 ==== Deleting transaction: `txdelete`
+Deletes a transaction. +
+Format: `txdelete i/ID`
+
+Examples:
+
+* `txdelete i/5` +
+Deletes the 5th transaction in the current list.
+
 ==== Finding transaction: `txfind`
+Filters transactions in current list by type, keywords, category, month and/or year. +
+Format: `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
+
+Examples:
+
+* `txfind m/5 y/2019 c/Education` +
+Finds all transactions in the current list from May 2019 from the category "Education".
+
 ==== List all transactions: `txlist`
+Lists all transactions. +
+Format `txlist`
 
 === Repeating Transactions
 
