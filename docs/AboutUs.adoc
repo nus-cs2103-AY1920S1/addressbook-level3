@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
+=== Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
@@ -19,38 +19,38 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
+=== Alex Koh
 image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/alxkohh[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer and Project Manager +
+Responsibilities: Intellij expert, Deliverables and deadlines, scheduling and tracking
 
 '''
 
-=== Johnny Doe
+=== Lim Haw Jia
 image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/limhawjia[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Developer and Head of User Experience +
+Responsibilities: SceneBuilder expert, UI/UX, Code quality
 
 '''
 
-=== Johnny Roe
+=== Ning Sheng Ying
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ning-sy210[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer, Test Engineer and Head of DevOps +
+Responsibilities: Travis expert, Testing, Integration, DevOps
 
 '''
 
-=== Benson Meier
+=== Zhang Jian
 image::yl_coder.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer and Software Architect +
+Responsibilities: Git expert, Documentation, Data modelling, Software Architecture
 
 '''
