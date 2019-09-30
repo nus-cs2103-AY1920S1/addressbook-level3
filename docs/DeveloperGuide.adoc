@@ -351,10 +351,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Splitwiser` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `SplitWiser` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete contactgg
+=== Use case: Delete contact
 
 *MSS*
 
@@ -380,7 +380,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-== Use case: List contacts
+=== Use case: List contacts
 
 *MSS*
 
@@ -397,7 +397,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-== Use case: List activites
+=== Use case: List activites
 
 *MSS*
 
