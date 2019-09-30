@@ -68,56 +68,59 @@ t/read-later etc.
  * Parameters can be in any order e.g. if the command specifies n/NAME
 u/URL, u/URL n/NAME is also acceptable.
 
-=== Viewing help: ``help``
+=== Viewing help: `help`
 
-Format: *help*
+Format: `help`
 
 === Adding a bookmark: `add`
 
 Adds a bookmark to the bookmark manager.
 
-Format: *add u/URL n/NAME [f/FOLDER] [t/TAG]…​*
+Format: `add u/URL n/NAME [f/FOLDER] [t/TAG]…​`
 
+****
 * A bookmark can have any number of tags (including 0).
- * Use the keyword *this* in place of URL to bookmark the current page,
-e.g. *add u/this n/Homepage*. Only valid if a web-page is currently
-being viewed.
+* Use the keyword `this` in place of URL to bookmark the current page,
+e.g.
+****
 
 Examples:
-
-* add u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T
- * add u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks
-t/video t/watch-later
+* `add u/this n/Homepage` +
+Bookmarks the current place and names it Homepage.
+Only valid if a web-page is currently being viewed.
+* `add u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T`
+* `add u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
 
 === Listing all bookmarks: `list`
 
 Shows a list of all bookmarks in the bookmark manager.
 
-Format: *list*
+Format: `list`
 
 === Editing a bookmark: `edit`
 
 Edits an existing bookmark in the bookmark manager.
 
-Format: *edit INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]*
+Format: `edit INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
 
-* Edits the bookmark at the specified INDEX. The index refers to the index
+****
+* Edits the bookmark at the specified `INDEX`. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
 positive integer 1, 2, 3, …​
- * At least one of the optional fields must be provided.
- * Existing values will be updated to the input values.
- * When editing tags, the existing tags of the bookmark will be removed i.e
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the bookmark will be removed i.e
 adding of tags is not cumulative.
- * You can remove all the bookmark’s tags by typing t/ without specifying
+* You can remove all the bookmark’s tags by typing `t/` without specifying
 any tags after it.
+****
 
 Examples:
 
-* *edit 1 n/CS2103T Website f/AY1920-S1* +
-Edits the name and folder of the 1st bookmark to be CS2103T Website and
-AY1920-S1 respectively.
+* `edit 1 n/CS2103T Website f/AY1920-S1` +
+Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920-S1 respectively.
 
-* *edit 2 t/* +
+* `edit 2 t/` +
 Clears all existing tags from the 2nd bookmark.
 
 === Locating bookmarks by name, URL, or tag: `find`
@@ -125,50 +128,51 @@ Clears all existing tags from the 2nd bookmark.
 Finds bookmarks that contain any of the given keywords in their name or
 URL, or that are tagged with the given tag(s).
 
-Format: *find [KEYWORD]... [t/TAG]...*
+Format: `find [KEYWORD]... [t/TAG]...`
 
-* At least one keyword or tag must be provided
- * Keyword search is case insensitive. e.g video will match Video
- * The order of the keywords does not matter. e.g. Website Video will match
-Video Website
- * Keywords are only searched in the URL and name.
- * Words will be partially matched e.g. Video will match Videos
- * Bookmarks matching at least one search criteria will be returned (i.e.
-OR search). e.g. Website Video t/Fun will return CS2103T Website, Video
-Streaming, and all videos tagged with Fun
+****
+* At least one keyword or tag must be provided.
+* Keyword search is case insensitive. e.g video will match Video.
+* The order of the keywords does not matter. e.g. `Website Video` will match `Video Website`.
+* Keywords are only searched in the URL and name.
+* Words will be partially matched e.g. `Video` will match `Videos`.
+* Bookmarks matching at least one search criteria will be returned (i.e. OR search).
+****
 
 Examples:
 
-* *find Luminus* +
+* `find Website Video t/Fun will` +
+Returns CS2103T Website, Video Streaming, and all bookmarks tagged with Fun.
+
+* `find Luminus` +
 Returns luminus website and GER1000 LumiNUS
 
-* *find CS2103T CS2101 CS2105* +
-Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in
-its url
+* `find CS2103T CS2101 CS2105` +
+Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its url
 
-* *find GitHub t/CS2103T* +
-Returns any bookmark with the tag CS2103T or that contains github in
-either name or URL.
+* `find GitHub t/CS2103T` +
+Returns any bookmark with the tag CS2103T or that contains github in either name or URL.
 
 === Deleting a bookmark: `delete`
 
 Deletes the specified bookmark from the bookmark manager.
 
-Format/ *delete INDEX*
+Format: `delete INDEX`
 
+****
 * Deletes the bookmark at the specified INDEX.
- * The index refers to the index number shown in the displayed bookmark
-list.
- * The index must be a positive integer 1, 2, 3, …​
+* The index refers to the index number shown in the displayed bookmark list.
+* The index must be a positive integer 1, 2, 3, …​
+****
 
 Examples:
 
-* *list* +
-*delete 2*  +
+* `list` +
+`delete 2` +
 Deletes the 2nd bookmark in the bookmark manager.
 
-* *find luminus* +
-*delete 1* +
+* `find luminus` +
+`delete 1` +
 Deletes the 1st bookmark in the results of the find command.
 
 === Opening a bookmark: `goto`
@@ -338,41 +342,30 @@ containing `luminus`.
 
 Saves the bookmarked website locally for offline viewing.
 
-(Not done automatically for all bookmarks as the user may not want to
-autosave everything. E.g. doesn’t make sense to save a local copy of
-your email website, bank website or LumiNUS)
+Format: `cache INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
 
-Format: *cache INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]*
-
-* INDEX is the bookmark that you want to save a local copy of
- * SHOULD_AUTOUPDATE (default false) if true, it will check daily for any
+****
+* `INDEX` is the bookmark that you want to save a local copy of
+* `SHOULD_AUTOUPDATE` (default false) if true, it will check daily for any
 updates. Any old versions will be archived and users will be able to see
 the different versions and delete them / name them
- * If AUTO_UPDATE is missing, will not auto update.
- * VERSION is the version number of cache to be deleted.
+* If `AUTO_UPDATE` is missing, will not auto update.
+* `VERSION` is the version number to be deleted.
+****
 
 Examples:
 
-* *cache 1 s/true u/true* +
+* `cache 1 s/true u/true` +
 Saves the bookmark at index 1 locally, and updates it daily.
 
-* *cache 1* +
+* `cache 1` +
 Show the list of cached copies.
 
-* *cache 1 d/2* +
+* `cache 1 d/2` +
 Deletes the cached version at the second index.
 
-* *cache 1 u/true* +
+* `cache 1 u/true` +
 Manually save a new copy of the site.
-
-{empty}[Updates working copy with notes and suggests migrating notes to
-new working copy. Whenever a local copy is to be updated, the current
-version of the local copy with notes will be archived. Then new copy
-will then be compared to old copy (like diff): if notes are attached to
-affected paragraphs, user will be prompted to keep or skip the notes;
-otherwise notes are automatically copied over.]
-
-image:media/image1.jpg[image,width=451,height=224]
 
 === Making annotations on offline copy of bookmarked website: `annotate`
 
