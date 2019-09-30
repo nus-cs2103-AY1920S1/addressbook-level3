@@ -49,9 +49,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             serialNumber = SerialNumberGenerator.generateSerialNumber();
         }
         Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));
-
         Book book = new Book(title, serialNumber, author, genreList);
-
         return new AddCommand(book);
     }
 
