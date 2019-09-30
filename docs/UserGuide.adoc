@@ -67,12 +67,12 @@ Format: `dequeue <PATIENT_REFERENCE_ID>`
 ==== Assign next patient to an available doctor : `next` ====
 
 Assign next patient to an available doctor. Only used when a patient exits the room. +
-Format: `next`
+Format: `next` <ROOM_ID>
 
 ==== Doctor takes a break: `break`  ====
 
 Doctor takes a break, the room becomes unavailable. +
-Format: `break break <ROOM_NUMBER>`
+Format: `break <ROOM_NUMBER>`
 
 ==== Doctor resumes his/her duty: `resume` ====
 Doctor resumes his/her duty and can now serve patients. +
@@ -83,11 +83,11 @@ Format: `resume <ROOM_NUMBER>`
 
 ==== Searches patient by arguments: `patient` ====
 Finds patients whose names contain any of the given keywords +
-Format: `patient <PATIENT_REFERENCE_ID> | <PATIENT_NAME> | <PHONE_NUM>`
+Format: `patient <PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>`
 
 ==== Registers a new patient: `register` ====
 Registers a new patient +
-Format:  `register -name|-n <PATIENT_NAME> -ic|-i <PATIENT_IC> -hp <PHONE_NUM> -email|-e <EMAIL> [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
+Format:  `register -name|-n <PATIENT_NAME> -id|-i <PATIENT_REFERENCE_ID> -phone|-p <PHONE_NUM> [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
 
 
 ==== Updates patients’ profiles: `update` ====
@@ -99,7 +99,7 @@ Format: `update <ENTRY_ID> [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-hp 
 
 ==== Views doctors on shift: `doctors` ====
 
-Displays doctors currently on shift +
+Displays doctors registered in system +
 Format: `doctors [<DOCTOR_NAME>]`
 
 ==== Register a new doctor: `newdoctor` ====
@@ -110,18 +110,18 @@ Format: `newdoctor [-name|-n <DOCTOR_NAME>] [-hp <PHONE_NUM>] +
 ==== Update a patient's profile: `update` ====
 
 If user is in the doctors listing screen, updates any change for patients’ profiles. +
-Format: `update <ENTRY_ID> [-name|-n <DOCTOR_NAME>]+
+Format: `update <<DOCTOR_ENTRY_INDEX>> [-name|-n <DOCTOR_NAME>]+
 [-ic|-i <DOCTOR_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] +
 [-remark|-r <REMARK>]`
 
-==== Updates patients’ profiles: `onduty` ====
+==== Updates Doctors’ profiles: `onduty` ====
 Marks the doctor as on-duty and stationed in the given room number. +
 Patients can be directed to the specified doctor. +
-Format: `onduty <ROOM_NUMBER> <DOCTOR_NAME>`
+Format: `onduty <ROOM_NUMBER> <DOCTOR_ENTRY_INDEX>`
 
 ==== Updates patients’ profiles: `offduty` ====
 Marks the doctor as off-duty. Patients can not be directed to the specified doctor. +
-Format: `offduty <DOCTOR_NAME>`
+Format: `offduty <ROOM_NUMBER>`
 
 
 === Appointment Management
@@ -149,7 +149,7 @@ Format: `missed [-date <DATETIME>]`
 
 ==== Sets missed appointments as settled/notified: `settle` ====
 Settles the missed appointments for respective patients. +
-Format: `settle <PATIENT_NAME|PATIENT_IC>`
+Format: `settle <PATIENT_REFERENCE_ID>`
 
 === Inventory commands (v2.0) ===
 
