@@ -13,10 +13,10 @@ public class Name {
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the name must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * A name is any combination of the following characters: A-Z, a-z, ', . or whitespace.
+     * A name must contain at least one non-whitespace character.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "^([A-z\\'\\.-ᶜ]+(\\s)*)*$";
 
     public final String fullName;
 

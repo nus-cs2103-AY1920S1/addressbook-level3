@@ -39,6 +39,12 @@ public class ProblemCard extends UiPart<Region> {
     @FXML
     private Label weblink;
     @FXML
+    private Label difficulty;
+    @FXML
+    private Label remark;
+    @FXML
+    private Label source;
+    @FXML
     private FlowPane tags;
 
     public ProblemCard(Problem problem, int displayedIndex) {
@@ -49,6 +55,9 @@ public class ProblemCard extends UiPart<Region> {
         author.setText(problem.getAuthor().value);
         description.setText(problem.getDescription().value);
         weblink.setText(problem.getWebLink().value);
+        difficulty.setText(problem.getDifficulty().toString());
+        remark.setText(problem.getRemark().value);
+        source.setText(problem.getSource().value);
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

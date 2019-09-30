@@ -35,14 +35,24 @@ public class Source {
     }
 
     /**
+     * Returns true if a given string matches the default source string.
+     */
+    public static boolean isDefaultSource(String test) {
+        return test.equals(DEFAULT_SOURCE_STRING);
+    }
+
+    /**
+     * Returns true if a given {@code Source} is the default source.
+     */
+    public static boolean isDefaultSource(Source test) {
+        return test == DEFAULT_SOURCE;
+    }
+
+    /**
      * Returns true if a given string is a valid source.
      */
     public static boolean isValidSource(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    public static boolean isDefaultSource(Source source) {
-        return source == DEFAULT_SOURCE;
     }
 
     @Override

@@ -10,6 +10,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values, and it should not be blank";
+    public static final String DEFAULT_DESCRIPTION_STRING = "";
     public static final Description DEFAULT_DESCRIPTION = new Description();
 
     /*
@@ -32,11 +33,25 @@ public class Description {
     }
 
     private Description() {
-        value = "";
+        value = DEFAULT_DESCRIPTION_STRING;
     }
 
     /**
-     * Returns true if a given string is a valid weblink.
+     * Returns true if a given string matches the default description string.
+     */
+    public static boolean isDefaultDescription(String test) {
+        return test.equals(DEFAULT_DESCRIPTION_STRING);
+    }
+
+    /**
+     * Returns true if a given {@code Description} is the default description.
+     */
+    public static boolean isDefaultDescription(Description test) {
+        return test == DEFAULT_DESCRIPTION;
+    }
+
+    /**
+     * Returns true if a given string is a valid description.
      */
     public static boolean isValidDescription(String test) {
         return test.matches(VALIDATION_REGEX);

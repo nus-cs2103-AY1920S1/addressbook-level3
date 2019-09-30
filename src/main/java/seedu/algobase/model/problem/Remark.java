@@ -14,10 +14,11 @@ public class Remark {
     public static final Remark DEFAULT_REMARK = new Remark();
 
     /*
+     * A remark is a combination of characters or whitespaces.
      * The first character of the solution must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^\\S[\\s\\S]*$";
 
     public final String value;
 
@@ -42,14 +43,24 @@ public class Remark {
     }
 
     /**
+     * Returns true if a given String matches the default remark String.
+     */
+    public static boolean isDefaultRemark(String test) {
+        return test.equals(DEFAULT_REMARK_STRING);
+    }
+
+    /**
+     * Returns true if a given {@code Remark} is the default remark.
+     */
+    public static boolean isDefaultRemark(Remark test) {
+        return test == DEFAULT_REMARK;
+    }
+
+    /**
      * Returns true if a given string is a valid remark.
      */
     public static boolean isValidRemark(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    public static boolean isDefaultRemark(Remark remark) {
-        return remark == DEFAULT_REMARK;
     }
 
     @Override

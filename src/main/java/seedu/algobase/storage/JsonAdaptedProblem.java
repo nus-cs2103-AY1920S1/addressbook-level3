@@ -84,78 +84,182 @@ class JsonAdaptedProblem {
             problemTags.add(tag.toModelType());
         }
 
+        final Name modelName = retrieveName(name);
+        final Author modelAuthor = retrieveAuthor(author);
+        final WebLink modelWebLink = retrieveWeblink(weblink);
+        final Description modelDescription = retrieveDescription(description);
+        final Difficulty modelDifficulty = retrieveDifficulty(difficulty);
+        final Remark modelRemark = retrieveRemark(remark);
+        final Source modelSource = retrieveSource(source);
+        final Set<Tag> modelTags = new HashSet<>(problemTags);
+
+        return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags, modelDifficulty,
+                modelRemark, modelSource);
+    }
+
+    /**
+     * Converts a name in string format to a Name Object.
+     *
+     * @param name name in string format.
+     * @return the corresponding Name Object.
+     * @throws IllegalValueException if string format is invalid.
+     */
+    public Name retrieveName(String name) throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        return new Name(name);
+    }
 
+    /**
+     * Converts an author in string format to an Author Object.
+     *
+     * @param author author in string format.
+     * @return the corresponding Author Object.
+     * @throws IllegalValueException if string format is invalid.
+     */
+    public Author retrieveAuthor(String author) throws IllegalValueException {
         if (author == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Author.class.getSimpleName()));
         }
+
+        if (Author.isDefaultAuthor(author)) {
+            return Author.DEFAULT_AUTHOR;
+        }
+
         if (!Author.isValidAuthor(author)) {
             throw new IllegalValueException(Author.MESSAGE_CONSTRAINTS);
         }
-        final Author modelAuthor = new Author(author);
 
+        return new Author(author);
+    }
+
+    /**
+     * Converts a weblink in string format to a Weblink Object.
+     *
+     * @param weblink weblink in string format.
+     * @return the corresponding Weblink Object.
+     * @throws IllegalValueException if string format is invalid.
+     */
+    public WebLink retrieveWeblink(String weblink) throws IllegalValueException {
         if (weblink == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, WebLink.class.getSimpleName()));
         }
+
+        if (WebLink.isDefaultWeblink(weblink)) {
+            return WebLink.DEFAULT_WEBLINK;
+        }
+
         if (!WebLink.isValidWeblink(weblink)) {
             throw new IllegalValueException(WebLink.MESSAGE_CONSTRAINTS);
         }
-        final WebLink modelWebLink = new WebLink(weblink);
 
+        return new WebLink(weblink);
+    }
+
+    /**
+     * Converts a description in string format to a Description Object.
+     *
+     * @param description description in string format.
+     * @return the corresponding Description Object.
+     * @throws IllegalValueException if string format is invalid.
+     */
+    public Description retrieveDescription(String description) throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            Description.class.getSimpleName()));
+                String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
+
+        if (Description.isDefaultDescription(description)) {
+            return Description.DEFAULT_DESCRIPTION;
+        }
+
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description);
 
-        final Set<Tag> modelTags = new HashSet<>(problemTags);
+        return new Description(description);
+    }
 
+    /**
+     * Converts a difficulty in string format to a Difficulty Object.
+     *
+     * @param difficulty difficulty in string format.
+     * @return the corresponding Difficulty Object.
+     * @throws IllegalValueException if string format is invalid.
+     */
+    public Difficulty retrieveDifficulty(String difficulty) throws IllegalValueException {
         if (difficulty == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            Difficulty.class.getSimpleName())
+                String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Difficulty.class.getSimpleName())
             );
         }
+
+        if (Difficulty.isDefaultDifficulty(difficulty)) {
+            return Difficulty.DEFAULT_DIFFICULTY;
+        }
+
         if (!Difficulty.isValidDifficulty(difficulty)) {
             throw new IllegalValueException(Difficulty.MESSAGE_CONSTRAINTS);
         }
-        final Difficulty modelDifficulty = new Difficulty(difficulty);
 
+        return new Difficulty(difficulty);
+    }
+
+    /**
+     * Converts a remark in string format to a Remark Object.
+     *
+     * @param remark remark in string format.
+     * @return the corresponding Remark Object.
+     * @throws IllegalValueException if string format is invalid.
+     */
+    public Remark retrieveRemark(String remark) throws IllegalValueException {
         if (remark == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            Remark.class.getSimpleName())
+                String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Remark.class.getSimpleName())
             );
         }
+
+        if (Remark.isDefaultRemark(remark)) {
+            return Remark.DEFAULT_REMARK;
+        }
+
         if (!Remark.isValidRemark(remark)) {
             throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
         }
-        final Remark modelRemark = new Remark(remark);
 
+        return new Remark(remark);
+    }
 
+    /**
+     * Converts a source in string format to a Source Object.
+     *
+     * @param source source in string format.
+     * @return the corresponding Source Object.
+     * @throws IllegalValueException if string format is invalid.
+     */
+    public Source retrieveSource(String source) throws IllegalValueException {
         if (source == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            Source.class.getSimpleName())
+                String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Source.class.getSimpleName())
             );
         }
+
+        if (Source.isDefaultSource(source)) {
+            return Source.DEFAULT_SOURCE;
+        }
+
         if (!Source.isValidSource(source)) {
             throw new IllegalValueException(Source.MESSAGE_CONSTRAINTS);
         }
-        final Source modelSource = new Source(source);
 
-        return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags, modelDifficulty,
-                modelRemark, modelSource);
+        return new Source(source);
     }
-
 }
