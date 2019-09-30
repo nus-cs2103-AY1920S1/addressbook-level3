@@ -5,14 +5,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Name {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+    private static final String SPECIAL_CHARACTERS = ",.-'";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Names should adhere to the following constraints:\n"
+            +"1. It should contain alphabets, spaces, and these special characters, excluding"
+            + "the parentheses, (" + SPECIAL_CHARACTERS + "). \n"
+            + "2.Contain at least one character";
+
+
+    private static final String VALIDATION_REGEX = "^[" + SPECIAL_CHARACTERS + " a-zA-Z" + "]+$";
 
     public final String fullName;
 
@@ -28,16 +30,34 @@ public class Name {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns if a given string is a valid name.
+     * @param test Name.
+     * @return boolean whether test is in valid name format.
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
 
+
+
+    /**
+     * Returns string representation of object.
+     *
+     * @return Name in string format.
+     */
     @Override
     public String toString() {
         return fullName;
+    }
+
+    /**
+     * Returns string representation of object, for storage.
+     *
+     * @return Name in string format.
+     */
+    public String toStorageValue() {
+        return this.toString();
     }
 
     @Override

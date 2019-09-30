@@ -9,8 +9,22 @@ public enum ProjectType {
         this.projectTypeString = projectTypeString;
     }
 
+    /**
+     * Returns string representation of object.
+     *
+     * @return Project type in string format.
+     */
     @Override
     public String toString() {
         return this.projectTypeString;
+    }
+
+    /**
+     * Returns string representation of object, for storage.
+     *
+     * @return Project type in string format.
+     */
+    public String toStorageValue(){
+        return this.toString();
     }
 }
