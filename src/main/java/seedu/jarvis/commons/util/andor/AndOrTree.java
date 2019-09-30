@@ -13,8 +13,12 @@ import java.util.Collection;
  * to be {@code true}, and encapsulates some methods for operations in the tree.
  *
  * The tree is immutable once created.
+ *
+ * @author ryanYtan
  */
 public class AndOrTree {
+    private String NO_PREREQ_MESSAGE = "%s has no prerequisites!";
+
     private AndOrNode root;
 
     private AndOrTree(AndOrNode root) {
@@ -31,31 +35,32 @@ public class AndOrTree {
     /**
      * Builds the And-Or Tree from the given course code.
      *
-     * @param courseCode
-     * @return
-     * @throws IOException
+     * @param courseCode of the course
+     * @return a new AndOr tree
+     * @throws IOException if the course file could not be found
      */
     public static AndOrTree buildTree(String courseCode)
             throws IOException {
-        Course course = CourseUtil.getCourse(courseCode);
+        Course course;
+
+        try {
+            course = CourseUtil.getCourse(courseCode);
+        } catch (IOException e) {
+            throw new IOException(courseCode + " could not be found");
+        }
+
         AndOrNode rootNode = AndOrNode.createLeafNode(course, null);
         JsonNode node;
+
         try {
             String prereqTree = course.getPrereqTree().toString();
-            prereqTree = addQuotes(prereqTree);
+            prereqTree = CourseUtil.addQuotes(prereqTree);
             node = new ObjectMapper().readTree(prereqTree);
             buildTree(node, rootNode);
         } catch (NullPointerException e) {
-            // will just return an empty tree
+            // return empty tree
         }
         return new AndOrTree(rootNode);
-    }
-
-    /**
-     * Add quotes to start and end of {@code String} to avoid json parsing error.
-     */
-    private static String addQuotes(String s) {
-        return (s.length() <= CourseUtil.LONGEST_STRING_LEN) ? "\"" + s + "\"" : s;
     }
 
     /**
@@ -120,7 +125,7 @@ public class AndOrTree {
     @Override
     public String toString() {
         if (root.getChildren().size() <= 0) {
-            return root.toString() + " has no prerequisites!";
+            return String.format(NO_PREREQ_MESSAGE, root.toString());
         }
         return this.root.toTreeString();
     }

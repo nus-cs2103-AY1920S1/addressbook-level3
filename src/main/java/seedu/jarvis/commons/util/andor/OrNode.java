@@ -7,7 +7,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Represents an {@code OR} node of an And-Or Tree.
+ *
+ * @author ryanYtan
+ */
 public class OrNode extends AndOrNode {
+    private final String STRING_FORM = "one of";
+
     protected OrNode(Course data, AndOrNode parent, List<AndOrNode> children) {
         super(data, parent, children);
     }
@@ -27,6 +34,6 @@ public class OrNode extends AndOrNode {
 
     @Override
     public String toString() {
-        return "one of";
+        return STRING_FORM;
     }
 }

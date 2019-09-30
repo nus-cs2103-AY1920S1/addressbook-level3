@@ -1,32 +1,45 @@
 package seedu.jarvis.commons.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import seedu.jarvis.model.course.*;
-
 import java.io.File;
 import java.io.IOException;
+
 import java.nio.file.Files;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.course.CourseCode;
+import seedu.jarvis.model.course.CourseCredit;
+import seedu.jarvis.model.course.Description;
+import seedu.jarvis.model.course.Faculty;
+import seedu.jarvis.model.course.FulfillRequirements;
+import seedu.jarvis.model.course.Preclusion;
+import seedu.jarvis.model.course.PrereqTree;
+import seedu.jarvis.model.course.Title;
+
+
 /**
  * Finds and reads Json files located in resources/modinfo.
  */
 public class CourseUtil {
+    /** The length of "LL5009GRSII" */
+    private static final int LONGEST_STRING_LEN = 11;
+
     /**
      * Regex that removes all whitespace not found within quotes.
      * Adapted from https://stackoverflow.com/a/9584469.
      */
-    private static String REMOVE_WHITESPACE_REGEX = "\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
-    private static String COURSE_FOLDER = "modinfo";
+    private static final String REMOVE_WHITESPACE_REGEX = "\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
 
-    /** The length of "LL5009GRSII" */
-    public static int LONGEST_STRING_LEN = 11;
+    private static final String COURSE_FOLDER = "modinfo";
 
-    private static String removeSpacesNotWithinQuotes(String string) {
+    private static final String removeSpacesNotWithinQuotes(String string) {
         return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();
     }
 

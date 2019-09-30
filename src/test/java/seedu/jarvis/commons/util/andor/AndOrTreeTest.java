@@ -1,5 +1,9 @@
 package seedu.jarvis.commons.util.andor;
 
+import static seedu.jarvis.commons.util.CourseUtilTest.VALID_COURSE_CODES;
+import static seedu.jarvis.commons.util.CourseUtilTest.INVALID_COURSE_CODES;
+import static seedu.jarvis.commons.util.CourseUtilTest.VALID_COURSE_CODES_NO_PREREQ;
+
 import org.junit.jupiter.api.Test;
 import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.model.course.Course;
@@ -8,20 +12,50 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @author ryanYtan
+ */
 public class AndOrTreeTest {
+
     @Test
-    public void buildTree_invalidCourse_returnsEmptyTree() {
-        List<String> toTest = List.of("CS1231", "", "34542SD", "randomstring", "CS1231SS");
-        for (String course : toTest) {
+    public void buildTree_validCourse_doesNotThrowException() {
+        for (String course : VALID_COURSE_CODES) {
+            assertDoesNotThrow(() -> AndOrTree.buildTree(course));
+        }
+    }
+
+    @Test
+    public void buildTree_invalidCourse_throwsIOException() {
+        for (String course : INVALID_COURSE_CODES) {
             assertThrows(IOException.class, () -> AndOrTree.buildTree(course));
         }
     }
 
     @Test
-    public void fulfillsCondition_sufficientRequirements_returnsTrue() {
-        try {
+    public void buildTree_validCourseWithNoRequirements_doesNotThrowException() {
+        for (String course : VALID_COURSE_CODES_NO_PREREQ) {
+            assertDoesNotThrow(() -> AndOrTree.buildTree(course));
+        }
+    }
+
+    @Test
+    public void fulfillCondition_courseWithNoPrereqs_printsNoPrereqString() {
+        for (String course : VALID_COURSE_CODES_NO_PREREQ) {
+            assertEquals(
+                    assertDoesNotThrow(() -> AndOrTree.buildTree(course).toString()),
+                    course + " has no prerequisites!");
+        }
+    }
+
+    @Test
+    public void fulfillsCondition_sufficientRequirements_returnsTrueAndDoesNotThrowsException() {
+        assertDoesNotThrow(() -> {
             Map<String, List<Course>> toTest = Map.of(
                     "CS3244", List.of(
                             CourseUtil.getCourse("CS2040"),
@@ -47,14 +81,12 @@ public class AndOrTreeTest {
                 AndOrTree tree = assertDoesNotThrow(() -> AndOrTree.buildTree(course));
                 assertTrue(tree.fulfillsCondition(taken));
             });
-        } catch (IOException e) {
-            fail("IOException thrown.");
-        }
+        });
     }
 
     @Test
-    public void fulfillsCondition_insufficientRequirements_returnsFalse() {
-        try {
+    public void fulfillsCondition_insufficientRequirements_returnsFalseAndDoesNotThrowException() {
+        assertDoesNotThrow(() -> {
             Map<String, List<Course>> toTest = Map.of(
                     "CS3244", List.of(
                             CourseUtil.getCourse("CS2040"),
@@ -83,8 +115,6 @@ public class AndOrTreeTest {
                 AndOrTree tree = assertDoesNotThrow(() -> AndOrTree.buildTree(course));
                 assertFalse(tree.fulfillsCondition(taken));
             });
-        } catch (IOException e) {
-            fail("IOException thrown.");
-        }
+        });
     }
 }

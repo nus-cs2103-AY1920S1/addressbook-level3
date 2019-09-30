@@ -7,6 +7,8 @@ import static seedu.jarvis.commons.util.andor.AndOrOperation.LEAF;
 /**
  * A helper class that maps the {@code AndOrOperation enum}'s constants to their {@code String}
  * forms, and vice versa.
+ *
+ * @author ryanYtan
  */
 public class AndOrOperationMapper {
     /**
