@@ -28,8 +28,11 @@ public class HintSupplier implements Supplier<Hint> {
         Collections.shuffle(hints);
     }
 
+    /**
+     * Returns the next hint. Null if no more hints available.
+     */
     @Override
     public Hint get() {
-        return hints.get(0);
+        return hints.isEmpty() ? null : hints.get(0);
     }
 }
