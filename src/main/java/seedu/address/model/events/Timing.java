@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Timing {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The event start timing must be before the end timing.";
+            "The event start timing must be before the end timing and after current dateTime.";
 
     private final DateTime startTiming;
     private final DateTime endTiming;
@@ -60,11 +60,12 @@ public class Timing {
      * Returns true if the start dateTime is before the end dateTime.
      */
     public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
-        Date current = Date.now();
-        Date current = new Date()
+        Date current = new Date();
         return testStart != null && testEnd != null && testStart.getTime().before(testEnd.getTime())
-                && ;
+                && testStart.getTime().after(current);
     }
+
+
 
     public DateTime getStartTime() {
         return startTiming;
