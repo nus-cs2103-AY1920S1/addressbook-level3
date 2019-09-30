@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class HintSupplierTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
