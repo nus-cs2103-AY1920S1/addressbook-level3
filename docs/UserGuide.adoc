@@ -27,7 +27,7 @@ that suits your needs and interests and start honing your skills today!
 For educators, you can use DukeAcademy as a platform to administer your assignments or practice questions by loading
 your own questions!
 
-Duke Code is optimized for those who prefer to work with a CLI (Command Line Interface) while still enjoying the
+DukeAcademy is optimized for those who prefer to work with a CLI (Command Line Interface) while still enjoying the
 benefits of a GUI (Graphical User Interface). If you are still unfamiliar with using a CLI (an important skill for all
 programmers), you can get used to it while working on your coding skills!
 
@@ -38,7 +38,7 @@ programmers), you can get used to it while working on your coding skills!
 . Copy the file to the folder which you want to use as the home folder for DukeAcademy.
 . Copy the file to the folder you want to use as the home folder for your Address Book.
 . Download a problem set link:{problemSetURL}[here].
-. Copy the file into the home folder for Duke Code.
+. Copy the file into the home folder for DukeAcademy.
 . Rename it to “default_problem_set.txt”.
 +
 image::quickstart1.png[width="790"]
@@ -68,7 +68,7 @@ image::quickstart2.png[width="790"]
 ====
 
 === Viewing help : `help` [_coming in v1.2_]
-Opens a window displaying the user guide within the GUI. In the user guide, all available functions within Duke Code
+Opens a window displaying the user guide within the GUI. In the user guide, all available functions within DukeAcademy
 will be listed in alphabetical order.
 
 *Format*: `help`
@@ -296,7 +296,7 @@ Starts a timer that lasts for 99 hour, 59 minutes, 59 seconds.
 === Loading new questions: `loadquestions` [_coming in v1.2_]
 
 Loads new questions into the application through a text file. Your text file should be in the format specified below.
-Your questions will be loaded the next time you open Duke Code.
+Your questions will be loaded the next time you open DukeAcademy.
 
 *Format:* `loadquestions [filename]`
 
@@ -318,13 +318,13 @@ Loads the questions from the file "my_problem_set.txt" located in the home direc
 
 *Q:* How do I transfer my own problem sets to another computer?
 
-*A:* Copy the problem set text file into Duke Code’s home folder on the other computer
+*A:* Copy the problem set text file into DukeAcademy’s home folder on the other computer
 and repeat the ​ loadquestions​ command.
 
 *Q:* How do I transfer data to another computer?
 
 *A:* Install the app in the other computer and overwrite the empty data file it creates
-with the file that contains the data of your previous Duke Code folder.
+with the file that contains the data of your previous DukeAcademy folder.
 
 *Q:* What is the format of problem setting?
 
