@@ -1,7 +1,7 @@
 {
   "books": [ {
     "title": "Valid Book",
-    "serialNumber": "B0001",
+    "serialNumber": "B00001",
     "author": "hans",
     "genre": "action"
   }, {

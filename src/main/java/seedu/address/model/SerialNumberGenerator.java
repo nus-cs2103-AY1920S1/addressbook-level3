@@ -8,7 +8,7 @@ import seedu.address.model.book.SerialNumber;
  * Serial Number generator when user does not input a preferred serial number.
  */
 public class SerialNumberGenerator {
-    public static final int SERIAL_NUMBER_LENGTH = 4; //excluding prefix 'B'
+    public static final int SERIAL_NUMBER_LENGTH = 5; //excluding prefix 'B'
     public static final String PREFIX = "B";
 
     private static int currentSerialNumberIndex = 0;

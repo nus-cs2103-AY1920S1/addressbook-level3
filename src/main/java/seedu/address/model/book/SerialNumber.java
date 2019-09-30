@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class SerialNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Serial numbers should start with prefix \"B\", followed by 4 digits. They should be unique.";
-    public static final String VALIDATION_REGEX = "B\\d{4}";
+            "Serial numbers should start with prefix \"B\", followed by 5 digits. They should be unique.";
+    public static final String VALIDATION_REGEX = "B\\d{5}";
     public final String value;
 
     /**

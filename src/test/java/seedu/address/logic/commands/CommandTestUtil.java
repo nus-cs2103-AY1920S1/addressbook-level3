@@ -28,9 +28,9 @@ public class CommandTestUtil {
     public static final String VALID_TITLE_BOOK_1 = "Harry Botter";
     public static final String VALID_TITLE_BOOK_2 = "Legend of the Condor Heroes";
     public static final String VALID_TITLE_BOOK_3 = "Heavenly Sword and Dragon Saber";
-    public static final String VALID_SERIAL_NUMBER_BOOK_1 = "B0001";
-    public static final String VALID_SERIAL_NUMBER_BOOK_2 = "B0002";
-    public static final String VALID_SERIAL_NUMBER_BOOK_3 = "B0005";
+    public static final String VALID_SERIAL_NUMBER_BOOK_1 = "B00001";
+    public static final String VALID_SERIAL_NUMBER_BOOK_2 = "B00002";
+    public static final String VALID_SERIAL_NUMBER_BOOK_3 = "B00005";
     public static final String VALID_AUTHOR_BOOK_1 = "J K Rowling";
     public static final String VALID_AUTHOR_BOOK_2 = "Jin Yong";
     public static final String VALID_GENRE_ACTION = "Action";
