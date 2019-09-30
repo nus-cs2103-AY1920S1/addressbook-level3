@@ -18,6 +18,19 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
+[#imgId-dashboard]
+.Mark's Dashboard Tab View
+image::ui-screenshots/uimockup1_dashboard.png[@Dashboard Tab View, 300, 200]
+
+[#imgId-online]
+.Mark's Online Tab View
+image::ui-screenshots/uimockup1_online.png[@Online Tab View, 300, 200]
+
+[#imgId-offline]
+.Mark's Offline Tab View
+image::ui-screenshots/uimockup1_offline.png[@Offline Tab View]
+
+
 Mark is for those who prefer to use a *desktop app for managing
 bookmarks.* More importantly, it is optimized for those who prefer to
 work with a *Command Line Interface (CLI)* while still having the
