@@ -135,7 +135,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit_em 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-Event Edit Examples: 
+Event Edit Examples:
 
 * `edit_ev 1 on/16092019` +
 Edits the start date of the 1st event to be on the 16th September, 2019.
@@ -208,7 +208,7 @@ Deletes the 2nd employee in the displayed employee list.
 `delete_ev 1` +
 Deletes the 1st event in the results of the `find` command.
 
-=== Employee-Specific Management 
+=== Employee-Specific Management
 
 ==== Log Working Hours: `log`
 
@@ -263,12 +263,12 @@ An event can have any number of requirements (including 0)
 ****
 * EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
 * Tags function as filters to determine if an employee is assigned to work for that particular event.
-* 
+*
 ****
 
 Examples:
 
-* `list_ev` + 
+* `list_ev` +
 `allocate 002 t/female` +
 Allocates to Event 002 all available employees who are tagged as 'female'
 * `allocate 004 t/music t/night-shift` +
@@ -288,7 +288,7 @@ Format: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...`
 
 Examples:
 
-* `list_ev` + 
+* `list_ev` +
 `allocateM 002 n/2 n/5 n/3` +
 Allocates to Event 002 employees numbered 2, 3, 5 on the list.
 
@@ -308,13 +308,13 @@ Format: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY`
 
 Examples:
 
-* `list_em` + 
+* `list_em` +
 `pay 2 f/20082019 t/20102019` +
 Generates the payslip of employee 2 from the 20th August - 20th October.
 
 ==== Generate Event Contract: `contract [coming in v2.0]`
 
-Generates a contract that can be handed to the company's client. The contract will contains details of the event such as the location, budget, and date 
+Generates a contract that can be handed to the company's client. The contract will contains details of the event such as the location, budget, and date
 
 Format: `contract n/EVENT_ID`
 
@@ -324,7 +324,7 @@ Format: `contract n/EVENT_ID`
 
 Examples:
 
-* `contract n/005` + 
+* `contract n/005` +
 Generates the contract for Event_ID 005.
 
 === Miscellaneous
