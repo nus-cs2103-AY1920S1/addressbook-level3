@@ -1,4 +1,4 @@
-= ComNurse - User Guide
+= NurseTraverse - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,7 @@ By: `Team AY1920S1-CS2103-F10-1`      Since: `Sep 2019`      Licence: `MIT`
 
 = Introduction
 
-ComNurse is designed for community nurses who make home visits to their patients. It is a laptop app that will allow nurses to keep track of their patients' data, appointments and visits. ComNurse is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+NurseTraverse is designed for community nurses who make home visits to their patients. It is a laptop app that will allow nurses to keep track of their patients' data, appointments and visits. ComNurse is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 = Quick Start
 
@@ -82,7 +82,7 @@ You can find patients that fit the parameters given using `patient find`.
 In the list displayed, each patient will have an *index* number which can then be used for other features that require you to select a patient by *index* e.g. `patient delete`. Take note that a patient will be given the same *index* regardless of other display commands such as `patient list` or if different parameters are used.
 
 
-Format: `patient find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `patient find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+Format: `patient find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -93,8 +93,14 @@ Format: `patient find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e
 
 Examples:
 
+* `patient find` +
+Returns all patients (since no search parameters were specified)
 
-* Returns `john` and `John Doe`
+* `patient find n/john` +
+Returns patients whose names are `john` and `John Doe`
+
+* `patient find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
+Returns patient, if found, with exact details as specified in the search, i.e. with name James Ho, phone number 22224444, etc.
 
 === Viewing a Patient: `patient view`
 
@@ -157,12 +163,12 @@ Format: `patient edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 Examples:
 
 * `patient list` +
- `edit 1 p/91234567 e/johndoe@example.com` +
+ `patient edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person in the entire patient's list to be `91234567` and `johndoe@example.com` respectively.
 
 
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person with the index 1.`Betsy Crower` and clears all existing tags.
+* `patient edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person in the entire patient's list with `Betsy Crower` and clears all existing tags.
 
 
 // tag::delete[]
@@ -211,8 +217,8 @@ Format `patient add medcon p/PATIENT_INDEX m/MEDCON_INDEX`
 
 Examples:
 
-`patient add medcon p/1 m/2`
-Adds the medical condition that was assigned the index no. 2 to the patient that was assigned the index no. 1.
+* `patient add medcon p/1 m/2` +
+Adds the medical condition at index no. 2 (in the list of medical conditions) to the patient that was assigned index no. 1 in the list of patients
 
 === Removing a Medical Condition from a Patient `patient rm medcon`
 
@@ -229,8 +235,8 @@ Format: `patient rm medcon p/PATIENT_INDEX m/MEDCON_INDEX`
 
 Examples:
 
-`patient rm medcon p/1 m/2`
-Removes the medical condition that was assigned the index no. 2 from the patient that was assigned the index no. 1.
+* `patient rm medcon p/1 m/2` +
+Removes the medical condition at index no. 2 (in the list of medical conditions) from the patient that was assigned index no. 1 in the list of patients
 
 === Adding a Prescription to a Patient `patient add presc`
 
@@ -249,8 +255,8 @@ Format `patient add presc p/PATIENT_INDEX m/MED_INDEX d/DOSAGE`
 
 Examples:
 
-`patient add presc p/1 m/2 d/20mg 3 times a day`
-Prescribes the patient of index 1 the medicine of index 2 with a dosage of 20mg 3 times a day.
+* `patient add presc p/1 m/2 d/20mg 3 times a day` +
+Adds prescription of the medicine of index 2 (in the list of medicines) with a dosage of 20mg 3 times a day to the patient at index 1 in list of patients.
 
 === Removing an Prescription from a Patient `patient rm presc`
 
@@ -269,7 +275,7 @@ Format `patient rm presc p/PATIENT_INDEX pr/PRESCRIPTION_INDEX`
 
 Examples:
 
-`patient rm presc p/1 pr/2`
+* `patient rm presc p/1 pr/2` +
 Removes the 2nd prescription of the patient of index 1.
 
 === Adding an Appointment to a Patient `patient add appt` [INCOMPLETE UG]
@@ -315,7 +321,7 @@ Format: `patient rm todo p/PATIENT_INDEX t/TODO_INDEX`
 
 Examples:
 
-`patient rm todo p/1 pr/2`
+* `patient rm todo p/1 t/2` +
 Removes the 2nd todo item of the patient of index 1.
 
 === Adding a note to a Patient `patient add note`
@@ -351,7 +357,7 @@ Format: `patient rm note p/PATIENT_INDEX t/NOTE_INDEX`
 
 Examples:
 
-`patient rm note p/1 pr/2`
+* `patient rm note p/1 t/2` +
 Removes the 2nd note of the patient of index 1.
 
 == Medical Conditions [Parameters not updated]
@@ -375,7 +381,7 @@ You can find medical conditions that fit the parameters given using `medcon find
 In the list displayed, each medical condition will have an *index* number which can then be used for other features that require you to select a medical condition by *index* e.g. `medcon delete`. Take note that a medical condition will be given the same *index* regardless of other display commands such as `medcon list` or if different parameters are used.
 
 
-Format: `medcon find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `medcon find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+Format: `medcon find [KEYWORD] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -386,8 +392,11 @@ Format: `medcon find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.
 
 Examples:
 
+* `medcon find asthma` +
+Returns all medical conditions with the keyword `asthma` in it
 
-* Returns `john` and `John Doe`
+* `medcon find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
+Returns all medical conditions of this particular patient
 
 === Viewing a Medical Condition: `medcon view`
 
@@ -524,7 +533,7 @@ You can find medicines that fit the parameters given using `med find`.
 In the list displayed, each medicine will have an *index* number which can then be used for other features that require you to select a medicine by *index* e.g. `med delete`. Take note that a medicine will be given the same *index* regardless of other display commands such as `med list` or if different parameters are used.
 
 
-Format: `med find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `med find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+Format: `med find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -535,8 +544,8 @@ Format: `med find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. 
 
 Examples:
 
-
-* Returns `john` and `John Doe`
+* `med find panadol` +
+Returns all medicines with the keyword `panadol` in it
 
 === Viewing a Medicine: `med view`
 
@@ -557,7 +566,8 @@ Examples:
 View the item with index number 1. This index can be found from the full list of medicines.
 
 * `med view 2`
-View the item with the index number 2..
+View the item with the index number 2.
+
 === Adding a Medicine: `med add`
 
 You can add a medicine to the list of all medicines by using `med add`.
@@ -672,7 +682,7 @@ You can find appointments that fit the parameters given using `appt find`.
 In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt list` or if different parameters are used.
 
 
-Format: `appt find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `appt find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+Format: `appt find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -683,8 +693,8 @@ Format: `appt find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g.
 
 Examples:
 
-
-* Returns `john` and `John Doe`
+* `appt find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
+Lists all appointments of that particular patient
 
 === Viewing an Appointment: `appt view`
 
@@ -843,7 +853,7 @@ You can find visits that fit the parameters given using `visit find`.
 In the list displayed, each visit will have an *index* number which can then be used for other features that require you to select a visit by *index* e.g. `visit delete`. Take note that a visit will be given the same *index* regardless of other display commands such as `visit list` or if different parameters are used.
 
 
-Format: `visit find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g. `visit find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+Format: `visit find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -854,8 +864,8 @@ Format: `visit find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` e.g
 
 Examples:
 
-
-* Returns `john` and `John Doe`
+* `visit find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
+Finds all visits with this patient
 
 === Viewing a Visit: `visit view`
 
@@ -1157,13 +1167,13 @@ You can import patient data from a .csv file into the application using `import`
  * The .csv file must adhere to the following format: `example.csv`.
 ****
 
-Format: `import [flag]/ filename.csv
-	 flag: r/ (replace) or c/ (combine) `
+Format: `import [flag]/filename.csv` +
+	 `flag: r/ (replace) or c/ (combine)`
 
 Examples:
 
- * `import r/ my_patients.csv`
- * `import c/ my_new_patients.csv`
+ * `import r/my_patients.csv`
+ * `import c/my_new_patients.csv`
 
 === Exporting data into .csv: `export`
 
@@ -1176,14 +1186,14 @@ You can export patient data from the application into a .csv file using `export`
  * Patient data can be selectively exported (?)
 ****
 
-Format: `export filename.csv [flag?] [num...]
-	 flag: r/ (range) or i/ (indexes)`
+Format: `export filename.csv [flag?] [num...]` +
+	 `flag: r/(range) or i/(indexes)`
 
 Examples:
 
  * `export patients.csv`
- * `export patients.csv r/ 5 10`
- * `export patients.csv i/ 2 4 6 7 10`
+ * `export patients.csv r/5 10`
+ * `export patients.csv i/2 4 6 7 10`
 
 
 == Notifications
@@ -1238,7 +1248,6 @@ Format: `notif find [n/NAME] [b/BODY] [d/DATE(DD-MM-YYYY)] [t/TIME(HH:mm)]`
 Examples:
 
 
-*
 === Adding a Notification: `notif add`
 
 You can add your own notifications (that are not attached to any appointments) using `notif add`.
