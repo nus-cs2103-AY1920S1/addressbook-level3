@@ -1,5 +1,10 @@
 package seedu.jarvis.model.course;
 
+/**
+ * Represents a Course's faculty in the course planner component.
+ *
+ * @author ryanYtan
+ */
 public class Faculty {
     public final String faculty;
 

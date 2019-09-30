@@ -2,6 +2,11 @@ package seedu.jarvis.model.course;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Course's course credit in the course planner component.
+ *
+ * @author ryanYtan
+ */
 public class CourseCredit {
     public final Integer credit;
 

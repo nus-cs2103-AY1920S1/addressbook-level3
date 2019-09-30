@@ -2,6 +2,9 @@ package seedu.jarvis.model;
 
 import seedu.jarvis.model.course.Course;
 
+/**
+ * The API of Course Planner component.
+ */
 public interface CoursePlannerModel {
     /**
      * Adds a module.

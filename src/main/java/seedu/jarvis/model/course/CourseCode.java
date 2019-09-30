@@ -2,6 +2,11 @@ package seedu.jarvis.model.course;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Course's course code in the course planner component.
+ *
+ * @author ryanYtan
+ */
 public class CourseCode {
     public static final String MESSAGE_CONSTRAINTS = "The course code is usually a series of"
             + "two or three letters, followed by four numbers. Sometimes, another letter at"

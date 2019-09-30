@@ -1,5 +1,10 @@
 package seedu.jarvis.model.course;
 
+/**
+ * Represents a Course's preclusions in the course planner component.
+ *
+ * @author ryanYtan
+ */
 public class Preclusion {
     public final String preclusion;
 

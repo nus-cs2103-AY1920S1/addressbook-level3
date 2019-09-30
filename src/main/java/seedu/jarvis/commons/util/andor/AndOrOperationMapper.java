@@ -1,8 +1,8 @@
 package seedu.jarvis.commons.util.andor;
 
 import static seedu.jarvis.commons.util.andor.AndOrOperation.AND;
-import static seedu.jarvis.commons.util.andor.AndOrOperation.OR;
 import static seedu.jarvis.commons.util.andor.AndOrOperation.LEAF;
+import static seedu.jarvis.commons.util.andor.AndOrOperation.OR;
 
 /**
  * A helper class that maps the {@code AndOrOperation enum}'s constants to their {@code String}

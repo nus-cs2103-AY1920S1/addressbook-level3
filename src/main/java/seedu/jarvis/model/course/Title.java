@@ -2,6 +2,11 @@ package seedu.jarvis.model.course;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Course's title in the course planner component.
+ *
+ * @author ryanYtan
+ */
 public class Title {
     public final String title;
 

@@ -1,5 +1,10 @@
 package seedu.jarvis.model.course;
 
+/**
+ * Represents a Course's prerequisite tree in the course planner component.
+ *
+ * @author ryanYtan
+ */
 public class PrereqTree {
     public final String tree;
 

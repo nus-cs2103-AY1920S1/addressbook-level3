@@ -1,11 +1,11 @@
 package seedu.jarvis.commons.util.andor;
 
-import seedu.jarvis.model.course.Course;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import seedu.jarvis.model.course.Course;
 
 /**
  * Represents an And-Or Tree node, with each node representing either:
@@ -30,16 +30,6 @@ public abstract class AndOrNode {
     protected AndOrNode parent;
     protected List<AndOrNode> children;
 
-    /**
-     * Checks if this node fulfills the condition.
-     *
-     * @param collection of courses to check against
-     * @return true if the condition is specified
-     */
-    public abstract boolean hasFulfilledCondition(Collection<Course> collection);
-
-    public abstract String toString();
-
     protected AndOrNode(Course data, AndOrNode parent, List<AndOrNode> children) {
         this.data = data;
         this.parent = parent;
@@ -51,6 +41,17 @@ public abstract class AndOrNode {
         this.parent = parent;
         this.children = new ArrayList<>();
     }
+
+    /**
+     * Checks if this node fulfills the condition.
+     *
+     * @param collection of courses to check against
+     * @return true if the condition is specified
+     */
+    public abstract boolean hasFulfilledCondition(Collection<Course> collection);
+
+    public abstract String toString();
+
 
     public Course getData() {
         return this.data;

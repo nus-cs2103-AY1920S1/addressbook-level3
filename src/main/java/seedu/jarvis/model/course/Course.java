@@ -26,7 +26,7 @@ public class Course {
         this.fulfillRequirements = null;
     }
 
-    public Course(Title title, Faculty faculty, Description description,CourseCode courseCode,
+    public Course(Title title, Faculty faculty, Description description, CourseCode courseCode,
                   CourseCredit courseCredit, PrereqTree prereqTree, Preclusion preclusion,
                   FulfillRequirements fulfillRequirements) {
         this.title = title;
@@ -79,15 +79,18 @@ public class Course {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Course course = (Course) o;
         return getCourseCode().equals(course.getCourseCode());
     }
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder("");
+        final StringBuilder builder = new StringBuilder();
         builder.append("[Title]: ").append(getTitle())
                 .append(" [Faculty]: ").append(getFaculty())
                 .append(" [Description]: ").append(getDescription())

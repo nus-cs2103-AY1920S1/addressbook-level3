@@ -1,12 +1,15 @@
 package seedu.jarvis.commons.util.andor;
 
+import java.io.IOException;
+
+import java.util.Collection;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.model.course.Course;
 
-import java.io.IOException;
-import java.util.Collection;
 
 /**
  * A representation of an And-Or Tree. The tree represents the requirements for the root node
@@ -17,7 +20,7 @@ import java.util.Collection;
  * @author ryanYtan
  */
 public class AndOrTree {
-    private String NO_PREREQ_MESSAGE = "%s has no prerequisites!";
+    private static final String NO_PREREQ_MESSAGE = "%s has no prerequisites!";
 
     private AndOrNode root;
 

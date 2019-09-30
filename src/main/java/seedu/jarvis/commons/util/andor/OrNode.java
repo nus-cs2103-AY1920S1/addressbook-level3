@@ -1,11 +1,11 @@
 package seedu.jarvis.commons.util.andor;
 
-import seedu.jarvis.model.course.Course;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import seedu.jarvis.model.course.Course;
 
 /**
  * Represents an {@code OR} node of an And-Or Tree.
@@ -13,7 +13,7 @@ import java.util.Set;
  * @author ryanYtan
  */
 public class OrNode extends AndOrNode {
-    private final String STRING_FORM = "one of";
+    private static final String STRING_FORM = "one of";
 
     protected OrNode(Course data, AndOrNode parent, List<AndOrNode> children) {
         super(data, parent, children);

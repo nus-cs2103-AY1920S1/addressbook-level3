@@ -1,5 +1,11 @@
 package seedu.jarvis.model.course;
 
+/**
+ * Represents a Course's requirements that are fulfilled when the user has taken this
+ * course in the course planner component.
+ *
+ * @author ryanYtan
+ */
 public class FulfillRequirements {
     public final String fulfillRequirements;
 

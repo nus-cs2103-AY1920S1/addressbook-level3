@@ -1,5 +1,10 @@
 package seedu.jarvis.model.course;
 
+/**
+ * Represents a Course's description in the course planner component.
+ *
+ * @author ryanYtan
+ */
 public class Description {
     public final String description;
 
