@@ -2,9 +2,12 @@ package seedu.address.model.record;
 
 import seedu.address.commons.exceptions.DataConversionException;
 
+/**
+ * The class Expense extends the Abstract class Record, since Expense is a Record.
+ */
 public class Expense extends Record {
-    private int amount;
     private static final String EXPENSE_TYPE = "expense";
+    private int amount;
 
     /**
      * Constructor for Expense.
@@ -18,11 +21,11 @@ public class Expense extends Record {
         super(description);
         try {
             if (amount.isBlank()) {
-//                throw new DataConversionException();
+            //throw new DataConversionException();
             }
             this.amount = Integer.parseInt(amount);
         } catch (NumberFormatException e) {
-//            throw new DataConversionException();
+            //throw new DataConversionException();
         }
     }
 
@@ -36,14 +39,14 @@ public class Expense extends Record {
     public Expense(String desc) throws DataConversionException {
         super();
         if (desc.trim().isBlank()) {
-//            throw new DataConversionException(EXPENSE_TYPE);
+            //throw new DataConversionException(EXPENSE_TYPE);
         }
         try {
             String[] details = desc.split("/", 2);
             description = details[0];
             amount = Integer.parseInt(details[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
-//            throw new DataConversionException(EXPENSE_TYPE);
+            //throw new DataConversionException(EXPENSE_TYPE);
         }
     }
 
@@ -60,7 +63,7 @@ public class Expense extends Record {
             description = recordDetails[1];
             amount = Integer.parseInt(recordDetails[2]);
         } catch (ArrayIndexOutOfBoundsException e) {
-//            throw new DataConversionException(super());
+            //throw new DataConversionException(super());
         }
     }
 
@@ -70,6 +73,6 @@ public class Expense extends Record {
 
     @Override
     public String toString() {
-        return String.format("[EX] %s (amount: %d)",description,amount);
+        return String.format("[EX] %s (amount: %d)", description, amount);
     }
 }
