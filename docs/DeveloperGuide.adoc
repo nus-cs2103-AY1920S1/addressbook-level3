@@ -362,7 +362,7 @@ Use case ends.
 * 1a. [underline]#UCE01 Invalid command syntax#
 +
 [none]
-* 1b. [underline]#UCE02 Missing compulsory fields#
+* 1b. [underline]#UCE02 Command with missing compulsory fields#
 +
 [none]
 * 1c. User inputs a group that already exists.
@@ -400,6 +400,25 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
+=== UCN02 Add tag to note
+
+*MSS*
+
+1.  User requests to tag a currently existing note
+2.  TagLine adds the tag to the note.
+3.  TagLine displays the edited note.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. [underline]#UCE01 Invalid command syntax#
++
+[none]
+* 1b. [underline]#UCE03 Command with ambiguous field#
+
+[discrete]
 === UCE01 Invalid command syntax
 
 *MSS*
@@ -423,7 +442,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UCE02 Missing compulsory fields
+=== UCE02 Command with missing compulsory fields
 
 *MSS*
 
@@ -448,11 +467,34 @@ Use case ends.
 [none]
 Use case ends.
 
+[discrete]
+=== UCE03 Command with <<ambiguous-field,ambiguous field>>
+
+*MSS*
+
+1.  User inputs a command with an ambiguous field value (e.g. name).
+2.  TagLine prompts user with a list of suggested values and their unique IDs.
+3.  User inputs the ID.
+4.  TagLine executes the command.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User aborts the command.
++
+[none]
+** 2a1. TagLine confirms the abort.
++
+[none]
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
 .  Should be able to display and navigate large text files without decrease in performance
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
@@ -461,11 +503,15 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[[ambiguous-field]] Ambiguous field::
+A field for a command that is not unique, e.g. many users can have the name John Doe
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
 
 [appendix]
 == Product Survey
