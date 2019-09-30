@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Andrew Sim
-image::andrewsim.jpg[width="150" align="left"]
+image::andrewscw.jpg[width="150" align="left"]
 {empty}[https://github.com/andrewscw[github]] [<<portfolio>>]
 
 Role: Project Advisor
@@ -19,7 +19,7 @@ Role: Project Advisor
 '''
 
 === Eugene Lim
-image::eugenelim.jpg[width="150", align="left"]
+image::nexolute.jpg[width="150", align="left"]
 {empty}[http://github.com/nexolute[github]] [<<eugenelim#, portfolio>>]
 
 Role: Developer
@@ -35,7 +35,7 @@ Role: Developer
 '''
 
 === Tan Wei Yang
-image::tanweiyang.jpg[width="150", align="left"]
+image::weiyang13.jpg[width="150", align="left"]
 {empty}[http://github.com/weiyang13[github]] [<<tanweiyang#, portfolio>>]
 
 Role: Developer
@@ -43,7 +43,7 @@ Role: Developer
 '''
 
 === Olivia Yu
-image::oliviayu.jpg[width="150", align="left"]
+image::alaete.jpg[width="150", align="left"]
 {empty}[http://github.com/Alaete[github]] [<<oliviayu#, portfolio>>]
 
 Role: Developer
@@ -51,7 +51,7 @@ Role: Developer
 '''
 
 === Kartike Khandelwal
-image::kartike.jpg[width="150", align="left"]
+image::troomtroom.jpg[width="150", align="left"]
 {empty}[http://github.com/troomtroom[github]] [<<kartike#, portfolio>>]
 
 Role: Developer
