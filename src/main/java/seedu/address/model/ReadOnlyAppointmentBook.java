@@ -6,7 +6,7 @@ import seedu.address.model.events.Event;
 /**
  * Unmodifiable view of a roster schedule
  */
-public interface ReadOnlySchedule {
+public interface ReadOnlyAppointmentBook {
 
     /**
      * Returns an unmodifiable view of the event list.

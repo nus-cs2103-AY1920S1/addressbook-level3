@@ -8,7 +8,7 @@ import seedu.address.model.events.UniqueEventList;
 
 import static java.util.Objects.requireNonNull;
 
-public class PatientSchedule implements ReadOnlySchedule {
+public class AppointmentBook implements ReadOnlyAppointmentBook {
 
     private final UniqueEventList events;
 
@@ -23,12 +23,12 @@ public class PatientSchedule implements ReadOnlySchedule {
         events = new UniqueEventList();
     }
 
-    public PatientSchedule() { }
+    public AppointmentBook() { }
 
     /**
      * Creates an PatientSchedule using the Events in the {@code toBeCopied}
      */
-    public PatientSchedule(ReadOnlySchedule toBeCopied) {
+    public AppointmentBook(ReadOnlyAppointmentBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -46,7 +46,7 @@ public class PatientSchedule implements ReadOnlySchedule {
     /**
      * Resets the existing data of this {@code PatientSchedule} with {@code newData}.
      */
-    public void resetData(ReadOnlySchedule newData) {
+    public void resetData(ReadOnlyAppointmentBook newData) {
         requireNonNull(newData);
 
         setEvents(newData.getEventList());
@@ -113,8 +113,8 @@ public class PatientSchedule implements ReadOnlySchedule {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof PatientSchedule // instanceof handles nulls
-            && events.equals(((PatientSchedule) other).events));
+            || (other instanceof AppointmentBook // instanceof handles nulls
+            && events.equals(((AppointmentBook) other).events));
     }
 
     @Override

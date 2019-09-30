@@ -111,12 +111,12 @@ public interface Model {
     /**
      * Replaces schedule data with the data in {@code schedule}.
      */
-    void setSchedule(ReadOnlySchedule schedule);
+    void setSchedule(ReadOnlyAppointmentBook schedule);
 
     /**
      * Returns the schedule
      */
-    ReadOnlySchedule getSchedule();
+    ReadOnlyAppointmentBook getSchedule();
 
     /**
      * Returns true if an event with the same identity as {@code event} exists in the schedule.
