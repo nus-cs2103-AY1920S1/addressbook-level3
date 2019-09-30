@@ -430,6 +430,15 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[[ta]] TA::
+teaching assistant
+
+[[module]] module::
+A module that comes with an associated code in the form of [XXX1234Y]
+
+[[tutorial]] tutorial::
+A tutorial class conducted by a <<ta, TA>>
+
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
