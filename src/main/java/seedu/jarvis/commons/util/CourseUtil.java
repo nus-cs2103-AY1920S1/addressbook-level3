@@ -30,6 +30,11 @@ public class CourseUtil {
         return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();
     }
 
+    /**
+     * Returns the file path to the relevant json file.
+     * @param paths subdirectories and filename
+     * @return a {@code String} containing the file path
+     */
     private static String getFilePath(String... paths) {
         StringBuilder newFilePath = new StringBuilder(COURSE_FOLDER);
         for (String s : paths) {
@@ -38,6 +43,13 @@ public class CourseUtil {
         return newFilePath.toString();
     }
 
+    /**
+     * Returns a {@code File} object pointing to the relevant course file.
+     *
+     * @param courseCode of the course
+     * @return a {@code File} object
+     * @throws IOException if the file is not found
+     */
     private static File getCourseFile(String courseCode)
             throws IOException {
         String coursePrefix = getCoursePrefix(courseCode);
@@ -64,12 +76,9 @@ public class CourseUtil {
             throws IOException {
         File file = getCourseFile(courseCode);
 
-        // read File as Stream into StringBuilder
         StringBuilder text = new StringBuilder();
         try (Stream<String> fileStream = Files.lines(file.toPath())) {
             fileStream.forEach(text::append);
-        } catch (NullPointerException e) {
-            throw new IOException(courseCode + ": file not found");
         }
         return removeSpacesNotWithinQuotes(text.toString());
     }
@@ -103,8 +112,7 @@ public class CourseUtil {
     public static Map<String, String> getCourseMap(String courseCode)
             throws IOException {
         String json = getCourseJsonString(courseCode);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(json);
+        JsonNode root = new ObjectMapper().readTree(json);
         Map<String, String> courseProps = new HashMap<>();
         root.fields().forEachRemaining(entry -> {
             if (entry.getValue().isObject() || entry.getValue().isArray()) {
@@ -117,11 +125,11 @@ public class CourseUtil {
     }
 
     /**
-     * Returns a Course object
+     * Returns a {@code Course} object containing the information in the course file.
      *
-     * @param courseCode
-     * @return
-     * @throws IOException
+     * @param courseCode of the course
+     * @return a {@code Course} object containing information of the course.
+     * @throws IOException if the file is not found
      */
     public static Course getCourse(String courseCode) throws IOException {
         Map<String, String> courseInformation = getCourseMap(courseCode);
@@ -136,4 +144,12 @@ public class CourseUtil {
                 new FulfillRequirements(courseInformation.get("fulfillRequirements"))
         );
     }
+
+    /**
+     * Add quotes to start and end of {@code String} to avoid json parsing error.
+     */
+    public static String addQuotes(String s) {
+        return (s.length() <= CourseUtil.LONGEST_STRING_LEN) ? "\"" + s + "\"" : s;
+    }
+
 }
