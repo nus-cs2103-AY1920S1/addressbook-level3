@@ -14,10 +14,11 @@ public class Remark {
     public static final Remark DEFAULT_REMARK = new Remark();
 
     /*
+     * A remark is a combination of characters or whitespaces.
      * The first character of the solution must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^\\S[\\s\\S]*$";
 
     public final String value;
 

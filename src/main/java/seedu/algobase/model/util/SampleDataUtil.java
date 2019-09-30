@@ -34,9 +34,9 @@ public class SampleDataUtil {
                     new WebLink("https://leetcode.com/problems/two-sum/"),
                     new Description("Given an array of integers, "
                             + "return indices of the two numbers such that they add up to a specific target."),
-                    getTagSet("array", "hash table", "algorithm"),
+                    getTagSet("array", "hash-table", "algorithm"),
                     new Difficulty("1.0"),
-                    new Remark("You may assume that each input would have exactly one solution, "
+                    new Remark("You may assume that each input would have exactly one solution, \n"
                             + "and you may not use the same element twice."),
                     new Source("LeetCode")),
             new Problem(new Name("Second Highest Salary"), new Author("LeetCode"),
@@ -49,16 +49,16 @@ public class SampleDataUtil {
             new Problem(new Name("Sudoku Solver"), Author.DEFAULT_AUTHOR,
                     new WebLink("https://leetcode.com/problems/sudoku-solver/"),
                     Description.DEFAULT_DESCRIPTION,
-                    getTagSet("hash table", "backtracking", "algorithm"),
+                    getTagSet("hash-table", "backtracking", "algorithm"),
                     new Difficulty("5.0"),
                     new Remark("You may assume that the given Sudoku puzzle will have a single unique solution."),
                     new Source("LeetCode")),
-            new Problem(new Name("A. Dawid and Bags of Candies"), Author.DEFAULT_AUTHOR,
+            new Problem(new Name("A Dawid and Bags of Candies"), Author.DEFAULT_AUTHOR,
                     new WebLink("https://codeforces.com/problemset/problem/1230/A"),
                     Description.DEFAULT_DESCRIPTION,
-                    getTagSet("brute force"),
+                    getTagSet("brute-force"),
                     new Difficulty("4.0"),
-                    new Remark("time limit per test1 second\n" + "memory limit per test256 megabytes"),
+                    new Remark("time limit per test1 second" + "memory limit per test256 megabytes"),
                     new Source("CodeForce")),
             new Problem(new Name("Factorial"), new Author("Wee Han"), WebLink.DEFAULT_WEBLINK,
                     new Description("define a function factorial that takes in a number n "
