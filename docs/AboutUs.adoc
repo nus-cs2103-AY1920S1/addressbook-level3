@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Russell Loh
-image::russel.jpg[width="150", align="left"]
+image::russel.jpeg[width="150", align="left"]
 [https://github.com/Russell-Loh-NUS[github]]
 
 Role: Developer +
@@ -36,7 +36,7 @@ Role: Developer +
 '''
 
 === Fabian Chia
-image::m133225.jpg[width="150", align="left"]
+image::fabian.jpg[width="150", align="left"]
 {empty}[http://github.com/fabbbbbbyy[github]]
 
 Role: Developer +
