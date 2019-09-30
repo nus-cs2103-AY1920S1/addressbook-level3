@@ -22,6 +22,8 @@ public class DeleteTripCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a trip from TravelPal. "
             + "Parameters: INDEX (must be a positive integer)";
 
+    public static final String MESSAGE_DELETE_TRIP_FAILURE = "Failed to delete your trip, "
+            + "the index you specified is likely out of bounds!";
     public static final String MESSAGE_DELETE_TRIP_SUCCESS = "Deleted your trip : %1$s!";
 
     private final Index indexToDelete;
@@ -40,7 +42,11 @@ public class DeleteTripCommand extends Command {
         }
 
         Trip tripToDelete = lastShownList.get(indexToDelete.getZeroBased());
-        model.deleteTrip(tripToDelete);
+        try {
+            model.deleteTrip(tripToDelete);
+        } catch (Exception ex) {
+            return new CommandResult(MESSAGE_DELETE_TRIP_FAILURE);
+        }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TRIP_SUCCESS, tripToDelete));
     }

@@ -5,7 +5,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pagestatus.PageType;
-import seedu.address.ui.EditTripPage;
+import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.Ui;
 
 import static java.util.Objects.requireNonNull;

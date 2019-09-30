@@ -136,13 +136,6 @@ public class TravelPal implements ReadOnlyTravelPal {
         return persons.hashCode();
     }
 
-    public void setPageStatus(PageStatus editedPageStatus) {
-    }
-
-    public PageStatus getPageStatus() {
-        return null;
-    }
-
     public void addTrip(Trip trip) throws ClashingTripException {
         tripList.add(trip);
     }

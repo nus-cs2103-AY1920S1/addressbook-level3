@@ -71,7 +71,7 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ConsecutiveOccurrenceList // instanceof handles nulls
-                && internalList.equals(((ConsecutiveOccurrenceList<T>) other).internalList));
+                && internalList.equals(((ConsecutiveOccurrenceList) other).internalList));
     }
 
     @Override

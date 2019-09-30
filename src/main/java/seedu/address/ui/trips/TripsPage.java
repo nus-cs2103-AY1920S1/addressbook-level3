@@ -1,36 +1,41 @@
-package seedu.address.ui;
+package seedu.address.ui.trips;
 
-import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
+import seedu.address.ui.components.CommandBox;
+import seedu.address.ui.components.PersonListPanel;
+import seedu.address.ui.components.ResultDisplay;
+import seedu.address.ui.components.NavigationSideBar;
+import seedu.address.ui.components.StatusBarFooter;
+import seedu.address.ui.template.WindowWithoutSidebar;
 
-import javax.swing.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TripsPage extends WindowWithoutSidebar {
 
-    private static final String FXML = "Main.fxml";
+    private static final String FXML = "TripsPage.fxml";
 
-
-    @javafx.fxml.FXML
-    private StackPane commandBoxPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private GridPane tripGridPane;
 
     @FXML
-    private VBox sidebarPlaceholder;
+    private StackPane statusbarPlaceholder;
 
     @FXML
     private Button addButton;
@@ -42,14 +47,8 @@ public class TripsPage extends WindowWithoutSidebar {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        Sidebar sidebar = new Sidebar();
-        sidebarPlaceholder.getChildren().add(sidebar.getRoot());
-
-        personListPanel = new PersonListPanel(model.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        resultDisplay = new ResultDisplay();
+    protected void fillInnerParts() {
+        ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(model.getAddressBookFilePath());
@@ -57,6 +56,11 @@ public class TripsPage extends WindowWithoutSidebar {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        List<Node> tripPanes = model.getTravelPal().getTripList()
+                .stream().map(trip -> new TripPane(trip, 1).getRoot())
+                .collect(Collectors.toList());
+        tripGridPane.getChildren().addAll(tripPanes);
     }
 
     @FXML
@@ -64,7 +68,7 @@ public class TripsPage extends WindowWithoutSidebar {
         //handle add
     }
 
-    static void switchTo(Stage stage, Logic logic, Model model) {
+    public static void switchTo(Stage stage, Logic logic, Model model) {
         TripsPage p = new TripsPage(stage, logic, model);
         p.show();
         p.fillInnerParts();

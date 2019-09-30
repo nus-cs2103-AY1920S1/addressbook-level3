@@ -8,14 +8,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.model.pagestatus.PageType;
-import seedu.address.ui.DaysPage;
+import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.Ui;
 
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
 public class EnterTripCommand extends Command {
     public static final String COMMAND_WORD = "goto";

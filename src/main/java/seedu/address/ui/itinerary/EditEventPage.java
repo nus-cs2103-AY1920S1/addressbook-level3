@@ -1,8 +1,9 @@
-package seedu.address.ui;
+package seedu.address.ui.itinerary;
 
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
+import seedu.address.ui.template.WindowWithSidebar;
 
 public class EditEventPage extends WindowWithSidebar {
 
@@ -15,7 +16,7 @@ public class EditEventPage extends WindowWithSidebar {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    protected void fillInnerParts() {
     }
 
     public static void switchTo(Stage stage, Logic logic, Model model) {

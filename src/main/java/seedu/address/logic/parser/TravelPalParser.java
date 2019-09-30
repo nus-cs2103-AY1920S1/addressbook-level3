@@ -59,13 +59,14 @@ public class TravelPalParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toUpperCase();
         final String arguments = matcher.group("arguments");
 
         PageParser commonParser;
-        
+
         try {
-            return new CommonParser().parse(commandWord, arguments);
+            Command commonCommand =  new CommonParser().parse(commandWord, arguments);
+            return commonCommand;
         } catch (ParseException ex) {
             logger.info("User command executed was not a common command");
         }

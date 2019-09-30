@@ -1,8 +1,9 @@
-package seedu.address.ui;
+package seedu.address.ui.utility;
 
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
+import seedu.address.ui.template.WindowWithoutSidebar;
 
 public class PreferencesPage extends WindowWithoutSidebar {
 
@@ -15,7 +16,7 @@ public class PreferencesPage extends WindowWithoutSidebar {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    protected void fillInnerParts() {
     }
 
     public static void switchTo(Stage stage, Logic logic, Model model) {

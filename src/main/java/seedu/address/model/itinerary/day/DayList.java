@@ -18,6 +18,11 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
     }
 
     @Override
+    public boolean containsClashing(Day toCheck) {
+        return true;
+    }
+
+    @Override
     public void add(Day toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);

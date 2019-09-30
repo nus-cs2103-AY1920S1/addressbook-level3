@@ -8,7 +8,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -17,6 +16,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.ui.components.PersonListPanel;
+import seedu.address.ui.components.ResultDisplay;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -92,7 +93,7 @@ public abstract class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    abstract void fillInnerParts();
+    protected abstract void fillInnerParts();
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -118,7 +119,7 @@ public abstract class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    protected void show() {
         primaryStage.show();
     }
 
@@ -143,7 +144,7 @@ public abstract class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

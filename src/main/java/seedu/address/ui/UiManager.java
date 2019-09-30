@@ -12,6 +12,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
+import seedu.address.ui.itinerary.DaysPage;
+import seedu.address.ui.itinerary.EditDayPage;
+import seedu.address.ui.itinerary.EditEventPage;
+import seedu.address.ui.itinerary.EventsPage;
+import seedu.address.ui.trips.EditTripPage;
+import seedu.address.ui.trips.TripsPage;
+import seedu.address.ui.utility.PreferencesPage;
 
 /**
  * The manager of the UI component.

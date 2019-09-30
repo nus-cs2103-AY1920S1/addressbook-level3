@@ -15,6 +15,7 @@ import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
 import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
 import seedu.address.model.pagestatus.PageStatus;
+import seedu.address.model.pagestatus.PageType;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,6 +29,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Trip> filteredTripList;
 
+    private PageStatus pageStatus;
+
 
     /**
      * Initializes a ModelManager with the given travelPal and userPrefs.
@@ -40,6 +43,7 @@ public class ModelManager implements Model {
 
         this.travelPal = new TravelPal(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.pageStatus = new PageStatus(PageType.TRIP_MANAGER, null, null, null);
         filteredPersons = new FilteredList<>(this.travelPal.getPersonList());
         filteredTripList = new FilteredList<>(this.travelPal.getTripList());
     }
@@ -160,14 +164,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPageStatus(PageStatus editedPageStatus) {
-        requireAllNonNull(editedPageStatus);
-        travelPal.setPageStatus(editedPageStatus);
+    public void setPageStatus(PageStatus pageStatus) {
+        requireNonNull(pageStatus);
+        this.pageStatus = pageStatus;
     }
 
     @Override
     public PageStatus getPageStatus() {
-        return travelPal.getPageStatus();
+        return pageStatus;
     }
 
     @Override

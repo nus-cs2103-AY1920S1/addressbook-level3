@@ -1,19 +1,20 @@
-package seedu.address.ui;
+package seedu.address.ui.components;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import seedu.address.ui.UiPart;
 
 import java.net.URL;
 
-public class Sidebar extends UiPart<Region> {
+public class NavigationSideBar extends UiPart<Region> {
 
     private static final String FXML = "Sidebar.fxml";
 
-    public Sidebar() {
+    public NavigationSideBar() {
         super(FXML);
     }
 
-    @javafx.fxml.FXML
+    @FXML
     private void handleButton1() {
         // switch to trip planner page
     }
