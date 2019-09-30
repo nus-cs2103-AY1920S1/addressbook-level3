@@ -616,12 +616,23 @@ _Use case ends_
 _Use case ends_
 
 [discrete]
-=== Use case: Listing monthly expenses
+=== Use case: List monthly transactions
 
 *MSS*
 
-1. User requests to view list of expenses for a specific month.
-2. THRIFT displays expenses of that month.
+1. User requests to view list of transactions for a specific month.
+2. THRIFT displays transactions of that month.
++
+_Use case ends_
+
+[discrete]
+=== Use case: Tagging a transaction
+
+*MSS*
+= *Extensions*
+
+1. User requests to tag a specific transaction.
+2. THRIFT processes the request and adds the tag to the specific transaction.
 +
 _Use case ends_
 
@@ -632,26 +643,6 @@ _Use case ends_
 +
 [none]
 ** 1a1. THRIFT displays an invalid command error to user.
-+
-_Use case ends_
-
-[discrete]
-=== Use case: Tagging a transaction
-
-*MSS*
-
-1. User requests to tag a specific transaction.
-2. THRIFT processes the request and adds the tag to the specific transaction.
-+
-_Use case ends_
-
-*Extensions*
-
-[none]
-* 1a. The parameters specified by the user are not valid.
-+
-[none]
-** 1a1. THRIFT displays an invalid parameter error to the user and the transaction is not updated.
 +
 _Use case ends_
 
@@ -772,6 +763,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 === Adding a transaction
+
 . Adding a transaction, be it income or expense.
 
 .. Test case: `add_expense n/Bought a pair of Apple Earpods c/350` +
@@ -824,6 +816,18 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No changes. Error details shown in status message.
 .. Test case: `clone` +
    Expected: No changes. Error details shown in status message.
+
+=== Listing the transactions
+
+. Listing out transactions by month or by tag.
+
+.. Prerequisites: At least one transaction in the list.
+.. Test case: `list` +
+   Expected: The entire list of transactions will be shown.
+.. Test case: `list m/Jan` +
+   Expected: The list of transactions for January will be shown.
+.. Test case: `list m/Jan t/Food` +
+   Expected: The list of transactions related to food for January will be shown.
 
 === Tagging a transaction
 
@@ -881,8 +885,6 @@ Expected: Details of the tagged transaction shown in status message. Listing the
    Expected: Error details shown in status message.
 .. Test case: `convert from/INVALID_CURRENCY to/USD c/cost ` where `INVALID_CURRENCY` is not a supported currency. +
    Expected: Error details shown in status message.
-
-_{ more test cases ... }_
 
 === Saving data
 
