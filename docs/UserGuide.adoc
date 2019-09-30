@@ -52,11 +52,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== IchiFund Basics
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Setting monthly budget: `bset`
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+==== Saving the data
+
+IchiFund data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+=== Transactions
+
+=== Recurring
+
+=== Loans
+
+=== Budgets
+
+==== Setting monthly budget: `bset`
 
 Sets monthly expenditure budget. +
 Format: `bset a/AMOUNT`
@@ -66,7 +86,7 @@ Examples:
 * `bset 1000` +
 Sets monthly expenditure budget to $1000.
 
-=== Excluding transaction from budget: `bexclude`
+==== Excluding transaction from budget: `bexclude`
 
 Excludes transaction from computation of budget. +
 Format: `bexclude i/TRANSACTION_ID`
@@ -82,7 +102,7 @@ Examples:
 `bexclude 2` +
 Excludes the 2nd transaction in the list from computation of budget.
 
-=== Including transaction in budget: `binclude`
+==== Including transaction in budget: `binclude`
 
 Includes transaction in computation of budget. +
 Format: `binclude i/TRANSACTION_ID`
@@ -98,9 +118,9 @@ Examples:
 `bexclude 2` +
 Includes the 2nd transaction in the list from computation of budget.
 
-=== Viewing budgeting information: `binfo`
+==== Viewing budget information: `binfo`
 
-Displays budgeting information. +
+Displays budget information. +
 Format: `binfo [m/MONTH y/YEAR]`
 
 Examples:
@@ -110,15 +130,91 @@ Displays expenditure budget left and a list of all excluded transactions for cur
 * `binfo m/7 y/2019` +
 Displays expenditure budget left and a list of all excluded transactions for July 2019.
 
-=== Exiting the program : `exit`
+=== Analytics
 
-Exits the program. +
-Format: `exit`
+==== Viewing expenditure trend: `aexpend`
 
-=== Saving the data
+Displays annual expenditure trend. +
+Format: `aexpend [y/YEAR]`
 
-IchiFund data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Examples:
+
+* `aexpend` +
+Displays annual expenditure trend for current year.
+* `aexpend 2019` +
+Displays annual expenditure trend for 2019.
+
+==== Viewing income trend: `aincome`
+
+Displays annual income trend. +
+Format: `aincome [y/YEAR]`
+
+Examples:
+
+* `aincome` +
+Displays annual income trend for current year.
+* `aincome 2019` +
+Displays annual income trend for 2019.
+
+==== Viewing balance trend: `abalance`
+
+Displays annual balance (income - expenditure) trend. +
+Format: `abalance [y/YEAR]`
+
+Examples:
+
+* `abalance` +
+Displays annual balance trend for current year.
+* `abalance 2019` +
+Displays annual balance trend for 2019.
+
+==== Viewing expenditure breakdown by category: `abreakdown`
+
+Displays breakdown of expenditure by category. +
+Format: `abreakdown [m/MONTH] [y/YEAR]`
+
+Examples:
+
+* `abreakdown` +
+Displays expenditure breakdown by category for current month.
+* `abreakdown m/7 y/2019` +
+Displays expenditure breakdown by category for July 2019.
+
+==== Viewing expenditure category ranking chart: `acatrank`
+
+Displays expenditure category ranking chart. +
+Format: `acatrank [m/MONTH] [y/YEAR]`
+
+Examples:
+
+* `acatrank` +
+Displays expenditure category ranking chart for current month.
+* `acatrank m/7 y/2019` +
+Displays expenditure category ranking chart for July 2019.
+
+==== Viewing expenditure ranking chart by month: `amthrank`
+
+Displays expenditure ranking chart by month. +
+Format: `amthrank [y/YEAR]`
+
+Examples:
+
+* `amthrank` +
+Displays all-time expenditure ranking chart by month.
+* `amthrank y/2019` +
+Displays expenditure ranking chart by month for 2019.
+
+==== Viewing expenditure ranking chart: `aexprank`
+
+Displays expenditure ranking chart. +
+Format: `aexprank [m/MONTH] [y/YEAR]`
+
+Examples:
+
+* `aexprank` +
+Displays all-time expenditure ranking chart.
+* `aexprank m/7 y/2019` +
+Displays expenditure ranking chart for July 2019.
 
 == FAQ
 
@@ -128,8 +224,16 @@ There is no need to save manually.
 == Command Summary
 
 * *Help* : `help`
+* *Exit* : `exit`
 * *Budget Set* : `bset a/AMOUNT`
 * *Budget Exclude* : `bexclude i/TRANSACTION_ID`
 * *Budget Include* : `binclude i/TRANSACTION_ID`
 * *Budget Info* : `binfo [m/MONTH y/YEAR]`
-* *Exit* : `exit`
+* *Expenditure Trend* : `aexpend [y/YEAR]`
+* *Income Trend* : `aincome [y/YEAR]`
+* *Balance Trend* : `abalance [y/YEAR]`
+* *Categorical Breakdown* : `abreakdown [m/MONTH] [y/YEAR]`
+* *Categorical Ranking Chart* : `acatrank [m/MONTH] [y/YEAR]`
+* *Month-Based Ranking Chart* : `amthrank [y/YEAR]`
+* *Ranking Chart* : `aexprank [m/MONTH] [y/YEAR]`
+
