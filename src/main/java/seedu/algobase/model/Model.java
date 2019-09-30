@@ -88,8 +88,8 @@ public interface Model {
 
     /**
      * Updates the Problem list according to the given {@code problemComparator}.
-     * @throws NullPointerException if {@code problemComparator} is null;
      * @param problemComparator
+     * @throws NullPointerException if {@code problemComparator} is null;
      */
     void updateSortedProblemList(Comparator<Problem> problemComparator);
 }

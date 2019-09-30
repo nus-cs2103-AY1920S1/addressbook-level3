@@ -9,12 +9,16 @@ import java.util.Comparator;
 
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.problem.Author;
-import seedu.algobase.model.problem.Difficulty;
 import seedu.algobase.model.problem.Problem;
 
+/**
+ * Sort Problems in the Problem list view.
+ */
 public class SortCommand extends Command {
 
+    /**
+     * Possible sorting methods for {@code SortCommand}.
+     */
     enum SortingMethod {
         byName,
         byAuthor,
@@ -23,6 +27,9 @@ public class SortCommand extends Command {
         bySource
     }
 
+    /**
+     * Possible sorting orders for {@code SortCommand}.
+     */
     enum SortingOrder {
         ascend,
         descend
@@ -38,7 +45,7 @@ public class SortCommand extends Command {
             + PREFIX_SORTING_ORDER + "ascend";
     public static final String MESSAGE_SUCCESS = "AlgoBase has been sorted!";
 
-    public static final Comparator<Problem> problemNameComparator = new Comparator<Problem>() {
+    public static final Comparator<Problem> PROBLEM_NAME_COMPARATOR = new Comparator<Problem>() {
         @Override
         public int compare(Problem o1, Problem o2) {
             if (o1 == o2) {
@@ -48,7 +55,7 @@ public class SortCommand extends Command {
         }
     };
 
-    public static final Comparator<Problem> problemAuthorComparator = new Comparator<Problem>() {
+    public static final Comparator<Problem> PROBLEM_AUTHOR_COMPARATOR = new Comparator<Problem>() {
         @Override
         public int compare(Problem o1, Problem o2) {
             if (o1 == o2) {
@@ -58,7 +65,7 @@ public class SortCommand extends Command {
         }
     };
 
-    public static final Comparator<Problem> problemDifficultyComparator = new Comparator<Problem>() {
+    public static final Comparator<Problem> PROBLEM_DIFFICULTY_COMPARATOR = new Comparator<Problem>() {
         @Override
         public int compare(Problem o1, Problem o2) {
             if (o1 == o2) {
@@ -68,7 +75,7 @@ public class SortCommand extends Command {
         }
     };
 
-    public static final Comparator<Problem> problemSourceComparator = new Comparator<Problem>() {
+    public static final Comparator<Problem> PROBLEM_SOURCE_COMPARATOR = new Comparator<Problem>() {
         @Override
         public int compare(Problem o1, Problem o2) {
             if (o1 == o2) {
@@ -78,7 +85,7 @@ public class SortCommand extends Command {
         }
     };
 
-    public static final Comparator<Problem> problemWebLinkComparator = new Comparator<Problem>() {
+    public static final Comparator<Problem> PROBLEM_WEB_LINK_COMPARATOR = new Comparator<Problem>() {
         @Override
         public int compare(Problem o1, Problem o2) {
             if (o1 == o2) {
@@ -119,37 +126,37 @@ public class SortCommand extends Command {
         switch (this.method) {
         case byName:
             if (sortByAscendingOrder) {
-                model.updateSortedProblemList(problemNameComparator);
+                model.updateSortedProblemList(PROBLEM_NAME_COMPARATOR);
             } else {
-                model.updateSortedProblemList(problemNameComparator.reversed());
+                model.updateSortedProblemList(PROBLEM_NAME_COMPARATOR.reversed());
             }
             break;
         case byAuthor:
             if (sortByAscendingOrder) {
-                model.updateSortedProblemList(problemAuthorComparator);
+                model.updateSortedProblemList(PROBLEM_AUTHOR_COMPARATOR);
             } else {
-                model.updateSortedProblemList(problemAuthorComparator.reversed());
+                model.updateSortedProblemList(PROBLEM_AUTHOR_COMPARATOR.reversed());
             }
             break;
         case byDifficulty:
             if (sortByAscendingOrder) {
-                model.updateSortedProblemList(problemDifficultyComparator);
+                model.updateSortedProblemList(PROBLEM_DIFFICULTY_COMPARATOR);
             } else {
-                model.updateSortedProblemList(problemDifficultyComparator.reversed());
+                model.updateSortedProblemList(PROBLEM_DIFFICULTY_COMPARATOR.reversed());
             }
             break;
         case bySource:
             if (sortByAscendingOrder) {
-                model.updateSortedProblemList(problemSourceComparator);
+                model.updateSortedProblemList(PROBLEM_SOURCE_COMPARATOR);
             } else {
-                model.updateSortedProblemList(problemSourceComparator.reversed());
+                model.updateSortedProblemList(PROBLEM_SOURCE_COMPARATOR.reversed());
             }
             break;
         case byWebLink:
             if (sortByAscendingOrder) {
-                model.updateSortedProblemList(problemWebLinkComparator);
+                model.updateSortedProblemList(PROBLEM_WEB_LINK_COMPARATOR);
             } else {
-                model.updateSortedProblemList(problemWebLinkComparator.reversed());
+                model.updateSortedProblemList(PROBLEM_WEB_LINK_COMPARATOR.reversed());
             }
             break;
         default:
