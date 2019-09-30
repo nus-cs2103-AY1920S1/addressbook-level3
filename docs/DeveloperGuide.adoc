@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W11-4/main
 
-By: `Team CaloFit`      Since: `Sep 2019`      Licence: `MIT`
+By: `Team CaloFit (AY1920S1-CS2103T-W11-4)`      Since: `Sep 2019`      Licence: `MIT`
 
 ////
 == Setting up
@@ -313,6 +313,11 @@ The app is able to help the user keep track of their calorie consumption. This w
 |be alerted if I missed a meal
 |be reminded to stick to my meal plans.
 
+|&#11088;&#11088;&#11088;
+|user
+|change my daily calorie budget
+|better reflect my new lifestyle requirements.
+
 |&#11088;&#11088;
 |user
 |modify my previous meal entries
@@ -320,8 +325,18 @@ The app is able to help the user keep track of their calorie consumption. This w
 
 |&#11088;&#11088;
 |user
+|delete my previous meal entries
+|undo mistakenly added meal entries.
+
+|&#11088;&#11088;
+|user
 |generate a summary of meals over the past month
 |review my overall progress in keeping to my meal plan
+
+|&#11088;&#11088;
+|user
+|view meal suggestions that fit in my remaining budget.
+|figure out what I can eat while keeping to my plan.
 
 |&#11088;
 |user
