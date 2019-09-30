@@ -28,6 +28,15 @@ public class AndOrTreeTest {
                     CourseUtil.getCourse("MA1101R")
             );
             System.out.println("fulfill: " + tree.fulfillsCondition(col));
+
+            AndOrTree tree2 = AndOrTree.buildTree("MA1511");
+            System.out.println(tree2.toString());
+
+            AndOrTree tree3 = AndOrTree.buildTree("CS2102");
+            System.out.println(tree3.toString());
+
+            AndOrTree tree4 = AndOrTree.buildTree("CS2030");
+            System.out.println(tree4.toString());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

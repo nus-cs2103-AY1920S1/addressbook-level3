@@ -21,8 +21,10 @@ public class CourseUtil {
      * Adapted from https://stackoverflow.com/a/9584469.
      */
     private static String REMOVE_WHITESPACE_REGEX = "\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
-
     private static String COURSE_FOLDER = "modinfo";
+
+    /** The length of "LL5009GRSII" */
+    public static int LONGEST_STRING_LEN = 11;
 
     private static String removeSpacesNotWithinQuotes(String string) {
         return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();

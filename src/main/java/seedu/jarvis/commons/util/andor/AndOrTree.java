@@ -21,18 +21,41 @@ public class AndOrTree {
         this.root = root;
     }
 
+    /**
+     * Get the first key of the given node.
+     */
     private static String getKey(JsonNode node) {
         return node.fields().next().getKey();
     }
 
+    /**
+     * Builds the And-Or Tree from the given course code.
+     *
+     * @param courseCode
+     * @return
+     * @throws IOException
+     */
     public static AndOrTree buildTree(String courseCode)
             throws IOException {
         Course course = CourseUtil.getCourse(courseCode);
-        JsonNode node = new ObjectMapper().readTree(course.getPrereqTree().toString());
-
         AndOrNode rootNode = AndOrNode.createLeafNode(course, null);
-        buildTree(node, rootNode);
+        JsonNode node;
+        try {
+            String prereqTree = course.getPrereqTree().toString();
+            prereqTree = addQuotes(prereqTree);
+            node = new ObjectMapper().readTree(prereqTree);
+            buildTree(node, rootNode);
+        } catch (NullPointerException e) {
+            // will just return an empty tree
+        }
         return new AndOrTree(rootNode);
+    }
+
+    /**
+     * Add quotes to start and end of {@code String} to avoid json parsing error.
+     */
+    private static String addQuotes(String s) {
+        return (s.length() <= CourseUtil.LONGEST_STRING_LEN) ? "\"" + s + "\"" : s;
     }
 
     /**
@@ -96,6 +119,9 @@ public class AndOrTree {
 
     @Override
     public String toString() {
+        if (root.getChildren().size() <= 0) {
+            return root.toString() + " has no prerequisites!";
+        }
         return this.root.toTreeString();
     }
 }
