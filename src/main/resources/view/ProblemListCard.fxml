@@ -30,6 +30,9 @@
       <Label fx:id="author" styleClass="cell_small_label" text="\$author" />
       <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
       <Label fx:id="weblink" styleClass="cell_small_label" text="\$webLink" />
+      <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
+      <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
+      <Label fx:id="source" styleClass="cell_small_label" text="\$source" />
     </VBox>
   </GridPane>
 </HBox>
