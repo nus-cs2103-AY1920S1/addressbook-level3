@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import java.io.IOException;
 
 public class CourseUtilTest {
-    private String[] VALID_COURSE_CODES = {
+    public String[] VALID_COURSE_CODES = {
             "MA1511",
             "CS3230",
             "CS1101S",
@@ -16,7 +16,7 @@ public class CourseUtilTest {
             "ALS1020"
     };
 
-    private String[] INVALID_COURSE_CODES = {
+    public String[] INVALID_COURSE_CODES = {
             "MA1234",
             "ESP1107",
             "",
