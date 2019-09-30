@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -117,7 +118,7 @@ public class BookTest {
     @Test
     public void getSerialNumber_sameBook_assertTrue() {
         Book book1 = new BookBuilder(BOOK_1).build();
-        assertTrue(book1.getSerialNumber().equals(new SerialNumber("B0001")));
+        assertTrue(book1.getSerialNumber().equals(new SerialNumber(VALID_SERIAL_NUMBER_BOOK_1)));
     }
 
     @Test

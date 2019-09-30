@@ -55,8 +55,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Book a = new BookBuilder().withTitle("A").withSerialNumber("B0001").build();
-        Book b = new BookBuilder().withTitle("B").withSerialNumber("B0002").build();
+        Book a = new BookBuilder().withTitle("A").withSerialNumber("B00001").build();
+        Book b = new BookBuilder().withTitle("B").withSerialNumber("B00002").build();
         AddCommand addACommand = new AddCommand(a);
         AddCommand addBCommand = new AddCommand(b);
 

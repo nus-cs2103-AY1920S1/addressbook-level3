@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class BookBuilder {
 
     public static final String DEFAULT_TITLE = "Harry Botter";
-    public static final String DEFAULT_SERIAL_NUMBER = "B0001";
+    public static final String DEFAULT_SERIAL_NUMBER = "B00001";
     public static final String DEFAULT_AUTHOR = "J K Rowling";
 
     private Title title;

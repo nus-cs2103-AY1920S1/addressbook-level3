@@ -56,6 +56,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code serialNumber} is invalid.
      */
     public static SerialNumber parseSerialNumber(String serialNumber) throws ParseException {
+        requireNonNull(serialNumber);
         String trimmedSerialNumber = serialNumber.trim();
         if (!SerialNumber.isValidSerialNumber(trimmedSerialNumber)) {
             throw new ParseException(SerialNumber.MESSAGE_CONSTRAINTS);
