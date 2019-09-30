@@ -1,4 +1,4 @@
-﻿= AddressBook Level 3 - Developer Guide
+﻿= T.A.rence - Draft Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of tutorial classes
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage TA-related tasks faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,17 +295,28 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |TA |mark students attendance easily on computer |not have to keep a physical record of it
 
-|`* * *` |user |add a new person |
+|`* * *` |TA |add a new student to my class |easily track students without having to refer to LumiNUS
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |TA |delete a student |stop referring to LumiNUS due to students periodically dropping classes
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |TA |track students' performance |pay special attention to weaker students
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |TA |easily key in marks for assignments and mid-terms|view statistics such as mean and help the outlier students
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |TA with busy schedule |keep track of my available slots | know when to schedule consultations
+
+|`*` |TA|have a contact list of professors | easily contact them
+
+|`* * *` |TA overloading  | compare my personal timetable with the scheduled tutorial slots |plan out any potential clashes
+
+|`* *` |TA  | share my schedules with my other TA friends | assign a substitute TA if needed
+
+|`* *` |TA  |track all guest & students that crash | remember to manually submit their attendance and/or assignments
+
+|`* *` |TA  | keep separate logs of the modules I taught for each semester | retrieve any information from the
+previous semesters taught
 |=======================================================================
 
 _{More to be added}_
@@ -313,33 +324,67 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `T.A.rence application` and the *Actor* is the `TA user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add student
+*Pre-conditions*: Module and Tutorial already exists in the system.
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a student
+2.  T.A.rence adds the student
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Module or tutorial doesn't exist.
+** 1a1. T.A.rence shows an error message.
+** 1a2. Use case resumrs at step 1.
++
+Use case ends.
++
+
+
+[discrete]
+=== Use case: Add module
+
+*MSS*
+
+1. User requests to add a module.
+2. T.A.rence adds the module.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. Invalid module code is entered eg `CS101010`
+** 1a1. T.A.rence shows an error message.
+** 1a2. Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Delete student
+
+*MSS*
+
+1. User requests to view list of students in a particular tutorial.
+2. T.A.rence displays list.
+3. User specifies which student to be deleted.
+4. T.A.rence deletes the selected student.
 +
-Use case resumes at step 2.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Student does not exist.
+** 3a1. T.A.rence shows an error message.
+** 3a2. Use case resumes at step 3.
+
 
 _{More to be added}_
 
@@ -347,7 +392,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 students without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_

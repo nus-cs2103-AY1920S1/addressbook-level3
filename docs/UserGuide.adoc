@@ -1,4 +1,4 @@
-﻿= AddressBook Level 3 - User Guide
+﻿= T.A.rence - Draft User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -59,7 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a mMdule: `addModule`
+=== Adding a Mdule: `addModule`
 
 Adds a module to T.A.rence. +
 Format: `addModule m/MODULE_CODE`
@@ -99,7 +99,7 @@ Explanation: Adds a student called 'Bob'; with matriculation number `A1234567Z1 
 
 === Adding an Assignment : `addAssignment` [coming in v2.0]
 
-=== Editing a student : `editStudent` [coming in v2.0]
+=== Editing a Student : `editStudent` [coming in v2.0]
 
 Allows user to edit an existing student information
 
@@ -118,7 +118,7 @@ Example:
 //-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 //-****
 
-=== Locating student by name: `find` [coming in v2.0]
+=== Searching Student by Name: `find` [coming in v2.0]
 
 Searches and displays student particulars based on name. The search can be based on partial strings that match
 and need not be the full name of the student. +
@@ -177,25 +177,25 @@ Clears all entries from the address book. +
 
 Format: `clear`
 
-=== Mark Participation for a Student : `classPart` [coming in v2.9]
+=== Mark Participation for a Student : `classPart` [coming in v2.0]
 
 Gives participation marks to a student of a particular tutorial slot
 
 Format: `classPart c/[TUTORIAL_NAME] n/[STUDENT_NAME]
 
-=== Store a Student's Results : `addMarks` [coming in v2.9]
+=== Store a Student's Results : `addMarks` [coming in v2.0]
 
 Allows user to add test results of a student of a particular tutorial slot
 
 Format: `addMarks c/[TUTORIAL_NAME] n/[STUDENT_NAME] marks/[MARK_OBTAINED]
 
-=== Display Tutorial Class' Test Results : `display` [coming in v2.9]
+=== Display Tutorial Class' Test Results : `display` [coming in v2.0]
 
 Allows user to display overall results (graph) for an exam
 
 Format: `display c/[TUTORIAL_NAME]
 
-=== Add Personal Notes to a Student : `note`  [coming in v2.9]
+=== Add Personal Notes to a Student : `note`  [coming in v2.0]
 
 Allows user to add personal notes about class or feedback received by students.
 
