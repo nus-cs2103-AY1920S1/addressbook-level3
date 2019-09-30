@@ -31,7 +31,7 @@ public interface Logic {
     ReadOnlyAlgoBase getAlgoBase();
 
     /** Returns an unmodifiable view of the filtered list of problems */
-    ObservableList<Problem> getFilteredProblemList();
+    ObservableList<Problem> getProcessedProblemList();
 
     /**
      * Returns the user prefs' algobase file path.

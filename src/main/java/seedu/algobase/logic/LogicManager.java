@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Problem> getFilteredProblemList() {
+    public ObservableList<Problem> getProcessedProblemList() {
         return model.getFilteredProblemList();
     }
 

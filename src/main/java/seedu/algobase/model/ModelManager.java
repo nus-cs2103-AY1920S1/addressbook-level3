@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -127,6 +128,18 @@ public class ModelManager implements Model {
     public void updateFilteredProblemList(Predicate<Problem> predicate) {
         requireNonNull(predicate);
         filteredProblems.setPredicate(predicate);
+    }
+
+    /**
+     * Updates the Problem list according to the given {@code problemComparator}.
+     *
+     * @param problemComparator
+     * @throws NullPointerException if {@code problemComparator} is null;
+     */
+    @Override
+    public void updateSortedProblemList(Comparator<Problem> problemComparator) {
+        requireNonNull(problemComparator);
+        filteredProblems.sort(problemComparator);
     }
 
     @Override
