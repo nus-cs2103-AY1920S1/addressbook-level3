@@ -120,6 +120,9 @@ Edits an entity based on the supplied parameter values you supply.
 ****
 
 Examples:
+* `edit mentor M01 \nNewMentorName`
+* `edit team T01 \nNewTeamName`
+* `edit participant P01 \nNewParticipantNAme`
 
 * `edit mentor M01 /nNewMentorName`
 
@@ -136,6 +139,9 @@ Shows a list of all the Entities that Alfred keeps track of +
 ****
 
 Examples:
+* `list mentor M01`
+* `list participant P01`
+* `list team T01`
 
 * `list mentor` will list all mentors stored within Alfred.
 
@@ -151,8 +157,6 @@ This is a permanent operation, so please be careful.
 * Deletes the Entity with the ID that you specify.
 * As of version 1.1, the delete operation is permanent and irreversible. Be careful.
 ****
-
-Examples:
 
 * `delete mentor M01` will delete the mentor with ID M01 from Alfred.
 
