@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://github.com/AY1920S1-CS2103T-W12-4[CS2103T-W12-4] team. +
+IchiFund was developed by the https://github.com/AY1920S1-CS2103T-W12-4[CS2103T-W12-4] team. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 

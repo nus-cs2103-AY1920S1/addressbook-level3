@@ -1,10 +1,8 @@
-= Address Book (Level 3)
+= IchiFund
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-W12-4/main[image:https://travis-ci.org/AY1920S1-CS2103T-W12-4/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-W12-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-W12-4/main/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,9 +12,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+Are you a student? Are you feeling money is hard to come by? Are you feeling the pressure of having to take responsibility of your own future? We have the right product for you.
+
+Introducing IchiFund, the next-generation financial tracking app for students like you and me.
+
+With IchiFund, you can handle your daily transactions, keep track of your loans, set your budget, and analyse your spending!
 
 == Site Map
 
