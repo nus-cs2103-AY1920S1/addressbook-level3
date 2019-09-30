@@ -100,7 +100,7 @@ Format: `txedit i/ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
 Examples:
 
 * `txedit i/1 m/Dinner a/32.30` +
-Edits the description of the first transaction to "Dinner", and its amount to $32.30.
+Edits the description of the 1st transaction in the current list to "Dinner", and its amount to $32.30.
 
 ==== Deleting transaction: `txdelete`
 Deletes a transaction. +
