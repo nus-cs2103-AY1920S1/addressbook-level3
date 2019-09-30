@@ -71,6 +71,13 @@ There is no need to save manually.
 === Wealth
 
 ==== Set current wealth: `wealthset`
+Set current wealth. +
+Format: `wealthset a/AMOUNT`
+
+Examples:
+
+* `wealthset a/2103.20` +
+Sets current wealth to $2103.20.
 
 === Transactions
 
