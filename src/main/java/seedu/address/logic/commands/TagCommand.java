@@ -1,5 +1,13 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -8,10 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.tag.Tag;
 
-import java.util.*;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 
 /**
  * Adds more tag(s) to or clear tag(s) of item identified using its displayed index from the expiry date tracker.
@@ -51,6 +56,9 @@ public class TagCommand extends Command {
 
         model.setItem(itemToTag, taggedItem);
         model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        if (this.tagItemDescriptor.isClear) {
+            return new CommandResult(String.format(MESSAGE_TAG_CLEAR_ITEM_SUCCESS, taggedItem));
+        }
         return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem));
 
     }
@@ -85,6 +93,9 @@ public class TagCommand extends Command {
         return set;
     }
 
+    /**
+     * Stores the tags to edit the item with.
+     */
     public static class TagItemDescriptor {
         private Set<Tag> tags;
         private boolean isClear = false;
