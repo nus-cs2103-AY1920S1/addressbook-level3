@@ -161,11 +161,20 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static Timing parseTiming(String stringTiming) throws ParseException {
-        requireNonNull(stringTiming);
-        if (!Timing.isValidTiming(stringTiming)) {
+    public static Timing parseTiming(String startTiming, String endTiming) throws ParseException {
+        requireNonNull(startTiming, endTiming);
+        if (!Timing.isValidTiming(startTiming, endTiming)) {
             throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
         }
-        return new Timing(stringTiming);
+        return new Timing(startTiming, endTiming);
     }
+
+    public static Timing parseTiming(String startTiming) throws ParseException {
+        requireNonNull(startTiming);
+        if (!Timing.isValidTiming(startTiming)) {
+            throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
+        }
+        return new Timing(startTiming);
+    }
+
 }

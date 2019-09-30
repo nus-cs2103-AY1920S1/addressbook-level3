@@ -48,9 +48,6 @@ public class AddAppCommandParser implements Parser<AddAppCommand> {
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
         Timing timing = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_EVENT).get());
 
-//        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        //how to store appoint scheldul, internalList?
-
         Appointment event = new Appointment(referenceId, timing, null);
 
         return new AddAppCommand(event);

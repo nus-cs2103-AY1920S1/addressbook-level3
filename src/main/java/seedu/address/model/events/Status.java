@@ -2,27 +2,27 @@ package seedu.address.model.events;
 //
 ////TODO: Stub models for now
 //
-///**
-// * Describes the status of an appointment
-// */
-public class Status {
+
+/**
+ * Describes the status of an appointment
+ */
+public enum Status {
+
+    APPROVED("patient appointment was made"),
+    ACK("patient is arrived"),
+    WAITING("patient comes for appointment but is waiting now"),
+    MISSED("patient missed appointment, need to settle"),
+    SETTLE("patient does not come for appointment but is settled "),
+    CANCELLED("patient appointment has been cancelled");
+
+
+    private String statusMess;
+
+    Status(String status) {
+        this.statusMess = status;
+    }
+
+    public String getStatusMess() {
+        return statusMess;
+    }
 }
-//
-//    WAITING("patient is waiting now"),
-//    MISSED("patient is waiting now"),
-//    ACK("patient is arrived"),
-//    SETTLE("patient is "),
-//    CANCELLED("patient appointment has been cancelled"),
-//    NEW("default status"),
-//    APPROVED("patient appointment was made");
-//
-//    private String statusMess;
-//
-//    Status(String status) {
-//        this.statusMess = status;
-//    }
-//
-//    public String getStatusMess() {
-//        return statusMess;
-//    }
-//    }

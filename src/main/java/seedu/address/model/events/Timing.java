@@ -19,8 +19,8 @@ public class Timing {
 
     public static final String MESSAGE_CONSTRAINTS =
         "The event start datetime must be before the end datetime.";
-    private static Date startTiming;
-    private static Date endTiming;
+    private final Date startTiming;
+    private final Date endTiming;
 
     /**
      * Constructs a {@code Timing}.

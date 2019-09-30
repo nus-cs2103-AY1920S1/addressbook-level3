@@ -1,12 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT;
 
 
@@ -16,7 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
-import seedu.address.model.person.Person;
 
 /**
  * Adds a person to the address book.
@@ -29,6 +24,7 @@ public class AddAppCommand extends ReversibleCommand {
             + "Parameters: "
             + PREFIX_ID + "REFERENCE ID "
             + PREFIX_NAME + "PREFIX_NAME "
+            + PREFIX_EVENT + "PREFIX_EVENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "001A "
             + PREFIX_NAME + "John Doe "
@@ -37,8 +33,8 @@ public class AddAppCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This appointment already exists in the address book";
     public static final String MESSAGE_wrong_PERSON = "This appointment already exists in the address book";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has been removed.";
-    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
+    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
+    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
 
     private final Event appointment;
 

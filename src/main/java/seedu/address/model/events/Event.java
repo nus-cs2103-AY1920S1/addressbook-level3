@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.address.model.common.ReferenceId;
 
 //TODO: Stub models for now
+
 /**
  * Represents an event involving a single Person.
  * Guarantees: Reference Id to a person, the event timing and status are present, validated and immutable.
@@ -16,7 +17,7 @@ public abstract class Event {
     // Identity fields
     private final ReferenceId personId;
     private final Timing timing;
-    private final Status status;
+    private Status status;
 
     /**
      * Every field must be present and not null.
@@ -25,7 +26,7 @@ public abstract class Event {
         requireAllNonNull(personId, timing, status);
         this.personId = personId;
         this.timing = timing;
-        this.status = status;
+        this.status = Status.APPROVED;
     }
 
     public ReferenceId getPersonId() {
@@ -40,6 +41,27 @@ public abstract class Event {
         return status;
     }
 
+    public void setStausAsAck() {
+        status = Status.ACK;
+    }
+
+    public void setStausAsWaiting() {
+        status = Status.WAITING;
+    }
+
+
+    public void setStausAsMISS() {
+        status = Status.MISSED;
+    }
+
+    public void setStausAsSettle() {
+        status = Status.SETTLE;
+    }
+
+    public void setStausAsCancell() {
+        status = Status.CANCELLED;
+    }
+
     /**
      * Returns true if both Event of the same patient and timing.
      * This defines a weaker notion of equality between two events.
@@ -50,8 +72,8 @@ public abstract class Event {
         }
 
         return otherEvent != null
-            && otherEvent.getPersonId().equals(getPersonId())
-            && otherEvent.getEventTiming().equals(getEventTiming());
+                && otherEvent.getPersonId().equals(getPersonId())
+                && otherEvent.getEventTiming().equals(getEventTiming());
     }
 
     /**
@@ -70,8 +92,8 @@ public abstract class Event {
 
         Event otherEvent = (Event) other;
         return otherEvent.getPersonId().equals(getPersonId())
-            && otherEvent.getEventTiming().equals(getEventTiming())
-            && otherEvent.getStatus().equals(getStatus());
+                && otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(getStatus());
     }
 
     @Override
@@ -84,11 +106,11 @@ public abstract class Event {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Event - Person ID: ")
-            .append(getPersonId())
-            .append(" Timing: ")
-            .append(getEventTiming())
-            .append(" status: ")
-            .append(getStatus());
+                .append(getPersonId())
+                .append(" Timing: ")
+                .append(getEventTiming())
+                .append(" status: ")
+                .append(getStatus());
         return builder.toString();
     }
 }
