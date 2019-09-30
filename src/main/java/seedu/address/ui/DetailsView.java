@@ -8,6 +8,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ScheduleStub;
 import seedu.address.model.person.schedule.Schedule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DetailsView extends UiPart<Region> {
 
     @FXML
@@ -19,7 +22,9 @@ public class DetailsView extends UiPart<Region> {
         this.detailsView = new VBox();
         PersonCard personCard = new PersonCard(person, 1);
         ScheduleStub stub = new ScheduleStub(1);
-        ScheduleView scheduleView = new ScheduleView(stub.getSchedule());
+        ArrayList<Schedule> schedules = new ArrayList<>(List.of(stub.getSchedule(),
+                stub.getSchedule(), stub.getSchedule()));
+        ScheduleView scheduleView = new ScheduleView(schedules);
         detailsView.getChildren().addAll(personCard.getRoot(), scheduleView.getScheduleView());
     }
 
