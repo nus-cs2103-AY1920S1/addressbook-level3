@@ -4,53 +4,56 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+AddressBook - Level 3 was developed by the https://github.com/AY1920S1-CS2103T-W12-4[CS2103T-W12-4] team. +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Andrew Sim
+image::andrewsim.jpg[width="150" align="left"]
+{empty}[https://github.com/andrewscw[github]] [<<portfolio>>]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Eugene Lim
+image::eugenelim.jpg[width="150", align="left"]
+{empty}[http://github.com/nexolute[github]] [<<eugenelim#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
+Role: Developer
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Lee Yiyuan
+image::leeyiyuan.jpg[width="150", align="left"]
+{empty}[http://github.com/LeeYiyuan[github]] [<<leeyiyuan#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tan Wei Yang
+image::tanweiyang.jpg[width="150", align="left"]
+{empty}[http://github.com/weiyang13[github]] [<<tanweiyang#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer
+
+'''
+
+=== Olivia Yu
+image::oliviayu.jpg[width="150", align="left"]
+{empty}[http://github.com/Alaete[github]] [<<oliviayu#, portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Kartike Khandelwal
+image::kartike.jpg[width="150", align="left"]
+{empty}[http://github.com/troomtroom[github]] [<<kartike#, portfolio>>]
+
+Role: Developer
 
 '''
