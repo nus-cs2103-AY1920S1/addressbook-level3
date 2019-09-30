@@ -319,6 +319,12 @@ Displays expenditure ranking chart for July 2019.
 
 * *Help* : `help`
 * *Exit* : `exit`
+* *Wealth Set* : `wealthset a/AMOUNT`
+* *Transaction Add* : `txadd t/TYPE m/DESCRIPTION a/AMOUNT [d/DATE] [c/CATEGORY]`
+* *Transaction Edit* : `txedit i/ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
+* *Transaction Delete* : `txdelete i/TRANSACTION_ID`
+* *Transaction Find* : `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
+* *Transaction List* : `txlist`
 * *Budget Set* : `bset a/AMOUNT`
 * *Budget Exclude* : `bexclude i/TRANSACTION_ID`
 * *Budget Include* : `binclude i/TRANSACTION_ID`
