@@ -18,19 +18,6 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-[#imgId-dashboard]
-.Mark's Dashboard Tab View
-image::ui-screenshots/uimockup1_dashboard.png[@Dashboard Tab View, 300, 200]
-
-[#imgId-online]
-.Mark's Online Tab View
-image::ui-screenshots/uimockup1_online.png[@Online Tab View, 300, 200]
-
-[#imgId-offline]
-.Mark's Offline Tab View
-image::ui-screenshots/uimockup1_offline.png[@Offline Tab View]
-
-
 Mark is for those who prefer to use a *desktop app for managing
 bookmarks.* More importantly, it is optimized for those who prefer to
 work with a *Command Line Interface (CLI)* while still having the
@@ -387,10 +374,10 @@ image:media/image1.jpg[image,width=451,height=224]
 
 Adds new annotations on locally saved, offline version of the bookmarked
 website. When this command is given, the UI will switch to the offline tab showing the results of your command.
-With this command, you can highlight a paragraph on the offline document and optionally attach a note to said paragraph. +
-When a paragraph is chosen to be highlighted, it is optional to add a
-supplementary note (Notes can be added to justify the highlight or as
+With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
+note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
+++
 Overwriting an existing note is possible with this command.
 
 Format: `annotate INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
@@ -450,22 +437,22 @@ the highlight will be removed. KEEP_HIGHLIGHT is false by default.
 
 Examples:
 
-* `annotate delete 1 p/2`
+* `annotate delete 1 p/2` +
 In the offline copy of bookmark 1, removes both the note and highlight from paragraph 2.
 
-* `annotate delete 1 p/2 n/true`
+* `annotate delete 1 p/2 n/true` +
 In the offline copy of bookmark 1, removes the highlight of paragraph 2 and moves the note to _Stray Note Section_.
 
-* `annotate delete 1 p/2 h/true`
+* `annotate delete 1 p/2 h/true` +
 In the offline copy of bookmark 1, removes the note of paragraph 2, leaving the highlight untouched.
 
-* `annotate delete 1 p/2 n/true h/true`
+* `annotate delete 1 p/2 n/true h/true` +
 Nothing happens as both the note and highlight are left alone.
 
-* `annotate delete 2 p/S1`
+* `annotate delete 2 p/S1` +
 Deletes stray note S1 from the offline copy of bookmark 2.
 
-* `annotate delete 1`
+* `annotate delete 1` +
 Removes all annotations of the offline copy of bookmark 1.
 
 
@@ -496,25 +483,25 @@ If HIGHLIGHT_COLOUR is specified with a stray note identifier, nothing happens.
 
 Examples:
 
-* `annotate edit 1 p/2 to/3`
+* `annotate edit 1 p/2 to/3` +
 In the offline copy of bookmark 1, moves both highlight and notes from paragraph 2 to paragraph 3. Highlight of paragraph 2
 will be removed.
 
-* `annotate edit 1 p/2 to/3 h/orange`
+* `annotate edit 1 p/2 to/3 h/orange` +
 In the offline copy of bookmark 1, moves note from paragraph 2 to paragraph 3. Highlight of paragraph 2
 will be removed and paragraph 3 will be highlighted with orange.
 
-* `annotate edit 1 p/1 n/new notes`
+* `annotate edit 1 p/1 n/new notes` +
 In the offline copy of bookmark 1, replaces the content of the note for paragraph 1 with "new notes".
 
-* `annotate edit 1 p/1 h/yellow`
+* `annotate edit 1 p/1 h/yellow` +
 In the offline copy of bookmark 1, changes the highlight colour to yellow for paragraph 1.
 
-* `annotate edit 1 S2 p/1`
+* `annotate edit 1 S2 p/1` +
 In the offline copy of bookmark 1, moves stray notes S2 to paragraph 1. If paragraph 1 had a highlight, highlight
 remains and overwrite any existing note with S2 note content. If not default highlight colour yellow is used.
 
-* `annotate edit 1 p/2 to/3 n/changing and moving notes`
+* `annotate edit 1 p/2 to/3 n/changing and moving notes` +
 In the offline copy of bookmark 1, paragraph 3 is annotated with the highlight of paragraph 2 and
 note with content "changing and moving notes". Annotation on paragraph 2 is removed.
 
@@ -660,6 +647,20 @@ Goes to the Offline tab which shows the offline copy of bookmarks
 
  Different user displays. There are three tabs: dashboard, online view
 (web browser), and offline view (caches and notes).
+
+
+[#imgId-dashboard]
+.Mark's Dashboard Tab View
+image::ui-screenshots/uimockup1_dashboard.png[@Dashboard Tab View, 600, 400]
+
+[#imgId-online]
+.Mark's Online Tab View
+image::ui-screenshots/uimockup1_online.png[@Online Tab View, 600, 400]
+
+[#imgId-offline]
+.Mark's Offline Tab View
+image::ui-screenshots/uimockup1_offline.png[@Offline Tab View, 600, 400]
+
 
 *What is the Dashboard?*
 
