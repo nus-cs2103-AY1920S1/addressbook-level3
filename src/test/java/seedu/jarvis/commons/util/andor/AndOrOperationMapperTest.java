@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * @author ryanYtan
+ */
 public class AndOrOperationMapperTest {
     @Test
     public void resolveType_andOrString_returnsAndOrString() {
