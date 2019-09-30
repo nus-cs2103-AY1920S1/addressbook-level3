@@ -5,8 +5,7 @@
 :stylesDir: stylesheets
 
 CaloFit was developed by the AY1920S1-CS2103T-W11-4 team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -23,8 +22,7 @@ Role: Project Advisor
 
 === Maurice
 image::maurice.png[width="150", align="left"]
-{empty}[http://github.com/MauriceTXS[Github]] +
-[<<johndoe#, portfolio>>]
+{empty}[http://github.com/MauriceTXS[Github]]
 
 Role: Chief Executive Officer +
 Responsibilities: UI
@@ -33,8 +31,7 @@ Responsibilities: UI
 
 === Felix
 image::felix.jpg[width="150", align="left"]
-{empty}[http://github.com/FelixNWJ[Github]] +
-[<<johndoe#, portfolio>>]
+{empty}[http://github.com/FelixNWJ[Github]]
 
 Role: Chief Operating Officer +
 Responsibilities: Data
@@ -43,8 +40,7 @@ Responsibilities: Data
 
 === Ryan
 image::ryan.jpg[width="150", align="left"]
-{empty}[http://github.com/iltep64[Github]] +
-[<<johndoe#, portfolio>>]
+{empty}[http://github.com/iltep64[Github]]
 
 Role: Chief Technical Officer +
 Responsibilities: Dev Ops + Threading
@@ -53,8 +49,7 @@ Responsibilities: Dev Ops + Threading
 
 === Pin Sern
 image::pinsern.jpg[width="150", align="left"]
-{empty}[http://github.com/fangpinsern[Github]] +
-[<<johndoe#, portfolio>>]
+{empty}[http://github.com/fangpinsern[Github]]
 
 Role: Intern +
 Responsibilities: Database and DevOps
