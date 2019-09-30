@@ -163,7 +163,7 @@ Format: `change <ENTRY_ID> [-id|-i <PATIENT_IC>] [-start|-s <START_DATE>] [-end|
 List all the available empty slots for patients to make appointments +
 Format: `slot -start|-s <START_DATE> -end|-e <END_DATE>`
 
-==== Displays patients who have missed their appointments and have yet to be notified: ` missed ` ====
+==== Displays patients who have missed their appointments and have yet to be notified: `missed` ====
 
 Displays all patients who have missed their appointments that are not yet settled. +
 Format: `missed [-date <DATETIME>]`
@@ -214,7 +214,7 @@ Format: `exit`
 Undo an action +
 Format: `undo`
 
-==== Creates, updates or removes an alias command: `alias` ====
+==== Creates, updates or removes an alias command: ` alias ` ====
 
 Tags an alias name to a reserved command. More specifically,
 one of the following will happen depending on the parameters of the function.
