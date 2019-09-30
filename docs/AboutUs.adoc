@@ -24,3 +24,9 @@ image::yehezkiel.png[width="150", align="left"]
 {empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel#, portfolio>>]
 
 Role: Team Member
+
+=== Ng Shi Wei
+image::shiwei.png[width="150", align="left"]
+{empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
+
+Role: Team Member
