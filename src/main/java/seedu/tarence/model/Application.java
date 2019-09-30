@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
@@ -150,14 +151,7 @@ public class Application implements ReadOnlyApplication {
      */
     public boolean hasModuleOfCode(ModCode modCode) {
         requireNonNull(modCode);
-        boolean hasMod = false;
-        for (Module module : modules) {
-            if (module.getModCode().equals(modCode)) {
-                hasMod = true;
-                break;
-            }
-        }
-        return hasMod;
+        return modules.getModuleByCode(modCode).isPresent();
     }
 
     /**
@@ -165,13 +159,7 @@ public class Application implements ReadOnlyApplication {
      */
     public void addTutorialToModule(Tutorial tutorial) {
         requireNonNull(tutorial);
-        Module targetModule = null;
-        for (Module module : modules) {
-            if (module.getModCode().equals(tutorial.getModCode())) {
-                targetModule = module;
-                break;
-            }
-        }
+        Module targetModule = modules.getModuleByCode(tutorial.getModCode()).get();
         targetModule.addTutorial(tutorial);
     }
     ////=================== tutorial-level operations    ==============================================================
@@ -199,18 +187,12 @@ public class Application implements ReadOnlyApplication {
      */
     public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
         requireAllNonNull(modCode, tutName);
-        boolean hasMod = false;
-        for (Module module : modules) {
-            if (module.getModCode().equals(modCode)) {
-                hasMod = true;
-                break;
-            }
-        }
-        if (!hasMod) {
+        Optional<Module> module = modules.getModuleByCode(modCode);
+        if (module.isEmpty()) {
             return false;
         }
         boolean hasTut = false;
-        for (Tutorial tutorial : tutorials) {
+        for (Tutorial tutorial : module.get().getTutorials()) {
             if (tutorial.getTutName().equals(tutName)) {
                 hasTut = true;
                 break;

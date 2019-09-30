@@ -3,6 +3,7 @@ package seedu.tarence.model.tutorial;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,6 +36,19 @@ public class UniqueTutorialList implements Iterable<Tutorial> {
             throw new DuplicateTutorialException();
         }
         internalList.add(newTutorial);
+    }
+
+    /**
+     * Returns the {@code Tutorial} of the given {@code TutName}, or {@code Optional<Empty>} if it does not exist.
+     */
+    public Optional<Tutorial> getTutorialByName(TutName tutName) {
+        requireNonNull(tutName);
+        for (Tutorial tutorial : internalList) {
+            if (tutorial.getTutName().equals(tutName)) {
+                return Optional.of(tutorial);
+            }
+        }
+        return Optional.empty();
     }
 
     /**

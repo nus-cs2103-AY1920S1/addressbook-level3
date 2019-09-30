@@ -3,6 +3,7 @@ package seedu.tarence.model.module;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,6 +48,18 @@ public class UniqueModuleList implements Iterable<Module> {
         }
     }
 
+    /**
+     * Returns the {@code Module} of the given {@code ModCode}, or {@code Optional<Empty>} if it does not exist.
+     */
+    public Optional<Module> getModuleByCode(ModCode modCode) {
+        requireNonNull(modCode);
+        for (Module module : internalList) {
+            if (module.getModCode().equals(modCode)) {
+                return Optional.of(module);
+            }
+        }
+        return Optional.empty();
+    }
 
     @Override
     public Iterator<Module> iterator() {
