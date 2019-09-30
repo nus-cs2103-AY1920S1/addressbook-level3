@@ -15,7 +15,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-    private Path eventBookFilePath = Paths.get("data" , "eventbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -37,7 +36,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
-        setEventBookFilePath(newUserPrefs.getEventBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -58,15 +56,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public Path getEventBookFilePath() {
-        return eventBookFilePath;
-    }
-
-    public void setEventBookFilePath(Path eventBookFilePath) {
-        requireNonNull(eventBookFilePath);
-        this.eventBookFilePath = eventBookFilePath;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -79,13 +68,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath)
-                && eventBookFilePath.equals(o.eventBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, eventBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath);
     }
 
     @Override
