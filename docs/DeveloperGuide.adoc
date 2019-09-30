@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= PowerLifting Competition Coordinator - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,15 +12,123 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T11-3`      Since: `Sep 2019`      Licence: `MIT`
+
+== Introduction
+
+=== What is Powerlifting Competition Coordinator?
+
+Powerlifting Competition Coordinator is a free application for powerlifting competition event organizers
+that is simple, fast, and easy to use. It is targeted at organizers of small to medium sized powerlifting
+competitions who require a hassle-free way of managing and tracking the lifts of participants in and out
+of the powerlifting competitions. During competition mode, the system has real time maintenance of athlete
+rankings within their respective weight classes allowing the organizer track the participants'
+standings at all times throughout the duration of the competition.
+
+=== Core team
+
+Powerlifting Competition Coordinator  was developed and is maintained by
+https://github.com/AY1920S1-CS2103-T11-3[Team T11-3].
+Feel free to https://github.com/AY1920S1-CS2103-T11-3/main/issues[contact us] for any enquries.
+
+=== Contributing
+
+Powerlifting Competition Coordinator is an open source project and we would love to involve any contributor
+who has a passion for powerlifting.
+To get involved, start by reading <<SettingUp#, Section 2, “Setting up”>>.
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+This section includes the instructions to set up your development environment.
 
-== Design
+=== Prerequisites
+
+Prior to setting up the project proper, make sure you have the following.
+
+. *JDK `11`* or above
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+
+=== Setting up the project in your computer
+
+To setup the project in IntelliJ, follow the steps below.
+
+. Fork this repo, and clone the fork to your computer.
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close
+the existing project dialog first).
+. Set up the correct JDK version for Gradle.
+.. Click `Configure` > `Project Defaults` > `Project Structure`.
+.. Click `New...` and find the directory of the JDK.
+. Click `Import Project`.
+. Locate the `build.gradle` file and select it. Click `OK`.
+. Click `Open as Project`.
+. Click `OK` to accept the default settings.
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
+It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+=== Verifying the setup
+
+To verify that the setup is completed successfully, you should:
+
+. Run the `seedu.address.MainApp` and try a few commands.
+. <<Testing,Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+This subsection includes configurations that you may find necessary or useful as you work on this project.
+We recommend that you make these configuration changes and additions before you start writing code.
+
+==== Configurations to do before writing code
+
+This subsection includes configurations that you may find necessary or useful as you work on this project.
+We recommend that you make these configuration changes and additions before you start writing code.
+
+==== Configuring the coding style
+
+This project follows
+https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards].
+IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours.
+Follow the instructions below to rectify this.
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+. Select `Editor` > `Code Style` > `Java`.
+. Click on the `Imports` tab to set the order.
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`:
+Set to `999` to prevent IntelliJ from contracting the import statements.
+
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`,
+`import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`.
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure
+Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level3` repo.
+If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level3`) ,
+you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the
+URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to l
+earn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#,
+UsingCoveralls.adoc>>).
+
+== Design (Not finished)
+
+This section documents the design and interaction of components in Powerlifting Competition Coordinator.
+Please take a moment to understand the different components before making any code changes.
 
 [[Design-Architecture]]
 === Architecture
@@ -28,7 +136,8 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a
+quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
@@ -264,28 +373,152 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+We use asciidoc for writing documentation.
 
-== Testing
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-Refer to the guide <<Testing#, here>>.
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu. You should see a pop-up similar to Figure 12 below.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, follow the settings as indicated in Figure 12.
+
+.Saving documentation as PDF files in Chrome
+
+image::chrome_save_as_pdf.png[width="300"]
+
+[[Testing]]
+== Testing (Check this section at end of project!)
+
+This section includes some information that may be useful for testing the project.
+
+=== Running Tests
+
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests
+due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`.
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+`Run 'ABC'`.
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`).
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX, window="_blank"_] library we use, our
+GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen.
+That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests`
+(Mac/Linux: `./gradlew clean headless allTests`).
+
+=== Types of tests
+
+We have two types of tests:
+
+.  *GUI Tests* - These are tests involving the GUI. They include:
+.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the
+`systemtests` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include:
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.address.commons.StringUtilTest`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.address.storage.StorageManagerTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.address.logic.LogicManagerTest`
+
+
+=== Troubleshooting Testing
+**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
+
+* Reason: One of its dependencies, `UserGuide.html` in `src/main/resources/docs` is missing.
+* Solution: Execute Gradle task `processResources`.
+
+**Problem: `AddCommandSystemTest` or `SearchCommandSystemTest` fails with a `GuiRobot$EventTimeoutException`.**
+
+* Reason: The required data could not be fetched from the online service within 10s. The service could be down at the moment.
+* Solution: Check that you are connected to the Internet, or if you are, try again later.
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+This section contains some information or tools that may be useful for managing the project.
+
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://circleci.com/[CircleCI, window="_blank"], https://travis-ci.org/[Travis CI, window="_blank"], and https://www.appveyor.com/[AppVeyor, window="_blank"_] to perform _Continuous Integration_ on our projects.
+See <<UsingCircleCI#, UsingCircleCI.adoc>>, <<UsingTravis#, UsingTravis.adoc>>, and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls, window="_blank"] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify, window="_blank"] to see a preview of how the
+HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`, window="_blank"].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number, e.g. `v0.1`.
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub, window="_blank"] and upload the JAR file you created.
+
+=== Managing Dependencies (Check this!!!)
+
+A project often depends on third-party libraries. For example, PowerLifting Competition Coordinator depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library, window="_blank"_] for XML parsing.
+We make use of Gradle to manage the project dependencies. Gradle can automate the downloading of these dependencies, saving us time and effort.
+
+While strongly discouraged by us, you can nevertheless opt for one of the following alternatives.
+
+* Include those libraries in the repo (though this bloats the repo size).
+* Download those libraries manually (though this creates extra work for you).
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* organizes small to medium sized powerlifting competitions
+* has a need to manage a significant number athletes during the competition
+* has a need to see the ranking of the participants of each competition
+* prefer desktop applicationss over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage powerlifting competitions faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,35 +528,71 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` | new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` | event organizer | create a new competition |
+start and organize a new competition
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` | event organizer |find athletes according to their weight class |
+see which athletes are in the same competition
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` | event organizer |sort athletes according to their attempted weights for different lifting events |
+adjust the weight on stage call for the next athlete to come and attempt their lift
+
+|`* * *` | event organizer |find which athletes are currently in the lead (individual lifts and aggregate score) |
+so that I can let the competitors know who is in the lead for their resepective weight classes and  let them calculate
+what they need to do to win the competition
+
+|`* * *` | event organizer |the relative position of an athlete as compared to other athletes in their weight class |
+see which athletes are in the same competition
+
+|`* * *` | event organizer | edit the weight of a lifting attempt for an athlete |
+so that the lifting order of athletes can be updated
+
+|`* * *` | event organizer | update an athlete’s score after a successful lift |
+so that the ranking of the athletes can be updated
+
+|`* * *` | event organizer | edit an athlete's name |
+update the athlete's name in case the athletes have change their names or they were inputted incorrectly previously
+
+|`* * *` | event organizer | input/edit an athlete's body weight |
+update the athlete's weight so the athelete is taking part in the correct weight class
+
+|`* * *` | event organizer | record when a lifter fails/succeed in his/her lift |
+update the athlete's score and ranking accordingly and to keep a record for how each athlete's
+score was derived
+
+|`* *` |event organizer | input/edit an athlete's country/club |
+which country/club the athlete is representing
+
+|`* * *` |event organizer | know the rack height for bench press/squat |
+the racks can be prepared before the athletes make their lifting attempt and save time
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
+|`*` | event organizer |find which club/country an athlete is affiliated with |
+so that I know which countries/clubs can be ranked across the various weight classess
+
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
 |=======================================================================
 
 _{More to be added}_
 
 [appendix]
-== Use Cases
+== Use Cases (To Do)
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Powerlifting Competition Competitor` and the *Actor* is the `user`, unless specified otherwise)
+
+=== Out of competition mode
 
 [discrete]
-=== Use case: Delete person
+===== Use case: UC1 - View my competition list
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list all competitions in the system.
+2.  System shows a list of competitions held based on the files in the folder.
 +
 Use case ends.
 
@@ -334,22 +603,360 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+==== Use case: UC2 - Add a new competition
+
+*MSS*
+
+1. User requests for a new powerlifting competition to be started.
+2. User inputs the initial competition data (e.g. name, particpants) to be inputted.
+3. System adds the new competition to the user's competition list.
+4. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Competition data is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+* 2b. The competition name has already been used in user's competition list.
++
+[none]
+** 2b1. System tells user that the competition is already in his competition list.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC3 - Delete a competition
+
+*MSS*
+
+1. User obtains a list of competitions by listing (<<Use case: UC1 - View my competition list, *UC1*>>)
+2. User requests for a new powerlifting competition to be deleted.
+3. System adds the new competition to the user's competition list.
+4. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User gives an invalid index.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+
+[discrete]
+==== Use case: UC4 - Enter competition mode for a particular competition
+
+*MSS*
+
+1. User obtains a list of competitions by listing (<<Use case: UC1 - View my competition list, *UC1*>>)
+2. User requests to enter competition mode for a particular competition.
+3. System enters competition mode for a particular competition.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User gives an invalid index.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+
+[discrete]
+==== Use case: UC5 - View my athlete list
+
+*MSS*
+
+1.  User requests to list all athletes in the system.
+2.  Powerlifting Competition Coordinator shows a list of all athletes in the system.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+
+[discrete]
+==== Use case: UC6 - Search for athletes
+
+*MSS*
+
+1.  User performs a search with some constraints (e.g. id, country, age, etc.).
+2.  System lists athletes satisfying all the constraints.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find any athletes satisfying all the constraints.
++
+[none]
+** 2a1. System shows an empty list.
+
+[discrete]
+==== Use case: UC7 - View a specific athlete
+
+*MSS*
+
+1. User obtains a list of athletes by listing (<<Use case: UC5 - View my athlete list, *UC5*>>).
+or searching (<<Use case: UC6 - Search for athletes,*UC6*>>).
+2. User requests to view more information on a specific athlete in the list.
+3. System shows detailed information of the book.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find the athlete in the list.
++
+Use case restarts from step 1.
+
+* 2b. User gives an invalid index.
++
+[none]
+** 2b1. System shows an error message.
 +
 Use case resumes at step 2.
 
+Use case ends.
+
+[discrete]
+==== Use case: UC8 - Add an athlete
+
+*MSS*
+
+1. User requests for an athlete to be added.
+2. User inputs athlete data.
+3. User confirms that the addition of the athlete cannot be reversed.
+4. System adds the new athlete to the user's athlete list.
+5. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Athlete data is invalid.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+* 2b. The athlete is already in user's athlete list.
++
+[none]
+** 2b1. System tells user that the athlete is already in his athlete list.
++
+Use case ends.
+
+
+
+[discrete]
+==== Use case: UC9 - Edit a specific athlete
+
+*MSS*
+
+1. User views a specific athlete (<<Use case: UC7 - View a specific athlete, *UC7*>>)
+2. User requests certain data about the athlete to be updated.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User gives invalid data.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC10 - Delete a specific athlete
+
+*MSS*
+
+1. User views a specific athlete (<<Use case: UC7 - View a specific athlete, *UC7*>>)
+2. User requests for an athlete to be deleted from the athlete list.
+3. System shows success message.
++
+Use case ends.
+
+=== In competition mode
+
+[discrete]
+==== Use case: UC11 - View my participant list
+
+*MSS*
+
+1.  User requests to list all participants in the competition.
+2.  System shows a list of all participants in the competition.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+
+[discrete]
+==== Use case: UC12 - Search/rank for participants
+*MSS*
+1.  User performs a search with some constraints (e.g. id, country, age, ranking criteria etc.).
+2.  System lists participants satisfying all the constraints.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find any athletes satisfying all the constraints.
++
+[none]
+** 2a1. System shows an empty list.
+
+[discrete]
+==== Use case: UC13 - View a specific participant
+
+*MSS*
+
+1. User obtains a list of athletes by listing (<<Use case: UC11 - View my participant list, *UC11*>>).
+or searching (<<Use case: UC12 - Search for participants, *UC12*>>).
+2. User requests to view more information on a specific athlete in the list.
+3. System shows detailed information of the book.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find the athlete in the list.
++
+Use case restarts from step 1.
+
+* 2b. User gives an invalid index.
++
+[none]
+** 2b1. System shows an error message.
++
+Use case resumes at step 2.
+
+Use case ends.
+
+[discrete]
+==== Use case: UC14 - Edit a specific participant
+
+*MSS*
+
+1. User views a specific athlete (<<Use case: UC13 - View a specific participant, *UC13*>>)
+2. User requests certain data about the athlete to be updated.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User gives invalid data.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC15 - Disqualify a specific participant
+
+*MSS*
+
+1. User views a specific participant (<<Use case: UC13 - View a specific participant, *UC13*>>)
+2. User requests for a particular athlete to be disqualified from the competition.
+3. System shows success message.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC16 - Call for next participant in lifting order
+
+*MSS*
+
+1. User requests for next athlete to attempt lift.
+2. System shows athlete that is lifting next.
+3. User updates system after athlete attempts lift.
+4. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. No more participants in lifting order.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC16 - Exit competition
+
+*MSS*
+
+1. User requests to exit competition mode.
+2. System exits competition mode.
++
+Use case ends.
+
+==== Use case: UC16 - Finalize competition
+
+*MSS*
+
+1. User requests to finalize competition data.
+2. System finalizes competition and prevents any further updating of the competition data.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. There are still participants that have not finished their lifts
++
+
+Use case ends.
+
 _{More to be added}_
+
+
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
+.  Should work on both 32-bit and 64-bit environments.
+.  Should come with automated unit tests and open source code.
+.  Should come with a user guide and a developer guide.
+.  Should favor <<dos-style-commands,DOS style commands>> over Unix-style commands.
+.  Should be intuitive such that a new user can learn to search and organize a powerlifting competition within 10 minutes.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
 _{More to be added}_
 
 [appendix]
@@ -379,7 +986,7 @@ Cons:
 * ...
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for Manual Testing (To Do)
 
 Given below are instructions to test the app manually.
 
