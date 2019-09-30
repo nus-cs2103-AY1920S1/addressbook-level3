@@ -225,110 +225,114 @@ Format: *redo*
 
 Exits the program.
 
-Format: *exit*
+Format: `exit`
 
 === Saving the data
 
-Bookmark manager data are saved in the hard disk automatically after any
-command that changes the data.
+Mark data are saved in the hard disk automatically after any command
+that changes the data.
 
-There is no need to save manually. However, it is possible to save with
-a different file name or to save specific bookmarks only, by using the
-command export.
+There is no need to save data manually. It is also possible to save
+specific bookmarks with a different file name using the command `export`
+(see <<_exporting_bookmarks_export>>).
 
 === Exporting bookmarks: `export`
 
-Exports the displayed list of bookmarks to the hard disk.
+Exports the currently displayed list of bookmarks to the hard disk.
 
-Format: *export [FILENAME]*
+Format: `export [FILENAME]`
 
+****
 * {blank}
 +
-FILENAME should not include the file extension. E.g. myBookmarks and not
-myBookmarks.json
- * If no file name is specified, the default file name is the name of the
-first bookmark and “AndOtherBookmarks”. E.g.
-CS2103TWebsiteAndOtherBookmarks
- * FILENAME is overwritten if it already exists.
- * Bookmarks are exported to the folder with relative path data/bookmarks/.
+`FILENAME` should not include the file extension. E.g. `myBookmarks` and not
+`myBookmarks.json`
+* If no file name is specified, the default file name is the name of the
+first bookmark followed by “AndOtherBookmarks”. E.g.
+`CS2103TWebsiteAndOtherBookmarks.json`
+* The file `FILENAME` is overwritten if it already exists.
+* Bookmarks are exported to the folder `[applicationHome]/data/bookmarks/`.
+****
 
 Examples:
 
-* *list* +
-*export myBookmarks* +
+* `list` +
+`export myBookmarks` +
 Exports all bookmarks in the bookmark manager to a file named
-myBookmarks.json.
+`myBookmarks.json`.
 
-* *find luminus* +
-(result of find command: cs2101Luminus, cs2103TLuminus, cs2105Luminus) +
-*export* +
-Exports the results of the find command to a file named
-cs2101LuminusAndOtherBookmarks.json.
+* `find luminus` +
+`export` +
+Exports all bookmarks found using `find` (e.g. `cs2101Luminus`,
+`cs2103TLuminus`, `cs2105Luminus`) to a file named
+`cs2101LuminusAndOtherBookmarks.json`.
 
-* *find t/favorite* +
- *export favorites* +
-Exports all bookmarks tagged with favorite to a file named
-favorites.json
+* `find t/favorite` +
+ `export favorites` +
+Exports all bookmarks tagged with `favorite` to a file named
+`favorites.json`.
 
 === Importing bookmarks: `import`
 
 Imports bookmarks from files on the hard disk.
 
-Format: *import FILENAME [MORE_FILENAMES]...*
+Format: `import FILENAME [MORE_FILENAMES]...`
 
-* FILENAME should not include the file extension. E.g. myBookmarks and not
-myBookmarks.json
- * FILENAME is case sensitive.
- * FILENAME should be a file stored in the folder data/bookmarks/ (relative
-to the application directory).
- * The file corresponding to FILENAME should have a valid format, identical
-to the JSON files produced by *export*.
+****
+* `FILENAME` should not include the file extension. E.g. `myBookmarks` and not
+`myBookmarks.json`
+* `FILENAME` is case sensitive.
+* `FILENAME` should be a file stored in the folder
+`[applicationHome]/data/bookmarks/`.
+* The file corresponding to `FILENAME` should have a valid format, identical
+to the JSON files produced by `export`.
+****
 
 Examples:
 
-* *import myBookmarks* +
-Imports bookmarks from the file
-[applicationHome]/data/bookmarks/myBookmarks.json
+* `import myBookmarks` +
+Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
+file `mark/data/bookmarks/myBookmarks.json`
 
-* *import myBookmarks nusBookmarks youtubeBookmarks* +
-Imports bookmarks from the files myBookmarks.json, nusBookmarks.json,
-and youtubeBookmarks.json.
+* `import myBookmarks nusBookmarks youtubeBookmarks` +
+Imports bookmarks from the files `myBookmarks.json`, `nusBookmarks.json`,
+and `youtubeBookmarks.json`.
 
 === Creating automatic tags: `autotag`
 
-Creates a tag that will be automatically applied to bookmarks that match
+Creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
-Format: *autotag NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]
-[nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...*
+Format: `autotag NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]
+[nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
 
-* If an autotag with name NAME already exists, the user is prompted
-whether the conditions for NAME should be overwritten.
- * An autotag is applied when a bookmark matches all of its conditions (u/,
-nu/, f/, nf/, t/, and nt/). Hence, if conditions contradict each other,
-this autotag will not be automatically applied to any bookmark. E.g.
-u/github.com/bookmarker nu/github.com/bookmarker
- * PARTIAL_URL and NOT_PARTIAL_URL can be any part of a URL. E.g. youtube,
-.nus.edu.sg, or github.com/bookmarker.
- * NOT_PARTIAL_URL, NOT_FOLDER, and NOT_TAG are partial URLs, folders, or
-tags that bookmarks to be tagged should _not_ match.
- * Bookmarks can also be tagged with NAME using regular tags, i.e. if an
-autotag YouTube matches bookmarks with URL youtube.com, it is possible
-for the user to tag bookmarks with URLs not containing youtube.com with
-the tag YouTube.
- * If none of the optional fields are specified, the given tag will not be
-automatically applied to any bookmark. However, NAME can still be used
-as a regular tag.
+****
+* At least one condition (`u/`,
+`nu/`, `f/`, `nf/`, `t/`, or `nt/`) must be specified.
+* If an autotag with name `NAME` already exists, the user is asked
+whether conditions for `NAME` should be overwritten.
+* An autotag is applied when a bookmark matches all of its conditions.
+Hence, if conditions are contradictory, no bookmarks will be tagged by
+this autotag. E.g. no bookmarks will match the conditions `u/github.com/mark
+nu/github.com/mark`
+* `PARTIAL_URL` and `NOT_PARTIAL_URL` can be any part of a URL. E.g.
+ `youtube`, `.nus.edu.sg`, or `github.com/mark`.
+* `NOT_PARTIAL_URL`, `NOT_FOLDER`, and `NOT_TAG` are partial URLs, folders,
+or tags that bookmarks to be tagged should *not* match.
+* The tag `NAME` is still a normal tag. E.g. if an autotag `YouTube` matches
+bookmarks with URLs containing `youtube.com`, other bookmarks can still be
+tagged with the tag `YouTube`.
+****
 
 Examples:
 
-* *autotag Miscellaneous f/NUS nt/academic nt/admin* +
- Creates an autotag named Miscellaneous that tags all bookmarks in the
-folder _NUS_ but not tagged as _academic_ or _admin_.
+* `autotag Miscellaneous f/NUS nt/academic nt/admin` +
+ Creates an autotag that adds the tag `Miscellaneous` to all bookmarks that are
+in the folder `NUS` but are not tagged with `academic` or `admin`.
 
-* *autotag Luminus u/luminus* +
- Creates an autotag that adds the tag Luminus to all bookmarks with URLs
-containing _luminus_.
+* `autotag Luminus u/luminus` +
+ Creates an autotag that adds the tag `Luminus` to all bookmarks with URLs
+containing `luminus`.
 
 === Saving offline Readable copies of bookmarked website: `cache`
 
