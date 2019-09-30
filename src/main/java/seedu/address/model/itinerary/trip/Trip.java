@@ -66,4 +66,10 @@ public class Trip {
                 && otherTrip.getDayList().equals(getDayList());
 
     }
+
+    public boolean isClashingWith(Trip other){
+        return (this.getFrom().compareTo(other.getTo()) == -1 && this.getTo().compareTo(other.getFrom()) == 1)
+                || (this.getTo().compareTo(other.getFrom()) == -1 && this.getFrom().compareTo(other.getTo()) == 1);
+    }
+
 }

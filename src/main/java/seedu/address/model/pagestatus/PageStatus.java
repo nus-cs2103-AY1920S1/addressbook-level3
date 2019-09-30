@@ -1,28 +1,28 @@
 package seedu.address.model.pagestatus;
 
-import seedu.address.model.itinerary.day.DayId;
-import seedu.address.model.itinerary.trip.TripId;
+import seedu.address.model.itinerary.day.Day;
+import seedu.address.model.itinerary.trip.Trip;
 
 public class PageStatus {
     private final PageType pageType;
-    private final TripId tripId;
-    private final DayId dayId;
+    private final Trip trip;
+    private final Day day;
 
-    public PageStatus(PageType pageType, TripId tripId, DayId dayId) {
+    public PageStatus(PageType pageType, Trip trip, Day day ) {
         this.pageType = pageType;
-        this.tripId = tripId;
-        this.dayId = dayId;
+        this.trip = trip;
+        this.day = day;
     }
 
     public PageType getPageType() {
         return pageType;
     }
 
-    public TripId getTripId() {
-        return tripId;
+    public Trip getTrip() {
+        return trip;
     }
 
-    public DayId getDayId() {
-        return dayId;
+    public Day getDay() {
+        return day;
     }
 }
