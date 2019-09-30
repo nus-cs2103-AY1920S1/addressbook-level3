@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Andrew Sim
-image::andrewscw.jpg[width="150" align="left"]
+image::andrewscw.png[width="150" align="left"]
 {empty}[https://github.com/andrewscw[github]] [<<andrewscw#, portfolio>>]
 
 Role: Project Advisor
@@ -19,7 +19,7 @@ Role: Project Advisor
 '''
 
 === Eugene Lim
-image::nexolute.jpg[width="150", align="left"]
+image::nexolute.png[width="150", align="left"]
 {empty}[http://github.com/nexolute[github]] [<<eugenelim#, portfolio>>]
 
 Role: Team Lead and Git Expert
@@ -27,7 +27,7 @@ Role: Team Lead and Git Expert
 '''
 
 === Lee Yiyuan
-image::leeyiyuan.jpg[width="150", align="left"]
+image::leeyiyuan.png[width="150", align="left"]
 {empty}[http://github.com/LeeYiyuan[github]] [<<leeyiyuan#, portfolio>>]
 
 Role: Code Quality and Integration
@@ -35,7 +35,7 @@ Role: Code Quality and Integration
 '''
 
 === Tan Wei Yang
-image::weiyang13.jpg[width="150", align="left"]
+image::weiyang13.png[width="150", align="left"]
 {empty}[http://github.com/weiyang13[github]] [<<tanweiyang#, portfolio>>]
 
 Role: Documentation
@@ -43,7 +43,7 @@ Role: Documentation
 '''
 
 === Olivia Yu
-image::alaete.jpg[width="150", align="left"]
+image::alaete.png[width="150", align="left"]
 {empty}[http://github.com/Alaete[github]] [<<oliviayu#, portfolio>>]
 
 Role: Testing
@@ -51,7 +51,7 @@ Role: Testing
 '''
 
 === Kartike Khandelwal
-image::troomtroom.jpg[width="150", align="left"]
+image::troomtroom.png[width="150", align="left"]
 {empty}[http://github.com/troomtroom[github]] [<<kartike#, portfolio>>]
 
 Role: In Charge of UI
