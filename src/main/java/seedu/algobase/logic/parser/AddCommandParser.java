@@ -55,14 +55,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         WebLink webLink;
-        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_WEBLINK)) {
             webLink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
         } else {
             webLink = WebLink.DEFAULT_WEBLINK;
         }
 
         Description description;
-        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
             description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         } else {
             description = Description.DEFAULT_DESCRIPTION;
@@ -76,21 +76,21 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Difficulty difficulty;
-        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_DIFFICULTY)) {
             difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
         } else {
             difficulty = Difficulty.DEFAULT_DIFFICULTY;
         }
 
         Remark remark;
-        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_REMARK)) {
             remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
         } else {
             remark = Remark.DEFAULT_REMARK;
         }
 
         Source source;
-        if (arePrefixesPresent(argMultimap, PREFIX_AUTHOR)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_SOURCE)) {
             source = ParserUtil.parseSource(argMultimap.getValue(PREFIX_SOURCE).get());
         } else {
             source = Source.DEFAULT_SOURCE;
