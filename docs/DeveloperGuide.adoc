@@ -362,7 +362,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete bookmark
+=== Use case: UC03 - Delete bookmark
 
 *MSS*
 
@@ -386,6 +386,28 @@ Use case ends.
 ** 3a1. Mark shows an error message.
 +
 Use case resumes at step 2.
+
+
+=== Use case: UC06 - Browse
+
+=== Use case: UC07 - Annotate offline documents
+*MSS*
+1. User requests to annotate document.
+2. Mark shows annotated document.
++
+Use case ends.
+
+*Extensions*
+* 1a. Mark detects invalid index or colour.
+** 1a1. Mark gives warning.
++
+Use case ends.
+
+* 2a. User requests to undo changes made to annotation.
+** 2a1. Mark undoes most recent annotation.
++
+Use case ends.
+
 
 _{More to be added}_
 
