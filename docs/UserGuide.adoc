@@ -82,7 +82,26 @@ Sets current wealth to $2103.20.
 === Transactions
 
 ==== Creating transaction: `txadd`
+Creates a transaction. +
+Format: `txadd t/TYPE m/DESCRIPTION a/AMOUNT [d/DATE] [c/CATEGORY]`
+
+Examples:
+
+* `txadd t/in m/Salary a/2101.00 c/Work` +
+Creates an income transaction of $2101.00 titled "Salary" occurring today under the category "Work".
+
+* `txadd t/out m/Lunch a/12.31 c/Food d/10092019` +
+Creates an expenditure transaction of $12.32 titled "Food" occuring on the 10th of September, 2019 under the category "Food".
+
 ==== Editing transaction: `txedit`
+Edits a transaction. +
+Format: `txedit i/ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
+
+Examples:
+
+* `txedit i/1 m/Dinner a/32.30` +
+Edits the description of the first transaction to "Dinner", and its amount to $32.30.
+
 ==== Deleting transaction: `txdelete`
 ==== Finding transaction: `txfind`
 ==== List all transactions: `txlist`
