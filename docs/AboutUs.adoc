@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Daryl Chan
-image::dvrylc.jpg[width="150", align="left"]
+image::dvrylc.png[width="150", align="left"]
 {empty}[https://github.com/dvrylc[github]]
 
 Role: Team Lead
@@ -19,7 +19,7 @@ Role: Team Lead
 '''
 
 === Nadia Atiqah Bte Mohd Yahya
-image::walnads.jpg[width="150", align="left"]
+image::walnads.png[width="150", align="left"]
 {empty}[https://github.com/walnads[github]]
 
 Role: Documentation, Code Quality
@@ -27,7 +27,7 @@ Role: Documentation, Code Quality
 '''
 
 === Teo Jun Hong
-image::junhongt.jpg[width="150", align="left"]
+image::junhongt.png[width="150", align="left"]
 {empty}[https://github.com/JunHongT[github]]
 
 Role: Testing, Integration
@@ -35,7 +35,7 @@ Role: Testing, Integration
 '''
 
 === Ang Kai Qi
-image::jakq.jpg[width="150", align="left"]
+image::jakq.png[width="150", align="left"]
 {empty}[https://github.com/jakq[github]]
 
 Role: Deliverables and deadlines
@@ -43,7 +43,7 @@ Role: Deliverables and deadlines
 '''
 
 === Balam Sai Rohit Reddy
-image::rohitreddybalam.jpg[width="150", align="left"]
+image::rohitreddybalam.png[width="150", align="left"]
 {empty}[https://github.com/ROHITREDDYBALAM[github]]
 
 Role: Scheduling and tracking
