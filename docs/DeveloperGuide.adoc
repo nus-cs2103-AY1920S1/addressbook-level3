@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Tagline - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-F12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -277,35 +277,39 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Our product is targeted at users who:*
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Need to manage a large variety of notes related to multiple categories
+* Need to manage large numbers of team projects or relationships
+* Want to keep their notes organized
+* Prefer desktop applications over mobile applications
+* Prefer typing commands over using graphical interfaces
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: TagLine manages notes faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="73%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |add a new contact |
+|`* * *` |user |edit a contact |update outdated information
+|`* * *` |user |delete a contact |remove entries that I no longer need
+|`* * *` |user |find a contact by name |locate details of contacts without having to go through the entire list
+|`* * *` |user |group my contacts |manage contacts for different occasions better
+|`* * *` |user |view all contacts in a group |
+|`* * *` |user |add new notes |
+|`* * *` |user |edit a note |fix typos or incorrect details
+|`* * *` |user |list all notes by chronological order |view most relevant notes first
+|`* * *` |user |tag my notes |group related notes together
+|`* * *` |user |view all notes according to tags |view only notes related to an issue
+|`* * *` |sociable user |view all notes related to a person |
 
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user |embed links in my notes| directly access relevant webpages
+|`*` |user with many friends with the same name |be able to differentiate them easily |locate a specific person
 |=======================================================================
 
 _{More to be added}_
@@ -313,17 +317,15 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For each of the use cases below, the *System* is `TagLine` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UCC01 Add person
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a contact.
+2.  TagLine adds the contact to the contact list.
 +
 Use case ends.
 
@@ -348,6 +350,7 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to display and navigate large text files without decrease in performance
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
