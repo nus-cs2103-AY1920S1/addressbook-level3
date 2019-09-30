@@ -191,13 +191,31 @@ Format: `exit`
 
 === Editing the cards of an existing deck of flashcards : `edit`
 
-[TBC v2.0]
-
 The edit command allows the user to change, add or remove the flashcards in any existing deck.
-Extensions/to discuss:
-- To allow the user to import cards from a file to an existing deck (instead of to a new deck).
-- To allow the user to edit cards easily while in view mode.
-Format: edit DECK_NAME CARD_INDEX
+
+****
+* You can select the following options depending on your choice of action for `action`: `add`, `change`, `remove`
+
+* For options `add`, you must furnish the options `front` and `back`, and any input to `index` will be ignored
+
+* For options `remove`, you must furnish the options `index`, which corresponds to the index of the flashcard, and any input to `front` and `back` will be ignored
+
+* For options `edit`, you must furnish the options `index` (compulsory), as well as `front` and/or `back` depending on the change, and any command that lacks any of the three options will be regarded as an error and no flashcard wil be added
+
+* The `index` option must be a positive integer e.g. 1, 2, 3, … and must be less than or equal to the total number of cards in the specified deck
+
+* Any command with no input to `front`, `back` and `index` will be regarded as an error and no action will be taken
+****
+
+Format: `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]`
+
+Examples:
+
+* `edit deck/science_deck`
+Returns error as no input is added
+* `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
+Edits the first flashcard of the deck `science_deck`
+
 
 == FAQ
 
@@ -218,4 +236,5 @@ e.g. `view deck/science_deck`
 * *test* : `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` +
 e.g. `test deck/science_deck`
 * *exit* : `exit`
-* *edit* : `Format: edit deck/DECK_NAME index/CARD_INDEX`
+* *edit* : `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]` +
+e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
