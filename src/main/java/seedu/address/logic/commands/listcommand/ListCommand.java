@@ -18,7 +18,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(entityList);
+        requireNonNull(model);
 
         // Possible format
         // TeamList teamList = model.getTeamList();

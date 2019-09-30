@@ -17,7 +17,7 @@ public class ListParticipantCommand extends ListCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        model.getParticipantList().stream()
+        model.getParticipantList().list().stream()
                                   .forEach(p -> {
                                       HashMap<String, String> fieldMap = p.viewMinimal();
                                       StringBuilder toPrint = new StringBuilder();
