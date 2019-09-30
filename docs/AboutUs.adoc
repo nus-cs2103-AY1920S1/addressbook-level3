@@ -12,45 +12,45 @@ We are a team of students from: http://www.comp.nus.edu.sg[School of Computing, 
 
 === Chua Hua Lun
 image::hua-lun.png[width="150", align="left"]
-[https://github.com/hua-lun[github]] [<<Chua Hua Lun#, portfolio>>]
+{empty}[https://github.com/hua-lun[github]] [<<johndoe#, portfolio>>]
 
-Role: Scheduling and Tracking
+Role: Scheduling and Tracking +
 Responsibilities: Dashboard (Statistics and Suggestions)
 
 '''
 
 === Lee Wah
 image::bakwxh.png[width="150", align="left"]
-[http://github.com/bakwxh[github]] [<<Lee Wah#, portfolio>>]
+{empty}[http://github.com/bakwxh[github]] [<<johndoe#, portfolio>>]
 
-Role: Testing
+Role: Testing +
 Responsibilities: Recipe Book
 
 '''
 
 === Liew Jun Wei
 image::bigjunnn.png[width="150", align="left"]
-{empty}[http://github.com/bigjunnn[github]] [<<Liew Jun Wei#, portfolio>>]
+{empty}[http://github.com/bigjunnn[github]] [<<johndoe#, portfolio>>]
 
-Role: Documentation
+Role: Documentation +
 Responsibilities: Food Diary
 
 '''
 
 === Khairul
+image::khairulazman1997.png[width="150", align="left"]
+{empty}[http://github.com/khairulazman1997[github]] [<<johndoe#, portfolio>>]
 
-[http://github.com/khairulazman1997[github]] [<<Khairul#, portfolio>>]
-
-Role: Integration
+Role: Integration +
 Responsibilities: Exercise Tracker
 
 '''
 
 === Yeo Yuan Xin
 image::yyuanxin.png[width="150", align="left"]
-{empty}[http://github.com/yyuanxin[github]] [<<Yeo Yuan Xin#, portfolio>>]
+{empty}[http://github.com/yyuanxin[github]] [<<johndoe#, portfolio>>]
 
-Role: UI Design
+Role: UI Design +
 Responsibilities: Health Records
 
 '''
