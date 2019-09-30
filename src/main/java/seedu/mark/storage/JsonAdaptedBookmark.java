@@ -61,7 +61,7 @@ class JsonAdaptedBookmark {
      * @throws IllegalValueException if there were any data constraints violated in the adapted bookmark.
      */
     public Bookmark toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> bookmarkTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
