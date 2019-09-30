@@ -103,7 +103,7 @@ Format: `bset a/AMOUNT`
 
 Examples:
 
-* `bset 1000` +
+* `bset a/1000` +
 Sets monthly expenditure budget to $1000.
 
 === Excluding transaction from budget: `bexclude`
@@ -119,7 +119,7 @@ Format: `bexclude i/TRANSACTION_ID`
 Examples:
 
 * `list` +
-`bexclude 2` +
+`bexclude i/2` +
 Excludes the 2nd transaction in the list from computation of budget.
 
 === Including transaction in budget: `binclude`
@@ -135,7 +135,7 @@ Format: `binclude i/TRANSACTION_ID`
 Examples:
 
 * `list` +
-`bexclude 2` +
+`bexclude i/2` +
 Includes the 2nd transaction in the list from computation of budget.
 
 === Viewing budgeting information: `binfo`
