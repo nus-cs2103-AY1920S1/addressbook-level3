@@ -4,13 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
+import seedu.address.AlfredException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.entity.Email;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Name;
+import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.Phone;
 
 public class EditParticipantCommand extends EditCommand {
 
@@ -65,7 +68,7 @@ public class EditParticipantCommand extends EditCommand {
         Phone updatedPhone = editParticipantDescriptor.getPhone().orElse(participantToEdit.getPhone());
 
         // Reorder parameters as necessary
-        return new Participant(updatedName, updatedEmail, updatedPhone, updatedId);
+        return new Participant(updatedName, updatedId, updatedEmail, updatedPhone);
     }
 
     public static class EditParticipantDescriptor extends EditEntityDescriptor {

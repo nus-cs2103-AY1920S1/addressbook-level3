@@ -6,7 +6,8 @@ import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
-import seedu.address.model.person.Name;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Name;
 
 public abstract class EditCommand extends Command {
 

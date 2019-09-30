@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Mentor;
 
 public class EditMentorCommand extends EditCommand {
 
