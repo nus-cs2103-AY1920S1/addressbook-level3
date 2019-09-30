@@ -349,9 +349,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |check my view history |see what websites I have visited
 
-|`* *` |user |automatically clean up old or outdated bookmarks |
+|`* *` |user |can reminded to clean up old or outdated bookmarks |
 
 |`* *` |user |sort the bookmarks according to name |locate a specific bookmark
+
+|`* *` |user |check my command history |see what commands I have entered
 |=======================================================================
 
 _{More to be added}_
@@ -362,7 +364,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: List bookmarks
+=== Use case 01: List bookmarks
 
 *MSS*
 
@@ -372,7 +374,7 @@ _{More to be added}_
 Use case ends.
 
 [discrete]
-=== Use case: Add bookmark
+=== Use case 02: Add bookmark
 
 *MSS*
 
@@ -384,14 +386,14 @@ Use case ends.
 
 *Extensions*
 
-* 2a. The user provided an incorrect or wrong url
+* 2a. The given URL is invalid.
 +
 ** 2a1. Mark shows an error message.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete bookmark
+=== Use case 03: Delete bookmark
 
 *MSS*
 
@@ -419,13 +421,14 @@ Use case resumes at step 2.
 _{More to be added}_
 
 [discrete]
-=== Use case: Edit bookmark
+=== Use case 04: Edit bookmark
 
 *MSS*
 
-1.  User requests to edit bookmarks
+1.  User requests to list bookmarks
 2.  Mark shows a list of bookmarks
-3.  User requests to edit a specific bookmark in the list
+3.  User requests to edit a specific bookmark in the list and provides
+details of the bookmark to update
 4.  Mark edits the bookmark
 +
 Use case ends.
@@ -445,7 +448,33 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Make a webpage available offline
+=== Use case 05: Open bookmark
+
+*MSS*
+
+1.  User requests to list bookmarks
+2.  Mark shows a list of bookmarks
+3.  User requests to open a specific bookmark in the list
+4.  Mark opens the bookmark
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 06: Make a bookmark available offline
 
 *MSS*
 
@@ -459,7 +488,8 @@ Use case ends.
 [none]
 * 2a. The bookmark's url is not available
 +
-Mark displays an error.
+[none]
+** 2a1. Mark shows an error message.
 +
 Use case resumes at step 1.
 
