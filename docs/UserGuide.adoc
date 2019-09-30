@@ -68,56 +68,59 @@ t/read-later etc.
  * Parameters can be in any order e.g. if the command specifies n/NAME
 u/URL, u/URL n/NAME is also acceptable.
 
-=== Viewing help: ``help``
+=== Viewing help: `help`
 
-Format: *help*
+Format: `help`
 
 === Adding a bookmark: `add`
 
 Adds a bookmark to the bookmark manager.
 
-Format: *add u/URL n/NAME [f/FOLDER] [t/TAG]…​*
+Format: `add u/URL n/NAME [f/FOLDER] [t/TAG]…​`
 
+****
 * A bookmark can have any number of tags (including 0).
- * Use the keyword *this* in place of URL to bookmark the current page,
-e.g. *add u/this n/Homepage*. Only valid if a web-page is currently
-being viewed.
+* Use the keyword `this` in place of URL to bookmark the current page,
+e.g.
+****
 
 Examples:
-
-* add u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T
- * add u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks
-t/video t/watch-later
+* `add u/this n/Homepage` +
+Bookmarks the current place and names it Homepage.
+Only valid if a web-page is currently being viewed.
+* `add u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T`
+* `add u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
 
 === Listing all bookmarks: `list`
 
 Shows a list of all bookmarks in the bookmark manager.
 
-Format: *list*
+Format: `list`
 
 === Editing a bookmark: `edit`
 
 Edits an existing bookmark in the bookmark manager.
 
-Format: *edit INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]*
+Format: `edit INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
 
-* Edits the bookmark at the specified INDEX. The index refers to the index
+****
+* Edits the bookmark at the specified `INDEX`. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
 positive integer 1, 2, 3, …​
- * At least one of the optional fields must be provided.
- * Existing values will be updated to the input values.
- * When editing tags, the existing tags of the bookmark will be removed i.e
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the bookmark will be removed i.e
 adding of tags is not cumulative.
- * You can remove all the bookmark’s tags by typing t/ without specifying
+* You can remove all the bookmark’s tags by typing `t/` without specifying
 any tags after it.
+****
 
 Examples:
 
-* *edit 1 n/CS2103T Website f/AY1920-S1* +
-Edits the name and folder of the 1st bookmark to be CS2103T Website and
-AY1920-S1 respectively.
+* `edit 1 n/CS2103T Website f/AY1920-S1` +
+Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920-S1 respectively.
 
-* *edit 2 t/* +
+* `edit 2 t/` +
 Clears all existing tags from the 2nd bookmark.
 
 === Locating bookmarks by name, URL, or tag: `find`
@@ -125,50 +128,51 @@ Clears all existing tags from the 2nd bookmark.
 Finds bookmarks that contain any of the given keywords in their name or
 URL, or that are tagged with the given tag(s).
 
-Format: *find [KEYWORD]... [t/TAG]...*
+Format: `find [KEYWORD]... [t/TAG]...`
 
-* At least one keyword or tag must be provided
- * Keyword search is case insensitive. e.g video will match Video
- * The order of the keywords does not matter. e.g. Website Video will match
-Video Website
- * Keywords are only searched in the URL and name.
- * Words will be partially matched e.g. Video will match Videos
- * Bookmarks matching at least one search criteria will be returned (i.e.
-OR search). e.g. Website Video t/Fun will return CS2103T Website, Video
-Streaming, and all videos tagged with Fun
+****
+* At least one keyword or tag must be provided.
+* Keyword search is case insensitive. e.g video will match Video.
+* The order of the keywords does not matter. e.g. `Website Video` will match `Video Website`.
+* Keywords are only searched in the URL and name.
+* Words will be partially matched e.g. `Video` will match `Videos`.
+* Bookmarks matching at least one search criteria will be returned (i.e. OR search).
+****
 
 Examples:
 
-* *find Luminus* +
+* `find Website Video t/Fun will` +
+Returns CS2103T Website, Video Streaming, and all bookmarks tagged with Fun.
+
+* `find Luminus` +
 Returns luminus website and GER1000 LumiNUS
 
-* *find CS2103T CS2101 CS2105* +
-Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in
-its url
+* `find CS2103T CS2101 CS2105` +
+Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its url
 
-* *find GitHub t/CS2103T* +
-Returns any bookmark with the tag CS2103T or that contains github in
-either name or URL.
+* `find GitHub t/CS2103T` +
+Returns any bookmark with the tag CS2103T or that contains github in either name or URL.
 
 === Deleting a bookmark: `delete`
 
 Deletes the specified bookmark from the bookmark manager.
 
-Format/ *delete INDEX*
+Format: `delete INDEX`
 
+****
 * Deletes the bookmark at the specified INDEX.
- * The index refers to the index number shown in the displayed bookmark
-list.
- * The index must be a positive integer 1, 2, 3, …​
+* The index refers to the index number shown in the displayed bookmark list.
+* The index must be a positive integer 1, 2, 3, …​
+****
 
 Examples:
 
-* *list* +
-*delete 2*  +
+* `list` +
+`delete 2` +
 Deletes the 2nd bookmark in the bookmark manager.
 
-* *find luminus* +
-*delete 1* +
+* `find luminus` +
+`delete 1` +
 Deletes the 1st bookmark in the results of the find command.
 
 === Opening a bookmark: `goto`
@@ -225,248 +229,286 @@ Format: *redo*
 
 Exits the program.
 
-Format: *exit*
+Format: `exit`
 
 === Saving the data
 
-Bookmark manager data are saved in the hard disk automatically after any
-command that changes the data.
+Mark data are saved in the hard disk automatically after any command
+that changes the data.
 
-There is no need to save manually. However, it is possible to save with
-a different file name or to save specific bookmarks only, by using the
-command export.
+There is no need to save data manually. It is also possible to save
+specific bookmarks with a different file name using the command `export`
+(see <<_exporting_bookmarks_export>>).
 
 === Exporting bookmarks: `export`
 
-Exports the displayed list of bookmarks to the hard disk.
+Exports the currently displayed list of bookmarks to the hard disk.
 
-Format: *export [FILENAME]*
+Format: `export [FILENAME]`
 
+****
 * {blank}
 +
-FILENAME should not include the file extension. E.g. myBookmarks and not
-myBookmarks.json
- * If no file name is specified, the default file name is the name of the
-first bookmark and “AndOtherBookmarks”. E.g.
-CS2103TWebsiteAndOtherBookmarks
- * FILENAME is overwritten if it already exists.
- * Bookmarks are exported to the folder with relative path data/bookmarks/.
+`FILENAME` should not include the file extension. E.g. `myBookmarks` and not
+`myBookmarks.json`
+* If no file name is specified, the default file name is the name of the
+first bookmark followed by “AndOtherBookmarks”. E.g.
+`CS2103TWebsiteAndOtherBookmarks.json`
+* The file `FILENAME` is overwritten if it already exists.
+* Bookmarks are exported to the folder `[applicationHome]/data/bookmarks/`.
+****
 
 Examples:
 
-* *list* +
-*export myBookmarks* +
+* `list` +
+`export myBookmarks` +
 Exports all bookmarks in the bookmark manager to a file named
-myBookmarks.json.
+`myBookmarks.json`.
 
-* *find luminus* +
-(result of find command: cs2101Luminus, cs2103TLuminus, cs2105Luminus) +
-*export* +
-Exports the results of the find command to a file named
-cs2101LuminusAndOtherBookmarks.json.
+* `find luminus` +
+`export` +
+Exports all bookmarks found using `find` (e.g. `cs2101Luminus`,
+`cs2103TLuminus`, `cs2105Luminus`) to a file named
+`cs2101LuminusAndOtherBookmarks.json`.
 
-* *find t/favorite* +
- *export favorites* +
-Exports all bookmarks tagged with favorite to a file named
-favorites.json
+* `find t/favorite` +
+ `export favorites` +
+Exports all bookmarks tagged with `favorite` to a file named
+`favorites.json`.
 
 === Importing bookmarks: `import`
 
 Imports bookmarks from files on the hard disk.
 
-Format: *import FILENAME [MORE_FILENAMES]...*
+Format: `import FILENAME [MORE_FILENAMES]...`
 
-* FILENAME should not include the file extension. E.g. myBookmarks and not
-myBookmarks.json
- * FILENAME is case sensitive.
- * FILENAME should be a file stored in the folder data/bookmarks/ (relative
-to the application directory).
- * The file corresponding to FILENAME should have a valid format, identical
-to the JSON files produced by *export*.
+****
+* `FILENAME` should not include the file extension. E.g. `myBookmarks` and not
+`myBookmarks.json`
+* `FILENAME` is case sensitive.
+* `FILENAME` should be a file stored in the folder
+`[applicationHome]/data/bookmarks/`.
+* The file corresponding to `FILENAME` should have a valid format, identical
+to the JSON files produced by `export`.
+****
 
 Examples:
 
-* *import myBookmarks* +
-Imports bookmarks from the file
-[applicationHome]/data/bookmarks/myBookmarks.json
+* `import myBookmarks` +
+Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
+file `mark/data/bookmarks/myBookmarks.json`
 
-* *import myBookmarks nusBookmarks youtubeBookmarks* +
-Imports bookmarks from the files myBookmarks.json, nusBookmarks.json,
-and youtubeBookmarks.json.
+* `import myBookmarks nusBookmarks youtubeBookmarks` +
+Imports bookmarks from the files `myBookmarks.json`, `nusBookmarks.json`,
+and `youtubeBookmarks.json`.
 
 === Creating automatic tags: `autotag`
 
-Creates a tag that will be automatically applied to bookmarks that match
+Creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
-Format: *autotag NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]
-[nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...*
+Format: `autotag NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]
+[nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
 
-* If an autotag with name NAME already exists, the user is prompted
-whether the conditions for NAME should be overwritten.
- * An autotag is applied when a bookmark matches all of its conditions (u/,
-nu/, f/, nf/, t/, and nt/). Hence, if conditions contradict each other,
-this autotag will not be automatically applied to any bookmark. E.g.
-u/github.com/bookmarker nu/github.com/bookmarker
- * PARTIAL_URL and NOT_PARTIAL_URL can be any part of a URL. E.g. youtube,
-.nus.edu.sg, or github.com/bookmarker.
- * NOT_PARTIAL_URL, NOT_FOLDER, and NOT_TAG are partial URLs, folders, or
-tags that bookmarks to be tagged should _not_ match.
- * Bookmarks can also be tagged with NAME using regular tags, i.e. if an
-autotag YouTube matches bookmarks with URL youtube.com, it is possible
-for the user to tag bookmarks with URLs not containing youtube.com with
-the tag YouTube.
- * If none of the optional fields are specified, the given tag will not be
-automatically applied to any bookmark. However, NAME can still be used
-as a regular tag.
+****
+* At least one condition (`u/`,
+`nu/`, `f/`, `nf/`, `t/`, or `nt/`) must be specified.
+* If an autotag with name `NAME` already exists, the user is asked
+whether conditions for `NAME` should be overwritten.
+* An autotag is applied when a bookmark matches all of its conditions.
+Hence, if conditions are contradictory, no bookmarks will be tagged by
+this autotag. E.g. no bookmarks will match the conditions `u/github.com/mark
+nu/github.com/mark`
+* `PARTIAL_URL` and `NOT_PARTIAL_URL` can be any part of a URL. E.g.
+ `youtube`, `.nus.edu.sg`, or `github.com/mark`.
+* `NOT_PARTIAL_URL`, `NOT_FOLDER`, and `NOT_TAG` are partial URLs, folders,
+or tags that bookmarks to be tagged should *not* match.
+* The tag `NAME` is still a normal tag. E.g. if an autotag `YouTube` matches
+bookmarks with URLs containing `youtube.com`, other bookmarks can still be
+tagged with the tag `YouTube`.
+****
 
 Examples:
 
-* *autotag Miscellaneous f/NUS nt/academic nt/admin* +
- Creates an autotag named Miscellaneous that tags all bookmarks in the
-folder _NUS_ but not tagged as _academic_ or _admin_.
+* `autotag Miscellaneous f/NUS nt/academic nt/admin` +
+ Creates an autotag that adds the tag `Miscellaneous` to all bookmarks that are
+in the folder `NUS` but are not tagged with `academic` or `admin`.
 
-* *autotag Luminus u/luminus* +
- Creates an autotag that adds the tag Luminus to all bookmarks with URLs
-containing _luminus_.
+* `autotag Luminus u/luminus` +
+ Creates an autotag that adds the tag `Luminus` to all bookmarks with URLs
+containing `luminus`.
 
 === Saving offline Readable copies of bookmarked website: `cache`
 
 Saves the bookmarked website locally for offline viewing.
 
-(Not done automatically for all bookmarks as the user may not want to
-autosave everything. E.g. doesn’t make sense to save a local copy of
-your email website, bank website or LumiNUS)
+Format: `cache INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
 
-Format: *cache INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]*
-
-* INDEX is the bookmark that you want to save a local copy of
- * SHOULD_AUTOUPDATE (default false) if true, it will check daily for any
+****
+* `INDEX` is the bookmark that you want to save a local copy of
+* `SHOULD_AUTOUPDATE` (default false) if true, it will check daily for any
 updates. Any old versions will be archived and users will be able to see
 the different versions and delete them / name them
- * If AUTO_UPDATE is missing, will not auto update.
- * VERSION is the version number of cache to be deleted.
+* If `AUTO_UPDATE` is missing, will not auto update.
+* `VERSION` is the version number to be deleted.
+****
 
 Examples:
 
-* *cache 1 s/true u/true* +
+* `cache 1 s/true u/true` +
 Saves the bookmark at index 1 locally, and updates it daily.
 
-* *cache 1* +
+* `cache 1` +
 Show the list of cached copies.
 
-* *cache 1 d/2* +
+* `cache 1 d/2` +
 Deletes the cached version at the second index.
 
-* *cache 1 u/true* +
+* `cache 1 u/true` +
 Manually save a new copy of the site.
-
-{empty}[Updates working copy with notes and suggests migrating notes to
-new working copy. Whenever a local copy is to be updated, the current
-version of the local copy with notes will be archived. Then new copy
-will then be compared to old copy (like diff): if notes are attached to
-affected paragraphs, user will be prompted to keep or skip the notes;
-otherwise notes are automatically copied over.]
-
-image:media/image1.jpg[image,width=451,height=224]
 
 === Making annotations on offline copy of bookmarked website: `annotate`
 
-Makes annotations on locally saved, offline version of the bookmarked
-website. You can have various options, including:
-
-[arabic]
-. Highlight paragraph on local copy and attach a note to said paragraph. +
-When a paragraph is chosen to be highlighted, it is optional to add a
-supplementary note (Notes can be added to justify the highlight or as
+Adds new annotations on locally saved, offline version of the bookmarked
+website. When this command is given, the UI will switch to the offline tab showing the results of your command.
+With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
+note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
+++
+Overwriting an existing note is possible with this command.
 
-. Modify and update notes of paragraph by changing note content. +
-If a highlight is removed but had a note attached to it, the note will
-be moved to a “lost notes” section of the copy.
+Format: `annotate INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
-. Delete notes or clear annotations +
-Notes of a certain paragraph, “lost notes” section, or entire document
-can be wiped out. If you choose to clear annotations, all notes and
-highlights will be removed and the offline copy will be reverted to
-clean slate.
-
-Format: *annotate INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]*
-
-* INDEX is the bookmark that you want to annotate offline version of
- * DELETE is either *all*, *lost* or *one*. If *one*, then a/*P_NUM* must
-be present.
- * P_NUM is the number of the paragraph to be marked or deleted.
- * NOTES is the content of notes to add. If this field is included
-alongside the delete field, then the notes of the paragraph will be
-removed.
- * HCOLOUR is either *orange*, *pink*, *green* or *yellow*. This selects
+ * INDEX is the bookmark that you want to annotate offline version of.
+ If INDEX is invalid, a warning message will be displayed.
+ * P_NUM is the number of the paragraph to be marked.
+ If P_NUM is invalid, a warning message will be displayed.
+ * NOTES is the content of notes to add.
+ * HIGHLIGHT_COLOUR is either `orange`, `pink`, `green` or `yellow`. This selects
 the highlight colour to mark out paragraphs. If no colour is specified,
-yellow is the default colour. If this field is included alongside the
-delete field, then highlight of the paragraph will be removed.
-
-Format: *annotate edit P_NUM [p/NEW_P_NUM] [n/NOTES]
-[h/HIGHLIGHT_COLOUR]*
-
-* If HIGHLIGHT_COLOUR is specified with a lost note index, nothing
-happens.
+yellow is the default colour.
+If colour provided is invalid, a warning message will be displayed.
 
 Examples:
 
-* Annotate edit 1 p/2 - Move notes from para 1 to para 2
- * Annotate edit 1 n/new notes - Edit the notes for para 1
- * Annotate edit 1 h/yellow - Change the highlight color for para 1
- * Annotate edit L1 p/1 - Move lost notes L1 to para 1
-
-
-Format: *annotate delete P_NUM *
-
-Deletes notes associated with the specified paragraphs.
-
-Examples:
-
-* *Annotate delete 1*
- * *Annotate delete L1*
-
-Examples:
-
-* *annotate 1 a/2 n/summary of paragraph h/yellow* +
+* `annotate 1 p/2 n/summary of paragraph h/yellow` +
 In offline copy of bookmark 1, highlights paragraph 2 yellow and
 attaches note with content “summary of paragraph” to the paragraph.
 
-* *annotate 1 a/2 h/pink* +
+* `annotate 1 p/2 h/pink` +
 In offline copy of bookmark 1, overwrites any existing highlight and
 highlights paragraph 2 with pink. Any notes attached remain attached.
 
-* *annotate 1 a/2 n/change note content* +
-In offline copy of bookmark 1, changes note attached to paragraph 2 to
-note with content “change note content”.
+* `annotate 1 p/2 n/change or add note content` +
+In offline copy of bookmark 1, if paragraph 2 had pre-existing note,
+changes note attached to paragraph 2 to note with content “change or add note content”. Highlight
+colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
+a new note with content "change or add note content" will be added to the paragraph.
 
-* *annotate 1 d/one a/2 n/ h/* +
-In offline copy of bookmark 1, delete all annotations on paragraph 2.
-Highlights and notes are removed altogether for paragraph 2.
 
-* *annotate 1 d/one a/2 n/* +
-In offline copy of bookmark 1, removes the note on paragraph 2 but
-leaves the highlight on paragraph 2.
+=== Deleting annotations on offline copy of bookmarked website: `annotate delete`
 
-* *annotate 1 d/one a/2 h/* +
-In offline copy of bookmark 1, removes the highlight on paragraph 2.
-Notes on paragraph 2 are moved to “lost notes” section.
+Deletes selected highlights or notes from the offline copy of the given bookmarked website.
+When this command is given, the UI will switch to the offline tab showing the results of your command.
+You can choose to remove just the notes and/or highlight of a paragraph, or clear all annotations
+on an offline copy to revert it to clean slate. You can also choose to remove a note from the
+_Stray Notes Section_ (see Glossary). If given paragraph does not have any notes to remove, nothing is performed.
 
-* *annotate 1 d/lost* +
-In offline copy of bookmark 1, deletes all notes in the “lost notes”
-section.
+Format: `annotate delete INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 
-* *annotate 1 d/all* +
-Removes all annotations in the offline copy of bookmark 1.
+* INDEX is the bookmark that you want to remove annotations of.
+ If INDEX is invalid, a warning message will be displayed.
+* P_NUM is the paragraph number or identifier of stray notes to remove. If P_NUM is not provided, all annotations
+will be cleared, reverting the offline document to a clean slate.
+ In the event that an identifier to a stray note is given, the remaining optional fields will be ignored,
+ i.e. that stray note will be deleted.
+ If P_NUM is invalid, a warning message will be displayed.
+* KEEP_NOTES is either `true` or `false`. If `true`, the notes of the paragraph will not be deleted (but
+if the paragraph's highlight is removed, the notes will be moved to the _Stray Notes Section_). Otherwise,
+the notes will be removed. KEEP_NOTES is false by default.
+ If KEEP_NOTES is invalid, KEEP_NOTES will be set to `true`.
+* KEEP_HIGHLIGHT is either `true` or `false`. If `true`, the highlight of the paragraph will not be deleted
+(if the paragraph's note is not removed, the notes will be moved to the _Stray Notes Section_). Otherwise,
+the highlight will be removed. KEEP_HIGHLIGHT is false by default.
+ If KEEP_HIGHLIGHT is invalid, KEEP_HIGHLIGHT will be set to `true`.
+
+Examples:
+
+* `annotate delete 1 p/2` +
+In the offline copy of bookmark 1, removes both the note and highlight from paragraph 2.
+
+* `annotate delete 1 p/2 n/true` +
+In the offline copy of bookmark 1, removes the highlight of paragraph 2 and moves the note to _Stray Note Section_.
+
+* `annotate delete 1 p/2 h/true` +
+In the offline copy of bookmark 1, removes the note of paragraph 2, leaving the highlight untouched.
+
+* `annotate delete 1 p/2 n/true h/true` +
+Nothing happens as both the note and highlight are left alone.
+
+* `annotate delete 2 p/S1` +
+Deletes stray note S1 from the offline copy of bookmark 2.
+
+* `annotate delete 1` +
+Removes all annotations of the offline copy of bookmark 1.
+
+
+=== Modifying annotations on offline copy of bookmarked website: `annotate edit`
+
+Modifies existing annotations on the offline version of the bookmarked
+website. When this command is given, the UI will switch to the offline tab showing the results of your command.
+With this command, you can choose to overwrite the existing notes to a particular paragraph with another note, or
+choose to move notes from a paragraph to another paragraph. This command also supports moving
+a stray note (see Glossary) back to the main text by specifying which paragraph to move it to.
+
+Format: `annotate edit INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+
+ * INDEX is the bookmark that you want to annotate offline version of.
+ If INDEX is invalid, a warning message will be displayed.
+ * P_NUM is the number of the paragraph or stray note identifier whose annotation is to be edited.
+ If P_NUM is invalid, a warning message will be displayed.
+ * NEW_P_NUM is the number of the paragraph to move any annotation to.
+ If NEW_P_NUM is invalid, a warning message will be displayed.
+ * NOTES is the content of notes to change to. Whenever notes is given, it
+ replaces any pre-existing note to paragraph P_NUM, if applicable.
+ * HIGHLIGHT_COLOUR is either `orange`, `pink`, `green` or `yellow`. This selects
+the highlight colour to mark out paragraphs. When no colour is specified, if source paragraph is
+already highlighted, the highlight stays the same colour; otherwise the default colour yellow will be used.
+If colour provided is invalid, a warning message will be displayed.
+If HIGHLIGHT_COLOUR is specified with a stray note identifier, nothing happens.
+
+
+Examples:
+
+* `annotate edit 1 p/2 to/3` +
+In the offline copy of bookmark 1, moves both highlight and notes from paragraph 2 to paragraph 3. Highlight of paragraph 2
+will be removed.
+
+* `annotate edit 1 p/2 to/3 h/orange` +
+In the offline copy of bookmark 1, moves note from paragraph 2 to paragraph 3. Highlight of paragraph 2
+will be removed and paragraph 3 will be highlighted with orange.
+
+* `annotate edit 1 p/1 n/new notes` +
+In the offline copy of bookmark 1, replaces the content of the note for paragraph 1 with "new notes".
+
+* `annotate edit 1 p/1 h/yellow` +
+In the offline copy of bookmark 1, changes the highlight colour to yellow for paragraph 1.
+
+* `annotate edit 1 S2 p/1` +
+In the offline copy of bookmark 1, moves stray notes S2 to paragraph 1. If paragraph 1 had a highlight, highlight
+remains and overwrite any existing note with S2 note content. If not default highlight colour yellow is used.
+
+* `annotate edit 1 p/2 to/3 n/changing and moving notes` +
+In the offline copy of bookmark 1, paragraph 3 is annotated with the highlight of paragraph 2 and
+note with content "changing and moving notes". Annotation on paragraph 2 is removed.
+
 
 === Viewing annotated bookmarked website: `offline`
 
-Shows offline copy of a selected bookmark. The offline view tab will
+Switches to offline tab and shows offline copy of a selected bookmark. The offline view tab will
 show the latest offline copy with annotations by default.
 
-Format: *offline INDEX [v/VERSION = current]*
+Format: `offline INDEX [v/VERSION = current]`
 
 * INDEX is the bookmark that you want to view notes of
  * VERSION is the version of the cached version to show. Default is the
@@ -474,12 +516,13 @@ current version
 
 Examples:
 
-* *offline 1* +
+* `offline 1` +
 Shows annotated offline copy of bookmark 1.
 
-* *offline 1 v/2* +
+* `offline 1 v/2` +
 Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
 then annotations are shown as well.
+
 
 === Adding reminder: `reminder`
 
@@ -619,6 +662,20 @@ Goes to the Offline tab which shows the offline copy of bookmarks
  Different user displays. There are three tabs: dashboard, online view
 (web browser), and offline view (caches and notes).
 
+
+[#imgId-dashboard]
+.Mark's Dashboard Tab View
+image::ui-screenshots/uimockup1_dashboard.png[@Dashboard Tab View, 600, 400]
+
+[#imgId-online]
+.Mark's Online Tab View
+image::ui-screenshots/uimockup1_online.png[@Online Tab View, 600, 400]
+
+[#imgId-offline]
+.Mark's Offline Tab View
+image::ui-screenshots/uimockup1_offline.png[@Offline Tab View, 600, 400]
+
+++
 *What is the Dashboard?*
 
  The default tab in view when the application starts. The dashboard
@@ -630,3 +687,13 @@ reminders, and a view of the folder hierarchy for bookmarks.
 == Command Summary
 
 <coming soon>
+
+== Glossary
+This glossary aims to provide a definition for the special vocabulary used in this user guide.
+
+*offline* Refers to files stored locally on the computer.
+
+*online* Refers to having web access, namely to browse the internet.
+
+*stray* Annotated notes that are not attached to an existing paragraph are described as stray.
+Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ column on the offline, annotated copy.

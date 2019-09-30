@@ -362,6 +362,35 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+=== Use case: List bookmarks
+
+*MSS*
+
+1.  User requests to list bookmarks
+2.  Mark shows a list of bookmarks
++
+Use case ends.
+
+[discrete]
+=== Use case: Add bookmark
+
+*MSS*
+
+1.  User requests to add a bookmark
+2.  User provides all the details of the bookmark to add
+3.  Mark deletes the bookmark
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The user provided an incorrect or wrong url
++
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
 === Use case: Delete bookmark
 
 *MSS*
@@ -389,11 +418,65 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+[discrete]
+=== Use case: Edit bookmark
+
+*MSS*
+
+1.  User requests to edit bookmarks
+2.  Mark shows a list of bookmarks
+3.  User requests to edit a specific bookmark in the list
+4.  Mark edits the bookmark
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Make a webpage available offline
+
+*MSS*
+
+1.  User requests to make a bookmark available offline
+2.  Mark downloads the bookmark and converts it with Readability.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The bookmark's url is not available
++
+Mark displays an error.
++
+Use case resumes at step 1.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 1.
+
+
+
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 bookmarks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_

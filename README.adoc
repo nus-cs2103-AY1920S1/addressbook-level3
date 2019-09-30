@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Mark
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T13-4/main[image:https://travis-ci.org/AY1920S1-CS2103T-T13-4/main.svg?branch=master[Build Status]]
@@ -14,22 +14,25 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* *Mark*: An intuitive bookmark manager made by people who love to type, for people who love to type.
+
+Select features:
+
+* Save a webpage's important content for offline use, and annotate them right away
+* Set reminders for websites. Never forget to pay those pesky bills again!
+* Sort and tag your bookmarks with our intelligent autotag system. Keep your bookmarks organized automatically
+
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* This application was inspired by the AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
