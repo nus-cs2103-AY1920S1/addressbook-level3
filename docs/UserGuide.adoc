@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ClerkPro - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+This program is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It allows clerks to manage queues, set appointments and manage the inventory. Typing fast allows you to complete your tasks much faster than GUI apps.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `clerkPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -34,144 +34,193 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`i/001A n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
+
 == Features
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/<NAME> p/<PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Queue
 
+==== Add a patient to the queue: `enqueue` ====
+
+Adds a patient to the queue +
+Format: `enqueue <PATIENT_REFERENCE_ID>`
+
+==== Remove a patient from the queue: `dequeue` ====
+
+Removes a patient from the queue based on their queue position +
+Format: `dequeue <QUEUE_NUMBER>`
+
+==== Assign next patient to an available doctor : `next` ====
+
+Assigns next patient to an available doctor based on the room number. +
+Format: `next <ROOM_ID>`
+
+==== Doctor takes a break: `break`  ====
+
+Avoids directing patients to a given Doctor based on the room number. +
+Format: `break <ROOM_NUMBER>`
+
+==== Doctor resumes his/her duty: `resume` ====
+
+Allows patients to be directed to a given Doctor based on the room number. +
+Format: `resume <ROOM_NUMBER>`
+
+
+=== Patient Management
+
+==== Searches patient by arguments: `patient` ====
+
+Finds patients whose reference ids, names or phone numbers containing any of the given keywords. +
+If search keywords are empty, all registered patients will be displayed. +
+Note: Requires at least 4 characters to search by a reference id or phone numbers. +
+Format: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
+
+==== Registers a new patient: `register` ====
+
+Registers a new patient +
+Format:  `register -name|-n <PATIENT_NAME> -id|-i <PATIENT_REFERENCE_ID> -phone|-p <PHONE_NUM> [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
+
+
+==== Updates patients’ profiles: `update` ====
+
+If user is in the patients listing screen,
+Updates any change for patients’ profiles +
+Format: `update <ENTRY_ID> [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
+
+
+=== On-Duty Doctors Management ===
+
+==== Views doctors: `doctors` ====
+
+Finds doctors whose names contains any of the given keywords. +
+If search keywords are empty, all registered doctors will be displayed. +
+Format: `doctors [<DOCTOR_NAME>]`
+
+==== Register a new doctor: `newdoctor` ====
+
+Registers a new doctor. +
+Format: `newdoctor -name|-n <DOCTOR_NAME> [-hp <PHONE_NUM>] +
+ [-email|-e <EMAIL>] [-remark|-r <REMARK>]`
+
+==== Update a doctor's profile: `update` ====
+
+If user is in the doctors listing screen, updates any change for doctor’s profiles. +
+Format: `updatedoctor <ENTRY_ID> [-name|-n <DOCTOR_NAME>]+
+[-ic|-i <DOCTOR_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] +
+[-remark|-r <REMARK>]`
+
+==== Unregister a doctor's profile: `resign` ====
+
+If user is in the doctors listing screen, removes a doctor’s profile. +
+Format: `resign <ENTRY_ID>`
+
+==== Updates a doctor's profiles: `onduty` ====
+
+Marks the doctor as on-duty and stationed in the given room number. +
+Patients can be directed to the specified doctor. +
+Format: `onduty -d <DOCTOR_ENTRY_INDEX> -r <ROOM_NUMBER>`
+
+==== Updates doctor's profiles: `offduty` ====
+
+Marks the doctor as off-duty. Patients can not be directed to the specified doctor. +
+Format: `offduty <ROOM_NUMBER>`
+
+=== Appointment Management
+
+==== Displays all appointments: `appointments` ====
+
+Displays a sorted list of upcoming appointments whose appointment is within +
+If search keywords are empty, only upcoming appointments within the next 7 days will be displayed. +
+Format: `appointments [-patient|-p <PATIENT_NAME | PATIENT_IC>] [-start|-s <START_DATE>] [-end|-e <END_DATE>]`
+
+==== Cancels an appointment: `cancel` ====
+
+Cancels the specified appointment. +
+Format: `cancel <ENTRY_ID>`
+
+==== Changes the appointment date: `change` ====
+
+Changes and updates to a new appointment detail in the appointment listing screen +
+Format: `change <ENTRY_ID> [-id|-i <PATIENT_IC>] [-start|-s <START_DATE>] [-end|-e <END_DATE>]`
+
+==== Shows the empty slots: `slot` ====
+
+List all the available empty slots for patients to make appointments +
+Format: `slot -start|-s <START_DATE> -end|-e <END_DATE>`
+
+==== Displays patients who have missed their appointments and have yet to be notified: `missed` ====
+
+Displays all patients who have missed their appointments that are not yet settled. +
+Format: `missed [-date <DATETIME>]`
+
+==== Sets missed appointments as settled/notified: `settle` ====
+
+Settles the missed appointments for respective patients. +
+Format: `settle <ENTRY_ID>`
+
+=== Inventory commands (v2.0) ===
+
+==== Views the inventory: `inventory` ====
+
+Displays the medicine inventory +
+Format: `inventory`
+
+==== Views the inventory: `prescription` ====
+
+Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
+Format: `prescription [-id] <PRESCRIPTION_ID>`
+
+=== User Accounts (v2.0) ===
+
+==== Login: `login` ====
+
+Login with your username and password. The user will then be prompted to enter their password. +
+Format: `login <USER_NAME>`
+
+==== Logout: `logout` ====
+
+Logout from your account +
+Format: `logout`
+
+=== General commands ===
+
+==== Viewing help: `help` ====
+
+Lists all the useful commands +
 Format: `help`
 
-=== Adding a person: `add`
+==== Exits program: `exit` ====
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
+Exits the program +
 Format: `exit`
 
-=== Saving the data
+==== Undo action: `undo` ====
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Undo an action +
+Format: `undo`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Creates, updates or removes an alias command: `alias` ====
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Tags an alias name to a reserved command. More specifically,
+one of the following will happen depending on the parameters of the function.
+Please note that the user can not remap a reserved command.
+A new alias command is created if the alias does not exist.
+Remaps an existing alias command to a reserved command if the alias exist.
+If the reserved command is not specified, the alias is unregistered if it exists.
 
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+Format: `alias <Alias_Name> [<Reserved_Command>]`
