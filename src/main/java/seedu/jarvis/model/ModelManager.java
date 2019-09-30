@@ -14,19 +14,19 @@ import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.model.person.Person;
 
 /**
- * Represents the in-memory addressModel of the address book data.
+ * Represents the in-memory model of the address book data.
  */
-public class AddressModelManager implements AddressModel {
-    private static final Logger logger = LogsCenter.getLogger(AddressModelManager.class);
+public class ModelManager implements Model {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a AddressModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public AddressModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -37,7 +37,7 @@ public class AddressModelManager implements AddressModel {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
-    public AddressModelManager() {
+    public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
 
@@ -137,12 +137,12 @@ public class AddressModelManager implements AddressModel {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof AddressModelManager)) {
+        if (!(obj instanceof ModelManager)) {
             return false;
         }
 
         // state check
-        AddressModelManager other = (AddressModelManager) obj;
+        ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);

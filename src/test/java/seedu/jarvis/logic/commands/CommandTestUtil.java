@@ -17,7 +17,7 @@ import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
@@ -73,104 +73,104 @@ public class CommandTestUtil {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
-     * - the {@code actualAddressModel} matches {@code expectedAddressModel}
+     * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, AddressModel actualAddressModel,
-                                            CommandResult expectedCommandResult, AddressModel expectedAddressModel) {
+    public static void assertCommandSuccess(Command command, Model actualModel,
+                                            CommandResult expectedCommandResult, Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualAddressModel);
+            CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedAddressModel, actualAddressModel);
+            assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, AddressModel, CommandResult, AddressModel)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, AddressModel actualAddressModel, String expectedMessage,
-                                            AddressModel expectedAddressModel) {
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualAddressModel, expectedCommandResult, expectedAddressModel);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualAddressModel} remain unchanged
+     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, AddressModel actualAddressModel, String expectedMessage) {
-        // we are unable to defensively copy the addressModel for comparison later, so we can
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualAddressModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualAddressModel.getFilteredPersonList());
+        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualAddressModel));
-        assertEquals(expectedAddressBook, actualAddressModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualAddressModel.getFilteredPersonList());
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 
     /**
      * Inversely executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
-     * - the {@code actualAddressModel} matches {@code expectedAddressModel}
+     * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandInverseSuccess(Command command, AddressModel actualAddressModel,
+    public static void assertCommandInverseSuccess(Command command, Model actualModel,
                                                    CommandResult expectedCommandResult,
-                                                   AddressModel expectedAddressModel) {
+                                                   Model expectedModel) {
         try {
-            CommandResult result = command.executeInverse(actualAddressModel);
+            CommandResult result = command.executeInverse(actualModel);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedAddressModel, actualAddressModel);
+            assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Inverse Execution of command should not fail.", ce);
         }
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandInverseSuccess(Command, AddressModel, String, AddressModel)}
+     * Convenience wrapper to {@link #assertCommandInverseSuccess(Command, Model, String, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandInverseSuccess(Command command, AddressModel actualAddressModel,
-                                                   String expectedMessage, AddressModel expectedAddressModel) {
+    public static void assertCommandInverseSuccess(Command command, Model actualModel,
+                                                   String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandInverseSuccess(command, actualAddressModel, expectedCommandResult, expectedAddressModel);
+        assertCommandInverseSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
     /**
      * Inversely executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualAddressModel} remain unchanged
+     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
-    public static void assertCommandInverseFailure(Command command, AddressModel actualAddressModel,
+    public static void assertCommandInverseFailure(Command command, Model actualModel,
                                                    String expectedMessage) {
 
-        // we are unable to defensively copy the addressModel for comparison later, so we can
+        // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualAddressModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualAddressModel.getFilteredPersonList());
+        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.executeInverse(actualAddressModel));
-        assertEquals(expectedAddressBook, actualAddressModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualAddressModel.getFilteredPersonList());
+        assertThrows(CommandException.class, expectedMessage, () -> command.executeInverse(actualModel));
+        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 
     /**
-     * Updates {@code addressModel}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code addressModel}'s address book.
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(AddressModel addressModel, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < addressModel.getFilteredPersonList().size());
+    public static void showPersonAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
-        Person person = addressModel.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        addressModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, addressModel.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredPersonList().size());
     }
 
 }

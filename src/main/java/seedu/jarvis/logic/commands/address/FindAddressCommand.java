@@ -6,7 +6,7 @@ import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
 
 /**
@@ -47,27 +47,27 @@ public class FindAddressCommand extends Command {
     /**
      * Finds all {@code Person} in address book that pass the {@code Predicate} of the command.
      *
-     * @param addressModel {@code AddressModel} which the command should operate on.
+     * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of the number of {@code Person} matching the {@code Predicate}.
      */
     @Override
-    public CommandResult execute(AddressModel addressModel) {
-        requireNonNull(addressModel);
+    public CommandResult execute(Model model) {
+        requireNonNull(model);
 
-        addressModel.updateFilteredPersonList(predicate);
+        model.updateFilteredPersonList(predicate);
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, addressModel.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
 
     /**
      * There is no available inverse execution available, always throws a {@code CommandException}.
      *
-     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @param model {@code Model} which the command should inversely operate on.
      * @throws CommandException Always thrown.
      */
     @Override
-    public CommandResult executeInverse(AddressModel addressModel) throws CommandException {
+    public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
     }
 

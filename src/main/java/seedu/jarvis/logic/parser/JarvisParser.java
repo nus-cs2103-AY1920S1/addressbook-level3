@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.ExitCommand;
 import seedu.jarvis.logic.commands.HelpCommand;
+import seedu.jarvis.logic.commands.RedoCommand;
+import seedu.jarvis.logic.commands.UndoCommand;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
@@ -65,6 +67,12 @@ public class JarvisParser {
 
         case ListAddressCommand.COMMAND_WORD:
             return new ListAddressCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

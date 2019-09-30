@@ -7,7 +7,7 @@ import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ReadOnlyAddressBook;
 import seedu.jarvis.model.person.Person;
 
@@ -27,7 +27,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see AddressModel#getAddressBook()
+     * @see Model#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
 

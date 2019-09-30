@@ -1,7 +1,7 @@
 package seedu.jarvis.logic.commands;
 
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressModel;
+import seedu.jarvis.model.Model;
 
 /**
  * Terminates the program.
@@ -29,18 +29,18 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(AddressModel addressModel) {
+    public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 
     /**
      * There is no available inverse execution available, always throws a {@code CommandException}.
      *
-     * @param addressModel {@code AddressModel} which the command should inversely operate on.
+     * @param model {@code Model} which the command should inversely operate on.
      * @throws CommandException Always thrown.
      */
     @Override
-    public CommandResult executeInverse(AddressModel addressModel) throws CommandException {
+    public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
     }
 
