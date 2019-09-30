@@ -47,6 +47,21 @@ public class Trip {
         return dayList;
     }
 
+    /**
+     * Returns true if both {@link Trip} contain the same booking and their to and from time are the same.
+     * This defines a weaker notion of equality between two events.
+     */
+    public boolean isSameTrip(Trip otherTrip) {
+        if (otherTrip == this) {
+            return true;
+        } else {
+            return otherTrip.getName().equals(getName())
+                    && otherTrip.getFrom().equals(getFrom())
+                    && otherTrip.getTo().equals(getTo())
+                    && otherTrip.getDestintaion().equals(getDestintaion());
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -59,12 +74,10 @@ public class Trip {
 
         Trip otherTrip = (Trip) other;
         return otherTrip.getName().equals(getName())
-                && otherTrip.getName().equals(getName())
                 && otherTrip.getFrom().equals(getFrom())
                 && otherTrip.getTo().equals(getTo())
                 && otherTrip.getDestintaion().equals(getDestintaion())
                 && otherTrip.getDayList().equals(getDayList());
-
     }
 
     public boolean isClashingWith(Trip other){

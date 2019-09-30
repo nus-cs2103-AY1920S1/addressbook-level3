@@ -14,7 +14,7 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
     @Override
     public boolean contains(Trip toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameTrip);
     }
 
     @Override

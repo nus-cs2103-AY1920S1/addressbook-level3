@@ -25,11 +25,20 @@ public class Expenditure {
         this.value = Double.parseDouble(value);
     }
 
+    public Expenditure(double value){
+        requireNonNull(value);
+        this.value = (double) Math.round(value * 100) / 100;
+    }
+
     /**
      * Returns true if a given string is a valid expenditure.
      */
     public static boolean isValidExpenditure(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public static boolean isValidExpenditure(double test){
+        return test > 0;
     }
 
     @Override
