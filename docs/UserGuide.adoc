@@ -95,7 +95,7 @@ Creates an expenditure transaction of $12.32 titled "Food" occuring on the 10th 
 
 ==== Editing transaction: `txedit`
 Edits a transaction. +
-Format: `txedit i/ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
+Format: `txedit i/TRANSACTION_ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
 
 Examples:
 
@@ -104,7 +104,7 @@ Edits the description of the 1st transaction in the current list to "Dinner", an
 
 ==== Deleting transaction: `txdelete`
 Deletes a transaction. +
-Format: `txdelete i/ID`
+Format: `txdelete i/TRANSACTION_ID`
 
 Examples:
 
