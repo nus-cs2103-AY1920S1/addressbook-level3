@@ -68,7 +68,17 @@ Format: `exit`
 IchiFund data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Wealth
+
+==== Set current wealth: `wealthset`
+
 === Transactions
+
+==== Creating transaction: `txadd`
+==== Editing transaction: `txedit`
+==== Deleting transaction: `txdelete`
+==== Finding transaction: `txfind`
+==== List all transactions: `txlist`
 
 === Repeating Transactions
 
