@@ -42,7 +42,6 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-
     /**
      * Returns the user prefs' address book file path.
      */
@@ -52,6 +51,17 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the user prefs' appointment book file path.
+     */
+    Path getAppointmentBookFilePath();
+
+    /**
+     * Sets the user prefs' appointment book file path.
+     */
+    void setAppointmentBookFilePath(Path appointmentBookFilePath);
+
 
 
     //=========== AddressBook ================================================================================
@@ -114,12 +124,12 @@ public interface Model {
     /**
      * Replaces schedule data with the data in {@code schedule}.
      */
-    void setSchedule(ReadOnlySchedule schedule);
+    void setSchedule(ReadOnlyAppointmentBook schedule);
 
     /**
-     * Returns the schedule
+     * Returns the schedule of appointments.
      */
-    ReadOnlySchedule getSchedule();
+    ReadOnlyAppointmentBook getAppointmentBook();
 
     /**
      * Returns true if an event with the same identity as {@code event} exists in the schedule.

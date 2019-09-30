@@ -12,7 +12,7 @@ import seedu.address.model.common.ReferenceId;
  * Represents an event involving a single Person.
  * Guarantees: Reference Id to a person, the event timing and status are present, validated and immutable.
  */
-public abstract class Event {
+public class Event {
 
     // Identity fields
     private final ReferenceId personId;

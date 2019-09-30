@@ -7,8 +7,13 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -41,6 +46,16 @@ public class ModelStub implements Model {
 
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getAppointmentBookFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -86,6 +101,51 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setSchedule(ReadOnlyAppointmentBook schedule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyAppointmentBook getAppointmentBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasEvent(Event event){
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasExactEvent(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteEvent(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addEvent(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setEvent(Event target, Event editedEvent) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 }

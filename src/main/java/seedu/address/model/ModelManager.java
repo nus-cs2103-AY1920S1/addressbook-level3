@@ -23,7 +23,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final PatientSchedule patientSchedule;
+    private final AppointmentBook appointmentBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
@@ -32,21 +32,21 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyAddressBook addressBook,
-            ReadOnlySchedule patientSchedule) {
+            ReadOnlyAppointmentBook patientSchedule) {
         super();
         requireAllNonNull(userPrefs, addressBook, patientSchedule);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.patientSchedule = new PatientSchedule(patientSchedule);
+        this.appointmentBook = new AppointmentBook(patientSchedule);
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.filteredEvents = new FilteredList<>(this.patientSchedule.getEventList());
+        this.filteredEvents = new FilteredList<>(this.appointmentBook.getEventList());
     }
 
     public ModelManager() {
-        this(new UserPrefs(), new AddressBook(), new PatientSchedule());
+        this(new UserPrefs(), new AddressBook(), new AppointmentBook());
     }
 
 
@@ -83,6 +83,17 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public Path getAppointmentBookFilePath() {
+        return userPrefs.getAppointmentBookFilePath();
+    }
+
+    @Override
+    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+        requireNonNull(appointmentBookFilePath);
+        userPrefs.setAppointmentBookFilePath(appointmentBookFilePath);
     }
 
 
@@ -150,35 +161,35 @@ public class ModelManager implements Model {
     //=========== Scheduler ==================================================================================
 
     @Override
-    public void setSchedule(ReadOnlySchedule schedule) {
+    public void setSchedule(ReadOnlyAppointmentBook schedule) {
         this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlySchedule getSchedule() {
-        return patientSchedule;
+    public ReadOnlyAppointmentBook getAppointmentBook() {
+        return appointmentBook;
     }
 
     @Override
     public boolean hasEvent(Event event){
         requireNonNull(event);
-        return patientSchedule.hasEvent(event);
+        return appointmentBook.hasEvent(event);
     }
 
     @Override
     public boolean hasExactEvent(Event event) {
         requireNonNull(event);
-        return patientSchedule.hasExactEvent(event);
+        return appointmentBook.hasExactEvent(event);
     }
 
     @Override
     public void deleteEvent(Event event) {
-        patientSchedule.removeEvent(event);
+        appointmentBook.removeEvent(event);
     }
 
     @Override
     public void addEvent(Event event) {
-        patientSchedule.addEvent(event);
+        appointmentBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
@@ -186,7 +197,7 @@ public class ModelManager implements Model {
     public void setEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
 
-        patientSchedule.setEvent(target, editedEvent);
+        appointmentBook.setEvent(target, editedEvent);
     }
 
 
@@ -225,7 +236,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && patientSchedule.equals(other.patientSchedule)
+                && appointmentBook.equals(other.appointmentBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

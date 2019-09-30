@@ -7,12 +7,12 @@ package seedu.address.model.person.parameters;
 public class StaffReferenceId extends PersonReferenceId {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Reference Id for staff doctors should start with 'DR' followed by numbers.";
+        "Reference Id for staff doctors should start with 'STAFF' followed by numbers.";
 
     /*
      * The reference ID should only contain alphanumeric characters.
      */
-    public static final String VALIDATION_REGEX = "DR[0-9]*";
+    public static final String VALIDATION_REGEX = "STAFF[0-9]*";
 
     /**
      * Constructs a {@code DoctorReferenceId}.

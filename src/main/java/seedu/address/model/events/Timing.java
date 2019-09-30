@@ -8,19 +8,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-//TODO: Stub models for now
 /**
  * Represents a Date time in the schedule.
- * Guarantees: immutable; is valid as declared in {@link #isValidTiming(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTiming(DateTime, DateTime)}
  */
 public class Timing {
     private static SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
     private static int PERIOD = 30;
 
     public static final String MESSAGE_CONSTRAINTS =
-        "The event start datetime must be before the end datetime.";
-    private final Date startTiming;
-    private final Date endTiming;
+        "The event start timing must be before the end timing.";
+
+    private final DateTime startTiming;
+    private final DateTime endTiming;
 
     /**
      * Constructs a {@code Timing}.
@@ -28,13 +28,9 @@ public class Timing {
      * @param startTiming A valid dateTime describing the start of event.
      * @param endTiming   A valid dateTime describing the end of event.
      */
-//    public Timing(Date startTiming, Date endTiming) {
-//        requireAllNonNull(startTiming, endTiming);
-////        checkArgument(isValidTiming(startTiming, endTiming), MESSAGE_CONSTRAINTS);
-//
-//        this.startTiming = startTiming;
-//        this.endTiming = endTiming;
-//    }
+    public Timing(DateTime startTiming, DateTime endTiming) {
+        requireAllNonNull(startTiming, endTiming);
+        checkArgument(isValidTiming(startTiming, endTiming), MESSAGE_CONSTRAINTS);
 
     /**
      * Constructs a {@code Timing}.
@@ -51,28 +47,24 @@ public class Timing {
     /**
      * Returns true if the start dateTime is before the end dateTime.
      */
-
-    public static boolean isValidTiming(String testStart) {
-        try{
-
-            startTiming = formatter.parse(testStart);
-            endTiming = addMinutesToDate(PERIOD, startTiming);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
+    public static boolean isValidTiming(String testStart, String testEnd) {
+        DateTime startDate = DateTime.tryParseSimpleDateFormat(testStart);
+        DateTime endDate = DateTime.tryParseSimpleDateFormat(testEnd);
+        return isValidTiming(startDate, endDate);
     }
 
-    public static Date getStartingDate(String stingTime) throws ParseException {
-        return formatter.parse(stingTime);
+    /**
+     * Returns true if the start dateTime is before the end dateTime.
+     */
+    public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
+        return testStart != null && testEnd != null && testStart.getTime().before(testEnd.getTime());
     }
 
-
-    public Date getStartTiming() {
+    public DateTime getStartTime() {
         return startTiming;
     }
 
-    public Date getEndTiming() {
+    public DateTime getEndTime() {
         return endTiming;
     }
 
@@ -86,7 +78,7 @@ public class Timing {
 
     @Override
     public String toString() {
-        return "SOME Date"; //TODO:
+        return String.format("%s - %s", startTiming.toString(), endTiming.toString());
     }
 
     @Override
@@ -100,8 +92,8 @@ public class Timing {
         }
 
         Timing otherTiming = (Timing) other;
-        return otherTiming.getStartTiming().equals(getStartTiming())
-            && otherTiming.getEndTiming().equals(getEndTiming());
+        return otherTiming.getStartTime().equals(getStartTime())
+            && otherTiming.getEndTime().equals(getEndTime());
     }
 
     @Override
