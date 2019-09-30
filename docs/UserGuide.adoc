@@ -70,7 +70,47 @@ There is no need to save manually.
 
 === Transactions
 
-=== Recurring
+=== Repeating Transactions
+
+==== Creating repeating transaction: `repadd`
+
+Creates monthly repeating transaction. +
+Format: `repadd m/DESCRIPTION a/AMOUNT [p/DAY]...`
+
+Examples:
+
+* `repadd m/Travelling a/32.70 p/7 p/14 p/21 p/28` +
+Creates a repeating transaction titled "Travelling" for a $32.70 deduction every 7th, 14th, 21st and 28th of the month.
+
+==== Editing repeating transaction: `repedit`
+
+Edits repeating transaction. +
+Format: `repadd i/ID [m/DESCRIPTION] [a/AMOUNT] [p/DAY]...`
+
+Examples:
+
+* `repedit i/12 a/62.45 p/11 p/12` +
+Edits the 12th repeating transaction for a $62.45 deduction every 11th and 12th of the month.
+
+==== Deleting repeating transaction: `repdelete`
+
+Deletes repeating transaction. Optionally deletes transactions previously produced from the repeating transaction. +
+Format: `repdelete i/ID [d/DELETEALL]`
+
+Examples:
+
+* `repdelete i/12 p/TRUE` +
+Deletes the 12th repeating transaction.
+
+==== Finding repeating transaction: `repfind`
+
+Filters repeating transactions by keyword and repeating days. +
+Format: `repfind [s/KEYWORD]... [p/DAY]...`
+
+Examples:
+
+* `repfind s/Income p/7 p/13` +
+Finds all repeating transactions with "Income" contained in their descriptions, and that occur on the 7th and 13th of the month.
 
 === Loans
 
@@ -83,7 +123,7 @@ Format: `bset a/AMOUNT`
 
 Examples:
 
-* `bset 1000` +
+* `bset a/1000` +
 Sets monthly expenditure budget to $1000.
 
 ==== Excluding transaction from budget: `bexclude`
@@ -99,7 +139,7 @@ Format: `bexclude i/TRANSACTION_ID`
 Examples:
 
 * `list` +
-`bexclude 2` +
+`bexclude i/2` +
 Excludes the 2nd transaction in the list from computation of budget.
 
 ==== Including transaction in budget: `binclude`
@@ -115,7 +155,7 @@ Format: `binclude i/TRANSACTION_ID`
 Examples:
 
 * `list` +
-`bexclude 2` +
+`bexclude i/2` +
 Includes the 2nd transaction in the list from computation of budget.
 
 ==== Viewing budget information: `binfo`

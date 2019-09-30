@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W12-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -297,15 +297,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user who is keeping track of budget |set my monthly expenditure budget |keep track of how much I can spend for the month
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user who is keeping track of budget |exclude transaction from budget |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user who is keeping track of budget |include transaction to budget |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user who is keeping track of budget |see an overview of my budget |
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -313,35 +312,27 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `IchiFund` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Set monthly expenditure budget
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to set the monthly expenditure budget.
+2.  System set the monthly expenditure budget.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 1a. System detect an invalid budget amount.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. System shows an error message.
 +
-Use case resumes at step 2.
-
-_{More to be added}_
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
