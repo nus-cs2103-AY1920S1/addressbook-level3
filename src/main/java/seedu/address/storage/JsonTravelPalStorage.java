@@ -45,8 +45,8 @@ public class JsonTravelPalStorage implements TravelPalStorage {
     public Optional<ReadOnlyTravelPal> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializableTravelPal> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableTravelPal.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -74,7 +74,7 @@ public class JsonTravelPalStorage implements TravelPalStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableTravelPal(addressBook), filePath);
     }
 
 }

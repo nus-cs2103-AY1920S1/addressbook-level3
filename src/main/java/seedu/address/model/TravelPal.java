@@ -52,6 +52,10 @@ public class TravelPal implements ReadOnlyTravelPal {
         this.persons.setPersons(persons);
     }
 
+    public void setTripList(List<Trip> trips){
+        this.tripList.set(trips);
+    }
+
     /**
      * Resets the existing data of this {@code TravelPal} with {@code newData}.
      */
@@ -59,6 +63,8 @@ public class TravelPal implements ReadOnlyTravelPal {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+
+        setTripList(newData.getTripList());
     }
 
     //// person-level operations
@@ -136,6 +142,11 @@ public class TravelPal implements ReadOnlyTravelPal {
 
     public void deleteTrip(Trip trip) {
         tripList.remove(trip);
+    }
+
+    public boolean hasTrip(Trip trip){
+        requireNonNull(trip);
+        return tripList.contains(trip);
     }
 
     @Override
