@@ -12,6 +12,7 @@ public class Author {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Author numbers should only contain numbers, and it should be at least 3 digits long";
+    public static final String DEFAULT_AUTHOR_STRING = "";
     public static final Author DEFAULT_AUTHOR = new Author();
 
     /*
@@ -33,11 +34,25 @@ public class Author {
     }
 
     private Author() {
-        value = "";
+        value = DEFAULT_AUTHOR_STRING;
     }
 
     /**
-     * Returns true if a given string is a valid author number.
+     * Returns true if a given String matches the default author String.
+     */
+    public static boolean isDefaultAuthor(String test) {
+        return test.equals(DEFAULT_AUTHOR_STRING);
+    }
+
+    /**
+     * Returns true if a given {@code Author} is the default author.
+     */
+    public static boolean isDefaultAuthor(Author author) {
+        return author == DEFAULT_AUTHOR;
+    }
+
+    /**
+     * Returns true if a given string is a valid author.
      */
     public static boolean isValidAuthor(String test) {
         return test.matches(VALIDATION_REGEX);
