@@ -153,12 +153,12 @@ Format: `appointments [-patient|-p <PATIENT_NAME | PATIENT_IC>] [-start|-s <STAR
 Cancels the specified appointment. +
 Format: `cancel <ENTRY_ID>`
 
-==== Changes the appointment date: ` change ` ====
+==== Changes the appointment date: `change` ====
 
 Changes and updates to a new appointment detail in the appointment listing screen +
 Format: `change <ENTRY_ID> [-id|-i <PATIENT_IC>] [-start|-s <START_DATE>] [-end|-e <END_DATE>]`
 
-==== Shows the empty slots: ` slot ` ====
+==== Shows the empty slots: `slot` ====
 
 List all the available empty slots for patients to make appointments +
 Format: `slot -start|-s <START_DATE> -end|-e <END_DATE>`
