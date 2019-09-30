@@ -12,61 +12,62 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T13-4/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Mark is for those who prefer to use a *desktop app for managing
-bookmarks.* More importantly, it is optimized for those who prefer to
-work with a *Command Line Interface (CLI)* while still having the
+Mark is for those who *prefer to use a desktop app for managing
+bookmarks*. More importantly, it is *optimized for those who prefer to
+work with a Command Line Interface* (CLI) while still having the
 benefits of a Graphical User Interface (GUI). If you can type fast, Mark
 can get your bookmark organisation and note-taking done faster than
 traditional GUI apps. Interested? Jump to
-link:#quick-start[[.underline]#Section 2, “Quick Start”#] to get
+<<Quick Start>> to get
 started. Enjoy!
 
 == Quick Start
 
-[arabic]
-. Ensure you have Java 11 or above installed in your Computer.
-. Download the latest mark.jar here.
-. Copy the file to the folder you want to use as the home folder for your Bookmark Manager.
-. Double-click the file to start the app. The GUI should appear in a few
-seconds.
- . Type the command in the command box and press Enter to execute it.
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `mark.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Bookmark Manager.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
 
-* e.g. typing help and pressing Enter will open the help window.
-. Some example commands you can try:
+* *`list`* : lists all bookmarks
+* *`add u/git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
+named `Pro Git` to the Bookmark Manager.
+* *`delete 3`* : deletes the 3rd bookmark shown in the current list
+* *`exit`* : exits the app
 
-* *list* : lists all bookmarks
- * *add u/git-scm.com/book/en/v2 n/Pro Git f/Tutorials* : adds a bookmark
-named Pro Git to the Bookmark Manager.
- * *delete 3* : deletes the 3rd bookmark shown in the current list
- * *exit* : exits the app
-
-. Refer to <<Features>> for details
+.  Refer to <<Features>> for details
 of each command.
 
 [[Features]]
 == Features
 
+====
 *Command Format*
 
-* Words in UPPER_CASE are the parameters to be supplied by the user e.g.
-in add u/URL, URL is a parameter which can be used as add
-u/luminus.nus.edu.sg.
- * Items in square brackets are optional e.g u/URL [t/TAG] can be used as
-u/luminus.nus.edu.sg t/NUS or as u/luminus.nus.edu.sg.
- ** Default values for optional items are specified with an = symbol. E.g.
-u/URL [t/TAG=CS2103T]the default value for the tag is CS2103T if not
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g.
+in `add u/URL`, `URL` is a parameter which can be used as `add u/luminus.nus.edu.sg`.
+* Items in square brackets are optional e.g `u/URL [t/TAG]` can be used as
+`u/luminus.nus.edu.sg t/NUS` or as `u/luminus.nus.edu.sg`.
+* Default values for optional items are specified with an `=` symbol. E.g.
+`u/URL [t/TAG=CS2103T]`, the default value for the tag is `CS2103T` if not
 specified.
- * Items with …​ after them can be used multiple times including zero times
-e.g. [t/TAG]…​ can be used as (i.e. 0 times), t/module, t/module
-t/read-later etc.
- * Parameters can be in any order e.g. if the command specifies n/NAME
-u/URL, u/URL n/NAME is also acceptable.
+* Items with `…`​ after them can be used multiple times including zero times
+e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
+`t/module t/read-later` etc.
+* Parameters can be in any order e.g. if the command specifies
+`u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
+====
 
 === Viewing help: `help`
 
@@ -81,12 +82,13 @@ Format: `add u/URL n/NAME [f/FOLDER] [t/TAG]…​`
 ****
 * A bookmark can have any number of tags (including 0).
 * Use the keyword `this` in place of URL to bookmark the current page,
-e.g.
+e.g. `add u/this n/Homepage`
 ****
 
 Examples:
+
 * `add u/this n/Homepage` +
-Bookmarks the current place and names it Homepage.
+Bookmarks the current place and names it `Homepage`.
 Only valid if a web-page is currently being viewed.
 * `add u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T`
 * `add u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
@@ -179,51 +181,65 @@ Deletes the 1st bookmark in the results of the find command.
 
 Opens the specified version of the bookmark from the bookmark manager.
 
-Fomat: *goto INDEX [v/VERSION]*
+Format: `goto INDEX [v/VERSION]`
 
-* If the flag v/ is not present, go to the online version
- * v/ with no VERSION: Go to the most current version
+****
+* If the flag `v/` is not present, go to the online version.
+* If `v/` is present but `VERSION`  is not specified:
+the most current version of the bookmark will be opened.
+****
 
 Examples:
 
-* Goto 1
+* `list` +
+`goto 1` +
+Opens the first bookmark in the bookmark manager.
+
+* `list` +
+`goto 1 v/1` +
+Opens the first version of the first bookmark in the bookmark manager.
 
 === Opening a bookmark from a reminder: `goto reminder`
 
-Opens the specified version of the bookmark from the bookmark manager.
+Opens the related bookmark of the specified reminder from the bookmark manager.
 
-Fomat: *goto reminder INDEX*
+Format: `goto reminder INDEX`
 
-* INDEX is the index of the reminder as viewed on the dashboard
+****
+* INDEX is the index of the reminder as viewed on the dashboard.
+* The index must be a positive integer 1, 2, 3, …​
+****
 
 Examples:
 
-* *goto reminder 1* +
-If reminder 1 points to bookmark 5, this command is equivalent to *goto
-5*. I.e. opens bookmark 5.
+* `goto reminder 1` +
+If reminder 1 points to bookmark 5, this command is equivalent to
+`goto 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
 === Clearing all entries: `clear`
 
 Clears all entries from the bookmark manager.
 
-Format: *clear*
+Format: `clear`
 
 === Undoing previous command: `undo`
 
 Restores the list to the state before the previous undoable command was
 executed.
 
-Undoable commands include commands that modify the bookmark list or
-reminders (add, edit, delete, clear, reminder, reminder edit, reminder
-delete etc).
+Format: `undo`
 
-Format: *undo*
+****
+* Undoable commands include commands that modify the bookmark list or
+reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
+`reminder edit`, `reminder delete`, etc).
+****
 
 === Redoing the previously undone command: `redo`
 
 Reverses the most recent ‘undo’ command.
 
-Format: *redo*
+Format: `redo`
 
 === Exiting the program: `exit`
 
@@ -412,7 +428,7 @@ Deletes selected highlights or notes from the offline copy of the given bookmark
 When this command is given, the UI will switch to the offline tab showing the results of your command.
 You can choose to remove just the notes and/or highlight of a paragraph, or clear all annotations
 on an offline copy to revert it to clean slate. You can also choose to remove a note from the
-_Stray Notes Section_ (see Glossary). If given paragraph does not have any notes to remove, nothing is performed.
+<<stray-notes,Stray Notes Section>>. If given paragraph does not have any notes to remove, nothing is performed.
 
 Format: `annotate delete INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 
@@ -580,71 +596,82 @@ Sort all the bookmarks based on the order they were added.
 
 Expands the folder hierarchy by the specified number of levels.
 
-Format: *expand [LEVEL]*
+Format: `expand [LEVEL]`
 
+****
 * LEVEL should be an integer. If it is more than zero, folder hierarchy
 will expand by LEVEL number of levels. If LEVEL is less than zero,
 folder hierarchy will collapse by the given number of levels. If LEVEL
 is zero, nothing happens.
- * Current level of display + LEVEL must be positive and less than or equal
-to the maximum number of levels
- * If LEVEL is negative, the folder hierarchy will be collapsed by the
-specified number of levels
- * If LEVEL is not specified, expand to the maximum number of levels.
+* Current level of display + LEVEL must be positive and less than or equal
+to the maximum number of levels.
+* If LEVEL is not specified, expand to the maximum number of levels.
+****
 
-Examples
+Examples:
 
-* *expand 3*
+* `expand 3` +
+Expands the folder hierarchy by 3 levels.
 
 === Collapsing folder hierarchy: `collapse`
 
 Collapses the folder hierarchy by the specified number of levels.
 
-Format: *collapse [LEVEL]*
+Format: `collapse [LEVEL]`
 
+****
 * LEVEL should be an integer. If it is more than zero, folder hierarchy
 will collapse by LEVEL number of levels. If LEVEL is less than zero,
 folder hierarchy will expand by the given number of levels. If LEVEL is
 zero, nothing happens.
- * Current level of display + LEVEL must be positive and less than or equal
-to the maximum number of levels of the folder hierarchy
- * If LEVEL is negative, the folder hierarchy will be collapsed by the
-specified number of levels
- * If LEVEL is not specified, collapse to show only one level of folders.
+* Current level of display + LEVEL must be positive and less than or equal
+to the maximum number of levels of the folder hierarchy.
+* If LEVEL is not specified, collapse to show only one level of folders.
+****
 
-Examples
+Examples:
 
-* *collapse 1*
+* `collapse 1` +
+Collapses the folder hierarchy by 1 level.
 
-=== Switching link:#faq[[.underline]#tabs#]: `tab`
+=== Switching <<Tabs,tabs>>: `tab`
 
 Switches the current app view to the tab that corresponds to the given
 index.
 
-Format: *tab INDEX*
+Format: `tab INDEX`
 
+****
 * INDEX is 1, 2 or 3, which correspond to the
-link:#faq[[.underline]#Dashboard#], Online, and Offline tabs
-respectively.
+<<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
+****
 
-Examples
+Examples:
 
-* *tab 1* +
-Goes to the Dashboard tab
+* `tab 1` +
+Goes to the <<Dashboard,Dashboard>> tab.
 
-* *tab 2* +
-Goes to the Online tab which is a web view
+* `tab 2` +
+Goes to the Online tab which is a web view.
 
-* *tab 3* +
-Goes to the Offline tab which shows the offline copy of bookmarks
+* `tab 3` +
+Goes to the Offline tab which shows the offline copy of bookmarks.
 
 == FAQ
 
-*What are Tabs?*
+*How do I transfer my data to another Computer?*
 
- Different user displays. There are three tabs: dashboard, online view
+****
+Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous Mark folder.
+****
+
+*What are [[Tabs]] Tabs?*
+
+****
+Different user displays. There are three tabs: dashboard, online view
 (web browser), and offline view (caches and notes).
-
+****
 
 [#imgId-dashboard]
 .Mark's Dashboard Tab View
@@ -658,25 +685,30 @@ image::ui-screenshots/uimockup1_online.png[@Online Tab View, 600, 400]
 .Mark's Offline Tab View
 image::ui-screenshots/uimockup1_offline.png[@Offline Tab View, 600, 400]
 
-++
-*What is the Dashboard?*
 
- The default tab in view when the application starts. The dashboard
+*What is the [[Dashboard]] Dashboard?*
+
+****
+The default tab in view when the application starts. The dashboard
 contains a help section (command summary), favorite tags, current
 reminders, and a view of the folder hierarchy for bookmarks.
+****
 
-<more coming soon>
-
-== Command Summary
-
-<coming soon>
+_{ more coming soon }_
 
 == Glossary
 This glossary aims to provide a definition for the special vocabulary used in this user guide.
 
-*offline* Refers to files stored locally on the computer.
+[[offline]] Offline::
+Refers to files stored locally on the computer.
 
-*online* Refers to having web access, namely to browse the internet.
+[[oneline]] Online::
+Refers to having web access, namely to browse the internet.
 
-*stray* Annotated notes that are not attached to an existing paragraph are described as stray.
+[[stray-notes]] Stray notes::
+Annotated notes that are not attached to an existing paragraph are described as stray.
 Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ column on the offline, annotated copy.
+
+== Command Summary
+
+_{ coming soon }_
