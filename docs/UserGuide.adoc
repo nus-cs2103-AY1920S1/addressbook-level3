@@ -64,7 +64,7 @@ Opens a help guide, a list of all commands for the user as a reference to.
 
 Format: `help`
 
-==== Viewing help : `search`
+==== Search : `search`
 
 Search for specific functions/properties
 
@@ -76,85 +76,139 @@ Exits and shuts down the program
 
 Format: `exit`
 
-=== Employee Management
+=== Entity Management
+AddMin+ contains two main entities - Employees and Events with similar commands, especially in Create, Read, Update and Delete (CRUD) operations.
 
-==== List all Employees: `emplist`
+==== List : `list_em | list_ev`
 
-Shows the list of all employees on the company’s roster. Employee details are truncated.
+Employee: Shows the list of all employees on the company’s roster. Full details are truncated.
 
-Format: `emplist`
+Event: Shows the list of all events on the company’s calendar. Full details are truncated.
 
-==== Fetch Full Details of Employee: `fetch`
+Employee Format: `list_em`
 
-Fetch the full details of a specific employee. Returns one employee only. +
-Finds persons whose names contain any of the given keywords. 
+Event Format: `list_ev`
 
-Format: `fetch EMPLOYEE_ID`
+==== Adding: `add | addev`
 
-****
-* `EMPLOYEE_ID` must be a positive integer and exist within the list of employees. 
-* If not found, 'Employee Not Found' will be displayed.
-****
+Employee: Adds an employee to the employee list
 
-Examples:
+Event: Adds an event that the company is organizing or hosting to the company’s calendar.
 
-* `fetch 2` +
-Returns employee at index 2
+Employee Format: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
 
-==== Find Employee: `find`
-Find employees whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-==== Adding an employee person: `add`
-
-Adds an employee to the employee list
-
-Format: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+Event Format: `addev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
-Examples:
-
+Add Employee Examples:
 * `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/Enthusiastic p/CFO e/betsycrowe@example.com a/Newgate Prison no/1234567 t/criminal`
 
-==== Editing an employee details : `edit`
+Add Event Examples:
+* `addev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music`
+* `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
 
-Edits an existing employee in the employee list.
+==== Editing details : `edit_em | edit_ev`
 
-Format: `edit INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+Employee: Edit an existing employee in the employee list.
+
+Event: Edits an existing event in the event list.
+
+Employee Format: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+
+Event Format Format: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 
 ****
-* Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the entity at the specified `INDEX`. The index refers to the index number shown in the displayed entity list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the entity will be removed i.e adding of tags is not cumulative.
+* You can remove all the entity's tags by typing `t/` without specifying any tags after it.
+****
+
+Employee Edit Examples:
+
+* `edit_em 1 no/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit_em 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+Event Edit Examples: 
+
+* `edit_ev 1 on/16092019` +
+Edits the start date of the 1st event to be on the 16th September, 2019.
+* `edit_ev 2 n/Concert t/` +
+Edits the name of the 2nd event to be `Concert` and clears all existing tags.
+
+==== Fetch Full Details of Entity: `fetch_em | fetch_ev`
+
+Fetch the full details of a specific event/employee. Returns one employee/event only.
+
+Employee Format: `fetch_em INDEX`
+
+Event Format: `fetch_ev INDEX`
+
+****
+* `INDEX` must be a positive integer and exist within the displayed list.
+* If not found, an 'Employee/Event Not Found' will be displayed.
 ****
 
 Examples:
 
-* `edit 1 no/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `fetch_em 2` +
+Returns employee at index 2
+* `fetch_ev 3` +
+Returns event at index 3
+
+==== Find: `find_em | find_ev`
+
+Find entities whose names contain any of the given keywords.
+
+Employee Format: `find_em KEYWORD [MORE_KEYWORDS]`
+
+Event Format: `find_ev KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name of the entity is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Entities matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find_em John` +
+Returns `john` and `John Doe`
+* `find_em Betsy Tim John` +
+Returns any entity having names `Betsy`, `Tim`, or `John`
+
+==== Deleting an entity : `delete_em | delete_ev`
+
+Deletes the entity from the employee roster/event calendar.
+
+Employee Format: `delete_em INDEX`
+
+Event Format: `delete_ev INDEX`
+
+****
+* Deletes the entity at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list_em` +
+`delete_em 2` +
+Deletes the 2nd employee in the displayed employee list.
+* `find Music` +
+`delete_ev 1` +
+Deletes the 1st event in the results of the `find` command.
+
+=== Employee-Specific Management 
 
 ==== Log Working Hours: `log`
 
@@ -172,36 +226,106 @@ Format: `log INDEX DDMMYYYY HOURSWORKED`
 
 Examples:
 
-* `list` +
+* `list_ev` +
 `log 2 30092019 8` +
 2nd Employee in the employee list is logged with 8 hours on the 30th September
 * `log 2 30092019 7` +
 2nd Employee in the employee list has 8 hours previously logged, is now overwritten with 7 hours.
 
-==== Deleting a person : `delete`
+=== Event-Specific Management
 
-Deletes the specified person from the address book.
+==== Mark Event as Done: `done`
 
-Format: `delete INDEX`
+Record the completion/conclusion of an Event.
+
+Format: `done INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* `INDEX` must be a positive integer and exist within the displayed list.
+* If not found, an 'Event Not Found' will be displayed.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `list_ev` +
+`done 2` +
+Marks the second event on the list as done.
 
-=== Event Management
+==== Allocate Employees to Events: `allocate`
+
+Automatically chooses and allocates employees to events that meet the requirements.
+
+Format: `allocate EVENT_ID [f/TAGS]...`
+
+[TIP]
+An event can have any number of requirements (including 0)
+
+****
+* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
+* Tags function as filters to determine if an employee is assigned to work for that particular event.
+* 
+****
+
+Examples:
+
+* `list_ev` + 
+`allocate 002 t/female` +
+Allocates to Event 002 all available employees who are tagged as 'female'
+* `allocate 004 t/music t/night-shift` +
+Allocates to Event 002 all available employees who have expertise in 'music' and are able to work night shifts.
+
+==== Manually allocate Employees ot Events: `allocateM`
+
+Manually chooses and allocates employees to events that meet the requirements.
+
+Format: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...`
+
+****
+* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
+* EMPLOYEE_NUMBER is the number of the employee on the displayed list.
+* There should be at least one employee number stated.
+****
+
+Examples:
+
+* `list_ev` + 
+`allocateM 002 n/2 n/5 n/3` +
+Allocates to Event 002 employees numbered 2, 3, 5 on the list.
 
 === Finance Management
+
+==== Generate Employee Payslip: `pay`
+
+Generates the payslip for an employee for a stated time period
+
+Format: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY`
+
+****
+* EMPLOYEE_NUMBER is the number of the employee on the displayed list. It must be a valid number.
+* f/ and t/ represents "from" and "to", both DateTime periods.
+* If the employee did not work during the time period stated, the payslip would not be generated.
+****
+
+Examples:
+
+* `list_em` + 
+`pay 2 f/20082019 t/20102019` +
+Generates the payslip of employee 2 from the 20th August - 20th October.
+
+==== Generate Event Contract: `contract [coming in v2.0]`
+
+Generates a contract that can be handed to the company's client. The contract will contains details of the event such as the location, budget, and date 
+
+Format: `contract n/EVENT_ID`
+
+****
+* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
+****
+
+Examples:
+
+* `contract n/005` + 
+Generates the contract for Event_ID 005.
 
 === Miscellaneous
 
@@ -213,14 +337,10 @@ Format: `clear`
 
 ==== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+AddMin+ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-==== Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -229,14 +349,41 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Search* : `search`
+* *List Employees* : `list_em`
+* *List Events* : `list_ev`
+* *Add Employee*: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
+* *Add Event*: `addev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music` +
+e.g. `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+* *Edit Employee*: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `edit_em 1 no/91234567 e/johndoe@example.com`
+* *Edit Event*: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...` +
+e.g. `edit_ev 2 n/Concert t/`
+* *Fetch Event*: `fetch_em INDEX` +
+e.g. `fetch_em 2`
+* *Fetch Event*: `fetch_ev INDEX` +
+e.g. `fetch_ev 3`
+* *Find Employee*: `find_em KEYWORD [MORE_KEYWORDS]` +
+e.g. `find_em John`
+* *Find Event*: `find_ev KEYWORD [MORE_KEYWORDS]` +
+e.g. `find_ev Music`
+* *Delete Employee*: `delete_em INDEX` +
+e.g. `delete_em 2`
+* *Delete Event*: `delete_ev INDEX` +
+e.g. `delete_ev 1`
+* *Log Working Hours*: `log INDEX DDMMYYYY HOURSWORKED` +
+e.g. `log 2 30092019 8`
+* *Done Event*: `done INDEX` +
+e.g. `done 2`
+* *Allocate Employees (Auto)*: `allocate EVENT_ID [f/TAGS]...` +
+e.g. `allocate 002 t/female`
+* *Allocate Employees (Manual)*: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...` +
+e.g. `allocateM 002 n/2 n/5 n/3`
+* *Generate Employee Payslip*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
+e.g. `pay 2 f/20082019 t/20102019`
+* *Generate Event Contract*: `contract n/EVENT_ID` +
+e.g. `contract n/005`
+* *Clear* : `clear`
+* *Exit* : `exit`
