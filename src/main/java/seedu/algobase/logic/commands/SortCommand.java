@@ -5,8 +5,13 @@ import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SORTING_METHOD;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SORTING_ORDER;
 
+import java.util.Comparator;
+
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Difficulty;
+import seedu.algobase.model.problem.Problem;
 
 public class SortCommand extends Command {
 
@@ -32,6 +37,56 @@ public class SortCommand extends Command {
             + PREFIX_SORTING_METHOD + "time"
             + PREFIX_SORTING_ORDER + "ascend";
     public static final String MESSAGE_SUCCESS = "AlgoBase has been sorted!";
+
+    public static final Comparator<Problem> problemNameComparator = new Comparator<Problem>() {
+        @Override
+        public int compare(Problem o1, Problem o2) {
+            if (o1 == o2) {
+                return 0;
+            }
+            return o1.getName().compareTo(o2.getName());
+        }
+    };
+
+    public static final Comparator<Problem> problemAuthorComparator = new Comparator<Problem>() {
+        @Override
+        public int compare(Problem o1, Problem o2) {
+            if (o1 == o2) {
+                return 0;
+            }
+            return o1.getAuthor().compareTo(o2.getAuthor());
+        }
+    };
+
+    public static final Comparator<Problem> problemDifficultyComparator = new Comparator<Problem>() {
+        @Override
+        public int compare(Problem o1, Problem o2) {
+            if (o1 == o2) {
+                return 0;
+            }
+            return o1.getDifficulty().compareTo(o2.getDifficulty());
+        }
+    };
+
+    public static final Comparator<Problem> problemSourceComparator = new Comparator<Problem>() {
+        @Override
+        public int compare(Problem o1, Problem o2) {
+            if (o1 == o2) {
+                return 0;
+            }
+            return o1.getSource().compareTo(o2.getSource());
+        }
+    };
+
+    public static final Comparator<Problem> problemWebLinkComparator = new Comparator<Problem>() {
+        @Override
+        public int compare(Problem o1, Problem o2) {
+            if (o1 == o2) {
+                return 0;
+            }
+            return o1.getWebLink().compareTo(o2.getWebLink());
+        }
+    };
 
     private final SortingMethod method;
     private final boolean sortByAscendingOrder;
@@ -62,17 +117,40 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         switch (this.method) {
-            // TODO: implement sorting methods
         case byName:
-
+            if (sortByAscendingOrder) {
+                model.updateSortedProblemList(problemNameComparator);
+            } else {
+                model.updateSortedProblemList(problemNameComparator.reversed());
+            }
             break;
         case byAuthor:
+            if (sortByAscendingOrder) {
+                model.updateSortedProblemList(problemAuthorComparator);
+            } else {
+                model.updateSortedProblemList(problemAuthorComparator.reversed());
+            }
             break;
         case byDifficulty:
+            if (sortByAscendingOrder) {
+                model.updateSortedProblemList(problemDifficultyComparator);
+            } else {
+                model.updateSortedProblemList(problemDifficultyComparator.reversed());
+            }
             break;
         case bySource:
+            if (sortByAscendingOrder) {
+                model.updateSortedProblemList(problemSourceComparator);
+            } else {
+                model.updateSortedProblemList(problemSourceComparator.reversed());
+            }
             break;
         case byWebLink:
+            if (sortByAscendingOrder) {
+                model.updateSortedProblemList(problemWebLinkComparator);
+            } else {
+                model.updateSortedProblemList(problemWebLinkComparator.reversed());
+            }
             break;
         default:
             throw new IllegalArgumentException("Sorting method doesn't exist.");

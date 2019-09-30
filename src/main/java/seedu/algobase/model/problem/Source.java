@@ -7,7 +7,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
  * Represents a Problem's source in the algobase.
  * Guarantees: immutable; is valid as declared in {@link #isValidSource(String)}
  */
-public class Source {
+public class Source implements Comparable<Source> {
 
     public static final String MESSAGE_CONSTRAINTS = "Source should be alphanumeric.";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
@@ -72,4 +72,11 @@ public class Source {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Source o) {
+        if (this == o) {
+            return 0;
+        }
+        return this.value.compareTo(o.value);
+    }
 }
