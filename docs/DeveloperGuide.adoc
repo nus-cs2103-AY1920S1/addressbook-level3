@@ -313,17 +313,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Xpire` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete item
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list items
+2.  Xpire shows a list of items
+3.  User requests to delete a specific item in the list
+4.  Xpire deletes the item
 +
 Use case ends.
 
@@ -337,7 +337,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Expire shows an error message.
 +
 Use case resumes at step 2.
 
@@ -346,9 +346,66 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+Accessibility
+
+.  The app shall be accessible by people who have downloaded the JAR file.
+.  The app shall be accessible to people who are colour blind, to the extent that they shall be able to discern all text and other information displayed by the system as easily as a person without colour blindness.
+
+Availability
+
+.  The app shall be available once it is started up and running.
+.  Reminders shall only be available on the app.
+.  Reminders shall only be available after the app is started.
+
+Efficiency
+
+.  The app should start up within 5 seconds.
+.  The response to any user action should become visible within 5 seconds.
+
+Performance
+
+.  The app list should be able to hold up to 1000 items without a noticeable sluggishness in performance for typical usage.
+.  The app should be able to sort up to 1000 items without any sags in performance.
+
+Reliability
+
+.  The app shall only accept and process user actions written in the correct format.
+.  The app shall throw appropriate exceptions when any user action is in an invalid format.
+.  The app shall throw appropriate exceptions when any user action fails to be processed.
+
+Integrity
+
+.  The precision of calculations with derived data shall be at the same degree of precision as the originating source data.
+.  All dates entered will be parsed accurately as to the original date format.
+
+Product Scope
+
+.  The product is not required to handle items without expiry dates.
+.  The product is not required to handle items without names.
+.  The product is not required to product.
+.  The product is not required to produce reminders when the app is inactive.
+
+Usability
+
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The user interface should be self-explanatory and intuitive enough for first-time users or users who are not IT-savvy.
+
+Maintainability
+
+.  A development programmer who has at least one year of experience supporting this software application shall be able to add a new product feature, including source code modifications and testing, with no more than two days of labour.
+.  The app code base shall be easy to read and interpret by a developer with at least one year of experience.
+
+Modifiability
+
+.  Function calls shall not be nested more than two levels deep.
+
+Installability
+
+.  The installation process shall be convenient. The application shall be downloaded as a JAR file from the newest tagged release.
+.  The software shall be installed from Github, a popular portable medium.
+
+Interoperability
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 
 _{More to be added}_
 
@@ -402,15 +459,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting an item
 
-. Deleting a person while all persons are listed
+. Deleting an item while all items are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all items using the `list` command. Multiple items in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First item is deleted from the list. Details of the deleted item shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No item is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
