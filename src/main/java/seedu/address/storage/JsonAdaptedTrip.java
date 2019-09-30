@@ -50,7 +50,7 @@ public class JsonAdaptedTrip {
         this.startDate = source.getStartDate();
         this.endDate = source.getEndDate();
         this.destination = source.getDestination().value;
-        this.totalBudget = source.getTotalBudget().value;
+        this.totalBudget = source.getBudget().value;
         this.dayList.addAll(source.getDayList()
                 .asUnmodifiableObservableList()
                 .stream().map(JsonAdaptedDay::new)
@@ -65,7 +65,8 @@ public class JsonAdaptedTrip {
         }
 
         if(name == null){
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Name.class.getSimpleName()));
         }
 
         if(!Name.isValidName(name)){
@@ -75,27 +76,20 @@ public class JsonAdaptedTrip {
         final Name modelName = new Name(name);
 
         if(startDate == null){
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, seedu.address.model.itinerary.Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Start Date"));
         }
 
-        if (!seedu.address.model.itinerary.Date.isValidDate(startDate)){
-            throw new IllegalValueException(seedu.address.model.itinerary.Date.MESSAGE_CONSTRAINTS);
-        }
-
-        final seedu.address.model.itinerary.Date modelFrom = new seedu.address.model.itinerary.Date(startDate);
+        final LocalDateTime modelStartDate = startDate;
 
         if (endDate == null){
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, seedu.address.model.itinerary.Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "End Date"));
         }
 
-        if (!seedu.address.model.itinerary.Date.isValidDate(endDate)){
-            throw new IllegalValueException(seedu.address.model.itinerary.Date.MESSAGE_CONSTRAINTS);
-        }
-
-        final seedu.address.model.itinerary.Date modelTo = new seedu.address.model.itinerary.Date(endDate);
+        final LocalDateTime modelEndDate = endDate;;
 
         if(destination == null){
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Location.class.getSimpleName()));
         }
 
         if(!Location.isValidLocation(destination)){
@@ -111,6 +105,7 @@ public class JsonAdaptedTrip {
         DayList modelDayList = new DayList();
         modelDayList.set(days);
 
-        return new Trip(modelName, modelFrom, modelTo, modelDestination, modelTotalBudget ,modelDayList);
+        return new Trip(modelName, modelStartDate, modelEndDate,
+                modelDestination, modelTotalBudget ,modelDayList);
     }
 }

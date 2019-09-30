@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.TravelPal;
 import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
 import seedu.address.model.person.Person;
 
 /**
@@ -55,19 +56,25 @@ class JsonSerializableTravelPal {
         TravelPal travelPal = new TravelPal();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
+
             if (travelPal.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
+
             travelPal.addPerson(person);
         }
         for (JsonAdaptedTrip jsonAdaptedTrip : trips) {
             Trip trip = jsonAdaptedTrip.toModelType();
+
             if (travelPal.hasTrip(trip)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRIP);
-            } if (travelPal.hasClashingTrip(trip)){
+            }
+
+            try {
+                travelPal.addTrip(trip);
+            } catch (ClashingTripException ex) {
                 throw new IllegalValueException(MESSAGE_CLASHING_TRIP);
             }
-            travelPal.addTrip(trip);
         }
         return travelPal;
     }
