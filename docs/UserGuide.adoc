@@ -18,7 +18,7 @@ By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*. More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble tracking your items' expiry dates, Xpire can help you manage and notify you of items that are soon-expiring. Interested? Jump to the <<Quick Start>> to get started! HAJIMASHOUKA?
+Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*. More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble tracking your items' expiry dates, Xpire can help you manage and notify you of items that are soon-expiring. Interested? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
@@ -47,9 +47,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `add|<item name>|<expiry date>`, `<item name>` and `<expiry date>` are parameters which can be used as `add|banana|25/9/2019`.
-//* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-//* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `add|<item name>|<expiry date>`, `<item name>` and `<expiry date>` are parameters which can be used as `add|banana|25/09/2019`.
+* Items in square brackets are optional e.g `add|<item name>|<expiry date>|[#tag]` can be used as `add|strawberry|10/10/2019|#Fruit`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|#tag...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit` etc.
 //* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -151,6 +151,29 @@ Deletes the 2nd item in the list.
 Deletes the 1st item in the results of the `search` command.
 
 // end::delete[]
+
+=== Tagging an item : `tag`
+
+Tags an item from the list according to user input or clears item of tags. +
+Format: `tag|<index>|#tag...`
+
+****
+* Tags the item at the specified `<index>`.
+* The index refers to the index number shown in the list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* If there are no valid tags (e.g. `tag|<index>`), item at the specified `<index>` will be cleared of its tags.
+****
+
+Examples:
+
+* `list` +
+`tag|2|#Nestle #Caffeine` +
+Tags the 2nd item in the list with `#Nestle` and `#Caffeine`.
+
+* `search|potato` +
+`tag|1` +
+Deletes all tags of the 1st item in the results of the `search` command.
+
 === Clearing all entries : `clear`
 
 Clears all entries from the list. +
@@ -188,6 +211,7 @@ e.g. `delete|3`
 //e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Search* : `search|<keyword>|[other keywords...]` +
 e.g. `search|milk|tea|pearls`
+* *Tag* : `tag|<index>|#tag...`
 * *View* : `view`
 * *Check* : `check|<days>` +
 e.g. `check|20`

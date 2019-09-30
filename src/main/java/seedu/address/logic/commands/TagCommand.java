@@ -28,7 +28,7 @@ public class TagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Tags the item identified by the index number used in the displayed item list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "[|#TAG...] (if missing, item will be cleared of its tags)\n"
+            + "|#TAG... (if missing, item will be cleared of its tags)\n"
             + "Example: " + COMMAND_WORD + "|1|#Food";
 
     public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged item: %1$s";
