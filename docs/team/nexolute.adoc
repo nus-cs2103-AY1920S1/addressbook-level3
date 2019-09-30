@@ -1,11 +1,11 @@
-= John Doe - Project Portfolio
+= Eugene Lim - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: AddressBook - Level 3
 
----
+'''
 
 == Overview
 
@@ -67,6 +67,6 @@ include::../DeveloperGuide.adoc[tag=dataencryption]
 
 == PROJECT: PowerPointLabs
 
----
+'''
 
 _{Optionally, you may include other projects in your portfolio.}_
