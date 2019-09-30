@@ -191,8 +191,6 @@ Format: `exit`
 
 === Editing the cards of an existing deck of flashcards : `edit`
 
-[TBC v2.0]
-
 The edit command allows the user to change, add or remove the flashcards in any existing deck.
 
 ****
@@ -209,7 +207,7 @@ The edit command allows the user to change, add or remove the flashcards in any 
 * Any command with no input to `front`, `back` and `index` will be regarded as an error and no action will be taken
 ****
 
-Format: edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]
+Format: `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]`
 
 Examples:
 
