@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.common.Command;
@@ -16,6 +17,8 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -60,18 +63,33 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 
     @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
+    @Override
+    public ReadOnlyAddressBook getAddressBook() {
+        return model.getAddressBook();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public ReadOnlyAppointmentBook getAppointmentBook() {
+        return model.getAppointmentBook();
+    }
+
+    @Override
+    public Path getAppointmentBookFilePath() {
+        return model.getAppointmentBookFilePath();
     }
 
     @Override
@@ -83,4 +101,5 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
 }

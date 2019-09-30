@@ -40,7 +40,6 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-
     /**
      * Returns the user prefs' address book file path.
      */
@@ -50,6 +49,17 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the user prefs' appointment book file path.
+     */
+    Path getAppointmentBookFilePath();
+
+    /**
+     * Sets the user prefs' appointment book file path.
+     */
+    void setAppointmentBookFilePath(Path appointmentBookFilePath);
+
 
 
     //=========== AddressBook ================================================================================
