@@ -14,17 +14,17 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team AY1920S1-CS2103T-W11-3`      Since: `September 2019`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-EatMe is for students who are trying to find *cheap and good places to eat or hang out*. EatMe will help you manage places you have been to, and keep track of your experience and expenditure. More importantly, EatMe is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, EatMe can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `eatme.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for the EatMe app.
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add`**`\n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` : adds an eatery named Two Chefs Eating Place
-* **`review`**`\n Two Chefs Eating Place \d Nice Condensed Milk Pork Ribs \p 15 \r 4` : adds a review to Two Chefs Eating Place
-* *`random`* : shows a random eatery (if you can't decide what to eat)
-* *`bye`* : exits the app
+* *`list`* : lists all contacts
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,186 +46,132 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Items in square brackets are the parameters to be supplied by the user e.g. in `add n\ [name of eatery]`, `[name of eatery]` is a parameter which can be used as `add n\Two Chefs Eating Place`.
-* Parameters can be in any order e.g. if the command specifies `\n [name of eatery] \a [address] \c [category]`, `\a [address] \n [name of eatery] \c [category]` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== General
-==== Viewing help : `help`
+=== Viewing help : `help`
 
 Format: `help`
 
-==== Exit the app : `bye`
+=== Adding a person: `add`
 
-Format: `bye`
+Adds a person to the address book +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
-=== CRUD
-==== Adding an eatery : `add`
-
-Adds an eatery in the app +
-Format: `add \n [name of eatery] \a [address] \c [category]`
+[TIP]
+A person can have any number of tags (including 0)
 
 Examples:
 
-* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-==== Searching for an eatery : `search`
+=== Listing all persons : `list`
 
-Searches for an eatery based on name or tag. +
-Format: `search \n [name of eatery]` or `search \t [tag]`
+Shows a list of all persons in the address book. +
+Format: `list`
 
-Examples:
+=== Editing a person : `edit`
 
-* `search \n Two Chefs Eating Place`
-* `search \t Chinese`
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
-==== Changing address of an eatery : `changeaddress`
-
-Changes the address of an eatery. +
-Format: `changeaddress \n [name of eatery] \a [new address]`
-
-Examples:
-
-* `changeaddress \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-130`
-
-==== Marking an eatery as closed : `close`
-
-Marks an eatery as permanently closed, deletes the eatery’s record. +
-Format: `close \n [name of eatery]`
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
 
 Examples:
 
-* `close \n Two Chefs Eating Place`
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-==== Reviewing an eatery : `review`
+=== Locating persons by name: `find`
 
-Leaves a review for an eatery. +
-Format: `review \n [name of eatery] \d [description] \p [price per pax] \r [rating]`
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-Examples:
-
-* `review \n Two Chefs Eating Place \d Nice Condensed Milk Pork Ribs \p 15 \r 4`
-
-==== Tagging an eatery : `addtag`
-
-Adds tags to an eatery. +
-Format: `addtag \n [name of eatery] \t [tags, space-delimited]`
-
-Examples:
-
-* `addtag \n Two Chefs Eating Place \t Hawker`
-
-==== Removing tags from an eatery : `removetag`
-
-Removes tags from an eatery. +
-Format: `removetag \n [name of eatery] \t [tags, space-delimited]`
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
 
 Examples:
 
-* `removetag \n Two Chefs Eating Place \t Hawker`
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
 
-==== Viewing an eatery : `view`
+// tag::delete[]
+=== Deleting a person : `delete`
 
-Shows an eatery’s entry containing its details, reviews, external reviews and a map of its location. +
-Format: `view \n [name of eatery]`
+Deletes the specified person from the address book. +
+Format: `delete INDEX`
 
-Examples:
-
-* `view \n Two Chefs Eating Place`
-
-==== Getting a random eatery : `random`
-
-Shows a completely random restaurant, useful in case you cannot decide what to eat. +
-Format: `random`
-
-==== Viewing an eatery : `view`
-
-Shows an eatery’s entry containing its details, reviews, external reviews and a map of its location. +
-Format: `view \n [name of eatery]`
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
 
 Examples:
 
-* `view \n Two Chefs Eating Place`
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
 
-=== Import/Export
-==== Importing eateries : `import`
+// end::delete[]
+=== Clearing all entries : `clear`
 
-Imports eateries from a text file. +
-Format: `import \f [filename]`
+Clears all entries from the address book. +
+Format: `clear`
 
-Examples:
+=== Exiting the program : `exit`
 
-* `import \f /home/user/eatme-backup-john.txt`
+Exits the program. +
+Format: `exit`
 
-==== Exporting eateries : `export`
+=== Saving the data
 
-Exports eateries to a text file. +
-Format: `export \f [filename]`
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 
-Examples:
+// tag::dataencryption[]
+=== Encrypting data files `[coming in v2.0]`
 
-* `export \f /home/user/eatme-backup-john.txt`
-
-=== Visualisation
-==== Showing overall statistics : `stats`
-
-Presents a visual overview of the user’s eateries and reviews. +
-Format: `stats`
-
-=== Todo
-==== Changing between main and todo modes : `mode`
-
-Toggles between normal and todo modes. +
-Format: `mode`
-
-==== Adding a new todo eatery : `add`
-
-Adds a new eatery to the todo list. +
-Format: `add \n [name of eatery] \a [address]`
-
-Examples:
-
-* `add \n Koma \a Marina Bay Sands, 2 Bayfront Ave, #B1-67, 018972`
-
-==== Deleting a todo eatery : `delete`
-
-Removes an eatery from the todo list. +
-Format: `delete \n [name of eatery]`
-
-Examples:
-
-* `delete \n Koma`
-
-==== Marking a todo eatery as visited with optional saving : `visited`
-
-Marks a todo eatery as visited and provides a quick way to add it to the main list of eateries. +
-Format: `visited \n [name of eatery]` or `visited \n [name of eatery] \s` (saves the eatery to the main list)
-
-Examples:
-
-* `visited \n Koma`
-* `visited \n Koma \s`
-
-=== News Feed
-==== Adding a feed : `addfeed`
-
-Adds a new feed to the news feed. Expects the URL of an XML feed. +
-Format: `addfeed \n [name of feed] \u [url]`
-
-Examples:
-
-* `addfeed \n [Seth Lui] \u https://sethlui.com/feed`
-
-==== Removing a feed : `removefeed`
-
-Removes a feed from the news feed. +
-Format: `removefeed \n [name of feed]`
-
-Examples:
-
-* `removefeed \n Seth Lui`
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
+* *Help* : `help`
