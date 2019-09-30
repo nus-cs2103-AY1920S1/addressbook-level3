@@ -74,17 +74,19 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+//Updated by Ko Gi Hun 30/09/19
+=== Editing an appointment (Update) : `[coming in v2.0]`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing appointment in the appointment list. +
+
+//Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the person at the specified `INDEX`.
+The index refers to the index number shown in the displayed person list. +
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
@@ -146,10 +148,15 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+//Updated by Ko Gi Hun 30/09/19
+=== Saving and loading the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Appointment list data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+Relevant data will be loaded from the external file when the application starts.
+
+//Updated by Ko Gi Hun 30/09/19
+=== Generating a PDF file of a selected appointment: `[coming in v2.0]`
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`

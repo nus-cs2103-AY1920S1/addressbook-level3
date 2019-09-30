@@ -277,13 +277,14 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
+//Updated by Ko Gi Hun 30/09/19
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* receptionists / secretaries in corporations.
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* requires submitting large amount of structured reports or documents
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
@@ -313,7 +314,8 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Typee` and the *Actor* is the `user`,
+unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -342,6 +344,55 @@ Use case ends.
 Use case resumes at step 2.
 
 _{More to be added}_
+
+//updated by Ko Gi Hun 30/09/19
+[discrete]
+=== Use case: (UC01) Edit selected appointment
+*MSS*
+
+1. User requests to list appointments
+2. System displays the list of appointments
+3. User keys in index and provide fields that the user wants to edit
+4. System edits the selected appointment accordingly
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty
++
+Use case ends.
+* 3a. User keys in invalid index
+[none]
+** 3a1. System shows error message.
++
+Use case resumes at step 2.
+* 3b. User does not provide any field to edit.
+[none]
+** 3b1. System shows error message.
++
+Use case resumes at step 2.
+
+[discrete]
+//Updated by Ko Gi Hun 30/09/19
+=== Use case: (UC02) Generate appointment document in PDF format
+*MSS*
+
+1. User requests to list appointments
+2. System displays the list of appointments
+3. User request for generate PDF of an appointment, providing the index number
+4. System generates a PDF file in a specific external directory
+5. System shows successful message
++
+Use case ends.
+
+*Extensions*
+[none]
+* 4a. System fails to generate PDF
+[none]
+** 4a1. System shows error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
