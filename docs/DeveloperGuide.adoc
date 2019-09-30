@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to help HR manage events and employees
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage events and employees easier than enterprise apps commonly used such as Microsoft Excel and Microsoft Word.
 
 [appendix]
 == User Stories
@@ -295,20 +295,34 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |HR Admin |improving work productivity | automate my manpower allocation process
 
-|`* * *` |user |add a new person |
+|`* * *` |HR Admin |remind the company staff to attend |view upcoming events
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |HR director |decide whether to have more or less of events | view the number of events
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |HR personnel |access the worker’s personal details whenever I need it |keep track of all the worker's details
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |finance staff |financial accounting for the company is done properly |keep track of all the worker's details
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |accountant |easily track expenses related to employee wages |see the breakdown for each individual worker
+
+|`* * *` |accountant |access the worker’s personal details |keep track of all the worker's details
+
+|`* * *` |Staff in a Company |ensure that my pay is correct |able to see payslip
+
+|`* * *` |Admin staff |ensure the workers are not abusing the leave system |able to track the workers paid leave and medical leave
+
+|`* * *` |Admin staff |decide whether to take the next event |view the number of available workers in the office
+
+|`* *` |worker |keep upcoming events on calendar |view upcoming events
+
+|`* *` |an admin |decide what needs to be done soon |find upcoming event
+
+|`* *` |a supervisor |have better manpower allocation |write comments/remarks for workers 
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -350,7 +364,6 @@ _{More to be added}_
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -364,14 +377,14 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
+*AddMin+* 
 
 Author: ...
 
 Pros:
 
-* ...
-* ...
+* Intuitive UI
+* All in one service
 
 Cons:
 
@@ -400,7 +413,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
 === Deleting a person
 
@@ -414,7 +426,6 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
 === Saving data
 
@@ -422,4 +433,4 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+
