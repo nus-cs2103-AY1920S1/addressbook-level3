@@ -19,38 +19,14 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Yehezkiel Raymundo Theodoroes
+image::yehezkiel.png[width="150", align="left"]
+{empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Team Member
 
-'''
+=== Ng Shi Wei
+image::shiwei.png[width="150", align="left"]
+{empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
-
-'''
+Role: Team Member

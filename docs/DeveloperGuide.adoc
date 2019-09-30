@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Tagline - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-F12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -277,77 +277,225 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Our product is targeted at users who:*
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Need to manage a large variety of notes related to multiple categories
+* Need to manage large numbers of team projects or relationships
+* Want to keep their notes organized
+* Prefer desktop applications over mobile applications
+* Prefer typing commands over using graphical interfaces
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: TagLine manages notes faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="90%",cols="15%,<20%,<30%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |add a new contact |
+|`* * *` |user |edit a contact |update outdated information
+|`* * *` |user |delete a contact |remove entries that I no longer need
+|`* * *` |user |find a contact by name |locate details of contacts without having to go through the entire list
+|`* * *` |user |group my contacts |manage contacts for different occasions better
+|`* * *` |user |view all contacts in a group |
+|`* * *` |user |add new notes |
+|`* * *` |user |edit a note |fix typos or incorrect details
+|`* * *` |user |delete a note |clean up my app
+|`* * *` |user |list all notes by chronological order |view most relevant notes first
+|`* * *` |user |tag my notes |group related notes together
+|`* * *` |user |view all notes according to tags |view only notes related to an issue
+|`* * *` |user |view all notes related to a contact |discuss these notes with them when I meet them
+|`* * *` |user |view all notes related to a group |
+|`* *` |user who works with the same person in multiple groups |view all notes related to these groups as well when querying for the person |
+|`* *` |user with many friends with the same name |be able to differentiate them easily |locate a specific person
+|`* *` |user |archive old notes |keep them while not cluttering my app page
+|`* *` |clumsy user |export all my data and create a backup |keep my data somewhere safe
+|`* *` |forgetful user |get suggestions when typing commands |do not need to memorize commands
+|`*` |user |embed links in my notes |directly access relevant webpages
+|`*` |user |associate photos with notes |organize my photos better
+|`*` |user |add text styles |personalize my entries
+|`*` |user |colour entries with the same tag |organize my notes better
+|`*` |clumsy user |prompted for correction when I make typos |fix my command without re-typing it entirely
+|`*` |clumsy user |prompted for confirmation when I delete or edit notes or contacts |avoid making irreversible mistakes
+|`*` |user |lock notes with authentication |keep my notes secure
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For each of the use cases below, the *System* is `TagLine` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== UCC01 Add person
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a contact.
+2.  TagLine adds the contact to the contact list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. [underline]#UCE01 Invalid command syntax#
++
+[none]
+* 1b. [underline]#UCE02 Missing compulsory fields#
+
+[discrete]
+=== UCC02 Add person
+
+*MSS*
+
+1.  User requests to create a new group.
+2.  TagLine creates the group.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. [underline]#UCE01 Invalid command syntax#
 +
 [none]
-** 3a1. AddressBook shows an error message.
+* 1b. [underline]#UCE02 Command with missing compulsory fields#
 +
+[none]
+* 1c. User inputs a group that already exists.
++
+[none]
+** 1c1. TagLine adds the alternate name to the group.
++
+[none]
+Use case ends.
+
+[discrete]
+=== UCN01 Add note
+
+*MSS*
+
+1.  User requests to add a new note.
+2.  TagLine creates the note.
+3.  TagLine displays the newly created note.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. [underline]#UCE01 Invalid command syntax#
++
+[none]
+* 1b. User does not include a tag for the note
++
+[none]
+** 1b1. TagLine prompts user if the user wants to add a tag.
+** 1b2. User either adds a tag or declines.
++
+[none]
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== UCN02 Add tag to note
+
+*MSS*
+
+1.  User requests to tag a currently existing note
+2.  TagLine adds the tag to the note.
+3.  TagLine displays the edited note.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. [underline]#UCE01 Invalid command syntax#
++
+[none]
+* 1b. [underline]#UCE03 Command with ambiguous field#
+
+[discrete]
+=== UCE01 Invalid command syntax
+
+*MSS*
+
+1.  User inputs an invalid command.
+2.  TagLine requests correction from the user.
+3.  User corrects the command.
+4.  TagLine executes the command.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User aborts the command.
++
+[none]
+** 2a1. TagLine confirms the abort.
++
+[none]
+Use case ends.
+
+[discrete]
+=== UCE02 Command with missing compulsory fields
+
+*MSS*
+
+1.  User inputs a command with missing compulsory fields.
+2.  TagLine prompts user for a missing field value.
+3.  User inputs the field value.
++
+[none]
+Until all missing field values are inputted.
+4.  TagLine executes the command.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User aborts the command.
++
+[none]
+** 2a1. TagLine confirms the abort.
++
+[none]
+Use case ends.
+
+[discrete]
+=== UCE03 Command with <<ambiguous-field,ambiguous field>>
+
+*MSS*
+
+1.  User inputs a command with an ambiguous field value (e.g. name).
+2.  TagLine prompts user with a list of suggested values and their unique IDs.
+3.  User inputs the ID.
+4.  TagLine executes the command.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User aborts the command.
++
+[none]
+** 2a1. TagLine confirms the abort.
++
+[none]
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
+.  Should be able to display and navigate large text files without decrease in performance
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -355,11 +503,15 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[[ambiguous-field]] Ambiguous field::
+A field for a command that is not unique, e.g. many users can have the name John Doe
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
 
 [appendix]
 == Product Survey
