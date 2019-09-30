@@ -117,6 +117,5 @@ public class SerialNumberTest {
         } catch (CommandException e) {
             assertTrue(true);
         }
->>>>>>> 76edc3518025011d8a382c0c40e511828d7408d5
     }
 }
