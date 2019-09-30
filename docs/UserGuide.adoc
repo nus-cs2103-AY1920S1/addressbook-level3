@@ -56,6 +56,60 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Setting monthly budget: `bset`
+
+Sets monthly expenditure budget. +
+Format: `bset a/AMOUNT`
+
+Examples:
+
+* `bset 1000` +
+Sets monthly expenditure budget to $1000.
+
+=== Excluding transaction from budget: `bexclude`
+
+Excludes transaction from computation of budget. +
+Format: `bexclude i/TRANSACTION_ID`
+
+****
+* All transactions are included by default.
+* Excluding an already excluded transaction has no effect.
+****
+
+Examples:
+
+* `list` +
+`bexclude 2` +
+Excludes the 2nd transaction in the list from computation of budget.
+
+=== Including transaction in budget: `binclude`
+
+Includes transaction in computation of budget. +
+Format: `binclude i/TRANSACTION_ID`
+
+****
+* All transactions are included by default.
+* Including an already included transaction has no effect.
+****
+
+Examples:
+
+* `list` +
+`bexclude 2` +
+Includes the 2nd transaction in the list from computation of budget.
+
+=== Viewing budgeting information: `binfo`
+
+Displays budgeting information. +
+Format: `binfo [m/MONTH y/YEAR]`
+
+Examples:
+
+* `binfo` +
+Displays expenditure budget left and a list of all excluded transactions for current month.
+* `binfo m/7 y/2019` +
+Displays expenditure budget left and a list of all excluded transactions for July 2019.
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -74,4 +128,8 @@ There is no need to save manually.
 == Command Summary
 
 * *Help* : `help`
+* *Budget Set* : `bset a/AMOUNT`
+* *Budget Exclude* : `bexclude i/TRANSACTION_ID`
+* *Budget Include* : `binclude i/TRANSACTION_ID`
+* *Budget Info* : `binfo [m/MONTH y/YEAR]`
 * *Exit* : `exit`
