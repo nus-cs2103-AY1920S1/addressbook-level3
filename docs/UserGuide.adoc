@@ -1,4 +1,4 @@
-﻿= AddressBook Level 3 - User Guide
+﻿= T.A.rence - Draft User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,28 +14,33 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/Ellieyee/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103-T14-2`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+T.A.rence is for Teaching Assistants (TAs) who prefer to use a desktop app for managing their TA responsibilities.
+T.A.rence is *optimized for those who prefer to work with a Command Line Interface* (CLI)
+while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, T.A.rence can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `.jar` link:{URL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UiMock.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all contacts `[coming in v2.0]`
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com m/CS2100, tn/Tutorial-01` : adds a student named `John Doe` into the `Tutorial-01` class inside module `CS2100`.
+* **`delete`**`3` : deletes the student `[coming in v2.0]`
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -47,57 +52,77 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME e/EMAIL`, `e/EMAIL n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Viewing Help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a Mdule: `addModule`
 
-Adds a person to the address book +
-Format: `add n/NAME e/EMAIL...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Adds a module to T.A.rence. +
+Format: `addModule m/MODULE_CODE`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addModule m/CS1010`
+* `addModule m/ST2132`
 
-=== Listing all persons : `list`
+=== Adding a Tutorial Slot : `addTutorial`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds a tutorial slot into the specified module. +
+Pre-condition: Module must already exist inside application.  +
 
-=== Editing a person : `edit`
+Format: `addTutorial tn/TUTORIAL_NAME st/START_TIME dur/TUTORIAL_DURATION d/TUTORIAL_DAY w/TUTORIAL_WEEKS m/MODULE_CODE`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Example:
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* `addTutorial tn/Tutorial-01 st/1300 dur/60 d/Mon w/1,2,3 m/CS1010S`
 
-Examples:
+Explanation: Adds a tutorial slot called `Tutorial-01` which starts at `1300`, lasts for `60` minutes,
+             occurs every `Mon` during weeks `1,2,3` into module `CS1010`.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+=== Adding a Student : `addStudent`
 
-=== Locating persons by name: `find`
+Adds a student into a specified tutorial. +
+Pre-condition: Module and tutorial slot must already exist inside the application.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `addStudent n/NAME e/EMAIL mat/MATRICULATION_NUMBER nusid/NUSNET_ID tn/TUTORIAL_NAME m/MODULE_CODE`
+
+Example:
+
+* `addStudent n/Bob e/bob@gmail.com mat/A1234567Z1 nusid/E1234567 m/CS1010S tn/Tutorial-01`
+
+Explanation: Adds a student called 'Bob'; with matriculation number `A1234567Z1 and NUS ID `E1234567` into the
+             tutorial slot called `Tutorial-01` for module `CS1O1O`.
+
+=== Adding an Assignment : `addAssignment` [coming in v2.0]
+
+=== Editing a Student : `editStudent` [coming in v2.0]
+
+Allows user to edit an existing student information
+
+Format: `editStudent n/[ORIGINAL_STUDENT] n/[EDITED_STUDENT_NAME]`
+
+Example:
+
+* `editStudent n/Ben n/Ben Leong`
+
+//-
+//-****
+//-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+//-* At least one of the optional fields must be provided.
+//-* Existing values will be updated to the input values.
+//-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+//-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+//-****
+
+=== Searching Student by Name: `find` [coming in v2.0]
+
+Searches and displays student particulars based on name. The search can be based on partial strings that match
+and need not be the full name of the student. +
+Format: `find n\[SEARCH_TERM]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -109,13 +134,13 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
+* `find n\John` +
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a Student : `delete` [coming in v2.0]
 
 Deletes the specified person from the address book. +
 Format: `delete INDEX`
@@ -136,26 +161,56 @@ Deletes the 2nd person in the address book.
 Deletes the 1st person in the results of the `find` command.
 
 // end::delete[]
-=== Clearing all entries : `clear`
+
+=== Listing Students from a Tutorial : `list` [coming in v2.0]
+
+Lists all students from a particular tutorial slot.
+
+Format: `list c/TUTORIAL_NAME`
+
+=== Undo Previously-entered Commands : `undo` [coming in v2.0]
+
+
+=== Clearing all entries : `clear` [coming in v2.0]
 
 Clears all entries from the address book. +
+
 Format: `clear`
+
+=== Mark Participation for a Student : `classPart` [coming in v2.0]
+
+Gives participation marks to a student of a particular tutorial slot
+
+Format: `classPart c/[TUTORIAL_NAME] n/[STUDENT_NAME]
+
+=== Store a Student's Results : `addMarks` [coming in v2.0]
+
+Allows user to add test results of a student of a particular tutorial slot
+
+Format: `addMarks c/[TUTORIAL_NAME] n/[STUDENT_NAME] marks/[MARK_OBTAINED]
+
+=== Display Tutorial Class' Test Results : `display` [coming in v2.0]
+
+Allows user to display overall results (graph) for an exam
+
+Format: `display c/[TUTORIAL_NAME]
+
+=== Add Personal Notes to a Student : `note`  [coming in v2.0]
+
+Allows user to add personal notes about class or feedback received by students.
+
+Format: `note t/[NOTES]
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Saving the data [coming in v2.0]
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -164,14 +219,31 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add Module* `addModule m/MODULE_CODE` +
+e.g. `add m/CS1010`
+
+* *Add Tutorial* `addTutorial tn/TUTORIAL_NAME st/START_TIME dur/TUTORIAL_DURATION d/TUTORIAL_DAY w/TUTORIAL_WEEKS m/MODULE_CODE`
++
+e.g. `addStudent n/Bob e/bob@gmail.com mat/A1234567Z1 nusid/E1234567 m/CS1010S tn/Tutorial-01`
+
+* *Add Student* `addStudent n/NAME e/EMAIL mat/MATRICULATION_NUMBER nusid/NUSNET_ID tn/TUTORIAL_NAME m/MODULE_CODE`
++
+e.g. `addStudent n/Bob e/bob@gmail.com mat/A1234567Z1 nusid/E1234567 m/CS1010S tn/Tutorial-01`
+
+* *Help* : `help`
+
+* *Exit* : `exit`
+
+=== Commands coming in v2.0
 * *Clear* : `clear`
+
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+
 * *List* : `list`
-* *Help* : `help`
+
+* *Add Assignment* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
