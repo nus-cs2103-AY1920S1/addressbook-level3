@@ -397,23 +397,6 @@ Windows, Linux, Unix, OS-X
 Software for which the original source code is made freely available and may be redistributed and modified.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
