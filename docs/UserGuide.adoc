@@ -95,7 +95,7 @@ A reminder will display when the user starts up the CaloFit if he or she has mis
 
 === Shows an overview of commands usable in CaloFit: `help`
 
-Displays all the commands that are usable in CaloFit, including examples of how to use them.
+Displays all the commands that are usable in CaloFit, including examples of how to use them. +
 Format: `help`
 
 == Command Summary
