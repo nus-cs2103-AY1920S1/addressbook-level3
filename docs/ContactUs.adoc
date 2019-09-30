@@ -9,11 +9,8 @@
 
 Team Developers:
 Tuan Ding Wei: 'tuandingwei@u.nus.edu'.
-
 Joanna: 'e0313546@u.nus.edu'.
-
 Victor: 'e0313575@u.nus.edu'.
-
 Jasmine: 'e0104958@u.nus.edu'.
 
 Advisor:
