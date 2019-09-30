@@ -122,6 +122,6 @@ public class WorkerBuilder {
         return this;
     }
     public Worker build() {
-        return new Worker(name, phone, sex, employmentStatus, dateJoined);
+        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation, true);
     }
 }

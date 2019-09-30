@@ -26,14 +26,32 @@ public class Worker {
     private Designation designation;
     private String employmentStatus;
 
-    public Worker(Name name, Phone phone, String sex, String employmentStatus, Date dateJoined) {
+    public Worker(Name name, Phone phone, String sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
+                  Designation designation) {
         this.workerIdNum = IdentificationNumber.generateNewWorkerId();
         this.name = name;
         this.phone = phone;
         this.sex = sex;
         this.employmentStatus = employmentStatus;
+        this.dateOfBirth = dateOfBirth;
         this.dateJoined = dateJoined;
-        this.designation = Designation.TECHNICIAN;
+        this.designation = designation;
+    }
+
+    public Worker(Name name, Phone phone, String sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
+                  Designation designation, boolean isTestWorker) {
+        if (isTestWorker) {
+            this.workerIdNum = IdentificationNumber.customGenerateId("W", 1);
+        } else {
+            this.workerIdNum = IdentificationNumber.generateNewWorkerId();
+        }
+        this.name = name;
+        this.phone = phone;
+        this.sex = sex;
+        this.employmentStatus = employmentStatus;
+        this.dateOfBirth = dateOfBirth;
+        this.dateJoined = dateJoined;
+        this.designation = designation;
     }
 
 

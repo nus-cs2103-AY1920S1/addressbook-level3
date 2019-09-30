@@ -21,6 +21,7 @@ public class IdentificationNumber {
     private int idNum;
     private String typeOfEntity;
 
+    // todo: check for duplicates
     protected IdentificationNumber(String typeOfEntity) {
         this.typeOfEntity = typeOfEntity;
         switch (typeOfEntity) {
@@ -41,6 +42,11 @@ public class IdentificationNumber {
         }
     }
 
+    private IdentificationNumber(String typeOfEntity, int idNum) {
+        this.typeOfEntity = typeOfEntity;
+        this.idNum = idNum;
+    }
+
     public static IdentificationNumber generateNewBodyId() {
         return new IdentificationNumber(ID_PREFIX_BODY);
     }
@@ -51,6 +57,10 @@ public class IdentificationNumber {
 
     public static IdentificationNumber generateNewFridgeId() {
         return new IdentificationNumber(ID_PREFIX_FRIDGE);
+    }
+
+    public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
+        return new IdentificationNumber(typeOfEntity, idNum);
     }
 
     @Override
