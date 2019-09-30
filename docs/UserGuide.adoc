@@ -52,11 +52,27 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== IchiFund Basics
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Creating repeating transaction: `repadd`
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+==== Saving the data
+
+IchiFund data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+=== Transactions
+
+=== Repeating Transactions
+
+==== Creating repeating transaction: `repadd`
 
 Creates monthly repeating transaction. +
 Format: `repadd m/DESCRIPTION a/AMOUNT [p/DAY]...`
@@ -66,7 +82,7 @@ Examples:
 * `repadd m/Travelling a/32.70 p/7 p/14 p/21 p/28` +
 Creates a repeating transaction titled "Travelling" for a $32.70 deduction every 7th, 14th, 21st and 28th of the month.
 
-=== Editing repeating transaction: `repedit`
+==== Editing repeating transaction: `repedit`
 
 Edits repeating transaction. +
 Format: `repadd i/ID [m/DESCRIPTION] [a/AMOUNT] [p/DAY]...`
@@ -76,7 +92,7 @@ Examples:
 * `repedit i/12 a/62.45 p/11 p/12` +
 Edits the 12th repeating transaction for a $62.45 deduction every 11th and 12th of the month.
 
-=== Deleting repeating transaction: `repdelete`
+==== Deleting repeating transaction: `repdelete`
 
 Deletes repeating transaction. Optionally deletes transactions previously produced from the repeating transaction. +
 Format: `repdelete i/ID [d/DELETEALL]`
@@ -86,7 +102,7 @@ Examples:
 * `repdelete i/12 p/TRUE` +
 Deletes the 12th repeating transaction.
 
-=== Finding repeating transaction: `repfind`
+==== Finding repeating transaction: `repfind`
 
 Filters repeating transactions by keyword and repeating days. +
 Format: `repfind [s/KEYWORD]... [p/DAY]...`
@@ -96,7 +112,11 @@ Examples:
 * `repfind s/Income p/7 p/13` +
 Finds all repeating transactions with "Income" contained in their descriptions, and that occur on the 7th and 13th of the month.
 
-=== Setting monthly budget: `bset`
+=== Loans
+
+=== Budgets
+
+==== Setting monthly budget: `bset`
 
 Sets monthly expenditure budget. +
 Format: `bset a/AMOUNT`
@@ -106,7 +126,7 @@ Examples:
 * `bset a/1000` +
 Sets monthly expenditure budget to $1000.
 
-=== Excluding transaction from budget: `bexclude`
+==== Excluding transaction from budget: `bexclude`
 
 Excludes transaction from computation of budget. +
 Format: `bexclude i/TRANSACTION_ID`
@@ -122,7 +142,7 @@ Examples:
 `bexclude i/2` +
 Excludes the 2nd transaction in the list from computation of budget.
 
-=== Including transaction in budget: `binclude`
+==== Including transaction in budget: `binclude`
 
 Includes transaction in computation of budget. +
 Format: `binclude i/TRANSACTION_ID`
@@ -138,9 +158,9 @@ Examples:
 `bexclude i/2` +
 Includes the 2nd transaction in the list from computation of budget.
 
-=== Viewing budgeting information: `binfo`
+==== Viewing budget information: `binfo`
 
-Displays budgeting information. +
+Displays budget information. +
 Format: `binfo [m/MONTH y/YEAR]`
 
 Examples:
@@ -150,15 +170,91 @@ Displays expenditure budget left and a list of all excluded transactions for cur
 * `binfo m/7 y/2019` +
 Displays expenditure budget left and a list of all excluded transactions for July 2019.
 
-=== Exiting the program : `exit`
+=== Analytics
 
-Exits the program. +
-Format: `exit`
+==== Viewing expenditure trend: `aexpend`
 
-=== Saving the data
+Displays annual expenditure trend. +
+Format: `aexpend [y/YEAR]`
 
-IchiFund data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Examples:
+
+* `aexpend` +
+Displays annual expenditure trend for current year.
+* `aexpend 2019` +
+Displays annual expenditure trend for 2019.
+
+==== Viewing income trend: `aincome`
+
+Displays annual income trend. +
+Format: `aincome [y/YEAR]`
+
+Examples:
+
+* `aincome` +
+Displays annual income trend for current year.
+* `aincome 2019` +
+Displays annual income trend for 2019.
+
+==== Viewing balance trend: `abalance`
+
+Displays annual balance (income - expenditure) trend. +
+Format: `abalance [y/YEAR]`
+
+Examples:
+
+* `abalance` +
+Displays annual balance trend for current year.
+* `abalance 2019` +
+Displays annual balance trend for 2019.
+
+==== Viewing expenditure breakdown by category: `abreakdown`
+
+Displays breakdown of expenditure by category. +
+Format: `abreakdown [m/MONTH] [y/YEAR]`
+
+Examples:
+
+* `abreakdown` +
+Displays expenditure breakdown by category for current month.
+* `abreakdown m/7 y/2019` +
+Displays expenditure breakdown by category for July 2019.
+
+==== Viewing expenditure category ranking chart: `acatrank`
+
+Displays expenditure category ranking chart. +
+Format: `acatrank [m/MONTH] [y/YEAR]`
+
+Examples:
+
+* `acatrank` +
+Displays expenditure category ranking chart for current month.
+* `acatrank m/7 y/2019` +
+Displays expenditure category ranking chart for July 2019.
+
+==== Viewing expenditure ranking chart by month: `amthrank`
+
+Displays expenditure ranking chart by month. +
+Format: `amthrank [y/YEAR]`
+
+Examples:
+
+* `amthrank` +
+Displays all-time expenditure ranking chart by month.
+* `amthrank y/2019` +
+Displays expenditure ranking chart by month for 2019.
+
+==== Viewing expenditure ranking chart: `aexprank`
+
+Displays expenditure ranking chart. +
+Format: `aexprank [m/MONTH] [y/YEAR]`
+
+Examples:
+
+* `aexprank` +
+Displays all-time expenditure ranking chart.
+* `aexprank m/7 y/2019` +
+Displays expenditure ranking chart for July 2019.
 
 == FAQ
 
@@ -168,8 +264,16 @@ There is no need to save manually.
 == Command Summary
 
 * *Help* : `help`
+* *Exit* : `exit`
 * *Budget Set* : `bset a/AMOUNT`
 * *Budget Exclude* : `bexclude i/TRANSACTION_ID`
 * *Budget Include* : `binclude i/TRANSACTION_ID`
 * *Budget Info* : `binfo [m/MONTH y/YEAR]`
-* *Exit* : `exit`
+* *Expenditure Trend* : `aexpend [y/YEAR]`
+* *Income Trend* : `aincome [y/YEAR]`
+* *Balance Trend* : `abalance [y/YEAR]`
+* *Categorical Breakdown* : `abreakdown [m/MONTH] [y/YEAR]`
+* *Categorical Ranking Chart* : `acatrank [m/MONTH] [y/YEAR]`
+* *Month-Based Ranking Chart* : `amthrank [y/YEAR]`
+* *Ranking Chart* : `aexprank [m/MONTH] [y/YEAR]`
+
