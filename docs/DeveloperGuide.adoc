@@ -345,8 +345,6 @@ Use case ends.
 ** 1a2. Use case resumrs at step 1.
 +
 Use case ends.
-+
-
 
 [discrete]
 === Use case: Add module
@@ -365,6 +363,22 @@ Use case ends.
 ** 1a1. T.A.rence shows an error message.
 ** 1a2. Use case resumes at step 1.
 
+[discrete]
+=== Use case: Add tutorial
+
+*MSS*
+
+1. User requests to add a tutorial.
+2. T.A.rence adds the tutorial.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Invalid Tutorial details entered such as invalid time `2500` or invalid day `Friyay`
+** 1a1. T.A.rence shows an error message.
+** 1a2. Use case resumes at setp 1.
 
 [discrete]
 === Use case: Delete student
@@ -385,6 +399,15 @@ Use case ends.
 ** 3a1. T.A.rence shows an error message.
 ** 3a2. Use case resumes at step 3.
 
+[discrete]
+=== Use case: List students
+
+*MSS*
+
+1. User requests to view list of students for a particular tutorial
+2. T.A.rence displays the list.
++
+Use case ends.
 
 _{More to be added}_
 
@@ -393,7 +416,11 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 students without a noticeable sluggishness in performance for typical usage.
+.  Should be able to support up to 50 module and tutorial slots without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be easily usable by a new TA.
+.  Should work without requiring an Internet connection.
+.  Application's functionalities  should be easily testable.
 
 _{More to be added}_
 
