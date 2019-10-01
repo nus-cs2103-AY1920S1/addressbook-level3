@@ -271,7 +271,7 @@ Examples:
 Import the ics file of an individual. +
 Format:
 
-* `import-ics NAME FILEPATHE` +
+* `import-ics NAME FILEPATH` +
 
 Examples:
 
