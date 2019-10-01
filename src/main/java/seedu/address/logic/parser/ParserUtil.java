@@ -13,6 +13,7 @@ import seedu.address.model.item.Email;
 import seedu.address.model.item.ExpiryDate;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Phone;
+import seedu.address.model.item.sort.MethodOfSorting;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -123,6 +124,21 @@ public class ParserUtil {
             }
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String method} into an {@code MethodOfSorting}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code method} is invalid.
+     */
+    public static MethodOfSorting parseMethodOfSorting(String method) throws ParseException {
+        requireNonNull(method);
+        String trimmedMethodOfSorting = method.trim();
+        if (!MethodOfSorting.isValidMethodOfSorting(trimmedMethodOfSorting)) {
+            throw new ParseException(MethodOfSorting.MESSAGE_CONSTRAINTS);
+        }
+        return new MethodOfSorting(trimmedMethodOfSorting);
     }
 
 }
