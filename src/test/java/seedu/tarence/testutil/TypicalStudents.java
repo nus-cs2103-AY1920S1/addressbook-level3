@@ -8,8 +8,8 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MODULE_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NUSNET_AMY;
-import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_AMY;
-import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_BOB;
+import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_BOB;
 
 import seedu.tarence.model.student.Student;
 
@@ -51,9 +51,9 @@ public class TypicalStudents {
     // Manually added - Student's details found in {@code CommandTestUtil}
     public static final Student AMY = new StudentBuilder().withName(VALID_NAME_AMY).withEmail(VALID_EMAIL_AMY)
                 .withMatricNum(VALID_MATRIC_AMY).withNusnetId(VALID_NUSNET_AMY)
-                .withModCode(VALID_MODULE_AMY).withTutName(VALID_TUTORIAL_AMY).build();
+                .withModCode(VALID_MODULE_AMY).withTutName(VALID_TUTORIAL_NAME_AMY).build();
     public static final Student BOB = new StudentBuilder().withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB)
-                .withModCode(VALID_MODULE_BOB).withTutName(VALID_TUTORIAL_BOB).build();
+                .withModCode(VALID_MODULE_BOB).withTutName(VALID_TUTORIAL_NAME_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

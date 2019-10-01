@@ -34,8 +34,10 @@ public class CommandTestUtil {
     public static final String VALID_MODULE_AMY = "CS1010";
     public static final String VALID_MODULE_BOB = "CS2030";
     public static final String VALID_NUSNET_AMY = "E0123456";
-    public static final String VALID_TUTORIAL_AMY = "T01";
-    public static final String VALID_TUTORIAL_BOB = "T10";
+    public static final String VALID_TUTORIAL_NAME_AMY = "T01";
+    public static final String VALID_TUTORIAL_NAME_BOB = "T10";
+    public static final String VALID_TUTORIAL_DAY_AMY = "MONDAY";
+    public static final String VALID_TUTORIAL_DAY_BOB = "TUESDAY";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -45,8 +47,8 @@ public class CommandTestUtil {
     public static final String MODULE_DESC_AMY = " " + PREFIX_MODULE + VALID_MODULE_AMY;
     public static final String MODULE_DESC_BOB = " " + PREFIX_MODULE + VALID_MODULE_BOB;
     public static final String NUSNET_DESC_AMY = " " + VALID_NUSNET_AMY;
-    public static final String TUTORIAL_DESC_AMY = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_AMY;
-    public static final String TUTORIAL_DESC_BOB = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_BOB;
+    public static final String TUTORIAL_DESC_AMY = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME_AMY;
+    public static final String TUTORIAL_DESC_BOB = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol

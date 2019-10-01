@@ -85,8 +85,49 @@ class ModelStub implements Model {
     }
 
     @Override
+    public ObservableList<Person> getFilteredStudentList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Module> getFilteredModuleList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Tutorial> getFilteredTutorialList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredStudentList(Predicate<Person> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredModuleList(Predicate<Module> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasStudent(Student student) {
+        // todo: Implement test for hasStudent
+        return false;
+    }
+
+    @Override
+    public void addStudent(Student student) {
+        // todo: Implement test for addStudent
     }
 
     @Override
@@ -113,12 +154,13 @@ class ModelStub implements Model {
 
     @Override
     public boolean hasModuleOfCode(ModCode modCode) {
-        // todo: Implement test for addTutorial
+        // to implement
         return false;
     }
 
     @Override
     public void addTutorialToModule(Tutorial tutorial) {
+        // to implement
     }
 
     @Override

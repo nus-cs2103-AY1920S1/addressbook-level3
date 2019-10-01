@@ -8,7 +8,9 @@ import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.ReadOnlyApplication;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.tutorial.Tutorial;
 
 /**
  * API of the Logic component
@@ -32,6 +34,15 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of students */
+    ObservableList<Person> getFilteredStudentList();
+
+    /** Returns an unmodifiable view of the filtered list of modules */
+    ObservableList<Module> getFilteredModuleList();
+
+    /** Returns an unmodifiable view of the filtered list of tutorials */
+    ObservableList<Tutorial> getFilteredTutorialList();
 
     /**
      * Returns the user prefs' application file path.
