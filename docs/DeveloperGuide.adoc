@@ -352,6 +352,61 @@ _{More to be added}_
 (For all use cases below, the *System* is the `IchiFund` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+=== Use case: Set current wealth
+
+*MSS*
+
+1.  User requests to set current wealth.
+2.  System sets current wealth.
+3.  System reflects newly set current wealth.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add transaction item
+
+*MSS*
+
+1.  User enters information about transaction.
+2.  System creates transaction item.
+3.  System shows newly updated list of transaction items.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit transaction item
+
+*MSS*
+
+1.  User +++<u>finds transaction item</u>+++.
+1.  User specifies transaction to be edited and information to edit.
+1.  System updates the transaction item.
+1.  System shows newly updated list of transaction items.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete transaction item
+
+*MSS*
+
+1.  User +++<u>finds transaction item</u>+++.
+1.  User specifies transaction to be deleted.
+1.  System removes the transaction item.
+1.  System shows newly updated list of transaction items.
++
+Use case ends.
+
+=== Use case: Find transaction item
+
+*MSS*
+
+1.  User specifies month, year, or category of the transaction
+1.  System shows filtered list of transaction items.
++
+Use case ends.
+
+[discrete]
 === Use case: Set monthly expenditure budget
 
 *MSS*
