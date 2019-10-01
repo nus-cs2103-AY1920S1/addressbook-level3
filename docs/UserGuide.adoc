@@ -139,7 +139,7 @@ Creates a repeating transaction titled "Travelling" for a $32.70 deduction every
 ==== Editing repeating transaction: `repedit`
 
 Edits repeating transaction. +
-Format: `repadd i/ID [m/DESCRIPTION] [a/AMOUNT] [p/DAY]...`
+Format: `repedit i/ID [m/DESCRIPTION] [a/AMOUNT] [p/DAY]...`
 
 Examples:
 
@@ -325,6 +325,10 @@ Displays expenditure ranking chart for July 2019.
 * *Transaction Delete* : `txdelete i/TRANSACTION_ID`
 * *Transaction Find* : `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
 * *Transaction List* : `txlist`
+* *Repeating Transaction Add* : `repadd m/DESCRIPTION a/AMOUNT [p/DAY]...`
+* *Repeating Transaction Edit* : `repedit i/ID [m/DESCRIPTION] [a/AMOUNT] [p/DAY]...`
+* *Repeating Transaction Delete* : `repdelete i/ID [d/DELETEALL]`
+* *Repeating Transaction Find* : `repfind [s/KEYWORD]... [p/DAY]...`
 * *Budget Set* : `bset a/AMOUNT`
 * *Budget Exclude* : `bexclude i/TRANSACTION_ID`
 * *Budget Include* : `binclude i/TRANSACTION_ID`
