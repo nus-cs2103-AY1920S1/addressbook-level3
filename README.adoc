@@ -16,7 +16,7 @@ endif::[]
 
 * This is a desktop Teacher Assistant application called njoy Assistant. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It aims to help teachers easily manage their students and activities.
-* With njoy Assistant, teachers will be able to create questions, generate quizzes and more with just a few taps of their keyboards!
+* With njoy Assistant, teachers will be able to create questions, generate quizzes, view statistics and more with just a few taps of their keyboards!
 
 == Site Map
 
