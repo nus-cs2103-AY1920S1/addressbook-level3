@@ -327,7 +327,71 @@ Examples:
 * `contract n/005` +
 Generates the contract for Event_ID 005.
 
+=== Archive
+
+==== Record Past Event: `archive_ev`
+
+Records/Archives a past event and its details, for future reference.
+
+Format: `archive_ev EVENT_ID`
+
+****
+* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
+****
+
+Examples:
+
+* `list_ev` +
+`archive_ev 002` +
+Records/archives a past Event with ID 002.
+
+==== Record Past Event: `list_archive_ev`
+
+Display List of all archived events.
+
+Format: `list_archive_ev`
+
+
+==== Search for Archive Event: `display_archive_ev`
+
+Displays an achieved event and its details.
+
+Format: `display_archive_ev INDEX`
+
+****
+* `INDEX` must be a positive integer and exist within the displayed list.
+* If not found, an 'Event Not Found' will be displayed.
+****
+
+Examples:
+
+* `list_archive_ev` +
+`display_archive_ev 2` +
+Displays the second event on the list and its details.
+
+
 === Miscellaneous
+
+==== View Schedule
+Displays the dates with events for the specific month
+
+Format: `view_schedule for/MM`
+
+Examples:
+* `view_schedule for/02`
+
+****
+* for/ represents the month in MM that the user wants to display
+****
+
+==== Generate Statistics: `generate_stats`
+Displays a set of statistics, Number of events, Number of employee etc
+
+Format: `generate_stats`
+
+Examples:
+
+* `generate_stats`
 
 ==== Clearing all entries : `clear`
 
@@ -385,5 +449,15 @@ e.g. `allocateM 002 n/2 n/5 n/3`
 e.g. `pay 2 f/20082019 t/20102019`
 * *Generate Event Contract*: `contract n/EVENT_ID` +
 e.g. `contract n/005`
+* *Archive Past Event*: `archive_ev EVENT_ID` +
+e.g. `archive_ev 005`
+* *List Archive Event*: `list_archive_ev` +
+e.g. `list_archive_ev`
+* *Display Archive Event*: `display_archive_ev INDEX` +
+e.g. `display_archive_ev 2`
+* *View Schedule*: `view_schedule for/MM` +
+e.g. `view_schedule for/02`
+* *Generate Statistics*: `generate_stats` +
+e.g. `generate_stats`
 * *Clear* : `clear`
 * *Exit* : `exit`
