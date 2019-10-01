@@ -4,53 +4,52 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Jarvis was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team.
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Marc Fong Yung Kit
+image::/images/marcfyk.png[width="150", align="left"]
+{empty} [https://github.com/marcfyk[github]] [<<marcfyk#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Undo, redo feature
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Ryan Tan Yu
+image::/images/ryanytan.png[width="150", align="left"]
+{empty}[http://github.com/ryanytan[github]] [<<ryanytan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Cost planner feature
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Anisha Joseph
+image::nishcafe.png[width="150", align="left"]
+{empty}[http://github.com/nishcafe[github]] [<<nishcafe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Study planner feature
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Goh Si Ning
+image::gohsnn.png[width="150", align="left"]
+{empty}[http://github.com/gohsnn[github]] [<<gohsnn#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Finance tracker feature
+
+'''
+
+=== Tan Ye Kai
+image::mrnewguy.png[width="150", align="left"]
+{empty}[http://github.com/mrnewguy[github]] [<<mrnewguy#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Study planner feature
 
 '''
