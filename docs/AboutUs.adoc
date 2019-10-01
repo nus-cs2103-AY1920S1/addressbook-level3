@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Wang Shiyao
-image::shiyao.jpg[width="150", align="left"]
+image::shiyao821.png[width="150", align="left"]
 {empty}[https://github.com/shiyao821[github]]
 
 Role:
@@ -19,7 +19,7 @@ Responsibilities:
 '''
 
 === See Zi Yang
-image::ziyang.jpg[width="150", align="left"]
+image::seeziyang.png[width="150", align="left"]
 {empty}[http://github.com/seeziyang[github]]
 
 Role:
@@ -28,7 +28,7 @@ Responsibilities:
 '''
 
 === Lin Yuting
-image::yuting.jpg[width="150", align="left"]
+image::linyutinglyt.png[width="150", align="left"]
 {empty}[http://github.com/linyutinglyt[github]]
 
 Role:
@@ -37,7 +37,7 @@ Responsibilities:
 '''
 
 === Yeo Tong
-image::yeotong.jpg[width="150", align="left"]
+image::cronyxx.png[width="150", align="left"]
 {empty}[http://github.com/Cronyxx[github]]
 
 Role:
@@ -46,7 +46,7 @@ Responsibilities:
 '''
 
 === Ho Hol Yin
-image::holyin.jpg[width="150", align="left"]
+image::hoholyin.png[width="150", align="left"]
 {empty}[http://github.com/hoholyin[github]]
 
 Role:
