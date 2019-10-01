@@ -1,53 +1,56 @@
-= The team
+= About Us
 :site-section: AboutUs
 :relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
 
-NUStudy was developed by the following students at the https://www.comp.nus.edu.sg[School of Computing, National University of Singapore]:
+NUStudy was developed by the following students. +
 
-== {empty}
+We are a team based in https://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
 
 === Jeremy Tan Jie Rui
 image::parcly-taxel.png[width="150", align="left"]
 {empty}[https://github.com/Parcly-Taxel[github]]
 
-Lead integrator and task manager, Git expert, lecture note implementer
+Role: Integration lead, Scheduling and tracking, Git expert +
+Responsibilities: Implementing `Note` module
 
 '''
 
-=== B
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Lee Li Ying Irene
+image::irene-lly.png[width="150", align="left"]
+{empty}[https://github.com/irene-lly[github]]
 
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== C
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
+Role: Code Quality +
+Responsibilities: Implementing the report feature
 
 '''
 
-=== D
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Shui Yao
+image::shuiyao-sg.png[width="150", align="left"]
+{empty}[https://github.com/shuiyao-sg[github]]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Team lead +
+Responsibilities: Implementing the revision feature
 
 '''
 
-=== E
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Wang Xueting
+image::shirleywangxt.png[width="150", align="left"]
+{empty}[https://github.com/ShirleyWangxt[github]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Testing, Co-maintainer of documentation +
+Responsibilities: Implementing the difficulty feature
+
+'''
+
+=== Zhang Dongjun
+image::auxinnn.png[width="150", align="left"]
+{empty}[https://github.com/Auxinnn[github]]
+
+Role: Deliverables and deadlines +
+Responsibilities: Implementing `Question` module and the test feature
 
 '''
