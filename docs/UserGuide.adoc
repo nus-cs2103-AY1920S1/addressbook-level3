@@ -236,6 +236,32 @@ If viewing an activity, strikes off (soft-deletes) the 2nd expense by index.
 `delete 1` +
 Deletes the 1st entry (either a contact or activity) in the results of the `find` command.
 
+=== Assign an activity as a sub-activity: `assign` (*v2.0 only*)
+
+Assigns an activity as a sub-activity of the currently viewed activity. If no activity is currently being viewed, or an invalid activity ID is provided, no change is made.
+
+Multiple activities can be assigned at once.
+
+Format: `assign a/ACTIVITY_ID ...`
+
+Examples:
+
+* `assign 3 5`
+If viewing an activity with title 'Family trip', assigns the activities with IDs 3 and 5 as sub-activities of 'Family trip'. Otherwise does nothing.
+
+=== Update an activity as resolved: `close` (*v2.0 only*)
+
+Marks an activity as resolved, clearing (removing) the debts within from each contact and the aggregated debt on the main screen.
+
+Multiple activities can be resolved at once.
+
+Format: `close a/ACTIVITY_ID ...`
+
+Examples:
+
+* `close 3 4` +
+Marks the activities with activity ID 3 and 4 as resolved, updating the aggregated debt of their participants.
+
 === Exiting the program : `exit`
 
 Exits the program. +
