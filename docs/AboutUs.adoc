@@ -43,7 +43,7 @@ Responsibilities: Quizzes
 
 '''
 
-=== Jasmine
+=== Jasmine Toh
 image::tohcejasmine.png[width="150", align="left"]
 {empty}About: [https://github.com/tohcejasmine[Github]] [<<johndoe#, portfolio>>]
 
