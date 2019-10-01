@@ -91,7 +91,7 @@ Examples:
 Creates an income transaction of $2101.00 titled "Salary" occurring today under the category "Work".
 
 * `txadd t/out m/Lunch a/12.31 c/Food d/10092019` +
-Creates an expenditure transaction of $12.32 titled "Food" occuring on the 10th of September, 2019 under the category "Food".
+Creates an expenditure transaction of $12.32 titled "Food" occuring on the 10th September 2019 under the category "Food".
 
 ==== Editing transaction: `txedit`
 Edits a transaction. +
@@ -112,7 +112,7 @@ Examples:
 Deletes the 5th transaction in the current list.
 
 ==== Finding transaction: `txfind`
-Filters transactions in current list by type, keywords, category, month and/or year. +
+Filters transactions in current list by type, keywords, category, month, and/or year. +
 Format: `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
 
 Examples:
@@ -134,7 +134,7 @@ Format: `repadd [t/TYPE] m/DESCRIPTION a/AMOUNT [c/CATEGORY] [p/DAY]...`
 Examples:
 
 * `repadd t/in m/Phone Bills a/32.70 p/7 p/14 p/21 p/28` +
-Creates a transaction repeater titled "PhoneBills" for a $32.70 deduction every 7th, 14th, 21st and 28th of the month.
+Creates a transaction repeater titled "PhoneBills" for a $32.70 deduction every 7th, 14th, 21st, and 28th of the month.
 
 ==== Editing transaction repaeter `repedit`
 
@@ -158,7 +158,7 @@ Deletes the 12th transaction repeater.
 
 ==== Finding transaction repeater: `repfind`
 
-Filters transaction repeaters by keyword, category and repeating days. +
+Filters transaction repeaters by keyword, category, and repeating days. +
 Format: `repfind [t/TYPE] [s/KEYWORD]... [c/CATEGORY] [p/DAY]...`
 
 Examples:
