@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.UniquePolicyList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniquePolicyList policies;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        policies = new UniquePolicyList();
     }
 
     public AddressBook() {}
@@ -94,6 +98,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
+
+    /**
+     * Adds a policy to the address book.
+     * The policy must not already exist in the address book.
+     */
+    public void addPolicy(Policy p) {
+        policies.add(p);
+    }
 
     @Override
     public String toString() {
