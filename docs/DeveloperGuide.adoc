@@ -402,7 +402,7 @@ Use case ends.
 * 1a. The given loan out value is negative.
 +
 [none]
-**1a1. Budget Buddy shows an error message.
+** 1a1. Budget Buddy shows an error message.
 +
 Use case resumes at step 1.
 
@@ -457,7 +457,7 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-===Use case: Rename categories
+=== Use case: Rename categories
 
 *MSS*
 
