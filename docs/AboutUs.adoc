@@ -26,7 +26,14 @@ image::yehezkiel.png[width="150", align="left"]
 Role: Team Member
 
 === Ng Shi Wei
-image::shiwei.png[width="150", align="left"]
+image::shiweing.png[width="150", align="left"]
 {empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
 
 Role: Team Member
+
+=== Jonas Ong
+image::e0031374.png[width="150", align="left"]
+{empty}[https://github.com/e0031374[github]] [<<jonas#, portfolio>>]
+
+Role: Team Member
+
