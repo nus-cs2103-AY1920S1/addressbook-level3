@@ -21,7 +21,7 @@ public class Module {
     private final int mcCount;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags = new HashSet<Tag>();
     private final UniqueModuleList prerequisites = new UniqueModuleList();
 
     /**
@@ -46,8 +46,38 @@ public class Module {
         return moduleCode;
     }
 
-    public int getmcCount() {
+    public int getMcCount() {
         return mcCount;
+    }
+
+    /**
+     * Adds the specified tag to the module if it is not already there.
+     * @param tag Tag to be attached to the module.
+     * @return True if the tag has been added and false otherwise.
+     */
+    public boolean addTag(Tag tag) {
+        if (hasTag(tag)) {
+            return false;
+        }
+        tags.add(tag);
+        return true;
+    }
+
+    /**
+     * Deletes the specified tag to the module if the module has it.
+     * @param tag Tag to be deleted from the module.
+     * @return True if the tag has been deleted and false otherwise.
+     */
+    public boolean deleteTag(Tag tag) {
+        if (!hasTag(tag)) {
+            return false;
+        }
+        tags.remove(tag);
+        return true;
+    }
+
+    private boolean hasTag(Tag tag) {
+        return tags.contains(tag);
     }
 
     /**
@@ -82,7 +112,7 @@ public class Module {
         seedu.address.model.module.Module otherModule = (seedu.address.model.module.Module) other;
         return otherModule.getName().equals(getName())
                 && otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getmcCount() == getmcCount()
+                && otherModule.getMcCount() == getMcCount()
                 && otherModule.getTags().equals(getTags())
                 && otherModule.getPrerequisites().equals(getPrerequisites());
     }
@@ -100,7 +130,7 @@ public class Module {
                 .append(" Module code: ")
                 .append(getModuleCode())
                 .append(" MCs: ")
-                .append(getmcCount())
+                .append(getMcCount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
