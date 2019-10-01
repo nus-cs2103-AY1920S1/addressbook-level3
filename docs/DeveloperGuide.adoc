@@ -395,7 +395,7 @@ Use case ends.
 * 1b. Duplicate profile is added.
 +
 [none]
-** 1a1. AddressBook shows an error message and will attempt to merge the profile.
+** 1b1. AddressBook shows an error message and will attempt to merge the profile.
 +
 
 

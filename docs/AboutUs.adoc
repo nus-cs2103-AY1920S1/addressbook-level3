@@ -4,9 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-TODO: Update +
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Insurelytics was developed by the https://github.com/AY1920S1-CS2103-F09-4/main[cinnamon-agents] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -27,13 +25,21 @@ image::kthSim.png[width="150", align="left"]
 Role: Teaching Assistant
 
 '''
+=== Chaitanya Baranwal
+image::chaitanyabaranwal.png[width="150", align="left"]
+{empty}[http://chaitanyabaranwal.netlify.com[homepage]]{empty}[http://github.com/chaitanyabaranwal[github]][<<ChaitanyaBaranwal#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Team Lead, Undo/Redo
+
+'''
 
 === Oliver Cheok
 image::olivercheok20.png[width="150", align="left"]
 {empty}[http://github.com/olivercheok20[github]] [<<OliverCheok#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Search function
+Responsibilities: Documentation, Integration, Search function
 
 '''
 
@@ -42,7 +48,7 @@ image::chowyiyin.png[width="150", align="left"]
 {empty}[http://github.com/chowyiyin[github]] [<<ChowYiYin#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Input Validation
+Responsibilities: Testing, Scheduling and Tracking, Input Validation
 
 '''
 
@@ -51,16 +57,7 @@ image::ybchen97.png[width="150", align="left"]
 {empty}[https://ybchen97.github.io/[homepage]][http://github.com/ybchen97[github]] [<<ChenYuanBo#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Recycling Bin
-
-'''
-
-=== Chaitanya Baranwal
-image::chaitanyabaranwal.png[width="150", align="left"]
-{empty}[http://chaitanyabaranwal.netlify.com[homepage]][github] [<<ChaitanyaBaranwal#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Undo/Redo
+Responsibilities: Code Quality, Intellij Expert, Recycling Bin
 
 '''
 
@@ -69,6 +66,6 @@ image::larrylawl.png[width="150", align="left"]
 {empty}[http://github.com/larrylawl[github]] [<<LarryLaw#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Visual Representation
+Responsibilities: Deliverables & deadlines, JavaFX Expert, Visual Representation
 
 '''
