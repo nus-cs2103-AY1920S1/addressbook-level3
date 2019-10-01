@@ -304,15 +304,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="80%",cols="17%,<17%,<31%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |learn how to use the app quickly
 
-|`* * *` |user |add a new bookmark |
+|`* * *` |user |add a new bookmark |keep track of websites that I want to visit later
 
 |`* * *` |user |bookmark the current website being viewed |save the page without having to copy-and-paste the URL
 
-|`* * *` |user |delete a bookmark |remove entries that I no longer need
+|`* * *` |user |delete a bookmark |remove bookmarks that I no longer need
 
-|`* * *` |user |find a bookmark by name, URL or tag |locate details of bookmarks without having to go through the entire list
+|`* * *` |user |find a bookmark by name, URL or tag |locate details of bookmarks without having to scroll through the entire list
 
 |`* * *` |user |edit a bookmark | make changes in case I type something wrongly or change my mind
 
@@ -322,11 +322,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add multiple tags to a bookmark | see what type of bookmark it is at a glance
 
-|`* * *` |user |auto tag a bookmark based on certain conditions (such as domain) |save time from tagging bookmarks from the same domain with the same tag
+|`* * *` |user |automatically tag a bookmark based on certain conditions (such as its domain) |save time by avoiding the repeated tagging of bookmarks from the same domain
 
-|`* * *` |user with many bookmarks |organise all the bookmarks in a folder structure |
+|`* * *` |user with many bookmarks |organise all the bookmarks in a hierarchical folder structure |find my bookmarks more easily
 
-|`* * *` |user |move a bookmark to a different folder |
+|`* * *` |user |move a bookmark to a different folder |re-organize my bookmarks when my needs change
 
 |`* * *` |user |open a bookmark within the App |easily visit a website without switching to other windows
 
@@ -334,31 +334,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |update the offline copy of bookmarks manually or automatically |keep offline copies updated
 
-|`* * *` |user |keep old offline copies |can still refer to them
+|`* * *` |user |keep old offline copies |can refer to them in case information gets removed from the webpage
 
-|`* * *` |user |remove an specific offline copy |remove <<cache,cache>> that I no longer need
+|`* * *` |user |remove an specific offline copy |free up storage space by removing <<cache,cached>> copies that I no longer need
 
-|`* * *` |user |highlight and annotate specific paragraphs in a bookmark |refer to my notes easily
+|`* * *` |user |highlight and annotate specific paragraphs in a bookmark |refer to the original content when reading my notes
 
-|`* * *` |user |edit highlighting and annotations |
+|`* * *` |user |edit highlighting and annotations |update my notes as I learn more about the content
 
-|`* * *` |user |remove highlighting and annotations |
+|`* * *` |user |remove highlighting and annotations |remove notes about content that is no longer important to me
 
-|`* * *` |user |add reminders for a bookmark |remember to visit certain bookmarks at specified time
+|`* * *` |user |add reminders for a bookmark |remember to submit online forms, to prepare for upcoming deadlines, etc.
 
-|`* * *` |user |edit a reminder |
+|`* * *` |user |edit a reminder |adjust my reminders when deadlines change
 
-|`* * *` |user |delete a reminder |
+|`* * *` |user |delete a reminder |remove reminders if I make a mistake when entering them
 
 |`* * *` |user |export and import all the bookmark data |easily migrate to another computer
 
-|`* *` |user |favorite a bookmark |
+|`* *` |user |favorite a bookmark |access it more easily in future
 
 |`* *` |user |mark a bookmark as 'read later' |know which bookmarks I have not read yet
 
 |`* *` |user |check my view history |see what websites I have visited
 
-|`* *` |user |automatically clean up old or outdated bookmarks |
+|`* *` |user |automatically clean up old or outdated bookmarks |keep my bookmark list up to date without having to look through it regularly
 
 |`* *` |user |sort the bookmarks according to name |locate a specific bookmark
 |=======================================================================
@@ -559,8 +559,9 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 bookmarks without a noticeable sluggishness in performance for typical usage.
+.  The product should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  The product should be able to hold up to 500 bookmarks without a noticeable sluggishness in performance for typical usage.
+.  The product's major features should not depend on Internet access.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The project is expected to adhere to a schedule that delivers features in increments every two weeks.
 
