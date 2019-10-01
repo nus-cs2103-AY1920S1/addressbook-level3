@@ -279,13 +279,16 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of <<eatery, eateries>>
+** budget
+** <<category, category>>
+** location
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage eateries faster than a typical mouse/GUI driven app with statistics of key details such as budget, category and location
 
 [appendix]
 == User Stories
@@ -295,17 +298,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |food blogger |keep a list of outstanding cafes |clear them in an orderly fashion.
 
-|`* * *` |user |add a new person |
+|`* * *` |student |keep a list of affordable eateries |save money
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |person with many food allergies |keep track of dishes I have ordered before |avoid ordering hazardous food
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |foodie |remember places |share this experience with my family and friends
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |digital nomad |tag places with free power + wifi |sit there for extended periods of time
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |working adult |view the menu beforehand |save time from thinking what to eat
 |=======================================================================
 
 _{More to be added}_
@@ -313,17 +316,19 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `EatMe` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Removing an eatery from todo
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to view his todo list
+2.  EatMe toggles to the todo mode
+3.  User requests to mark an eatery as visited in the list
+4.  EatMe shifts the data over
+5.  EatMe toggles to the main mode
+6.  EatMe requests user for whatever information left that is required before saving in the main mode
 +
 Use case ends.
 
@@ -334,12 +339,68 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given eatery is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. EatMe shows an error message.
 +
 Use case resumes at step 2.
+
+* 6a. The given information is of the wrong format.
++
+[none]
+** 6a1. EatMe shows an error message.
++
+Use case resumes at step 8.
+
+[discrete]
+=== Use case: Tagging an eatery in main
+
+*MSS*
+
+1.  User requests to add a tag to an eatery
+2.  EatMe updates the eatery accordingly
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 1b. The user gives invalid information.
++
+[none]
+** 1b1. EatMe shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Viewing a menu beforehand
+
+*MSS*
+
+1.  User searches for an eatery
+2.  EatMe displays the eatery accordingly
+3.  User reads the entry for the menu
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 1b. The user gives invalid information.
++
+[none]
+** 1b1. EatMe shows an error message.
++
+Use case resumes at step 1.
 
 _{More to be added}_
 
@@ -347,8 +408,9 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 eateries without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Main functionalities (CRUD) should work without WiFi.
 
 _{More to be added}_
 
@@ -358,25 +420,28 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[eatery]] Eatery::
+Any place that serves food open to the public (ie, restaurants, cafes, roadside, pushcart)
+
+[[category]] Category::
+Broadly containts cuisines (self-explanatory) and eating place (ie, a buffet, fusion)
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*Soon*
 
-Author: ...
+Author: Beginner AB
 
 Pros:
 
-* ...
-* ...
+* Shows trending restaurants nearby
+* Hide option
 
 Cons:
 
-* ...
-* ...
+* Unable to delete lists
+* Unable to search
 
 [appendix]
 == Instructions for Manual Testing
