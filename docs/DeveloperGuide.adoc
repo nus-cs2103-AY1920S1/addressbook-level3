@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= AddMin+ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -279,11 +279,11 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to help HR manage events and employees
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a need to help HR manage events and employees
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
 *Value proposition*: manage events and employees easier than enterprise apps commonly used such as Microsoft Excel and Microsoft Word.
 
@@ -327,33 +327,120 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AddMin+` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete employee
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list employees
+2.  AddMin+ shows a list of employees
+3.  User requests to delete a specific employee by stating the Employee ID
+4.  AddMin+ deletes the employee
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 3a. The given Employee ID is invalid.
++
+[none]
+** 3a1. AddMin+ shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit Event in Event List
+
+*MSS*
+
+1.  User requests to view the company’s current list of events.
+2.  AddMin+ shows a list of events, with each event containing a unique Event ID.
+3.  User specifies Event ID, and list the details of the event to edit
+4.  AddMin+ edits and saves the updated event details.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+* 3a. Event ID given is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1.AddMin+ shows an error message and refuses the edit.
 +
 Use case resumes at step 2.
++
+* 3b. No details to edit were specified, or is of the wrong input format
++
+[none]
+** 3b1. AddMin+ displays an error message warning the user that no details were edited.
++
+Use case resumes at step 2.
+ 
+[discrete]
+=== Use case: Allocate Manpower to Event manually
+
+*MSS*
+1.  User requests to view the company’s current list of employees and events.
+2. AddMin+ shows the list of employees and events.
+3.  User manually allocates a specific employee ID to a specific event ID
+4.  Employee added.
++
+Use case ends.
+
+*Extensions*
+
+* 2.The Employee_ID/Event_ID is invalid.
++
+[none]
+** 2a.Addmin+ shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]    
+=== Use case: Generate Employee PaySlip
+
+*MSS*
+
+1.  User requests to list employee
+2.  EmployeeBook shows a list of employees
+3.  User requests to generate a payslip document of a specific employee ID in the list by using a specific employee ID. 
+4.  AddMin+ generates a document of the pay slip of the employee ID.
+
++
+Use case ends.
+
+*Extensions*
+
+* 2.The employee ID given is invalid.
++
+[none]
+** 2a.AddMin+ shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]     
+=== Use case: Fetch Events
+*MSS*
+
+1.  User requests to fetch an Event by specifying an Event_ID
+2.  AddMin+ shows the matching result
+
++
+Use case ends.
+
+*Extensions*
+
+* 2.The given event ID is invalid or nonexistent.
++
+[none]
+** 2a.Addmin+ shows an error message.
++
+Use case resumes at step 2.
+
+
 
 _{More to be added}_
 
@@ -374,22 +461,6 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
-
-*AddMin+* 
-
-Author: ...
-
-Pros:
-
-* Intuitive UI
-* All in one service
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
