@@ -19,14 +19,6 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 +++<u>+++* TravEzy*+++</u>+++
 
 *By team:* T17-2 +
-*Team members:* 
-
-. Ong Bing Jue
-. Hon Hao Chen
-. Ng Zhao Ming
-. Tishya Khanna
-. Poh Lin Wei
-
 
 *Content page*
 
@@ -47,7 +39,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 
 
-. *Introduction*
+*Introduction*
 
 Welcome and thank you for choosing The Traveller Diary (TTD) to store precious memories of your overseas trips. This travelling diary is well suited for *NUS students who are passionate about travelling across the globe* and *prefer to use a desktop app for managing their trips abroad*. If you can type fast, TTD can help you *store, customize and manage your posts effectively*. Not only that, TTD can *access your contacts with their details* done faster than traditional GUI apps. But wait, there’s more! TTD also has a built in *financial tracker to track your expenses during each trip* to ensure you spend wisely. What are you waiting for? Hop on to this user guide and we will travel to +++<u>+++Section 2, “Quick Start”+++</u>+++ to get a copy of your TTD and get started with it. Enjoy! 😊
 
