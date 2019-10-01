@@ -346,8 +346,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |busy user |keep track of my spending in different account books |segregate completely unrelated spending
 
-|`* *` |careless user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
 |`*` |unmotivated person |be rewarded for entering my expenses/income daily |be motivated to do so and eventually turn it into a habit
 
 |`*` |expense planner |record down possible future expenses |keep track of what I planned to spend on
