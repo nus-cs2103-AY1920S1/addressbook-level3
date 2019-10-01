@@ -31,12 +31,16 @@
 
 .tab-pane {
     -fx-padding: 0 0 0 1;
+    /*-fx-background-color: derive(#1d1d1d, 20%);*/
+    /*-fx-border-color: derive(#1d1d1d, 10%);*/
 }
 
 .tab-pane .tab-header-area {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
+    /*-fx-background-color: derive(#1d1d1d, 20%);*/
+    /*-fx-border-color: derive(#1d1d1d, 10%);*/
 }
 
 .table-view {
@@ -53,7 +57,7 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
+    /*-fx-size: 35;*/
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
@@ -65,7 +69,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    /*-fx-font-size: 20pt;*/
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
