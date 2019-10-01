@@ -16,9 +16,7 @@ endif::[]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
-+++<u>+++* TravEzy*+++</u>+++
-
-*By team:* T17-2 +
+Team: *T17-2* +
 
 *Content page*
 
@@ -43,8 +41,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 Welcome and thank you for choosing The Traveller Diary (TTD) to store precious memories of your overseas trips. This travelling diary is well suited for *NUS students who are passionate about travelling across the globe* and *prefer to use a desktop app for managing their trips abroad*. If you can type fast, TTD can help you *store, customize and manage your posts effectively*. Not only that, TTD can *access your contacts with their details* done faster than traditional GUI apps. But wait, there’s more! TTD also has a built in *financial tracker to track your expenses during each trip* to ensure you spend wisely. What are you waiting for? Hop on to this user guide and we will travel to +++<u>+++Section 2, “Quick Start”+++</u>+++ to get a copy of your TTD and get started with it. Enjoy! 😊
 
-
-. *Quickstart*
+*Quickstart*
 
 . Ensure you java Java 11 or above installed in your Computer.
 
@@ -59,18 +56,17 @@ Welcome and thank you for choosing The Traveller Diary (TTD) to store precious m
 E.g. typing *help* and pressing *<Enter>* will open the help window.
 
 . Examples commands you may try:
-.. *list *: list all contacts
+.. *list*: list all contacts
 .. *delete 3* : deletes the 2nd contact shown in the current list
-.. *exit *: exits the app
+.. *exit*: exits the app
 
-. Refer to Section 3, “Features” for details of each command.
-
-
+Refer to Section 3, “Features” for details of each command.
 
 
-. *Features*
 
-. *Financial Tracker*
+*Features*
+
+*1. Financial Tracker*
 
 Keep track of your travelling expenses.
 
@@ -90,7 +86,8 @@ You can update on which friend has previously borrowed money for you. Your perso
 Afraid of over-budget? Your personal traveller diary prevents you from doing that by prompting you that you have over spent.
 
 
-. *Friend Contact List*
+
+*2. Friend Contact List*
 
 Helps you to keep track of your friends’ contact information.
 	
@@ -123,7 +120,10 @@ A user profile picture can be added into the contact list. This allow the user t
 
 A way for the user to beautify the appearance for the contact list. _e.g. Putting a crown / tiara / emoticons / sticker pack to beautify the standard contact layout in the contact list._
 
-. *Calendar (Event Planner)*
+
+
+*3. Calendar (Event Planner)*
+
 Gives you an overview of when you will be free to travel and recommends when will be a      +
 suitable time to travel.
   
@@ -149,9 +149,6 @@ suitable time to travel.
 
 
 
-
-
-
 The event planner feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
@@ -164,7 +161,10 @@ This command suggests whether travelling at the stated period of time is a good 
 Informs user of public holidays and adds them to the calendar without requiring the user to specify it.
 
 
-. *Event Itinerary*
+
+
+
+*4. Event Itinerary*
 
 Helps you to plan how exactly you want to spend each hour of your trip. Each event will be numbered numerically in increasing order.
 	
@@ -208,7 +208,39 @@ The user can archive events that he/she is unsure of and wants to review later.
 
 The user can get recommended activities to fill in gaps in the itinerary. The database for these recommended activities will be derived from the archive function.
 
-. *TRIVAGO, Price comparison (Coming in V2.0)*
+
+
+
+*5. Travel Diary with pictures*
+
+addImage         : add new images to the specified entry conveniently +
+appendToEntry    : appends text to the specified entry
+createEntry      : creates a new entry in your diary +
+deleteEntry      : deletes the specified entry of your diary +
+editEntry        : edit the specified entry of your diary +
+filterEntries    : filters the entries by looking out for the specified expression +
+filterByTag      : filters the entries by the specified tag +
+sortEntries      : sorts your entries in chronological order +
+sortEntriesByTag : sorts your entries by tags +
+tagEntry         : tags your entry with the specified tag(s)
+
+The Travel Diary feature also provides  certain extra extensions.  +
+_(Extensions the group may want to consider)_
+
+*memories*
+
+Reminds the user of entries s/he made a year ago.
+
+*milestones*
+
+Congratulates the user when s/he met certain milestones (travelling to a continent that s/he has not previously visited, visiting one of the seven wonders of the world, etc.)
+
+
+
+
+
+*6. TRIVAGO, Price comparison (Coming in V2.0)*
+
 Helps to compare the prices between two particular goods or services. Can be used to compare prices of lodging, 
 
  addData     : add a new data to be used for price comparison +
@@ -239,7 +271,10 @@ Based on the different taggings given by the user, it will help to sort the data
 
 
 
-. *Travel Recommendations (Coming in V2.0)*
+
+
+*7. Travel Recommendations (Coming in V2.0)*
+
 Gives travel suggestions to the user.
 	
  setDates    : set the dates for your proposed trip +
@@ -258,7 +293,12 @@ The user can download pre planned trips and locations from online sources such a
 
 The user can store preferred sources for trips, such as travel websites or personal blogs.
 
-. *NUS trips (Coming in V2.0)*
+
+
+
+
+*8. NUS trips (Coming in V2.0)*
+ 
 Helps you get recommendations from NUS societies. 
 	
  loadTrips   : download trips from NUS societies +
@@ -279,40 +319,13 @@ The user can choose preferred societies (NUS mountaineers, CIP clubs)  to favour
 
 The user can filter societies based on preferences such as cost, duration and type.
 
-. *Travel Diary with pictures*
-addImage         : add new images to the specified entry conveniently +
-appendToEntry    : appends text to the specified entry
-createEntry      : creates a new entry in your diary +
-deleteEntry      : deletes the specified entry of your diary +
-editEntry        : edit the specified entry of your diary +
-filterEntries    : filters the entries by looking out for the specified expression +
-filterByTag      : filters the entries by the specified tag +
-sortEntries      : sorts your entries in chronological order +
-sortEntriesByTag : sorts your entries by tags +
-tagEntry         : tags your entry with the specified tag(s)
-
-The Travel Diary feature also provides  certain extra extensions.  +
-_(Extensions the group may want to consider)_
-
-*memories*
-
-Reminds the user of entries s/he made a year ago.
-
-*milestones*
-
-Congratulates the user when s/he met certain milestones (travelling to a continent that s/he has not previously visited, visiting one of the seven wonders of the world, etc.)
-
-*lockEntry*
-
-Only allows access to the entry if the user has the password
-
-*setPassword*
-
-Sets password. The password can be used by the user thereafter to lock certain entries.
 
 
 
-. *Engaging Notifications (Coming in V2.0)*
+
+
+
+*9. Engaging Notifications (Coming in V2.0)*
 
 New notifications will be used to alert the user. Notifications can be used to alert the user in the following circumstances:
 
