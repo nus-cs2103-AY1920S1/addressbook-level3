@@ -359,6 +359,7 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `IchiFund` and the *Actor* is the `user`, unless specified otherwise)
 
+[discrete]
 === Use case: Set current wealth
 
 *MSS*
@@ -392,6 +393,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use case: Delete transaction item
 
 *MSS*
@@ -403,6 +405,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use case: Find transaction item
 
 *MSS*
