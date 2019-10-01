@@ -4,27 +4,28 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+ELISA _(Exceptionally Loud and Intelligent Student Assistant)_ - Was developed by the https://github.com/AY1920S1-CS2103T-T10-3[T10-3] team. +
+ELISA is a student assistant made for college students who need constant reminders to complete their daily tasks. More importantly, ELISA is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). +
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a student team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Bryan Lim
+image::blimyj.png[width="150", align="left"]
+{empty}[http://github.com/blimyj[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Developer +
+Responsibilities: Commons
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Hema
+image::lrchema.png[width="150", align="left"]
+{empty}[http://github.com/lrchema[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Functionality
 
 '''
 
@@ -32,25 +33,24 @@ Responsibilities: UI
 image::mannggoo.png[width="150", align="left"]
 {empty}[http://github.com/mannggoo[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer + 
+Role: Developer +
 Responsibilities: Logic
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Low Cheng Yi
+image::Icesiolz.png[width="150", align="left"]
+{empty}[http://github.com/Icesiolz[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
+'''
+
+=== Ng Siang Hwee
+image::sianghwee.png[width="150", align="left"]
+{empty}[http://github.com/sianghwee[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Model
 
 '''
