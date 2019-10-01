@@ -4,8 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddMin+ was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+AddMin+ was developed by the https://github.com/orgs/AY1920S1-CS2103T-T11-3/teams/developers/members[T11-3] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -15,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::divinedx.png[width="150", align="left"]
 {empty}[https://github.com/DivineDX[github]] [<<de_xun#, portfolio>>]
 
-Role: Team Lead
+Role: Team Lead +
 Responsibilities:
 
 '''
@@ -24,7 +23,7 @@ Responsibilities:
 image::shihaoyap.png[width="150", align="left"]
 {empty}[https://github.com/shihaoyap[github]] [<<johndoe#, portfolio>>]
 
-Role:
+Role: Developer +
 Responsibilities: UI
 
 '''
@@ -33,8 +32,8 @@ Responsibilities: UI
 image::eshwarkp.png[width="150", align="left"]
 {empty}[https://github.com/eshwarkp[github]] [<<johndoe#, portfolio>>]
 
-Role: Software Tester
-Responsibilities:
+Role: Software Tester +
+Responsibilities: Testing
 
 '''
 
@@ -42,7 +41,7 @@ Responsibilities:
 image::calvincxz.png[width="150", align="left"]
 {empty}[https://github.com/calvincxz[github]] [<<johndoe#, portfolio>>]
 
-Role: Quality Control Specialist
+Role: Quality Control Specialist +
 Responsibilities: Dev Ops + Threading
 
 '''
