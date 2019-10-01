@@ -9,7 +9,10 @@
 
 - [ ] Contact us(Alvin)
 
+- [ ] Developer Guide(Marcus)
+
 - [ ] V1.1(Week 7)
+
 
 # Timeline
 - Tuesday complete individual basic features
