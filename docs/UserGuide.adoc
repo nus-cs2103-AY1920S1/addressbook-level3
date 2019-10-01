@@ -14,11 +14,15 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master
 
-By: `Team F11-1`      Since: `August 2019`      Licence: `MIT`
+By: `Team F11-1`      
+
+Since: `August 2019`      
+
+Licence: `MIT`
 
 == Introduction
 
-Alfred is a desktop application for helping Human Resource managers organise a Hackathon event.
+Alfred is a desktop application to help Hackathons' Human Resource Managers organise a Hackathon event.
 Hackathons are difficult to manage manually as they involve different groups of individuals, each
 of whom have a different role to play and agenda to fulfill in the Hackathon. Alfred helps streamline
 this organisation and management process, allowing you to quickly get up to speed with the logistics
@@ -33,18 +37,19 @@ Interested? Well, head to <<Quick Start>> to get started. We hope Alfred serves 
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `alfred.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for Alfred.
+.  Double-click the file to start the app. Alternatively, if you use a Mac, type the command `java -jar alfred.jar`
+on terminal in the jar file's directory to open start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Here are some sample commands you can experiment with:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list teams`* : lists teams in the hackathon
+* *`add participant n/John Doe p/98765432 e/johnd@example.com`* : adds a new participant named `John Doe` to the Hackathon.
+* *`delete mentor 3`* : removes the mentor with ID 3 from the hackathon.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
