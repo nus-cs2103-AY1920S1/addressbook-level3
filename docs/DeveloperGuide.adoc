@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W11-4/main
 
-By: `Team CaloFit`      Since: `Sep 2019`      Licence: `MIT`
+By: `Team CaloFit (AY1920S1-CS2103T-W11-4)`      Since: `Sep 2019`      Licence: `MIT`
 
 ////
 == Setting up
@@ -296,37 +296,52 @@ The app is able to help the user keep track of their calorie consumption. This w
 |&#11088;&#11088;&#11088;
 |new user
 |see usage instructions
-|refer to instructions when I forget how to use the App
+|refer to instructions when I forget how to use the App.
 
 |&#11088;&#11088;&#11088;
 |user
 |create a new meal entry
-|keep track of what I ate today
+|keep track of what I ate today.
 
 |&#11088;&#11088;&#11088;
 |user
 |see how many calories I have left in today's budget
-|know what I can eat later, and stay in budget
+|know what I can eat later, and stay in budget.
 
 |&#11088;&#11088;&#11088;
 |user
 |be alerted if I missed a meal
 |be reminded to stick to my meal plans.
 
+|&#11088;&#11088;&#11088;
+|user
+|change my daily calorie budget
+|better reflect my new lifestyle requirements.
+
 |&#11088;&#11088;
 |user
 |modify my previous meal entries
-|fix missing or inaccurate information
+|fix missing or inaccurate information.
+
+|&#11088;&#11088;
+|user
+|delete my previous meal entries
+|undo mistakenly added meal entries.
 
 |&#11088;&#11088;
 |user
 |generate a summary of meals over the past month
-|review my overall progress in keeping to my meal plan
+|review my overall progress in keeping to my meal plan.
+
+|&#11088;&#11088;
+|user
+|view meal suggestions that fit in my remaining budget.
+|figure out what I can eat while keeping to my plan.
 
 |&#11088;
 |user
 |create a new meal entry based of a meal I commonly eat
-|keep track of a meal I eat often
+|keep track of a meal I eat often.
 
 |=======================================================================
 _{More to be added}_
