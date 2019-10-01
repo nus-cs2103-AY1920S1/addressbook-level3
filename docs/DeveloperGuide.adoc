@@ -466,32 +466,6 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete contact
-
-*MSS*
-
-1.  User requests to list contacts
-2.  AddressBook shows a list of contacts
-3.  User requests to delete a specific contact in the list
-4.  AddressBook deletes the contact
-5.  Contact appears in the recycling bin
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
 === Use case: Assigning a policy to a person
 
 *MSS*
