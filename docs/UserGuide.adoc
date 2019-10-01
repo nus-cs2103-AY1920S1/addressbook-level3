@@ -228,39 +228,39 @@ Displays expenditure budget left and a list of all excluded transactions for Jul
 
 ==== Viewing expenditure trend: `aexpend`
 
-Displays annual expenditure trend. +
+Displays monthly expenditure trend for current year.
 Format: `aexpend [y/YEAR]`
 
 Examples:
 
 * `aexpend` +
-Displays annual expenditure trend for current year.
+Displays monthly expenditure trend for current year.
 * `aexpend 2019` +
-Displays annual expenditure trend for 2019.
+Displays monthly expenditure trend for 2019.
 
 ==== Viewing income trend: `aincome`
 
-Displays annual income trend. +
+Displays monthly income trend for current year. +
 Format: `aincome [y/YEAR]`
 
 Examples:
 
 * `aincome` +
-Displays annual income trend for current year.
+Displays monthly income trend for current year.
 * `aincome 2019` +
-Displays annual income trend for 2019.
+Displays monthly income trend for 2019.
 
 ==== Viewing balance trend: `abalance`
 
-Displays annual balance (income - expenditure) trend. +
+Displays monthly balance (income - expenditure) trend for current year. +
 Format: `abalance [y/YEAR]`
 
 Examples:
 
 * `abalance` +
-Displays annual balance trend for current year.
+Displays monthly balance trend for current year.
 * `abalance 2019` +
-Displays annual balance trend for 2019.
+Displays monthly balance trend for 2019.
 
 ==== Viewing expenditure breakdown by category: `abreakdown`
 
