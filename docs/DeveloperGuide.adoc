@@ -556,6 +556,198 @@ Use case ends.
 Use case resumes at step 2.
 
 
+[discrete]
+=== Use case: Check details of person
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests which person to check by index
+4. FinSec displays person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Check existing claims of person
+
+*MSS*
+
+1. User requests to change view to Claims
+2. FinSec changes view to Claims
+3. User requests to view list of people in claims
+4. FinSec shows a list of people in claims
+5. User requests which person to check by index
+6. FinSec displays person with their claims
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 4a. The index entered is invalid.
++
+[none]
+** 4a1. FinSec shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Filter using keywords from list
+
+*MSS*
+
+1. User requests to view list of income or people
+2. FinSec shows a list of income or people
+3. User requests to filter the list based on keyword
+4. FinSec returns a list of filtered results
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The income or people list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The keyword entered is yielded no result.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: See budget
+
+*MSS*
+
+1. User requests to view current budget
+2. FinSec shows current budget
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Sort claims in chronological order
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to sort the claims
+4. FinSec shows sorted claims
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Resolving claims
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to resolve claim from index
+4. FinSec resolves claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
+
+[discrete]
+=== Use case: Adding pictures to claims
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to add picture to claim by index
+4. FinSec adds a picture to that claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Adding tags
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests to add tags to people
+4. FinSec adds tags to the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The people list is empty.
++
+Use case ends.
+
+
 
 
 
