@@ -742,7 +742,7 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 * *Exit*: `exit`
 * *Export*: `export [FILENAME]`
 * *Import*: `import FILENAME [MORE_FILENAMES]...`
-* *Autotag*: `autotag NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]
+* *Autotag*: `autotag NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]`
 * *Cache*: `cache INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
 * *Annotate (add)*: `annotate INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 * *Annotate (delete)*: `annotate delete INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
