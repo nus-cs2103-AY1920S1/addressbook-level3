@@ -1,4 +1,4 @@
-package seedu.address.person;
+package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,8 +28,8 @@ import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
-import seedu.address.person.ui.Ui;
-import seedu.address.person.ui.UiManager;
+import seedu.address.ui.Ui;
+import seedu.address.ui.UiManager;
 
 /**
  * Runs the application.

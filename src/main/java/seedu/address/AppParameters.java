@@ -1,4 +1,4 @@
-package seedu.address.person;
+package seedu.address;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

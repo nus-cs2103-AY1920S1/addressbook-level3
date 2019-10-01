@@ -1,7 +1,5 @@
 package seedu.address.inventory;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Objects;
 
 /**
@@ -19,7 +17,6 @@ public class Item {
      * Every field must be present and not null.
      */
     public Item(String description, String category, int quantity, double cost) {
-        requireAllNonNull(description, category, quantity, cost);
         this.description = description;
         this.category = category;
         this.quantity = quantity;

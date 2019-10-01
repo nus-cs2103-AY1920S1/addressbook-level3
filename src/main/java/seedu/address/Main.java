@@ -1,4 +1,4 @@
-package seedu.address.person;
+package seedu.address;
 
 import javafx.application.Application;
 
