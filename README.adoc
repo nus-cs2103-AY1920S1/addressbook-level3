@@ -21,8 +21,6 @@ endif::[]
 aspiring to be able to afford their Mala, finally! More importantly, guiltTrip() is a desktop application optimized for
 those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, guiltTrip() can get your finance tracker tasks done faster than traditional GUI apps.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger*
-(around 6 KLoC)than what students usually write in beginner-level SE modules.
 
 == Target Users
 We are targeting youth and young adults in Singapore aged 20-30 who are interested in keeping track of their finances.
