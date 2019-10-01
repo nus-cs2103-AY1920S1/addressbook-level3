@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
-import seedu.address.commons.stub.LogicManagerStub;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -36,10 +36,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private LogicManagerStub logicStub;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private EventListPanel eventListPanel;
     private LogPanel logPanel;
     private HelpWindow helpWindow;
 
@@ -76,7 +75,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.logicStub = new LogicManagerStub();
 
         setWindowDefaultSize(logic.getGuiSettings());
 
@@ -128,8 +126,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        personListPanel = new PersonListPanel(logicStub.getFilteredEventSourceList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        personListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         logPanel = new LogPanel();
         logPanelPlaceholder.getChildren().add(logPanel.getRoot());
@@ -205,8 +203,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public EventListPanel getEventListPanel() {
+        return eventListPanel;
     }
 
     /**
@@ -218,9 +216,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            System.out.println("yet");
             logPanel.createLogBox(commandResult.getFeedbackToUser());
-            System.out.println("yeet");
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
