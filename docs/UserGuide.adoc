@@ -103,6 +103,48 @@ Note that this is the same as un-categorising all transactions under the specifi
 
 Format: `category delete n/<name>`
 
+=== Managing budgets : `budget`
+
+Displays or sets the budget for the specified period.
+If the period is omitted, it defaults to the entire current month.
+
+Format: `budget [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [<amount>|unset]`
+
+==== Viewing budgets
+
+To view budgets, omit `[<amount>|unset]` from the command.
+All budgets overlapping the period specified will be displayed.
+
+==== Setting budgets
+
+To set a budget, specify the `[<amount>]`. Note that budgets cannot overlap.
+
+==== Removing budgets
+
+To unset a budget, specify `[unset]`.
+
+=== Goal setting : `goal`
+
+==== Adding a goal : `goal add`
+
+Adds a goal on the specified account to reach the specified amount by the target date or at the end of the specified period.
+
+Format: `goal add [a/<account>] [[d/<target date>] | [p/<this week|this month|next month|this year>]] x/[+]<amount>`
+****
+* If the account is omitted, the default account is set.
+* If the period is omitted, the target date is set to the last day of the current month.
+* If + is specified before amount, then the target amount is set as amount more than the current balance in the target account.
+****
+
+==== View goals : `goal list`
+
+List all goals.
+
+==== Delete goal(s) : `goal delete`
+
+Deletes the goals with the specified goal IDs. Goal IDs can be retrieved from `goal list`.
+
+Format: `goal delete <id ...>`
 === Tracking loans : `loan`
 
 ==== Add a new loan : `loan out|in`
@@ -147,6 +189,7 @@ Format: `loan delete <id ...>`
 Splits and calculates a group payment, then prints a list of who owes who.
 
 Format: `loan split n/<name> a/<amount paid> ...`
+
 
 == FAQ
 
