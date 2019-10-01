@@ -344,61 +344,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `FinSec` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
-*MSS*
-
-1.  User requests to list persons
-2.  FinSec shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  FinSec deletes the person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. FinSec shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
-
-[discrete]
-=== Use case: Change View
-
-*MSS*
-
-1. User requests to change view (People, Claims, Income)
-2. FinSec shows a list of views available
-3. User requests which view to go to
-4. FinSec brings user to that view
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The view is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The given view is invalid.
-+
-[none]
-** 3a1. FinSec shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
 === Use case: Adding a person
 
 *MSS*
@@ -451,6 +396,62 @@ User case ends
 
 [none]
 * 3a. The name is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Delete person
+
+*MSS*
+
+1.  User requests to list persons
+2.  FinSec shows a list of persons
+3.  User requests to delete a specific person in the list
+4.  FinSec deletes the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+_{More to be added}_
+
+[discrete]
+=== Use case: Change View
+
+*MSS*
+
+1. User requests to change view (People, Claims, Income)
+2. FinSec shows a list of views available
+3. User requests which view to go to
+4. FinSec brings user to that view
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The view is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given view is invalid.
 +
 [none]
 ** 3a1. FinSec shows an error message.
@@ -746,10 +747,6 @@ Use case ends.
 * 2a. The people list is empty.
 +
 Use case ends.
-
-
-
-
 
 
 [appendix]
