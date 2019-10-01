@@ -3,7 +3,7 @@
 
 - [x] Travis
 
-- [ ] Draft UG to user guide page (Klement)
+- [x] Draft UG to user guide page (Klement)
 
 - [ ] About us(Aidil)
 
