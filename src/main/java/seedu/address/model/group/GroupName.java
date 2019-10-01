@@ -10,8 +10,16 @@ public class GroupName {
         this.groupName = groupName;
     }
 
+    private GroupName() {
+        groupName = "";
+    }
+
     public String toString() {
         return this.groupName;
+    }
+
+    public static GroupName emptyGroupName() {
+        return new GroupName();
     }
 
     /**

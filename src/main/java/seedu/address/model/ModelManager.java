@@ -37,6 +37,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
+    private TimeBook timeBook = null;
+
     private PersonList personList;
     private GroupList groupList;
     private PersonToGroupMappingList personToGroupMappingList;
@@ -44,8 +46,11 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, PersonList personList, GroupList groupList,
-                        PersonToGroupMappingList personToGroupMappingList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook,
+                        PersonList personList,
+                        GroupList groupList,
+                        PersonToGroupMappingList personToGroupMappingList,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -58,6 +63,36 @@ public class ModelManager implements Model {
         this.personList = personList;
         this.groupList = groupList;
         this.personToGroupMappingList = personToGroupMappingList;
+    }
+
+    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook, ReadOnlyUserPrefs userPrefs) {
+        this.addressBook = new AddressBook(addressBook);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        this.timeBook = timeBook;
+        this.personList = timeBook.getPersonList();
+        this.groupList = timeBook.getGroupList();
+        this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
+
+        int personCounter = -1;
+        for (int i = 0; i < personList.getPersons().size(); i++) {
+            if (personList.getPersons().get(i).getPersonId().getIdentifier() > personCounter) {
+                personCounter = personList.getPersons().get(i).getPersonId().getIdentifier();
+            }
+        }
+
+        int groupCounter = -1;
+        for (int i = 0; i < groupList.getGroups().size(); i++) {
+            if (groupList.getGroups().get(i).getGroupId().getIdentifier() > groupCounter) {
+                groupCounter = groupList.getGroups().get(i).getGroupId().getIdentifier();
+            }
+        }
+
+        // sets the appropriate counter for person and group constructor
+        Person.setCounter(personCounter + 1);
+        Group.setCounter(groupCounter + 1);
+
+        this.userPrefs = new UserPrefs(userPrefs);
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
@@ -316,5 +351,10 @@ public class ModelManager implements Model {
         output += personToGroupMappingList.toString();
 
         return output;
+    }
+
+    @Override
+    public TimeBook getTimeBook() {
+        return this.timeBook;
     }
 }

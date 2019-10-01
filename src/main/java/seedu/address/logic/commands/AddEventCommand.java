@@ -32,7 +32,6 @@ public class AddEventCommand extends Command {
 
     public AddEventCommand(Name name, Event event) {
         requireNonNull(name);
-        requireNonNull(event);
 
         this.event = event;
         this.name = name;

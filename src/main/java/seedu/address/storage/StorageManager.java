@@ -9,10 +9,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.group.GroupList;
-import seedu.address.model.mapping.PersonToGroupMappingList;
-import seedu.address.model.person.PersonList;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -22,12 +20,15 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private TimeBookStorage timeBookStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage,
+                          UserPrefsStorage userPrefsStorage, TimeBookStorage timeBookStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.timeBookStorage = timeBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -77,40 +78,30 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-
     @Override
-    public void savePersonList(PersonList personList) throws IOException {
-        throw new IOException();
-        //todo
-    }
-
-    @Override
-    public void saveGroupList(GroupList groupList) throws IOException {
-        throw new IOException();
-        //todo
-    }
-
-    @Override
-    public void savePersonToGroupMappingList(PersonToGroupMappingList personToGroupMappingList) throws IOException {
-        throw new IOException();
-        //todo
-    }
-
-    @Override
-    public PersonList getPersonList() {
-        //todo
+    public Path getTimeBookFilePath() {
         return null;
     }
 
     @Override
-    public GroupList getGroupList() {
-        //todo
-        return null;
+    public Optional<TimeBook> readTimeBook() throws DataConversionException, IOException {
+        return readTimeBook(timeBookStorage.getTimeBookFilePath());
     }
 
     @Override
-    public PersonToGroupMappingList getPersonToGroupMappingList() {
-        //todo
-        return null;
+    public Optional<TimeBook> readTimeBook(Path filePath) throws DataConversionException, IOException {
+        return timeBookStorage.readTimeBook(filePath);
     }
+
+    @Override
+    public void saveTimeBook(TimeBook timeBook) throws IOException {
+        saveTimeBook(timeBook, timeBookStorage.getTimeBookFilePath());
+    }
+
+    @Override
+    public void saveTimeBook(TimeBook timeBook, Path filePath) throws IOException {
+        timeBookStorage.saveTimeBook(timeBook, filePath);
+    }
+
+
 }

@@ -206,4 +206,7 @@ public interface Model {
     String list();
 
 
+    TimeBook getTimeBook();
+
+
 }

@@ -2,6 +2,9 @@ package seedu.address.model.group;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * List of Groups.
  */
@@ -28,6 +31,10 @@ public class GroupList {
         }
     }
 
+    public void addGroup(Group group) {
+        this.groups.add(group);
+    }
+
     /**
      * Deletes a group based on GroupId.
      *
@@ -48,7 +55,7 @@ public class GroupList {
     /**
      * Edits a group based on given GroupDescriptor.
      *
-     * @param groupName of group to be edited
+     * @param groupName       of group to be edited
      * @param groupDescriptor how the group should be edited
      * @return group
      */
@@ -117,5 +124,21 @@ public class GroupList {
         return output;
     }
 
+    /**
+     * Retrun an unmodifiable observable list of Groups.
+     * @return ObservableList
+     */
+    public ObservableList<Group> asUnmodifiableObservableList() {
+        ObservableList<Group> observableList = FXCollections.observableArrayList(groups);
+        return FXCollections.unmodifiableObservableList(observableList);
+    }
+
+    /**
+     * Returns an ArrayList of Groups.
+     * @return ArrayList
+     */
+    public ArrayList<Group> getGroups() {
+        return this.groups;
+    }
 
 }
