@@ -11,11 +11,11 @@ import seedu.jarvis.model.course.CourseCode;
  *
  * @author ryanYtan
  */
-public class AndOrStubs {
+public class AndOrStubsUtil {
     /**
      * Stub class to emulate a Course.
      */
-    static class CourseStub extends Course {
+    protected static class CourseStub extends Course {
         public final String code;
 
         public CourseStub(String code) {
@@ -37,7 +37,7 @@ public class AndOrStubs {
     /**
      * Stub class to emulate a Node.
      */
-    static class NodeStub extends AndOrNode {
+    protected static class NodeStub extends AndOrNode {
         public NodeStub(CourseStub data) {
             super(data, null, null);
         }
@@ -52,7 +52,7 @@ public class AndOrStubs {
         }
     }
 
-    static final List<AndOrNode> CHILDREN = List.of(
+    protected static final List<AndOrNode> CHILDREN = List.of(
         new NodeStub(new CourseStub("aaa")),
         new NodeStub(new CourseStub("bbb")),
         new NodeStub(new CourseStub("ccc")),

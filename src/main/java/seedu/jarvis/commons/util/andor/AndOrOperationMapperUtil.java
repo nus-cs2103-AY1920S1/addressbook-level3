@@ -10,14 +10,14 @@ import static seedu.jarvis.commons.util.andor.AndOrOperation.OR;
  *
  * @author ryanYtan
  */
-public class AndOrOperationMapper {
+public class AndOrOperationMapperUtil {
     /**
      * Returns an {@code AndOrOperation enum} type given a {@code String} representing the type.
      *
      * @param type string to check
      * @return an {@code AndOrOperation enum} type
      */
-    static AndOrOperation resolveType(String type) {
+    protected static AndOrOperation resolveType(String type) {
         if (type == null) {
             return LEAF;
         }

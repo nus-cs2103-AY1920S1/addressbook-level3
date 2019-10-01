@@ -48,20 +48,19 @@ public abstract class AndOrNode {
      * @param collection of courses to check against
      * @return true if the condition is specified
      */
-    public abstract boolean hasFulfilledCondition(Collection<Course> collection);
+    protected abstract boolean hasFulfilledCondition(Collection<Course> collection);
 
     public abstract String toString();
 
-
-    public Course getData() {
+    protected Course getData() {
         return this.data;
     }
 
-    public List<AndOrNode> getChildren() {
+    protected List<AndOrNode> getChildren() {
         return this.children;
     }
 
-    void insert(AndOrNode node) {
+    protected void insert(AndOrNode node) {
         this.children.add(node);
     }
 
@@ -74,7 +73,7 @@ public abstract class AndOrNode {
      */
     public static AndOrNode createAndOrNode(AndOrNode parent, String... type) {
         String nodeType = type.length == 0 ? "" : type[0];
-        AndOrOperation andOrNodeType = AndOrOperationMapper.resolveType(nodeType);
+        AndOrOperation andOrNodeType = AndOrOperationMapperUtil.resolveType(nodeType);
         switch (andOrNodeType) {
         case AND:
             return new AndNode(null, parent);

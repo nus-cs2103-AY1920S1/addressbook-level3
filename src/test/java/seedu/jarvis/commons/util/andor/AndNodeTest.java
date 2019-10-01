@@ -3,8 +3,8 @@ package seedu.jarvis.commons.util.andor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.commons.util.andor.AndOrStubs.CHILDREN;
-import static seedu.jarvis.commons.util.andor.AndOrStubs.CourseStub;
+import static seedu.jarvis.commons.util.andor.AndOrStubsUtil.CHILDREN;
+import static seedu.jarvis.commons.util.andor.AndOrStubsUtil.CourseStub;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.model.course.Course;
 
 public class AndNodeTest {
-    static final List<Course> COLLECTION_PASSES_REQUIREMENTS = List.of(
+    private static final List<Course> COLLECTION_PASSES_REQUIREMENTS = List.of(
         new CourseStub("aaa"),
         new CourseStub("bbb"),
         new CourseStub("ccc"),
@@ -22,7 +22,7 @@ public class AndNodeTest {
         new CourseStub("fff")
     );
 
-    static final List<Course> COLLECTION_FAILS_REQUIREMENTS = List.of(
+    private static final List<Course> COLLECTION_FAILS_REQUIREMENTS = List.of(
         new CourseStub("bbb"),
         new CourseStub("ccc"),
         new CourseStub("ddd"),
