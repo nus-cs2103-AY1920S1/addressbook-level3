@@ -14,7 +14,9 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEventsBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.events.EventSource;
 import seedu.address.storage.Storage;
 
 /**
@@ -75,4 +77,12 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+
+    //================== For Events ===============================================================================
+    @Override
+    public ObservableList<EventSource> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
 }

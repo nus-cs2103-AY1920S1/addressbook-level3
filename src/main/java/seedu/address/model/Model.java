@@ -103,4 +103,9 @@ public interface Model {
     void addEvent(EventSource event);
 
     void setEvent(EventSource target, EventSource editedEvent);
+
+    /**
+     * Returns an unmodifiable view of the filtered Event Source List
+     */
+    ObservableList<EventSource> getFilteredEventList();
 }
