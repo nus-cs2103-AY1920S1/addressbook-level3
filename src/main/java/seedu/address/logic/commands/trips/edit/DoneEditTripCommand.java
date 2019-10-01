@@ -25,7 +25,7 @@ public class DoneEditTripCommand extends Command {
 
     public static final String MESSAGE_CREATE_TRIP_SUCCESS = "Created Trip: %1$s";
     public static final String MESSAGE_EDIT_TRIP_SUCCESS = "Edited Trip: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
+    public static final String MESSAGE_NOT_EDITED = "All the fields must be provided!";
     public static final String MESSAGE_CLASHING_TRIP = "This trip clashes with one of your other trips!";
 
     public DoneEditTripCommand() { }
@@ -37,18 +37,22 @@ public class DoneEditTripCommand extends Command {
         Trip tripToEdit = model.getPageStatus().getTrip();
         Trip tripToAdd;
 
+        if (editTripDescriptor == null) {
+            return new CommandResult(MESSAGE_NOT_EDITED);
+        }
+
         try {
             if (tripToEdit == null) {
-                //add new trip
+                //buildTrip() requires all fields to be non null, failing which NullPointerException
+                //is caught below
                 tripToAdd = editTripDescriptor.buildTrip();
                 model.addTrip(tripToAdd);
-                ui.switchWindow(TripsPage.class);
-
-                return new CommandResult(String.format(MESSAGE_CREATE_TRIP_SUCCESS, tripToAdd));
+            } else {
+                //edit the current "selected" trip
+                tripToAdd = editTripDescriptor.buildTrip(tripToEdit);
+                model.setTrip(tripToEdit, tripToAdd);
             }
 
-            tripToAdd = editTripDescriptor.buildTrip(tripToEdit);
-            model.setTrip(tripToEdit, tripToAdd);
             model.setPageStatus(
                     model.getPageStatus()
                             .withNewEditTripDescriptor(null)
@@ -56,7 +60,7 @@ public class DoneEditTripCommand extends Command {
             ui.switchWindow(TripsPage.class);
 
             return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToAdd));
-        } catch (TripNotFoundException ex) {
+        } catch (NullPointerException | TripNotFoundException ex) {
             return new CommandResult(MESSAGE_NOT_EDITED);
         } catch (ClashingTripException ex) {
             return new CommandResult(MESSAGE_CLASHING_TRIP);

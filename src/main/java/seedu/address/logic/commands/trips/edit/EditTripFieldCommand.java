@@ -47,6 +47,7 @@ public class EditTripFieldCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
+    public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditTripDescriptor editTripDescriptor;
@@ -149,7 +150,7 @@ public class EditTripFieldCommand extends Command {
          * @return New {@code Trip} created.
          */
         public Trip buildTrip() {
-            requireAllNonNull(name, startDate, destination, totalBudget);
+            requireAllNonNull(name, startDate, endDate, destination, totalBudget);
 
             return new Trip(name, startDate, endDate, destination, totalBudget, new DayList());
         }
@@ -214,9 +215,9 @@ public class EditTripFieldCommand extends Command {
             this.endDate = endDate;
         }
 
-        public Optional<LocalDateTime> getEndDate() {
+        public LocalDateTime getEndDate() {
             //end date is optional, but return null to conform with the rest.
-            return Optional.ofNullable(endDate);
+            return endDate;
         }
 
         public void setDestination(Location destination) {

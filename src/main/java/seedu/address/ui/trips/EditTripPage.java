@@ -107,7 +107,7 @@ public class EditTripPage extends WindowWithoutSidebar {
             tripStartDateFormItem.setValue(currentEditDescriptor.getStartDate().toLocalDate());
         }
         if (currentEditDescriptor.getEndDate() != null) {
-            tripEndDateFormItem.setValue(currentEditDescriptor.getEndDate().get().toLocalDate());
+            tripEndDateFormItem.setValue(currentEditDescriptor.getEndDate().toLocalDate());
         }
         if (currentEditDescriptor.getBudget() != null) {
             tripTotalBudgetFormItem.setValue(currentEditDescriptor.getBudget());

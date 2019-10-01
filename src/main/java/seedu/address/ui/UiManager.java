@@ -28,7 +28,7 @@ public class UiManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/dummytrip.jpeg";
 
     private Logic logic;
     private Stage primaryStage;
@@ -46,6 +46,7 @@ public class UiManager implements Ui {
         logger.info("Starting UI...");
 
         this.primaryStage = primaryStage;
+        primaryStage.setMaximized(true);
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 

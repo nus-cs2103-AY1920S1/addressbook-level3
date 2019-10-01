@@ -78,7 +78,7 @@ public class EditTripFieldParser implements Parser<EditTripFieldCommand> {
         }
 
         if (!editTripDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(DoneEditTripCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditTripFieldCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditTripFieldCommand(editTripDescriptor);

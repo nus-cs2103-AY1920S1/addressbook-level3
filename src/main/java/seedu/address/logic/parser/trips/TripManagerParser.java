@@ -11,8 +11,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 public class TripManagerParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
-            + EnterCreateTripCommand.COMMAND_WORD
-            + DeleteTripCommand.COMMAND_WORD
+            + EnterCreateTripCommand.COMMAND_WORD + " "
+            + DeleteTripCommand.COMMAND_WORD + " "
             + EnterTripCommand.COMMAND_WORD;
 
     @Override

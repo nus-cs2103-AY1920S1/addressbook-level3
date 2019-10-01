@@ -25,7 +25,7 @@ import seedu.address.ui.components.ResultDisplay;
  */
 public abstract class MainWindow extends UiPart<Stage> {
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    protected final Logger logger = LogsCenter.getLogger(getClass());
     protected Stage primaryStage;
     protected Logic logic;
     protected Model model;
