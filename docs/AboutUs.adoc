@@ -4,31 +4,22 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Teacher Assistant was developed by the boys +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Njoy was developed by the boys. +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Russell Loh
-image::russell.jpeg[width="150", align="left"]
+image::russell-loh-nus.png[width="150", align="left"]
 {empty}[https://github.com/Russell-Loh-NUS[github]]
 
 Role: Developer +
 
 '''
 
-=== Fabian Chia
-image::fabian.jpg[width="150", align="left"]
-{empty}[http://github.com/fabbbbbbyy[github]]
-
-Role: Developer +
-
-'''
-
 === Lum Wei Boon
-image::weiboon.jpg[width="150", align="left"]
+image::lumwb.png[width="150", align="left"]
 {empty}[http://github.com/lumwb[github]]
 
 Role: Developer +
@@ -36,15 +27,24 @@ Role: Developer +
 '''
 
 === Jeong Yu Han
-image::jeong.jpg[width="150", align="left"]
+image::jeongyh99.png[width="150", align="left"]
 {empty}[http://github.com/jeongyh99[github]]
+
+Role: Developer +
+
+
+'''
+
+=== Fabian Chia
+image::fabbbbbbyy.png[width="150", align="left"]
+{empty}[http://github.com/fabbbbbbyy[github]]
 
 Role: Developer +
 
 '''
 
 === K Alages
-image::alages.jpg[width="150", align="left"]
+image::alages97.png[width="150", align="left"]
 {empty}[http://github.com/alages97[github]]
 
 Role: Developer +

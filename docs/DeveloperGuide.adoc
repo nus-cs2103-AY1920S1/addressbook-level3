@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= NJoy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -313,35 +313,281 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `NJoy` and the *Actor* is the `Teacher`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a student (UC01)
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Teacher enter details of student
+2.  NJoy saves the record of the student
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Missing student details
+** 1a1. NJoy shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit a student (UC02)
+
+*Preconditions*
+
+1.  User exist in the system
+
+*MSS*
+
+1.  Teacher finds a student (UC05)
+2.  Teacher requests to edit a student details
+3.  NJoy returns list of fields able to edit
+4.  Teacher enter the field to edit
+5.  NJoy save the edited record
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* *a. Teacher chooses to cancel the edit
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a student (UC03)
+
+*Preconditions*
+
+1.  User exist in the system
+
+*MSS*
+
+1.  Teacher finds a student (UC05)
+2.  Teacher requests to delete a student
+3.  NJoy request for confirmation
+4.  Teacher confirms the deletion
+5.  NJoy deletes the student
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Teacher chooses not to delete the student
++
+Use case ends.
+
+[discrete]
+=== Use case: Find a student (UC04)
+
+*MSS*
+
+1.  Teacher enter name of student to find
+2.  NJoy display the student details
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Name of student cannot be found
+** 1a1. NJoy shows error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Create a class (UC05)
+
+*MSS*
+
+1.  Teacher enter new class details
+2.  NJoy saves the new class
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Class name already taken
+** 1a1. NJoy shows error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit a class (UC06)
+
+*Preconditions*
+
+1.  Class exist in the system
+
+*MSS*
+
+1.  Teacher requests to edit class description
+2.  Teacher enters new class description
+3.  NJoy save the edited record
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* *a. Teacher chooses to cancel the edit
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a class (UC07)
+
+*Preconditions*
+
+1.  Class exist in the system
+
+*MSS*
+
+1.  Teacher requests to delete a class
+2.  NJoy request for confirmation
+3.  Teacher confirms the deletion
+4.  NJoy deletes the class
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Teacher chooses not to delete the class
++
+Use case ends.
+
+[discrete]
+=== Use case: Add student to class (UC08)
+
+*Preconditions*
+
+1.  User exist in the system
+2.  Class exist in the system
+
+*MSS*
+
+1.  Teacher requests to add a student to class
+2.  NJoy adds the student to the class
++
+Use case ends.
+
+[discrete]
+=== Use case: Remove student from class (UC09)
+
+*Preconditions*
+
+1.  User exist in the system
+2.  Class exist in the system
+
+*MSS*
+
+1.  Teacher requests to remove a student from class
+2.  NJoy request for confirmation
+3.  Teacher confirms the deletion
+4.  NJoy remove the student from the class
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Teacher chooses not to remove the student from the class
++
+Use case ends.
+
+[discrete]
+=== Use case: Schedule class time (UC10)
+
+*MSS*
+
+1.  Teacher requests to add an item to the timetable
+2.  Teacher enter details of the item
+3.  NJoy save the item
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Missing item details
+** 2a1. NJoy shows error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 2b. Invalid class id
+** 2b1. NJoy shows error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: View timetable (UC11)
+
+*MSS*
+
+1.  Teacher requests for the timetable
+2.  NJoy returns list of items in the timetable
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete item on timetable (UC12)
+
+*Preconditions*
+
+1.  Item exist in timetable
+
+*MSS*
+
+1.  Teacher list items in timetable (UC11)
+2.  Teacher request to delete item in timetable
+3.  NJoy request for confirmation
+4.  Teacher confirms the deletion
+5.  NJoy remove the item from the timetable
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Teacher chooses not to remove the item from the timetable
++
+Use case ends.
+
+[discrete]
+=== Use case: Creating a mcq question (UC13)
+
+*MSS*
+
+1.  Teacher enter topic and answers to the question
+2.  NJoy save the question
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Teacher did not enter answers
+** 1a1. NJoy shows error message.
++
+Use case resumes at step 1.
+
+* 1b. Teacher did not enter topic
+** 1b1. NJoy shows error message.
++
+Use case resumes at step 1.
 
 [appendix]
 == Non Functional Requirements
