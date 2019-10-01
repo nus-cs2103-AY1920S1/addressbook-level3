@@ -53,7 +53,7 @@ public interface Model {
     ReadOnlyWordBank getWordBank();
 
     /**
-     * Returns true if a card with the same identity as {@code card} exists in the address book.
+     * Returns true if a card with the same name as {@code card} exists in the word bank.
      */
     boolean hasCard(Card card);
 
@@ -70,7 +70,7 @@ public interface Model {
     void addCard(Card card);
 
     /**
-     * Replaces the given person {@code target} with {@code editedCard}.
+     * Replaces the given card {@code target} with {@code editedCard}.
      * {@code target} must exist in the word bank.
      * The card name of {@code editedCard} must not be the same as another existing card in the word bank.
      */

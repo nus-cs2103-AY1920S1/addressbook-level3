@@ -34,6 +34,7 @@ public class HintSupplier implements Supplier<Hint> {
     public int getRemainingHints() {
         return hints.size();
     }
+
     /**
      * Returns the next hint. Null if no more hints available.
      */
