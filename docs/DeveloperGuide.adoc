@@ -304,6 +304,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |user who is keeping track of net worth |set my current wealth |keep track of how much money I have
+
+|`* * *` |user who is keeping track of transactions |record transactions |
+
+|`* * *` |user who is keeping track of transactions |edit transactions |update any errors made when adding transactions
+
+|`* * *` |user who is keeping track of transactions |view transactions |
+
+|`* * *` |user who is keeping track of transactions |organize transactions by category |
+
+|`* * *` |user who is keeping track of transactions |delete transactions |delete wrongly added or refunded transactions
+
+|`* * *` |user who is keeping track of budget |set my monthly expenditure budget |keep track of how much I can spend for the month
+
 |`* * *` |user who is keeping track of budget |set my monthly expenditure budget |keep track of how much I can spend for the month
 
 |`* * *` |user who is keeping track of budget |exclude transaction from budget |
@@ -322,9 +336,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user who is trying to reduce expenditure |view my expenditure ranking chart |keep track of my top expenditures
 
-|`* *` |user who is tracking net worth |view my monthly income trends |keep track of how much I earn per month
+|`* *` |user who is keeping track of net worth |view my monthly income trends |keep track of how much I earn per month
 
-|`* *` |user who is tracking net worth |view my monthly balance trends |keep track of how much I save per month
+|`* *` |user who is keeping track of net worth |view my monthly balance trends |keep track of how much I save per month
+
+|`* *` |long-term user who is keeping track of transactions |find transactions by keyword |conveniently search for transactions to edit or review
+
 |=======================================================================
 
 _{More to be added}_
@@ -333,6 +350,61 @@ _{More to be added}_
 == Use Cases
 
 (For all use cases below, the *System* is the `IchiFund` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Set current wealth
+
+*MSS*
+
+1.  User requests to set current wealth.
+2.  System sets current wealth.
+3.  System reflects newly set current wealth.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add transaction item
+
+*MSS*
+
+1.  User enters information about transaction.
+2.  System creates transaction item.
+3.  System shows newly updated list of transaction items.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit transaction item
+
+*MSS*
+
+1.  User +++<u>finds transaction item</u>+++.
+1.  User specifies transaction to be edited and information to edit.
+1.  System updates the transaction item.
+1.  System shows newly updated list of transaction items.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete transaction item
+
+*MSS*
+
+1.  User +++<u>finds transaction item</u>+++.
+1.  User specifies transaction to be deleted.
+1.  System removes the transaction item.
+1.  System shows newly updated list of transaction items.
++
+Use case ends.
+
+=== Use case: Find transaction item
+
+*MSS*
+
+1.  User specifies month, year, and/or category of the transaction
+1.  System shows filtered list of transaction items.
++
+Use case ends.
 
 [discrete]
 === Use case: Set monthly expenditure budget
@@ -394,7 +466,7 @@ Use case ends.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 transactions without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 _{More to be added}_
 
