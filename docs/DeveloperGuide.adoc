@@ -833,8 +833,8 @@ These instructions only provide a starting point for testers to work on; testers
 . Tagging a transaction and reflecting changes in the list.
 
 .. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
-.. Test case: `tag i/1 t/EXPENSIVE`
-Expected: Details of the tagged transaction shown in status message. Listing the transaction reflects changes.
+.. Test case: `tag i/1 t/EXPENSIVE` +
+   Expected: Details of the tagged transaction shown in status message. Listing the transaction reflects changes.
 .. Test case: `tag i/INVALID_INDEX` t/VALID_TAG` where `INVALID_INDEX` is a number less than 1 or more than list size and VALID_TAG is a valid tag. +
    Expected: No changes. Error details shown in status message.
 .. Test case: `tag firstTransaction` +
@@ -867,7 +867,7 @@ Expected: Details of the tagged transaction shown in status message. Listing the
    Expected: Details of the converted transaction shown in status message. Listing the transaction reflects changes.
 .. Test case: `convert to/USD i/INVALID_INDEX` where `INVALID_INDEX` is a number less than 1 or more than list size. +
    Expected: No changes. Error details shown in status message.
-.. Test case: `convert to/INVALID_CURRENCY i/VALID_INDEX ` where `INVALID_CURRENCY` is not a supported currency and `VALID_INDEX` is a valid transaction index. +
+.. Test case: `convert to/INVALID_CURRENCY i/VALID_INDEX` where `INVALID_CURRENCY` is not a supported currency and `VALID_INDEX` is a valid transaction index. +
    Expected: No changes. Error details shown in status message.
 .. Test case: `convert firstTransaction` +
    Expected: No changes. Error details shown in status message.
@@ -880,10 +880,174 @@ Expected: Details of the tagged transaction shown in status message. Listing the
 
 .. Test case: `convert from/SGD to/USD c/cost`. +
    Expected: Original value and converted value displayed to the user.
-.. Test case: `convert from/SGD to/INVALID_CURRENCY c/cost ` where `INVALID_CURRENCY` is not a supported currency. +
+.. Test case: `convert from/SGD to/INVALID_CURRENCY c/cost` where `INVALID_CURRENCY` is not a supported currency. +
    Expected: Error details shown in status message.
-.. Test case: `convert from/INVALID_CURRENCY to/USD c/cost ` where `INVALID_CURRENCY` is not a supported currency. +
+.. Test case: `convert from/INVALID_CURRENCY to/USD c/cost` where `INVALID_CURRENCY` is not a supported currency. +
    Expected: Error details shown in status message.
+
+=== Undoing the previous command
+
+. Undoing previous command and reflecting changes in the list
+
+.. Prerequisites: List all transactions using the `list` command
+.. Test case:
++
+--
+... `add expense n/Chicken rice c/3`
+... `undo`
+--
++
+Expected: Transaction regarding to the expense spent on chicken rice is removed from the list.
+.. Test case:
++
+--
+... `add income n/Salary c/2500`
+... `undo`
+--
++
+Expected: Transaction regarding to the income received from salary is removed from the list.
+.. Test case:
++
+--
+... `delete 1`
+... `undo`
+--
++
+Expected: First transaction removed from the list is restored back to its original position.
+.. Test case: (Assuming that the first transaction is `1. [-] Chicken rice ($3.00)`)
++
+--
+... `update i/1 | n/Fried Rice`
+... `undo`
+--
++
+Expected: The description of the first transaction is changed back to chicken rice.
+.. Test case:
++
+--
+... `clone i/1`
+... `undo`
+--
++
+Expected: Newly cloned transaction is removed from the list.
+.. Test case:
++
+--
+... `tag i/1 t/LUNCH`
+... `undo`
+--
++
+Expected: Lunch tag is removed from the first transaction in the list.
+.. Test case:
++
+--
+... `untag i/1 t/LUNCH`
+... `undo`
+--
++
+Expected: Lunch tag is added back to the first transaction in the list.
+.. Test case:
++
+--
+... `list`
+... `undo`
+--
++
+Expected: No changes. Message shown in the status message indicating that there are no available commands for user to undo.
+
+=== Redoing the undone command
+
+. Redoing undone command and reflecting changes in the list
+
+.. Prerequisites: List all transactions using the `list` command
+.. Test case:
++
+--
+... `add expense n/Laksa c/3`
+... `undo`
+... `redo`
+--
++
+Expected: Transaction regarding to the expense spent on Laksa is added back to the list.
+.. Test case:
++
+--
+... `add income n/bursary c/2500`
+... `undo`
+... `redo`
+--
++
+Expected: Transaction regarding to the income received from bursary is added back to the list.
+.. Test case:
++
+--
+... `delete 1`
+... `undo`
+... `redo`
+--
++
+Expected: First transaction removed from the list.
+.. Test case: (Assume that the first transaction is `1. [-] Chicken rice ($3.00)`)
++
+--
+... `update i/1 | n/Fried Rice`
+... `undo`
+... `redo`
+--
++
+Expected: The description of the first transaction remains as fried rice.
+.. Test case:
++
+--
+... `clone i/1`
+... `undo`
+... `redo`
+--
++
+Expected: Newly cloned transaction is added back to the list.
+.. Test case:
++
+--
+... `tag i/1 t/FOOD`
+... `undo`
+... `redo`
+--
++
+Expected: Food tag is added back to the first transaction in the list.
+.. Test case:
++
+--
+... `untag i/1 t/FOOD`
+... `undo`
+... `redo`
+--
++
+Expected: Food tag is removed from the first transaction in the list.
+.. Test case:
++
+--
+... `untag i/1 t/LUNCH`
+... `undo`
+... `clone i/1`
+... `redo`
+--
++
+Expected: No changes. Message shown in the status message indicating that there are no available commands for user to redo.
+.. Test case:
++
+--
+... `list`
+... `redo`
+--
++
+Expected: No changes. Message shown in the status message indicating that there are no available commands for user to redo.
+
+=== Showing help window
+
+.. Test case: `help` +
+   Expected: A new pop-up help window is displayed.
+.. Test case: `help delete` +
+   Expected: Syntax of the `delete` command is shown in the status message.
 
 === Saving data
 

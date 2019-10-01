@@ -97,7 +97,7 @@ Expected output:
 
 *   `Entry deleted: 1. Laksa ($10.50) [Lunch][Food]`
 
-
+// tag::update[]
 [[UpdateTag]]
 === Updating a transaction’s details: `update`
 
@@ -224,12 +224,13 @@ Format: `undo`
 NOTE: Undoable commands are commands that modify the data of THRIFT application.
 
 .List of undoable commands[[Undoable]]:
-* <<Adding an expense: `add_expense`, add_expense>>
-* <<Adding an income: `add_income`, add_income>>
-* <<Deleting a transaction: `delete`, delete>>
-* update
-* clone
-* tag
+* <<ExpenseTag, add_expense>>
+* <<IncomeTag, add_income>>
+* <<DeleteTag, delete>>
+* <<UpdateTag, update>>
+* <<CloneTag, clone>>
+* <<TagTag, tag>>
+* <<UntagTag, untag>>
 
 Examples:
 
@@ -333,11 +334,8 @@ Example: `delete i/1`
 Example: `update i/1 | n/Curry Laksa`
 * <<CloneTag, *Clone*>>: `clone i/INDEX` +
 Example: `clone i/1`
-* <<UndoTag, *Undo*>>: `undo`
-* <<RedoTag, *Redo*>>: `redo`
 * <<ListTag, *List*>>: `list [m/MONTH] [t/TAG]` +
 Example: `list m/Jan t/Food`
-* <<HelpTag, *Help*>>: `help [COMMAND]` +
 * <<TagTag,*Tag*>>: `tag i/INDEX t/TAG_NAME` +
 Example: `tag i/8 t/Debt`
 * <<UntagTag, *Untag*>>: `untag i/INDEX t/TAG_NAME` +
