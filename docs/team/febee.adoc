@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 image::febee.png[width="150", align="left"]
-{empty}[https://github.com/febee99[github]]
+{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]]
 
 Role: Developer +
 Responsibilities: Code Quality + Scheduling and Tracking

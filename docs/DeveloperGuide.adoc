@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -285,7 +285,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage tracking of items' expiry dates faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -313,7 +313,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Xpire` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Xpire` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete item
@@ -382,7 +382,6 @@ Product Scope
 
 .  The product is not required to handle items without expiry dates.
 .  The product is not required to handle items without names.
-.  The product is not required to product.
 .  The product is not required to produce reminders when the app is inactive.
 
 Usability

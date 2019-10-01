@@ -14,13 +14,13 @@ image::jeremy.png[width="150", align="left"]
 {empty}[https://jermytan.github.io[homepage]] [https://github.com/JermyTan[github]] [<<jeremy#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration + Deliverables and Deadlines
+Responsibilities: Integration + Deliverables and Deadlines + DevOps
 
 '''
 
 === Sim Jun Yuen, Darren
 image::darren.png[width="150", align="left"]
-{empty}[https://github.com/kalsyc[github]] [<<darren#, portfolio>>]
+{empty}[https://example.org[homepage]] [https://github.com/kalsyc[github]] [<<darren#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing + UI/UX Designer
@@ -29,7 +29,7 @@ Responsibilities: Testing + UI/UX Designer
 
 === Phoebe Chan Kar Hui
 image::febee.png[width="150", align="left"]
-{empty}[https://github.com/febee99[github]] [<<febee#, portfolio>>]
+{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]] [<<febee#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality + Scheduling and Tracking
