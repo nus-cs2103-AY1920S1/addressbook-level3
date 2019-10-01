@@ -323,16 +323,7 @@ _{More to be added}_
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-////
-[discrete]
-=== Use case: Add a team member
 
-*Main Success Scenario*
-
-1. User requests to add a team member
-2. User specifies the name of the team member
-+
-Use case ends.
 
 [discrete]
 === Use case: Add a team member
@@ -342,23 +333,325 @@ Use case ends.
 1. User requests to add a team member
 2. User specifies the name of the team member
 +
-Use case ends.
+Use case ends
+
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+2. The user does not specify name
+3. +work shows an error message
 +
-Use case ends.
+Use case ends
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+[discrete]
+=== Use case: List all team members
 
-_{More to be added}_
-////
+*Main Success Scenario*
+
+1. User requests to list team members
+2. +work displays list of team members
++
+Use case ends
+
+*Extensions*
+
+2. The list is empty
++
+Use case ends
+
+[discrete]
+=== Use case: Remove a team member
+
+*Main Success Scenario*
+
+1. User requests to remove a team member
+2. User specifies the ID of the team member
++
+Use case ends
+
+*Extensions*
+
+2. The user specifies an invalid team member ID
+3. +work shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case:  Assign a task to a team member
+
+*Main Success Scenario*
+
+1. User requests to assign a task to a team member
+2. User specifies the task ID and the corresponding team member ID
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. The user specifies an invalid task ID
+3. The user specifies an invalid team member ID
+4. +work shows an error message
+
++
+Use case ends
+
+[discrete]
+=== Use case:  Remove a task for a team member
+
+*Main Success Scenario*
+
+1. User requests to remove a task for a team member
+2. User specifies the task ID and the corresponding team member ID
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. The user specifies an invalid task ID
+3. The user specifies an invalid team member ID
+4. +work shows an error message
+
++
+Use case ends
+
+[discrete]
+=== Use case:  Add a task
+
+*Main Success Scenario*
+
+1. User requests to add a task
+2. User specifies the name of the task and may specify the name of the team member assigned to the task
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. The user does not specify a task name
+4. +work shows an error message
+
++
+Use case ends
+
+
+[discrete]
+=== Use case:  Mark a task as ‘done’
+
+*Main Success Scenario*
+
+1. User requests to mark a task as ‘done’
+2. User specifies the ID of the task
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. The user specifies an invalid task ID
+4. +work shows an error message
+
++
+Use case ends
+
+[discrete]
+=== Use case:  Mark a task as ‘doing’
+
+*Main Success Scenario*
+
+1. User requests to mark a task as ‘doing
+2. User specifies the ID of the task
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. The user specifies an invalid task ID
+4. +work shows an error message
+
++
+Use case ends
+
+[discrete]
+=== Use case:  List all tasks in the dashboard
+
+*Main Success Scenario*
+
+1. User requests to list all tasks in the dashboard
+2. +work displays list of tasks
++
+Use case ends
+
+*Extensions*
+
+2. The list is empty
++
+Use case ends
+
+[discrete]
+=== Use case:  Remove a task from the dashboard
+
+*Main Success Scenario*
+
+1. User requests to remove a task from the dashboard
+2. User specifies the task ID
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. User specifies an invalid task ID
+3.  +work shows an error message
++
+Use case ends
+
+
+[discrete]
+=== Use case:  Remove a task from the dashboard
+
+*Main Success Scenario*
+
+1. User requests to remove a task from the dashboard
+2. User specifies the task ID
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. User specifies an invalid task ID
+3.  +work shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case:   Assign a deadline to a task
+
+*Main Success Scenario*
+
+1. User requests to assign a deadline to a task
+2. User specifies the task ID and the corresponding deadline
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. User specifies an invalid task ID
+3. User inputs the deadline in an incorrect format
+3.  +work shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case: Generate availability timings of team members
+
+*Main Success Scenario*
+
+1. User adds timetable of team mates
+2. User requests to generate availability timings of team members
+3. +work displays list of timings where the most number of team members are available
++
+Use case ends
+
+*Extensions*
+
+2. User specifies the time in an invalid format
+3. +work shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case: Add a meeting to the timetable
+
+*Main Success Scenario*
+
+1. User requests to add a meeting
+2. User specifies a description and the time of the meeting
+3. +work updates the dashboard
++
+Use case ends
+
+*Extensions*
+
+2. User specifies the time in an invalid format
+3. +work shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case: Add an item to the inventory
+
+*Main Success Scenario*
+
+1. User requests to add an item to the inventory
+2. User specifies the name and price of the inventory item as well as the ID of the member and task associated with the item
+3. +work updates the inventory
++
+Use case ends
+
+*Extensions*
+
+2. User specifies an invalid task or member ID
+3. +work shows an error message
++
+Use case ends
+
+
+[discrete]
+=== Use case: Delete an item from the inventory
+
+*Main Success Scenario*
+
+1. User requests to delete an item from the inventory
+2. User specifies the item ID
+3. +work updates the inventory
++
+Use case ends
+
+*Extensions*
+
+2. User specifies an invalid inventory ID
+3. +work shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case: Generate an inventory report
+
+*Main Success Scenario*
+
+1. User requests to generate an inventory report
+2. User specifies whether inventory is generated based on the member or task
+3. +work displays the inventory report
++
+Use case ends
+
+
+[discrete]
+=== Use case: Delete person
+
+*Main Success Scenario*
+
+1. User requests to list persons
+2. +work shows a list of persons
+3. User requests to delete a specific person in the list
+4. +work deletes the person
++
+Use case ends
+
+*Extensions*
+
+2. The list is empty.
+Use case ends 
+
+3. The given index is invalid.
+4. +work shoes an error message
++
+Use case resumes at step 2
+
 [appendix]
 == Non Functional Requirements
 
@@ -377,10 +670,10 @@ Windows, Linux, Unix, OS-X
 [[NUSl]] NUS::
 National University of Singapore
 
-[[CLI]] CLI:
+[[CLI]] CLI::
 command line interface (bash, git) 
 
-[[GUI]] GUI:
+[[GUI]] GUI::
 graphical user interface
 
 
