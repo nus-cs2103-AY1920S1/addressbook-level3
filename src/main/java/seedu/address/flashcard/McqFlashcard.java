@@ -1,10 +1,23 @@
 package seedu.address.flashcard;
 
+import java.util.ArrayList;
+
+/**
+ * Represent the flashcards with MCQ questions
+ */
 public class McqFlashcard extends Flashcard {
 
-    public McqFlashcard(Question question, Answer answer) {
-        this.question = question;
-        this.answer = answer;
-        this.tags = new FlashcardTagList();
+    public McqFlashcard(McqQuestion question, Answer answer) {
+        super(question, answer);
+    }
+
+    /**
+     * edit the options in the MCQ
+     * TODO: Consider if we can edit a particular option instead of changing them as a whole
+     * @param newOptions the updated options for the flashcard
+     */
+    public void setOptions(ArrayList<String> newOptions) {
+        McqQuestion castedTargetQuestion = (McqQuestion) getQuestion();
+        castedTargetQuestion.setOptions(newOptions);
     }
 }

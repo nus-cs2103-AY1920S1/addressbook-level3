@@ -2,74 +2,71 @@ package seedu.address.flashcard;
 
 import java.util.ArrayList;
 
+import seedu.address.flashcard.exceptions.CardNotFoundException;
+import seedu.address.flashcard.exceptions.DuplicateCardException;
+
 /**
  * A class that represents each individual tagged flashcard set
+ * Guarantees: every tag must have a unique name, no two tags can have the same name
  */
 public class Tag {
+
+    public static final String MESSAGE_CONSTRAINTS = "The tag name can take in any value, but it should not be empty ";
+
     private ArrayList<Flashcard> cardList;
     private String name;
 
-    /**
-     * Constructor for a tag object.
-     *
-     * @param _name the name of the tag to be initialized.
-     */
-    public Tag(String _name) {
-        this.name = _name;
+    public Tag(String name) {
+        this.name = name;
         cardList = new ArrayList<>();
     }
 
     /**
-     * Give a list of all the flashcards under this tag.
-     *
+     * Add a new flashcard to the tag
+     * @param c the flashcard to be added.
+     * @throws DuplicateCardException if the card is already under this tag
+     */
+    public void addFlashcard(Flashcard c) throws DuplicateCardException {
+        if (cardList.contains(c)) {
+            throw new DuplicateCardException();
+        }
+        cardList.add(c);
+    }
+
+    /**
+     * Get the list of all the flashcards under this tag.
      * @return a list of all flashcards.
      */
     public ArrayList<Flashcard> getFlashcards() {
-        ArrayList<Flashcard> resultList = new ArrayList<>();
-        resultList.addAll(cardList);
-        return resultList;
+        return cardList;
     }
 
+
     /**
-     * Remove a particular flashcard from the tag based on the flashcard ID.
-     *
-     * @param id the ID of the flashcard to be removed.
+     * Remove a particular flashcard from the tag based on the flashcard ID
+     * @param id the ID of the flashcard to be removed
+     * @throws CardNotFoundException the card with this ID is not found under this tag
      */
-    public void deleteFlashcard(ID id) {
-        ArrayList<Flashcard> newList = new ArrayList<>();
-        newList.addAll(cardList);
-        for (Flashcard item: newList) {
-            if (item.getId() == id.getId()) { // there are two different getId() and ID stored as int
-                newList.remove(item);
+    public void deleteFlashcard(int id) throws CardNotFoundException {
+        boolean cardWasFound = false;
+        for (Flashcard item : cardList) {
+            if (item.getId().getIdentityNumber() == id) {
+                cardList.remove(item);
+                cardWasFound = true;
+                break;
             }
         }
-        this.cardList = newList;
+        if (!cardWasFound) {
+            throw new CardNotFoundException();
+        }
     }
 
-    /**
-     * Add a new flashcard to the tag.
-     *
-     * @param c the flashcard to be added.
-     */
-    public void addFlashcard(Flashcard c) {
-        ArrayList<Flashcard> newList = new ArrayList<>();
-        newList.addAll(cardList);
-        newList.add(c);
-        this.cardList = newList;
-    }
-
-    /**
-     * Inform the name of the tag.
-     *
-     * @return name of the tag.
-     */
     public String getName() {
         return name;
     }
 
     /**
      * Edit the name of the tag to a new one.
-     *
      * @param newName the new name of the tag.
      */
     public void setName(String newName) {
@@ -77,24 +74,41 @@ public class Tag {
     }
 
     /**
+     * While searching for a tag, check whether the tag name contains the search keyword.
+     * @param s The search keyword
+     * @return true if the tag name contains the keyword, false otherwise
+     */
+    public boolean contains(String s) {
+        return name.contains(s);
+    }
+
+    /**
      * Check whether the tag contains a particular flashcard.
-     *
      * @param c the flashcard to be checked.
      * @return whether the flashcard exists.
      */
-    public boolean contains(Flashcard c) {
-        boolean isContain = false;
-        for (Flashcard item: cardList) {
-            if (item.equals(c)) {
-                isContain = true;
-            }
+    public boolean hasCard(Flashcard c) {
+        return cardList.contains(c);
+    }
+
+    /**
+     * While deleting a tag from the {@Code TagManager}, the tag should at the same time being detached from all
+     * of its flashcard.
+     */
+    void detachFromAllCards() {
+        for (Flashcard card : cardList) {
+            card.deleteTag(this);
         }
-        return isContain;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     /**
      * Check if two tags are equivalent to each other.
-     *
+     * Two tags are the same if and only if their names are the same.
      * @param other the other tag to be tested.
      * @return a boolean variable that informs whether the two tags are the same.
      */
@@ -103,14 +117,15 @@ public class Tag {
         if (other == this) {
             return true;
         }
-
         if (!(other instanceof Tag)) {
             return false;
         }
-
         Tag otherTag = (Tag) other;
-        return otherTag.getName().equals(getName())
-                && otherTag.getFlashCards().equals(getFlashcards());
+        return otherTag.getName().equals(getName());
     }
 
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

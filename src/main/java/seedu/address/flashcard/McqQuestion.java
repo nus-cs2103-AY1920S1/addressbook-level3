@@ -2,22 +2,33 @@ package seedu.address.flashcard;
 
 import java.util.List;
 
+/**
+ * The question used for MCQ classes
+ * It is by itself an MCQ question containing question statement and choices
+ */
 public class McqQuestion extends Question {
 
-    List<String> options;
+    private List<String> options;
 
-    public McqQuestion(String question) {
-        this.question = question;
+    /**
+     * Both question and options must be specified
+     */
+    public McqQuestion(String question, List<String> options) {
+        super(question);
+        this.options = options;
     }
 
-    public McqQuestion(String question, List<String> options) {
-        this(question);
-        this.options = options;
+    /**
+     * edit the options of this question
+     * @param newOptions the updated options for this question
+     */
+    public void setOptions(List<String> newOptions) {
+        this.options = newOptions;
     }
 
     @Override
     public String toString() {
-        String result = question;
+        String result = this.getQuestion();
         for (String s : options) {
             result += "\n";
             result += s;
