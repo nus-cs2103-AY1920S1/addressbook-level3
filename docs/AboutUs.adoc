@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Sebastian Lie Hsien Yong
-image::yijinl.jpg[width="150", align="left"]
+image::Sebastian.png[width="150", align="left"]
 {empty}[https://github.com/SebastianLie[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
