@@ -22,7 +22,6 @@ Select features:
 * Set reminders for websites. Never forget to pay those pesky bills again!
 * Sort and tag your bookmarks with our intelligent autotag system. Keep your bookmarks organized automatically
 
-
 == Site Map
 
 * <<UserGuide#, User Guide>>
