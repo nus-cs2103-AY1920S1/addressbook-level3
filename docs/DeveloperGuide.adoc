@@ -304,6 +304,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |user who is keeping track of transaction recurrence |create transaction repeaters |insert new transaction repeater.
+
+|`* * *` |user who is keeping track of transaction recurrence |edit transaction repeaters |update any changes or errors in existing transaction repeaters.
+
+|`* * *` |user who is keeping track of transaction recurrence |delete transaction repeaters |delete no longer relevant transaction repeaters.
+
+|`* * *` |user who is keeping track of transaction recurrence |filter transaction repeaters |quickly find transaction repeaters relevant to a search query.
+
 |`* * *` |user who is keeping track of budget |set my monthly expenditure budget |keep track of how much I can spend for the month
 
 |`* * *` |user who is keeping track of budget |exclude transaction from budget |
@@ -333,6 +341,38 @@ _{More to be added}_
 == Use Cases
 
 (For all use cases below, the *System* is the `IchiFund` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Create transaction repeater
+
+*MSS*
+
+1. User requests to create a transaction repeater with specified arguments.
+2. System creates the transaction repeater.
++
+Use case ends
+
+[discrete]
+=== Use case: Filter transaction repeaters
+
+*MSS*
+
+1. User requests to find transaction repeaters by specified fields.
+2. System filters existing transaction repeaters against specified fields.
+3. System shows filtered transaction repeaters.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete transaction repeaters including all produced transactions
+
+*MSS*
+
+1. User requests to delete a transaction repeater together with all its produced transactions.
+2. System removes existing transactions produced from transaction repeater.
+3. System removes transaction repeater.
++
+Use case ends.
 
 [discrete]
 === Use case: Set monthly expenditure budget
