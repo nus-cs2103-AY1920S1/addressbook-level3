@@ -22,21 +22,21 @@ Ever did group activities where everyone paid different amounts, and it became s
 
 == Getting Started
 
-.  Ensure you have link:https://java.com/en/download/[Java `11`] or above installed in your Computer.
+.  Ensure you have link:https://java.com/en/download/[Java 11] or above installed in your Computer.
 .  Download the latest `SplitWiser.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for SplitWiser.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::minified-mockups/main.png[width="251"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`contact`**`n/John Doe hp/98765432` : adds a contact named `John Doe` to SplitWiser.
+* *`list c/`* : displays list of all contacts
+* **`contact`**`n/John Doe hp/98765432` : adds a new contact named `John Doe` with mobile number `98765432` to SplitWiser.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`exit`* : exits and closes the app
 
 .  Refer to <<Commands>> for details of each command.
 
@@ -47,15 +47,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 SplitWiser data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually - you don't have to worry about forgetting to save!
 
+=== Persistent app state
+
+SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
+
 [[Commands]]
 == Commands
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact n/CONTACT_NAME`, `CONTACT_NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/ACTIVITY_NAME [p/PERSON_1]` can be used as `n/Drinks p/John Doe` or as `n/Drinks`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* (UNCONFIRMED, expense adding requires pairs of {p/ e/}) Parameters can be in any order e.g. if the command specifies `n/NAME hp/PHONE_NUMBER`, `hp/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters in square brackets are optional e.g `n/ACTIVITY_NAME [p/PERSON_1]` can be used as `n/Drinks p/John Doe` or as `n/Drinks`.
+* Parameters with `…`​ may be supplied multiple times, including 0 times for optional parameters, e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters in brackets must be supplied together - e.g. addition of expenses to an activity requires contact-expense pairs `(n/CONTACT_NAME && e/EXPENSE_AMT)`, which may be used as `p/John Doe e/50.25` 
+* Parameters may be supplied in any order e.g. if the command specifies `n/NAME hp/PHONE_NUMBER`, `hp/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -68,55 +73,86 @@ Brings up the main screen which shows the aggregated amounts of debt. +
 
 Format: `main`
 
+=== List all contacts or activities : `list`
+
+Switches the current view to list all contacts or activities. +
+
+Format: `list c/` for contacts *OR* `list a/` for activities
+
+=== View a contact or activity : `view`
+
+Switches the current view to show details of a contact or activity based on their ID. +
+
+Format: `view a/ACTIVITY_ID` *OR* `view c/CONTACT_ID` +
+
+Examples:
+
+* `view a/1` +
+Views the activity with ID 1, e.g. Chalet
+* `view c/2` +
+views the contact with ID 2, e.g. John Smith
+
 === Create new contact: `contact`
 
-Creates a new contact with a name and phone number +
+Creates a new contact with a name and phone number. Each contact will be assigned a contact ID automatically. +
+
+****
+* Each contact must have a unique name.
+****
 
 Format: `contact n/CONTACT_NAME hp/PHONE_NUMBER`
 
 Examples:
 
-* `add n/John Doe hp/98765432`
+* `contact n/John Doe hp/98765432` +
+Creates a new contact with name John Doe and mobile number 98765432.
 
 === Create new activity: `activity`
 
-Creates a new activity with a name, contacts (optional) and no expenses. +
+Creates a new activity with a title, contacts (optional) and no expenses.
 
-The user creating that activity will be included automatically, and additional contacts can be specified - any contact not in the contact list will prompt the user for creation. Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called). +
+The user creating the activity will be included automatically, and additional contacts can be specified - any contacts not found in the list of contacts will prompt the user to create them. Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
 
-Format: `activity n/ACTIVITY_NAME [p/PERSON ...]`
+Each activity will be assigned an activity ID automatically. +
+
+Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
 
 Examples:
 
-* `activity n/Chalet p/John Doe`
+* `activity n/Chalet p/John Doe` +
+Creates a new activity with title 'Chalet' and the user and John Doe as participants.
 
 === Add contacts to an activity: `invite`
 
-Adds a contact to an activity. Multiple contacts can be added at once.
+Adds a contact to the currently viewed activity. Multiple contacts can be added at once.
 
 Format: `invite p/PERSON ...`
 
 Examples:
 
-* `invite p/John Doe p/Mary` adds John Doe and Mary to the current activity
+* `invite p/John Doe p/Mary` +
+Adds both John Doe and Mary to the current activity.
 
 === Remove contacts from an activity: `disinvite`
 
-Removes a contact from an activity. Multiple contacts can be removed at once. If a contact is involved in an expense, he/she cannot be deleted.
+Removes a contact from the currently viewed activity. Multiple contacts can be removed at once. If a contact is involved in an expense, he/she cannot be removed.
 
 Format: `disinvite p/PERSON ...`
 
 Examples:
 
-* `disinvite p/John Doe p/Mary` removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.
+* `disinvite p/John Doe p/Mary` +
+Removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.
 
 === Add expenses to an activity : `expense`
 
-Creates a new expense with a contact, amount and optional description, and adds it into the currently viewed activity. If no activity is being viewed, the description is compulsory and it will instead create a new activity with the same title as the description (as if `activity n/ACTIVITY_NAME` was called). The expense and contact will then be added into the activity. +
+Creates a new expense with a contact, amount and optional description, and adds it to the currently viewed activity.
 
-Multiple expenses can be added at once.
+If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if `activity n/ACTIVITY_NAME` was called). The expense and contact will then be added to the activity. +
 
-Format: `expense p/PERSON e/AMOUNT_PAID ... [d/DESCRIPTION]`
+Multiple expenses can be added at once. If a description is provided, all created expenses will share the same description.
+
+Format: `expense (p/PERSON e/AMOUNT_PAID) ... [d/DESCRIPTION]`
 
 ****
 * At least one expense must be provided.
@@ -125,31 +161,16 @@ Format: `expense p/PERSON e/AMOUNT_PAID ... [d/DESCRIPTION]`
 
 Examples:
 
-* `expense p/John Doe e/100` adds an expense of $100 by John Doe into the currently viewed activity. If John Doe is not in the current activity, no expense will be created.
-* `expense p/Mary e/100 p/Joseph e/40 d/Drinks` Adds 2 expenses ($100 by Mary and $40 by Joseph), both named `Drinks`. If no activity is currently viewed, an activity titled `Drinks` will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.
-
-=== List all contacts or activities : `list`
-
-Switches the current view to list all contacts or activities. +
-
-Format: `list c/` for contacts OR `list a/` for activities
-
-=== View a contact or activity : `view`
-
-Switches the current view to a contact or activity based on their ID. +
-
-Format: `view a/ACTIVITY_ID` OR `view c/CONTACT_ID` +
-
-Examples:
-
-* `view a/1` views the activity with ID 1, e.g. Chalet
-* `view c/2` views the contact with ID 2, e.g. John Smith
+* `expense p/John Doe e/100` +
+Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, no expense will be created.
+* `expense p/Mary e/100 p/Joseph e/40 d/Drinks` +
+Adds 2 expenses ($100 by Mary and $40 by Joseph), both named `Drinks`. If no activity is currently viewed, an activity titled `Drinks` will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.
 
 === Edit an existing contact or activity : `edit`
 
 Edits some details of the current contact or activity in view. +
 
-Format: `edit [n/NAME] [hp/PHONE] ...` for contacts OR `edit [n/ACTIVITY_NAME] ...` for activities.
+Format: `edit [n/NAME] [hp/PHONE] ...` for contacts OR `edit [t/ACTIVITY_TITLE] ...` for activities.
 
 ****
 * At least one of the optional fields must be provided.
@@ -160,19 +181,20 @@ Format: `edit [n/NAME] [hp/PHONE] ...` for contacts OR `edit [n/ACTIVITY_NAME] .
 Examples:
 
 * `edit hp/999` +
-Edits the phone number of the current contact in view to `999`.
-* `edit n/BBQ` +
-Edits the name of the current activity in view to `BBQ`.
+Edits the phone number of the current contact in view to `999`. No changes are made if a contact is not being viewed.
+* `edit t/BBQ` +
+Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
 
 === Finding contacts or activities: `find`
 
-Finds contacts or activities whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
+
+Format: `find KEYWORD ...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Only the name of contacts and title of activities are searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Contacts and activities matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
@@ -180,17 +202,19 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `find John` +
-Returns contacts (e.g. `john` and `John Doe`) and activities (e.g. `John birthday party`)
+Returns contacts (e.g. `john` and `John Doe`) and activities (e.g. `John birthday party`).
 * `find Betsy Tim John` +
-Returns any contact or activity having names `Betsy`, `Tim`, or `John`
+Returns any contact or activity whose name or title contains the word `Betsy`, `Tim`, or `John`.
 
 === Deleting a contact, activity or expense : `delete`
 
-Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action. +
-If viewing a contact instead, the contact will be deleted. +
+Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.
+
+If viewing a contact instead, the contact will be deleted.
+
 If viewing an activity instead, it will delete an expense* by index. Not specifying any index will result in the current activity being deleted. +
 
-Multiple entries can be deleted.
+Multiple entries can be deleted at once.
 
 Format: `delete [INDEX] ...`
 
@@ -204,10 +228,13 @@ Format: `delete [INDEX] ...`
 Examples:
 
 * `delete 2` +
-Deletes the 2nd person in the address book.
+If viewing the list of contacts, deletes the 2nd person by index. +
+If viewing a contact, deletes the contact. +
+If viewing the list of activities, deletes the 2nd activity by index. +
+If viewing an activity, strikes off (soft-deletes) the 2nd expense by index.
 * `find Betsy` +
 `delete 1` +
-Deletes the 1st entry in the results of the `find` command.
+Deletes the 1st entry (either a contact or activity) in the results of the `find` command.
 
 === Exiting the program : `exit`
 
@@ -216,5 +243,5 @@ Format: `exit`
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SplitWiser folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the application on the other computer and overwrite the empty data file it creates with the data file contained in your current SplitWiser folder.
