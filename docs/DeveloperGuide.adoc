@@ -322,7 +322,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |ensure the app can show me the transaction sorted by month |manage it easier.
 |`* *` |user |ensure the app can show a checklist of to-dos as a Finance Secretary |manage them easier.
 |`* *` |fellow director of the organisation |ensure the app can transform into a to-do list for any other departments |manage them easier.
-|`* *` |user |ensure the app can have graphical representation of data such as pie charts so it would be aesthetically pleasing to look at.
+|`* *` |user |ensure the app can have graphical representation of data such as pie charts |look at it without straining my eyes.
 |`* *` |lazy user |ensure the app can generate a pseudo report based on the claims |not have to do it myself.
 |`* *` |clumsy user |ensure the app can perform periodic backups  |revert the data in the event that I mess up horribly.
 |`* *` |superior of the finance secretary |have reading access to the information related to the budget, claims and deposits| check on the user's work.
@@ -341,7 +341,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `FinSec` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -349,9 +349,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  FinSec shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  FinSec deletes the person
 +
 Use case ends.
 
@@ -365,7 +365,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. FinSec shows an error message.
 +
 Use case resumes at step 2.
 
