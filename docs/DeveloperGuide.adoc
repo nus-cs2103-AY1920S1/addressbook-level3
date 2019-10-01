@@ -354,8 +354,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |forgetful user |have the app set reminders |keep track of my spending everyday
 
-|`*` | 
-
 |=======================================================================
 
 [appendix]
