@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= SplitWiser Level 3 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -291,7 +291,7 @@ Refer to the guide <<DevOps#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="90%",cols="10%,<15%,35%,40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` | user | add contacts| so that I can keep track of my list of contacts.
@@ -354,32 +354,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `SplitWiser` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete contact
-
-*MSS*
-
-1.  User requests to list contacts
-2.  SplitWiser shows a list of contacts
-3.  User requests to delete a specific contact in the list
-4.  SplitWiser deletes the person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. SplitWiser shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
 === Use case: List contacts
 
 *MSS*
@@ -413,23 +387,86 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: View an activity
+
+*MSS*
+
+1. User requests to view an activity with a specific activity ID
+2. SplitWiser shows details of the specified activity
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. No activity exists with the specified activity ID.
++
+[none]
+** 1a1. SplitWiser shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Create an activity
+
+*MSS*
+
+1. User requests to create an activity with a given title and participant(s)
+2. SplitWiser creates the activity with the supplied title and no expenses
+3. SplitWiser adds the user and the supplied contact(s) to the activity
+4. SplitWiser shows details of the newly created activity
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. User specifies one or more participants that are not found in the list of contacts
++
+[none]
+** 1a1. SplitWiser prompts the user to [.underline]#create new contacts# for each of the missing participants
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete contact
+
+*MSS*
+
+1.  User requests to list contacts
+2.  SplitWiser shows a list of contacts
+3.  User requests to delete a specific contact in the list
+4.  SplitWiser deletes the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. SplitWiser shows an error message.
++
+Use case resumes at step 2.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has `Java 11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to store up to 1000 contacts and activities without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should be able to run smoothly on reasonably lower spec computers.
+.  Should run smoothly on reasonably lower spec computers.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, *nix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
