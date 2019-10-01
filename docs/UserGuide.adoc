@@ -58,11 +58,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*Prelude - Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add mentor n/NAME`, `NAME` is a parameter which can be used as `add mentor n/John Doe`.
-* Words in {curly braces} indicate values for the command that need to be supplied e.g. in `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters which you need to supply. For example, in `add mentor n/NAME`,
+`NAME` is a parameter which you need to specify as the mentor's name, for example `add mentor n/John Doe`.
+* You can type the parameters can be in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
+you may input `p/PHONE_NUMBER n/NAME` and Alfred will still deem it as an acceptable command.
+* Words in {curly braces} indicate values for the command that you need to supply.
+For example in the case of `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
 ====
 
 === Viewing help : `help`
@@ -75,47 +78,54 @@ Format: `help`
 
 Adds an entity for Alfred to keep track of +
 ****
-* Creates an Entity. Each Entity object will have a unique ID assigned to it.
-* As of version 1.1, all the fields must be provided. There are no optional fields.
+* Creates an Entity as specified by you. Each Entity object will have a unique ID autmatically assigned to it.
+* As of version 1.1, you must provide all the fields. There are no optional fields.
 ****
 
 ==== Adding a Participant: `add participant [PARAMETERS]`
-Format: `add participant n/NAME`
+Format: `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`
 
 Examples:
 
-* `add participant n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add participant n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add participant n/John Doe p/98765432 e/johnd@example.com`
+
+* `add participant n/Betsy Crowe e/betsycrowe@example.com p/1234567`
 
 ==== Adding a Mentor: `add mentor [PARAMETERS]`
-Format: `add mentor n\NAME`
+Format: `add mentor  n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS o/ORGANIZATION s/SPECIALISATION`
 
 Examples:
 
-* `add mentor /nProfessor Superman`
-* `add mentor /nDoctor Batman`
+* `add mentor n/Professor Superman p/91236549 e/clarkkent@gmail.com o/Daily Planet s/Artificial Intelligence`
+
+* `add mentor n/Doctor Batman p/91236549 e/bruce@gmail.com o/Google s/Augmented Reality`
 
 ==== Adding a Team: `add team [PARAMETERS]`
-Format: `add team n\NAME`
+Format: `add team n/NAME s/SUBJECT pn/PROJECT_NAME pt/PROJECT_TYPE l/LOCATION`
 
 Examples:
-* `add team /nTeam01`
-* `add team /nHackathonWinnersForSure`
+
+* `add team n/Team01 s/Artificial Intelligence pn/EmotionTrain pt/Public Welfare l/COM1-0210`
+
+* `add team n/HackathonWinners4Sure s/Augmented Reality pn/Path-ify pt/Navigation l/COM2-0102`
 
 === Updating an Entity: `edit {mentor/participant/team} ID [PARAMETERS]`
 
-Edits an entity based on the supplied parameter values
+Edits an entity based on the supplied parameter values you supply.
 
 ****
-* Updates the Entity with the specified `ID`. The ID is a unique identifier for the Entity.
-* At least one of the optional fields must be provided.
+* Updates the Entity with `ID` you specified. The ID is a unique identifier for the Entity.
+* You must provide at least one of the optional fields.
 * Existing values will be updated to the input values.
 ****
 
 Examples:
-* `edit mentor M01 \nNewMentorName`
-* `edit team T01 \nNewTeamName`
-* `edit participant P01 \nNewParticipantNAme`
+
+* `edit mentor M01 /nNewMentorName`
+
+* `edit team T01 n/NewTeamName`
+
+* `edit participant P01 n/NewParticipantNAme`
 
 === Listing all Entities : `list {mentor/team/participant}`
 
@@ -126,51 +136,63 @@ Shows a list of all the Entities that Alfred keeps track of +
 ****
 
 Examples:
-* `list mentor`
-* `list participant`
-* `list team`
+
+* `list mentor` will list all mentors stored within Alfred.
+
+* `list participant` will list all hackathon participants stored within Alfred.
+
+* `list team` will list all hackathon teams stored within Alfred.
 
 === Deleting an Entity: `delete {participant/mentor/team} ID`
 Deletes an Entity, so that Alfred will no longer keep track of that Entity.
 This is a permanent operation, so please be careful.
 
 ****
-* Deletes the Entity with the specified ID.
+* Deletes the Entity with the ID that you specify.
 * As of version 1.1, the delete operation is permanent and irreversible. Be careful.
 ****
 
 Examples:
-* `delete mentor M01`
-* `delete participant P01`
-* `delete team T01`
+
+* `delete mentor M01` will delete the mentor with ID M01 from Alfred.
+
+* `delete participant P01` will delete the participant with ID P01 from Alfred.
+
+* `delete team T01` will delete the team with ID T01 from Alfred.
 
 === Saving the data: `save`
 
 Data in Alfred is saved to the hard disk automatically after any command that changes the data. +
-There is no need to save the data manually.
+There is no need for you to save the data manually.
 
 === Finding a Specific Entity: `find {mentor/team/participant} NAME`
 
-A single Entity can be searched for via their name, instead of the ID, which is hard to remember. +
+You may search for Entities via their name, instead of their ID, in case you find that the ID is difficult to keep track of. +
 
 Examples:
-* `find participant n/John Doe`
-* `find mentor n/Joshua Wong`
-* `find team n/FutureHackathonWinner`
+
+* `find participant n/John Doe` will display a list of all participants in the Hackathon who are named "John Doe", or have "John Doe" in their name.
+
+* `find mentor n/Joshua Wong` will display a list of all mentors in the Hackathon who are named "Joshua Wong", or have "Joshua Wong" in their name.
+
+* `find team n/FutureHackathonWinner` will display a list of all teams in the Hackathon that are named "FutureHackathonWinner", or have "FutureHackathonWinner" in their name.
 
 === Judging and Leaderboard Features
 
-==== List Team Ranking: `listDescending`
-Lists the teams in descending order by the team
+==== List Team Ranking: `showLeaderboard`
+Use this command to display the ranking of the teams in the hackathon in descending order of their points.
 
-==== Get the top k teams: `getTopK NUMBER`
-List the top k teams in descending order
+==== Get the top k teams: `getTop NUMBER`
+Use this command to list the top k teams in the leaderboard, where k is the number (NUMBER) which you specify.
 
 Example:
-* `getTopK 5`
+
+* `getTop 5` will display the top 5 teams with the highest points in the hackathon.
+
+* `getTop 20` will display the top 20 teams with the highest points in the hackathon.
 
 ==== Update points: `updatePoints TEAM_ID NEW_POINTS`
-Update the points that a particular team receives.
+Update the team with ID TEAM_ID to have points NEW_POINTS.
 
 ==== Update Winner: `updateWinnerCategiry PRIZE_CATEGORY TEAM_ID`
 Updates the winner of a particular prize category
@@ -180,17 +202,20 @@ Lists the prize categories and their winners (if any)
 
 
 === Bulk Registration: `addBulk PATH_TO_CSV_FILE`
-Allow the addition of multiple participants at once through the specification of a .csv file
+You may add multiple participants at once into Alfred through the specification of a .csv file
 
 Example:
-* `addBulk C:\User\Hackathon2019\participant.csv`
 
-=== Seating: `locate {participant_name/team_name}` (Coming in v2.0)
-Track where participants are seated
+* `addBulk C:\User\Hackathon2019\participant.csv` will import data from the participant.csv file into Alfred.
+
+=== Seating: `locate {PARTICIPANT/TEAM}` (Coming in v2.0)
+Find where a particular participant or team is seated.
 
 Examples:
-* `locate n/ParticipantName`
-* `locate n/TeamName`
+
+* `locate n/Brian` will tell you where the participant Brian is seated.
+
+* `locate n/GenericTeamName` will tell you where the team GenericTeamName is seated.
 
 === Swag (Coming in v2.0)
 ==== Add Swag: `add swag DESCRIPTION QUANTITY`
