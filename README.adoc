@@ -5,7 +5,7 @@
 
 - [ ] Draft UG to user guide page (Klement)
 
-- [ ] About us(Aidil)
+- [x] About us(Aidil)
 
 - [ ] Contact us(Alvin)
 

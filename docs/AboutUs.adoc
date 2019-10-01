@@ -4,53 +4,61 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+TimeBook was developed by the https://github.com/AY1920S1-CS2103T-T10-4/[NUS School of Computing, AY1920S1 T10-4] team. +
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a team based in the https://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Aidil F
+image::aidilfbk.png[width="150", align="left"]
+{empty}[https://github.com/aidilfbk[github]] [<<aidilfbk#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
+Role: Testing +
+Responsibilities: Command Suggestions
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Alvin Ng
+image::alvinnyk.png[width="150", align="left"]
+{empty}[https://github.com/Alvinnyk[github]] [<<alvinnyk#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Documentation, In charge of `Model` +
+Responsibilities: Free time identification, NUSMods API usage
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Marcus Ong
+image::marqueurs404.png[width="150", align="left"]
+{empty}[https://github.com/marqueurs404[github]] [<<marqueurs404#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Integration, In charge of `Storage` +
+Responsibilities: (De)serialization
+
+'''
+
+=== Klement Tan
+image::klementtan.png[width="150", align="left"]
+{empty}[https://github.com/klementtan[github]] [<<klementtan#, portfolio>>]
+
+Role: Team Lead, In charge of `Storage` +
+Responsibilities: Free location suggestion, Google Maps API usage
+
+'''
+
+=== Lim Yi Jie
+image::yijiee.png[width="150", align="left"]
+{empty}[https://github.com/YiJiee[github]] [<<yijiee#, portfolio>>]
+
+Role: Code Quality +
+Responsibilities: Schedule display
 
 '''
