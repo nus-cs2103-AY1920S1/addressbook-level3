@@ -39,11 +39,11 @@ Responsibilities: Data
 '''
 
 === Zhan Ming
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::TZM.jpg[width="150", align="left"]
+{empty}[http://https://github.com/TanZhanMing] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Product testing and Feature robustness
 
 
 '''
