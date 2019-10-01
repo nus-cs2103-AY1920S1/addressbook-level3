@@ -11,12 +11,19 @@ public interface ReadableEntityList {
      * @param id
      * @return boolean
      */
-    public boolean contains(Id id);
+    boolean contains(Id id);
 
     /**
      * List the entities.
      *
      * @return List<? extends Entity>
      */
-    public List<? extends Entity> list();
+    List<? extends Entity> list();
+
+    /**
+     * This generates the id for the next entity object to be created.
+     *
+     * @return Id
+     */
+    Id generateID();
 }
