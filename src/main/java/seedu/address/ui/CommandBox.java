@@ -16,10 +16,10 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
-    private final CommandExecutor commandExecutor;
-
     @FXML
-    private TextField commandTextField;
+    protected TextField commandTextField;
+
+    private final CommandExecutor commandExecutor;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);

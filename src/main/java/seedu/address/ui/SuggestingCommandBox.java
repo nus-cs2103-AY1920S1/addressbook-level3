@@ -1,0 +1,132 @@
+package seedu.address.ui;
+
+import java.util.function.Consumer;
+
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.binding.BooleanExpression;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.geometry.Point2D;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.input.KeyCode;
+import javafx.stage.Popup;
+import javafx.stage.Window;
+import seedu.address.logic.parser.SuggestingCommandUtil;
+
+/**
+ * The UI component that is responsible for receiving user command inputs and offering user command suggestions.
+ */
+public class SuggestingCommandBox extends CommandBox {
+    private final Popup popup = new Popup();
+    private final ListView<String> listView = new ListView<>();
+    private final ObservableList<String> commandSuggestions;
+    private final FilteredList<String> filteredCommandSuggestions;
+
+    public SuggestingCommandBox(CommandExecutor commandExecutor) {
+        super(commandExecutor);
+        this.commandSuggestions = SuggestingCommandUtil.getCommandWords();
+        filteredCommandSuggestions = new FilteredList<>(this.commandSuggestions);
+
+        setupListView();
+        setupPopup();
+    }
+
+    private void setupPopup() {
+        popup.setAutoFix(false);
+        popup.getContent().setAll(listView);
+        bindPopupPosition();
+        bindShowHidePopup();
+    }
+
+    /**
+     * Setup the necessary bindings that will cause the popup to show or hide.
+     * Popup will only be shown when the command TextField is in focus and there are user command suggestions.
+     */
+    private void bindShowHidePopup() {
+        final BooleanExpression isCommandTextFieldFocused = commandTextField.focusedProperty();
+        // final BooleanExpression hasCommandSuggestions = Bindings.size(filteredCommandSuggestions).greaterThan(0);
+
+        final BooleanExpression shouldShowPopupExpression = isCommandTextFieldFocused;
+        final Consumer<Window> setupShowHide = window -> {
+            shouldShowPopupExpression.addListener((unused1, unused2, shouldShowPopup) -> {
+                if (shouldShowPopup) {
+                    popup.show(window);
+                } else {
+                    popup.hide();
+                }
+            });
+        };
+        UiUtil.onWindowReady(commandTextField, setupShowHide);
+    }
+
+    /**
+     * Setup the necessary bindings that will reposition the suggestions Popup when the command TextField moves.
+     */
+    private void bindPopupPosition() {
+        final InvalidationListener repositionPopup = (observable -> {
+            final Point2D absolutePosition = commandTextField.localToScreen(0, commandTextField.getHeight());
+            popup.setX(absolutePosition.getX());
+            popup.setY(absolutePosition.getY());
+        });
+
+        final Consumer<Window> setupBindings = window -> {
+            window.xProperty().addListener(repositionPopup);
+            window.yProperty().addListener(repositionPopup);
+            window.heightProperty().addListener(repositionPopup);
+            popup.showingProperty().addListener((unused1, unused2, isShowing) -> {
+                // TODO: find a better way to force a popup reposition when it toggles from hidden to shown state
+                if (!isShowing) {
+                    return;
+                }
+                Platform.runLater(() -> {
+                    repositionPopup.invalidated(null);
+                });
+            });
+        };
+
+        UiUtil.onWindowReady(commandTextField, setupBindings);
+    }
+
+    private void setupListView() {
+        listView.setId("suggestions-list");
+        listView.setMaxHeight(100); // TODO: flexible height
+        listView.setFocusTraversable(false);
+        listView.setItems(filteredCommandSuggestions);
+        listView.prefWidthProperty().bind(commandTextField.widthProperty());
+        UiUtil.redirectKeyCodeEvents(commandTextField, listView,
+                KeyCode.UP,
+                KeyCode.DOWN,
+                KeyCode.TAB
+        );
+
+        UiUtil.addKeyCodeListener(listView, KeyCode.TAB, keyEvent -> {
+            final MultipleSelectionModel<String> selectionModel = listView.getSelectionModel();
+            if (selectionModel.isEmpty()) {
+                if (listView.getItems().isEmpty()) {
+                    return;
+                }
+                selectionModel.selectFirst();
+            }
+            keyEvent.consume();
+
+            final String selectedCommand = selectionModel.getSelectedItem();
+            commandTextField.setText(selectedCommand + " ");
+            commandTextField.positionCaret(Integer.MAX_VALUE);
+        });
+
+        commandTextField.textProperty().addListener((unused1, unused2, userCommand) -> {
+            final char spaceCharacter = ' ';
+            int spaceCharIdx = userCommand.indexOf(spaceCharacter);
+            if (spaceCharIdx == -1) {
+                spaceCharIdx = userCommand.length();
+            }
+
+            final String userCommandWord = userCommand.substring(0, spaceCharIdx);
+            filteredCommandSuggestions.setPredicate(commandWord -> {
+                return commandWord.startsWith(userCommandWord) && !userCommandWord.equals(commandWord);
+            });
+        });
+    }
+}
