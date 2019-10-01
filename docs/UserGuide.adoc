@@ -50,29 +50,24 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Viewing help : `help`
-
 Format: `help`
 
 === Filling a new report: `fill`
-
+Generates a new report and prompts operator to enter data into report fields. +
 Format: `fill`
-
-Generates a new report and prompts operator to enter data into report fields. 
-
+****
 * Prompts for name of caller. Operator types it and presses `enter`. 
 * Prompts for description of incident. Operator types it and presses `enter`. 
 * Date/time, operator name, and operator name is autofilled.
-
+****
 === Submit a report: `submit`
-
+Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports. +
 Format: `submit`
-
-Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports. 
-
+****
 * Once a new report has just been filled, the IMS prompts the operator to type `y` to submit. The operator can either type `y` or `submit` to submit the report.
 * If the operator issues the `submit` command at any other time, they will be shown an indexed list of unsubmitted draft reports. The IMS will then prompt them to enter the index number of the report they wish to submit. The operator types that number and presses `enter` to submit the chosen report. 
 * The submission of a report will trigger three other operations: 1) an ID will be generated to tag the report, 2) an automated email will be sent to the operator's supervisor, and 3) the report will be saved in the database.
-
+****
 === Adding a person: `add`
 
 Adds a person to the address book +
