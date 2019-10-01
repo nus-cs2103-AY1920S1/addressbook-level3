@@ -54,6 +54,55 @@ Sets the default account.
 
 Format: `default account <id>`
 
+=== Managing accounts : `account`
+
+==== Add an account : `account add`
+
+Creates a new account with the given name. If the currency symbol is not specified, “$” is used.
+
+Format: `account add n/<name> [c/<currency symbol>]`
+
+==== List accounts : `account list`
+
+Lists all accounts.
+
+==== Edit an account : `account edit`
+
+Edits the specified account, setting the specified fields.
+
+Format: `account edit <id> [n/<name>] [c/<currency symbol>]`
+
+==== Delete account(s) : `account delete`
+
+Deletes the accounts with the specified IDs, as in `account list`.
+Note: you cannot delete an account if there are transactions associated with the account.
+
+Format: `account delete <id ...>`
+
+=== Managing categories : `category`
+
+==== Adding a category
+
+Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
+
+==== List categories : `category list`
+
+Lists all categories.
+
+==== Rename a category : `category rename`
+
+Renames the specified category.
+Note that this is the same as setting the category of all transactions of category `old name` to `new name`.
+
+Format: `category rename o/<old name> n/<new name>`
+
+==== Delete a category : `category delete`
+
+Deletes the specified category.
+Note that this is the same as un-categorising all transactions under the specified category.
+
+Format: `category delete n/<name>`
+
 === Tracking loans : `loan`
 
 ==== Add a new loan : `loan out|in`
