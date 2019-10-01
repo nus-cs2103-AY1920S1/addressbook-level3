@@ -173,7 +173,7 @@ public class AddCommandTest {
      * A Model stub that always accept the bookmark being added.
      */
     private class ModelStubAcceptingBookmarkAdded extends ModelStub {
-        final ArrayList<Bookmark> bookmarksAdded = new ArrayList<>();
+        public final ArrayList<Bookmark> bookmarksAdded = new ArrayList<>();
 
         @Override
         public boolean hasBookmark(Bookmark bookmark) {
