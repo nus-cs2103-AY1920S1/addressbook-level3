@@ -14,9 +14,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::ernestyyh.png[width="150", align="left"]
 {empty}[https://github.com/ernestyyh[github]] [<<ernestyyh#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: 
-
+Role: Team Lead,  + 
+Responsibilities: Logic, Model
+ 
 '''
 
 === Chen Yi Jun
@@ -24,16 +24,16 @@ image::OneArmyj.png[width="150", align="left"]
 {empty}[https://github.com/OneArmyj[github]] [<<OneArmyj#, portfolio>>]
 
 Role: Developer +
-Responsibilities: 
+Responsibilities: UI, Model
 
 '''
 
 === Lew Kai Ming
-image::KxxMxxx[width="150", align="left"]
+image::KxxMxxx.png[width="150", align="left"]
 {empty}[https://github.com/KxxMxxx[github]] [<<KxxMxxx#, portfolio>>]
 
 Role: Developer +
-Responsibilities: 
+Responsibilities: Logic, Storage
 
 '''
 
@@ -42,7 +42,7 @@ image::oscarsu97.png[width="150", align="left"]
 {empty}[https://github.com/oscarsu97[github]] [<<oscarsu97#, portfolio>>]
 
 Role: Developer +
-Responsibilities: 
+Responsibilities: UI, Model
 
 '''
 
@@ -51,6 +51,6 @@ image::1nefootstep.png[width="150", align="left"]
 {empty}[https://github.com/1nefootstep[github]] [<<1nefootstep#, portfolio>>]
 
 Role: Developer +
-Responsibilities: 
+Responsibilities: Model, Storage
 
 '''
