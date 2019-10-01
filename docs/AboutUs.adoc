@@ -4,53 +4,52 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Xpire was developed by TeamXpire. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Tan Kai Qun, Jeremy
+image::jeremy.png[width="150", align="left"]
+{empty}[https://jermytan.github.io[homepage]] [https://github.com/JermyTan[github]] [<<jeremy#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Integration + Deliverables and Deadlines
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Sim Jun Yuen, Darren
+image::darren.png[width="150", align="left"]
+{empty}[https://github.com/kalsyc[github]] [<<darren#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Testing + UI/UX Designer
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Phoebe Chan Kar Hui
+image::febee.png[width="150", align="left"]
+{empty}[https://github.com/febee99[github]] [<<febee#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Code Quality + Scheduling and Tracking
+
+'''
+
+=== Liaw Siew Yee
+image::siewyee.png[width="150", align="left"]
+{empty}[https://github.com/liawsy[github]] [<<siewyee#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Storage + Documentation
+
+'''
+
+=== Liu Xiaoyu
+image::xiaoyu.png[width="150", align="left"]
+{empty}[https://github.com/xiaoyu-nus[github]] [<<xiaoyu#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Reminder System + Logo and Website Designer
 
 '''
