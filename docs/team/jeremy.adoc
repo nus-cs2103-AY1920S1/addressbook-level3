@@ -7,7 +7,7 @@ image::jeremy.png[width="150", align="left"]
 {empty}[https://jermytan.github.io[homepage]] [https://github.com/JermyTan[github]]
 
 Role: Developer +
-Responsibilities: Integration + Deliverables and Deadlines
+Responsibilities: Integration + Deliverables and Deadlines + DevOps
 
 '''
 
