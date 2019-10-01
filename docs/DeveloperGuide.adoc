@@ -292,23 +292,75 @@ Refer to the guide <<DevOps#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="90%",cols="20%,<25%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |diabetic patient who has different options on medical care |know exactly how much I am spending on medication and consultation |know which hospitals to seek medical care from
 
-|`* * *` |user |add a new person |
+|`* * *` |very busy diabetic |use a flexible calendar system that can account for updates | easily make changes to appointments that I have to change often due to other commitments
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |diabetic |keep track of my medical expenses |better manage my finance
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |person who likes numbers |see summary statistics |better track my progress
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |diabetic |get an overview of my dieting/exercising data regularly |save time because I am working 9-5
+
+
+|`* * *` |forgetful diabetic |be reminded to attend my medical appointments |know how well my existing measures work
+
+|`* * *` |patient who has recently been diagnosed of diabetes |be informed when I eat food with high sugar content |live better and reduce the chances of further health deterioration
+
+|`* * *` |lazy diabetic |have reminders for exercising |force myself to work out.
+
+|`* * *` |busy diabetic |be reminded on when to refill / stock up on insulin|
+
+|`* * *` |diabetic |see graphic data summary |minimise the need to read long paragraphs
+
+|`* * *` |diabetic patient who has just been recently diagnosed |have some motivation and reminders on my diet |reduce my struggles of cutting down on meals or even exercise that is really tough for me
+
+|`* * *` |diabetic |automatically calculate my daily sugar/carb intake |eliminate the trouble to search for the levels of sugar content in the food I eat everyday.
+
+|`* * *` |diabetic who values my punctuality |adhere to my appointment timings |uphold my principles and take responsibility of my own health by not missing my appointments.
+
+|`* * *` |diabetic |reminded to take my insulin|  regularly
+
+|`* * *` |diabetic |be able to track my sugar levels| 
+
+|`* * *` |task-oriented diabetic patient |have a goal to work towards or a challenge to work on everyday |have a sense of direction in what I can do to improve my health
+
+|`* *` |caretaker of an elderly patient with diabetes whose family members are busy working |reliable app to keep track of all the patients' activities |can answer to the family members who have entrusted unto me this responsibility of care
+
+|`* *` |busy person |be able to easily sort and prioritize my tasks |better manage my time
+
+|`* *` |diabetic patient who is often being referred to new doctors at different specialist clinics every now and then |be able to be able to export all my records and activities at once |rule out the possibility of missing any information during the registration process at a new clinic/ hospital I am visiting
+
+|`* *` |family member of a diabetic |prioritize my tasks |be immediately contactable if my family member has an emergency situation that requires urgent medical attention
+
+|`* *` |diabetic |have a customisable app with avatars and different backgrounds |enjoy a personalised experience
+
+|`* *` |lazy and obese individual |be motivated constantly to exercise |stop procrastinating
+
+|`* *` |forgetful diabetics patient |have a record of my doctors' advice for each medical appointment and prescription directions |better understand the steps that I can take to improve my condition until the next consultation
+
+|`* *` |achievement-oriented diabetic | view the achievements and progress I have made on food intake |remain motivated to keep my streak on good habits going
+
+|`* *` |paranoid diabetic who values privacy |secure/encrypt my health data and other <<private-contact-detail,private contact details>> |protect my data
+
+|`* *` |diabetic patient with a family |have a user-friendly app that helps me manage my medical data and appointments on my own |free the burden I have on my family
+
+|`* *` |diabetic patient with a family |have a user-friendly app with natural commands that helps me manage my medical data and appointments on my own |free the burden I have on my family
+
+|`*` |diabetic patient in a community of diabetic patients |have a standardised means of comparing our activities via a social network | learn from my peers, encourage and be encouraged through this difficult journey.
+
+|`*` |careless user  |undo my most recent actions |easily make necessary amendments and input the correct commands
+
+|`*` |a diabetic patient who has many medical receipts - and is not very good at mathematics |have a simple calculator that is always easily accessible |instantly calculate all my medical costs when needed
+
+|`*` |an obese working adult at high risk of diabetes |start monitoring my diet |minimise my risk of having diabetes
+
+|`*` |medical consultant |export my patient's health data  |save my time
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
