@@ -41,8 +41,8 @@ Responsibilities: Data
 '''
 
 === Ng Yong Kuan
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::SendorasLeft.png[width="150", align="left"]
+{empty}[https://github.com/SendorasLeft[github]] [<<YongKuan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
