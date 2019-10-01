@@ -103,6 +103,45 @@ Note that this is the same as un-categorising all transactions under the specifi
 
 Format: `category delete n/<name>`
 
+=== Viewing reports : `report`
+
+Displays a report.
+
+Format: `report [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [total|category]`
+****
+* You can specify either the start and end date range, inclusive, or name a period.
+If no period is specified, it defaults to the current month-to-date.
+* You can see a total report that shows your total income and expenditure and budget information,
+if a budget has been set up,  or a report that breaks your income and expenditure down into categories.
+If the type is omitted, it defaults to a total report.
+* Your goal progress will also be shown in both reports.
+****
+
+=== Import and export : `import, export`
+
+==== Import a file : `import`
+
+Imports transactions from the file at the given path.
+
+Format: `import [f/<format>] [p/<file path>]`
+****
+* The file path can be relative to where you launched Budget Buddy from, or absolute.
+If the path is omitted, a file browser is opened for you to select the file.
+* Format is one of dbs (DBS Bank/POSB), ocbc (OCBC Bank), sc (Standard Chartered), csv (generic comma-separated values file).
+If the format is omitted, automatic detection is attempted.
+****
+
+==== Export transactions : `export`
+
+Exports all transactions to the given path.
+
+Format: `export [p/<file path>]`
+****
+* The file path can be relative to where you launched Budget Buddy from, or absolute.
+If the path is omitted, a file browser is opened for you to select where to save the file.
+* The file is a comma-separated values file.
+****
+
 === Managing budgets : `budget`
 
 Displays or sets the budget for the specified period.
