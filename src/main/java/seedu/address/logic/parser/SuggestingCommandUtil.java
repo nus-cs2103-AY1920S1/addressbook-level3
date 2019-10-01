@@ -2,26 +2,38 @@ package seedu.address.logic.parser;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.AddPersonCommand;
+import seedu.address.logic.commands.AddToGroupCommand;
+import seedu.address.logic.commands.DeleteGroupCommand;
+import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.commands.EditGroupCommand;
+import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NusmodCommand;
+import seedu.address.logic.commands.ShowCommand;
 
 /**
  * Contains utility methods used for suggesting user commands in the *SuggestingCommandBox classes.
  */
 public class SuggestingCommandUtil {
     private static ObservableList<String> commandWords = FXCollections.observableArrayList(
-            AddCommand.COMMAND_WORD,
-            ClearCommand.COMMAND_WORD,
-            DeleteCommand.COMMAND_WORD,
-            EditCommand.COMMAND_WORD,
+            AddEventCommand.COMMAND_WORD,
+            AddGroupCommand.COMMAND_WORD,
+            AddPersonCommand.COMMAND_WORD,
+            AddToGroupCommand.COMMAND_WORD,
+            DeleteGroupCommand.COMMAND_WORD,
+            DeletePersonCommand.COMMAND_WORD,
+            EditGroupCommand.COMMAND_WORD,
+            EditPersonCommand.COMMAND_WORD,
+            FindGroupCommand.COMMAND_WORD,
+            NusmodCommand.COMMAND_WORD,
+            ShowCommand.COMMAND_WORD,
             ExitCommand.COMMAND_WORD,
-            FindCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
             ListCommand.COMMAND_WORD
     );
