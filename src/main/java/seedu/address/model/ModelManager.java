@@ -166,6 +166,7 @@ public class ModelManager implements Model {
     @Override
     public Person addPerson(PersonDescriptor personDescriptor) {
         Person isAdded = this.personList.addPerson(personDescriptor);
+        this.addressBook.addPerson(isAdded);
         return isAdded;
     }
 

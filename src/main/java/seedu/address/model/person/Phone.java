@@ -16,6 +16,13 @@ public class Phone {
     public final String value;
 
     /**
+     * Construct empty phone
+     */
+    private Phone() {
+        value = "";
+    }
+
+    /**
      * Constructs a {@code Phone}.
      *
      * @param phone A valid phone number.
@@ -24,6 +31,10 @@ public class Phone {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
         value = phone;
+    }
+
+    public static Phone emptyPhone() {
+        return new Phone();
     }
 
     /**
