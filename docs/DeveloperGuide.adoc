@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Incident Management System - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T11-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-T11-1`      Since: `October 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -277,15 +277,15 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: Emergency Services Call Operator
 
-* has a need to manage a significant number of contacts
+* needs to quickly dispatch emergency vehicles
+* has a need to manage a significant number of incidents
 * prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* can type fast, prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage incidents and vehicle dispatch faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,23 +297,58 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |operator |open the app |I can dispatch personnel and record the incident
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |operator |view available vehicles |I can dispatch vehicles
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |confused operator	|automatically prevent sending of non available vehicles |I won't be allowed to send occupied vehicles
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |operator |to select a vehicle	|it would be dispatched
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |operator |to contact the dispatched vehicle and confirm it has been selected |it would be dispatched
+
+|`* * *` |operator |an ID to be generated for my summaries |my reports can be tagged for easy search
+
+|`* * *` |operator |to have prompts for fields |I know the information required
+
+|`* * *` |careless operator	|edit the report |I won't have to retype everything
+
+|`* * *` |operator on shift	|to save the case for future retrieval |So that others can reference it locally
+
+|`* *` |operator handling many cases |to quickly find relevant parties |I can submit the incident log
+
+|`* *` |regular operator |to view the phone number |I can contact the caller whenever necessary
+
+|`* *` |regular operator |to view the address |I can dispatch personnel based on proximity to address
+
+|`* *` |operator who likes visual cues |to view the vehicles on patrol on a map |I have a visual on who to dispatch
+
+|`* *` |As an operator |to view the available vehicles in descending order of proximity to site |the vehicle can reach the incident site asap
+
+|`* *` |As an overwhelmed operator |to filter the available vehicles |I won't get confused over which vehicle to send
+
+|`* *` |As a tired operator |warning prompt when I select the least optimal available vehicle |I minimise fatigue errors
+
+|`* *` |As a busy operator |automatic spell and grammar check |so that I can type fast without worry
+
+|`* *` |As an operator |keyboard shortcuts |I can type while I talk
+
+|`* *` |As an operator working under supervisors |to alert the relevant parties |So that they can act on it
+
+|`*` |advanced operator |to auto-transcribe the call |I can store the call transcript for record-keeping purposes
+
+|`*` |operator |automatic triangulation of the call location |I can dispatch a vehicle even if the caller does not know his/her address
+
+|`*` |as an anxious operator |nearby vehicles to be notified of the incident even though they're not dispatched |In case backup is needed
+
+|`*` |As an operator that has to take many calls |to select from drop down lists for certain fields  |so that I can fill in the summary report fast
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `IMS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
