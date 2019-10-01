@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* hospital administrative staff who needs to find matches between patients and organ donors
+* hospital administrative staff who need to find matches between patients and organ donors
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: can find a match between a patient and potential organ donors faster than a typical mouse/GUI driven app
+*Value proposition*: find matches between a patient and potential organ donors faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -301,7 +301,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete a patient/donor/doctor |remove entries that I no longer need
 
-|`* * *` |user |find a patient/donor/doctor by certain keywords |locate details of persons without having to go through the entire list
+|`* * *` |user |find a patient/donor/doctor using certain keywords |locate details of persons without having to go through the entire list
 
 |`* * *` |user |find potential donors for a patient |help the patient find a donor as fast as possible
 
@@ -348,7 +348,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given Nric is invalid.
+* 3a. The given NRIC is invalid.
 +
 [none]
 ** 3a1. ORGANice shows an error message.
