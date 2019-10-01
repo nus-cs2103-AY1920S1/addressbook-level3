@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* wants to manage a library of memes
+* wants to create memes for entertainment
 * prefer desktop apps over other types
-* can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* wants to participate in the meme culture by sharing memes
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage memes faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -294,18 +294,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|Priority |As a ... |I want to ... |So that ...
+|`* * *` |careless user |undo/redo any accidental deletion of memes |I can retrieve back my favourite memes
+|`* * *` |creative person |create my own memes from meme templates |
+|`* * *` |memey person |Easily share my memes to other platforms |I can send them in my chats
+|`* * *` |meme lover |manage my collection of memes |I can view them anytime I want
+|`* * *` |organised meme lover |tag memes |I can better organize my memes
+|`* * *` |user |get hints on command syntax when i type |I don't have to memorise the command syntax
+|`* * *` |user with many memes |filter memes |I can quickly locate a certain meme
+|`* * *` |user |import memes |I can import memes my friends shared with me into my personal collection
+|`* * *` |user |export memes |I can backup the files or share them with another user
+|`* * *` |user |archive memes |I can stop seeing old memes
+|`* * *` |user |view statistics of my meme usage |I know which memes are more liked/used
+|`* *` |bored person |view random memes |I can kill time
+|`* *` |user |bookmark my favourite meme |I can find my favourite memes quickly
+|`*` |person new to meme |get the reference to the meme I see for the first time |I can have fun as well
 |=======================================================================
 
 _{More to be added}_
@@ -316,39 +319,141 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Create meme
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to list meme templates
+2. Weme shows a list of meme template
+3. User selects a template to create a meme
+4. Weme creates the meme from the selected template based on user input
 +
-Use case ends.
+Use case ends
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The template list is empty
+[none]
+** 2a1. User adds template
 +
-Use case ends.
+2a2. Weme interactively generates template based on user input
++
+Use case ends
 
-* 3a. The given index is invalid.
+* 3a. The given index is invalid
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Weme shows an error message
 +
-Use case resumes at step 2.
+Use case resumes at step 2
+
+* 4a. The given input is invalid
+
+
+[discrete]
+=== Use case: Create template
+
+*MSS*
+
+1. User opens the template tab
+2. Weme opens the template tab
+3. User requests to create a template, using a base picture from the disk
+4. Weme displays the base picture in the editing area
+5. User requests to add/move text boxes in the base picture
+6. Weme adds/moves text boxes in the base picture
+7. User completes template creation
+8. Weme successfully creates the new template
++
+Use case ends
+
+*Extensions*
+[none]
+* 3. The given path is invalid
+[none]
+** 3a1. AddressBook shows an error message
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: Import meme
+
+*MSS*
+
+1. User toggles the import tab
+2. Weme opens the import tab
+3. User requests to import a meme collection from a directory
+4. Weme adds the memes from the collection into staging area
+5. User deletes unwanted memes in the staging area
+6. Weme deletes those memes from the staging area
+7. User confirms the import
+8. Weme successfully imports the selected memes from the collection
++
+Use case ends
+
+*Extensions*
+[none]
+* 3. The given directory path is invalid.
+[none]
+** 3a1. AddressBook shows an error message
++
+Use case resumes at step 2
+
+* 3. The given collection is corrupted
++
+[none]
+** 3a1. Weme shows an error message
++
+Use case resumes at step 2
+
+
+[discrete]
+=== Use case: Undo/Redo
+
+*MSS*
+
+1. User opens Weme
+2. User requests to delete a template
+3. Weme deletes the template
+4. User requests to undo
+5. Weme undoes the deletion restores the template
+6. User requests to redo
+7. Weme redoes and re-executes step 3
+8. User logs out
++
+Use case ends
+
+
+*Extensions*
+[none]
+* 5. User keys in undo again
+[none]
+** 5a1. AddressBook shows an error message
++
+Use case resumes at step 1
+
+* 5. User adds a template and keys in redo
+[none]
+** 5a1. AddressBook shows an error message
++
+Use case resumes at step 1
+
+* 6. User keys in redo again
+[none]
+** 6a1. AddressBook shows an error message
++
+Use case resumes at step 1
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+. Should be able to hold up to 1000 memes without a noticeable sluggishness in performance for typical usage.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should have a ui design that is intuitive enough for the user to use.
+
 
 _{More to be added}_
 
@@ -359,24 +464,15 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A picture with placeholders for text. A meme can be created by replacing the placeholders with text.
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*Weme*
 
-Author: ...
+{TODO}
 
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
