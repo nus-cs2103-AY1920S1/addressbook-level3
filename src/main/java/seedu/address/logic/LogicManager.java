@@ -42,20 +42,20 @@ public class LogicManager implements Logic {
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        try {
+        /*try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
+        }*/
 
         try {
-            storage.savePersonList(model.getPersonList());
-            storage.saveGroupList(model.getGroupList());
-            storage.savePersonToGroupMappingList(model.getPersonToGroupMappingList());
+            storage.saveTimeBook(model.getTimeBook());
+            logger.info("Attempting to save timebook");
+
         } catch (IOException ioe) {
-            logger.severe("Unable to save data");
+            logger.severe("Unable to save timebook");
         }
+
 
         return commandResult;
     }
