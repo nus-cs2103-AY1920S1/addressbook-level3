@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+ORGANice Transplant Manager is being developed by team https://github.com/AY1920S1-CS2103T-T13-1[CS2103T-T13-1]. +
+
+We are a group of students in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== William Ryan Kusnadi
+image::williamryank.png[width="150", align="left"]
+{empty}[https://github.com/WilliamRyank[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: In charge of overall project coordination.
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Chow Jia Ying
+image::c-likethis123.png[width="150", align="left"]
+{empty}[https://github.com/C-likethis123[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Deliverables and Deadlines +
+Responsibilities: Ensure project deliverables are done in right format and submitted on time.
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Iskandar Zulkarnaien Bin Suhaini
+image::therealravager.png[width="150", align="left"]
+{empty}[https://github.com/TheRealRavager[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Tester +
+Responsibilities: Ensures the testing of the project is done properly and on time.
+
+'''
+
+=== Chua Sim Nee
+image::simnee.png[width="150", align="left"]
+{empty}[https://github.com/SimNee[github]] [<<johndoe#, portfolio>>]
+
+Role: Code Quality +
+Responsibilities: Ensure proper coding standards are followed.
+
+'''
+
+=== Yip Yen Peng
+image::yen-peng.png[width="150", align="left"]
+{empty}[http://github.com/Yen-Peng[github]] [<<johndoe#, portfolio>>]
+
+Role: UI designer +
+Responsibilities: In charge of the UI design of the application.
 
 '''
