@@ -10,11 +10,14 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="650.0" minWidth="920.0" onCloseRequest="#handleExit" resizable="false" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="690.0" minWidth="920.0" onCloseRequest="#handleExit" resizable="false" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -36,53 +39,73 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-            <TabPane tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Home">
-                  <content>
-                    <AnchorPane fx:id="homePlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Inventory">
-                  <content>
-                    <AnchorPane fx:id="inventoryPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></AnchorPane>
-                  </content>
-                </Tab>
-                  <Tab text="Reimbursements">
-                    <content>
-                      <AnchorPane fx:id="reimbursementsPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></AnchorPane>
-                    </content>
-                  </Tab>
-                  <Tab text="Cashier">
-                    <content>
-                      <AnchorPane fx:id="cashierPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></AnchorPane>
-                    </content>
-                  </Tab>
-                  <Tab text="Overview">
-                    <content>
-                      <AnchorPane fx:id="overviewPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></AnchorPane>
-                    </content>
-                  </Tab>
-              </tabs>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="215.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TabPane tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Home">
+                        <content>
+                          <AnchorPane fx:id="homePlaceholder" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Inventory">
+                        <content>
+                          <AnchorPane fx:id="inventoryPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab text="Reimbursements">
+                          <content>
+                            <AnchorPane fx:id="reimbursementsPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab text="Cashier">
+                          <content>
+                            <AnchorPane fx:id="cashierPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab text="Overview">
+                          <content>
+                            <AnchorPane fx:id="overviewPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                    </tabs>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TabPane>
+                  <VBox fx:id="lionPlaceholder" GridPane.columnIndex="1" />
+               </children>
                <VBox.margin>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
-            </TabPane>
+            </GridPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

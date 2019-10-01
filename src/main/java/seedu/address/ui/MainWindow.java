@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private Reimbursements reimbursements;
     private Cashier cashier;
     private Overview overview;
+    private Lion lion;
 
     private HelpWindow helpWindow;
 
@@ -58,6 +60,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane commandBoxPlaceholder;
+
+    @FXML
+    private VBox lionPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -142,6 +147,9 @@ public class MainWindow extends UiPart<Stage> {
 
         overview = new Overview();
         overviewPlaceholder.getChildren().add(overview.getRoot());
+
+        lion = new Lion();
+        lionPlaceholder.getChildren().add(lion.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
