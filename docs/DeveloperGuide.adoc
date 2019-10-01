@@ -297,15 +297,38 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` [Epic] |teacher |manage classes virtually |have more time for other duties
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |teacher |add a student | deal with possible changes
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |teacher |remove a student | deal with possible changes
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |teacher |mark attendance | ensure the student was present for class
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |teacher |record scores | tally the marks accurately instead of manually inputting them into the system
+
+|`* * *` [Epic] |teacher |write questions to a question bank |retrieve them as per needed for quizzes generated with Njoy
+
+|`* * *` |teacher |have the option to format the questions as either MCQ or Open Ended |retrieve them
+as per needed for specific quizzes generated with Njoy
+
+|`* * *` |teacher |generate quizzes with randomised questions for assignments |students are unable to copy solutions
+from one another
+
+|`* * *` |teacher |the generated quizzes to be in a text document |easily print and distribute them to students
+
+|`* * *` |teacher |find a student by name |locate details of students without having to go through the entire list
+
+|`* *` |student |view the teacher's schedule |request for consultations in appropriate slots
+
+|`* *` |student |view my past results |track my progress and check for updates
+
+|`* *` |student |have an editable timetable |view my timetable and request for consultations at appropriate slots
+when the teacher is free
+
+|`*` |teacher |have an editable timetable |view my timetable and let students request for consultations at
+appropriate slots when I am free
+
 |=======================================================================
 
 _{More to be added}_
@@ -601,6 +624,14 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+*MCQ* - Multiple Choice Question, a question with four possible answers, and only one correct.
+
+*Open Ended* - Open Ended Question, a question that cannot be answered with a yes or a no but with a proper sentence.
+
+*Timetable* - A chart showing the schedule to take place at particular times.
+
+*Njoy* - A shortened version of the word "Enjoy".
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
@@ -610,9 +641,9 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
+*Njoy*
 
-Author: ...
+Author:
 
 Pros:
 
