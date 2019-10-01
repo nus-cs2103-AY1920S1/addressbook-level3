@@ -4,15 +4,23 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Mark was developed by the team https://github.com/orgs/AY1920S1-CS2103T-T13-4/teams/developers[CS2103T-T13-4].
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
+=== Dorcas Tabitha Tan
+image::dorcastan.png[width="150", align="left"]
+{empty}[https://github.com/dorcastan[github]] [<<johndoe#, portfolio>>]
+
+Role: Team lead & Scheduling and Tracking +
+Responsibilities: Model
+
+'''
+
 === Daryl Tan
-image::Daryl.png[width="150", align="left"]
+image::openorclose.png[width="150", align="left"]
 {empty}[https://github.com/openorclose[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing & Code Quality +
@@ -20,26 +28,17 @@ Responsibilities: Storage
 
 '''
 
-=== Dorcas Tabitha Tan
-image::Dorcas.png[width="150", align="left"]
-{empty}[https://github.com/dorcastan[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead & Scheduling and tracking +
-Responsibilities: Model
-
-'''
-
 === Na Nazhou
-image::Nazhou.png[width="150", align="left"]
+image::na-nazhou.png[width="150", align="left"]
 {empty}[https://github.com/Na-Nazhou[github]] [<<johndoe#, portfolio>>]
 
-Role: Deliverables and deadlines +
+Role: Deliverables and Deadlines +
 Responsibilities: Logic
 
 '''
 
 === Yoke Kai Xin
-image::KaiXin.png[width="150", align="left"]
+image::kxyoke.png[width="150", align="left"]
 {empty}[https://github.com/kxyoke[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation +
@@ -48,7 +47,7 @@ Responsibilities: UI
 '''
 
 === TSAI, HSIAO-HAN
-image::HsiaoHan.png[width="150", align="left"]
+image::tsai-hsiao-han.png[width="150", align="left"]
 {empty}[https://github.com/TSAI-HSIAO-HAN[github]] [<<johndoe#, portfolio>>]
 
 Role: Integration +
