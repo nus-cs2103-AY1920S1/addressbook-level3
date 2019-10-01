@@ -22,7 +22,7 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private Remark remark;
+    private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -34,6 +34,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.remark = remark;
         this.tags.addAll(tags);
     }
 
@@ -55,10 +56,6 @@ public class Person {
 
     public Remark getRemark() {
         return remark;
-    }
-
-    public void setRemark(Remark remark) {
-        this.remark = remark;
     }
 
     /**

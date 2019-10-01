@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    private static Remark remarkSample = new Remark("Likes to swim.");
+    private static Remark remarkSample = new Remark("");
 
 	public static Person[] getSamplePersons() {
         return new Person[] {
