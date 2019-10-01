@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.ScrollPane;
 import javafx.stage.Screen;
 
 /**
- * A ui for the status bar that is displayed at the header of the application.
+ * An Ui that stores the logged feedback from the program to the user.
  */
 public class LogPanel extends UiPart<Region> {
 
@@ -22,6 +22,9 @@ public class LogPanel extends UiPart<Region> {
     @FXML
     private ScrollPane scrollLog;
 
+    /**
+     * Constructor for the LogPanel. Sets the size of the LogPanel to the user's screen size.
+     */
     public LogPanel() {
         super(FXML);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -33,6 +36,10 @@ public class LogPanel extends UiPart<Region> {
 
     }
 
+    /**
+     * Creates an instance of LogBox.
+     * @param feedbackToUser To provide the Log Box the feedback to the user.
+     */
     public void createLogBox(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         LogBox logBox = new LogBox(feedbackToUser);
