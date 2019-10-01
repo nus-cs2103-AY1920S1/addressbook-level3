@@ -1,29 +1,32 @@
-= John Doe - Project Portfolio
+= Timothy Yu Zhiwen - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Horo
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Horo is a desktop Reminder application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is a Java application *written in an OOP fashion*, developed and intended for Students requiring a place to consolidate their Events and Task.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: enhanced *UI* component.
+** What it does: allows the user to interact with the GUI together with CLI, showing the Events and Task to the user as well as outputting the log for what the user did.
+** Justification: This feature is what makes the product visually appealing for the user, making the Events and Tasks compact and concise for the user to see, as well as having a log for what the user previously did.
+** Highlights: This enhancement affects the current and future commands, as it requires several other components for it to show the result to the user. Future commands or addition to Events and Task requires changes to the existing UI, as the GUI and UI component will require further changes.
+** Credits: _[https://top.gg/bot/349920059549941761[Reminder Bot]]_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: _To be implemented_
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: _To be implemented_
 
 * *Other contributions*:
+
+_To be implemented_ +
+{empty} + 
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
@@ -41,14 +44,14 @@ AddressBook - Level 3 is a desktop address book application used for teaching So
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
-
 == Contributions to the User Guide
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+_To be implemented_
 
 include::../UserGuide.adoc[tag=delete]
 
@@ -59,6 +62,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+_To be implemented_
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
