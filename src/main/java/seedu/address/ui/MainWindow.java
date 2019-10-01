@@ -6,10 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
+import javafx.geometry.Rectangle2D;
+import seedu.address.commons.stub.LogicManagerStub;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -24,15 +30,17 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    public static final int WIDTH_PADDING = 20;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private LogicManagerStub logicStub;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
+    private LogPanel logPanel;
     private HelpWindow helpWindow;
 
     @FXML
@@ -45,10 +53,22 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane logPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private GridPane  gridManager;
+
+    @FXML
+    private VBox vBoxPane;
+
+    @FXML
+    private Label chatLog;
+
+    @FXML
+    private Label list;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -56,8 +76,8 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.logicStub = new LogicManagerStub();
 
-        // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
@@ -107,17 +127,42 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+
+        personListPanel = new PersonListPanel(logicStub.getFilteredEventSourceList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        logPanel = new LogPanel();
+        logPanelPlaceholder.getChildren().add(logPanel.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        editInnerParts();
+    }
+
+    private void editInnerParts() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenHeight = primaryScreenBounds.getHeight();
+        double screenWidth = primaryScreenBounds.getWidth();
+
+        logPanelPlaceholder.setPrefHeight(screenHeight);
+        personListPanelPlaceholder.setPrefHeight(screenHeight);
+
+        personListPanelPlaceholder.setMinWidth(screenWidth / 2 - WIDTH_PADDING);
+
+        logPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
+        personListPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
+
+        // Set the stage width and height
+        primaryStage.setMaxWidth(screenWidth);
+        primaryStage.setMaxHeight(screenHeight);
+        primaryStage.setMinHeight(screenHeight / 1.25);
+        primaryStage.setMinWidth(screenWidth / 1.25);
+
+
     }
 
     /**
@@ -173,7 +218,9 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            System.out.println("yet");
+            logPanel.createLogBox(commandResult.getFeedbackToUser());
+            System.out.println("yeet");
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -186,8 +233,10 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            logPanel.createLogBox(e.getMessage());
             throw e;
         }
     }
+
+
 }
