@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MODULO - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T16-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-2`      Since: `September 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -28,13 +28,8 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/Main.java[`Main`] and link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +72,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,7 +91,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -117,7 +112,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -137,7 +132,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -279,13 +274,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* students at the National University of Singapore
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage modules and tasks with more flexibility than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,62 +290,114 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |university student |add my modules by specifying a specific module code or title |track the modules I am taking this semester
 
-|`* * *` |user |add a new person |
+|`* * *` |student |view details, content, and requirements of each modules |comprehensively come to a decision on which module to take in the upcoming semester
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |busy student |view my today's schedule |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |busy student |know the deadlines for my tasks |plan my schedule
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |new user |view the user guide easily |spend less time figuring out how to use the app
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |person who often make mistakes |undo my previous actions |
+
+|`* * *` |organised student |schedule the times when I plan to do an assignment |know my timetable for the day
+
+|`* * *` |lazy user |add a tag for each task |search each task more quickly by using the tag
+
+|`* *` |student concerned with my CAP |find out what grades I should get in the current semester |pull my CAP up to the next degree classification
+
+|`* * ` |student |view details of modules I have taken in previous semesters |see my progress
+
+|`* *` |graduating student |see what remaining modules I need to take in order to fulfill my graduation requirements |plan my semester
+
+|`* * ` |new user |see how many marks I have obtained for a module so far |review my progress
+
+|`* * ` |busy student| refer and use the predictive text |input a command with great ease and less time
+
+|`* * ` |forgetful user |receive reminders on assignments and work near the deadline |remember to complete and submit it on time
+
+|`* *` |curious student |calculate and predict how much effort I need to put for a particular module based on the score I have gained so far |
+
+|`* * ` |lazy and forgetful student |keep track of lectures that I have missed |
+
+|`* * ` |student with too many assignments | automatically get my assignment sorted according to its grade percentage |
+
+|`* * ` |kiasu student |make a checklist of materials that I have to learn for my exams |
+
+|`*` |student interested in numbers |view an overall summary of my academic journey so far |reflect on it
+
+|`* ` |clumsy typer |have a program that still understand my commands even with minor spelling errors |not have to enter the command again
+
+|`* ` |calendar app user |sync my timetable to my own personal calendar |refer to my schedule
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+//(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add module
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User request to add module
+2.  Modulo requests user to input the module's time schedule
+3.  User inputs the time schedule
+4.  Module adds the new module to the user's timetable
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+
+* 2a. The given time is invalid.
++
+[none]
+** 2a1. Modulo shows an error message.
++
+
+
+[discrete]
+=== Use case: Edit lecture time
+
+*MSS*
+
+1.  User request to edit the lecture time of a certain module
+2.  Modulo asks the user to input the new timing
+3.  User inputs the time
+4.  Module edits the lecture time in the user's timetable
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+
+* 2a. The given time is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. Modulo shows an error message.
 +
-Use case resumes at step 2.
+* 4a. The module doesn't exist
++
+[none]
+** 4a1. Modulo shows an error message.
++
 
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should minimize the amount of typing
+.  Should work on various desktop size
 
-_{More to be added}_
+
 
 [appendix]
 == Glossary
@@ -358,68 +405,56 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+//[[private-contact-detail]] Private contact detail::
+//A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+//[appendix]
+//== Product Survey
+//
+//*Product Name*
+//
+//Author: ...
+//
+//Pros:
+//
+//* ...
+//* ...
+//
+//Cons:
+//
+//* ...
+//* ...
 
 [appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+//[NOTE]
+//These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
-. Initial launch
+. First launch
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an initial setup page.
+.. User types in `bye` +
+   Expected: Closes the app and GUI
 
-. Saving window preferences
+. Subsequent launches
+.. Double-click the jar file +
+   Expected: Shows the GUI with the timetable displayed.
+.. User types in `bye` +
+   Expected: Closes the app and GUI
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a module
 
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+. Deleting a module while timetable is displayed
+//.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `delete CS2102` +
+   Expected: Module is deleted from the timetable.
+.. Test case: `delete CC2103` , module doesnt exist on the timetable +
+   Expected: Error details shown in the status message.
