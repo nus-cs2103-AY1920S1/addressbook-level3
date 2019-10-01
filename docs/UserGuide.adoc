@@ -361,8 +361,8 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: Can I use file formats other than ics for the calendar feature? +
 *A*: No, the file format has to be in ics folder, downloaded either from NUSmods or Google Calendar.
 
-*Q*: Can i export the claims report as a word document? +
-*A*: No, the application only supports pdf.
+*Q*: Can I export the claims report as a word document? +
+*A*: No, the application only supports exporting of files in PDF format.
 
 *Q*: What if the calendar cannot find a timing where everyone is free? +
 *A*: There will be a grid showing the number of available members by time, so it will be easier for the user to choose the best possible time for the meeting.
@@ -373,6 +373,11 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: Some of the tasks for my project require sub tasks to be completed, is there a way to add them? +
 *A*: Ideally since the user is the project leader, they should only see the main tasks to be accomplished for the project. This would help facilitate their managerial role within the project. Hence, the application does not support subtasks.
 
+*Q*: How can I add multiple users to the same task? +
+*A*: Since +Work is member-oriented, the application displays information according to members. Hence, you have to assign task to all the different members that are working on the task.
+
+*Q*: What happens when a task has been completed? +
+*A*: You can mark the task as ‘Done’, which will move the task to the bottom of the task list. In the case where you do not want to keep the task in the list, using ‘Remove Task’ will delete it.
 
 == Command Summary
 
