@@ -22,6 +22,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+This section shows the design of AddressBook Level 3, which Mark is adapted from. It will be updated in a future release.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -277,15 +279,22 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Our target user*:
 
-* has a need to manage a significant number of bookmarks
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* needs to manage a significant number of bookmarks
+* needs to make notes on webpage content quite frequently
+* needs reminders to submit forms or visit websites
+* prefers desktop apps over other types
+* can type fast and prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage bookmarks faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* manage bookmarks faster than a typical mouse/ GUI driven app
+* access and annotate webpage content without an Internet connection
+* set reminders to visit websites at specific times
+* minimize the need to manually categorize bookmarks
+
 
 [appendix]
 == User Stories
