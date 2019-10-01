@@ -31,8 +31,7 @@ public abstract class MainWindow extends UiPart<Stage> {
     protected Model model;
 
     // Independent Ui parts residing in this Ui container
-    PersonListPanel personListPanel;
-    ResultDisplay resultDisplay;
+    protected ResultDisplay resultDisplay;
     HelpWindow helpWindow;
 
     @FXML
@@ -133,10 +132,6 @@ public abstract class MainWindow extends UiPart<Stage> {
         model.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**

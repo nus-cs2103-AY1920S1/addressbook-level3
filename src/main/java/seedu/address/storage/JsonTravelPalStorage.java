@@ -45,14 +45,14 @@ public class JsonTravelPalStorage implements TravelPalStorage {
     public Optional<ReadOnlyTravelPal> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableTravelPal> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableTravelPal> jsonSerializableTravelPal = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTravelPal.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonSerializableTravelPal.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonSerializableTravelPal.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

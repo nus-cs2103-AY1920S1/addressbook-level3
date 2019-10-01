@@ -52,7 +52,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        TravelPalStorage travelPalStorage = new JsonTravelPalStorage(userPrefs.getAddressBookFilePath());
+        TravelPalStorage travelPalStorage = new JsonTravelPalStorage(userPrefs.getTravelPalFilePath());
         storage = new StorageManager(travelPalStorage, userPrefsStorage);
 
         initLogging(config);

@@ -48,7 +48,7 @@ public class TripsPage extends WindowWithoutSidebar {
      * Fills up all the placeholders of this window.
      */
     protected void fillInnerParts() {
-        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(model.getAddressBookFilePath());
