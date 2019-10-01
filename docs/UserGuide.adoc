@@ -94,52 +94,86 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating exercises by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds exercises whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `run` will match `Run`
+* The order of the keywords does not matter. e.g. `Bench Press` will match `Press Bench`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Runs` will not match `Run`
+* Exercises matching at least one keyword will be returned (i.e. `OR` search). e.g. `Bench Press` will return `Incline Bench Press`, `Decline Bench Press`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find bench press`
+* `find run`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Delete health information : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Deleting exercise information
+
+Deleting a certain exercise information from ExerHealth.
+
+Format: `delete t/exercise i/INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the exercise at the specified `INDEX`.
+* The index refers to the index number shown in the displayed exercise list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete t/exercise i/2`
+
+==== Deleting exercise from scheduling regime
+
+Deletes exercises from a certain scheduling regime.
+
+Format: `delete t/exercise n/REGIME_NAME [i/INDEX]...`
+
+****
+* Deletes the exercise at the specified `INDEX`.
+* If index is not provided, the command deletes the entire scheduling regime
+* The index refers to the index number shown in the displayed regime list.
+* The index, if provided, *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete t/regime n/cardio i/2` +
+Deletes the exercise indexed 2 in the cardio regime
+* `delete t/regime n/legs` +
+Deletes the entire regime named legs
 
 // end::delete[]
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
+
+=== Display statistics : `stats`
+
+Display the statistics of exercises.
+
+Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [d/END_DATE]`
+
+****
+* Supported chart types: Pie Chart, Line Chart, Bar Chart
+* If no `START_DATE` and `END_DATE` are provided, the recent 7 days of history will be used.
+* If any date is provided, both `START_DATE` and `END_DATE` dates must be there.
+****
+
+Example:
+
+* `stats t/exercise h/piechart`
+* `stats t/calories h/linechart`
+* `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
 
 === Exiting the program : `exit`
 
