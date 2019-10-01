@@ -304,6 +304,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |user who is keeping track of net worth |set my current wealth |keep track of how much money I have
+
+|`* * *` |user who is keeping track of transactions |record transactions |
+
+|`* * *` |user who is keeping track of transactions |edit transactions |update any errors made when adding transactions
+
+|`* * *` |user who is keeping track of transactions |view transactions |
+
+|`* * *` |user who is keeping track of transactions |organize transactions by category |
+
+|`* * *` |user who is keeping track of transactions |delete transactions |delete wrongly added or refunded transactions
+
+|`* * *` |user who is keeping track of budget |set my monthly expenditure budget |keep track of how much I can spend for the month
+
 |`* * *` |user who is keeping track of budget |set my monthly expenditure budget |keep track of how much I can spend for the month
 
 |`* * *` |user who is keeping track of budget |exclude transaction from budget |
@@ -322,9 +336,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user who is trying to reduce expenditure |view my expenditure ranking chart |keep track of my top expenditures
 
-|`* *` |user who is tracking net worth |view my monthly income trends |keep track of how much I earn per month
+|`* *` |user who is keeping track of net worth |view my monthly income trends |keep track of how much I earn per month
 
-|`* *` |user who is tracking net worth |view my monthly balance trends |keep track of how much I save per month
+|`* *` |user who is keeping track of net worth |view my monthly balance trends |keep track of how much I save per month
+
+|`* *` |long-term user who is keeping track of transactions |find transactions by keyword |conveniently search for transactions to edit or review
+
 |=======================================================================
 
 _{More to be added}_
