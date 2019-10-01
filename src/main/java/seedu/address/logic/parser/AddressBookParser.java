@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -14,7 +15,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -47,21 +48,56 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case AddPolicyCommand.COMMAND_WORD:
+            return new AddPolicyCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        /*
+        case EditPolicyCommand.COMMAND_WORD:
+            return new EditPolicyCommandParser().parse(arguments);
+        */
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+/*
+        case DeletePolicyCommand.COMMAND_WORD:
+            return new DeletePolicyCommandParser().parse(arguments);
 
+        case AssignPolicyCommand.COMMAND_WORD:
+            return new AssignPolicyCommandParser().parse(arguments);
+
+        case UnassignPolicyCommand.COMMAND_WORD:
+            return new UnassignPolicyCommandParser().parse(arguments);
+
+        case AddTagCommand.COMMAND_WORD:
+            return new AddTagCommandParser().parse(arguments);
+
+        case AddPolicyTagCommand.COMMAND_WORD:
+            return new AddPolicyTagCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
+        case DeletePolicyTagCommand.COMMAND_WORD:
+            return new DeletePolicyTagCommandParser().parse(arguments);
+*/
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
+/*
+        case FindPolicyCommand.COMMAND_WORD:
+            return new FindPolicyCommandParser().parse(arguments);
+*/
+        case ListPeopleCommand.COMMAND_WORD:
+            return new ListPeopleCommand();
+/*
+        case ListPolicyCommand.COMMAND_WORD:
+            return new ListPolicyCommand();
+*/
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
