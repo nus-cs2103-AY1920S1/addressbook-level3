@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::dorcastan.png[width="150", align="left"]
 {empty}[https://github.com/dorcastan[github]] [<<johndoe#, portfolio>>]
 
-Role: Team lead & Scheduling and tracking +
+Role: Team lead & Scheduling and Tracking +
 Responsibilities: Model
 
 '''
@@ -23,7 +23,7 @@ Responsibilities: Model
 image::openorclose.png[width="150", align="left"]
 {empty}[https://github.com/openorclose[github]] [<<johndoe#, portfolio>>]
 
-Role: Testing +
+Role: Testing & Code Quality +
 Responsibilities: Storage
 
 '''
@@ -32,7 +32,7 @@ Responsibilities: Storage
 image::na-nazhou.png[width="150", align="left"]
 {empty}[https://github.com/Na-Nazhou[github]] [<<johndoe#, portfolio>>]
 
-Role: Deliverables and deadlines +
+Role: Deliverables and Deadlines +
 Responsibilities: Logic
 
 '''
