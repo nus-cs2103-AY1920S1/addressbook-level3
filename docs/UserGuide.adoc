@@ -728,4 +728,30 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 
 == Command Summary
 
-_{ coming soon }_
+* *Help*: `help`
+* *Add*: `add u/URL n/NAME [f/FOLDER] [t/TAG]…​`
+* *List*: `list`
+* *Edit*: `edit INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+* *Find*: `find [KEYWORD]... [t/TAG]...`
+* *Delete*: `delete INDEX`
+* *Goto*: `goto INDEX [v/VERSION]`
+* *Goto*: `goto reminder INDEX`
+* *Clear*: `clear`
+* *Undo*: `undo`
+* *Redo*: `redo`
+* *Exit*: `exit`
+* *Export*: `export [FILENAME]`
+* *Import*: `import FILENAME [MORE_FILENAMES]...`
+* *Autotag*: `autotag NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]`
+* *Cache*: `cache INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
+* *Annotate (add)*: `annotate INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
+* *Annotate (delete)*: `annotate delete INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
+* *Annotate (edit)*: `annotate edit INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+* *Offline*: `offline INDEX [v/VERSION=current]`
+* *Reminder*: `reminder INDEX t/TIME_DATE [n/NOTE=Open]`
+* *Reminder*: `reminder edit INDEX [t/TIME_DATE] [n/NOTE]`
+* *Reminder*: `reminder delete INDEX`
+* *Sort*: `sort [CRITERION]`
+* *Expand*: `expand [LEVEL]`
+* *Collapse*: `collapse [LEVEL]`
+* *Tab*: `tab INDEX`

@@ -1,0 +1,12 @@
+{
+  "bookmarks": [ {
+    "name": "Alice Pauline",
+    "url": "https://alice-example.com",
+    "remark": "123, Jurong West Ave 6, #08-111",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Alice Pauline",
+    "url": "https://alice-example.com",
+    "remark": "4th street"
+  } ]
+}
