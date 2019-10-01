@@ -59,7 +59,7 @@ SplitWiser also saves its application state with your data - meaning you can re-
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact n/CONTACT_NAME`, `CONTACT_NAME` is a parameter which can be used as `add n/John Doe`.
 * Parameters in square brackets are optional e.g `n/ACTIVITY_NAME [p/PERSON_1]` can be used as `n/Drinks p/John Doe` or as `n/Drinks`.
 * Parameters with `…`​ may be supplied multiple times, including 0 times for optional parameters, e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters in brackets must be supplied together - e.g. addition of expenses to an activity requires contact-expense pairs `(n/CONTACT_NAME && e/EXPENSE_AMT)`, which may be used as `p/John Doe e/50.25` 
+* Parameters in brackets must be supplied together - e.g. addition of expenses to an activity requires contact-expense pairs `(n/CONTACT_NAME && e/EXPENSE_AMT)`, which may be used as `p/John Doe e/50.25`
 * Parameters may be supplied in any order e.g. if the command specifies `n/NAME hp/PHONE_NUMBER`, `hp/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
