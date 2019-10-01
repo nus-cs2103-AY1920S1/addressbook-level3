@@ -62,12 +62,30 @@ public class Application implements ReadOnlyApplication {
     }
 
     /**
+     * Replaces the contents of the module list with {@code Module}.
+     * {@code Module} must not contain duplicate modules.
+     */
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
+    }
+
+    /**
+     * Replaces the contents of the tutorials list with {@code Tutorial}.
+     * {@code Tutorial} must not contain duplicate tutorials.
+     */
+    public void setTutorials(List<Tutorial> tutorials) {
+        this.tutorials.setTutorials(tutorials);
+    }
+
+    /**
      * Resets the existing data of this {@code Application} with {@code newData}.
      */
     public void resetData(ReadOnlyApplication newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setModules(newData.getModuleList());
+        setTutorials(newData.getTutorialList());
     }
 
     ////=================== person-level operations    =================================================================
@@ -215,16 +233,26 @@ public class Application implements ReadOnlyApplication {
     }
 
     @Override
+    public ObservableList<Module> getModuleList() {
+        return modules.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Tutorial> getTutorialList() {
+        return tutorials.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Application // instanceof handles nulls
-                && persons.equals(((Application) other).persons));
+                && persons.equals(((Application) other).persons)
+                && modules.equals(((Application) other).modules)
+                && tutorials.equals(((Application) other).tutorials));
     }
 
     @Override
     public int hashCode() {
         return persons.hashCode();
     }
-
-
 }

@@ -40,8 +40,23 @@ public class StudentCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(student.getName().fullName);
         email.setText("Email: " + student.getEmail().value);
-        matric.setText("Matric number: " + student.getMatricNum().get().toString());
-        nusnetId.setText("NUS ID: " + student.getNusnetId().get().toString());
+
+        String matricNumString;
+        String nusnetIdString;
+        if (student.getMatricNum().isPresent()) {
+            matricNumString = "Matric number: " + student.getMatricNum().get().toString();
+        } else {
+            matricNumString = "Matric number: ";
+        }
+
+        if (student.getNusnetId().isPresent()) {
+            nusnetIdString = "NUS ID: " + student.getNusnetId().get().toString();
+        } else {
+            nusnetIdString = "NUS ID: ";
+        }
+
+        matric.setText(matricNumString);
+        nusnetId.setText(nusnetIdString);
     }
 
     @Override

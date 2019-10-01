@@ -1,6 +1,5 @@
 package seedu.tarence.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -75,8 +74,10 @@ public class MainWindow extends UiPart<Stage> {
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
-        // TODO: uncheck this once the getFilteredModulesList is implemented
-        //initializeLists(logic.getFilteredModulesList());
+        this.modList = logic.getFilteredModuleList();
+        this.tutorialList = logic.getFilteredTutorialList();
+
+        //initializeLists(getDummyModList());
 
         // Set dependencies
         this.primaryStage = primaryStage;
@@ -135,8 +136,8 @@ public class MainWindow extends UiPart<Stage> {
         //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        studentListPanel = new StudentListPanel(this.studentList);
-        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        //studentListPanel = new StudentListPanel(this.studentList);
+        //studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         tutorialListPanel = new TutorialListPanel(this.tutorialList);
         tutorialListPanelPlaceholder.getChildren().add(tutorialListPanel.getRoot());
@@ -228,17 +229,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void initializeLists(ObservableList<Module> modList) {
         this.modList = modList;
-        List<Tutorial> tuts = new ArrayList<Tutorial>();
-        List<Student> students = new ArrayList<Student>();
+        this.tutorialList = FXCollections.observableArrayList();
+        this.studentList = FXCollections.observableArrayList();
         for (int i = 0; i < modList.size(); i++) {
             List<Tutorial> tutList = modList.get(i).getTutorials();
-            tuts.addAll(modList.get(i).getTutorials());
+            this.tutorialList.addAll(modList.get(i).getTutorials());
             for (int j = 0; j < tutList.size(); j++) {
-                students.addAll(tutList.get(i).getStudents());
+                this.studentList.addAll(tutList.get(i).getStudents());
             }
         }
-        this.tutorialList = FXCollections.observableArrayList(tuts);
-        this.studentList = FXCollections.observableArrayList(students);
     }
 
     /**
@@ -255,4 +254,5 @@ public class MainWindow extends UiPart<Stage> {
             this.studentList.addAll(this.tutorialList.get(idx).getStudents());
         }
     }
+
 }

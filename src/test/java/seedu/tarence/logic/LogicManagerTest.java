@@ -10,7 +10,7 @@ import static seedu.tarence.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.NUSNET_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.TUTORIAL_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MODULE_AMY;
-import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_AMY;
+import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_AMY;
 import static seedu.tarence.testutil.Assert.assertThrows;
 import static seedu.tarence.testutil.TypicalStudents.AMY;
 
@@ -92,7 +92,7 @@ public class LogicManagerTest {
         Student expectedStudent = new StudentBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         Module validModule = new ModuleBuilder().withModCode(VALID_MODULE_AMY).build();
-        Tutorial validTutorial = new TutorialBuilder().withTutName(VALID_TUTORIAL_AMY)
+        Tutorial validTutorial = new TutorialBuilder().withTutName(VALID_TUTORIAL_NAME_AMY)
                 .withModCode(VALID_MODULE_AMY).build();
         expectedModel.addModule(validModule);
         model.addModule(validModule);
@@ -106,6 +106,16 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredModuleList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredModuleList().remove(0));
+    }
+
+    @Test
+    public void getFilteredTutorialList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredTutorialList().remove(0));
     }
 
     /**
