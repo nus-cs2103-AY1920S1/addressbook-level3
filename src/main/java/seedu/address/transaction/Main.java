@@ -13,7 +13,7 @@ import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.transaction.logic.LogicManager;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.storage.StorageManager;
-import seedu.address.transaction.ui.MainWindow;
+import seedu.address.transaction.ui.MyMainWindow;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class Main {
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);
         LogicManager lm = new LogicManager(mm, storage, personMM, personStorage);
 
-        MainWindow mw = new MainWindow(lm);
+        MyMainWindow mw = new MyMainWindow(lm);
 
         mw.show();
     }

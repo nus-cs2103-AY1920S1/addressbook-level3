@@ -5,18 +5,19 @@ import java.util.regex.Pattern;
 import seedu.address.person.logic.commands.AddCommand;
 import seedu.address.transaction.commands.Command;
 import seedu.address.transaction.commands.DeleteCommand;
-import seedu.address.transaction.logic.exception.NotANumberException;
+import seedu.address.transaction.commands.EditCommand;
+import seedu.address.transaction.commands.PersonCommand;
 import seedu.address.transaction.logic.exception.ParseException;
-import seedu.address.transaction.ui.Ui;
+import seedu.address.transaction.ui.MyUi;
 
 public class HomeTabParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public Command parseCommand(String userInput) throws ParseException, NotANumberException {
+    public Command parseCommand(String userInput) throws Exception {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(Ui.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            throw new ParseException(MyUi.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -30,8 +31,14 @@ public class HomeTabParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+
+        case PersonCommand.COMMAND_WORD:
+            return new PersonCommandParser().parse(arguments);
+
         default:
-            throw new ParseException(Ui.NO_SUCH_COMMAND);
+            throw new ParseException(MyUi.NO_SUCH_COMMAND);
 
         }
     }

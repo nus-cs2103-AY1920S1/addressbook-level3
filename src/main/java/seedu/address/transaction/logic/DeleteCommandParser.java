@@ -2,7 +2,7 @@ package seedu.address.transaction.logic;
 
 import seedu.address.transaction.commands.DeleteCommand;
 import seedu.address.transaction.logic.exception.NotANumberException;
-import seedu.address.transaction.ui.Ui;
+import seedu.address.transaction.ui.MyUi;
 
 public class DeleteCommandParser {
 
@@ -11,7 +11,7 @@ public class DeleteCommandParser {
         try {
             index = Integer.parseInt(userInput);
         } catch (Exception e) {
-            throw new NotANumberException(Ui.NOT_A_NUMBER);
+            throw new NotANumberException(MyUi.NOT_A_NUMBER);
         }
 
         DeleteCommand deleteCommand = new DeleteCommand(index);

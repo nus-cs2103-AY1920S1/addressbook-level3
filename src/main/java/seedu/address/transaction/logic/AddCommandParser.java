@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 import seedu.address.transaction.commands.AddCommand;
 import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.ui.Ui;
+import seedu.address.transaction.ui.MyUi;
 
 import static seedu.address.transaction.logic.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.transaction.logic.CliSyntax.PREFIX_CATEGORY;
@@ -20,7 +20,7 @@ public class AddCommandParser {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(Ui.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            throw new ParseException(MyUi.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
         }
 
         String datetime = argMultimap.getValue(PREFIX_DATETIME).get();

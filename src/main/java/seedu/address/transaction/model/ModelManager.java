@@ -27,13 +27,32 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) {
+
+    }
+
+    @Override
+    public boolean hasTransaction(Transaction editedTransaction) {
+        for (int i = 0 ; i < transactionList.size(); i++) {
+            try {
+                if (transactionList.get(i).equals(editedTransaction)) {
+                    return true;
+                }
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void addTransaction(Transaction trans) {
         transactionList.add(trans);
     }
 
     @Override
     public Transaction findTransactionByIndex(int index) throws NoSuchIndexException {
-        Transaction transaction = transactionList.get(index);
+        Transaction transaction = transactionList.get(index - 1);
         return transaction;
     }
 
@@ -46,6 +65,5 @@ public class ModelManager implements Model {
     public void writeInTransactionFile() throws Exception{
         storage.writeFile(transactionList);
     }
-
 
 }

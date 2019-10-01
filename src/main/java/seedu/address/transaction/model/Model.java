@@ -14,4 +14,8 @@ public interface Model {
     void writeInTransactionFile() throws Exception;
 
     TransactionList getTransactionList();
+
+    void setTransaction(Transaction transactionToEdit, Transaction editedTransaction);
+
+    boolean hasTransaction(Transaction editedTransaction);
 }

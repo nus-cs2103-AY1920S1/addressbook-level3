@@ -2,14 +2,15 @@ package seedu.address.transaction.ui;
 
 import java.util.Scanner;
 import seedu.address.transaction.commands.CommandResult;
+import seedu.address.transaction.commands.exception.NoSuchPersonException;
 import seedu.address.transaction.logic.Logic;
 
-public class MainWindow {
+public class MyMainWindow {
 
     private Logic logic;
     private String input;
 
-    public MainWindow(Logic logic) {
+    public MyMainWindow(Logic logic) {
         this.input = input;
         this.logic = logic;
     }
@@ -22,6 +23,8 @@ public class MainWindow {
             String input = sc.nextLine();
             CommandResult commandResult = this.executeCommand(input);
             result = commandResult.toString();
+        } catch (NoSuchPersonException e) {
+            result = "Please input the person using person";
         } catch (Exception e) {
             result = e.toString();
         }

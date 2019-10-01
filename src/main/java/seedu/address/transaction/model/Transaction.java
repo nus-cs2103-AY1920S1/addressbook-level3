@@ -27,6 +27,22 @@ public class Transaction {
         return this.person;
     }
 
+    public String getDate() {
+        return date.format(myFormatter);
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public String toWriteIntoFile() {
         String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category +
                 " | " + this.amount + " | " + this.person.getName();
@@ -37,5 +53,18 @@ public class Transaction {
         String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category +
                 " | " + this.amount + " | " + this.person.getName();
         return msg;
+    }
+
+    public String getName() {
+        return this.person.getName().toString();
+    }
+
+    public boolean isSameTransaction(Transaction editedTransaction) {
+        return this.person.equals(editedTransaction.getPerson()) &&
+                this.description.equals(editedTransaction.getDescription()) &&
+                this.category.equals(editedTransaction.getCategory()) &&
+                this.amount == editedTransaction.getAmount() &&
+                this.date.equals(editedTransaction.getDate());
+
     }
 }
