@@ -398,8 +398,18 @@ Use case resumes at step 2.
 Use case ends.
 
 *Extensions*
-* 1a. Mark detects invalid index or colour.
+* 1a. Mark detects invalid bookmark index.
 ** 1a1. Mark gives warning.
++
+Use case ends.
+
+* 1b. Mark detects invalid paragraph index.
+** 1b1. Mark gives warning.
++
+Use case ends.
+
+* 1c. Mark detects invalid highlight colour.
+** 1c1. Mark gives warning.
 +
 Use case ends.
 
