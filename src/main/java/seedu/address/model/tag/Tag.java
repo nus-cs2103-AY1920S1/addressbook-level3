@@ -1,54 +1,56 @@
 package seedu.address.model.tag;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import java.util.HashSet;
+
+import seedu.address.model.module.Module;
 
 /**
- * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Represents a Tag.
  */
-public class Tag {
+public interface Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-
-    public final String tagName;
+    public final HashSet<Module> attachedModules = new HashSet<Module>();
 
     /**
-     * Constructs a {@code Tag}.
-     *
-     * @param tagName A valid tag name.
+     * Adds the specified {@code Module} to this tag.
+     * @param module The module that is to be added.
+     * @return True if the module has been added.
      */
-    public Tag(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+    public default boolean addModule(Module module) {
+        return attachedModules.add(module);
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Deletes the specified {@code Module} from this tag.
+     * @param module The module to be deleted.
+     * @return True if the module has been deleted.
      */
-    public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return tagName.hashCode();
+    public default boolean deleteModule(Module module) {
+        if (!containsModule(module)) {
+            return false;
+        }
+        return attachedModules.remove(module);
     }
 
     /**
-     * Format state as text for viewing.
+     * Returns all the modules attached to this tag.
+     * @return A set of modules.
      */
-    public String toString() {
-        return '[' + tagName + ']';
+    public default HashSet<Module> getModules() {
+        return attachedModules;
     }
+
+    /**
+     * Checks if this tag contains the specified module.
+     * @param module The module that is to be checked.
+     * @return True if this tag contains the module.
+     */
+    public default boolean containsModule(Module module) {
+        return attachedModules.contains(module);
+    }
+
+    public boolean isDefault();
+
+    public boolean canBeRenamed();
 
 }
