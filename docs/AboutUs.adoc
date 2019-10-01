@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lim Daekoon
-image::placeholder.png[width="150", align="left"]
+image::daekoon.png[width="150", align="left"]
 {empty}[https://github.com/daekoon[github]]
 
 Role: Project Advisor
@@ -19,7 +19,7 @@ Role: Project Advisor
 '''
 
 === Lee Liak Ghee
-image::placeholder.png[width="150", align="left"]
+image::liakify.png[width="150", align="left"]
 {empty}[https://github.com/liakify[github]]
 
 Role: Team Lead +
@@ -28,7 +28,7 @@ Responsibilities: UI
 '''
 
 === Keven Loo
-image::placeholder.png[width="150", align="left"]
+image::aulud.png[width="150", align="left"]
 {empty}[https://github.com/Aulud[github]]
 
 Role: Developer +
@@ -37,7 +37,7 @@ Responsibilities: Data
 '''
 
 === Xiaodong Jia
-image::placeholder.png[width="150", align="left"]
+image::podocarp.png[width="150", align="left"]
 {empty}[https://github.com/podocarp[github]]
 
 Role: Developer +
@@ -46,7 +46,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === John Ng
-image::placeholder.png[width="150", align="left"]
+image::johnnzj.png[width="150", align="left"]
 {empty}[https://github.com/johnnzj[github]]
 
 Role: Developer +
