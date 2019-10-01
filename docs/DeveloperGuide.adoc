@@ -279,13 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage expenses and income over a significant period of time
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* capable of basic programming to customize the app to their liking
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage expenses/income faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,35 +296,82 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |see an overview of all my spending from month to month |better judge my expense/income ratio
 
-|`* * *` |user |add a new person |
+|`* * *` |spendthrift |set a budget for my monthly spending |avoid breaking the bank again
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |lazy user |key in recurring expenses just once |do not have to enter them over and over again
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |careful spender |make month-to-month comparisons of spending in a particular category |see where additional expenses for certain months come from
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |cautious spender |carry over any budget deficits incurred each month to the following month |remember to repay it
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user who borrows and loans money frequently |track who owes me money/who I owe money to |settle my debts
+
+|`* * *` |SOC student who has to pay school fees regularly |track how much I’ll have to pay and when I have to pay it by |avoid making late payments
+
+|`* * *` |SOC student experienced in writing programs |write my own scripts to manipulate entries in the app |automate and customize the app to my liking
+
+|`* * *` |ambitious user |set goals for my cumulative income |work towards my dream home/car/goal
+
+|`* *` |careless user |undo a mistake |not worry even if I accidentally make an error
+
+|`* *` |careful spender |dedicate different accounts to different holidays |control how much I spend while on the holidays
+
+|`* *` |careful spender |set different currencies for different accounts |see my expenditure during a holiday in the local currency
+
+|`* *` |lazy person |import expenses from csv exports from internet banking |transfer my records across software
+
+|`* *` |supremely lazy user |have the program detect recurring transactions and suggest them to me |not waste time adding them manually
+
+|`* *` |paranoid user |have the program show me all possible commands and how to use them |know exactly what I am doing
+
+|`* *` |user who prefers visuals |see a chart of my budget spending across past months |see how much I have been overspending/underspending
+
+|`* *` |busy user |move and delete multiple transactions at the same time |be more efficient
+
+|`* *` |lazy user |have the program autofill my command as I am typing it |enter my transactions more quickly
+
+|`* *` |user who cannot control spending |set a budget for different purposes |control my spending
+
+|`* *` |lazy user |have the app to have predictive commands based on what transactions I commonly include |spend less time typing in my expenses
+
+|`* *` |fast typer |type out multiple commands all at once |type the next command without having to pause
+
+|`* *` |person who occasionally goes overseas |assign an exchange rate to each foreign currency transaction |get reports on my total expenditure in my home currency
+
+|`* *` |busy user |see my overall budget surplus/deficit at a glance |know straight away when I’m below or above my budget for that month
+
+|`* *` |meticulous user |see how much I need to budget every month to reach a savings goal based on what the goal is and its deadline |plan my budget well
+
+|`* *` |busy user |keep track of my spending in different account books |segregate completely unrelated spending
+
+|`* *` |careless user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`*` |unmotivated person |be rewarded for entering my expenses/income daily |be motivated to do so and eventually turn it into a habit
+
+|`*` |expense planner |record down possible future expenses |keep track of what I planned to spend on
+
+|`*` |forgetful user |have the app set reminders |keep track of my spending everyday
+
+|`*` | 
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Budget Buddy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete transaction
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list transactions.
+2.  Budget Buddy shows a list of transactions for the current account.
+3.  User requests to delete a specific transaction in the list.
+4.  Budget Buddy deletes the transaction.
 +
 Use case ends.
 
@@ -337,20 +385,116 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Budget Buddy shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+=== Use case: Add loan
+
+*MSS*
+
+1.  User requests to add a <<loan-out, loan out>> for a person.
+2.  Budget Buddy adds the loan for the given person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given loan out value is negative.
++
+[none]
+**1a1. Budget Buddy shows an error message.
++
+Use case resumes at step 1.
+
+* 2a. The given person does not exist in the loan list.
++
+[none]
+** 2a1. Budget Buddy adds the given person to the loan list with a loan entry.
++
+Use case ends.
+
+=== Use case: Edit loan
+
+*MSS*
+
+1.  User requests to list loans.
+2.  Budget Buddy shows a list of loans.
+3.  User requests to edit the description of a loan in the list.
+4.  Budget Buddy edits the description of the specified loan.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 2a. The given loan index is invalid.
++
+[none]
+** 2a1. Budget Buddy shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Add account
+
+*MSS*
+
+1. User requests to add a new account.
+2. Budget Buddy creates the new account.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No account name was provided.
++
+[none]
+** 1a1. Budget Buddy shows an error message.
++
+Use case resumes at step 1.
+
+===Use case: Rename categories
+
+*MSS*
+
+1. User requests to list all categories.
+2. Budget Buddy shows all created categories.
+3. User requests to rename a category.
+4. Budget Buddy renames the category and displays the list of categories.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The index of the category does not exist.
++
+[none]
+** 3a1. Budget buddy shows an error message.
++
+Use case resumes at step 3.
+
+[none]
+* 3b. The new name of the category is invalid.
++
+[none]
+** 3b1. Budget Buddy shows an error message.
++
+Use case resumes at step 3.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000000 transactions without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -358,8 +502,11 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[loan-out]] Loan Out::
+A loan where the user owes another person money.
+
+[[loan-in]] Loan In::
+A loan where another person owes the user money.
 
 [appendix]
 == Product Survey
