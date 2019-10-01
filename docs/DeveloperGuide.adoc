@@ -279,13 +279,20 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* a poor CS undergraduate
+** has a need to track expenditure and income items
+** has a need to limit expenditure to a budget
+** has a need to quickly analyse how to reduce expenditure
+** has a need to track total amount of money
+** prefers desktop apps over other types
+** can type fast
+** prefers typing over mouse input
+** is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* manage financial transactions faster than a typical mouse/GUI driven app
+* analyse past expenditure patterns by category
 
 [appendix]
 == User Stories
