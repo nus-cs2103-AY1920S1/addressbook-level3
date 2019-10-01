@@ -323,9 +323,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |diabetic who values my punctuality |adhere to my appointment timings |uphold my principles and take responsibility of my own health by not missing my appointments.
 
-|`* * *` |diabetic |reminded to take my insulin|  regularly
+|`* * *` |diabetic |reminded to take my insulin regularly|
 
-|`* * *` |diabetic |be able to track my sugar levels| 
+|`* * *` |diabetic |be able to track my sugar levels|
 
 |`* * *` |task-oriented diabetic patient |have a goal to work towards or a challenge to work on everyday |have a sense of direction in what I can do to improve my health
 
