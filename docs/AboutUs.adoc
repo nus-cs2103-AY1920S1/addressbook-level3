@@ -21,7 +21,7 @@ Role: Project Advisor
 '''
 
 === Maurice
-image::maurice.png[width="150", align="left"]
+image::mauricetxs.png[width="150", align="left"]
 {empty}[http://github.com/MauriceTXS[Github]]
 
 Role: Chief Executive Officer +
@@ -30,7 +30,7 @@ Responsibilities: UI
 '''
 
 === Felix
-image::felix.png[width="150", align="left"]
+image::felixnwj.png[width="150", align="left"]
 {empty}[http://github.com/FelixNWJ[Github]]
 
 Role: Chief Operating Officer +
@@ -39,7 +39,7 @@ Responsibilities: Data
 '''
 
 === Ryan
-image::ryan.png[width="150", align="left"]
+image::iltep64.png[width="150", align="left"]
 {empty}[http://github.com/iltep64[Github]]
 
 Role: Chief Technical Officer +
@@ -48,7 +48,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Pin Sern
-image::pinsern.png[width="150", align="left"]
+image::fangpinsern.png[width="150", align="left"]
 {empty}[http://github.com/fangpinsern[Github]]
 
 Role: Intern +
