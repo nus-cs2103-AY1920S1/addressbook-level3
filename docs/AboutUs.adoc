@@ -38,9 +38,9 @@ Responsibilities: Data
 
 '''
 
-=== Zhan Ming
+=== Tan Zhan Ming
 image::TZM.jpg[width="150", align="left"]
-{empty}[http://https://github.com/TanZhanMing] [<<johndoe#, portfolio>>]
+{empty}[http://https://github.com/TanZhanMing[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Product testing and Feature robustness
