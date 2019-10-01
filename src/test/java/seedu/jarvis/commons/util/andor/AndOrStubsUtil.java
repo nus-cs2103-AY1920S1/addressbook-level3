@@ -12,6 +12,16 @@ import seedu.jarvis.model.course.CourseCode;
  * @author ryanYtan
  */
 public class AndOrStubsUtil {
+
+    protected static final List<AndOrNode> CHILDREN = List.of(
+        new NodeStub(new CourseStub("aaa")),
+        new NodeStub(new CourseStub("bbb")),
+        new NodeStub(new CourseStub("ccc")),
+        new NodeStub(new CourseStub("ddd")),
+        new NodeStub(new CourseStub("eee")),
+        new NodeStub(new CourseStub("fff"))
+    );
+
     /**
      * Stub class to emulate a Course.
      */
@@ -51,13 +61,4 @@ public class AndOrStubsUtil {
             return "";
         }
     }
-
-    protected static final List<AndOrNode> CHILDREN = List.of(
-        new NodeStub(new CourseStub("aaa")),
-        new NodeStub(new CourseStub("bbb")),
-        new NodeStub(new CourseStub("ccc")),
-        new NodeStub(new CourseStub("ddd")),
-        new NodeStub(new CourseStub("eee")),
-        new NodeStub(new CourseStub("fff"))
-    );
 }
