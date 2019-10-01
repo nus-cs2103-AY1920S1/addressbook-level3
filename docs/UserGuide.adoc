@@ -54,6 +54,51 @@ Sets the default account.
 
 Format: `default account <id>`
 
+=== Manage the main transaction view : `view`
+
+==== Filter transactions : `view filter`
+
+Filters the main transaction view. If no arguments are provided, all transactions are shown.
+Otherwise, only transactions meeting all the criteria are shown.
+
+Format: `view filter [a/<account>] [c/<category>] [f/<from date>] [t/<to date>]`
+
+==== Sort transactions : `view sort`
+
+Sorts transactions by (a)ccount, (c)ategory, (d)ate or (x)amount.
+Specify `o/a` to sort in ascending order, or `o/d` to sort in descending order.
+If omitted, sort in ascending order.
+
+Format: `view sort s/<a|c|d|x> [o/<a|d>]`
+
+=== Managing transactions : `transaction`
+
+==== Add a transaction : `transaction add`
+
+Adds a new transaction of the specified amount and with the given description.
+
+Format: `transaction add x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
+****
+* If the account is not given, the transaction is inserted into the default account.
+* If the category is not given, the transaction is not categorised.
+* If the date is not given, the date is set to the current date.
+* If the argument ‘r’ is added, the transition is marked as recurring;
+identical entries will be added either daily, weekly, monthly, or yearly.
+****
+
+==== Edit a transaction : `transaction edit`
+
+Edits the specified transaction, setting the specified fields.
+If the ‘recurring’ field is modified, the app will ask if all previous recurring entries should be deleted.
+
+Format: `transaction edit <id> [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
+
+==== Delete transaction(s) : `transaction delete`
+
+Deletes the transactions with the specified IDs.
+
+Format: `transaction delete <id ...>`
+
 === Managing accounts : `account`
 
 ==== Add an account : `account add`
