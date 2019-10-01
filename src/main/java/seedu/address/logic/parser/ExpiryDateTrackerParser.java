@@ -15,6 +15,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SetReminderCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.TagCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -30,7 +32,7 @@ public class ExpiryDateTrackerParser {
      */
     public Command parseCommand(String userInput) throws ParseException {
         final String trimmedUserInput = userInput.trim();
-        final String commandWord = trimmedUserInput.split("\\|", 2)[0];
+        final String commandWord = trimmedUserInput.split("\\|", 2)[0].trim();
         String arguments;
 
         if (commandWord.isEmpty()) {
@@ -77,6 +79,9 @@ public class ExpiryDateTrackerParser {
 
         case SetReminderCommand.COMMAND_WORD:
             return new SetReminderCommandParser().parse(arguments);
+
+        case TagCommand.COMMAND_WORD:
+            return new TagCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

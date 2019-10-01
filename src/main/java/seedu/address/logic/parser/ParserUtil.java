@@ -140,4 +140,5 @@ public class ParserUtil {
         }
         return new MethodOfSorting(trimmedMethodOfSorting);
     }
+
 }
