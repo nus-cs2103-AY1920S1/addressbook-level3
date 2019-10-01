@@ -426,13 +426,14 @@ Use case ends.
 Use case ends
 
 [discrete]
-=== Use case: Filter transaction repeaters
+=== Use case: Edit transaction repeater
 
 *MSS*
 
-1. User requests to find transaction repeaters by specified fields.
-2. System filters existing transaction repeaters against specified fields.
-3. System shows filtered transaction repeaters.
+1. User requests to edit a transaction repeated with specified arguments.
+2. System updates the transaction repeater.
++
+Use case ends
 
 [discrete]
 === Use case: Delete transaction repeaters including all produced transactions
@@ -442,6 +443,19 @@ Use case ends
 1. User requests to delete a transaction repeater together with all its produced transactions.
 2. System removes existing transactions produced from transaction repeater.
 3. System removes transaction repeater.
++
+Use case ends
+
+[discrete]
+=== Use case: Filter transaction repeaters
+
+*MSS*
+
+1. User requests to find transaction repeaters by specified fields.
+2. System filters existing transaction repeaters against specified fields.
+3. System shows filtered transaction repeaters.
++
+Use case ends
 
 [discrete]
 === Use case: Set monthly expenditure budget
