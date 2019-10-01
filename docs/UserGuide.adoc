@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ɯeme - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,28 +14,28 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-T16-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ɯeme is a meme manager app for those who *prefer to use a desktop app for managing memes*. More importantly, ɯeme is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ɯeme can let you manage memes faster than traditional GUI apps. Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `weme.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your ɯeme.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+//image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`meme list`* : lists all memes
+* **`meme add`**`p/~/Downloads/meme.jpg d/Top meme` : adds a meme located at "~/Downloads/meme.jpg" with the description "Top meme"
+* **`meme delete`**`3` : deletes the 3rd meme shown in the window
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,83 +46,66 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `meme add p/PATH`, `PATH` is a parameter which can be used as `meme add p/~/Downloads/meme.jpg`.
+* Items in square brackets are optional e.g `p/PATH [t/TAG]` can be used as `p/~/Downloads/meme.jpg t/cs2103` or as `p/~/Downloads/meme.jpg`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/cs2103`, `t/soc t/funny` etc.
+* Parameters can be in any order e.g. if the command specifies `p/PATH d/DESCRIPTION`, `d/DESCRIPTION p/PATH` is also acceptable.
+* Whenever INDEX is encountered, it refers to the index in the currently displayed list.
 ====
 
-=== Viewing help : `help`
+=== General
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Undo : `undo`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Undoes commands TIMES number of times. +
+Format: `undo TIMES` +
+Example: `undo 3`
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Redo : `redo`
+Redoes commands TIMES number of times. +
+Format: `redo TIMES` +
+Example: redo 3
+
+==== Exit : `exit`
+Exits Weme.
+Format: `exit`
+
+=== Meme
+
+==== Add - meme : `add`
+
+Add a new meme to weme. Weme will copy the given image into the it’s data storage folder. +
+Format: `meme add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
+Examples:
+
+* Add a meme that uses the “Disaster Girl” template from ~/Downloads/dgirl_oof.jpg `meme add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`
+
+==== List - meme : `list`
+
+List all memes. +
+Format: `meme list`
+
+==== Edit - meme : `edit`
+
+Edit the details of a meme at the specified index. Only optional fields are editable. +
+Format: `meme edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+==== Delete - meme : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Delete the specified meme from ɯeme.
+Format: `meme delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the meme at the specified `INDEX`.
+* The index refers to the index number shown in the displayed meme list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -130,48 +113,248 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd meme in the window.
+* `meme find pikachu` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st meme in the results of the `find` command.
 
 // end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Find - meme : `find`
 
-=== Exiting the program : `exit`
+Finds memes that fulfill the given search criteria. At least one field must be given. +
+Format: `meme find [d/DESCRIPTION]... [n/TEMPLATE_NAME]... [t/TAG]...`
 
-Exits the program. +
-Format: `exit`
+****
+* The search is case insensitive. e.g `Pikachu` will match `pikachu`
+* The order of the keywords does not matter. e.g. `run naruto` will match `naruto run`
+* Only the name is searched.
+* Only full words will be matched e.g. `naru` will not match `naruto`
+****
 
-=== Saving the data
+Examples:
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+* `meme find pikachu` +
+Returns memes related to `pikachu` and `pikachu faceless`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Templates
+Templates are meme prototypes. You can use any image as template base and add labels to it. Labels serve as placeholders that will be replaced with text supplied by the user when creating a meme from the template.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Adding a template - template add
+
+Add a new template to weme. The newly created template will not have any labels. +
+Format: `template add n/NAME p/PATH` +
+Examples:
+
+* Add a template named “Drake” from ~/Downloads/Drake_hotline_bling.jpg +
+`template add n/Drake p/~/Downloads/Drake_hotline_bling.jpg`
+
+==== Listing all  templates - template list
+
+List all templates. +
+Format: `template list`
+
+==== Viewing a template - template view
+View a template. The list panel will be filled by the template. The labels will be displayed at their respective positions. +
+Format: `template view INDEX`
+
+==== Editing a template - template edit
+Edit a template at the specified index. The list panel will become the editing area and display the selected template. You can add, remove, or move labels. A set of keyboard actions are available: +
+
+* a: add a label
+* NUMBER: focus a label labelled NUMBER
+* ↓/j: move the currently focused label downwards
+* ↑/k: move the currently focused label upwards
+* ←/h: move the currently focused label to the left
+* →/l: move the currently focused label to the right
+* Delete/d: delete the currently focused label
+* Enter: finish editing
+
+Format: `template edit INDEX`
+
+****
+* Note: The current edit session will be aborted if another command is entered before the session is finished.
+****
+
+==== Deleting a meme - template delete
+
+Delete the specified template from weme. +
+Format: `template delete INDEX`
+
+==== Locating templates by name - template find
+
+Finds templates whose names contain any of the given keywords. +
+Format: `template find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g drake will match dRaKE
+* The order of the keywords does not matter. e.g. Pikachu Surprised will match Surprised Pikachu
+* Only the name is searched.
+* Only full words will be matched e.g. sponge will not match spongebob
+* Templates matching at least one keyword will be returned (i.e. OR search). e.g. SpongeBob Patrick will return both Tired SpongeBob and Savage Patrick
+****
+
+Examples:
+
+* `find Thanos` +
+Returns all template containing Thanos in their names
+
+* `find Stonks Doge Pikachu` +
+Returns any templates having names stonks, doge, or pikachu
+
+==== Creating memes from templates - template use
+Create a meme from one of the templates stored in weme. Multiple pieces of text can be supplied, each of which will be used to fill in the labels 1, 2, 3, …, etc, in the order they are supplied. The resultant meme will be saved in weme with the tags you specified. +
+Format: `template use INDEX l/TEXT [l/TEXT]... t/TAG [t/TAG]..` +
+Example:
+
+* `template use 1 t/wow t/so amaze t/random` +
+Using the template at index 1, create a new meme tagged `random` by replacing label 1 with `wow` and label 2 with `so amaze`.
+
+=== Import/Export
+==== Export - export
+
+Exports existing memes into a zip file.
+
+===== Toggles the export window - export toggle
+
+Toggles the export window for exporting memes into a zip package. +
+Format: `export toggle`
+
+===== Add export - export add
+
+Adds memes by tag or by position into the staging area for export. +
+Format: `export add t/TAG` +
+Format: `export add i/POSITION`
+
+===== Remove export - export remove
+
+Removes memes from the export staging area by position. +
+Format: `export remove i/POSITION`
+
+===== Sets path for export - export path
+
+Sets the export path of the meme. +
+Format: `export path p/PATHNAME`
+
+===== Execute the export - export execute
+Format: `export execute`
+
+==== Import - import
+
+Imports a set of memes from a directory as templates.
+
+===== Toggles the import window - import toggle
+
+Toggles the import window to import memes from a directory. +
+Format: `import toggle`
+
+===== Add import - import add
+
+Adds memes to the import staging area based on its path. +
+Format: `import add p/PATHNAME`
+
+===== Remove import - import remove
+
+Removes memes from the import staging area by position +
+Format: `import remove i/POSITION`
+
+===== Execute the import - import execute
+
+Successfully converts all meme files in the staging area into meme templates. +
+Format: `import execute`
+
+=== Tags
+
+==== Add - tag add
+
+Creates a tag with a name, and optionally attach it to a meme at the specified index. +
+Format: `tag add n/NAME [INDEX]   +
+Examples:
+
+* Add a tag called “CS2103” without a meme +
+`tag add n/CS2103`
+* Add a tag called “SoC” and tag meme #3 in the search list with it +
+`tag add n/SoC 3`
+
+==== Edit - tag edit
+
+Edits the name of a tag, replacing the old name with the new name. +
+Format: `tag edit o/OLDNAME n/NEWNAME` +
+Examples:
+
+* Change the name of tag “CS2010” to “CS2040” +
+`tag edit o/CS2010 n/CS2040`
+
+==== List - tag list
+
+Lists all the tags created so far. +
+Format: `tag list`
+
+==== Delete - tag delete
+
+Delete a tag specified by either its name or its index in the search result. +
+Format: `tag delete [n/NAME] [INDEX]` +
+Examples:
+
+* Delete tag “CS1101S” +
+`tag delete n/CS1101S`
+* Delete tag at index 4 in the search result +
+`tag delete 4`
+
+=== Statistics
+
+View stats - `stats` +
+View various statistics about the memes such as views by tags and meme, search frequency and most used templates. +
+Format: `stats`
+
+=== Auto-suggestions
+
+The command format will be suggested in the console after user type in the command word, followed by one example. Possible command arguments (ordered by relevance) will appear in the console after user type in each prefix. The auto-suggestion is dynamic and updates while the user type in command. +
+Format: +
+when user type in meme add, the command format will appear below: +
+`p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
+e.g. `p/home/pictures/p1.jpeg d/My favorite meme n/sad sponge bob t/spongebob t/favorites`
+
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and import the data using the <<Import/Export>> feature
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Undo* : `undo TIMES` +
+e.g. `undo 3`
+* *Redo* : `redo TIMES` +
+e.g. `redo 3`
+* *Exit* : `exit`
+* *Add Meme* : `meme add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
+e.g. `meme add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`
+* *List Meme* : `meme list`
+* *Edit Meme* : `meme edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
+* *Delete Meme* : `meme delete INDEX`
+* *Find Meme* : `meme find [d/DESCRIPTION]... [n/TEMPLATE_NAME]... [t/TAG]...`
+* *Add Template* : `template add n/NAME p/PATH`
+* *List Template* : `template list`
+* *View template* : `template view INDEX`
+* *Edit Template* : `template edit INDEX`
+* *Delete Template* : `template delete INDEX`
+* *Find Template* : `template find KEYWORD [MORE_KEYWORDS]`
+* *Use Template* : `template use INDEX l/TEXT [l/TEXT]... t/TAG [t/TAG]..`
+* *Export Toggle* : `export toggle`
+* *Add Export* : `export add [t/tag] [i/position]`
+* *Remove Export* : `export remove i/position`
+* *Set Export Path* : `export path p/path_name`
+* *Execute Export* : `export execute`
+* *Import Toggle* : `import toggle`
+* *Add Import* : `import add p/PATHNAME`
+* *Remove Import* : `import remove i/POSITION`
+* *Set Import Path* : `import path p/PATHNAME`
+* *Execute Import* : `import execute`
+* *Add Tag* : `tag add n/NAME [INDEX]`
+* *Edit Tag* : `tag edit o/OLDNAME n/NEWNAME`
+* *List Tag* : `tag list`
+* *Delete Tag* : `tag delete [n/NAME] [INDEX]`
+* *Statistics* : `stats`
+
