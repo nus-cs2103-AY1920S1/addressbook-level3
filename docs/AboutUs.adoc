@@ -4,53 +4,68 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Insurelytics was developed by the https://github.com/AY1920S1-CS2103-F09-4/main[cinnamon-agents] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Lecturer
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Keith Sim
+image::kthSim.png[width="150", align="left"]
+{empty}[https://github.com/kthSim[github]]
+
+Role: Teaching Assistant
+
+'''
+=== Chaitanya Baranwal
+image::chaitanyabaranwal.png[width="150", align="left"]
+{empty}[http://chaitanyabaranwal.netlify.com[homepage]]{empty}[http://github.com/chaitanyabaranwal[github]][<<ChaitanyaBaranwal#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Team Lead, Undo/Redo
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Oliver Cheok
+image::olivercheok20.png[width="150", align="left"]
+{empty}[http://github.com/olivercheok20[github]] [<<OliverCheok#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Documentation, Integration, Search function
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Chow Yi Yin
+image::chowyiyin.png[width="150", align="left"]
+{empty}[http://github.com/chowyiyin[github]] [<<ChowYiYin#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Testing, Scheduling and Tracking, Input Validation
+
+'''
+
+=== Chen Yuan Bo
+image::ybchen97.png[width="150", align="left"]
+{empty}[https://ybchen97.github.io/[homepage]][http://github.com/ybchen97[github]] [<<ChenYuanBo#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Code Quality, Intellij Expert, Recycling Bin
+
+'''
+
+=== Larry Law
+image::larrylawl.png[width="150", align="left"]
+{empty}[http://github.com/larrylawl[github]] [<<LarryLaw#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Deliverables & deadlines, JavaFX Expert, Visual Representation
 
 '''
