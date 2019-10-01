@@ -1,4 +1,4 @@
-= AddMin+ - All in One Admin App
+= AddMin+  -   All in One Admin App
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T11-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-T11-3/main.svg?branch=master[Build Status]]
@@ -11,7 +11,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-== AddMin+ all in One Administration App
+== AddMin+   -  All in One Administration App
 AddMin+ is an all in one administration desktop application, that is specially designed for ABC Company, which is a tech startup company with only 6 full-time employees. ABC Company is still a relatively small company and it could only afford to hire 1 full-time employee to deal with all administrative matters.
 
 * AddMin+ is specially designed to help ease the workload by offering a one-stop platform to help deal with the various administrative needs of the company.
