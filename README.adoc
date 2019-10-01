@@ -13,11 +13,6 @@
 
 - [ ] V1.1(Week 7)
 
-
-# Timeline
-- Tuesday complete individual basic features
-
-
 = Address Book (Level 3)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
