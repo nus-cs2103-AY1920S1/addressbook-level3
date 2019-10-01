@@ -64,8 +64,8 @@ public class Bookmark {
         }
 
         return otherBookmark != null
-                && otherBookmark.getName().equals(getName())
-                && otherBookmark.getUrl().equals(getUrl());
+                && (otherBookmark.getName().equals(getName())
+                    || otherBookmark.getUrl().equals(getUrl()));
     }
 
     /**
