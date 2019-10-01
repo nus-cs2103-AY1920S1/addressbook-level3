@@ -1,7 +1,6 @@
 package seedu.jarvis.commons.util.andor;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.jarvis.commons.util.andor.AndOrStubs.CourseStub;
 
 import java.util.List;
@@ -39,5 +38,13 @@ public class LeafNodeTest {
     public void hasFulfilledCondition_invalidInput_returnsFalse() {
         LeafNode leaf = new LeafNode(EXAMPLE_COURSE, null);
         assertFalse(() -> leaf.hasFulfilledCondition(COLLECTION_FAILS_REQUIREMENTS));
+    }
+
+    @Test
+    public void toString_returnsStringForm() {
+        assertEquals("aaa",
+            new LeafNode(EXAMPLE_COURSE, null).toString());
+        assertEquals("null",
+            new LeafNode(null, null).toString());
     }
 }

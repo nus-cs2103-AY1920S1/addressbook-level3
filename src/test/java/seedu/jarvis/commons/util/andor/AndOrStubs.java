@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.course.CourseCode;
 
 /**
  * Utility stubs to use in Unit tests in this package.
@@ -19,6 +20,11 @@ public class AndOrStubs {
 
         public CourseStub(String code) {
             this.code = code;
+        }
+
+        @Override
+        public CourseCode getCourseCode() {
+            return new CourseCode(code);
         }
 
         @Override

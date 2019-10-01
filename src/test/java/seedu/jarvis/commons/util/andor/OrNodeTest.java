@@ -1,7 +1,6 @@
 package seedu.jarvis.commons.util.andor;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.jarvis.commons.util.andor.AndOrStubs.CHILDREN;
 import static seedu.jarvis.commons.util.andor.AndOrStubs.CourseStub;
 
@@ -38,5 +37,11 @@ public class OrNodeTest {
     public void hasFulfilledCondition_invalidInput_returnsFalse() {
         OrNode or = new OrNode(null, null, CHILDREN);
         assertFalse(() -> or.hasFulfilledCondition(COLLECTION_FAILS_REQUIREMENTS));
+    }
+
+    @Test
+    public void toString_returnsStringForm() {
+        assertEquals("one of",
+                new OrNode(null, null, null).toString());
     }
 }
