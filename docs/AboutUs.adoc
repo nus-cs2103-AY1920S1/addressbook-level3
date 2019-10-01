@@ -21,7 +21,7 @@ Role: Project Advisor
 
 === Loh Wei Kiat
 image::Weikiat.png[width="150", align="left"]
-{empty}[https://github.com/weikiat97] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/weikiat97[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -29,8 +29,8 @@ Responsibilities: UI
 '''
 
 === Sebastian Lie Hsien Yong
-image::yijinl.jpg[width="150", align="left"]
-{empty}[https://github.com/SebastianLie] [<<johndoe#, portfolio>>]
+image::Sebastian.png[width="150", align="left"]
+{empty}[https://github.com/SebastianLie[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
@@ -39,7 +39,7 @@ Responsibilities: Data
 
 === Tay Sheryl
 image::Sheryl.png[width="150", align="left"]
-{empty}[https://github.com/sheryltay28] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/sheryltay28[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
@@ -47,8 +47,8 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Yoon Jia Jun, Ken
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[https://github.com/Xelyion] [<<johndoe#, portfolio>>]
+image::Ken.png[width="150", align="left"]
+{empty}[https://github.com/Xelyion[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
