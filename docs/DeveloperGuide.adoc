@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= ModuleBook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-W13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* is a student of National University of Singapore (NUS)
+* prefer desktop apps over web apps
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage modules faster and with less hassle than the traditional web apps deployed by the institution
 
 [appendix]
 == User Stories
@@ -297,15 +297,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |track a module I'm currently taking |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |untrack a module |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a module |locate details of modules that NUS provides
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |curious student |view a module's details |check out if I want to take the module
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |busy student |manage deadlines |keep track of my assignments and tasks
+
+|`* * *` |organized student |manage my grades |know roughly how well I'm doing in the module
+
+|`* *` |new student |schedule my modules |plan how to approach my future focus areas
+
+|`* *` |graduating student |check what modules I need to complete |
+
+|`* *` |computing student |plan my focus area modules |choose a specialization
+
+|`* *` |competitive student |calculate my GPA |
+
+|`* *` |busy student |prioritize certain modules (and their deadlines) |manage my time better
+
+|`* *` |organized student |manage files related to a module |add and tag files
+
+|`* *` |student |catalog past modules |access the content conveniently
+
+|`*` |student |generate a sample module planner |plan my modules
+
+|`*` |hardworking student |access past exam papers |
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,33 +334,53 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ModuleBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Find and Track a Module
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to find a module with incomplete keyword (e.g. 'CS2')
+2.  ModuleBook shows a list of modules matching the keyword (e.g. 'CS2030, CS2040, CS2100, CS2101, etc.')
+3.  User requests to track a module
+4.  ModuleBook tracks the module
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a deadline for a tracked module
+
+*MSS*
+
+1.  User requests to view the specific tracked module
+2.  ModuleBook displays the module details
+3.  User requests to add a deadline
+4.  ModuleBook adds the deadline
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
+* 2a. The module is not currently tracked
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. User requests to track the module
+** 2a2. The module is now tracked
+
 +
-Use case resumes at step 2.
+Use case resumes at step 3
+
+[%hardbreaks]
+[none]
+* 3a. ModuleBook requests for a description
+[none]
+** 3a1. User provides a description
+** 3a2. ModuleBook requests for a datetime
+** 3a3. User provides a datetime
+
++
+Use case resumes at step 4.
 
 _{More to be added}_
 
@@ -347,7 +388,6 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -358,25 +398,34 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 [appendix]
 == Product Survey
 
-*Product Name*
-
-Author: ...
+LumiNUS
 
 Pros:
 
-* ...
-* ...
+* Good deadline system
+* Working file management system
 
 Cons:
 
-* ...
-* ...
+* A lot of GUI navigation involved
+* Cannot add user-generated deadlines
+* Cannot view past module details or content
+
+'''
+
+NUSMods
+
+Pros:
+
+* Easy to use and powerful module search feature
+* Modules come with schedules for tutorials, lectures, etc
+
+Cons:
+
+* Not applicable for managing modules (such as deadlines, grades)
 
 [appendix]
 == Instructions for Manual Testing
