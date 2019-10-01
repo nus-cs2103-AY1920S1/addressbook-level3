@@ -3,6 +3,8 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-W11-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-W11-1/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-W11-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-W11-1/main/badge.svg?branch=master[Coverage Status]]
+https://app.netlify.com/sites/algobase/deploys[image:https://img.shields.io/netlify/05fde8a9-d24f-4a79-972e-0e6ea1ceb8a5?logo=netlify[Netlify Status]]
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/LICENSE[image:https://img.shields.io/badge/license-MIT-blue.svg[MIT License]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -18,7 +20,6 @@ Technical interviews are hard. Unless you are extraordinarily gifted, you will l
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 

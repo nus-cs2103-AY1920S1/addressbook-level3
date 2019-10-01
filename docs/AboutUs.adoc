@@ -32,7 +32,7 @@ image::jiayushe.png[width="150", align="left"]
 {empty}[http://github.com/jiayushe[github]] [<<jiayushe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code Quality
+Responsibilities: Code Quality + In charge of Storage
 
 '''
 
