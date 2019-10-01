@@ -558,23 +558,6 @@ An execution environment offered by mainstream OSes as defined above
 Source code or executable that aims to solve the corresponding problem
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: `Team CS2103T-W11-1`
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -600,17 +583,21 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a problem while all problems are listed
 
-.. Prerequisites: List all problems using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all problems using the `list` command. Multiple problems in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First problem is deleted from the list. Details of the deleted problem shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No problem is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Delete the `data` folder in project root folder and launch AlgoBase. +
+   Expected: No errors shown. A new data file is created silently.
+
+.. Delete some mandatory fields in the data file located at `data/algobase.json` and launch AlgoBase. +
+   Expected: Error details shown in the status message, indicating corrupted data file.
 
