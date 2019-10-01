@@ -553,7 +553,7 @@ Use case resumes from step 16.
 Use case resumes from step 16.
 
 [discrete]
-=== Use case: UC06 – Start time trial
+=== Use case: UC06 – Start <<time-trial,time trial>>
 
 *MSS*
 
@@ -629,8 +629,15 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[flash-card]] FlashCard::
+A titled digital 'card' that contains a question (image or text), answer, as well as it's relevant tags.
+
+[[cheat-sheet]] Cheatsheet::
+A document that contains the notes the user has specified during creation
+
+[[time-trial]] Time-Trial::
+A mode of answering flashcards in which you must provide the answer within a deisgnated time period.
+
 
 [appendix]
 == Product Survey
