@@ -3,6 +3,9 @@ matrix:
   include:
     - jdk: openjdk11
 
+services:
+  - xvfb
+
 before_script:
     export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
 

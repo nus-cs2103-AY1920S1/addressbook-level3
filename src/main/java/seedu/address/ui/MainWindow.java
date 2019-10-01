@@ -5,9 +5,11 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -49,6 +51,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane detailsViewPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -116,8 +121,22 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new SuggestingCommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        //setting up default detailsview
+        Region defaultRegion = new Region();
+        defaultRegion.setPrefHeight(750.0);
+        detailsViewPlaceholder.getChildren().add(defaultRegion);
+    }
+
+    /**
+     * Handles change of details view
+     * @param details details to be set inside detailsViewPlaceHolder in MainWindow.
+     */
+    public void handleChangeOnDetailsView(ScrollPane details) {
+        detailsViewPlaceholder.getChildren().clear();
+        detailsViewPlaceholder.getChildren().add(details);
     }
 
     /**

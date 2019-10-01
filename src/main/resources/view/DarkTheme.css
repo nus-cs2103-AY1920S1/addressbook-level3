@@ -350,3 +350,13 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#suggestions-list {
+    -fx-background-color: transparent;
+}
+#suggestions-list .list-cell {
+    -fx-text-fill: white;
+}
+#suggestions-list .list-cell:empty {
+    visibility: hidden;
+}
