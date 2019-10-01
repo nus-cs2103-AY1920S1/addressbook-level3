@@ -47,7 +47,7 @@ Responsibilities:
 
 === Tay Yu Hong
 image::(enter file name)[width="150", align="left"]
-{empty}[https://github.com/yuhongtay] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/yuhongtay[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities:
