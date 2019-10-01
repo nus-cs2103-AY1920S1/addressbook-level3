@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Mark was developed by the team https://github.com/orgs/AY1920S1-CS2103T-T13-4/teams/developers[CS2103T-T13-4].
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Dorcas Tabitha Tan
+image::dorcastan.png[width="150", align="left"]
+{empty}[https://github.com/dorcastan[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Team lead & Scheduling and Tracking +
+Responsibilities: Model
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Daryl Tan
+image::openorclose.png[width="150", align="left"]
+{empty}[https://github.com/openorclose[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
+Role: Testing & Code Quality +
+Responsibilities: Storage
+
+'''
+
+=== Na Nazhou
+image::na-nazhou.png[width="150", align="left"]
+{empty}[https://github.com/Na-Nazhou[github]] [<<johndoe#, portfolio>>]
+
+Role: Deliverables and Deadlines +
+Responsibilities: Logic
+
+'''
+
+=== Yoke Kai Xin
+image::kxyoke.png[width="150", align="left"]
+{empty}[https://github.com/kxyoke[github]] [<<johndoe#, portfolio>>]
+
+Role: Documentation +
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== TSAI, HSIAO-HAN
+image::tsai-hsiao-han.png[width="150", align="left"]
+{empty}[https://github.com/TSAI-HSIAO-HAN[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
+Role: Integration +
+Responsibilities: Commons
 
 '''

@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T13-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -299,19 +299,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new bookmark |
 
-|`* * *` |user |bookmark the currently viewing website|do not need to copy paste the URL
+|`* * *` |user |bookmark the current website being viewed |save the page without having to copy-and-paste the URL
 
 |`* * *` |user |delete a bookmark |remove entries that I no longer need
 
 |`* * *` |user |find a bookmark by name, URL or tag |locate details of bookmarks without having to go through the entire list
 
-|`* * *` |user |edit a bookmark |
+|`* * *` |user |edit a bookmark | make changes in case I type something wrongly or change my mind
 
 |`* * *` |user |undo the previous undoable command | reverse wrongly entered commands
 
 |`* * *` |user |redo the previous 'undo' command | reverse wrongly entered 'undo' command
 
-|`* * *` |user |add multiple tags to a bookmark |
+|`* * *` |user |add multiple tags to a bookmark | see what type of bookmark it is at a glance
 
 |`* * *` |user |auto tag a bookmark based on certain conditions (such as domain) |save time from tagging bookmarks from the same domain with the same tag
 
@@ -321,13 +321,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |open a bookmark within the App |easily visit a website without switching to other windows
 
-|`* * *` |user |view an offline copy of the content of a bookmark |still access the bookmark when there is no internet access
+|`* * *` |user |view an offline copy of the content of a bookmark |still access the bookmarked page when there is no internet access
 
 |`* * *` |user |update the offline copy of bookmarks manually or automatically |keep offline copies updated
 
 |`* * *` |user |keep old offline copies |can still refer to them
 
-|`* * *` |user |remove an specific offline copy |remove cache that I no longer need
+|`* * *` |user |remove an specific offline copy |remove <<cache,cache>> that I no longer need
 
 |`* * *` |user |highlight and annotate specific paragraphs in a bookmark |refer to my notes easily
 
@@ -362,7 +362,36 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC03 - Delete bookmark
+=== Use case 01: List bookmarks
+
+*MSS*
+
+1.  User requests to list bookmarks
+2.  Mark shows a list of bookmarks
++
+Use case ends.
+
+[discrete]
+=== Use case 02: Add bookmark
+
+*MSS*
+
+1.  User requests to add a bookmark
+2.  User provides all the details of the bookmark to add
+3.  Mark deletes the bookmark
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The given URL is invalid.
++
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 03: Delete bookmark
 
 *MSS*
 
@@ -387,10 +416,138 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case 04: Edit bookmark
 
-=== Use case: UC06 - Browse
+*MSS*
 
-=== Use case: UC07 - Annotate offline documents
+1.  User requests to list bookmarks
+2.  Mark shows a list of bookmarks
+3.  User requests to edit a specific bookmark in the list
+4.  Mark edits the bookmark
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 05: Open bookmark
+
+*MSS*
+
+1.  User requests to list bookmarks
+2.  Mark shows a list of bookmarks
+3.  User requests to open a specific bookmark in the list
+4.  Mark opens the bookmark
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 06: Export bookmarks
+
+*MSS*
+
+1.  User requests to list bookmarks.
+2.  Mark shows a list of bookmarks.
+3.  User requests to export all the bookmarks in this list.
+4.  Mark creates a file containing the bookmarks on the hard disk.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. User specifies a file name to be written to.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case 07: Import bookmarks
+
+*MSS*
+
+1.  User requests to import bookmarks from a given file.
+2.  Mark imports bookmarks from the specified file and displays the final list of bookmarks.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No file with the specified file name is found.
++
+[none]
+** 1a1. Mark shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The file format is invalid.
++
+[none]
+** 1b1. Mark shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 08: Make a bookmark available offline
+
+*MSS*
+
+1.  User requests to make a bookmark available offline
+2.  Mark downloads the bookmark and converts it with Readability.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The bookmark's url is not available
++
+Mark shows an error message.
++
+Use case resumes at step 1.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 1.
+
+
+=== Use case: UC09 - Browse
+
+=== Use case: UC10 - Annotate offline documents
 *MSS*
 1. User requests to annotate document.
 2. Mark shows annotated document.
@@ -421,12 +578,14 @@ Use case ends.
 
 _{More to be added}_
 
+
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 bookmarks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The project is expected to adhere to a schedule that delivers features in increments every two weeks.
 
 _{More to be added}_
 
@@ -435,6 +594,9 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
+
+[[cache]] Cache::
+The collection of offline copies of a specific bookmark
 
 [appendix]
 == Product Survey
