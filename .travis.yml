@@ -1,4 +1,4 @@
-language: java
+language: generic
 matrix:
   include:
     - jdk: openjdk11
@@ -9,6 +9,7 @@ script: >-
 
 deploy:
   skip_cleanup: true
+  github_token: $GITHUB_TOKEN
   provider: script
   script: ./config/travis/deploy_github_pages.sh
   on:
