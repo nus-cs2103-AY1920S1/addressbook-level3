@@ -29,6 +29,7 @@ public class BorrowerIdGenerator {
         BorrowerId id = new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
         while (borrowers.checkIfBorrowerIdExists(id)) {
             currentBorrowerIdIndex++;
+            id = new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
         }
         return new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
     }
