@@ -86,6 +86,16 @@
     -fx-border-width: 1;
     -fx-background-color: derive(#484B95, 20%);
 }
+.tab {
+    -fx-pref-width: 315;
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+}
+.tab-header-background {
+     -fx-background-color:transparent
+ }
+
+
 
 .list-view {
     -fx-background-insets: 0;

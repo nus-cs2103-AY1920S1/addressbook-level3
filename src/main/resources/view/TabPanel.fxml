@@ -7,32 +7,52 @@
 
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <TabPane fx:id="TabPanel">
+    <TabPane fx:id="tabPanel">
       <tabs>
-         <Tab text="Tab 1">
+         <Tab text="Customers" >
            <content>
-               <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+               <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                    <padding>
-                       <Insets top="5" right="20" bottom="5" left="20" />
+                       <Insets top="20" right="0" bottom="0" left="0" />
                    </padding>
-                   <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                   <Label text="Customers"> </Label>
+                   <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </VBox>
            </content>
          </Tab>
-         <Tab text="Tab 2">
+         <Tab text="Phones">
            <content>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               <VBox fx:id="phoneList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="20" right="0" bottom="0" left="0" />
+                   </padding>
+                   <Label text="Phones"> </Label>
+                   <StackPane fx:id="phoneListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
            </content>
          </Tab>
-         <Tab text="Tab 3">
+         <Tab text="Order">
            <content>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               <VBox fx:id="orderList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="20" right="0" bottom="0" left="0" />
+                   </padding>
+                   <Label text="Order"> </Label>
+                   <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
            </content>
          </Tab>
-         <Tab text="Tab 4">
+         <Tab text="Schedule">
            <content>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               <VBox fx:id="scheduleList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="20" right="0" bottom="0" left="0" />
+                   </padding>
+                   <Label text="schedule"> </Label>
+                   <StackPane fx:id="scheduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
            </content>
          </Tab>
       </tabs></TabPane>
