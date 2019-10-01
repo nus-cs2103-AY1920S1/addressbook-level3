@@ -362,19 +362,21 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
+*DBS digibank SG*
 
-Author: ...
+Author: DBS Bank Ltd
 
 Pros:
 
-* ...
-* ...
+* Links to bank account and PayLah!
+* Shows visual summary of cashflow
+* Automatically categorizes items
 
 Cons:
 
-* ...
-* ...
+* Does not use CLI
+* Does not allow for customisation of transactions beyond categories
+* Does not have a budgeting feature
 
 [appendix]
 == Instructions for Manual Testing
