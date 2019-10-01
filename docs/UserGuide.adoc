@@ -46,6 +46,59 @@ Displays help. If `command` is specified, view detailed help for that command.
 
 Format: `help [<command]>`
 
+=== Manage defaults : `default`
+
+==== Set default account : `default account`
+
+Sets the default account.
+
+Format: `default account <id>`
+
+=== Tracking loans : `loan`
+
+==== Add a new loan : `loan out|in`
+
+Adds a new loan out/in entry.
+Each entry has a unique ID (across both out and in entries).
+If date is not given, it is set to the default date.
+
+Format: `loan out|in x/<amount> d/<description> [w/<date>]`
+
+==== List loans : `loan list`
+
+Displays a list of all loans, sorted by newest first.
+
+Format: `loan list [o|i] [s/a]`
+****
+* Adding ‘o’ argument filters list to out loans only.
+* Adding ‘i’ argument filters list to in loans only.
+* Add `s/a` to sort the list by amount.
+****
+
+==== Edit loan : `loan edit`
+
+Edits the specified field of the loan entry with the specified ID.
+
+Format: `loan edit <id> [x/<amount>] [d/<description>] [w/<date>]`
+
+==== Mark loan(s) as paid : `loan paid`
+
+Marks the specified loan(s) as paid.
+
+Format: `loan paid <id ...>`
+
+==== Delete loan(s) : `loan delete`
+
+Deletes the loan(s) with the specified loan ID(s).
+
+Format: `loan delete <id ...>`
+
+==== Calculate loans : `loan split`
+
+Splits and calculates a group payment, then prints a list of who owes who.
+
+Format: `loan split n/<name> a/<amount paid> ...`
+
 == FAQ
 
 == Command Summary
