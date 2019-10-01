@@ -403,7 +403,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to add a person.
+1. User requests to add a person
 2. FinSec adds a person
 
 +
@@ -412,9 +412,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The name is empty.
+* 2a. The name is invalid.
+
+[none]
+** 2a1. FinSec shows an error message.
 +
-Use case ends.
+Use case resumes at step 1
 
 [none]
 * 3a. The given name is existing.
@@ -422,7 +425,7 @@ Use case ends.
 [none]
 ** 3a1. FinSec shows an error message.
 +
-** 3a2. FinSec confirms if you want to add.
+** 3a2. FinSec confirms the addition.
 
 Use case resumes at step 2.
 
@@ -442,9 +445,9 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The person or details is empty
-+
-Use case ends.
+* 2a. The list of people is empty.
+
+User case ends
 
 [none]
 * 3a. The name is invalid.
@@ -453,6 +456,107 @@ Use case ends.
 ** 3a1. FinSec shows an error message.
 +
 Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add Claim
+
+*MSS*
+
+1. User requests to add claim
+2. FinSec adds claim
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The details of claim is invalid.
++
+[none]
+** 2a1. FinSec shows an error.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Claim
+
+*MSS*
+
+1. User requests to view list of claims
+2. FinSec shows a list of claims
+3. User requests which claim to edit
+4. FinSec edits claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claim list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The entered claim is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add Income
+
+*MSS*
+
+1. User requests to add income
+2. FinSec adds income
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The details of income is invalid.
++
+[none]
+** 2a1. FinSec shows an error.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Income
+
+*MSS*
+
+1. User requests to view list of income
+2. FinSec shows a list of income
+3. User requests which income to edit
+4. FinSec edits income
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The income list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The income entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+
 
 
 
