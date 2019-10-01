@@ -453,7 +453,9 @@ Format: `medcon add n/NAME s/SYMPTOMS d/DIAGNOSIS t/TREATMENT`
 
 Examples:
 
- * `medcon add n/`
+ * `medcon add n/Diabetes, Type 1 s/Increased thirst, frequent urination, extreme hunger, unexplained weight loss
+    d/A1C test, blood sugar test, oral glucose test t/Insulin injections, insulin pump, blood sugar monitoring,
+    carbohydrate counting`
 
 === Editing a Medical Condition: `medcon edit`
 
