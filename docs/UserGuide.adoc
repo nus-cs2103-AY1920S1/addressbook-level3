@@ -68,7 +68,61 @@ Format: `exit`
 IchiFund data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Wealth
+
+==== Set current wealth: `wealthset`
+Set current wealth. +
+Format: `wealthset a/AMOUNT`
+
+Examples:
+
+* `wealthset a/2103.20` +
+Sets current wealth to $2103.20.
+
 === Transactions
+
+==== Creating transaction: `txadd`
+Creates a transaction. +
+Format: `txadd t/TYPE m/DESCRIPTION a/AMOUNT [d/DATE] [c/CATEGORY]`
+
+Examples:
+
+* `txadd t/in m/Salary a/2101.00 c/Work` +
+Creates an income transaction of $2101.00 titled "Salary" occurring today under the category "Work".
+
+* `txadd t/out m/Lunch a/12.31 c/Food d/10092019` +
+Creates an expenditure transaction of $12.32 titled "Food" occuring on the 10th of September, 2019 under the category "Food".
+
+==== Editing transaction: `txedit`
+Edits a transaction. +
+Format: `txedit i/TRANSACTION_ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
+
+Examples:
+
+* `txedit i/1 m/Dinner a/32.30` +
+Edits the description of the 1st transaction in the current list to "Dinner", and its amount to $32.30.
+
+==== Deleting transaction: `txdelete`
+Deletes a transaction. +
+Format: `txdelete i/TRANSACTION_ID`
+
+Examples:
+
+* `txdelete i/5` +
+Deletes the 5th transaction in the current list.
+
+==== Finding transaction: `txfind`
+Filters transactions in current list by type, keywords, category, month and/or year. +
+Format: `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
+
+Examples:
+
+* `txfind m/5 y/2019 c/Education` +
+Finds all transactions in the current list from May 2019 from the category "Education".
+
+==== List all transactions: `txlist`
+Lists all transactions. +
+Format `txlist`
 
 === Repeating Transactions
 
@@ -265,6 +319,12 @@ Displays expenditure ranking chart for July 2019.
 
 * *Help* : `help`
 * *Exit* : `exit`
+* *Wealth Set* : `wealthset a/AMOUNT`
+* *Transaction Add* : `txadd t/TYPE m/DESCRIPTION a/AMOUNT [d/DATE] [c/CATEGORY]`
+* *Transaction Edit* : `txedit i/ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
+* *Transaction Delete* : `txdelete i/TRANSACTION_ID`
+* *Transaction Find* : `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
+* *Transaction List* : `txlist`
 * *Budget Set* : `bset a/AMOUNT`
 * *Budget Exclude* : `bexclude i/TRANSACTION_ID`
 * *Budget Include* : `binclude i/TRANSACTION_ID`
