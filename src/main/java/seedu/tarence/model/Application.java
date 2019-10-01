@@ -25,6 +25,7 @@ import seedu.tarence.model.tutorial.UniqueTutorialList;
 public class Application implements ReadOnlyApplication {
 
     private final UniquePersonList persons;
+    private final UniquePersonList students;
     private final UniqueModuleList modules;
     private final UniqueTutorialList tutorials;
 
@@ -37,6 +38,7 @@ public class Application implements ReadOnlyApplication {
      */
     {
         persons = new UniquePersonList();
+        students = new UniquePersonList();
         modules = new UniqueModuleList();
         tutorials = new UniqueTutorialList();
     }
@@ -59,6 +61,14 @@ public class Application implements ReadOnlyApplication {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+    }
+
+    /**
+     * Replaces the contents of the student list with {@code students}.
+     * {@code persons} must not contain duplicate students.
+     */
+    public void setStudents(List<Person> students) {
+        this.students.setPersons(students);
     }
 
     /**
@@ -142,6 +152,40 @@ public class Application implements ReadOnlyApplication {
                 break;
             }
         }
+    }
+    ////=================== student-level operations    ================================================================
+    /**
+     * Returns true if a student with the same identity as {@code student} exists in the application.
+     */
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return students.contains(student);
+    }
+
+    /**
+     * Adds a student to the application.
+     * The student must not already exist in the application.
+     */
+    public void addStudent(Student s) {
+        students.add(s);
+    }
+
+    /**
+     * Replaces the given student {@code target} in the list with {@code editedStudent}.
+     * {@code target} must exist in the application.
+     * The person identity of {@code editedStudent} must not be the same as another existing student in the application.
+     */
+    public void setStudent(Student target, Student editedStudent) {
+        requireNonNull(editedStudent);
+        persons.setPerson(target, editedStudent);
+    }
+
+    /**
+     * Removes {@code key} from this {@code Application}.
+     * {@code key} must exist in the application.
+     */
+    public void removeStudent(Student key) {
+        persons.remove(key);
     }
 
     ////=================== module-level operations    =================================================================
@@ -233,6 +277,11 @@ public class Application implements ReadOnlyApplication {
     }
 
     @Override
+    public ObservableList<Person> getStudentList() {
+        return students.asUnmodifiableObservableList();
+    }
+
+    @Override
     public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
     }
@@ -247,6 +296,7 @@ public class Application implements ReadOnlyApplication {
         return other == this // short circuit if same object
                 || (other instanceof Application // instanceof handles nulls
                 && persons.equals(((Application) other).persons)
+                && students.equals(((Application) other).students)
                 && modules.equals(((Application) other).modules)
                 && tutorials.equals(((Application) other).tutorials));
     }

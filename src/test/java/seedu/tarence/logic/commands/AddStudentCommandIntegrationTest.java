@@ -1,7 +1,7 @@
 package seedu.tarence.logic.commands;
 
-import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.tarence.testutil.Assert.assertThrows;
 import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +11,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.exceptions.DuplicatePersonException;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.testutil.ModuleBuilder;
@@ -48,7 +49,7 @@ public class AddStudentCommandIntegrationTest {
 
         Student validStudent = new StudentBuilder().withModCode(VALID_MOD_CODE)
             .withTutName(VALID_TUT_NAME).build();
-        expectedModel.addPerson(validStudent);
+        expectedModel.addStudent(validStudent);
         expectedModel.addStudentToTutorial(validStudent);
 
         assertCommandSuccess(new AddStudentCommand(validStudent), model,
@@ -56,7 +57,7 @@ public class AddStudentCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateStudent_throwsCommandException() {
         Tutorial validTutorial = new TutorialBuilder().withModCode(VALID_MOD_CODE)
                 .withTutName(VALID_TUT_NAME).build();
         Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
@@ -65,9 +66,9 @@ public class AddStudentCommandIntegrationTest {
         model.addTutorialToModule(validTutorial);
         Student student = new StudentBuilder().withModCode(VALID_MOD_CODE)
                 .withTutName(VALID_TUT_NAME).build();
-        model.addPerson(student);
+        model.addStudent(student);
 
-        assertCommandFailure(new AddStudentCommand(student), model, AddStudentCommand.MESSAGE_DUPLICATE_PERSON);
+        assertThrows(DuplicatePersonException.class, () -> model.addStudent(student));
     }
 
 }

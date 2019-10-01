@@ -98,7 +98,7 @@ public class LogicManagerTest {
         model.addModule(validModule);
         expectedModel.addTutorial(validTutorial);
         model.addTutorial(validTutorial);
-        expectedModel.addPerson(expectedStudent);
+        expectedModel.addStudent(expectedStudent);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

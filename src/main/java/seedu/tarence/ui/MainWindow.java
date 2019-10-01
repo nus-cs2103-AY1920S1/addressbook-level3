@@ -1,9 +1,7 @@
 package seedu.tarence.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,11 +72,6 @@ public class MainWindow extends UiPart<Stage> {
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
-        this.modList = logic.getFilteredModuleList();
-        this.tutorialList = logic.getFilteredTutorialList();
-
-        //initializeLists(getDummyModList());
-
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -136,10 +129,10 @@ public class MainWindow extends UiPart<Stage> {
         //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        //studentListPanel = new StudentListPanel(this.studentList);
-        //studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
+        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
-        tutorialListPanel = new TutorialListPanel(this.tutorialList);
+        tutorialListPanel = new TutorialListPanel(logic.getFilteredTutorialList());
         tutorialListPanelPlaceholder.getChildren().add(tutorialListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -220,23 +213,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        }
-    }
-
-    /**
-     * Initializes all the standard lists that are to be accessed by the list display
-     * @param modList - existing lists of modules
-     */
-    private void initializeLists(ObservableList<Module> modList) {
-        this.modList = modList;
-        this.tutorialList = FXCollections.observableArrayList();
-        this.studentList = FXCollections.observableArrayList();
-        for (int i = 0; i < modList.size(); i++) {
-            List<Tutorial> tutList = modList.get(i).getTutorials();
-            this.tutorialList.addAll(modList.get(i).getTutorials());
-            for (int j = 0; j < tutList.size(); j++) {
-                this.studentList.addAll(tutList.get(i).getStudents());
-            }
         }
     }
 

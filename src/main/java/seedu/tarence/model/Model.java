@@ -85,8 +85,23 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Returns true if a student with the same identity as {@code student} exists in the application.
+     */
+    boolean hasStudent(Student student);
+
+
+    /**
+     * Adds the given student.
+     * {@code student} must not already exist in the application.
+     */
+    void addStudent(Student student);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered student list */
+    ObservableList<Person> getFilteredStudentList();
 
     /** Returns an unmodifiable view of the filtered module list */
     ObservableList<Module> getFilteredModuleList();
@@ -99,6 +114,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredStudentList(Predicate<Person> predicate);
 
     /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.

@@ -7,6 +7,8 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 import static seedu.tarence.testutil.TypicalModules.CS1101S;
 import static seedu.tarence.testutil.TypicalPersons.ALICE;
 import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
+import static seedu.tarence.testutil.TypicalStudents.AMY;
+import static seedu.tarence.testutil.TypicalTutorials.CS1101S_LAB04;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,9 +23,13 @@ import seedu.tarence.model.module.Module;
 import seedu.tarence.model.module.exceptions.DuplicateModuleException;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.person.exceptions.DuplicatePersonException;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.exeptions.DuplicateTutorialException;
 import seedu.tarence.testutil.ModuleBuilder;
 import seedu.tarence.testutil.PersonBuilder;
+import seedu.tarence.testutil.StudentBuilder;
+import seedu.tarence.testutil.TutorialBuilder;
 
 public class ApplicationTest {
 
@@ -92,6 +98,41 @@ public class ApplicationTest {
         assertTrue(application.hasPerson(editedAlice));
     }
 
+    ////=================== student-level operations    ================================================================
+    @Test
+    public void resetData_withDuplicateStudents_throwsDuplicateStudentException() {
+        // Two students with the same identity fields
+        Student editedAmy = new StudentBuilder(AMY).build();
+        List<Person> newStudents = Arrays.asList(AMY, editedAmy);
+        ApplicationStub newData = new ApplicationStub();
+        newData.setPersons(newStudents);
+
+        assertThrows(DuplicatePersonException.class, () -> application.resetData(newData));
+    }
+
+    @Test
+    public void hasStudent_nullStudent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> application.hasStudent(null));
+    }
+
+    @Test
+    public void hasStudent_studentNotInApplication_returnsFalse() {
+        assertFalse(application.hasStudent(AMY));
+    }
+
+    @Test
+    public void hasStudent_studentInApplication_returnsTrue() {
+        application.addStudent(AMY);
+        assertTrue(application.hasStudent(AMY));
+    }
+
+    @Test
+    public void hasStudent_studentWithSameIdentityFieldsInApplication_returnsTrue() {
+        application.addStudent(AMY);
+        Student editedAmy = new StudentBuilder(AMY).build();
+        assertTrue(application.hasStudent(editedAmy));
+    }
+
     ////=================== module-level operations    =================================================================
     @Test
     public void resetData_withDuplicateModules_throwsDuplicateModuleException() {
@@ -128,29 +169,54 @@ public class ApplicationTest {
     }
 
     ////=================== tutorial-level operations    ===============================================================
-    // TODO: public void resetData_withDuplicateTutorials_throwsDuplicateTutorialException()
+    @Test
+    public void resetData_withDuplicateTutorials_throwsDuplicateTutorialException() {
+        // Two tutorials with the same identity fields
+        Tutorial editedCS1101SLab4 = new TutorialBuilder(CS1101S_LAB04).build();
+        List<Tutorial> newTutorials = Arrays.asList(CS1101S_LAB04, editedCS1101SLab4);
+        ApplicationStub newData = new ApplicationStub();
+        newData.setTutorials(newTutorials);
+
+        assertThrows(DuplicateTutorialException.class, () -> application.resetData(newData));
+    }
 
     @Test
     public void hasTutorial_nullTutorial_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> application.hasTutorial(null));
     }
 
-    // TODO: hasTutorial_TutorialNotInApplication_returnsFalse
+    @Test
+    public void hasTutorial_tutorialNotInApplication_returnsFalse() {
+        assertFalse(application.hasTutorial(CS1101S_LAB04));
+    }
 
-    // TODO: hasTutorial_TutorialInApplication_returnsTrue
+    @Test
+    public void hasTutorial_tutorialInApplication_returnsTrue() {
+        application.addTutorial(CS1101S_LAB04);
+        assertTrue(application.hasTutorial(CS1101S_LAB04));
+    }
 
-    // TODO: hasTutorial_tutorialWithSameIdentityFieldsInApplication_returnsTrue
-
+    @Test
+    public void hasTutorial_tutorialWithSameIdentityFieldsInApplication_returnsTrue() {
+        application.addTutorial(CS1101S_LAB04);
+        Tutorial editedCS1101SLab4 = new TutorialBuilder(CS1101S_LAB04).build();
+        assertTrue(application.hasTutorial(editedCS1101SLab4));
+    }
     /**
      * A stub ReadOnlyApplication whose persons list can violate interface constraints.
      */
     private static class ApplicationStub implements ReadOnlyApplication {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Person> students = FXCollections.observableArrayList();
         private final ObservableList<Module> modules = FXCollections.observableArrayList();
         private final ObservableList<Tutorial> tutorials = FXCollections.observableArrayList();
 
         public void setPersons(Collection<Person> persons) {
             this.persons.setAll(persons);
+        }
+
+        public void setStudents(Collection<Person> students) {
+            this.students.setAll(students);
         }
 
         public void setModules(Collection<Module> modules) {
@@ -164,6 +230,10 @@ public class ApplicationTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+        @Override
+        public ObservableList<Person> getStudentList() {
+            return students;
         }
         @Override
         public ObservableList<Module> getModuleList() {

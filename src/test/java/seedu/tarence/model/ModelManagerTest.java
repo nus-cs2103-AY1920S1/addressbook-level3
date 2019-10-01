@@ -8,6 +8,8 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 import static seedu.tarence.testutil.TypicalModules.CS1101S;
 import static seedu.tarence.testutil.TypicalPersons.ALICE;
 import static seedu.tarence.testutil.TypicalPersons.BENSON;
+import static seedu.tarence.testutil.TypicalStudents.AMY;
+import static seedu.tarence.testutil.TypicalTutorials.CS1101S_LAB04;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -90,6 +92,22 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasStudent_nullStudent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasStudent(null));
+    }
+
+    @Test
+    public void hasStudent_studentNotInApplication_returnsFalse() {
+        assertFalse(modelManager.hasStudent(AMY));
+    }
+
+    @Test
+    public void hasStudent_studentInApplication_returnsTrue() {
+        modelManager.addStudent(AMY);
+        assertTrue(modelManager.hasStudent(AMY));
+    }
+
+    @Test
     public void hasModule_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasModule(null));
     }
@@ -110,8 +128,16 @@ public class ModelManagerTest {
         assertThrows(NullPointerException.class, () -> modelManager.hasTutorial(null));
     }
 
-    // TODO: hasTutorial_tutorialNotInApplication_returnsFalse
-    // TODO: hasTutorial_TutorialInApplication_returnsTrue
+    @Test
+    public void hasTutorial_tutorialNotInApplication_returnsFalse() {
+        assertFalse(modelManager.hasTutorial(CS1101S_LAB04));
+    }
+
+    @Test
+    public void hasTutorial_tutorialInApplication_returnsTrue() {
+        modelManager.addTutorial(CS1101S_LAB04);
+        assertTrue(modelManager.hasTutorial(CS1101S_LAB04));
+    }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {

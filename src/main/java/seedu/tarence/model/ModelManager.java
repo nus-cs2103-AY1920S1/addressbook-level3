@@ -27,6 +27,7 @@ public class ModelManager implements Model {
     private final Application application;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> filteredStudents;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Tutorial> filteredTutorials;
 
@@ -41,6 +42,7 @@ public class ModelManager implements Model {
 
         this.application = new Application(application);
         this.userPrefs = new UserPrefs(userPrefs);
+        filteredStudents = new FilteredList<>(this.application.getStudentList());
         filteredPersons = new FilteredList<>(this.application.getPersonList());
         filteredModules = new FilteredList<>(this.application.getModuleList());
         filteredTutorials = new FilteredList<>(this.application.getTutorialList());
@@ -120,6 +122,20 @@ public class ModelManager implements Model {
         application.setPerson(target, editedPerson);
     }
 
+    //=========== T.A.rence: Student methods ===========================================================================
+
+    @Override
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return application.hasStudent(student);
+    }
+
+    @Override
+    public void addStudent(Student student) {
+        application.addStudent(student);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
     @Override
     public void addStudentToTutorial(Student student) {
         requireNonNull(student);
@@ -187,6 +203,15 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Returns an unmodifiable view of the list of {@code Person} containing students backed by
+     * the internal list of {@code versionedApplication}
+     */
+    @Override
+    public ObservableList<Person> getFilteredStudentList() {
+        return filteredStudents;
+    }
+
+    /**
      * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
      * {@code versionedApplication}
      */
@@ -208,6 +233,12 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredStudentList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredStudents.setPredicate(predicate);
     }
 
     @Override
@@ -239,6 +270,7 @@ public class ModelManager implements Model {
         return application.equals(other.application)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredStudents.equals(other.filteredStudents)
                 && filteredModules.equals(other.filteredModules)
                 && filteredTutorials.equals(other.filteredTutorials);
     }

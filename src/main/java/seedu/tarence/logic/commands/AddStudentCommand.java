@@ -9,7 +9,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.student.Student;
 
 /**
- * Adds a person into T.A.rence.
+ * Adds a student into T.A.rence.
  */
 public class AddStudentCommand extends Command {
 
@@ -23,7 +23,7 @@ public class AddStudentCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_EMAIL + "johnd@example.com ";
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists!";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This person already exists!";
     public static final String MESSAGE_INVALID_CLASS = "No such module and/or tutorial class exists.";
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 
@@ -44,15 +44,15 @@ public class AddStudentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasStudent(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 
         if (!model.hasTutorialInModule(toAdd.getModCode(), toAdd.getTutName())) {
             throw new CommandException(MESSAGE_INVALID_CLASS);
         }
 
-        model.addPerson(toAdd);
+        model.addStudent(toAdd);
         model.addStudentToTutorial(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
