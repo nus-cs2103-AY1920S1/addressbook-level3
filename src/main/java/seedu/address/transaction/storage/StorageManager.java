@@ -17,7 +17,7 @@ public class StorageManager implements Storage {
         this.filepath = filepath;
     }
 
-    public TransactionList getList() throws Exception {
+    public TransactionList getTransactionList() throws Exception {
         ArrayList<Transaction> transactionArrayList = new ArrayList<>();
         File f = new File(filepath);
         f.getParentFile().mkdirs();

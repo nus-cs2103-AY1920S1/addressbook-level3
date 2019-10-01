@@ -13,10 +13,13 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws Exception {
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
         Ui ui = new Ui();
         model.addTransaction(transaction);
-        model.writeInFile();
+        //model.writeInTransactionFile();
+        if (!personModel.hasPerson(transaction.getPerson())) {
+           personModel.addPerson(transaction.getPerson());
+        }
         return new CommandResult(ui.addedTransaction(transaction));
     }
 }

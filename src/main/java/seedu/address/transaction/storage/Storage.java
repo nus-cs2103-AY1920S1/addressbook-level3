@@ -4,5 +4,5 @@ import seedu.address.transaction.util.TransactionList;
 
 public interface Storage {
 
-    public TransactionList getList() throws Exception;
+    public TransactionList getTransactionList() throws Exception;
 }

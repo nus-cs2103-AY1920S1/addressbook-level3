@@ -13,11 +13,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws Exception {
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
         Ui ui = new Ui();
         Transaction transaction = model.findTransactionByIndex(index);
         model.deleteTransaction(index);
-        model.writeInFile();
+        //model.writeInTransactionFile();
         return new CommandResult(ui.deletedTransaction(transaction));
     }
 }

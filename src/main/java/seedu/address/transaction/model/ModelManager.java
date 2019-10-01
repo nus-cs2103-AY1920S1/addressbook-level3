@@ -15,12 +15,16 @@ public class ModelManager implements Model {
     public ModelManager(StorageManager storage) {
         this.storage = storage;
         try {
-            this.transactionList = storage.getList();
+            this.transactionList = storage.getTransactionList();
         } catch (Exception e) {
             this.transactionList = new TransactionList();
         }
     }
 
+    @Override
+    public TransactionList getTransactionList() {
+        return this.transactionList;
+    }
 
     @Override
     public void addTransaction(Transaction trans) {
@@ -39,7 +43,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void writeInFile() throws Exception{
+    public void writeInTransactionFile() throws Exception{
         storage.writeFile(transactionList);
     }
 

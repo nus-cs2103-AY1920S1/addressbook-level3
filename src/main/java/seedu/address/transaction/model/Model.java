@@ -1,6 +1,7 @@
 package seedu.address.transaction.model;
 
 import seedu.address.transaction.model.exception.NoSuchIndexException;
+import seedu.address.transaction.util.TransactionList;
 
 public interface Model {
 
@@ -10,5 +11,7 @@ public interface Model {
 
     void deleteTransaction(int index);
 
-    void writeInFile() throws Exception;
+    void writeInTransactionFile() throws Exception;
+
+    TransactionList getTransactionList();
 }
