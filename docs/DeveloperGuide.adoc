@@ -401,7 +401,7 @@ Use case ends.
 
 *MSS*
 
-1.  User specifies month, year, or category of the transaction
+1.  User specifies month, year, and/or category of the transaction
 1.  System shows filtered list of transaction items.
 +
 Use case ends.
