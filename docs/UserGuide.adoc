@@ -1,5 +1,4 @@
-= AddressBook Level 3 - User Guide
-:site-section: UserGuide
+= Financial Tracker - User guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -7,171 +6,408 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
-:experimental:
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-4/main
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-F12-4`      Since: `Sep 2019`      Licence: `MIT`
 
+'''
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+_Financial Tracker_ is for those who prefer to use desktop applications to manage and keep track of their expenses. _Financial Tracker_ is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI). If you can type fast, _Financial Tracker_ can help you manage your expenses faster than traditional GUI apps!
 
+'''
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+. Ensure you have Java 11 or above installed on your machine.
+. Download the latest version of _Financial Tracker_ +++<u>+++here.+++</u>+++
+. Copy the file to the folder you want to use as the Home folder for _Financial Tracker_
+. Double-click the file to open the application
+. Refer to <<Features>> for the details of each command
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
-
+'''
 [[Features]]
 == Features
 
+{nbsp} +
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `expense add [DESCRIPTION] [AMOUNT]`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add “buy a book” 10`.
+* The mandatory parameters must be supplied in the order specified.
+* Default values can be specified in the square brackets, e.g `[NUM_ENTRIES, DEFAULT = 10]`. If the user does not provide a value for that parameter, it will default to the default value stated.
+* Some commands may have optional parameters denoted under options. These can be included by specifying a flag, usually of the format `--flag` or `-f`. E.g `--description` can be used as `expense edit 2 --description "changed description"`.
+* Flags can be in any order.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[TAG]...` can be used as `{nbsp}` (i.e. 0 times), `bills`, `bills fees` etc.
+
 ====
 
-=== Viewing help : `help`
 
-Format: `help`
+=== Managing expenses: `expense`
 
-=== Adding a person: `add`
+. _Add a new expense: expense add_ +
+Adds an expense to records. +
+Usage:
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+ expense add [DESCRIPTION] [AMOUNT]
++
+Example:  +
+`expense add “buy a book” 10` +
+Adds an expense to record where the description is “buy a book” and the amount is 10. +
+{nbsp} +
 
-[TIP]
-A person can have any number of tags (including 0)
+. _Edit an existing expense: expense edit_ +
+Edits an existing expense that is being displayed on the GUI. Either description or amount must be supplied. +
+{nbsp} +
+Usage:
 
-Examples:
+ expense edit [INDEX] [OPTIONS]
++
+Options: +
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `--description`, `-d`: Specify new description to update expense with. +
+* `--amount`, `-a`: Specify new amount to update expense with. +
+{nbsp} +
 
-=== Listing all persons : `list`
++
+Example: +
+`expense edit 2 -d “buy a math book”` +
+Edits the expense at index 2  with new description of: “buy a math book” +
+{nbsp} +
 
-Shows a list of all persons in the address book. +
-Format: `list`
+. _Delete an existing expense: expense rm_ +
+Deletes an existing expense that is being displayed on the GUI. +
+{nbsp} +
+Usage:
 
-=== Editing a person : `edit`
+ expense rm [INDEX]
++
+Example: +
+`expense rm 3` +
+Deletes the expense with index 3. +
+{nbsp} +
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+. _List all expenses: expense list_ +
+Lists all the expenses in the record list. +
+{nbsp} +
+Usage:
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+ expense list
++
+Example: +
+`expense list` +
+Displays below expenses (for example) in the GUI: +
 
-Examples:
+* buy a book / amount: $10 +
+ * pay for dinner / amount: $5 +
+{nbsp} +
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+=== Tagging expenses: `tag`
 
-=== Locating persons by name: `find`
+. _Adding a tag: tag add_ +
+Adds a tag to the expense at the specified index. +
+{nbsp} +
+Usage:
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+ tag add [INDEX] [TAG]
++
+Example: +
+`tag add 2 “monthly bills”` +
+Adds the tag “monthly bills” to the expense at index 2. +
+{nbsp} +
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+. _Deleting a tag: tag rm_ +
+Deletes a tag from the expense of the specified index. +
+{nbsp} +
+Usage:
 
-Examples:
+ tag rm [INDEX] [TAG]
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
++
+Example: +
+`tag rm 2 “monthly bills”` +
+Deletes the tag “monthly bills” from the expense at index 2. +
+{nbsp} +
 
-// tag::delete[]
-=== Deleting a person : `delete`
+. _Filtering by tag: tag filter_ +
+Filters expenses by the specified tag/s. +
+{nbsp} +
+Usage:
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+ tag filter [TAG] [TAG…]
++
+Example: +
++tag filter “home” “monthly bills”+ +
+Lists out all the expenses that contains the  tags “home” and “monthly bills” +
+{nbsp} +
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+. _Listing out all the tags: tag list_ +
+Lists out all existing tags. +
+{nbsp} +
+Usage:
 
-Examples:
+ tag list
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+{nbsp} +
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Finding and sorting of expenses: `find`
 
-Clears all entries from the address book. +
-Format: `clear`
+. _Find in everything: find all_ +
+Find expenses that contain the keyword/s in any of its attributes. +
+{nbsp} +
+Usage:
 
-=== Exiting the program : `exit`
+ find all [KEYWORD] [KEYWORD…]
++
+Example: +
+`find all lunch` +
+Finds all expenses that contain the keyword ‘lunch’ in any of its attributes. +
+{nbsp} +
 
-Exits the program. +
-Format: `exit`
+. _Find by description: find desc_ +
+Find expenses that contains the keyword/s in its description. +
+{nbsp} +
+Usage:
 
-=== Saving the data
+ find desc [KEYWORD] [KEYWORD…]
++
+Example: +
+`find desc lunch bread` +
+Finds the expenses that contain the keywords ‘lunch’  and ‘bread’ in its description. +
+{nbsp} +
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+. _Find tag: find tag_ +
+Find expenses that are tagged with the specified tags +
+{nbsp} +
+Usage:
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+ find tag [TAG] [TAG…]
++
+Example: +
+`find tag school lunch` +
+Finds the expenses that contain the tags ‘school’ and ‘lunch’. +
+{nbsp} +
+
+. _Find date: find date_ +
+Find expenses that occurred on a certain date, formatted as dd/MM/yy. +
+{nbsp} +
+Usage:
+
+ find date [DATE]
++
+Example: +
+`find date 10/9/19` +
+Finds the expenses that were made on 10 September, 2019. +
+{nbsp} +
+
+. _Find period: find period_ +
+Find expenses that occurred within a certain period, with dates formatted as dd/MM/yy. +
+Usage:
+
+ find period [START DATE] [END DATE]
+ find period [START DATE]
++
+Example: +
+`find period 10/9/19 20/9/19` +
+Finds the expenses that occurred between 10 September and 20 September, 2019. +
+`find period 10/9/19` +
+Finds the expenses that occurred between 10 September, 19 and the current date. +
+{nbsp} +
+
+. _Find recent: find recent_ +
+Finds the most recent __n__ expenses, where the default value for n is 10. +
+{nbsp} +
+Usage:
+
+ find recent [NUM_ENTRIES, DEFAULT = 10]
+
++
+Example: +
+`find recent 5` +
+Finds the most recent 5 expenses. +
+`find recent` +
+By default, finds the most recent 10 expenses. +
+{nbsp} +
+
+. _Find by amount: find amt_ +
+Find expenses that cost between a specified amount. +
+{nbsp} +
+Usage:
+
+ find amt [LOWER] [UPPER]
++
+Example: +
+`find amt 50` +
+Finds the expenses that cost more than $50. +
+`find amt 30 50` +
+Finds the expenses that cost between $30 and $50 +
+{nbsp} +
+
+=== Archiving past expenses: `archive`
+
+. _Creating a new archive: archive create_ +
+Adds a new archive with the specified name +
+{nbsp} +
+Usage:
+
+ archive create [NAME]
+
++
+Example: +
+`archive create “2018 expense”` +
+Creates a new archive called “2018 expenses”. +
+{nbsp} +
+
+. _Adding a record to an archive: archive add_ +
+Transfers the expense at the specified index to the specified archive. +
+{nbsp} +
+Usage:
+
+ archive add [INDEX] [OPTIONS]
++
+Options:
+
+* `--name`, `-n`: Specifies the name of the archive to add the expense to. (REQUIRED) +
+{nbsp} +
+
++
+Example: +
+`archive add 3 -n MBS casino winnings` +
+Archives the record at the 3rd index into an archive named “MBS casino winnings” +
+{nbsp} +
+
+. _Listing out all archives: archive list_ +
+Displays the list of all archive names. +
+{nbsp} +
+Usage:
+
+ archive list
+
++
+{nbsp} +
+. _Listing records in a particular archive: archive list_ +
+Displays the list of records in the specified archive +
+{nbsp} +
+Usage:
+
+ archive list [NAME]
++
+Example: +
+`archive list 2018 expenses` +
+Lists out all the records in the “2018 expenses” archive +
+{nbsp} +
+
+. _Deleting an archived record: archive rm_ +
+Deletes the record at the specified index from a specified archive. +
+{nbsp} +
+Usage:
+
+ archive rm [INDEX] [OPTIONS]
++
+Options:
+
+* `--name`, `-n`: Specifies the name of the archive to delete the expense from. (REQUIRED) +
+{nbsp} +
+
++
+Example: +
+`archive rm 5 -n 2018 expenses` +
+Deletes the record at the 5th index in the “2018 expenses” archive +
+{nbsp} +
+
+. _Deleting an entire archive: archive rm_ +
+Deletes the entire specified archive. +
+{nbsp} +
+Usage:
+
+ archive rm [NAME]
++
+Example: +
+`archive rm 2018 expenses` +
+Deletes the entire “2018 expenses” archive. +
+{nbsp} +
+
+=== Displaying of statistics: `show-stats`
+
+. _Display graph overview of expenses: show-stats graph_ +
+Displays a graph overview of specified expenses across a specified range of dates. +
+{nbsp} +
+Usage:
+
+ show-stats graph [OPTIONS]
++
+Options:
+
+* `--tags`, `-t`: Shows statistics only for expenses with specified tag. Multiple tags can be added separated by commas. Default: none
+* `--start-date`: Shows statistics only for expenses after the specified date. Default: earliest date an expense was added.
+* `--end-date`: Shows statistics only for expenses before the specified date. Default: current date
+* `--filters`: Shows statistics for statistics that match the specified filters. Default: none +
+{nbsp} +
+
++
+Example: +
+`show-stats graph --start-date 01/01/2019 --end-date 01/02/2019 --tags bills,groceries` +
+Displays a graph overview of expenses from 01/01/2019 to 01/02/2019 that contain the tags “bills” and “groceries”. +
+{nbsp} +
+
+. _Display breakdown of expenses: show-stats breakdown_ +
+Displays a breakdown of specified expenses for specified expenses over a specified range of dates. +
+{nbsp} +
+Usage:
+
+ show-stats breakdown [OPTIONS]
++
+Options:
+
+* `--type`: Specify display type, which includes `text` and `pie-chart`. Default: pie-chart
+* `--tags`: Shows statistics only for expenses with specified tag. Multiple tags can be added separated by commas. Default: none
+* `--start-date`: Shows statistics only for expenses after the specified date. Default: earliest date an expense was added.
+* `--end-date`: Shows statistics only for expenses before the specified date. Default: current date
+* `--filters`: Shows statistics for statistics that match the specified filters. Default: none +
+{nbsp} +
+
++
+Example: +
+`show-stats breakdown --type text` +
+Shows a breakdown of all expenses in text form. +
+{nbsp} +
+
+=== Viewing help: `help`
+
+. _Help list of complete set of commands: help_ +
+Shows the complete list of commands and instructions/description on how to use them. +
+{nbsp} +
+Usage:
+
+ help
++
+{nbsp} +
+. _Help list of a specific command: help_ +
+Shows the description and instructions on how to use the specified command. +
+{nbsp} +
+Usage:
+
+ help [COMMAND]
++
+Example: +
+`help archive` +
+Shows the help message for the archive commands. +
+{nbsp} +
+
+=== Exporting data: `[Coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+
+
 
 == FAQ
+{nbsp} +
+Coming soon!
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-== Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+
+
