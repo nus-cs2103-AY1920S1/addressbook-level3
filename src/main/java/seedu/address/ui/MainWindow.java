@@ -33,8 +33,11 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private Home home;
-    private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
+    private Inventory inventory;
+    private Reimbursements reimbursements;
+    private Cashier cashier;
+    private Overview overview;
+
     private HelpWindow helpWindow;
 
 
@@ -42,19 +45,31 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane homePlaceholder;
 
     @FXML
+    private AnchorPane inventoryPlaceholder;
+
+    @FXML
+    private AnchorPane reimbursementsPlaceholder;
+
+    @FXML
+    private AnchorPane cashierPlaceholder;
+
+    @FXML
+    private AnchorPane overviewPlaceholder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
-    @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
+//    @FXML
+//    private StackPane personListPanelPlaceholder;
+//
+//    @FXML
+//    private StackPane resultDisplayPlaceholder;
+//
+//    @FXML
+//    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -116,17 +131,20 @@ public class MainWindow extends UiPart<Stage> {
         home = new Home();
         homePlaceholder.getChildren().add(home.getRoot());
 
-//        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-//        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-//
-//        resultDisplay = new ResultDisplay();
-//        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-//
-//        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-//
-//        CommandBox commandBox = new CommandBox(this::executeCommand);
-//        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        inventory = new Inventory();
+        inventoryPlaceholder.getChildren().add(inventory.getRoot());
+
+        reimbursements = new Reimbursements();
+        reimbursementsPlaceholder.getChildren().add(reimbursements.getRoot());
+
+        cashier = new Cashier();
+        cashierPlaceholder.getChildren().add(cashier.getRoot());
+
+        overview = new Overview();
+        overviewPlaceholder.getChildren().add(overview.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
@@ -169,9 +187,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
+//    public PersonListPanel getPersonListPanel() {
+//        return personListPanel;
+//    }
 
     /**
      * Executes the command and returns the result.
@@ -182,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+//            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -195,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+//            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }

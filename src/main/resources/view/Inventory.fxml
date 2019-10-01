@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="home" prefWidth="890.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <GridPane alignment="CENTER" layoutY="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="688.0" minWidth="10.0" prefWidth="677.0" />
+          <ColumnConstraints hgrow="NEVER" maxWidth="441.0" minWidth="10.0" prefWidth="213.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="243.0" minHeight="8.0" prefHeight="35.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="493.0" minHeight="10.0" prefHeight="467.0" valignment="CENTER" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1">
+              <content>
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
+              </content>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </ScrollPane>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="215.0" text="Lion" GridPane.columnIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="3.0" />
+               </GridPane.margin>
+            </Label>
+            <TableView GridPane.rowIndex="1">
+              <columns>
+                <TableColumn prefWidth="50.0" text="ID" />
+                <TableColumn text="Category" />
+                  <TableColumn prefWidth="220.0" text="Description" />
+                  <TableColumn text="Quantity" />
+                  <TableColumn text="UoM" />
+                  <TableColumn minWidth="0.0" text="Cost" />
+                  <TableColumn text="Price" />
+              </columns>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TableView>
+            <ChoiceBox prefHeight="27.0" prefWidth="200.0">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
