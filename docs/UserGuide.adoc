@@ -180,49 +180,54 @@ Examples:
 * `bset a/1000` +
 Sets monthly expenditure budget to $1000.
 
-==== Excluding transaction from budget: `bexclude`
+==== Excluding expenditure from budget: `bexclude`
 
-Excludes transaction from computation of budget. +
+Excludes expenditure from computation of budget. +
 Format: `bexclude i/TRANSACTION_ID`
 
 ****
-* All transactions are included by default.
-* Excluding an already excluded transaction has no effect.
+* All expenditures are included by default.
+* Excluding an income has no effect.
+* Excluding an already excluded expenditure has no effect.
 ****
 
 Examples:
 
-* `list` +
+* `txlist` +
 `bexclude i/2` +
-Excludes the 2nd transaction in the list from computation of budget.
+Excludes the 2nd expenditure in the list from computation of budget.
 
-==== Including transaction in budget: `binclude`
+==== Including expenditure in budget: `binclude`
 
-Includes transaction in computation of budget. +
+Includes expenditure in computation of budget. +
 Format: `binclude i/TRANSACTION_ID`
 
 ****
-* All transactions are included by default.
-* Including an already included transaction has no effect.
+* All expenditures are included by default.
+* Including an income has no effect.
+* Including an already included expenditures has no effect.
 ****
 
 Examples:
 
-* `list` +
-`bexclude i/2` +
-Includes the 2nd transaction in the list from computation of budget.
+* `txlist` +
+`binclude i/2` +
+Includes the 2nd expenditure in the list from computation of budget.
 
 ==== Viewing budget information: `binfo`
 
 Displays budget information. +
 Format: `binfo [m/MONTH y/YEAR]`
 
+[TIP]
+This shows the budget breakdown by category.
+
 Examples:
 
 * `binfo` +
-Displays expenditure budget left and a list of all excluded transactions for current month.
+Displays expenditure budget left and a list of all excluded expenditures for current month.
 * `binfo m/7 y/2019` +
-Displays expenditure budget left and a list of all excluded transactions for July 2019.
+Displays expenditure budget left and a list of all excluded expenditures for July 2019.
 
 === Analytics
 
