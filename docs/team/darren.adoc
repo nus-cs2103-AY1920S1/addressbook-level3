@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 image::darren.png[width="150", align="left"]
-{empty}[https://github.com/kalsyc[github]]
+{empty}[https://kalsyc.github.io[homepage]] [https://github.com/kalsyc[github]]
 
 Role: Developer +
 Responsibilities: Testing + UI/UX Designer

@@ -313,33 +313,162 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `Xpire` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Xpire` and the *Actor* is the `user`, unless specified otherwise. Additionally, any references made to the `list` refers to both the tracking list and the to-buy list, unless specific otherwise.)
 
 [discrete]
-=== Use case: Delete item
+=== Use case: UC01 - Add item
 
 *MSS*
 
-1.  User requests to list items
-2.  Xpire shows a list of items
-3.  User requests to delete a specific item in the list
-4.  Xpire deletes the item
+1. User requests to add an item to the list.
+2. Xpire adds the item.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Xpire detects an error in the input.
++
+[none]
+** 1a1. Xpire shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: UC02 - Delete item
+Precondition: Display board is showing a list of items.
+
+*MSS*
+
+1.  User requests to delete a specific item in the list.
+2.  Xpire deletes the item.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
 +
 [none]
-** 3a1. Expire shows an error message.
+** 1a1. Expire shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: UC03 - Search item(s)
+Precondition: Display board is showing a list of items.
+
+*MSS*
+
+1.  User requests to search for specific item(s) in the list.
+2.  Xpire shows the searched item(s).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given keyword(s) has no matching results.
++
+[none]
+** 1a1. Xpire shows an empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - Clear list
+
+*MSS*
+
+1.  User +++<u>views all items in the list (UC05)</u>+++.
+2.  User requests to clear the list.
+3.  Xpire removes all items from the list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - View all items
+
+*MSS*
+
+1.  User requests to view all items in the list.
+2.  Xpire shows the full list of items.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - View help
+
+*MSS*
+
+1.  User requests for help.
+2.  Xpire shows the help messages.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Terminate Xpire
+
+*MSS*
+
+1.  User requests to exit the program.
+2.  Xpire closes.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 - Check for expiring items
+
+*MSS*
+
+1.  User requests to view list of expiring items.
+2.  Xpire shows list of expiring items.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty
++
+[none]
+** 1a1. Xpire shows an empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC09 - Tag item
+Precondition: Display board is showing a list of items.
+
+*MSS*
+
+1.  User requests to tag an item in the list.
+2.  Xpire tags the item.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
++
+[none]
+** 1a1. Expire shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: UC10 - Sort items
+Precondition: Display board is showing a list of items.
+
+*MSS*
+
+1.  User requests to sort the items.
+2.  Xpire sorts the items in the list.
++
+Use case ends.
 
 _{More to be added}_
 
@@ -420,19 +549,31 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
+*+++<u>Fridgely</u>+++*
 
-Author: ...
+Author: Justin Ehlert
 
 Pros:
 
-* ...
-* ...
+* Able to sync with multiple devices.
+* Has barcode scanner to automatically add item.
 
 Cons:
 
-* ...
-* ...
+* Cannot efficiently change the location tag of the item. To change the location tag, user has to manually recreate the same item with another tag and delete the current item.
+
+*+++<u>Expiry Date Tracker Lite</u>+++*
+
+Author: Lalit Kumar Verma
+
+Pros:
+
+* Has the option to use it in multiple languages.
+* Provides a summary view of "expiring" and "expired" items.
+
+Cons:
+
+* Forces user to take photo of every item while adding to the list.
 
 [appendix]
 == Instructions for Manual Testing

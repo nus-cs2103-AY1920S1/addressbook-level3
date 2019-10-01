@@ -20,7 +20,7 @@ Responsibilities: Integration + Deliverables and Deadlines + DevOps
 
 === Sim Jun Yuen, Darren
 image::darren.png[width="150", align="left"]
-{empty}[https://example.org[homepage]] [https://github.com/kalsyc[github]] [<<darren#, portfolio>>]
+{empty}[https://kalsyc.github.io[homepage]] [https://github.com/kalsyc[github]] [<<darren#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing + UI/UX Designer
