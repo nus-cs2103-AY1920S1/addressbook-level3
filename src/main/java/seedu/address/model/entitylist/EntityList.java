@@ -45,11 +45,6 @@ public abstract class EntityList implements ReadableEntityList {
 //     */
 //    abstract void add(Entity entity) throws AlfredException;
 
-    /**
-     * This generates the id for the next entity object to be created.
-     */
-    abstract Id generateID();
-
     abstract public boolean contains(Id id);
 
     abstract public List<? extends Entity> list();
