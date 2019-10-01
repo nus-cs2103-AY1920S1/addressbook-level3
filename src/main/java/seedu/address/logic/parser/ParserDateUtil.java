@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -53,7 +54,7 @@ public abstract class ParserDateUtil {
      */
     public static LocalDateTime getDateFromString(String dateString) throws ParseException {
         try {
-            return LocalDateTime.parse(dateString.trim(), DATE_FORMATTER);
+            return LocalDate.parse(dateString.trim(), DATE_FORMATTER).atStartOfDay();
         } catch (DateTimeParseException ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_FORMAT, "date", DATE_FORMAT));
         }

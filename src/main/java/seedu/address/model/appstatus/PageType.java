@@ -1,4 +1,4 @@
-package seedu.address.model.pagestatus;
+package seedu.address.model.appstatus;
 
 public enum PageType {
     PREFERENCES,

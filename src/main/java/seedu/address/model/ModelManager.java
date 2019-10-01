@@ -14,8 +14,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
 import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
-import seedu.address.model.pagestatus.PageStatus;
-import seedu.address.model.pagestatus.PageType;
+import seedu.address.model.appstatus.PageStatus;
+import seedu.address.model.appstatus.PageType;
 import seedu.address.model.person.Person;
 
 /**

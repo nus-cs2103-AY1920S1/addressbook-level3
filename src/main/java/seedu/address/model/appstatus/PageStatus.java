@@ -1,4 +1,4 @@
-package seedu.address.model.pagestatus;
+package seedu.address.model.appstatus;
 
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.model.itinerary.day.Day;

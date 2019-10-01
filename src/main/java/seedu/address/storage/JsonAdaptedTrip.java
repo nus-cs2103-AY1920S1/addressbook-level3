@@ -28,13 +28,12 @@ public class JsonAdaptedTrip {
 
     @JsonCreator
     public JsonAdaptedTrip(
-            @JsonProperty("name") String name
-            , @JsonProperty("from")LocalDateTime startDate
-            , @JsonProperty("to") LocalDateTime endDate
-            , @JsonProperty("destination")String destination
-            , @JsonProperty("totalBudget")double totalBudget
-            , @JsonProperty("dayList")List<JsonAdaptedDay> dayList
-    ) {
+            @JsonProperty("name") String name,
+            @JsonProperty("startDate")LocalDateTime startDate,
+            @JsonProperty("endDate") LocalDateTime endDate,
+            @JsonProperty("destination")String destination,
+            @JsonProperty("totalBudget")double totalBudget,
+            @JsonProperty("dayList")List<JsonAdaptedDay> dayList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;

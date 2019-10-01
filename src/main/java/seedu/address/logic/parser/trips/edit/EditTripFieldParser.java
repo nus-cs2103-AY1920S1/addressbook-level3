@@ -22,14 +22,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-public class EditTripFieldParser implements Parser<DoneEditTripCommand> {
+public class EditTripFieldParser implements Parser<EditTripFieldCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DoneEditTripCommand parse(String args) throws ParseException {
+    public EditTripFieldCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
@@ -45,11 +45,12 @@ public class EditTripFieldParser implements Parser<DoneEditTripCommand> {
         try {
             index = Optional.ofNullable(ParserUtil.parseIndex(argMultimap.getPreamble()));
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DoneEditTripCommand.MESSAGE_USAGE), pe);
+            index = Optional.empty();
+            //throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            //        EditTripFieldCommand.MESSAGE_USAGE), pe);
         }
 
-        if (index.isEmpty()) {
+        if (!index.isEmpty()) {
             //edit by field specified by index only
             throw new UnsupportedOperationException("Parsing edit trip by index not yet supported.");
 
@@ -80,6 +81,6 @@ public class EditTripFieldParser implements Parser<DoneEditTripCommand> {
             throw new ParseException(DoneEditTripCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new DoneEditTripCommand();
+        return new EditTripFieldCommand(editTripDescriptor);
     }
 }

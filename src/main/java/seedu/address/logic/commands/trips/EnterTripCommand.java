@@ -7,7 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.model.pagestatus.PageType;
+import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.Ui;
 

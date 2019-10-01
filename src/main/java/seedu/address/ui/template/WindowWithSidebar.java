@@ -13,8 +13,4 @@ public abstract class WindowWithSidebar extends MainWindow {
     public WindowWithSidebar(String fxmlFileName, Stage primaryStage, Logic logic, Model model) {
         super(fxmlFileName, primaryStage, logic, model);
     }
-
-    private void addSidebar() {
-
-    }
 }

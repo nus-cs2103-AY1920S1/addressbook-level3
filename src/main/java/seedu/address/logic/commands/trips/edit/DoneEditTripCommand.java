@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
 import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
-import seedu.address.model.pagestatus.PageType;
+import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.trips.TripsPage;
 import seedu.address.ui.Ui;
 

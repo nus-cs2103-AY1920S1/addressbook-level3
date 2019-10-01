@@ -22,11 +22,10 @@ import seedu.address.logic.parser.itinerary.dayview.DayViewParser;
 import seedu.address.logic.parser.itinerary.eventview.EventViewParser;
 import seedu.address.logic.parser.itinerary.overallview.OverallViewParser;
 import seedu.address.logic.parser.preferences.PreferencesParser;
-import seedu.address.logic.parser.trips.EnterCreateTripParser;
 import seedu.address.logic.parser.trips.TripManagerParser;
 import seedu.address.logic.parser.trips.edit.EditTripParser;
-import seedu.address.model.pagestatus.PageStatus;
-import seedu.address.model.pagestatus.PageType;
+import seedu.address.model.appstatus.PageStatus;
+import seedu.address.model.appstatus.PageType;
 
 /**
  * Parses user input.
@@ -104,45 +103,4 @@ public class TravelPalParser {
             throw new ParseException(UNKNOWN_PAGE_MESSAGE);
         }
     }
-
-    /*
-    public Command parseCommand(String userInput, PageStatus pageStatus) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-        switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
-    }
-    */
 }

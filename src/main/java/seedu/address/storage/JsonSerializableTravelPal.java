@@ -25,15 +25,13 @@ class JsonSerializableTravelPal {
     public static final String MESSAGE_DUPLICATE_TRIP = "Trip list contains duplicate trip(s).";
     public static final String MESSAGE_CLASHING_TRIP = "Trip list contains clashing trip";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedTrip> trips = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableTravelPal} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableTravelPal(@JsonProperty("persons") List<JsonAdaptedPerson> persons, List<JsonAdaptedTrip> trips) {
-        this.persons.addAll(persons);
+    public JsonSerializableTravelPal(@JsonProperty("trips") List<JsonAdaptedTrip> trips) {
         this.trips.addAll(trips);
     }
 
@@ -43,7 +41,6 @@ class JsonSerializableTravelPal {
      * @param source future changes to this will not affect the created {@code JsonSerializableTravelPal}.
      */
     public JsonSerializableTravelPal(ReadOnlyTravelPal source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         trips.addAll(source.getTripList().stream().map(JsonAdaptedTrip::new).collect(Collectors.toList()));
     }
 
@@ -54,15 +51,7 @@ class JsonSerializableTravelPal {
      */
     public TravelPal toModelType() throws IllegalValueException {
         TravelPal travelPal = new TravelPal();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
 
-            if (travelPal.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-
-            travelPal.addPerson(person);
-        }
         for (JsonAdaptedTrip jsonAdaptedTrip : trips) {
             Trip trip = jsonAdaptedTrip.toModelType();
 

@@ -51,10 +51,6 @@ public abstract class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -95,43 +91,10 @@ public abstract class MainWindow extends UiPart<Stage> {
     protected abstract void fillInnerParts();
 
     /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
-    }
-
-    /**
      * Opens the help window or focuses on it if it's already opened.
      */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
     protected void show() {
         primaryStage.show();
-    }
-
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        model.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
     }
 
     /**
@@ -161,4 +124,39 @@ public abstract class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Sets the default size based on {@code guiSettings}.
+     */
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Opens the help window.
+     */
+    @FXML
+    private void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        model.setGuiSettings(guiSettings);
+        helpWindow.hide();
+        primaryStage.hide();
+    }
 }

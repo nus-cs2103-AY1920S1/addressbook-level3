@@ -215,7 +215,7 @@ public class EditTripFieldCommand extends Command {
         }
 
         public Optional<LocalDateTime> getEndDate() {
-            //end date is optional
+            //end date is optional, but return null to conform with the rest.
             return Optional.ofNullable(endDate);
         }
 
