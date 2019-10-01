@@ -3,19 +3,19 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.stage.Screen;
-import javafx.geometry.Rectangle2D;
+import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -28,9 +28,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
-    private static final String FXML = "MainWindow.fxml";
     public static final int WIDTH_PADDING = 20;
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -58,7 +57,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private GridPane  gridManager;
+    private GridPane gridManager;
 
     @FXML
     private VBox vBoxPane;
@@ -141,6 +140,9 @@ public class MainWindow extends UiPart<Stage> {
         editInnerParts();
     }
 
+    /**
+     * Edits the size of the nodes based on the user's screen size.
+     */
     private void editInnerParts() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenHeight = primaryScreenBounds.getHeight();

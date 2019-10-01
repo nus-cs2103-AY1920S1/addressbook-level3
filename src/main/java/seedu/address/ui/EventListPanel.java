@@ -9,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of persons.
@@ -21,6 +20,10 @@ public class EventListPanel extends UiPart<Region> {
     @FXML
     private ListView<EventSource> eventListView;
 
+    /**
+     * Constructor for EventListPanel. Creates an instance of a panel to store the Event Cards.
+     * @param eventList The list containing all the events.
+     */
     public EventListPanel(ObservableList<EventSource> eventList) {
         super(FXML);
         eventListView.setItems(eventList);
@@ -28,7 +31,7 @@ public class EventListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code EventCard}.
      */
     class EventListViewCell extends ListCell<EventSource> {
         @Override
