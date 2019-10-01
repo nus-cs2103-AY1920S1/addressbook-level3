@@ -23,6 +23,34 @@ people who **prefer typing in a Command Line Interface (CLI)** to quickly access
 Click on <<Quick Start, Quick Start>> to get started!
 
 == Quick Start
+This guide shows you how to import your interview schedules into Scheduler to begin managing your interview schedule.
+It also shows you basic tips on how to add or delete and edit interviewers/interviewees based on your changing needs.
+
+=== Import your csv file into the application `[Coming in v2.0]`
+
+TIP: Converting your Excel file into .csv format
+
+1) Open Excel and click *File -> Open*.
+
+image::quickstart/1_excel.png[width="500", align="left"]
+
+2) In the dialog box, find the Excel file on your computer and click *Open*.
+
+image::quickstart/2_excel.png[width="500", align="left"]
+
+3) On the Excel toolbar, select *File > Save As*.
+
+image::quickstart/3_excel.png[width="500", align="left"]
+
+4) In the dialog box, type a new name for your file in the *File Name* field.
+
+5) In the "Save as Type" drop-down menu, scroll down to locate and select *CSV (comma delimited)*.
+
+image::quickstart/4_excel.png[width="500", align="left"]
+
+6) Click *Save*.
+
+image::quickstart/5_excel.png[width="500", align="left"]
 
 [[Features]]
 == Features
@@ -35,10 +63,52 @@ Click on <<Quick Start, Quick Start>> to get started!
 
 ====
 
+=== Add interviewers/interviewees `add`
+Manually add a new interviewer to the database. +
+Format: `add interviewer name:"NAME" slot:SLOT...` +
+
+Examples:
+
+ add interviewee name:"John Doe" slot:"20/09/2019 18:00 - 20/09/2019 21:00"
+ add interviewee name:"Mary Jane" slot:"20/09/2019 18:00 - 20/09/2019 19:00" slot:"20/09/2019 20:00 - 20/09/2019 21:00"
+
+Notes:
+
+- An interviewee can have multiple slots (given by multiple “slot:” arguments)
+- Slots should be given in the format: `DD/MM/YYYY HH:MM - DD/MM/YYYY HH:MM`, where the first date and time is the starting time and the second date and time is the ending time of availability.
+- The starting date should be a date and time that is earlier than the ending date
+
+
+
+=== Get interview schedule `get` `[Coming in v2.0]`
+Find an interviewer/interviewee and display his/her interview schedule. +
+Format: `get NAME` +
+
+Example:
+
+ get "John Doe"
+
+
+=== Delete interviewer/interviewee `delete`
+==== Delete existing interviewer (interview slot)
+Deletes the specified interviewer from the database +
+Format: `delete interviewer NAME` +
+
+==== Delete existing interviewee
+Deletes the specified interviewee from the database. +
+Format: `delete interviewee NAME`
+
+=== Tag interview slot `tag` `[Coming in v2.0]`
+Tags an interview slot with a name. +
+Format: `tag TAG_NAME` +
+
+User will also be able to filter by tags. +
+Format: `filter tag TAG_NAME` +
+
 === Scheduling `generate`
 ==== Generating timetable of all available time slots
 Generate the timetable of all available interview time slots based on the availability of interviewers. +
-Format: `generate timetable`
+Format: `generate timetable` +
 
 ==== Generating full interview schedule
 Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
