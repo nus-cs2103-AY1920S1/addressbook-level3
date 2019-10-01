@@ -2,7 +2,7 @@
 :toc-title:
 :toclevels: 9
 
-# Splitwiser
+# SplitWiser
 
 toc::[]
 
@@ -28,10 +28,10 @@ everyone gets paid back, and everyone is happy.
 
 ## Features
 
-* It just werks!
+* It just works!
+* Add contacts and tags so you know who you owe and who owes you!
+* View your activities and regret your monthly expenses!
 * Aggregate and simplify debts between a group of friends!
-* Track your monthly expenses!
-* Add contacts and notes so you know you owe and who owes you!
 
 ## Helpful Links
 
