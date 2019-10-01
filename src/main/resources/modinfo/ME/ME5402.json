@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5402",
+    "courseCredit": "4",
+    "description": "The aim of the course is for students to develop an in-depth understanding of the fundamentals of robotics at an advanced level. It is targeted towards graduate students interested in robotics research and development. The focus is on in-depth treatments and wider coverage of advanced topics on (a) kinematics, (b) trajectory planning, (c) dynamics, and (d) control system design. At the end of this module, the student should have a good understanding of all the related topics of advanced robotics, and be able to derive the kinematics and dynamics of a given robot, plan appropriate path, and design advanced control systems.",
+    "faculty": "Engineering",
+    "preclusion": "MCH5209, EE5106/EE5106R",
+    "title": "Advanced Robotics"
+}

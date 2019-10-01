@@ -1,0 +1,14 @@
+{
+    "courseCode": "BT5151",
+    "courseCredit": "4",
+    "description": "This module provides a general introduction to advanced data analytics methods. It is the sequel to the first foundation module and covers advanced decision tree techniques, support vector machine, unsupervised, semisupervised and reinforcement learning. Machine learning models for text analysis will be covered. Students are expected to learn the methodological foundations of various machine learning and data mining algorithms, to understand the advantages and disadvantages of various methods, to use Python to run these data mining methods, and to learn how to handle unstructured data for business analytics.",
+    "faculty": "Computing",
+    "preclusion": "BT4222 Mining Web Data for Business Insights,\nST5202 Applied Regression Analysis,\nST5318 Statistical Methods for Health Science,\nBT5152 Decision Making Technology for Business,\nIS5152 Data-Driven Decision Making",
+    "prereqTree": {
+        "or": [
+            "DSC5106",
+            "DSC5103"
+        ]
+    },
+    "title": "Foundation in Data Analytics II"
+}

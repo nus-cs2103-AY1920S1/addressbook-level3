@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "FST2203",
+    "courseCredit": "4",
+    "description": "This module is part of the intensive 5-week OdySEA Programme which runs during the special semester. It aims to provide students a practical and in-depth knowledge in food commodities in a typical tropical country. The first two weeks will be spent at NUS with lectures and tutorials, taught by academic staff from both NUS and Bogor Agricultural University (Institut Pertanian Bogor \u2013 IPB). The topics will be on a variety of food commodities including plant food commodities and animal husbandry. A 9-day field trip will then be conducted mainly in the area of Bogor, which stretches to Jakarta and Semarang, visiting production farms and processing industries of plant food commodities. Students will be exposed to a large number of commodities that are essential raw materials for food products. Upon returning to NUS, lectures will continue. Students will also work on group projects and assessments will be conducted.",
+    "faculty": "Science",
+    "preclusion": "FST2202 Food Commodities in Costa Rica",
+    "title": "Food Commodities in Indonesia"
+}

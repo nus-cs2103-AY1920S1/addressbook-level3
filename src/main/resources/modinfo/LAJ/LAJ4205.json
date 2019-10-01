@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ4205",
+    "courseCredit": "5",
+    "description": "This module is designed to assist students' projects so that they can present their ideas effectively in oral and written form. Students are expected to have some data at hand for analysis or at least a concrete project topic. Contrastive analysis of English and Japanese expository writing styles will be carried out by comparing some sections of journal articles. Participants are expected to make progress reports on their projects and to comment actively on each other's presentations. This module is particularly useful for students researching topics that involve quantitative data, in such fields as linguistics, language teaching methodology, anthropology and sociology.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "LAJ3202",
+            "LAJ3204"
+        ]
+    },
+    "title": "Expository Writing & Public Speaking"
+}

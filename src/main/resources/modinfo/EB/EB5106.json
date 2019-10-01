@@ -1,0 +1,9 @@
+{
+    "courseCode": "EB5106",
+    "courseCredit": "12",
+    "description": "The Enterprise Business Analytics Overseas Practicum is designed to allow students to experience entrepreneurial enterprises, such as high technology start-up companies, in rapidly developing economies, such as Israel and China, and contribute to those companies by playing a significant role in using data for competitive advantage and in solving complex business problems. The practicum allows students to apply their knowledge in a real world context, demonstrating their mastery of a range of Enterprise Business Analytics skills, such as problem formulation, problem modeling, data cleansing and preparation, model construction, verification and validation. This module is conducted in collaboration with the NUS Overseas Colleges (NOC).",
+    "faculty": "Institute of Systems Science",
+    "preclusion": "Students that select EB5105 Enterprise Business Analytics Project cannot also  select the Enterprise Business Analytics Overseas Practicum and vice versa.",
+    "prereqTree": "EB5101",
+    "title": "Enterprise Business Analytics Overseas Practicum"
+}

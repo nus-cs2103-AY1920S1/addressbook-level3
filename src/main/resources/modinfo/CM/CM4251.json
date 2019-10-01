@@ -1,0 +1,13 @@
+{
+    "courseCode": "CM4251",
+    "courseCredit": "4",
+    "description": "Preparation and characterization of materials form crucial and vital aspects of materials research. Highly developed instruments are now available to apply an interdisciplinary study to understand the structure-property relationship. This module provides undergraduates an introduction to modern materials characterization techniques which comprise surface analysis techniques, X-ray diffraction, microscopy, thermal analyses, mechanical tastings and spectroscopies.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "CM3252",
+            "CM3253"
+        ]
+    },
+    "title": "Characterization Techniques in Materials Chemistry"
+}

@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5405A",
+    "courseCredit": "2",
+    "description": "Students will learn how machine vision systems in robotics, industrial and medical applications are designed and implemented. The focus is more on global understanding than on mathematical derivations. The main topics that will be treated are: visual perception, vision hardware, optical properties, image representation, imaging geometry and basic image processing techniques. With the basic understanding of the various technology and methods used to provide imaging-based inspection and analysis for robot guidance, process control and automatic inspection, this course prepares students for further studies and research in vision and image processing.",
+    "faculty": "Engineering",
+    "preclusion": "ME5405",
+    "title": "Machine Vision Fundamentals"
+}

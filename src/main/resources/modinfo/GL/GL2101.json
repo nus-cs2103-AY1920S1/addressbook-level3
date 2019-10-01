@@ -1,0 +1,14 @@
+{
+    "courseCode": "GL2101",
+    "courseCredit": "4",
+    "description": "This module explores how the contemporary structure of the global system emerged. It studies how a world economy with integrated systems of production and trade emerged from interactions in which ethnic, national, political, and cultural divisions played a crucial role. It also examines the mechanisms though which Europeans and European culture maintained a dominant place through conflicts and crises from the sixteenth century onwards. The period under investigation runs from the Thirteenth Century to the start of the Twentieth.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GL3101",
+        "GL3201",
+        "GL2104",
+        "GL3202"
+    ],
+    "prereqTree": "GL1101E",
+    "title": "Origins of the Modern World"
+}

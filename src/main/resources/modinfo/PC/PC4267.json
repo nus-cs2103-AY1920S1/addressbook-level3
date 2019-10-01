@@ -1,0 +1,11 @@
+{
+    "courseCode": "PC4267",
+    "courseCredit": "4",
+    "description": "This module covers the principles of statistics in relation to biophysics and bio soft materials. It focuses on: modeling of biomacromolecular structure and statistical complexities; molecular mechanics of biomolecules; statistical models for structural transitions in biopolymers, statistical physical description of structural transitions in macromolecules, simulation of macromolecular structure, structural transitions in polypeptides and proteins; coil-helix transitions; prediction of protein secondary and tertiary structures; statistics of structural transitions in polynucleotides and DNA; modeling of non-regular structures of biomacromolecules. This module is targeted at both physics and non-physics students who already have basic knowledge in physics, thermodynamics and molecular biology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5213"
+    ],
+    "prereqTree": "PC3267",
+    "title": "Biophysics III"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "QF3201",
+    "courseCredit": "4",
+    "description": "The aim of this course is to enable students to acquire the financial domain knowledge in quantitative finance. Through computer-based exercise and laboratory work, students will acquire the quantitative tools in derivatives and bonds used by the finance industry. Topics will include Derivative Instruments and their applications, Bonds, Bonds Analytics, Fixed Income Derivatives, Risk Management using Fixed Income Derivatives and Credit Derivatives. This course targets all students who have an interest in quantitative finance.",
+    "faculty": "Science",
+    "prereqTree": "FNA2004",
+    "title": "Basic Derivatives and Bonds"
+}

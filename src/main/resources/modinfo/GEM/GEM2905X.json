@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEM2905X",
+    "courseCredit": "4",
+    "description": "A \u2018global city\u2019, a \u2018city in a garden\u2019, a \u2018city of 6.9 million\u2019... what do these and other models say about Singapore and its relationship to its past and future? This course facilitates critical and multi\u2010disciplinary engagement with the imagination and organization of Singapore as city. Students will examine visible aspects of the urban environment together with what is (treated as) invisible, and explore what is at stake in meeting Singapore\u2019s ambition within its borders and beyond. The module culminates in a project that allows students to situate ideals of the liveable, sustainable, inclusive (etc.) city in particular urban sites.",
+    "faculty": "Residential College",
+    "preclusion": "GEM2902% or GEM2905% or GEM2907% or GEM2908% or GEM2909% or GEM2910% or UTC21% or UTS2105 or SSU2004%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Singapore as \u2018Model\u2019 City?"
+}

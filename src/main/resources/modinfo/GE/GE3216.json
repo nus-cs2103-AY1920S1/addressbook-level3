@@ -1,0 +1,8 @@
+{
+    "courseCode": "GE3216",
+    "courseCredit": "4",
+    "description": "This module focuses on the applications of GIS and remote sensing in a geographical context. The emphasis is on the use of spatial data in business analysis, environmental planning, and resource and impact assessment. One section of the module covers topics on digital image processing with emphasis on the knowledge and understanding of techniques used in a planning context. The second section deals with spatial analysis and visualisation for geographical and business analysis (GE2215 is a prerequisite for this module).",
+    "faculty": "Arts and Social Science",
+    "prereqTree": "GE2215",
+    "title": "Applications of GIS & Remote Sensing"
+}

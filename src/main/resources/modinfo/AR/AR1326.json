@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "AR1326",
+    "courseCredit": "4",
+    "description": "To heighten students' awareness of the concepts and components of building structure and technology. Major topics include the roles of architect in the construction industry, basic principles of structural mechanics, primary and secondary building systems including building foundation, floor and roof framing systems, building components such as walls, stairs, doors and windows, and the fundamentals of timber and masonry constructions.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "AR2326",
+        "AR3721"
+    ],
+    "preclusion": "All non-architecture students",
+    "title": "Architectural Construction"
+}

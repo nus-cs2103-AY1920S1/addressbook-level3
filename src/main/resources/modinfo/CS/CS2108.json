@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS2108",
+    "courseCredit": "4",
+    "description": "This module introduces students to (i) the fundamental principles, theory, algorithms, and data structures behind digital representation, compression, synchronization, and processing of image, audio, and video data types, and (ii) challenges and issues in developing media-rich applications, such as media streaming and media retrieval. Students will be exposed to the workings of common media file format and common manipulation techniques on media data. After taking the module, students should be confident enough in developing media applications and make appropriate trade-off and design decisions when dealing in media data in their software.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS4242",
+        "CS4347"
+    ],
+    "preclusion": "CS3246",
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "CS2020",
+            "CS2040"
+        ]
+    },
+    "title": "Introduction to Media Computing"
+}

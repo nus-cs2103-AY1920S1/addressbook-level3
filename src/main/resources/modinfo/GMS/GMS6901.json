@@ -1,0 +1,12 @@
+{
+    "courseCode": "GMS6901",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Duke-NUS Medical School",
+    "fulfillRequirements": [
+        "GMS6850",
+        "GMS6921",
+        "GMS6904"
+    ],
+    "title": "Molecules to Medicines"
+}

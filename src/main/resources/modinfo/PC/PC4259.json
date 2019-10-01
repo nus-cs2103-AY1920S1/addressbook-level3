@@ -1,0 +1,19 @@
+{
+    "courseCode": "PC4259",
+    "courseCredit": "4",
+    "description": "This module provides an introduction to surface physics, its techniques and applications. The topics include: surface tension, surface crystallography, surface physical processes such as relaxation, reconstruction and defects, surface chemical properties, surface segregation, surface electronic structures including surface states, band bending, dipole layer, work function, core-level-shifts, Fermi level pining, plasmon, and surface vibrational properties. Experimental techniques, such as LEED, RHEED, XAS, SEXAFS, XPS, UPS, AES, SIMS and EELS, will be also addressed with examples and applications. This module is targeted at physics or materials science students, who have a basic knowledge of quantum mechanics and solid state physics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5205"
+    ],
+    "prereqTree": {
+        "or": [
+            "PC3130",
+            "PC3242",
+            "EE2004",
+            "EE3431C",
+            "EE2143"
+        ]
+    },
+    "title": "Surface Physics"
+}

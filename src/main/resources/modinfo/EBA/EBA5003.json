@@ -1,0 +1,13 @@
+{
+    "courseCode": "EBA5003",
+    "courseCredit": "8",
+    "description": "This module aims to equip the learners the skills to manage data and provide analytics solution for customer relationship management and run campaigns effectively for growth. To achieve this CRM concepts and infrastructure, Customer Life Cycle Management principles, concepts of multivariate analysis like dimension reduction, cluster analysis, profiling, Propensity models, Attrition/churn Models, RFM Analysis, CLV calculation, Campaign Management principles etc. are covered.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": {
+        "or": [
+            "EBA5002",
+            "EBA5001"
+        ]
+    },
+    "title": "Customer Analytics"
+}

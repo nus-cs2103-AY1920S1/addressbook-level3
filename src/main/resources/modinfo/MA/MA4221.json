@@ -1,0 +1,12 @@
+{
+    "courseCode": "MA4221",
+    "courseCredit": "4",
+    "description": "The objective of this introductory course is to provide the basic properties of partial differential equations as well as the techniques to solve some partial differential equations. Partial differential equations are the important tools for understanding the physical world and mathematics itself. This course will cover three types of partial differential equations and will provide a broad perspective on the subject, illustrate the rich variety of phenomena and impart a working knowledge of the most important techniques of analysis of the equations and their solutions. Major topics: First-order equations. Quasi-linear equations. General first-order equation for a function of two variables. Cauchy problem. Wave equation. Wave equation in two independent variables. Cauchy problem for hyperbolic equations in two independent variables. Heat equation. The weak maximum principle for parabolic equations. Cauchy problem for heat equation. Regularity of solutions to heat equation. Laplace equation. Green's formulas. Harmonic functions. Maximum principle for Laplace equation. Dirichlet problem. Green's function and Poisson's formula.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5252",
+        "MA5213"
+    ],
+    "prereqTree": "MA3220",
+    "title": "Partial Differential Equations"
+}

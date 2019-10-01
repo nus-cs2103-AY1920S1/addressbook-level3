@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "courseCode": "FST3104",
+    "courseCredit": "6",
+    "description": "This module covers sensory basis of food perception and preference, discrimination testing and determination of threshold values, basis of psycophysics in sensory evaluation, measurement of preference &amp; liking, basis of training a panel, sensory evaluation in quality control, experimental design and statistical analysis of sensory data, shelf life evaluation of food, food quality management. Students will also be able to gain experience in developing a new food product through a problem-based learning project, which will last throughout the semester.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST4101",
+        "FST4201"
+    ],
+    "prereqTree": {
+        "and": [
+            "FST2102A",
+            "FST2106"
+        ]
+    },
+    "title": "Food Sensory, Innovation and Packaging"
+}

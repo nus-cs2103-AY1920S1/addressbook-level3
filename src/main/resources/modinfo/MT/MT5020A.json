@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MT5020A",
+    "courseCredit": "2",
+    "description": "To succeed in today\u2019s technological world characterised by short-life-cycles and disruptions, there is a need for engineers to understand human issues and behaviour commonly found in modern technology\u2013centric organisations. Integrating engineering, psychology and management, this module will equip students with the fundamental concepts in aspects such as team work, communication, motivations and conflict management. These knowledge will complement knowledge in innovation theories, product development and project management, enabling students to have a better and more complete understanding on initiating and implementing innovation in organisations.",
+    "faculty": "Engineering",
+    "preclusion": "MT5020 Managing the Human elements of Technology Management",
+    "title": "Human Aspects of Technological Innovation"
+}

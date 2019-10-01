@@ -1,0 +1,14 @@
+{
+    "courseCode": "ME3291",
+    "courseCredit": "4",
+    "description": "This elective module introduces students to fundamental concepts of numerical analysis as a powerful tool for solving a wide variety of engineering problems. The topics covered include numerical solution of linear systems of algebraic equations, numerical solution of nonlinear algebraic equations and systems of equations, elementary unconstrained optimization techniques, regression and interpolation techniques, numerical differentiation and integration, as well as the numerical solution of Ordinary Differential Equations (ODE). Applications are drawn from a broad spectrum of diverse disciplines in Mechanical Engineering. The module will also introduce the use of scientific computing software packages for the numerical solution of practical engineering problems.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "MA1505",
+            "MA1512",
+            "MA1513"
+        ]
+    },
+    "title": "Numerical Methods In Engineering"
+}

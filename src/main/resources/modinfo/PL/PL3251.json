@@ -1,0 +1,14 @@
+{
+    "courseCode": "PL3251",
+    "courseCredit": "4",
+    "description": "In this module, we will focus on areas of development in infants and young children: these include cognitive, language, and emotional development. This module aims to give students who are interested in child development a chance to examine in further depth aspects of child development, as well as some areas of atypical development. In particular, we will explore how current research informs our understanding of normal development in infants and children. Topics covered include developmental disorders such as autism, atypical language such as speech language impairment and aspects of parent-child attachment.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PL3880A",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL3234"
+        ]
+    },
+    "title": "Atypical Development and Language"
+}

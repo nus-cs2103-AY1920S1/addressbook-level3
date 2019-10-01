@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "RE1901",
+    "courseCredit": "4",
+    "description": "Real estate assets form the largest component of household wealth (and debt) in our nation. While the media tends to focus on the wealth created through real estate investment (speculation), there is much less discussion of the real estate wealth management (REWM) process. This module aims to provide a general understanding of the REWM. Impact of economic, social and policy factors on household property wealth including a review of general economic principles such as market supply and demand, the impact of government financial and regulatory policies as well as demographic considerations such as an ageing population will be discussed.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE1301 Real Estate Wealth Management",
+    "title": "Real Estate Wealth Management"
+}

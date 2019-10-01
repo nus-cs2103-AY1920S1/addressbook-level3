@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "IT1007",
+    "courseCredit": "4",
+    "description": "This module introduces the fundamental concepts of programming using scripting and compiled programming languages in Python and C, with emphasis on electrical engineering applications. It lays the foundation of computing in electrical engineering. Topics include problem solving by computing, writing pseudo-codes, problem formulation and problem solving, program development, coding, testing and debugging, fundamental programming constructs (variables, types, expressions, assignments, functions, control structures, etc.), fundamental data structures: arrays, strings and structures, simple file processing, visualization, and basic graphical user interfaces.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "EE5934",
+        "EE6934",
+        "EE2028",
+        "EE4703"
+    ],
+    "preclusion": "CS1010 or its equivalents, IT1005",
+    "title": "Introduction to Programming with Python and C"
+}

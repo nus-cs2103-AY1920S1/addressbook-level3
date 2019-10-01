@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6206",
+    "courseCredit": "4",
+    "description": "This module covers advanced topics in human computer interaction that are of current research or application interests. Its aim is to examine both the theoretical bases that underlie the design of interfaces and advanced technologies for human computer interactions. A wide range of topics may be covered including psychological theories, organisational behaviour, virtual reality, augmented reality, and computer-supported cooperative work. The module illustrates where and when the theories are applicable, demonstrates the solutions using a combination of scientific theory understanding and engineering modelling. It also illustrates advanced technologies that form part of the solutions.",
+    "faculty": "Computing",
+    "prereqTree": "CS3240",
+    "title": "Advanced Topics in Human-Computer Interaction"
+}

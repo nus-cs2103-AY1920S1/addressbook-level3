@@ -1,0 +1,28 @@
+{
+    "courseCode": "AS3234",
+    "courseCredit": "4",
+    "description": "This module provides an overview of Asian American literature, with texts chosen from the main genres and across the period of the last half-century or so. It outlines the specific thematic concerns of this literature, but also the assumptions underlying the term \"Asian American literature\" itself. The relationships between society, culture, and text will be foregrounded in our consideration of these concerns. The module is designed for Literature students interested in a visibly emerging area of literary and ideological production within the larger controlling rubric we refer to as \"American literature.\"",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EN3234",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Asian American Literature"
+}

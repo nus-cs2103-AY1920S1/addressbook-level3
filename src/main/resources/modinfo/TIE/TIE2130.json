@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TIE2130",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fundamental concepts of quality and basic techniques in quality engineering. The topics covered are measures and interpretation of variation, control charts, process capability analysis, and acceptance sampling. The module will also deal with some related issues such as, measurement systems analysis, PDCA, TQM, and industrial case studies.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM4271, IE2130E",
+    "title": "Quality Engineering I"
+}

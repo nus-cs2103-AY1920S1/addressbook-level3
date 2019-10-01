@@ -1,0 +1,11 @@
+{
+    "courseCode": "LC5230",
+    "courseCredit": "4",
+    "description": "The company is one of the most important institutions in our society. The purpose of this course is to introduce students to the main conceptual apparatus of company law and to analyse some of the policy issues raised in facilitating and regulating this pervasive commercial form. Topics include the following: corporate personality and limited liability; corporate organs, constitution and meetings; corporate capacity and contracting; corporate finance; corporate governance; shareholders\u2019 rights and remedies. The course uses Singapore\u2019s Companies Act (Cap 50) as a sample legislation and draws on leading cases from the Commonwealth, in particular, UK, Australia and Singapore.",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5294S"
+    ],
+    "preclusion": "Students who have studied company law or a similar subject in a commonwealth jurisdiction",
+    "title": "Elements of Company Law"
+}

@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MLE1101",
+    "courseCredit": "4",
+    "description": "Introductory aspects of materials science and engineering (i.e. structure, properties and function). Structure on the Atomic scale. Energy levels, atomic orbitals, molecular orbitals; Interatomic bonding, types of bonds (metallic, ionic, covalent, molecular and mixed); Structure of metals, ceramics and polymers; Basic crystallography, imperfection in solids, point and line defects, non-crystalline and semi-crystalline materials, diffusion and diffusion controlled process; Correlation of structure to properties and engineering functions (mechanical, chemical). Discussion of examples for main materials categories (metals, ceramics, polymers and composites); Corrosion and degradation of materials; Basic materials selection for chemical engineering applications.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BN3301",
+        "CN4217R",
+        "CN4223R",
+        "CN4216R",
+        "MLE3202",
+        "MLE3104",
+        "MLE3103",
+        "MLE3102",
+        "MLE3101",
+        "MLE2107",
+        "MLE2106",
+        "MLE2105",
+        "MLE2104"
+    ],
+    "preclusion": "Mechanical Engineering students",
+    "title": "Introductory Materials Science And Engineering"
+}

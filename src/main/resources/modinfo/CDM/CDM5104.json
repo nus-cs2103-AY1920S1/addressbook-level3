@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CDM5104",
+    "courseCredit": "2",
+    "description": "This module is designed for biology students who have no prior background in bioinformatics. Students will learn about the latest strategies and techniques for identifying gene loci and predicting gene function from unknown DNA sequences. They will also learn how to solve real biological challenges using convential bioinformatics tools such as BLAST or gene onthology. At the end of the course, students will have a solid foundation in bioinformatics with an emphasis on sequence analysis and sequence annotation.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "title": "Introduction to Bioinformatics"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "BT4014",
+    "courseCredit": "4",
+    "description": "To design technology that impacts people \u2013 in education, health, business \u2013 this course introduces methods for creating systems that use data intelligently to improve themselves. This requires combining human intelligence (using methods like crowdsourcing, collaborative design) with artificial intelligence (discovering which technology designs help which people) through designing randomized A/B experiments that are collaborative, dynamic, and personalized.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS5006"
+    ],
+    "prereqTree": "BT2102",
+    "title": "Analytics Driven Design of Adaptive Systems"
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5806A",
+    "courseCredit": "2",
+    "description": "This module aims to equip students with the concepts, methodologies and tools to successfully control a project on site. In particular, they will learn to organise, plan and schedule a project for execution, and put in place controls for schedule and cost. They will learn advanced planning functions that include schedule compression, delay analysis and risk management.",
+    "faculty": "Engineering",
+    "title": "Advanced Project Management"
+}

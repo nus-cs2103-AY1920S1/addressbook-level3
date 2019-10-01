@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAS1201",
+    "courseCredit": "4",
+    "description": "Spanish 1 is the introductory module to the language and culture of the Hispanic world. This course is designed to help students develop the four linguistic skills in Spanish as well as to expand their cultural competency. The module will focus on the acquisition of basic structures, which will be developed and reinforced in subsequent modules.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAS2201"
+    ],
+    "preclusion": "YLS1201 Introductory Spanish I",
+    "title": "Spanish 1"
+}

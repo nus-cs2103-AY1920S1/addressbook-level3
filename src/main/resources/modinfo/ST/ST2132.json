@@ -1,0 +1,39 @@
+{
+    "courseCode": "ST2132",
+    "courseCredit": "4",
+    "description": "This module introduces students to the theoretical underpinnings of statistical methodology and concentrates on inferential procedures within the framework of parametric models. Topic include: random sample and statistics, method of moments, maximum likelihood estimate, Fisher information, sufficiency and completeness, consistency and unbiasedness, sampling distributions, x2-, t- and Fdistributions, confidence intervals, exact and asymptotic pivotal method, concepts of hypothesis testing, likelihood ratio test, Neyman-Pearson lemma. This module is targeted at students who are interested in Statistic and are able to meet the prerequisite.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CS5346",
+        "CS5461",
+        "CS3244",
+        "CS4261",
+        "CS4268",
+        "IS4242",
+        "ST5211",
+        "ST5212",
+        "ST5215",
+        "ST5217",
+        "ST3232",
+        "ST3233",
+        "ST3242",
+        "ST3243",
+        "ST3246",
+        "ST4231",
+        "ST4232",
+        "ST4234",
+        "ST4241",
+        "DSA3101",
+        "DSA4212",
+        "ST3248",
+        "IT3011"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA2216",
+            "ST2131",
+            "ST2334"
+        ]
+    },
+    "title": "Mathematical Statistics"
+}

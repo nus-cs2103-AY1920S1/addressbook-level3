@@ -1,0 +1,8 @@
+{
+    "courseCode": "IE5105A",
+    "courseCredit": "2",
+    "description": "This module introduces the supply chain drivers and inventory strategies. The drivers are the building blocks for supply chain design. Inventory is one of the drivers that plays an important role in supply chain to address the mismatch between demand and supply. Topics covered include supply chain performance and driver, inventory policy, supply chain coordination and risk pooling concepts.",
+    "faculty": "Engineering",
+    "preclusion": "IE5105 Modeling for Supply Chain Systems",
+    "title": "Supply Chain: Performance Drivers and Inventory"
+}

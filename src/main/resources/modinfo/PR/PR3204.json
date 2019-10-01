@@ -1,0 +1,18 @@
+{
+    "courseCode": "PR3204",
+    "courseCredit": "4",
+    "description": "This module focuses on the study of medicinal constituents that are derived from herbs that possess therapeutic value. Examples of how these natural products are used as sources for modern drug development will be covered. The module also provides information on how these constituents are extracted, standardized and formulated into various dosage forms which are convenient for clinical use. Students will gain an appreciation of how quality and efficacy of such medicinal products are assured during the manufacturing processes to ensure patient safety and effective outcomes.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PR1110",
+                    "PR1110A"
+                ]
+            },
+            "PR2143"
+        ]
+    },
+    "title": "Medicinal Natural Products"
+}

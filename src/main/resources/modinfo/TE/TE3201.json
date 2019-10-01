@@ -1,0 +1,9 @@
+{
+    "courseCode": "TE3201",
+    "courseCredit": "4",
+    "description": "Software project planning, requirements analysis, data flow methods. Software development, object-oriented design, portability and re-use. Software quality assurance, testing strategies and techniques. Case studies.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TEE3201",
+    "prereqTree": "TE2101",
+    "title": "Software Engineering"
+}

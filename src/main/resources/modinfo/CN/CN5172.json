@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN5172",
+    "courseCredit": "4",
+    "description": "The objective of this module is to familiarize students with the upstream section of a bioprocess for the manufacture of a biological product. The module starts with the drug discovery process and natural products research. Growth and product kinetics are reviewed through a cursory treatment. This is followed by introduction to rDNA and hybridoma technology for biopharmaceuticals production. Detailed treatment of fermenter design including operating strategies, and transport phenomena with respect to agitation and aeration follows. Considerations for mammalian cell cultivation are discussed as well as media sterilization and process monitoring of a bioprocess. These concepts are finally applied to a lab project. This module is targeted at graduate students who are interested in biopharmaceuticals production.",
+    "faculty": "Engineering",
+    "preclusion": "CN4208",
+    "title": "Biochemical Engineering"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "ESP4401",
+    "courseCredit": "4",
+    "description": "Energy conscious design and efficient operation of energy consuming systems used in industries and commercial buildings remain as a challenge for energy engineers. The module starts with a review of the fundamentals of heat and mass transfer and then introduces central chiller, compressed air, boiler and combined heat and power systems as the major energy consuming systems used in industries and commercial buildings. Topics covered include working principle of above systems, measurement and analysis of energy performance, energy savings opportunities, design of energy efficient systems and operational considerations, control strategies, technical and economic feasibility of energy projects.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "ME3122",
+            "PC2230",
+            "ME3221",
+            "ME4225"
+        ]
+    },
+    "title": "Optimization of Energy Systems"
+}

@@ -1,0 +1,9 @@
+{
+    "courseCode": "IS5110",
+    "courseCredit": "4",
+    "description": "This module examines the challenges, risks and issues of managing today\u2019s software projects with the objective of identifying the most relevant set of tactics and strategies. Students will read selected papers from journals that provide evidence of tested approaches that have and have not worked. Topics covered include managing trade-offs between time, costs, scope and quality, managing multiple levels of users from the senior managers and sponsors to the operational and IT users, issues arising from distributed e.g. distribution of work, insourced and outsourced projects e.g. vendor communication and managing iterative and agile projects e.g. cost management.",
+    "faculty": "Computing",
+    "preclusion": "IS4100",
+    "prereqTree": "IS3103",
+    "title": "Software Project Management"
+}

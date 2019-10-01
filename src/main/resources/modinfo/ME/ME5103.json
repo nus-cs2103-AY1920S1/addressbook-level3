@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5103",
+    "courseCredit": "4",
+    "description": "Students learn to analyse the deformation and stresses developed in plates and shell structures under load. They are able to apply the fundamental concepts in solid mechanics to the analysis of these structures, model the structural problem using mathematical techniques and obtain solutions to deformation and stress distributions. Topics: Basic concepts of mechanics. Plate bending theory. Circular and rectangular plates. Elements of shell theory. Membrane and bending stresses in shells. Axis-symmetric shells with general meridian. This is an elective module and the target students are engineers engaged in structural analysis of mechanical components.",
+    "faculty": "Engineering",
+    "preclusion": "CE5512\nCE5514",
+    "title": "Plates and Shells"
+}

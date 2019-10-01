@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1531",
+    "courseCredit": "4",
+    "description": "The Internet has become the most widely used medium for commerce and communication as its infrastructure can be quickly and easily set up to link to the worldwide network and access information globally. Its growth over the last few years has been phenomenal. With these activities, countries are beginning to recognize that this new technology can not only expand the reach and power of traditional crimes, but also breed new forms of criminal activity. On the successful completion of this module, students should gain sufficient baseline knowledge to be able to identify, assess and respond to a variety of cybercrime scenarios, including industrial espionage, cyber-terrorism, communications eavesdropping, computer hacking, software viruses, denial-of-service, destruction and modification of data, distortion and fabrication of information, forgery, control and disruption of information. Students will also learn about countermeasures, including authentication, encryption, auditing, monitoring, technology risk management, intrusion detection, and firewalls, and the limitations of these countermeasures.",
+    "faculty": "Science",
+    "preclusion": "GET1004",
+    "title": "Cyber Security"
+}

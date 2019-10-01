@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5242",
+    "courseCredit": "4",
+    "description": "This module provides students with the knowledge of deep neural network and enables them to apply deep learning methods effectively on real world problems. The module emphasizes on the understanding of the principles of neural networks and deep learning; practical guidelines and techniques for deep learning; and their applications. Through assignments and projects, students will design, develop, and evaluate deep learning-based solutions to practical problems, such as those in the areas of computer vision, bioinformatics, fintech, cybersecurity, and games.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5260"
+    ],
+    "prereqTree": "CS3244",
+    "title": "Neural Networks and Deep Learning"
+}

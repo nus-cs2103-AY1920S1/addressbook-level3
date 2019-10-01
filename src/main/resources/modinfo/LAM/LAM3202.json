@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAM3202",
+    "courseCredit": "4",
+    "description": "Malay 4 is intended for students who wish to learn the Malay Language and have completed elementary Malay and Intermediate Malay 3. It is also for those who have equivalent knowledge of the Malay language to continue their study here. The course is intended for students who have already acquired a fairly proficient level of competency in the Malay language but wish to acquire the Malay language at a higher level and be able to use the target language for work related purposes within the context of the community in this region.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAM4201"
+    ],
+    "prereqTree": "LAM3201",
+    "title": "Malay 4"
+}

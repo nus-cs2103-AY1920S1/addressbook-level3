@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC3213",
+    "courseCredit": "5",
+    "description": "Experimental physics will provide students with hands\u2010on practical experience using techniques to investigate scientific problems that draw on concepts from different branches of physics (e.g. quantum, statistical, thermal, solid state and optical). It aims to enhance their understanding and apply scientific knowledge learnt in class. Emphasis will also be placed on the development of analytical skills in measurement and analysis.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC1207",
+            "YSC1213"
+        ]
+    },
+    "title": "Experimental Physics Laboratory"
+}

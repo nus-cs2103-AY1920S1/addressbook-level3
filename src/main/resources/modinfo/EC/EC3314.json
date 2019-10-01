@@ -1,0 +1,29 @@
+{
+    "courseCode": "EC3314",
+    "courseCredit": "4",
+    "description": "The module continues from EC2104. Topics include more advanced mathematical tools and techniques for economic analysis such as static optimization and comparative statics, dynamic systems and dynamic optimization.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC3311, B.Eng. degree students, and students who major in Mathematics/Applied Mathematics",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EC2104",
+                    "MA1101R",
+                    "MA1102R",
+                    "MA1505",
+                    "MA1506",
+                    "MA1507",
+                    "MA1508"
+                ]
+            },
+            {
+                "and": [
+                    "EC2101",
+                    "EC2102"
+                ]
+            }
+        ]
+    },
+    "title": "Mathematical Economics"
+}

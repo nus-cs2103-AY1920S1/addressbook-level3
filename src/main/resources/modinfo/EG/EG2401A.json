@@ -1,0 +1,17 @@
+{
+    "courseCode": "EG2401A",
+    "courseCredit": "2",
+    "description": "This module aims to alert and sensitise students on the kinds of situations that may arise in his professional career and teaches students to improve his/her skills in appreciating and dealing with the moral challenges posed by such situations. Students will acquire skills in dealing with ethical issues, learn about the 'codes of ethics' set by professional bodies and intellectual property rights and protection.",
+    "faculty": "Engineering",
+    "preclusion": "EG2401",
+    "prereqTree": {
+        "or": [
+            "ES1501A",
+            "ES1501B",
+            "ES1501C",
+            "EG1413",
+            "ES1531"
+        ]
+    },
+    "title": "Engineering Professionalism"
+}

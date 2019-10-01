@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK2501",
+    "courseCredit": "4",
+    "description": "The module will introduce students in the humanities to the general principles of drug actions that underpin their therapeutic applications. The science of drug action (pharmacology) will include two major areas of pharmacology, pharmacodynamics and pharmacokinetics, which provide the scientific foundation for the study of drug actions. In dealing with the therapeutic applications of drug actions, examples of commonly used drugs for specific disease states will be discussed, and their possible side-effects highlighted. The examples will illustrate the use of over-the-counter as well as prescription drugs.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "Preclusion(s): Medical, Dental, Pharmacy, Nursing and all 1st year students are precluded. Life Science students who have taken LSM3211 are also precluded. Life Science students who have taken GEK2501 will not be allowed to do LSM3211",
+    "title": "Understanding your Medications"
+}

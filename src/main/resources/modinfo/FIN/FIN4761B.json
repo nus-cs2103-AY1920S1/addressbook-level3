@@ -1,0 +1,24 @@
+{
+    "courseCode": "FIN4761B",
+    "courseCredit": "4",
+    "description": "This is an introductory course to the world of investment banking. It is designed to help students understand the industry in which investment banks operates, the business activities they typically undertake, and the financial instruments they create and use. Special attention will be paid to discuss how investment banks contributed to the recent financial crisis through their integration with various financial markets and institutions, and how they have, in return, been affected by the crisis. This aims at helping students to gain a boarder perspective of the financial industry and understand the interdependence between its various parts.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN4112H",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    {
+                        "or": [
+                            "FIN3701",
+                            "RE3807"
+                        ]
+                    },
+                    "FIN3702"
+                ]
+            },
+            "FIN3703"
+        ]
+    },
+    "title": "SIF: Investment Banking"
+}

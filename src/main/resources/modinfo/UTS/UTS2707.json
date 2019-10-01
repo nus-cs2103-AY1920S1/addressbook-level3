@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2707",
+    "courseCredit": "4",
+    "description": "The world today is not only more interconnected and richer in content than ever before, but also more sensitive to disruption. Just as the proverbial butterfly flapping its wings can cause a tornado, can a small disturbance in a distant connection result in destruction elsewhere? This module focuses on such phenomena that seem to pervade a wide variety of complex issues in sociology, economics, finance, epidemics, terrorism, and science to name a few. Students will be able to debate through complex issues that Singapore and the world faces, model them, and in the process find handles to manage such complexities.",
+    "faculty": "Residential College",
+    "preclusion": "UTC2715 or UTS27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Decoding Complexity"
+}

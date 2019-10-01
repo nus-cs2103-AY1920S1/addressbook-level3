@@ -1,0 +1,14 @@
+{
+    "courseCode": "MKT4713",
+    "courseCredit": "4",
+    "description": "Marketing management is the foundation for building knowledge about the market. It?s an exciting and critical aspect of marketing. It covers a wide range of phenomena and it can help to answer many questions and reduce the uncertainty in decision making. This course is taught with a practice orientation, through simulation and case studies. It is hoped that students will gain a practical and sound understanding of how marketing management is carried out in the real business environment.",
+    "faculty": "NUS Business School",
+    "preclusion": "MKT4416",
+    "prereqTree": {
+        "or": [
+            "MKT1705",
+            "MKT1705X"
+        ]
+    },
+    "title": "Marketing Strategy Simulation & Case Analysis"
+}

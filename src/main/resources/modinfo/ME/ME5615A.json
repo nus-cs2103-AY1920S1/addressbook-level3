@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5615A",
+    "courseCredit": "2",
+    "description": "This module introduces design and pre-processing for additive manufacturing. Topics include design analysis and guidelines for parts in additive manufacturing, and procedure for pre-processing before additive manufacturing processes. Students are expected to carry out an independent study by project or term paper on the related topics. A structured programme of lectures, project/term papers, and a final examination is included in this module.",
+    "faculty": "Engineering",
+    "title": "Design and Pre-Processing for Additive Manufacturing"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "SPH5501",
+    "courseCredit": "4",
+    "description": "This module focuses on the design, implementation, and evaluation of communication programmes designed to change or reinforce health behaviour. Emphasis will be on the step-by-step process of (1) formative research and analysis (including use of conceptual frameworks, audience research, and assessment of the media, policy and service environment), (2) theory-based and evidence-based strategic design, (3) message development, pretesting, and materials production, (4) implementation and monitoring, and (5) theory-based evaluation and dissemination of findings. Upon completion of this module, students will be able to develop a work plan for a health communication project.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5226 Public Health Communication",
+    "prereqTree": {
+        "or": [
+            "CO5203",
+            "SPH5003"
+        ]
+    },
+    "title": "Public Health Communication"
+}

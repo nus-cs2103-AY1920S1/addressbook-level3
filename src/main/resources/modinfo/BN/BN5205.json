@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "BN5205",
+    "courseCredit": "4",
+    "description": "Learning objectives: The objectives of this course are to introduce students to the basic tools of biocomputation and to enable them to use these tools appropriately in the analysis of biomechanical and biological systems. Major topics to be covered: Basic biocomputational tools: finite elements and finite difference methods for steady state and transient problems. Description and modelling of biomechanical systems. Examples of biocomputational analyses in cardiovascular, musculoskeletal and mechanosensory systems. Advances and limitations in computational biomechanics. Target students: Those who are interested in modelling and analysis of complex biomechanical systems in research and application, using engineering computational methods and principles.",
+    "faculty": "Engineering",
+    "title": "Computational Biomechanics"
+}

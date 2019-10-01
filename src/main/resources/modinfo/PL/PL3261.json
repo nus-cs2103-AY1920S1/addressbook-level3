@@ -1,0 +1,18 @@
+{
+    "courseCode": "PL3261",
+    "courseCredit": "4",
+    "description": "This module aims to further develop students\u2019 skills in statistical analyses for psychological research, with emphasis on the use of statistical software (e.g., SPSS, R) and a focus on applications to PL4401 Honours Thesis. It adopts a hands-on approach to various statistical techniques, some of which extend from the techniques covered in PL2131 and PL2132 while others are more advanced topics. Four recurring themes underlie the learning of these techniques: (i) formulating research questions into statistical hypotheses, (ii) selecting the right statistical tests for the hypotheses, (iii) carrying out the tests, and (iv) properly interpreting the results and drawing conclusions.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PL2131",
+                    "PL2132"
+                ]
+            },
+            "PL3231"
+        ]
+    },
+    "title": "Statistical Techniques in Psychological Research"
+}

@@ -1,0 +1,32 @@
+{
+    "courseCode": "MA3238",
+    "courseCredit": "4",
+    "description": "This module introduces the concept of modelling dependence and focuses on discrete-time Markov chains. Topics include discrete-time Markov chains, examples of discrete-time Markov chains, classification of states, irreducibility, periodicity, first passage times, recurrence and transience, convergence theorems and stationary distributions. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5261",
+        "MA4251",
+        "ST4238"
+    ],
+    "preclusion": "ST3236.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1101",
+                    "MA1101R",
+                    "MA1311",
+                    "MA1508",
+                    "GM1302"
+                ]
+            },
+            {
+                "or": [
+                    "MA2216",
+                    "ST2131"
+                ]
+            }
+        ]
+    },
+    "title": "Stochastic Processes I"
+}

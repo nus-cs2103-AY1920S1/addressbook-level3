@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "DSA5204",
+    "courseCredit": "4",
+    "description": "Deep learning is a powerful machine learning tool for artifical intelligence and data sciences, with a wide range of real-world applications. This course aims at introducing basic concepts, numerical algorithms, and computing frameworks in deep learning. The emphasis is on the numerical algorithms, implementation in industrial computing framework, and examination on real data-intensive problems drawn from practical applications. Major topics include: Basics on optimization theory and algorithms, regularization and stability, learning theory, clustering, supervised learning, deep neural network, programming in python, tensor flow.",
+    "faculty": "Science",
+    "preclusion": "CS5242",
+    "title": "Deep Learning and Applications"
+}

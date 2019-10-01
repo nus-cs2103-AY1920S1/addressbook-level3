@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3287",
+    "courseCredit": "5",
+    "description": "World systems theorists have formulated models of an economically interlinked world from the early modern period on, but the globalism of an earlier, premodern period of roughly a thousand years, 500-1500 CE\u2014also known as the 'Middle Ages'\u2014is still insufficiently understood. World systems, moreover, emphasize the economic at the expense of the sociocultural. To sustain the social and cultural analysis of early globalisms, 'Early Global Literatures and the World, 500-1500 CE'\u2014a transhumanities course\u2014closely examines human interactions across the planet in the longue dur\u00e9e through the focus of key literary-historical global texts.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Early Global Literatures and the World, 500-1500 CE"
+}

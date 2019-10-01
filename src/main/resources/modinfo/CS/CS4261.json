@@ -1,0 +1,28 @@
+{
+    "courseCode": "CS4261",
+    "courseCredit": "4",
+    "description": "Recent years have seen a dramatic rise in the use of algorithms for solving problems involving strategic decision makers. Deployed algorithms now assist in a variety of economic interactions: assigning medical residents to schools, allocating students to courses, allocating security resources in airports, allocating computational resources and dividing rent. We will explore foundational topics at the intersection of economics and computation, starting with the foundations of game theory: Nash equilibria, the theory of cooperative games, before proceeding to covering more advanced topics: matching algorithms, allocation of indivisible goods, and mechanism design.",
+    "faculty": "Computing",
+    "preclusion": "CS5461",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ESP1107",
+                    "ESP2107",
+                    "ST1232",
+                    "ST2132",
+                    "ST2334"
+                ]
+            },
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    "CS2040"
+                ]
+            }
+        ]
+    },
+    "title": "Algorithmic Mechanism Design"
+}

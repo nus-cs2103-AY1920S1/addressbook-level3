@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU4247",
+    "courseCredit": "5",
+    "description": "Why do we preserve and construct the past? And how do we do it? Museums and libraries are the institutional brains of culture\u2014they collect, store, and display the knowledge and artefacts of world\u2014the sum of the human intellect and imagination. We will examine the histories and sometimes destruction of these two cultural institutions. Our approach will be both historical and theoretical in considering constructions of the universal/global and local/particular, things and ideas, the continuous dialogue between past and present and future. Course includes fieldtrips to the National Library of Singapore and the National Gallery of Singapore.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Museums and Libraries as Cultural Institutions"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAH3202",
+    "courseCredit": "4",
+    "description": "\"Hindi 4 is a continuation of Hindi 3. It is an integrated module which will help students gain higher intermediate proficiency in the four skills (listening, speaking, reading, and writing), grammar, and vocabulary, for personal interaction and communication in authentic situations.\"",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAH4201"
+    ],
+    "prereqTree": "LAH3201",
+    "title": "Hindi 4"
+}

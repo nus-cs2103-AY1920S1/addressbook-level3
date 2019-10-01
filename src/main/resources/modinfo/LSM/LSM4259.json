@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4259",
+    "courseCredit": "4",
+    "description": "Why do some species invest all their resources in securing a mate to reproduce with whilst others avoid sex altogether by cloning themselves? This module takes an integrative approach to understanding the mechanisms of inheritance and reproduction from an evolutionary perspective across plants and animals. We will adopt evidence-based learning, review both classic and current primary literature, as well as offer hands-on practicals on analysing datasets (e.g.: selection experiments, population genome data etc.). Topics covered include the evolution of sex, operation of sexual selection, the genetics of reproduction and the rapid evolution of immune function and reproduction.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "LSM1102",
+            "LSM1105"
+        ]
+    },
+    "title": "Evolutionary Genetics of Reproduction"
+}

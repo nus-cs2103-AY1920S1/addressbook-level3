@@ -1,0 +1,14 @@
+{
+    "courseCode": "EC3343",
+    "courseCredit": "4",
+    "description": "This module deals with the theory and practice of international macroeconomics and finance. The objective of this module is to give students a theoretical framework to think about a wide variety of current issues in international finance: current account deficit, global imbalances, exchange rate determination, monetary policy in an open economy setting, and global financial crisis in 2008.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC3341",
+    "prereqTree": {
+        "and": [
+            "EC2101",
+            "EC2102"
+        ]
+    },
+    "title": "International Finance I"
+}

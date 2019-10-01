@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5885A",
+    "courseCredit": "4",
+    "description": "This module provides students with the essential theoretical background and modelling skills for advanced analysis of civil engineering structures. It covers various types of structural analysis accounting for material nonlinearity, geometric nonlinearity and dynamic effects. The emphasis of the module is on the physical understanding of structural modelling and solution strategies. Students are expected to carry out homework assignments and a project, using computer programming and structural analysis software. This module of specialized context targets at graduate students whose research or engineering works would require solving structural engineering problems beyond the linear static method.",
+    "faculty": "Engineering",
+    "preclusion": "CE5513 Plastic Analysis of Structures",
+    "prereqTree": "CE4258",
+    "title": "Topics in Structural Engineering: Advanced Analysis"
+}

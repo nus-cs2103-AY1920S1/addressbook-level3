@@ -1,0 +1,17 @@
+{
+    "courseCode": "EN2273",
+    "courseCredit": "4",
+    "description": "This module is an introduction to creative writing. Weekly classes offer students structures and stimuli to discover and develop their creativity. The module provides a large practical component, aimed at helping students generate and develop a portfolio of work across the strands of fiction, poetry and script writing. Students will explore aspects of character, storyline, dialogue, structure, narrative voice, tension, style, endings and point-of-view in writing. Over the semester, students will learn various techniques relevant to their writing, share their ideas and work-in-progress, explore different approaches through writing exercises, and discuss working practice.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "EN1101E",
+            "TS1101E",
+            "GEK1011",
+            "GEK1000",
+            "GEM1003"
+        ]
+    },
+    "title": "Introduction to Creative Writing"
+}

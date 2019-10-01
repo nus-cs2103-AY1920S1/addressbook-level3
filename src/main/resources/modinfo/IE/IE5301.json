@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "IE5301",
+    "courseCredit": "4",
+    "description": "This module will focus on the interaction dynamics between the human operator and the machine/system in a human-machine system. We shall begin by defining the areas of concern in human factors engineering (e.g. the human-machine interface, the displays to be perceived, and the controls to be actuated). We shall discuss also the tools and methodologies used by a human factors engineer. The latter portion of the subject will discuss issues of capabilities and limitations of the human operator.",
+    "faculty": "Engineering",
+    "title": "Human Factors In Engineering And Design"
+}

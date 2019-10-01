@@ -1,0 +1,20 @@
+{
+    "courseCode": "EL2102",
+    "courseCredit": "4",
+    "description": "This module introduces students to articulatory phonetics, which is concerned with how speech sounds are produced, and phonology, which is concerned with the organization of speech sounds in a linguistic system. We will learn about the human speech apparatus in detail, and the mechanisms that are involved in speech production. Starting with examples from English, we will explore phonological patterns from a crosslinguistic perspective, and learn how to provide formal analyses for these patterns. The module teaches conceptual tools that will allow students to analyse the phonology of English and other languages.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EL3202",
+        "EL3230",
+        "EL3205",
+        "EL3231"
+    ],
+    "preclusion": "EL2202",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Sound Patterns in Language"
+}

@@ -1,0 +1,12 @@
+{
+    "courseCode": "MUT2203",
+    "courseCredit": "4",
+    "description": "This module explores common textures found in music, such as monophony, homophony, polyphony and heterophony, and examines the influence of textural and timbral elements on a work\u2019s overall shape and character. The module also includes an introduction to basic orchestration techniques. Students will examine different combination of instruments in various textural settings, write for combinations of instruments with attention to timbre, range, performance techniques and instrumental idioms. There will be exercises comprising formal analysis of musical works -- the aim of which is to show how composers shape melody, harmony and timbre to create large-scale musical structures.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUT3202",
+        "MUT3220"
+    ],
+    "prereqTree": "MUT1101",
+    "title": "Texture and Timbre"
+}

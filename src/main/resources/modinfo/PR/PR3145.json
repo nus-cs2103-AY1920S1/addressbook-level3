@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "PR3145",
+    "courseCredit": "4",
+    "description": "This module provides pharmacy students with the foundation in various aspects of good practices, regulation and accreditation standards in pharmacy practice and pharmaceutical industries. It serves to emphasize the pharmacist\u2019s obligation to ensure consumer/patient safety in the supply and use of medicines and health products.",
+    "faculty": "Science",
+    "prereqTree": "PR2143",
+    "title": "Compliance & Good Practices in Pharmacy"
+}

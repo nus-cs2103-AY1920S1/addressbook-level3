@@ -1,0 +1,17 @@
+{
+    "courseCode": "PR3102",
+    "courseCredit": "4",
+    "description": "Learning Objectives: To understand the various sterilization techniques and their application in the preparation of sterile pharmaceutical products and medical devices. To understand the basic principles of aseptic manufacture of products that cannot be subjected to terminal sterilization. To gain knowledge in the formulation, manufacture and quality control of injections and ophthalmic products. Major topics: Range of materials, products, and objects that are required to be sterile Microbial resistance/sensitivity to sterilization. Sterilization methods: Instrumentation, operation, process controls, advantages, disadvantages and applications. Aseptic manufacture: contamination prevention and controls, facility design, validation and control of aseptic manufacture. Sterility and sterility assurance. Principles of parenteral therapy. Formulation, manufacture, standardisation and presentation of injections and ophthalmic products. Biopharmaceutics of injection products. Target students: Pharmacy Year Three",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR5302",
+        "PR5303"
+    ],
+    "prereqTree": {
+        "and": [
+            "PR1102",
+            "PR2105"
+        ]
+    },
+    "title": "Dosage Form Design II"
+}

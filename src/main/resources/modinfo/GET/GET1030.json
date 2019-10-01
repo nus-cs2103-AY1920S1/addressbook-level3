@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1030",
+    "courseCredit": "4",
+    "description": "Digital technologies expand the frontiers of the humanities through interactive publishing, machine-driven analysis, media-rich platforms, online archives and crowd-sourced databases. This module invites students from across the university to consider these new approaches through a problem-based approach. In each session, the students will learn to use and critically evaluate digital approaches. Reflecting the multiple perspectives within the digital humanities, teaching combines seminar discussions with computational thinking projects that require the students to pose humanities questions in terms of data.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GEK2050",
+    "title": "Computers and the Humanities"
+}

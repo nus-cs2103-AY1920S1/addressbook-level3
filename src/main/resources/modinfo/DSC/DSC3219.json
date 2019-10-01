@@ -1,0 +1,14 @@
+{
+    "courseCode": "DSC3219",
+    "courseCredit": "4",
+    "description": "The purpose of this module is to provide a broad array of tools, techniques and the philosophies concerning the application of the Total Quality Management (TQM) approach to manufacturing and service industries. Students will learn the basic quality concepts and explore the three fundamental principles of Quality Management: Quality Planning, Quality Assurance, and Quality Control. Topics include Quality performance measurements, Process Management/Improvement, Statistical Process Control, Measurement Tools, and Customer Needs/Expectations. Student will also gain knowledge in service quality management. Apart from learning the methodologies, students will solve quality problems using computer software.",
+    "faculty": "NUS Business School",
+    "preclusion": "IE2130",
+    "prereqTree": {
+        "and": [
+            "ST1131A",
+            "DSC2006"
+        ]
+    },
+    "title": "Quality Management"
+}

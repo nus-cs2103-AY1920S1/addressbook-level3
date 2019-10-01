@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG3001",
+    "courseCredit": "4",
+    "description": "The objectives of this course are to show how to develop OO Software using Microsoft Visual C++ as an example implementation language. The course describes how to move to C++ from other implementation languages, and then describes various OO/C++ principles, including Abstraction and Encapsulation; Operator Overloading; Static and Friends; Inheritance and Polymorphism; It also describes various programming concepts such as Input Output classes; Exception Handling; Templates and STL. Finally it describes how to move from the program model to the actual code. There will be a C++ programming assignment. This course will be targeted on developers and software engineers who have to implement C++ systems.",
+    "faculty": "Institute of Systems Science",
+    "title": "C++ Programming"
+}

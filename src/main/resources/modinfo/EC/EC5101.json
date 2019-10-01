@@ -1,0 +1,13 @@
+{
+    "courseCode": "EC5101",
+    "courseCredit": "4",
+    "description": "The purpose of this course is to provide students with a sound understanding of modern microeconomic theory. Microeconomic theory is concerned with the behaviour of individual economic agents such as individual people, households, firms and single industries. The course presents a rigorous treatment of the principles governing individual behaviour and an introduction to general equilibrium analysis. Other topics that will be covered include game theory, information economics, and welfare economics. Knowledge of basic mathematics is necessary. This includes equations, coordinate geometry, functions of several variables, real analysis, calculus, and vector algebra.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC5319",
+        "ECA5374",
+        "EC6316",
+        "EC5305"
+    ],
+    "title": "Microeconomic Theory"
+}

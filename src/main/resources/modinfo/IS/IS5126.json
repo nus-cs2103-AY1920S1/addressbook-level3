@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS5126",
+    "courseCredit": "4",
+    "description": "The goal of the course is to bridge the divide between technical skills and business applications. Through learning-by-doing, students will engage in a series of guided group projects, and a final semester project of their own design. Lectures will cover practical skills using the latest tools and techniques, as well as discuss business cases and applications. The course will emphasize on the applied nature of data analytics by covering a breath of techniques including predictions, unsupervised, supervised, and semi-supervised learning, social media analytics, text mining, web mining, and image processing.",
+    "faculty": "Computing",
+    "preclusion": "BT5126 Hands-on with Business Analytics",
+    "title": "Hands-on with Applied Analytics"
+}

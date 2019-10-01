@@ -1,0 +1,14 @@
+{
+    "courseCode": "ST3234",
+    "courseCredit": "4",
+    "description": "This module focuses on life contingencies and theory of risk. Topics include survival models and life tables, life annuities, assurances and premiums, reserves, joint life and last survivor statuses, multiple decrement tables, expenses, individual and collective risk theory. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "ST2131",
+            "ST2334",
+            "MA2216"
+        ]
+    },
+    "title": "Actuarial Statistics"
+}

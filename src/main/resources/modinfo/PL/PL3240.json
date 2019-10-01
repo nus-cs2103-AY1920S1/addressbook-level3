@@ -1,0 +1,13 @@
+{
+    "courseCode": "PL3240",
+    "courseCredit": "4",
+    "description": "This module is built around applications of theoretical and experimental psychology to group processes. The psychological processes underlying human interactions in groups are the principal foci. Topics included are group formation, development of group structure, formulation of group goals, team building, leadership and power within groups, conflicts, group decision-making, and group changes. Psychological tools and skills relevant for research in field settings are also examined.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL3235"
+        ]
+    },
+    "title": "Group Dynamics"
+}

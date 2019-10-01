@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5227",
+    "courseCredit": "4",
+    "description": "This course covers comprehensively the important elements required to build and develop a bio-business through a series of lectures and highly interactive tutorials, workshops and panel discussions with experts. A diverse team of lecturers will bring in expert practitioners\u2019 experience and knowledge on different aspects of a biobusiness. The course will guide the students through the process of generating an idea and developing it to a business pitch.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "MDG5237"
+    ],
+    "title": "Bio-Innovation & Entrepreneurship"
+}

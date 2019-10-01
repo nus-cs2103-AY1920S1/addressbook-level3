@@ -1,0 +1,29 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "TEE2027",
+    "courseCredit": "4",
+    "description": "Building on the basic circuit concepts, this module introduces the operating principles of transistors and how they are used in amplifier circuits. It discusses the foundational concepts of transistor amplifiers and analyses their performance. It also introduces operational amplifiers as a circuit component and describes how functional analog circuits, which can be applied to solving complex engineering problems, can be designed and analysed using operational amplifiers. LTSpice will be introduced as a circuit analysis tool. To augment learning, two laboratory sessions will be included focusing on the topics of single transistor amplifiers and Op-Amp circuits, respectively.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "EE3408E",
+        "EE3501E",
+        "TE3801",
+        "EE3013E",
+        "EE4435E",
+        "EE4436E",
+        "TEE3013",
+        "TEE3501",
+        "TEE3801",
+        "TEE4435",
+        "TEE4436",
+        "TEE3408",
+        "TEE2033",
+        "EE4407E",
+        "TEE4407"
+    ],
+    "preclusion": "EE2004E, EE2005E, EE2021E, TEE2021",
+    "prereqTree": "EG1112",
+    "title": "Electronic Circuits"
+}

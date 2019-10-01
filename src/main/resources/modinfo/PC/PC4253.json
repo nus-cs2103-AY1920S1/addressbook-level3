@@ -1,0 +1,15 @@
+{
+    "courseCode": "PC4253",
+    "courseCredit": "4",
+    "description": "The scope of the course embraces the basic principles of thin-film deposition techniques such as chemical vapor deposition and physical vapor deposition as well as their applications in the microelectronics industry. The basic principles include vacuum technology, gas kinetics, adsorption, surface diffusion and nucleation. These are the fundamental features which determine the film growth and the ultimate film properties. Common thin-film characterization methods which measure film composition and structure as well as mechanical and electrical properties are also covered. This course is for senior physics students with an interest in pursuing a career in industry.",
+    "faculty": "Science",
+    "preclusion": "EEE or CPE or CEG or MLE5201 students are not allowed to take this module.",
+    "prereqTree": {
+        "or": [
+            "PC3235",
+            "PC3241",
+            "PC3242"
+        ]
+    },
+    "title": "Thin Film Technology"
+}

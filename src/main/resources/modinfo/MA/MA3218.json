@@ -1,0 +1,17 @@
+{
+    "courseCode": "MA3218",
+    "courseCredit": "4",
+    "description": "Modern algebra is used in a variety of areas such as coding theory and cryptography. The focus of this module is to introduce elementary concepts of abstract algebra and some of their applications. Upon completing this module, the student will have some basic knowledge of modern algebra and an understanding of some applications such as those in coding theory and cryptography. Major Topics: Integers, binary operations, groups, cosets, rings, division domain, polynomial rings, fields, finite fields. Introduction to coding theory, block codes, linear codes, Hamming distances, Hamming codes, Reed-Muller codes, cyclic codes, Reed-Solomon codes. Introduction to cryptography, substitution ciphers, permutation cipher, block ciphers. Other applications.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4261"
+    ],
+    "preclusion": "MA2202, MA2202S, EE4103",
+    "prereqTree": {
+        "or": [
+            "MA2101",
+            "MA2101S"
+        ]
+    },
+    "title": "Applied Algebra"
+}

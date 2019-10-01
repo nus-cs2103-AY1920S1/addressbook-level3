@@ -1,0 +1,20 @@
+{
+    "courseCode": "FIN4112D",
+    "courseCredit": "4",
+    "description": "This course covers two important contemporary areas of finance and business: private equity and corporate governance. The first half of the course adopts a case analytic approach and includes discussion on the private equity cycle, from fund raising, structuring to deal screening, investment negotiations, fund management and performance reporting. An underlying theme of this part of the course is to emphasise how private equity markets can create wealth and promote economic growth. A sound knowledge of private equity is essential for the following participants in the capital markets: angels, venture capitalists, private equity specialists, private equity investors, investment managers and institutional investors with an interest to commit funds to the private equity universe, and corporate managers who need private equity funding and an understanding in management buyouts. The relation between private equity markets and economic growth is also important for regulators. The second half of the course covers corporate governance from the perspectives of academe, practice and policy-making. It includes an introduction and analysis of the corporate governance framework of an organisation; internal and external corporate governance mechanisms; key developments in corporate governance codes, regulations and practice; the role of markets, investors, boards of directors and other market intermediaries; and the uses and limitations of corporate governance ratings and scorecards in assessing corporate governance of companies. A sound knowledge of corporate governance is important for directors, management, auditors, investors, regulators and other participants in the capital markets.",
+    "faculty": "NUS Business School",
+    "preclusion": "FNA4112D",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "FNA1002X",
+                    "ACC1002X"
+                ]
+            },
+            "FIN3101",
+            "FIN3102"
+        ]
+    },
+    "title": "SIF: Private Equity and Governance"
+}

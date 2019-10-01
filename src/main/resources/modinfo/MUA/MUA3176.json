@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA3176",
+    "courseCredit": "4",
+    "description": "This module provides students with the theory and skills required for audio recording and editing techniques for the video programs. Students will be requested to finish at least 2 projects of audio production for video programs. In this module, students need to finish each project session with module supervisor together. Each project session should be overviewed by the module supervisor.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4175"
+    ],
+    "prereqTree": "MUA3175",
+    "title": "AAS Project 4"
+}

@@ -1,0 +1,21 @@
+{
+    "courseCode": "PC3232B",
+    "courseCredit": "4",
+    "description": "This module explores elements of nuclear physics and its applications for students who are not physics majors, beginning with a concise introduction to the relevant elements of quantum mechanics. After a discussion of basic nuclear properties (masses, radii, spins, binding energies), elements of nuclear structure are introduced (liquid drop, Fermi gas and Shell model). Then alpha, beta and gamma decays, their selection rules and transition probabilities are discussed. The general properties of nuclear reactions, their conservation laws and energetics and the general features of the different reaction mechanisms are illustrated.The various interactions between radiation and matter are discussed, and an introduction to radiation detectors and technological applications (nuclear medicine, PET, accelerators, fusion, fission) are covered, and lastly the basics of radiation protection are discussed.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC3294"
+    ],
+    "preclusion": "PC3232",
+    "prereqTree": {
+        "or": [
+            "PC1144",
+            "PC1432",
+            "PC1432X",
+            "PC2232",
+            "PC2020",
+            "PC2130B"
+        ]
+    },
+    "title": "Applied Nuclear Physics"
+}

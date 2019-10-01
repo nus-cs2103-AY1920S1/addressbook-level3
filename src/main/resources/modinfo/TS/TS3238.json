@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3238",
+    "courseCredit": "4",
+    "description": "The module shifts the study of acting practices from theatre makers to teachers and theorists of acting who have worked with performers primarily known for their work on screen. These may include the likes of: Stella Adler, Lee Strasberg, Maria Ouspenskaya, and Michael Chekhov, all of whom were closely associated with Stanislavski and the Moscow Art Theatre. This module will also study screen performers who exemplify certain epochs and/or styles of screen acting. Students are expected to analyse these performances, and in turn produce screen recordings demonstrating and developing what they have learned from these performers and their trainings.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Acting for the Screen"
+}

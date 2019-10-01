@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CS1010S",
+    "courseCredit": "4",
+    "description": "This module introduces the fundamental concepts of problem solving by computing and programming using an imperative programming language. It is the first and foremost introductory course to computing and is equivalent to CS1010 and CS1010E Programming Methodology. Topics covered include problem solving by computing, writing pseudo-codes, basic problem formulation and problem solving, program development, coding, testing and debugging, fundamental programming constructs (variables, types, expressions, assignments, functions, control structures, etc.), fundamental data structures: arrays, strings and structures, simple file processing, and basic recursion. This module is appropriate for FoS students.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "FIN4124",
+        "FIN4719",
+        "IT3010",
+        "LSM3241",
+        "ZB4171",
+        "DSA3102",
+        "MA3269",
+        "ST3247"
+    ],
+    "preclusion": "CS1010, CS1010E, CS1010J, CS1010X, CS1010XCP, CS1101S",
+    "title": "Programming Methodology"
+}

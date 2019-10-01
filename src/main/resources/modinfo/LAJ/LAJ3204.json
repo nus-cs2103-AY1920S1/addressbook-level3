@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ3204",
+    "courseCredit": "4",
+    "description": "This is a continuation of LAJ3203 Business Japanese 1. Students will be taught more specialised vocabulary and communication styles found in the Japanese business world, including both the written and the oral forms of communication. The ability to read, understand and write minutes will be further covered. Students will also be further familiarised with the language-related work style found in the Japanese business environment.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAJ4205"
+    ],
+    "prereqTree": {
+        "or": [
+            "LAJ3203",
+            "LAJ3201"
+        ]
+    },
+    "title": "Business Japanese 2"
+}

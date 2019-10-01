@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2233",
+    "courseCredit": "5",
+    "description": "Responding to the growing international circulation of literature in the early decades of the nineteenth century, Goethe declared, 'The epoch of world literature is at hand, and everyone must strive to hasten its approach.' The term 'world literature,' however, remains elusive and critics continue to grapple with David Damrosch\u2019s question of, 'which literature, whose world?' This course will address the Arabic/Islamic tradition and some of the difficult questions it poses to global literary studies, challenges that are both unique in their particularities and exemplary of the tensions characteristic of incorporating \u2018minor literatures\u2019 into broader comparative paradigms of inquiry.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "World Literature and its Discontents"
+}

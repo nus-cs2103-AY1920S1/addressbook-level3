@@ -1,0 +1,11 @@
+{
+    "courseCode": "AH2203",
+    "courseCredit": "4",
+    "description": "This module surveys art and architectural genres produced in British colonies, chiefly India, Singapore and Malaya through diverse visual forms such as painting, calendar art, photography, craft objects and buildings. Visual analysis is accompanied by an investigation into the shifts in materials, technologies and contexts of display and consumption, which often expressed British control, native resistance and a desire for self-rule. The module also considers the role of British institutions, namely, art schools, archaeological surveys, museums and exhibitions in grooming art production and tastes; native projects and responses are unravelled simultaneously to understand East-West interactions.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "prereqTree": "AH2101",
+    "title": "Empire and Art: India, Singapore, Malaya"
+}

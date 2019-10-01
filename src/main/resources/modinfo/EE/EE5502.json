@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5502",
+    "courseCredit": "4",
+    "description": "Complementary metal oxide semiconductor (CMOS) has been the main technology used in ULSI system. This module presents the full complement of fundamental CMOS device physics with its applications. It incorporates introductory concepts, MOS capacitor, long channel MOSFETs, short channel MOSFETs, MOS IC and technology, and MOS IC applications. This module is targeted at electrical engineering students who already have a basic knowledge of semiconductor device physics and technologies.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6437"
+    ],
+    "title": "Mos Devices"
+}

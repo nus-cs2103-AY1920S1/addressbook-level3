@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4247",
+    "courseCredit": "5",
+    "description": "This module examines the multiple ways in which cities are built across national boundaries. Processes of urbanization have been long shaped by global flows of capital, people, and knowledge. These transnational currents raise important questions for how we understand urban development, past and present. From the effects of colonial expansion on cities, through to the contemporary trend of itinerant urban expertise, the module will offer varied perspectives on the phenomenon of transnational urbanism. The seminar will draw on a broad array of theoretical approaches (e.g. postcolonial, neo-Marxian, developmental) and range across political, economic, social and cultural formations.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS1207",
+            "YSS2224"
+        ]
+    },
+    "title": "Transnational Urbanism"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "LSM3231",
+    "courseCredit": "4",
+    "description": "This module aims to provide a strong foundation in the study of protein structure and function. The following topics that will be covered: structures and structural complexity of proteins and methods used to determine their primary, secondary and tertiary structures; biological functions of proteins in terms of their regulatory, structural, protective and transport roles; the catalytic action of enzymes, their mechanism of action and regulation; various approaches used in studying the structure-function relationships of proteins.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4241",
+        "LSM4242",
+        "LSM4229"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM2211",
+            "LSM2241"
+        ]
+    },
+    "title": "Protein Structure and Function"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "MNO3319",
+    "courseCredit": "4",
+    "description": "This module is organized around three major themes: 1. What are power and influence? How are they acquired? 2. How are power and influence exercised in and by organizations? 3. How can power be abused or used? How can leaders exercise power responsibly? How do organizational policy, structure, systems and behaviour affect the use of power? Students will learn and explore using simulations, role-play and cases. Power and influence have their theoretical roots in various disciplines. Hence, this module will apply perspectives from Philosophy, Political Science, Psychology and Sociology, in addition to Organization & Management Science.",
+    "faculty": "NUS Business School",
+    "preclusion": "GEK1047 Organizational Power and Culture",
+    "prereqTree": {
+        "and": [
+            "MNO1001",
+            "MNO2007"
+        ]
+    },
+    "title": "Power and influence in Organizations"
+}

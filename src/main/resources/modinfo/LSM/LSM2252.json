@@ -1,0 +1,19 @@
+{
+    "courseCode": "LSM2252",
+    "courseCredit": "4",
+    "description": "The course aims to inculcate in students an understanding for the need of a diverse and intricate balance of nature and the morality of conservation. It involves an introduction to the diversity of major groups of living organisms, and the importance of maintaining diversity in natural ecosystems. Emphasis is on the need for conservation of biodiversity to maintain a balance of nature. The course will highlight to the students the biodiversity in the major habitats and vegetation types in and around Singapore.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3226",
+        "LSM3272",
+        "LSM4263",
+        "LSM3256",
+        "LSM4266",
+        "LSM3266",
+        "LSM3258",
+        "LSM3259",
+        "LSM4257"
+    ],
+    "preclusion": "LSM1103",
+    "title": "Biodiversity"
+}

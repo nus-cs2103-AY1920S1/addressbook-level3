@@ -1,0 +1,14 @@
+{
+    "courseCode": "LSM2253",
+    "courseCredit": "4",
+    "description": "Research design and analysis of ecological data are fundamental skills for evolutionary and environmental biology. This module will provide students with the skills and knowledge to design and perform statistical analyses on typical research projects in environmental biology, ecology and evolution. Students will also learn to conduct analysis using R. This will allow them to analyze and address ecological information quantitatively which is an important skill set in the Life Sciences disciplines.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3241",
+        "ZB4171",
+        "LSM4255",
+        "LSM4260"
+    ],
+    "preclusion": "LSM3257",
+    "title": "Applied Data Analysis in Ecology and Evolution"
+}

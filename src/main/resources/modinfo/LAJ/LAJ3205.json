@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ3205",
+    "courseCredit": "4",
+    "description": "This module aims to provide students with further training in language skills and communication strategies to engage in authentic discourse involving various genres and media materials such as newspapers, films, TV programs and the Internet. Students will be taught to comprehend media texts such as newspaper articles, blog entries, and drama, etc. They will also engage in project work. Topics cover a wide variety of social and cultural issues in Japan, including popular culture and current affairs.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "LAJ3201",
+            "LAJ3203"
+        ]
+    },
+    "title": "Media Japanese"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BH2006",
+    "courseCredit": "4",
+    "description": "All manufacturing and service organisations have an operations function that is primarily responsible for the production and delivery of their products and services. The operations function therefore not only affects final product quality but also impacts customer service and the overall competitiveness of the organisation. The objective of this course is to introduce and highlight the strategic importance of operations, and the fundamental principles and concepts of effective operations management. Students will examine how operations decisions in areas such as quality, process design, capacity and inventory can be managed, controlled and improved. Operations in both manufacturing and service organisations will be addressed.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DSC3201",
+        "DSC3202",
+        "DSC3203",
+        "DSC3218"
+    ],
+    "title": "Operations Management"
+}

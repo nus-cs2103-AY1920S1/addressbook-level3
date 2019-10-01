@@ -1,0 +1,11 @@
+{
+    "courseCode": "CS3249",
+    "courseCredit": "4",
+    "description": "This module aims at providing students with technical skills and hands-on experience of user interface development. It focuses on the design and implementation of user interfaces in general, including graphical user interface. It covers essential topics including user interface models, psychology of humans and computers, user interface style, layout guidelines, GUI programming with widget toolkits, interaction models, event handling, multithreading, interacting with multimedia hardware, usability testing. Selected advanced topics such as geometric transformation, and 3D user interfaces, multiple-user interaction and real-time interaction are also covered.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS3283"
+    ],
+    "prereqTree": "CS2103",
+    "title": "User Interface Development"
+}

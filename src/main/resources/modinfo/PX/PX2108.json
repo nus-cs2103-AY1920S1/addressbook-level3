@@ -1,0 +1,17 @@
+{
+    "courseCode": "PX2108",
+    "courseCredit": "4",
+    "description": "Pathology involves both basic science and clinical medicine and is devoted to the study of structural and functional changes in cells, tissues and organs that underlie diseases. It attempts to explain the \"whys\" of the signs and symptoms manifested by patients while providing a sound foundation for rational clinical care and therapy. The module includes some aspects of General Pathology, Haematology and Chemical Pathology. General Pathology is concerned with the basic reactions of cells and tissues to abnormal stimuli that cause disease. Haematology deals with diseases of the blood while Chemical Pathology deals with biochemical processes in disease states.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "PR2134",
+        "PR2135"
+    ],
+    "prereqTree": {
+        "or": [
+            "AY1130",
+            "PY1131"
+        ]
+    },
+    "title": "Basic Human Pathology"
+}

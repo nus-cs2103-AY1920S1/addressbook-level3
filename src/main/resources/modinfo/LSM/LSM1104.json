@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LSM1104",
+    "courseCredit": "4",
+    "description": "This module deals with 'General Physiology' and its theme is 'Biological Transducers and Energy Transformation'. This module will start with bioenergetics which stresses on the application of thermodynamics to physiological processes in both animals and plants. Six types of energy will be dealt with, concerning (1) the transformation of light energy to chemical energy by plants, (2) the transformation of chemical energy to chemical potential energy of ions and water across bio-membranes, (3) the transformation of chemical potential energy to electrical energy by plasmalemma with special emphasis on neurons, (4) the transformation of chemical energy to mechanical energy by muscle, and (5) the production and release of heat during energy transformation. Since neurons and muscle tissues require a relatively constant extracellular environment for them to function properly, the important concept of homeostasis will be discussed. Emphasis will be on extracellular fluid volume and composition. In addition, mechanisms involved in the balance of heat gain and heat loss to maintain a constant body temperature will be covered.",
+    "faculty": "Science",
+    "preclusion": "LSM2231",
+    "title": "General Physiology"
+}

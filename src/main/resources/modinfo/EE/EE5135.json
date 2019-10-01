@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5135",
+    "courseCredit": "4",
+    "description": "EE5135 is an introductory digital communications course, suitable for advanced under-graduates and graduate students who have not taken a senior-level digital communications course. It will introduce the essential concepts of bit-to-symbol mapping, linear modulation, complex baseband equivalent model, channel coding, equalization and OFDM. Project work will involve research into existing digital communication technologies in a small group.",
+    "faculty": "Engineering",
+    "preclusion": "EE6135",
+    "title": "Digital Communications"
+}

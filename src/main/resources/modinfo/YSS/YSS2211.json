@@ -1,0 +1,17 @@
+{
+    "courseCode": "YSS2211",
+    "courseCredit": "5",
+    "description": "Does going to college increase your earnings? Does height have an effect your wage? Do episodes like the haze 2013 in Singapore have a major impact to the economy? This course introduces students to the statistical methods that economists use to answer this and similar questions. More generally, this is an introduction to the methods used to test economic models and examine empirical relationships, primarily regression analysis. Although much of the course will focus on the mathematical development of the methodology, emphasis is placed on learning by studying and replicating specific case studies that address current economic questions.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS3204",
+        "YSS3207",
+        "YSS3220",
+        "YSS3244",
+        "YSS3257",
+        "YSS3258",
+        "YSS4223",
+        "YSS4227"
+    ],
+    "title": "Econometrics"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR2113",
+    "courseCredit": "4",
+    "description": "This module focuses on developing students\u2019 knowledge and skills in providing nursing care to patients with mental illnesses in both institutional and community settings. The module contents were updated according to the latest release of the diagnostic statistical manual \u2013 5 classifications.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": "NUR1116",
+    "title": "Mental Health Nursing"
+}

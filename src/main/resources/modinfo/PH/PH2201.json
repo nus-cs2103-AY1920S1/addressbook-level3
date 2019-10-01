@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2201",
+    "courseCredit": "4",
+    "description": "An introduction to a spectrum of philosophical issues concerning modern science. These range from explaining the development of science, including a comparison with traditional approaches, to understanding nature in both the West and the East, to problems of the rationality of science. This will also involve a historical study of the development of philosophy of science in the Western tradition, from Bacon and Hume, through Mill, to Popper, Kuhn and Feyerabend.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3243"
+    ],
+    "preclusion": "GEM2025",
+    "title": "Introduction to Philosophy Of Science"
+}

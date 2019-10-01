@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAF3203",
+    "courseCredit": "4",
+    "description": "French for Academic Purposes is designed for Student Exchange Programme students who plan to study in France and already have an intermediate level in French. The aims of the module are to understand longer texts, to write structured essays, and to present ideas in a logical and confident way. The students also work on their listening and speaking skills. To be able to adapt well to the French environment, they study various aspects of French culture (the education system, family life, national identity). The assessment for this module is 100% Continuous Assessment.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAF4201"
+    ],
+    "preclusion": "LAF3202",
+    "prereqTree": "LAF3201",
+    "title": "French for Academic Purposes"
+}

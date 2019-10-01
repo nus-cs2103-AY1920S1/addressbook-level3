@@ -1,0 +1,12 @@
+{
+    "courseCode": "EE4218",
+    "courseCredit": "4",
+    "description": "The goal of this module is to enable students to understand and be able to practise the principles of designing complex embedded systems. After completing this module, students must be able to translate system specifications into executable computation models using a high level specification language and map these formal specifications into a register-transfer level hardware description language (HDL) that can be implemented on an FPGA. Main topics covered include: Methodology for designing embedded systems; specification and modelling of systems; architectures of embedded systems; mapping specifications into architectures; rapid prototyping on FPGA platforms. Students are required to implement an embedded system by going though the complete design flow with state-of-the-art Electronic Design Automation (EDA) tools.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE5902",
+        "EE5903",
+        "EE6231"
+    ],
+    "title": "Embedded Hardware System Design"
+}

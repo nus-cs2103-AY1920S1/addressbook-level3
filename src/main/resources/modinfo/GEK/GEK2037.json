@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK2037",
+    "courseCredit": "4",
+    "description": "This module looks at the philosophical problems arising from technology and its relation to nature and human values. In doing so, it draws on a number of philosophical approaches and traditions. Among the topics to be discussed are the relation between science and technology, the way technology has shaped our perception of nature and human experience, and the ethical challenges posed by technological progress. Potential topics to be discussed will include the concept of risk, issues in environmental ethics, and socialepistemological problems arising from communication technology.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PH2223",
+    "title": "Introduction to the Philosophy of Technology"
+}

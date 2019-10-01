@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2305",
+    "courseCredit": "5",
+    "description": "This course focuses on twentieth-century narratives from America, Asia, and Europe that explore the \"badness\" of love\u0097including scandalous behaviour, subversive fantasies, shifting identities, moral and social transgressions. Texts are technicians of desire (its mechanics, frustration, and exploits), wherein sex and love are \"textualised\" that they may escape repression and the difficulties of fulfillment. From Lawrence's sexual realism to Berger's cinematic m\u00e9lange, this course examines how the extent of \"badness\" is a reflection as well as strategy for expressing concerns and crises around modern life in the fin-de-si\u00e8cle.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Bad Love in 20C Literature"
+}

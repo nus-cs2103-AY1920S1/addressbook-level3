@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PP2106",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "PA2107",
+        "PP2107",
+        "PR3106"
+    ],
+    "prereqTree": "PY1106",
+    "title": "Pharmacology 1"
+}

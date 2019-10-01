@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SPH2101",
+    "courseCredit": "4",
+    "description": "Epidemiology is the study of the patterns, causes, and effects of health and disease conditions in defined human populations. It is the cornerstone of public health, and provides evidence that impact on both personal decisions about our lives and public policy for preventing and controlling diseases in the population. In this module, we will cover key concepts in epidemiology, including how we measure disease burden, how we study risk factors for disease, how we evaluate interventions like new vaccines and therapies, and how to critically appraise research evidence to inform public health policy.",
+    "faculty": "SSH School of Public Health",
+    "fulfillRequirements": [
+        "SPH3109",
+        "SPH3104",
+        "SPH3105"
+    ],
+    "title": "Public Health and Epidemiology"
+}

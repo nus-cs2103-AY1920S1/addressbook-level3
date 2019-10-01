@@ -1,0 +1,21 @@
+{
+    "courseCode": "CS3210",
+    "courseCredit": "4",
+    "description": "The aim of this module is to provide an introduction to the field of parallel computing with hands-on parallel programming experience on real parallel machines. The module is divided into four parts: parallel computation models and parallelism, parallel architectures, parallel algorithm design and programming, and new parallel computing models. Topics includes: theory of parallelism and models; shared-memory architectures; distributed-memory architectures; data parallel architectures; interconnection networks, topologies and basic of communication operations; principles of parallel algorithm design; performance and scalability of parallel programs, overview of new parallel computing models such as grid, cloud, GPGPU.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6280",
+        "CS4231",
+        "CS4223"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS2100",
+            "CG2007",
+            "CG2028",
+            "EE2024",
+            "EE2028"
+        ]
+    },
+    "title": "Parallel Computing"
+}

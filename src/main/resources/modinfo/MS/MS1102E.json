@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MS1102E",
+    "courseCredit": "4",
+    "description": "Foundation module on the Malays that outlines their history, culture and institutions. It introduces some of the major areas of research and scholarship on the study of the Malays. It highlights and evaluates dominant views expounded by colonial and post colonial scholars and alternative discourse on the subject. The themes covered in this module provide the basis for further exploration in greater depths in other modules offered by the Department.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "MS2216"
+    ],
+    "preclusion": "MS1101E",
+    "title": "Malays - Tradition, Conflict and Change"
+}

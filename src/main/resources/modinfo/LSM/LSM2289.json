@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "urop": true
+    },
+    "courseCode": "LSM2289",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1105",
+            "LSM1106"
+        ]
+    },
+    "title": "Basic UROPS in Life Sciences II"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "YHU3270",
+    "courseCredit": "5",
+    "description": "From 1775 to 1815, the number of novels written by women rose rapidly, even as women were increasingly confined to the domestic sphere. Agreeing with more conservative writers that the patriarchal family was England\u2019s most important institution, radical and progressive women novelists argued that relations between men and women should be reformed, because domestic conduct could have serious political implications. In this course, we will read a variety of novels against this historical backdrop, considering the fictional strategies that women employed to tell (and sell!) stories that were often at odds with the dominant values of their culture.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "NUS modules EN4226 English Women Novelists 1800-1900 and EN3228 Women Novelists: 1750-1800.",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "English Women Novelists: Austen and her Predecessors"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "RE1706",
+    "courseCredit": "4",
+    "description": "The first part covers the development of the building form in terms of the design, functionality, structural and construction issues including building materials and technology, and major building elements and services. The second part comprises the fundamental principles and practice of design and construction for real estate developments by examining the key building elements and technologies, how design and construction affect property value, maintainability, function and use. Students will acquire skills in the interpretation of building drawings and appreciation of construction methods and materials.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE2707"
+    ],
+    "preclusion": "RE1105 Design and Construction",
+    "title": "Design and Construction"
+}

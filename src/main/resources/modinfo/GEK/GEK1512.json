@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1512",
+    "courseCredit": "4",
+    "description": "The course is aimed at examining how the Internet works from a non-technical perspective. The global Internet is ubiquitous and will increasingly affect many aspects of our lives. It is important that we understand how it works, what its current limitations are, and what its future looks like if we are to effectively tap its enormous potential. On completion of the course, students will know what the Internet really is, how it can be used and why it is so exciting. They will also understand the potential ways the Internet can change their lives. Topics range from basic communications to Internet history, TCP/IP, Internet applications and emerging technologies. All students from the various faculties are welcomed to take this course except from SOC.",
+    "faculty": "Engineering",
+    "preclusion": "To preclude Electrical Engineering, Computer Engineering (CPE &amp; CEG) and School of Computing students",
+    "title": "Understanding How The Internet Works"
+}

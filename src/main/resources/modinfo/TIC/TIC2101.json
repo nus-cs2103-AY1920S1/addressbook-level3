@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TIC2101",
+    "courseCredit": "4",
+    "description": "This module explores the strategic role of information systems in an organisation and how information systems can lead to organisational improvements in operations, planning, and decision making. Students will learn to identifying strategic opportunities for information systems deployment in an organisation, and be exposed to issues related to managing IT resources and evaluating IT investments.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC3301"
+    ],
+    "title": "Information Systems and Organisations"
+}

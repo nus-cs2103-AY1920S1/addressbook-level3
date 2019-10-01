@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAR4201",
+    "courseCredit": "5",
+    "description": "LAR4201 Arabic 5 is an advanced module and a continuation of LAR3201 Arabic 4. In this module, students will achieve better oral fluency, considerable ability in listening and reading comprehension, and better writing proficiency. Oral activities in form of group work, pair work, role\u2010plays, and presentations will be conducted regularly in both lectures and tutorials. Students will listen to authentic listening comprehension materials, such as lectures, newscasts, and talk shows. In addition to readings on a variety of topics the students will read stories. Using the vocabulary learned in lectures and tutorials, students will write compositions on different topics.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAR4202"
+    ],
+    "prereqTree": "LAR3202",
+    "title": "Arabic 5"
+}

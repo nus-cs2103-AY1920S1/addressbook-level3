@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS6283",
+    "courseCredit": "4",
+    "description": "This module focuses on the fundamental role of logic in Artificial Intelligence. We will discuss broadly four problems: Boolean Satisfiability (SAT), Maximum Satisfiability (MaxSAT), Constrained Counting, and Knowledge Compilation. We will discuss how automated reasoning tools for the above problems can be employed to reason for models that require combination of data and background knowledge.",
+    "faculty": "Computing",
+    "preclusion": "Variable, depend on the choice of topics or departmental approval.",
+    "prereqTree": {
+        "and": [
+            "CS3230",
+            {
+                "or": [
+                    "ST2334",
+                    "ST2131"
+                ]
+            }
+        ]
+    },
+    "title": "Advanced Topics in Computer Science: Logic in AI"
+}

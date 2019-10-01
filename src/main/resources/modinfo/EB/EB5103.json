@@ -1,0 +1,13 @@
+{
+    "courseCode": "EB5103",
+    "courseCredit": "8",
+    "description": "The objective of this module is to develop understanding of how the results of data driven modelling can assist businesses to reduce their marketing costs and increase their return on investments. Predictive Modelling techniques such as Churn Models, Response Models, Uplift Response Models, Churn Uplift Models, and Risk Models will be covered in this course. Based on business objectives, students will learn when to use specific modelling techniques and how to interpret the results. Case studies are used to illustrate how the advanced modelling techniques can reduce marketing costs and thereby increase the return on investment for the business.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": {
+        "or": [
+            "EB5001",
+            "EB5002"
+        ]
+    },
+    "title": "Advanced Analytics"
+}

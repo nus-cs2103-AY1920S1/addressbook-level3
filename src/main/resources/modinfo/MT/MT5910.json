@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MT5910",
+    "courseCredit": "8",
+    "description": "LaunchPad is a unique action learning project that assembles cross-disciplinary teams of graduate and Ph.D. students from the Faculty of Engineering & School of Business. Each team will work with a selected technology developed at NUS that has a promise to generate a large market impact. The students will learn how to actually start a high-tech company based on a particular technology. This course is NOT about how to write a business plan or create a presentation for VCs. It\u2019s about taking action - talking to customers, partners, competitors in search for the right market and the right business model that can leverage the uniqueness of a technology. It\u2019s about experiencing the typical creative start-up process that is often full of uncertainty to turn a new technology into a great company.",
+    "faculty": "Engineering",
+    "preclusion": "MT5900 MOT Research Project\nSDM5990 SDM Research Project",
+    "title": "LaunchPad: Experiential Entrepreneurship"
+}

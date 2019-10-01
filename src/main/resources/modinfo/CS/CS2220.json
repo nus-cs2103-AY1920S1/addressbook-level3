@@ -1,0 +1,22 @@
+{
+    "courseCode": "CS2220",
+    "courseCredit": "4",
+    "description": "This course aims to develop flexible and logical problem solving skills, understanding of main bioinformatics problems, and appreciation of main techniques and approaches to bioinformatics. Through case studies and hands-on exercises, the student will (i) master the basic tools and approaches for analysis of DNA sequences, protein sequences, gene expression profiles, etc. (ii) understand important problems and applications of computational biology, including identifying functional features in DNA and protein sequences, predicting protein function, and deriving diagnostic models from gene expression profiles, (iii) be confident to propose new solutions to both existing and emerging problems in computational biology.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6222",
+        "CS3225",
+        "CS4220",
+        "CS4330",
+        "LSM3241",
+        "ZB4171"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "CS2020",
+            "CS2040"
+        ]
+    },
+    "title": "Introduction to Computational Biology"
+}

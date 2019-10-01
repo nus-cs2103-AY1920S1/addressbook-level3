@@ -1,0 +1,10 @@
+{
+    "courseCode": "RE5009",
+    "courseCredit": "4",
+    "description": "This module seeks to develop an understanding of theory and contemporary approaches to valuation of retail, office and industrial properties. Topics include determination of the capitalization rates across different types of properties; appraisal of freehold and leasehold interests; critical analysis of the valuation approaches adopted for securitized real estate; asset pricing models; and application of option pricing theory to appraise various embedded lease options, investment flexibility and future redevelopment opportunities. Issues related to performance evaluation and index construction will also be covered, recognizing the illiquid and heterogeneous nature of commercial real estate.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE5018"
+    ],
+    "title": "Commercial Real Estate Appraisal"
+}

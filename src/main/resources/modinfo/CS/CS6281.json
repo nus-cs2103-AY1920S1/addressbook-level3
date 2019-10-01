@@ -1,0 +1,18 @@
+{
+    "courseCode": "CS6281",
+    "courseCredit": "4",
+    "description": "Current datasets can be so large that it is infeasible for any algorithm to inspect all their contents. Nonetheless, we often want to test some hypotheses or estimate some statistics about them. 'Property testing' is the study of algorithms that look at only a tiny random fraction of the input data and yet, can correctly make decisions about the input with worst-case guarantees. The area has connections to algorithm design, complexity theory, and many parts of mathematics. This module gives a systematic tour of property testing, covering properties of strings, graphs, functions, codes and constraint satisfaction problems.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS3230",
+            {
+                "or": [
+                    "ST2334",
+                    "ST2131"
+                ]
+            }
+        ]
+    },
+    "title": "Topics in Computer Science: Property Testing"
+}

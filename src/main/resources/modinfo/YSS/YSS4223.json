@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSS4223",
+    "courseCredit": "5",
+    "description": "This course is an upper level seminar that engages students in the study of identity and politics within political science. Students will become acquainted with various theories and approaches to understanding the construction and mobilization of identities: national, ethnic, religious, gender and sexual orientation. Drawing on the empirical literature on the politics of identity in Sub-Saharan Africa, South Asia, and Southeast Asia, students will learn how identities have been constructed, and how they in turn influence outcomes such as violence, voting behaviour, governance, inequality, and inter-group trust and cooperation.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSS3234 (previous module code)",
+    "prereqTree": {
+        "or": [
+            "YCC1121",
+            "YCC1122",
+            "YSS3231",
+            "YSS2211"
+        ]
+    },
+    "title": "Politics of Identity in Developing Countries"
+}

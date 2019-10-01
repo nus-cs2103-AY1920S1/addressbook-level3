@@ -1,0 +1,9 @@
+{
+    "courseCode": "EC5880",
+    "courseCredit": "4",
+    "description": "This module is designed to cover selected topics in economics. The topics covered will be dependent on the interest and specialities of regular or visiting staff in the Department.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC5220",
+    "prereqTree": "EC4101",
+    "title": "Topics in Economics"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TIE2010",
+    "courseCredit": "4",
+    "description": "This module introduces the analytical methods used to support the operations of industrial systems that produce goods and services. It equips the students with the understanding of the fundamental processes necessary for this production and the tools and techniques commonly deployed to create effective and efficient systems. The topics covered include strategic purpose of an economic entity, forecasting of demand, planning for output levels, production control systems, scheduling, facilities layout, and quality assurance.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIE4299"
+    ],
+    "preclusion": "TM3161, IE2010E",
+    "title": "Introduction to Industrial System"
+}

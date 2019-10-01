@@ -1,0 +1,8 @@
+{
+    "courseCode": "CN4246R",
+    "courseCredit": "4",
+    "description": "Students will learn the concepts of homogeneous and heterogeneous catalysis with increasing complexities, starting from those involving polymeric phases, enzyme pockets, up to those involving zeolite cages and complex oxide surfaces. To achieve these, students will learn catalytic cycles, catalyst structures, catalytic material synthesis and characterisation methods, reaction mechanisms, kinetics, transport phenomena (such as diffusion, mass transfer and heat transfer), and reaction engineering. Many reactions and catalysts of industrial importance will be emphasised throughout the module to illustrate these principles. The students will then learn how to apply their accumulated knowledge of these principles to the design of novel catalysts.",
+    "faculty": "Engineering",
+    "prereqTree": "CN2116",
+    "title": "Chemical and Bio Catalysis"
+}

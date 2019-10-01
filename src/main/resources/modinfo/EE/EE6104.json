@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6104",
+    "courseCredit": "4",
+    "description": "The course aims to provide an in-depth coverage of adaptive control concepts and design methods. It is tailored for students who are pursuing research in the field of advanced control systems. Topics covered include Lyapunov-based direct adaptive control scheme, self-tuning regulator, model reference adaptive control, variable structure control and least squares estimation. Case studies of various engineering control problems will be used to provide insights and useful design guideline. In addition, students are expected to complete a self-study project that will expose them to the most recent advances in adaptive control theory.",
+    "faculty": "Engineering",
+    "preclusion": "EE5104 Adaptive Control Systems",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401"
+        ]
+    },
+    "title": "Adaptive Control Systems (Advanced)"
+}

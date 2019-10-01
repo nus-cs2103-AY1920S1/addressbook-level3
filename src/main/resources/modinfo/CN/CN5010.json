@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "CN5010",
+    "courseCredit": "4",
+    "description": "This module is targeted at full-time students and working engineers at post-graduate level, who are interested in mastering mathematical and computational tools applicable in chemical industry. The module covers a few modelling techniques to formulate fundamental chemical processes, such as global and shell balances and dimensional analyses. Extensive analytical and numerical tools are discussed for solving and evaluating the derived models. Modern software and programming languages are introduced to perform the numerical analyses. Machine learning concept and technique and its potential application to chemical industry are also discussed.",
+    "faculty": "Engineering",
+    "title": "Mathematical & Computing Methods for Chemical Engineers"
+}

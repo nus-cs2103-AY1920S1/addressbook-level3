@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1301X",
+    "courseCredit": "4",
+    "description": "This module serves as a bridging module for students without 'A' - level mathematics. Its aim is to equip students with appropriate mathematical knowledge and skill so as to prepare them for further study of mathematics-related disciplines. At the end of the course, students are expected to attain a level of proficiency in algebra and calculus equivalent to the GCE Advanced Level. Major topics: Sets, functions and graphs, polynomials and rational functions, inequalities in one variable, logarithmic and exponential functions, trigonometric functions, sequences and series, techniques of differentiation, applications of differentiation, maxima and minima, increasing and decreasing functions, curve sketching, techniques of integration, applications of integration, areas, volumes of solids of revolution, solution of first order ordinary differential equations by separation of variables and by integrating factor, complex numbers, vectors.",
+    "faculty": "Science",
+    "preclusion": "Those with A-level or H2 passes in Mathematics or H2 Further Mathematics",
+    "title": "Introductory Mathematics"
+}

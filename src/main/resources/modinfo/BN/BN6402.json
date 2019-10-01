@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "BN6402",
+    "courseCredit": "4",
+    "description": "Electrophysiological disturbances have been linked to a variety of common diseases including neural, cardiac and gastrointestinal disorders. Computational models of electrophysiology have proven to be a valuable tool in gaining an insight into the pathophysiology of many diseases. In this module we will look in depth at the underlying basis for electrophysiology across a range of spatial scales and how these phenomena can be modelled computationally.",
+    "faculty": "Engineering",
+    "title": "Advanced Electrophysiology"
+}

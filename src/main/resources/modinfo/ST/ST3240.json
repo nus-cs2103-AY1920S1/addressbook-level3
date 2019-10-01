@@ -1,0 +1,12 @@
+{
+    "courseCode": "ST3240",
+    "courseCredit": "4",
+    "description": "This module focuses on the classical theory and methods of multivariate statistical analysis. Topics include distribution theory: multivariate normal distribution, Hotelling's T2 and Wishart distributions, inference on the mean and covariance, principal components and canonical correlation, factor analysis, discrimination and classification. This module is targeted at students who are interested in Statistics, are able to meet the pre-requisites and are matriculated in or after 2002.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5210",
+        "ST4243"
+    ],
+    "prereqTree": "ST3131",
+    "title": "Multivariate Statistical Analysis"
+}

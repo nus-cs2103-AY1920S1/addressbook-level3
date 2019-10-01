@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2247",
+    "courseCredit": "5",
+    "description": "This course will address the issue of why dystopian writing exercises a fascination for the modern imagination. We will trace the broad genealogy of utopian thought through the ages; then examine how that has got inverted in the last two centuries. Issues addressed will include the relation of fiction to modernity, the impact of technological change and social transformations on life\u2010systems, and how these are rendered in dystopian fiction. Reading for this course will entail close attention to the nature of speculative writing as both diagnostic and prophylactic in relation to the societies in which they are written.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Dystopian Fiction"
+}

@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2709",
+    "courseCredit": "4",
+    "description": "What have been your most significant learning experiences? When have you realised you needed to question your own assumptions, that what had appeared like common-sense truths no longer seemed so certain? How has learning changed the way you view issues? Focusing on questions such as these, in this course we will study the transformative potential of learning. We will focus not only on formal education at secondary and tertiary levels, but also consider informal learning experiences so as to investigate how ideas \u2013 whether in the classroom, through reading or travel, or in conversations with others \u2013 have changed us.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Questioning Common Sense"
+}

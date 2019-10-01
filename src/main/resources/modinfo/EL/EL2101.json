@@ -1,0 +1,19 @@
+{
+    "courseCode": "EL2101",
+    "courseCredit": "4",
+    "description": "This module explores language structure, in particular, patterns of sentence structure (syntax) and of meaning (semantics) in English. Concepts to be discussed include: grammatical categories, grammatical functions, semantic relations, and their hierarchical composition in sentences; various other syntactic and semantic notions; and the relationship between grammar and meaning. A key feature of the module is its emphasis on the evidence and argumentation that bears upon the representation of structure and principles of grammar that we postulate. The module is obligatory for EL Majors, and provides the foundation for the study of advanced modules in syntax and semantics.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EL3201",
+        "EL3205",
+        "EL3213"
+    ],
+    "preclusion": "EL2201",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Structure of Sentences and Meanings"
+}

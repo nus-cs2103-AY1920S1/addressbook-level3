@@ -1,0 +1,28 @@
+{
+    "courseCode": "ACC3703",
+    "courseCredit": "4",
+    "description": "This module introduces students to the basic concepts of income taxation in Singapore. Since a large portion of a business organisation's profits goes towards the payment of income tax, it is absolutely crucial for students to have an understanding of how tax works and how to legally minimize it. This module is relevant to those who wish to work in the fields of accounting, consulting or financial management.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC4711"
+    ],
+    "preclusion": "ACC3605; LL4056",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ACC1701",
+                    "ACC1701X",
+                    "EC2204"
+                ]
+            },
+            {
+                "or": [
+                    "BSP1702",
+                    "BSP1702X"
+                ]
+            }
+        ]
+    },
+    "title": "Taxation"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "CP5101",
+    "courseCredit": "16",
+    "description": "The dissertation option gives individual students the opportunity for independent study and research in the area of their selected specialization. This will be carried out under the supervision of an academic staff, and the selection of the topic/area will be done in consultation with the supervisor in the area of expertise.",
+    "faculty": "Computing",
+    "preclusion": "- CP5102 (MComp Information Security Project - 8MC)\n- CP5103 (Master of Computing Project \u2013 8MC)\n- CP5104 (Graduate Project in Computing \u2013 4MC)",
+    "title": "MComp Dissertation"
+}

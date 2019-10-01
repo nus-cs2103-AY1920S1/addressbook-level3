@@ -1,0 +1,14 @@
+{
+    "courseCode": "MNO4714",
+    "courseCredit": "4",
+    "description": "In this module, students examine how management principles and concepts can be applied to address social problems. In particular, students experientially learn how management principles and concepts can be utilized to generate innovative ideas that offer solutions to social problems. The module also helps students appreciate the importance of effectively implementing and managing these solutions for maximum social outcomes and impact. Key topics covered include social issues and challenges in Singapore, the social sector in Singapore, identification and scoping of social problems, ideation of solutions to social problems, and implementation, management and impact measurement of solutions.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Developing Impactful Social Sector Solutions"
+}

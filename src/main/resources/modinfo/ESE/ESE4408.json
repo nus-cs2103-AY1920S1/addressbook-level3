@@ -1,0 +1,16 @@
+{
+    "courseCode": "ESE4408",
+    "courseCredit": "4",
+    "description": "Environmental Impact Assessment (EIA) is the process of identifying, predicting, evaluating and mitigating the biophysical, social, and other relevant effects of development proposals prior to major decisions being taken and commitments made. The objective of EIA is to ensure that decision-makers consider environmental impacts before deciding whether to proceed with new projects. Participants are introduced to the concept of EIA, its historical evolution and the terminologies that are used worldwide. Lectures will cover the organizational aspects of EIA, the EIA framework and the procedural methods to conduct an EIA, with special emphasis on water and water related issues.Participants will carry out a mini EIA study using the various approaches covered in the module.",
+    "faculty": "Engineering",
+    "preclusion": "TCE4408",
+    "prereqTree": {
+        "and": [
+            "ESE3101",
+            "ESE3201",
+            "ESE3301",
+            "ESE3401"
+        ]
+    },
+    "title": "Environmental Impact Assessment"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "YSS3214",
+    "courseCredit": "5",
+    "description": "This course introduces students to the field of abnormal psychology and the treatment of psychological disorders.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4240"
+    ],
+    "prereqTree": "YSS2201",
+    "title": "Abnormal Psychology"
+}

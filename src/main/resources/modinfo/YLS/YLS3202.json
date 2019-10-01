@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLS3202",
+    "courseCredit": "5",
+    "description": "Students taking this module will build upon the material and topics covered in the beginning and intermediate sequences to expand their command of written and spoken Spanish while honing their literary analysis skills. The course will focus on a representative selection of texts (e.g., short stories, novellas, films) from several Latin American countries. This course will address questions such as: What is the Spanish legacy in Latin America? What issues have these countries dealt with over their recent history? How are these issues portrayed in their literature and films? What are the differences and commonalities across countries? Students will analyze and contextualize these works via in-class discussions and presentations on the history, traditions, and ideas embedded within them. This module will emphasize students' engagement with the ideas in the texts paying attention to stylistics, genre, and voice in their work.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YLS2202",
+    "title": "Advanced Spanish: Latin America, Borders and Identities"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3206",
+    "courseCredit": "4",
+    "description": "The ability to use language is a uniquely human one, so effortless that it is easy to forget the very complex psychological processes underlying its use. Psycholinguistics is the study of these processes. More specifically, it investigates the processes that take place in our minds when we use language as well as how these processes develop in children. Our knowledge about these processes in healthy individuals is also informed by studying language impairment, for example in patients who have sustained brain damage, or in children with atypical language development. In this module, we will be covering these three broad areas.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Psycholinguistics"
+}

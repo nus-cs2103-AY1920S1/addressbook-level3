@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEM2900",
+    "courseCredit": "4",
+    "description": "This module, using a minimum of mathematical or statistical prerequisites, aims to help the student make rational decisions in an uncertain world. Uncertainty, variability and incomplete information are inherent; to a greater or lesser extend, in all disciplines. One approach to dealing with this is through statistical and probabilistic ideas about information. The student will, throughout the module, gain an understanding of the strengths and weaknesses of such a data based approach and learn how and when such an approach is appropriate. The student will also learn practical skills in interpreting statistical information and gain the ability to critically evaluate statistically based arguments.",
+    "faculty": "Science",
+    "preclusion": "Not for Statistics Major students",
+    "title": "Understand'g Uncertainty & Stats Think'g"
+}

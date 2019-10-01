@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5208",
+    "courseCredit": "4",
+    "description": "This is a seminar based course that introduces our graduate student to database fundamental. The goal is to cover a broad range of basic topics in database systems to ground the students in the field and to prepare them for research in databases. The course is based on lively discussion of important papers from the literature, covering basic topics such as query processing, optimization, concurrency control, recovery, transaction management and advanced topics such as data mining, distributed databases and data streams.",
+    "faculty": "Computing",
+    "prereqTree": "CS3223",
+    "title": "Foundation in Database Systems"
+}

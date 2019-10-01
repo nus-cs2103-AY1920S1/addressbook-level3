@@ -1,0 +1,18 @@
+{
+    "courseCode": "PR2135",
+    "courseCredit": "4",
+    "description": "This module aims to familiarize students with the epidemiology, clinical presentation and diagnosis of disease states including rheumatological conditions, renal diseases, clinical nutrition, heart failure, ischemic heart disease and thromboembolic disorders. In addition, the pharmacotherapeutic management and pharmacology of drugs used in the management of the above disease states will be covered, emphasizing on the monitoring of the clinical outcomes in terms of the efficacy and safety of each drug used.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4197",
+        "PR4198",
+        "PR3136"
+    ],
+    "prereqTree": {
+        "or": [
+            "PX2108",
+            "PA1113"
+        ]
+    },
+    "title": "Pharmacotherapeutics II"
+}

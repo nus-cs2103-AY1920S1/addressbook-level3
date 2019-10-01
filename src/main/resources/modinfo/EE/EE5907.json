@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5907",
+    "courseCredit": "4",
+    "description": "Pattern recognition deals with automated classification, identification, and/or characterizations of signals/data from various sources. The main objectives of this graduate module are to equip students with knowledge of common statistical pattern recognition (PR) algorithms and techniques. Course will contain project-based work involving use of PR algorithms. Upon completion of this module, students will be able to analyze a given pattern recognition problem, and determine which standard technique is applicable, or be able to modify existing algorithms to engineer new algorithms to solve the problem. Topics covered include: Decision theory, Parameter estimation, Density estimation, Non-parametric techniques, Supervised learning, Dimensionality reduction, Linear discriminant functions, Clustering, Unsupervised learning, Feature extraction and Applications.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6903",
+        "EE6733"
+    ],
+    "preclusion": "EE5907R, EE5026 or EE5027",
+    "prereqTree": {
+        "or": [
+            "EE2012",
+            "CS1101S"
+        ]
+    },
+    "title": "Pattern Recognition"
+}

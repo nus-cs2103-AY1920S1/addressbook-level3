@@ -1,0 +1,23 @@
+{
+    "courseCode": "PL5221",
+    "courseCredit": "4",
+    "description": "This module addresses the use of the general linear for the analysis of psychological data including multiple regression and various forms of analysis of variance. Among the topics that may be covered are correlation and multiple regression, randomized groups analysis of variance, repeated measures analysis of variance, and mixed models. Emphasis will be placed on the development of skills through hands-on data analysis and interpretation.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PL5225",
+        "PL5225R"
+    ],
+    "preclusion": "PL5102/PL6102",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PL2101Y",
+                    "PL2131"
+                ]
+            },
+            "PL2132"
+        ]
+    },
+    "title": "Analysis of Psychological Data Using Glm"
+}

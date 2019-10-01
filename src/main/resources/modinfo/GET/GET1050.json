@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1050",
+    "courseCredit": "4",
+    "description": "Through a series of fun and engaging hands-on activities, this module aims to equip students with the ability to thoughtfully apply computational tools when solving complex real-world problems. In particular, this module aims to impart students with the ability to critically self-evaluate the way they apply these tools, and thus be able to reason effectively in a variety of contexts. They will learn to identify problems and design solutions, while also developing a critical awareness of the merits and limits of their methods, thereby empowering them to make better-informed decisions and to articulate the reasons for those decisions.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GET1031A Computational Thinking",
+    "title": "Computational Reasoning"
+}

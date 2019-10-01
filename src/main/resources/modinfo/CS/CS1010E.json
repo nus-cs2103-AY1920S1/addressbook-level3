@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CS1010E",
+    "courseCredit": "4",
+    "description": "This module introduces the fundamental concepts of problem solving by computing and programming using an imperative programming language. It is the first and foremost introductory course to computing. Topics covered include computational thinking and computational problem solving, designing and specifying an algorithm, basic problem formulation and problem solving approaches, program development, coding, testing and debugging, fundamental programming constructs (variables, types, expressions, assignments, functions, control structures, etc.), fundamental data structures (arrays, strings, composite data types), basic sorting, and recursion.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "FIN4124",
+        "FIN4719",
+        "CS1020E",
+        "EE4702",
+        "EE2024",
+        "DSA3102",
+        "MA3269",
+        "ST3247",
+        "EE2211"
+    ],
+    "preclusion": "CS1010, CS1010J, CS1010S, CS1010X, CS1010XCP, CS1101S",
+    "title": "Programming Methodology"
+}

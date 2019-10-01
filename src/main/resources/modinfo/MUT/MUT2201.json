@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUT2201",
+    "courseCredit": "4",
+    "description": "This module provides Conservatory students with an introduction to Western modal, tonal and post-tonal practices from 15th \u2013 20th centuries. The module surveys modal practices in the Renaissance period, tonal practices in the 18th-20th centuries, including jazz harmony, and post-tonal practices. The module includes both theoretical and practical components. Students analysis works to further their understanding of module topics and compose short works to demonstrate their comprehension of module content.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUT3202"
+    ],
+    "prereqTree": "MUT1101",
+    "title": "Harmonic Practices"
+}

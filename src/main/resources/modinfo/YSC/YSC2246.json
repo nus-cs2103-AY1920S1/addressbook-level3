@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC2246",
+    "courseCredit": "5",
+    "description": "Learn the fundamental tools and techniques used for experimental research in physical sciences. By harnessing interactions between light and matter, we can probe the laws of nature and build the foundations for modern technology. You will learn how to enter the lab with a question or idea and leave with beautiful, analysed data. This course will prepare you to join an active research group carrying out cutting-edge experimental research and will culminate in a final project.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC1207",
+            "YSC1213"
+        ]
+    },
+    "title": "Experimental Methods in Physical Sciences"
+}

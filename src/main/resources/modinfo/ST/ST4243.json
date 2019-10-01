@@ -1,0 +1,13 @@
+{
+    "courseCode": "ST4243",
+    "courseCredit": "4",
+    "description": "This is a level 4000 advance course on the statistical design and analysis of genetic experiments with concentration in DNA microarray experiments. The course covers a variety of statistical methods including basic array designs, statistical models and hypothesis testing, cluster analysis and other multivariate analysis methods that play a role in the analysis of DNA microarray experiments. The students will be required to have the knowledge of statistics and of statistical genetics that is provided by the Pre-requisite(s) or equivalent. The students will have access to real data from microarray experiments and will practice with specialized software. Since this is a new expanding area and the experiments are constantly evolving, emphasis will be palced on gaining the basic knowledge abd software expertise for designing new experiments and analyzing the results. The students will gain the knowledge and the practice to be able to analyze data from genetic experiments involving DNA microarrays and similar experiments. Topics inlcude introduction to experimental genetics and DNA microarray techniques, basic design of experiments for microarrays, statistical models, modelling and testing for gene upregulation, principal components analysis and cluster analysis and gene clustering. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "LSM1102",
+            "ST3240"
+        ]
+    },
+    "title": "Statistical Methods for DNA Microarray Analysis"
+}

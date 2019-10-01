@@ -1,0 +1,24 @@
+{
+    "courseCode": "PL3248",
+    "courseCredit": "4",
+    "description": "Learning is a fundamental area of psychology and everyday life. This module focuses on how humans and other animals learn information, for example associations between different stimuli in their environment, or between their actions and the outcomes of those actions. The concepts of classical (Pavlovian) conditioning and instrumental (operant) conditioning will be introduced, alongside various learning phenomena (e.g. acquisition, extinction, spontaneous recovery, overshadowing, blocking, sensory preconditioning, latent inhibition). While some mathematical learning theories such as the Rescorla-Wagner model will be discussed, an effort will be made to relate these more abstract concepts to adaptive everyday life functioning as well as clinical issues such as anxiety disorders, addiction and behavioural therapy.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PL1101E",
+                    "PL2131",
+                    "PL2132"
+                ]
+            },
+            {
+                "or": [
+                    "PL3232",
+                    "PL3233"
+                ]
+            }
+        ]
+    },
+    "title": "Learning and Conditioning"
+}

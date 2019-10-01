@@ -1,0 +1,13 @@
+{
+    "courseCode": "MUA4205",
+    "courseCredit": "4",
+    "description": "The module advances concepts and techniques already covered in the Advanced Conducting 1 module and serves as an elective option for students wishing to explore the conducting pathway in more detail.",
+    "faculty": "YST Conservatory of Music",
+    "prereqTree": {
+        "or": [
+            "MUA4203",
+            "MUA4204"
+        ]
+    },
+    "title": "Advanced Conducting II"
+}

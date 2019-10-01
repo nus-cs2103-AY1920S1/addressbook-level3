@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5241",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in applied mathematics and other related disciplines in science and engineering. It covers the following topics: discrete wavelet transform, discrete wavelet frame and tight frame, sparse approximation in redundant systems, variational methods for ill-posed inverse problems, sampling theory, compressed sensing, low rank matrix approximation, and non-local image restoration approaches.",
+    "faculty": "Science",
+    "prereqTree": "MA4229",
+    "title": "Computational Harmonic Analysis"
+}

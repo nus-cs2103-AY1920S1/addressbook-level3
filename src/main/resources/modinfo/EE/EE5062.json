@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "EE5062",
+    "courseCredit": "2",
+    "description": "The module offers students timely and updated coverage of a wide range of topics relevant to automation and motion control engineering tapping on the latest and diverse range of developments in the repertoire of the control group, such as the delivery of a measured collation of automation and motion control system designs applied to real problems of a diverse nature and which are not easily and directly available from standard literature. The nature of the module allows the flexibility for recent topics, problems to be delivered to students.",
+    "faculty": "Engineering",
+    "preclusion": "EE5110,EE6110",
+    "title": "Autonomous Systems"
+}

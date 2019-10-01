@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLG1201",
+    "courseCredit": "5",
+    "description": "This is an introductory course of language instruction in ancient Attic Greek for beginners, designed to give students a decent reading level by the end of the semester. It offers four days a week instruction. As well as gaining an introductory familiarity with the syntax and vocabulary of ancient Greek texts, students will develop an associated cultural knowledge in ancient Greek society and literary/ dramatic production.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YLG2202"
+    ],
+    "preclusion": "Students who have successfully completed YLG2201 Intensive Elementary\nGreek are not eligible for this course.",
+    "title": "Beginning Ancient Greek"
+}

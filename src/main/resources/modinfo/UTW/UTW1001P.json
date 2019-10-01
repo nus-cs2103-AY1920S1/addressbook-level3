@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW1001P",
+    "courseCredit": "4",
+    "description": "This module will explore the development and transformation of heroic figures across time and cultures, how people have reacted to these figures, and how these figures have been adapted. Students will engage with multiple versions of the 'hero,' both male and female, from a variety of media (literature, film, television, graphic novel) and scholarly literature on the subject as a means to develop critical writing skills. Some questions we will ask include: What defines a heroic character? What do a society\u2019s heroes reflect about its own values? What are the dangers of uncritical acceptance of heroes?",
+    "faculty": "NUS",
+    "preclusion": "IEM1201%,\nUTW1001%,\nES1501%",
+    "title": "Heroes"
+}

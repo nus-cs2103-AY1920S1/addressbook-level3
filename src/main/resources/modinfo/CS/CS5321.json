@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5321",
+    "courseCredit": "4",
+    "description": "The objective of this module is to introduce students to the various issues that arise in securing the networks, and study the state-of-the-art techniques for addressing these challenges. A number of most damaging attacks on computer systems involve the exploitation of network infrastructure. This module provides an in-depth study of network attack techniques and methods to defend against them. Topics include basic concepts in network security; firewalls and virtual private networks; network intrusion detection; denial of service (DoS); traffic analysis; secure routing protocols; protocol scrubbing; and advanced topics such as wireless network security.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6230"
+    ],
+    "prereqTree": "CS3235",
+    "title": "Network Security"
+}

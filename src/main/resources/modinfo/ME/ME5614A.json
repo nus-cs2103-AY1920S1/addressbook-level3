@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5614A",
+    "courseCredit": "2",
+    "description": "This module introduces applications and practices for additive manufacturing in terms of special project. The project is intended to integrate pre-processing, additive manufacturing processes, and post-processing for additive manufacturing processes. Topics include additive manufacturing practices and applications in engineering, design, healthcare, etc. Students are expected to carry out hand-on studies of additive manufacturing machines in project on the related topics. A structured programme of lectures and projects is included in this module.",
+    "faculty": "Engineering",
+    "title": "Special Project in Additive Manufacturing"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "DAO1704X",
+    "courseCredit": "4",
+    "description": "This module prepares students with theory and skills to capture business insights from data for decision making using spreadsheets. Practical examples and cases with rich data are used to stimulate students\u2019 interest and forster understanding of the use of Business Analytics in management.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DAO2702"
+    ],
+    "preclusion": "DSC1007; DSC1007X",
+    "title": "Decision Analytics using Spreadsheets"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "IE4211",
+    "courseCredit": "4",
+    "description": "This course introduces the concept of modelling, optimization and data analytics for Industrial and Systems Engineering. As systems become more complex and with readily available data, the course will impart students with the skill to conduct modelling, data analysis and optimization. It will show how to model a problem, analyse the data to obtain the insight and optimize the model to make effective decision. Selected use cases in areas such as in supply chain, health care, and service industries will be drawn to provide applications. Widely used commercially available software such as CPLEX, R, spreadsheet will be used.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "ST2334",
+            "EE2012",
+            "CE2407",
+            "BN2102"
+        ]
+    },
+    "title": "Modelling & Analytics"
+}

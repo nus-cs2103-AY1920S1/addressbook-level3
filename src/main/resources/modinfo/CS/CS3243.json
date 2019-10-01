@@ -1,0 +1,35 @@
+{
+    "courseCode": "CS3243",
+    "courseCredit": "4",
+    "description": "The module introduces the basic concepts in search and knowledge representation as well as to a number of sub-areas of artificial intelligence. It focuses on covering the essential concepts in AI. The module covers Turing test, blind search, iterative deepening, production systems, heuristic search, A* algorithm, minimax and alpha-beta procedures, predicate and first-order logic, resolution refutation, non-monotonic reasoning, assumption-based truth maintenance systems, inheritance hierarchies, the frame problem, certainly factors, Bayes' rule, frames and semantic nets, planning, learning, natural language, vision, and expert systems and LISP.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5228",
+        "CS5340",
+        "CS6208",
+        "CS5338",
+        "CS5446",
+        "CS4244",
+        "CS4248",
+        "CS4246"
+    ],
+    "preclusion": "EEE and CPE students can only take this module as a technical elective to satisfy the program requirements or UEM but not CFM/ULR-Breadth.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    "CS2040"
+                ]
+            },
+            {
+                "or": [
+                    "MA1100",
+                    "CS1231"
+                ]
+            }
+        ]
+    },
+    "title": "Introduction to Artificial Intelligence"
+}

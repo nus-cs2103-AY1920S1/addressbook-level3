@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1143",
+    "courseCredit": "4",
+    "description": "This module covers the fundamentals of electricity and magnetism: electric fields, electric flux and Gauss's law, electric potential; capacitance, dielectrics, current and resistance; DC circuits; magnetic fields, magnetic effect of currents, Ampere's law, electromagnetic induction; AC circuits; magnetism in matter; electromagnetic waves. The module also has a practical component consisting of five experiments designed to enhance students' understanding of some of the concepts discussed in lectures. This module is targeted at science students who wish to acquire a working knowledge in electricity and magnetism, and is an essential for physics majors.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC2267",
+        "PC2193",
+        "PC2131"
+    ],
+    "preclusion": "Students who have passed PC1432/PC1432X are not allowed to take this module.",
+    "title": "Introduction to Electricity & Magnetism"
+}

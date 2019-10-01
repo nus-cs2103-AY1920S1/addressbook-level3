@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6439",
+    "courseCredit": "4",
+    "description": "This course presents the fundamentals of Microelectromechanical Systems (MEMS) Nanoelectromechanical Systems (NEMS), culminating in advanced concepts and applications. Major topics covered include electrostatic actuation and capacitive sensing, piezoelectric actuation and sensing, thermal actuation and sensing, optical MEMS devices and nanophotonics, CMOS MEMS devices, inertial sensors, RF MEMS devices, resonators and clocking, NEMS sensors, energy harvesters, and packaging technology. Intended for research students, the module includes a project involving the design of MEMS/NEMS devices through detailed modelling and simulation.",
+    "faculty": "Engineering",
+    "preclusion": "EE5439 Micro/Nano Electromechanical Systems (M/NEMS)\nEE5520 Micro/Nanoelectromechanical Systems (M/NEMS)",
+    "prereqTree": {
+        "or": [
+            "EE4411",
+            "CN4217"
+        ]
+    },
+    "title": "Micro/Nano Electromechanical Systems (Advanced)"
+}

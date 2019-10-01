@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3232",
+    "courseCredit": "4",
+    "description": "This course provides a general one-semester introduction to the relationship between brain and behaviour. Although no background knowledge is assumed other than from the introductory psychology course, those with an interest in biological bases of behaviour or neuroscience will be advantaged. The course is intended primarily for students doing a single major in Psychology, and is designed as an introduction to those wishing to pursue advanced courses in Cognitive Neuroscience (PL3285 &amp; PL4206). The course will focus on key questions asked about the brain, such as: How is the brain organised? How do drugs affect our behaviour? How does the brain see, hear and produce movement? How does it learn and think? Clinical topics, such as Parkinson's Disease and schizophrenia will be integrated into the course, as will fMRI research methods and findings. Emphasis will be given to the key principles of nervous system function, however, the course still requires a lot of factual information to be assimilated and memorized.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PL3248",
+        "PL3249",
+        "PL3253",
+        "PL3285",
+        "PL3258"
+    ],
+    "prereqTree": "PL1101E",
+    "title": "Biological Psychology"
+}

@@ -1,0 +1,44 @@
+{
+    "courseCode": "MA2213",
+    "courseCredit": "4",
+    "description": "This is a first course on the theory and applications of numerical approximation techniques. Through the study of this module, the students will gain an understanding of how in practice mathematically formulated problems are solved using computers, and how computational errors are analysed and tackled. The students will be equipped with a number of commonly used numerical algorithms and knowledge and skill in performing numerical computation using MATLAB. The module is intended for mathematics majors and students from engineering and physical sciences. It will provide a firm basis for future study of numerical analysis and scientific computing. Major topics: Computational errors, direct method for systemsof linear equations, interpolation and approximation, numerical integration, use of MATLAB software.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5265",
+        "MA4272",
+        "MA4270",
+        "MA4268",
+        "MA4255",
+        "MA4230",
+        "MA3227"
+    ],
+    "preclusion": "CE2407, ME3291, CN3421, CN3411, CHE students (for breadth requirements), EVE students (for breadth requirements), DSA2102",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1312",
+                    "MA1507",
+                    "MA1505",
+                    "MA1521",
+                    "MA1511",
+                    "EG1402",
+                    "EE1401",
+                    "EE1461"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1508",
+                    "MA1506",
+                    "MA1508E",
+                    "MA1513"
+                ]
+            }
+        ]
+    },
+    "title": "Numerical Analysis I"
+}

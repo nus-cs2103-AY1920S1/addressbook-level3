@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NM2103",
+    "courseCredit": "4",
+    "description": "This module is to help students understand what quantitative research is (more specifically, how they can develop testable research questions and hypotheses), how to conduct the research and how to interpret the results. It covers fundamental concepts in research design, instrumentation, data collection, and data analysis. This module also introduces basic concepts of statistics such as descriptive statistics, sampling distribution, hypothesis testing. A set of computer lab assignments will give students extensive opportunities to become familiar with the relevant computer software package and experience at computing the various statistics reviewed in the class.",
+    "faculty": "Arts and Social Science",
+    "title": "Quantitative Research Methods"
+}

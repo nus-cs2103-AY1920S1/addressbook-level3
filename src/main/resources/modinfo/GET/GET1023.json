@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1023",
+    "courseCredit": "4",
+    "description": "This module aims to explain human behaviour through the lens of economists. We use economic reasoning to answer questions as diverse as the following: Why would your teacher cheat? Which factors cause crime rates to go down? Why do countries fail sometimes? We use texts that popularize economic concepts to illustrate how different social phenomena can be understood by applying the tools of economic analysis. However, we also discuss possible limitations of the economic approach to social issues. In this course we review, challenge, and debate on firmly established ideas we all have about the world, our society, and ourselves.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC2204"
+    ],
+    "title": "Thinking Like An Economist"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3285",
+    "courseCredit": "4",
+    "description": "Biological Psychology (cognitive neuroscience) is a fast-moving multidisciplinary and fundamental area at the cutting-edge of psychology research that involves psychology, neuroscience, medicine, statistics and physics. Students will be introduced to functional magnetic imaging (fMRI) and event-related potentials (ERP) as well as the underlying physiological processes, technical design issues and cutting-edge experiments. Students will then work in small groups to propose experimental designs. The best design will be selected and all students will help conduct the experiment at one of the local hospitals. Individual student groups will then independently process, analyze and interpret these data. Prior background in biological psychology is essential.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3232"
+        ]
+    },
+    "title": "Lab in Biological Psychology"
+}

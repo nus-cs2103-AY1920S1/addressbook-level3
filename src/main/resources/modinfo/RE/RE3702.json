@@ -1,0 +1,12 @@
+{
+    "courseCode": "RE3702",
+    "courseCredit": "4",
+    "description": "This module applies valuation theory to various types of valuation problems in Singapore with a special focus on valuation for property tax and other statutory purposes. It is aimed at helping students to understand the application of various methods of valuation to different types of properties under the Property Tax Act as well as various other statutory requirements for compulsory purchase and acquisition, stamp duty, GST, development charge, differential premium and upgrading premium. Other applied topics such as development appraisal and investment analysis will also be covered under this module.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE3806"
+    ],
+    "preclusion": "RE2107 Property Tax and Statutory Valuation",
+    "prereqTree": "RE2704",
+    "title": "Property Tax and Statutory Valuation"
+}

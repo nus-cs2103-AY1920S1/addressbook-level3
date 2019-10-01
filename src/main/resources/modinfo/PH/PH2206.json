@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2206",
+    "courseCredit": "4",
+    "description": "This module looks at the beginnings of modern Western philosophy in the seventeenth century, when philosophers conceived of themselves as breaking away from authority and tradition. It will deal with central themes from the thought of Descartes, Locke, Berkeley, Leibniz and Spinoza; in particular, the attempt to provide foundations for knowledge and science.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GEK2028",
+    "title": "Founders of Modern Philosophy"
+}

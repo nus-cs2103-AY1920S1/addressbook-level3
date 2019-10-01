@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1312",
+    "courseCredit": "4",
+    "description": "This module contains the main ideas of calculus that are often encountered in the formulation and solution of practical problems. The approach of this course is intuitive and heuristic. The objective is to develop a competent working knowledge of the main concepts and methods introduced. This module is also designed for students who intend to do a minor in mathematics or for those who are keen to pick up some mathematical skills that might be useful in their own areas of studies. Major topics: Real numbers and elementary analytic geometry. Functions, limits, continuity and derivative. Trigonometric functions. Trigonometric functions. Applications of the derivative. Optimization problems. Inverse functions. The indefinite integral. The definite integral. Applications of the definite integral: arc length, volume and surface area of solid of revolution. Logarithmic and exponential functions. Techniques of Integration. Taylor's Formula. Differential equations. Some applications in Business, Economics and Social Sciences.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "IS4242",
+        "MA2216",
+        "MA2312",
+        "MA2311",
+        "MA2213",
+        "ST2334",
+        "ST2131"
+    ],
+    "preclusion": "MA1102R, MA1505, MA1505C, MA1521, MA1511, FoE students,",
+    "title": "Calculus with Applications"
+}

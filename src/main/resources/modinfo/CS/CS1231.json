@@ -1,0 +1,35 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CS1231",
+    "courseCredit": "4",
+    "description": "This module introduces mathematical tools required in the study of computer science. Topics include: (1) Logic and proof techniques: propositions, conditionals, quantifications. (2) Relations and Functions: Equivalence relations and partitions. Partially ordered sets. Well-Ordering Principle. Function equality. Boolean/identity/inverse functions. Bijection. (3) Mathematical formulation of data models (linear model, trees, graphs). (4) Counting and Combinatoric: Pigeonhole Principle. Inclusion-Exclusion Principle. Number of relations on a set, number of injections from one finite set to another, Diagonalisation proof: An infinite countable set has an uncountable power set; Algorithmic proof: An infinite set has a countably infinite subset. Subsets of countable sets are countable.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5232",
+        "CS5241",
+        "CS5461",
+        "CS5469",
+        "CS2102",
+        "CS2309",
+        "CS3230",
+        "CS4232",
+        "CS3234",
+        "CS3243",
+        "CS4236",
+        "CS2102R",
+        "CS3236",
+        "CS2040S",
+        "CS4269",
+        "MA3219",
+        "MA3205",
+        "MA2219",
+        "MA2214",
+        "MA2202S",
+        "MA2202",
+        "UIS5951R"
+    ],
+    "preclusion": "MA1100, CS1231S",
+    "title": "Discrete Structures"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5612",
+    "courseCredit": "4",
+    "description": "Product development relates to the processes and techniques employed in the design and manufacture of a product. This course will focus on the early (conceptual) stages of design and development of mainly mechanical products, looking at the technologies available to convert new ideas into a manufactured reality. Emphasis will be on the practical implications, constraints and in-depth analysis, with an integrated assignment that encourages student groups to investigate the technologies for generation of a product.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME5600A"
+    ],
+    "preclusion": "ME6606",
+    "title": "Computer Aided Product Development"
+}

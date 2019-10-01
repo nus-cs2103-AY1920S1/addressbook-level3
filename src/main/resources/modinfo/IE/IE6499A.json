@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE6499A",
+    "courseCredit": "4",
+    "description": "This course describes a variety of Metaheuristic search methods including simulated annealing, tabu search, genetic algorithms, dynamically dimensioned search, particle swarm, differential evolution and multi-objective methods. The course also describes the use of sophisticated surrogate optimization algorithms for computationally expensive functions (including objective functions that are computed from a complex computer code.) The algorithms can be used to find values of discrete and/or continuous variables that optimize system performance, improve model forecast ability, and improve system reliability. All methods search for the global optimium and are derivative-free.",
+    "faculty": "Engineering",
+    "title": "Adv Topics in SE: Metaheuristic & Surrogate Optimization"
+}

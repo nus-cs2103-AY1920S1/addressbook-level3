@@ -1,0 +1,24 @@
+{
+    "courseCode": "CS6280",
+    "courseCredit": "4",
+    "description": "The aim of this module is to introduce students to the state-of-the art datacenter computer, memory, and storage infrastructure and the latest academic and industrial research in the area of cloud computing systems. The focus in this module will be at the lower levels of the cloud computing stack: emerging hardware technologies, system architectures, and operating systems.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2106",
+                    "CG2271"
+                ]
+            },
+            {
+                "or": [
+                    "CS3210",
+                    "CS3220",
+                    "CG3207"
+                ]
+            }
+        ]
+    },
+    "title": "Topics in Computer Science: Computer Systems for Datacenters"
+}

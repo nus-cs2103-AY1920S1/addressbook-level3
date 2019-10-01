@@ -1,0 +1,16 @@
+{
+    "courseCode": "FST2201",
+    "courseCredit": "4",
+    "description": "This module introduces the student to the science of nutrition. The format consists of a series of lectures, assigned readings and assignments that cover the fundamental concepts related to basic nutrition. By the end of this course, the student will possess the knowledge to interpret dietary labels, make informed food selections for a healthy, well-balanced diet and understand the relevant human physiological processes that transform food after the first bite. Students will be required to demonstrate a specific understanding of nutrition in health and human physiology, vitamins and minerals, protein, carbohydrates, dietary fats and energy metabolism.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST3202"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM1101",
+            "LSM1106"
+        ]
+    },
+    "title": "Introduction to Human Nutrition"
+}

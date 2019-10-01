@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "EE5132",
+    "courseCredit": "4",
+    "description": "This module aims to expose students to the principles of wireless and sensor networks, as well as to some recent advances in these areas. The first part of the module provides the concepts and operational details of cellular networks, wireless local area networks (WLAN), multi-hop and ad hoc wireless networks, and covers aspects such as medium access control, routing and transport protocols. The second part covers the fast emerging field of wireless sensor networks that enables visibility into physical processes in a convenient manner. Pertinent issues such as energy management and distributed information processing will be covered. The distinguishing feature about this module is the engineering emphasis on the coupled relationship between wireless and sensor network protocols and the underlying physical layer and energy considerations.",
+    "faculty": "Engineering",
+    "preclusion": "EE5406, EE5913, EE5023 or EE5024",
+    "prereqTree": {
+        "and": [
+            "EE4204",
+            "EE4210"
+        ]
+    },
+    "title": "Wireless and Sensor Networks"
+}

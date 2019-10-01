@@ -1,0 +1,26 @@
+{
+    "courseCode": "MA3252",
+    "courseCredit": "4",
+    "description": "The objective of this course is to work on optimization problems which can be formulated as linear and network optimization problems. We formulate linear programming (LP) problems and solve them by the simplex method (algorithm). We also look at the geometrical aspect and develop the mathematical theory of the simplex method. We further study problems which may be formulated using graphs and networks. These optimization problems can be solved by using linear or integer programming approaches. However, due to its graphical structure, it is easier to handle these problems by using network algorithmic approaches. Applications of LP and network optimization will be demonstrated. This course should help the student in developing confidence in solving many similar problems in daily life that require much computing. Major topics: Introduction to LP: solving 2-variable LP via graphical methods. Geometry of LP: polyhedron, extreme points, existence of optimal solution at extreme point. Development of simplex method: basic solution, reduced costs and optimality condition, iterative steps in a simplex method, 2-phase method and Big-M method. Duality: dual LP, duality theory, dual simplex method. Sensitivity Analysis. Network optimization problems: minimal spanning tree problems, shortest path problems, maximal flow problems, minimum cost flow problems, salesman problems and postman problems.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5268",
+        "MA4272",
+        "MA4264",
+        "MA4260",
+        "MA4254"
+    ],
+    "preclusion": "MQ2204, CS3252, IC2231, DSC3214, DSN3701, MA3235, BH3214, ISE students",
+    "prereqTree": {
+        "or": [
+            "MA1101R",
+            "MA1306",
+            "MA1311",
+            "MA1508",
+            "MA1506",
+            "MA1508E",
+            "MA1513"
+        ]
+    },
+    "title": "Linear and Network Optimisation"
+}

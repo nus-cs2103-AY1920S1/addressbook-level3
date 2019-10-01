@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1547",
+    "courseCredit": "4",
+    "description": "It often seems the worlds of science and art are unrelated: Logical truth versus emotional imagination. Still, science and art have much in common. Science has caused paradigm shifts in artistic expression while art is used for engineering design and communication of scientific knowledge. In this module, students will be introduced to the use of materials and technology related to architecture, sculpture, painting, photography and imaging. The use of technology for dating and attribution of objects of art as well as the use of visual art for scientific illustration and design will be examined. Knowledge of the scientific principles of various forms of visual art will also be explored. The module aims at the development of some artistic skills for illustrations of scientific concepts and engineering designs. This module will help students to better express their thoughts through artistic expression and appreciate visual art.",
+    "faculty": "Science",
+    "preclusion": "GET1014",
+    "title": "The Art of Science, the Science of Art"
+}

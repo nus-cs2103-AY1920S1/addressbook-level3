@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BH1001",
+    "courseCredit": "4",
+    "description": "This module addresses the essence of what managers do. To understand this, we begin by focusing on the two basic building blocks in organisations; the individual and the group. The broader environment in which managers and organisations will also be addressed. Lectures, case studies and experiential learning are used as tools for learning when appropriate.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "MNO2302",
+        "MNO2311",
+        "MNO3301",
+        "MNO3303",
+        "MNO3313F"
+    ],
+    "title": "Management & Organization"
+}

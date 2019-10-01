@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA2176",
+    "courseCredit": "4",
+    "description": "Beside continually handling the live concert recording, RAS Project 2 also provides the critical concept and skills of classical music production in the recording studio environment. Students will learn how to set up main stereo microphone and spot microphones in the recording studio for generating both studio and live concert style sound. In this module, students will be requested to finish at least 20 hours live concert recording, and at least 4 studio sessions. In this module, students need to finish each project session with module supervisor together. Each project session should be fully under the direction of the module supervisor.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3175"
+    ],
+    "prereqTree": "MUA2175",
+    "title": "AAS Project 2"
+}

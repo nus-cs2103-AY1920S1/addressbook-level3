@@ -1,0 +1,23 @@
+{
+    "courseCode": "PC3241",
+    "courseCredit": "4",
+    "description": "This module aims to introduce students to solid state devices. The topics covered include: introduction to semiconductors, charge carrier concentrations, drift of carriers in electric and magnetic fields, diffusion and recombination of excess carriers, p-n junction physics, junction diodes, tunnel diodes, photodiodes, light emitting diodes, bipolar junction transistors, junction field effect transistors (JFET), metal-semiconductor contacts metal-insulator-semiconductor interfaces, basic MOSFET.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC4264",
+        "PC4253",
+        "PC3243"
+    ],
+    "preclusion": "EE2004",
+    "prereqTree": {
+        "or": [
+            "PC2131",
+            "PC2231",
+            "PC3235",
+            "MLE2104",
+            "PC2133",
+            "EE2005"
+        ]
+    },
+    "title": "Solid State Devices"
+}

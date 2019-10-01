@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1222",
+    "courseCredit": "4",
+    "description": "The module aims to bridge the gap between O level Physics and first year university physics level. The module covers the fundamentals of three branches of physics: electricity &amp; magnetism, optics and modern physics. Topics included in the part on electricity &amp; magnetism are Coulombs law, electric field and potential, capacitance, current and resistance, DC circuits, magnetic fields, magnetic effects on current, electromagnetic induction, AC circuits and electromagnetic waves. The part on optics encompasses topics such as reflection and refraction, systems of lenses, optical instruments, interference, diffraction, grating and polarization. Topics covered in the part on modern physics are blackbody radiation, photoelectric effect, atomic transitions and spectra, the uncertainty principle, wave-particle duality, radioactivity and decay processes, binding energy and fusion energy and fusion &amp; fission.",
+    "faculty": "Science",
+    "preclusion": "'A' Level OR H2 Pass in Physics or PC1143, or PC1144 or PC1432/PC1432X",
+    "title": "Fundamentals of Physics II"
+}

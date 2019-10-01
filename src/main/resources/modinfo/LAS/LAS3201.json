@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAS3201",
+    "courseCredit": "4",
+    "description": "This module targets students who have completed the elementary Spanish modules (LAS1201 and LAS2201). It offers a combination of listening and speaking practice with a review of key concepts of Spanish grammar via targeted reading and writing activities. This module continues to incorporate Hispanic cultural elements through representative texts and audiovisual materials from the Spanish-speaking world.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAS3202"
+    ],
+    "preclusion": "YLS2201 Intermediate Spanish I",
+    "prereqTree": {
+        "or": [
+            "LAS2201",
+            "YLS1202"
+        ]
+    },
+    "title": "Spanish 3"
+}

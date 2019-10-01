@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1431X",
+    "courseCredit": "4",
+    "description": "The module is designed to provide a clear and logical introduction to the concepts and principles of mechanics and thermodynamics, with illustrations based on applications to the real world. Topics covered include motion in one dimension; curvilinear motion; circular motion; relative motion; Newton's laws; friction; work and energy; conservative forces, conservation of energy; linear momentum and conservation, collisions; rotational kinematics; moment of inertia and torque; rotational dynamics; conservation of angular momentum; temperature and the zeroth law, temperature scales; heat and internal energy, specific heat capacities, work for ideal gases, first law of thermodynamics; equipartition of energy, entropy and the second law, heat engines; entropy changes for reversible and irreversible processes. The module is targeted essentially at Engineering students.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC2230",
+        "PC2193",
+        "PC2132",
+        "ME2121E",
+        "ME2143E",
+        "TME2121",
+        "TME2143"
+    ],
+    "preclusion": "Students majoring in Physics. Students must not have passed PC1431 or PC1431FC.",
+    "title": "Physics IE"
+}

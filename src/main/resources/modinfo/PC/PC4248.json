@@ -1,0 +1,11 @@
+{
+    "courseCode": "PC4248",
+    "courseCredit": "4",
+    "description": "This module provides an introduction to the theory of general relativity. The topics covered are: general tensor analysis, the Riemann tensor, the gravitational field equation, the Schwarzschild solution, experimental tests of general relativity, black holes, and Friedmann-Robertson-Walker models of the expanding universe. While this module is mainly targeted at physics majors, it is also suitable for science students with a strong mathematical foundation.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC4232"
+    ],
+    "prereqTree": "PC3274",
+    "title": "General Relativity"
+}

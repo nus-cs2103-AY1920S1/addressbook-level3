@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEM1505B",
+    "courseCredit": "4",
+    "description": "This module traces the evolution of electrical & electronics systems. Students are taken through the steps required for the design and building of simple electrical and electronic systems. The student will learn to formulate the real problem or real system behaviour, monitor performance and develop innovative solutions. The module consists of two parts: 'knowledge & skills' and 'hands on challenges'. At the beginning, themes for the challenges will be presented to all students. Students, working in small groups, will then choose one of the themes and set upon identifying the main problem and methods of solving them. The final grade will be based on 100% continuous assessment involving assignments, laboratory work and projects.",
+    "faculty": "Engineering",
+    "title": "Engineering by Design - Electrical Systems"
+}

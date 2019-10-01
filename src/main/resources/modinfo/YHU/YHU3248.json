@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3248",
+    "courseCredit": "5",
+    "description": "This course explores how Romans conceptualized food in different textual contexts with attention to historical and material evidence. What do we know about food as sustenance and as a critical topic in the Roman world? The course will center on food as a literary theme from comedy to satire and epigram in the imperial period, with attention to the ethical and philosophical preoccupations of poets and philosophers such as Horace and Seneca.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Food and Ethics in Roman Literature and Culture"
+}

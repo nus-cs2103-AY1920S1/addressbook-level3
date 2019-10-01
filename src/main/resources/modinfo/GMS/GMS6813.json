@@ -1,0 +1,7 @@
+{
+    "courseCode": "GMS6813",
+    "courseCredit": "4",
+    "description": "This module provides an introduction to biostatistics methods used in medical research. Specific topics covered include methods for describing data, hypothesis testing and statistical modeling for continuous, binary and survival outcomes. The emphasis of the course in on concepts and application of these methods to medical research. This module will enable clinical researchers to perform basic statistical analysis using Stata software and interpret their results appropriately.",
+    "faculty": "Duke-NUS Medical School",
+    "title": "Biostatistics for Clinical Research"
+}

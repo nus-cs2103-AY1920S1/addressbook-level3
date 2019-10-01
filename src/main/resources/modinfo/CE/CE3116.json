@@ -1,0 +1,12 @@
+{
+    "courseCode": "CE3116",
+    "courseCredit": "4",
+    "description": "This is an introductory module in foundation engineering. The topics covered include site investigation and interpretation of soil reports, shallow foundations and deep foundations. Students will learn how to use simple foundations to distribute vertical loads from the superstructure to the underlying soil formation without overstressing the soil (more complex loading modes to be discussed in advanced modules). Students are taught the interpretation of site investigation report, derivation of relevant design soil properties, selection of sensible foundation type, and verification of capacity and settlement requirements.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CE5107"
+    ],
+    "preclusion": "TCE3116",
+    "prereqTree": "CE2112",
+    "title": "Foundation Engineering"
+}

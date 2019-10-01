@@ -1,0 +1,9 @@
+{
+    "courseCode": "YID3211",
+    "courseCredit": "5",
+    "description": "An introduction to the interdisciplinary field of ecological economics, which integrates ecological principles into traditional economic theory. We will examine the historical development of economics as a discipline, explore the differences between ecological and environmental economics, and investigate a set of cases using principles in ecological economics. This course will include concepts from other fields, especially physics, philosophy, ecology, and public policy.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YID2204 (previous module code)",
+    "prereqTree": "YID1201",
+    "title": "Ecological Economics"
+}

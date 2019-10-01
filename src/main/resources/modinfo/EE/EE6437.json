@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6437",
+    "courseCredit": "4",
+    "description": "Building on the semiconductor fundamentals and device physics knowledge, this module teaches the latest development and advancement in CMOS devices and process technologies, specifically relating to logic devices. Major topics to be covered in this module include (i) CMOS transistor historical scaling trends and physical limitations, (ii) module building blocks (materials and processes) including high permittivity or high-k gate dielectric, metal gate, ultra-shallow junction, metal contacts and advanced doping techniques, (iii) high mobility channel materials beyond silicon, (iv) alternative nanoscale transistor architectures, and (v) more-than-Moore technological trends.",
+    "faculty": "Engineering",
+    "preclusion": "EE6505",
+    "prereqTree": {
+        "or": [
+            "EE5502",
+            "EE5433R"
+        ]
+    },
+    "title": "Advanced Semiconductor Devices"
+}

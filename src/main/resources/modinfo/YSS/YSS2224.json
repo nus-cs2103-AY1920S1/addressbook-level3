@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSS2224",
+    "courseCredit": "5",
+    "description": "This course introduces students to the key theories, issues and challenges in Global Affairs. Students considering majoring or minor in Global Affairs, or those seeking greater knowledge about how the world works, should take this course. Students will learn about the structure of the international system, theories of inequality and development, and about key State and non-state actors in Global Affairs. An interdisciplinary approach to understanding transboundary problems is applied. Students will also gain skills to critically assess global news sources on current issues, write about contemporary issues within a historical context, and in problem solving and oral communication.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS3262",
+        "YSS3284",
+        "YSS4247"
+    ],
+    "title": "Introduction to Global Affairs"
+}
