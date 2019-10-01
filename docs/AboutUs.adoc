@@ -38,7 +38,7 @@ Responsibilities: Time Command, find command, Integration
 '''
 
 === Ling Zhi Wei
-image::m133225.jpg[width="150", align="left"]
+image::lzw12345.png.jpg[width="150", align="left"]
 {empty}[https://github.com/lzw12345[github]]
 
 Role: Developer +
