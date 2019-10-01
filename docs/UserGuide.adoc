@@ -124,47 +124,47 @@ Finds all transactions in the current list from May 2019 from the category "Educ
 Lists all transactions. +
 Format `txlist`
 
-=== Repeating Transactions
+=== Transaction Repeaters
 
-==== Creating repeating transaction: `repadd`
+==== Creating transaction repeater: `repadd`
 
-Creates monthly repeating transaction. +
-Format: `repadd m/DESCRIPTION a/AMOUNT [p/DAY]...`
-
-Examples:
-
-* `repadd m/Travelling a/32.70 p/7 p/14 p/21 p/28` +
-Creates a repeating transaction titled "Travelling" for a $32.70 deduction every 7th, 14th, 21st and 28th of the month.
-
-==== Editing repeating transaction: `repedit`
-
-Edits repeating transaction. +
-Format: `repedit i/ID [m/DESCRIPTION] [a/AMOUNT] [p/DAY]...`
+Creates monthly transaction repeater. +
+Format: `repadd [t/TYPE] m/DESCRIPTION a/AMOUNT [c/CATEGORY] [p/DAY]...`
 
 Examples:
 
-* `repedit i/12 a/62.45 p/11 p/12` +
-Edits the 12th repeating transaction for a $62.45 deduction every 11th and 12th of the month.
+* `repadd t/in m/Phone Bills a/32.70 p/7 p/14 p/21 p/28` +
+Creates a transaction repeater titled "PhoneBills" for a $32.70 deduction every 7th, 14th, 21st and 28th of the month.
 
-==== Deleting repeating transaction: `repdelete`
+==== Editing transaction repaeter `repedit`
 
-Deletes repeating transaction. Optionally deletes transactions previously produced from the repeating transaction. +
+Edits transaction repeater. +
+Format: `repedit i/ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [p/DAY]...`
+
+Examples:
+
+* `repedit i/12 a/62.45 c/Food p/11 p/12` +
+Edits the 12th transaction repeater for a $62.45 deduction every 11th and 12th of the month.
+
+==== Deleting transaction repeater: `repdelete`
+
+Deletes transaction repeater. Optionally deletes transactions previously produced from the transaction repeater. +
 Format: `repdelete i/ID [d/DELETEALL]`
 
 Examples:
 
 * `repdelete i/12 p/TRUE` +
-Deletes the 12th repeating transaction.
+Deletes the 12th transaction repeater.
 
-==== Finding repeating transaction: `repfind`
+==== Finding transaction repeater: `repfind`
 
-Filters repeating transactions by keyword and repeating days. +
-Format: `repfind [s/KEYWORD]... [p/DAY]...`
+Filters transaction repeaters by keyword, category and repeating days. +
+Format: `repfind [t/TYPE] [s/KEYWORD]... [c/CATEGORY] [p/DAY]...`
 
 Examples:
 
 * `repfind s/Income p/7 p/13` +
-Finds all repeating transactions with "Income" contained in their descriptions, and that occur on the 7th and 13th of the month.
+Finds all transaction repeater with "Income" contained in their descriptions, and that occur on the 7th and 13th of the month.
 
 === Loans
 
@@ -325,10 +325,10 @@ Displays expenditure ranking chart for July 2019.
 * *Transaction Delete* : `txdelete i/TRANSACTION_ID`
 * *Transaction Find* : `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
 * *Transaction List* : `txlist`
-* *Repeating Transaction Add* : `repadd m/DESCRIPTION a/AMOUNT [p/DAY]...`
-* *Repeating Transaction Edit* : `repedit i/ID [m/DESCRIPTION] [a/AMOUNT] [p/DAY]...`
-* *Repeating Transaction Delete* : `repdelete i/ID [d/DELETEALL]`
-* *Repeating Transaction Find* : `repfind [s/KEYWORD]... [p/DAY]...`
+* *Transaction Repeater Add* : `repadd m/DESCRIPTION a/AMOUNT [c/CATEGORY] [p/DAY]...`
+* *Transaction Repeater Edit* : `repedit i/ID [m/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [p/DAY]...`
+* *Transaction Repeater Delete* : `repdelete i/ID [d/DELETEALL]`
+* *Transaction Repeater Find* : `repfind [s/KEYWORD]... [c/CATEGORY] [p/DAY]...`
 * *Budget Set* : `bset a/AMOUNT`
 * *Budget Exclude* : `bexclude i/TRANSACTION_ID`
 * *Budget Include* : `binclude i/TRANSACTION_ID`
