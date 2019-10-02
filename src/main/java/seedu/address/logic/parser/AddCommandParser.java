@@ -38,9 +38,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Item person = new Item(name, expiryDate, tagList);
+        Item item = new Item(name, expiryDate, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(item);
     }
 
     /**

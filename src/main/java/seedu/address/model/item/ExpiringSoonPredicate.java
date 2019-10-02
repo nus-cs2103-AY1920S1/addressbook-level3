@@ -1,12 +1,11 @@
 package seedu.address.model.item;
 
 import java.time.LocalDate;
-import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Item}'s {@code ExpiryDate} falls within the date given.
  */
-public class ExpiringSoonPredicate implements Predicate<Item> {
+public class ExpiringSoonPredicate extends CheckCommandPredicate {
 
     private String checkDate;
 

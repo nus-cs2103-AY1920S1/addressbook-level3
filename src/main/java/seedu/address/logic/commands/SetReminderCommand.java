@@ -1,10 +1,17 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.item.Item;
+import seedu.address.model.item.ReminderThreshold;
 
 /**
  * Changes the reminder threshold for a particular item in the list.
@@ -24,14 +31,16 @@ public class SetReminderCommand extends Command {
 
     public static final String MESSAGE_ARGUMENTS = "Index: %d, Threshold: %d";
 
+    public static final String MESSAGE_SUCCESS = "Set reminder for item %d in %s day(s)";
+
     private final Index index;
-    private final int threshold;
+    private final String threshold;
 
     /**
      * @param index Index of the item in the list.
      * @param threshold New threshold.
      */
-    public SetReminderCommand(Index index, int threshold) {
+    public SetReminderCommand(Index index, String threshold) {
         requireAllNonNull(index, threshold);
 
         this.index = index;
@@ -40,7 +49,20 @@ public class SetReminderCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, this.index.getOneBased(), this.threshold));
+        requireNonNull(model);
+        List<Item> lastShownList = model.getFilteredItemList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        }
+
+        Item itemToSetReminder = lastShownList.get(index.getZeroBased());
+        Item editedItem = itemToSetReminder;
+        editedItem.setReminderThreshold(new ReminderThreshold(threshold));
+
+        model.setItem(itemToSetReminder, editedItem);
+        model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased(), threshold));
     }
 
     @Override
