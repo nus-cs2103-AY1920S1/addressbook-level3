@@ -4,14 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
@@ -21,8 +15,14 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.ui.components.PersonListPanel;
 import seedu.address.ui.components.ResultDisplay;
+import seedu.address.ui.itinerary.DaysPage;
+import seedu.address.ui.itinerary.EditDayPage;
+import seedu.address.ui.itinerary.EditEventPage;
+import seedu.address.ui.itinerary.EventsPage;
+import seedu.address.ui.trips.EditTripPage;
+import seedu.address.ui.trips.TripsPage;
+import seedu.address.ui.utility.PreferencesPage;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -140,6 +140,10 @@ public abstract class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.getPage().isPresent()) {
+                switchWindow(commandResult.getPage().get());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -170,5 +174,27 @@ public abstract class MainWindow extends UiPart<Stage> {
         model.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    private void switchWindow(Class<? extends MainWindow> mainWindowClass) {
+        WindowNavigation navigation = null;
+        if (TripsPage.class.equals(mainWindowClass)) {
+            navigation = TripsPage::switchTo;
+        } else if (EditTripPage.class.equals(mainWindowClass)) {
+            navigation = EditTripPage::switchTo;
+        } else if (DaysPage.class.equals(mainWindowClass)) {
+            navigation = DaysPage::switchTo;
+        } else if (EditDayPage.class.equals(mainWindowClass)) {
+            navigation = EditDayPage::switchTo;
+        } else if (EventsPage.class.equals(mainWindowClass)) {
+            navigation = EventsPage::switchTo;
+        } else if (EditEventPage.class.equals(mainWindowClass)) {
+            navigation = EditEventPage::switchTo;
+        } else if (PreferencesPage.class.equals(mainWindowClass)) {
+            navigation = PreferencesPage::switchTo;
+        }
+        if (navigation != null) {
+            navigation.switchToThisWindow(primaryStage, logic, model);
+        }
     }
 }

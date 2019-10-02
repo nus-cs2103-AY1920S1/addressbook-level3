@@ -9,10 +9,8 @@ import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
 import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.trips.TripsPage;
-import seedu.address.ui.Ui;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Constructs a command that attempts to commit the current changes in the edit trip page.
@@ -31,8 +29,8 @@ public class DoneEditTripCommand extends Command {
     public DoneEditTripCommand() { }
 
     @Override
-    public CommandResult execute(Model model, Ui ui) throws CommandException {
-        requireAllNonNull(model, ui);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         EditTripFieldCommand.EditTripDescriptor editTripDescriptor = model.getPageStatus().getEditTripDescriptor();
         Trip tripToEdit = model.getPageStatus().getTrip();
         Trip tripToAdd;
@@ -56,9 +54,8 @@ public class DoneEditTripCommand extends Command {
             model.setPageStatus(model.getPageStatus()
                     .withNewEditTripDescriptor(null)
                     .withNewPageType(PageType.TRIP_MANAGER));
-            ui.switchWindow(TripsPage.class);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToAdd));
+            return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToAdd), TripsPage.class);
         } catch (NullPointerException | TripNotFoundException ex) {
             return new CommandResult(MESSAGE_NOT_EDITED);
         } catch (ClashingTripException ex) {

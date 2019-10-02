@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.trips.edit;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.trips.edit.DoneEditTripCommand;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -14,7 +13,6 @@ import seedu.address.logic.parser.trips.TripParserUtil;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;

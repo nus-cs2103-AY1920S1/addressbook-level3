@@ -12,7 +12,6 @@ import seedu.address.model.itinerary.trip.Trip;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,7 +83,7 @@ public class JsonAdaptedTrip {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "End Date"));
         }
 
-        final LocalDateTime modelEndDate = endDate;;
+        final LocalDateTime modelEndDate = endDate;
 
         if(destination == null){
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

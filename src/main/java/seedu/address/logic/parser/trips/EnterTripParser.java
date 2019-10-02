@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.trips;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.trips.DeleteTripCommand;
 import seedu.address.logic.commands.trips.EnterTripCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;

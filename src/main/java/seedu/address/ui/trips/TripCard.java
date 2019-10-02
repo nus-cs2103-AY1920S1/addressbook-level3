@@ -8,8 +8,6 @@ import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.ui.UiPart;
 
-import java.net.URL;
-
 public class TripCard extends UiPart<GridPane> {
     private static final String FXML = "TripCard.fxml";
 

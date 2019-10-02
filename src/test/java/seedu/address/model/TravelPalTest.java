@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -86,6 +87,7 @@ public class TravelPalTest {
     /**
      * A stub ReadOnlyTravelPal whose persons list can violate interface constraints.
      */
+    @Disabled
     private static class TravelPalStub implements ReadOnlyTravelPal {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 

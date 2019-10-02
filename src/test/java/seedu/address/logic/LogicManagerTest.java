@@ -88,10 +88,6 @@ public class LogicManagerTest {
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
-    }
 
     /**
      * Executes the command and confirms that

@@ -23,7 +23,6 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.*;
-import seedu.address.storage.TravelPalStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 

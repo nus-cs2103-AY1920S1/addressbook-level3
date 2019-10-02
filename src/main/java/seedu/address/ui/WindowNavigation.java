@@ -10,5 +10,5 @@ import seedu.address.model.Model;
  */
 @FunctionalInterface
 public interface WindowNavigation {
-    public void switchToThisWindow(Stage stage, Logic logic, Model model);
+    void switchToThisWindow(Stage stage, Logic logic, Model model);
 }

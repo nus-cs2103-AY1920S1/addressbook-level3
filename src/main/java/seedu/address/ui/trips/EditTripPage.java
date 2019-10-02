@@ -2,7 +2,6 @@ package seedu.address.ui.trips;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,21 +13,14 @@ import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.itinerary.Expenditure;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
 import seedu.address.ui.components.form.DateFormItem;
 import seedu.address.ui.components.form.ExpenditureFormItem;
-import seedu.address.ui.components.form.FormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.WindowWithoutSidebar;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.stream.Stream;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
@@ -39,12 +31,11 @@ public class EditTripPage extends WindowWithoutSidebar {
 
     private static final String FXML = "EditTripPage.fxml";
 
-    private static final int DEFAULT_TRIP_DURATION = 7;
-    TextFormItem tripNameFormItem = null;
-    TextFormItem tripDestinationFormItem = null;
-    DateFormItem tripStartDateFormItem = null;
-    DateFormItem tripEndDateFormItem = null;
-    ExpenditureFormItem tripTotalBudgetFormItem = null;
+    private TextFormItem tripNameFormItem;
+    private TextFormItem tripDestinationFormItem;
+    private DateFormItem tripStartDateFormItem;
+    private DateFormItem tripEndDateFormItem;
+    private ExpenditureFormItem tripTotalBudgetFormItem;
 
     @FXML
     private StackPane commandBoxPlaceholder;

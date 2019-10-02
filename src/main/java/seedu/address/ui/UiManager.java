@@ -13,13 +13,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
-import seedu.address.ui.itinerary.DaysPage;
-import seedu.address.ui.itinerary.EditDayPage;
-import seedu.address.ui.itinerary.EditEventPage;
-import seedu.address.ui.itinerary.EventsPage;
-import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
-import seedu.address.ui.utility.PreferencesPage;
 
 /**
  * The manager of the UI component.
@@ -33,7 +27,6 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private Stage primaryStage;
-    private MainWindow mainWindow;
     private Model model;
 
     public UiManager(Logic logic, Model model) {
@@ -53,8 +46,8 @@ public class UiManager implements Ui {
         setWindowDefaultSize(model.getGuiSettings());
 
         try {
-            mainWindow = new TripsPage(primaryStage, logic, model);
-            primaryStage.show();
+            MainWindow mainWindow = new TripsPage(primaryStage, logic, model);
+            mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -94,28 +87,6 @@ public class UiManager implements Ui {
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
-    }
-
-    public void switchWindow(Class<? extends MainWindow> mainWindowClass) {
-        WindowNavigation navigation = null;
-        if (TripsPage.class.equals(mainWindowClass)) {
-            navigation = TripsPage::switchTo;
-        } else if (EditTripPage.class.equals(mainWindowClass)) {
-            navigation = EditTripPage::switchTo;
-        } else if (DaysPage.class.equals(mainWindowClass)) {
-            navigation = DaysPage::switchTo;
-        } else if (EditDayPage.class.equals(mainWindowClass)) {
-            navigation = EditDayPage::switchTo;
-        } else if (EventsPage.class.equals(mainWindowClass)) {
-            navigation = EventsPage::switchTo;
-        } else if (EditEventPage.class.equals(mainWindowClass)) {
-            navigation = EditEventPage::switchTo;
-        } else if (PreferencesPage.class.equals(mainWindowClass)) {
-            navigation = PreferencesPage::switchTo;
-        }
-        if (navigation != null) {
-            navigation.switchToThisWindow(primaryStage, logic, model);
-        }
     }
 
     /**

@@ -9,13 +9,11 @@ import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.ui.Ui;
-import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.trips.EditTripPage;
 
 import java.util.List;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 public class EnterEditTripCommand extends Command {
     public static final String COMMAND_WORD = "edit";
@@ -32,8 +30,8 @@ public class EnterEditTripCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Ui ui) throws CommandException {
-        requireAllNonNull(model, ui);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Trip> lastShownList = model.getFilteredTripList();
 
         if (indexToEdit.getZeroBased() >= lastShownList.size()) {
@@ -49,9 +47,7 @@ public class EnterEditTripCommand extends Command {
                 .withNewTrip(tripToEdit)
                 .withNewEditTripDescriptor(editTripDescriptor));
 
-        ui.switchWindow(EditTripPage.class);
-
-        return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToEdit));
+        return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToEdit), EditTripPage.class);
     }
 
     @Override

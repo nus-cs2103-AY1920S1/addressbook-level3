@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.ui.UiPart;
 
-import java.net.URL;
-
 public class NavigationSideBar extends UiPart<Region> {
 
     private static final String FXML = "Sidebar.fxml";

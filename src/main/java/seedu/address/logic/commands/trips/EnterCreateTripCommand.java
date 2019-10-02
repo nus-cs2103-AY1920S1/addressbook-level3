@@ -6,7 +6,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.trips.EditTripPage;
-import seedu.address.ui.Ui;
 
 import static java.util.Objects.requireNonNull;
 
@@ -18,15 +17,13 @@ public class EnterCreateTripCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Entered the trip creation screen.";
 
     @Override
-    public CommandResult execute(Model model, Ui ui) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         model.setPageStatus(
                 model.getPageStatus().withNewPageType(PageType.ADD_TRIP));
 
-        ui.switchWindow(EditTripPage.class);
-
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, EditTripPage.class);
     }
 
     @Override

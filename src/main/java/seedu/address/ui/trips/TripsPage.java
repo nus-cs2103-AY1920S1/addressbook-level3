@@ -1,14 +1,12 @@
 package seedu.address.ui.trips;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
@@ -18,14 +16,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.ui.components.CommandBox;
-import seedu.address.ui.components.PersonListPanel;
 import seedu.address.ui.components.ResultDisplay;
-import seedu.address.ui.components.NavigationSideBar;
 import seedu.address.ui.components.StatusBarFooter;
 import seedu.address.ui.template.WindowWithoutSidebar;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 

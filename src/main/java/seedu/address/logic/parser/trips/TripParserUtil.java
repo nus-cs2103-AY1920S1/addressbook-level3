@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.trips;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;

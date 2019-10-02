@@ -12,10 +12,8 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.ui.Ui;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -62,8 +60,8 @@ public class EditTripFieldCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Ui ui) throws CommandException {
-        requireAllNonNull(model, ui);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         EditTripDescriptor currentDescriptor = model.getPageStatus().getEditTripDescriptor();
         EditTripDescriptor newEditTripDescriptor = currentDescriptor == null
                 ? new EditTripDescriptor(editTripDescriptor)
@@ -134,8 +132,8 @@ public class EditTripFieldCommand extends Command {
          * Constructs a new {@code EditTripDescriptor} using an {@code oldDescriptor}, overwritten with
          * values of the {@code newDescriptor} where they exist.
          *
-         * @param oldDescriptor
-         * @param newDescriptor
+         * @param oldDescriptor Old {@code EditTripDescriptor} to use.
+         * @param newDescriptor New {@code EditTripDescriptor} to use.
          */
         public EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
             setName(newDescriptor.name == null

@@ -7,12 +7,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.ui.Ui;
 
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class DeleteTripCommand extends Command {
     public static final String COMMAND_WORD = "delete";
@@ -31,8 +29,8 @@ public class DeleteTripCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Ui ui) throws CommandException {
-        requireAllNonNull(model, ui);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Trip> lastShownList = model.getFilteredTripList();
 
         if (indexToDelete.getZeroBased() >= lastShownList.size()) {

@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import seedu.address.MainApp;
 
 /**

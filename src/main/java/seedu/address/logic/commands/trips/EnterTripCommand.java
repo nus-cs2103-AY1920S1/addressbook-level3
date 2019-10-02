@@ -9,12 +9,10 @@ import seedu.address.model.Model;
 import seedu.address.model.itinerary.trip.Trip;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.itinerary.DaysPage;
-import seedu.address.ui.Ui;
 
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class EnterTripCommand extends Command {
     public static final String COMMAND_WORD = "goto";
@@ -31,8 +29,8 @@ public class EnterTripCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Ui ui) throws CommandException {
-        requireAllNonNull(model, ui);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Trip> lastShownList = model.getFilteredTripList();
 
         if (indexToEnter.getZeroBased() >= lastShownList.size()) {
@@ -44,9 +42,7 @@ public class EnterTripCommand extends Command {
                 .withNewPageType(PageType.ITINERARY)
                 .withNewTrip(tripToEnter));
 
-        ui.switchWindow(DaysPage.class);
-
-        return new CommandResult(String.format(MESSAGE_ENTER_TRIP_SUCCESS, tripToEnter));
+        return new CommandResult(String.format(MESSAGE_ENTER_TRIP_SUCCESS, tripToEnter), DaysPage.class);
     }
 
     @Override

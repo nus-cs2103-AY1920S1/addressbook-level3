@@ -1,11 +1,8 @@
 package seedu.address.logic;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -13,8 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TravelPalParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyTravelPal;
-import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 import seedu.address.ui.Ui;
 
@@ -45,7 +40,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = travelPalParser.parseCommand(commandText, model.getPageStatus());
-        commandResult = command.execute(model, ui);
+        commandResult = command.execute(model);
 
         try {
             storage.saveAddressBook(model.getTravelPal());

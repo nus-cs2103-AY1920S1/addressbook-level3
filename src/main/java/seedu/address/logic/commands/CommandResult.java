@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
+import seedu.address.ui.MainWindow;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents the result of a command execution.
@@ -10,6 +13,9 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
+
+    /** The page class to switch to, if any. */
+    private final Class<? extends MainWindow> page;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -20,10 +26,18 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Class<? extends MainWindow> page) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.page = page;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, null);
     }
 
     /**
@@ -32,6 +46,15 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and a page switch {@code Class} extending from {@code MainWindow} using {@code page},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, Class<? extends MainWindow> page) {
+        this(feedbackToUser, false, false, page);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +67,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public Optional<Class<? extends MainWindow>> getPage() {
+        return Optional.ofNullable(page);
     }
 
     @Override
