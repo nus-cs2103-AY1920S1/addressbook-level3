@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Marc Fong Yung Kit
-image::/images/marcfyk.png[width="150", align="left"]
+image::marcfyk.png[width="150", align="left"]
 {empty} [https://github.com/marcfyk[github]] [<<marcfyk#, portfolio>>]
 
 Role: Team Lead +
@@ -19,7 +19,7 @@ Responsibilities: Undo, redo feature
 '''
 
 === Ryan Tan Yu
-image::/images/ryanytan.png[width="150", align="left"]
+image::ryanytan.png[width="150", align="left"]
 {empty}[http://github.com/ryanytan[github]] [<<ryanytan#, portfolio>>]
 
 Role: Developer +
