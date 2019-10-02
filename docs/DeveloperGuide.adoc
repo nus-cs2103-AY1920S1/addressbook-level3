@@ -450,26 +450,45 @@ Use case ends.
 +
 Use case ends.
 
-
-
-
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  The software should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should be able to hold up to 1000 interviewers and interviewees without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The software should be simple enough to use without much manual intervention by the user.
+.  The software should respond to the user actions within 5 seconds.
+.  The source code should be open-source.
 
 [appendix]
 == Glossary
+
+[[availabilities]] Availabilities::
+A list of date and times that either an interviewer or interviewee is available for an interview.
+
+[[email-blast]] Email blast::
+A process of sending an email to multiple recipients, which may or may not be tailored to the recipient.
+
+[[interview]] Interview::
+A particular time and date in which an interviewee meets an interviewer.
+
+[[interviewee]] Interviewee::
+A person that is attending an interview and is required to meet at least one interviewer.
+
+[[interviewer]] Interviewer::
+A person that is conducting interviews and is required to meet multiple interviewees.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[secretary-of-NUS-CCA]] Secretary of NUS CCA::
+A hypothetical person that refers to the user of the software and is tasked to assign interviewees to interviewers.
+
+[[timeslot]] Timeslot::
+A date and time in which either the interviewer or interviewee is available for an interview.
 
 [appendix]
 == Product Survey
