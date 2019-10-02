@@ -3,6 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-W12-3/main[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-W12-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-W12-3/main/badge.svg?branch=master[Coverage Status]]
+https://app.netlify.com/sites/gitgud-palpay/deploys[image:https://api.netlify.com/api/v1/badges/7fa7e814-fc6b-484b-885b-9b3fa95579b1/deploy-status[Netlify Status]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
