@@ -15,7 +15,7 @@ image::lawncegoh.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/lawncegoh] [<<www.lawncegoh.github.io, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation and features
+Responsibilities: Features
 
 '''
 
