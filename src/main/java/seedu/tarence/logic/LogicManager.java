@@ -14,7 +14,9 @@ import seedu.tarence.logic.parser.ApplicationParser;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.storage.Storage;
 
 /**
@@ -59,6 +61,21 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredStudentList() {
+        return model.getFilteredStudentList();
+    }
+
+    @Override
+    public ObservableList<Module> getFilteredModuleList() {
+        return model.getFilteredModuleList();
+    }
+
+    @Override
+    public ObservableList<Tutorial> getFilteredTutorialList() {
+        return model.getFilteredTutorialList();
     }
 
     @Override

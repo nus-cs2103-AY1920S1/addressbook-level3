@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
@@ -24,6 +25,7 @@ import seedu.tarence.model.tutorial.UniqueTutorialList;
 public class Application implements ReadOnlyApplication {
 
     private final UniquePersonList persons;
+    private final UniquePersonList students;
     private final UniqueModuleList modules;
     private final UniqueTutorialList tutorials;
 
@@ -36,6 +38,7 @@ public class Application implements ReadOnlyApplication {
      */
     {
         persons = new UniquePersonList();
+        students = new UniquePersonList();
         modules = new UniqueModuleList();
         tutorials = new UniqueTutorialList();
     }
@@ -61,12 +64,38 @@ public class Application implements ReadOnlyApplication {
     }
 
     /**
+     * Replaces the contents of the student list with {@code students}.
+     * {@code persons} must not contain duplicate students.
+     */
+    public void setStudents(List<Person> students) {
+        this.students.setPersons(students);
+    }
+
+    /**
+     * Replaces the contents of the module list with {@code Module}.
+     * {@code Module} must not contain duplicate modules.
+     */
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
+    }
+
+    /**
+     * Replaces the contents of the tutorials list with {@code Tutorial}.
+     * {@code Tutorial} must not contain duplicate tutorials.
+     */
+    public void setTutorials(List<Tutorial> tutorials) {
+        this.tutorials.setTutorials(tutorials);
+    }
+
+    /**
      * Resets the existing data of this {@code Application} with {@code newData}.
      */
     public void resetData(ReadOnlyApplication newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setModules(newData.getModuleList());
+        setTutorials(newData.getTutorialList());
     }
 
     ////=================== person-level operations    =================================================================
@@ -124,6 +153,40 @@ public class Application implements ReadOnlyApplication {
             }
         }
     }
+    ////=================== student-level operations    ================================================================
+    /**
+     * Returns true if a student with the same identity as {@code student} exists in the application.
+     */
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return students.contains(student);
+    }
+
+    /**
+     * Adds a student to the application.
+     * The student must not already exist in the application.
+     */
+    public void addStudent(Student s) {
+        students.add(s);
+    }
+
+    /**
+     * Replaces the given student {@code target} in the list with {@code editedStudent}.
+     * {@code target} must exist in the application.
+     * The person identity of {@code editedStudent} must not be the same as another existing student in the application.
+     */
+    public void setStudent(Student target, Student editedStudent) {
+        requireNonNull(editedStudent);
+        persons.setPerson(target, editedStudent);
+    }
+
+    /**
+     * Removes {@code key} from this {@code Application}.
+     * {@code key} must exist in the application.
+     */
+    public void removeStudent(Student key) {
+        persons.remove(key);
+    }
 
     ////=================== module-level operations    =================================================================
 
@@ -150,14 +213,7 @@ public class Application implements ReadOnlyApplication {
      */
     public boolean hasModuleOfCode(ModCode modCode) {
         requireNonNull(modCode);
-        boolean hasMod = false;
-        for (Module module : modules) {
-            if (module.getModCode().equals(modCode)) {
-                hasMod = true;
-                break;
-            }
-        }
-        return hasMod;
+        return modules.getModuleByCode(modCode).isPresent();
     }
 
     /**
@@ -165,13 +221,7 @@ public class Application implements ReadOnlyApplication {
      */
     public void addTutorialToModule(Tutorial tutorial) {
         requireNonNull(tutorial);
-        Module targetModule = null;
-        for (Module module : modules) {
-            if (module.getModCode().equals(tutorial.getModCode())) {
-                targetModule = module;
-                break;
-            }
-        }
+        Module targetModule = modules.getModuleByCode(tutorial.getModCode()).get();
         targetModule.addTutorial(tutorial);
     }
     ////=================== tutorial-level operations    ==============================================================
@@ -199,18 +249,12 @@ public class Application implements ReadOnlyApplication {
      */
     public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
         requireAllNonNull(modCode, tutName);
-        boolean hasMod = false;
-        for (Module module : modules) {
-            if (module.getModCode().equals(modCode)) {
-                hasMod = true;
-                break;
-            }
-        }
-        if (!hasMod) {
+        Optional<Module> module = modules.getModuleByCode(modCode);
+        if (module.isEmpty()) {
             return false;
         }
         boolean hasTut = false;
-        for (Tutorial tutorial : tutorials) {
+        for (Tutorial tutorial : module.get().getTutorials()) {
             if (tutorial.getTutName().equals(tutName)) {
                 hasTut = true;
                 break;
@@ -233,16 +277,32 @@ public class Application implements ReadOnlyApplication {
     }
 
     @Override
+    public ObservableList<Person> getStudentList() {
+        return students.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Module> getModuleList() {
+        return modules.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Tutorial> getTutorialList() {
+        return tutorials.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Application // instanceof handles nulls
-                && persons.equals(((Application) other).persons));
+                && persons.equals(((Application) other).persons)
+                && students.equals(((Application) other).students)
+                && modules.equals(((Application) other).modules)
+                && tutorials.equals(((Application) other).tutorials));
     }
 
     @Override
     public int hashCode() {
         return persons.hashCode();
     }
-
-
 }

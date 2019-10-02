@@ -19,6 +19,10 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
+
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -81,14 +85,53 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Returns true if a student with the same identity as {@code student} exists in the application.
+     */
+    boolean hasStudent(Student student);
+
+
+    /**
+     * Adds the given student.
+     * {@code student} must not already exist in the application.
+     */
+    void addStudent(Student student);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered student list */
+    ObservableList<Person> getFilteredStudentList();
+
+    /** Returns an unmodifiable view of the filtered module list */
+    ObservableList<Module> getFilteredModuleList();
+
+    /** Returns an unmodifiable view of the filtered tutorial list */
+    ObservableList<Tutorial> getFilteredTutorialList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredStudentList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered module list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredModuleList(Predicate<Module> predicate);
+
+    /**
+     * Updates the filter of the filtered tutorial list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTutorialList(Predicate<Tutorial> predicate);
 
     /**
      * Returns true if a module with the same identity as {@code module} exists in the application.

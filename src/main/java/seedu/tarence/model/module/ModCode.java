@@ -28,7 +28,7 @@ public class ModCode {
     public ModCode(String modCode) {
         requireNonNull(modCode);
         checkArgument(isValidModCode(modCode), MESSAGE_CONSTRAINTS);
-        this.modCode = modCode;
+        this.modCode = modCode.toUpperCase();
     }
 
     /**

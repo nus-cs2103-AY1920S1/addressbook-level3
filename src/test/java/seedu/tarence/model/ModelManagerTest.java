@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.tarence.testutil.Assert.assertThrows;
+import static seedu.tarence.testutil.TypicalModules.CS1101S;
 import static seedu.tarence.testutil.TypicalPersons.ALICE;
 import static seedu.tarence.testutil.TypicalPersons.BENSON;
+import static seedu.tarence.testutil.TypicalStudents.AMY;
+import static seedu.tarence.testutil.TypicalTutorials.CS1101S_LAB04;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -89,12 +92,71 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasStudent_nullStudent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasStudent(null));
+    }
+
+    @Test
+    public void hasStudent_studentNotInApplication_returnsFalse() {
+        assertFalse(modelManager.hasStudent(AMY));
+    }
+
+    @Test
+    public void hasStudent_studentInApplication_returnsTrue() {
+        modelManager.addStudent(AMY);
+        assertTrue(modelManager.hasStudent(AMY));
+    }
+
+    @Test
+    public void hasModule_nullModule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasModule(null));
+    }
+
+    @Test
+    public void hasModule_moduleNotInApplication_returnsFalse() {
+        assertFalse(modelManager.hasModule(CS1101S));
+    }
+
+    @Test
+    public void hasModule_moduleInApplication_returnsTrue() {
+        modelManager.addModule(CS1101S);
+        assertTrue(modelManager.hasModule(CS1101S));
+    }
+
+    @Test
+    public void hasTutorial_nullTutorial_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasTutorial(null));
+    }
+
+    @Test
+    public void hasTutorial_tutorialNotInApplication_returnsFalse() {
+        assertFalse(modelManager.hasTutorial(CS1101S_LAB04));
+    }
+
+    @Test
+    public void hasTutorial_tutorialInApplication_returnsTrue() {
+        modelManager.addTutorial(CS1101S_LAB04);
+        assertTrue(modelManager.hasTutorial(CS1101S_LAB04));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
     @Test
+    public void getFilteredModuleList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredModuleList().remove(0));
+    }
+
+    @Test
+    public void getFilteredTutorialList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredTutorialList().remove(0));
+    }
+
+    @Test
     public void equals() {
+        // TODO: update application builder
         Application application = new ApplicationBuilder().withPerson(ALICE).withPerson(BENSON).build();
         Application differentApplication = new Application();
         UserPrefs userPrefs = new UserPrefs();
@@ -120,8 +182,12 @@ public class ModelManagerTest {
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(application, userPrefs)));
+        // TODO: Add test for updateFilteredModuleList when Find command is implemented
+        // TODO: Add test for updateFilteredTutorialList when Find command is implemented
 
         // resets modelManager to initial state for upcoming tests
+        // TODO: Add test for updateFilteredModuleList when Find command is implemented
+        // TODO: Add test for updateFilteredTutorialList when Find command is implemented
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false

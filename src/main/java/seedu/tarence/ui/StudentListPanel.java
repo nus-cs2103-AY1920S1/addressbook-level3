@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.tarence.commons.core.LogsCenter;
+import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 
 /**
@@ -20,8 +21,9 @@ public class StudentListPanel extends UiPart<Region> {
     @FXML
     private ListView<Student> studentListView;
 
-    public StudentListPanel(ObservableList<Student> studentList) {
+    public StudentListPanel(ObservableList<Person> personList) {
         super(FXML);
+        ObservableList<Student> studentList = (ObservableList<Student>) (ObservableList<?>) personList;
         studentListView.setItems(studentList);
         studentListView.setCellFactory(listView -> new StudentListViewCell());
     }
