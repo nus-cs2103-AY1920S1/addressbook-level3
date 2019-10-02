@@ -297,6 +297,7 @@ more conveniently than traditional forms of trip planning
 [appendix]
 == User Stories
 
+
 | Priority | As a …                      | I want to …                                                                  | So that I can …                                                         |
 | -------- | --------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | \*\*\*   | Traveller                   | Write to my travel diary at the end of the day with a multi-line text input  | Have better text formatting                                             |
@@ -322,6 +323,7 @@ more conveniently than traditional forms of trip planning
 | \*\*\*   | School teacher              | Plan the school trip for my class                                            | They have fun outing and learning one as well                           |
 | \*\*\*   | Salesperson                 | Decide the places to visit                                                   | I can get rough estimate of my expenses and to submit for reimbursement |
 | \*\*\*   | Accountant                  | decide if the expenses are appropriate                                       | I can figure out if the salesperson is trying to dupe me or not         |
+
 
 [appendix]
 == Use Cases
