@@ -44,101 +44,109 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in UPPER_CASE are the parameters to be supplied by the user e.g. in add -td, DESCRIPTION is a parameter which can be used as add -td bathe.
+* Items in square brackets are optional e.g -td DESCRIPTION [-t TAG] can be used as -td bath -t home or as -t bathe.
+* Items with …​ after them can be used multiple times including zero times e.g. [-t TAG]…​ can be used as   (i.e. 0 times), -t friend, -t friend -t family etc.
+* Parameters can be in any order e.g. if the command specifies  -td DESCRIPTION -t TAG, -t TAG -td DESCRIPTION is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a task: `task`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a task to the task list
+Format: `task DESCRIPTION [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A task can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `task eat my vitamins`
+* `task eat my vitamins -r at 2pm`
+* `task eat my vitamins -d by midnight -p low -t healthy`
 
-=== Listing all persons : `list`
+=== Adding an event: `event`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds an event to events list and calendar
+Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG]...`
 
-=== Editing a person : `edit`
+[TIP]
+An event can have any number of tags (including 0)
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Examples:
+
+* `event John’s Birthday -d 19/09/2019`
+* `event John’s Birthday -d 19/09/2019 -r at 2pm`
+* `event John’s Birthday -d 19/09/2019 -p high -t friend`
+
+=== Adding a reminder: `reminder`
+
+Adds a reminder to the reminder list
+Format: `reminder DESCRIPTION -d DATETIME [-p PRIORITY] [-t TAG]...`
+
+[TIP]
+A reminder can have any number of tags (including 0)
+
+Examples:
+
+* `reminder John’s Birthday -r 19/09/2019 14:00`
+* `reminder John’s Birthday -r 19/09/2019  14:00 -p high -t friend`
+
+=== Show the specified category : `show`
+
+Shows the specified category. For example show -t will show the tasks list and show -e will show the events list. The view will be toggled between the respective pages.
+Format: `show [-t] [-e] [-c] [-r] (at least one and only one flag must be used with this command)''
+
+Examples:
+
+* `show -t`
+* `show -e`
+* `show -r`
+* `show -c`
+
+=== Editing an item : `edit`
+
+This command is used to edit any of the items that you might have. However, you are only able to edit the item when the list is currently in view. For example, you are able to edit a task when the current view is that of the task list as index is used to reference the item. However, you are not able to edit a task for the event list.
++
+Format: `edit INDEX [-td DESCRIPTION] [-ed DESCRIPTION] [-rd DESCRIPTION] [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the task at the specified `INDEX`. The index refers to the index number shown in currently viewed list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
+* You can remove all the item's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `edit 1 -td read books -d by tmr` +
+Edits the task description and deadline of the 1st task to be `read books` and `by tmr` respectively.
+* `edit 3 -ed CS2103 team meeting -p high` +
+Edits the event description and the priority of the 2nd event to be `CS2103 team meeting` and `high` respectively.
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a reminder/task/event : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the reminder/task/event from the ELISA. +
 Format: `delete INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
+* `show -r` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 2nd reminder in the shown reminder list.
 
 // end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
 
 === Exiting the program : `exit`
 
@@ -146,31 +154,12 @@ Exits the program. +
 Format: `exit`
 
 === Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+ELISA saves the data in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
+
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
