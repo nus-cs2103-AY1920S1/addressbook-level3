@@ -50,6 +50,6 @@ image::mrnewguy.png[width="150", align="left"]
 {empty}[http://github.com/mrnewguy[github]] [<<mrnewguy#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Study planner feature
+Responsibilities: CCA planner feature
 
 '''
