@@ -110,7 +110,7 @@ Format: `*edit* INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
 ****
 * Edits the bookmark at the specified `INDEX`. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
-positive integer 1, 2, 3, …​
+positive integer `1`, `2`, `3`, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the bookmark will be removed i.e
@@ -166,7 +166,7 @@ Format: `*delete* INDEX`
 ****
 * Deletes the bookmark at the specified INDEX.
 * The index refers to the index number shown in the displayed bookmark list.
-* The index must be a positive integer 1, 2, 3, …​
+* The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
 Examples:
@@ -209,7 +209,7 @@ Format: `*goto reminder* INDEX`
 
 ****
 * INDEX is the index of the reminder as viewed on the dashboard.
-* The index must be a positive integer 1, 2, 3, …​
+* The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
 Examples:
