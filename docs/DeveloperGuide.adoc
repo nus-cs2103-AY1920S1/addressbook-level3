@@ -345,12 +345,20 @@ _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
+*Availability*
+1.  Application should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+*Performance*
+1.  Application should respond within 2 seconds of client's query.
 
-_{More to be added}_
+*Usability*
+1.  Application should be easy to use for new user when following the User Guide.
+2.  Application's interface should be intuitive and easy to understand for the user.  
+3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+*Reliability*
+1. Application should be able to execute all user's commands without failing.
+
 
 [appendix]
 == Glossary
