@@ -1,4 +1,4 @@
-= Keyboard Flashcard (KFC)
+= KeyboardFlashCards (KFC)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/AY1920S1-CS2103T-T12-4/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-T12-4/main"]
