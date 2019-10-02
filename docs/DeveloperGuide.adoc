@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Keyboard Flashcard (KFC) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T12-4`      Since: `Sept 2019`
 
 == Setting up
 
@@ -313,17 +313,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Keyboard Flashcard` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete flashCard
 
 *MSS*
 
-1.  User requests to list flashCards
-2.  AddressBook shows a list of flashCards
-3.  User requests to delete a specific flashCard in the list
-4.  AddressBook deletes the flashCard
+1.  User requests to list all flashcards in a category
+2.  System shows a list of flashcards with index
+3.  User requests to delete a flashcard in the list by providing category and index
+4.  System deletes the flashcard
+
 +
 Use case ends.
 
@@ -334,21 +334,69 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given category is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The given index is invalid.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Edit Flashcard
+
+*MSS*
+
+1.  User requests to list all flashcards in a category
+2.  System shows a list of flashcards with index
+3.  User requests to edit a flashcard in the list by providing category and index
+4.  System provides a pop-up for user to enter changes
+5.  User enters changes
+6.  System updates flashcard with the user input
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given category is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given index is invalid.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 flashCards without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 2000 flash cards without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 4000 (2 times that of flash cards?) tags without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The programme should be able to respond within 1 second.
+.  The file export format to be shared with friends should be backwards compatible.
+.  The user interface should be intuitive enough for users familiar with the command line and/or vim.
+.  The source code should be open source.
+.  Flash card tests should be not be executable if there are no flash cards in the system.
+.  Old flash cards should still be working every time there's an update to the programme.
 
 _{More to be added}_
 
