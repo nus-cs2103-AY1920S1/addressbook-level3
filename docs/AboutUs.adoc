@@ -12,14 +12,14 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ang Ze Yu
 image::Ze Yu.png[width="150", align="left"]
-{empty}[https://github.com/ang-zeyu[github]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ang-zeyu[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic, Deliverables and deadlines
 '''
 
 === Derrick
-image::derrick.jpg[width="150", align="left"]
+image::derrick.png[width="150", align="left"]
 {empty}[https://github.com/teoha[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
