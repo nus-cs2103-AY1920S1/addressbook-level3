@@ -20,38 +20,38 @@ Responsibilities: Integration, Git
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Yang Shuting
+image::shutingy.png[width="150", align="left"]
+{empty}[http://github.com/shutingy[github]] [<<shutingy#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
+Role: IntelliJ Expert +
+Responsibilities: UI, Model
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Keith Teo
+image::keiteo.jpg[width="150", align="left"]
+{empty}[http://github.com/keiteo[github]] [<<keiteo#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Documentation and Code Quality Lead +
+Responsibilities: Logic
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Dalson Tan
+image::dalsontws.jpg[width="150", align="left"]
+{empty}[http://github.com/dalsontws[github]] [<<dalsontws#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Scheduler + 
+Responsibilities: Deliverables & Deadlines
+
+'''
+
+=== Leonard Tay
+image::leonardtay748.jpg[width="150", align="left"]
+{empty}[http://github.com/leonardtay748[github]] [<<leonardtay748#, portfolio>>]
+
+Role: Lead Tester
+Responsibilities: Testing
 
 '''
