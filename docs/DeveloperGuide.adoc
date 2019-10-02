@@ -401,6 +401,96 @@ Use case ends
 ** Repeat 1a1 and 1a2 until a valid index is provided
 * Use case resumes from step 2
 
+
+[discrete]
+=== Use case: Add a revision task to revision plan (Shui Yao)
+
+*Preconditions:* notes collections and question collections are not both empty
+
+*MSS*
+
+1. Student keys in revision task command and specifies the note set name or question set name he/she wants to add to revision plan, with starting date and starting time.
+2. NUStudy adds the task to revision plan.
+3. NUStudy informs the Student about successful addition of the task.
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. NUStudy detects that neither a note set or a question set is entered by Student.
+[none]
+** 1a1. NUStudy requests for the correct input with a note set name or a question set name.
+** 1a2. Student enters correct input.
+** Steps 1a1 - 1a2 are repeated until the input is correct.
+* Use case resumes from Step 2.
+
+[none]
+* 1b. NUStudy detects missing starting date or time.
+[none]
+** 1b1. NUStudy requests for correct input with starting date and time.
+** 1b2. Student enters correct input following the format.
+** Steps 1b1 - 1b2 are repeated until getting a correct input with valid starting date and time.
+* Use case resumes from Step 2.
+
+[none]
+* 1c. NUStudy detects invalid date or time.
+[none]
+** 1c1. NUStudy requests for valid date and time.
+** 1c2. Student enters correct input with valid date and time.
+** Steps 1c1 - 1c2 are repeated until getting a correct input with valid date and time.
+* Use case resumes from Step 2.
+
+[discrete]
+=== Use case: Delete a task from revision plan (Shui Yao)
+
+*MSS*
+
+1. Student requests to list revision plan.
+2. NUStudy lists the revision plan.
+3. Student specifies the index of the task in the revision plan list.
+4. NUStudy removes the task from the revision plan.
+5. NUStudy informs the Student about the successful removal of the task.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. NUStudy detects that the revision plan has no tasks.
+[none]
+** 1a1. NUStudy informs the Student that the revision plan is empty
+* Use case ends.
+
+[none]
+* 3a. NUStudy detects an index that is not in the revision plan.
+[none]
+** 3a1. NUStudy requests for correct input with valid index.
+** 3a2. Student enters correct input with valid index.
+** Steps 3a1 - 3a2 are repeated until getting a valid index
+* Use case resumes from Step 2.
+
+[discrete]
+=== Use case: Clear the revision plan (Shui Yao)
+
+*MSS*
+
+1. Student clears the revision plan.
+2. NUStudy requests for confirmation.
+3. Student confirms the clear operation.
+4. NUStudy clears the revision plan.
+5. NUStudy informs the Student that the revision plan is successfully cleared.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Student disapprove the clear operation.
+[none]
+** 2a1. NUStudy informs the Student of the cancellation of clear operation.
+* Use case ends.
+
+
+
 [appendix]
 == Non-functional requirements
 
