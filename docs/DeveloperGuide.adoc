@@ -275,109 +275,332 @@ Refer to the guide <<Testing#, here>>.
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
-== Product Scope
+Appendix A: Product Scope
 
-*Target user profile*:
+**Target user profile:**
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+- Has a need to manage multiple trips
+- Prefers using a notebook to other types
+- Frequently uses the computer while overseas
+- Wants to micromanage all parts of their trips
+- Wants to plan all details of the trip before leaving
+- Wants to manage a trip even without an internet connection
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition:** Able to micromanage a trip and access one&#39;s plans more conveniently than traditional forms of trip planning
 
-[appendix]
-== User Stories
+Appendix B: User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+| Priority | As a … | I want to … | So that I can … |
+| --- | --- | --- | --- |
+| \*\*\* | Traveller | Write to my travel diary at the end of the day with a multi-line text input | Have better text formatting |
+| \*\* | Command line enthusiast | Tab-autocomplete my commands | Speed through typing the typing process |
+| \*\*\* | Traveller | Be able to print my itinerary | Bring it around in my travels if my battery dies |
+| \*\*\* | Unthrifty traveller | get alerts if my spending goes beyond my planned levels | Adjust my expenses |
+| \* | Non-math-inclined traveller | Get constant recommendations to my budget plan | I don&#39;t need to do much math |
+| \*\* | Cautious traveller | print or send the contacts to my mobile phone | I can access these numbers at any time |
+| \*\*\* | Traveller | Make a detailed schedule for my trip | I don&#39;t have to waste time deciding which places to visit next |
+| \* | Traveller | Visualise my routes on a map | Use my time more efficiently |
+| \*\*\* | Forgetful traveller | Make a checklist for items to bring | I won&#39;t forget any |
+| \*\*\* | Traveller | Have a copy of my trip schedule in my mobile devices | Carry it around easily |
+| \*\*\* | Traveller | To be easy to remember |   |
+| \*\*\* | User | Not need to edit multiple areas of the app after a single command |   |
+| \* | Traveller | Manage my expenses based on the country I am visiting | I don&#39;t need to convert the currency myself |
+| \*\*\* | Forgetful traveller | Alerted of bookings I have made before the trip | I won&#39;t miss any |
+| \*\* | Sentimental traveller | Keep a diary of locations I have been | I can remember them |
+| \*\*\* | Careful traveller | Have a contact list of knowledgeable or reliable people/places | Can find them if I meet any problems |
+| \* | User | Have an intuitive GUI that changes based on the days I have planned to spend | I do not have to navigate the UI frequently |
+| \*\*\* | User | Be able to undo my actions | I can undo my mistakes |
+| \*\*\* | Sight-seeing enthusiast | Plan my trip in various places in Singapore | I do not waste time later |
+| \*\*\* | Travel and tour guide | Plan the trip for my client | I have an enriched product |
+| \*\*\* | School teacher | Plan the school trip for my class | They have fun outing and learning one as well |
+| \*\*\* | Salesperson | Decide the places to visit | I can get rough estimate of my expenses and to submit for reimbursement |
+| \*\*\* | Accountant | decide if the expenses are appropriate | I can figure out if the salesperson is trying to dupe me or not |
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+Appendix C: Use Cases
 
-|`* * *` |user |add a new person |
+Use case: UC1 - Add Trip
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+**MSS**
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+1. User requests to **Trip Manager** to list trips
+2. TravelPal shows a list of **Trips**
+3. User requests to add a specific **Trip** to the list
+4. User edits the **Trip** (UC2)
+5. TravelPal adds the **Trip**
+6. TravelPal shows the list of **Trips**
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
-
-_{More to be added}_
-
-[appendix]
-== Use Cases
-
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
-[discrete]
-=== Use case: Delete person
-
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
 Use case ends.
 
-*Extensions*
+**Extensions**
 
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
+5a. The trip added clashes with another trip
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+        5a1. TravelPal shows an error message
 
-_{More to be added}_
+        5a2. TravelPal does not discard information the user has provided
 
-[appendix]
-== Non Functional Requirements
+        5a3. TravelPal displays the **Edit Trip** page containing the user&#39;s previous input
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+        5a4. TravelPal requests the user to change the dates of the **Trip**
 
-_{More to be added}_
+        Steps 5a1-5a2 are repeated until no clashes occur between trips
 
-[appendix]
-== Glossary
+Use case: UC2 – Edit Trip
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+**MSS**
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+1. User chooses to edit specific **Trip**
+2. Travelpal shows **Edit Trip Screen** with fields to edit/enter
+3. User edits the information in the specified **Trip**
+4. User submits the details and confirms the edit
 
-[appendix]
-== Product Survey
+Use case ends
 
-*Product Name*
+**Extensions**
 
-Author: ...
+3a. User enters an invalid field
 
-Pros:
+        3a1. TravelPal shows an error message
 
-* ...
-* ...
+        3a2. TravelPal does not edit invalid field
 
-Cons:
+Use case continues at step 2
 
-* ...
-* ...
+3b. User requests to list of **Days** in the trip
 
+        3b1. TravelPal shows a list of days to the user (can be empty)
+
+        3b2. User chooses to add/edit/delete (UC4/5/6) **Day**
+
+        Use case continues at step 4
+
+4b. User leaves necessary information empty
+
+        4a1. TravelPal shows an error message
+
+        4a2. TravelPal does not submit the details and does not confirm the edit
+
+        4a3. User enters new data
+
+        Steps 4a1-4a3 are repeated until the data entered are non empty
+
+        Use case ends.
+
+Use case: UC3 – Delete Trip
+
+**MSS**
+
+1. User requests to **Trip Manager** to list **Trips**
+2. TravelPal shows a list of **Trips**
+3. User requests to delete a specific **Trip** in the list
+4. TravelPal deletes the **Trip**
+
+Use case ends
+
+**Extensions**
+
+        2a. The list is empty
+
+        Use case ends
+
+        3a. The **Name** provided is invalid
+
+                3a1. TravelPal shows an error message
+
+                3a2. TravelPal does not delete any trips
+
+                Use case ends
+
+Use case: UC4 – Add Day
+
+**MSS**
+
+1. User chooses to add a **Day** to a specified **Trip**
+2. User edits the day (UC5)
+3. TravelPal saves the **Day**
+
+**Extensions**
+
+3a **Day** added clashes with other days in the **Trip**
+
+        3a1. TravelPal shows an error message
+
+        3a2. TravelPal does not discard information the user has provided
+
+        3a3. TravelPal displays the **Edit Day** page containing the user&#39;s input
+
+        3a4. TravelPal requests the user to change the date of the **Day**
+
+        Steps 3a1 – 3a4 are repeated until the user provided non clashing date
+
+Use case: UC5 – Edit Day
+
+**MSS**
+
+1. User requests to edit specific **Day**
+2. TravelPal shows the **Edit Day** page with fields to enter
+3. User edits information in the specified **Day**
+4. User submits and confirms the edit
+
+Use case ends
+
+**Extensions**
+
+3a. User enters an invalid field
+
+        3a1. TravelPal shows an error message
+
+        3a2. TravelPal does not edit invalid field
+
+        Use case continues at step 2
+
+3b. User requests to list of **Events** in the trip
+
+        3b1. TravelPal shows a list of **Events** to the user (can be empty)
+
+        3b2. User chooses to add/edit/delete (UC 7/8/9) **Event**
+
+        Use case continues at step 4
+
+4b. User leaves necessary information empty
+
+        4a1. TravelPal shows an error message
+
+        4a2. TravelPal does not submit the details and does not confirm the edit
+
+        4a3. User enters new data
+
+        Steps 4a1-4a3 are repeated until the data entered are correct
+
+        Use case ends.
+
+User case: UC6 – Delete Day
+
+**MSS**
+
+1. User requests to delete a specific **Day** in the list
+2. TravelPal deletes the **Day**
+
+Use case ends
+
+**Extensions**
+
+        2a. The list is empty
+
+        Use case ends
+
+        3a. The **Name** provided is invalid
+
+                3a1. TravelPal shows an error message
+
+                3a2. TravelPal does not delete any **Day**
+
+                Use case ends
+
+User case: UC7 – Add Event
+
+**MSS**
+
+1. User chooses to add a **Event** to a specified **Day**
+2. User edits the event (UC5)
+3. TravelPal saves the **Event**
+
+**Extensions**
+
+3a **Event** added clashes with other **Events** in the **Day**
+
+        3a1. TravelPal shows an error message
+
+        3a2. TravelPal does not discard information the user has provided
+
+        3a3. TravelPal displays the **Edit Event** page containing the user&#39;s input
+
+        3a4. TravelPal requests the user to change the date of the **Event**
+
+        Steps 3a1 – 3a4 are repeated until the user provided non clashing date
+
+User case UC8 – Edit Event
+
+**MSS**
+
+1. User requests to edit specific **Day**
+2. TravelPal shows the **Edit Day** page with fields to enter
+3. User edits information in the specified **Day**
+4. User submits and confirms the edit
+
+Use case ends
+
+**Extensions**
+
+3a. User enters an invalid field
+
+        3a1. TravelPal shows an error message
+
+        3a2. TravelPal does not edit invalid field
+
+        Use case continues at step 2
+
+3b. User requests to list of **Events** in the **trip**
+
+        3b1. TravelPal shows a list of **Events** to the user (can be empty)
+
+        3b2. User chooses to add/edit/delete (UC 7/8/9) **Event**
+
+        Use case continues at step 4
+
+4b. User leaves necessary information empty
+
+        4a1. TravelPal shows an error message
+
+        4a2. TravelPal does not submit the details and does not confirm the edit
+
+        4a3. User enters new data
+
+        Steps 4a1-4a3 are repeated until the data entered are non empty
+
+        Use case ends.
+
+User case UC9 – Delete Event
+
+**MSS**
+
+1. User requests to delete a specific **Event** in the list
+2. TravelPal deletes the **Event**
+
+Use case ends
+
+**Extensions**
+
+        2a. The list is empty
+
+        Use case ends
+
+        3a. The **Name** provided is invalid
+
+                3a1. TravelPal shows an error message
+
+                3a2. TravelPal does not delete any **Event**
+
+                Use case ends
+
+Appendix D: Non Functional Requirements
+
+1. Should work on any [mainstream OS](https://se-education.org/addressbook-level3/DeveloperGuide.html#mainstream-os) as long as it has Java 11 or above installed.
+2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. Should be able to hold up to 30 trips without a noticeable sluggishness in performance for typical usage.
+4. A user familiar with travelling should be able to navigate the app easily
+
+Appendix E: Glossary
+
+**TravelPal** – Our cross-platform desktop application for those who love to plan and micromanage their travels
+
+**CLI** – Command Line Interface. CLI is a command line program that accepts text input to execute operating system functions.
+
+**GUI** – Graphical User Interface. The graphical user interface is a form of user interface that allows users to interact
+
+**OS** - An operating system, or &quot;OS,&quot; is software that communicates with the hardware and allows other programs to run
+
+**Mainstream OS** - Windows, Linux, Unix, OS-X
 [appendix]
 == Instructions for Manual Testing
 
