@@ -563,7 +563,7 @@ The reminder reminds you to read announcements.
 
 
 === Editing a reminder: `reminder edit`
-Edits the reminder of the specified bookmark. You can edit either time or the note of the reminder.
+Edits the reminder of the specified bookmark. You can edit either the time or the note of the reminder.
 
 Format: `reminder edit INDEX [t/TIME_DATE] [n/NOTE]`
 * INDEX is the index of the bookmark that has the reminder that you want to edit.
