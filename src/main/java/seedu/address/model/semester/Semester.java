@@ -14,7 +14,6 @@ public class Semester {
     private final UniqueModuleList modules = new UniqueModuleList();
     private boolean isBlocked = false;
     private String reasonForBlocked;
-    private int mcCount = 0;
 
     /**
      * SemesterName field must be present and not null.
@@ -40,6 +39,6 @@ public class Semester {
     }
 
     public int getMcCount() {
-        return mcCount;
+        return modules.getMcCount();
     }
 }
