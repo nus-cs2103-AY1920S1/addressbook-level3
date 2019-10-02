@@ -29,7 +29,7 @@ Responsibilities: Documentation and UI
 '''
 
 === Denis
-image::weomucat.jpg[width="150", align="left"]
+image::weomucat.png[width="150", align="left"]
 {empty}[http://github.com/WeomuCat[github]] [<<weomucat#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Main and Model
 '''
 
 === Bruce Ong
-image::bruceskellator.jpg[width="150", align="left"]
+image::bruceskellator.png[width="150", align="left"]
 {empty}[http://github.com/bruceskellator[github]] [<<bruceskellator#, portfolio>>]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Undo and Redo
 '''
 
 === Ong Cheng Geng
-image::chenggeng97.jpg[width="150", align="left"]
+image::chenggeng97.png[width="150", align="left"]
 {empty}[http://github.com/ChengGeng97[github]] [<<chenggeng97#, portfolio>>]
 
 Role: Developer +
