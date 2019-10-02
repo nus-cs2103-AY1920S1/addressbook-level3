@@ -639,7 +639,7 @@ folder hierarchy will collapse by the given number of levels. If `LEVEL`
 is zero, nothing happens.
 * Current level of display + `LEVEL` must be positive and less than or equal
 to the maximum number of levels.
-* If `LEVEL`` is not specified, expand to the maximum number of levels.
+* If `LEVEL` is not specified, expand to the maximum number of levels.
 ****
 
 Examples:
