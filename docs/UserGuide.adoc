@@ -141,10 +141,75 @@ Deletes the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Scheduling exercises: `schedule`
+
+==== Schedules a regime
+
+Schedules an exercise regime for a certain date. If regime clashes with another scheduled regime, users will be prompted to resolve the conflict via a popup window. Refer to <<resolve>> for details on resolving scheduling conflicts.
+
+Format: `schedule n/REGIME_NAME d/DATE`
+
+Example:
+
+* `schedule n/cardio d/19/9/2019`
+
+==== Completes a schedule regime
+
+Once a scheduled regime is completed, users can add that regime to the exercise tracker.
+
+Format: `schedule f/INDEX_OF_REGIME_IN_SCHEDULE`
+
+Example:
+
+* `schedule f/2`
+
+[[resolve]]
+=== Resolving scheduling conflicts: `resolve`
+
+==== Taking one of the conflicting regimes completely
+
+Takes the scheduled regime or the conflicting regime completely and discarding the other. Neither regimes will be completely deleted from the user’s collection.
+
+Format: `resolve n/REGIME_TO_TAKE`
+
+Example:
+
+* `resolve n/cardio`
+
+
+==== Taking some exercises from some regime
+Takes some exercises from the scheduled regime and some from the conflicting regime to make a brand new regime. The new regime that is a result of the combination will be added  to the user’s collection and scheduled at the date of conflict. This new regime will also be added to the user’s collection of regimes
+
+Format: `resolve n/REGIME_NAME [i/INDEX_OF_EXERCISE_IN_SCHEDULED]... [r/INDEX_OF_EXERCISE_IN_CONFLICTING]...`
+
+****
+* Takes the exercise at the specified `INDEX`.
+* A new regime with `REGIME_NAME` will be created and added to user's collection
+* `REGIME_NAME` must be a new name that does not exist in user's collection
+* The index refers to the index number shown in the displayed conflict resolving window.
+* The index *must be a positive integer* 1, 2, 3, ...
+* i/ is for index of the scheduled regime
+* r/ is for index of the conflicting regime
+****
+
+Example:
+
+* `resolve d/date n/cardios i/1 i/2 i/3 r/4 r/2`
+
+Takes exercise 1, 2, 3 from scheduled regime and exercise 2, 4 from conflicting regime and adds them to a new regime called cardios
+
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
+
+=== Remind to do exercises `[coming in v2.0]`
+
+Reminds you to do exercises.
+
+=== Autocomplete of commands `[coming in v2.0]`
+
+Autocompletes the commands while typing.
 
 === Saving the data
 
