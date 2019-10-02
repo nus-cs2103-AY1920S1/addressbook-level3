@@ -30,7 +30,7 @@ Responsibilities: UI, Model
 '''
 
 === Keith Teo
-image::keiteo.jpg[width="150", align="left"]
+image::keiteo.png[width="150", align="left"]
 {empty}[http://github.com/keiteo[github]] [<<keiteo#, portfolio>>]
 
 Role: Documentation and Code Quality Lead +
@@ -39,7 +39,7 @@ Responsibilities: Logic
 '''
 
 === Dalson Tan
-image::dalsontws.jpg[width="150", align="left"]
+image::dalsontws.png[width="150", align="left"]
 {empty}[http://github.com/dalsontws[github]] [<<dalsontws#, portfolio>>]
 
 Role: Scheduler + 
@@ -48,7 +48,7 @@ Responsibilities: Deliverables & Deadlines
 '''
 
 === Leonard Tay
-image::leonardtay748.jpg[width="150", align="left"]
+image::leonardtay748.png[width="150", align="left"]
 {empty}[http://github.com/leonardtay748[github]] [<<leonardtay748#, portfolio>>]
 
 Role: Lead Tester
