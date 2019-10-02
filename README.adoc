@@ -3,6 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T09-2/main[image:https://travis-ci.org/AY1920S1-CS2103T-T09-2/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T09-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T09-2/main/badge.svg?branch=master[Coverage]]
+https://app.netlify.com/sites/exerhealth/deploys[image:https://api.netlify.com/api/v1/badges/8b51ce83-a6ec-4994-8014-1c4b30aa3cd6/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
