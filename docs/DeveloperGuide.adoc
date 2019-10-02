@@ -345,7 +345,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |achievement-oriented diabetic | view the achievements and progress I have made on food intake |remain motivated to keep my streak on good habits going
 
-|`* *` |paranoid diabetic who values privacy |secure/encrypt my health data and other <<private-contact-detail,private contact details>> |protect my data
+|`* *` |paranoid diabetic who values privacy |secure/encrypt my health data and other private contact details |protect my data
 
 |`* *` |diabetic patient with a family |have a user-friendly app that helps me manage my medical data and appointments on my own |free the burden I have on my family
 
