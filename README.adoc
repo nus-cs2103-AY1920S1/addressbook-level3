@@ -1,7 +1,7 @@
 = ELISA
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.com/cholmes899/main[image:https://travis-ci.com/cholmes899/main.svg?branch=master[Build Status]]
+https://travis-ci.com/AY1920S1-CS2103T-T10-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-T10-3/main.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -11,9 +11,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* Extremely Loud and Intelligent Student Assistant (ELISA) is for students who *want to have an intelligent companion that keeps track of tasks and give friendly reminders on when to take breaks*.
+* More importantly, ELISA is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ELISA can get your tasks done faster than traditional GUI apps.
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Site Map
 
@@ -25,6 +27,7 @@ endif::[]
 
 == Acknowledgements
 
+* Built on AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
