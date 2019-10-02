@@ -1,5 +1,6 @@
 package seedu.address.model.semester;
 
+import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
 /**
@@ -40,5 +41,21 @@ public class Semester {
 
     public int getMcCount() {
         return modules.getMcCount();
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
+    public void setReasonForBlocked(String reasonForBlocked) {
+        this.reasonForBlocked = reasonForBlocked;
+    }
+
+    public void addModule(Module module) {
+        modules.add(module);
+    }
+
+    public void removeModule(Module module) {
+        modules.remove(module);
     }
 }

@@ -77,6 +77,7 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new ModuleNotFoundException();
         }
         mcCount -= toRemove.getMcCount();
+        assert(mcCount >= 0);
     }
 
     public void setModules(UniqueModuleList replacement) {
