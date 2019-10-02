@@ -50,12 +50,12 @@ Starts the flashcard test (assuming you are in the category ‘folder’)
 Starts the flashcard test from any specific category
 `start [category]`
 
-=== Add new category: cat [`name]`
+=== Add new category: `cat [name]`
 
 Creates a new empty category with the given name.
 `cat Math`
 
-=== Add new flashcard: add [`category]`
+=== Add new flashcard: `add [category]`
 
 Adds a new flashcard into your specific category/topic.
 `add Math`
@@ -96,7 +96,7 @@ Lists all the flashcards under the specific topic folder. Each flashcard is colo
 
 `exit`
 
-=== View overall stats: `stats `
+=== View overall stats: `stats`
 
 `stats`
 
