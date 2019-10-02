@@ -277,13 +277,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant number of notes
+* has a need to test contents of notes
+* prefers desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Revise more efficiently with spaced repetition and active recall
+compared to a typical note-taking app
 
 [appendix]
 == User Stories
@@ -338,13 +340,13 @@ Priorities:
 
 |`*`|student|get statistics of the change of difficulty levels I have made to a question|I can understand my improvement in understanding the content|Xueting
 
-|`***`|student|see how well I am able to answer questions for different topics/subjects|focus more on topics/subjects that I need to improve on|Irene
+|`* * *`|student|see how well I am able to answer questions for different topics/subjects|focus more on topics/subjects that I need to improve on|Irene
 
-|`***`|student|check my past responses to different questions|compare with my current response and improve on it if necessary/check if I am making the same mistakes twice|Irene
+|`* * *`|student|check my past responses to different questions|compare with my current response and improve on it if necessary/check if I am making the same mistakes twice|Irene
 
-|`**`|student|have a graphical report of my progress|get an overview of my progress with a glimpse|Irene
+|`* *`|student|have a graphical report of my progress|get an overview of my progress with a glimpse|Irene
 
-|`**`|student|check the questions that I have attempted for a specific time period|I can skip questions that I have already done during that time period|Irene
+|`* *`|student|check the questions that I have attempted for a specific time period|I can skip questions that I have already done during that time period|Irene
 
 |`*`|student|get an overview to see the number of notes added for each topic/subject|I can see which topic/subject I need to make more notes on|Irene
 
@@ -402,6 +404,136 @@ Use case ends
 * Use case resumes from step 2
 
 [discrete]
+
+=== Use case: Add a revision task to revision plan (Shui Yao)
+
+*Preconditions:* notes collections and question collections are not both empty
+
+*MSS*
+
+1. Student keys in revision task command and specifies the note set name or question set name he/she wants to add to revision plan, with starting date and starting time.
+2. NUStudy adds the task to revision plan.
+3. NUStudy informs the Student about successful addition of the task.
+
+Use case ends.
+
+*Extensions*
+
+[none]
+
+* 1a. NUStudy detects that neither a note set or a question set is entered by Student.
+[none]
+** 1a1. NUStudy requests for the correct input with a note set name or a question set name.
+** 1a2. Student enters correct input.
+** Steps 1a1 - 1a2 are repeated until the input is correct.
+* Use case resumes from Step 2.
+
+[none]
+* 1b. NUStudy detects missing starting date or time.
+[none]
+** 1b1. NUStudy requests for correct input with starting date and time.
+** 1b2. Student enters correct input following the format.
+** Steps 1b1 - 1b2 are repeated until getting a correct input with valid starting date and time.
+* Use case resumes from Step 2.
+
+[none]
+* 1c. NUStudy detects invalid date or time.
+[none]
+** 1c1. NUStudy requests for valid date and time.
+** 1c2. Student enters correct input with valid date and time.
+** Steps 1c1 - 1c2 are repeated until getting a correct input with valid date and time.
+* Use case resumes from Step 2.
+
+[discrete]
+=== Use case: Delete a task from revision plan (Shui Yao)
+
+*MSS*
+
+1. Student requests to list revision plan.
+2. NUStudy lists the revision plan.
+3. Student specifies the index of the task in the revision plan list.
+4. NUStudy removes the task from the revision plan.
+5. NUStudy informs the Student about the successful removal of the task.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. NUStudy detects that the revision plan has no tasks.
+[none]
+** 1a1. NUStudy informs the Student that the revision plan is empty
+* Use case ends.
+
+[none]
+* 3a. NUStudy detects an index that is not in the revision plan.
+[none]
+** 3a1. NUStudy requests for correct input with valid index.
+** 3a2. Student enters correct input with valid index.
+** Steps 3a1 - 3a2 are repeated until getting a valid index
+* Use case resumes from Step 2.
+
+[discrete]
+=== Use case: Clear the revision plan (Shui Yao)
+
+*MSS*
+
+1. Student clears the revision plan.
+2. NUStudy requests for confirmation.
+3. Student confirms the clear operation.
+4. NUStudy clears the revision plan.
+5. NUStudy informs the Student that the revision plan is successfully cleared.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Student disapprove the clear operation.
+[none]
+** 2a1. NUStudy informs the Student of the cancellation of clear operation.
+* Use case ends.
+
+[discrete]
+=== Use case: get statistics for subjects (Irene)
+
+*MSS*
+
+1. Student gives the command to get the statistics for a subject `stats s/SUBJECT [s/SUBJECT1] [s/SUBJECT2]...`
+2. Application returns a piechart with number of questions answered correctly and incorrectly
+
+Use case ends
+
+*Extensions*
+[none]
+* 1a. Student provides an invalid subject
+[none]
+** 1a1. Application will return a list of subjects that are in the database
+** 1a2. Student will re-enter the command with a valid subject
+* Use case resumes from step 2
+
+* 1b. Student provides more than one subject
+[none]
+** 1b1. Application returns a piechart totaling the statistics of question answered correctly and incorrectly for all subjects as well as a list of the individual statistics for each subject
+* Use case ends.
+
+[discrete]
+=== Use case: get statistics for individual questions (Irene)
+
+*MSS*
+
+1. Student gives the command to get statistics for a question `stats INDEX`
+2. Application returns past responses to the question, the subject and/or topic associated with the question and statistics of how well the question has been answered
+
+Use case ends
+
+*Extensions*
+[none]
+* 1a. Student gives an out-of-range index
+[none]
+** 1a1. Application displays the range of questions available
+** 1a2. Student re-enters the command
+** Repeat 1a1 and 1a2 until a valid index is provided
+* Use case resumes from step 2
+
 === Use case: Specify difficulty level of questions (Xueting)
 
 *MSS*
@@ -409,9 +541,6 @@ Use case ends
 1. Student specifies the difficulty level as the last tag while adding a questions - `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 2. Application shows and stores the question with its difficulty level.
 
-*Extensions*
-
-[none]
 * 1a. Student does not specify the difficulty level
 [none]
 ** 1a1. Application shows an error message to require difficulty level input
@@ -427,9 +556,6 @@ Use case ends
 1. Student changes the difficulty level of a question - edit `-dif id/INDEX d/DIFFICULTY`
 2. Application shows and stores the question with the updated difficulty level
 
-*Extensions*
-
-[none]
 * 1a.Student does not provide the updated difficulty level
 [none]
 ** 1a1. Application shows an error message to require difficulty level update
