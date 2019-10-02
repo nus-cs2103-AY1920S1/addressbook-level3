@@ -620,23 +620,6 @@ Commands that modify the bookmark list or reminders, which includes `add`, `edit
 `reminder edit`, and `reminder delete`
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
