@@ -460,7 +460,7 @@ Use case ends.
 
 *MSS*
 
-1. Mortuary manager requests to redo the previously undone command.
+1. Mortuary manager requests to redo the last undone command.
 2. Mortago redoes the command.
 3. Mortago updates the GUI to reflect the new changes.
 
