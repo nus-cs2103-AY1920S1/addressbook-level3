@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= SugarMummy - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,27 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T16-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-T16-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Do you feel it difficult to keep the right diets for type II diabetes? Do you want to manage your hectic schedule? Do you want to have a better overview of your health data? Do you want to move to a healthier lifestyle? If your answer is yes, then SugarMummy is perfect  for you! SugarMummy is a lifestyle tracker and planner that aims to combat Type II diabetes by encouraging users to keep a healthy lifestyle. Moreover, being a computer app with Command Line Interface, SugarMummy is optimized for fast typers who has access to a computer most of the time.
+
+Hope following features will benefit you and enjoy!
+
+* Data tracker for various data types (blood sugar levels, diets, exercise, clinic appointments, medical finance and so on!)
+* Easy-to-use reminder and calendar
+* Personalized user experience and bio encouragements
+* Weekly and Monthly summary for your activities and health level
+* Customized recommendations for food and fun quizzes about healthy dieting
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `sugarmummy.jar` link:https://github.com/AY1920S1-CS2103-T16-1/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder for data records.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +41,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add`**`r/bloodsugar v/10 t/now` : adds a `bloodsugar` record to the app.
+* **`delete`**`3` : deletes the 3rd record shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -163,15 +170,48 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+:hardbreaks:
+[start=1]
+. *Achievement*: `achievement`
+. *Add*: `add r/RECORD_TYPE v/VALUE t/TIME [t/TIME_END]`
+E.g. `add r/bloodsugar v/10 t/now`
+. *Add bio* : `addbio n/NAME [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] p/CONTACT_NUMBER e/EMERGENCY_CONTACT
+m/MEDICAL_CONDITION [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
+E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
+. *Average*: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
+E.g. `average a/weekly r/bloodsugar n/3`
+. *Bio*: `bio`
+. *Bg*: `bg p/PATH`
+E.g. `bg p//Users/Bob/Pictures/bg.jpg`
+. *Complete*: `complete [INDEX]... [t/TIME]`
+E.g. `complete t/today`
+. *Dailymsg*: `dailymsg`
+. *Delete*: `delete INDEX`
+E.g. `delete 2`
+. *Edit*: `edit INDEX [v/VALUE] [t/TIME] [t/TIME_END]`
+E.g. `edit 1 v/15 t/now`
+. *Export*: `export [d/START_DATE]`
+E.g `export d/01.09.2019`
+. *Event*: `event TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD]  [v/venue] [p/people]`
+E.g. `event appointment t/1400 20/12/2019 v/NUH p/Dr Lim`
+. *Edit bio*: `edit [n/NAME] [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] [p/CONTACT_NUMBER] [e/EMERGENCY_CONTACT]
+[m/MEDICAL_CONDITION] [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
+E.g. `edit g/Male dp//Users/Bob/Pictures/dp.jpg`
+E.g. `edit dp/C:\\Users\\Bob\\Pictures\\dp.jpg`
+. *Font color*: `fontcolor c/COLOUR`
+E.g. `fontcolor yellow`
+E.g. `fontcolor 00FF00`
+. *List*: `list [r/RECORD_TYPE] ...`
+E.g. `list r/bloodsugar r/sleep r/food`
+. *Reminder*: `reminder DESCRIPTION t/TIME [t/TIME]... [rp/repetition] [v/venue] [p/people]`
+E.g. `reminder insulin injection t/13:00 rp/daily`
+. *Search*: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
+E.g. `search tp/event v/NUH`
+. *Snooze*: `snooze [tp/TIME_PERIOD]`
+E.g `snooze 30min`
+. *Summary*: `summary r/RECORD_TYPE [d/START_DATE]`
+E.g `summary r/bloodsugar d/01.09.2019`
+. *Task*: `task TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD] [tg/TARGET]`
+E.g `task Running running for 40 minutes t/15:00 tp/10 min tg/200 calories`
+. *Timezone*: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
+E.g `timezone tz/GMT+8`
