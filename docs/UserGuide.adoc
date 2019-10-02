@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T11-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103-T11-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+The Incident Management System (IMS) is a desktop app made for emergency call operators for coordinating emergency vehicle dispatch and incident report generation. IMS is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). The streamlined workflow of the IMS is designed to enable call operators to dispatch vehicles and prepare reports without wasting any precious time. That's because, in an emergency, every second counts.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `ims.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -32,10 +32,7 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+(TODO)
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -53,9 +50,24 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Viewing help : `help`
-
 Format: `help`
 
+=== Filling a new report: `fill`
+Generates a new report and prompts operator to enter data into report fields. +
+Format: `fill`
+****
+* Prompts for name of caller. Operator types it and presses `enter`.
+* Prompts for description of incident. Operator types it and presses `enter`.
+* Date/time, operator name, and operator name is autofilled.
+****
+=== Submit a report: `submit`
+Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports. +
+Format: `submit`
+****
+* Once a new report has just been filled, the IMS prompts the operator to type `y` to submit. The operator can either type `y` or `submit` to submit the report.
+* If the operator issues the `submit` command at any other time, they will be shown an indexed list of unsubmitted draft reports. The IMS will then prompt them to enter the index number of the report they wish to submit. The operator types that number and presses `enter` to submit the chosen report.
+* The submission of a report will trigger three other operations: 1) an ID will be generated to tag the report, 2) an automated email will be sent to the operator's supervisor, and 3) the report will be saved in the database.
+****
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -160,7 +172,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Incident Management System folder.
 
 == Command Summary
 
