@@ -89,8 +89,63 @@ Format: `export FILENAME`
 Import all items in the given file into NUStudy. This overwrites any items already in the app. +
 Format: `import FILENAME`
 
+=== Questions
+
 NUStudy can also store different sets of questions and answers;
 at your command, the system will prompt you to answer those questions.
+
+==== Adding Questions : `add`
+
+Adds a question and its answer. +
+Format: `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+
+==== Listing all questions: `list`
+
+Shows a list of questions. +
+Format: `list`
+
+==== Listing all questions with answers: `list -all`
+
+Shows a list of questions and their corresponding answers. +
+Format: `list -all`
+
+==== Editing a question: `edit`
+
+Edits the fields of an existing question. +
+Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
+
+****
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
+****
+
+==== Locating questions by keyword: `find`
+
+Finds questions containing the keyword. +
+Format: `find KEYWORD [MORE KEYWORDS]`
+
+==== Deleting a question: `delete`
+
+Deletes the specific question at the specified INDEX and its answer from the list. +
+Format: `delete INDEX`
+
+****
+* Deletes the question at the specified `INDEX`.
+* The index refers to the index number shown in the displayed question list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+==== Find difficulty: `difficulty`
+
+Views the list of all questions with a specific difficulty. +
+Format: `difficulty d/DIFFICULTY`
+
+==== Find difficulty within a subject: `difficulty -s`
+
+Views the list of questions of a specified subject with a specific difficulty. +
+Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
 
 == FAQ
 
