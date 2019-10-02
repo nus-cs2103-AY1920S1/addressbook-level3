@@ -106,6 +106,7 @@ Format: `sort aw/EVENT`
 Example(s):
 
 * `sort wc/90kg`
+
 * `sort aw/Squat`
 
 ==== Getting top scorers: `score`
@@ -164,115 +165,90 @@ Gets top 3 athletes (currently in 1st, 2nd and 3rd) for each weight class.
 Format: `top3 wc/WEIGHTCLASS`
 
 Examples:
+
 `top3 wc/100kg`
 
 === Participation
 This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit Athlete’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, rack height, etc). 
 
+==== Prepare for a new session: `new`
+Starts a new session of SBD lifts for the given weight classes (WC), separated by a space. This will load all the athletes information to prepare for the 3 lifts. 
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `new wc/WEIGHTCLASS&GENDER`
+GENDER is denoted by either M (male) or F (female)
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `new u83M u93M` to create new sessions for male 83kg and male 93kg.
 
-=== Locating persons by name: `find`
+* `new u63F u66M u72F` to create new sessions for female 63kg, male 66kg and female 72kg.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Submit next attempt: `attempt`
+Submits an athletes next attempt for either the squat, bench, or deadlift.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: ` attempt LIFT ATTEMPT_NO/WEIGHT`
+S means squat, B means bench, D means deadlift
+ATTEMPT_NO ranges from 1 to 3 inclusively.
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `attempt S 2 /170` 
 
-// tag::delete[]
-=== Deleting a person : `delete`
+* `attempt D 3 /300`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Update lift or no lift: `lift`
+Updates whether the athlete succeeds in his attempt, or fails it with the given “lights”, with ‘O’ representing a white light, and ‘X’ representing a red. 2 or more red lights implies a no lift, else it will be a successful lift. 
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `lift LIFT ATTEMPT_NO 3LIGHTS n/NAME`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `lift S 2 OOO n/christabelteo` 
 
-// end::delete[]
-=== Clearing all entries : `clear`
+* `lift B 3 XXO n/shawnkoh`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Starts the next lift: `start`
+This will line up athletes (sort) according to their attempt weight for that particular lift and attempt. Each lift will have 3 attempts. 
 
-=== Exiting the program : `exit`
+Format: `start LIFT`
+LIFT comprises: S means squat, B means bench, D means deadlift
 
-Exits the program. +
-Format: `exit`
+Examples:
 
-=== Saving the data
+* `start B` 
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+* `start D`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Get the next lifter in line: `next`
+Retrieves the next lifter (according to weight lifted for that attempt), the weights he/she is going for, rack height and lift-off if necessary. 
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: `next`
 
-== FAQ
+Examples:
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+* `to put in later` 
 
-== Command Summary
+==== Submit first attempts: `first`
+Submits the first attempt (usually before starting any lift) for all 3 lifts.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+Format: `first n/NAME SQUAT_WEIGHT/BENCH_WEIGHT/DL_WEIGHT`
+
+Examples:
+
+* `first n/farhannafahrid 125/55/170` 
+
+* `first n/marcustay 190/140/220` 
+
+==== Declare pre-lift settings: `pre` 
+Declares pre meet settings, such as squat and bench rack height, as well as opting for lift-off for bench. For the squat and bench, athletes need to indicate their rack heights so that it can be setup before their lift. Liftoff is optional for the bench, lifters can choose if they need a spotter to help them with the lift off.
+
+Format: ` pre n/NAME s/RACK_HEIGHT b/RACK_HEIGHT LIFTOFF`
+
+RACK_HEIGHT - range: 
+LIFTOFF - Y for yes, N for no
+
+Examples:
+
+* `pre n/howeichin s/12 b/7 Y` 
+
+* `pre n/ooimingsheng s/10 b/5 N` 
