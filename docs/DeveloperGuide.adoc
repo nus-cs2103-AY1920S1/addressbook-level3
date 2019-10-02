@@ -353,7 +353,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. User can add deadline 
+* 1a. User can add deadline.
 +
 ** 1a1. ELISA informs the user that a deadline has been added to that task.
 +
@@ -368,7 +368,7 @@ Use case ends
 * 1c. User enters an empty description.
 +
 ** 1c1. ELISA informs the user that the description cannot be empty.
-+ 
++
 ** 1c2. User enters a non-empty description
 +
 Use case resumes at step 2
