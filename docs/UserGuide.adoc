@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ExerHealth - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,17 +14,28 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T09-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team ExerHealth`      Since: `Sep 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Wish to get the summer body that the contestants in your school’s
+beauty pageant has? Want to shed some weight that you have gained
+from stress-eating?
+
+Well wait no more! ExerHealth is a one-stop platform for students
+who wish to embark on a journey of health and fitness. This application
+is optimised for students who prefer to work with a Command Line
+Interface (CLI) while still having the benefits of a Graphical User
+Interface (GUI). If you can type fast and wish to maintain a healthy
+lifestyle, ExerHealth is that one app for you!
+
+Interested? Jump to <<Quick Start>> to get started! Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `exerhealth.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for ExerHealth.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +44,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`get t/exercise`* : gets all the exercises ExerHealth is tracking.
+* **`add`**`t/exercise n/Push ups d/1/10/2019 c/123` : adds a exercise named `Push ups` to ExerHealth.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,10 +56,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `stats t/CAT_NAME`,
+`CAT_NAME` is a parameter which can be used as `stats t/exercise`.
+* Words in `lower_case` are the compulsory keywords that inform ExerHealth about the category of
+information being added. e.g. `add t/exercise n/EXERCISE_NAME`, `t/exercise` is a keyword that informs ExerHealth about adding to the exercise tracker.
+* Items in square brackets are optional e.g `d/date [c/CALORIES]` can be used as `d/1/10/2019 c/123`
+or as `d/1/10/2019`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MUSCLE]...`
+can be used as `{nbsp}` (i.e. 0 times), `m/glutes`, `m/glutes m/chest` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME d/DATE c/CALORIES`,
+`d/DATE c/CALORIES n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -204,6 +220,11 @@ Deletes the exercise indexed 2 in the cardio regime
 * `delete t/regime n/legs` +
 Deletes the entire regime named legs
 
+=== Clearing all entries : `clear`
+
+Clears all entries from the exercise tracker. +
+Format: `clear`
+
 === Display statistics : `stats`
 
 Display the statistics of exercises.
@@ -221,6 +242,24 @@ Example:
 * `stats t/exercise h/piechart`
 * `stats t/calories h/linechart`
 * `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
+
+=== Undo previous command: `undo`
+
+Undo the previous command entered.
+
+[TIP]
+If there is no previous command, undo will do nothing.
+
+Format: `undo`
+
+=== Redo undo-ed command: `redo`
+
+Redo the previous command that was undo-ed by user.
+
+[TIP]
+If there is no undo history, redo command will do nothing.
+
+Format: `redo`
 
 === Custom properties: `custom`
 
@@ -286,12 +325,6 @@ Example:
 
 * `custom r/Ratings`
 * `custom r/Remark`
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
 
 === Scheduling exercises: `schedule`
 
