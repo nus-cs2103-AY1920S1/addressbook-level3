@@ -32,7 +32,7 @@ Responsibilities: UI
 
 === Luk Chi Heng
 image::aaronnluk.png[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/AaronLuk[github]] [<<johndoe#, portfolio>>]
 
 
 Role: Developer +
