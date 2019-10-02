@@ -1,11 +1,12 @@
 = Athletick
 ifdef::env-github,env-browser[:relfileprefix: docs/]
-:favicon: docs/images/icon.jpg
+:favicon: ./docs/images/favicon.png
 
 https://travis-ci.org/AY1920S1-CS2103T-T12-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-T12-3/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/hellodommy/main[image:https://ci.appveyor.com/api/projects/status/lsaggubb3k8wrx19?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T12-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T12-3/main/badge.svg?branch=master[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/9ad34c08611e49dbb9ffd487cd5c1d18["Codacy code quality", link="https://www.codacy.com/manual/hellodommy/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-T12-3/main&utm_campaign=Badge_Grade"]
+https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/LICENSE[image:https://img.shields.io/badge/license-MIT-blue.svg[MIT License]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
