@@ -542,7 +542,9 @@ then annotations are shown as well.
 
 === Adding a reminder: `reminder`
 
+
 Adds a reminder of a specified bookmark. You can set the time for the reminder.
+
 
 Format: `reminder INDEX t/TIME_DATE [n/NOTE=Open]`
 
@@ -551,6 +553,7 @@ Format: `reminder INDEX t/TIME_DATE [n/NOTE=Open]`
  * TIME_DATE follows HHMM dd/mm/yyyy format.
 * NOTE is the description of the reminder, the default value is Open.
 ****
+
 Examples:
 
 * `reminder 1 t/2359 02/07/2019` +
@@ -580,6 +583,7 @@ Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/
 
 * `reminder 1 t/2359 02/07/2019 n/Check daily news` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+
 Reset the note to check daily news.
 
 === Deleting a reminder: `reminder delete`
@@ -587,6 +591,7 @@ Reset the note to check daily news.
 Deletes the the reminder at the specified index.
 
 Format: `reminder delete INDEX`
+
 
 ****
 * INDEX is the index of the reminder you want to delete on the dashboard.
