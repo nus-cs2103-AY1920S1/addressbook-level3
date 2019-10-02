@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `T12-4`      Since: `Sept 2019`      
+By: `T12-4`      Since: `Sept 2019`  
 
 == Setting up
 
@@ -322,7 +322,7 @@ _{More to be added}_
 
 1.  User requests to list all flashcards in a category
 2.  System shows a list of flashcards with index
-3.  User requests to delete a flashcard in the list by providing category and index  
+3.  User requests to delete a flashcard in the list by providing category and index
 4.  System deletes the flashcard
 +
 Use case ends.
@@ -356,7 +356,7 @@ Use case resumes at step 2.
 
 1.  User requests to list all flashcards in a category
 2.  System shows a list of flashcards with index
-3.  User requests to edit a flashcard in the list by providing category and index  
+3.  User requests to edit a flashcard in the list by providing category and index
 4.  System provides a pop-up for user to enter changes
 5.  User enters changes
 6.  System updates flashcard with the user input
