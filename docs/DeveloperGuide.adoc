@@ -361,6 +361,7 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
+[#UC01]
 [discrete]
 === Use case: UC01 - List bookmarks
 
@@ -371,6 +372,7 @@ _{More to be added}_
 +
 Use case ends.
 
+[#UC02]
 [discrete]
 === Use case: UC02 - Add bookmark
 
@@ -609,7 +611,7 @@ Use case ends.
 
 1. User [.underline]#browses the web (UC11)#.
 2. User requests to bookmark currently showing webpage.
-3. Mark uses current website's URL and [.underline]#adds bookmark (UC02)#.
+3. Mark uses current website's URL and <<UC02,[.underline]#adds bookmark (UC02)#>>.
 +
 Use case ends.
 
