@@ -45,8 +45,8 @@ The commands listed below in 3.2, 3.3, … are based on the context of a competi
 
 ==== Context: No Competition
 Commands
-- Save - this changes the context to `Creating a competition`
-- Select - changes the context of a `Competition`
+- Save: this changes the context to `Creating a competition`
+- Select: changes the context of a `Competition`
 
 ==== Context: Creating a Competition
 Parameters
