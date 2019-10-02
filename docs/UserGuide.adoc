@@ -132,6 +132,23 @@ Format: `record result`
 Bring up the window to rank the interviewees. The way to record the result is the same as 2.12.1. +
 Format: `record rank`
 
+==== Display data of interviewees
+You are able to view the list of interviewees and the following information:
+1. Name
+2. Time slot for interview
+3. Phone number
+4. Email
+5. Tags
+
+The interviewee list can be viewed by typing the following command +
+Format: `display interviewees`
+
+==== Display weekly schedule
+Display the interviews that has been scheduled by the application. Allows you to have an weekly overview of
+interviews during that week by typing the following command +
+Format:  `display date: DATE (eg. 24/06/2019)`
+
+Doing so will allow the scheduler to show the timetable for that week.
 == FAQ
 
 == Command Summary
