@@ -2,12 +2,9 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-T14-3/main[image:https://travis-ci.org/AY1920S1-CS2103-T14-3/main.svg?branch=master[Build Status]]
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 * Need to cram for an upcoming test? Interested in learning a new language? Memory Flash is here for you.
