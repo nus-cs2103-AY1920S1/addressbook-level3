@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.Region?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <ListView fx:id="expenseListView" VBox.vgrow="ALWAYS">
+      <minWidth>
+          <Region fx:constant="USE_COMPUTED_SIZE"/>
+      </minWidth>
+  </ListView>
+
+</VBox>
