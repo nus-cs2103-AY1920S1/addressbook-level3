@@ -383,10 +383,61 @@ Example:
 
 Takes exercise 1, 2, 3 from scheduled regime and exercise 2, 4 from conflicting regime and adds them to a new regime called cardios
 
+=== Suggesting ideas: `suggest`
+==== Suggest basic exercises
+Recommends exercises from ExerHealth's inbuilt database for beginners.
+
+Format: `suggest basic`
+
+==== Suggest possible exercises
+Suggests exercises matching specified tags.
+
+===== Based on matching muscle tags
+Format: `suggest possible m/MUSCLE`
+
+Example:
+
+* `suggest possible m/chest`
+
+A list of exercises with chest muscle tag will be displayed.
+
+* `suggest possible m/chest m/tricep`
+
+A list of exercises tagged with chest or triceps will be displayed.
+
+===== Based on matching custom properties `[Coming in v2.0]`
+
+==== Suggest intensity
+Recommends an increased quantity for the indexed exercise/regime based on its past record.
+
+Format: `suggest intensity t/exercise i/INDEX`
+`suggest intensity t/regime i/INDEX`
+
+****
+* Takes the exercise at the specified `INDEX`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* i/ is for index of the scheduled regime
+****
+
+Example:
+
+* `suggest intensity t/exercise 1`
+
+Displays the recommended quantity for the indexed exercise.
+
+* `suggest intensity t/regime 1`
+
+Displays the recommended quantity for all the exercises in the indexed regime.
+
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
+
+=== Saving the data
+
+ExerHealth data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 
 === Remind to do exercises `[coming in v2.0]`
 
@@ -396,10 +447,9 @@ Reminds you to do exercises.
 
 Autocompletes the commands while typing.
 
-=== Saving the data
+=== Importing data `[coming in v2.0]`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Imports data to update inbuilt database of exercises.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -433,8 +483,10 @@ e.g. `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
 e.g. `schedule n/cardio d/19/9/2019`
 * *Resolve* : `resolve n/REGIME_TO_TAKE`
 e.g. `resolve n/cardio`
-* *Suggest* : `suggest t/possible [m/MUSCLE]...`
+* *Suggest possible* : `suggest t/possible [m/MUSCLE]...`
 e.g. `suggest t/possible m/chest`
+* *Suggest intensity* : `suggest intensity i/INDEX`
+eg. `suggest intensity 1`
 * *Custom* : `custom s/SHORT_NAME f/FULL_NAME p/PARAMETER_TYPE`
 e.g. `custom s/c f/End Date p/Date`
 * *Exit* : `exit`
