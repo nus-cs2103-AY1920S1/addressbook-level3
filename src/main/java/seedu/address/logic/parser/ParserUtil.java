@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -120,5 +122,15 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String date} into a {@code Date date}.
+     * @throws java.text.ParseException if the given {@code String date} is invalid.
+     */
+    public static Date parseDate(String date) throws java.text.ParseException {
+        requireNonNull(date);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.parse(date);
     }
 }
