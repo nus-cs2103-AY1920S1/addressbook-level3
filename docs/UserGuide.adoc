@@ -349,3 +349,4 @@ Marks the 2nd appeal in the appeal list as approved.
 * **reject** `reject INDEX`
 - e.g. `reject 3`
 Marks the 3rd appeal in the filtered list as rejected.
+
