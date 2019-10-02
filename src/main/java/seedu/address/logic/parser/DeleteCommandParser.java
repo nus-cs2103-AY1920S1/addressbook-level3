@@ -37,10 +37,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         } catch (ParseException pe) {
             if (serialNumberProvided(args)) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_SERIAL_NUMBER, DeleteByIndexCommand.MESSAGE_USAGE), pe);
+                        String.format(MESSAGE_INVALID_SERIAL_NUMBER, DeleteCommand.MESSAGE_USAGE), pe);
             } else {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteByIndexCommand.MESSAGE_USAGE), pe);
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
             }
         }
     }

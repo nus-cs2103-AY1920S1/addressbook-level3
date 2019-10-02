@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SERIAL_NUMBER;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteByIndexCommand;
 import seedu.address.logic.commands.DeleteBySerialNumberCommand;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.book.SerialNumber;
 
 /**
@@ -36,8 +38,14 @@ public class DeleteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
+    public void parse_invalidIndex_throwsParseException() {
         assertParseFailure(parser, "a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteByIndexCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidSerialNumber_throwsParseException() {
+        assertParseFailure(parser, " sn/B0001",
+                String.format(MESSAGE_INVALID_SERIAL_NUMBER, DeleteCommand.MESSAGE_USAGE));
     }
 }
