@@ -26,6 +26,9 @@ public class ClearCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    /**
+     * (to be added)
+     */
     public static class SwitchCommand extends Command {
 
         public static final String COMMAND_WORD = "switch";
@@ -65,7 +68,7 @@ public class ClearCommand extends Command {
         public boolean equals(Object other) {
             return other == this // short circuit if same object
                     || (other instanceof SwitchCommand // instanceof handles nulls
-            );
+                );
         }
     }
 }

@@ -1,13 +1,13 @@
 package seedu.deliverymans.logic.parser.customer;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_ORDER;
+
 import seedu.deliverymans.logic.commands.customer.OrderCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_ORDER;
 
 /**
  * Parses input arguments and creates a new {@code OrderCommand} object

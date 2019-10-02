@@ -7,8 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.deliverymans.commons.core.LogsCenter;
+
 import seedu.address.model.person.Person;
+import seedu.deliverymans.commons.core.LogsCenter;
 
 /**
  * Panel containing the list of persons.

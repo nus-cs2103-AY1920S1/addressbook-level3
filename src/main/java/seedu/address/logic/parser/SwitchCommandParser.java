@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.ClearCommand;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * (to be added)
+ */
 public class SwitchCommandParser implements Parser<ClearCommand.SwitchCommand> {
 
     /**

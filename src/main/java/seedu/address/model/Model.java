@@ -4,8 +4,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.deliverymans.commons.core.GuiSettings;
 
 /**
  * The API of the Model component.

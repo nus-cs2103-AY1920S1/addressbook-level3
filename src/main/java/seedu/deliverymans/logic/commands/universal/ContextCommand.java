@@ -5,9 +5,12 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.parser.universal.Context;
 
+/**
+ * (to be added)
+ */
 public class ContextCommand extends Command {
-    private Context context;
     private static final String MESSAGE_SUCCESS = "Context changed to: %1$s";
+    private Context context;
 
     public ContextCommand(Context context) {
         this.context = context;

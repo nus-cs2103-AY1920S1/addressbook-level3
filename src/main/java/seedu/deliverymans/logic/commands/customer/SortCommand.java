@@ -5,6 +5,9 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 
+/**
+ * (to be added)
+ */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
