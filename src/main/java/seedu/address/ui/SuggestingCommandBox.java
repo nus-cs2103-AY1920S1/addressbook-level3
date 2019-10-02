@@ -66,6 +66,10 @@ public class SuggestingCommandBox extends CommandBox {
      */
     private void bindPopupPosition() {
         final InvalidationListener repositionPopup = (observable -> {
+            if (!popup.isShowing()) {
+                return;
+            }
+
             final Point2D absolutePosition = commandTextField.localToScreen(0, commandTextField.getHeight());
             popup.setX(absolutePosition.getX());
             popup.setY(absolutePosition.getY());
