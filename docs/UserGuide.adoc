@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= The Module Appeal Management System (MAMS) - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,201 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://ay1920s1-cs2103-t11-2.github.io/main/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `ay1920s1-cs2103-t11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands with a dual-pane GUI for easy navigation of module appeals, module information, and student particulars. This app is particularly aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. Once reviewing of the information is complete, the MAMS system also provides a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `MAMS.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for The Module Appeal Management System (MAMS).
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
+.  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
+Broadly speaking, the MAMS handles three main types of items: *Students, Appeals, and Modules*. Each of these items may be further grouped into sub-lists.
+eg. Students may be organized by matriculation year, course of study etc.
+
+A student is uniquely identified by his/her 9-character Matriculation Number starting and ending with a letter, eg. `A0132243W`
+
+An appeal request is uniquely identified by a prefix `C`, followed by a 6-digit Case ID, eg. `C123456`
+
+A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Science) and a 4 to 6 character sequence. eg. `CS2103` and `CS2103T`.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Each command must begin with a command word. See each command below for the list of associated command words.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user eg. `DESCRIPTION_OF_TASK` denotes that you should provide a short description of the task.
+* Items enclosed by square brackets are optional parameters that can be passed in eg. `view OBJECT_ID [l/]` can be used as `view A0122432Z l/` or `view 230293`.
+* Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[f/FILTER]...` can be used as `{nbsp}` (i.e. 0 times), `f/CS` , `f/CS f/YEAR4` etc.
+* Parameters within square brackets can be supplied in any order.
 ====
 
-=== Viewing help : `help`
+=== Viewing single objects: `view`
 
-Format: `help`
+This command brings up an object with fully expanded details on a single pane. If no pane is specified within the tags, the object defaults to showing up on the right pane.
 
-=== Adding a person: `add`
+Format: `view OBJECT_ID [l/] [r/]`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Tags:
+`[l/]` displays the object on the left pane
+`[r/]` displays the object on the right pane
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `view A0122432Z l/`
+Expected output: Fully expanded administrative details of the student with matriculation ID A0122432Z on the left pane.
 
-=== Listing all persons : `list`
+* `view 230293`
+Expected output: Fully expanded administrative details of the appeal with case ID 230293 on the right pane.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+* `view CS2103 r/`
+Expected output: Fully expanded administrative details of the CS2103 module on the right pane.
 
-=== Editing a person : `edit`
+=== Show clashes: `clash`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== Show clashes between 2 modules
+This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `clash MODULE_CODE MODULE_CODE`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `clash cs1010 cs1020`
 
-=== Locating persons by name: `find`
+Sample output:
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+`Clash detected between CS1010 and CS1020: +
+Time slot: 1400-1500 +
+Event for CS1010: Lecture 1300-1500 +
+Event for CS1020: Lecture 1400-1600`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* `clash ge1001 ge1002`
 
-Examples:
+Sample output: `No clash detected for ge1001 and ge1002`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Show clashes in student timetable
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Shows if there are clashes in a student’s (preallocated) timetable.
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `clash STUDENT_ID`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `clash A01234567H`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Sample output:
 
-Clears all entries from the address book. +
-Format: `clear`
+`Modules taken by student A01234567H: +
+cs1010, cs1020, cs1040, cs1050,cs1060 +
+Clash detected between CS1010 and CS1020: +
+Time slot: 1400-1500 +
+Event for CS1010: Lecture 1300-1500 +
+Event for CS1020: Lecture 1400-1600`
 
-=== Exiting the program : `exit`
+* `clash A01234567B`
 
-Exits the program. +
-Format: `exit`
+Sample output:
+
+`Modules student A01234567H are taking: +
+Ge1020,ge1111,ge1030,ge1303 +
+No clash detected.`
+
+==== Show clashes in an appeal
+
+Shows if the module a student is requesting for clashes with his/her current existing modules.
+
+Format: `clash APPEAL_NUMBER`
+
+Examples:
+
+* `clash #301935`
+
+Sample output:
+
+`Modules taken by student A01234567H: +
+cs1010, cs1040, cs1050,cs1060 +
+Requested module: cs1020 +
+Clash detected between CS1010 and CS1020: +
+Time slot: 1400-1500 +
+Event for CS1010: Lecture 1300-1500 +
+Event for CS1020: Lecture 1400-1600`
+
+* `clash #301979`
+
+Sample output:
+
+`Modules taken by student A01234567H: +
+GE1020,GE1111,GE1030,GE1303 +
+Requested module: cs1020 +
+No clash detected`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+MAMS are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* **list** `list [type] [/filter/]`
+- e.g. `list modules CS`
+
+* **view** `view [type of object] [side to show info]`
+- e.g. `view A0180000A right/`
+to view details of student A0180000A on the right screen
+- e.g. `view 301934 left/`
+This brings up the full, untruncated, details of appeal #301934 on the left pane.
+
+* **clash** `clash [MODULE_CODE] [MODULE_CODE] `
+- e.g. `clash cs1010 cs1020`
+Shows clash details between the 2 specified modules
+
+* **clash** `clash [STUDENT_ID]`
+- e.g. `clash A01234567H`
+Shows if there are clashes in a student’s (preallocated) timetable.
+
+* **clash** `clash [APPEAL_NUMBER]`
+- e.g. `clash #301935`
+Shows if the module a student is requesting for clashes with his/her current existing modules.
+
+* **addmod** `addmod STUDENT_ID MODULE_CODE [SESSION_ID]`
+- e.g `addmod A0180000A CS2103 1`
+To add module CS2103, compulsory session 1, to student A0180000A
+
+* **removemod** `removemod STUDENT_ID MODULE_CODE [SESSION_ID]`
+- e.g `removemod A0180000A CS2103 1`
+To remove module CS2103, compulsory session 1, from student A0180000A
+
+* **switchmod** `switchmod STUDENT_ID MODULE_CODE1 MODULE_CODE2`
+- e.g `switchmod A0180000A CS2103 CS2103T`
+To remove module CS2103 and add module 2103T to student A0180000A
+
+* **set** `set STUDENT_ID NEW_MC`
+- e.g. `set A0180000A 28`
+To set the student’s maximum modular credit for this semester to a new value.
+
+* **remark** `remark STUDENT_ID REMARKS`
+- e.g. `remark A0180000A timetable clash waivered`
+To add remarks to a student’s particulars page
+
+* **approve** `approve INDEX`
+- e.g. `approve 2`
+Marks the 2nd appeal in the appeal list as approved.
+
+* **reject** `reject INDEX`
+- e.g. `reject 3`
+Marks the 3rd appeal in the filtered list as rejected.
