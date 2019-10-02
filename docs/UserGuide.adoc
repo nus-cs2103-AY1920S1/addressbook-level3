@@ -25,10 +25,9 @@ This software is for organisers who organise powerlifting competitions. To facil
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+Download the software from our git repo.
+Ensure Java 11 is downloaded into your machine.
+
 +
 image::Ui.png[width="790"]
 +
