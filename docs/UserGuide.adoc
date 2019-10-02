@@ -155,7 +155,7 @@ e.g.  `add Math`
 e.g.  `edit Math 10`
 * Delete an existing flashcard - `delete [category] [ID]` +
 e.g.  `delete Math 10`
-* Delete an entire category - `delete [category] *` +
+* Delete an entire category - `delete [category]` +
 e.g.  `delete Math *`
 * Set user preference for reminders - `remind [category] DD/MM HHmm` +
 e.g.  `remind Math 04/10 1230`
