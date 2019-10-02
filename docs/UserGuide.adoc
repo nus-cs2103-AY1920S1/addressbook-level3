@@ -30,6 +30,7 @@ started. Enjoy!
 == Quick Start
 
 Here are a few steps to get you started on Mark: +
+
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `mark.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Bookmark Manager.
@@ -56,18 +57,19 @@ of each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user. +E.g.
-In the command format `*add* u/URL`, `URL` is a parameter which can be used as `*add* u/luminus.nus.edu.sg`.
-* Items in square brackets are optional. +E.g `u/URL [t/TAG]` can be used as
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+E.g. In the command format `*add* u/URL`, `URL` is a parameter which can be used as `*add* u/luminus.nus.edu.sg`.
+* Items in square brackets are optional. +
+E.g `u/URL [t/TAG]` can be used as
 `u/luminus.nus.edu.sg t/NUS` or as `u/luminus.nus.edu.sg`.
-* Default values for optional items are specified with an `=` symbol. +E.g.
-When `u/URL [t/TAG=CS2103T]` is specified in the command format, the default value for the tag is `CS2103T` if not
+* Default values for optional items are specified with an `=` symbol. +
+E.g. When `u/URL [t/TAG=CS2103T]` is specified in the command format, the default value for the tag is `CS2103T` if not
 it is not provided.
-* Items with `…`​ after them can be used multiple times, including zero times.
-+E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
+* Items with `…`​ after them can be used multiple times, including zero times. +
+E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 `t/module t/read-later` etc.
-* Parameters can be in any order. +E.g. if the command specifies
-`u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
+* Parameters can be in any order. +
+E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 ====
 
 === Viewing help: *`help`*
@@ -392,7 +394,7 @@ website. When this command is given, the UI will switch to the offline tab showi
 With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
 note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
-++
+
 Overwriting an existing note is possible with this command.
 
 Format: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
