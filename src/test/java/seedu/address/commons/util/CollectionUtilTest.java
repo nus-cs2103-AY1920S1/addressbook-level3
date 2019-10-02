@@ -3,6 +3,7 @@ package seedu.address.commons.util;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNotEmpty;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
@@ -104,5 +105,35 @@ public class CollectionUtilTest {
 
     private void assertNullPointerExceptionNotThrown(Collection<?> collection) {
         requireAllNonNull(collection);
+    }
+
+    /**
+     * Asserts that {@link CollectionUtil#requireAllNotEmpty} throw {@link IllegalArgumentException}
+     * if the {@code collection} is empty.
+     */
+    private void assertIllegalArgumentExceptionThrown(Collection<?>... collections) {
+        assertThrows(IllegalArgumentException.class, () -> requireAllNotEmpty(collections));
+    }
+
+    private void assertIllegalArgumentExceptionNotThrown(Collection<?>... collections) {
+        requireAllNotEmpty(collections);
+    }
+
+
+    @Test
+    void requireAllNotEmptyCollection() {
+        // null parameter
+        assertThrows(NullPointerException.class, () -> {
+            CollectionUtil.requireAllNotEmpty((Collection<?>) null);
+        });
+
+        // empty list
+        assertIllegalArgumentExceptionThrown(Collections.emptyList());
+
+        // list with elements
+        assertIllegalArgumentExceptionNotThrown(List.of(new Object()));
+
+        // empty list and list with elements
+        assertIllegalArgumentExceptionThrown(Collections.emptyList(), List.of(new Object()));
     }
 }
