@@ -11,46 +11,47 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Leow Wen Bin
+image::leowwb.png[width="150", align="left"]
+{empty}[] [https://github.com/leowwb[github]] [<<leowwb#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Integration, Git
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Yang Shuting
+image::shutingy.png[width="150", align="left"]
+{empty}[http://github.com/shutingy[github]] [<<shutingy#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: IntelliJ Expert +
+Responsibilities: UI, Model
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Keith Teo
+image::keiteo.png[width="150", align="left"]
+{empty}[http://github.com/keiteo[github]] [<<keiteo#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Documentation and Code Quality Lead +
+Responsibilities: Logic
+
+'''
+
+=== Dalson Tan
+image::dalsontws.png[width="150", align="left"]
+{empty}[http://github.com/dalsontws[github]] [<<dalsontws#, portfolio>>]
+
+Role: Scheduler +
+Responsibilities: Deliverables & Deadlines
+
+'''
+
+=== Leonard Tay
+image::leonardtay748.png[width="150", align="left"]
+{empty}[http://github.com/leonardtay748[github]] [<<leonardtay748#, portfolio>>]
+
+Role: Lead Tester
+Responsibilities: Testing
 
 '''
