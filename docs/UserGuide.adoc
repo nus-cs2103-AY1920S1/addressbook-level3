@@ -52,9 +52,9 @@ The commands listed below in 3.2, 3.3, … are based on the context of a competi
 ==== Context: Creating a Competition
 *Parameters*
 
-  * name
-  * date
-  * Type
+* name
+* date
+* Type
 
 *Commands*
 
@@ -66,28 +66,36 @@ The commands listed below in 3.2, 3.3, … are based on the context of a competi
 * Athletes
 * List
 
-Prints a list of competitions
+*Prints a list of competitions*
+
 * Finalise
 
-Parameters
+*Parameters*
+
 * Id
 * name
 
-Marks the competition as completed and prevents further edits
+*Marks the competition as completed and prevents further edits*
+
 * Switch
 
-Parameters
+*Parameters*
+
 * id
 * name
 
-Switch context to a different competition
+*Switch context to a different competition*
+
 * Delete
 
-Parameters
+*Parameters*
+
 * Id
 * name
 
 === Getting Competitors’ Data
+
+==== Sorting Athletes: `sort`
 
 Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
