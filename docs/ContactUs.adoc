@@ -5,8 +5,10 @@
 * *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103-T14-3/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
 * *Email us* : You can also reach our team members at:
-                 Jolyn: `jolyn.tan.sq [at] u.nus.edu`
-                 Zhi Wei: `e0031605 [at] u.nus.edu`
-                 Songchi: `e0322951 [at] u.nus.edu`
-                 Boyuan:
+****
+* Jolyn: `jolyn.tan.sq @ u.nus.edu`
+* Zhi Wei: `e0031605 @ u.nus.edu`
+* Songchi: `e0322951 @ u.nus.edu`
+* Boyuan: `e0253688 @ u.nus.edu`
+****
 
