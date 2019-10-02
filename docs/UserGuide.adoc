@@ -144,13 +144,11 @@ The interviewee list can be viewed by typing the following command +
 Format: `display interviewees`
 
 ==== Display weekly schedule
-Display the interviews that has been scheduled by the application. Allows you to have an weekly overview of 
+Display the interviews that has been scheduled by the application. Allows you to have an weekly overview of
 interviews during that week by typing the following command +
 Format:  `display date: DATE (eg. 24/06/2019)`
 
 Doing so will allow the scheduler to show the timetable for that week.
-
-
 == FAQ
 
 == Command Summary
