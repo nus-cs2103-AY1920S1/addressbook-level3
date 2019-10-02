@@ -19,22 +19,22 @@ import seedu.address.model.studyplan.StudyPlan;
 public class ModelManager_ implements Model_ {
     private static final Logger logger = LogsCenter.getLogger(ModelManager_.class);
 
-    private final ModulePlanner ModulePlanner;
+    private final ModulePlanner modulePlanner;
     private final UserPrefs userPrefs;
     private final FilteredList<StudyPlan> filteredStudyPlans;
 
     /**
      * Initializes a ModelManager with the given ModulePlanner and userPrefs.
      */
-    public ModelManager_(ReadOnlyModulePlanner ModulePlanner, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager_(ReadOnlyModulePlanner modulePlanner, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(ModulePlanner, userPrefs);
+        requireAllNonNull(modulePlanner, userPrefs);
 
-        logger.fine("Initializing with address book: " + ModulePlanner + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + modulePlanner + " and user prefs " + userPrefs);
 
-        this.ModulePlanner = new ModulePlanner(ModulePlanner);
+        this.modulePlanner = new ModulePlanner(modulePlanner);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredStudyPlans = new FilteredList<>(this.ModulePlanner.getStudyPlanList());
+        filteredStudyPlans = new FilteredList<>(this.modulePlanner.getStudyPlanList());
     }
 
     public ModelManager_() {
@@ -71,37 +71,37 @@ public class ModelManager_ implements Model_ {
     }
 
     @Override
-    public void setModulePlannerFilePath(Path ModulePlannerFilePath) {
-        requireNonNull(ModulePlannerFilePath);
-        userPrefs.setModulePlannerFilePath(ModulePlannerFilePath);
+    public void setModulePlannerFilePath(Path modulePlannerFilePath) {
+        requireNonNull(modulePlannerFilePath);
+        userPrefs.setModulePlannerFilePath(modulePlannerFilePath);
     }
 
     //=========== ModulePlanner ================================================================================
 
     @Override
-    public void setModulePlanner(ReadOnlyModulePlanner ModulePlanner) {
-        this.ModulePlanner.resetData(ModulePlanner);
+    public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
+        this.modulePlanner.resetData(modulePlanner);
     }
 
     @Override
     public ReadOnlyModulePlanner getModulePlanner() {
-        return ModulePlanner;
+        return modulePlanner;
     }
 
     @Override
-    public boolean hasStudyPlan(StudyPlan StudyPlan) {
-        requireNonNull(StudyPlan);
-        return ModulePlanner.hasStudyPlan(StudyPlan);
+    public boolean hasStudyPlan(StudyPlan studyPlan) {
+        requireNonNull(studyPlan);
+        return modulePlanner.hasStudyPlan(studyPlan);
     }
 
     @Override
     public void deleteStudyPlan(StudyPlan target) {
-        ModulePlanner.removeStudyPlan(target);
+        modulePlanner.removeStudyPlan(target);
     }
 
     @Override
-    public void addStudyPlan(StudyPlan StudyPlan) {
-        ModulePlanner.addStudyPlan(StudyPlan);
+    public void addStudyPlan(StudyPlan studyPlan) {
+        modulePlanner.addStudyPlan(studyPlan);
         updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager_ implements Model_ {
     public void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan) {
         requireAllNonNull(target, editedStudyPlan);
 
-        ModulePlanner.setStudyPlan(target, editedStudyPlan);
+        modulePlanner.setStudyPlan(target, editedStudyPlan);
     }
 
     //=========== Filtered StudyPlan List Accessors =============================================================
@@ -143,7 +143,7 @@ public class ModelManager_ implements Model_ {
 
         // state check
         ModelManager_ other = (ModelManager_) obj;
-        return ModulePlanner.equals(other.ModulePlanner)
+        return modulePlanner.equals(other.modulePlanner)
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudyPlans.equals(other.filteredStudyPlans);
     }

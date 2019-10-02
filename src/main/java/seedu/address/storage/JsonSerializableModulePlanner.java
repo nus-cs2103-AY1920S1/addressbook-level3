@@ -2,19 +2,14 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ModulePlanner;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModulePlanner;
-import seedu.address.model.module.Module;
-import seedu.address.model.person.Person;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -55,9 +50,10 @@ class JsonSerializableModulePlanner {
         ModulePlanner modulePlanner = new ModulePlanner();
         for (JsonAdaptedStudyPlan jsonAdaptedStudyPlan : studyPlans) {
             StudyPlan studyPlan = jsonAdaptedStudyPlan.toModelType();
-//            if (addressBook.hasPerson(person)) {
-//                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-//            }
+            // if (addressBook.hasPerson(person)) {
+            //    throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            // }
+
             // TODO: change this after implementing ModulePlanner model
             //modulePlanner.addStudyPlan(studyPlan);
         }

@@ -5,13 +5,17 @@ import java.util.Set;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterList;
 
-public class StudyPlan implements Cloneable{
+/**
+ * Represents a study plan in the module planner.
+ */
+public class StudyPlan implements Cloneable {
+
+    private static int totalNumberOfStudyPlans = 0; // TODO: this will reset to zero every time application restarts
+
     private SemesterList semesterList;
     private Title title;
     private boolean isActive;
     private int index; // unique identifier of this study plan
-
-    private static int totalNumberOfStudyPlans = 0; // TODO: this will reset to zero every time application restarts
 
     // to create a study plan without a Title
     public StudyPlan() {
@@ -67,12 +71,22 @@ public class StudyPlan implements Cloneable{
         return index;
     }
 
+    /**
+     * Returns true if both study plans of the same index have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two study plans.
+     */
     public boolean isSameStudyPlan(StudyPlan other) {
         return this.index == other.index;
     }
 
     // TODO: implement/override equals
 
+    /**
+     * Returns a copy of the current study plan.
+     *
+     * @return a clone of this study plan.
+     * @throws CloneNotSupportedException
+     */
     public StudyPlan clone() throws CloneNotSupportedException {
         StudyPlan clone = (StudyPlan) super.clone();
         clone.semesterList = semesterList.clone();

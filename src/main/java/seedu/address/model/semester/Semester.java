@@ -1,5 +1,8 @@
 package seedu.address.model.semester;
 
+/**
+ * Represents a semester.
+ */
 public class Semester {
     private SemesterName semesterName;
     // TODO: list of modules

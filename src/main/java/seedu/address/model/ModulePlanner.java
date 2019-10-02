@@ -78,7 +78,8 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     /**
      * Replaces the given study plan {@code target} in the list with {@code editedStudyPlan}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedStudyPlan} must not be the same as another existing study plan in the address book.
+     * The person identity of {@code editedStudyPlan} must not be the same as another existing study plan
+     * in the address book.
      */
     public void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan) {
         requireNonNull(editedStudyPlan);

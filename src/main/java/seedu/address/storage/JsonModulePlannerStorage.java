@@ -60,8 +60,8 @@ public class JsonModulePlannerStorage implements ModulePlannerStorage {
     }
 
     @Override
-    public void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner) throws IOException {
-        saveModulePlanner(ModulePlanner, filePath);
+    public void saveModulePlanner(ReadOnlyModulePlanner modulePlanner) throws IOException {
+        saveModulePlanner(modulePlanner, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonModulePlannerStorage implements ModulePlannerStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner, Path filePath) throws IOException {
-        requireNonNull(ModulePlanner);
+    public void saveModulePlanner(ReadOnlyModulePlanner modulePlanner, Path filePath) throws IOException {
+        requireNonNull(modulePlanner);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableModulePlanner(ModulePlanner), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableModulePlanner(modulePlanner), filePath);
     }
 
 }

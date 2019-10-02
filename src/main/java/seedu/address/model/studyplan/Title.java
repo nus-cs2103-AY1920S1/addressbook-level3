@@ -1,6 +1,9 @@
 package seedu.address.model.studyplan;
 
-public class Title implements Cloneable{
+/**
+ * Represents the title of a study plan.
+ */
+public class Title implements Cloneable {
     private String value;
 
     public Title(String value) {

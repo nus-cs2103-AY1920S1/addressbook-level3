@@ -9,7 +9,7 @@ import seedu.address.model.module.Module;
  */
 public interface Tag {
 
-    public final HashSet<Module> attachedModules = new HashSet<Module>();
+    public final HashSet<Module> ATTACHED_MODULES = new HashSet<Module>();
 
     /**
      * Adds the specified {@code Module} to this tag.
@@ -17,7 +17,7 @@ public interface Tag {
      * @return True if the module has been added.
      */
     public default boolean addModule(Module module) {
-        return attachedModules.add(module);
+        return ATTACHED_MODULES.add(module);
     }
 
     /**
@@ -29,7 +29,7 @@ public interface Tag {
         if (!containsModule(module)) {
             return false;
         }
-        return attachedModules.remove(module);
+        return ATTACHED_MODULES.remove(module);
     }
 
     /**
@@ -37,7 +37,7 @@ public interface Tag {
      * @return A set of modules.
      */
     public default HashSet<Module> getModules() {
-        return attachedModules;
+        return ATTACHED_MODULES;
     }
 
     /**
@@ -46,7 +46,7 @@ public interface Tag {
      * @return True if this tag contains the module.
      */
     public default boolean containsModule(Module module) {
-        return attachedModules.contains(module);
+        return ATTACHED_MODULES.contains(module);
     }
 
     public boolean isDefault();

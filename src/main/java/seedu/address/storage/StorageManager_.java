@@ -15,18 +15,17 @@ import seedu.address.model.UserPrefs;
 /**
  * Manages storage of ModulePlanner data in local storage.
  */
-public class StorageManager_ implements Storage_{
+public class StorageManager_ implements Storage_ {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private ModulePlannerStorage ModulePlannerStorage;
+    private ModulePlannerStorage modulePlannerStorage;
     private UserPrefsStorage userPrefsStorage;
     private ModulesInfoStorage modulesInfoStorage;
 
-
-    public StorageManager_(ModulePlannerStorage ModulePlannerStorage, UserPrefsStorage userPrefsStorage,
+    public StorageManager_(ModulePlannerStorage modulePlannerStorage, UserPrefsStorage userPrefsStorage,
                           ModulesInfoStorage modulesInfoStorage) {
         super();
-        this.ModulePlannerStorage = ModulePlannerStorage;
+        this.modulePlannerStorage = modulePlannerStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.modulesInfoStorage = modulesInfoStorage;
     }
@@ -53,29 +52,30 @@ public class StorageManager_ implements Storage_{
 
     @Override
     public Path getModulePlannerFilePath() {
-        return ModulePlannerStorage.getModulePlannerFilePath();
+        return modulePlannerStorage.getModulePlannerFilePath();
     }
 
     @Override
     public Optional<ReadOnlyModulePlanner> readModulePlanner() throws DataConversionException, IOException {
-        return readModulePlanner(ModulePlannerStorage.getModulePlannerFilePath());
+        return readModulePlanner(modulePlannerStorage.getModulePlannerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyModulePlanner> readModulePlanner(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyModulePlanner> readModulePlanner(Path filePath) throws DataConversionException,
+            IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return ModulePlannerStorage.readModulePlanner(filePath);
+        return modulePlannerStorage.readModulePlanner(filePath);
     }
 
     @Override
-    public void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner) throws IOException {
-        saveModulePlanner(ModulePlanner, ModulePlannerStorage.getModulePlannerFilePath());
+    public void saveModulePlanner(ReadOnlyModulePlanner modulePlanner) throws IOException {
+        saveModulePlanner(modulePlanner, modulePlannerStorage.getModulePlannerFilePath());
     }
 
     @Override
-    public void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner, Path filePath) throws IOException {
+    public void saveModulePlanner(ReadOnlyModulePlanner modulePlanner, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        ModulePlannerStorage.saveModulePlanner(ModulePlanner, filePath);
+        modulePlannerStorage.saveModulePlanner(modulePlanner, filePath);
     }
 
     // ================ ModulesInfo methods ==============================

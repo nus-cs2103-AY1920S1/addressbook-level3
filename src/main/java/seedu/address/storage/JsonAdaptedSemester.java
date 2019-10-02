@@ -21,7 +21,7 @@ class JsonAdaptedSemester {
      */
     @JsonCreator
     public JsonAdaptedSemester(String semesterName) {
-        this.semesterName= semesterName;
+        this.semesterName = semesterName;
     }
 
     // TODO: this will change according to the actual model of Semester which is not yet implemented
@@ -29,7 +29,7 @@ class JsonAdaptedSemester {
      * Converts a given {@code Semester} into this class for Jackson use.
      */
     public JsonAdaptedSemester(Semester source) {
-        semesterName= source.getSemesterName().toString();
+        semesterName = source.getSemesterName().toString();
     }
 
     @JsonValue

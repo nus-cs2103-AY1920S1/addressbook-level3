@@ -32,14 +32,14 @@ public interface ModulePlannerStorage {
 
     /**
      * Saves the given {@link ReadOnlyModulePlanner} to the storage.
-     * @param ModulePlanner cannot be null.
+     * @param modulePlanner cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner) throws IOException;
+    void saveModulePlanner(ReadOnlyModulePlanner modulePlanner) throws IOException;
 
     /**
      * @see #saveModulePlanner(ReadOnlyModulePlanner)
      */
-    void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner, Path filePath) throws IOException;
+    void saveModulePlanner(ReadOnlyModulePlanner modulePlanner, Path filePath) throws IOException;
 
 }

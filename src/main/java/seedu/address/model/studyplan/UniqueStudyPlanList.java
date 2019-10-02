@@ -12,11 +12,11 @@ import javafx.collections.ObservableList;
 
 /**
  * A list of study plans that enforces uniqueness between its elements and does not allow nulls.
- * A study plan is considered unique by comparing using {@code StudyPlan#isSameStudyPlan(StudyPlan)}. As such, adding and updating of
- * study plans uses StudyPlan#isSameStudyPlan(StudyPlan) for equality so as to ensure that the StudyPlan being added or updated is
- * unique in terms of identity in the UniqueStudyPlanList. However, the removal of a StudyPlan uses StudyPlan#equals(Object) so
- * as to ensure that the study plan with exactly the same fields will be removed.
- *
+ * A study plan is considered unique by comparing using {@code StudyPlan#isSameStudyPlan(StudyPlan)}.
+ * As such, adding and updating of study plans uses StudyPlan#isSameStudyPlan(StudyPlan) for equality so as
+ * to ensure that the StudyPlan being added or updated is unique in terms of identity in the UniqueStudyPlanList.
+ * However, the removal of a StudyPlan uses StudyPlan#equals (Object) so as to ensure that the study plan with
+ * exactly the same fields will be removed.
  * Supports a minimal set of list operations.
  *
  * @see StudyPlan#isSameStudyPlan(StudyPlan)
@@ -52,7 +52,8 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     /**
      * Replaces the StudyPlan {@code target} in the list with {@code editedStudyPlan}.
      * {@code target} must exist in the list.
-     * The StudyPlan identity of {@code editedStudyPlan} must not be the same as another existing StudyPlan in the list.
+     * The StudyPlan identity of {@code editedStudyPlan} must not be the same as another existing
+     * StudyPlan in the list.
      */
     public void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan) {
         requireAllNonNull(target, editedStudyPlan);
@@ -94,15 +95,15 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
      * Replaces the contents of this list with {@code StudyPlans}.
      * {@code StudyPlans} must not contain duplicate StudyPlans.
      */
-    public void setStudyPlans(List<StudyPlan> StudyPlans) {
-        requireAllNonNull(StudyPlans);
-        if (!StudyPlansAreUnique(StudyPlans)) {
+    public void setStudyPlans(List<StudyPlan> studyPlans) {
+        requireAllNonNull(studyPlans);
+        if (!studyPlansAreUnique(studyPlans)) {
 
             // TODO: implement DuplicateStudyPlanException
             // throw new DuplicateStudyPlanException();
         }
 
-        internalList.setAll(StudyPlans);
+        internalList.setAll(studyPlans);
     }
 
     /**
@@ -132,10 +133,10 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     /**
      * Returns true if {@code StudyPlans} contains only unique StudyPlans.
      */
-    private boolean StudyPlansAreUnique(List<StudyPlan> StudyPlans) {
-        for (int i = 0; i < StudyPlans.size() - 1; i++) {
-            for (int j = i + 1; j < StudyPlans.size(); j++) {
-                if (StudyPlans.get(i).isSameStudyPlan(StudyPlans.get(j))) {
+    private boolean studyPlansAreUnique(List<StudyPlan> studyPlans) {
+        for (int i = 0; i < studyPlans.size() - 1; i++) {
+            for (int j = i + 1; j < studyPlans.size(); j++) {
+                if (studyPlans.get(i).isSameStudyPlan(studyPlans.get(j))) {
                     return false;
                 }
             }

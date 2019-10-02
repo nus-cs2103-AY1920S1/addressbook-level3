@@ -1,5 +1,8 @@
 package seedu.address.model.semester;
 
+/**
+ * Represents a list of semesters.
+ */
 public class SemesterList implements Cloneable {
     private Semester[] semesters;
 

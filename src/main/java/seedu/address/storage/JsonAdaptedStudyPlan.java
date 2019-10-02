@@ -27,7 +27,7 @@ class JsonAdaptedStudyPlan {
     private final int index;
     private final boolean isActive;
     private final List<JsonAdaptedSemester> semesters = new ArrayList<>();
-    
+
     /**
      * Constructs a {@code JsonAdaptedStudyPlan} with the given StudyPlan details.
      */
@@ -71,9 +71,9 @@ class JsonAdaptedStudyPlan {
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
-//        if (!Name.isValidName(name)) {
-//            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-//        }
+        // if (!Name.isValidName(name)) {
+        //    throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        // }
         final Title modelTitle = new Title(title);
 
         if (index == 0) {
@@ -81,9 +81,10 @@ class JsonAdaptedStudyPlan {
         }
         final int modelIndex = index;
 
-//        if (isActive == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-//        }
+        // if (isActive == null) {
+        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+        //     Email.class.getSimpleName()));
+        // }
         final boolean modelIsActive = isActive;
 
         final Set<Semester> modelSemesters = new HashSet<>(studyPlanSemesters);

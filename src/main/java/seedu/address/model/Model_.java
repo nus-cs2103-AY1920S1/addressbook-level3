@@ -44,12 +44,12 @@ public interface Model_ {
     /**
      * Sets the user prefs' address book file path.
      */
-    void setModulePlannerFilePath(Path ModulePlannerFilePath);
+    void setModulePlannerFilePath(Path modulePlannerFilePath);
 
     /**
      * Replaces address book data with the data in {@code ModulePlanner}.
      */
-    void setModulePlanner(ReadOnlyModulePlanner ModulePlanner);
+    void setModulePlanner(ReadOnlyModulePlanner modulePlanner);
 
     /**
      * Returns the ModulePlanner
@@ -59,7 +59,7 @@ public interface Model_ {
     /**
      * Returns true if a StudyPlan with the same identity as {@code StudyPlan} exists in the address book.
      */
-    boolean hasStudyPlan(StudyPlan StudyPlan);
+    boolean hasStudyPlan(StudyPlan studyPlan);
 
     /**
      * Deletes the given StudyPlan.
@@ -71,12 +71,13 @@ public interface Model_ {
      * Adds the given StudyPlan.
      * {@code StudyPlan} must not already exist in the address book.
      */
-    void addStudyPlan(StudyPlan StudyPlan);
+    void addStudyPlan(StudyPlan studyPlan);
 
     /**
      * Replaces the given StudyPlan {@code target} with {@code editedStudyPlan}.
      * {@code target} must exist in the address book.
-     * The StudyPlan identity of {@code editedStudyPlan} must not be the same as another existing StudyPlan in the address book.
+     * The StudyPlan identity of {@code editedStudyPlan} must not be the same as another existing StudyPlan
+     * in the address book.
      */
     void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan);
 
@@ -92,7 +93,6 @@ public interface Model_ {
      */
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 }
-
 
 ///**
 // * The API of the Model component.
@@ -163,7 +163,8 @@ public interface Model_ {
 //    /**
 //     * Replaces the given person {@code target} with {@code editedPerson}.
 //     * {@code target} must exist in the address book.
-//     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+//     * The person identity of {@code editedPerson} must not be the same as another existing person in the
+//     * address book.
 //     */
 //    void setPerson(Person target, Person editedPerson);
 //
