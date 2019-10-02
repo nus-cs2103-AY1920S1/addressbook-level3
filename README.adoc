@@ -29,7 +29,7 @@ It allows users to:
 * 3. Retrieve the report at a later date for reference
 * 4. Modify/Update the report
 
-== Site Map
+== Contents:
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
