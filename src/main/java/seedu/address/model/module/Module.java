@@ -30,13 +30,14 @@ public class Module {
         return moduleCode;
     }
 
-    public Timetable getTimeTable(String semesterNo, String classNo) {
-        Timetable timetable = semesterData.getSemester(semesterNo).getTimetable(classNo);
-        return timetable;
-    }
-
     public Semester getSemester(String semesterNo) {
         Semester semester = semesterData.getSemester(semesterNo);
         return semester;
+    }
+
+    @Override
+    public String toString() {
+        String result = moduleCode + " " + title;
+        return result;
     }
 }

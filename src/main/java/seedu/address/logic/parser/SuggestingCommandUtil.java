@@ -14,7 +14,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.NusmodCommand;
+import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.commands.ShowCommand;
 
 /**
@@ -31,7 +31,7 @@ public class SuggestingCommandUtil {
             EditGroupCommand.COMMAND_WORD,
             EditPersonCommand.COMMAND_WORD,
             FindGroupCommand.COMMAND_WORD,
-            NusmodCommand.COMMAND_WORD,
+            ShowNusModCommand.COMMAND_WORD,
             ShowCommand.COMMAND_WORD,
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,

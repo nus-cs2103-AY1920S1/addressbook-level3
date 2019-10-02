@@ -35,7 +35,7 @@ public class ApiQuery {
     /**
      * Executes the query.
      *
-     * @return QueryResult
+     * @return QueryResult See {@code QueryResult}.
      */
     public QueryResult execute() {
 
