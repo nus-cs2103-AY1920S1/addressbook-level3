@@ -52,8 +52,8 @@ Starts the flashcard test from any specific category
 
 === Add new category: `cat [name]`
 
-Creates a new empty category with the given name.
-`cat Math`
+[TIP]
+A person can have any number of categories (including 0)
 
 === Add new flashcard: `add [category]`
 
@@ -70,7 +70,15 @@ Lists all the flashcards under the specific topic folder.
 
 `delete Math *`
 
-=== Set user preference for reminders: `remind [category] DD/MM HHmm`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing categories, the existing categories of the person will be removed i.e adding of categories is not cumulative.
+* You can remove all the person's categories by typing `t/` without specifying any categories after it.
+****
+
 
 Set a reminder for a specific category of flashcards.
 `remind Math 04/11 1030`
@@ -81,6 +89,7 @@ Lists all the flashcards under the specific topic folder. Each flashcard is colo
 `list Math`
 
 === Get the full list of commands: `help`
+
 
 `help`
 

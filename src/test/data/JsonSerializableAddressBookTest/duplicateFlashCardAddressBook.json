@@ -1,0 +1,12 @@
+{
+  "flashcards": [ {
+    "question": "1 + 1",
+    "answer": "2",
+    "rating": "good",
+    "categories": [ "math" ]
+  }, {
+    "question": "1 + 1",
+    "answer": "2",
+    "rating": "easy"
+  } ]
+}

@@ -15,17 +15,16 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Flashcard {
+Class FLashcard
+Class Question
+Class Answer
+Class Rating
+Class UniqueFlashcardList
 }
 
-Package Tag {
-Class Tag
+Package Category {
+Class Category
 }
 }
 
@@ -40,17 +39,15 @@ ModelManager o--> "1" AddressBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+AddressBook *--> "1" UniqueFlashcardList
+UniqueFlashcardList o--> "*" Flashcard
+Flashcard *--> Question
+Flashcard *--> Answer
+Flashcard *--> Rating
+Flashcard *--> "*" Categories
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Question -[hidden]right-> Answer
+Answer -[hidden]right-> Rating
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Flashcard : filtered list
 @enduml

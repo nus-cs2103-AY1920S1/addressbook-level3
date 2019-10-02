@@ -1,0 +1,35 @@
+{
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "flashcards" : [ {
+    "question" : "Store-and-forward",
+    "answer": "Entire packet must arrive at a router before it can be transmitted on the next link",
+    "rating": "good",
+    "categories": [ "CS2105" ]
+  }, {
+    "question" : "End-to-end delay",
+    "answer": "2L/R (assuming no other delay)",
+    "rating": "good",
+    "categories": [ "computerNetworking", "CS2105" ]
+  }, {
+    "question" : "Sources of Packet Delay?",
+    "answer": "Nodal processing, queuing, transmission, propagation",
+    "rating": "good"
+  }, {
+    "question" : "Formula for propagation delay",
+    "answer": "d, length of physical link (m) / s, propagation speed in medium (~2x10^8 m/sec) ",
+    "rating": "good",
+    "categories": [ "CS2105" ]
+  }, {
+    "question" : "Formula for transmission delay",
+    "answer": "L, packet length (bits) / R, link bandwidth (bps)",
+    "rating": "good"
+  }, {
+    "question" : "Throughput definition",
+    "answer": "How many bits can be transmitted per unit time",
+    "rating": "easy"
+  }, {
+    "question" : "What is a Protocol",
+    "answer": "Protocols define format and order of messages exchanged and the action taken after messages are sent or received",
+    "rating": "easy"
+  } ]
+}

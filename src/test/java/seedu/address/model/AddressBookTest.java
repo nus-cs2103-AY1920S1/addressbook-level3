@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalFlashCards.STORE_AND_FORWARD;
+import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
+import seedu.address.testutil.FlashCardBuilder;
 
 public class AddressBookTest {
 
@@ -28,7 +28,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getFlashcardList());
     }
 
     @Test
@@ -44,58 +44,64 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateFlashCards_throwsDuplicateFlashCardException() {
+        // Two flashCards with the same identity fields
+        FlashCard editedCard =
+                new FlashCardBuilder(STORE_AND_FORWARD)
+                        .withRating(VALID_RATING_2)
+                        .withTags(VALID_CATEGORY_HISTORY)
+                        .build();
+        List<FlashCard> newFlashCards = Arrays.asList(STORE_AND_FORWARD, editedCard);
+        AddressBookStub newData = new AddressBookStub(newFlashCards);
+
+        assertThrows(DuplicateFlashCardException.class, () -> addressBook.resetData(newData));
+    }
+
+    @Test
+    public void hasFlashCard_nullFlashCard_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasFlashcard(null));
+    }
+
+    @Test
+    public void hasFlashCard_flashCardNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasFlashcard(STORE_AND_FORWARD));
+    }
+
+    @Test
+    public void hasFlashCard_flashCardInAddressBook_returnsTrue() {
+        addressBook.addFlashcard(STORE_AND_FORWARD);
+        assertTrue(addressBook.hasFlashcard(STORE_AND_FORWARD));
+    }
+
+    @Test
+    public void hasFlashCard_flashCardWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addFlashcard(STORE_AND_FORWARD);
+        FlashCard editedAlice =
+                new FlashCardBuilder(STORE_AND_FORWARD)
+                        .withRating(VALID_RATING_2)
+                        .withTags(VALID_CATEGORY_HISTORY)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
-
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertTrue(addressBook.hasFlashcard(editedAlice));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
-    }
-
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    public void getFlashCardList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getFlashcardList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose flashCards list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<FlashCard> flashCards = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        AddressBookStub(Collection<FlashCard> flashCards) {
+            this.flashCards.setAll(flashCards);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<FlashCard> getFlashcardList() {
+            return flashCards;
         }
     }
 

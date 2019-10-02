@@ -1,0 +1,11 @@
+{
+  "flashcards": [ {
+    "question": "Valid FlashCard",
+    "answer": "Valid answer",
+    "rating": "good"
+  }, {
+    "question": "FlashCard With Invalid Answer Field",
+    "answer": " ",
+    "rating": "hard"
+  } ]
+}
