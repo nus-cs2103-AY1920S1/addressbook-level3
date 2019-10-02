@@ -15,6 +15,7 @@ public class Semester {
     private final UniqueModuleList modules = new UniqueModuleList();
     private boolean isBlocked = false;
     private String reasonForBlocked;
+    private boolean isExpanded = false;
 
     /**
      * SemesterName field must be present and not null.
@@ -39,6 +40,10 @@ public class Semester {
         return reasonForBlocked;
     }
 
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
     public int getMcCount() {
         return modules.getMcCount();
     }
@@ -49,6 +54,10 @@ public class Semester {
 
     public void setReasonForBlocked(String reasonForBlocked) {
         this.reasonForBlocked = reasonForBlocked;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
     public void addModule(Module module) {
