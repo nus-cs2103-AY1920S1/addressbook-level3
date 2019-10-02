@@ -326,7 +326,7 @@ Lists all bodies currently in Mortago.
 ==== Display dashboard: `dashboard`
 
 Brings up the dashboard to the front of the application. +
-The dashboard provides a compact view of all bodies, workers and fridges, as well as several important statistics that may be useful to you. 
+The dashboard provides a compact view of all bodies, workers and fridges, as well as several important statistics that may be useful to you.
 
 Format: `dashboard`
 
