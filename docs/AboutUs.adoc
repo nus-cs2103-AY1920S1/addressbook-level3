@@ -11,8 +11,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lawnce Goh
-image::lawncegoh.png[width="150", align="left"]
-{empty}[https://github.com/lawncegoh[homepage]][<<lawncegoh#, portfolio>>]
+image::lawncegoh.png
+{empty}[https://github.com/lawncegoh[github]][<<lawncegoh#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Features
