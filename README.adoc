@@ -1,7 +1,6 @@
 = Athletick
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-
 https://travis-ci.org/AY1920S1-CS2103T-T12-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-T12-3/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/hellodommy/main[image:https://ci.appveyor.com/api/projects/status/lsaggubb3k8wrx19?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T12-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T12-3/main/badge.svg?branch=master[Coverage Status]]
