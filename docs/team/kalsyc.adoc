@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-image::darren.png[width="150", align="left"]
+image::kalsyc.png[width="150", align="left"]
 {empty}[https://kalsyc.github.io[homepage]] [https://github.com/kalsyc[github]]
 
 Role: Developer +

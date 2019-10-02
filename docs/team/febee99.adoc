@@ -1,13 +1,13 @@
-= Liu Xiaoyu - Project Portfolio
+= Phoebe Chan Kar Hui - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-image::xiaoyu.png[width="150", align="left"]
-{empty}[https://github.com/xiaoyu-nus[github]]
+image::febee99.png[width="150", align="left"]
+{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]]
 
 Role: Developer +
-Responsibilities: Reminder System + Logo and Website Designer
+Responsibilities: Code Quality + Scheduling and Tracking
 
 '''
 

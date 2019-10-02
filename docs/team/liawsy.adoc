@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-image::siewyee.png[width="150", align="left"]
+image::liawsy.png[width="150", align="left"]
 {empty}[https://github.com/liawsy[github]]
 
 Role: Developer +

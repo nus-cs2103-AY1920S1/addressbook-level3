@@ -10,8 +10,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Tan Kai Qun, Jeremy
-image::jeremy.png[width="150", align="left"]
-{empty}[https://jermytan.github.io[homepage]] [https://github.com/JermyTan[github]] [<<jeremy#, portfolio>>]
+image::jermytan.png[width="150", align="left"]
+{empty}[https://jermytan.github.io[homepage]] [https://github.com/JermyTan[github]] [<<jermytan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration + Deliverables and Deadlines + DevOps
@@ -19,8 +19,8 @@ Responsibilities: Integration + Deliverables and Deadlines + DevOps
 '''
 
 === Sim Jun Yuen, Darren
-image::darren.png[width="150", align="left"]
-{empty}[https://kalsyc.github.io[homepage]] [https://github.com/kalsyc[github]] [<<darren#, portfolio>>]
+image::kalsyc.png[width="150", align="left"]
+{empty}[https://kalsyc.github.io[homepage]] [https://github.com/kalsyc[github]] [<<kalsyc#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing + UI/UX Designer
@@ -28,8 +28,8 @@ Responsibilities: Testing + UI/UX Designer
 '''
 
 === Phoebe Chan Kar Hui
-image::febee.png[width="150", align="left"]
-{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]] [<<febee#, portfolio>>]
+image::febee99.png[width="150", align="left"]
+{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]] [<<febee99#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality + Scheduling and Tracking
@@ -37,8 +37,8 @@ Responsibilities: Code Quality + Scheduling and Tracking
 '''
 
 === Liaw Siew Yee
-image::siewyee.png[width="150", align="left"]
-{empty}[https://github.com/liawsy[github]] [<<siewyee#, portfolio>>]
+image::liawsy.png[width="150", align="left"]
+{empty}[https://github.com/liawsy[github]] [<<liawsy#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage + Documentation
@@ -46,8 +46,8 @@ Responsibilities: Storage + Documentation
 '''
 
 === Liu Xiaoyu
-image::xiaoyu.png[width="150", align="left"]
-{empty}[https://github.com/xiaoyu-nus[github]] [<<xiaoyu#, portfolio>>]
+image::xiaoyu-nus.png[width="150", align="left"]
+{empty}[https://github.com/xiaoyu-nus[github]] [<<xiaoyu-nus#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Reminder System + Logo and Website Designer

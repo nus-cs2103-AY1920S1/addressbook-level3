@@ -1,13 +1,13 @@
-= Phoebe Chan Kar Hui - Project Portfolio
+= Tan Kai Qun, Jeremy - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-image::febee.png[width="150", align="left"]
-{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]]
+image::jermytan.png[width="150", align="left"]
+{empty}[https://jermytan.github.io[homepage]] [https://github.com/JermyTan[github]]
 
 Role: Developer +
-Responsibilities: Code Quality + Scheduling and Tracking
+Responsibilities: Integration + Deliverables and Deadlines + DevOps
 
 '''
 

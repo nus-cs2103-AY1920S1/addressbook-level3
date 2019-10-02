@@ -1,13 +1,13 @@
-= Tan Kai Qun, Jeremy - Project Portfolio
+= Liu Xiaoyu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-image::jeremy.png[width="150", align="left"]
-{empty}[https://jermytan.github.io[homepage]] [https://github.com/JermyTan[github]]
+image::xiaoyu-nus.png[width="150", align="left"]
+{empty}[https://github.com/xiaoyu-nus[github]]
 
 Role: Developer +
-Responsibilities: Integration + Deliverables and Deadlines + DevOps
+Responsibilities: Reminder System + Logo and Website Designer
 
 '''
 
