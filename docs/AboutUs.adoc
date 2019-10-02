@@ -11,11 +11,12 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Leow Wen Bin
+image::leowwb.png[width="150", align="left"]
+{empty}[] [https://github.com/leowwb[github]] [<<leowwb#, portfolio>>]
 
-Role: Project Advisor
+Role: Team Lead +
+Responsibilities: Integration, Git
 
 '''
 
