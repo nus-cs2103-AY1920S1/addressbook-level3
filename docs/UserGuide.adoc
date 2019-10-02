@@ -542,7 +542,7 @@ then annotations are shown as well.
 
 === Adding a reminder: `reminder`
 
-Adds a reminder to visit a bookmark. You can set the time for the reminder.
+Adds a reminder of a specified bookmark. You can set the time for the reminder.
 
 Format: `reminder INDEX t/TIME_DATE [n/NOTE=Open]`
 
@@ -563,28 +563,28 @@ The reminder reminds you to read announcements.
 
 
 === Editing a reminder: `reminder edit`
-Edits the reminder of the specified bookmark. You can edit either the time or the note of the reminder.
+Edits the reminder at the specified index. You can edit either the time or the note of the reminder.
 
 Format: `reminder edit INDEX [t/TIME_DATE] [n/NOTE]`
-* INDEX is the index of the bookmark that has the reminder that you want to edit.
+* INDEX is the index of the reminder you want to edit on the dashboard.
 * TIME_DATE is the time you want to edit. The time follows HHMM dd/mm/yyyy format.
 * NOTE is the description of the reminder that you want to edit.
 * `reminder edit 1 t/2359 02/07/2019` +
-Edits the reminder of bookmark 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
 * `reminder 1 t/2359 02/07/2019 n/Check daily news` +
-Edits the reminder of bookmark 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to check daily news.
 
 === Deleting a reminder: `reminder delete`
 
-Deletes the the specified reminder.
+Deletes the the reminder at the specified index.
 
 Format: `reminder delete INDEX`
-* INDEX is the index of the bookmark that has the reminder that you want to delete.
+* INDEX is the index of the reminder you want to delete on the dashboard.
 
 * `reminder delete 1` +
-Delete the reminder of the bookmark 1.
+Delete the reminder of index 1.
 
 === Sorting bookmarks: `sort`
 
