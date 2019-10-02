@@ -147,6 +147,81 @@ Edits the name, date and calories burnt of the 4th exercise to `Swim`, `21/09/20
 Edits the name, date, calories burnt, quantity, units and muscle group trained of the 3rd exercise to `Bench press`,
 `22/09/2019`, `240`, `10`, `sets` and `Chest` respectively.
 
+=== Locating exercises by name: `find`
+
+Finds exercises whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `run` will match `Run`
+* The order of the keywords does not matter. e.g. `Bench Press` will match `Press Bench`
+* Only the name is searched.
+* Only full words will be matched e.g. `Runs` will not match `Run`
+* Exercises matching at least one keyword will be returned (i.e. `OR` search). e.g. `Bench Press` will return `Incline Bench Press`, `Decline Bench Press`
+****
+
+Examples:
+
+* `find bench press`
+* `find run`
+
+// tag::delete[]
+=== Delete health information : `delete`
+
+==== Deleting exercise information
+
+Deleting a certain exercise information from ExerHealth.
+
+Format: `delete t/exercise i/INDEX`
+
+****
+* Deletes the exercise at the specified `INDEX`.
+* The index refers to the index number shown in the displayed exercise list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete t/exercise i/2`
+
+==== Deleting exercise from scheduling regime
+
+Deletes exercises from a certain scheduling regime.
+
+Format: `delete t/exercise n/REGIME_NAME [i/INDEX]...`
+
+****
+* Deletes the exercise at the specified `INDEX`.
+* If index is not provided, the command deletes the entire scheduling regime
+* The index refers to the index number shown in the displayed regime list.
+* The index, if provided, *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete t/regime n/cardio i/2` +
+Deletes the exercise indexed 2 in the cardio regime
+* `delete t/regime n/legs` +
+Deletes the entire regime named legs
+
+=== Display statistics : `stats`
+
+Display the statistics of exercises.
+
+Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [d/END_DATE]`
+
+****
+* Supported chart types: Pie Chart, Line Chart, Bar Chart
+* If no `START_DATE` and `END_DATE` are provided, the recent 7 days of history will be used.
+* If any date is provided, both `START_DATE` and `END_DATE` dates must be there.
+****
+
+Example:
+
+* `stats t/exercise h/piechart`
+* `stats t/calories h/linechart`
+* `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
+
 === Custom properties: `custom`
 
 ==== Adding custom properties
