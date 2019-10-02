@@ -1,5 +1,8 @@
 package seedu.address.model.studyplan;
 
+import java.util.Set;
+
+import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterList;
 
 public class StudyPlan implements Cloneable{
@@ -8,7 +11,7 @@ public class StudyPlan implements Cloneable{
     private boolean isActive;
     private int index; // unique identifier of this study plan
 
-    private static int totalNumberOfStudyPlans = 0;
+    private static int totalNumberOfStudyPlans = 0; // TODO: this will reset to zero every time application restarts
 
     // to create a study plan without a Title
     public StudyPlan() {
@@ -29,6 +32,10 @@ public class StudyPlan implements Cloneable{
 
         totalNumberOfStudyPlans++;
         this.index = totalNumberOfStudyPlans;
+    }
+
+    // TODO: furnish this constructor. This is created so that JsonAdaptedStudyPlan works
+    public StudyPlan(Title modelTitle, int modelIndex, boolean modelIsActive, Set<Semester> modelSemesters) {
     }
 
     // make a copy of the current study without incrementing the index, for version tracking commits
@@ -59,6 +66,12 @@ public class StudyPlan implements Cloneable{
     public int getIndex() {
         return index;
     }
+
+    public boolean isSameStudyPlan(StudyPlan other) {
+        return this.index == other.index;
+    }
+
+    // TODO: implement/override equals
 
     public StudyPlan clone() throws CloneNotSupportedException {
         StudyPlan clone = (StudyPlan) super.clone();

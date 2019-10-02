@@ -20,6 +20,10 @@ public class SemesterList implements Cloneable {
         // TODO: implement
     }
 
+    public Semester[] getSemesters() {
+        return semesters;
+    }
+
     public SemesterList clone() throws CloneNotSupportedException {
         return (SemesterList) super.clone();
     }
