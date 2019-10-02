@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.borrower.Email;
+import seedu.address.model.borrower.Name;
+import seedu.address.model.borrower.Phone;
 
 /**
  * Jackson-friendly version of {@link Borrower}.
@@ -13,13 +17,21 @@ class JsonAdaptedBorrower {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Borrower's %s field is missing!";
 
-    private final String userName;
+    private final String name;
+    private final String phone;
+    private final String email;
+    private final String borrowerId;
+
     /**
-     * Constructs a {@code JsonAdaptedBorrower} with the given book details.
+     * Constructs a {@code JsonAdaptedBorrower} with the given borrower detail.
      */
     @JsonCreator
-    public JsonAdaptedBorrower(@JsonProperty("userName") String userName) {
-        this.userName = userName;
+    public JsonAdaptedBorrower(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                               @JsonProperty("email") String email, @JsonProperty("borrowerId") String borrowerId) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.borrowerId = borrowerId;
     }
 
     /**
@@ -27,8 +39,10 @@ class JsonAdaptedBorrower {
      */
     public JsonAdaptedBorrower(Borrower source) {
 
-        // TODO
-        userName = source.getUserName();
+        name = source.getName().name;
+        phone = source.getPhone().value;
+        email = source.getEmail().value;
+        borrowerId = source.getBorrowerId().value;
     }
 
     /**
@@ -37,13 +51,6 @@ class JsonAdaptedBorrower {
      * @throws IllegalValueException if there were any data constraints violated in the adapted book.
      */
     public Borrower toModelType() throws IllegalValueException {
-
-        // TODO
-        /*
-        final List<Tag> bookTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            bookTags.add(tag.toModelType());
-        }
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -56,7 +63,7 @@ class JsonAdaptedBorrower {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-        if (!Phone.isValidSerialNumber(phone)) {
+        if (!Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);
@@ -64,23 +71,23 @@ class JsonAdaptedBorrower {
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
+
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (borrowerId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    BorrowerId.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+
+        if (!BorrowerId.isValidBorrowerId(borrowerId)) {
+            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final BorrowerId modelBorrowerId = new BorrowerId(borrowerId);
 
-        final Set<Tag> modelTags = new HashSet<>(bookTags);
-
-         */
-        return new Borrower();
+        return new Borrower(modelName, modelPhone, modelEmail, modelBorrowerId);
     }
 
 }

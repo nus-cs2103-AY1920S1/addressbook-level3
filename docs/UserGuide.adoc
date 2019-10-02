@@ -253,7 +253,7 @@ Including `-all` will return all currently loaned books
 Reduces the oustanding amount of borrower's fines by AMOUNT (in cents) and adds a transaction record to his account +
 Format: `pay AMOUNT`
 
-==== Reserve a book: `reserve` ** - Coming in v2.0**
+==== Reserve a book: `reserve`
 
 Reserve a particular book
 Format: `reserve INDEX` or `reserve sn/BOOK_SN`
@@ -320,4 +320,4 @@ e.g. `loan sn/B00201 sn/B02929 sn/B00203`
 * *Renew book(s)* : `renew INDEX… [-all]`
 * *Return book(s)* : `return INDEX… [-all]`
 * *Pay fines* : `pay AMOUNT`
-* *Reserve book* : `reserve INDEX` or `reserve sn/BOOK_SN` ** - Coming in v2.0**
+* *Reserve book* : `reserve INDEX` or `reserve sn/BOOK_SN`

@@ -2,6 +2,8 @@
 :site-section: ContactUs
 :stylesDir: stylesheets
 
-* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103T-F13-1/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
+* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103T-F13-1/main/issues[issue tracker] if you
+noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
-* *Email us* : You can also reach us at email us hoholyin@u.nus.edu
+* *Email us* : You can also reach us at any one of our emails at hoholyin@u.nus.edu, wangshiyao@u.nus.edu,
+e0273890@u.nus.edu, yuting.lin@u.nus.edu, ziyang.see@u.nus.edu
