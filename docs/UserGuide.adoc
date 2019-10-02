@@ -436,17 +436,17 @@ Assigns worker with staff ID W00001 to body with ID B00000002 with a task descri
 
 === Document Generation
 ==== Generate report on the deceased: `genReport`
-Receive routine reports from the app automatically
+Generate an individual report from the app automatically
 
 Format: `genReport bodyID`
 
 Example:
 
 * `genReport 123` +
-Outputs the report for body ID B00000123
+Outputs the report PDF for body ID B00000123
 
 ==== View past individual reports: `report`
-Receive details of past individual reports.
+Receive details of a past individual report.
 
 Format: `report bodyID`
 
@@ -546,10 +546,10 @@ Lists emergency help hotlines.
     ** Assign a body and task to a worker.
     Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
 * *Generate report* : `genReport`
-    ** Receive routine reports from the app automatically
+    ** Generate an individual report from the app automatically
     Format: `genReport bodyID`
 * *View a select report* : `report`
-    ** Receive details of past individual reports.
+    ** Receive details of a past individual report.
     Format: `report bodyID`
 * *View past reports* : `reports`
     ** Receive a list of past reports.
