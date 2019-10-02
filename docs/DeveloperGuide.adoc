@@ -279,13 +279,16 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* a student who is inexperienced in planning for overseas trips
+* has a need to manage and schedule itinerary items
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Many students wish to go for overseas trips during their holidays. They may be inexperienced in
+trip planning. These students would benefit from having a template as a way to organise the information they have for
+their trip. Plan²travel can organise information faster than a typical mouse/GUI driven app.
 
 [appendix]
 == User Stories
@@ -295,17 +298,48 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |traveller |refer to a list of attractions |I can decide on what activities to do for the day
 
-|`* * *` |user |add a new person |
+|`* * *` |traveller |add activities that I want to do |I can plan my trip
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |traveller |save my contact list |I can review/access them again
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |traveller |access a list of accommodations |I can better plan for where to stay at
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |organised traveller |plan my daily itinerary |I can make better use of my travel time
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |lightweight traveller |save the itinerary to my phone |I can pack light
+
+|`* * *` |infrequent traveller |add contacts |I can get in touch with the hotel concierge
+
+|`* * *` |new user |view a help guide |I can familiarise myself with the application
+
+|`* *` |traveller |categorise activities by interest |I can prioritise certain activities
+
+|`* *` |solo traveller |keep a list of emergency contacts |I know who to contact in times of emergency
+
+|`* *` |eager traveller |follow an activity checklist |I will not miss out on anything
+
+|`* *` |indecisive traveller |plan for multiple trips |I can decide on a later date
+
+|`* *` |messy planner |quickly organise my travel research |I can streamline my planning processes
+
+|`* *` |fast typist |be auto-corrected for my typos |I won't break my train of thought while planning
+
+|`* *` |advanced user |use command shortcuts |I can improve my planning efficiency
+
+|`* *` |advanced user |set where to save my itineraries |I can organise my itineraries
+
+|`* *` |careless user |undo my mistakes |I don't have to retype if I make one
+
+|`*` |traveller |rate activities that I have done |I can make a better recommendation to my friends
+
+|`*` |traveller on a tight budget |estimate my budget for a trip |I can minimise my spendings
+
+|`*` |traveller |organise and record my travel experiences |I can share them online
+
+|`*` |inexperienced planner |receive planning recommendations |I can improve my itinerary
+
 |=======================================================================
 
 _{More to be added}_
