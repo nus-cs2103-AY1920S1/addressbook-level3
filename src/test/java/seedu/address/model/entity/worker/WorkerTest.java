@@ -5,7 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalWorkers.ALICE;
 import static seedu.address.testutil.TypicalWorkers.BENSON;
+import static seedu.address.testutil.WorkerBuilder.DEFAULT_DATE_JOINED;
+import static seedu.address.testutil.WorkerBuilder.DEFAULT_DATE_OF_BIRTH;
+import static seedu.address.testutil.WorkerBuilder.DEFAULT_DESIGNATION;
+import static seedu.address.testutil.WorkerBuilder.DEFAULT_EMPLOYMENT_STATUS;
 import static seedu.address.testutil.WorkerBuilder.DEFAULT_NAME;
+import static seedu.address.testutil.WorkerBuilder.DEFAULT_PHONE;
+import static seedu.address.testutil.WorkerBuilder.DEFAULT_SEX;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -56,6 +62,9 @@ class WorkerTest {
         // same object -> returns true
         assertTrue(ALICE.equals(ALICE));
 
+        // same hashcode -> returns true
+        assertEquals(ALICE.hashCode(), aliceCopy.hashCode());
+
         // null -> returns false
         assertFalse(ALICE.equals(null));
 
@@ -103,5 +112,14 @@ class WorkerTest {
 
         testWorker.setEmploymentStatus("Test status");
         assertEquals("Test status", testWorker.getEmploymentStatus());
+    }
+
+    @Test
+    void toString_correct() throws ParseException {
+        assertEquals(DEFAULT_NAME + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
+                + " Date of Birth: " + ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH)
+                + " Date Joined: " + ParserUtil.parseDate(DEFAULT_DATE_JOINED)
+                + " Designation: " + DEFAULT_DESIGNATION + " Employment Status: " + DEFAULT_EMPLOYMENT_STATUS,
+                new WorkerBuilder().build().toString());
     }
 }
