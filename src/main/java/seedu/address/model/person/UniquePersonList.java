@@ -79,10 +79,6 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
 
     /**
      * Replaces the contents of this list with {@code persons}.
