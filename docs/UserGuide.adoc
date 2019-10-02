@@ -149,9 +149,49 @@ Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
 
 === Test mode
 
-==== enter command here...
+There is a built-in Test mode in NUStudy for you to take a revision test based on questions and answers input by you.
 
-pass
+==== Enter test mode : `test`
+
+Enters test mode for you to answer questions. +
+Format: `test [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+
+==== Change the difficulty: : `change -dif`
+
+Changes the level of difficulty of questions. +
+Format: `change -dif d/DIFFICULTY`
+
+==== Set mixed difficulty : `mix -dif`
+
+Set the exam with mixed levels of difficulty, minimum of two levels. +
+Format: +
+`mix -dif [d/DIFFICULTY1] [n/NUMBER1] [d/DIFFICULTY2] [n/NUMBER2] [d/DIFFICULTY3] [n/NUMBER3]...` +
+`mix -dif all n/NUMBER`
+
+==== Change the subject : `change -s`
+
+Changes the subject of questions. +
+Format: `change -s SUBJECT [MORE_SUBJECTS]`
+
+====  Skip a question : `skip`
+
+Skips current question and goto the next one. +
+Format: `skip`
+
+==== Show an answer : `show`
+
+Shows an answer for this question. +
+Format: `show`
+
+==== Mark a question: `mark`
+
+Marks the current question to a special list. +
+Format: `mark`
+
+==== Exit test mode : `quit`
+
+Exits from the test mode. +
+Format: `quit`
 
 === Get statistics
 
