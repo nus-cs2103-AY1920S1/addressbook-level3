@@ -120,6 +120,7 @@ Examples:
 
 * to get total scores only
   `score t`
+
 ==== Getting rank of an athlete: `rank`
 Gets current position of an athlete relative to other relatives for the entire competition.
 
