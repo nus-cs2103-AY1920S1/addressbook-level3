@@ -18,7 +18,7 @@ Role: Member
 
 === Philip Alexander Boediman
 image::portrait_placeholder.png[width="150", align="left"]
-{empty}[...[homepage]] [https://github.com/philipalexanderb[github]]
+{empty}[https://github.com/philipalexanderb[github]]
 
 Role: Member
 
