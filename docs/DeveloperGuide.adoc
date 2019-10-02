@@ -362,7 +362,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case UC01: List bookmarks
+=== Use case: UC01 - List bookmarks
 
 *MSS*
 
@@ -372,7 +372,7 @@ _{More to be added}_
 Use case ends.
 
 [discrete]
-=== Use case UC02: Add bookmark
+=== Use case: UC02 - Add bookmark
 
 *MSS*
 
@@ -391,7 +391,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case UC03: Delete bookmark
+=== Use case: UC03 - Delete bookmark
 
 *MSS*
 
@@ -417,7 +417,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case UC04: Edit bookmark
+=== Use case: UC04 - Edit bookmark
 
 *MSS*
 
@@ -443,7 +443,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case UC05: Open bookmark
+=== Use case: UC05 - Open bookmark
 
 *MSS*
 
@@ -469,7 +469,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case UC06: Export bookmarks
+=== Use case: UC06 - Export bookmarks
 
 *MSS*
 
@@ -492,7 +492,7 @@ Use case ends.
 Use case resumes at step 4.
 
 [discrete]
-=== Use case UC07: Import bookmarks
+=== Use case: UC07 - Import bookmarks
 
 *MSS*
 
@@ -519,7 +519,7 @@ Use case resumes at step 1.
 Use case ends.
 
 [discrete]
-=== Use case UC08: Make a bookmark available offline
+=== Use case: UC08 - Make a bookmark available offline
 
 *MSS*
 
@@ -545,7 +545,7 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case UC09: Undo previous <<undoable-commands,undoable commands>>
+=== Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
 
 *MSS*
 
@@ -565,7 +565,7 @@ Mark shows an error message.
 Use case ends.
 
 [discrete]
-=== Use case UC10: Redo previously undone commands
+=== Use case: UC10 - Redo previously undone commands
 
 *MSS*
 
@@ -585,17 +585,28 @@ Use case ends.
 
 
 [discrete]
-=== Use case: UC11: Browse
+=== Use case: UC11 - Browse the web
+
 *MSS*
+
 1. User requests to browse the web.
 2. Mark provides in-built web browser.
 3. User browses the web.
 +
 Use case ends.
 
+*Extensions*
+[none]
+* 1a. Mark does not have internet access.
+** 1a1. Mark tells user that there is no internet access and suggests user to see cache.
++
+Use case ends.
+
 [discrete]
-=== Use case: UC12: Add bookmarks from web browser
+=== Use case: UC12 - Add bookmarks from web browser
+
 *MSS*
+
 1. User [.underline]#browses the web (UC11)#.
 2. User requests to bookmark currently showing webpage.
 3. Mark uses current website's URL and [.underline]#adds bookmark (UC02)#.
@@ -603,8 +614,10 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC13: Annotate offline documents
+=== Use case: UC13 - Annotate offline documents
+
 *MSS*
+
 1. User chooses bookmark document to annotate.
 2. Mark shows the annotated document.
 3. User annotates the document.
