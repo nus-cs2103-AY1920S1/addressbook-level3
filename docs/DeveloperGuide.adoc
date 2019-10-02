@@ -285,7 +285,13 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Mortago replaces and improves upon the traditional whiteboard system.
+
+It provides a convenient dashboard for the mortuary manager to keep track of all bodies and fridges,
+outstanding tasks, and alerts. Mortago unites the different aspects of a mortuary and allows the
+mortuary management to be more accurate in managing tasks, calculate the availability of space, and
+generate reports automatically.
+
 
 [appendix]
 == User Stories
@@ -425,8 +431,54 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
 
+[discrete]
+=== Use case: Undoing a previous command
+
+*MSS*
+
+1. Mortuary manager requests to undo the previous command.
+2. Mortago undoes the command.
+3. Mortago updates the GUI to reflect the new changes.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no command to undo.
++
+Use case ends.
+* 2b. An error occurred when undoing the command.
+    ** 2b1. Mortago shows an error message and nothing is changed.
++
+Use case ends.
+
+[discrete]
+=== Use case: Redoing an undone command
+
+*MSS*
+
+1. Mortuary manager requests to redo the previously undone command.
+2. Mortago redoes the command.
+3. Mortago updates the GUI to reflect the new changes.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no command to redo.
++
+Use case ends.
+* 2b. An error occurred when undoing the command.
+    ** 2b1. Mortago shows an error message and nothing is changed.
++
+Use case ends.
+
+_{More to be added}_
 [appendix]
 == Non Functional Requirements
 
