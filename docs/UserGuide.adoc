@@ -57,45 +57,59 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-//[TIP]
-//A person can have any number of tags (including 0)
+=== Lecture notes
 
-//Examples:
+==== Adding lecture notes: `addnote`
+Adds a lecture note. The `i/` field, if provided, brings up a dialogue where an image can be chosen from
+the file system; such an image will be displayed beside the note. +
+Format: `addnote t/TITLE c/CONTENT [i/]`
 
-//* `edit 1 p/91234567 e/johndoe@example.com` +
-//Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-//* `edit 2 n/Betsy Crower t/` +
-//Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+==== Editing lecture notes: `editnote`
+Edits an existing lecture note. Providing `i/` brings up the image selection dialogue, like `addnote`;
+this can be used to change the image. At least one of `t/`, `c/` and `i/` must be provided.
 
-//Examples:
+The index must be between 1 and the number of notes and flashcards combined, inclusive. +
+Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/]`
 
-//* `find John` +
-//Returns `john` and `John Doe`
-//* `find Betsy Tim John` +
-//Returns any person having names `Betsy`, `Tim`, or `John`
+==== Viewing lecture notes: `shownote`
+If an index is provided, a number prefixed with a # (e.g. #1), show the lecture note with that index.
+Otherwise, search for lecture notes whose title contains every given word (space-separated, ignoring case),
+and display them. +
+Format: `shownote [#INDEX | WORDS]`
 
-// tag::dataencryption[]
-//=== Encrypting data files `[coming in v2.0]`
+==== Deleting lecture notes: `deletenote`
+Delete the lecture note with the given index, which follows the same restrictions as with `editnote`. +
+Format: `deletenote INDEX`
 
-//_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Exporting all entries: `export`
+Export all items in NUStudy, both flash cards and lecture notes, into a file with the given name. +
+Format: `export FILENAME`
 
-=== Adding Questions : `add`
+==== Importing all entries: `import`
+Import all items in the given file into NUStudy. This overwrites any items already in the app. +
+Format: `import FILENAME`
+
+=== Questions
+
+NUStudy can also store different sets of questions and answers;
+at your command, the system will prompt you to answer those questions.
+
+==== Adding Questions : `add`
 
 Adds a question and its answer. +
 Format: `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 
-=== Listing all questions: `list`
+==== Listing all questions: `list`
 
 Shows a list of questions. +
 Format: `list`
 
-=== Listing all questions with answers: `list -all`
+==== Listing all questions with answers: `list -all`
 
 Shows a list of questions and their corresponding answers. +
 Format: `list -all`
 
-=== Editing a question: `edit`
+==== Editing a question: `edit`
 
 Edits the fields of an existing question. +
 Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
@@ -107,12 +121,12 @@ Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
-=== Locating questions by keyword: `find`
+==== Locating questions by keyword: `find`
 
 Finds questions containing the keyword. +
 Format: `find KEYWORD [MORE KEYWORDS]`
 
-=== Deleting a question: `delete`
+==== Deleting a question: `delete`
 
 Deletes the specific question at the specified INDEX and its answer from the list. +
 Format: `delete INDEX`
@@ -123,32 +137,27 @@ Format: `delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-=== Find difficulty: `difficulty`
+==== Find difficulty: `difficulty`
 
 Views the list of all questions with a specific difficulty. +
 Format: `difficulty d/DIFFICULTY`
 
-=== Find difficulty within a subject: `difficulty -s`
+==== Find difficulty within a subject: `difficulty -s`
 
 Views the list of questions of a specified subject with a specific difficulty. +
 Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
 
-
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with
+the file that contains the data of your previous folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Add lecture note*: `addnote t/TITLE c/CONTENT [i/]`
+* *Edit lecture note*: `editnote INDEX [t/TITLE] [c/CONTENT] [i/]`
+* *Show or find lecture note*: `shownote [#INDEX | WORDS]`
+* *Delete lecture note*: `deletenote INDEX`
+* *Export all*: `export FILENAME`
+* *Import all*: `import FILENAME`
