@@ -328,7 +328,7 @@ more conveniently than traditional forms of trip planning
 [appendix]
 == Use Cases
 
-<span class="underline">Use case: UC1 - Add Trip</span>
+**Use case: UC1 - Add Trip**
 
 ***MSS***
 
