@@ -279,15 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* a student who is inexperienced in planning overseas trips
-* don't know what is involved in planning an itinerary
+* a student who is inexperienced in planning for overseas trips
+* has a need to manage and schedule itinerary items
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: Many students wish to go for overseas trips during their holidays. They are inexperienced and don't
-know what is involved in planning for a trip. They require a template as a way to organise the information they have for
+*Value proposition*: Many students wish to go for overseas trips during their holidays. They may be inexperienced in
+trip planning. These students would benefit from having a template as a way to organise the information they have for
 their trip. Plan²travel can organise information faster than a typical mouse/GUI driven app.
 
 [appendix]
