@@ -1,15 +1,15 @@
-= John Doe - Project Portfolio
+= Liu Guangyuan- Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: ɯeme
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+ɯeme is a meme manager app for those who *prefer to use a desktop app for managing memes*. More importantly, ɯeme is optimized for those who *prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). Users can view, tag, search, import and export a collection of meme. They can also create their own memes from meme templates.
 
 == Summary of contributions
 
