@@ -42,7 +42,7 @@ Responsibilities: Logic
 image::dalsontws.png[width="150", align="left"]
 {empty}[http://github.com/dalsontws[github]] [<<dalsontws#, portfolio>>]
 
-Role: Scheduler + 
+Role: Scheduler +
 Responsibilities: Deliverables & Deadlines
 
 '''
