@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_APPLE;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_KIWI;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRUIT;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_GREEN;
+//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_GREEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_APPLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_BANANA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_KIWI;
@@ -86,9 +86,10 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_GREEN + TAG_DESC_FRUIT + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_GREEN + TAG_EMPTY + TAG_DESC_FRUIT, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_GREEN + TAG_DESC_FRUIT, Tag.MESSAGE_CONSTRAINTS);
+        //Tests turned off so that empty "" tags CANNOT be parsed.
+        //assertParseFailure(parser, "1" + TAG_DESC_GREEN + TAG_DESC_FRUIT + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        //assertParseFailure(parser, "1" + TAG_DESC_GREEN + TAG_EMPTY + TAG_DESC_FRUIT, Tag.MESSAGE_CONSTRAINTS);
+        //assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_GREEN + TAG_DESC_FRUIT, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EXPIRY_DATE_DESC,
@@ -101,8 +102,8 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + NAME_DESC_APPLE + EXPIRY_DATE_DESC_APPLE + TAG_DESC_FRUIT;
 
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_APPLE)
-                                                                         .withExpiryDate(VALID_EXPIRY_DATE_APPLE)
-                                                                         .withTags(VALID_TAG_FRUIT).build();
+                .withExpiryDate(VALID_EXPIRY_DATE_APPLE)
+                .withTags(VALID_TAG_FRUIT).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -149,8 +150,8 @@ public class EditCommandParserTest {
                 + EXPIRY_DATE_DESC_KIWI + TAG_DESC_FRUIT + EXPIRY_DATE_DESC_KIWI + TAG_DESC_FRUIT;
 
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withExpiryDate(VALID_EXPIRY_DATE_KIWI)
-                                                                       .withTags(VALID_TAG_FRUIT)
-                                                                       .build();
+                .withTags(VALID_TAG_FRUIT)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

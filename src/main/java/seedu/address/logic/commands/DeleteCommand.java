@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 
 /**
- * Deletes an item identified using it's displayed index from the expiry date tracker.
+ * Deletes an item identified using its displayed index from the expiry date tracker.
  */
 public class DeleteCommand extends Command {
 

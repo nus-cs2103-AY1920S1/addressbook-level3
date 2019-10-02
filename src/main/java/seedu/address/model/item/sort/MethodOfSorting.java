@@ -26,10 +26,7 @@ public class MethodOfSorting {
      * Returns true if a given string is a valid method of sorting.
      */
     public static boolean isValidMethodOfSorting(String test) {
-        System.out.println(test);
-        boolean isValid = (test.equals("name") || test.equals("date"));
-        System.out.println(isValid);
-        return isValid;
+        return (test.equals("name") || test.equals("date"));
     }
 
     /**
