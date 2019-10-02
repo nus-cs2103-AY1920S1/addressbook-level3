@@ -6,7 +6,7 @@
 
 ɯeme - An awesome meme manager where you can realize your dream of creating, managing, and sharing your own memes.
 {empty} +
-This application was adapted from the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+This application was adapted from the https://se-edu.github.io/Team.html[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -14,16 +14,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Jonathan Chan
 image::jonchan51.png[width="150", align="left"]
-{empty}[http://github.com/jonchan51[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/jonchan51[github]] [<<jonchan51#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: State Management
 
 '''
 
-=== Liu Guangyuan
+=== Liu Guangyuan (Gary)
 image::gary-lgy.png[width="150", align="left"]
-{empty}[http://github.com/gary-lgy[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/gary-lgy[github]] [<<gary-lgy#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Meme Creation
@@ -32,7 +32,7 @@ Responsibilities: Meme Creation
 
 === Bill Chee
 image::LivingOnEdge.png[width="150", align="left"]
-{empty}[http://github.com/LivingOnEdge[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/LivingOnEdge[github]] [<<LivingOnEdge#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Import/Export
@@ -41,7 +41,7 @@ Responsibilities: Import/Export
 
 === Mo Zongran
 image::moziliar.png[width="150", align="left"]
-{empty}[http://github.com/moziliar[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/moziliar[github]] [<<moziliar#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Statistics
@@ -50,9 +50,9 @@ Responsibilities: Statistics
 
 === Liu Zimu
 image::cutieprobe.png[width="150", align="left"]
-{empty}[http://github.com/cutieprobe[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/cutieprobe[github]] [<<cutieprobe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Command Auto-uggestion
+Responsibilities: Command Auto-suggestion
 
 '''
