@@ -29,7 +29,7 @@ Responsibilities: Assasin
 '''
 
 === Ryan Tay
-image::yijinl.jpg[width="150", align="left"]
+image::ryantay232.png[width="150", align="left"]
 {empty}[http://github.com/ryantay232[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
