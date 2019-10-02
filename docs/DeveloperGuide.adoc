@@ -540,11 +540,39 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[width="100%",cols="22%,<78%"]
+|=======================================================================
+
+|Command |Executes user input in the application
+
+|CommandBox |UI component that takes in user input
+
+|FXML |XML-based user interface markup language for defining user interface of a JaxaFX application
+
+|JavaFX |Software platform for creating and delivering desktop applications and rich Internet applications
+
+|JSON |An open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types
+
+|ItemCard |UI component that displays information on an item
+
+|ItemListPanel |UI component that displays list of items
+
+|Logic |Handles user input for the application and returns the application's output
+
+|MainWindow |Provides the basic application layout containing a menu bar and space where other JavaFX elements can be placed
+
+|Model |Represents data in the expiry date tracker and exposes immutable items list
+
+|Parser |Converts user input into a Command object
+
+|SceneBuilder |Visual layout tool that allows developers to design JavaFX application user interfaces
+
+|Storage |Manages data in the expiry date tracker in local storage
+
+|=======================================================================
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
