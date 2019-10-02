@@ -33,11 +33,8 @@ public class ExpiryDate {
      */
     public ExpiryDate(String expiryDate) {
         requireNonNull(expiryDate);
-        try {
-            this.date = LocalDate.parse(expiryDate, DATE_FORMAT);
-        } catch (DateTimeParseException e) {
-            checkArgument(false, MESSAGE_CONSTRAINTS);
-        }
+        checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
+        this.date = LocalDate.parse(expiryDate, DATE_FORMAT);
     }
 
     /**

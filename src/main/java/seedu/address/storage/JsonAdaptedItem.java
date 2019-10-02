@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.ExpiryDate;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.Name;
+import seedu.address.model.item.ReminderThreshold;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +25,7 @@ class JsonAdaptedItem {
 
     private final String name;
     private final String expiryDate;
+    private final String reminderThreshold;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -31,11 +33,16 @@ class JsonAdaptedItem {
      */
     @JsonCreator
     public JsonAdaptedItem(@JsonProperty("name") String name, @JsonProperty("expiryDate") String expiryDate,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("reminder") String threshold) {
         this.name = name;
         this.expiryDate = expiryDate;
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+        if (threshold == null) {
+            this.reminderThreshold = "0";
+        } else {
+            this.reminderThreshold = threshold;
         }
     }
 
@@ -48,6 +55,7 @@ class JsonAdaptedItem {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        reminderThreshold = String.valueOf(source.getReminderThreshold().getThreshold());
     }
 
     /**
@@ -78,8 +86,15 @@ class JsonAdaptedItem {
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
+        if (!ReminderThreshold.isValidReminderThreshold(reminderThreshold)) {
+            throw new IllegalValueException(ReminderThreshold.MESSAGE_CONSTRAINTS);
+        }
+        final ReminderThreshold modelReminderThreshold = new ReminderThreshold(reminderThreshold);
+
         final Set<Tag> modelTags = new HashSet<>(itemTags);
-        return new Item(modelName, modelExpiryDate, modelTags);
+        Item item = new Item(modelName, modelExpiryDate, modelTags);
+        item.setReminderThreshold(modelReminderThreshold);
+        return item;
     }
 
 }

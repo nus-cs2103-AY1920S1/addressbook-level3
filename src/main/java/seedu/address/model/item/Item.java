@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -19,6 +20,7 @@ public class Item {
     // Identity fields
     private final Name name;
     private final ExpiryDate expiryDate;
+    private ReminderThreshold reminderThreshold = new ReminderThreshold("0");
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -61,18 +63,59 @@ public class Item {
     }
 
     /**
+     * Returns a mutable reminder threshold.
+     *
+     * @return {@Code ReminderThreshold} object.
+     */
+    public ReminderThreshold getReminderThreshold() {
+        return reminderThreshold;
+    }
+
+    /**
+     * Sets a mutable reminder threshold.
+     *
+     * @param reminderThreshold An integer representating the reminder threshold.
+     */
+    public void setReminderThreshold(ReminderThreshold reminderThreshold) {
+        this.reminderThreshold = reminderThreshold;
+    }
+
+    private Optional<ReminderDate> getReminderDate() {
+        if (reminderThreshold.getThreshold() != 0) {
+            return Optional.of(
+                    new ReminderDate(this.expiryDate.getDate().plusDays(this.reminderThreshold.getThreshold())));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Tests if this item has exceeded its reminder threshold.
+     *
+     * @return {@Code true} if and only if the reminder threshold of this {@Code Item} is strictly earlier
+     * than the current date.
+     */
+    boolean isReminderThresholdExceeded() {
+        if (this.getReminderDate().isEmpty()) {
+            return false;
+        } else {
+            return getReminderDate().get().getDate().isBefore(LocalDate.now());
+        }
+    }
+
+    public String getReminderDateString() {
+        return getReminderDate().isEmpty() ? "" : getReminderDate().get().toString();
+    }
+
+    /**
      * Tests if this item is expiring before the specified date.
      *
      * @param when a date
      * @return {@Code true} if and only if the expiry date of this {@Code Item} is strictly earlier
      * than {@Code when}; {@Code false} otherwise.
      */
-    public boolean isExpiring(LocalDate when) {
-        if (this.getExpiryDate().getDate().isBefore(when)) {
-            return true;
-        } else {
-            return false;
-        }
+    boolean isExpiring(LocalDate when) {
+        return this.getExpiryDate().getDate().isBefore(when);
     }
 
     /**
@@ -121,7 +164,8 @@ public class Item {
         builder.append(getName())
                 .append(" Expiry Date: ")
                 .append(getExpiryDate().toString())
-                .append(" Tags: ");
+                .append(" Tags: ")
+                .append(getReminderDate().isEmpty() ? "" : " Reminder on: " + getReminderDate().get());
         getTags().forEach(builder::append);
         return builder.toString();
     }

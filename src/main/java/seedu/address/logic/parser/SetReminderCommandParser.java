@@ -31,7 +31,7 @@ public class SetReminderCommandParser implements Parser<SetReminderCommand> {
                     SetReminderCommand.MESSAGE_USAGE), e);
         }
 
-        int threshold = Integer.parseInt(args.split("\\|")[1]);
+        String threshold = args.split("\\|")[1];
 
         return new SetReminderCommand(index, threshold);
     }

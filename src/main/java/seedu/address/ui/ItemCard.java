@@ -36,6 +36,8 @@ public class ItemCard extends UiPart<Region> {
     private Label expiryDate;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label reminder;
 
     public ItemCard(Item item, int displayedIndex) {
         super(FXML);
@@ -43,6 +45,7 @@ public class ItemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(item.getName().fullName);
         expiryDate.setText(item.getExpiryDate().toString());
+        reminder.setText(item.getReminderDateString());
         item.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
