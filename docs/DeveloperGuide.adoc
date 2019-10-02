@@ -326,8 +326,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user who is keeping track of budget |set my monthly expenditure budget |keep track of how much I can spend for the month
 
-|`* * *` |user who is keeping track of budget |set my monthly expenditure budget |keep track of how much I can spend for the month
-
 |`* * *` |user who is keeping track of budget |exclude transaction from budget |
 
 |`* * *` |user who is keeping track of budget |include transaction to budget |
