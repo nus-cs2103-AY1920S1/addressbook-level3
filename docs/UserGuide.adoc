@@ -52,16 +52,17 @@ The commands listed below in 3.2, 3.3, … are based on the context of a competi
 ==== Context: Creating a Competition
 *Parameters*
 
-* name
-* date
-* Type
+  * name
+  * date
+  * Type
 
 *Commands*
 
 * Save
 
 ==== Context: On a Competition
-Commands
+*Commands*
+
 * Athletes
 * List
 
