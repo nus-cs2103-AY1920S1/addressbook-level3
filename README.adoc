@@ -18,7 +18,7 @@ endif::[]
 
 * It is a Java application intended to help computing students managing Finance for any clubs or organisations (e.g. Financial Secretary and Deputy Financial Secretary of Computing Club)
 
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* It is *written in OOP fashion*.
 
 == Site Map
 
