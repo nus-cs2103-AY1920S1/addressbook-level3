@@ -285,10 +285,10 @@ Refer to the guide <<DevOps#, here>>.
 * needs to make notes on webpage content quite frequently
 * needs reminders to submit forms or visit websites
 * prefers desktop apps over other types
-* can type fast and prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* types fast and prefers typing over mouse input
+* likes using CLI apps
 
-*Value proposition*:
+*Our value proposition*:
 
 * manage bookmarks faster than a typical mouse/ GUI driven app
 * access and annotate webpage content without an Internet connection
