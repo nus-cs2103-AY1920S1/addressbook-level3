@@ -454,6 +454,9 @@ Use case resumes at step 2.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 health-related records and tasks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Third-party frameworks/libraries used should be free, open-source, and have permissive license terms, should not require any installation by the user of this software, and approved by teaching team.
+.  Should work without requiring an installer.
+.  The software should not depend on your own remote server
 
 [appendix]
 == Glossary
