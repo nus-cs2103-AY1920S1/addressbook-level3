@@ -18,8 +18,6 @@ public enum SubjectName {
 
     private static final String VALIDATION_REGEX = "^[" + SPECIAL_CHARACTERS + " a-zA-Z" + "]+$";
 
-
-
     private final String subjectNameString;
 
     private SubjectName(String subjectNameString) {

@@ -9,16 +9,19 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.entity.Email;
+import seedu.address.model.entity.Location;
+import seedu.address.model.entity.Name;
+import seedu.address.model.entity.Phone;
+import seedu.address.model.entity.ProjectType;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
-public class ParserUtil {
+public class AlfredParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
@@ -66,21 +69,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -108,6 +96,34 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        int trimmedLocation = Integer.parseInt(location.trim());
+        if (!Location.isValidNumber(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS_INVALID_TABLE_NUMBER);
+        }
+        return new Location(trimmedLocation);
+    }
+
+    public static SubjectName parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
+        String trimmedSubject = subject.trim();
+        if (!SubjectName.isValidSubjectName(trimmedSubject)) {
+            throw new ParseException(SubjectName.MESSAGE_CONSTRAINTS);
+        }
+        return SubjectName.PLACEHOLDER;
+    }
+
+
+    public static ProjectType parseProjectType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!SubjectName.isValidSubjectName(trimmedType)) {
+            throw new ParseException(SubjectName.MESSAGE_CONSTRAINTS);
+        }
+        return ProjectType.PLACEHOLDER;
     }
 
     /**
