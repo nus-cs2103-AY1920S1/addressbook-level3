@@ -63,7 +63,7 @@ Format: help
 
 Format: home
 
-==== Switch to another feature’s tab 
+==== Switch to another feature’s tab
 
 Format: `checkout FEATURE_NAME`
 Example: `checkout module`
