@@ -404,10 +404,10 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  Mortuary manager requests to list bodies
-2.  Mortago shows a list of bodies
-3.  Mortuary manager requests to delete a specific body in the list
-4.  Mortago deletes the body from the system
+1.  Mortuary manager requests to list bodies.
+2.  Mortago shows a list of bodies.
+3.  Mortuary manager requests to delete a specific body in the list.
+4.  Mortago deletes the body from the system.
 +
 Use case ends.
 
@@ -426,12 +426,63 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
+=== Use case: Find entry
+*MSS*
+
+1.  Mortuary manager switches to the desired view (bodies or workers).
+2.  Mortuary manager specifies word to search.
+3.  Mortago shows a list of entries whose names matches the word.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Filter entries
+*MSS*
+
+1.  Mortuary manage switches to the desired view (bodies or workers).
+2.  Mortuary manager specifies criteria for filter.
+3.  Mortago shows a list of entries that matches the criteria.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort entries
+*MSS*
+
+1.  Mortuary manage switches to the desired view (bodies or workers).
+2.  Mortuary manager specifies criteria for sorting.
+3.  Mortago shows a list of entries sorted according to the specified criteria.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The list is empty.
++
+Use case ends.
+
+[discrete]
 === Use case: Generate report
 
 *MSS*
 
-1.  Mortuary manager requests to generate report for a specific body
-2.  Mortago creates a new PDF report with body ID as the title
+1.  Mortuary manager requests to generate report for a specific body.
+2.  Mortago creates a new PDF report with body ID as the title.
 +
 Use case ends.
 
@@ -446,13 +497,13 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Alert for unclaimed bodies
+=== Use case: Alert for unclaimed bodies.
 
 *MSS*
 
-1.  Mortuary manager wants to be reminded of the next line of action if next of kin cannot be contacted within 24 hours
-2.  Mortago maintains a record of all the alerts about unidentified and unclaimed bodies until their status is changed
-3.  Mortago shows pop-up alerts after 24 hours from the point of arrival of the body in the mortuary
+1.  Mortuary manager wants to be reminded of the next line of action if next of kin cannot be contacted within 24 hours.
+2.  Mortago maintains a record of all the alerts about unidentified and unclaimed bodies until their status is changed.
+3.  Mortago shows pop-up alerts after 24 hours from the point of arrival of the body in the mortuary.
 +
 Use case ends.
 
@@ -527,8 +578,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[body]] Body::
+A corpse
+
+[[command-line-interface]] Command-Line-Interface (CLI)::
+A text-based user interface (UI) used to view and manage computer files
+
+[[graphical-user-interface]] Graphical User Interface (GUI)::
+An interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text
 
 [appendix]
 == Product Survey
