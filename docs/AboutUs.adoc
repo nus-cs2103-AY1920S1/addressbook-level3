@@ -14,7 +14,6 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Ong Bing Jue
 image::bjhoohaha.png[width="150", align="left"]
  [https://github.com/bjhoohaha[github]] 
-
 Role: Chief Operations Officer +
 Responsibilities: Developer - Address Book
 
@@ -23,12 +22,8 @@ Responsibilities: Developer - Address Book
 === Hon Hao Chen
 image::honhaochen.png[width="150", align="left"]
 {empty}[http://github.com/honhaochen[github]] 
-
 Role: Chief Financial Officer +
 Responsibilities: Developer - Financial Tracker
-            
-
-
 '''
 
 === Ng Zhao Ming
@@ -37,26 +32,18 @@ image::ngzhaoming.png[width="150", align="left"]
 
 Role: Chief Technology Officer +
 Responsibilities: Developer - Itinerary
-            
-
 '''
 
 === Poh Lin Wei
 image::pohlinwei.png[width="150", align="left"]
 {empty}[http://github.com/pohlinwei[github]] 
-
 Role: Chief Strategy Officer +
 Responsibilities: Developer - Calendar
-
-
 '''
-
 === Tishya Khanna
 image::tishyakhanna97.png[width="150", align="left"]
 {empty}[http://github.com/tishyakhanna97[github]] 
-
 Role: Chief Information Officer +
 Responsibilities: Developer - Travel Diary
-
 
 '''
