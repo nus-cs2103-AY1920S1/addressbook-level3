@@ -57,110 +57,82 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+//[TIP]
+//A person can have any number of tags (including 0)
 
-Format: `help`
+//Examples:
 
-=== Adding a person: `add`
+//* `edit 1 p/91234567 e/johndoe@example.com` +
+//Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+//* `edit 2 n/Betsy Crower t/` +
+//Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+//Examples:
 
-[TIP]
-A person can have any number of tags (including 0)
+//* `find John` +
+//Returns `john` and `John Doe`
+//* `find Betsy Tim John` +
+//Returns any person having names `Betsy`, `Tim`, or `John`
 
-Examples:
+// tag::dataencryption[]
+//=== Encrypting data files `[coming in v2.0]`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+//_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
 
-=== Listing all persons : `list`
+=== Adding Questions : `add`
 
-Shows a list of all persons in the address book. +
+Adds a question and its answer. +
+Format: `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+
+=== Listing all questions: `list`
+
+Shows a list of questions. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Listing all questions with answers: `list -all`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Shows a list of questions and their corresponding answers. +
+Format: `list -all`
+
+=== Editing a question: `edit`
+
+Edits the fields of an existing question. +
+Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
-Examples:
+=== Locating questions by keyword: `find`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Finds questions containing the keyword. +
+Format: `find KEYWORD [MORE KEYWORDS]`
 
-=== Locating persons by name: `find`
+=== Deleting a question: `delete`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
+Deletes the specific question at the specified INDEX and its answer from the list. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the question at the specified `INDEX`.
+* The index refers to the index number shown in the displayed question list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+=== Find difficulty: `difficulty`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Views the list of all questions with a specific difficulty. +
+Format: `difficulty d/DIFFICULTY`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Find difficulty within a subject: `difficulty -s`
 
-Clears all entries from the address book. +
-Format: `clear`
+Views the list of questions of a specified subject with a specific difficulty. +
+Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
 
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
