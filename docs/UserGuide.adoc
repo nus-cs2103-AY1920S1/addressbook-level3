@@ -54,20 +54,22 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+View all the available commands that the user can use. +
 Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a new flashcard with user-determined question and answer +
+Format: `add QUESTION | ANSWER`
 
-[TIP]
-A person can have any number of tags (including 0)
+****
+* Both QUESTION and ANSWER must be provided by the user.
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add What is the tallest mountain? | Mount Everest` +
+Creates a new flashcard with the given question and answer.
 
 === Listing all persons : `list`
 
@@ -117,23 +119,19 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 // tag::delete[]
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified flashcard from the list of all flashcards. +
+Format: `delete FLASHCARD_ID`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the person with the specified `FLASHCARD_ID`.
+* The ID of a flashcard refers to the specific number assigned to that flashcard upon creation.
+* The flashcard ID *must be a positive 6-digit integer* 000001, 000002, 000003, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete #100342` +
+Removes the flashcard with unique ID 100342
 
 // end::delete[]
 === Clearing all entries : `clear`
