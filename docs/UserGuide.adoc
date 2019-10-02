@@ -58,49 +58,184 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 ====
 
 === Get statistics for subjects : `stats`
+=======
+=== Lecture notes
+
+==== Adding lecture notes: `addnote`
+Adds a lecture note. The `i/` field, if provided, brings up a dialogue where an image can be chosen from
+the file system; such an image will be displayed beside the note. +
+Format: `addnote t/TITLE c/CONTENT [i/]`
+
+==== Editing lecture notes: `editnote`
+Edits an existing lecture note. Providing `i/` brings up the image selection dialogue, like `addnote`;
+this can be used to change the image. At least one of `t/`, `c/` and `i/` must be provided.
+
+The index must be between 1 and the number of notes and flashcards combined, inclusive. +
+Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/]`
+
+==== Viewing lecture notes: `shownote`
+If an index is provided, a number prefixed with a # (e.g. #1), show the lecture note with that index.
+Otherwise, search for lecture notes whose title contains every given word (space-separated, ignoring case),
+and display them. +
+Format: `shownote [#INDEX | WORDS]`
+
+==== Deleting lecture notes: `deletenote`
+Delete the lecture note with the given index, which follows the same restrictions as with `editnote`. +
+Format: `deletenote INDEX`
+
+==== Exporting all entries: `export`
+Export all items in NUStudy, both flash cards and lecture notes, into a file with the given name. +
+Format: `export FILENAME`
+
+==== Importing all entries: `import`
+Import all items in the given file into NUStudy. This overwrites any items already in the app. +
+Format: `import FILENAME`
+
+=== Questions
+
+NUStudy can also store different sets of questions and answers;
+at your command, the system will prompt you to answer those questions.
+
+==== Adding Questions : `add`
+
+Adds a question and its answer. +
+Format: `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+
+==== Listing all questions: `list`
+
+Shows a list of questions. +
+Format: `list`
+
+==== Listing all questions with answers: `list -all`
+
+Shows a list of questions and their corresponding answers. +
+Format: `list -all`
+
+==== Editing a question: `edit`
+
+Edits the fields of an existing question. +
+Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
+
+****
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
+****
+
+==== Locating questions by keyword: `find`
+
+Finds questions containing the keyword. +
+Format: `find KEYWORD [MORE KEYWORDS]`
+
+==== Deleting a question: `delete`
+
+Deletes the specific question at the specified INDEX and its answer from the list. +
+Format: `delete INDEX`
+
+****
+* Deletes the question at the specified `INDEX`.
+* The index refers to the index number shown in the displayed question list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+==== Find difficulty: `difficulty`
+
+Views the list of all questions with a specific difficulty. +
+Format: `difficulty d/DIFFICULTY`
+
+==== Find difficulty within a subject: `difficulty -s`
+
+Views the list of questions of a specified subject with a specific difficulty. +
+Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
+
+==== Get statistics for subjects : `stats`
+>>>>>>> a5f74812e42e9d6d36685ae7a7bfc661bc183f0a
 
 Gets statistics of how well you answered the questions for a subject.
 A pie chart of the number of questions that have been answered correctly and incorrectly will be returned.
 You can even get the combined statistics of more than one subject. +
 Format: `stats s/SUBJECT [s/SUBJECT1] [s/SUBJECT2]...`
 
-=== Get questions with correct answers: correct
+==== Get questions with correct answers: correct
 Gets all questions that have been answered correctly for a particular subject.
 You can also choose to see past answers to the questions by adding the `-a`. +
 Format: `correct s/SUBJECT [-a]`
 
-=== Get questions with incorrect answers: incorrect
+==== Get questions with incorrect answers: incorrect
 Gets all questions that have been answered incorrectly for a particular subject.
 You can also choose to see past answers to the questions by adding the `-a`. +
 Format: `incorrect s/SUBJECT [-a]`
 
-=== Get statistics for individual questions: stats
+==== Get statistics for individual questions: stats
 Gets statistics of how well you answered a particular question,
 the number of times the question has been attempted and the past answers to the question. +
 Format: `stats INDEX`
 
-=== Statistics for difficulty level: stats -dif
+==== Statistics for difficulty level: stats -dif
 Gets statistics of the number of questions within a subject attempted at the specified difficulty level. +
 Format: `stats -dif d/DIFFICULTY s/SUBJECT`
 
-=== Statistics for difficulty level accuracy: accur -dif
+==== Statistics for difficulty level accuracy: accur -dif
 Gets statistics of the questions answered correctly and incorrectly within a subject of a specific difficulty level. +
 Format: `accur -dif d/DIFFICULTY s/SUBJECT`
 
-=== Get overview of lecture notes: overview -ln
+==== Get overview of lecture notes: overview -ln
 Gets an overview of the types of notes that have been added into the app.
 A stacked bar graph, sorted by subjects will be returned. +
 Format: `overview -ln`
 
-=== Get overview of questions attempted: overview -q
+==== Get overview of questions attempted: overview -q
 Gets an overview of the types of questions that have been attempted overall.
 A stacked bar graph, sorted by subjects will be returned.
 //You can choose to add in a time period, `dt/`, to see which questions have been attempted then. +
 Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
 
-
 === Auto-complete feature `[coming in v2.0]`
 Returns suggestions when you are typing commands.
+
+=== Other commands
+
+==== View revision tasks: `rv list`
+Displays the revision task list +
+Format: `rv list [n/NOTE_SET] [dt/DATE]`
+
+==== Add revision task: `rv add`
+Adds an item (to-do) to the current revision task list +
+Format: +
+`rv add ns/NOTE_SET dt/START_DATE dt/START_TIME` +
+`rv add qs/QUESTION_SET dt/START_DATE dt/START_TIME`
+
+==== Remove revision task: `rv delete`
+Removes the specified revision task from current list +
+Format: `rv delete INDEX`
+
+==== Clear current revision plan: `rv clear`
+Deletes all revision tasks
+Format: `rv clear`
+
+==== Edit revision task: `rv edit`
+Edits the specified revision task
+Format: `rv edit INDEX`
+
+==== Label the revision task as important: `rv impt`
+Format: `rv impt INDEX`
+
+==== Mark the revision task as done: `rv done`
+Format: `rv done INDEX`
+
+==== View incomplete revision task: `rv ndone`
+Displays the list of revision tasks that are yet to be completed
+Format: `rv ndone`
+
+==== View overdue revision tasks: `rv overdue`
+Format: `rv overdue`
+
+==== Enable push notification: `notify -e`
+Format: `notify -e [-A] [INDEX]`
+
+==== Disable push notification: `notify -d`
+Format: `notify -d [-A] [INDEX]`
 
 == FAQ
 
