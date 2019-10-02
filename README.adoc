@@ -16,7 +16,7 @@ endif::[]
 
 * FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a CLI app.
 
-* It is a Java sample application intended to help computing students managing Finance for any clubs or organisations (e.g. Financial Secretary and Deputy Financial Secretary of Computing Club)
+* It is a Java application intended to help computing students managing Finance for any clubs or organisations (e.g. Financial Secretary and Deputy Financial Secretary of Computing Club)
 
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
