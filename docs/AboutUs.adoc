@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Chong Chee Yuan
-image::portrait_placeholder.png[width="150", align="left"]
+image::ccyccyccy.png[width="150", align="left"]
 {empty}[http://chongcheeyuan.me/[homepage]] [https://github.com/ccyccyccy[github]]
 
 Role: Member
