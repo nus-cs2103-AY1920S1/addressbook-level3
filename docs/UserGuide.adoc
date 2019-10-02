@@ -40,7 +40,8 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-++ Some example commands you can try:
++
+Some example commands you can try:
 
 * *`list`* : lists all bookmarks
 * *`add u/git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
@@ -258,8 +259,9 @@ that changes the data.
 
 There is no need to save data manually. It is also possible to save
 specific bookmarks with a different file name using the command `*export*`
-(see <<_exporting_bookmarks_export>>).
+(see <<exporting-bookmarks>>).
 
+[[exporting-bookmarks]]
 === Exporting bookmarks: *`export`*
 
 Exports the currently displayed list of bookmarks to the hard disk.

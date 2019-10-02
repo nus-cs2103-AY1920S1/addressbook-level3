@@ -370,7 +370,7 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
-[#UC01]
+[[UC01]]
 [discrete]
 === Use case: UC01 - List bookmarks
 
@@ -381,7 +381,7 @@ _{More to be added}_
 +
 Use case ends.
 
-[#UC02]
+[[UC02]]
 [discrete]
 === Use case: UC02 - Add bookmark
 
@@ -395,13 +395,15 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 2a. The given URL is invalid.
 +
+[none]
 ** 2a1. Mark shows an error message.
 +
 Use case resumes at step 2.
 
-[#UC03]
+[[UC03]]
 [discrete]
 === Use case: UC03 - Delete bookmark
 
@@ -428,7 +430,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-[#UC04]
+[[UC04]]
 [discrete]
 === Use case: UC04 - Edit bookmark
 
@@ -455,7 +457,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-[#UC05]
+[[UC05]]
 [discrete]
 === Use case: UC05 - Open bookmark
 
@@ -482,7 +484,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-[#UC06]
+[[UC06]]
 [discrete]
 === Use case: UC06 - Export bookmarks
 
@@ -506,7 +508,7 @@ Use case ends.
 +
 Use case resumes at step 4.
 
-[#UC07]
+[[UC07]]
 [discrete]
 === Use case: UC07 - Import bookmarks
 
@@ -534,7 +536,7 @@ Use case resumes at step 1.
 +
 Use case ends.
 
-[#UC08]
+[[UC08]]
 [discrete]
 === Use case: UC08 - Make a bookmark available offline
 
@@ -561,7 +563,7 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
-[#UC09]
+[[UC09]]
 [discrete]
 === Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
 
@@ -582,7 +584,7 @@ Mark shows an error message.
 +
 Use case ends.
 
-[#UC10]
+[[UC10]]
 [discrete]
 === Use case: UC10 - Redo previously undone commands
 
@@ -602,7 +604,7 @@ Mark shows an error message.
 +
 Use case ends.
 
-[#UC11]
+[[UC11]]
 [discrete]
 === Use case: UC11 - Browse the web
 
@@ -617,11 +619,12 @@ Use case ends.
 *Extensions*
 [none]
 * 1a. Mark does not have internet access.
+[none]
 ** 1a1. Mark tells user that there is no internet access and suggests that user sees cache.
 +
 Use case ends.
 
-[#UC12]
+[[UC12]]
 [discrete]
 === Use case: UC12 - Add bookmarks from web browser
 
@@ -633,7 +636,7 @@ Use case ends.
 +
 Use case ends.
 
-[#UC13]
+[[UC13]]
 [discrete]
 === Use case: UC13 - Annotate offline documents
 
@@ -649,6 +652,7 @@ Use case ends.
 *Extensions*
 [none]
 * 1a. Mark detects invalid bookmark index or non-existent document of bookmark.
+[none]
 ** 1a1. Mark gives warning and requests for correct index.
 ** 1a2. User enters revised data.
 Steps 1a1-1a2 are repeated until the data entered are correct.
@@ -657,6 +661,7 @@ Use case resumes from step 2.
 
 [none]
 * 3a. Mark detects invalid paragraph index.
+[none]
 ** 3a1. Mark gives warning and requests for correct paragraph index.
 ** 3a2. User enters new data.
 Steps 3a1-3a2 are repeated until the data entered are correct.
@@ -665,11 +670,12 @@ Use case resumes from step 4.
 
 [none]
 * 3b. Mark detects invalid highlight colour.
+[none]
 ** 3b1. Mark gives warning and sets highlight colour to default colour.
 +
 Use case resumes from step 4.
 
-[#UC14]
+[[UC14]]
 [discrete]
 === Use case: UC14 - Add a reminder
 
@@ -689,21 +695,24 @@ Use case ends.
 Use case ends.
 [none]
 * 3a. Mark detects invalid index.
+[none]
 ** 3a1. Mark shows an error message.
 +
 Use case resumes at step 2.
 [none]
 * 3b. Mark detects the specified bookmark already has a reminder.
+[none]
 ** 3b1. Mark shows an error message.
 +
 Use case resumes from step 2.
 [none]
 * 3c. Mark detects the time format is wrong.
+[none]
 ** 3c1. Mark shows an error message.
 +
 Use case resumes from step 2.
 
-[#UC15]
+[[UC15]]
 [discrete]
 === Use case: UC15 - Edit a reminder
 
@@ -722,16 +731,18 @@ Use case ends.
 Use case ends.
 [none]
 * 2a. Mark detects invalid index.
+[none]
 ** 2a1. Mark shows an error message.
 +
 Use case resumes at step 1.
 [none]
 * 2b. Mark detects the time format is wrong.
+[none]
 ** 2b1. Mark shows an error message.
 +
 Use case resumes from step 1.
 
-[#UC16]
+[[UC16]]
 [discrete]
 === Use case: UC16 - Delete a reminder
 
@@ -750,11 +761,12 @@ Use case ends.
 Use case ends.
 [none]
 * 2a. Mark detects invalid index.
+[none]
 ** 2a1. Mark shows an error message.
 +
 Use case resumes at step 1.
 
-[#UC17]
+[[UC17]]
 [discrete]
 === Use case: UC17 - Sort the bookmark list
 
@@ -773,6 +785,7 @@ Use case ends.
 Use case ends.
 [none]
 * 2a. Mark detects invalid criterion.
+[none]
 ** 2a1. Mark shows an error message.
 +
 Use case resumes at step 1.
