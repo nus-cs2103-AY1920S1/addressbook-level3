@@ -288,25 +288,25 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+Priorities:
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-//|`High` |new user |see usage instructions |refer to instructions when I forget how to use the App
+* High (must have) – `* * \*`
+* Medium (nice to have) – `* \*`
+* Low (unlikely to have) – `*`
 
-|`High` |student |set a revision plan |be more organised in my revision and will not lose my focus
-
-|`* * *` |student |view my revision plan |be more clear on the big picture of my revision and check whatever is left to do when I forget
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+[width="59%",cols="22%,<23%,<25%,<30%,<30%",options="header",]
 |=======================================================================
 
-_{More to be added}_
+|`* *`|student|share and receive lecture content from others|my friends can share in the common knowledge, and my family can understand what I am studying|Jeremy
+
+|`*`|student|annotate my lecture notes|I can go beyond the curriculum|Jeremy
+
+|`* *`|module coordinator|brief my subordinates about study materials|the tutors/lecturers under my charge are teaching what they are supposed to teach|Jeremy
+
+|`* *`|tutor|discuss the key points to remember from a tutorial|my students get as much out of their tutorials as possible|Jeremy
+
+|`*`|quizmaster|quiz contestants about their knowledge using the app|the contestants can have as much fun as possible|Jeremy
+|=======================================================================
 
 [appendix]
 == Use Cases
