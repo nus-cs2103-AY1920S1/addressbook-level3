@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= TravelPal - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,11 +14,10 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team 11-4`      Since: `In Development`      Licence: `None`
 
 == Introduction
-
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+What is TravelPal? First and foremost, it is a cross-platform desktop application for those who love to plan and micromanage their travels. It includes various features to help in planning the trip beforehand, such as an itinerary planner, a pre-trip inventory manager, bookings and expense manager. During the trip, there is also an inbuilt diary application that allows the user to record details of the trip, and a contacts manager to store important contacts related to the trip. In addition, it’s primary preferred form of input from the user is the Command Line Interface (CLI), but it also provides a Graphical User Interface (GUI) for those who like to use alternative inputs, such as a mouse. Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
@@ -44,134 +43,122 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*General Command tips*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Most commands are in the format of <command> <argument1> <argument2> <...>.
+** <command> is case insensitive, so typing it in any combination of UPPER_CASE or lower_case will work.
+** When an argument is optional, it will be tagged be enclosed in square brackets [...] instead of angle brackets <...>
+** When required, a separator / delimiter between arguments will be displayed with *separator*.
+* Commands support tab-autocomplete when appropriate. 
+** Autocompletion for commands : For example, typing he then pressing tab will autocomplete the command to help. 
+**Autocompletion for separators : When a command requires a separator, and the command name is already in the text input, pressing tab again will append the separator automatically.
+* Commands help popup
+** Once the command name is already in the text input, a handy, non-intrusive popup will appear slightly above the text input.
+** You can disable this feature in the user preferences.
+* Leading and trailing white spaces in the inputted command are ignored.
+
 ====
 
-=== Viewing help : `help`
+=== General commands
 
-Format: `help`
+* help : brings a pdf version of the user guide
+* goto <page> : all navigation between pages in the app follows this format. <page> will be detailed in each of the relevant sections
+* undo : this will undo the last undoable operation attempted by the user, prompting the user with the details of the operation first.
+* exit : this will exit the program, discarding any unsaved changes.
 
-=== Adding a person: `add`
+=== User preferences
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+* To access the user preferences gui, you can :
+** Click the user icon in the top right of the app
+** Type the command “preferences”
+* To change preferences, you can :
+** As per the user interface, you can click on various fields and edit them.
+** Use the command edit <field> <value>, where field is the field you want to edit as shown in the interface, and value is the respective value for the field, as detailed below.
+* Types of fields :
+** Checkboxes & toggles : edit <field> will toggle the current value of the checkbox
+** Text fields : edit <field> <value> will change the value of the checkbox to the new value specified.
+** Dropdowns :
+*** To see the available options for a dropdown, first type edit <field> 
+*** To change the value, type edit <field> <value>, where <value> is one of the options shown, or the number of the option in the order in which they were shown.
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Trip manager
 
-Examples:
+The trip manager is the main starting ground of the application. Here, the user is able to create, delete and archive trips. There is also an archive section, where the archived trips are displayed exclusively.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* create <name of trip> : creates a new trip with specified name, then bringing up the trip creation user interface.
+* delete <name of trip> *yes_i_am_sure* : deletes the trip with the specified name and all data associated with it.
+* archive <name of trip> : moves the trip to the archive section of the trip manager.
+* goto <name of trip> : enters the main day-by-day view of the trip.
 
-=== Listing all persons : `list`
+=== Trip setup
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Trip setup is the first page in configuring a new/existing task. Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 2 necessary fields:
 
-=== Editing a person : `edit`
+1. Duration (Starting date, Ending date)
+2. Destination
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* edit -startDate <starting Date> -endDate <ending Date>: sets the starting date and ending date of the trip being created/edited
+* edit -dest <destination>: sets the destination of the trip being created/edited
+* edit -addDay <name of day>: adds a day after the last day previously added. If no days were previously added, add the first day 
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+=== Event Setup
 
-Examples:
+Event setup creates/edits properties of a specified event. It is necessary for event to contains a starting and ending time. Events contains mostly optional fields that the user can edit in future
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* edit -id <id of trip> -day <index of day> -event <index of event> -name <name of event>: sets the name of the event
+* edit -id <id of trip> -day <index of day> -event <index of event> -description <description of event>: sets the description of the event
+* edit -id <id of trip> -day <index of day> -event <index of event> -startTime <starting time>: sets the starting time of the event
+* edit -id <id of trip> -day <index of day> -event <index of event> -endingTime <ending time>: sets the ending time of the event
+* edit -id <id of trip> -day <index of day> -event <index of event> -expenditure: sets the current known expenditure for a single event
 
-=== Locating persons by name: `find`
+=== Itinerary
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+tinerary contains commands to view the list of relevant event/day/trips. The order can be changed by using different commands
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* list -id <id of trip>: Lists the days of a trip in chronological order
+* list -d <id of trip> -day <index of day>: Lists the events of a day chronological order
 
-Examples:
+Additional tags:
+* byExpenses: list all elements by expenses, from highest to lowest
+* byAlphabetical: list all elements by the alphabetical order of their names
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+=== Expense Manager
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Expense manager records the expenditure by the user. Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event. There are two types of expenditure: 1. Planned expenditure 2. Miscellaneous/Unplanned expenditure
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+* edit -id <id of trip> -day <index of day> -event <index of event> -spend <amount spent>: sets the total amount spent during an event which was unplanned
+* edit -id <id of trip> -day <index of day> -spent <amount spent>: sets the total: sets the total amount spent during a day which was not planned
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Additional tags:
+* time <time of expense>: time which the expenditure occurred
 
-Examples:
+=== Bookings Manager
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Bookings manager manages bookings and reservations made by the user. The bookings under this feature include hotel reservations and transport bookings (flight, train and bus).
 
-// end::delete[]
-=== Clearing all entries : `clear`
+* edit -id <id of trip> -booking <index of booking> -name <name of booking>: sets the name of the booking
+* edit -id <id of trip> -booking <index of booking> -description <description of booking>: sets the description of the booking
+* edit -id <id of trip> -booking <index of booking> -from <check-in time/date>: sets the starting date and time of a hotel booking
+* edit -id <id of trip> -booking <index of booking> -to <check-out time/date>: sets the ending date and time of a hotel booking
+* edit -id <id of trip> -booking <index of booking> -time <departure time>: sets the departure time of a transport booking
+* edit -id <id of trip> -booking <index of booking> -expenditure: sets the known expenditure of a booking
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Contacts Manager
 
-=== Exiting the program : `exit`
+Throughout the Bookings Manager, there will be many contacts which you will come across. Contacts Manager helps in easy management of such contacts along with extra contacts the user wishes to enter. Default contacts include the Emergency Contacts of Police, Ambulance and Fire Brigade of the area.
 
-Exits the program. +
-Format: `exit`
+* addcontact -id <id of trip> -booking <index of booking> - name [name of the contact] -number [contact number] -email [email address]
 
-=== Saving the data
+=== Diary [coming in v2.0]
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Pre-trip Inventory Manager [coming in v2.0]
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+== General info
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+====
+* Save data:
+** The data of the trips is saved in the data directory located in the same directory as where TravelPal.jar is. 
+** The data is stored in a human readable json format, allowing manual editing of the data files using a seperate text editor.
+* Most info, where relevant, can be sent to a printer or saved in pdf format, if the info is needed while travelling without your computer.
+** The pdfs are output in the output directory located in the same directory as TravelPal.jar
+====
