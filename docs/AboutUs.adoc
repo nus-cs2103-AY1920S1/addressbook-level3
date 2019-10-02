@@ -20,7 +20,7 @@ Responsibilities: Logic, Model
 '''
 
 === Chen Yi Jun
-image::OneArmyj.png[width="150", align="left"]
+image::onearmyj.png[width="150", align="left"]
 {empty}[https://github.com/OneArmyj[github]] [<<OneArmyj#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: UI, Model
 '''
 
 === Lew Kai Ming
-image::KxxMxxx.png[width="150", align="left"]
+image::kxxmxxx.png[width="150", align="left"]
 {empty}[https://github.com/KxxMxxx[github]] [<<KxxMxxx#, portfolio>>]
 
 Role: Developer +
