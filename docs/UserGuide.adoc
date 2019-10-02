@@ -209,6 +209,32 @@ Sample output:
 `Invalid operation. Module CS1010S session 2 does not exist in student
 A0180001A's timetable`
 
+=== Approve or reject an appeal `approve` & `reject`
+
+==== Approve an appeal
+This command allows the user to approve an appeal and MAMS will mark the appeal as resolved.  
+
+Format: `approve APPEAL_INDEX`
+
+Examples:
+*  `approve 2`
+
+Sample output:
+`Appeal of UC01233 has been approved`
+
+==== Reject an appeal 
+This command allows the user to reject an appeal and MAMS will mark the appeak as resolved.
+
+Format: `reject APPEAL_INDEX`
+
+Examples:
+*  `reject 3`
+
+Sample output:
+`Appeal of UC12232 has been rejected`
+
+
+
 === Saving the data
 
 MAMS are saved in the hard disk automatically after any command that changes the data. +
@@ -265,4 +291,5 @@ Marks the 2nd appeal in the appeal list as approved.
 * **reject** `reject INDEX`
 - e.g. `reject 3`
 Marks the 3rd appeal in the filtered list as rejected.
+
 
