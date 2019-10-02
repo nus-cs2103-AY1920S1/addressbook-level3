@@ -191,6 +191,49 @@ Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
 === Auto-complete feature `[coming in v2.0]`
 Returns suggestions when you are typing commands.
 
+=== Other commands
+
+==== View revision tasks: `rv list`
+Displays the revision task list +
+Format: `rv list [n/NOTE_SET] [dt/DATE]`
+
+==== Add revision task: `rv add`
+Adds an item (to-do) to the current revision task list +
+Format: +
+`rv add ns/NOTE_SET dt/START_DATE dt/START_TIME` +
+`rv add qs/QUESTION_SET dt/START_DATE dt/START_TIME`
+
+==== Remove revision task: `rv delete`
+Removes the specified revision task from current list +
+Format: `rv delete INDEX`
+
+==== Clear current revision plan: `rv clear`
+Deletes all revision tasks
+Format: `rv clear`
+
+==== Edit revision task: `rv edit`
+Edits the specified revision task
+Format: `rv edit INDEX`
+
+==== Label the revision task as important: `rv impt`
+Format: `rv impt INDEX`
+
+==== Mark the revision task as done: `rv done`
+Format: `rv done INDEX`
+
+==== View incomplete revision task: `rv ndone`
+Displays the list of revision tasks that are yet to be completed
+Format: `rv ndone`
+
+==== View overdue revision tasks: `rv overdue`
+Format: `rv overdue`
+
+==== Enable push notification: `notify -e`
+Format: `notify -e [-A] [INDEX]`
+
+==== Disable push notification: `notify -d`
+Format: `notify -d [-A] [INDEX]`
+
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
