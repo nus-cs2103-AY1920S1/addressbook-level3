@@ -362,14 +362,14 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete body
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Mortuary manager requests to list bodies
+2.  Mortago shows a list of bodies
+3.  Mortuary manager requests to delete a specific body in the list
+4.  Mortago deletes the body from the system
 +
 Use case ends.
 
@@ -383,9 +383,29 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Mortago shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Generate report
+
+*MSS*
+
+1.  Mortuary manager requests to generate report for a specific body
+2.  Mortago creates a new PDF report with body ID as the title
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given body ID is invalid.
++
+[none]
+**1a1. Mortago shows an error message.
++
+Use case resumes at step 1.
 
 _{More to be added}_
 
