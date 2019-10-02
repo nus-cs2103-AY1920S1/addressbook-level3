@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= KeyBoard Flashcard (KFC) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T12-4`      Since: `Sept 2019`      
 
 == Setting up
 
@@ -313,17 +313,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Keyboard Flashcard` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete Flashcard
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list all flashcards in a category
+2.  System shows a list of flashcards with index
+3.  User requests to delete a flashcard in the list by providing category and index  
+4.  System deletes the flashcard
 +
 Use case ends.
 
@@ -334,14 +334,55 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given category is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The given index is invalid.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Edit Flashcard
+
+*MSS*
+
+1.  User requests to list all flashcards in a category
+2.  System shows a list of flashcards with index
+3.  User requests to edit a flashcard in the list by providing category and index  
+4.  System provides a pop-up for user to enter changes
+5.  User enters changes
+6.  System updates flashcard with the user input
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given category is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given index is invalid.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
