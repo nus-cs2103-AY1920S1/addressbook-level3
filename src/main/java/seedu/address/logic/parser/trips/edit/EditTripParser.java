@@ -4,6 +4,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.trips.DeleteTripCommand;
 import seedu.address.logic.commands.trips.EnterCreateTripCommand;
 import seedu.address.logic.commands.trips.EnterTripCommand;
+import seedu.address.logic.commands.trips.edit.CancelEditTripCommand;
 import seedu.address.logic.commands.trips.edit.DoneEditTripCommand;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.PageParser;
@@ -14,7 +15,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 public class EditTripParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EditTripFieldCommand.COMMAND_WORD + " "
-            + DoneEditTripCommand.COMMAND_WORD;
+            + DoneEditTripCommand.COMMAND_WORD + " "
+            + CancelEditTripCommand.COMMAND_WORD;
 
     @Override
     public Command parse(String command, String arguments) throws ParseException {
@@ -30,6 +32,8 @@ public class EditTripParser implements PageParser {
             return new EditTripFieldParser().parse(arguments);
         case DONE:
             return new DoneEditTripParser().parse(arguments);
+        case CANCEL:
+            return new CancelEditTripParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

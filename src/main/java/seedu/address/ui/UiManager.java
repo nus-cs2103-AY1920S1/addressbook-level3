@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -46,15 +47,14 @@ public class UiManager implements Ui {
         logger.info("Starting UI...");
 
         this.primaryStage = primaryStage;
-        primaryStage.setMaximized(true);
+        //primaryStage.setMaximized(true);
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        setWindowDefaultSize(model.getGuiSettings());
 
         try {
             mainWindow = new TripsPage(primaryStage, logic, model);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
-
+            primaryStage.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -113,8 +113,21 @@ public class UiManager implements Ui {
         } else if (PreferencesPage.class.equals(mainWindowClass)) {
             navigation = PreferencesPage::switchTo;
         }
-        if (navigation != null)
+        if (navigation != null) {
             navigation.switchToThisWindow(primaryStage, logic, model);
+        }
+    }
+
+    /**
+     * Sets the default size based on {@code guiSettings}.
+     */
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
     }
 
 }

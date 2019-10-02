@@ -15,7 +15,7 @@ import seedu.address.ui.UiPart;
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
-    private static final String FXML = "CommandBox.fxml";
+    private static final String FXML = "components/CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
 

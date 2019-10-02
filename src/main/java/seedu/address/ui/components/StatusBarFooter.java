@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
  */
 public class StatusBarFooter extends UiPart<Region> {
 
-    private static final String FXML = "StatusBarFooter.fxml";
+    private static final String FXML = "components/StatusBarFooter.fxml";
 
     @FXML
     private Label saveLocationStatus;

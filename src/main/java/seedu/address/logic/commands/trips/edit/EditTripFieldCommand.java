@@ -118,6 +118,18 @@ public class EditTripFieldCommand extends Command {
         }
 
         /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public EditTripDescriptor(Trip toCopy) {
+            setName(toCopy.getName());
+            setStartDate(toCopy.getStartDate());
+            setEndDate(toCopy.getEndDate());
+            setDestination(toCopy.getDestination());
+            setBudget(toCopy.getBudget());
+        }
+
+        /**
          * Overwrite constructor.
          * Constructs a new {@code EditTripDescriptor} using an {@code oldDescriptor}, overwritten with
          * values of the {@code newDescriptor} where they exist.

@@ -21,7 +21,5 @@ public class EditEventPage extends WindowWithSidebar {
 
     public static void switchTo(Stage stage, Logic logic, Model model) {
         EditEventPage p = new EditEventPage(stage, logic, model);
-        p.show();
-        p.fillInnerParts();
     }
 }

@@ -12,7 +12,7 @@ import seedu.address.ui.UiPart;
  */
 public class ResultDisplay extends UiPart<Region> {
 
-    private static final String FXML = "ResultDisplay.fxml";
+    private static final String FXML = "components/ResultDisplay.fxml";
 
     @FXML
     private TextArea resultDisplay;

@@ -52,6 +52,6 @@ public class EnterTripCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || other instanceof DeleteTripCommand;
+                || other instanceof EnterTripCommand;
     }
 }

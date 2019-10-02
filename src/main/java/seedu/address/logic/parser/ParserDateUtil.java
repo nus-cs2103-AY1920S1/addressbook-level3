@@ -29,7 +29,7 @@ public abstract class ParserDateUtil {
     private static final String MESSAGE_INVALID_FORMAT = "Invalid %1$s inputted, use %2$s.";
 
     /**
-     * Parses the input string using the dateFormatter.
+     * Parses the input string using the {@code DATE_TIME_FORMATTER}.
      * Returns the LocalDateTime representation of the string.
      *
      * @param dateTimeString The input string.
@@ -45,7 +45,7 @@ public abstract class ParserDateUtil {
     }
 
     /**
-     * Parses the input string using the dateFormatter.
+     * Parses the input string using the {@code DATE_FORMATTER}.
      * Returns the LocalDateTime representation of the string.
      *
      * @param dateString The input string.
@@ -86,4 +86,16 @@ public abstract class ParserDateUtil {
     public static String getDisplayTime(LocalDateTime dateTime) {
         return DISPLAY_FORMATTER.format(dateTime);
     }
+
+    /**
+     * Converts the input {@code localDateTime} using the {@code DATE_FORMATTER}.
+     * Returns the date string representation.
+     *
+     * @param localDateTime The input localDateTime.
+     * @return The string representation.
+     */
+    public static String getStringFromDate(LocalDateTime localDateTime) {
+        return DATE_FORMATTER.format(localDateTime);
+    }
+
 }

@@ -1,14 +1,19 @@
 package seedu.address.ui;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -30,12 +35,18 @@ public abstract class MainWindow extends UiPart<Stage> {
     protected Logic logic;
     protected Model model;
 
+    @FXML
+    protected StackPane commandBoxPlaceholder;
+
+    @FXML
+    protected StackPane resultDisplayPlaceholder;
+
+    @FXML
+    protected StackPane statusbarPlaceholder;
+
     // Independent Ui parts residing in this Ui container
     protected ResultDisplay resultDisplay;
     HelpWindow helpWindow;
-
-    @FXML
-    private MenuItem helpMenuItem;
 
     public MainWindow(String fxmlFileName, Stage primaryStage, Logic logic, Model model) {
         super(fxmlFileName, primaryStage);
@@ -44,13 +55,25 @@ public abstract class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.model = model;
 
-        setWindowDefaultSize(model.getGuiSettings());
 
-        setAccelerators();
+        fillInnerParts();
+        //setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        //Temporary hacky workaround for scene switch leading to node placement incorrect problem
+        PauseTransition t = new PauseTransition(new Duration(10));
+        primaryStage.setHeight(primaryStage.getHeight() - 1);
+        primaryStage.setMaximized(!primaryStage.isMaximized());
+        t.setOnFinished((e) -> {
+            logger.log(Level.WARNING, "Hacky workaround for page switch still in use.");
+            primaryStage.setHeight(primaryStage.getHeight() + 1);
+            primaryStage.setMaximized(!primaryStage.isMaximized());
+        });
+        t.play();
     }
 
+/*
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -58,10 +81,10 @@ public abstract class MainWindow extends UiPart<Stage> {
     /**
      * Sets the accelerator of a MenuItem.
      * @param keyCombination the KeyCombination value of the accelerator
-     */
+     *//*
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
-
+/*
         /*
          * TODO: the code below can be removed once the bug reported here
          * https://bugs.openjdk.java.net/browse/JDK-8131666
@@ -77,6 +100,7 @@ public abstract class MainWindow extends UiPart<Stage> {
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          */
+        /*
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
@@ -84,7 +108,7 @@ public abstract class MainWindow extends UiPart<Stage> {
             }
         });
     }
-
+*/
     /**
      * Fills up all the placeholders of this window.
      */
@@ -121,18 +145,6 @@ public abstract class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        }
-    }
-
-    /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
 

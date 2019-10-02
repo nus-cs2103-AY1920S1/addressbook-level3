@@ -21,7 +21,5 @@ public class EditDayPage extends WindowWithSidebar {
 
     public static void switchTo(Stage stage, Logic logic, Model model) {
         EditDayPage p = new EditDayPage(stage, logic, model);
-        p.show();
-        p.fillInnerParts();
     }
 }

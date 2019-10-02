@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.trips.edit.CancelEditTripCommand;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
+import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.Expenditure;
@@ -23,6 +25,15 @@ import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.WindowWithoutSidebar;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 public class EditTripPage extends WindowWithoutSidebar {
 
@@ -67,18 +78,51 @@ public class EditTripPage extends WindowWithoutSidebar {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        if (model.getPageStatus().getTrip() == null) {
-            //create new trip, use fresh display data
-            tripNameFormItem = new TextFormItem("Name of trip : ");
-            tripStartDateFormItem = new DateFormItem("Start date : ");
-            tripEndDateFormItem = new DateFormItem("End date : ",
-                    LocalDate.now().plusDays(DEFAULT_TRIP_DURATION));
-            tripTotalBudgetFormItem = new ExpenditureFormItem("Total budget : ");
-            tripDestinationFormItem = new TextFormItem("Destination : ");
-        } else {
-            //edit a trip, use existing edit descriptor
-            fillFormWithModel();
-        }
+        //create new trip, use fresh display data
+        tripNameFormItem = new TextFormItem("Name of trip : ", nameFormValue -> {
+            try {
+                executeCommand(EditTripFieldCommand.COMMAND_WORD + " " + PREFIX_NAME + nameFormValue);
+            } catch (CommandException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
+        tripStartDateFormItem = new DateFormItem("Start date : ",
+                startDate -> {
+                    try {
+                        executeCommand(EditTripFieldCommand.COMMAND_WORD
+                                + " " + PREFIX_DATE_START
+                                + ParserDateUtil.getStringFromDate(startDate.atStartOfDay()));
+                    } catch (CommandException | ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
+        tripEndDateFormItem = new DateFormItem("End date : ",
+                endDate -> {
+                    try {
+                        executeCommand(EditTripFieldCommand.COMMAND_WORD
+                                + " " + PREFIX_DATE_END
+                                + ParserDateUtil.getStringFromDate(endDate.atStartOfDay()));
+                    } catch (CommandException | ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
+        tripTotalBudgetFormItem = new ExpenditureFormItem("Total budget : ", totalBudget -> {
+            try {
+                executeCommand(EditTripFieldCommand.COMMAND_WORD + " " + PREFIX_BUDGET + totalBudget);
+            } catch (CommandException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
+        tripDestinationFormItem = new TextFormItem("Destination : ", destinationValue -> {
+            try {
+                executeCommand(EditTripFieldCommand.COMMAND_WORD + " " + PREFIX_LOCATION + destinationValue);
+            } catch (CommandException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
+
+        //update with existing edit descriptor
+        fillFormWithModel();
 
         formItemsPlaceholder.getChildren().addAll(
                 tripNameFormItem.getRoot(),
@@ -90,13 +134,29 @@ public class EditTripPage extends WindowWithoutSidebar {
 
     @FXML
     private void handleEditTripDone() {
-        //handle add
+        //handle edit done
+
+    }
+
+    @FXML
+    private void handleEditCancel() {
+        //handle cancel
+        String commandText = CancelEditTripCommand.COMMAND_WORD;
+
+        try {
+            executeCommand(commandText);
+        } catch (ParseException | CommandException ex) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(ex.getMessage());
+        }
     }
 
     private void fillFormWithModel() {
         EditTripFieldCommand.EditTripDescriptor currentEditDescriptor
                 = model.getPageStatus().getEditTripDescriptor();
-
+        if (currentEditDescriptor == null) {
+            return;
+        }
         if (currentEditDescriptor.getName() != null) {
             tripNameFormItem.setValue(currentEditDescriptor.getName().toString());
         }
@@ -122,9 +182,7 @@ public class EditTripPage extends WindowWithoutSidebar {
     }
 
     public static void switchTo(Stage stage, Logic logic, Model model) {
-        EditTripPage p = new EditTripPage(stage, logic, model);
-        p.show();
-        p.fillInnerParts();
+        new EditTripPage(stage, logic, model);
     }
 
 }

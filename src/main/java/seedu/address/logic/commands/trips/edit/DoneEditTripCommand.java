@@ -53,10 +53,9 @@ public class DoneEditTripCommand extends Command {
                 model.setTrip(tripToEdit, tripToAdd);
             }
 
-            model.setPageStatus(
-                    model.getPageStatus()
-                            .withNewEditTripDescriptor(null)
-                            .withNewPageType(PageType.TRIP_MANAGER));
+            model.setPageStatus(model.getPageStatus()
+                    .withNewEditTripDescriptor(null)
+                    .withNewPageType(PageType.TRIP_MANAGER));
             ui.switchWindow(TripsPage.class);
 
             return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToAdd));

@@ -21,7 +21,5 @@ public class DaysPage extends WindowWithSidebar {
 
     public static void switchTo(Stage stage, Logic logic, Model model) {
         DaysPage p = new DaysPage(stage, logic, model);
-        p.show();
-        p.fillInnerParts();
     }
 }

@@ -38,16 +38,7 @@ public class TripsPage extends WindowWithoutSidebar {
     private int nextColToFill = 0;
 
     @FXML
-    private StackPane commandBoxPlaceholder;
-
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-
-    @FXML
     private GridPane tripGridPane;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
 
     @FXML
     private Button addButton;
@@ -76,7 +67,6 @@ public class TripsPage extends WindowWithoutSidebar {
                     TripCard tripCard = new TripCard(trips.get(index.getZeroBased()), index);
                     int column = index.getZeroBased() % MAX_COLUMNS;
                     int row = index.getZeroBased() / MAX_COLUMNS;
-                    logger.log(Level.INFO, row + " " + column);
 
                     //set starting positions of the trip cards with index
                     GridPane.setConstraints(tripCard.getRoot(), column, row,
@@ -95,8 +85,6 @@ public class TripsPage extends WindowWithoutSidebar {
     }
 
     public static void switchTo(Stage stage, Logic logic, Model model) {
-        TripsPage p = new TripsPage(stage, logic, model);
-        p.show();
-        p.fillInnerParts();
+        new TripsPage(stage, logic, model);
     }
 }

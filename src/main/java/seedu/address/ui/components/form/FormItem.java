@@ -13,18 +13,21 @@ import java.util.function.Consumer;
  * Abstraction of a javaFX form item, consisting of a label and a form control.
  * It is backed by a SplitPane, with the label on the left and item on the right.
  * Supports setters and getters for changing the content of the form item.
+ * Requires all implementing classes to set the executeChangeHandler, to be executed when
+ * the value of the form field changes.
  */
 public abstract class FormItem<T> extends UiPart<SplitPane> {
     final ObservableList<Node> splitPaneItems;
 
     /** Form field change handler that receives the form field value of type {@code T}. */
-    private Consumer<T> executeChangeHandler;
+    Consumer<T> executeChangeHandler;
 
     @FXML
     Label formItemLabel;
 
-    FormItem(String FXML) {
+    FormItem(String FXML, Consumer<T> executeChangeHandler) {
         super(FXML);
+        this.executeChangeHandler = executeChangeHandler;
         splitPaneItems = this.getRoot().getItems();
         splitPaneItems.clear();
         splitPaneItems.add(formItemLabel);
@@ -41,16 +44,4 @@ public abstract class FormItem<T> extends UiPart<SplitPane> {
      * Sets the underlying value of the field.
      */
     public abstract void setValue(T value);
-
-    public void setChangeHandler(Consumer<T> executeChangeHandler) {
-        this.executeChangeHandler = executeChangeHandler;
-    }
-
-    /**
-     * JavaFX handler to call when value of the form field changes.
-     */
-    @FXML
-    public void handleChange() {
-        //executeChangeHandler.accept(getValue());
-    }
 }
