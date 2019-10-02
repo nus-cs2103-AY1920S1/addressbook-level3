@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Incident Management System
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
