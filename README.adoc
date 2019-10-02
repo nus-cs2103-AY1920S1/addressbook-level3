@@ -2,7 +2,6 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T09-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-T09-1/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/OneArmyj/main-mqwi6[image:https://ci.appveyor.com/api/projects/status/c38yn66na6aot0lo?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T09-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T09-1/main/badge.svg?branch=master[Coverage Status]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
