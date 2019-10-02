@@ -407,6 +407,24 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+[discrete]
+=== Use case: Alert for unclaimed bodies
+
+*MSS*
+
+1.  Mortuary manager wants to be reminded of the next line of action if next of kin cannot be contacted within 24 hours
+2.  Mortago maintains a record of all the alerts about unidentified and unclaimed bodies until their status is changed
+3.  Mortago shows pop-up alerts after 24 hours from the point of arrival of the body in the mortuary
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There are no alerts
++
+Use case ends.
+
 _{More to be added}_
 
 [appendix]
