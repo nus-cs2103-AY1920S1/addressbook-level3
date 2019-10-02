@@ -14,8 +14,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::divinedx.png[width="150", align="left"]
 {empty}[https://github.com/DivineDX[github]] [<<divinedx#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: Responsible for overall project coordination & Deliverables and deadlines.
+Role: Team Lead, In Charge of Event Management Component & Scheduling and Tracking +
+Responsibilities: Responsible for overall project coordination and in charge of defining, assigning, tracking project tasks and handling events in our app.
 
 '''
 
@@ -23,8 +23,8 @@ Responsibilities: Responsible for overall project coordination & Deliverables an
 image::shihaoyap.png[width="150", align="left"]
 {empty}[https://github.com/shihaoyap[github]] [<<shihaoyap#, portfolio>>]
 
-Role: Documentation +
-Responsibilities: Responsible for the quality of various project documents.
+Role: In Charge of Documentation & Deliverables and Deadlines
+Responsibilities: Responsible for the quality of various project documents and ensure project deliverables are done on time and in the right format.
 
 '''
 
@@ -32,8 +32,8 @@ Responsibilities: Responsible for the quality of various project documents.
 image::eshwarkp.png[width="150", align="left"]
 {empty}[https://github.com/eshwarkp[github]] [<<eshwarkp#, portfolio>>]
 
-Role: Testing +
-Responsibilities: Ensures the testing of the project is done properly and on time.
+Role: In Charge of Manpower Allocation Component & Testing +
+Responsibilities: Ensures the testing of the project is done properly and on time and handles the automatic allocation of manpower in the app.
 
 '''
 
@@ -41,8 +41,8 @@ Responsibilities: Ensures the testing of the project is done properly and on tim
 image::calvincxz.png[width="150", align="left"]
 {empty}[https://github.com/calvincxz[github]] [<<calvincxz#, portfolio>>]
 
-Role: Code quality +
-Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
+Role: In Charge of Manpower Allocation Component & Code quality +
+Responsibilities: Looks after code quality, ensures adherence to coding standards, etc and handles the manual allocation of manpower in the app.
 
 '''
 
@@ -50,7 +50,7 @@ Responsibilities: Looks after code quality, ensures adherence to coding standard
 image::crisgu.png[width="150", align="left"]
 {empty}[https://github.com/Crisgu[github]] [<<crisgue#, portfolio>>]
 
-Role: Integration +
-Responsibilities: In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
+Role: In Charge of Manpower Management Component & Integration +
+Responsibilities: In charge of managing the manpower, versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
 
 '''
