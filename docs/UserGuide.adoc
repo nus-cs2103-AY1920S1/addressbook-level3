@@ -161,10 +161,13 @@ Examples:
 ==== Get top 3 athletes: `top3`
 Gets top 3 athletes (currently in 1st, 2nd and 3rd) for each weight class.
 
-Format: `top3 wc/WeightClass`
+Format: `top3 wc/WEIGHTCLASS`
 
 Examples:
 `top3 wc/100kg`
+
+=== Participation
+This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit Athlete’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, rack height, etc). 
 
 
 === Listing all persons : `list`
