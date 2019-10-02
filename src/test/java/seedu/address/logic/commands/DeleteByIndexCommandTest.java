@@ -63,7 +63,7 @@ public class DeleteByIndexCommandTest {
         Model expectedModel = new ModelManager(
                 model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
         expectedModel.deleteBook(bookToDelete);
-        showNoPerson(expectedModel);
+        showNoBook(expectedModel);
 
         assertCommandSuccess(deleteByIndexCommand, model, expectedMessage, expectedModel);
     }
@@ -106,7 +106,7 @@ public class DeleteByIndexCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoBook(Model model) {
         model.updateFilteredBookList(p -> false);
 
         assertTrue(model.getFilteredBookList().isEmpty());
