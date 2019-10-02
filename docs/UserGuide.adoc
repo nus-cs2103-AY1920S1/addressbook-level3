@@ -294,7 +294,7 @@ Allocates to Event 002 employees numbered 2, 3, 5 on the list.
 
 === Finance Management
 
-==== Generate Employee Payslip: `pay`
+==== Generate Employee Payslip: `pay [coming in v2.0]`
 
 Generates the payslip for an employee for a stated time period
 
@@ -327,11 +327,12 @@ Examples:
 * `contract n/005` +
 Generates the contract for Event_ID 005.
 
-=== Archive
+
+=== Archive Management
 
 ==== Record Past Event: `archive_ev`
 
-Records/Archives a past event and its details, for future reference.
+Archives a past event and its details, for future reference.
 
 Format: `archive_ev EVENT_ID`
 
@@ -343,11 +344,12 @@ Examples:
 
 * `list_ev` +
 `archive_ev 002` +
-Records/archives a past Event with ID 002.
+
+Archives a past Event with ID 002.
 
 ==== Record Past Event: `list_archive_ev`
 
-Display List of all archived events.
+Display List of all archived events. With an index and the Archive event Name and ID
 
 Format: `list_archive_ev`
 
@@ -388,10 +390,6 @@ Examples:
 Displays a set of statistics, Number of events, Number of employee etc
 
 Format: `generate_stats`
-
-Examples:
-
-* `generate_stats`
 
 ==== Clearing all entries : `clear`
 
