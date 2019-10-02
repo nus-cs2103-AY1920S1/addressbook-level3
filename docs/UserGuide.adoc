@@ -10,7 +10,7 @@
 :toc:
 :toclevels: 3
 :experimental:
-ifdef::env-github[]gi
+ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
@@ -244,11 +244,11 @@ Example:
 | Status of fridge 1 changed
 |===
 
-==== Locating persons by name: `find`
+==== Locating entries by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find (keyword)...`
 
+Below are some important information regarding this command:
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -256,6 +256,7 @@ Format: `find (keyword)...`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
+Format: `find (keyword)...`
 
 Examples:
 
@@ -350,16 +351,16 @@ All entries will be sorted and grouped according to their statuses.
 * `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
 
-==== Filter entries: `filter`
+==== Filter body entries entries: `filter`
 Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
 
-Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+All attributes of a body entry can be filtered. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
 
 Format: `filter (/attributeName attributeValue)...`
 
 Example:
-`filter /firstName John`
-All entries with `John` in its `firstName` attribute will be displayed.
+`filter /cod Car Accident`
+All body entries with car accident as the cause of death will be displayed.
 
 ==== Undo previous command: `undo`
 Undo the last executed command.
