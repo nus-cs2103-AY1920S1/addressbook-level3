@@ -3,17 +3,15 @@
 
 - [x] Travis
 
-- [ ] Draft UG to user guide page (Klement)
+- [x] Draft UG to user guide page (Klement)
 
-- [ ] About us(Aidil)
+- [x] About us(Aidil)
 
 - [ ] Contact us(Alvin)
 
+- [ ] Developer Guide(Marcus)
+
 - [ ] V1.1(Week 7)
-
-# Timeline
-- Tuesday complete individual basic features
-
 
 = Address Book (Level 3)
 ifdef::env-github,env-browser[:relfileprefix: docs/]

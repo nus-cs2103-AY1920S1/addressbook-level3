@@ -3,7 +3,6 @@ package seedu.address.model.group;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME2;
@@ -36,7 +35,7 @@ class GroupDescriptorTest {
 
     @Test
     void getGroupName_emptyNameField() {
-        assertNull(groupDescriptor.getGroupName());
+        assertTrue(groupDescriptor.getGroupName().equals(GroupName.emptyGroupName()));
     }
 
     @Test
@@ -48,7 +47,7 @@ class GroupDescriptorTest {
 
     @Test
     void getGroupRemark_emptyRemarkField() {
-        assertNull(groupDescriptor.getGroupRemark());
+        assertTrue(groupDescriptor.getGroupRemark().equals(GroupRemark.emptyRemark()));
     }
 
     @Test
