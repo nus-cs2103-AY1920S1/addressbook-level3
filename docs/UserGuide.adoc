@@ -57,126 +57,52 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Lecture notes
 
-Format: `help`
+==== Adding lecture notes: `addnote`
+Adds a lecture note. The `i/` field, if provided, brings up a dialogue where an image can be chosen from
+the file system; such an image will be displayed beside the note. +
+Format: `addnote t/TITLE c/CONTENT [i/]`
 
-=== Adding a person: `add`
+==== Editing lecture notes: `editnote`
+Edits an existing lecture note. Providing `i/` brings up the image selection dialogue, like `addnote`;
+this can be used to change the image. At least one of `t/`, `c/` and `i/` must be provided.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+The index must be between 1 and the number of notes and flashcards combined, inclusive. +
+Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/]`
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Viewing lecture notes: `shownote`
+If an index is provided, a number prefixed with a # (e.g. #1), show the lecture note with that index.
+Otherwise, search for lecture notes whose title contains every given word (space-separated, ignoring case),
+and display them. +
+Format: `shownote [#INDEX | WORDS]`
 
-Examples:
+==== Deleting lecture notes: `deletenote`
+Delete the lecture note with the given index, which follows the same restrictions as with `editnote`. +
+Format: `deletenote INDEX`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+==== Exporting all entries: `export`
+Export all items in NUStudy, both flash cards and lecture notes, into a file with the given name. +
+Format: `export FILENAME`
 
-=== Listing all persons : `list`
+==== Importing all entries: `import`
+Import all items in the given file into NUStudy. This overwrites any items already in the app. +
+Format: `import FILENAME`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+NUStudy can also store different sets of questions and answers;
+at your command, the system will prompt you to answer those questions.
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with
+the file that contains the data of your previous folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Add lecture note*: `addnote t/TITLE c/CONTENT [i/]`
+* *Edit lecture note*: `editnote INDEX [t/TITLE] [c/CONTENT] [i/]`
+* *Show or find lecture note*: `shownote [#INDEX | WORDS]`
+* *Delete lecture note*: `deletenote INDEX`
+* *Export all*: `export FILENAME`
+* *Import all*: `import FILENAME`
