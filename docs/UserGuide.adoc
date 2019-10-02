@@ -57,110 +57,50 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Get statistics for subjects : `stats`
 
-Format: `help`
+Gets statistics of how well you answered the questions for a subject.
+A pie chart of the number of questions that have been answered correctly and incorrectly will be returned.
+You can even get the combined statistics of more than one subject. +
+Format: `stats s/SUBJECT [s/SUBJECT1] [s/SUBJECT2]...`
 
-=== Adding a person: `add`
+=== Get questions with correct answers: correct
+Gets all questions that have been answered correctly for a particular subject.
+You can also choose to see past answers to the questions by adding the `-a`. +
+Format: `correct s/SUBJECT [-a]`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Get questions with incorrect answers: incorrect
+Gets all questions that have been answered incorrectly for a particular subject.
+You can also choose to see past answers to the questions by adding the `-a`. +
+Format: `incorrect s/SUBJECT [-a]`
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Get statistics for individual questions: stats
+Gets statistics of how well you answered a particular question,
+the number of times the question has been attempted and the past answers to the question. +
+Format: `stats INDEX`
 
-Examples:
+=== Statistics for difficulty level: stats -dif
+Gets statistics of the number of questions within a subject attempted at the specified difficulty level. +
+Format: `stats -dif d/DIFFICULTY s/SUBJECT`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+=== Statistics for difficulty level accuracy: accur -dif
+Gets statistics of the questions answered correctly and incorrectly within a subject of a specific difficulty level. +
+Format: `accur -dif d/DIFFICULTY s/SUBJECT`
 
-=== Listing all persons : `list`
+=== Get overview of lecture notes: overview -ln
+Gets an overview of the types of notes that have been added into the app.
+A stacked bar graph, sorted by subjects will be returned. +
+Format: `overview -ln`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Get overview of questions attempted: overview -q
+Gets an overview of the types of questions that have been attempted overall.
+A stacked bar graph, sorted by subjects will be returned.
+You can choose to add in a time period, `dt/`, to see which questions have been attempted then. +
+Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
 
-=== Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Auto-complete feature `[coming in v2.0]`
+Returns suggestions when you are typing commands.
 
 == FAQ
 
