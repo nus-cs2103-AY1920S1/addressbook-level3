@@ -553,6 +553,45 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+[discrete]
+=== Use case 09: Undo previous <<undoable-commands,undoable commands>>
+
+*MSS*
+
+1. User requests to undo the previous undoable command
+2. Marks restores the list to the state before the previous
+undoable command was executed
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no command to undo.
++
+Mark shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 10: Redo previously undone commands
+
+*MSS*
+
+1. User requests to redo the previously undone command
+2. Marks reverses the most recent ‘undo’ command
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no previous `undo` command to redo.
++
+Mark shows an error message.
++
+Use case ends.
+
 _{More to be added}_
 
 
@@ -575,6 +614,10 @@ Windows, Linux, Unix, OS-X
 
 [[cache]] Cache::
 The collection of offline copies of a specific bookmark
+
+[[undoable-commands]] Undoable commands::
+Commands that modify the bookmark list or reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
+`reminder edit`, and `reminder delete`
 
 [appendix]
 == Product Survey
