@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= AddMin+ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a need to help HR manage events and employees
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage events and employees easier than enterprise apps commonly used such as Microsoft Excel and Microsoft Word.
 
 [appendix]
 == User Stories
@@ -295,51 +295,153 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |HR Admin |automate my manpower allocation process | improve work productivity
 
-|`* * *` |user |add a new person |
+|`* * *` |HR Admin |view upcoming events | remind the company staff to attend
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |HR Director |view the number of events | decide whether to have more or less of events
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |HR Personnel |keep track of all the worker's details | access the worker’s personal details whenever I need it
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Finance Staff |keep track of all the worker's details | ensure proper financial accounting for the company
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Accountant |see the payslip of all employees| easily track expenses related to employee wages
+
+|`* * *` |Accountant |access the employee's personal details |keep track of all the worker's details
+
+|`* * *` |Employee of a Company |able to see payslip| for documenting purposes
+
+|`* * *` |Admin Staff |be able to track the employee's paid and medical leave| ensure the workers are not abusing the leave system
+
+|`* * *` |Admin Staff |view my company's available manpower| decide on the manpower allocation
+
+|`* *` |Employee |view upcoming events | record them on my calendar
+
+|`* *` |Admin Staff|find upcoming events | plan on the logistics needed ahead of time
+
+|`* *` |Manager|tag my employees with comments/remarks | have better manpower allocation for events
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AddMin+` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete employee
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list employees
+2.  AddMin+ shows a list of employees
+3.  User requests to delete a specific employee by stating the Employee ID
+4.  AddMin+ deletes the employee
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 3a. The given Employee ID is invalid.
++
+[none]
+** 3a1. AddMin+ shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit Event in Event List
+
+*MSS*
+
+1.  User requests to view the company’s current list of events.
+2.  AddMin+ shows a list of events, with each event containing a unique Event ID.
+3.  User specifies Event ID, and list the details of the event to edit
+4.  AddMin+ edits and saves the updated event details.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+* 3a. Event ID given is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1.AddMin+ shows an error message and refuses the edit.
 +
 Use case resumes at step 2.
++
+* 3b. No details to edit were specified, or is of the wrong input format
++
+[none]
+** 3b1. AddMin+ displays an error message warning the user that no details were edited.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Allocate Manpower to Event manually
+
+*MSS*
+
+1.  User requests to view the company’s current list of employees and events.
+2.  AddMin+ shows the list of employees and events.
+3.  User states an Employee_ID that is matched to an Event_ID
+4.  Employee allocated to Event.
++
+Use case ends.
+
+*Extensions*
+
+* 2.The Employee_ID/Event_ID is invalid.
++
+[none]
+** 2a.Addmin+ shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Generate Employee PaySlip
+
+*MSS*
+
+1.  User requests to list employee
+2.  EmployeeBook shows a list of employees
+3.  User requests to generate a payslip document of a specific employee ID in the list by using a specific employee ID.
+4.  AddMin+ generates a document of the pay slip of the employee ID.
+
++
+Use case ends.
+
+*Extensions*
+
+* 3.The employee ID given is invalid.
++
+[none]
+** 3a.AddMin+ shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Fetch Events
+*MSS*
+
+1.  User requests to fetch an Event by specifying an Event_ID
+2.  AddMin+ displays the matching result
+
++
+Use case ends.
+
+*Extensions*
+
+* 2.The given event ID is invalid or nonexistent.
++
+[none]
+** 2a.Addmin+ shows an error message.
++
+Use case resumes at step 2.
+
+
 
 _{More to be added}_
 
@@ -347,10 +449,11 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 employees and events without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Program should run smoothly and without bugs
+.  Should be able to work independent of a remote server, database, and internet connection
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -358,25 +461,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -400,21 +484,19 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting an employee
 
-. Deleting a person while all persons are listed
+. Deleting an employee while all employees are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Prerequisites: List all employees using the `list_em` command. Multiple employees in the list.
+.. Test case: `delete_em 1` +
+   Expected: Employee of ID '1' is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete_em 0` +
+   Expected: No employee is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
 === Saving data
 
@@ -422,4 +504,4 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+
