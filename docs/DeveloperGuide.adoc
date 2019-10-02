@@ -328,15 +328,6 @@ Priorities:
 
 |=======================================================================
 
-|`* * *`|student|set a revision plan|I can be more organised in my revision and will not lose my focus|Shui Yao
-|`* * *`|student|remove a revision task|I can remove accidentally added revision task or remove a revision task should there be a change of plan|Shui Yao
-|`* *`|student|edit the revision task|I can modify the details of a particular revision task|Shui Yao
-|`* *`|student|mark a task as done|I can update the status of my revision plan and have greater motivation to move on|Shui Yao
-|`* *`|student|view unfinished tasks|I can have a easy overview of what I need to to next|Shui Yao
-|`*`|student|view overdue tasks|I can re-schedule my revision and be more careful with the workload in my next planning|Shui Yao
-|`* *`|student|get notified when a revision task is about to start|I can finish up whatever stuff at hand and get ready for revision|Shui Yao
-|`* *`|student|disable notification|I will not be bothered in some important events|Shui Yao
-
 [appendix]
 == Use Cases
 
