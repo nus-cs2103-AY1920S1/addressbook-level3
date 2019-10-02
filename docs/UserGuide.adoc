@@ -72,11 +72,12 @@ For example in the case of `add {mentor/participant/list}`, you can choose to ty
 
 This command displays a help page in a separate pop-up window. Should you require further information,
 the pop-up window also includes links to further references and documentation. +
+
 Format: `help`
 
 === Adding an Entity: `add {participant/mentor/team}`
 
-Adds an entity for Alfred to keep track of +
+Use this command to add an entity for Alfred to keep track of. +
 ****
 * Creates an Entity as specified by you. Each Entity object will have a unique ID autmatically assigned to it.
 * As of version 1.1, you must provide all the fields. There are no optional fields.

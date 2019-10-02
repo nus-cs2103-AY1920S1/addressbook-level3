@@ -1,6 +1,7 @@
 package seedu.address.model.entity;
 
 public enum ProjectType {
+
     PLACEHOLDER("placeholder");
 
     private final String projectTypeString;
