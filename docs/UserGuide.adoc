@@ -578,7 +578,7 @@ Edit reminder of bookmark in index 1. Reset the time of the reminder to 23:59 of
 Edit reminder of bookmark in index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset to not to open the bookmark. Reset the note to check daily news.
 
-=== Deleting reminder: `reminder delete`
+=== Deleting a reminder: `reminder delete`
 
 Deletes the the specified reminder.
 
