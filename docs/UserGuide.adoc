@@ -318,13 +318,13 @@ e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 * *Edit claim* `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
-* *Adding income* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` + 
+* *Adding income* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
 
-* *Editing income* `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` + 
+* *Editing income* `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP`
 
-* *Checking Person or Claim* `check INDEX` + 
+* *Checking Person or Claim* `check INDEX` +
 e.g.
 ** `check 1` (in contacts page, show details of the person in index 1)
 ** `check 2` (in claims page, show details of the claim in index 2)
