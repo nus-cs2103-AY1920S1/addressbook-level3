@@ -340,13 +340,13 @@ Priorities:
 
 |`*`|student|get statistics of the change of difficulty levels I have made to a question|I can understand my improvement in understanding the content|Xueting
 
-|`***`|student|see how well I am able to answer questions for different topics/subjects|focus more on topics/subjects that I need to improve on|Irene
+|`* * *`|student|see how well I am able to answer questions for different topics/subjects|focus more on topics/subjects that I need to improve on|Irene
 
-|`***`|student|check my past responses to different questions|compare with my current response and improve on it if necessary/check if I am making the same mistakes twice|Irene
+|`* * *`|student|check my past responses to different questions|compare with my current response and improve on it if necessary/check if I am making the same mistakes twice|Irene
 
-|`**`|student|have a graphical report of my progress|get an overview of my progress with a glimpse|Irene
+|`* *`|student|have a graphical report of my progress|get an overview of my progress with a glimpse|Irene
 
-|`**`|student|check the questions that I have attempted for a specific time period|I can skip questions that I have already done during that time period|Irene
+|`* *`|student|check the questions that I have attempted for a specific time period|I can skip questions that I have already done during that time period|Irene
 
 |`*`|student|get an overview to see the number of notes added for each topic/subject|I can see which topic/subject I need to make more notes on|Irene
 
@@ -402,7 +402,6 @@ Use case ends
 ** 1a2. Student re-enters the command
 ** Repeat 1a1 and 1a2 until a valid index is provided
 * Use case resumes from step 2
-
 
 [discrete]
 === Use case: Add a revision task to revision plan (Shui Yao)
@@ -491,7 +490,47 @@ Use case ends.
 ** 2a1. NUStudy informs the Student of the cancellation of clear operation.
 * Use case ends.
 
+[discrete]
+=== Use case: get statistics for subjects (Irene)
 
+*MSS*
+
+1. Student gives the command to get the statistics for a subject `stats s/SUBJECT [s/SUBJECT1] [s/SUBJECT2]...`
+2. Application returns a piechart with number of questions answered correctly and incorrectly
+
+Use case ends
+
+*Extensions*
+[none]
+* 1a. Student provides an invalid subject
+[none]
+** 1a1. Application will return a list of subjects that are in the database
+** 1a2. Student will re-enter the command with a valid subject
+* Use case resumes from step 2
+
+* 1b. Student provides more than one subject
+[none]
+** 1b1. Application returns a piechart totaling the statistics of question answered correctly and incorrectly for all subjects as well as a list of the individual statistics for each subject
+* Use case ends.
+
+[discrete]
+=== Use case: get statistics for individual questions (Irene)
+
+*MSS*
+
+1. Student gives the command to get statistics for a question `stats INDEX`
+2. Application returns past responses to the question, the subject and/or topic associated with the question and statistics of how well the question has been answered
+
+Use case ends
+
+*Extensions*
+[none]
+* 1a. Student gives an out-of-range index
+[none]
+** 1a1. Application displays the range of questions available
+** 1a2. Student re-enters the command
+** Repeat 1a1 and 1a2 until a valid index is provided
+* Use case resumes from step 2
 
 [appendix]
 == Non-functional requirements
