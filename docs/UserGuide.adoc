@@ -154,6 +154,61 @@ GE1020,GE1111,GE1030,GE1303 +
 Requested module: cs1020 +
 No clash detected`
 
+=== Add or remove modules `addmod` & `removemod`
+
+==== Add a module to a student
+This command adds a module to specific student. If there is a clash detected
+between existing modules and the module being added, additional confirmation will be required.
+
+Format: `addmod STUDENT_ID MODULE_CODE SESSION_ID`
+
+Examples:
+
+* `addmod A0180000A CS1010S 2`
+
+Sample output:
+
+`Session 2 of CS1010S added to student A0180000A`
+
+* `addmod A0180001A CS1010S 2`
+
+Sample output:
+
+* `Clash detected:`
+
+`Existing module: CS1020S Session 2: Monday 1400-1600`
+
+`Module to be added: CS1010S Session 2: Monday 1500-1700`
+
+`Confirm addition? (y/n)`
+
+If (y):
+`Session 2 of CS1010S added to student A0180000A`
+
+If (n):
+`Addition of module cancelled`
+
+
+==== Removing a module from student's timetable
+This command removes a existing module from a student.
+
+Format: `removemod STUDENT_ID MODULE_CODE SESSION_ID`
+
+Examples:
+
+* `removemod A0180000A CS1010S 2`
+
+Sample output:
+
+`Session 2 of CS1010S removed from student A0180000A`
+
+* `removemod A0180001A CS1020S 2`
+
+Sample output:
+
+`Invalid operation. Module CS1010S session 2 does not exist in student
+A0180001A's timetable`
+
 === Saving the data
 
 MAMS are saved in the hard disk automatically after any command that changes the data. +
@@ -210,3 +265,4 @@ Marks the 2nd appeal in the appeal list as approved.
 * **reject** `reject INDEX`
 - e.g. `reject 3`
 Marks the 3rd appeal in the filtered list as rejected.
+
