@@ -12,10 +12,13 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+application {
+    mainClassName = "seedu.address.Main"
+}
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -70,6 +73,11 @@ shadowJar {
     archiveName = 'addressbook.jar'
 
     destinationDir = file("${buildDir}/jar/")
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 task coverage(type: JacocoReport) {
@@ -134,7 +142,7 @@ asciidoctor {
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-W12-1/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
