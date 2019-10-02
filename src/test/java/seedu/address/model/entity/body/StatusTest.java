@@ -9,7 +9,7 @@ class StatusTest {
 
     @Test
     void enumerateStatus_indexOne_correct() {
-        assertEquals(Status.CLEANED.toString(), "CLEANED");
+        assertEquals(Status.CLAIMED.toString(), "CLAIMED");
     }
 
 }

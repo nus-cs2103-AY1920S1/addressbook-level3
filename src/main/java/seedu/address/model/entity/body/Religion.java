@@ -6,6 +6,5 @@ package seedu.address.model.entity.body;
  */
 public enum Religion {
     CHRISTIANITY, ISLAM, NONRELIGIOUS, HINDUISM, BUDDHISM, SIKHISM,
-            JUCHE, SPIRITISM, JUDAISM, BAHAI, JAINISM, SHINTO, ZOROASTRIANISM,
-            TENRIKYO, NEOPAGANISM
+            JUCHE, SPIRITISM, JUDAISM, JAINISM, SHINTO
 }

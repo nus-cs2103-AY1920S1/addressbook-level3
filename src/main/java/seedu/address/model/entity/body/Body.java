@@ -1,52 +1,52 @@
 package seedu.address.model.entity.body;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
-import seedu.address.model.person.Name; // Currently using AB3 Name class until further discussion.
+import seedu.address.model.person.Name;
 
 //@@author ambervoong
 /**
- * Represents a Person in the address book.
- * Guarantees: name, sex and dateofAdmission are guaranteed to be present.
+ * Represents a Body in Mortago.
+ * Guarantees: dateofAdmission is guaranteed to be present.
  */
 public class Body {
-    private final BodyIdentificationNumber bodyIdentificationNumber;
+    private final IdentificationNumber bodyIdentificationNumber;
+    private final Date dateOfAdmission;
 
     // Identity fields.
     // NOTE: Name details not yet finalised.
-    private final Name name;
+    private Name name;
 
-    private final Sex sex;
+    private Sex sex;
     private Nric nric;
     private Religion religion;
 
     private String causeOfDeath;
-    private DonationList organsForDonation;
-    // NOTE: Status details not yet finalised.
+    private ArrayList<String> organsForDonation;
     private Status status;
     private Index fridgeId;
     private String details;
 
-    // NOTE: Date details not yet finalised.
-    private final String dateOfAdmission;
-    private String dateOfBirth;
-    private String dateOfDeath;
+    private Date dateOfBirth;
+    private Date dateOfDeath;
 
     // Next of kin details
     private Name nextOfKin;
-    private Relationship relationship;
+    private String relationship;
     private PhoneNumber kinPhoneNumber;
 
-    public Body(BodyIdentificationNumber bodyIdentificationNumber, Name name, Sex sex, String dateOfAdmission) {
-        this.bodyIdentificationNumber = bodyIdentificationNumber;
-        this.name = name;
-        this.sex = sex;
+    public Body(Date dateOfAdmission) {
+        this.bodyIdentificationNumber = IdentificationNumber.generateNewBodyId();
         this.dateOfAdmission = dateOfAdmission;
     }
 
     // Getters and Setters
-    public BodyIdentificationNumber getBodyIdentificationNumber() {
+    public IdentificationNumber getBodyIdentificationNumber() {
         return bodyIdentificationNumber;
     }
 
@@ -58,23 +58,31 @@ public class Body {
         return sex;
     }
 
-    public String getDateOfAdmission() {
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public Date getDateOfAdmission() {
         return dateOfAdmission;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getDateOfDeath() {
+    public Date getDateOfDeath() {
         return dateOfDeath;
     }
 
-    public void setDateOfDeath(String dateOfDeath) {
+    public void setDateOfDeath(Date dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
     }
 
@@ -102,11 +110,11 @@ public class Body {
         this.nextOfKin = nextOfKin;
     }
 
-    public Relationship getRelationship() {
+    public String getRelationship() {
         return relationship;
     }
 
-    public void setRelationship(Relationship relationship) {
+    public void setRelationship(String relationship) {
         this.relationship = relationship;
     }
 
@@ -126,11 +134,11 @@ public class Body {
         this.causeOfDeath = causeOfDeath;
     }
 
-    public DonationList getOrgansForDonation() {
+    public ArrayList<String> getOrgansForDonation() {
         return organsForDonation;
     }
 
-    public void setOrgansForDonation(DonationList organsForDonation) {
+    public void setOrgansForDonation(ArrayList<String> organsForDonation) {
         this.organsForDonation = organsForDonation;
     }
 

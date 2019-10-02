@@ -2,6 +2,8 @@ package seedu.address.model.entity.body;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.entity.PhoneNumber;
@@ -68,8 +70,8 @@ class BodyTest {
 
     @Test
     void getSetRelationship() {
-        testBody.setRelationship(Relationship.FATHER);
-        assertEquals(Relationship.FATHER, testBody.getRelationship());
+        testBody.setRelationship("Father");
+        assertEquals("Father", testBody.getRelationship());
     }
 
     @Test
@@ -86,8 +88,10 @@ class BodyTest {
 
     @Test
     void getSetOrgansForDonation() {
-        testBody.setOrgansForDonation(DonationList.LIVER);
-        assertEquals(DonationList.LIVER, testBody.getOrgansForDonation());
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("Liver");
+        testBody.setOrgansForDonation(list);
+        assertEquals("Liver", testBody.getOrgansForDonation().get(0));
     }
 
     @Test
