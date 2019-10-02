@@ -62,27 +62,32 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the list of people +
-Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [pol/POLICY] [t/TAG]…​`
+Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [pol/POLICY]... [t/TAG]...​`
 
 ****
-* A person can have any number of tags (including 0)
+* A person can have any number of tags (including 0).
+* A person can have any number of policies (including 0).
+* Birthdays are in the form `DD.MM.YYYY`.
 ****
 
 Examples:
 
-* `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority`
+* `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/1 pol/2 t/diabetic t/smoker`
 
 === Adding a policy: `addpolicy`
 
 Adds a policy to the list of policies +
-Format: `addpolicy  add pol n/NAME d/DESCRIPTION c/TIME_PERIOD p/PRICE [sa/START_AGE] [ea/END_AGE]... [t/TAGS]...`
+Format: `addpolicy n/NAME d/DESCRIPTION c/TIME_PERIOD p/PRICE sa/START_AGE ea/END_AGE [t/TAGS]... [cri/CRITERIA]...`
 
 ****
-* A policy can have any number of tags (including 0)
+* A policy can have any number of tags (including 0).
+* A policy can have any number of criteria (including 0).
+* Coverage time period is specified in years.
+* Price is specified in dollar ($) units.
 ****
 Examples:
 
-* `add pol n/SeniorCare d/care for seniors c/10months p/$50000 [sa/50 ea/75]`
+* `addpolicy n/SeniorCare d/Care for seniors c/5 p/50000 sa/50 ea/75]`
 
 === Listing all persons : `listpeople`
 
@@ -115,7 +120,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears the address tag
 === Editing a policy : `editpolicy`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [c/TIME_PERIOD] [p/PRICE]`
+Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [c/TIME_PERIOD] [p/PRICE] [sa/START_AGE] [ea/END_AGE] [t/TAG]... [cri/CRITERIA]...`
 
 ****
 * Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -156,42 +161,86 @@ Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `senior` will match `Seniors`
 * The order of the keywords does not matter. e.g. `Senior Care` will match `Care Seniors`
-* Only full words will be matched e.g. `Senior` will not match `Seniors`
-* Policies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Senior` will return `Care for seniors`, `Senior care`
+* Partially-matching words will be matched e.g. `Senior` will match `Seniors`
+* Policies matching at least one keyword will be returned (i.e. `OR` search).
 ****
 
 Examples:
 
-* `find Senior` +
-Returns `senior care` and `Care for seniors`
 * `find family children` +
-Returns any policy having names or descriptions containing `family` of `children`
+Returns any policy having names or descriptions containing `family` or `children`
 
-=== Locating people by keywords: `findtagpeople`
+=== Locating people by tags: `findtagpeople`
 
 Finds people who have the specified tag(s). +
-Format: `findtagpeople KEYWORD [MORE_KEYWORDS]`
+Format: `findtagpeople TAG [MORE_TAGS]`
 
 ****
-* The search is case insensitive
-* The order of the keywords does not matter
-* Only full words will be matched
-* People matching at least one keyword will be returned
-* People matching more keywords will be presented first
+* The search is case insensitive. e.g. `diabetic` will match `Diabetic`
+* The order of the tags does not matter.
+* Tags must be specified completely and accurately.
+* Only people who possess all specified tags will be returned (e.g. searching `diabetic` and `smoker` will only return people with both tags).
 ****
 
-=== Locating policies by keywords: `findtagpolicy`
+=== Locating policies by tags: `findtagpolicy`
 
 Finds policies who have the specified tag(s) +
-Format: `findtagpolicy KEYWORD [MORE_KEYWORDS]`
+Format: `findtagpolicy TAG [MORE_TAGS]`
 
 ****
-* The search is case insensitive
-* The order of the keywords does not matter
-* Only full words will be matched
-* People matching at least one keyword will be returned
-* People matching more keywords will be presented first
+* The search is case insensitive. e.g. `accident` will match `Accident`
+* The order of the tags does not matter.
+* Tags must be specified completely and accurately.
+* Only policies that possess all specified tags will be returned (e.g. searching `accident` and `life` will only return policies with both tags).
 ****
+
+=== Find current policyholders: `findpolicyholders`
+
+Finds people in possession of a policy (or policies) +
+Format: `findpolicyholders INDEX`
+
+****
+* The index refers to the index number shown in the displayed policy list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `listpolicies` +
+`findpolicyholders 1` +
+Finds all people who are in current possession of the 1st policy in the list of policies.
+
+=== Find eligible policies: `eligiblepolicies`
+
+Finds policies a specific person is eligible for +
+Format: `eligiblepolicies INDEX`
+
+****
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `listpeople` +
+`eligiblepolicies 1` +
+Finds all policies the 1st person in the displayed person list is eligible for.
+
+=== Find eligible people: `eligiblepeople`
+
+Finds people eligible for a specific policy +
+Format: `eligiblepeople INDEX`
+
+****
+* The index refers to the index number shown in the displayed policy list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `listpolicy` +
+`eligiblepeople 1` +
+Finds all people eligible for the 1st policy in the displayed policy list.
 
 === Adding policies to a person : `assignpolicy`
 
@@ -201,18 +250,20 @@ Format: `assignpolicy INDEX pol/POLICY [MORE_POLICIES]`
 ****
 * Adds the policies to the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
+* The policy refers to the index number of the policy in the absolute list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Each policy *must be a positive integer* 1, 2, 3, ...
 * Any number of policies can be added as long as the person is eligible for the policy.
 ****
 
 Examples:
 
 * `listpeople` +
-`assignpolicy 2 pol/Senior Care` +
-Assigns a `Senior Care` policy to the 2nd person in the list of people.
+`assignpolicy 2 pol/3` +
+Assigns the policy at index 3 to the 2nd person in the list of people.
 * `find Betsy` +
-`assignpolicy 1 pol/Health Insurance` +
-Assigns a `Health Insurance` policy to the 1st person in the results of the `find` command.
+`assignpolicy 1 pol/4` +
+Assigns the policy at index 4 to the 1st person in the results of the `find` command.
 
 === Adding tags to a person : `addtag`
 
@@ -256,6 +307,27 @@ Adds a `lifeinsurance` tag to the 2nd policy in the list of polciies.
 `addpolicytag 1 t/motorinsurance` +
 Adds a `motorinsurance` tag to the 1st policy in the results of the `find` command.
 
+=== Adding criteria to a policy : `addpolicycriteria`
+
+Adds a new criteria to the policy at the specified index. +
+Format: `addpolicycriteria INDEX cri/CRITERIA [MORE_CRITERIA]`
+
+****
+* Adds the criteria to the policy at the specified `INDEX`.
+* The index refers to the index number shown in the displayed policies list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Any number of criteria can be added.
+****
+
+Examples:
+
+* `listpolicies` +
+`addpolicycriteria 2 t/nonsmoker` +
+Adds a `nonsmoker` criteria to the 2nd policy in the list of policies.
+* `findpolicy Betsy` +
+`addpolicycriteria 1 t/nonsmoker` +
+Adds a `nonsmoker` tag to the 1st policy in the results of the `findpolicy` command.
+
 // tag::delete[]
 === Deleting a person : `delete`
 
@@ -293,9 +365,9 @@ Examples:
 * `listpolicies` +
 `delete 2 +
 Deletes the 2nd policy in the list of policies.
-* `find senior` +
+* `findpolicy senior` +
 `delete 1` +
-Deletes the 1st policy in the results of the `find` command.
+Deletes the 1st policy in the results of the `findpolicy` command.
 
 === Deleting policies from a person : `unassignpolicy`
 
@@ -305,17 +377,19 @@ Format: `unassignpolicy INDEX pol/POLICY [MORE_POLICIES]`
 ****
 * Removes the policies to the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
+* The policy refers to the index number of the policy in the absolute list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Each policy *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
 * `listpeople` +
-`unassignpolicy 2 pol/Senior Care` +
-Removes the `Senior Care` policy from the 2nd person in the list of people.
+`unassignpolicy 2 pol/3` +
+Removes the 3rd policy in the absolute list from the 2nd person in the displayed list of people.
 * `find Betsy` +
-`unassignpolicy 1 pol/Health Insurance` +
-Removes the `Health Insurance` policy from the 1st person in the results of the `find` command.
+`unassignpolicy 1 pol/4` +
+Removes the 4th policy in the absolute list from the 1st person in the results of the `find` command.
 
 === Deleting tags from a person : `deletetag`
 
@@ -376,7 +450,7 @@ if present.
 
 Examples:
 
-`add n/John Doe ic/Q9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+`add n/John Doe ic/Q9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/1 t/high-priority` +
 
 Expected Output:
 ```
@@ -397,7 +471,7 @@ if present.
 
 Examples:
 
-`add n/John Doe ic/S9999999J p/48765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/SeniorCare t/high-priority` +
+`add n/John Doe ic/S9999999J p/48765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/1 t/high-priority` +
 
 Expected Output:
 ```
@@ -747,10 +821,10 @@ e.g. `editpolicy 1 n/Seniors`
 e.g. `find James Jake`
 * *Find Policy* : `findpolicy KEYWORD [MORE_KEYWORDS]` +
 e.g. `findpolicy senior`
-* *Find people by keywords*: `findtagpeople KEYWORD [MORE_KEYWORDS]` +
+* *Find people by tags*: `findtagpeople TAG [MORE_TAGS]` +
 e.g. `findtagpeople smoker diabetic`
-* *Find policy by keywords*: `findtagpolicy KEYWORD [MORE_KEYWORDS]` +
-e.g. `findtagpolicy smoker diabetic`
+* *Find policy by tags*: `findtagpolicy TAG [MORE_TAGS]` +
+e.g. `findtagpolicy accident life`
 * *Assign Policy* : `assignpolicy INDEX pol/POLICY [MORE_POLICIES]` +
 e.g. `assignpolicy 2 pol/SeniorCare`
 * *Add Tag To Person* : `addtag INDEX t/TAG [MORE_TAGS]` +
