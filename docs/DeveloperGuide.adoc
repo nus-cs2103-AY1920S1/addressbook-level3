@@ -311,7 +311,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |save my data automatically after each change |data doesn’t get lost if I forgot or am not able to save after a session
 
-|`* *` |user |take personal notes for eah patient |I can take note of their personal quirks and needs
+|`* *` |user |take personal notes for each patient |I can take note of their personal quirks and needs
 
 |`* *` |user |use a todo list / checklist to keep track of what I have to do when I visit a patient |I won’t forget or miss out on any important tasks when I visit them
 
