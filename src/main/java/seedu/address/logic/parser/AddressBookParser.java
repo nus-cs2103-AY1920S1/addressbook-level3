@@ -19,6 +19,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ImportNusModsCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.commands.ShowCommand;
@@ -66,6 +67,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ImportNusModsCommand.COMMAND_WORD:
+            return new ImportNusModsCommand();
 
         case ShowNusModCommand.COMMAND_WORD:
             return new ShowNusModCommandParser().parse(arguments);

@@ -10,8 +10,8 @@ import seedu.address.websocket.util.ParserUtil;
 import seedu.address.websocket.util.QueryResult;
 
 /**
- * NUSMods API websocket
- * Refer to https://api.nusmods.com/v2/#/ for more detailed information
+ * NUSMods API websocket.
+ * Refer to https://api.nusmods.com/v2/#/ for more detailed information.
  */
 public class NusModApi {
     private static final String BASE_URL = "https://api.nusmods.com/v2";
@@ -36,7 +36,7 @@ public class NusModApi {
     /**
      * Returns a JSONObject of summaries of all modules in ACAD_YEAR.
      *
-     * @return JSONObject
+     * @return JSONObject containing module code, title and available semesters for all modules in a year.
      */
     public JSONObject getModuleList() {
         ApiQuery query = new ApiQuery(BASE_URL + ACAD_YEAR + MODULE_LIST + JSON_EXTENSION);
@@ -52,7 +52,7 @@ public class NusModApi {
     /**
      * Returns a JSONObject of detailed information about all modules in ACAD_YEAR.
      *
-     * @return JSONObject
+     * @return JSONObject containing all module info except timetable and prereq tree for all modules in a year.
      */
     public JSONObject getModuleInfo() {
         ApiQuery query = new ApiQuery(BASE_URL + ACAD_YEAR + MODULE_INFO + JSON_EXTENSION);
@@ -66,10 +66,10 @@ public class NusModApi {
     }
 
     /**
-     * Returns a JSONObject of all information about moduleCode in ACAD_YEAR.
+     * Returns a JSONObject of all info about moduleCode in ACAD_YEAR.
      *
-     * @param moduleCode code of the specific module
-     * @return JSONObject representing information of the module
+     * @param moduleCode code of the specific module.
+     * @return JSONObject containing all info available for a specific module including prerequisite tree and timetable.
      */
     public JSONObject getModule(String moduleCode) {
         ApiQuery query = new ApiQuery(BASE_URL + ACAD_YEAR + MODULES + SLASH + moduleCode + JSON_EXTENSION);
