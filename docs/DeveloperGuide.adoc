@@ -350,6 +350,16 @@ Priorities:
 
 |`*`|student|get an overview to see the number of notes added for each topic/subject|I can see which topic/subject I need to make more notes on|Irene
 
+|`* * *`|student|mark and store the questions I have made mistakes on|I can get a better understanding of which part I need to put more time to study|Dongjun
+
+|`* * *`|student|take a series questions as a mock test before exam|I can refresh my memory on different modules before exam|Dongjun
+
+|`* *`|student|find specific questions according to the keywords|I can filter the questions I want for different purposes|Dongjun
+
+|`* *`|student|change the difficulty of my test|I can be better prepared for actual exam|Dongjun
+
+|`*`|student|view all questions and answers stored|I can refer them as revision guide according to different subjects|Dongjun
+
 |=======================================================================
 
 [appendix]
@@ -602,6 +612,74 @@ Use case ends
 ** 1b2. Student re-enter the necessary fields by choosing from the list
 ** Repeat 1b1 and 1b2 until valid inputs are provided
 * Use case resumes at step 2
+
+[discrete]
+=== Use case: Delete an existing question (Dongjun)
+
+*MSS*
+
+1. Student gives the command to delete an existing question `delete INDEX`
+2. Application shows the question being deleted
+3. Application deletes the question indicated by the student from the database
+
+Use case ends
+
+*Extensions*
+
+[None]
+* 1a. The index given by student is out of the range
+[none]
+** 1a1. Application shows the error and displays the number of questions stored
+** 1a2. Student enters the valid index
+* Use case resumes from step 1
+
+[discrete]
+=== Use case: Take a test (Dongjun)
+
+*MSS*
+
+1. Student gives the command to enter the test mode `test [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+2. Application shows a question with difficulty and subject indicated
+3. Application waits for the student to key in the answer
+4. Student enters the answer
+5. Application displays whether the input answer is correct or wrong
+6. Repeat 2 - 5 until all questions are answered
+
+Use case ends
+
+*Extensions*
+
+[None]
+* 1a. Student inputs the invalid test commands
+[none]
+** 1a1. Application returns the correct format for test command
+** 1a2. Students enter the correct test command
+* Use case resumes from step 1
+
+[None]
+* 2a. Student chooses to change the difficulty of questions by giving `change -dif DIFFICULTY`
+[none]
+** 2a1. The question set will change to a new difficulty
+* Use case resumes from step 2
+
+[None]
+* 3a. Student chooses to skip current questions by giving `skip`
+[none]
+** Application skips this question and display the next question
+* Use case resumes from step 2
+
+[none]
+* 3b. Student chooses to get the answer for current question by giving `show`
+[none]
+** 3b1. Application displays the answer and go to next question
+* Use case resumes from step 2
+
+[none]
+* *a. At any time, Student chooses to exit from the test
+[none]
+** *a1. Student gives the command `quit`
+** *a2. Application exits from the test mode
+* Use case ends
 
 [appendix]
 == Non-functional requirements
