@@ -29,6 +29,7 @@ started. Enjoy!
 
 == Quick Start
 
+Here are a few steps to get you started on Mark: +
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `mark.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Bookmark Manager.
@@ -38,7 +39,7 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+++ Some example commands you can try:
 
 * *`list`* : lists all bookmarks
 * *`add u/git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
@@ -55,21 +56,22 @@ of each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g.
-in `add u/URL`, `URL` is a parameter which can be used as `add u/luminus.nus.edu.sg`.
-* Items in square brackets are optional e.g `u/URL [t/TAG]` can be used as
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +E.g.
+In the command format `add u/URL`, `URL` is a parameter which can be used as `add u/luminus.nus.edu.sg`.
+* Items in square brackets are optional. +E.g `u/URL [t/TAG]` can be used as
 `u/luminus.nus.edu.sg t/NUS` or as `u/luminus.nus.edu.sg`.
-* Default values for optional items are specified with an `=` symbol. E.g.
-`u/URL [t/TAG=CS2103T]`, the default value for the tag is `CS2103T` if not
-specified.
-* Items with `…`​ after them can be used multiple times including zero times
-e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
+* Default values for optional items are specified with an `=` symbol. +E.g.
+When `u/URL [t/TAG=CS2103T]` is specified in the command format, the default value for the tag is `CS2103T` if not
+it is not provided.
+* Items with `…`​ after them can be used multiple times, including zero times.
++E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 `t/module t/read-later` etc.
-* Parameters can be in any order e.g. if the command specifies
+* Parameters can be in any order. +E.g. if the command specifies
 `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 ====
 
 === Viewing help: `help`
+Shows the list of commands in the bookmark manager.
 
 Format: `help`
 
@@ -138,7 +140,7 @@ Format: `find [KEYWORD]... [t/TAG]...`
 * The order of the keywords does not matter. e.g. `Website Video` will match `Video Website`.
 * Keywords are only searched in the URL and name.
 * Words will be partially matched e.g. `Video` will match `Videos`.
-* Bookmarks matching at least one search criteria will be returned (i.e. OR search).
+* Bookmarks matching at least one search criterion will be returned (i.e. OR search).
 ****
 
 Examples:
@@ -598,16 +600,16 @@ Delete the reminder of index 1.
 
 === Sorting bookmarks: `sort`
 
-Sorts the displayed bookmarks according to different criteria (name,
+Sorts the displayed bookmarks according to different criterion (name,
 order added) and displays them as a list.
 
-Format: `sort [CRITERIA]`
+Format: `sort [CRITERION]`
 
 ****
-* CRITERIA is the field you use to sort. Acceptable values of CRITERIA
+* CRITERION is the field you use to sort. Acceptable values of CRITERION
 are: *name* and *default*. *default* is sorting at the order when the bookmark is added.
- * CRITERIA is case insensitive, e.g. both URL and url are acceptable
-criteria.
+ * CRITERION is case insensitive, e.g. both URL and url are acceptable
+criterion.
 ****
 Examples:
 
