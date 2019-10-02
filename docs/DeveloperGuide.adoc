@@ -283,9 +283,9 @@ Refer to the guide <<DevOps#, here>>.
 * prefer desktop apps over other types
 * can type fast and prefers typing over mouse input
 * is reasonably comfortable using CLI apps
-* has secretarial or finance management duties 
+* has secretarial or finance management duties
 
-*Value proposition*: 
+*Value proposition*:
 
 * Simplify the tasks of the finance secretary by providing intuitive commands to commonly done tasks (check net balance, show surplus, show deficit)
 * Makes said task more cohesive by integrating 3 types of tracking (claims, budget and income) into a single application
@@ -305,10 +305,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |busy user |ensure the contacts list to have a filter/search bar |easily find people in my contacts list
 |`* * *` |user |ensure the app can create Groups and Events such as Sports, Marketing, FOP etc |manage them easier
 |`* * *` |user |ensure the app can categorise the people to the Groups and Events |manage them easier.
-|`* * *` |user |ensure the app can help me record the amount of money I have on hand |manage it easier. 
+|`* * *` |user |ensure the app can help me record the amount of money I have on hand |manage it easier.
 |`* * *` |busy user |ensure the app can help me record the amount of money I am supposed to have |manage it easier.
 |`* * *` |user |ensure the app can help me calculate the difference of money I have vs the amount of money I am supposed to have |manage it easier.
-|`* * *` |user |ensure the app can give me a warning when the difference of money I have on hand vs the amount of money I am supposed to have is not 0 |be notified if something like that does happen. 
+|`* * *` |user |ensure the app can give me a warning when the difference of money I have on hand vs the amount of money I am supposed to have is not 0 |be notified if something like that does happen.
 |`* * *` |user |ensure the app can show me the transactions I had with people in the past, even after the transaction is done |keep a history of them.
 |`* * *` |user |ensure the app can show me a list of DONE people |manage them easier.
 |`* * *` |user |ensure the app can show me a list of NOT DONE people |manage them easier.
@@ -344,6 +344,66 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `FinSec` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+=== Use case: Adding a person
+
+*MSS*
+
+1. User requests to add a person
+2. FinSec adds a person
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The name is invalid.
+
+[none]
+** 2a1. FinSec shows an error message.
++
+Use case resumes at step 1
+
+[none]
+* 3a. The given name is existing.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+** 3a2. FinSec confirms the addition.
+
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Editing a person
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests which person to edit and the details to change
+4. FinSec edits the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list of people is empty.
+
+User case ends
+
+[none]
+* 3a. The name is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
 === Use case: Delete person
 
 *MSS*
@@ -370,6 +430,324 @@ Use case ends.
 Use case resumes at step 2.
 
 _{More to be added}_
+
+[discrete]
+=== Use case: Change View
+
+*MSS*
+
+1. User requests to change view (People, Claims, Income)
+2. FinSec shows a list of views available
+3. User requests which view to go to
+4. FinSec brings user to that view
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The view is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given view is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add Claim
+
+*MSS*
+
+1. User requests to add claim
+2. FinSec adds claim
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The details of claim is invalid.
++
+[none]
+** 2a1. FinSec shows an error.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Claim
+
+*MSS*
+
+1. User requests to view list of claims
+2. FinSec shows a list of claims
+3. User requests which claim to edit
+4. FinSec edits claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claim list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The entered claim is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add Income
+
+*MSS*
+
+1. User requests to add income
+2. FinSec adds income
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The details of income is invalid.
++
+[none]
+** 2a1. FinSec shows an error.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Income
+
+*MSS*
+
+1. User requests to view list of income
+2. FinSec shows a list of income
+3. User requests which income to edit
+4. FinSec edits income
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The income list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The income entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Check details of person
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests which person to check by index
+4. FinSec displays person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Check existing claims of person
+
+*MSS*
+
+1. User requests to change view to Claims
+2. FinSec changes view to Claims
+3. User requests to view list of people in claims
+4. FinSec shows a list of people in claims
+5. User requests which person to check by index
+6. FinSec displays person with their claims
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 4a. The index entered is invalid.
++
+[none]
+** 4a1. FinSec shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Filter using keywords from list
+
+*MSS*
+
+1. User requests to view list of income or people
+2. FinSec shows a list of income or people
+3. User requests to filter the list based on keyword
+4. FinSec returns a list of filtered results
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The income or people list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The keyword entered is yielded no result.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: See budget
+
+*MSS*
+
+1. User requests to view current budget
+2. FinSec shows current budget
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Sort claims in chronological order
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to sort the claims
+4. FinSec shows sorted claims
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Resolving claims
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to resolve claim from index
+4. FinSec resolves claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
+
+[discrete]
+=== Use case: Adding pictures to claims
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to add picture to claim by index
+4. FinSec adds a picture to that claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Adding tags
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests to add tags to people
+4. FinSec adds tags to the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The people list is empty.
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements

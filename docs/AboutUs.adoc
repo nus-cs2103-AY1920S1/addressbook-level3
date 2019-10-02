@@ -5,27 +5,26 @@
 :stylesDir: stylesheets
 
 FinSec was developed by the AY1920S1-CS2103T-W12-1 team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Lawnce Goh
-image::hehe2.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/lawncegoh] [<<www.lawncegoh.github.io, portfolio>>]
+image::lawncegoh.png[width="150", align="left"]
+{empty}[https://github.com/lawncegoh[github]][<<lawncegoh#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation and features
+Responsibilities: Income Feature
 
 '''
 
 === Lee Wei Gen
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
+ZZ
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Claim Feature
 
 '''
 
