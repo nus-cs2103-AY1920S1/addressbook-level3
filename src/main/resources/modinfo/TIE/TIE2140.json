@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TIE2140",
+    "courseCredit": "4",
+    "description": "This module introduces the concept of \"the time-value of money\" and the effect that it has on economic decisions in engineering and business. It equips the students with a conceptual framework for understanding and evaluating economic alternatives represented as a set of cash flows over time. Topics covered include cash flow analysis, choice among economic alternatives, effects of depreciation and taxation, replacement analysis, and dealing with risk and uncertainty.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIE4242",
+        "TIE4249",
+        "TSC3223",
+        "TSC3100",
+        "TIE4246"
+    ],
+    "preclusion": "IE2140E",
+    "title": "Engineering Economy"
+}

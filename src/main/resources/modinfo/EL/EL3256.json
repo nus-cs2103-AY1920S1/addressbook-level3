@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3256",
+    "courseCredit": "4",
+    "description": "Communicative practices are playing an increasingly important role in the workplace. At the micro\u2010level, communicative practices include talk (face\u2010to\u2010face encounters) and text (e\u2010mail, memos). At the macrolevel, they include institutional narratives that specify the organizational culture and identity, with implications for how management and staff are expected to fit into the organization. This module introduces students to advanced concepts in pragmatics and sociolinguistics, and how these can help us better understand the social dynamics of work\u2010related settings. Possible topics (i) the construction of professional identities, (ii) intercultural communication, and (iii) the management of service encounters.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Language and the Workplace"
+}

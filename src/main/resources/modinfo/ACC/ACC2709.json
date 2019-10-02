@@ -1,0 +1,18 @@
+{
+    "courseCode": "ACC2709",
+    "courseCredit": "4",
+    "description": "This course aims to help students understand the role of information systems in accounting and other areas of business. In particular, it examines the innovative applications of information systems to streamline business operations and enhance competitive advantage. Students will understand various accounting/business cycles and learn about how information systems are used in different functional areas such as finance/accounting, marketing, operations and supply chain, and HR/management.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC3701"
+    ],
+    "preclusion": "ACC1006",
+    "prereqTree": {
+        "or": [
+            "ACC1701",
+            "ACC1701X",
+            "EC2204"
+        ]
+    },
+    "title": "Accounting Information Systems"
+}

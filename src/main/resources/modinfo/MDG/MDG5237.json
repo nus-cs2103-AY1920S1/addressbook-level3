@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5237",
+    "courseCredit": "2",
+    "description": "The purpose of the Capstone Project is for the students to engage in research and apply multi-disciplinary knowledge they have acquired from their MSc program, to a real-world problem focused on clinical health issues. During the project, students utilise the entire process of solving a realworld team-based project, from collecting to processing the actual data, to applying suitable analytic methods to the problem. Students will work in small teams on a project supervised by a mentor from various departments of NUH and NUS. The final project will be delivered in a written report and a formal presentation.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "MDG5240"
+    ],
+    "prereqTree": {
+        "or": [
+            "MDG5227",
+            "MDG5236"
+        ]
+    },
+    "title": "Biomedical Innovation Capstone"
+}

@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6136",
+    "courseCredit": "4",
+    "description": "This module aims to provide an in-depth understanding of modern optical communication systems. To this end, it covers major system impairments of optical communication systems and how optical communication systems have evolved to cope with them and increase the capacity in a cost-effective manner. This module includes state-of-the-art technologies such as optical modulation formats, fiber nonlinearities, and optical signal processing.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5137",
+            "EE5137R",
+            "EE5306"
+        ]
+    },
+    "title": "Advanced Optical Communications"
+}

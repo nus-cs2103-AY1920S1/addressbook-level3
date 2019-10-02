@@ -1,0 +1,16 @@
+{
+    "courseCode": "IS3261",
+    "courseCredit": "4",
+    "description": "The proliferation of mobile phones offers unprecedented opportunities for enterprise to empower their employees with computing and communicating capabilities on the move. It also offers a rich interactive experience for customers. Programming skills for mobile apps in enterprise environment is therefore an increasingly important asset for the IT workforce. This course will teach mobile phone programming in a client-server setting. In addition to developing user interface, the students will also learn how to write mobile apps to communicate with servers via HTTP, making synchronous and asynchronous requests, as well as dealing with common payload formats such as JSON and HTML.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "CS2020",
+            "CS2030",
+            "CS2040",
+            "CS2040C"
+        ]
+    },
+    "title": "Mobile Apps Development for Enterprise"
+}

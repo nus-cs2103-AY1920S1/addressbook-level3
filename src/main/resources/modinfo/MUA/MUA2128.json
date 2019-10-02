@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA2128",
+    "courseCredit": "2",
+    "description": "Orchestral Repertoire for Woodwinds is an orchestral repertory class designed to give orchestral playing experience to the woodwinds majors of YSTCM. In 13 sessions throughout the semester, the class will read and rehearse significant orchestral repertoire for woodwinds. Repertoire selected in this module will build on and complement repertoire studied in MUA2127. As with MUA2127, woodwinds students are expected to demonstrate aptitude in large ensemble playing including: orchestral concepts in sound, intonation, and blend, as well as a professional attitude in working with conductors and colleagues. This module also teaches them essential audition techniques and skills.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3185"
+    ],
+    "prereqTree": "MUA2127",
+    "title": "Orchestral Repertoire for Woodwinds 2B"
+}

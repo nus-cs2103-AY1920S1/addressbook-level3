@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC3193",
+    "courseCredit": "4",
+    "description": "This continuous assessment module is intended to provide training in experimental techniques and analytical skills. Experiments are based on various areas of physics such as spectroscopy, nuclear physics, laser physics, optics and electronics. Some experiments involve the use of research-grade equipment like the electron microscope, the atomic force microscope and the FTIR spectrophotometer. Project-type experiments are also available. The module is targeted at science and engineering students who have a foundation in Level 2 experimental physics.",
+    "faculty": "Science",
+    "prereqTree": "PC2193",
+    "title": "Experimental Physics II"
+}

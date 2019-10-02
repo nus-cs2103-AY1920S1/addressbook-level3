@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA2175",
+    "courseCredit": "4",
+    "description": "The module provides the basic concept of the sound of the classical music and some basic stereo microphone techniques for the live classical music concert. Students will be requested to finish at least 2 hours live concert recording each week, at least 20 hours of total recording time. In this module, students need to finish each project session with the module supervisor together. Each project session should be fully under the direction of the module supervisor.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2176"
+    ],
+    "title": "AAS Project 1"
+}

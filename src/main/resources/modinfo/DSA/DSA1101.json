@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "DSA1101",
+    "courseCredit": "4",
+    "description": "This module is designed to provide a basic introduction to data science along with real examples and case studies from both academic and industrial sources, in areas as diverse as finance, biological sciences, physics and pharmacy.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "DSA2101"
+    ],
+    "title": "Introduction to Data Science"
+}

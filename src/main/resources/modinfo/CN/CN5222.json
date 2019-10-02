@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN5222",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide an overview of the chemical reaction engineering aspects of pharmaceutical and fine chemical synthesis. Special focus is on controlling the chemo-, regio-, and stereo-selectivity. As preliminaries, a number of relevant chemical aspects and analytical methods are introduced. Homogeneous, heterogeneous, and enzyme catalysis are emphasised for the syntheses of many important pharmaceuticals and fine chemicals. This naturally leads to a host of important environmental issues and green chemical technologies. Important unit operations in pharmaceutical and fine chemical productions are also included in this module. This module is for both PG and UG students.",
+    "faculty": "Engineering",
+    "preclusion": "CN4232",
+    "title": "Pharmaceuticals & Fine Chemicals"
+}

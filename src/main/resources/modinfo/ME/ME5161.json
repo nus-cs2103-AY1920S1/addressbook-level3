@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "ME5161",
+    "courseCredit": "4",
+    "description": "This is a basic course which aims at providing a good foundation and understanding of optical techniques for research and industrial applications. Experimental stress analysis is a core area for engineers and scientists. With the invention of the laser, newer optical methods such as holography, shearography and electronic speckle pattern interferometry (ESPI) have been developed for research and industrial use. The traditional methods of moir\u00e9 and photoelasticity have also been re-developed using the laser, as well as using state-of-the-art computer technology. This development has brought optical techniques to a new dimension in measurement and nondestructive testing. The course is targeted at postgraduate students seeking to use optical techniques in research and development.",
+    "faculty": "Engineering",
+    "title": "Optical Techniques in Experimental Stress Analysis"
+}

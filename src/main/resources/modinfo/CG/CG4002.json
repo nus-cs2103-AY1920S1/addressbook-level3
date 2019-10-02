@@ -1,0 +1,16 @@
+{
+    "courseCode": "CG4002",
+    "courseCredit": "8",
+    "description": "This module introduces students to the development of a large system from conceptualisation to its final implementation. It is structured to contain substantial design and development of hardware and software components. This module is the culminating point of a series of modules integrating the theories which students have already learnt in CS1010, CS2040C, CG2028, CG2271 and CS2113/T. With this capstone project, students would be able to better appreciate the relevance of the various components in the Computer Engineering curriculum to large scale computer engineering projects.",
+    "faculty": "Multi Disciplinary Programme",
+    "preclusion": "CG3002 Embedded Systems Design Project\nEE3032 Innovation & Enterprise II\nEE3208 Embedded Computer Systems Design",
+    "prereqTree": {
+        "or": [
+            "CG2028",
+            "CG2271",
+            "CS2113",
+            "CS2113T"
+        ]
+    },
+    "title": "Computer Engineering Capstone Project"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BN2111",
+    "courseCredit": "4",
+    "description": "This module is the second of a set of two modules: Engineering Principle and Practice I and II (EPP I and EPP II). EPP modules aim to introduce first year students to the biomedical engineer\u2019s way of thinking and addressing problems. A real-life medical technology will be used to demonstrate the fundamental knowledge and skills that a biomedical engineer is expected to possess. In EPP II, students will be exposed to key engineering problems such as how systems are controlled, powered and optimized.",
+    "faculty": "Engineering",
+    "preclusion": "BN1102",
+    "title": "Biomedical Engineering Principles and Practice II"
+}

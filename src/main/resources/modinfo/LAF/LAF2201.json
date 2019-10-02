@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAF2201",
+    "courseCredit": "4",
+    "description": "This module aims to further enhance students' proficiency in the four basic skills of listening, speaking, reading and writing as well as increase their knowledge of the syntactical, morphological, phonetic and lexical aspects of the French language. Students will also acquire a better grasp of learning and communicative strategies (e.g. skimming, selective reading, reading for details, inferencing and mnemonic techniques etc.). Authentic texts from daily communicative situations (such as letters, dialogues, brochures, TV and radio interviews, signs etc.) will serve as the main source of learning materials. The assessment for this module is 100% Continuous Assessment.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAF3201"
+    ],
+    "prereqTree": "LAF1201",
+    "title": "French 2"
+}

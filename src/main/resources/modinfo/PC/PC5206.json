@@ -1,0 +1,14 @@
+{
+    "courseCode": "PC5206",
+    "courseCredit": "4",
+    "description": "This is an advanced module for students of theoretical physics. The topics covered are: Second quantization and path integral formulation of quantum field theory, Feynman rules for scalar, spinor, and vector fields, renormalization and symmetry, renormalization group, and connection with condensed matter physics.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC4130",
+            "PC4230",
+            "PC5201"
+        ]
+    },
+    "title": "Selected Topics in Quantum Field Theory"
+}

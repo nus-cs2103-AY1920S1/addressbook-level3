@@ -1,0 +1,15 @@
+{
+    "courseCode": "MA4261",
+    "courseCredit": "4",
+    "description": "Error-correcting codes and security codes are very important in the data communication and storage. The focus of this module is the mathematical aspect of coding theory and cryptography. Upon completing this module, the student will have a basic appreciation of some key issues in coding theory and cryptography, some understanding of the basic theory concerning codes and ciphers and a good knowledge of some well-known codes and ciphers. Major Topics: Communication channels and Shannon\u2019s theorem, block codes and linear codes, maximum-likelihood decoding and syndrome decoding, bounds on codes and optimal codes, cyclic codes, BCH codes, encoding and decoding of cyclic codes. Public-key cryptography, RSA cryptosystem, public-key cryptosystems based on the discrete logarithm problem, elliptic curve cryptosystems, factorization algorithm and pseudoprime.",
+    "faculty": "Science",
+    "preclusion": "EEE students, CEG students, CPE students.",
+    "prereqTree": {
+        "or": [
+            "MA3201",
+            "MA3218",
+            "MA3265"
+        ]
+    },
+    "title": "Coding and Cryptography"
+}

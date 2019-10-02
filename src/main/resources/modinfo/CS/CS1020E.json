@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CS1020E",
+    "courseCredit": "4",
+    "description": "This module is the second part of a three-part series on introductory programming and problem solving by computing. It continues the introduction that begins in CS1010, and emphasises objectoriented programming with application to simple data structures. Topics include object-oriented problem modeling with objects, classes and methods, object-oriented problem formulation and solving, data structure implementation strageties, abstraction and encapsulation of data structures, object-oriented programming constructs, APIs and class libraries, exception handling, lists, linked lists, stacks, queues, hash tables and their algorithmic design, sorting and searching methods, recursive algorithms, and Big-O notation. This module is appropriate for FoE students.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5239",
+        "CS2104",
+        "CS3240",
+        "CS2010",
+        "CS3218",
+        "BT3102"
+    ],
+    "preclusion": "CS1020, CS2020, CS2030, CS2040, CS2040C",
+    "prereqTree": "CS1010E",
+    "title": "Data Structures and Algorithms I"
+}

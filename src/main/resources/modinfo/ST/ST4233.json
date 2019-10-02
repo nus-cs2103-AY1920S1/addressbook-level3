@@ -1,0 +1,11 @@
+{
+    "courseCode": "ST4233",
+    "courseCredit": "4",
+    "description": "Linear statistical models are used to study the way a response variable depends on an unknown, linear combination of explanatory and/or classification variables. This module focuses on the theory of linear models and the topics include: linear regression model, general linear model, prediction problems, sensitivity analysis, analysis of incomplete data, robust regression, multiple comparisons, introduction to generalised linear models. This module is targeted at students who are interested in Statistics and are able to meet the prerequisite.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5206"
+    ],
+    "prereqTree": "ST3131",
+    "title": "Linear Models"
+}

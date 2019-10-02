@@ -1,0 +1,49 @@
+{
+    "courseCode": "PL3239",
+    "courseCredit": "4",
+    "description": "This module is intended to expose students to applications of the facts and principles of scientific psychology to industrial and organisational settings. Topics include the structure and function of organisations; selection and training; management of efficiency (motivation, working conditions, and coping attitudes); and group processes in organisations. Lectures build the knowledge base of the students; case discussions encourage applications of their knowledge.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "BLD3003",
+        "BLD3002",
+        "BLD3004",
+        "BLD3001",
+        "MNO2705",
+        "MNO3703",
+        "MNO4713",
+        "MNO4714",
+        "MNO3701",
+        "MNO3702",
+        "MNO3711",
+        "MNO3712",
+        "MNO3713",
+        "MNO3715",
+        "MNO3751",
+        "MNO3752",
+        "MNO3761",
+        "MNO3761A",
+        "MNO3761B",
+        "MNO4711",
+        "MNO4712",
+        "MNO4761",
+        "MNO4761A",
+        "MNO4761B",
+        "MNO4861C",
+        "MNO2705A",
+        "MNO2705B",
+        "MNO2705C",
+        "MNO2705D",
+        "MNO2705E",
+        "MNO3761X",
+        "MNO3761Y",
+        "MNO3761Z"
+    ],
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132"
+        ]
+    },
+    "title": "Industrial and Organisational Psychology"
+}

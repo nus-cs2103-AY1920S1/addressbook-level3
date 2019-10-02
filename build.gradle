@@ -141,6 +141,11 @@ asciidoctor {
     options['template_dirs'].each {
         inputs.files fileTree(it)
     }
+
+    compileJava {
+        options.compilerArgs += ["-Xlint:unchecked"]
+        options.fork = true
+    }
 }
 
 // Copies stylesheets into the directory containing generated HTML files as

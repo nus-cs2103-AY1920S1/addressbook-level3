@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLG2202",
+    "courseCredit": "5",
+    "description": "This course is designed to give students a more solid reading level by the end of the semester. It offers four days a week instruction. As well as gaining a familiarity with additional vocabulary and the more complex constructions of ancient Greek \u2013 especially those involving optative and subjunctive \u2013 students will through their more extensive reading develop an increased cultural knowledge in ancient Greek society and literary/ dramatic production.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YLG3201",
+        "YLG3202"
+    ],
+    "prereqTree": {
+        "or": [
+            "YLG1201",
+            "YLG2201"
+        ]
+    },
+    "title": "Intermediate Ancient Greek"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "GL2103",
+    "courseCredit": "4",
+    "description": "This module examines the changing nature of political authority in contemporary world politics. Drawing on what social scientists have to say about international institutions and global governance, it asks critical questions with implications for global order, peace, and justice. To what extent has globalization undermined state sovereignty? Who manages global problems in a post\u2010sovereign world, and by what authority? Through what kinds of institutions and practices are global actors governed? Who and what escapes global governance? How should global problems be managed?",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GL3101",
+        "GL3201",
+        "GL2104",
+        "GL3202"
+    ],
+    "prereqTree": "GL1101E",
+    "title": "Global Governance"
+}

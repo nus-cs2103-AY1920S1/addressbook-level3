@@ -1,0 +1,9 @@
+{
+    "courseCode": "CM4274",
+    "courseCredit": "4",
+    "description": "This module comprises of a study of the total synthesis of useful functional molecules. Both general and advanced strategies are covered. Concepts of the classical multistep and the greener cascade sequences are explored. The concepts and strategies are illustrated with classical and modern examples.",
+    "faculty": "Science",
+    "preclusion": "CM4221",
+    "prereqTree": "CM3221",
+    "title": "The Art and Methodology in Total Synthesis"
+}

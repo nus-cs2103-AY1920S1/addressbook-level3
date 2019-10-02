@@ -1,0 +1,14 @@
+{
+    "courseCode": "IS3106",
+    "courseCredit": "4",
+    "description": "This module aims to train students to be conversant in front-end development for Enterprise Systems. It complements IS2103 which focuses on backend development aspects for Enterprise Systems. Topics covered include: web development scripting languages, web templating design and component design, integrating with backend application, and basic mobile application development.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS4242",
+        "IS4151",
+        "IS4103"
+    ],
+    "preclusion": "CS3226",
+    "prereqTree": "IS2103",
+    "title": "Enterprise Systems Interface Design and Development"
+}

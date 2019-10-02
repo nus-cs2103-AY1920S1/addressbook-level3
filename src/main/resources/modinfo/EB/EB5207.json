@@ -1,0 +1,8 @@
+{
+    "courseCode": "EB5207",
+    "courseCredit": "3",
+    "description": "The objective of this course is to gain insights into how analytic tools are transforming the conventions and practices of the tourism and hospitality industries to increase product and service differentiation. Using predictive analytics, participants will learn how to identify new selling opportunities, enhance product and service offerings, create better pricing models, and improving overall customer satisfaction and loyalty. Some key analyses include customer behaviour, campaign effectiveness, customer profitability, basket analysis, demand forecasting and churn models. Students will be lead through the various stages of analysis starting from preparation of raw data, exploratory data analysis, analytical modelling to results interpretation.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": "EB5001",
+    "title": "Service Analytics"
+}

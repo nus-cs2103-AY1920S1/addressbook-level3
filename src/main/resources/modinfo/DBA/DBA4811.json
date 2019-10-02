@@ -1,0 +1,9 @@
+{
+    "courseCode": "DBA4811",
+    "courseCredit": "4",
+    "description": "Business analysts / consultants hold strategic positions within the knowledge-based firm. They support the Supply Chain, Marketing, Finance and HR departments in refining their processes, making them more efficient, profitable and customer-centric. A 2006 Money magazine survey ranks the business analyst position among the top jobs with regards to salary, advancement prospects, satisfaction and stress level. The objective of this capstone course is to prepare participants for the work environment and the diverse challenges faced by business analysts and consultants. Through the pedagogical medium of cases, participants will polish their skills in analytics and the written and oral communications of their results to a Management audience. The course will cover topics such as Decision & Risk Analysis, Optimization, Simulation, Data Mining and Forecasting. Participants will gain extensive experience in analytical software such as Precision Tree, Solver and Evolutionary Solver, @Risk and StatTools. Cases will highlight timely problems e.g. cash flow / revenue management, supply chain optimization, reverse auctions, staff right-sizing, outsourcing, benchmarking, CRM (e.g. customer segmentation, clustering), seasonal demand forecasting etc.",
+    "faculty": "NUS Business School",
+    "preclusion": "DSC4213",
+    "prereqTree": "DAO2702",
+    "title": "Analytical Tools for Consulting"
+}

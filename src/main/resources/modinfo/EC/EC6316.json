@@ -1,0 +1,13 @@
+{
+    "courseCode": "EC6316",
+    "courseCredit": "4",
+    "description": "This module aims to introduce students to modern economic principles, techniques and applications of contract theory in organizations and markets. Authorities want to design incentives such that interacting players, both internal and external, take decisions that further the organization's goals. In the marketplace competition from rivals often determine an organization\u2019s internal incentives. Most of the interactions take place under asymmetric information environment about the players' actions and types. A prior, basic knowledge of game theory will be assumed for this module.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "EC5101",
+            "EC5104"
+        ]
+    },
+    "title": "Contract Theory and Applications"
+}

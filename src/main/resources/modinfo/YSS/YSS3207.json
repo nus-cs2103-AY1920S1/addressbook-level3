@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSS3207",
+    "courseCredit": "5",
+    "description": "This course broadly covers advanced topics in econometrics. The focus is on time series econometrics and financial econometrics. However, panel data and asymptotic theory are also tackled in this course \u2010in more depth than in \u2018Econometrics\u2019. This course mixes theory and applied work: theoretical foundations are covered, and the applications of the theory in real life are analysed.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSS2211",
+    "title": "Advanced Econometrics"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAC3202",
+    "courseCredit": "4",
+    "description": "This module is a continuation of Chinese 3 (LAC3201). Based on the 600 Chinese characters they have already learned from Chinese 1 to 3, students will be taught another 300 new characters and phrases at this stage. New words, phrases and idioms will be strengthening for the usage of the language. Short stories and articles will be used in the teaching of this module. The students will also be trained in listening to broadcast materials, speech skills as well as short essay writing.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAC4201"
+    ],
+    "prereqTree": "LAC3201",
+    "title": "Chinese 4"
+}

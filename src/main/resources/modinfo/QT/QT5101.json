@@ -1,0 +1,14 @@
+{
+    "courseCode": "QT5101",
+    "courseCredit": "4",
+    "description": "This module deals with quantum measurement theory and the interpretation of the observed statistics. It covers advanced mathematical formalism of quantum measurement; Bell\u2019s inequalities; and the quantum-to- classical transition (notably decoherence). Emphasis is put on providing both the understanding of the concepts and the ability of using the mathematical tools.",
+    "faculty": "NUS Graduate Sch for Int Science and Engineering",
+    "preclusion": "There are no precluded modules.",
+    "prereqTree": {
+        "or": [
+            "PC2130",
+            "PC3130"
+        ]
+    },
+    "title": "Quantum measurements and statistics"
+}

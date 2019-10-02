@@ -1,0 +1,13 @@
+{
+    "courseCode": "IS5128",
+    "courseCredit": "4",
+    "description": "This module aims to enable students to understand the interplay between organisational culture, structure, people, strategy, and technology in the innovation process. Students will learn how to use systems dynamics concepts to perform modelling and simulation of complex digital innovation systems. They will also learn how to apply design thinking tools and innovation frameworks to develop and manage digital innovations. The role of IT in enabling innovations will be emphasized throughout the course. Numerous case studies of successful digital innovations will also be discussed.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "IS2102",
+            "IS3103"
+        ]
+    },
+    "title": "Digital Innovation"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC3251",
+    "courseCredit": "4",
+    "description": "The changes to physical properties (electronic, optical and magnetic) due to formation of structures at the nanoscale will be the main emphasis of this module. Properties differing from the bulk due either to an increase in surface area/volume ratio or quantum confinement will be studied in structures ranging from quantum wells, wires and dots to self-assembled mono-layers and heterostructure formation. The kinetics and thermodynamics driving the formation of these nanostructured surfaces and interfaces will be discussed. The module will also highlight current and potential applications of these nanoscale systems. Examples of materials systems will include metals, oxides, III-V, II-VI, CNT, SiC and SiGe systems.",
+    "faculty": "Science",
+    "prereqTree": "SP2251",
+    "title": "Nanophysics"
+}

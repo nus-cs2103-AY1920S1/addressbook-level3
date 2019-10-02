@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK2035",
+    "courseCredit": "4",
+    "description": "This module will help students identify and think critically about the ethical dimensions of the medical profession and the provision of medical care and provide tools for making informed and ethically responsible decisions relating to healthcare issues. Specific topics may include the ethics of abortion, euthanasia, physician assisted suicide, physician-patient relationships, organ procurement, bio-medical research, etc.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PH2208, PH2221",
+    "title": "Medical Ethics"
+}

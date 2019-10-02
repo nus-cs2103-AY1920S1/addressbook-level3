@@ -1,0 +1,12 @@
+{
+    "courseCode": "YSC2221",
+    "courseCredit": "2",
+    "description": "This course introduces Python, a widely used high-level programming language. Its popularity is comparable to Java or C/C++. This means Python is practically useful and convenient to program and learn, since there are many resources/communities on the internet and many supporting libraries. Python was designed to be easy to learn, though many serious applications have been built based on it.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3232",
+        "YSC2227",
+        "YSC4216"
+    ],
+    "title": "Introduction to Python"
+}

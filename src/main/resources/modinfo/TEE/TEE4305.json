@@ -1,0 +1,9 @@
+{
+    "courseCode": "TEE4305",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fundamental knowledge, theories and applications of fuzzy logic and neural networks. It examines the principles of fuzzy sets and fuzzy logic, which leads to fuzzy inference and control. It also gives students an understanding of the structures and learning process of a neural network. Topics covered include: fuzzy set theory, fuzzy systems and control, basic concepts of neural networks, single-layer and multilayer perceptrons, self-organizing maps and neural network training.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE4305E",
+    "prereqTree": "TEE2023",
+    "title": "Introduction To Fuzzy/Neural Systems"
+}

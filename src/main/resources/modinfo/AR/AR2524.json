@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "AR2524",
+    "courseCredit": "4",
+    "description": "Spatial Computational Thinking is increasingly being recognised as a fundamental method for various spatial disciplines. It involves idea formulation, algorithm development, solution exploration, with a focus on the manipulation of geometric and semantic datasets. Students will use parametric modelling tools for generating and analysing building elements at varying scales. Such tools use visual programming interfaces to allow complex algorithms to be developed and tested. Students will learn how to structure their ideas as algorithmic procedures that integrate data-structures, functions, and control flow. Through this process, students will also become familiar with higher-level computational concepts, such as decomposition, encapsulation and abstraction.",
+    "faculty": "Design and Environment",
+    "title": "Spatial Computational Thinking"
+}

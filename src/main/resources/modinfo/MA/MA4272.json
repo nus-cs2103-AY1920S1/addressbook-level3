@@ -1,0 +1,19 @@
+{
+    "courseCode": "MA4272",
+    "courseCredit": "4",
+    "description": "This module introduces the mathematical tools for data science. Its objective is for students to develop competitive knowledge for working in the industry. It is offered to students with interests in industrial applications of mathematics. Major topics include basic mathematics in visualization and analyses of big data, basic principles and computational tools for high-dimensional data from imaging and sensing, basic programming techniques for optimization modelling, and popular software tools for data analytics.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "MA2213",
+            {
+                "or": [
+                    "MA3236",
+                    "MA3252",
+                    "MA3264"
+                ]
+            }
+        ]
+    },
+    "title": "Mathematical Tools for Data Science"
+}

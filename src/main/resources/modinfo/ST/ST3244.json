@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST3244",
+    "courseCredit": "4",
+    "description": "This course will provide an introduction to the fundamental principles and methods of demography. The role of demographic data in describing the health status of a population, spotting trend and making projection will be highlighted. Topics include sources and interpretation of demographic data, rates, proportions and ratios, standardization, complete and abridged life tables, estimation and projection of fertility, mortality and migration, Interrelations among demographic variables, population dynamics, demographic models. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST1131",
+    "title": "Demographic Methods"
+}

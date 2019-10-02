@@ -1,0 +1,13 @@
+{
+    "courseCode": "ST2288",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "ST1131",
+            "ST1232"
+        ]
+    },
+    "title": "Basic UROPS in Statistics and Applied Probability I"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3880D",
+    "courseCredit": "4",
+    "description": "This module integrates the methods and results of phonetics, phonology, morphology, sociolinguistics and historical linguistics in order to explore the origins and development of the word elements of English \u2014 their sounds, meanings and functions. The overall goal is to employ our analysis of English vocabulary to gain a deeper understanding of the complex yet systematic organization of the language itself. Key topics include the history, sources and spelling of English words, allomorphy, word\u2010formation processes and the structure of complex words, homonymy, polysemy and semantic change, paradigmatic relations in the lexicon, usage and variation, morpheme\u2010specific restrictions, and child wordacquisition.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "The Lexicon of English"
+}

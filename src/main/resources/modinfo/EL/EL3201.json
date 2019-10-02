@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3201",
+    "courseCredit": "4",
+    "description": "Building on the knowledge of English morphology and syntax developed at levels 1000 and 2000, this module aims to give students a deeper understanding of the morphological and syntactic structure of English, in relation to crosslinguistic patterns. With an emphasis on evidence and argumentation, the module will help students understand the interconnectedness of the analyses of apparently unrelated phenomena, and develop a sense of the organic unity of language structure. This module will provide a crucial foundation for the further study of morphology and syntax, and their applications.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL2101",
+            "EL2201"
+        ]
+    },
+    "title": "Syntax"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "BMF5333",
+    "courseCredit": "4",
+    "description": "This module focuses on the pricing, hedging, and use of derivatives and fixed income securities. These include bonds, forwards, futures, call and put options, and other derivative securities.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BMF5345"
+    ],
+    "prereqTree": "BMF5322",
+    "title": "Options and Fixed Income"
+}

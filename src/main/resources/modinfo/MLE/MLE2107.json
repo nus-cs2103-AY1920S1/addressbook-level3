@@ -1,0 +1,19 @@
+{
+    "courseCode": "MLE2107",
+    "courseCredit": "4",
+    "description": "Overview of ceramics and classification; Structure and stability of ceramics; Phase formation and development of microstructures; Basic synthesis, processing and characterisation methods; Processing of advanced ceramics and applications; General properties and applications of advanced ceramics: electronic; mechanical; optical.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE4210"
+    ],
+    "prereqTree": {
+        "or": [
+            "MLE1101",
+            "MLE2101",
+            "MLE1111",
+            "MLE1001",
+            "MLE1002"
+        ]
+    },
+    "title": "Ceramic Materials and Processing"
+}

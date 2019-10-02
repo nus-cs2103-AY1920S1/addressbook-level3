@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "RE2704",
+    "courseCredit": "4",
+    "description": "The module introduces students to theories that underpin real property valuation to develop an appreciation of fundamental concepts and principles of valuation. It includes a critical review of value theory, valuation theory and concepts of market value. Building from the fundamentals, various methods of real estate valuation are introduced. Topics include: nature and scope of valuation; concepts of value, particularly open market value and fair market value; foundations of valuation; role and functions of the valuer; characteristics of property and the property market; market study and valuation; the valuation process; professional standards and valuation report; and, the methods of valuation.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE3702"
+    ],
+    "preclusion": "RE1104 Principles of Real Estate Valuation",
+    "title": "Introduction to Real Estate Valuation"
+}

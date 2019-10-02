@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC4203",
+    "courseCredit": "5",
+    "description": "Topology is the study of shapes. It forms a basic framework for geometric reasoning in mathematics and its applications (such as equilibrium theory in economics, cosmology, robotics, stereochemistry and molecular biology). Topics covered include metric spaces and continuity, completeness, topological spaces, separation axioms, connectedness, compactness.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSC3206",
+    "title": "Topology"
+}

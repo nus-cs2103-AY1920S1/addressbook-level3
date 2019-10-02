@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "AY1130",
+    "courseCredit": "4",
+    "description": "The module encompasses core material on aspects of human anantomy and physiology with reference to relevant clinical examples. Topics for the module include the following human systems: 1. cell, integumentary and musculoskeletal, 2. cardiovascular, 3. Haematology and related immunology 4. Respiratory and 5. endocrine",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "PX2108",
+        "PA1113",
+        "PY1131"
+    ],
+    "title": "Human Anatomy and Physiology I"
+}

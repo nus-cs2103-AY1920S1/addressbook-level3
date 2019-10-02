@@ -1,0 +1,13 @@
+{
+    "courseCode": "EN3880A",
+    "courseCredit": "4",
+    "description": "This module offers an overview of the history of non-Western films. It explores how these films have responded to the social, economic, political, and cultural transformations in non-Western worlds such as Asia, Latin America, and Africa from the postcolonial era up to the present. Students will have opportunities to understand key non-Western film movements and filmmakers, as well as concepts, issues, and approaches relevant to non-Western cinemas. This module will give students a clear sense of the historical significance of non-Western films overlooked by the Anglo-Eurocentric film historiography. All the films will be screened in original languages with English subtitles.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EN2203",
+            "EN2204"
+        ]
+    },
+    "title": "History of Non-Western Film"
+}

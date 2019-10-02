@@ -1,0 +1,11 @@
+{
+    "courseCode": "IE3105",
+    "courseCredit": "4",
+    "description": "This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems engineering, including systems thinking, as well as the design and management of complex systems. The topics in this module include introductory concepts like system structure and boundary, complexity and system archetypes, system design process and management, system dynamics and system economic evaluation. The instruction will be supplemented with case studies and also seminars by academic and industrial practitioners.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE3102"
+    ],
+    "prereqTree": "IE2111",
+    "title": "Fundamentals of Systems Engineering and Architecture"
+}

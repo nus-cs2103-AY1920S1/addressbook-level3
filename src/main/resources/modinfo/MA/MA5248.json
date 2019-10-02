@@ -1,0 +1,14 @@
+{
+    "courseCode": "MA5248",
+    "courseCredit": "4",
+    "description": "This module introduces the basic techniques in stochastic analysis as well as their applications in mathematical finance. Major topics: Brownian motion, stochastic calculus, stochastic differential equations, mathematical markets, arbitrage, completeness, optimal stopping problems, stochastic control, risk-neutral pricing, and generalized Black-Scholes models.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA4262",
+            "MA3245",
+            "MA4269"
+        ]
+    },
+    "title": "Stochastic Analysis in Mathematical Finance"
+}

@@ -1,0 +1,19 @@
+{
+    "courseCode": "EE4113E",
+    "courseCredit": "4",
+    "description": "This course begins with a review of mathematical preliminaries such as random processes and signal space concepts. It covers the design of modulation and demodulation schemes for digital communications over an additive white Gaussian noise channel. Emphasis will be placed on error rate performance for various digital signaling techniques and on error control coding techniques for reliable communications. Topics include the optimal receiver principle, modulation/demodulation techniques, signaling over band limited channels and important channel codes such as Reed-Solomon codes, turbo codes and LDPC codes.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE4102E or EE4103E or TEE4113",
+    "prereqTree": {
+        "and": [
+            "TE2003",
+            {
+                "or": [
+                    "EE3103E",
+                    "EE3131E"
+                ]
+            }
+        ]
+    },
+    "title": "Digital Communications & Coding"
+}

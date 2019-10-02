@@ -1,0 +1,14 @@
+{
+    "courseCode": "FIN3134",
+    "courseCredit": "4",
+    "description": "An overview of personal finance topics and issues, including: financial planning, credit management, insurance and investment planning, retirement planning (including CPF schemes), legacy planning and consumer protection.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN3719 Household Finance; and\nFIN4113 Personal Finance and Wealth Management",
+    "prereqTree": {
+        "or": [
+            "FIN2004",
+            "FIN2004X"
+        ]
+    },
+    "title": "Household Finance"
+}

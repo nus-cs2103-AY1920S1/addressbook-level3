@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3229",
+    "courseCredit": "4",
+    "description": "Shakespeare occupies an iconic position in English literature and acquaintance with his plays is expected of the informed reader. This module offers an introduction to a representative range of Shakespeare's works. It approaches them through genre and the informing background of English Renaissance history, culture, and politics. By the end of the module, students will have a good understanding of the major themes of Shakespeare\u2019s plays and the milieu within which he wrote and performed.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Shakespeare in His Time and Ours"
+}

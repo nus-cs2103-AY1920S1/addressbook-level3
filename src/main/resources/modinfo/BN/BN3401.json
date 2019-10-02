@@ -1,0 +1,9 @@
+{
+    "courseCode": "BN3401",
+    "courseCredit": "4",
+    "description": "The module emphasizes the importance of real-time signal processing in medical instrumentation. The main topics covered are: physical principles governing the design and operation of instrumentation systems used in medicine and physiological research, application of modern signal processing techniques in medicine to improve the accuracy and the validity of medical diagnosis, and theory and application of advanced non-invasive imaging techniques used in modern medical diagnostics.",
+    "faculty": "Engineering",
+    "preclusion": "Students from the Dept of Electrical and Computer Engineering",
+    "prereqTree": "BN2402",
+    "title": "Biomedical Electronics & Systems"
+}

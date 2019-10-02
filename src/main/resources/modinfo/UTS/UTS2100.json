@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2100",
+    "courseCredit": "4",
+    "description": "This module invites students to probe the concept of \u2018intelligence\u2019 in relation to Singapore\u2019s ongoing development as a nation. The idea that smart minds are essential for survival has shaped domestic policies and international positioning strategies. We ask: in what ways has human intelligence been defined, measured and harnessed? What counts as intelligence, and what does not? Beyond notions of intelligence centred on the human individual, we will also consider forms of collective and artificial intelligence, mediated by science and technology. What kinds of intelligence are needed for the future and how can Singapore develop them?",
+    "faculty": "Residential College",
+    "preclusion": "SSU2000% or SSU2004% or SSU2006% or UTS21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Intelligence and Singapore Society"
+}

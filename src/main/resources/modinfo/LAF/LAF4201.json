@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAF4201",
+    "courseCredit": "5",
+    "description": "The module seeks to develop the student's ability to understand French language and culture through the study of various materials: newspapers, magazines, extracts of films and books, web sites. Students will be introduced to complex documents and will learn different approaches for text and discourse analysis.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAF4202"
+    ],
+    "prereqTree": {
+        "or": [
+            "LAF3202",
+            "LAF3203"
+        ]
+    },
+    "title": "French 5"
+}

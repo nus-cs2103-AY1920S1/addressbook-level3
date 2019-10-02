@@ -1,0 +1,26 @@
+{
+    "courseCode": "MA3265",
+    "courseCredit": "4",
+    "description": "Number theory is an area that attracts the attention of many great mathematicians. Attempts to solve some number theoretic problems (such as the Fermats Last Theorem) often lead to new areas of mathematics. A recent application of an elementary number theoretic result called the Eulers Theorem to cryptography (RSA system) has further established the importance of this area in applied mathematics. The aim of this course is to introduce various topics in number theory and to connect these topics with algebra, analysis and combinatorics. Major topics: Prime numbers, multiplicative functions, theory of congruences, quadratic residues, algebraic numbers and integers, sums of squares and gauss sums, continued fractions, transcendental numbers, quadratic forms, genera and class group, partitions, diophantine equations, basic theory of elliptic curves",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4261"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2108",
+                    "MA2108S"
+                ]
+            },
+            {
+                "or": [
+                    "MA2202",
+                    "MA2202S"
+                ]
+            }
+        ]
+    },
+    "title": "Introduction to Number Theory"
+}

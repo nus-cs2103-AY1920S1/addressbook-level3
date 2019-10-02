@@ -1,0 +1,9 @@
+{
+    "courseCode": "BT5152",
+    "courseCredit": "4",
+    "description": "This module provides a general introduction to data mining methods. The module will start off by describing issues at the data pre-processing phase, such as handling missing values and data transformation. It will then move on to explain the core concept of well-known classification algorithms. Emerging topics, such as text mining and deep learning, will be covered. Students will also learn important and practical techniques, including cost sensitive classification and features selection. Examples, assignments, and project will be designed to fit the needs in three verticals (Consumer Data analytics, Financial & Risk analytics, and Healthcare analytics) of the MSBA programme.",
+    "faculty": "Computing",
+    "preclusion": "IS5152",
+    "prereqTree": "DSC5103",
+    "title": "Decision Making Technology for Business"
+}

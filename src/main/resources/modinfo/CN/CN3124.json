@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN3124",
+    "courseCredit": "3",
+    "description": "This module provides students with the basic concepts for physical processes: filtration, sedimentation, centrifugation, fluidisation and crystallisation. Particulate solids are characterised in terms of size, size distribution, measurement and analysis and processing. The concepts of fluid flowand particle settling, as well as particle size are used for design and operation of some important fluid-particle separation methods. The principle of fluidisation and its applications to reactors and pneumatic transport of solids are also included.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN3108",
+        "CN4240R",
+        "CN4291",
+        "CN4122",
+        "CN4251"
+    ],
+    "title": "Fluid-Solid Systems"
+}

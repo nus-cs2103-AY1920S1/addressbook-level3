@@ -1,0 +1,14 @@
+{
+    "courseCode": "FIN3761A",
+    "courseCredit": "4",
+    "description": "Transaction banking is about moving money between entities and the four main areas of this business are cash management, trade finance, securities services and capital markets. This course will allow you to put yourself in the shoes of both transaction bankers and the corporate treasurers (and CFOs) to better understand the concepts and products of transaction banking. This course will provide you with an opportunity to apply the knowledge you have gained in the first half of the course to ?innovatively? solve real life transaction banking issues/cases.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN3120B",
+    "prereqTree": {
+        "or": [
+            "FIN3701",
+            "RE3807"
+        ]
+    },
+    "title": "TIF: Transaction Banking"
+}

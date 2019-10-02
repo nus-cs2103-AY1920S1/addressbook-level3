@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4265",
+    "courseCredit": "4",
+    "description": "This module introduces students to the ecology of urban areas, with a focus on tropical cities. It will deal with terrestrial, freshwater and coastal marine environments in which urbanization is the key ecological factor. Topics covered will include the origins of cities, urbanization as a process, urban landscapes, urban environments (soils, hydrology, climates and pollution), urban biodiversity, alien species, landscape design, urban greenery, pest and vector control, ecological footprints, and the sustainable city. Students will undertake a small-group research project involving the design, implementation, analysis and presentation of an urban ecology study.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "LSM2251",
+            "LSM3255"
+        ]
+    },
+    "title": "Urban Ecology"
+}

@@ -1,0 +1,19 @@
+{
+    "courseCode": "TEE3013",
+    "courseCredit": "4",
+    "description": "This module will give students some general computing as well as more specific software skills for solving engineering problems. LabVIEW is widely adopted software in the industry for data acquisition and instrument control. The teaching of LabVIEW will be based on engineering fundamentals that students have learnt in the first two years. This will also help them to consolidate concepts that have been learnt in the various technical modules. Through a series of integrated miniprojects carried out in the lab, students will be guided in their exploration of engineering principles and problem solving using the tools available in LabVIEW.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE3013E",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "TEE2021",
+                    "TEE2027"
+                ]
+            },
+            "TTG1401"
+        ]
+    },
+    "title": "Labview for Electrical Engineers"
+}

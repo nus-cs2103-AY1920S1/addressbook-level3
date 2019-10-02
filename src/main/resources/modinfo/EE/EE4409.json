@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4409",
+    "courseCredit": "4",
+    "description": "This module first gives an introduction of microelectronic devices applicable to IoT systems and applications deployed in our day-to-day modern gadgets/equipment, e.g., smartphones, wearable electronics and driverless cars. The devices include sensors for sensing various types of physical parameters (temperature, speed, position, etc.), storage devices, etc. The working principles of these devices will be described pertaining to an application. Specifications, usability and, key features of these devices will also be analysed so that students will learn how to utilize these devices in a wide range of IoT related applications such as health care, transportation, etc.",
+    "faculty": "Engineering",
+    "preclusion": "EE3409",
+    "title": "Modern Microelectronic Devices & Sensors"
+}

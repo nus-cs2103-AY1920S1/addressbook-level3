@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5123",
+    "courseCredit": "4",
+    "description": "This module introduces the basic concepts and methods in reliability and maintenance engineering. It treats both components and systems reliability, failure data analysis and reliability testing. Topics related to reliability improvement are also dealt with. The maintenance aspect of this module includes maintenance management from a systems viewpoint, optimization of equipment availability, optimal replacement policies and warranty analysis.",
+    "faculty": "Engineering",
+    "title": "Reliability Engineering"
+}

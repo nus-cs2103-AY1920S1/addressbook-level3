@@ -1,0 +1,15 @@
+{
+    "courseCode": "MNO4761B",
+    "courseCredit": "4",
+    "description": "This module will involve studying the range of attitudes that individuals have toward their jobs and organization including job satisfaction, engagement, commitment, and other related topics. It will be an advanced module in that reading the scientific evidence will be part of the requirements.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO4313H",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "SILHCM: Job Attitudes"
+}

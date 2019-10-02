@@ -1,0 +1,14 @@
+{
+    "courseCode": "DSC3224",
+    "courseCredit": "4",
+    "description": "Dynamic Pricing and Revenue Management is the state-of-art tool to improve the operational management of the demand for goods or services to more effectively align it with the supply and extract the maximum value. The course is designed to provide you: (1) a bundle of multidisciplinary knowledge and tactical tools that are readily applicable to real life business applications to deliver price recommendations; (2) conceptual frameworks that synthesize strategic principles, underlying logics, and high-level managerial insights needed by general managers and management consultants.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "DSC1007",
+            "IE2110",
+            "DSC3214"
+        ]
+    },
+    "title": "Dynamic Pricing & Revenue Management"
+}

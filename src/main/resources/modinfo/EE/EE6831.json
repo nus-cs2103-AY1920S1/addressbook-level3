@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6831",
+    "courseCredit": "4",
+    "description": "This module covers the advanced theorems in electromagnetism and their applications in both microwave- and optics-related problems. Topics include: diffraction of electromagnetic waves; dyadic Green\u2019s functions in (i) Cartesian, (ii) cylindrical, and (iii) spherical configurations; Huygens' principle; kDB analysis for anisotropic and bi-anisotropic materials to design polarization converter; reflection and transmission of negative-index material; advanced scattering theory for radially anisotropic cylindrical and spherical particles; the application of advanced scattering theory in invisibility cloak design; transformation optics method and space deformation.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5831",
+            "EE5831R"
+        ]
+    },
+    "title": "Advanced Electromagnetic Theory and Applications"
+}

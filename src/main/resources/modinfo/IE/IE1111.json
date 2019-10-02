@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "IE1111",
+    "courseCredit": "6",
+    "description": "This module introduces first year engineering students to what engineers do and to the engineer's thought process. This is a two-part module: Industrial and Systems Engineering Principles and Practice (EPP) I and II. Real Industrial and Systems Engineering systems will be used to show how engineers use this discipline of engineering to design, make and test systems. Through grasping engineering fundamentals, students learn how engineering systems work and fail (EPP I). Through learning of real systems, students learn how multi-disciplinary concepts are tied together (EPP II). The students will also learn basic design, experimentation and evaluation of engineering systems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE1112"
+    ],
+    "title": "ISE Principles and Practice I"
+}

@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5107",
+    "courseCredit": "4",
+    "description": "The module provides students with an understanding of basic concepts and principles of system optimality with applications to control and state estimation. Mathematical background materials, such as matrix properties and operations, dynamic system models and solutions and random variables will first be discussed, followed by major topics including notions of optimality, selection of cost functions, optimal state estimation, basic optimal control and model predictive control. Issues on the design and implementation of actual control systems will be addressed through a design project.",
+    "faculty": "Engineering",
+    "preclusion": "EE5105 Optimal Control Systems\nEE6107 Optimal Control Systems (Advanced)",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401"
+        ]
+    },
+    "title": "Optimal Control Systems"
+}

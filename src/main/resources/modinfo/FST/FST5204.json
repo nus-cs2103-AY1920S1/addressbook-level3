@@ -1,0 +1,13 @@
+{
+    "courseCode": "FST5204",
+    "courseCredit": "4",
+    "description": "This module covers the isolation, structural elucidation, and chemical and biological activity of the bioactive constituents used in functional foods and nutraceuticals. The effective R and D method leading to evidence-based functional food will be critically evaluated and discussed with specific topics related to foods for health maintenance / improvement by reducing the risk factors of chronic diseases such as type II diabetes, cardiovascular diseases, cancer, neurodegeneration, and ageing process. The safety, global regulatory issues, health claims, and marketing challenges of these products will be discussed.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "FST2102",
+            "CM2121"
+        ]
+    },
+    "title": "Evidence Based Functional Foods"
+}

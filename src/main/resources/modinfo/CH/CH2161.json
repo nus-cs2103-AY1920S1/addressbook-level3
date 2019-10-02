@@ -1,0 +1,20 @@
+{
+    "courseCode": "CH2161",
+    "courseCredit": "4",
+    "description": "This module aims to depict the development and evolution of traditional Chinese scholarship. Topics covered include (1) Jing (&quot;Classics&quot;): Chinese classic texts; (2) Shi (&quot;Histories&quot;): Traditional historiography; (3) Zi (&quot;Masters&quot;): Miscellaneous genres philosophy, arts and science, among others, and (4) Ji (&quot;Collections&quot;): Literary Collections. Emphasis will be given to how works of different genres and nature made their ways into the so-called 'Emperor\u2019s Four Treasuries' (Siku Quanshu), the largest collection of books in Chinese history compiled during the mid-eighteenth century based on the Quadripartite System (sibu) of knowledge classification. This course is designed for students majoring in Chinese Studies.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "CH1101E",
+            {
+                "or": [
+                    "CH2121",
+                    "CL2121",
+                    "CH2141",
+                    "CL2241"
+                ]
+            }
+        ]
+    },
+    "title": "Traditional Chinese Taxonomy of Learning"
+}

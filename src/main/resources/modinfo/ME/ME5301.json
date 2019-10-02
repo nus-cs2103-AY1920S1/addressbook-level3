@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5301",
+    "courseCredit": "4",
+    "description": "In this module, students will learn to analyse and design fluid system under steady and unsteady operations. It covers the steady flow system analysis, transient flow analysis, fluid power and control, flow characteristics of system components, computer applications in flow system analysis and pressure surge control. This module further develops their knowledge on various aspects of fluid mechanics covered in their undergraduate module. This module is intended for graduate students and engineers interested in the analysis and design of complex fluid systems, including accurate gas flow models.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "ME2134",
+            "ME2135"
+        ]
+    },
+    "title": "Flow Systems Analysis"
+}

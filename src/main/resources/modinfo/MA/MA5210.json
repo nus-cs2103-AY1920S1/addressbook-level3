@@ -1,0 +1,19 @@
+{
+    "courseCode": "MA5210",
+    "courseCredit": "4",
+    "description": "This module studies differentiable manifolds and the calculus on such manifolds. It covers the following topics: tangent spaces and vector fields in Rn, the Inverse Mapping Theorem, differential manifolds, diffeomorphisms, immersions, submersions, submanifolds, tangent bundles and vector fields, cotangent bundles and tensor fields, tensor and exterior algebras, orientation of manifolds, integration on manifolds, Stokes' theorem. The course is for mathematics graduate students with interest in topology or geometry.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5236",
+        "MA5216"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA3209",
+            "MA3215",
+            "MA3251",
+            "MA4266"
+        ]
+    },
+    "title": "Differentiable Manifolds"
+}

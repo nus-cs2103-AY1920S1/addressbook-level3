@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6270",
+    "courseCredit": "4",
+    "description": "Virtual machines (VMs) have lately generated a lot of interest, both in the academia as well as in the industry. VMs are being seen as a convenient vehicle for managing heterogeneous resources (e.g. server consolidation), and also for solving problems related to running mobile code and security. Commercial VMs from VMware and Microsoft are being successfully used in commodity platforms. High-level language VMs such as the Java Virtual Machine and Microsofts .NET framework have also become highly popular. The aim of this module is to give an overview of the state-of-the-art in virtualization technology. The topics to be covered will include techniques for designing and implementing modern VMs, hardware-level, operating system-level and language-level VMs, CPU virtualization concepts and problems, paravirtualization and binary translation techniques, techniques for memory and input/output virtualization, and applications of VMs in solving problems related to security and software distribution. This will be a half lecture-style and the other half seminar-style course and will be suitable for senior undergraduate and graduate students interested in computer architecture, compilers and operating systems.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS3220",
+            "CS4223"
+        ]
+    },
+    "title": "Virtual Machines"
+}

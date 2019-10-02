@@ -1,0 +1,29 @@
+{
+    "courseCode": "CS3223",
+    "courseCredit": "4",
+    "description": "This module provides an in-depth study of the concepts and implementation issues related to database management systems. It first covers the physical implementation of relational data model, which includes storage management, access methods, query processing, and optimisation. Then it covers issues and techniques dealing with multi-user application environments, namely, transactions, concurrency control and recovery. The third part covers object-database systems that are useful extension of relational databases to deal with complex data types. The last part covers database technologies required for modern decision support systems, including data warehousing, data mining and knowledge discovery and on-line analytical processing.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5208",
+        "CS5226",
+        "CS5322",
+        "CS6203",
+        "CS5421",
+        "CS5424",
+        "CS4221",
+        "CS4224"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    "CS2040"
+                ]
+            },
+            "CS2102"
+        ]
+    },
+    "title": "Database Systems Implementation"
+}

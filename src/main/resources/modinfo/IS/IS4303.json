@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS4303",
+    "courseCredit": "4",
+    "description": "This course introduces students to new platforms in the financial industry to meet existing needs, or to reach out to new markets. There will be an emphasis on platforms to help end consumers through transactions, payment systems, and loans. Students will get an appreciation for innovation in FinTech, and understand the changing landscape. They will also have practice using Big Data-based credit scoring.",
+    "faculty": "Computing",
+    "prereqTree": "IS2102",
+    "title": "IT-mediated financial solutions and platforms"
+}

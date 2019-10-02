@@ -1,0 +1,23 @@
+{
+    "courseCode": "AUD5218",
+    "courseCredit": "3",
+    "description": "This subject builds on the knowledge obtained in the Clinical Audiology A subject. Students will participate in problem based learning case discussions encompassing the evaluation and management of patients in the areas of advanced diagnostic assessment of hearing and balance disorders and hearing aid fitting and evaluation. This module comprises the following topics: professionalism, ethics and clinical communication, industrial audiology, acoustic shock and the prevention of hearing loss in the music industry; and a review of audiological integration and management.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5222",
+        "AUD5223"
+    ],
+    "prereqTree": {
+        "and": [
+            "AUD5105",
+            "AUD5111",
+            "AUD5106",
+            "AUD5112",
+            "AUD5107",
+            "AUD5113",
+            "AUD5108",
+            "AUD5114"
+        ]
+    },
+    "title": "Clinical Audiology B (Part 1)"
+}

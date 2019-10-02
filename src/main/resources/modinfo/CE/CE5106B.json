@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5106B",
+    "courseCredit": "2",
+    "description": "This is an advanced module on ground improvement techniques for difficult ground as well as its design, construction and monitoring in geotechnical engineering projects. Topics covered include the special requirement for advanced ground improvement techniques, difficult ground (peaty soil, mixed soils in tunnelling, cavity etc), principles and design considerations for various advanced ground improvement techniques (dynamic method, dynamic method combine with PVD, geosynthetics, soil nailing etc), field controls and monitoring, field evaluation \u2013 specification, performance evaluation and acceptance criteria, and case study. Participants are taught the basic principles of various advanced ground improvement techniques, and how to select as well as combine a few ground improvement methods to be used in specific circumstances where soil are difficult or/and the project requirements are very stringent.",
+    "faculty": "Engineering",
+    "title": "Advanced Ground Improvement for Difficult Ground"
+}

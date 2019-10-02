@@ -1,0 +1,8 @@
+{
+    "courseCode": "MLE4202",
+    "courseCredit": "4",
+    "description": "Introduction to polymer physics: chain statistics, static light scattering, hydrodynamics of polymer solutions, thermodynamics of polymer solutions, polymer blends, solubility parameters and group contribution methods; Overview of selected topics in advanced and emerging specialty polymer science and technology; Current interests in nanopatterning and nanoimprinting, layer-by-layer polyelectrolyte assembly, advanced photoresists, liquid-crystalline polymer science and device technology, conducting polymer science and technology, semiconducting polymer device science and technology, polysiloxanes and microcontact printing, low-k (and high-k) dielectric materials.",
+    "faculty": "Engineering",
+    "prereqTree": "MLE3104",
+    "title": "Selected Advanced Topics on Polymers"
+}

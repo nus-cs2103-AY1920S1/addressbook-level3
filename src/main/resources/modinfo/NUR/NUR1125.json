@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1125",
+    "courseCredit": "6",
+    "description": "This module allows students to integrate knowledge of pathophysiology, health assessment, principles of medical and nursing management and pharmacology related to cardiovascular, respiratory, and musculoskeletal conditions. Students will also develop critical thinking skills through conducting health assessments, interpreting results of diagnostic investigations and problem-solving.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR2201C Pathophysiology, Pharmacology and Nursing Practice I",
+    "title": "Pathophysiology, Pharmacology and Nursing Practice I"
+}

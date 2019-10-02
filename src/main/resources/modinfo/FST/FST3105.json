@@ -1,0 +1,18 @@
+{
+    "courseCode": "FST3105",
+    "courseCredit": "4",
+    "description": "This module intends to provide students with the opportunity to experience the stages of new product development through a problem-based learning project in collaboration with a food company. Lectures in this modules will cover three main topics: 1. Introduction and essential steps in new food product development. 2. Mechanism of food spoilage and shelf life analysis of foods. 3. Principles and practices of food packaging.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST4103"
+    ],
+    "preclusion": "FST3104",
+    "prereqTree": {
+        "and": [
+            "FST2102B",
+            "FST2107",
+            "FST2108"
+        ]
+    },
+    "title": "Food Product Development and Packaging"
+}

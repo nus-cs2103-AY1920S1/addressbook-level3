@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6105",
+    "courseCredit": "4",
+    "description": "This two-part course equips students with an understanding of nonlinear dynamics and nonlinear control methods. Part One introduces the basic notions and highlights key differences from linear dynamics, such as finite escape or settling time, and periodic orbits. The course emphasises on Lyapunov\u2019s method of stability analysis and related new concepts. Students will learn to analyse effects of nonlinearities in control loops with the circle and Popov stability criteria which extend the Nyquist stability criterion. Part Two introduces some important nonlinear control design methods, such as feedback linearisation, backstepping, sliding mode, adaptive and intelligent controls. Students will learn to appreciate such methods through examples and case studies.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401",
+            "EE5103",
+            "EE5103R",
+            "ME5403"
+        ]
+    },
+    "title": "Non-Linear Dynamics and Control"
+}

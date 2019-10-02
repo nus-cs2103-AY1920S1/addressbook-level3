@@ -1,0 +1,29 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5401",
+    "courseCredit": "4",
+    "description": "linear system theory is the core of modern control appropaches, such as optimal, robust, adaptive and multi-variable control. This module develops a solid understanding of the fundamentals of linear systems analysis and design using the state space approach. Topics covered include state space representation of systems; solution of state equations; stability analysis using Lyapunov methods; controllability and observability; linear state feedback design; asymptotic observer and compensator design, decoupling and servo control. This module is a must for higher degree students in control engineering, robotics or servo engineering. It is also very useful for those who are interested in signal processing and computer engineering.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE5102",
+        "EE5104",
+        "EE5107",
+        "EE5201",
+        "EE6102",
+        "EE6104",
+        "EE6105",
+        "EE6701",
+        "EE6107",
+        "EE6201"
+    ],
+    "preclusion": "MCH5201, EE5101/EE5101R",
+    "prereqTree": {
+        "or": [
+            "EE4302",
+            "ME4246"
+        ]
+    },
+    "title": "Linear Systems"
+}

@@ -1,0 +1,20 @@
+{
+    "courseCode": "PL5225R",
+    "courseCredit": "5",
+    "description": "This module with introduce the ideas of structural equation modeling and its relationship to other current statistical models. Specifically, regression analysis, path analysis, confirmatory factor analysis will be formulated within the general framework of structural equation modeling. Advanced topics, such as ordinal data analysis, missing data, multiple-group analysis and latent growth models, will also be covered. After the course, students are expected to know how to conduct the analysis and interpret the results themselves.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PL2101Y",
+                    "PL2131",
+                    "PL2102Y",
+                    "PL2132"
+                ]
+            },
+            "PL5221"
+        ]
+    },
+    "title": "Structural Equation Modeling"
+}

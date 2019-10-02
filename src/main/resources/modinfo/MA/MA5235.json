@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5235",
+    "courseCredit": "4",
+    "description": "This module is an advanced course on graph theory. It covers the following topics: tournaments and generalizations, perfect graphs, Ramsey theory, extremal graphs, matroids. The course is for mathematics graduate students with interest in graph theory and its applications.",
+    "faculty": "Science",
+    "prereqTree": "MA4235",
+    "title": "Advanced Graph Theory"
+}

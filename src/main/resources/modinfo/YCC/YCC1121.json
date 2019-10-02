@@ -1,0 +1,26 @@
+{
+    "courseCode": "YCC1121",
+    "courseCredit": "5",
+    "description": "This module explores a range of social institutions from the perspective of a variety of disciplines in the social sciences. Quantitative and qualitative methods are explored, with examples chosen from societies around the world.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YCC2121",
+        "YSS2213",
+        "YSS2218",
+        "YSS3231",
+        "YSS3237",
+        "YSS3254",
+        "YSS3255",
+        "YSS4223",
+        "YHU4232",
+        "YSS4228",
+        "YSS3277",
+        "YHU3305",
+        "YHU3304",
+        "YHU3307",
+        "YHU3312",
+        "YHU2304",
+        "YSS2230"
+    ],
+    "title": "Comparative Social Inquiry"
+}

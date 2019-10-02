@@ -1,0 +1,13 @@
+{
+    "courseCode": "CM3261",
+    "courseCredit": "4",
+    "description": "Environmental terms and concepts; scope of environmental chemistry; the atmosphere, lithosphere and hydrosphere; soil, water and air pollution; chemical toxicology; methods of environmental analysis and monitoring; global environmental problems; natural resources and energy; environmental management; risk assessment.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "CM2142",
+            "CM2192"
+        ]
+    },
+    "title": "Environmental Chemistry"
+}

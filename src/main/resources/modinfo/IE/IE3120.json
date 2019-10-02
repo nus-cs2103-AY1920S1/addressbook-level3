@@ -1,0 +1,13 @@
+{
+    "courseCode": "IE3120",
+    "courseCredit": "4",
+    "description": "This course introduces the basic concepts and techniques of planning, design and operation within a facility. The coverage will include enterprise resource planning, resource allocation models, forecasting techniques, basic factory dynamics, types of production systems and production scheduling. This course aims to convey the intuitions behind many manufacturing logistic concepts and to demonstrate the application of operations research techniques to this area.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "IE2100",
+            "DBA3711"
+        ]
+    },
+    "title": "Manufacturing Logistics"
+}

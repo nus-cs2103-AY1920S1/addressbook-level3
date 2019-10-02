@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC2207",
+    "courseCredit": "2",
+    "description": "This course is an introduction to laboratory techniques in analytical chemistry. It focuses on basic analytical and instrumental methods widely used in the chemistry laboratory. It can be taken together with Techniques in Organic Chemistry.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YCC2132",
+    "title": "Techniques in Analytical Chemistry"
+}

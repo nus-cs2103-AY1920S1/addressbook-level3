@@ -1,0 +1,13 @@
+{
+    "courseCode": "AR3324",
+    "courseCredit": "4",
+    "description": "This module builds upon the knowledge attained in PF2102 Structural Systems and expands and extends this knowledge to a level where application and problem-solving can be achieved. The structural principle learning will be suitably augmented with this module providing knowledge on structure systems applicable to design of building structures. Through exposure to the principles of various structural systems students are expected to acquire as sophisticated or as broad an understanding of the interface between structural systems and how these appropriate systems integrate with design and performance. Major topics include structural systems for high-rise buildings and large span structures, prestressed concrete and prefabrication systems for building construction.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "or": [
+            "BU2484",
+            "PF2102"
+        ]
+    },
+    "title": "Architectural Structures"
+}

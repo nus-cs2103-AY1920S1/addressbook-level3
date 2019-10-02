@@ -1,0 +1,33 @@
+{
+    "courseCode": "EC2101",
+    "courseCredit": "4",
+    "description": "This course is for students who have studied the principles of economics and will take them through to the next level in their study of microeconomics. Our approach stresses the relevance and application of microeconomic theory in both managerial and public policy decision making. A combination of tables, figures, and simple mathematics will be used to provide the grounding in the key principles of microeconomics for further study in the economics programme.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC3373",
+        "EC3374",
+        "EC3375",
+        "EC3385",
+        "EC3376",
+        "EC3314",
+        "EC3394",
+        "EC3880",
+        "EC3880A",
+        "EC3880B",
+        "EC3395",
+        "EC3342",
+        "EC3343",
+        "BSE3702",
+        "BSE4712"
+    ],
+    "prereqTree": {
+        "or": [
+            "EC1101E",
+            "EC1301",
+            "USE2301",
+            "BSP1005",
+            "BH1005"
+        ]
+    },
+    "title": "Microeconomic Analysis I"
+}

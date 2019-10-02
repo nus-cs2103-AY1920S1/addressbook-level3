@@ -1,0 +1,16 @@
+{
+    "courseCode": "SC6780",
+    "courseCredit": "4",
+    "description": "This advanced module offers intensive and practical training of postgraduate students in professional writing in the disciplines of sociology and anthropology. Students will learn the intricacies of writing to publish in different types of academic publication. They will learn the different types of research writing involving qualitative inquiry, quantitative argumentation, ethnographic understanding, and theoretical reasoning. Students will have the opportunity to critically reflect on their own writing in the midst of completing their dissertation. Students will also learn how to present their writing in professional settings such as conferences and seminars.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "SC5101",
+            "SC5102",
+            "SC5103",
+            "SC6102",
+            "SC6770"
+        ]
+    },
+    "title": "Professional Writing in Sociology and Anthropology"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM3244",
+    "courseCredit": "4",
+    "description": "Traditional genetic engineering has been relatively successful for modern applied biotechnology, however its limitations in direct manipulation of genome is apparent. For this, genome engineering has emerged as the next wave in biotechnology. Genome engineering is a direct and precise approach to whole-genome design and mutagenesis to enable a rapid and controlled exploration of an organism's phenotypic landscape for biotechnology. Key advances included de novo genome synthesis, and genome-editing technology. This module will focus on how genome engineering is used together with existing or new applications of biotechnology to tackle global problems ranging from human and animal health to agriculture.",
+    "faculty": "Science",
+    "prereqTree": "LSM2233",
+    "title": "Molecular Biotechnology"
+}

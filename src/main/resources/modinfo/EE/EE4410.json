@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "EE4410",
+    "courseCredit": "8",
+    "description": "This module provides an opportunity for students to learn analog and mixed-signal IC design through an integrated circuit prototyping project using commercial design flows. The module spans in two semesters. The chip design and test are carried out in the first and second semester, respectively. The chip fabrication is done at an external foundry during the semester break. Lectures are given at the beginning of the two semesters, covering the project related topics and other important issues in IC design. This module is targeted at those electrical engineering students who have strong interests in IC design. The module is based on continuous assessment.",
+    "faculty": "Engineering",
+    "preclusion": "EE4410A",
+    "title": "Integrated Circuit And System Design"
+}

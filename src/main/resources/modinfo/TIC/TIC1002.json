@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TIC1002",
+    "courseCredit": "4",
+    "description": "This module builds on basic knowledge from TIC1001. Students will learn how to model a problem and how to design and implement solutions to computational problems. TIC1002 also introduces the methodologies and good practices of programming: testing, debugging, assertion, documentation, and tools such as linter, and debugger. Students will be exposed to more complex problems and learn to abstract out the complexities and to compose programmes from smaller, reusable components. Finally, students will be introduced to object-oriented programming paradigm as a powerful way of composing reusable components to form larger, more complex, programmes.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC2001",
+        "TIC2301",
+        "TIC2401",
+        "TIC2501",
+        "TIC2601"
+    ],
+    "prereqTree": "TIC1001",
+    "title": "Introduction to Computing and Programming II"
+}

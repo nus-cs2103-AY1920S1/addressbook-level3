@@ -1,0 +1,18 @@
+{
+    "courseCode": "ME5600A",
+    "courseCredit": "4",
+    "description": "The module will be an independent study based on an industry project related to biomedical, healthcare or key local industry sectors. The 1st semester works will be focusing on thorough literature survey on patents, papers, problems and issues, and proposing some likely methods to resolve the problems either on processes or designs. Some analysis, simulation or simple experiments may be needed to verify the solutions proposed.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "ME5608",
+            {
+                "or": [
+                    "ME5612",
+                    "ME6505"
+                ]
+            }
+        ]
+    },
+    "title": "Project in Advanced Manufacturing I"
+}

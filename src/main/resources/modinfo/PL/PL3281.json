@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3281",
+    "courseCredit": "4",
+    "description": "Students will be introduced to the different methodologies used in cognitive research such as classical psychophysics, signal detection theory, reaction time paradigms, judgment tasks, similarity ratings, memory measures, and psycholinguistic methods. Selected topics on perception, attention, memory, categorisation, language, problem solving, and decision making will be used to illustrate these methods. Students will work in small groups to design and conduct an experiment using these methodologies and submit individual research reports. Prior background and interest in cognitive psychology will be very helpful.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3233"
+        ]
+    },
+    "title": "Lab in Cognitive Psychology"
+}

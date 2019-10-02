@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GL1101E",
+    "courseCredit": "4",
+    "description": "This module introduces the emerging field of global studies. Building on ideas about the modern state and international order, it examines how these ideas are being challenged from the perspective of transnational trends and institutions. Among these are the emergence of a global economy, inequalities within and between states, transnational labor and migration, global environmental issues, poverty and development, global consumerism, human rights and global responsibilities, transnational social and political movements, and new patterns of global governance. The module adopts a multidisciplinary approach to reveal different aspects of these issues.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GL2101",
+        "GL2103",
+        "GL2102",
+        "GL3101",
+        "GL3201",
+        "GL2104",
+        "GL3202"
+    ],
+    "title": "Global Issues"
+}

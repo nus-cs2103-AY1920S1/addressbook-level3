@@ -1,0 +1,16 @@
+{
+    "courseCode": "YHU4243",
+    "courseCredit": "5",
+    "description": "This module fulfils the advance practice requirement (Art Practice track) of the Arts & Humanities major. It aims to bridge 3000 level art studio courses and the Arts Practice Capstone, and investigates topics and practices in the contemporary arts. Students will develop a deeper understanding of its changing contexts, and create a portfolio of in-depth research processes and methods related to their topics of interest during studio hours and weekly critiques. There will be readings on the philosophy and history of art and aesthetics, and artist studio visits. Students will have to plan, exhibit, present, and discuss their works.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YHU3201",
+            "YHU3288",
+            "YHU3216",
+            "YHU2223",
+            "YHU3273"
+        ]
+    },
+    "title": "Art Studio Research, Experimentation and Critique"
+}

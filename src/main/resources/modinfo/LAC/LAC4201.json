@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAC4201",
+    "courseCredit": "5",
+    "description": "This module is a continuation of Chinese 4. Based on the 750 Chinese characters and 960 phrases they have learned, students will acquire new words, phrases and idioms to strengthen the usage of the language. Short stories and articles will be taught in this module. Students will also do projects related to Chinese culture and history. Essay writing skills will be strengthened.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAC4202"
+    ],
+    "prereqTree": "LAC3202",
+    "title": "Chinese 5"
+}

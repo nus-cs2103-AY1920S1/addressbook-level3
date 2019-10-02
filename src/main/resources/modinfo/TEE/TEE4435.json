@@ -1,0 +1,14 @@
+{
+    "courseCode": "TEE4435",
+    "courseCredit": "4",
+    "description": "This module is designed to equip students with the physical foundation of metal oxide semiconductor (MOS) device physics and the theoretical background for understanding end applications in modern transistors and memory devices (e.g., Flash, phase change random access memory, etc.). Upon the successful completion of this module, the student is expected to gain an understanding on the principles of operation and physics of modern MOS transistors and memory devices. Such knowledge is useful for careers in the wafer fabrication plants, foundries, design houses and the microelectronics industry.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE4408E, EE4412E, EE4435E",
+    "prereqTree": {
+        "or": [
+            "TEE2021",
+            "TEE2027"
+        ]
+    },
+    "title": "Modern Transistors and Memory Devices"
+}

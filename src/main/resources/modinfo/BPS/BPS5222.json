@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "BPS5222",
+    "courseCredit": "4",
+    "description": "This module deals with the four key performance mandates that are responsible for ensuring good IEQ. The thermal performance deals with thermal comfort in all types of buildings and climates including adaptive comfort models. The indoor air quality (IAQ) performance examines the relationship between IAQ and occupants\u2019 well-being and health and identifies the types and sources of indoor air pollutants and means of minimizing the problems. The experimental procedures of investigating and analysing thermal and IAQ issues are also introduced. The lighting performance deals with visual perception, color classifications and lighting installation design with specific reference to integration and control of artificial and day lighting, choice of light sources and lighting systems. The acoustic performance deals with community noise rating systems and the propagation of sound in the urban environment. Environmental noise monitoring and modelling, sound transmission and acoustical design of rooms will be discussed. Laboratory and field measurements using acoustical instruments will be used to strengthen students\u2019 understanding and analytical and presentation skills on the subject.",
+    "faculty": "Design and Environment",
+    "preclusion": "Students who have taken BPS5201 or BPS5202 not able to take BPS5222",
+    "title": "Indoor Environmental Quality"
+}

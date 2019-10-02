@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SN1101E",
+    "courseCredit": "4",
+    "description": "This module introduces students to contemporary South Asia in terms of the significant features of social, cultural and economic life. It will discuss the physical and human resources of the region and give an overview of developments at the outset of the new century. The films, the literature and the arts of the region will be introduced throughout the module to provide a wealth of illustration of the changing patterns of life of the people of the seven nations of South Asia.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SN3880"
+    ],
+    "title": "South Asia : People, Culture, Develop'm"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "EC3395",
+    "courseCredit": "4",
+    "description": "In this module, we examine the interaction between economics and ethics along several dimensions. We uncover the ethical underpinnings of economics as commonly taught and practiced in its selection of topics, measurements and principles. We examine how incorporating ethical motivations in individual decision\u2010making enriches economic models and explains important features in modern economies. We also look at how economics influences the value systems of participants in the economic system. Current issues in which economic considerations appear to be in conflict with ethics will be discussed.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EC2101",
+            "EC2102",
+            "EC3101",
+            "EC3102"
+        ]
+    },
+    "title": "Economics and Ethics"
+}

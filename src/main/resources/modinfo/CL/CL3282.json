@@ -1,0 +1,13 @@
+{
+    "courseCode": "CL3282",
+    "courseCredit": "4",
+    "description": "The course is structured on an intensive basis with lectures, seminars, group projects/presentations and individual assignments. The course is essentially practical which aims to train students to become professional media translators by reinforcing the skills and techniques required of their translations of different media text\u2010types into Chinese\u2010English and vice versa. Students will learn from regular exercises in translating a wide variety of print and electronic media texts and representative material selected from international news syndicates, regional newspaper, televisions, advertisements and websites.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "CL2280",
+            "CL2281"
+        ]
+    },
+    "title": "Mass Media Translation"
+}

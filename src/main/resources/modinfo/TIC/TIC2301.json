@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIC2301",
+    "courseCredit": "4",
+    "description": "This module serves as an introductory module on information security. It illustrates the fundamentals of how systems fail due to malicious activities and how they can be protected. The module also places emphasis on the practices of secure programming and implementation. Topics covered include classical/historical ciphers, introduction to modern ciphers and cryptosystems, ethical, legal and organisational aspects, classic examples of direct attacks on computer systems such as input validation vulnerability, examples of other forms of attack such as social engineering/phishing attacks, and the practice of secure programming.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC3301",
+        "TIC3302",
+        "TIC4303"
+    ],
+    "prereqTree": "TIC1002",
+    "title": "Introduction to Information Security"
+}

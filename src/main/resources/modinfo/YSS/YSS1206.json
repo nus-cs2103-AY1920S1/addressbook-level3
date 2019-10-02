@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSS1206",
+    "courseCredit": "5",
+    "description": "This course is an introduction to the study of political institutions, processes, structures, policies, and outcomes, both within and across countries. Students will learn how to understand and evaluate the similarities and differences between political systems, as well as the intricacies of specific case studies. The course will introduce students to some of the key themes, methods, and questions used in comparing polities across time and space.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4222",
+        "YSS4233",
+        "YSS4224"
+    ],
+    "title": "Introduction to Comparative Politics"
+}

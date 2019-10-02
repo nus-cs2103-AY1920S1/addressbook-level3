@@ -1,0 +1,40 @@
+{
+    "courseCode": "CS2309",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CP3209",
+        "UIS3951R"
+    ],
+    "preclusion": "CS2305S",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    {
+                        "and": [
+                            {
+                                "or": [
+                                    "CS2030",
+                                    "CS2113",
+                                    "CS2113T"
+                                ]
+                            },
+                            "CS2040"
+                        ]
+                    }
+                ]
+            },
+            {
+                "or": [
+                    "MA1100",
+                    "CS1231"
+                ]
+            }
+        ]
+    },
+    "title": "CS Research Methodology"
+}

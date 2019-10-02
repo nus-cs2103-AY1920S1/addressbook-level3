@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5804",
+    "courseCredit": "4",
+    "description": "In today's construction, there is increasing competition from global players with international participation. Due to this competition, a company, for its own survival, will need to venture into construction markets overseas. This course has been repositioned with a new title and content to give in-depth coverage of issues that affect engineering constructors involved in large-scale infrastructure projects in international construction markets. The course goes beyond the basics covered in the first undergraduate course and emphasises the global characteristics of large-scale civil infrastructure projects. Specific topics include international construction markets and project financing, risk management, value management, competitive bidding, integrated construction logistics, computer-integrated scheduling and resource allocation, construction modeling and simulation. Students benefit from the experience of speakers from large international engineering constructor companies involved in the development of such infrastructure projects. This course equips students to successfully manage complex infrastructure projects in international construction markets. They will learn to manage complex construction logistics and value chain from design to construction. The course will also deal with the problems of financing and managing the risk of such large-scale projects. Students will also learn advanced computerised techniques for project planning, modeling and simulation.",
+    "faculty": "Engineering",
+    "prereqTree": "CE2183",
+    "title": "Global Infrastructure Project Management"
+}

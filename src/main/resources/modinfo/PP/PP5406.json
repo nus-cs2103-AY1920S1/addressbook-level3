@@ -1,0 +1,10 @@
+{
+    "courseCode": "PP5406",
+    "courseCredit": "4",
+    "description": "To train students to be competent users and producers of quantitative evidence for policy analysis, this module will equip students with foundational quantitative analytic skills. The focus is on basic concepts of multiple regression analysis and its applications to real-world policy problems. Exercises through textbook examples, case studies, and group projects will enable students to identify the strengths and weaknesses of the method. PP5407, provided in sequence in the second semester, will provide students with more in-depth knowledge and skills required to understand and conduct policy evaluation.",
+    "faculty": "LKY School of Public Policy",
+    "fulfillRequirements": [
+        "PP5407"
+    ],
+    "title": "Quantitative Research Methods for Public Policy 1"
+}

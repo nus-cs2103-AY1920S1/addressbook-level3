@@ -1,0 +1,9 @@
+{
+    "courseCode": "MLE4207",
+    "courseCredit": "4",
+    "description": "Semiconductor surfaces and structures; Aspects of epitaxy in the growth of low dimensional III-V and Si based semiconductor materials; In-situ characterisation techniques and monitoring epitaxial growth by molecular beam epitaxy; Structural, kinematic theory of LEED and application of RHEED; Surface topography, composition and growth modes probed by STM, XPS and Auger spectroscopy; Layer by layer, layer-island and island growth; Problems of sensitivity and selectivity in the study of surfaces and interfaces.",
+    "faculty": "Engineering",
+    "preclusion": "EE4436 Semiconductor Process Technology",
+    "prereqTree": "MLE2101",
+    "title": "Growth Aspects of Semiconductors"
+}

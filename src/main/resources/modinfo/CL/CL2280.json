@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CL2280",
+    "courseCredit": "4",
+    "description": "This module introduces students to basics issues in the practice of translation and interpretation (both Chinese-English and English-Chinese). Students are exposed to different forms of writing and are trained to do written translation and consecutive interpretation. The course is conducted in an interactive manner and students are expected to actively participate in class discussion, language games and translation exercises during both lecture and tutorial. The course is practice-oriented and is intended for students who are bilingual (Chinese and English) and have an interest in the practice of translation and interpretation.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CL3281",
+        "CL3282",
+        "CL3283",
+        "CL3284",
+        "CL3285",
+        "CL3286"
+    ],
+    "title": "Basic Translation"
+}

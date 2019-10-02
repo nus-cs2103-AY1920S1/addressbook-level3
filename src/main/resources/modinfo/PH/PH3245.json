@@ -1,0 +1,15 @@
+{
+    "courseCode": "PH3245",
+    "courseCredit": "4",
+    "description": "Topics at the intersection of philosophy of mind and language, such as whether thought depends on talk or vice versa, whether we think in words or images, whether those words are words of English or a sui generis mental language just for thinking, whether animals which can\u2019t talk can think and whether the mind is like a computer. These questions are central to contemporary philosophy and language and are also an important case study in the relationship between the methods of analysis, experiment and introspection in philosophical psychology.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "PH2241",
+            "PH3212",
+            "PH2242",
+            "PH3210"
+        ]
+    },
+    "title": "Language and Thought"
+}

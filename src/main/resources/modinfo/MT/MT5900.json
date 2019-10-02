@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MT5900",
+    "courseCredit": "8",
+    "description": "This module involves independent research work by students on a relevant topic in MOT. The aim is to promote self-study, critical thinking, independent research and initiative on the student. The student will learn how to plan and implement a research project.",
+    "faculty": "Engineering",
+    "preclusion": "MT5910 LaunchPad: Experiential Entrepreneurship, SDM5990 SDM Research Project & MT5903 Technological Innovation Management Practicum",
+    "title": "Mot Research Project"
+}

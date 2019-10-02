@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5302",
+    "courseCredit": "4",
+    "description": "Flow Assurance is a relatively new term in the Oil & Gas industry which is all about ensuring the safe and uninterrupted transportation of a multiphase mixture of oil, gas and water from the reservoir to the delivery location. This module is designed for students interested in offshore oil and gas production and the multiphase transportation of oil, water and gas. Its contents are focused on giving an overview and understanding of the various aspects in both single phase and multiphase flow transportation and assurance issues in the oil & gas industry with emphasis on the subsea production and transportation of oil, gas and water. A structured programme of lectures, term papers, mini-projects and a final examination are included in this module.",
+    "faculty": "Engineering",
+    "preclusion": "OT5882A Topics in Subsea Engineering - Flow Assurance",
+    "title": "Flow Assurance"
+}

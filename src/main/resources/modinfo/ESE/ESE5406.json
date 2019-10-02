@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ESE5406",
+    "courseCredit": "4",
+    "description": "Membrane technology is an emerging field in water and wastewater engineering. This module offers students the fundamental principles and practical applications of membrane processes as an advanced measure for water and wastewater treatment. The topics covered in this module are membrane transport, concentration polarisation, and membrane fouling in relation to water and wastewater engineering. The module will also deal with fouling characterisation of feed water, membrane fouling modelling and methods for fouling prevention and mitigation. Applications of MF, UF, and RO membranes in various water and wastewater.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESE5407"
+    ],
+    "title": "Membrane Treatment Process Modelling"
+}

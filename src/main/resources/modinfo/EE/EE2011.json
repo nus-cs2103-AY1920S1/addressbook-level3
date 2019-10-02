@@ -1,0 +1,19 @@
+{
+    "courseCode": "EE2011",
+    "courseCredit": "4",
+    "description": "Electromagnetic (EM) and transmission line theory is essential in all disciplines of electrical and computer engineering. EM theory is the fundamental basis for understanding transmission lines and electrical energy transmission. To understand and solve EM and transmission line problems encountered in electrical and computer engineering, rigorous analytical methods are required. At the end of this module, in addition to being able to solve EM and transmission line problems, the student will be able to design transmission line circuits, design electrical elements with lumped behaviour, and mitigate EM interference. To enhance understanding, case studies and computer visualisation tools will be used. Topics covered: Static electric and magnetic fields. Maxwell's equations. Electromagnetic waves: plane-wave propagation, behaviour at interface between media, shielding, electromagnetic compatability. Transmission lines. Impedance matching. Radiation. Case studies.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE4506",
+        "EE2032",
+        "PC2232",
+        "PC3267"
+    ],
+    "prereqTree": {
+        "and": [
+            "MA1505",
+            "MA1506"
+        ]
+    },
+    "title": "Engineering Electromagnetics"
+}

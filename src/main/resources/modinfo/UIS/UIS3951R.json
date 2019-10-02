@@ -1,0 +1,22 @@
+{
+    "courseCode": "UIS3951R",
+    "courseCredit": "4",
+    "description": "The module (together with CS3209) is part of the UROP (Computing) project. The objective of this module and the UROP (Computing) project in general, is to provide an opportunity for talented students to undertake a substantial research project under the supervision of faculty members of the School of Computing. Through this research collaboration, the student will get to experience at first hand the challenges and exhilaration of research, discovery and invention. This module should be followed by CS3209 to complete the UROP (Computing) project.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "UIS3952R"
+    ],
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    "CS2103",
+                    "CS2309"
+                ]
+            },
+            "IS2103",
+            "IS2150"
+        ]
+    },
+    "title": "Independent Study Module (Ride-On)"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "NM3219",
+    "courseCredit": "4",
+    "description": "This module teaches students to write for internal and external organizational communication vehicles using traditional and new media. These include business proposals, memoranda, backgrounders, position statements, crisis communication plans, stakeholder newsletters, news releases, fact sheets, speeches, persuasive and informative pieces to key publics, annual reports and campaigns. Students will design and execute polished, audience-directed, professional communication pieces intended for traditional and new media. The module involves extensive comprehensive research and writing.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "NM2220",
+            "NM2219"
+        ]
+    },
+    "title": "Writing for Communication Management"
+}

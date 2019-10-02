@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "COS2000",
+    "courseCredit": "4",
+    "description": "This module introduces students to computational thinking as applied to problems in science. A selection of examples will be chosen to illustrate (a) application of abstraction, decomposition and pattern recognition in problem formulation and solution development, and (b) solution interpretation, as well as (c) analysis of the computational solutions and data visualization. The selection will tackle different types of approaches typically used in scientific computational thinking, including deterministic, probabilistic and approximation methods. The module will also highlight scientific computational issues such as accuracy and convergence of numerical results. Python/Python Notebook (Jupyter) will be used as the computation platform.",
+    "faculty": "Science",
+    "title": "Computational Thinking for Scientists"
+}

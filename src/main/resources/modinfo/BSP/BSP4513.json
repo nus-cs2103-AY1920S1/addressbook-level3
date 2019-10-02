@@ -1,0 +1,18 @@
+{
+    "courseCode": "BSP4513",
+    "courseCredit": "4",
+    "description": "This course is tailored to introduce students to the science and art of building and using econometric models. It is particularly useful for students doing quantitatively oriented projects. It hopes to prepare future officers, executives and managers for responsibilities in monitoring, analysing and forecasting trends and business development in their respective industries. Students will be refreshed and equipped with some fundamental economic concepts of statistical tools right from the beginning so as to follow the course comfortably. Models such as CAPM, returns to schooling, term structure of interest rates are used to convey the theoretical and practical aspects of this course. Moreover, the course emphasises hands-on learning involving students in tutorial sessions and exercises to formulate models, estimate them with the Window-based econometric software (EVIEWS), and practice analytical interpretation.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BSN4811A",
+        "BSS4003B"
+    ],
+    "preclusion": "EC2303 Foundations for Econometrics\nEC3303 Econometrics I\nEC3304 Econometrics II\nEC4305 Appled Econometrics",
+    "prereqTree": {
+        "or": [
+            "BSP1005",
+            "IS3240"
+        ]
+    },
+    "title": "Econometrics: Theory and Practical Business Applications"
+}

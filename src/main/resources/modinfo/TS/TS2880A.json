@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2880A",
+    "courseCredit": "4",
+    "description": "Asian theatre practitioners of the twentieth century have greatly contributed to the conception and formation of modernity in Asia. This module highlights three key historical moments in Asia\u2019s modernising process: Asia\u2019s initial contacts with Europe and America at the turn of the century; the postwar era between the 1960s and the 1980s when political activism was at its height; and the more recent global and local theatre collaborations in the region. This module combines the study of theatre history, play texts, and digital recordings of performances to trace the development and evolution of modern Asia from a theatre\u2019s perspective.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Modern Drama in Asia"
+}

@@ -1,0 +1,16 @@
+{
+    "courseCode": "IS4204",
+    "courseCredit": "4",
+    "description": "This module examines the governance in the use and deployment of Information Technology in an organisation. It covers the process of strategic planning to align IT strategies with business strategies. The elements of governance include Security Policy, Quality Management, Business Continuity Management, Risk Management, Project and Program Management, Returns on Investment of IT and Operational Management.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS5007"
+    ],
+    "prereqTree": {
+        "or": [
+            "IS3101",
+            "IS3103"
+        ]
+    },
+    "title": "IT Governance"
+}

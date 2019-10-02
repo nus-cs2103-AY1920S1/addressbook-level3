@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "OT5402B",
+    "courseCredit": "2",
+    "description": "Seismic processing and imaging is the corner stone for the oil and gas exploration and production. This module introduces the basics of seismic processing techniques. Traditional and modern methods of seismic imaging will be covered. Methods to build seismic velocity models are introduced.",
+    "faculty": "Engineering",
+    "title": "Seismic Processing and Imaging"
+}

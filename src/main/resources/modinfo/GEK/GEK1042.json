@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1042",
+    "courseCredit": "4",
+    "description": "Intellectual Property (IP) are creations of the human mind. They are the intangible assets of an individual or a company and are increasingly viewed as the foundations for wealth creation, especially in a knowledge-based economy. The ability to harness and protect IP is thus of paramount importance in encouraging and fostering inventions and innovations. With advances in computer technology and the advent of Internet, IP moves from the brick-and-mortar\" world into cyberspace. This module requires students to learn and reflect on the nature of IP rights and their contributions to wealth creation. Students analyse real cases to tease out IP issues, formulate their opinions and defend these views in class. Typically, the issues examined span across areas such as law, business and public policies. To broaden our students\u2019 perspectives on the issues, comparisons are made between the legal position and policy responses in Singapore with those elsewhere in the world.",
+    "faculty": "NUS Business School",
+    "preclusion": "GET1007",
+    "title": "Intellectual Property In Cyberspace"
+}

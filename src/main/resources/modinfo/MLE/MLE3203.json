@@ -1,0 +1,19 @@
+{
+    "courseCode": "MLE3203",
+    "courseCredit": "4",
+    "description": "This module focuses on engineering materials \u2013 metals and ceramics. Crystalline structure of important industrial metals and ceramics. Mineral processing and materials fabrication. Phase formation and development and microstructure optimization for engineering applications.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE4212"
+    ],
+    "preclusion": "MLE2106 Metallic Materials & Processing\nMLE2107 Ceramic Materials & Processing",
+    "prereqTree": {
+        "or": [
+            "MLE1111",
+            "MLE1001",
+            "MLE2102",
+            "MLE1002"
+        ]
+    },
+    "title": "Engineering Materials"
+}

@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CL2281",
+    "courseCredit": "4",
+    "description": "This class aims to continue to give students practice in translation and interpretation. The course will focus on two areas: linguistic issues (grammar, semantic meaning) which must be dealt with in both oral and written translation, and cultural issues where there is a need for creative approaches to various non-standard forms of language which are found in poetry, cartoons, advertisements, and certain types of interpretation scenarios.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CL3281",
+        "CL3282",
+        "CL3283",
+        "CL3284",
+        "CL3285",
+        "CL3286"
+    ],
+    "title": "Translation and Interpretation"
+}

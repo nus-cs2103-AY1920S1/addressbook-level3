@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS5002",
+    "courseCredit": "4",
+    "description": "What steps should enterprises take so as to manage and capitalize on them to drive enterprise transformation? Is it possible to continuously transform enterprises with the latest technologies without wreaking havoc to the business operations? This module first goes through the foundational concepts of digital transformation. Using these concepts, students then extrapolate on existing technological and business trends and needs for an enterprise (real or fictional), eventually producing both short and long term plans of some duration (say, three to five years) for the enterprise's management and utilization of digital systems.",
+    "faculty": "Computing",
+    "prereqTree": "IS2102",
+    "title": "Digital Transformation"
+}

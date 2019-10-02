@@ -1,0 +1,8 @@
+{
+    "courseCode": "EC4333",
+    "courseCredit": "5",
+    "description": "The module provides an in-depth analysis of the theories and models that are essential to the understanding of financial decision making. The course covers topics on decision making under certainty and uncertainty, no-arbitrage pricing theory, mean-variance portfolio selection theory, capital asset pricing model, efficient market hypothesis, mathematics of derivative securities, pricing theory and applications of contingent claims such as standard options, mortgage-backed securities and interest-rate instruments.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "MA3245 and MA4269",
+    "title": "Financial Economics II"
+}

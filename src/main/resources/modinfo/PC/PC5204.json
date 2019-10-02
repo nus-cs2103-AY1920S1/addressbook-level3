@@ -1,0 +1,18 @@
+{
+    "courseCode": "PC5204",
+    "courseCredit": "4",
+    "description": "Spintronics is the study of the intrinsic spin of the electron and its application in spin-logic and devices, spin-polarized injection devices, and storage media. This is important for a variety of current and emerging applications in magnetic memories. This course equips students with essential knowledge of magnetism, and exchange interactions in solids; half metals, and dilute magnetic semiconductors; spin injection, transport and detection; and magnetic nanostructures, and their applications in: GMR read-write heads, MRAM, spinFET, spin-torque oscillators.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PC3235",
+                    "PC4240"
+                ]
+            },
+            "PC4241"
+        ]
+    },
+    "title": "Magnetism and Spintronics"
+}

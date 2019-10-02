@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS4351",
+    "courseCredit": "4",
+    "description": "Real-time graphics is driving many interactive computer applications, such as 3D games, VR, 3D modelling, and data visualization. Recent rendering techniques have been heavily exploiting the powerful graphics hardware to achieve unprecedented performance and effects. In this module, students study the modern real-time rendering pipeline and GPU architecture, learn about modern and traditional real-time rendering techniques, and write shaders to implement these techniques for the GPU. The syllabus includes multiple-pass rendering; shading and reflection models; procedural texture-mapping and shading; lights and shadows; noise and natural materials; non-photorealistic rendering; volume rendering; deferred shading; scene management; post-rendering processing; performance analysis and optimization.",
+    "faculty": "Computing",
+    "prereqTree": "CS3241",
+    "title": "Real-Time Graphics"
+}

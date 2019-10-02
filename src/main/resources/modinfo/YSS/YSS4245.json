@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS4245",
+    "courseCredit": "5",
+    "description": "The course will engage students in examination of the social problem of violent conflicts, primarily through ethnographic case studies. The course will take an anthropological approach to both extraordinary cases of political violence, as well as ordinary forms of violence in less publicized cases occurring in everyday life. Drawing on the discipline\u2019s unique methodologies and theoretical developments that rely on long-term field research, students will learn about the causes and conditions of violence, and also about how people live and cope with it. The ethnographic material under study will focus largely, but not exclusively, on cases of violence in Asia.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS2227",
+            "YSS3202",
+            "YSS3277"
+        ]
+    },
+    "title": "Anthropology of Violence"
+}

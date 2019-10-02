@@ -1,0 +1,13 @@
+{
+    "courseCode": "MA5220",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in mathematics, and students in computer science and philosophy who have sufficient mathematical background. The course will be devoted to prove the consistency and independence of Continuum Hypothesis (CH) as well as Axiom of Choice. The topics include Gdels constructible universe and Cohens forcing method. This course will provide the students not only some basics in modern Set Theory, but also deeper understanding of fundamental phenomena in logic, such as constructibility and independence.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "MA3205",
+            "MA4207"
+        ]
+    },
+    "title": "Logic and Foundation of Mathematics II"
+}

@@ -1,0 +1,9 @@
+{
+    "courseCode": "CP2106",
+    "courseCredit": "4",
+    "description": "Orbital provides a platform for students to gain hands-on industrial experience for computing technologies related to students\u2019 own interests. Done in pairs of two, Orbital students propose, design, execute, implement and market their project to peers and faculty. Peer assessment and critique of others\u2019 projects are key components of the modules\u2019 deliverables.",
+    "faculty": "Computing",
+    "preclusion": "CS2103 Software Engineering or its equivalent",
+    "prereqTree": "CS1010",
+    "title": "Independent Software Development Project (Orbital)"
+}

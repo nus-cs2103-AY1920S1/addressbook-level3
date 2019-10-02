@@ -1,0 +1,7 @@
+{
+    "courseCode": "KE5004",
+    "courseCredit": "4",
+    "description": "The objectives of this course are to teach how to understand and use GA techniques. Topics covered in this course include; Introduction to GA theory and operation; GA Case Studies; Problem structuring and modeling for GA solutions; Selection and optimization of control parameters; GA applications and solutions; Currently available GA tools; Comparison of GA with other solution methods; and GA workshops and projects using the Evolver tool. There is an assignment in developing a GA system. These courses are particularly appropriate for those students who wish to apply sophisticated solutions to difficult problems.",
+    "faculty": "Institute of Systems Science",
+    "title": "Genetic Algorithms"
+}

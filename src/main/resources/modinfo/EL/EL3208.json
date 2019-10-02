@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3208",
+    "courseCredit": "4",
+    "description": "This module explores the cognitive underpinnings and social consequences of bilingualism and multilingualism. Students will become familiar with multiple approaches to the study of bilingualism and investigate major questions such as how children acquire multiple languages, how those languages are stored in the brain, and how bilinguals use language in socially meaningful ways. Topics covered include bilingual acquisition, cognitive consequences of bilingualism, language mixing, and bilingual education.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Bilingualism"
+}

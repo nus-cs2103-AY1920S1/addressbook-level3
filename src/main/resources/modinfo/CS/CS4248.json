@@ -1,0 +1,27 @@
+{
+    "courseCode": "CS4248",
+    "courseCredit": "4",
+    "description": "This module deals with computer processing of human languages, emphasizing a corpus-based empirical approach. The topics covered include: 1. Linguistic essentials. 2. Basic techniques and algorithms: Hidden Markov model, Viterbi algorithm, supervised learning algorithms. 3. Words: part-of-speech tagging. 4. Syntax: noun phrase chunking, named entity tagging, parsing (top down, bottom up, probabilistic). 5. Semantics: word sense disambiguation. 6. Pragmatics: discourse, co-reference resolution. 7. Applications: text categorisation, text summarisation, language identification, information extraction, question answering, machine translation.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6207"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS3243",
+                    "CS3245"
+                ]
+            },
+            {
+                "or": [
+                    "ST1232",
+                    "ST2131",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Natural Language Processing"
+}

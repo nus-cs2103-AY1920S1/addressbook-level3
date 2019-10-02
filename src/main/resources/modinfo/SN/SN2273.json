@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SN2273",
+    "courseCredit": "4",
+    "description": "This course is designed to survey the history of Indian philosophy both classical and modern. The course will begin with lectures on the Rig Veda and the Upanishads. It will proceed with the presentation of the main metaphysical and epistemological doctrines of some of the major schools of classical Indian philosophy such as Vedanta, Samkhya, Nyaya, Jainism and Buddhism. The course will conclude by considering the philosophical contributions of some of the architects of modern India such as Rammohan Ray, Rabindrananth Tagore and Mohandas Gandhi.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PH2204, GEK2027",
+    "title": "Introduction to Indian Thought"
+}

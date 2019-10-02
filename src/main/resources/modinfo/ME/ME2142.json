@@ -1,0 +1,13 @@
+{
+    "courseCode": "ME2142",
+    "courseCredit": "4",
+    "description": "This is a compulsory module and it introduces students to various fundamental concepts in control system analysis and design. Topics include mathematical modeling of dynamical systems, time responses of first and second-order systems, steady-state error analysis, frequency response analysis of systems and design methodologies based on both time and frequency domains. This module also introduces computer simulation as a means of system evaluation.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE4308",
+        "ME4245",
+        "ME4246"
+    ],
+    "prereqTree": "MA1506",
+    "title": "Feedback Control Systems"
+}

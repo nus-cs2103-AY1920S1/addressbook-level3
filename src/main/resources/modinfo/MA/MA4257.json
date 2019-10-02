@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA4257",
+    "courseCredit": "4",
+    "description": "This module is designed for honours students in the Computational Finance programme. It aims to impart to students more in-depth knowledge of derivative pricing, hedging and respective risk management considerations in equity, currency and fixed income markets. Major topics: Financial market fundamentals, volatility smile, improvement of Black-Scholes model, American and Bermudan options and their computation, exotic and path-dependent options, fixed income market and term-structure models, interest rate derivatives.",
+    "faculty": "Science",
+    "prereqTree": "MA3245",
+    "title": "Financial Mathematics II"
+}

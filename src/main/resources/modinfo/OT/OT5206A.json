@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "OT5206A",
+    "courseCredit": "2",
+    "description": "This module is concerned with the analysis and design of shallow foundations for offshore structures. The major topics covered include: site investigation, gravity based foundation, and jack-up spudcan foundation. Students gain an understanding of the design methodology for shallow foundations for offshore structures.",
+    "faculty": "Engineering",
+    "title": "Shallow Offshore Foundations"
+}

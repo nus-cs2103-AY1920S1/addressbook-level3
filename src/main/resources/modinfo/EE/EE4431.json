@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE4431",
+    "courseCredit": "4",
+    "description": "As devices scale down, quantum effects become important when their size reaches the nanometer regime (typically 100 nanometers or less). Devices with nanometer features, i.e., nano-devices, exhibit properties different from conventional bulk devices. The making of nanodevices, e.g., single electron transistor, carbon nanotube/ graphene transistor, spintronic devices, quantum well/dot laser, has been made possible by the emergence of the nano-processing and characterization tools. This module aims to provide an introductory coverage on the concepts and principles that form the basis for understanding an interdisciplinary field with an emphasis on electrical engineering. Topics covered include nano-lithography, nano-layering, nano-characterization, and nano-devices.",
+    "faculty": "Engineering",
+    "preclusion": "EE4413 Low Dimensional Electronic Devices",
+    "prereqTree": {
+        "or": [
+            "EE3431C",
+            "EE3406"
+        ]
+    },
+    "title": "Nano-Device Engineering"
+}

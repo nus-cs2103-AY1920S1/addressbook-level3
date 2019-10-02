@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2209",
+    "courseCredit": "5",
+    "description": "In this course, we will examine the central philosophical issues surrounding life and death, including the questions of what death is, whether it is to be feared, whether immortality is possible or desirable, and whether life is meaningful.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1113",
+            "YCC1114"
+        ]
+    },
+    "title": "Death and the Meaning of Life"
+}

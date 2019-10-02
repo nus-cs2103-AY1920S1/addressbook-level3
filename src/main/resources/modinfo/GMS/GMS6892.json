@@ -1,0 +1,13 @@
+{
+    "courseCode": "GMS6892",
+    "courseCredit": "32",
+    "description": "Students are to pursue original independent research work related to biostatistics and health data science, under the guidance of a research mentor. The work must make a significant contribution to the state of knowledge in the scientific community. The reseach culminates with the development of a written research thesis and an oral defense. The thesis or its components must be worthy of publication. The thesis must be written in English, and NUS has an upper limit of 40,000 words (not including bibliography and appendices) for the length of the thesis.",
+    "faculty": "Duke-NUS Medical School",
+    "prereqTree": {
+        "and": [
+            "GMS6801",
+            "GMS6820"
+        ]
+    },
+    "title": "Thesis Research"
+}

@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TBA2102",
+    "courseCredit": "4",
+    "description": "This module provides students with an introduction to the fundamental concepts and tools needed to understand the emerging role of business analytics in business and nonprofit organisations. The module aims to demonstrate to students how to apply basic applied analytics tools using MS Excel and R, and how to communicate with analytics professionals to effectively use and interpret analytic models and results for making better and more wellinformed business decisions.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TBA3204"
+    ],
+    "title": "Introduction to Business Analytics"
+}

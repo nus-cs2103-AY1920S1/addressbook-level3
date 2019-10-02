@@ -1,0 +1,11 @@
+{
+    "courseCode": "SPH5003",
+    "courseCredit": "4",
+    "description": "This module applies concepts and methods in social and behavioural sciences to evaluate and inform development of health promotion policies, programmes and services. It provides students with the principles and skills to address the social, psychological and environmental factors influencing behaviour and behaviour change. Upon completion of this module, students will be able to apply commonly used behavioural theories and models to change and evaluate behaviour at the individual, group and community level for the development of effective public health promotion interventions.",
+    "faculty": "SSH School of Public Health",
+    "fulfillRequirements": [
+        "SPH5501"
+    ],
+    "preclusion": "CO5203 Lifestyle and Behavior in Health and Disease,\nSPH6006 Advanced Health Behaviour & Communication",
+    "title": "Health Behaviour and Communication"
+}

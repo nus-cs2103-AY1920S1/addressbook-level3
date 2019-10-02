@@ -1,0 +1,15 @@
+{
+    "courseCode": "YHU3304",
+    "courseCredit": "5",
+    "description": "We will study the American Avant-Garde Theatre from its beginnings in the 1960\u2019s through to the end of the 1970\u2019s. This was a time of great political, social, economic and artistic upheaval and transformation that was both reflected in and challenged by the theatre artists we will study: The Living Theatre, The Open Theatre, The Performance Group, The Ontological-Hysteric Theatre, The Ridiculous Theatrical Company, Mabou Mines, and others. We will learn about the origins, responses to the world, and aesthetics of each group. Students will write papers and participate in individual and group presentations of the work of each theatre. This module fulfills the Art Practice track in the Arts & Humanities major.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1113",
+            "YCC1121",
+            "YCC1122"
+        ]
+    },
+    "title": "American Avant-Garde Theatre of the 1960\u2019s and 1970\u2019s"
+}

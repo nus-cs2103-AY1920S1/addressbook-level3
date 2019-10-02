@@ -1,0 +1,15 @@
+{
+    "courseCode": "CE5808",
+    "courseCredit": "4",
+    "description": "Virtual Design and Construction (VDC) features the integration and management of multi-disciplinary Building Information Models (BIM). The goal of the course is to enable participants to understand the business value of VDC, and how it can be applied to current infrastructure and building projects as well as the technology underpinning BIM. Specifically, the course will expose participants to the core principles and methodologies of VDC and equip them with competencies to create, manipulate and update the data residing in BIM. Specific topics include Integrated Project Delivery, BIM quality, Lean Design Management, Process Mapping, Algorithmic Thinking, and understanding of data standards.",
+    "faculty": "Engineering",
+    "preclusion": "CE5808A & CE5808B taken as a pair; and CE4282",
+    "prereqTree": {
+        "and": [
+            "CE2409",
+            "EG1311",
+            "CS1101E"
+        ]
+    },
+    "title": "Digital Design and Construction (BIM and VDC)"
+}

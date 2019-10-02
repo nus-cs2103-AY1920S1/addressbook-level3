@@ -1,0 +1,44 @@
+{
+    "courseCode": "EE2012",
+    "courseCredit": "4",
+    "description": "This module covers the mathematical fundamentals of probability and statistics which are necessary in the study of integrated circuits, communications, communication networks, control systems, signal processing, energy and new media. There is a strong emphasis on the application of these concepts to electrical and computer engineering problems, such as the Gaussian distribution in communications, random variable distributions for system reliability, Bayes theorem in parameter estimation, and hypothesis testing for signal detection.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE5907",
+        "EE5139",
+        "EE5310",
+        "EE6310",
+        "EE5934",
+        "EE6934",
+        "EE4103",
+        "EE4210",
+        "EE4113",
+        "EE3731C",
+        "EE4131",
+        "EE4204",
+        "EE4211",
+        "IE2100",
+        "IE2130",
+        "IE3101",
+        "IE4211",
+        "EE4205"
+    ],
+    "preclusion": "ST2334",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    "MA1505",
+                    "MA1506"
+                ]
+            },
+            {
+                "and": [
+                    "MA1511",
+                    "MA1512"
+                ]
+            }
+        ]
+    },
+    "title": "Analytical Methods in Electrical and Computer Engineering"
+}

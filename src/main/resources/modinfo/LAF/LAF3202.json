@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAF3202",
+    "courseCredit": "4",
+    "description": "Students will be taught to comprehend longer listening and reading texts on more complex topics of general interest as well as on aspects of French culture, society and life. They will also acquire the ability to express their views and communicate meaningfully on the same topics at greater length, both in writing and orally. In the area of grammar and vocabulary, the focus will shift more towards textlinguistic and pragmatic features. Language learning skills and strategies will include recognising and applying common linguistic and sociolinguistic norms in the use of the French language. The assessment for this module is 100% Continuous Assessment.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAF4201"
+    ],
+    "preclusion": "LAF3203",
+    "prereqTree": "LAF3201",
+    "title": "French 4"
+}

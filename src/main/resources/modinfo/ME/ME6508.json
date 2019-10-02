@@ -1,0 +1,7 @@
+{
+    "courseCode": "ME6508",
+    "courseCredit": "4",
+    "description": "This module teaches methods and tools for simulations of material properties without experimental input (e.g. ab initio based). The topics include: (1) Elements of solid state theory; (2) Introduction to the electronic structure theory, Density Functional Theory and software; (3) Molecular dynamics simulations, their types and uses to compute dynamics as well as static properties.",
+    "faculty": "Engineering",
+    "title": "Atomistic Simulations of Materials"
+}

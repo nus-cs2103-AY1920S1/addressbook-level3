@@ -1,0 +1,29 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5422",
+    "courseCredit": "4",
+    "description": "This module aims to provide solid foundation for students in the area of wireless networks and introduces students to the emerging area of cyber-physical-system/Internet-of-Things. The module will cover wireless networking across all layers of the networking stack including physical, link, MAC, routing and application layers. Different network technologies with different characteristic will also be covered, including cellular networks, Wi-Fi, Bluetooth and ZigBee. Some key concepts that cut across all layers and network types are mobility management, energy efficiency, and integration of sensing and communications. The module emphasizes on exposing students to practical network system issues through building software prototypes.",
+    "faculty": "Computing",
+    "preclusion": "CS4222",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2105",
+                    "EE3204",
+                    "EE3204E",
+                    "EE4204"
+                ]
+            },
+            {
+                "or": [
+                    "ST2334",
+                    "ST2131"
+                ]
+            }
+        ]
+    },
+    "title": "Wireless Networking"
+}

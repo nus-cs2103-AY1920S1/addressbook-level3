@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2213",
+    "courseCredit": "5",
+    "description": "An examination of some key themes and issues in the philosophy of law, including the nature of law; rule of/by law; the functions and reach of law; the enforcement of morality; punishment; justice; and (the universality of) rights. Readings are taken from classical and contemporary sources in philosophy and legal theory, and from multiple intellectual traditions. As a philosophy course, it is intended to cultivate skills in two areas: (a) philosophical problem-solving and (b) application.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1113",
+            "YCC1114"
+        ]
+    },
+    "title": "Philosophy of Law"
+}

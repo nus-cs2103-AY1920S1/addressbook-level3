@@ -1,0 +1,25 @@
+{
+    "courseCode": "BT4222",
+    "courseCredit": "4",
+    "description": "The World Wide Web overwhelms us with immense amounts of widely distributed, interconnected, rich, and dynamic hypertext information. It has profoundly influenced many aspects of our lives, changing the ways individuals communicate and the manners businesses are conducted. This module aims to teach students various concepts, methods and tools in mining Web data in the form of unstructured Web hyperlinks, page contents, and usage logs to uncover deep business insights and knowledge for business implications that are embedded in the billions of Web pages and servers. Topics covered include various text mining methodologies, case applications and tutorials on Web data mining for marketing, sales and finance applications, social Web data mining from Facebook and Twitter, and Web analytics involving clickstream and site traffic data, etc.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    "CS1010",
+                    "BT2101",
+                    "BT2102"
+                ]
+            },
+            {
+                "and": [
+                    "DAO2702",
+                    "DBA3803",
+                    "IT3010"
+                ]
+            }
+        ]
+    },
+    "title": "Mining Web Data for Business Insights"
+}

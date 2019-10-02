@@ -1,0 +1,9 @@
+{
+    "courseCode": "FIN3714",
+    "courseCredit": "4",
+    "description": "This course covers one of the core functions of finance, namely, risk management. The objective is to introduce the fundamental concepts, principles and practices of financial risk management. The focus of the module is on the identification, measurement, monitoring and control of financial risk. It also addresses the basic financial and statistical techniques that enhance risk management decision-making.The course starts by looking at risk management concepts and the risk management process. It then examines the approaches used to identify, measure and reduce risks. Topics to be covered include risk measurement - Value-at-Risk (VAR) methods, measuring and managing market risk and credit risk, risk management applications, managing other risks such as liquidity and operational risks, regulatory and capital issues, risk-adjusted performance, and implementing a risk management programme.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN3118",
+    "prereqTree": "FIN3702",
+    "title": "Financial Risk Management"
+}

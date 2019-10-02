@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true,
+        "year": true
+    },
+    "courseCode": "SP2171",
+    "courseCredit": "4",
+    "description": "This module is a series of lectures conducted to improve students\u2019 computational, modelling and communication skill as an integral part of the Integrated Science Curriculum. Students are also required to engage in small-group discussions and undertake focused literature surveys on special topics of their choice within the four major themes in the Integrated Science Curriculum of the Special Programme in Science, namely Atoms to Molecules, The Cell, The Earth and The Universe. Students will read this module in Semester I and Semester II of their first year of study, with a 4-MC workload over two semesters.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "SP3277"
+    ],
+    "title": "Discovering Science"
+}

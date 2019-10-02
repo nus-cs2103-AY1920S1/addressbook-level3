@@ -1,0 +1,20 @@
+{
+    "courseCode": "EB5001",
+    "courseCredit": "4",
+    "description": "This course equips students with the in-depth data engineering and data analytics skills that are required to engineer big data solutions to solve real world business problems. The first half of the course delivers in-depth knowledge of the engineering aspects involved in the storage, processing and visualization of big data sets. It examines state-of-the-art distributed architectures and platforms (both cloud hosted and traditional) and their programming frameworks and libraries. The second half of the course focuses on the data analytics techniques, technologies and tools that combine with these architectures and frameworks to solve real world big data problems.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "EB5102",
+        "EB5103",
+        "EB5104",
+        "EB5105",
+        "EB5201",
+        "EB5202",
+        "EB5203",
+        "EB5204",
+        "EB5205",
+        "EB5206",
+        "EB5207"
+    ],
+    "title": "Big Data Engineering for Analytics"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "LL5353",
+    "courseCredit": "4",
+    "description": "The law relating to evidence of character has been changing throughout the common law world over the last fifty years. This course will, by reference several common law jurisdictions, including Singapore in particular, cover, most pressingly, how the law deals with evidence of the accused\u2019s bad character. It will also deal with bad character of witnesses in criminal cases, and, in particular, complainants in sexual cases, as well as that of witnesses and others in civil cases. A third element concerns the good character of the accused, of witnesses in criminal cases, and of parties and others in civil cases.",
+    "faculty": "Law",
+    "preclusion": "LL4353V/LL5353V/LL6353V Character Evidence in the Common Law World",
+    "prereqTree": {
+        "or": [
+            "LC3001A",
+            "LC3001B"
+        ]
+    },
+    "title": "Character Evidence in the Common Law World"
+}

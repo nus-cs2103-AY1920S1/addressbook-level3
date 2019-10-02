@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BSP1005B",
+    "courseCredit": "4",
+    "description": "This course aims to equip students with the basic working knowledge of contemporary economic thinking, and thus lays the foundation to many areas of their business studies in coming years. We adhere closely to mainstream economics thinking, but pay particular attention to business applications. We take our students through market equilibrium, competition, monopoly, price and non-price business strategies. Our teaching methodology takes a fundamentally problem-solving approach. Models and analytical skills are introduced in order to solve business problems systematically.Information technology and the Internet have made many changes in the way businesses are run, and Managerial Economics has changed significantly with it. We now devote a new portion of this course to discussing how network effects propel the information age, resulting in significant monopoly powers such as Microsoft. Related anti-trust and other cases are also discussed and analysed.",
+    "faculty": "NUS Business School",
+    "preclusion": "Economics Major or\nBH1005 or BZ1006 or BK1008 or EC1101 or EC1101E or EC1310 or EC1301 or EC2101 or EC3101 or BSP1005/BSP1005A",
+    "title": "Managerial Economics"
+}

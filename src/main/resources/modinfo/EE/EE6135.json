@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6135",
+    "courseCredit": "4",
+    "description": "EE6135 is an intermediate-level digital communications course, that assumes previous exposure to laboratories and less mathematically rigorous explanations of digital communications concepts. Theoretical foundations of these concepts will be emphasized, with students expected to know the derivations of important results. Project work will be done individually, and will involve reporting on a research paper or topic selected jointly by the student and instructor.",
+    "faculty": "Engineering",
+    "preclusion": "EE5135",
+    "title": "Digital Communications (Advanced)"
+}

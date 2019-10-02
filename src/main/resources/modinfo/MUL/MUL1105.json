@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUL1105",
+    "courseCredit": "4",
+    "description": "This module serves as the first semester of Italian language studies for music majors. Basic grammar, morphology, syntax and, especially, conversation will be emphasized. Required for all voice majors. Open to all NUS students.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUL1106"
+    ],
+    "title": "Italian for Musicians 1"
+}

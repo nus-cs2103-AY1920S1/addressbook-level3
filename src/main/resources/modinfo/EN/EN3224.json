@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3224",
+    "courseCredit": "4",
+    "description": "Drawing from all three genres of fiction, drama and poetry, this module presents a survey of the literature of Britain in the 20th-century. We explore the writing of this century through two of its most important literary paradigms, namely the literary modernism of the early decades and the postmodern era following WWII. Students will encounter a century characterized by extensive aesthetic innovation, active political engagement and the acute registering of social change. Subjects covered include modernism, postmodernism and issues of art, language and representation. Writers we study include T. S. Eliot, James Joyce, Harold Pinter, Jeanette Winterson and Virginia Woolf.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "The Twentieth Century"
+}

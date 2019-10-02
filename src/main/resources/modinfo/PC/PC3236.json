@@ -1,0 +1,12 @@
+{
+    "courseCode": "PC3236",
+    "courseCredit": "4",
+    "description": "The module presents basic computational methods useful for physics and science students. The lectures cover: (1) Basic numerical methods - differentiation, integration, interpolation, root-finding and random number generators, (2) Differential equations - finite difference method, shooting method and relaxation method; applications to chaotic dynamics of a driven pendulum, one-dimensional Schr&#246;dinger equation, and fast Fourier transform, (3) Matrices - Gaussian elimination scheme for a system of linear equations, eigenvalues of Hermitian matrices; Hartree-Fock approximation, (4) Monte Carlo simulations - sampling and integration; random walk and simulation of diffusion equation, stochastic differential equation, Brownian dynamics; variational Monte Carlo simulation; Metropolis algorithm and Ising model, and (5) Finite element methods - basic concepts; applications to the Poisson equation in electrostatics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5215",
+        "PC3238"
+    ],
+    "prereqTree": "PC2134",
+    "title": "Computational Methods in Physics"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5611",
+    "courseCredit": "4",
+    "description": "The primary objective of this module is to equip civil engineering students with sufficient design knowledge and skills on precast structural concrete both for their further education and for their future engineering career. This module provides students with fundamental approaches in designing precast concrete components and structures. The students will acquire fundamental knowledge and approaches to section analysis and design, design of connections, floor diaphragm action, precast frame structures and precast components. The module is targeted at MSc civil engineering students and those with a keen interest on precast concrete technology.",
+    "faculty": "Engineering",
+    "preclusion": "CE5610 Precast and Retrofitting Technology (taken in Semester 2, AY2008/09 or earlier)\nTCE5611",
+    "title": "Precast Concrete Technology"
+}

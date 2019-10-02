@@ -1,0 +1,17 @@
+{
+    "courseCode": "EC3391",
+    "courseCredit": "4",
+    "description": "This module will introduce students to the works, ideas and significance of many of the most influential economists and writers on economic topics of the last four hundred years or so. We will start with the development of analytical economics during the mercantile era in Europe and reach the second half of this century when we will overview the main competing schools in economics and appreciate their historical background. Students will be expected to read parts of the original works of the most important economists they will meet such as David Hume, Adam Smith, David Ricardo, Karl Marx, William Stanley Jevons, Alfred Marshall, John Maynard Keynes, Milton Friedman and possibly others. Students will be encouraged to treat this as a research course in which they will be expected to show initiative in finding and using relevant sources. The first lecture will discuss certain aspects of the course, what is expected of students, what they are likely to learn and the different approaches to the subject they will come across.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC3393",
+    "prereqTree": {
+        "or": [
+            "EC1301",
+            "EC1101E",
+            "BH1005",
+            "BSP1005",
+            "USE2301"
+        ]
+    },
+    "title": "Evolution of Economic Thought & Analysis"
+}

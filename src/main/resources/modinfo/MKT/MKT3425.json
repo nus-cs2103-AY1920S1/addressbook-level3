@@ -1,0 +1,13 @@
+{
+    "courseCode": "MKT3425",
+    "courseCredit": "4",
+    "description": "The course will introduce retail marketing concepts covering both the mechanics and management of retailing from an entrepreneurial perspective. A range of topics, including the role and tasks of an entrepreneur, store and non-store retailing, location and site selection, retail environment and the application of new technologies, retail marketing mix components (such as merchandising, pricing and margin planning, store management, layout and visual merchandising), as well as internal and external promotions will be covered. In addition, short case studies and projects will be used to supplement lectures and readings. Students will acquaint themselves with current and future retailing environments and developments in Singapore and other countries as well as the processes that go on behind the scenes in retailing. While the module will cover theories in retail marketing discipline, it is generally approached with a practical and applied orientation. Lectures will be supplemented with store visits, video clips and talks. Students will also get a chance to learn about assessing retail outlets and developing retail strategies for real-life businesses through hands-on projects. By the end of the course students should be equipped with the knowledge and skills necessary to start up a retail business. Aside from business students who are interested in retailing, this course is targeted at students who are enterprising and may aspire to start their own retail business in the future.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "MKT1003X"
+        ]
+    },
+    "title": "Retail Marketing"
+}

@@ -1,0 +1,28 @@
+{
+    "courseCode": "CS2103T",
+    "courseCredit": "4",
+    "description": "This module introduces the necessary conceptual and analytical tools for systematic and rigorous development of software systems. It covers four main areas of software development, namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, with emphasis on system modelling and design and implementation of software modules that work cooperatively to fulfill the requirements of the system. Tools and techniques for software development, such as Unified Modelling Language (UML), program specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, program correctness, and software quality will also be covered.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CP3880",
+        "CS3283",
+        "CS3203",
+        "IS4302",
+        "BT3102",
+        "IS4234"
+    ],
+    "preclusion": "CS2103, CS2113, CS2113T, IS2101 or its equivalent.",
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "CS2020",
+            {
+                "and": [
+                    "CS2030",
+                    "CS2040"
+                ]
+            }
+        ]
+    },
+    "title": "Software Engineering"
+}

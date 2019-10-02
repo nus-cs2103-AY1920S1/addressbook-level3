@@ -1,0 +1,13 @@
+{
+    "courseCode": "QT5201F",
+    "courseCredit": "4",
+    "description": "The Module consists of 4 fundamental courses (42h) on the conceptual tools to describe the physics of light-matter coupling in the quantum and in the classical regimes, in different physical systems covering topics like CQED in atomic physics, Strong coupling regimes in semiconducting systems, circuit QED, Quantum open Systems.",
+    "faculty": "NUS Graduate Sch for Int Science and Engineering",
+    "prereqTree": {
+        "or": [
+            "PC4130",
+            "PC4243"
+        ]
+    },
+    "title": "Special Topics in Quantum Information (Strong Light Matter Coupling)"
+}

@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5139",
+    "courseCredit": "4",
+    "description": "The aim of this module is to provide an appreciation of the important contributions made by Claude Shannon to communications, including the fundamental limits of data compression, channel capacity, and the source-channel separation principle. Students will obtain an understanding of the concept of 'a bit of information' in Shannon\u2019s sense. Coding, modulation and demodulation will be briefly covered, but all at the most basic level of trying to transfer a bit of information reliably from sender to receiver. Topics are as follows: introduction to communications, including standardized interfaces and layering, communication system blocks, source-channel separation principle; coding for discrete sources; channels, modulation and demodulation of binary signals; coding and Shannon capacity; Gaussian channels.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6130"
+    ],
+    "preclusion": "EE5139R",
+    "prereqTree": {
+        "or": [
+            "EE2012",
+            "EE4131"
+        ]
+    },
+    "title": "Information Theory for Communication Systems"
+}

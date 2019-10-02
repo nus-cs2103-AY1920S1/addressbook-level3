@@ -1,0 +1,8 @@
+{
+    "courseCode": "FMS1212M",
+    "courseCredit": "4",
+    "description": "Magic squares is a simple concept that has been around for thousands of years. Mathematicians have long been fascinated by the mesmerising patterns that they produce, and thus it is not surprising to find many amazing variations on magic squares. A graph labeling is an assignment of integers to the vertices or edges, or both, subject to certain conditions. The ideas of magic squares have also been expanded to magic graphs through graph labelings. In this module, the students will uncover the amazing mathematical ideas and patterns in magic squares and its variations as well as magic graphs.",
+    "faculty": "Science",
+    "preclusion": "Students who have read a Freshman Seminar before will be precluded from reading a second Freshman Seminar. Students staying in Residential Colleges in UTown who will be reading or have read the Junior Seminars will be precluded from reading Freshman Seminar in the Faculty.",
+    "title": "Uncovering the Magic in Magic Squares and Magic Graphs"
+}

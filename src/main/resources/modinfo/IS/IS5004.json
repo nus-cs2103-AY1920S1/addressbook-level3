@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS5004",
+    "courseCredit": "4",
+    "description": "Enterprise architecture is a necessary element in business planning, strategy and execution. It is a conceptual blueprint that defines the IT structure and operation of business. This module provides a broad yet in-depth understanding of enterprise architecture design and implementation. The module covers a comprehensive topics of enterprise architecture, including methods and frameworks, governance, description language, modelling, viewpoints and visualisations, and analysis of architecture.",
+    "faculty": "Computing",
+    "prereqTree": "IS2102",
+    "title": "Enterprise Architecture"
+}

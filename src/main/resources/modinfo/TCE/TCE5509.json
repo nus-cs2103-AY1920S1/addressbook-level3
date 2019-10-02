@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCE5509",
+    "courseCredit": "4",
+    "description": "The primary objective of this module is to equip civil engineering students with sufficient design knowledge and skills on steel-concrete composite structures both for their further education and for their future engineering career. This module provides students with fundamental approaches in designing structural steel-concrete components and buildings. The students will acquire fundamental knowledge and skills to perform structural design for composite beams, slabs, columns, joints, multistorey buildings. This enables the students to conceive a safe and economical structural system. The module is targeted at MSC civil engineering students and those with a keen interest on structural design.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE5509",
+    "prereqTree": "TCE3166",
+    "title": "Advanced Structural Steel Design"
+}

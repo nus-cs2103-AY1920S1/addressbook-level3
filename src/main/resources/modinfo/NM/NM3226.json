@@ -1,0 +1,10 @@
+{
+    "courseCode": "NM3226",
+    "courseCredit": "4",
+    "description": "Designers of interactive digital media are increasingly focusing on issues, concerns, and approaches towards designing for location- and context-specific interactive experiences. This module aims to develop the students\u2019 appreciation of the challenges confronting the design of interactive experiences for sites and contexts that are leisure-based, pleasurable, and recreational. Students will be taught and will utilize skills/methods from the human computer interaction (HCI) development cycle. By the end of this course, students will be able to work in collaborative design teams, conduct independent design research, think critically about designing for site-specific experiences, and develop prototype systems that exemplify location-based interactive experiences.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CS3283"
+    ],
+    "title": "Location-based interactive experiences"
+}

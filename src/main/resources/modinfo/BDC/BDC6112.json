@@ -1,0 +1,13 @@
+{
+    "courseCode": "BDC6112",
+    "courseCredit": "4",
+    "description": "Probability space and random variables Outcomes, events, and sample space; probability measure and integration; distributions and expectation. Conditional expectation Conditioning on events; conditioning on random variables; general properties of condition expectation; introduction to martingales. Exponential distribution and Poisson process Memorylessness; counting processes; construction of Poisson process; thinning and superposition of Poisson processes; nonhomogeneous and compound Poisson process. Discrete-time Markov chains Markov property; stopping times and strong Markov property; classification of states; hitting and absorption probabilities; stationary and limit distributions.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BDC6221",
+        "BDC6306",
+        "IE6505"
+    ],
+    "preclusion": "IE6004 Stochastic Process I",
+    "title": "Stochastic Processes I"
+}

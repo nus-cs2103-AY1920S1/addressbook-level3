@@ -1,0 +1,7 @@
+{
+    "courseCode": "ECA5372",
+    "courseCredit": "4",
+    "description": "This module covers the concepts of big data, analytics and technologies. The main goal aims at managing and analysing a set of big data. Big data differs from traditional data, as the nature of big data is massive, unstructured, granular, and heterogeneous. Big data is produced by various digital resources and domains including smart phones with multiple sensors, a variety of digital media produced by various social media, and billions of on\u2010line financial transactions. The topics of this module covers big data scalability and process, infrastructure, and analytics using Hadoop, HBase, MapReduce, R, in\u2010database analytics, mining of data streams, etc.",
+    "faculty": "Arts and Social Science",
+    "title": "Big Data Analytics and Technologies"
+}

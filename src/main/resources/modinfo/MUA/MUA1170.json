@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1170",
+    "courseCredit": "4",
+    "description": "This module will provide students with introductory knowledge of microphone design, the working principles of mixing consoles, and the principles of stereo image creation. Additional topics will include principles and application of different stereo microphone techniques like XY, ORTF, NOS and AB. Students will be requested to participate in recording all YSTCM concert events.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA1171",
+        "MUA4176"
+    ],
+    "title": "Fundamentals of Music Production and Recording 1"
+}

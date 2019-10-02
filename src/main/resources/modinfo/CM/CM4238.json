@@ -1,0 +1,9 @@
+{
+    "courseCode": "CM4238",
+    "courseCredit": "4",
+    "description": "Several topics highlighting physical chemistry principles such as thermodynamics, spectroscopy, kinetics and quantum chemistry will be covered. In photochemistry, kinetics and quantum chemistry are used to illustrate how quantization and energy level interactions lead to different radiative processes and rates of excited and ground state reactions. The use of spectroscopy yields the precise determination of reaction rates. In the chemistry of liquids, thermodynamics will be heavily featured in describing intermolecular potentials in liquids and colloids. In biophysical chemistry, the thermodynamics and kinetics of biomolecules together with spectroscopic techniques used to determine their interactions will also be included.",
+    "faculty": "Science",
+    "preclusion": "CM4236 or CM4237",
+    "prereqTree": "CM2101",
+    "title": "Selected Topics in Physical Chemistry"
+}

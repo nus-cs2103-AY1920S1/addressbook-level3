@@ -1,0 +1,20 @@
+{
+    "courseCode": "EN2271",
+    "courseCredit": "4",
+    "description": "This module seeks to introduce the techniques and genres of contemporary playwriting in order to equip students with the skills and resources needed to write for the stage. Students' weekly writing exercises will be critiqued by their peers and will culminate in the writing (and rewriting) of their own one-act plays. Students will also analyse one or more contemporary plays each week from a practitioner's perspective. Techniques discussed will include creating characters, dialogue, and theatrical action. Genres examined will include the historical play, the political play, the farce, the play of ideas, and the comedy of manners.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EN3271"
+    ],
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "EN1101E",
+            "TS1101E",
+            "GEK1011",
+            "GEK1000",
+            "GEM1003"
+        ]
+    },
+    "title": "Introduction to Playwriting"
+}

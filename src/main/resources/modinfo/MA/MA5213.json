@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5213",
+    "courseCredit": "4",
+    "description": "This module is an advanced course on partial differential equations. It covers the following topics: the Laplace equations, subharmonic functions, Dirichlet and Neumann problems, the Poisson equations, hyperbolic equations, Cauchy problems, mixed boundary value problems, parabolic equations, initial value problems, maximum principle, mixed boundary value problems. The course is for mathematics graduate students with interest in differential equations and its applications.",
+    "faculty": "Science",
+    "prereqTree": "MA4221",
+    "title": "Advanced Partial Differential Equations"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "YSC4223",
+    "courseCredit": "5",
+    "description": "The course introduces the basic ideas of relativity, with an emphasis on physical phenomena in curved spacetime. Special relativity will be reviewed, and the basic concepts and mathematics of general relativity introduced. We will then turn to physics in flat or curved spacetime. Physical phenomena covered may vary from year to year, but can include a selection from mechanics, electrodynamics, kinetic theory, quantum mechanics, gravitational lensing, black holes, gravitational waves, etc. The course teaches the physical relevance of the theory of relativity, and prepares the student for an advanced course in general relativity. Prior exposure to special relativity is assumed.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "YSC2203",
+                    "YSC3210"
+                ]
+            },
+            "YSC3211"
+        ]
+    },
+    "title": "Physics in Curved Spacetime"
+}

@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5607",
+    "courseCredit": "2",
+    "description": "This module provides an introduction to automation technologies applied in future part manufacturing: the smart factory. It will see machines, raw materials, and products communicating within an IoT to cooperatively drive production. Products will find their way independently through the production process. The goal is highly flexible, individualized mass production that is cost-effective. In this module, conventional automation technologies are first introduced, followed by the introduction of RFID and its applications in these areas. The focus will be on its application in smart factory to achieve highly flexible, individualized mass production that is cost-effective.",
+    "faculty": "Engineering",
+    "preclusion": "ME4262 and ME4262E",
+    "title": "Smart Factories"
+}

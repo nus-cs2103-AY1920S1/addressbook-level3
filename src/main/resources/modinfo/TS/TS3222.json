@@ -1,0 +1,14 @@
+{
+    "courseCode": "TS3222",
+    "courseCredit": "4",
+    "description": "This module develops students' theoretical and practical perspectives of Applied Theatre, a term that embraces different strands of socially engaged theatre, and focuses on the 'usefulness' of theatre in various educational and community contexts. Through exploring a range of practical approaches deployed by some key practitioners in the field, students are guided to think critically about how the social efficacy of theatre can be promoted and debated. Leading approaches are re-examined in light of context\u2010 and culture\u2010specific situations, and students' practical experience form a basis to engage with theoretical questions and issues of creating participatory theatre in non\u2010conventional settings.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "TS4880B Applied Theatre",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Applied Theatre"
+}

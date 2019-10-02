@@ -1,0 +1,9 @@
+{
+    "courseCode": "PP5018",
+    "courseCredit": "1",
+    "description": "To deal with risk, it is useful to build disaster scenarios. Typically, these scenarios combine the chances of the disaster occurring and the impact it would have if it occured. Scenarios would also differ across country typologies, low-, middle- and high-income economies, as well as across broad types of disasters, climate disasters, geological ones, pandemics, terrorism etc. Resilience building in response span governments, businesses and households. It also needs to take into account the capabilities and weaknesses in the sectors involved, such as water and health. It also draws on financing needed to implement policies and investments for greater resilience.",
+    "faculty": "LKY School of Public Policy",
+    "preclusion": "PP5194 Natural Disasters, Environment and Climate Change",
+    "prereqTree": "PP5015",
+    "title": "Disaster Scenarios and Resilience Building"
+}

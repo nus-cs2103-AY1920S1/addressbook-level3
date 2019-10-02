@@ -1,0 +1,14 @@
+{
+    "courseCode": "EB5105",
+    "courseCredit": "12",
+    "description": "The Enterprise Business Analytics project is designed to be a building block for students to consolidate and put into practice the skills, tools and techniques they have acquired during the Masters programme. This hands-on experience will give students the opportunity to analyze the business needs of a functional area in their organization and suggest and apply Business Analytics techniques to provide business insights and identifiable benefits. The project may take the form of a typical consulting engagement or alternatively, it may involve the experimental application and validation of a Business Analytics technology such as text mining, neural networks etc.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": {
+        "or": [
+            "EB5001",
+            "EB5002",
+            "EB5003"
+        ]
+    },
+    "title": "Enterprise Business Analytics Project"
+}

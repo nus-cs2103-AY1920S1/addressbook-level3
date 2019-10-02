@@ -1,0 +1,13 @@
+{
+    "courseCode": "ECA5884",
+    "courseCredit": "4",
+    "description": "This course provides an introduction to the field of behavioural economics. In the first part of the course, we will familiarize students with specific empirical problems of the standard model in economics, which assumes that individuals are fully rational, act consistently over time, and are strictly selfish. We will show how departures from these assumptions can be modelled and integrated into economics analysis. In the second part, we will show how this approach can be put to use. We will study how policy interventions can be made more effective, for example in resource conservation, retirement savings, and human\u2010resource practices.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "ECA5101",
+            "ECA5103"
+        ]
+    },
+    "title": "Applied Behavioural Economics"
+}

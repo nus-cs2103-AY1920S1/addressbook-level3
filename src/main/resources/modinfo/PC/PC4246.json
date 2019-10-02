@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC4246",
+    "courseCredit": "4",
+    "description": "This module is an introduction to the quantum description of the electromagnetic field, with a special focus on phenomena at optical frequencies; in short, 'quantum optics'. It starts with two introductory chapters: a concise reminder of important facts and devices of classical optics; and a presentation of typical quantum phenomena that have been observed with light (entanglement, violation of Bell's inequalities, teleportation\u2026). The core of the module is the canonical quantization of the electromagnetic field and the introduction of the corresponding vector space ('Fock space') and field operators. Then, we present the main families of states (number, thermal, coherent, squeezed) and the most typical measurement techniques (photo-detection, homodyne measurement, first- and second-order coherence, Hong-Ou-\\Mandel bunching). The statistical nature of light fields is highlighted. Finally, we present the basic case studies of photon-atom interactions in the full quantum approach: cavity quantum electrodynamics (Janyes-Cummings model), spontaneous decay (Wigner-Weisskopf approach).",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC3130",
+            "PC3243"
+        ]
+    },
+    "title": "Quantum Optics"
+}

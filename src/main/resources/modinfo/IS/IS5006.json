@@ -1,0 +1,13 @@
+{
+    "courseCode": "IS5006",
+    "courseCredit": "4",
+    "description": "This module is an in-depth, hands-on, and practical application of the latest intelligence systems and the best-practice systems implementation methodology. The module describes the decisionmaking process in businesses today, including the hierarchy of decision making responsibilities to address business problems and challenges. Intelligent systems have the capacity to gather and analyse data, learn from experience, and adapt according to external stimulus. The module includes problem assessment, intelligence techniques and models for decision making and expert systems. It will also cover how IT leaders enable business competitiveness with data-driven strategy.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "IS4242",
+            "BT4014"
+        ]
+    },
+    "title": "Intelligent System Deployment"
+}

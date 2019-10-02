@@ -1,0 +1,8 @@
+{
+    "courseCode": "IE5001A",
+    "courseCredit": "2",
+    "description": "Linear programming and network models are some of the basic and important topics in operations research. This module introduces the fundamental concepts, modelling techniques and solution methods for these two topics. It will also illustrate how these two topics can be applied to solve many decision making problems encountered in the industry.",
+    "faculty": "Engineering",
+    "preclusion": "IE5001 Operations Planning and Control I",
+    "title": "Linear Programming and Network Models"
+}

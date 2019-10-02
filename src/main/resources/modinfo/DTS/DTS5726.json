@@ -1,0 +1,8 @@
+{
+    "courseCode": "DTS5726",
+    "courseCredit": "4",
+    "description": "This module is an introductory module providing an overview of the topic and a flavour of the details which should be more fully explored in depth through other modules. It explains systems architecting, engineering, lifecycles, associated activities, products, applications, processes, models, methods and strategies. The module is intensive and challenges the students to think creatively.",
+    "faculty": "Temasek Defence Sys. Institute",
+    "preclusion": "IE5402 Systems Engineering and Architecture\nSyE5001 Systems Engineering and Architecture\nSDM5001 Systems architecture\nSDM 5002 Systems Engineering\nDTS5716 Systems Approach to Engineering Management",
+    "title": "Fundamentals of Systems Engineering and Architecting"
+}

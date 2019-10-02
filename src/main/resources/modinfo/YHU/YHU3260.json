@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3260",
+    "courseCredit": "5",
+    "description": "Why are some forms of cultural expression considered highly subversive in the Islamic world today? Why are some literary works viewed as so incendiary that the authorities imagine that they must not only be banned, but that their authors must be punished for their transgression as well? This course will move between modern literary works from the Arab and broader Islamic world and the textual foundations of the Islamic tradition with the goal of understanding why some books are read as dangerously inflammatory in the modern period when their content often would have been far less controversial centuries earlier.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Heretics and Deviants: Writing, Rebellion, and Islam"
+}

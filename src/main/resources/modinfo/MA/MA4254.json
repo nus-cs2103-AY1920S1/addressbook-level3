@@ -1,0 +1,16 @@
+{
+    "courseCode": "MA4254",
+    "courseCredit": "4",
+    "description": "Discrete optimization deals with problems of maximizing or minimizing a function over a feasible region of discrete structure. These problems come from many fields like operations research, management science and computer science. The primary objective of this module is twofold: (a) to study key techniques to separate easy problems from difficult ones and (b) to use typical methods to deal with difficult problems. Major topics: Integer programming: cutting plane techniques, branch and bound enumeration, partitioning algorithms, the fixed charge and plant location problems. Sequencing and job-shop scheduling. Vehicle routing problems.",
+    "faculty": "Science",
+    "preclusion": "MA3235, ISE students.",
+    "prereqTree": {
+        "or": [
+            "MA2215",
+            "MA3252",
+            "DSC3214",
+            "DSN3701"
+        ]
+    },
+    "title": "Discrete Optimization"
+}

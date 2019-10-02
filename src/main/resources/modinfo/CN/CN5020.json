@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "CN5020",
+    "courseCredit": "4",
+    "description": "The module aims to train the students in the fundamentals of reaction engineering and their application to the design and analysis of reactor. The concepts and theory in reaction kinetics are applied to reactor design of single phase reaction system. These are extended to multiphase reaction systems, incorporating the effects of physical rate processes and the interfacial equilibrium leading to the formulation of procedure for the design performance and stability analysis of reactors. This postgraduate module is targeted at students with interests in reaction systems. Background in chemical kinetics and transport phenomena will be beneficial.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN6163"
+    ],
+    "title": "Advanced Reaction Engineering"
+}

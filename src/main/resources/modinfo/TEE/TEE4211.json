@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TEE4211",
+    "courseCredit": "4",
+    "description": "This module covers data analytics for the Internet of Things. It starts with an introduction to the Internet of Things (IoT) systems, including the enabling technologies, IoT network architectures and protocols. IoT systems have applications such as semiconductor manufacturing, smart power grids, and healthcare. The module then covers data science fundamentals such as Bayesian statistics, classification, supervised learning, unsupervised learning, and deep learning. The module also covers basic machine learning algorithms such as decision trees, logistic regression, support vector machines, and neural networks. Students will visualize and analyze real-world data sets via practical IoT case studies.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": {
+        "or": [
+            "TE2003",
+            "TEE2003"
+        ]
+    },
+    "title": "Data Science for the Internet of Things"
+}

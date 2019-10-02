@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSC1206",
+    "courseCredit": "2",
+    "description": "An introduction to concepts of calculus, for students who may encounter calculus in science and economics courses. Topics include: the analysis of functions and qualitative interpretations of the derivative and definite integral; occurrences of derivatives and integrals in geometry, probability, and physics; the computation of derivatives and antiderivatives of simple functions; computing derivatives and antiderivatives of more complicated functions with the aid of a computer.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3216",
+        "YSC1211"
+    ],
+    "title": "Conceptual Calculus"
+}

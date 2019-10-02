@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "MD3140",
+    "courseCredit": "1",
+    "description": "MD3140 Core Clinical Practice aims to provide a solid foundation for the management of core medical problems, and equip students with necessary knowledge, skills, and behaviour to commence training as an effective junior doctor within Singapore\u2019s health care system upon graduation. There will be five postings: Medicine, Family Medicine, Paediatrics, Surgery, and Orthopaedic Surgery where students will be integrated within the health care teams in the teaching hospitals.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "MD4140"
+    ],
+    "title": "Core Clinical Practice"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4217",
+    "courseCredit": "4",
+    "description": "Populations around the world are rapidly ageing and it is important to understand the functional decline in ageing populations. Functional age is defined as a combination of chronological, biological and psychological ages. Molecular processes governing ageing will be covered during the first half while the second half will be on societal perception, burden of disease, healthy ageing interventions and ageless society. The ageing process will be explained based on the experimental and epidemiological studies. This module will integrate biology and sociology of ageing which will provide avenues for better understanding of ageing in a society.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM3217",
+            "LSM3224"
+        ]
+    },
+    "title": "Functional Ageing"
+}

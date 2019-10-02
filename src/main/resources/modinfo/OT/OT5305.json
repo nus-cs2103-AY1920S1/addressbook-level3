@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5305",
+    "courseCredit": "4",
+    "description": "This module is suitable for persons interested in the design and analysis of pressure surge protection in Oil & Gas Systems. It is also suitable for R&D engineers working in the Oil & Gas field flow systems. Its contents are focused on giving an overview of the pressure surges in fluid systems; Methods of solutions and analysis of transient flow for Oil & liquid systems; Gas flow systems; Two phases Oil & Gas flow systems; Analysis and Solutions of Industrial Fluid Transients Problems; Industrial Pressure Protection methods. A structured programme of lectures, seminars, term papers, mini-projects and a final examination are included in this module.",
+    "faculty": "Engineering",
+    "preclusion": "ME5708",
+    "prereqTree": "ME3233",
+    "title": "Pressures Surges in Oil & Gas Flow Systems"
+}

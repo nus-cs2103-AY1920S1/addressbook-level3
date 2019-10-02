@@ -1,0 +1,18 @@
+{
+    "courseCode": "CG2027",
+    "courseCredit": "2",
+    "description": "Building on the basic circuit concepts introduced through CG1111 and CG1112, this module introduces the fundamental concept of carriers, operating principles of PN diodes and MOSFETs. Their IV characteristic in different operating region and their impact on the performance of logic gate will also be discussed. It explains the foundational concepts of inverters and analyses their performance in terms of power and delay trade-off. It also introduces logic synthesis and the fundamental timing analysis of logic gates. Besides the static CMOS logic, it will also cover pass logics or transmission gates logics.",
+    "faculty": "Multi Disciplinary Programme",
+    "fulfillRequirements": [
+        "EE3431C"
+    ],
+    "preclusion": "EE2021 Devices and Circuit",
+    "prereqTree": {
+        "or": [
+            "CG1111",
+            "CG1108",
+            "EG1112"
+        ]
+    },
+    "title": "Transistor-level Digital Circuits"
+}

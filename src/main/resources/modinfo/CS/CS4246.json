@@ -1,0 +1,20 @@
+{
+    "courseCode": "CS4246",
+    "courseCredit": "4",
+    "description": "This module introduces the major concepts and paradigms in planning and decision making in complex environments. It examines issues, challenges, and techniques in problem representation, goal or objective specification, response selection, and action consequence for a wide range of strategic and tactical planning and decision making situations. Topics covered include deterministic and non-deterministic planning, practical planning and acting under resource constraints and uncertainy, expected utility and rational decision making, decision networks, Markov decision processes, elementary game theory, and multi-agent planning and decision making.",
+    "faculty": "Computing",
+    "preclusion": "CS5446",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2216",
+                    "ST2131",
+                    "ST2334"
+                ]
+            },
+            "CS3243"
+        ]
+    },
+    "title": "AI Planning and Decision Making"
+}

@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSC3228",
+    "courseCredit": "5",
+    "description": "The course aims to introduce the students to the principles of structure and reactivity of: 1) main group (including noble gases), 2) transition metal, and 3) rare earth metal compounds. The reactivity patterns of select classes of inorganic compounds and their relevance in the natural world (e.g. biological systems, atmosphere) will also be discussed.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4205"
+    ],
+    "prereqTree": {
+        "or": [
+            "YSC2224",
+            "YSC2225"
+        ]
+    },
+    "title": "Inorganic Chemistry with Laboratory"
+}

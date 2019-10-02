@@ -1,0 +1,10 @@
+{
+    "courseCode": "SH5203",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "SH5205"
+    ],
+    "title": "Emergency Planning"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "TE2002",
+    "courseCredit": "4",
+    "description": "This is a follow up module for TE2102. The topics include the following: Vector algebra. Vector function. Directional derivatives. Divergence and curl of vector fields. Line, surface and volume integrals. Jacobian. Gauss' and Stokes' Theorem. Cartesian, cylindrical and spherical coordinates. Partial Differentiation. Partial differential equations. Curve Fitting.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "EE2011E",
+        "TE2003"
+    ],
+    "preclusion": "TEE2002, TM2401, TME2401",
+    "prereqTree": {
+        "or": [
+            "TE2102",
+            "TG1401"
+        ]
+    },
+    "title": "Engineering Mathematics II"
+}

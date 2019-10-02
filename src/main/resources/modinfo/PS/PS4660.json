@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "courseCode": "PS4660",
+    "courseCredit": "5",
+    "description": "The Independent Study Module is designed to enable the student to explore an approved topic within the discipline in depth. The student should approach a lecturer to work out an agreed topic, readings, and assignments for the module. Regular meetings and reports are expected. Evaluation is based on 100% Continuous Assessment and must be worked out between the student and the lecturer prior to seeking departmental approval.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PS4401, PS4401S",
+    "title": "Independent Study"
+}

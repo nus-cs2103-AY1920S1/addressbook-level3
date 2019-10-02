@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "TCN4119",
+    "courseCredit": "8",
+    "description": "This module aims to provide students with training for scientific/technical research. It involves an assignment of a research project and safety education. Equipment training will be provided, if required. Students need to spend at least ten hours per week on the project under the guidance of a project supervisor and/or co-supervisor. A thesis is required at the end of the project; it will include literature survey, materials and methods, results and discussion, conclusions and suggestions for further study. An oral presentation is also required.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CN4119E, CN4118E",
+    "title": "B.Tech. Dissertation"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "BPS5221",
+    "courseCredit": "4",
+    "description": "This course deals with the principles of microclimatic design both at the building and urban level. It emphasizes on the elements of microclimates and their effects on building design and the planning of urban settlements and vice-versa. The issues of Urban Heat Island and the possible mitigation measures and their application towards achieving comfort and efficiency with special reference to the humid tropics are emphasized.",
+    "faculty": "Design and Environment",
+    "preclusion": "Students who have taken BPS5102 not able to take BPS5221",
+    "title": "Microclimate Design"
+}

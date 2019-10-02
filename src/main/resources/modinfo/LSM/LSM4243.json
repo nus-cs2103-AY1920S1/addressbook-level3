@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "LSM4243",
+    "courseCredit": "4",
+    "description": "This module deals with the understanding of processes that regulate cell growth and proliferation, and the intricate mechanism(s) that result in abnormal proliferation and oncogenesis. Molecular basis of immortalization and the acquisition of the neoplastic phenotype, namely oncogene activation, immune evasion, potential for local and distant spread, and resistance to cell death etc. will be discussed. Role of DNA damage/repair, telomere/telomerase in genome instability and tumourigenesis will be examined. A brief session on target therapies including gene therapy approaches will also be included. Tumour immunology role of inflammation in tumours will be discussed.",
+    "faculty": "Science",
+    "prereqTree": "LSM2233",
+    "title": "Tumour Biology"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "CM4228",
+    "courseCredit": "4",
+    "description": "This module covers the principles and characteristics of heterogeneous, homogeneous and enzymatic catalysis. Reaction cycles are analysed at the molecular level, and a microkinetic approach is used to describe the processes. Selected industrial processes and commercial devices are discussed to illustrate practical applications of the studied topics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM5225"
+    ],
+    "prereqTree": "CM2121",
+    "title": "Catalysis"
+}

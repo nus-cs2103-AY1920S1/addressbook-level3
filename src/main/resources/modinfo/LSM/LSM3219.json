@@ -1,0 +1,9 @@
+{
+    "courseCode": "LSM3219",
+    "courseCredit": "4",
+    "description": "This module introduces the pharmacological treatment of nervous system. It covers the actions of drugs and how they affect cellular function in the nervous system, and the neural mechanisms through which they influence behavior. Examples of drugs used to treat diseases and disorders of the nervous systems will be discussed.",
+    "faculty": "Science",
+    "preclusion": "LSM3221",
+    "prereqTree": "LSM3211",
+    "title": "Neuropharmacology"
+}

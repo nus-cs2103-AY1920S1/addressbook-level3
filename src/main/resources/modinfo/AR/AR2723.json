@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "AR2723",
+    "courseCredit": "4",
+    "description": "This module deals with topics in ecological and sustainable architecture, focusing on environmental issues as they apply to design. Basic technical knowledge on energy, water, materials, etc are covered in the context of how buildings operate. The module enables students to operationalize the principles when generating design solutions.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "AR3721"
+    ],
+    "title": "Strategies for Sustainable Architecture"
+}

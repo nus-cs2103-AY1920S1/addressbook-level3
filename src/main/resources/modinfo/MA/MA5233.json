@@ -1,0 +1,17 @@
+{
+    "courseCode": "MA5233",
+    "courseCredit": "4",
+    "description": "This module studies computational methods in mathematics. It covers the following topics: computational linear algebra, numerical solution of ordinary and partial differential equations, parallel algorithms. The course is for mathematics graduate students with interest in computation methods.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5240"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA3228",
+            "MA4255",
+            "MA4230"
+        ]
+    },
+    "title": "Computational Mathematics"
+}

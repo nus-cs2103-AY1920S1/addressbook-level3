@@ -1,0 +1,21 @@
+{
+    "courseCode": "LSM2241",
+    "courseCredit": "4",
+    "description": "Students will be introduced to the concepts, tools and techniques of bioinformatics, a field of immense importance for understanding molecular evolution, individualized medicine, and dataintensive biology. The module includes a conceptual framework for modern bioinformatics, an introduction to key bioinformatics topics such as databases and software, sequence analysis, pairwise alignment, multiple sequence alignment, sequence database searches, and profile-based methods, molecular phylogenetics, visualization and basic homology modelling of molecular structure, pathway analysis and personal genomics. Concepts emphasized in the lectures are complemented by hands-on use of bioinformatics tools in the practicals. Students will achieve highly valued skills as biological researchers with basic competence in computational and bioinformatics techniques, with proper foundation to learn more advanced skills in bioinformatics and biocomputing.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CS4220",
+        "LSM3231",
+        "LSM3241",
+        "MA3259"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1105",
+            "LSM1106",
+            "PR1111A"
+        ]
+    },
+    "title": "Introductory Bioinformatics"
+}

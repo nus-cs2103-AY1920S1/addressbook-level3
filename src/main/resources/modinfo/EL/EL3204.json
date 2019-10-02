@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3204",
+    "courseCredit": "4",
+    "description": "This module introduces students to the key notions in discourse structure. In order to test the usefulness of these notions, students will learn to apply them to the analysis of data. The major topics covered may include some or all of the following: the difference between written and spoken discourse; reference and co-reference in discourse; anaphora and discourse structure; discourse topic and the representation of discourse content; discourse markers; information structure; the role of context in interpretation; and discourse coherence.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Discourse Structure"
+}

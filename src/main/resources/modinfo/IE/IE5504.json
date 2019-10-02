@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "IE5504",
+    "courseCredit": "4",
+    "description": "Systems modelling and simulation are important tools in operations research. This subject covers the major aspects of modelling and techniques of computer simulation, model definition, construction of digital simulation models, design of simulation experiments, statistical verification of input data and results, simulation languages and advanced simulation concepts.",
+    "faculty": "Engineering",
+    "title": "Systems Modelling and Advanced Simulation"
+}

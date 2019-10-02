@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3266",
+    "courseCredit": "4",
+    "description": "In the face of increasing secularism in many aspects of society, Christianity and the Bible continue to exert a significant influence on cultural production in many parts of the world. This module examines the influence of Christianity on literature and popular culture, paying particular attention to the way in which key Christian tropes (redemption, atoning sacrifice, eschatology) interact with broader social values such as materialism, liberal individualism, and social Darwinism).",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Christianity and Contemporary Literature/Culture"
+}

@@ -1,0 +1,12 @@
+{
+    "courseCode": "PR2131",
+    "courseCredit": "4",
+    "description": "This pharmacy professional skills development module is a lab based module on the elements of interpersonal and professional communication that is required of a pharmacist to communicate proficiently in addressing and promoting the public's health care needs. A series of class sessions may utilize interactive discussions and roleplaying scenarios to teach and develop effective oral and interpersonal skills for the purpose of professional pharmacy practice.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4203",
+        "PR3137"
+    ],
+    "prereqTree": "PR1140",
+    "title": "Pharmacy Professional Skills Development II"
+}

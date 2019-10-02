@@ -1,0 +1,14 @@
+{
+    "courseCode": "BMF5345",
+    "courseCredit": "4",
+    "description": "This elective module in the MSc Finance programme will serve as a comprehensive real world examination of the quantitative techniques available and how these might be applied to portfolio management in the investment management industry. Major topics covered include exploring various quantitative tools and models for Estimating Expected Returns, Modelling Risks, Style Analysis & Bench-marking, and Strategic & Tactical Asset Allocation. Lectures will involve frequent interaction with practitioners from the industry hands-on lab projects and real-life examples. Suitable for students interested in a career as an investment analyst or as a portfolio manager in the financial services sector.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN4112K",
+    "prereqTree": {
+        "or": [
+            "BMF5332",
+            "BMF5333"
+        ]
+    },
+    "title": "Analytical Portfolio Management"
+}

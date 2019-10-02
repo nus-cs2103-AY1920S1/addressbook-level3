@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5311",
+    "courseCredit": "4",
+    "description": "This course deals in detail with the transport processes of environmental systems such as the atmosphere, freshwater systems, estuaries, coastal seas and oceans. The inter-linkages between environmental media and the major human and environmental impacts are explained at an introductory level. After this introduction of fundamental processes the course introduces and focuses on widely used computational environmental modelling concepts including the numerical aspects and the end result. The module will equip students to understand the importance of transport processes to environmental impacts, limitations of computer/mathematical models to solve the transport processes and how to obtain relevant answers solutions given the limitations of the models.",
+    "faculty": "Engineering",
+    "prereqTree": "CE2134",
+    "title": "Environmental modelling with computers"
+}

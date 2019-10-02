@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3259",
+    "courseCredit": "4",
+    "description": "This course is an introduction to the study of ageing that views the ageing process as a normal part of lifespan development. This includes exploring what ageing means, examining which factors are involved in healthy and pathological aspects of ageing, and distinguishing between ageing stereotypes and reality. Students will study the research for age\u2010related change (and stability) in several psychological domains in the context of changing paradigms of ageing, examining various issues in ageing (e.g., transition to retirement, health\u2010related changes, optimal ageing factors), as well as multiple influences on the experience of ageing (e.g., caregiving, societal policies, attitudes toward elderly).",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL3234",
+            "PL3235"
+        ]
+    },
+    "title": "Psychology of Ageing"
+}

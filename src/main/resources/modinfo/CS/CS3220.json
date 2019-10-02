@@ -1,0 +1,16 @@
+{
+    "courseCode": "CS3220",
+    "courseCredit": "4",
+    "description": "The objective of this module is concerned with design techniques involving the use of parallelism to improve the performance of computer systems. The module is divided into three parts. Part I considers the fundamental methods to improve the performance of single processor systems. Topics include the design principle of instruction set, memory hierarchy, pipeline design techniques, RISC and vector computer. In Part II, multi-processor systems using shared memory are examined in detail, and Part III, multi-processor systems that do not use shared memory are examined.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5222",
+        "CS5271",
+        "CS6270",
+        "CS6280",
+        "CS4223"
+    ],
+    "preclusion": "EEE & CPE students are not allowed to take this module as cfm/breadth.",
+    "prereqTree": "CS2106",
+    "title": "Computer Architecture"
+}

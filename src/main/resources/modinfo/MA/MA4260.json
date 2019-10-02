@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA4260",
+    "courseCredit": "4",
+    "description": "This is a stochastic operations research module and has many applications in production planning, warehousing and logistics. This module gives an introduction on how operations research models (with emphasis on optimization models) are formulated and solved. Many inventory and queuing models are derived to cater for different situations and problems in the real world. The solutions of these models can be obtained analytically. The tools of dynamic programming, heuristics and simulation are also introduced to derive the solutions. Major topics: The basic economic order quantity model and its extension. Dynamic lot sizing models. Inventory models with uncertain demands: single-period decision models, continuous review and periodic review policies. Recent developments in inventory theory. Modelling arrival and service processes. Basic queuing models. Cost considerations in queuing models. Queuing network. Simulation of inventory and queuing models.",
+    "faculty": "Science",
+    "preclusion": "ISE students.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2216",
+                    "ST2131",
+                    "ST2334"
+                ]
+            },
+            {
+                "or": [
+                    "MA3236",
+                    "MA3252",
+                    "DSC3214",
+                    "DSN3701"
+                ]
+            }
+        ]
+    },
+    "title": "Stochastic Operations Research"
+}

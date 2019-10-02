@@ -1,0 +1,13 @@
+{
+    "courseCode": "TR3014",
+    "courseCredit": "4",
+    "description": "The module proposes to bring students at NUS in Singapore and multiple NOC locations overseas to work as a global project team to help leaders of a new venture make decision related to global expansion. With the evolution of Internet, many high-tech startups expand sales and distribution internationally soon after founding. They enter target markets around the world before they are imitated by 'copycat' entrepreneurs in other countries. Many new ventures outsource business functions like manufacturing, engineering, customer support, and R&D to other countries to reduce labor costs or get access to scarce talent. This module uses field work to prepare students to help new ventures go global.",
+    "faculty": "NUS",
+    "prereqTree": {
+        "or": [
+            "TR2201",
+            "TR3003"
+        ]
+    },
+    "title": "Globalization of New Ventures"
+}

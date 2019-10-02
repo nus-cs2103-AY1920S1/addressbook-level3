@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5108A",
+    "courseCredit": "2",
+    "description": "Together with 'CE5108B Deep Excavations Design Using Eurocode 7', this is an advanced module in earth\u2010retaining structures and deep excavations. Topics include earth pressure theories, rigid retaining structures, flexible retaining structures, cellular cofferdams, retaining walls for deep excavations, support systems for deep excavations, and field monitoring. Participants are taught to deal with design and construction issues pertaining to a spectrum of earth\u2010retaining systems from low rigid retaining walls to flexible support systems for deep excavations. They will also learn to apply the methods of limit state, such as BS8002 and Eurocode7, to the design of rigid and flexible retaining walls. Applications of commercial geotechnical FEM softwares are taught to aid in design of deep excavations to limit ground deformations and satisfy SLS requirements. At the end of the course, participants are taught the application of advanced earth pressure theories, selection of appropriate retaining structures, and verification of capacity and movement requirements, using limit equilibrium and FEM analysis tools.",
+    "faculty": "Engineering",
+    "title": "Lateral Earth Pressures and Retaining Wall Design via Eurocode 7"
+}

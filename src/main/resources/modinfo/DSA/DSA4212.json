@@ -1,0 +1,19 @@
+{
+    "courseCode": "DSA4212",
+    "courseCredit": "4",
+    "description": "Computational optimisation is ubiquitous in statistical learning and machine learning. The module covers several current and advanced topics in optimisation, with an emphasis on efficient algorithms for solving large scale data-driven inference problems. Topics include first and second order methods, stochastic gradient type approaches and duality principles. Many relevant examples in statistical learning and machine learning will be covered in detail. The algorithms will be implemented using the Python programming language.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "MA1101R",
+            {
+                "or": [
+                    "MA1104",
+                    "MA2311"
+                ]
+            },
+            "ST2132"
+        ]
+    },
+    "title": "Optimisation for Large-Scale Data-Driven Inference"
+}

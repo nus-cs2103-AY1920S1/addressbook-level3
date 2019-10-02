@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME4102",
+    "courseCredit": "4",
+    "description": "Standards provide requirements, specifications, guidelines or characteristics that can be used consistently to ensure that products, processes and services are fit for their purposes. We aim to create awareness of, demonstrate and teach various standards currently used in mechanical engineering practices. In this module, three key categories in mechanical engineering are selected, namely smart manufacturing, sustainable energy and medical technology. After giving a broad overview of the standards landscape in mechanical engineering, it will focus on the standards associated with the 3 identified categories. They will be discussed in lectures, industrial talks by experts, student group discussions/projects etc.",
+    "faculty": "Engineering",
+    "prereqTree": "ME3162",
+    "title": "Standards in Mechanical Engineering"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEH1025T",
+    "courseCredit": "4",
+    "description": "GEH1025T is an interdisciplinary module that brings together perspectives from different disciplines to provide deep insights into known and emerging global environmental issues and to develop polcies for achieving environmental, economic and social sustainability in a holistic manner. Given the scope of the module and its educational outcomes, the module draws students from diverse disciplines within NUS including \"Law\", \"Business\" and \"Computing\", etc. The key strength of the module is its diversity in terms of disciplinary composition. To take advantage of this diversity, the module promotes \"collaborative learning\" through peer teaching & learning by dividing the large class into multi-disciplinary teams of 5 students. The instructor assigns reading materials to individual teams on broad topics that cut across human society and culture.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "GEK1522, GEK1522T, GEH1025",
+    "title": "Global Environmental Issues"
+}

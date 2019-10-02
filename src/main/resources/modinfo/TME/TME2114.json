@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TME2114",
+    "courseCredit": "3",
+    "description": "This course provides for a further understanding of concepts and principles of solid mechanics and its applications to engineering problems. The topics covered are: Two-dimensional systems; Combined stresses; Energy methods; Columns; Experimental stress analysis; Inelastic behaviour.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TME3211"
+    ],
+    "preclusion": "TM1111, ME2114E, ME2114",
+    "prereqTree": "ME2112",
+    "title": "Mechanics of Materials II"
+}

@@ -1,0 +1,30 @@
+{
+    "courseCode": "MA3266",
+    "courseCredit": "4",
+    "description": "The aim of this module is to introduce the ideas of Fourier analysis, which permeate much of the present day mathematics, and to develop some of its applications in analysis and partial differential equations. The emphasis of the module is on methods and applications. Major topics: Fourier Series and Basic Properties. Convergence of Fourier Series. Partial Differential Equations of Physics. Boundary Value Problems and the Fourier Method; Fourier Integrals and Applications. OrthogonalSystems. Sturm-Liouville Problems.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5238"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1506",
+                    "MA1508",
+                    "MA1508E",
+                    "MA1513"
+                ]
+            },
+            {
+                "or": [
+                    "MA1104",
+                    "MA2104"
+                ]
+            },
+            "MA3220"
+        ]
+    },
+    "title": "Introduction to Fourier Analysis"
+}

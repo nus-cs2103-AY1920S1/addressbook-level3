@@ -1,0 +1,10 @@
+{
+    "courseCode": "PLC5009",
+    "courseCredit": "8",
+    "description": "",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PLC5020"
+    ],
+    "title": "Research Proposal"
+}

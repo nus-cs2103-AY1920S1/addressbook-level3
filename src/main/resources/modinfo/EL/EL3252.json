@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3252",
+    "courseCredit": "4",
+    "description": "The aim of this module is to introduce to students the area of study concerned with the action and analysis relating to human intervention on language and language uses. The sessions will discuss the sociolinguistic situations within which language planning occurs. Topics such as 'language and nation-building', 'language diversity as problematic' and the whole question of 'linguistic rights' will be central issues for this module.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Language Planning and Policy"
+}

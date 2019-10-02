@@ -1,0 +1,14 @@
+{
+    "courseCode": "MUA2241",
+    "courseCredit": "4",
+    "description": "Continuing and building on module MUA1115, piano students will work closely with the Voice department. Students will receive individual coaching on the piano part specifically, as well as lessons together with their singer; and also participate actively in studio classes. Students will participate in at least one public performance and/or a final examination of the prepared work(s); and to reflect upon their learning process in the context of this module by updating their e-portfolios.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3241",
+        "MUA3242",
+        "MUA3243"
+    ],
+    "preclusion": "MUA2155; or\n[MUA2242 and MUA2243]",
+    "prereqTree": "MUA1115",
+    "title": "Collaborative Piano - Vocal Accompaniment"
+}

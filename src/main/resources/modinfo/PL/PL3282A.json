@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3282A",
+    "courseCredit": "4",
+    "description": "This first half of the module will explicate different methods and paradigms in social psychology with interpersonal relationships studies. The design aims to provide students a broad overview of methodologies as well as a deeper understanding of the important issues in interpersonal relationship research. In the second half of the module, students would carry out group projects, applying their knowledge to conducting a research study. They will have hands-on experiences at different research stages, from how a research study is formulated, crystallized and carried out to data analysis, results presentation and writing-up.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3235"
+        ]
+    },
+    "title": "Lab in Interpersonal Relationships"
+}

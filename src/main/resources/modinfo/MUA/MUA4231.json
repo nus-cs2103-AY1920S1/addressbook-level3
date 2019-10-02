@@ -1,0 +1,10 @@
+{
+    "courseCode": "MUA4231",
+    "courseCredit": "2",
+    "description": "",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4232"
+    ],
+    "title": "Orchestral Excerpts for Strings 4A"
+}

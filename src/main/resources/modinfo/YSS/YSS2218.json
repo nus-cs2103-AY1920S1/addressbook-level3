@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS2218",
+    "courseCredit": "5",
+    "description": "This class introduces students to the study of international political economy. Students will examine the structure of the global political economy, the drivers and implications of globalization, and the role of international economic institutions in driving political and economic outcomes. Among others, this class will cover topics such as international financial institutions, trade, financial crises, foreign aid, economic development, energy politics, and illicit trade.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4217",
+        "YSS3255",
+        "YSS3262",
+        "YSS4238"
+    ],
+    "prereqTree": "YCC1121",
+    "title": "International Political Economy"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC3209",
+    "courseCredit": "5",
+    "description": "This is a first course in the quantum mechanics of atoms and molecules, their chemical bonds and their interaction with radiation. It will cover the basic elements and techniques in quantum mechanics, the electronic structure of atoms and molecules and chemical bonds, spectroscopy and quantum transitions in atoms and molecules. Within the Physical Sciences major, it will count toward pathways in chemistry, materials science, nanoscience, chemical physics, or related fields.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC2133",
+            "YSC2205"
+        ]
+    },
+    "title": "Quantum Chemistry"
+}

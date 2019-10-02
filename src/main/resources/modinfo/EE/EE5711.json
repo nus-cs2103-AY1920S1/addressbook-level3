@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5711",
+    "courseCredit": "4",
+    "description": "This module forms one of the three core modules for the students specializing in Power and Energy area of research. The aim of the module is to introduce the importance of Power Electronics as an enabling technology and their role in efficient electrical energy conversion from one form to another. Power electronics is considered as an integral part of all electronic-equipment starting from consumer electronic products to office automation equipment and leading to large transportation systems, utility applications and distributed renewable energy generation. In this module students will be introduced to the basic principles of operation of switched power converters and the concept of efficient control and regulation of electric energy flow will be addressed. The topics that will be covered are: Power semiconductor switches and their characteristics; AC-to-DC converters and their applications; DC-to-DC converters: analysis and performance; DC-to-AC converters: analysis and performance. Specific power electronic applications to various large scale systems will also be discussed.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6531",
+        "EE5704",
+        "EE6704",
+        "EE6703"
+    ],
+    "preclusion": "EE5711R",
+    "prereqTree": "EE3501C",
+    "title": "Power Electronic Systems"
+}

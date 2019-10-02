@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6242",
+    "courseCredit": "4",
+    "description": "This module is targeted to graduate students of computer science and information systems wishing to understand the issues in building, using and maintaining large volumes of knowledge in digital libraries. Fundamentals of modern information retrieval is assumed. The course will focus on how such information retrieval technology operationalises traditional information finding skills of the librarian/cataloger/archivist, organised around 5S framework for digital library education. Areas within digital libraries that will be covered include collection development, knowledge organisation, DL architecture, user behavior, services, preservation, management and evaluation and DL education and research. Students will round out their knowledge with case studies of how different disciplines (e.g. music, arts, medicine and law) impose different search, usability and maintenance requirements on the digital library.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS3245",
+            "CS3246"
+        ]
+    },
+    "title": "Digital Libraries"
+}
