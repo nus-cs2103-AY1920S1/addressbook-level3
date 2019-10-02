@@ -370,8 +370,9 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
+[#UC01]
 [discrete]
-=== Use case 01: List bookmarks
+=== Use case: UC01 - List bookmarks
 
 *MSS*
 
@@ -380,8 +381,9 @@ _{More to be added}_
 +
 Use case ends.
 
+[#UC02]
 [discrete]
-=== Use case 02: Add bookmark
+=== Use case: UC02 - Add bookmark
 
 *MSS*
 
@@ -399,8 +401,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[#UC03]
 [discrete]
-=== Use case 03: Delete bookmark
+=== Use case: UC03 - Delete bookmark
 
 *MSS*
 
@@ -425,8 +428,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[#UC04]
 [discrete]
-=== Use case 04: Edit bookmark
+=== Use case: UC04 - Edit bookmark
 
 *MSS*
 
@@ -451,8 +455,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[#UC05]
 [discrete]
-=== Use case 05: Open bookmark
+=== Use case: UC05 - Open bookmark
 
 *MSS*
 
@@ -477,8 +482,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[#UC06]
 [discrete]
-=== Use case 06: Export bookmarks
+=== Use case: UC06 - Export bookmarks
 
 *MSS*
 
@@ -500,8 +506,9 @@ Use case ends.
 +
 Use case resumes at step 4.
 
+[#UC07]
 [discrete]
-=== Use case 07: Import bookmarks
+=== Use case: UC07 - Import bookmarks
 
 *MSS*
 
@@ -527,8 +534,9 @@ Use case resumes at step 1.
 +
 Use case ends.
 
+[#UC08]
 [discrete]
-=== Use case 08: Make a bookmark available offline
+=== Use case: UC08 - Make a bookmark available offline
 
 *MSS*
 
@@ -553,8 +561,9 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+[#UC09]
 [discrete]
-=== Use case 09: Undo previous <<undoable-commands,undoable commands>>
+=== Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
 
 *MSS*
 
@@ -573,8 +582,9 @@ Mark shows an error message.
 +
 Use case ends.
 
+[#UC10]
 [discrete]
-=== Use case 10: Redo previously undone commands
+=== Use case: UC10 - Redo previously undone commands
 
 *MSS*
 
@@ -591,6 +601,74 @@ Use case ends.
 Mark shows an error message.
 +
 Use case ends.
+
+[#UC11]
+[discrete]
+=== Use case: UC11 - Browse the web
+
+*MSS*
+
+1. User requests to browse the web.
+2. Mark provides in-built web browser.
+3. User browses the web.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. Mark does not have internet access.
+** 1a1. Mark tells user that there is no internet access and suggests that user sees cache.
++
+Use case ends.
+
+[#UC12]
+[discrete]
+=== Use case: UC12 - Add bookmarks from web browser
+
+*MSS*
+
+1. User <<UC11,[.underline]#browses the web (UC11)#>>.
+2. User requests to bookmark the currently showing webpage.
+3. Mark uses current website's URL and <<UC02,[.underline]#adds bookmark (UC02)#>>.
++
+Use case ends.
+
+[#UC13]
+[discrete]
+=== Use case: UC13 - Annotate offline documents
+
+*MSS*
+
+1. User chooses bookmark document to annotate.
+2. Mark shows the annotated document.
+3. User annotates the document.
+4. Mark shows document with new annotations.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. Mark detects invalid bookmark index or non-existent document of bookmark.
+** 1a1. Mark gives warning and requests for correct index.
+** 1a2. User enters revised data.
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes from step 2.
+
+[none]
+* 3a. Mark detects invalid paragraph index.
+** 3a1. Mark gives warning and requests for correct paragraph index.
+** 3a2. User enters new data.
+Steps 3a1-3a2 are repeated until the data entered are correct.
++
+Use case resumes from step 4.
+
+[none]
+* 3b. Mark detects invalid highlight colour.
+** 3b1. Mark gives warning and sets highlight colour to default colour.
++
+Use case resumes from step 4.
+
 
 _{More to be added}_
 
