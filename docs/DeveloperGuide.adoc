@@ -669,7 +669,107 @@ Use case resumes from step 4.
 +
 Use case resumes from step 4.
 
+[#UC14]
+[discrete]
+=== Use case: UC14 - Add a reminder
 
+*MSS*
+
+1. User requests to list bookmarks.
+2. Mark shows a list of bookmarks.
+3. User requests to add a reminder for a specific bookmark in the list.
+4. Mark shows the new reminder in the reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+[none]
+* 3a. Mark detects invalid index.
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+[none]
+* 3b. Mark detects the specified bookmark already has a reminder.
+** 3b1. Mark shows an error message.
++
+Use case resumes from step 2.
+[none]
+* 3c. Mark detects the time format is wrong.
+** 3c1. Mark shows an error message.
++
+Use case resumes from step 2.
+
+[#UC15]
+[discrete]
+=== Use case: UC15 - Add a reminder
+
+*MSS*
+
+1. User requests to list bookmarks.
+2. Mark shows a list of bookmarks.
+3. User requests to edit a reminder for a specific bookmark in the list.
+4. Mark shows the edited reminder in the reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+[none]
+* 3a. Mark detects invalid index.
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+[none]
+* 3b. Mark detects the specified bookmark has no reminder.
+** 3b1. Mark shows an error message.
++
+Use case resumes from step 2.
+[none]
+* 3c. Mark detects the time format is wrong.
+** 3c1. Mark shows an error message.
++
+Use case resumes from step 2.
+
+[#UC14]
+[discrete]
+=== Use case: UC14 - Delete a reminder
+
+*MSS*
+
+1. User requests to list bookmarks.
+2. Mark shows a list of bookmarks.
+3. User requests to delete the reminder for a specific bookmark in the list.
+4. Mark shows the edited reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+[none]
+* 3a. Mark detects invalid index.
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+[none]
+* 3b. Mark detects the specified bookmark already has a reminder.
+** 3b1. Mark shows an error message.
++
+Use case resumes from step 2.
+[none]
+* 3c. Mark detects the time format is wrong.
+** 3c1. Mark shows an error message.
++
+Use case resumes from step 2.
 _{More to be added}_
 
 
