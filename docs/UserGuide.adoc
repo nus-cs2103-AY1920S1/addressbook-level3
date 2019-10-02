@@ -45,7 +45,7 @@ Welcome and thank you for choosing The Traveller Diary (TTD) to store precious m
 
 . Ensure you java Java 11 or above installed in your Computer.
 
-. Download the latest TravellerDiary.jar 
+. Download the latest TravellerDiary.jar
 
 . Copy the file to the folder you want to use as the home folder for your Traveller Diary.
 
@@ -90,13 +90,13 @@ Afraid of over-budget? Your personal traveller diary prevents you from doing tha
 *2. Friend Contact List*
 
 Helps you to keep track of your friends’ contact information.
-	
+
  addCont    : add a new friend to the contact information +
  updateCont : update friend information in the contact list +
  showCont   : show all friends in the contact list +
  deleteCont : delete friends in the contact list +
  listCont   : list all friends in the contact list
-	
+
 The friend contact list feature also provide certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
@@ -126,7 +126,7 @@ A way for the user to beautify the appearance for the contact list. _e.g. Puttin
 
 Gives you an overview of when you will be free to travel and recommends when will be a      +
 suitable time to travel.
-  
+
  addCommitment      : adds commitment to indicate that you won’t be able to  +
           travel on a day or over a period of time due to commitments  +
                                                 during the public holidays/school vacation +
@@ -145,7 +145,7 @@ suitable time to travel.
  editCommitment   : edits the duration of your commitment +
  showAvailability : shows you when you have 3 or more “free” days in the given  +
       period of time which you have specified +
-              suggestDate      : suggests when you can travel for numDays 
+              suggestDate      : suggests when you can travel for numDays
 
 
 
@@ -167,7 +167,7 @@ Informs user of public holidays and adds them to the calendar without requiring 
 *4. Event Itinerary*
 
 Helps you to plan how exactly you want to spend each hour of your trip. Each event will be numbered numerically in increasing order.
-	
+
  addEvent [title]   : add a new event to your day, title no more than 50 chars +
  listEvent          : show all the events for that day +
  showEvent [index]  : show all the events for that day +
@@ -177,8 +177,8 @@ Helps you to plan how exactly you want to spend each hour of your trip. Each eve
  repeatEvent [index]: repeat the event in your day based on the index +
  doneEvent [index]  : mark the event as done for the day +
  deleteEvent [index]: delete an event in your day based on the index +
- exitEvent   [index]: exit the 
- 
+ exitEvent   [index]: exit the
+
 	Customize within each event selected.
  +
  addTime        : add the time for the event +
@@ -187,7 +187,7 @@ Helps you to plan how exactly you want to spend each hour of your trip. Each eve
  addNotes       : add additional notes / details for the event +
  addTag         : add a tag to the event for categorization purposes +
  delete [field] : delete the specified field for that particular event
-	  
+
 The event itinerary feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
@@ -241,7 +241,7 @@ Congratulates the user when s/he met certain milestones (travelling to a contine
 
 *6. TRIVAGO, Price comparison (Coming in V2.0)*
 
-Helps to compare the prices between two particular goods or services. Can be used to compare prices of lodging, 
+Helps to compare the prices between two particular goods or services. Can be used to compare prices of lodging,
 
  addData     : add a new data to be used for price comparison +
  showData    : show the prices for a selected data +
@@ -249,7 +249,7 @@ Helps to compare the prices between two particular goods or services. Can be use
  compareData : compare prices between two data +
  reviewData  : review the previous few comparisons that user did +
  listData    : list out all the data that user has inputted into TTD
-	
+
 The friend contact list feature also provide certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
@@ -276,7 +276,7 @@ Based on the different taggings given by the user, it will help to sort the data
 *7. Travel Recommendations (Coming in V2.0)*
 
 Gives travel suggestions to the user.
-	
+
  setDates    : set the dates for your proposed trip +
  setPrice    : set your price range +
  setType     : set the type of trip (Fun, educational etc) +
@@ -298,16 +298,16 @@ The user can store preferred sources for trips, such as travel websites or perso
 
 
 *8. NUS trips (Coming in V2.0)*
- 
-Helps you get recommendations from NUS societies. 
-	
+
+Helps you get recommendations from NUS societies.
+
  loadTrips   : download trips from NUS societies +
  deleteTrips : delete certain NUS trips +
  showTrip    : show your whole trip in a calendar view +
  getSoc      : get societies from NUS which organise trips +
  deleteSoc   : delete certain societies +
  selectSoc   : select a certain society to load trips
- 
+
 The NUS trips feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
@@ -433,7 +433,7 @@ editBreak           : edits the start and/or end date of your school vacation  +
 editCommitment      : edits the duration of your commitment +
 showAvailability    : shows you when you have 3 or more “free” days in the  +
           given period of time which you have specified +
-            suggestDate         : suggests when you can travel for numDays 
+            suggestDate         : suggests when you can travel for numDays
 
 Event Itinerary: +
 addEvent    : add a new event to your day +
@@ -476,5 +476,3 @@ filterByTag      : filters the entries by the specified tag +
 sortEntries      : sorts your entries in chronological order +
 sortEntriesByTag : sorts your entries by tags +
 tagEntry         : tags your entry with the specified tag(s)
-
-
