@@ -15,16 +15,16 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-Emergency numbers such as 999 and 995 are just 3 numbers for us to remember in times of need, however, do you ever wonder what is the work that goes behind each of those calls?
-The roles of an emergency response operator is not only to pick up these calls, but also:
-* dispatch vehicles accordingly
-* capture incident details in a report
+* Emergency numbers such as 999 and 995 are just 3 numbers for us to remember in times of need, however, do you ever wonder what is the work that goes behind each of those calls?
+* The roles of an emergency response operator is not only to pick up these calls, but also:
+* 1. dispatch vehicles accordingly
+* 2. capture incident details in a report
 
-The Incident Management System is a more convenient and less error prone way for the users to complete their jobs. It allows users to:
-* Create and store incidents/reports
-* Automised filling of certain fields e.g. Date, time to reduce human error
-* Retrieve the report at a later date for reference
-* Modify/Update the report
+* The Incident Management System is a more convenient and less error prone way for the users to complete their jobs. It allows users to:
+* 1. Create and store incidents/reports
+* 2. Automised filling of certain fields e.g. Date, time to reduce human error
+* 3. Retrieve the report at a later date for reference
+* 4. Modify/Update the report
 
 == Site Map
 
