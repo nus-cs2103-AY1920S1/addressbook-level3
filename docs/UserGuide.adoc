@@ -111,7 +111,7 @@ Example(s):
 ==== Getting top scorers: `score`
 Gets and displays leading athletes and their scores for individual events or for their total scores.
 
-Format: `score e/Event t`
+Format: `score e/EVENT t`
 
 Examples:
 
@@ -124,31 +124,39 @@ Examples:
 ==== Getting rank of an athlete: `rank`
 Gets current position of an athlete relative to other relatives for the entire competition.
 
-Format: rank n/Name 
+Format: `rank n/NAME`
 
 Examples:
-rank n/John
-4. Affiliation of an athlete: aff
+
+* `rank n/John`
+
+==== Affiliation of an athlete: `aff`
 Gets the name of an organisation and a country, an athlete is associated with.
 
-Format: aff n/Name
+Format: `aff n/NAME`
 
 Examples:
-aff n/John
-5. Edit data of an athlete: edit
+
+* `aff n/John`
+
+==== Edit data of an athlete: `edit`
 Edits field(s) of information belonging to an athlete
 
-Format: edit n/CurrentName newN/newName bw/BodyWeight wc/WeightClass aff/Affiliation s/Score
+Format: `edit n/CURRENTNAME newN/NEWNAME bw/BODYWEIGHT wc/WEIGHTCLASS aff/AFFILIATION s/SCORE`
 
 Examples:
-To edit name only:
-edit n/John newN/Johnny 
-To edit bodyweight only:
-edit n/John bw/100kg
-To edit subset of fields:
-edit n/John newN/Johnny wc/100kg aff/Singapore 
-To edit all fields:
-edit n/John newN/Johnny bw/90 wc/90 aff/Singapore s/1000
+
+* To edit name only:
+  `edit n/John newN/Johnny`
+  
+* To edit bodyweight only:
+  `edit n/John bw/100kg`
+  
+* To edit subset of fields:
+  `edit n/John newN/Johnny wc/100kg aff/Singapore`
+  
+* To edit all fields:
+  `edit n/John newN/Johnny bw/90 wc/90 aff/Singapore s/1000`
 
 6. Get top 3 athletes: top3 (I think can put under score)
 Gets top 3 athletes (currently in 1st, 2nd and 3rd) for each weight class.
