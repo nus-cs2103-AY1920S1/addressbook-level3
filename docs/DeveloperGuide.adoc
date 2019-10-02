@@ -362,6 +362,44 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+=== Use case: View dashboard
+
+*MSS*
+
+1. Mortuary manager requests to view the dashboard
+2. Mortago displays the dashboard.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add body
+
+*MSS*
+
+1. Mortuary manager requests to add a body
+2. Mortago adds the body into the system
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Duplicate body found.
++
+[none]
+** 1a1. Mortago shows an error message.
++
+Use case restarts at step 1.
+
+[none]
+* 1b. Mandatory fields are missing.
++
+[none]
+** 1b1. Mortago shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
 === Use case: Delete body
 
 *MSS*
@@ -403,7 +441,7 @@ Use case ends.
 * 1a. The given body ID is invalid.
 +
 [none]
-**1a1. Mortago shows an error message.
+** 1a1. Mortago shows an error message.
 +
 Use case resumes at step 1.
 
