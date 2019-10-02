@@ -313,33 +313,80 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Plan²travel` application and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Schedule activity
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to schedule activity
+2.  System shows a list of days and activities
+3.  User requests to add a specific activity to a specific day
+4.  System adds activity under selected day
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The list of days is empty.
++
+** Use case ends.
+
+* 2b. The list of activities is empty.
++
+** Use case ends.
+
+* 3a. The day number is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The activity index is invalid.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add Contact
+
+*MSS*
+
+1.  User requests to add a new Contact
+2.  System adds the new Contact into the database
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. The new Contact's syntax is not entered correctly.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. System shows a feedback to the user that the Contact was not entered correctly.
+** Use case ends.
+
+[discrete]
+=== Use case: Undo command
+
+*MSS*
+
+1.  User requests to undo last possible command
+2.  System reverts to state before the last possible command
 +
-Use case resumes at step 2.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no last possible command.
++
+** Use case ends.
 
 _{More to be added}_
 
@@ -357,9 +404,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
