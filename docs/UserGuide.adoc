@@ -56,22 +56,27 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Logging in : `login`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Registers the user for the active session
+Format: `login USERNAME`
+
+=== Adding a user: `add`
+
+Adds a person to the IMS as a registered user +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com u/op1`
+* `add n/Betsy Crowe e/betsycrowe@example.com u/oc1 p/1234567 t/Team-1-OC`
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all persons registered in the address book. +
 Format: `list`
 
 === Editing a person : `edit`
