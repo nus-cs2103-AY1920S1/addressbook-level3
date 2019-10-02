@@ -42,7 +42,7 @@ image::Ui.png[width="790"]
 ====
 
 
-=== Start flashcard test: `start `
+=== Start flashcard test: `start`
 
 Starts the flashcard test (assuming you are in the category ‘folder’)
 `start`
@@ -66,7 +66,7 @@ Fill in the question and answer on the card when prompted on the GUI.
 Lists all the flashcards under the specific topic folder.
 `edit Math 10`
 
-=== Delete entire topic: `delete [category] *`
+=== Delete entire topic: `delete [category]`
 
 `delete Math *`
 
