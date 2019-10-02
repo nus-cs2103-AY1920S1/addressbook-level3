@@ -254,6 +254,7 @@ Result:
 You have these important dates coming up!
 Brian’s birthday: 04/06/2020
 Mum’s birthday: 06/06/2020
+```
 
 === Saving the data
 Expense tracker data are saved in the hard disk automatically after any command that changes the data.

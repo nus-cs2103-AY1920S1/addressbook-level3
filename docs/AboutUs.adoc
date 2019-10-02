@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Anqi Chen
 image::anqi.png[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/anqichen9856[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Budgeting & Expense Tracking
@@ -22,7 +22,7 @@ Responsibilities: In charge of Budgeting & Expense Tracking
 
 === Brian Fung
 image::brian.png[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/briyanii[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer  +
 Responsibilities: In charge of GUI
@@ -31,7 +31,7 @@ Responsibilities: In charge of GUI
 
 === Chong Zi Kang
 image::zikang.png[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/czkay[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Reminder & Prediction
@@ -40,7 +40,7 @@ Responsibilities: In charge of Reminder & Prediction
 
 === Ryo Chandra Putra Armanda
 image::ryo.png[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ryoarmanda[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Budgeting
@@ -49,7 +49,7 @@ Responsibilities: In charge of Budgeting
 
 === Quek Wei Ping
 image::weiping.png[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/qweiping31415[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Statistics

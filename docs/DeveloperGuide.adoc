@@ -389,7 +389,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -467,13 +466,8 @@ Use case resumes at step 4.
 +
 Use case resumes at step 4.
 
-=======
-[none]
-* 2a. There are no reminders.
-+
-Use case ends.
 
-
+[discrete]
 === Use case: Show reminders
 *MSS*
 
@@ -484,7 +478,11 @@ Use case ends.
 
 *Extensions*
 
-_{More to be added}_
+[none]
+* 2a. There are no reminders.
++
+Use case ends.
+
 
 [discrete]
 === Use case: Add event
@@ -512,6 +510,8 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case ends.
+
+_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
