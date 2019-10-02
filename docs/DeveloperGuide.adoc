@@ -1,4 +1,4 @@
-= ORGANice Transplant Manager - Developer Guide
+= ORGANice - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
