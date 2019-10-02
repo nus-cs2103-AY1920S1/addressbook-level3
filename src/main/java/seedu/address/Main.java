@@ -3,7 +3,7 @@ package seedu.address;
 import javafx.application.Application;
 
 /**
- * The main entry point to the application.
+ * The main entry point to the application...
  *
  * This is a workaround for the following error when MainApp is made the
  * entry point of the application:
@@ -12,7 +12,7 @@ import javafx.application.Application;
  *
  * The reason is that MainApp extends Application. In that case, the
  * LauncherHelper will check for the javafx.graphics module to be present
- * as a named module. We don't use JavaFX via the module system so it can't
+ * as a named module. We don't use JavaFX via the module system so it cannot
  * find the javafx.graphics module, and so the launch is aborted.
  *
  * By having a separate main class (Main) that doesn't extend Application
