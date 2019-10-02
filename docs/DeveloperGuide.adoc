@@ -1,4 +1,4 @@
-= Keyboard Flashcard (KFC) - Developer Guide
+= KeyboardFlashCards (KFC) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -279,13 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is a student that needs to revise for exams
+* has a need to remember certain things
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: learning platform to help students remember things easily, test their knowledge on certain subjects and at the same time be reminded on important study sessions and exams
 
 [appendix]
 == User Stories
@@ -294,18 +295,37 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new flashCard |
+| Priority | As a... | I want to... | So that I can...
+| `* * *` | familiar with command line | type commands into a command line interface | perform tasks faster
+| `* * *` | university student | use flashcards to remember things easily | prepare better for my exams
+| `* * *` | meticulous student | set priorities of each subject I am studying  | study subjects in an orderly manner
+| `* * *` | forgetful student | set exam reminders   | remember when to start studying for my exams
+| `* * *` | busy student  | exit the flashcard mode at any time  | perform other tasks
+| `* * *` | meticulous student  | search for a particular flashcard | review a specific flashcard whenever I want
+| `* * *` | new user | key in part of a command and let the program suggest the rest | key in commands more easily
+| `* * *` | student | see a timer next to each flashcard  | know how long I&#39;ve spent answering the current question
+| `* * *` | student studying multiple subjects | categorize my flashcards under different modules | study them in such manner
+| `* * *` | meticulous student | sort my subjects manner.  | study subjects in an orderly
+| `* * *` | meticulous student | make use of colour codes  | highlight and know my weaknesses
+| `* * *` | advanced user | search through my content   | find subjects/topics easily
+| `* * *` | meticulous student,   | use the calendar to plan my study |  so that I will not miss any subject
+| `* * *` | meticulous student | view what tasks are overdue | know what I have not done
+| `* * *` | meticulous student | a mock test timer to simulate exam situation | be prepared for my upcoming exams
+| `* * *` | meticulous student | label difficult questions | the flash cards will appear more frequently for better knowledge absorption
+| `* * *` | student | move backward through the flashcards  | recall the previous question/answer
+| `* *`  | meticulous student | view the overall statistic | monitor my performance overtime
+| `* *`  | meticulous student | use the scoring system  | know how well prepared I am
+| `* *`  | As a user | hide the answer until I finish all the questions | remember better
+| `* *`  | meticulous student | check the correctness of my answer | know whether my answer was right
+| `* *`  | busy student | use the night mode  | study in a dark environment
+| `* *`  | student with many friends | export flashcards in a simple shareable format | share with my friends
+| `* *`  | artistic student | customise the theme | so that I would have a better user experience
+| `* *`  | colour blind student | special accessibility options  | see my flashcards clearly
+| `*` | competitive student | export and share my statistics with my friends | compare my performance to theirs
+| `*` | forgetful student | key in my answer | see my own attempt to compare with the correct answer
+| `*` | competitive student | compare my results with others | so that I can be recognised for my skills and knowledge
 
-|`* * *` |user |delete a flashCard |remove entries that I no longer need
-
-|`* * *` |user |find a flashCard by question |locate details of flashCards without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many flashCards in the address book |sort flashCards by question |locate a flashCard easily
 |=======================================================================
 
 _{More to be added}_
@@ -313,7 +333,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Keyboard Flashcard` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `KeyboardFlashCards` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 

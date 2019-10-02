@@ -42,7 +42,7 @@ image::Ui.png[width="790"]
 ====
 
 
-=== Start flashcard test: `start `
+=== Start flashcard test: `start`
 
 Starts the flashcard test (assuming you are in the category ‘folder’)
 `start`
@@ -50,12 +50,12 @@ Starts the flashcard test (assuming you are in the category ‘folder’)
 Starts the flashcard test from any specific category
 `start [category]`
 
-=== Add new category: cat [`name]`
+=== Add new category: `cat [name]`
 
 [TIP]
 A person can have any number of categories (including 0)
 
-=== Add new flashcard: add [`category]`
+=== Add new flashcard: `add [category]`
 
 Adds a new flashcard into your specific category/topic.
 `add Math`
@@ -66,7 +66,7 @@ Fill in the question and answer on the card when prompted on the GUI.
 Lists all the flashcards under the specific topic folder.
 `edit Math 10`
 
-=== Delete entire topic: `delete [category] *`
+=== Delete entire topic: `delete [category]`
 
 `delete Math *`
 
@@ -105,7 +105,7 @@ Lists all the flashcards under the specific topic folder. Each flashcard is colo
 
 `exit`
 
-=== View overall stats: `stats `
+=== View overall stats: `stats`
 
 `stats`
 
@@ -164,7 +164,7 @@ e.g.  `add Math`
 e.g.  `edit Math 10`
 * Delete an existing flashcard - `delete [category] [ID]` +
 e.g.  `delete Math 10`
-* Delete an entire category - `delete [category] *` +
+* Delete an entire category - `delete [category]` +
 e.g.  `delete Math *`
 * Set user preference for reminders - `remind [category] DD/MM HHmm` +
 e.g.  `remind Math 04/10 1230`
