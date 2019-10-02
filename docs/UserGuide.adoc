@@ -44,7 +44,7 @@ Ensure Java 11 is downloaded into your machine.
 The commands listed below in 3.2, 3.3, … are based on the context of a competition.
 
 ==== Context: No Competition
-Commands
+*Commands*
 - Save: this changes the context to `Creating a competition`
 - Select: changes the context of a `Competition`
 
