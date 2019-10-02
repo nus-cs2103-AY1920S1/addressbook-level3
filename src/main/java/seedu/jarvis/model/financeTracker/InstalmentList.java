@@ -30,8 +30,8 @@ public class InstalmentList {
     /**
      * Add installment to the list of installments
      */
-    public void addInstalment(String description, double moneySpent) {
-        Instalment newInstalment = new Instalment(description, moneySpent);
+    public void addInstalment(Instalment newInstalment) {
+        /*Instalment newInstalment = new Instalment(description, moneySpent);*/
         allInstallments.add(newInstalment);
         totalMoneySpentOnInstalments = this.calculateTotalInstalmentSpending();
     }

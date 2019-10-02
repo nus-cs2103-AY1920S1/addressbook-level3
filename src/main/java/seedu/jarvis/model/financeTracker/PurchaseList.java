@@ -15,23 +15,19 @@ public class PurchaseList {
 
     /**
      * Adds a single-use purchases to the list of purchases
-     * @param description of the purchase
-     * @param value spent on the purchase
+     * @param newPurchase object from newly added single-use payment
      */
-    public void addSinglePurchase(String description, double value) {
-        Purchase newPurchase = new Purchase(description, value);
+    public void addSinglePurchase(Purchase newPurchase) {
         allPurchases.add(newPurchase);
     }
 
     /**
      * Adds a single-time payment to a person to the list of purchases
-     * @param description of the purchase
-     * @param value spent on the purchase
-     * @param personPaid person paid to
+     * @param newPurchase of payment to a person
      */
-    public void addSinglePayment(String description, double value, PersonPaid personPaid) {
-        Purchase newPurchase = new Purchase(description, value);
-        newPurchase.setPersonPaid(personPaid);
+    public void addSinglePayment(Purchase newPurchase) {
+        /*Purchase newPurchase = new Purchase(description, value);
+        newPurchase.setPersonPaid(personPaid);*/
         allPurchases.add(newPurchase);
     }
 
