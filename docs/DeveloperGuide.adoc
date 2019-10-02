@@ -669,6 +669,113 @@ Use case resumes from step 4.
 +
 Use case resumes from step 4.
 
+[#UC14]
+[discrete]
+=== Use case: UC14 - Add a reminder
+
+*MSS*
+
+1. User requests to list bookmarks.
+2. Mark shows a list of bookmarks.
+3. User requests to add a reminder for a specific bookmark in the list.
+4. Mark shows the new reminder in the reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+[none]
+* 3a. Mark detects invalid index.
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+[none]
+* 3b. Mark detects the specified bookmark already has a reminder.
+** 3b1. Mark shows an error message.
++
+Use case resumes from step 2.
+[none]
+* 3c. Mark detects the time format is wrong.
+** 3c1. Mark shows an error message.
++
+Use case resumes from step 2.
+
+[#UC15]
+[discrete]
+=== Use case: UC15 - Edit a reminder
+
+*MSS*
+
+1. Mark shows a list of reminders.
+2. User requests to edit a specified reminder in the list.
+3. Mark shows the edited reminder in the reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid index.
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 2b. Mark detects the time format is wrong.
+** 2b1. Mark shows an error message.
++
+Use case resumes from step 1.
+
+[#UC16]
+[discrete]
+=== Use case: UC16 - Delete a reminder
+
+*MSS*
+
+1. Mark shows a list of reminders.
+2. User requests to delete a specified reminder in the list.
+3. Mark shows the edited reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid index.
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
+
+[#UC17]
+[discrete]
+=== Use case: UC17 - Sort the bookmark list
+
+*MSS*
+
+1. Mark shows a list of bookmarks.
+2. User requests to sort the list in the specified criterion.
+3. Mark shows the sorted bookmark list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid criterion.
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
 
 _{More to be added}_
 
