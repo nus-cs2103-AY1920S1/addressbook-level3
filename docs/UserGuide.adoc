@@ -678,7 +678,7 @@ Goes to the Offline tab which shows the offline copy of bookmarks.
 Auto-completes search for commands line if the command is unique.
 
 === Share bookmarks and notes via Email/ Telegram `[coming in v2.0]`
-Shares your bookmarks and mots to your friends via Email or Telegram.
+Shares your bookmarks and notes with your friends via Email or Telegram.
 
 == FAQ
 
