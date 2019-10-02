@@ -327,102 +327,295 @@ _{More to be added}_
 (For all use cases below, the *System* is the `T.A.rence application` and the *Actor* is the `TA user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add student
-*Pre-conditions*: Module and Tutorial already exists in the system.
+=== Use case: New module entry
+*Pre-conditions*: User selects the command to add a new module.
 
 *MSS*
 
-1.  User requests to add a student
-2.  T.A.rence adds the student
+1.  User requests to add a new module
+2.  System adds new module.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Module or tutorial doesn't exist.
-** 1a1. T.A.rence shows an error message.
-** 1a2. Use case resumrs at step 1.
+* 1a. The given module already exists.
+** 1a1. System shows an error message that the given module already exists.
 +
 Use case ends.
 
-[discrete]
-=== Use case: Add module
+* 1b. The given input is in an invalid format
+** 1b1. System shows an error message showing the correct format to add a module.
++
+User case ends.
 
+[discrete]
+=== Use case: New tutorial entry
+Precondition: User selects the command to add a new tutorial.
 *MSS*
 
-1. User requests to add a module.
-2. T.A.rence adds the module.
+1. User requests to add a new tutorial to a selected module.
+2. System adds the tutorial to the given module.
+3. System displays the newly added tutorial to the tutorial list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Invalid module code is entered eg `CS101010`
-** 1a1. T.A.rence shows an error message.
-** 1a2. Use case resumes at step 1.
+* 1a. The given tutorial already exists.
+** 1a1. System shows an error message showing that the given tutorial already exists.
++
+Use case ends.
+
+* 1b. The given module does not exist.
+** 1b1. System shows an error message showing that the given module does not exist.
++
+Use case ends.
+
+* 1c. The given input is in an invalid format
+** 1c1. System shows an error message showing the correct format to add a module.
++
+User case ends.
 
 [discrete]
-=== Use case: Add tutorial
-
+=== Use case: New student entry
+*Precondition*: User selects the command to add a new student.
 *MSS*
 
-1. User requests to add a tutorial.
-2. T.A.rence adds the tutorial.
+1. User requests to add a new student into the selected tutorial and module.
+2. System adds the new student into the selected tutorial and module.
+3. System displays the student's particulars under the student list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Invalid Tutorial details entered such as invalid time `2500` or invalid day `Friyay`
-** 1a1. T.A.rence shows an error message.
-** 1a2. Use case resumes at setp 1.
+* 1a. The given student already exists.
+** 1a1. System shows an error message that the given student already exists within the selected
+tutorial and module.
++
+Use case ends.
+
+* 1b. The given tutorial does not exist.
+** 1b1. System shows an error message that the given tutorial does not exist.
++
+Use case ends.
+
+* 1c. The given module does not exist.
+** 1c1. System shows an error message that the given module does not exist.
++
+Use case ends.
+
+* 1d. The given input is in an invalid format.
+** 1d1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+
 
 [discrete]
-=== Use case: Delete student
+=== Use case: Editing a student's particulars
+*Precondition*: User selects the command to edit a student.
 
 *MSS*
 
-1. User requests to view list of students in a particular tutorial.
-2. T.A.rence displays list.
-3. User specifies which student to be deleted.
-4. T.A.rence deletes the selected student.
+1. User requests to edit the particulars of a given student.
+2. System edits student particulars.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. Student does not exist.
-** 3a1. T.A.rence shows an error message.
-** 3a2. Use case resumes at step 3.
-
-[discrete]
-=== Use case: List students
-
-*MSS*
-
-1. User requests to view list of students for a particular tutorial
-2. T.A.rence displays the list.
+* 1a. The given student does not exist.
+** 1a1. System shows an error message that the given student does not exist.
 +
 Use case ends.
 
-_{More to be added}_
+* 1b. The given input is in an invalid format.
+** 1b1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+
+
+[discrete]
+=== Use case: Deleting a student
+*Preconditions:*
+
+1. Given tutorial and module exists in the system.
+2. User selects the command to delete a student.
+
+*MSS*
+
+1. User request to delete a student from a particular tutorial and module.
+2. System prompts for confirmation with full details of student.
+3. User enters confirmation.
+4. System deletes student and shows confirmation.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The given student does not exist.
+** 1a1. System shows an error message that the given student does not exist.
++
+Use case ends.
+
+* 1b. The given input is in an invalid format.
+** 1b1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+
+[discrete]
+=== Use case: Listing students
+*Preconditions:*
+
+1. Given module exists in the system.
+2. User selects the command to list students of a particular tutorial class.
+
+*MSS*
+
+1. User requests to list a given selected tutorial class.
+2. System displays the class list for a given tutorial.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given tutorial does not exist.
+** 1a1. System shows an error message that the given tutorial does not exist.
++
+User case ends
+
+* 1b. The given input is in an invalid format.
+** 1b1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+
+[discrete]
+=== Use case: Post class attendance.
+*Preconditions:*
+
+1. Given module exists in the system.
+2. User selects the command to mark a tutorial class' attendance.
+
+*MSS*
+
+1. User requests to enter attendance for class for particular week.
+2. Application enters attendance for class in the given week.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given tutorial does not exist.
+** 1a1. System shows an error message that the given tutorial does not exist.
++
+User case ends.
+
+* 1b. The given tutorial class already has its attendance marked for that week.
+** 1b1. Application shows an error message that the class already has its
+attendance marked for that week
+
+* 1c. The given input is in an invalid format.
+** 1c1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+
+
+[discrete]
+=== Use case: Adding in hours clocked.
+*Preconditions:*
+1. User selects the command to add in the hours.
+2. Given module exists in the system.
+
+*MSS*
+
+1. User indicates the tutorial class that has been completed for the week.
+2. System adds the given hours to the tutorial slot
+3. System displays response on the total number of hours clocked for the given tutorial
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given tutorial does not exist.
+** 1a1. System shows an error message that the given tutorial does not exist.
++
+Use case ends.
+
+* 1b. The hours of the tutorial class for that week has already been clocked.
+** 1b1. Application shows an error message that the class already has its hours clocked
+for that week
++
+Use case ends.
+
+* 1c. The given input is in an invalid format.
+** 1c1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+
+=== Use case: Adding and viewing assignment score to students
+*Preconditions*
+
+1. User selects the command to add assignment and its' scores to the student.
+2. Given module and tutorial exists in the system.
+
+*MSS*
+
+1. User adds assignment to the tutorial class in the module.
+2. User adds the score for each student for the assignment.
+3. User switches to the student performance window.
+4. System displays results across semester for each student.
+
+*Extensions*
+
+[none]
+
+[none]
+* 2a. One of the students does not exist.
+** 2a1. System shows an error message that the given student does not exist.
+** Steps 2-2a2 are repeated for all invalid students.
++
+Use case resumes at step 2
+
+_{More to be added soon. Stay tuned!}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 students without a noticeable sluggishness in performance for typical usage.
-.  Should be able to support up to 50 module and tutorial slots without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should be easily usable by a new TA.
-.  Should work without requiring an Internet connection.
-.  Application's functionalities  should be easily testable.
+=== Business/Domain Rules:
+. System should be able to handle multiple modules and tutorials
+. Number of module and tutorial slots created should be of reasonable amount (< 10)
+. The application’s functionalities should be easily testable.
 
-_{More to be added}_
+=== Constraints:
+. System should be wholly usable by <<CLI, C.L.I>>. (No <<GUI, G.U.I>> -only functionality)
+. The application should work without requiring an Internet connection.
+
+=== Technical Requirements:
+. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+
+=== Performance Requirements:
+. System should be able to hold up to 100 students without a noticeable sluggishness in performance for typical usage.
+
+=== Quality Requirements:
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
+should be able to accomplish most of the tasks faster using commands than using the mouse.
+. The application should work even if the user enters partial commands/data and data in
+different formats, or omits certain command prefixes.
+. Product should be usable by someone who just became a Teaching Assistant.
+
+=== Notes about Project Scope:
+. System does not need to handle exporting or importing of data from other programs.
+
+_{More to be added. Coming to stores near you!}_
 
 [appendix]
 == Glossary
@@ -441,6 +634,12 @@ A tutorial class conducted by a <<ta, TA>>
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[CLI]] Command-Line Interface::
+An interface that only requires textual inputs.
+
+[[GUI]] Graphical User Inferface::
+An interface that requires the use of graphics such as the use of the mouse pointer.
 
 [appendix]
 == Product Survey
