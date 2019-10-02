@@ -3,6 +3,10 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-T14-4/main[image:https://travis-ci.org/AY1920S1-CS2103-T14-4/main.svg?branch=master[Build Status]]
 
+https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
+https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
+https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -19,12 +23,12 @@ endif::[]
 
 Our target users are students and young adults. This group of people are usually too busy to remember every single expense in their daily life which makes it difficult for them to keep track of their spending. MYMorise hopes to resolve this issue by being their expense manager and helping them to keep their spendings in check.
 
-## Why use MYMorise? 
+## Why use MYMorise?
 
 Have you experienced moments where your money seem to always be gone, then you remembered that you've used it on something but you just can't recall exactly where/what you have spent your money on? Or maybe you just want a platform to record your spendings so that you can better manage them the next time? If that's the case, then MYMorise is the perfect application for you!
-    
-With MYMorise, you won't have to worry about forgetting where your money went because MYMorise will MEMorise your spendings for you in this neat little application! With just a few lines away, you can easily record your daily expenses and view them beautifully graphed into charts that will allow you to easily pinpoint categories/items that you have been overspending on. 
-    
+
+With MYMorise, you won't have to worry about forgetting where your money went because MYMorise will MEMorise your spendings for you in this neat little application! With just a few lines away, you can easily record your daily expenses and view them beautifully graphed into charts that will allow you to easily pinpoint categories/items that you have been overspending on.
+
 Let your mind rest and focus on the more important things in life, allow MYMorise to memorise your spendings for you starting today!
 
 
