@@ -404,7 +404,6 @@ Use case ends
 * Use case resumes from step 2
 
 [discrete]
-
 === Use case: Add a revision task to revision plan (Shui Yao)
 
 *Preconditions:* notes collections and question collections are not both empty
@@ -420,7 +419,6 @@ Use case ends.
 *Extensions*
 
 [none]
-
 * 1a. NUStudy detects that neither a note set or a question set is entered by Student.
 [none]
 ** 1a1. NUStudy requests for the correct input with a note set name or a question set name.
@@ -534,6 +532,7 @@ Use case ends
 ** Repeat 1a1 and 1a2 until a valid index is provided
 * Use case resumes from step 2
 
+[discrete]
 === Use case: Specify difficulty level of questions (Xueting)
 
 *MSS*

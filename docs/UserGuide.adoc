@@ -57,8 +57,6 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Get statistics for subjects : `stats`
-=======
 === Lecture notes
 
 ==== Adding lecture notes: `addnote`
@@ -149,8 +147,15 @@ Format: `difficulty d/DIFFICULTY`
 Views the list of questions of a specified subject with a specific difficulty. +
 Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
 
+=== Test mode
+
+==== enter command here...
+
+pass
+
+=== Get statistics
+
 ==== Get statistics for subjects : `stats`
->>>>>>> a5f74812e42e9d6d36685ae7a7bfc661bc183f0a
 
 Gets statistics of how well you answered the questions for a subject.
 A pie chart of the number of questions that have been answered correctly and incorrectly will be returned.
@@ -191,10 +196,7 @@ A stacked bar graph, sorted by subjects will be returned.
 //You can choose to add in a time period, `dt/`, to see which questions have been attempted then. +
 Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
 
-=== Auto-complete feature `[coming in v2.0]`
-Returns suggestions when you are typing commands.
-
-=== Other commands
+=== Revision tasks
 
 ==== View revision tasks: `rv list`
 Displays the revision task list +
@@ -236,6 +238,9 @@ Format: `notify -e [-A] [INDEX]`
 
 ==== Disable push notification: `notify -d`
 Format: `notify -d [-A] [INDEX]`
+
+=== Auto-complete feature `[coming in v2.0]`
+Returns suggestions when you are typing commands.
 
 == FAQ
 
