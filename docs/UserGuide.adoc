@@ -306,7 +306,7 @@ Format: `view -flag /id id`
 Example: `view -b /id 91` +
 View a body with the ID B00000091.
 
-====  : List all entries : `list`
+==== List all entries: `list`
 List all entries of bodies, workers, or fridges.
 
 Format: `list -flag`
