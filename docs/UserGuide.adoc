@@ -393,7 +393,7 @@ website. When this command is given, the UI will switch to the offline tab showi
 With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
 note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
-++
+
 Overwriting an existing note is possible with this command.
 
 Format: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
