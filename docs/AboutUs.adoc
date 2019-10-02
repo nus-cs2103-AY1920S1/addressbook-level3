@@ -22,7 +22,7 @@ Responsibilities: Documentation
 
 === Cheong Li Yuan
 image::cheongliyuan.png[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/cheongliyuan[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
