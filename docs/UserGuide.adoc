@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ORGANice - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,45 +12,125 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T13-1/main
+:javaURL: https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ORGANice is a desktop application for hospital administration staff +
+to manage organ transplants.
+With ORGANice, you can easily do the following:
+
+* organise information about patients, doctors, and donors
+* find matches between organ donors and patients
+
+
+ORGANice is *optimized for those who prefer to work with a Command Line Interface* (CLI) +
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, +
+ORGANice can get your administration tasks done faster than traditional GUI apps. Interested? +
+Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+Below is a list of things to do to use the application:
+
+.  Ensure you have Java `11` or above installed in your computer. +
+If not, install it link:{javaURL}[here].
+.  Download the latest `organice.jar` link:{repoURL}/releases[here].
+.  Copy the jar file to the folder you want to use as the home folder for your application.
+.  Double-click the file to start the application. The application should appear in a few seconds. The following screenshot +
+is a sample of how the application looks like:
 +
 image::Ui.png[width="790"]
 +
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
 .  Refer to <<Features>> for details of each command.
+
 
 [[Features]]
 == Features
 
+The following section describes the list of features and commands
+in this application. +
+ +
+
+The list below how the format of the commands should be interpreted:
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* The first word in a command is the command word. The rest of the words are parameters, which
+are either compulsory or optional. +
+e.g. in a command `add n/**NAME** p/**PHONE**`, `add` is the command word while `n/**NAME** p/**PHONE**`
+are parameters.
+* Words in bold are the parameters to be supplied by the user +
+e.g. in `add **n/NAME**`, `**NAME**` is a parameter which can be used as `add n/John Doe`.
+* `[attributes]` refer to all the attributes in the <<List of Attributes>>.
+* Parameters can be in any order +
+e.g. if the command specifies `n/**NAME** p/**PHONE**`, `p/**PHONE** n/**NAME**`
+is also acceptable.
 ====
+
+
+=== List of Attributes
+
+In this application, a person's data is represented by attributes. Attributes
+refer to personal particulars such as name, type of person and blood type. +
+
+
+The following list shows the list of attributes that can be specified for
+a person and the criteria for valid inputs:
+
+* n/**NAME**: the name of the person
+** Applicable to: patients, doctors, donors
+** Valid input: alphabets
+
+* t/**TYPE**: the type of person
+** Applicable to: patients, doctors, donors
+** Valid input: patient/donor/doctor
+
+* o/**ORGAN**: the type of organs
+** Applicable to: patients, donors
+** Valid input: kidney
+
+* b/**BLOODTYPE** - the blood type of the person
+** Applicable to: patients and donors
+** Valid input: A/B/AB/O
+
+* p/**PHONE** - contact number of a person
+** Applicable to: patients, doctors, donors
+** Valid input: 8 digit number sequence, starting with 6, 8 or 9
+
+* ic/**NRIC** - NRIC number of a person
+** Applicable to: patients, doctors and donors
+** Valid input: any sequence of alphabets and numbers that fulfill these criteria:
+*** starts with a capital S, F, T, or G
+*** followed by a 7 digit number sequence
+*** ends with a capital letter
+
+* pr/**PRIORITY** - priority of the patient, the value of which is determined by a doctor
+** Applicable to: patients
+** Valid input: high/medium/low
+
+* a/**AGE** - age of a person
+** Applicable to: patients and donors
+** Valid input: a number
+
+* d/**DOCTOR** - doctor in charge of a patient
+** Applicable to: patients
+** Valid input: NRIC of the doctor
+
+* tt/**TISSUE TYPE** - the type of tissues
+** Applicable to: patients and donors
+** Valid input: a string of 6 numbers (from 1 - 12), separated by commas
+
+* exp/**EXPIRY** - expiry date of a donor's organ
+** Applicable to: donors
+** Valid input: a valid date in DD-MMM-YYYY format
 
 === Viewing help : `help`
 
@@ -58,88 +138,220 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a patient, doctor, or donor to ORGANice with the attributes given, depending on what is specified.
+
+There are two ways to add a person:
+
+* Normal Add
+* Add with system prompting
+
+==== Normal Add
+
+Normal add refers to specifying all the attributes in the command. To add, type in the following
+commands to add a person:
+
+Format for adding patients: `add t/patient n/**NAME** o/**ORGAN** b/**BLOOD TYPE** tt/**TISSUE TYPE**
+p/**PHONE** pr/**PRIORITY** ic/**NRIC** d/**DOCTOR** a/**AGE**` +
+
+Format for adding donors: `add t/donor n/**NAME** o/**ORGAN** b/**BLOOD TYPE** tt/**TISSUE TYPE**
+p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**` +
+
+Format for adding doctors: `add t/doctor n/**NAME** ic/**NRIC** p/**PHONE** ic/**NRIC**`
+
+After adding a person, ORGANice will display a form which contains the attributes of the person. Press
+the Enter key to confirm the details.
 
 [TIP]
-A person can have any number of tags (including 0)
+View <<List of Attributes>> to find out what each attribute mean.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add t/patient n/John Doe o/kidney b/A tt/1,2,3,4,5,6 p/98765432 pr/high ic/S9988330G
+d/S2235456D a/29`
+* `add t/donor n/Betsy Kim o/kidney b/AB tt/2,5,7,8,9,10 p/99998888 ic/S2345678H
+exp/23-Nov-2020 a/21`
+* `add t/doctor n/Lim Chu Kang p/91054444 ic/S5678908D`
 
-=== Listing all persons : `list`
+==== Add with system prompting
 
-Shows a list of all persons in the address book. +
-Format: `list`
+In this mode, the user can add the person's attributes one by one.
+After entering an attribute, the system will prompt the user input for another attribute.
+
+Format: `add t/**TYPE**`
+
+ORGANice will prompt the user to type in each attribute, one by one.
+
+In the display box, there will be a form that reflects the attributes typed by the user.
+
+After the inputs are added, ORGANice will display a template that shows what the user data will look like
+if the changes are finalised. Press the Enter key to confirm the changes.
+
+
+
+=== Listing persons : `list`
+
+Shows a list of all doctors, donors, or patients in ORGANice, depending on the type of person specified.
+Format: `list t/**TYPE**`
+
+Examples:
+
+* `list t/patient`
+* `list t/doctor`
+* `list t/donor`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits the information of the person with the specified NRIC to the attributes specified.
+It is up to the user to specify which attributes should be updated. +
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `edit ic/**NRIC**`
+Optional parameters: any parameter from the <<List of Attributes>>
+
+After editing, ORGANice will display a form to show what information will be stored about
+the person after confirming the changes. The user is free to edit the fields before
+changes are confirmed.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit ic/S8732457G p/91234567` +
+Edits the phone number of the specified patient to be `91234567`.
+* `edit ic/S8732457G n/Betsy Crower b/A` +
+Edits the name and blood type of the specified donor to be `Betsy Crower` and `A` respectively.
 
 === Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds persons whose attributes contain any of the given keywords.
+A list of patient/donor/doctor's information whose attributes partially match the keywords
+will be displayed. +
+
+Format: `find` +
+Optional parameters: any parameter from <<List of Attributes>>
+
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching at least one attribute will be returned. +
+e.g. `a/28 n/Hans Bo` will return people whose attributes are `n/Hans Gruber`, `n/Bo Yang`,
+`a/28 n/Jane`
+
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find t/patient n/Lim` +
+Returns any patient whose name contains 'Lim'
+
 
 // tag::delete[]
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified person from ORGANice.
+Match history of a deleted patient or donor with other patients/donors will be removed. +
+Format: `delete ic/**NRIC**`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Example:
+
+`delete ic/S98654322D` +
+
+Deletes a person with the NRIC S98654322D in ORGANice.
+
+
+// end::delete[]
+=== Detecting matches: `match`
+
+Currently, ORGANice only supports kidney matching. Refer to <<FAQ>> to know the
+procedure for kidney matching.
+
+This command displays a list of patient-donor pairs that passes both the blood type and tissue
+typing tests. +
+
+To get a list of patients and their number of matches, the format is: `match all/`
+
+To get a list of potential matches a patient has with a donor, the format is: `match ic/**NRIC**`
+
+Each match is accompanied by a success rate number,
+which indicates the degree of compatibility
+between the patient and donor. +
+This is so that the doctors can schedule for cross matching between the patient-donor pair.
+
+Matches can be sorted. Refer to <<Sorting matches>> for more information.
+
+=== Sorting matches
+Users can specify how they want the patient-donor pairs to be sorted. +
+Sorting is done by passing in optional parameters to the `match` command. +
+
+Matches can be sorted according to three categories:
+
+1. Success rate of match
+2. Priority of patient
+3. Date of expiry of donors' organs
+
+To return a sorted list of patient-donor pairs, include the `sort/` flag in the command. +
+Format:
+`match ic/**NRIC** sort/[rate/priority/expiry]`
+
+Typing this command causes the application to display a list of matches sorted
+according to the specified criteria. More than one sorting criteria can be included.
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `match ic/S7778983D sort/rate`
+* `match ic/S7778983D sort/rate, priority, expiry`
 
-// end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Processing potential matches: `processing`
+//TODO: change to shorter term that captures the meaning
+
+After finding a list of matches, the hospital is free to schedule a cross-matching test between
+a specific donor and patient. +
+
+After typing this command, the following changes occur:
+
+* the patient and donor statuses will be set to 'under cross matching'
+* the patient and donor will not be included in matching with other donor and patients until a status update.
+
+Format: `processing icP/**PATIENT NRIC** icD/**DONOR NRIC**` +
+
+Example:
+`processing icP/S6764235G icD/S1234567D`
+
+
+=== Mark as done : `done`
+
+After the hospital has the results of the cross matching test, they can
+update the results in ORGANice. Cross matching tests have two possible results: pass or fail.
+
+Format: `done icP/**NRIC OF PATIENT** icD/**NRIC OF DONOR** res/[pass/fail]`
+
+`icP/**NRIC OF PATIENT**` refers to the NRIC of the patient, while `icD/**NRIC OF DONOR**`
+refers to the NRIC of the donor.
+
+The following section outlines what happens based on the two results: +
+
+If the result of the cross matching is a 'pass':
+
+. It is up to the hospital staff to schedule an organ transplant surgery
+between the patient and donor.
+. Mark the patient and donor as 'done', based on the command format.
+. After running the command, the system removes the patient and donor from the matching pool.
+The patient and donor statuses will be marked to 'done'.
+
+
+If the result of the cross matching is a 'fail': +
+
+. Run the command based on the given format
+
+. The patient and donor will be added back to the matching pool for
+match detection with other patients and donors.
+
+. The patient-donor pair will not be considered a potential match in future match detection.
+
+
+Example:
+
+* `done icP/S7896432A icD/S4578902G res/pass`
+* `done icP/S7896432A icD/S4578902G res/fail`
+
 
 === Exiting the program : `exit`
 
@@ -148,30 +360,123 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Detecting duplicates
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+When adding a person, ORGANice will detect if the input is a duplicate of another person in the list.
+A duplicate is defined as: Two persons of the same type who have the same NRIC.
+
+When a duplicate is detected, ORGANice will indicate that there is such a person in ORGANice so the inputs
+should be changed.
+
+== Future improvements
+
+This section describes features that can be added or improved in version 2.0.
+It is further divided into two sub-sections: **Proposed New Features** and **Proposed Extensions**.
+
+=== Proposed New Features
+
+This section describes features that can be added to ORGANice in version 2.0.
+
+==== Filtering persons: `filter`
+
+Filters a patient/doctor/donor by specific attributes.
+
+Format: `filter [patient/donor/doctor] [options]`
+
+Returns a list of patients/doctors/doctors that has the specified attributes.
+
+Examples:
+
+* `filter t/patient g/M`
+* `filter t/donor g/M n/Chua`
+
+=== Proposed Extensions
+
+This section describes features that can be improved on and its proposed improvements.
+
+==== Mass addition of data
+
+Add more than one patient/doctor/donor from data in a specified text file.
+
+A duplicate is defined as: two persons of the same type having the same ID.
+When a duplicate is detected, it prompts the user to change the data in the text file.
+
+==== Supporting more types of transplants
+
+Currently ORGANice has patient-donor matching for kidneys only. Future versions can include matching for +
+more types of organs.
+
+==== Processing a match: `process`
+
+Emails the doctor in charge of a patient when an organ match for the patient is found.
+
+Format: `process **NRIC**`
+
+==== Advanced find
+
+Finding in v2.0 is more advanced with the implementation of fuzzy search and partial matching of keywords.
+
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file +
+that contains the data of your previous ORGANice folder.
+
+*Q*: What are the steps to find a patient-donor kidney match? +
+*A*: There are three steps to finding a patient-donor match:
+
+1. Do a blood test to determine donor and patient blood type.
+2. Do a tissue typing test to determine the HLA antigens of the patient and the donor.
+3. Do a cross match, which is a trial transfusion.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+This section summarises the commands to use this application. The following list
+contains the summary of the commands.
+
+* *Add (Normal Mode):*
+** Add patient: `add t/patient n/NAME o/ORGAN b/BLOOD TYPE tt/TISSUE TYPE p/PHONE pr/PRIORITY ic/NRIC d/DOCTOR a/AGE`
+** Add donor: `add t/donor n/**NAME** o/**ORGAN** b/**BLOOD TYPE** tt/**TISSUE TYPE**
+p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**`
+** Add doctor: `add t/doctor n/**NAME** ic/**NRIC** p/**PHONE** ic/**NRIC**`
+
+* *Add (System Prompt Mode)*: `add t/**TYPE**`
+
+* *Delete* : `delete ic/**NRIC**` +
+* *Edit* : `edit ic/**NRIC**`
+** Optional parameters: any parameter from <<List of Attributes>>
+* *Find* : `find`
+** Optional parameters: any parameter from <<List of Attributes>>
+* *Match* : `match [all/ic]`
+** Optional parameters: `sort/[rate/expiry/priority]` +
+* *Processing*: `processing icP/**NRIC of Patient** icD/**NRIC OF DONOR**`
+* *List* : `list t/**TYPE**`
 * *Help* : `help`
+* *Done* : `done icP/**NRIC of Patient** icD/**NRIC OF DONOR** `
+* *Exit* : `exit`
+
+== Glossary
+
+This section contains a list of words used in this user guide and its intended meaning.
+It is meant to clarify the meaning and context of the words used in this user guide.
+
+* user: refers to hospital administration staff who are using this desktop application
+
+* person: refers to doctors, patients or donors
+
+* blood type match: refers to a donor and patient whose blood types are compatible.
+
+* tissue match: refers to a donor and patient whose tissues match
+
+* cross match: a trial blood transfusion, where donor and patient's blood are mixed in a test tube to check +
+for harmful interactions between patient and donor's blood
+
+* potential match: refers to a donor-patient pair whose organs pass the blood test and tissue typing test.
+
+* match: refers to a donor-patient pair whose organs pass all three matching tests
+
+* duplicate: refers to two persons of the same type which have the same NRIC
