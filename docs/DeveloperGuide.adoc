@@ -328,7 +328,7 @@ more conveniently than traditional forms of trip planning
 
 <span class="underline">Use case: UC1 - Add Trip</span>
 
-**MSS**
+***MSS***
 
 1.  User requests to **Trip Manager** to list trips
 
@@ -344,7 +344,7 @@ more conveniently than traditional forms of trip planning
     
     Use case ends.
 
-**Extensions**
+***Extensions***
 
 5a. The trip added clashes with another trip
 
@@ -361,7 +361,7 @@ Steps 5a1-5a2 are repeated until no clashes occur between trips
 
 <span class="underline">Use case: UC2 – Edit Trip</span>
 
-**MSS**
+***MSS***
 
 1.  User chooses to edit specific **Trip**
 
@@ -373,7 +373,7 @@ Steps 5a1-5a2 are repeated until no clashes occur between trips
     
     Use case ends
 
-**Extensions**
+***Extensions***
 
 3a. User enters an invalid field
 
@@ -404,9 +404,9 @@ Steps 4a1-4a3 are repeated until the data entered are non empty
 
 Use case ends.
 
-<span class="underline">Use case: UC3 – Delete Trip</span>
+**Use case: UC3 – Delete Trip**
 
-**MSS**
+***MSS***
 
 1.  User requests to **Trip Manager** to list **Trips**
 
@@ -417,8 +417,8 @@ Use case ends.
 4.  TravelPal deletes the **Trip**
 
 > Use case ends
-
-**Extensions**
+`
+***Extensions***
 
 2a. The list is empty
 
@@ -432,17 +432,17 @@ Use case ends
 
 Use case ends
 
-<span class="underline">Use case: UC4 – Add Day</span>
+**Use case: UC4 – Add Day**
 
-**MSS**
+***MSS***
 
 1.  User chooses to add a **Day** to a specified **Trip**
 
-2.  User <span class="underline">edits the day (UC5)</span>
+2.  User _edits the day (UC5)_
 
 3.  TravelPal saves the **Day**
 
-**Extensions**
+***Extensions***
 
 3a **Day** added clashes with other days in the **Trip**
 
@@ -457,9 +457,9 @@ input
 
 Steps 3a1 – 3a4 are repeated until the user provided non clashing date
 
-<span class="underline">Use case: UC5 – Edit Day</span>
+**Use case: UC5 – Edit Day**
 
-**MSS**
+***MSS***
 
 1.  User requests to edit specific **Day**
 
@@ -471,7 +471,7 @@ Steps 3a1 – 3a4 are repeated until the user provided non clashing date
 
 > Use case ends
 
-**Extensions**
+***Extensions***
 
 3a. User enters an invalid field
 
@@ -485,8 +485,7 @@ Use case continues at step 2
 
 3b1. TravelPal shows a list of **Events** to the user (can be empty)
 
-3b2. User chooses to <span class="underline">add/edit/delete (UC 7/8/9)
-**Event**</span>
+3b2. User chooses to _add/edit/delete (UC 7/8/9) **Event**_
 
 Use case continues at step 4
 
@@ -502,9 +501,9 @@ Steps 4a1-4a3 are repeated until the data entered are correct
 
 Use case ends.
 
-<span class="underline">User case: UC6 – Delete Day</span>
+**User case: UC6 – Delete Day**
 
-**MSS**
+***MSS***
 
 1.  User requests to delete a specific **Day** in the list
 
@@ -512,7 +511,7 @@ Use case ends.
 
 > Use case ends
 
-**Extensions**
+***Extensions***
 
 2a. The list is empty
 
@@ -526,17 +525,17 @@ Use case ends
 
 Use case ends
 
-<span class="underline">User case: UC7 – Add Event</span>
+**User case: UC7 – Add Event**
 
-**MSS**
+***MSS***
 
 1.  User chooses to add a **Event** to a specified **Day**
 
-2.  User <span class="underline">edits the event (UC5)</span>
+2.  User _edits the event (UC5)_
 
 3.  TravelPal saves the **Event**
 
-**Extensions**
+***Extensions***
 
 3a **Event** added clashes with other **Events** in the **Day**
 
@@ -551,9 +550,9 @@ input
 
 Steps 3a1 – 3a4 are repeated until the user provided non clashing date
 
-<span class="underline">User case UC8 – Edit Event</span>
+**User case UC8 – Edit Event**
 
-**MSS**
+***MSS***
 
 1.  User requests to edit specific **Day**
 
@@ -565,7 +564,7 @@ Steps 3a1 – 3a4 are repeated until the user provided non clashing date
 
 > Use case ends
 
-**Extensions**
+***Extensions***
 
 3a. User enters an invalid field
 
@@ -579,9 +578,7 @@ Use case continues at step 2
 
 3b1. TravelPal shows a list of **Events** to the user (can be empty)
 
-3b2. User chooses to <span class="underline">add/edit/delete (UC 7/8/9)
-**Event**</span>
-
+3b2. User chooses to _add/edit/delete (UC 7/8/9) **Event**_
 Use case continues at step 4
 
 4b. User leaves necessary information empty
@@ -596,9 +593,9 @@ Steps 4a1-4a3 are repeated until the data entered are non empty
 
 Use case ends.
 
-<span class="underline">User case UC9 – Delete Event</span>
+**User case UC9 – Delete Event**
 
-**MSS**
+***MSS***
 
 1.  User requests to delete a specific **Event** in the list
 
@@ -606,7 +603,7 @@ Use case ends.
 
 > Use case ends
 
-**Extensions**
+***Extensions***
 
 2a. The list is empty
 
