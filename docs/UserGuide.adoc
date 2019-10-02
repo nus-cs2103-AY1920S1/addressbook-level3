@@ -158,13 +158,13 @@ Examples:
 * To edit all fields:
   `edit n/John newN/Johnny bw/90 wc/90 aff/Singapore s/1000`
 
-6. Get top 3 athletes: top3 (I think can put under score)
+==== Get top 3 athletes: `top3`
 Gets top 3 athletes (currently in 1st, 2nd and 3rd) for each weight class.
 
-Format: top3 wc/WeightClass
+Format: `top3 wc/WeightClass`
 
 Examples:
-top3 wc/100kg
+`top3 wc/100kg`
 
 
 === Listing all persons : `list`
