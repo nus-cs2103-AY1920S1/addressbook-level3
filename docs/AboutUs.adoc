@@ -31,7 +31,7 @@ Responsibilities: In charge of Cashier
 
 === Lim Kang Yee
 
-image::kangyeel1im.png[width="150",align="left"]
+image::kangyeelim.png[width="150",align="left"]
 {empty}[http://github.com/kangyeelim[github]] [<<johndoe#, portfolio>>]
 
 Role: Deliverables and deadlines, Scheduling and Tracking +
@@ -41,7 +41,7 @@ Responsibilities: In charge of Transactions
 
 === Michaela Tang
 
-image::michaelatsh.png[width="150",align="left"]
+image::MichaelaTSH.png[width="150",align="left"]
 {empty}[http://github.com/MichaelaTSH[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation +
