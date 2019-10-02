@@ -97,16 +97,16 @@ The commands listed below in 3.2, 3.3, … are based on the context of a competi
 
 ==== Sorting Athletes: `sort`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Groups and sorts all athletes into their respective weight classes or attempted weights for an event.
 
-[TIP]
-A person can have any number of tags (including 0)
+Format: `sort wc/WEIGHTCLASS`
 
-Examples:
+Format: `sort aw/EVENT`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Example(s):
+
+* `sort wc/90kg`
+* `sort aw/Squat`
 
 === Listing all persons : `list`
 
