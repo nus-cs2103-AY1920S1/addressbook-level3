@@ -351,50 +351,102 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `IMS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: User Login
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User inputs username and password
+2.  IMS checks username & password
+3.  IMS provides user with access
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The username is not found.
++
+[none]
+** 2a1. IMS shows an error message that user does not exist.
+Use case ends.
+
+[none]
+* 2b. The password is incorrect.
++
+[none]
+** 2b1. IMS shows an error message that password is incorrect.
+Use case ends.
+
+[discrete]
+=== Use case: New incident
+
+*MSS*
+
+1.  User requests to create a new incident
+2.  IMS prompts for confirmation of vehicle assignment
+3.  User accepts auto assigned vehicle for dispatch
+4.  IMS creates a new incident with autofill details
+5.  IMS prompts for completion of incident report
+6.  User fills in necessary details
+7.  User submits incident report
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 3a. User opts for manual assignment.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. IMS displays list of all available vehicles.
+** 3a2. User selects index of vehicle to dispatch.
 +
-Use case resumes at step 2.
+Use case resumes at step 4.
 
-_{More to be added}_
+[none]
+* 6a. User opts to complete report later.
++
+[none]
+** 6a1. IMS stores incident as a draft.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit Incident
+
+*MSS*
+
+1.  User searches for an incident
+2.  IMS retrieves the incident
+3.  User edits the incident details
+4.  IMS saves the edited incident report
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The incident is not found.
++
+[none]
+** 2a1. IMS shows an error message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 incidents without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Performance first for vehicle dispatch upon new incident creation.
+.  Data storage should be allow for easy access (directly manipulable).
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
