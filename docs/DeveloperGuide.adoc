@@ -287,11 +287,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: Mortago replaces and improves upon the traditional whiteboard system.
 
-It provides a convenient dashboard for the mortuary manager to keep track of all bodies and fridges,
-outstanding tasks, and alerts. Mortago unites the different aspects of a mortuary and allows the
-mortuary management to be more accurate in managing tasks, calculate the availability of space, and
-generate reports automatically.
-
+It provides a convenient dashboard for the mortuary manager to keep track of all bodies and fridges, outstanding tasks, and alerts. 
+Mortago unites the different aspects of a mortuary and allows the mortuary management to be more accurate in managing tasks, calculate the availability of space, 
+and generate reports automatically.
 
 [appendix]
 == User Stories
@@ -479,6 +477,7 @@ Use case ends.
 Use case ends.
 
 _{More to be added}_
+
 [appendix]
 == Non Functional Requirements
 
