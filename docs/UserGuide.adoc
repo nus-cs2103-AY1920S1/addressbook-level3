@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Mortago v2.0 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -7,24 +7,33 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:toc:
+:toclevels: 3
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T13-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team  AY1920S1-CS2103T-T13-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Mortago is a mortuary management system for hospitals. Mortago is optimized for efficient mortuary managers who *prefer
+to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
 
+Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
+tasks, and alerts. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary management to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.
+
+Interested? Jump to <<Quick-Start>> to get started. Enjoy!
+
+[[Quick-Start]]
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have `Java 11` or above installed in your Computer.
+.  Download the latest `mortago.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for Mortago.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +42,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
+
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`workers`* : switches to the workers tab
+* **`add -w`**`/firstName John /lastName Doe /dob 17-05-1980` :
+adds a worker named John Doe (with his date of birth) to the management system.
+* **`delete -w`**`100200` : deletes the worker with staff ID W100200
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -44,60 +56,198 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*Command Specification*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* The word after an `/attributeName` should be provided by you.
+    ** e.g. In the sort command `sort /order status`, you must replace `status` with your own input.
+* Words in parentheses are optional.
+    ** e.g. `update -b (/religion religion /status status)` can be used as either of these:
+        *** update -b /religion Buddhist
+        *** update -b /religion Buddhist /status released
+* Parameters in parentheses can be given in any order.
+    ** e.g. These both result in the same command
+        *** `update -b /religion Buddhist /status released`
+        *** `update -b /status released /religion Buddhist`
+
+
+* Commands that require `/attributeName` must be supplied with the respective name of the attribute which belong to the worker, fridge, or body.
+The types of attributes for each entry can be found in <<add, 3.1.1>>
+
+|===
+
+| :bulb: What are attributes?
+| Attributes are properties of a body, fridge or worker that are supplied by you when creating a body, fridge, or worker entry.
+    +
+    e.g. `firstName` is an attribute for both body and worker entries.
+
+
+|===
+
+* Commands with fields tagged with `...` must be supplied at least one argument. When `...` appears after
+a parenthesis, it means that you can supply one or more arguments.
+    ** `filter (/attributeName attributeValue)...`
+    ** `filter /firstName John` and `filter /sex F` are valid commands.
+
+
+* Some commands require a -flag while some are optional. List of flags:
+    ** -b: to indicate a `body` entry
+    ** -w: to indicate a `worker` entry
+    ** -f: to indicate a `fridge` entry
+    ** -v: view the verbose description of all commands and their flags.
+
+
+
+* The identification number of these objects are automatically generated by Mortago for your convenience.
+If you need to supply the identification number to a command, giving the number (e.g. `20`) is enough.
+The identification number is in the format as shown:
+    ** `body` entries: `B\\####\####`
+    ** `worker` entries: `W\\#####`
+    **  `fridge` entries: `F##`
+
 ====
 
-=== Viewing help : `help`
+=== Create, Read, Update and Delete Entries
+[[add]]
+==== Add an entry: `add`
 
-Format: `help`
+Add a body, worker or fridge +
+Format:
+|===
 
-=== Adding a person: `add`
+| Purpose | Command
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+| Add a new worker
+
+a|
+[source,java]
+add -w
+/firstName firstName
+(/middleName middleName)
+/lastName lastName
+(/phoneNo phoneNumber)
+/sex  sex
+/dob dateOfBirth
+/dateJoined dateJoined
+/designation designation
+/status employmentStatus
+
+---
+
+| Add a new body
+a|
+[source,java]
+add -b
+/firstName firstName
+(/middleName middleName )
+/lastName lastName
+/sex  sex
+/dob DateOfBirth
+/dod DateOfDeath (HH:MM)
+/doa DateOfAdmission (HH:MM)
+/status status
+/nric nricNumber
+/religion religion
+/nameNOK nameOfNextOfKin
+/relationship Relationship
+/phoneNOK phoneNOK
+/cod causeOfDeath
+/details details
+/organsForDonation organsForDonation
+/fridgeId fridge
+
+---
+| Add a new fridge
+a|
+[source,java]
+add -f
 
 [TIP]
-A person can have any number of tags (including 0)
+Default status: Unoccupied
 
-Examples:
+|===
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Example:
 
-=== Listing all persons : `list`
+|===
 
-Shows a list of all persons in the address book. +
-Format: `list`
+| Command | Expected Output
 
-=== Editing a person : `edit`
+a|
+[source,java]
+add -w
+/firstName John
+/lastName Doe
+/phoneNo 87654321
+/sex M
+/dateJoined 18/08/2019
+/designation Autopsy Technician
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+---
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+| Worker added
 
-Examples:
+a|
+[source,java]
+add -b
+/firstName Mary
+/lastName Smith
+/sex F
+/dob 12/12/1984
+/dod 12/08/2019 2358
+/doa 13/08/2019 0200
+/status contactedNOK
+/nric S8456372C
+/religion Catholic
+/nameNOK Jack Smith
+/relationship Husband
+/phoneNOK 83462756
+/cod Car Accident
+/details Heavy bleeding and head injury
+/organsForDonation NIL
+/fridgeId 2
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+---
+| Body added
 
-=== Locating persons by name: `find`
+a|
+[source,java]
+add -f
+
+
+| Fridge added
+
+|===
+[[update]]
+==== Update an entry: `update`
+
+Update the status of each worker, body or fridge
+
+Format: `update -flag /id id (/attributeName attributeValue)`
+
+Example:
+
+|===
+
+| Command | Expected Output
+
+|
+`update -w /id 1 /designation Senior Autopsy Technician`
+
+| Status of worker 1 changed
+
+| `update -b /id 1 /organsForDonation heart`
+
+| Organs listed for donation for body 1 changed
+
+| `update -f /id 1 /status occupied`
+
+| Status of fridge 1 changed
+|===
+
+==== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find (keyword)...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -115,63 +265,311 @@ Returns `john` and `John Doe`
 Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+==== Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Delete a body, worker or fridge entry, indicated by its id number. +
+Format: `delete -flag  id`
+
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the body, worker or fridge entry with the specified identification number.
+* The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
+body, worker or fridge entry respectively.
+X represents any digit.
+* You only need to specify the number portion of the ID, without leading zeroes.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete -w 1` +
+The worker with the identification number `W00001` will be deleted.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+// end::delete
+
+==== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+====  View an entry: `view`
+View a single entry of a body, worker, fridge.
+
+Format: `view -flag /id id`
+
+|===
+| Flags | Usage
+| -b | View the body with the given ID.
+| -w | View the worker with the given ID.
+| -f | View the fridge with the given ID.
+|===
+
+Example: `view -b /id 91` +
+View a body with the ID B00000091.
+
+====  : List all entries : `list`
+List all entries of bodies, workers, or fridges.
+
+Format: `list -flag`
+
+|===
+| Flags | Usage
+| -b | View all bodies.
+| -w | View all workers.
+| -f | View all fridges.
+|===
+
+Example: `list -b` +
+Lists all bodies currently in Mortago.
+
+=== General
+==== View alerts panel: `alerts`
+View all alerts. Alerts are automatically generated by Mortago.
+Alerts are made when
+bodies are unclaimed 24 hours after the date and time of death.
+
+Format: `alerts`
+
+==== Sort all entries: `sort`
+Sort all displayed entries according to a given order.
+Types of ordering can be found below:
+
+* `name`: entries are sorted by alphabetical order of their names
+* `id`: entries are sorted by their id number, in ascending or descending order
+* `status`: entries are sorted by their statuses
+* `sort` will only be valid when the entries of interest are in view.
+
+Format: `sort /order order (/idOrder idOrder)`
+
+Example:
+
+* `sort /order status` +
+All entries will be sorted and grouped according to their statuses.
+* `sort /order id /idOrder ascending` +
+All entries will be sorted according to their id number in ascending order.
+
+==== Filter all entries: `filter`
+Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
+
+Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+
+Format: `filter (/attributeName attributeValue)...`
+
+Example:
+`filter /firstName John`
+All entries with `John` in its `firstName` attribute will be displayed.
+
+==== Undo previous command: `undo`
+Undo the last executed command.
+
+[TIP]
+Only commands that change Mortago's data will be undone.
+
+Format: `undo`
+
+Example:
+
+* The last executed command was `list`. The second last executed command was `add`.
+    ** When `undo` is executed, it undos `add` because `list` does not change any data.
+
+==== Redo previous command: `redo`
+Redo the last undone command.
+
+Format: `redo`
+
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Administrative
+==== Archive entries: `archive` `[coming in v2.0]`
+Archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Format:
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* `archive -flag /id id`
+* `archive -flag /status status`
+
+Example:
+
+* `archive -b /id 2` +
+Archives body entry with ID 2
+* `archive -w /status inactive` +
+Archives all entries of workers who are inactive
+
+==== View archived entries: `archives` `[coming in v2.0]`
+Display all archived entries.
+
+Format: `archives -flag`
+
+Example:
+
+* `archives -b` +
+Display of all archived body entries, in order of archive date
+* `archives -w` +
+Display of all archived worker entries, in order of archive date
+
+==== Give and view feedback: `feedback`
+Give workers feedback (for the manager’s own reference), and can display a history of all feedback entered.
+
+Format:
+`feedback /id staffID /details details`
+`feedback`
+
+Example:
+
+* `feedback /id 10 /details very meticulous` +
+Note down feedback for worker with ID W10010 with custom details
+* `feedback` +
+Display of all feedback entered
+
+==== Assign tasks to worker: `assign`
+Assign a body and task to a worker.
+
+Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
+
+Example:
+
+* `assign /bodyId 2 /staffId 1 /task send blood sample to lab for analysis` +
+Assigns worker with staff ID W00001 to body with ID B00000002 with a task description.
+
+=== Document Generation
+==== Generate report on the deceased: `genReport`
+Generate an individual report from the app automatically
+
+Format: `genReport bodyID`
+
+Example:
+
+* `genReport 123` +
+Outputs the report PDF for body ID B00000123
+
+==== View past individual reports: `report`
+Receive details of a past individual report.
+
+Format: `report bodyID`
+
+Example:
+
+* `report 1` +
+Outputs the past report of body ID B00000001
+
+==== View past reports: `reports`
+Receive a list of past reports.
+
+Format: `reports`
+
+Example: `reports` +
+Outputs the list of past reports
+
+
+=== Help
+==== View all commands: `help`
+View a summary of all available commands and their flags. Use the `-v` flag to view the detailed description of all commands and their flags.
+
+Format: `help -flag`
+
+Example: `help -v` +
+Shows a link to the User Guide.
+
+3.5.b. Get information about a command: `help command`
+View the detailed description of the specified command and its flags, if any.
+
+Format: `help command`
+
+Example: `help undo` +
+Shows undo command description.
+
+
+==== View help hotlines: `hotlines` `[coming in v2.0]`
+View emergency help hotlines.
+
+Format: `hotlines`
+
+Example: `hotlines` +
+Lists emergency help hotlines.
+
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains your Mortago data.
+
+*Q*: How do I save my data? +
+*A*: Mortago's data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 == Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* an entry: `add`
+    ** Add a new worker, body, or fridge with the
+`add -flag (/attributeName attributeValue)`
+* *Update* an entry: `update`
+    ** Update the status of each worker, body, or fridge with the `update -flag (/attributeName attributeValue)`
+* *Find* : `find (keyword)...` +
+    ** Find entries using a keyword. +
+    Format: `find keyword`
+* *Delete* an entry: `delete`
+    ** Delete a body, worker or fridge entry, indicated by its id number. +
+    Format: `delete -flag id`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *View* : `view -flag /id id`
+* *List* : `list -flag`
+
+
+* *View alerts* : `alerts`
+    ** View all alerts brought up by the app.
+* *Sort* : `sort`
+    ** Sort all displayed entries according to a given order. +
+    Format: `sort /order order (/idOrder idOrder)`
+* *Filter* : `filter`
+    ** Filter all entries according to the given keyword in any of an entry’s field. +
+    Format: `filter (/field keyword)...`
+* *Undo* : `undo`
+    ** Undo the last executed command. +
+    Format: `undo`
+* *Redo* : `redo`
+    ** Redo the last undone command. +
+    Format: `redo`
+* *Exit*: `exit`
+
+
+* *Archive entries* : `archive` `[coming in v2.0]`
+    ** Archive old or irrelevant entries.
+    Format: `archive -flag /id id`, `archive -flag /status status`
+* *View archived entries* : `archives` `[coming in v2.0]`
+    ** Display all archived entries.
+    Format: `archives -flag`
+* *Give and view feedback* : `feedback`
+    * Give workers feedback and displays a history of all feedback entered.
+    Format: `feedback /id staffID /notes notes`, feedback`
+* *Assign tasks* : `assign`
+    ** Assign a body and task to a worker.
+    Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
+* *Generate report* : `genReport`
+    ** Generate an individual report from the app automatically
+    Format: `genReport bodyID`
+* *View a select report* : `report`
+    ** Receive details of a past individual report.
+    Format: `report bodyID`
+* *View past reports* : `reports`
+    ** Receive a list of past reports.
+    Format: `reports`
+
+
+* *Help summary*: `help`
+    ** Get information about the commands
+    Format: `help -flag`
+* *Help for specific command* : `help command`
+* *Help hotlines* : `hotlines` `[coming in v2.0]`
+
+== Glossary
+*Attribute* : In Mortago, an attribute is the property of a body, fridge or worker. +
+
+*Body/bodies* : a corpse +
+
+*Command Line Interface (CLI)* : a text-based user interface (UI) used to view and manage computer files +
+
+*Graphical User Interface (GUI)* : an interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text
+
+*Operating system (OS)* :the low-level software that supports a computer's basic functions, such as scheduling tasks and controlling peripherals
+
