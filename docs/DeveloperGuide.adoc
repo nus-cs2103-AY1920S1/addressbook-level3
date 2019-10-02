@@ -326,6 +326,18 @@ Priorities:
 
 |`* *`|student|disable notification|I will not be bothered in some important events|Shui Yao
 
+|`* * *`|student|change the difficulty level of questions|I can customize the difficulty level of the questions as I progress along the time|Xueting
+
+|`* * *`|student|find all the questions at a particular difficulty level|I can see how well I understand the subject content|Xueting
+
+|`* *`|student|set a mix of different difficulty levels at exam mode|I can better simulate the real-time exams conditions|Xueting
+
+|`* *`|student|get a statistics of the number of questions I have attempted at a difficulty level|I can see how often I have practiced for this subject|Xueting
+
+|`* *`|student|get statistics of the accuracy level of the specific difficulty|I can visualise how well I have practiced for this subject|Xueting
+
+|`*`|student|get statistics of the change of difficulty levels I have made to a question|I can understand my improvement in understanding the content|Xueting
+
 |=======================================================================
 
 [appendix]
