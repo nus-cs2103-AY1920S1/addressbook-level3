@@ -392,6 +392,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[#UC03]
 [discrete]
 === Use case: UC03 - Delete bookmark
 
@@ -418,6 +419,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[#UC04]
 [discrete]
 === Use case: UC04 - Edit bookmark
 
@@ -444,6 +446,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[#UC05]
 [discrete]
 === Use case: UC05 - Open bookmark
 
@@ -470,6 +473,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[#UC06]
 [discrete]
 === Use case: UC06 - Export bookmarks
 
@@ -493,6 +497,7 @@ Use case ends.
 +
 Use case resumes at step 4.
 
+[#UC07]
 [discrete]
 === Use case: UC07 - Import bookmarks
 
@@ -520,6 +525,7 @@ Use case resumes at step 1.
 +
 Use case ends.
 
+[#UC08]
 [discrete]
 === Use case: UC08 - Make a bookmark available offline
 
@@ -546,6 +552,7 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+[#UC09]
 [discrete]
 === Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
 
@@ -566,6 +573,7 @@ Mark shows an error message.
 +
 Use case ends.
 
+[#UC10]
 [discrete]
 === Use case: UC10 - Redo previously undone commands
 
@@ -585,7 +593,7 @@ Mark shows an error message.
 +
 Use case ends.
 
-
+[#UC11]
 [discrete]
 === Use case: UC11 - Browse the web
 
@@ -604,17 +612,19 @@ Use case ends.
 +
 Use case ends.
 
+[#UC12]
 [discrete]
 === Use case: UC12 - Add bookmarks from web browser
 
 *MSS*
 
-1. User [.underline]#browses the web (UC11)#.
+1. User <<UC11,[.underline]#browses the web (UC11)#>>.
 2. User requests to bookmark currently showing webpage.
 3. Mark uses current website's URL and <<UC02,[.underline]#adds bookmark (UC02)#>>.
 +
 Use case ends.
 
+[#UC13]
 [discrete]
 === Use case: UC13 - Annotate offline documents
 
