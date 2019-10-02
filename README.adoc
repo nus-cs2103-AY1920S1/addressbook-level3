@@ -1,5 +1,4 @@
 = Athletick
-:favicon: https://github.com/shawnlsj97/main/blob/master/docs/images/favicon.png
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 
