@@ -1,9 +1,9 @@
-= Address Book (Level 3)
+= Scheduler
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-F09-1/main[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
+https://ci.appveyor.com/project/ChrisKheng/main/branch/master[image:https://ci.appveyor.com/api/projects/status/7xipch56f5hpgwqw/branch/master?svg=true[Build status]]
+https://coveralls.io/github/AY1920S1-CS2103-F09-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-F09-1/main/badge.svg?branch=master[Coverage Status]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
@@ -14,22 +14,16 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+*Scheduler* is a desktop application for scheduling interviews. It matches interviewees with interviewers automatically through our robust algorithm so you don't have to.
 
-== Site Map
+If you are a secretary facing a headache on organising interview slots for your team, we offer just the solution for you. Simply import or input the available timings of both your interviewers and interviewees, and start scheduling those interviews right away!
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
-* <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
+For more information, please refer to our <<UserGuide#, User Guide>>. Developers, please refer to our <<DeveloperGuide#, Developer Guide>>.
+
+This application was developed by a team of students from the National University of Singapore (NUS) as part of the CS2103 Software Engineering module. <<AboutUs#, Read more about us>> or <<ContactUs#, contact us>> directly.
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+This project was built on the AddressBook-Level3 project developed as part of the SE-EDU initiative: https://se-education.org
 
 == Licence : link:LICENSE[MIT]

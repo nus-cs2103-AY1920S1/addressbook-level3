@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage and schedule many interviews with multiple interviewers involved.
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage the scheduling of interviews faster with CLI than mouse/GUI driven apps.
 
 [appendix]
 == User Stories
@@ -297,33 +297,69 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |secretary of NUS CCA  |manually add new interviewees and their availabilities| make changes without having to edit the .csv file and doing another import.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |secretary of NUS CCA  |delete an interview |remove interviews that have been taken out.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |secretary of NUS CCA  |find a interviewee by name|locate details of person and their interview without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |secretary of NUS CCA |automate the process of scheduling interviews |lighten my workload
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |secretary of NUS CCA |import the available timeslots of interviewees from a .csv template |schedule the interviews for them
+
+|`* * *` |secretary of NUS CCA |export the scheduled interviews as a .csv file |I can view and manage them in Excel
+
+|`* * *` |secretary of NUS CCA |add details of interviewee e.g. email/phone number |easily view the details of the interviewees
+
+|`* * *` |secretary of NUS CCA |view a timetable of the finalized interview slots |show the interviewers which timeslots they will be taking at a glance
+
+|`* * *` |secretary of NUS CCA |email blast the generated interview schedule to all interviewees |inform the interviewees of their interview
+
+|`* * *` |secretary of NUS CCA |be informed if interview allocation of a certain interviewee has failed |manually fix conflicts or get the interviewee to give another available timeslot
+
+|`* * *` |secretary of NUS CCA |automate the process of scheduling interviews |lighten my workload
+
+|`* * *` |secretary of NUS CCA |mark an interviewee as 'completed interview' |track and manage uncompleted interviews
+
+|`* * *` |secretary of NUS CCA |add multiple tags to an interviewee in a single command |I can be efficient
+
+|`* * *` |fast-typer |use CLI for the app instead of mouse/GUI |access the commands in the fastest possible way
+
+|`* *` |developer |CLI and GUI to be separated |isolate either one for testing and debugging purposes
+
+|`* *` |secretary of NUS CCA |track the attendance of my interviewees |
+
+|`* *` |secretary of NUS CCA |rank my interviewees by potential |I would be able to evaluate them better
+
+|`* *` |secretary of NUS CCA |be able to sort interviewees by ranking |I can easily record down the shortlisted ones
+
+|`* *` |secretary of NUS CCA |schedule group interviews |I can use less manpower on days that I do not have enough interviewers
+
+|`* *` |secretary of NUS CCA |share the current scheduled timeslots with another secretary |give them access to help with the scheduling of interviews as well
+
+|`* *` |secretary of NUS CCA |email the interview results to interviewees |inform them of the outcomes of the interview
+
+|`*` |secretary of NUS CCA |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`*` |secretary of NUS CCA with many interviewees |sort persons by name |locate an interviewee easily
 |=======================================================================
 
-_{More to be added}_
+
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Scheduler` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: (UC-1) Delete interview slot
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list interview slots
+2.  Scheduler shows a list interview slots
+3.  User requests to delete a specific interview slot in the list
+4.  Scheduler deletes the interview slot
 +
 Use case ends.
 
@@ -337,11 +373,85 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Scheduler shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: (UC-2) Import interviewee's time slots
+
+*MSS*
+
+1.  User requests to import interviewee's time slots and specify file location
+2.  Scheduler imports interviewee's time slots from specified file
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Specified file doesn't exist
+** 1a1. Scheduler shows error message
++
+Use case resumes at step 1.
+
+* 1b. Specified file doesn't follow correct format
+** 1b1. Scheduler shows error message
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: (UC-3) Import interviewer's time slots
+
+*MSS*
+
+1.  User requests to import interviewer's time slots and specify file location
+2.  Scheduler imports interviewer's time slots from specified file
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Specified file doesn't exist
+** 1a1. Scheduler shows error message
++
+Use case resumes at step 1.
+
+* 1b. Specified file doesn't follow correct format
+** 1b1. Scheduler shows error message
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: (UC-4) Schedule interview slots
+
+
+*MSS*
+
+1. User __imports interviewee's availability (UC-2)__
+2. User __imports interviewer's availability (UC-3)__
+3.  User requests to generate timetable of all available interview time slots based on the availability of *interviewers*.
+4.  Scheduler generates timetable
+5.  User requests schedule interviewees based on the available timetable
+6.  Scheduler allocates interviewees into the time slots in the generated timetable
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 5a. Unable to fit all interviewees into timetable.
+** 5a1. Scheduler shows an error message with the names of interviewees that are not allocated a slot.
++
+Use case ends.
+
+
+
 
 [appendix]
 == Non Functional Requirements
