@@ -1,177 +1,89 @@
-= AddressBook Level 3 - User Guide
-:site-section: UserGuide
-:toc:
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-:experimental:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+MyProject
+User Guide:
+Introduction
+MyProject (MP) is for team leaders who prefer to use a desktop app for managing their projects. MP is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). With MP it is a one-stop app to store and manage your projects and their relevant information, this is especially useful if you are always managing multiple projects across different teams. Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
+Quick Start
+Ensure you have Java 11 or above installed in your Computer.
+Download the latest myproject.jar here.
+Copy the file to the folder you want to use as the home folder for your Address Book.
+Double-click the file to start the app. The GUI should appear in a few seconds.
+Type the command in the command box and press Enter to execute it.
+e.g. typing help and pressing Enter will open the help window.
+Some example commands you can try:
+list : lists all contacts 
+exit : exits the app
+Refer to Section 3, “Features” for details of each command.
+Features
+    
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+Viewing help: help
 
-== Introduction
+Shows a list of commands.
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Format: help
+List
+List Projects: listProjects
 
-== Quick Start
+Shows the list of projects.
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+Format: listProjects
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+List Members: listMembers
 
-.  Refer to <<Features>> for details of each command.
+Shows the list of members involved with the specified project. If no project is specified, a list of all projects with its corresponding members is shown.
 
-[[Features]]
-== Features
+Format: listMembers [pr/PROJECT_NAME]
 
-====
-*Command Format*
+List Tasks: listTasks
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+Shows a list of ongoing tasks for the specified project. If no project is specified, a list of all projects with its corresponding ongoing tasks is shown.
+Format: listTasks [pr/PROJECT_NAME]
 
-=== Viewing help : `help`
+Add
+Add Project: addProject
+Adds a project to your list of projects
+Format: addProject pr/PROJECT_NAME [d/PROJECT_DESCRIPTION] [dl/DEADLINE] [m/MEMBERS] [ta/TASKS] [t/TAG]...
 
-Format: `help`
+Examples: 
+addProject pr/GET1031 project dl/October 11 Tuesday 2359 m/John Lim_Mark Tan_David Chan ta/1. Come up with project outline 2.Research on project topic t/NUS
 
-=== Adding a person: `add`
+Add meeting: addMeeting
+addMeeting p/PROJECT_NAME [dt/tentative days for a meeting] [m/MEMBERS INVOLVED] [a/AGENDA]...
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a meeting for the specified project. After a meeting is added, the program will automatically work out an available meeting time that suits most people. 
 
-[TIP]
-A person can have any number of tags (including 0)
+Examples: 
+addMeeting p/GET1031 project dl/October 11 - October 17 m/John Lim_Mark Tan_David Chan a/decide on the structure of presentation
+
+Add person to addressBook: addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
+
+Adds a person into the addressbook. After a person is added, they can then be linked to a project by editing the project.
 
 Examples:
+addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Edit 
+3.4.1 Edit project: edit
+Edit the attributes of the project.
+Format: edit INDEX [pr/PROJECT_NAME] [pd/PROJECT_DESCRIPTION] [dl/DEADLINE]...
 
-=== Listing all persons : `list`
+    Examples:
+edit 5 pr/OP1 pd/Oral Presentation on Negotiation Techniques dl/25/09/2019 2359
+Storing meeting minutes
+Upload text file that contains the meeting minute for a specific meeting
+Format: attach pr/PROJECT_NAME [i/INDEX] [dl/DEADLINE] [ta/TASKS] [t/TAG]...
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
+Come up with next meeting date: generateTiming [pr/PROJECT_NAME] [mt/MEETING_INDEX]
+All members will record their free meeting timings in a txt file and input it to the app. 
+The app will calculate a time that involves most important people
+Delete
+Deletes the specified person from the address book.
+Format: delete INDEX
 Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+delete 1
+Reminder
+Sends a reminder to all members of the given project.
+Format: sendReminder [pr/PROJECT_NAME]
+Help
+Format: help
+List all commands available and the format
