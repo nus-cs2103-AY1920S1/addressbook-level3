@@ -60,14 +60,18 @@ Format: `help`
 === Adding an item: `add`
 
 Adds item to list +
-Format: `add|<item name>|<expiry date>`
+Format: `add|<item name>|<expiry date>[|#tag...]`
 
-//[TIP]
-//An item can have any number of tags (including 0)
+[TIP]
+An item can have any number of tags (including 0)
 
 Examples:
 
-* `add|durian|30/9/2019`
+* `add|durian|30/09/2019` (without tags) +
+Adds the item `durian` with expiry date `30/09/2019` without any tags
+* `add|HL Milk|10/10/2019|#Dairy #Milk` (with tags) +
+Adds the item `HL Milk` with expiry date `10/10/2019` and two tags `#Dairy` and `#Milk`
+
 //* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 === Listing all items : `view`

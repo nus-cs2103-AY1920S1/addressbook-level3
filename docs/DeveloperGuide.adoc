@@ -279,11 +279,18 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a preference for command-line interfaces (CLI)
+* Able to type fast
+* Has a need to track the expiry dates of numerous items
+* Prefers desktop applications over other forms
+* Prefers typing over mouse input
+* Wants to be able to search up an item’s expiry date quickly
+* Has a need for items to be tagged appropriately
+* Needs items to be organised into what has not expired and what to buy/replenish
+* Wants to be notified of items that are soon expiring or has expired
+* Tech-savvy and familiar with CLI
+* Requires an app to check what items are about to expire for a particular recipe [v2.0]
+* Wants to save recipes in a convenient format [v2.0]
 
 *Value proposition*: manage tracking of items' expiry dates faster than a typical mouse/GUI driven app
 
@@ -292,20 +299,52 @@ Refer to the guide <<DevOps#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="59%",cols="23%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |So that I ...
+|`* * *` |new user |see usage instructions |can refer to instructions when I forget how to use the application
 
-|`* * *` |user |add a new person |
+|`* * *` |user |input the names of items |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |input the expiry dates of items |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |save the list of items I am tracking |can come back to it after closing the application
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |view the list of things I am tracking |know which items are expiring soon
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |add items to the tracking list |am able to track new items
+
+|`* * *` |user |delete items from the tracking list |can remove items that I do not need to track anymore
+
+|`* * *` |user |exit from the application |do not have to be on the application all the time
+
+|`* * *` |user |be reminded of items that are expiring soon |can use them before they expire or prepare to replenish them
+
+|`* * *` |user |view the list of expired things that are to be replenished |know what to replenish
+
+|`* * *` |user |sort my items according to name or date |can find my items more easily
+
+|`* * *` |user |search up my items by their tags or names |can find my items more easily
+
+|`* *` |user |set quantity of my items |can take note of items that are soon running out or need using before the expiry date
+
+|`* *` |user |input description of items |can write small notes or annotate about the item
+
+|`* *` |user |search items and delete |can delete an item easily without having to remember their ID
+
+|`* *` |user |undo my previous command |can return to the previous state/list if I have accidentally executed a command I do not want
+
+|`* *` |user |tag items |categorise and organise them better
+
+|`* *` |user |edit items |can update their details easily when I need to
+
+|`*` |student leader staying on campus |import tracking list into phone via QR Code |can remind my other friends when their items are expiring
+
+|`*` |chef |track items via recipes |can be reminded of what items are expiring soon and need replenishing
+
+|`*` |store owners |track items and their quantity |know what items have run out and need replenishing
+
+
 |=======================================================================
 
 _{More to be added}_
