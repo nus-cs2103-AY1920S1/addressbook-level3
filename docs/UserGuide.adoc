@@ -540,10 +540,10 @@ Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
 then annotations are shown as well.
 
 
-=== Adding reminder: `reminder`
+=== Adding a reminder: `reminder`
 
 Adds a reminder to visit a bookmark. You can set the time for the reminder.
-You can also choose whether to open the bookmark.
+You can also choose when to open the bookmark.
 The default setting is open.
 
 Format: `reminder INDEX t/TIME_DATE [n/NOTE=Open]`
@@ -564,7 +564,7 @@ The reminder reminds you to read announcements.
 
 
 
-=== Editing reminder: `reminder edit`
+=== Editing a reminder: `reminder edit`
 Edit a reminder at the reminder's index. You can edit either time or whether to open it.
 
 Format: `reminder edit INDEX [t/TIME_DATE] [n/NOTE]`
@@ -674,10 +674,10 @@ Goes to the Online tab which is a web view.
 Goes to the Offline tab which shows the offline copy of bookmarks.
 
 
-=== Autocomplete commands `[coming in v2.0]`
-Auto-completes search for commands line if the command is unique.
+=== Automatically completing partially typed commands `[coming in v2.0]`
+Automatically fills in partially typed commands if the command is unique.
 
-=== Share bookmarks and notes via Email/ Telegram `[coming in v2.0]`
+=== Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
 Shares your bookmarks and notes with your friends via Email or Telegram.
 
 == FAQ
