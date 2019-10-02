@@ -28,20 +28,6 @@ This software is for organisers who organise powerlifting competitions. To facil
 Download the software from our git repo.
 Ensure Java 11 is downloaded into your machine.
 
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
-
 [[Features]]
 == Features
 
@@ -54,11 +40,50 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Competitions
+The commands listed below in 3.2, 3.3, … are based on the context of a competition.
 
-Format: `help`
+==== Context: No Competition
+Commands
+* Save - this changes the context to `Creating a competition`
+* Select - changes the context of a `Competition`
 
-=== Adding a person: `add`
+==== Context: Creating a Competition
+Parameters
+* name
+* date
+* Type
+
+Commands
+* Save
+
+==== Context: On a Competition
+Commands
+* Athletes
+* List
+
+Prints a list of competitions
+* Finalise
+
+Parameters
+* Id
+* name
+
+Marks the competition as completed and prevents further edits
+* Switch
+
+Parameters
+* id
+* name
+
+Switch context to a different competition
+* Delete
+
+Parameters
+* Id
+* name
+
+=== Getting Competitors’ Data
 
 Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
