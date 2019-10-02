@@ -22,6 +22,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final UndoHistory<ReadOnlyAddressBook> undoHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        undoHistory = new UndoHistory<>(addressBook);
     }
 
     public ModelManager() {
@@ -110,6 +112,37 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    //=========== Undo ================================================================================
+
+    @Override
+    public void notifyChange(String commandText) {
+        undoHistory.notifyChange(commandText, new AddressBook(addressBook));
+    }
+
+    @Override
+    public boolean hasUndo() {
+        return undoHistory.hasUndo();
+    }
+
+    @Override
+    public boolean hasRedo() {
+        return undoHistory.hasRedo();
+    }
+
+    @Override
+    public String undo() {
+        UndoHistory<ReadOnlyAddressBook>.State state = undoHistory.undo();
+        setAddressBook(state.getData());
+        return state.getSubsequentCause();
+    }
+
+    @Override
+    public String redo() {
+        UndoHistory<ReadOnlyAddressBook>.State state = undoHistory.redo();
+        setAddressBook(state.getData());
+        return state.getCause();
     }
 
     //=========== Filtered Person List Accessors =============================================================

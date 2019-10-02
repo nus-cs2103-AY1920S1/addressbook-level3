@@ -139,6 +139,31 @@ public class AddCommandTest {
         }
 
         @Override
+        public void notifyChange(String commandText) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }

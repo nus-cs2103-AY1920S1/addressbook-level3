@@ -76,6 +76,21 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /** Tells the model that a command was run and the text of the command */
+    void notifyChange(String commandText);
+
+    /** Returns whether there are actions to undo */
+    boolean hasUndo();
+
+    /** Returns whether there are actions to redo */
+    boolean hasRedo();
+
+    /** Undoes an action */
+    String undo();
+
+    /** Redoes an action */
+    String redo();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
