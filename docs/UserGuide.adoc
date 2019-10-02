@@ -82,12 +82,12 @@ Format: `addpolicy n/NAME d/DESCRIPTION c/TIME_PERIOD p/PRICE sa/START_AGE ea/EN
 ****
 * A policy can have any number of tags (including 0).
 * A policy can have any number of criteria (including 0).
-* Coverage time period is specified in years.
+* Coverage time period is specified in days, years and months, in the format days/D months/M years/Y (e.g. 20 days, 11 months, 5 years is represented by days/20 months/11 years/5)
 * Price is specified in dollar ($) units.
 ****
 Examples:
 
-* `addpolicy n/SeniorCare d/Care for seniors c/5 p/50000 sa/50 ea/75]`
+* `addpolicy n/SeniorCare d/Care for seniors c/days/20 months/11 years/5 p/50000 sa/50 ea/75]`
 
 === Listing all persons : `listpeople`
 
