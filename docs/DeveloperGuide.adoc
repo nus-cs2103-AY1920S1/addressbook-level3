@@ -293,11 +293,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+//|`High` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`High` |student |set a revision plan |be more organised in my revision and will not lose my focus
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |view my revision plan |be more clear on the big picture of my revision and check whatever is left to do when I forget
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
