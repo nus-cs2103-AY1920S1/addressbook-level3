@@ -1,6 +1,7 @@
 = SugarMummy - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -16,10 +17,6 @@ endif::[]
 
 By: `Team CS2103-T16-1`      Since: `Sep 2019`      Licence: `MIT`
 
-== Introduction
-
-Do you feel it difficult to keep the right diets for type II diabetes? Do you want to manage your hectic schedule? Do you want to have a better overview of your health data? Do you want to move to a healthier lifestyle? If your answer is yes, then SugarMummy is perfect  for you! SugarMummy is a lifestyle tracker and planner that aims to combat Type II diabetes by encouraging users to keep a healthy lifestyle. Moreover, being a computer app with Command Line Interface, SugarMummy is optimized for fast typers who has access to a computer most of the time.
-
 Hope following features will benefit you and enjoy!
 
 * Data tracker for various data types (blood sugar levels, diets, exercise, clinic appointments, medical finance and so on!)
@@ -30,7 +27,7 @@ Hope following features will benefit you and enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
+
 .  Download the latest `sugarmummy.jar` link:https://github.com/AY1920S1-CS2103-T16-1/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for data records.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -59,94 +56,242 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== DATA LOG
 
-Format: `help`
+==== Add a data entry to the diabetes tracker app: `add`
 
-=== Adding a person: `add`
+Format: `add r/RECORD_TYPE v/VALUE t/TIME [t/TIME_END]`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Show a list of all data entries in the diabetes tracker app: `list`
 
-[TIP]
-A person can have any number of tags (including 0)
+Format: `list [r/RECORD_TYPE] ...`
 
-Examples:
+If a specific RECORD_TYPE is provided, it will list the data entries that are of RECORD_TYPE. If more than 1 RECORD_TYPE is provided, it will list all data entries of the requested types. Otherwise, it lists all types of recent data entries.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+==== Edit an existing entry in the diabetes tracker app: `edit`
 
-=== Listing all persons : `list`
+Format: `edit INDEX [v/VALUE] [t/TIME] [t/TIME_END]`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Edits the entry at the specified INDEX. The index refers to the index number shown in the displayed entries list. The index must be a positive integer. At least one of the optional fields must be provided. Existing values will be updated to the input values.
 
-=== Editing a person : `edit`
+==== Deletes a specified data entry from the diabetes tracker app: `delete`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
 Format: `delete INDEX`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Index must be a positive integer
+
+The index refers to the index number shown in the displayed entries list
+
+=== CALENDAR AND REMINDER
+
+==== Add a reminder: `reminder`
+
+Format: `reminder DESCRIPTION t/TIME [t/TIME]... [rp/repetition] [v/venue] [p/people]`
+
+Add a reminder at a specific time with possible detail information of other time, repetition, venue(e.g. hospital) ,people(e.g. doctor) and sound.
+
+==== Add an event: `event`
+
+Format: `event TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD]  [v/venue] [p/people]`
+
+Add an event with starting time and optional ending time. Set a reminder some time before the event with possible detail information of venue(e.g. hospital) ,people(e.g. doctor) and sound.
+
+==== Add a task: `task`
+
+Format: `task TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD] [tg/TARGET]`
+
+Add a task with starting time and optional ending time. Set a reminder some time before the task begins and a target for the task.
+
+==== Snooze reminder: `snooze`
+
+Format: `snooze [tp/TIME_PERIOD]`
+
+Silence the current reminder and activate it after a time period.
+
+==== Complete a task: `complete`
+
+Format: `complete [INDEX]... [t/TIME]`
+
+Mark all the reminders before now as completed if no argument provided. Otherwise, mark only those tasks with indices provided or before the specific time as completed.
+
+==== Set time zone: `timezone`
+
+Format: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
+
+Set the time zone of the application permanently or in any time interval(e.g. For travelling).
+
+==== Search for entries in calendar: `search`
+
+Format: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
+
+Search for all entries by providing keyword, time interval, type, venue or people.
+
+==== Delete an entry in calendar `[coming in v2.0]`
+
+Delete an event that you do not want to keep track anymore.
+
+=== PERSONALISED USER EXPERIENCE
+
+==== Show a list of all achievements the user has attained: `achievement`
+
+Format: `achievement`
+
+Display the current ranking of the user (i.e. Bronze III, Bronze II, Bronze I, Silver III, Silver II, Silver I, Gold...Platinum...Diamond) followed by milestone achievements acquired by the user.
+
+==== Shows a page displaying the user profile of the user: `bio`
+
+Format: `bio`
+
+Display a page containing user information such as the user’s profile picture, name, nric, gender, date of birth, contact number, address and other biography information that the user would like to include. Includes an icon used to represent the user based on his/ her BMI.
+
+==== Adds a biography for the user using specified fields: `addbio`
+
+Format: `addbio n/NAME [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] p/CONTACT_NUMBER e/EMERGENCY_CONTACT m/MEDICAL_CONDITION [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
+
+Profile picture of the user is set using a given file path. If the file that is given is invalid, the user is shown an error message. Name, contact number, emergency contact number and medical condition are compulsory fields. (if a user of this app happens to have no medical condition, he / she may input NIL)
+
+==== Delete biography `[coming in v2.0]`
+
+==== Edit a biography for the user using specified fields: `editbio`
+
+Format: `editbio [n/NAME] [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] [p/CONTACT_NUMBER] [e/EMERGENCY_CONTACT] [m/MEDICAL_CONDITION] [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
+
+Profile picture of the user is set using a given file path. If the file that is given is invalid, the user is shown an error message. If no parameters are set, the program displays a message suggesting the user to set biography information using the specified fields.
+
+==== Sets the background picture using a specified file path: `bg`
+
+Format: `bg p/PATH`
+
+If the file that is given is invalid, the user is shown an error message.
+
+==== Sets the font color of the text: `fontcolor`
+
+Format: `fontcolor c/COLOUR`
+
+Sets the font to a colour specified by the user (eg. yellow, blue 00FF00)
+
+==== Displays the daily motivation message of the day: `dailymsg`
+
+Format: `dailymsg`
+
+==== Personalized avatar `[coming in v2.0]`
+
+User can customize his or her own avatar and the avatar will have body shapes according to user BMI.
+This helps to motivate them to have a healthy BMI.
+
+=== DATA ANALYSIS
+
+==== Display the daily/weekly/monthly average in a graph: `average`
+
+Format: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
+
+AVERAGE_TYPE is either day/week/month. Displays a graph of the AVERAGE_TYPE average value of a particular RECORD_TYPE. COUNT is an integer value. If COUNT is given, show only the latest COUNT number of average values. Else, show only latest 3 average values.
+
+==== Display interesting statistics: `summary`
+
+Examples of statistics: minimum, maximum, average, number of dangerously high blood sugar level, weekly quiz points etc in suitable graph
+
+Format: `summary r/RECORD_TYPE [d/START_DATE]`
+
+If START_DATE is given, statistics from START_DATE to the current date will be retrieved. Else, statistics will be based on all data.
+
+==== Export summary of all medical records into pdf: `export`
+
+Format: `export [d/START_DATE]`
+
+If START_DATE is given, summary from START_DATE to the current date will be exported. Else, summary of all data will be exported.
+
+=== Autocomplete Command
+
+SugarMummy will recommend list of possible commands that can be add on to user current input.
+
+=== EDUCATION AND QUIZ
+
+==== Recommending food: `recmf`
+
+Recommends a list of medically suggested foods for type II diabetes
+patients. The user can specify flags:
+
+`-b`: breakfast recommendations
+
+`-l`: lunch recommendations
+
+`-d`: dinner recommendations
+
+`-f`: fruit recommendations
+
+`-v`: vegetable recommendations
+
+With specified one or more FOOD_ITEM, the user will only view recommendations match at least one item. However, if any food item is considered dangerous for type II diabetes patients, a warning will be shown. (case-insensitive)
+
+Format: `recmf [-b] [-l] [-d] [-f] [-v] [FOOD]...`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`recm -b strawberries`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+`recm -b -l -d`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Recommending exercise: `recme`
+
+Format: `recme`
+
+==== Adding new food items : `put`
+
+Adds a new food time into certain category. Calorie and glycemic can
+be attached followed by -i flag. Otherwise, another prompt will be
+shown to ask for these two values.
+
+Format: `put FOOD[, FOOD]...[-i CALORIE GI] in CATEGORY`
+
+Example:
+
+`put guava -i 68 20, green apple -i 52 38 in fruits`
+
+`put guava in fruits`
+
+==== Disliking certain foods: `dislike`
+
+Dislikes certain foods so that those foods will no longer be shown on
+the recommendations. (case-insensitive)
+
+Format: `dislike FOOD[, FOOD]...`
+
+Example: `dislike watermelon, chicken`
+
+==== Playing flash cards: `game`
+
+Shows an interactive page for user to play the flash card game. The
+user will win certain points if answering a question correctly.
+
+Format: `game`
+
+During the game session, the user is able to:
+
+. Selecting the correct answer: `<alphabet>`
+
+* Answers the multiple-choice question. If the answer is correct,
+the user will be awarded a few points. If the answer is wrong,
+multiple, or not within the choice range, a few points will be deducted and the correct answer will be revealed.
+
+* Format: `<alphabet>`
+
+
+. Skipping a certain question: `skip`
+
+* Skips a certain question and moves to the next question.
+
+* Format: `skip`
+
+
+. Exiting the game: `exit`
+
+* Exits the game and go back to normal page
+* Format: `exit`
+
+=== Clearing all entries: `[coming in v2.0]`
+
+Clears all entries in SugarMummy.
 
 === Exiting the program : `exit`
 
@@ -155,14 +300,23 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+SugarMummy data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Users cannot retrieve data by opening data files directly.
+
+=== Detailed workout schedule `[coming in v2.0]`
+
+User can enter details of a workout schedule. +
+For example: Do exercise A for 10 minutes then switch to exercise B for 5 minutes.
+
+=== Workout timer `[coming in v2.0]`
+
+Displays workout instructions and a timer on screen.
+Screen instruction changes when the time for that particular exercise is up.
+Time required for each exercise is dictated by stored workout schedule.
 
 == FAQ
 
@@ -170,6 +324,7 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
+
 :hardbreaks:
 [start=1]
 . *Achievement*: `achievement`
