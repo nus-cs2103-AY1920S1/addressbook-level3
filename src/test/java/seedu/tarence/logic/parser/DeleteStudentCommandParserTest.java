@@ -3,7 +3,7 @@ package seedu.tarence.logic.parser;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class DeleteStudentCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteStudentCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new DeleteStudentCommand(INDEX_FIRST_IN_LIST));
     }
 
     @Test

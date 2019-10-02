@@ -9,7 +9,6 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NUSID;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
@@ -24,7 +23,11 @@ import seedu.tarence.model.tutorial.TutName;
 /**
  * Parses input arguments and creates a new AddStudentCommand object
  */
-public class AddStudentCommandParser implements Parser<AddStudentCommand> {
+public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
+
+    private static final OptionalArgument[] optionalArgs = {
+        OptionalArgument.OPTIONAL_MATNO,
+        OptionalArgument.OPTIONAL_NUSID};
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -33,7 +36,8 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
      */
     public AddStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                StudentArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME);
+                OptionalArgumentTokenizer.tokenize(args, optionalArgs,
+                        PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -61,14 +65,6 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
         Student student = new Student(name, email, matricNum, nusnetId, modCode, tutName);
 
         return new AddStudentCommand(student);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

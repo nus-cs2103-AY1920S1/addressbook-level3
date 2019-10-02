@@ -217,6 +217,9 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void deleteModule(Module module) {}
+
+        @Override
         public boolean hasTutorial(Tutorial tutorial) {
             // todo: Implement test for hasTutorial
             return false;
@@ -227,6 +230,10 @@ public class AddStudentCommandTest {
             // todo: Implement test for addTutorial
         }
 
+        @Override
+        public void deleteTutorial(Tutorial tutorial) {
+            // todo: Implement test for deleteTutorial
+        }
         @Override
         public boolean hasModuleOfCode(ModCode modCode) {
             // to implement
@@ -247,6 +254,11 @@ public class AddStudentCommandTest {
         public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
             // to implement
             return false;
+        }
+
+        @Override
+        public int getNumberOfTutorialsOfName(TutName tutName) {
+            return 0;
         }
     }
 

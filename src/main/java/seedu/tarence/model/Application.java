@@ -217,6 +217,14 @@ public class Application implements ReadOnlyApplication {
     }
 
     /**
+     * Deletes a module from the application. Assumes the module exists in the application.
+     */
+    public void removeModule(Module module) {
+        requireNonNull(module);
+        modules.remove(module);
+    }
+
+    /**
      * Adds a tutorial to its associated module. Assumes that a module of the given code exists.
      */
     public void addTutorialToModule(Tutorial tutorial) {
@@ -263,6 +271,27 @@ public class Application implements ReadOnlyApplication {
         return hasTut;
     }
 
+    /**
+     * Returns number of tutorials with equal names exists in the application.
+     */
+    public int getNumberOfTutorialsOfName(TutName tutName) {
+        requireNonNull(tutName);
+        int tutCount = 0;
+        for (Tutorial tutorial : tutorials) {
+            if (tutorial.getTutName().equals(tutName)) {
+                tutCount++;
+            }
+        }
+        return tutCount;
+    }
+
+    /**
+     * Deletes a tutorial from the application. Assumes the tutorial exists.
+     */
+    public void removeTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        tutorials.remove(tutorial);
+    }
     //// util methods
 
     @Override

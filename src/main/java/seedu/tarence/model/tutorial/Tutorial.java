@@ -97,7 +97,8 @@ public class Tutorial {
         }
         return otherTutorial != null
                 && otherTutorial.getTimeTable().equals(getTimeTable())
-                && otherTutorial.getTutName().equals(getTutName());
+                && otherTutorial.getTutName().equals(getTutName())
+                && otherTutorial.getModCode().equals(getModCode());
     }
 
 }

@@ -159,6 +159,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteModule(Module module) {
+        requireNonNull(module);
+        application.removeModule(module);
+    }
+
+    @Override
     public boolean hasModuleOfCode(ModCode modCode) {
         requireNonNull(modCode);
         return application.hasModuleOfCode(modCode);
@@ -189,6 +195,18 @@ public class ModelManager implements Model {
     public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
         requireAllNonNull(modCode, tutName);
         return application.hasTutorialInModule(modCode, tutName);
+    }
+
+    @Override
+    public int getNumberOfTutorialsOfName(TutName tutName) {
+        requireNonNull(tutName);
+        return application.getNumberOfTutorialsOfName(tutName);
+    }
+
+    @Override
+    public void deleteTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        application.removeTutorial(tutorial);
     }
 
     //=========== Filtered Person List Accessors =============================================================
