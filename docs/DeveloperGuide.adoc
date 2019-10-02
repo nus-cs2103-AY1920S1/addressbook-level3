@@ -544,7 +544,7 @@ Windows, Linux, Unix, OS-X
 A corpse
 
 [[command-line-interface]] Command-Line-Interface (CLI)::
-A text-based user interface (UI) used to view and manage computer files 
+A text-based user interface (UI) used to view and manage computer files
 
 [[graphical-user-interface]] Graphical User Interface (GUI)::
 An interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text
