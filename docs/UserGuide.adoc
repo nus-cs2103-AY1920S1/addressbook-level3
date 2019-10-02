@@ -56,84 +56,161 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding exercise/regime information: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Adding exercise information +
 
-[TIP]
-A person can have any number of tags (including 0)
+Adds the relevant exercise information into ExerHealth.
+You can enter the following additional information for each exercise:
+
+* Calories burnt in kcal
+* Quantity of exercises completed and its units of measure
+* Muscle group(s) that are being worked out
+
+Format: `add t/exercise n/EXERCISE_NAME d/DATE [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
+
+****
+* Dates that are entered have to be of the form `dd/MM/yyyy`.
+* The day of each date must be between 1 and 31 inclusive.
+* The month of each date must be between 1 and 12 inclusive.
+* If the day of the month entered is within the above range but exceeds the number of days present
+in that particular month, the date will be treated as the last day of that particular month e.g. if
+`31/02/2019` is entered, it will be treated as `28/02/2019`.
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add t/exercise n/Run d/19/09/2019`
+* `add t/exercise n/Swimming d/19/09/2019 c/2000`
+* `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
 
-=== Listing all persons : `list`
+==== Adding exercises to scheduling regime +
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds exercises from the exercises you have added into a new exercise regime.
+If a regime of the same name already exists, exercises will be added to the same scheduling regime.
 
-=== Editing a person : `edit`
+Format: `add t/regime [n/REGIME_NAME] [i/INDEX]...`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Example:
+
+* `add t/regime n/power sets i/1 i/2 i/3`
+
+Adds the 1st, 2nd and 3rd exercise in the list to the regime named `power sets`.
+
+* `add t/regime n/cardio i/4`
+
+Adds the 4th exercise in the list to the regime named `cardio`.
+
+=== Listing all exercises : `list`
+
+Retrieves all categories of information - Exercise and Regime - from ExerHealth.
+
+If you provide a category name, only information from that category will be shown.
+You can also include start and end dates to restrict the range of dates.
+If no dates are supplied, the most recent week of information from each category will be shown.
+
+Format: `list [t/CAT_NAME] [s/START_DATE] [e/END_DATE]`
+
+Example:
+
+* `list`
+* `list t/exercise`
+* `list t/regime`
+* `list t/exercise s/12/12/2019 e/17/12/2019`
+
+=== Edit exercise information: `edit`
+
+Edits the relevant exercise information into ExerHealth.
+You can edit all the possible information for exercises except for custom properties.
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* The date entered for this command must follow the same requirements as that of `add` command.
+* Edits the exercise at the specified `INDEX`. The index refers to the index number shown in the displayed exercise list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
-Examples:
+Format: `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Example:
 
-=== Locating persons by name: `find`
+* `edit t/exercise i/2 n/Running d/20/09/2019`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Edits the name and the date of the 2nd exercise to `Running` and `20/09/2019` respectively.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* `edit t/exercise i/4 n/Swim d/21/09/2019 c/100`
 
-Examples:
+Edits the name, date and calories burnt of the 4th exercise to `Swim`, `21/09/2019` and `100` respectively.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `edit t/exercise i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Edits the name, date, calories burnt, quantity, units and muscle group trained of the 3rd exercise to `Bench press`,
+`22/09/2019`, `240`, `10`, `sets` and `Chest` respectively.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+=== Custom properties: `custom`
+
+==== Adding custom properties
+
+Adds in a custom property which you can define for the exercises.
+
+Once a new custom property is created, you can simply use the short name which you defined for the
+property to the `add` and `edit` command to include information for the new property.
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* You must choose exactly one of the following as the parameter type for your custom property:
+`Text`, `Number`, `Date`.
+* Every word in the full name of each custom property will be changed to Start Case style, where the first letter of each
+word is capitalised with the other letters in lower case e.g. `enD DaTe` will be changed to `End Date`.
+* The date entered for the custom properties must follow the same requirements as that of `add` command.
+* You need not include the custom properties when adding a new exercise to the app.
 ****
 
-Examples:
+Format: `custom s/SHORT_NAME f/FULL_NAME p/PARAMETER_TYPE`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Example:
+
+* `custom s/a f/Ratings p/Number`
+
+Creates a `Ratings` property for each exercise.
+Information for this property can be updated for each exercise by using `a/NUMBER` in the relevant command where `NUMBER` refers to
+a number.
+
+* `custom s/b f/rEmaRk p/Text`
+
+Creates a `Remark` property for each exercise.
+Information for this property can be updated for each exercise by using `b/TEXT` in the relevant command where
+`TEXT` refers to a non-empty sentence.
+
+* `custom s/c f/End Date p/Date`
+
+Creates a `End Date` property for each exercise.
+Information for this property can be updated for each exercise by using `s/DATE` in the relevant command where
+`DATE` refers to a date.
+
+Using `Ratings` as an example, you can now perform the following actions after adding it:
+
+* `add t/exercise n/Run d/01/10/2019 a/5`
+
+Adds an exercise with the name `Run`, date `01/10/2019` and ratings `5` into the app.
+
+* `edit t/exercise i/4 a/3`
+
+Edits the ratings of the 4th exercise in the list to `3`.
+
+==== Removing custom properties
+
+Removes a custom property which you have previously defined.
+This removes the custom property from all exercises.
+
+[TIP]
+`FULL_NAME` denotes the name of the previously defined custom property.
+
+Format: `custom r/FULL_NAME`
+
+Example:
+
+* `custom r/Ratings`
+* `custom r/Remark`
 
 // end::delete[]
 === Clearing all entries : `clear`
@@ -229,14 +306,27 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* : `add t/exercise n/EXERCISE_NAME d/DATE [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...` +
+e.g. `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
+* *List* : `list [t/CAT_NAME] [s/START_DATE] [e/END_DATE]`
+e.g. `list t/exercise s/12/12/2019 e/17/12/2019`
+* *Edit* : `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... `
+e.g. `edit t/exercise i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]`
+e.g. `find bench press`
+* *Delete* : `delete t/exercise i/INDEX`
+e.g. `delete t/exercise i/2`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Stats* : `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [d/END_DATE]`
+e.g. `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Schedule* : `schedule n/REGIME_NAME d/DATE`
+e.g. `schedule n/cardio d/19/9/2019`
+* *Resolve* : `resolve n/REGIME_TO_TAKE`
+e.g. `resolve n/cardio`
+* *Suggest* : `suggest t/possible [m/MUSCLE]...`
+e.g. `suggest t/possible m/chest`
+* *Custom* : `custom s/SHORT_NAME f/FULL_NAME p/PARAMETER_TYPE`
+e.g. `custom s/c f/End Date p/Date`
+* *Exit* : `exit`
