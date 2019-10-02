@@ -48,12 +48,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
 
+=== Taging flashcards to form a set
+Tags existing flashcards with a particular keyword. +
+Format: `tag <ID> <TAGNAME>`
+
+****
+* Adds the tag to the flashcard with the specified ID
+* TAGNAME can be an existing tag or a new tag
+* To use existing tags the TAGNAME entered must match the exiting tag exactly
+=======
 View all the available commands that the user can use. +
 Format: `help`
 
@@ -99,6 +107,9 @@ Format: `edit ID [-tag NEW_TAG] [-q NEW_QUESTION] [-a NEW_ANSWER]`
 
 Examples:
 
+* `Tag <001> <Biology>` +
+Assigns a Biology tag to flashcard 001
+=======
 * `edit #100342 -tag favourite` +
 Edits the tag of card with unique id #100342 to `favourite`.
 * `edit #100342 -q What is the tallest mountain?` +
@@ -106,26 +117,35 @@ Edits the question of the card with unique id #100342 to "What is the tallest mo
 * `edit #100342 -a Mount Everest`
 Edits the answer of the card with unique id #100342 to "Mount Everest".
 
-=== Locating persons by name: `find`
+=== Quiz mode
+Starts a quiz using a particular set of flashcards
+Format:
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+* `quiz set <TAGNAME>`
+* `quiz set <TAGNAME> <SECONDS>`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* start a quiz using the flashcards from the tag given by TAGNAME
+* Default is 30 seconds per flashcard before it marks wrong and displays the next flashcard
+* Optionally can set the question delay by entering the number of SECONDS of delay
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `quiz set <Biology>` +
+creates a new quiz using flashcards from the biology tag
+* `quiz set <Biology> <60>` +
+creates a new quiz using flashcards from the biology tag however the default delay timer is now 1 minute or 60 seconds
 
+
+=== Display current progress
+Shows the current progress of a set of flashcards +
+Format: `progress <TAGNAME>`
+
+****
+* Statistics shown include number of completed cards and accuracy
+* TAGNAME indicates the tag to be reviewed
+=======
 // tag::delete[]
 === Deleting a person : `delete`
 
@@ -136,10 +156,15 @@ Format: `delete FLASHCARD_ID`
 * Deletes the person with the specified `FLASHCARD_ID`.
 * The ID of a flashcard refers to the specific number assigned to that flashcard upon creation.
 * The flashcard ID *must be a positive 6-digit integer* 000001, 000002, 000003, ...
+
 ****
 
 Examples:
 
+
+* `progress <Biology>` +
+Displays the progress of a the flashcards tagged with Biology
+=======
 * `delete #100342` +
 Removes the flashcard with unique ID 100342
 
@@ -164,7 +189,6 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
