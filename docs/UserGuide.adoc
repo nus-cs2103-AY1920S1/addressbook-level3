@@ -57,6 +57,8 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+=== Get statistics for subjects : `stats`
+=======
 === Lecture notes
 
 ==== Adding lecture notes: `addnote`
@@ -148,6 +150,7 @@ Views the list of questions of a specified subject with a specific difficulty. +
 Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
 
 ==== Get statistics for subjects : `stats`
+>>>>>>> a5f74812e42e9d6d36685ae7a7bfc661bc183f0a
 
 Gets statistics of how well you answered the questions for a subject.
 A pie chart of the number of questions that have been answered correctly and incorrectly will be returned.
@@ -185,7 +188,7 @@ Format: `overview -ln`
 ==== Get overview of questions attempted: overview -q
 Gets an overview of the types of questions that have been attempted overall.
 A stacked bar graph, sorted by subjects will be returned.
-You can choose to add in a time period, `dt/`, to see which questions have been attempted then. +
+//You can choose to add in a time period, `dt/`, to see which questions have been attempted then. +
 Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
 
 === Auto-complete feature `[coming in v2.0]`
@@ -236,15 +239,19 @@ Format: `notify -d [-A] [INDEX]`
 
 == FAQ
 
-*Q*: How do I transfer my data to another computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with
-the file that contains the data of your previous folder.
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *Add lecture note*: `addnote t/TITLE c/CONTENT [i/]`
-* *Edit lecture note*: `editnote INDEX [t/TITLE] [c/CONTENT] [i/]`
-* *Show or find lecture note*: `shownote [#INDEX | WORDS]`
-* *Delete lecture note*: `deletenote INDEX`
-* *Export all*: `export FILENAME`
-* *Import all*: `import FILENAME`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
+* *Help* : `help`

@@ -338,6 +338,16 @@ Priorities:
 
 |`*`|student|get statistics of the change of difficulty levels I have made to a question|I can understand my improvement in understanding the content|Xueting
 
+|`***`|student|see how well I am able to answer questions for different topics/subjects|focus more on topics/subjects that I need to improve on|Irene
+
+|`***`|student|check my past responses to different questions|compare with my current response and improve on it if necessary/check if I am making the same mistakes twice|Irene
+
+|`**`|student|have a graphical report of my progress|get an overview of my progress with a glimpse|Irene
+
+|`**`|student|check the questions that I have attempted for a specific time period|I can skip questions that I have already done during that time period|Irene
+
+|`*`|student|get an overview to see the number of notes added for each topic/subject|I can see which topic/subject I need to make more notes on|Irene
+
 |=======================================================================
 
 [appendix]
