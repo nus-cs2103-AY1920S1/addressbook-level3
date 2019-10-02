@@ -324,7 +324,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | `* *`  | colour blind student | special accessibility options  | see my flashcards clearly
 | `*` | competitive student | export and share my statistics with my friends | compare my performance to theirs
 | `*` | forgetful student | key in my answer | see my own attempt to compare with the correct answer
-| `*` | competitive student | compare my results with others | so that I can be recognised for my skills and knowledge 
+| `*` | competitive student | compare my results with others | so that I can be recognised for my skills and knowledge
 
 |=======================================================================
 
