@@ -339,7 +339,7 @@ Types of ordering can be found below:
     ** `id asc`: entries are sorted in ascending order of id number
     ** `id desc`: entries are sorted in descending order of id number
          *** If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.
-* `status`: entries are sorted by their statuses in this order: 
+* `status`: entries are sorted by their statuses in this order:
 
 Format: `sort /order order`
 
@@ -350,7 +350,7 @@ All entries will be sorted and grouped according to their statuses.
 * `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
 
-==== Filter all entries: `filter`
+==== Filter entries: `filter`
 Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
 
 Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
