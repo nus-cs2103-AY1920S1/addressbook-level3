@@ -295,17 +295,53 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |See command instruction and usage |refer to instructions when I forget how to use the App
+|`* * *` |new user |See command instruction and usage |Refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new record | Track my spending/income
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Forgetful user | Add additional details through a description for each record | Better keep track of the details of an expense/income
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Visually inclined user |Attach an image to each record |Conveniently record additional details of the expense instead of typing it all out
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |Delete a record |Remove expenses/income that I no longer need
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Careless user |Edit an existing record |Make changes to any mistakes made
+
+|`* * *` |user |View a record | View additional information of an expense/income
+
+|`* * *` |user |Tag a record | Categorize and better manage my records
+
+|`* * *` |user |Specify a time stamp on expenses|Know when I spend my money
+
+|`* * *` |user | Sort and filter records by category or tag | Know how my spending/income is distributed
+
+|`* * *` |user | Archive past records | Better manage current expenses
+
+|`* * *` | user | Unarchive records |
+
+|`* * *` |user | View the list of records in an archive | Keep track of what records I have in a particular archive
+
+|`* * *` |user | View the list of all archives | Keep track of how many archives I have and what their names are
+
+|`* * *` |user | Delete an archived record | Delete archive entries that are no longer needed
+
+|`* * *` |user | Deleted an entire archive | Delete any unneeded archive
+
+|`* *` |user | Create custom tags | To better categorise my expenses
+
+|`* *` |user | Hide records | Maintain privacy on certain sensitive expenses/income
+
+|`* *` |Student who tends to overspend | Set a time-based budget | Regulate my spending for the day/week/month with a set limit
+
+|`* *` |Busy student | Automate archiving of outdated records | Not need to manually archive them constantly
+
+|`* *` |Frequent traveller | Add records in foreign currency | Track my expenses when overseas conveniently without having to manually convert currencies
+
+|`* *` |Data oriented user | Have monthly statistics on my expenses | Better track and manage my expenses
+
+|`* *` |User who manages my finance daily | Use one-shot/shortcut commands | Use the program more efficiently
+
+|`*` | User | Set a password for this application | Hide my data
 |=======================================================================
 
 _{More to be added}_
@@ -313,33 +349,195 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Financial Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== UC01: Adding a tag to an expense
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list expenses
+2.  Financial tracker shows a list of recent expenses
+3.  User requests to tag a specific expense in the list
+4.  Financial tracker tags the specific expense with the input tag name
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. There are no recent expenses.
++
+[none]
+** 2a1. Financial tracker displays an empty list
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given index or tag name is invalid
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1.  Financial Tracker shows an error message.
 +
 Use case resumes at step 2.
+
+
+[Discrete]
+=== UC02: Filter expenses by tag
+
+*MSS*
+
+1.  User requests to list all tags
+2. Financial tracker shows a list of tags
+3. User requests to filter expenses by specific tag
+4. Financial tracker shows a list of recent expenses under the specific tag.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no existing tags
++
+[none]
+** 2a1. Financial tracker displays an empty list
++
+Use case ends.
+
+* 3a. The given tag name is invalid
++
+[none]
+** 3a1.  Financial Tracker shows an error message.
++
+Use case resumes at step 2.
+
+
+[Discrete]
+=== UC03: Add an expense to an archive
+
+*MSS*
+
+1. User requests to list recent expenses
+2. Financial Tracker shows a list of recent expenses
+3. User requests to list all archives
+4. Financial Tracker shows a list of archives
+5. User requests to add a specific expense into a specific archive
+6. Financial Tracker removes the specific  expense from list of current records and adds it to the specific  archive
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no current records
++
+[none]
+** 2a1. Financial tracker displays an empty list
++
+Use case ends.
+
+* 4a. There are no existing archives
++
+[none]
+** 4a1.  Financial Tracker shows an empty list.
++
+Use case ends.
+
+* 5a. The given record index or archive name is invalid
++
+[none]
+** 5a1.  Financial Tracker shows an error message.
++
+Use case resumes at step 4.
+
+
+[Discrete]
+=== UC04: Deleting an archived expense
+
+*MSS*
+
+1. User requests to list all expenses under a specific archive
+2. Financial Tracker shows a list of expenses under the specific archive
+3. User requests to delete a specific expense from the archive
+4. Financial Tracker deletes the specific  expense from the specific  archive.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The archive has no expenses in it
++
+[none]
+** 2a1. Financial tracker displays an empty list
++
+Use case ends.
+
+* 2b. The archive name is invalid
++
+[none]
+** 2b1.  Financial Tracker shows an error.
++
+Use case ends.
+
+* 3a. The given record index or archive name is invalid
++
+[none]
+** 3a1.  Financial Tracker shows an error message.
++
+Use case resumes at step 2.
+
+
+[Discrete]
+=== UC05: Deleting an entire archive
+
+*MSS*
+
+1. User requests to list all existing archives
+2. Financial Tracker shows a list of all existing archives
+3. User requests to delete a specific archive from the list
+4. Financial Tracker deletes the specific archive
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no existing archives
++
+[none]
+** 2a1. Financial tracker displays an empty list
++
+Use case ends.
+
+* 3a.  The given archive name is invalid
++
+[none]
+** 3a1.  Financial Tracker shows an error.
++
+Use case resumes at step 2.
+
+
+[Discrete]
+=== UC06: Finding a record with a specified keyword
+
+*MSS*
+
+1. User enters a keyword to search for records containing it
+2. Financial Tracker displays a list of records that contains the specified keyword
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no records containing the specified keyword
++
+[none]
+** 2a1. Financial tracker displays an empty list
++
+Use case ends.
+
 
 _{More to be added}_
 
@@ -347,8 +545,13 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 expenses/income records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Commands are easy to remember and intuitive.
+. The software should work without requiring an installer./portable.
+. The data should be stored locally and should be in a human editable text file.
+. Software is for single users only.
+. The software should not depend on a remote server.
 
 _{More to be added}_
 
@@ -358,8 +561,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
