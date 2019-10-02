@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= PowerLifting Competition Coordinator- User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,31 +14,19 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-T11`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+A powerlifting competition/meet consists of 3 lifts, the Squat, Bench and Deadlift. With 3 attempts, athletes will try to outdo and challenge themselves and lift as heavy as they can. 
+
+This software is for organisers who organise powerlifting competitions. To facilitate the ease of data-entry, we have provided a command line interface that is augmented with a Graphical User Interface to help them better administer powerlifting competitions.
+
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+Download the software from our git repo.
+Ensure Java 11 is downloaded into your machine.
 
 [[Features]]
 == Features
@@ -52,126 +40,215 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Competitions
+The commands listed below in 3.2, 3.3, … are based on the context of a competition.
 
-Format: `help`
+==== Context: No Competition
+*Commands*
 
-=== Adding a person: `add`
+* Save: this changes the context to `Creating a competition`
+* Select: changes the context of a `Competition`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Context: Creating a Competition
+*Parameters*
 
-[TIP]
-A person can have any number of tags (including 0)
+* name
+* date
+* Type
+
+*Commands*
+
+* Save
+
+==== Context: On a Competition
+*Commands*
+
+* Athletes
+* List
+
+*Prints a list of competitions*
+
+* Finalise
+
+*Parameters*
+
+* Id
+* name
+
+*Marks the competition as completed and prevents further edits*
+
+* Switch
+
+*Parameters*
+
+* id
+* name
+
+*Switch context to a different competition*
+
+* Delete
+
+*Parameters*
+
+* Id
+* name
+
+=== Getting Competitors’ Data
+
+==== Sorting Athletes: `sort`
+
+Groups and sorts all athletes into their respective weight classes or attempted weights for an event.
+
+Format: `sort wc/WEIGHTCLASS`
+
+Format: `sort aw/EVENT`
+
+Example(s):
+
+* `sort wc/90kg`
+
+* `sort aw/Squat`
+
+==== Getting top scorers: `score`
+Gets and displays leading athletes and their scores for individual events or for their total scores.
+
+Format: `score e/EVENT t`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* to get scores for individual events only:
+  `score e/Squat`
 
-=== Listing all persons : `list`
+* to get total scores only
+  `score t`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Getting rank of an athlete: `rank`
+Gets current position of an athlete relative to other relatives for the entire competition.
 
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `rank n/NAME`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `rank n/John`
 
-=== Locating persons by name: `find`
+==== Affiliation of an athlete: `aff`
+Gets the name of an organisation and a country, an athlete is associated with.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: `aff n/NAME`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `aff n/John`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Edit data of an athlete: `edit`
+Edits field(s) of information belonging to an athlete
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `edit n/CURRENTNAME newN/NEWNAME bw/BODYWEIGHT wc/WEIGHTCLASS aff/AFFILIATION s/SCORE`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* To edit name only:
+  `edit n/John newN/Johnny`
+  
+* To edit bodyweight only:
+  `edit n/John bw/100kg`
+  
+* To edit subset of fields:
+  `edit n/John newN/Johnny wc/100kg aff/Singapore`
+  
+* To edit all fields:
+  `edit n/John newN/Johnny bw/90 wc/90 aff/Singapore s/1000`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Get top 3 athletes: `top3`
+Gets top 3 athletes (currently in 1st, 2nd and 3rd) for each weight class.
 
-Clears all entries from the address book. +
-Format: `clear`
+Format: `top3 wc/WEIGHTCLASS`
 
-=== Exiting the program : `exit`
+Examples:
 
-Exits the program. +
-Format: `exit`
+`top3 wc/100kg`
 
-=== Saving the data
+=== Participation
+This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit Athlete’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, rack height, etc). 
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Prepare for a new session: `new`
+Starts a new session of SBD lifts for the given weight classes (WC), separated by a space. This will load all the athletes information to prepare for the 3 lifts. 
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Format: `new wc/WEIGHTCLASS&GENDER`
+GENDER is denoted by either M (male) or F (female)
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Examples:
 
-== FAQ
+* `new u83M u93M` to create new sessions for male 83kg and male 93kg.
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+* `new u63F u66M u72F` to create new sessions for female 63kg, male 66kg and female 72kg.
 
-== Command Summary
+==== Submit next attempt: `attempt`
+Submits an athletes next attempt for either the squat, bench, or deadlift.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+Format: ` attempt LIFT ATTEMPT_NO/WEIGHT`
+S means squat, B means bench, D means deadlift
+ATTEMPT_NO ranges from 1 to 3 inclusively.
+
+Examples:
+
+* `attempt S 2 /170` 
+
+* `attempt D 3 /300`
+
+==== Update lift or no lift: `lift`
+Updates whether the athlete succeeds in his attempt, or fails it with the given “lights”, with ‘O’ representing a white light, and ‘X’ representing a red. 2 or more red lights implies a no lift, else it will be a successful lift. 
+
+Format: `lift LIFT ATTEMPT_NO 3LIGHTS n/NAME`
+
+Examples:
+
+* `lift S 2 OOO n/christabelteo` 
+
+* `lift B 3 XXO n/shawnkoh`
+
+==== Starts the next lift: `start`
+This will line up athletes (sort) according to their attempt weight for that particular lift and attempt. Each lift will have 3 attempts. 
+
+Format: `start LIFT`
+LIFT comprises: S means squat, B means bench, D means deadlift
+
+Examples:
+
+* `start B` 
+
+* `start D`
+
+==== Get the next lifter in line: `next`
+Retrieves the next lifter (according to weight lifted for that attempt), the weights he/she is going for, rack height and lift-off if necessary. 
+
+Format: `next`
+
+Examples:
+
+* `to put in later` 
+
+==== Submit first attempts: `first`
+Submits the first attempt (usually before starting any lift) for all 3 lifts.
+
+Format: `first n/NAME SQUAT_WEIGHT/BENCH_WEIGHT/DL_WEIGHT`
+
+Examples:
+
+* `first n/farhannafahrid 125/55/170` 
+
+* `first n/marcustay 190/140/220` 
+
+==== Declare pre-lift settings: `pre` 
+Declares pre meet settings, such as squat and bench rack height, as well as opting for lift-off for bench. For the squat and bench, athletes need to indicate their rack heights so that it can be setup before their lift. Liftoff is optional for the bench, lifters can choose if they need a spotter to help them with the lift off.
+
+Format: ` pre n/NAME s/RACK_HEIGHT b/RACK_HEIGHT LIFTOFF`
+
+RACK_HEIGHT - range: 
+LIFTOFF - Y for yes, N for no
+
+Examples:
+
+* `pre n/howeichin s/12 b/7 Y` 
+
+* `pre n/ooimingsheng s/10 b/5 N` 
