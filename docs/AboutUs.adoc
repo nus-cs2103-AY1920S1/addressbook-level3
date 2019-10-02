@@ -4,53 +4,52 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+TravelPal was developed by the https://github.com/AY1920S1-CS2103T-T11-4[AY1920S1-CS2103T-T11-4] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Ang Ze Yu
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+image::Ze Yu.png[width="150", align="left"]
+{empty}[https://github.com/ang-zeyu[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
-
+Role: Developer +
+Responsibilities: Logic, Deliverables and deadlines
 '''
 
 === Derrick
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+image::derrick.png[width="150", align="left"]
+{empty}[https://github.com/teoha[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Model, Storage
 
 '''
 
 === Sakshi
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+image::sakshi.png[width="150", align="left"]
+{empty}[https://github.com/SakshiPradyumn[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Testing, Integration
 
 '''
 
 === Tianyi
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::tianyi.png[width="150", align="left"]
+{empty}[https://github.com/arjunwangty[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: UI
 
 '''
 
 === Karan
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+image::Portrait_placeholder.png[width="150", align="left"]
+{empty}[https://github.com/eizon05[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Code Quality, Documentation
 
 '''
