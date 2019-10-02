@@ -297,32 +297,10 @@ more conveniently than traditional forms of trip planning
 [appendix]
 == User Stories
 
-
-| Priority | As a …   | I want to …   | So that I can …   |
-| -------- | -------- | ------------- | ----------------- |
-| \*\*\*   | Traveller  | Write to my travel diary at the end of the day with a multi-line text input  | Have better text formatting  |
-| \*\*     | Command line enthusiast  | Tab-autocomplete my commands  | Speed through typing the typing process  |
-| \*\*\*   | Traveller  | Be able to print my itinerary  | Bring it around in my travels if my battery dies   |
-| \*\*\*   | Unthrifty traveller         | get alerts if my spending goes beyond my planned levels    | Adjust my expenses  |
-| \*       | Non-math-inclined traveller | Get constant recommendations to my budget plan | I don’t need to do much math  |
-| \*\*     | Cautious traveller          | print or send the contacts to my mobile phone    | I can access these numbers at any time  |
-| \*\*\*   | Traveller                   | Make a detailed schedule for my trip     | I don’t have to waste time deciding which places to visit next   |
-| \*       | Traveller                   | Visualise my routes on a map                                                 | Use my time more efficiently   |
-| \*\*\*   | Forgetful traveller         | Make a checklist for items to bring     | I won’t forget any           |
-| \*\*\*   | Traveller                   | Have a copy of my trip schedule in my mobile devices      | Carry it around easily            |
-| \*\*\*   | Traveller                   | To be easy to remember       |      NIL   |
-| \*\*\*   | User                        | Not need to edit multiple areas of the app after a single command            |   NIL    |
-| \*       | Traveller                   | Manage my expenses based on the country I am visiting       | I don’t need to convert the currency myself   |
-| \*\*\*   | Forgetful traveller         | Alerted of bookings I have made before the trip       | I won’t miss any   |
-| \*\*     | Sentimental traveller       | Keep a diary of locations I have been      | I can remember them      |
-| \*\*\*   | Careful traveller           | Have a contact list of knowledgeable or reliable people/places  | Can find them if I meet any problems  |
-| \*       | User                        | Have an intuitive GUI that changes based on the days I have planned to spend | I do not have to navigate the UI frequently |
-| \*\*\*   | User                        | Be able to undo my actions                                                   | I can undo my mistakes   |
-| \*\*\*   | Sight-seeing enthusiast     | Plan my trip in various places in Singapore                                  | I do not waste time later  |
-| \*\*\*   | Travel and tour guide       | Plan the trip for my client                                                  | I have an enriched product   |
-| \*\*\*   | School teacher              | Plan the school trip for my class                                            | They have fun outing and learning one as well |
-| \*\*\*   | Salesperson | Decide the places to visit                                                   | I can get rough estimate of my expenses and to submit for reimbursement |
-| \*\*\*   | Accountant     | decide if the expenses are appropriate      | I can figure out if the salesperson is trying to dupe me or not  |
+image::us1.PNG[]
+image::us2.PNG[]
+image::us3.PNG[]
+image::us4.PNG[]
 
 
 [appendix]
