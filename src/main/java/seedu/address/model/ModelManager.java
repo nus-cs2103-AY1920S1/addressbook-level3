@@ -11,6 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
+import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
+import seedu.address.model.appstatus.PageStatus;
+import seedu.address.model.appstatus.PageType;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,26 +24,32 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final TravelPal travelPal;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Trip> filteredTripList;
+
+    private PageStatus pageStatus;
+
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given travelPal and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTravelPal addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.travelPal = new TravelPal(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.pageStatus = new PageStatus(PageType.TRIP_MANAGER, null, null, null);
+        filteredPersons = new FilteredList<>(this.travelPal.getPersonList());
+        filteredTripList = new FilteredList<>(this.travelPal.getTripList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TravelPal(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -67,49 +78,48 @@ public class ModelManager implements Model {
 
     @Override
     public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getTravelPalFilePath();
     }
 
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setTravelPalFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== TravelPal ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setTravelPal(ReadOnlyTravelPal travelPal) {
+        this.travelPal.resetData(travelPal);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyTravelPal getTravelPal() {
+        return travelPal;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return travelPal.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        travelPal.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        travelPal.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+        travelPal.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -121,6 +131,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
+    }
+
+    @Override
+    public FilteredList<Trip> getFilteredTripList() {
+        return filteredTripList;
     }
 
     @Override
@@ -143,9 +158,37 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return travelPal.equals(other.travelPal)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
+    public void setPageStatus(PageStatus pageStatus) {
+        requireNonNull(pageStatus);
+        this.pageStatus = pageStatus;
+    }
+
+    @Override
+    public PageStatus getPageStatus() {
+        return pageStatus;
+    }
+
+    @Override
+    public void addTrip(Trip trip) throws ClashingTripException {
+        requireNonNull(trip);
+        travelPal.addTrip(trip);
+    }
+
+    @Override
+    public void setTrip(Trip target, Trip replacement) throws ClashingTripException, TripNotFoundException {
+        requireAllNonNull(target, replacement);
+        travelPal.setTrip(target, replacement);
+    }
+
+    @Override
+    public void deleteTrip(Trip target) throws TripNotFoundException {
+        requireNonNull(target);
+        travelPal.deleteTrip(target);
+    }
 }
