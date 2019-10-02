@@ -11,46 +11,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Dominique Ng
-image::dominique.png[width="150", align="left"]
-{empty} [https://github.com/hellodommy[github]] [<<johndoe#, portfolio>>]
+image::hellodommy.png[width="150", align="left"]
+{empty} [https://github.com/hellodommy[github]]
 
-Role: +
-Responsibilities
+Role: Team Lead +
+Responsibilities: Scheduling and tracking, Deliverables and deadlines, *Model Component*
 
 '''
 
 === Erwin Chan
-image::erwin.png[width="150", align="left"]
-{empty}[https://github.com/ChangUo79[github]] [<<johndoe#, portfolio>>]
+image::ChangUo79.png[width="150", align="left"]
+{empty}[https://github.com/ChangUo79[github]]
 
-Role: +
-Responsibilities:
+Role: Test Engineer +
+Responsibilities: *Commons Component*
 
 '''
 
 === Lim Jun Hup
-image::junhup.png[width="150", align="left"]
-{empty}[https://github.com/junhuplim[github]] [<<johndoe#, portfolio>>]
+image::junhuplim.png[width="150", align="left"]
+{empty}[https://github.com/junhuplim[github]]
 
-Role: +
-Responsibilities:
+Role: Back-end Developer +
+Responsibilities: *Logic Component*
 
 '''
 
 === Poon Jeun Hoe
 image::jeunhoe.png[width="150", align="left"]
-{empty}[https://github.com/jeunhoe[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jeunhoe[github]]
 
-Role: +
-Responsibilities:
+Role: Quality Assurance Engineer +
+Responsibilities: Code quality, Documentation, *Ui Component*
 
 '''
 
 === Shawn Lee
-image::shawn.png[width="150", align="left"]
-{empty}[https://github.com/shawnlsj97[github]] [<<johndoe#, portfolio>>]
+image::shawnlsj97.png[width="150", align="left"]
+{empty}[https://github.com/shawnlsj97[github]]
 
-Role: +
-Responsibilities:
+Role: Integration Developer +
+Responsibilities: Git expert, *Storage Component*
 
 '''
