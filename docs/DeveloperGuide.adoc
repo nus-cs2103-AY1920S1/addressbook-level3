@@ -401,6 +401,83 @@ Use case ends
 ** Repeat 1a1 and 1a2 until a valid index is provided
 * Use case resumes from step 2
 
+[discrete]
+=== Use case: Specify difficulty level of questions (Xueting)
+
+*MSS*
+
+1. Student specifies the difficulty level as the last tag while adding a questions - `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+2. Application shows and stores the question with its difficulty level.
+
+*Extensions*
+
+[none]
+* 1a. Student does not specify the difficulty level
+[none]
+** 1a1. Application shows an error message to require difficulty level input
+** 1a2. Student inputs the difficulty level following the previous tags
+** Repeat 1a1 and 1a2 until a difficulty level is provided
+* Use case resumes from step 2
+
+[discrete]
+=== Use case: Edit difficulty level of a specific question (Xueting)
+
+*MSS*
+
+1. Student changes the difficulty level of a question - edit `-dif id/INDEX d/DIFFICULTY`
+2. Application shows and stores the question with the updated difficulty level
+
+*Extensions*
+
+[none]
+* 1a.Student does not provide the updated difficulty level
+[none]
+** 1a1. Application shows an error message to require difficulty level update
+** 1a2. Student inputs the new difficulty level
+** Repeat 1a1 and 1a2 until a difficulty level is provided
+* Use case resumes at step 2
+
+[none]
+* 1b. Student provides the same difficulty level as the previous one
+[none]
+** 1b1. Application shows a warning message indicating that the difficulty level is not updated and ask whether the user would like to proceed
+** 1b2. Student chooses either to proceed with the original difficulty level or re-edit the difficulty level
+* Use case resumes at step 2
+
+[none]
+* 1c. Student inputs an invalid (out of range or non-numeric) questions index
+[none]
+** 1c1. Application displays the range of valid question indices
+** 1c2. Student re-enters the question index
+** Repeat 1c1 and 1c2 until a valid index is provided
+* Use case resumes at step 1
+
+[discrete]
+=== Use case: Get statistics for a difficulty level (Xueting)
+
+*MSS*
+
+1. Student gives the command to get the statistics of the number of questions attempted at the specific difficulty level for a subject stats - `-dif d/DIFFICULTY s/SUBJECT`
+2. Application returns a bar chart which consists of the questions index and the number of attempts for this difficulty level
+
+*Extensions*
+
+[none]
+* 1a. Student does not provide the difficulty level or the subject after the -dif flag
+[none]
+** 1a1. Application shows an error message requesting the corresponding inputs
+** 1a2. Student re-enter the necessary fields
+** Repeat 1a1 and 1a2 until valid inputs are provided
+* Use case resumes at step 2
+
+[none]
+* 1b. Student inputs invalid difficulty level or subject
+[none]
+** 1b1. Application displays a list of difficulty levels and subjects available
+** 1b2. Student re-enter the necessary fields by choosing from the list
+** Repeat 1b1 and 1b2 until valid inputs are provided
+* Use case resumes at step 2
+
 [appendix]
 == Non-functional requirements
 
