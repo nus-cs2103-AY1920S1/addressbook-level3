@@ -14,12 +14,13 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
+Ever forget to go for a group meeting or need reminders for your assignment date? Fret not anymore.
+Horo provides you the ability to store your Events and Tasks, while providing a reminder for whenever you set it.
+You can even tag it to sort by a certain order, as well as import or export your calendar to transfer between computers! +
+{empty}
+
 * This is a desktop Reminder application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java application *written in an OOP fashion*, developed and intended for Students requiring a place to consolidate their Events and Task.
-
-== Blurb
-
-Ever forget to do something? Fret not anymore. Horo provides you the ability to store your Events and Tasks, while providing a reminder for whenever you set it. You can even tag it to sort by a certain order, as well as import or export your calendar to transfer between computers!
+* It is a Java application *written in an OOP fashion*, developed and intended for students that need reminders for their Events and Tasks.
 
 == Site Map
 
