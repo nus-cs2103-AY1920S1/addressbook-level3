@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Sugar Mummy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103-T16-1`      Since: `Oct 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,22 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* diagnosed with type 2 diabetes
+* consults a professional health practitioner
+* has a need to manage a significant number of health-related records and tasks
+* is diligent in immediately recording events but subsequently forgets events
+* wants to gain a deeper understanding of his/her condition
+* is struggling with obesity and lack of sleep
+* is motivated by challenges
+* enjoys a personalised experience
+* needs to know his/her effectiveness in managing diabetes at a glance
 * prefer desktop apps over other types
 * can type fast
+* reads and writes competently in English
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: convenient all-in-one app for effectively managing diabetes that is faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -365,17 +374,63 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Sugar Mummy` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
-
+=== Use case: Add blood sugar record
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a blood sugar record
+2.  System adds the blood sugar record
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The record is incomplete or passed invalid arguments.
++
+[none]
+** 1a1. System shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Schedule a medical appointment
+*MSS*
+
+1.  User requests to add a medical appointment
+2.  System adds the medical appointment
+3.  System notifies user of upcoming medical appointment beforehand
+4.  User acknowledges the notification and attends medical appointment on schedule
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The appointment is incomplete or passed invalid arguments.
++
+[none]
+** 1a1. System shows an error message.
++
+Use case resumes at step 1.
++
+[none]
+* 3a. User snoozes the notification.
++
+[none]
+** 3a1. System waits for snooze time to elapse.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Delete blood sugar record
+*MSS*
+
+1.  User requests list of blood sugar records
+2.  System shows a list of blood sugar records
+3.  User requests to delete a specific blood sugar record in the list
+4.  System deletes the blood sugar record
 +
 Use case ends.
 
@@ -389,29 +444,77 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Recommend diabetes-friendly food
+*MSS*
+
+1.  User requests for a diabetes-friendly food item
+2.  System shows a diabetes-friendly food item
+3.  User likes the recommendation
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User dislikes the recommendation.
++
+[none]
+** 3a1. User requests for another diabetes-friendly food item
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Update blood sugar record
+*MSS*
+
+1.  User requests list of blood sugar records
+2.  System shows a list of blood sugar records
+3.  User requests to update a specific blood sugar record in the list
+4.  System updates the blood sugar record
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The record is incomplete or passed invalid arguments.
++
+[none]
+** 3b1. System shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 health-related records and tasks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Third-party frameworks/libraries used should be free, open-source, and have permissive license terms, should not require any installation by the user of this software, and approved by teaching team.
+.  Should work without requiring an installer.
+.  The software should not depend on your own remote server
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
