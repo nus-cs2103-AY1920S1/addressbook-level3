@@ -18,10 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
-import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -31,6 +28,9 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
+import seedu.deliverymans.logic.commands.CommandResult;
+import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
