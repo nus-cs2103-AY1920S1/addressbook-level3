@@ -14,13 +14,19 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* *Mark*: An intuitive bookmark manager made by people who love to type, for people who love to type.
 
-Select features:
+== About Mark
 
-* Save a webpage's important content for offline use, and annotate them right away
-* Set reminders for websites. Never forget to pay those pesky bills again!
-* Sort and tag your bookmarks with our intelligent autotag system. Keep your bookmarks organized automatically
+Mark::
+An intuitive bookmark manager made by people who love to type, for people who love to type.
+
+****
+*Special Features*:
+
+* Save important content from a webpage for *offline* use, and *annotate* it right away.
+* Set *reminders* for websites. Never forget to pay those pesky e-bills again!
+* Sort and tag your bookmarks automatically with our intelligent *auto-tagging* system. Keeping your bookmarks organized is easy.
+****
 
 == Site Map
 
