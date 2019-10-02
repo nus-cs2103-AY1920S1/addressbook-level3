@@ -52,22 +52,65 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 Format: `help`
 
+=== Dispatching Vehicles
+==== Assumptions
+* User has logged in
+
+==== Description
+* Takes in postal code of accident site and dispatches vehicle closest to it.
+* Once operator picks up the call, they will key in the postal code of accident site to dispatch vehicles.
+
+
+==== Usage
+
+Format: `POSTAL_CODE [y/ n]`
+
+For multi-step:
+
+* Prompts for default vehicle dispatchment.
+** `y`- the available vehicle nearest to given postal code is dispatched.
+** `n`- an indexed list of available vehicles near the given postal code is given in descending order of proximity.
+
 === Filling a new report: `fill`
-Generates a new report and prompts operator to enter data into report fields. +
-Format: `fill`
-****
+==== Description
+* Generates a new report and prompts operator to enter data into report fields.
+* Unique ID automatically bgenerated for report.
+* Date/time, operator name, and operator name are auto-filled.
+
+
+==== Usage
+
+Format: `fill [n/CALLER_NAME d/INCIDENT_DESCRIPTION]`
+
+For multi-step:
+
 * Prompts for name of caller. Operator types it and presses `enter`.
 * Prompts for description of incident. Operator types it and presses `enter`.
-* Date/time, operator name, and operator name is autofilled.
-****
+
 === Submit a report: `submit`
-Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports. +
+==== Description
+
+* Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports.
+
+==== Usage
 Format: `submit`
-****
-* Once a new report has just been filled, the IMS prompts the operator to type `y` to submit. The operator can either type `y` or `submit` to submit the report.
-* If the operator issues the `submit` command at any other time, they will be shown an indexed list of unsubmitted draft reports. The IMS will then prompt them to enter the index number of the report they wish to submit. The operator types that number and presses `enter` to submit the chosen report.
-* The submission of a report will trigger three other operations: 1) an ID will be generated to tag the report, 2) an automated email will be sent to the operator's supervisor, and 3) the report will be saved in the database.
-****
+
+For new report:
+
+* Once the user fills in a new report and presses `enter`, the IMS prompts the operator to submit.
+* `y` or `submit`- to submit the report immediately.
+* Submission has to be done before user can edit again.
+* `n`- to save entry as draft.
+
+For other reports:
+
+* If the the `submit` command is issued at any other time, the operator will be shown an indexed list of unsubmitted draft reports.
+* The IMS will then prompt thehe operator to enter the index number of the report they wish to submit. The operator types that number and presses `enter` to submit the chosen report.
+* The submission of a report will trigger three other operations:
+1. an unique ID will be generated to tag the report
+2. an automated email will be sent to the operator's supervisor
+3. the report will be saved in the database
+
 === Adding a person: `add`
 
 Adds a person to the address book +
