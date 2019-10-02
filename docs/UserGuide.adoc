@@ -244,11 +244,11 @@ Example:
 | Status of fridge 1 changed
 |===
 
-==== Locating persons by name: `find`
+==== Locating entries by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find (keyword)...`
 
+Below are some important information regarding this command:
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -256,6 +256,7 @@ Format: `find (keyword)...`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
+Format: `find (keyword)...`
 
 Examples:
 
@@ -306,7 +307,7 @@ Format: `view -flag /id id`
 Example: `view -b /id 91` +
 View a body with the ID B00000091.
 
-====  : List all entries : `list`
+==== List all entries: `list`
 List all entries of bodies, workers, or fridges.
 
 Format: `list -flag`
@@ -334,33 +335,36 @@ Once the mortuary manager takes the relevant action, the alert will be automatic
 Format: `alerts`
 
 ==== Sort all entries: `sort`
-Sort all displayed entries according to a given order.
+Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
+Sort only works on the entries that are in view. For example, to sort body entries, the you need to first navigate to the bodies view.
 Types of ordering can be found below:
 
 * `name`: entries are sorted by alphabetical order of their names
-* `id`: entries are sorted by their id number, in ascending or descending order
-* `status`: entries are sorted by their statuses
-* `sort` will only be valid when the entries of interest are in view.
+* `id`: entries are sorted by their id number, in descending order (newest entry appear first)
+    ** `id asc`: entries are sorted in ascending order of id number
+    ** `id desc`: entries are sorted in descending order of id number
+         *** If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.
+* `status`: entries are sorted by their statuses in this order:
 
-Format: `sort /order order (/idOrder idOrder)`
+Format: `sort /order order`
 
 Example:
 
 * `sort /order status` +
 All entries will be sorted and grouped according to their statuses.
-* `sort /order id /idOrder ascending` +
+* `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
 
-==== Filter all entries: `filter`
+==== Filter body entries entries: `filter`
 Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
 
-Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+All attributes of a body entry can be filtered. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
 
 Format: `filter (/attributeName attributeValue)...`
 
 Example:
-`filter /firstName John`
-All entries with `John` in its `firstName` attribute will be displayed.
+`filter /cod Car Accident`
+All body entries with car accident as the cause of death will be displayed.
 
 ==== Undo previous command: `undo`
 Undo the last executed command.
