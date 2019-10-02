@@ -11,12 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.logic.Logic;
-import seedu.address.person.logic.commands.CommandResult;
-import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.person.logic.parser.exceptions.ParseException;
+import seedu.address.transaction.logic.Logic;
+import seedu.address.transaction.commands.CommandResult;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -83,9 +80,9 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        //setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
+        //setAccelerators();
 
         helpWindow = new HelpWindow();
     }
@@ -94,9 +91,9 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setAccelerators() {
+    /*private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
+    }*/
 
     /**
      * Sets the accelerator of a MenuItem.
@@ -157,26 +154,26 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sets the default size based on {@code guiSettings}.
      */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
+    /*private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
-    }
+    }*/
 
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
-    @FXML
+    /*@FXML
     public void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
             helpWindow.focus();
         }
-    }
+    }*/
 
     void show() {
         primaryStage.show();
@@ -185,14 +182,14 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Closes the application.
      */
-    @FXML
+    /*@FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
+    }*/
 
 //    public PersonListPanel getPersonListPanel() {
 //        return personListPanel;
@@ -202,22 +199,22 @@ public class MainWindow extends UiPart<Stage> {
      * Executes the command and returns the result.
      *
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws Exception{
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 //            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            /*if (commandResult.isShowHelp()) {
                 handleHelp();
             }
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
+            }*/
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (Exception e) {
             logger.info("Invalid command: " + commandText);
 //            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

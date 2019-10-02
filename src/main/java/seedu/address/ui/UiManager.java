@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.util.StringUtil;
-import seedu.address.person.logic.Logic;
+import seedu.address.transaction.logic.Logic;
 
 /**
  * The manager of the UI component.

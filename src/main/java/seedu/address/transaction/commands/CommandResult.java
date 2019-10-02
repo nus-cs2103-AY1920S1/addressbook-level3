@@ -11,4 +11,8 @@ public class CommandResult {
     public String toString() {
         return feedbackToUser;
     }
+
+    public String getFeedbackToUser() {
+        return feedbackToUser;
+    }
 }
