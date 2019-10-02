@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Yap Shi Hao - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
