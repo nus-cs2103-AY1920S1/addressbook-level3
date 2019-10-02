@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Plan²trip was developed by the T09-01 team of NUS School of Computing AY19/20. +
+Plan²travel was developed by the T09-01 team of NUS School of Computing AY19/20. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -14,9 +14,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::ernestyyh.png[width="150", align="left"]
 {empty}[https://github.com/ernestyyh[github]] [<<ernestyyh#, portfolio>>]
 
-Role: Team Lead,  + 
+Role: Team Lead,  +
 Responsibilities: Logic, Model
- 
+
 '''
 
 === Chen Yi Jun
