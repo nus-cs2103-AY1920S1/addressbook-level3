@@ -279,13 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of tasks
+* needs reminders to take breaks or move on to cover all their work
+* prefers to be more organized with their time and tasks
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage time and tasks more efficiently than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -313,33 +315,103 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `ELISA` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use Case 001: Marking a task as done
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User enters the command to show the task list.
+2. ELISA shows the task list to the user.
+3. User marks the task as done by using the index of the task.
+4. ELISA updates the task list.
+5. ELISA shows the updated task list to the user.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The task list is empty.
 +
 Use case ends.
 
 * 3a. The given index is invalid.
 +
-[none]
-** 3a1. AddressBook shows an error message.
+** 3a1. ELISA shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use Case 002: Adding a task
+*MSS*
+
+1. User creates a new task with a description.
+2. ELISA informs the user that the task has been added.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User can add deadline 
++
+** 1a1. ELISA informs the user that a deadline has been added to that task.
++
+Use case ends
+
+* 1b. User can add a reminder date.
++
+** 1b1. ELISA informs the user that a reminder has been added to that task.
++
+Use case ends
+
+* 1c. User enters an empty description.
++
+** 1c1. ELISA informs the user that the description cannot be empty.
++ 
+** 1c2. User enters a non-empty description
++
+Use case resumes at step 2
+
+* a. At any time, User can view the task from the task list or the calendar view.
+* b. At any time, User can add a deadline to the task
+* c. At any time, User can add a reminder to the task
+
+[discrete]
+=== Use Case 003: Deleting a task
+
+*MSS*
+
+1. User enters the command to show the task list.
+2. ELISA shows the task list.
+3. User request to delete a task based on its index.
+4. ELISA deletes the task from the task list.
+5. ELISA shows the updated task list.
+
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The task list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+** 3a1. ELISA shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use Case 004: Find upcoming reminders.
+
+*MSS*
+
+1. User enters the command to show the reminder list.
+2. ELISA shows the reminder list.
+3. User enters command to sort reminders by date and time.
+4. ELISA shows the updated list of reminders sorted by date and time.
 
 _{More to be added}_
 
