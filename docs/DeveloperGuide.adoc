@@ -283,9 +283,9 @@ Refer to the guide <<DevOps#, here>>.
 * prefer desktop apps over other types
 * can type fast and prefers typing over mouse input
 * is reasonably comfortable using CLI apps
-* has secretarial or finance management duties 
+* has secretarial or finance management duties
 
-*Value proposition*: 
+*Value proposition*:
 
 * Simplify the tasks of the finance secretary by providing intuitive commands to commonly done tasks (check net balance, show surplus, show deficit)
 * Makes said task more cohesive by integrating 3 types of tracking (claims, budget and income) into a single application
@@ -305,10 +305,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |busy user |ensure the contacts list to have a filter/search bar |easily find people in my contacts list
 |`* * *` |user |ensure the app can create Groups and Events such as Sports, Marketing, FOP etc |manage them easier
 |`* * *` |user |ensure the app can categorise the people to the Groups and Events |manage them easier.
-|`* * *` |user |ensure the app can help me record the amount of money I have on hand |manage it easier. 
+|`* * *` |user |ensure the app can help me record the amount of money I have on hand |manage it easier.
 |`* * *` |busy user |ensure the app can help me record the amount of money I am supposed to have |manage it easier.
 |`* * *` |user |ensure the app can help me calculate the difference of money I have vs the amount of money I am supposed to have |manage it easier.
-|`* * *` |user |ensure the app can give me a warning when the difference of money I have on hand vs the amount of money I am supposed to have is not 0 |be notified if something like that does happen. 
+|`* * *` |user |ensure the app can give me a warning when the difference of money I have on hand vs the amount of money I am supposed to have is not 0 |be notified if something like that does happen.
 |`* * *` |user |ensure the app can show me the transactions I had with people in the past, even after the transaction is done |keep a history of them.
 |`* * *` |user |ensure the app can show me a list of DONE people |manage them easier.
 |`* * *` |user |ensure the app can show me a list of NOT DONE people |manage them easier.
