@@ -17,6 +17,16 @@ endif::[]
 
 By: `Team CS2103-T16-1`      Since: `Sep 2019`      Licence: `MIT`
 
+== Introduction
+
+Do you feel it difficult to keep the right diets for type II diabetes?
+Do you want to manage your hectic schedule?
+Do you want to have a better overview of your health data?
+Do you want to move to a healthier lifestyle?
+If your answer is yes, then SugarMummy is perfect for you!
+SugarMummy is a lifestyle tracker and planner that aims to combat Type II diabetes by encouraging users to keep a healthy lifestyle.
+Moreover, being a computer app with Command Line Interface, SugarMummy is optimized for fast typers who has access to a computer most of the time.
+
 Hope following features will benefit you and enjoy!
 
 * Data tracker for various data types (blood sugar levels, diets, exercise, clinic appointments, medical finance and so on!)
@@ -27,22 +37,22 @@ Hope following features will benefit you and enjoy!
 
 == Quick Start
 
-
-.  Download the latest `sugarmummy.jar` link:https://github.com/AY1920S1-CS2103-T16-1/main/releases[here].
-.  Copy the file to the folder you want to use as the home folder for data records.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. Download the latest `sugarmummy.jar` link:https://github.com/AY1920S1-CS2103-T16-1/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for data records.
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+. Some example commands you can try:
 
 * **`add`**`r/bloodsugar v/10 t/now` : adds a `bloodsugar` record to the app.
 * **`delete`**`3` : deletes the 3rd record shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -66,13 +76,17 @@ Format: `add r/RECORD_TYPE v/VALUE t/TIME [t/TIME_END]`
 
 Format: `list [r/RECORD_TYPE] ...`
 
-If a specific RECORD_TYPE is provided, it will list the data entries that are of RECORD_TYPE. If more than 1 RECORD_TYPE is provided, it will list all data entries of the requested types. Otherwise, it lists all types of recent data entries.
+If a specific RECORD_TYPE is provided, it will list the data entries that are of RECORD_TYPE. If more than 1 RECORD_TYPE is provided, it will list all data entries of the requested types.
+Otherwise, it lists all types of recent data entries.
 
 ==== Edit an existing entry in the diabetes tracker app: `edit`
 
 Format: `edit INDEX [v/VALUE] [t/TIME] [t/TIME_END]`
 
-Edits the entry at the specified INDEX. The index refers to the index number shown in the displayed entries list. The index must be a positive integer. At least one of the optional fields must be provided. Existing values will be updated to the input values.
+Edits the entry at the specified INDEX. The index refers to the index number shown in the displayed entries list.
+The index must be a positive integer.
+At least one of the optional fields must be provided.
+Existing values will be updated to the input values.
 
 ==== Deletes a specified data entry from the diabetes tracker app: `delete`
 
@@ -94,13 +108,15 @@ Add a reminder at a specific time with possible detail information of other time
 
 Format: `event TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD]  [v/venue] [p/people]`
 
-Add an event with starting time and optional ending time. Set a reminder some time before the event with possible detail information of venue(e.g. hospital) ,people(e.g. doctor) and sound.
+Add an event with starting time and optional ending time.
+Set a reminder some time before the event with possible detail information of venue(e.g. hospital) ,people(e.g. doctor) and sound.
 
 ==== Add a task: `task`
 
 Format: `task TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD] [tg/TARGET]`
 
-Add a task with starting time and optional ending time. Set a reminder some time before the task begins and a target for the task.
+Add a task with starting time and optional ending time.
+Set a reminder some time before the task begins and a target for the task.
 
 ==== Snooze reminder: `snooze`
 
@@ -112,7 +128,8 @@ Silence the current reminder and activate it after a time period.
 
 Format: `complete [INDEX]... [t/TIME]`
 
-Mark all the reminders before now as completed if no argument provided. Otherwise, mark only those tasks with indices provided or before the specific time as completed.
+Mark all the reminders before now as completed if no argument provided.
+Otherwise, mark only those tasks with indices provided or before the specific time as completed.
 
 ==== Set time zone: `timezone`
 
@@ -142,13 +159,16 @@ Display the current ranking of the user (i.e. Bronze III, Bronze II, Bronze I, S
 
 Format: `bio`
 
-Display a page containing user information such as the user’s profile picture, name, nric, gender, date of birth, contact number, address and other biography information that the user would like to include. Includes an icon used to represent the user based on his/ her BMI.
+Display a page containing user information such as the user’s profile picture, name, nric, gender, date of birth, contact number, address and other biography information that the user would like to include.
+Includes an icon used to represent the user based on his/ her BMI.
 
 ==== Adds a biography for the user using specified fields: `addbio`
 
 Format: `addbio n/NAME [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] p/CONTACT_NUMBER e/EMERGENCY_CONTACT m/MEDICAL_CONDITION [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
 
-Profile picture of the user is set using a given file path. If the file that is given is invalid, the user is shown an error message. Name, contact number, emergency contact number and medical condition are compulsory fields. (if a user of this app happens to have no medical condition, he / she may input NIL)
+Profile picture of the user is set using a given file path.
+If the file that is given is invalid, the user is shown an error message.
+Name, contact number, emergency contact number and medical condition are compulsory fields. (if a user of this app happens to have no medical condition, he / she may input NIL)
 
 ==== Delete biography `[coming in v2.0]`
 
@@ -156,7 +176,9 @@ Profile picture of the user is set using a given file path. If the file that is 
 
 Format: `editbio [n/NAME] [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] [p/CONTACT_NUMBER] [e/EMERGENCY_CONTACT] [m/MEDICAL_CONDITION] [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
 
-Profile picture of the user is set using a given file path. If the file that is given is invalid, the user is shown an error message. If no parameters are set, the program displays a message suggesting the user to set biography information using the specified fields.
+Profile picture of the user is set using a given file path.
+If the file that is given is invalid, the user is shown an error message.
+If no parameters are set, the program displays a message suggesting the user to set biography information using the specified fields.
 
 ==== Sets the background picture using a specified file path: `bg`
 
@@ -185,32 +207,34 @@ This helps to motivate them to have a healthy BMI.
 
 Format: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
 
-AVERAGE_TYPE is either day/week/month. Displays a graph of the AVERAGE_TYPE average value of a particular RECORD_TYPE. COUNT is an integer value. If COUNT is given, show only the latest COUNT number of average values. Else, show only latest 3 average values.
+AVERAGE_TYPE is either day/week/month.
+Displays a graph of the AVERAGE_TYPE average value of a particular RECORD_TYPE. COUNT is an integer value.
+If COUNT is given, show only the latest COUNT number of average values.
+Else, show only latest 3 average values.
 
 ==== Display interesting statistics: `summary`
 
-Examples of statistics: minimum, maximum, average, number of dangerously high blood sugar level, weekly quiz points etc in suitable graph
+Examples of statistics: minimum, maximum, average, number of dangerously high blood sugar level, weekly quiz points etc
+in suitable graph
 
 Format: `summary r/RECORD_TYPE [d/START_DATE]`
 
-If START_DATE is given, statistics from START_DATE to the current date will be retrieved. Else, statistics will be based on all data.
+If START_DATE is given, statistics from START_DATE to the current date will be retrieved.
+Else, statistics will be based on all data.
 
 ==== Export summary of all medical records into pdf: `export`
 
 Format: `export [d/START_DATE]`
 
-If START_DATE is given, summary from START_DATE to the current date will be exported. Else, summary of all data will be exported.
-
-=== Autocomplete Command
-
-SugarMummy will recommend list of possible commands that can be add on to user current input.
+If START_DATE is given, summary from START_DATE to the current date will be exported.
+Else, summary of all data will be exported.
 
 === EDUCATION AND QUIZ
 
 ==== Recommending food: `recmf`
 
-Recommends a list of medically suggested foods for type II diabetes
-patients. The user can specify flags:
+Recommends a list of medically suggested foods for type II diabetes patients.
+The user can specify flags:
 
 `-b`: breakfast recommendations
 
@@ -222,7 +246,9 @@ patients. The user can specify flags:
 
 `-v`: vegetable recommendations
 
-With specified one or more FOOD_ITEM, the user will only view recommendations match at least one item. However, if any food item is considered dangerous for type II diabetes patients, a warning will be shown. (case-insensitive)
+With specified one or more FOOD_ITEM, the user will only view recommendations match at least one item.
+However, if any food item is considered dangerous for type II diabetes patients, a warning will be shown.
+(case-insensitive)
 
 Format: `recmf [-b] [-l] [-d] [-f] [-v] [FOOD]...`
 
@@ -234,13 +260,15 @@ Examples:
 
 ==== Recommending exercise: `recme`
 
+Recommends a list of medically suggested exercises for type II diabetes patients.
+
 Format: `recme`
 
 ==== Adding new food items : `put`
 
-Adds a new food time into certain category. Calorie and glycemic can
-be attached followed by -i flag. Otherwise, another prompt will be
-shown to ask for these two values.
+Adds a new food time into certain category.
+Calorie and glycemic can be attached followed by -i flag.
+Otherwise, another prompt will be shown to ask for these two values.
 
 Format: `put FOOD[, FOOD]...[-i CALORIE GI] in CATEGORY`
 
@@ -252,8 +280,7 @@ Example:
 
 ==== Disliking certain foods: `dislike`
 
-Dislikes certain foods so that those foods will no longer be shown on
-the recommendations. (case-insensitive)
+Dislikes certain foods so that those foods will no longer be shown on the recommendations. (case-insensitive)
 
 Format: `dislike FOOD[, FOOD]...`
 
@@ -261,8 +288,8 @@ Example: `dislike watermelon, chicken`
 
 ==== Playing flash cards: `game`
 
-Shows an interactive page for user to play the flash card game. The
-user will win certain points if answering a question correctly.
+Shows an interactive page for user to play the flash card game.
+The user will win certain points if answering a question correctly.
 
 Format: `game`
 
@@ -270,9 +297,10 @@ During the game session, the user is able to:
 
 . Selecting the correct answer: `<alphabet>`
 
-* Answers the multiple-choice question. If the answer is correct,
-the user will be awarded a few points. If the answer is wrong,
-multiple, or not within the choice range, a few points will be deducted and the correct answer will be revealed.
+* Answers the multiple-choice question.
+If the answer is correct, the user will be awarded a few points.
+If the answer is wrong, multiple, or not within the choice range, a few points will be deducted and the correct answer
+will be revealed.
 
 * Format: `<alphabet>`
 
@@ -289,43 +317,45 @@ multiple, or not within the choice range, a few points will be deducted and the 
 * Exits the game and go back to normal page
 * Format: `exit`
 
-=== Clearing all entries: `[coming in v2.0]`
-
-Clears all entries in SugarMummy.
-
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Autocomplete Command
 
-SugarMummy data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+SugarMummy will recommend list of possible commands that can be add on to user current input.
 
-=== Encrypting data files `[coming in v2.0]`
+== Features Coming in v2.0
 
-Users cannot retrieve data by opening data files directly.
+=== Clearing all entries: `clear all`
 
-=== Detailed workout schedule `[coming in v2.0]`
+Clears all recorded data in SugarMummy.
+
+=== Encrypting data files: `enc [KEY]`
+
+The user can optionally provide a key to encrypt all the data. Afterwards, all the stored user input can only be viewed
+with the user-defined key.
+
+=== Detailing workout schedule
 
 User can enter details of a workout schedule. +
 For example: Do exercise A for 10 minutes then switch to exercise B for 5 minutes.
 
-=== Workout timer `[coming in v2.0]`
+=== Timing Workout
 
 Displays workout instructions and a timer on screen.
 Screen instruction changes when the time for that particular exercise is up.
 Time required for each exercise is dictated by stored workout schedule.
 
-== FAQ
+=== Sharing with community
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+The user is able to interact with others who is using SugarMummy. A community platform will be provided for users to share their daily activities and health tips. This community is expected to help the user obtain encouragements and comforts.
 
 == Command Summary
 
 :hardbreaks:
+
 [start=1]
 . *Achievement*: `achievement`
 . *Add*: `add r/RECORD_TYPE v/VALUE t/TIME [t/TIME_END]`
@@ -370,3 +400,10 @@ E.g `summary r/bloodsugar d/01.09.2019`
 E.g `task Running running for 40 minutes t/15:00 tp/10 min tg/200 calories`
 . *Timezone*: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
 E.g `timezone tz/GMT+8`
+
+== FAQ
+
+[qanda]
+How should I save my data?::
+SugarMummy data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
