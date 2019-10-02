@@ -15,16 +15,9 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-Emergency numbers such as 999 and 995 might just be 3 numbers for us to remember in times of need, however, do you ever wonder what is the work that goes behind each of those calls?
-The roles of an emergency response operator is not only to pick up these calls, but also:
-* dispatch vehicles accordingly
-* capture incident details in a report
-
-The Incident Management System is a more convenient and less error prone way for the Emergency Response Operators to complete their jobs. It allows users to:
-* Create and store incidents/reports
-* Automised filling of certain fields e.g. Date, time to reduce human error
-* Retrieve the report at a later date for reference
-* Modify/Update the report
+* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
+* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
 == Site Map
 
@@ -35,7 +28,9 @@ The Incident Management System is a more convenient and less error prone way for
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
-* Adapted from source code of the AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
+
+* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+_Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
