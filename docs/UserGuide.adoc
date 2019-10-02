@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Flashback - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -61,12 +61,61 @@ Format: `tag <ID> <TAGNAME>`
 * Adds the tag to the flashcard with the specified ID
 * TAGNAME can be an existing tag or a new tag
 * To use existing tags the TAGNAME entered must match the exiting tag exactly
+=======
+View all the available commands that the user can use. +
+Format: `help`
+
+=== Adding a person: `add`
+
+Adds a new flashcard with user-determined question and answer +
+Format: `add QUESTION | ANSWER`
+
+****
+* Both QUESTION and ANSWER must be provided by the user.
+****
+
+Examples:
+
+* `add What is the tallest mountain? | Mount Everest` +
+Creates a new flashcard with the given question and answer.
+
+=== Listing all persons : `list`
+
+Shows a list of all existing flashcards (classified by sets). +
+Format: `list TAG`
+
+Examples:
+
+* `list all` +
+Lists all the existing flashcard.
+* `list engvocab` +
+Lists all flashcards in the set engvocab (i.e with the tag engvocab)
+
+
+=== Editing a person : `edit`
+
+Edits an existing flashcard in the address book. +
+
+Format: `edit ID [-tag NEW_TAG] [-q NEW_QUESTION] [-a NEW_ANSWER]`
+
+
+****
+* Edits the flashcard with the specified `ID`. The ID is a unique ID generated for each flashcard.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
 ****
 
 Examples:
 
 * `Tag <001> <Biology>` +
 Assigns a Biology tag to flashcard 001
+=======
+* `edit #100342 -tag favourite` +
+Edits the tag of card with unique id #100342 to `favourite`.
+* `edit #100342 -q What is the tallest mountain?` +
+Edits the question of the card with unique id #100342 to "What is the tallest mountain?".
+* `edit #100342 -a Mount Everest`
+Edits the answer of the card with unique id #100342 to "Mount Everest".
 
 === Quiz mode
 Starts a quiz using a particular set of flashcards
@@ -88,6 +137,7 @@ creates a new quiz using flashcards from the biology tag
 * `quiz set <Biology> <60>` +
 creates a new quiz using flashcards from the biology tag however the default delay timer is now 1 minute or 60 seconds
 
+
 === Display current progress
 Shows the current progress of a set of flashcards +
 Format: `progress <TAGNAME>`
@@ -95,13 +145,50 @@ Format: `progress <TAGNAME>`
 ****
 * Statistics shown include number of completed cards and accuracy
 * TAGNAME indicates the tag to be reviewed
+=======
+// tag::delete[]
+=== Deleting a person : `delete`
+
+Deletes the specified flashcard from the list of all flashcards. +
+Format: `delete FLASHCARD_ID`
+
+****
+* Deletes the person with the specified `FLASHCARD_ID`.
+* The ID of a flashcard refers to the specific number assigned to that flashcard upon creation.
+* The flashcard ID *must be a positive 6-digit integer* 000001, 000002, 000003, ...
+
 ****
 
 Examples:
 
+
 * `progress <Biology>` +
 Displays the progress of a the flashcards tagged with Biology
+=======
+* `delete #100342` +
+Removes the flashcard with unique ID 100342
 
+// end::delete[]
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+// tag::dataencryption[]
+=== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
