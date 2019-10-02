@@ -543,7 +543,6 @@ then annotations are shown as well.
 === Adding a reminder: `reminder`
 
 Adds a reminder to visit a bookmark. You can set the time for the reminder.
-You can also choose when to open the bookmark.
 
 Format: `reminder INDEX t/TIME_DATE [n/NOTE=Open]`
 
@@ -564,7 +563,7 @@ The reminder reminds you to read announcements.
 
 
 === Editing a reminder: `reminder edit`
-Edits the reminder of the specified bookmark. You can edit either time or whether to open it.
+Edits the reminder of the specified bookmark. You can edit either time or the note of the reminder.
 
 Format: `reminder edit INDEX [t/TIME_DATE] [n/NOTE]`
 * INDEX is the index of the bookmark that has the reminder that you want to edit.
@@ -575,7 +574,7 @@ Edits the reminder of bookmark 1. Reset the time of the reminder to 23:59 of 02/
 
 * `reminder 1 t/2359 02/07/2019 n/Check daily news` +
 Edits the reminder of bookmark 1. Reset the time of the reminder to 23:59 of 02/07/2019.
-Reset to not to open the bookmark. Reset the note to check daily news.
+Reset the note to check daily news.
 
 === Deleting a reminder: `reminder delete`
 
