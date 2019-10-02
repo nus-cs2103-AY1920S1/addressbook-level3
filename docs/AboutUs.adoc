@@ -30,6 +30,14 @@ image::https://avatars0.githubusercontent.com/u/54168384?s=460&v=4[width="150", 
 
 Role: Member
 
+
+=== Wang Runding
+image::profile_pic.jpg[width="150", align="left"]
+{empty}[https://github.com/r-d-d-d[github]]
+
+Role: Member
+
+
 '''
 
 === John Roe
