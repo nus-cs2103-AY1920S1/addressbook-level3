@@ -6,6 +6,7 @@ https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appv
 https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://app.netlify.com/sites/whattheduke/deploys[image:https://api.netlify.com/api/v1/badges/3b2b545d-4c96-47b6-8dcb-6f818d9621fb/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
