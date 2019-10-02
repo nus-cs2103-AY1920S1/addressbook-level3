@@ -608,7 +608,7 @@ Use case ends.
 *Extensions*
 [none]
 * 1a. Mark does not have internet access.
-** 1a1. Mark tells user that there is no internet access and suggests user to see cache.
+** 1a1. Mark tells user that there is no internet access and suggests that user sees cache.
 +
 Use case ends.
 
@@ -619,7 +619,7 @@ Use case ends.
 *MSS*
 
 1. User <<UC11,[.underline]#browses the web (UC11)#>>.
-2. User requests to bookmark currently showing webpage.
+2. User requests to bookmark the currently showing webpage.
 3. Mark uses current website's URL and <<UC02,[.underline]#adds bookmark (UC02)#>>.
 +
 Use case ends.
