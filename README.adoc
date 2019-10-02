@@ -20,7 +20,6 @@ As a broke uni student, do you *desperately* need a tool to keep track of your e
 
 ### Look no further! TutorAid is the one stop solution to answer all of your TA woes!
 
-
 ## What Is TutorAid?
 
 TutorAid is a desktop task manager and tracker application. It has a Graphical User Interface (GUI) but most of the user interactions happens using a CLI (Command Line Interface). To put it in layman terms, you type in information about your classes and TutorAid takes note of them for you!
