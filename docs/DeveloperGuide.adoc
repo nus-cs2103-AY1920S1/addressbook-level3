@@ -343,53 +343,68 @@ Priorities:
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `NUStudy` and the *Actor* is the `student`)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Create lecture note (Jeremy)
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
+1. Student gives the command to add a lecture note – `addnote -t TITLE -c CONTENT`
+2. Application shows a lecture note with the given title and contents to the user
+3. Application also updates the lecture note list with the new note
+
+Use case ends
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
+* 1a. Student also gives `-i` in the command
 [none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+** 1a1. Application brings up a file selection dialogue
+** 1a2. Student selects the image they wish to include in the lecture note
+** 1a3. Application accepts the image
+* Use case resumes from step 2
 
-_{More to be added}_
+* 1a2a. The selected file is not an image (.png, .jpg, .gif)
+[none]
+** 1a2a1. Application displays message about the supported file formats
+** 1a2a2. Student selects a file again
+** Repeat 1a2a1, 1a2a2 until a supported file format is selected
+* Use case resumes from step 1a3
+
+[discrete]
+=== Use case: Delete lecture note (Jeremy)
+
+*MSS*
+
+1. Student gives the command to delete a lecture note – `deletenote INDEX`
+2. Application deletes the note from the note list
+
+*Extensions*
+
+[none]
+* 1a. Student gives an out-of-range or non-numeric index
+[none]
+** 1a1. Application displays message showing in-range indices
+** 1a2. Student re-enters the command
+** Repeat 1a1 and 1a2 until a valid index is provided
+* Use case resumes from step 2
 
 [appendix]
-== Non Functional Requirements
+== Non-functional requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Images must be copied into the application data, residing in a dedicated folder,
+rather than merely linking to somewhere on the filesystem
+. Export format of lecture notes and flash cards must be human-readable text
+. Images must be referenced by pathnames with respect to the image folder
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[lecture-note]] Lecture note::
+An object stored in the application model that includes a title, text content and optionally an image.
+It is not quizzable.
 
 [appendix]
 == Product Survey
