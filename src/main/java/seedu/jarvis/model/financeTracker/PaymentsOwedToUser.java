@@ -30,9 +30,7 @@ public class PaymentsOwedToUser {
      * Adds a new pending payment that another person owes the user.
      * todo check arguments for this command (might need to change)
      */
-    public void newPaymentOwed(String name, double moneyAmount) {
-        PendingPayment newPendingPayment = new PendingPayment(name, moneyAmount);
-        newPendingPayment.setPersonOwesUser();
+    public void newPaymentOwed(PendingPayment newPendingPayment) {
         pendingPaymentsToUser.add(newPendingPayment);
     }
 
