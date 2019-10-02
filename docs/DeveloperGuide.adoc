@@ -16,6 +16,12 @@ endif::[]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+== Introduction
+
+NUSpend is a desktop CLI application that help users track their expenses.
+The App supports many other extensions such as budgeting, planning and reminders.
+In particular, it is tailored to students in National University of Singapore who dines frequently in school canteens.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -279,13 +285,23 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to track a significant number of expenses
+* lives on a monthly allowance
+* wants to save money
+* has difficulty remembering important dates, such as friends' birthdays or anniversaries
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+* manage contacts faster than a typical mouse/GUI driven app
+* optimized for students in National University of Singapore
+* make prediction for future spending based on extrapolation from past statistics and upcoming important dates
+* customizable categories, budgets and aliases
+* flexible forms of viewing a summary of expenses
+* give input suggestions while typing
+* more convenient time format
 
 [appendix]
 == User Stories
@@ -295,17 +311,82 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |full-time university student without any stable income |record my expenses |track my spending and practice financial management skills
 
-|`* * *` |user |add a new person |
+|`* * *` |non-money minded person |view a list of all my previous expenses |be better at tracking my expenses
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |categorize my expenses by types (e.g. Transport, Food, etc.) |differentiate expenses easily
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |YEP (Youth Expedition Project) organizer who is in charge of logistics for my overseas project |delete a previous expense |I do not keep track of expenses that have been reimbursed by Youth Corps Singapore
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |non-money minded person |save the expenses data locally |still keep track of my expenses even after closing the App
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |foodie who frequently goes out with friends and pays for grab/restaurant bills |quickly find a particular entry by typing a keyword |refer to a previous expense and know how much money my friend needs to pay me back
+
+|`* *` |someone who is not good at managing my money |view budget breaking expenses |quickly know which expenses make up a big part of my budget
+
+|`* *` |forgetful person |get notified of upcoming birthdays/anniversaries |budget for these special dates
+
+|`* *` |lazy person |specify tax rate and let the app calculates the total price for me when entering expense |I can know the after-tax price when ordering in restaurants
+
+|`* *` |money-minded user |extrapolate from daily/weekly expenses to monthly expenses |have a rough gauge on future spending and plan budgets accordingly
+
+|`* *` |user |manually input my expenses in an external file and import these expenses into the App |track previous expenses that occur before I start using the App
+
+|`* *` |user |request for periodic statements |revise and reflect on my past expenses
+
+|`* *` |busy person |add repeated expenses by selecting a previous expense and adding as a current expense |save time when using the App
+
+|`* *` |financially dependent student |export my past expenses |my parents can see my spending
+
+|`* *` |lazy user |let the App predict the tags for my expenses |use automated suggestions provided to me for better categorizaton
+
+|`* *` |person working part time/TA-ing/etc |let the App add to my earnings automatically based on salary |track my income as well
+
+|`* *` |foreign student on exchange in NUS |input my spending in SGD and have it automatically converted to my local currency |better track my spending in a currency I'm more comfortable with
+
+|`* *` |visual person who easily gets confused by a large amount of text and prefers graphic illustrations |view my monthly expenses in pie charts |better understand the weightage of spending in different categories in a more direct and efficient manner
+
+|`* *` |user |update details of a past expense |correct erroneous past expenses without having to delete it and add again
+
+|`* *` |lazy user |schedule recurring expenses |avoid having to key in the same information all the time. (However, I want to be able to confirm details of the expense.)
+
+|`* *` |busy person |let the App use the current time for an expense if I do not specify a time |avoid always having to manually key in a time for my expense
+
+|`* *` |busy person |enter the time as yesterday, one hour ago, etc |save effort by using convenient and flexible time formats
+
+|`* *` |non-money minded person |receive warnings when I’m close to or exceeding my budget |adjust my expenses to prevent overspending
+
+|`* *` |careless person who is prone to typos |undo my previous command |I do not enter the wrong amount for my expenses
+
+|`* *` |careless person who is prone to typos |redo my previous command |I do not delete expenses by accident
+
+|`* *` |non-money minded person |set periodic budgets |discipline my spending
+
+|`* *` |non-money minded person |set categorical budgets |exceptional expenses (e.g. healthcare or sponsored expenses) are not tracked under default budget to prevent confusion
+
+|`* *` |non-money minded person |let the App suggest some budgeting tips for me |be better at tracking my expenses
+
+|`*` |forgetful person |receive email reminders if I haven’t input my expenses for a few days |do not forget to track my expense
+
+|`*` |someone who spends a lot of time in public spaces in school |easily hide my budgeting information on the application quickly |others could not see the details on my screen
+
+|`*` |busy person |input my expenses by scanning a receipt |can save more time than manually typing in the expenses
+
+|`*` |NUS student, and lazy person |add expense from school canteens by saying e.g. “deck steamed chicken rice” |don't need to enter the details and prices
+
+|`*` |non-financially independent student |hide some details when exporting expenses |do not share exact details with my parents but instead include them as an anonymous expense
+
+|`*` |non-money minded person |let the App help me make saving plans for future expenses |start saving early
+
+|`*` |user |group certain expenses, e.g. group chicken rice and milo as lunch, but both remain separate entries as well |manage related expenses together
+
+|`*` |advanced CLI user |add aliases to my common inputs |avoid typing the similar things every time
+
+|`*` |user |let the App predict frequent similar expenses and prompt me to enter them |do not miss expenses while I'm not using the App
+
+|`*` |busy student who may need to close the App to settle some other matters |let the App remember what I had typed into the command line last time I closed the App |resume when I reopen the app
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,7 +394,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `NUSpend` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -342,6 +423,57 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
+=== Use case: Add a budget and switch to it
+
+*MSS*
+
+1.  User requests to add a budget and specifies budget name, amount, period and start date
+2.  NUSpend shows success in creating new budget
+3.  User requests to switch to this budget by specifying the budget name
+4.  GUI switches to the budget and sets it as current primary budget for displaying and calculating expenses
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User misses any of the necessary parameters: budget name, amount, period or start date
++
+[none]
+** 1a1. NUSpend shows an error message and reminds the user to complete the parameters.
++
+** 1a2. User re-enters the command with new data.
++
+** Steps 1a1-1a2 are repeated until the parameters entered are correct and complete.
++
+Use case resumes at step 2.
+
+* 3a. User forgets to input the name of the budget he wants to switch to.
++
+[none]
+** 3a1. NUSpend shows an error message and requests for the budget name.
++
+** 3a2. User re-enters the command, specifying the budget name.
++
+Use case resumes at step 4.
+
+* 3b. User enters a budget name that does not correspond to any of the currently existing budgets.
++
+[none]
+** 3b1. NUSpend shows an error message and requests for a correct budget name that exists.
++
+** 3b2. User re-enters the command with a new budget name.
++
+** Steps 3b1-3b2 are repeated until the budget name entered is an existing one.
++
+Use case resumes at step 4.
+
+=======
+[none]
+* 2a. There are no reminders.
++
+Use case ends.
+
+
 === Use case: Show reminders
 *MSS*
 
@@ -351,11 +483,6 @@ Use case resumes at step 2.
 Use case ends.
 
 *Extensions*
-
-[none]
-* 2a. There are no reminders.
-+
-Use case ends.
 
 _{More to be added}_
 
