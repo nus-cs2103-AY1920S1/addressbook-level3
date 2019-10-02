@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === He Songchi
-image::akimatsu98.png.jpg[width="150", align="left"]
+image::akimatsu98.png[width="150", align="left"]
 {empty}[https://github.com/Akimatsu98[github]]
 
 Role: Developer +
@@ -20,7 +20,7 @@ Responsibilities: User Interface, Help command, add command, delete command
 '''
 
 === Jolyn Tan
-image::jolynnn8d.png.jpg[width="150", align="left"]
+image::jolynnn8d.png[width="150", align="left"]
 {empty}[https://github.com/jolynnn8D[github]]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: List command, edit command, flip command
 '''
 
 === Liang Boyuan
-image::oscar-b-liang.png.jpg[width="150", align="left"]
+image::oscar-b-liang.png[width="150", align="left"]
 {empty}[https://github.com/Oscar-B-Liang[github]]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Time Command, find command, Integration
 '''
 
 === Ling Zhi Wei
-image::lzw12345.png.jpg[width="150", align="left"]
+image::lzw12345.png[width="150", align="left"]
 {empty}[https://github.com/lzw12345[github]]
 
 Role: Developer +
