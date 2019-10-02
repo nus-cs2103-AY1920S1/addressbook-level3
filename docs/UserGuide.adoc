@@ -544,7 +544,6 @@ then annotations are shown as well.
 
 Adds a reminder to visit a bookmark. You can set the time for the reminder.
 You can also choose when to open the bookmark.
-The default setting is open.
 
 Format: `reminder INDEX t/TIME_DATE [n/NOTE=Open]`
 
