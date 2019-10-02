@@ -10,7 +10,7 @@
 :toc:
 :toclevels: 3
 :experimental:
-ifdef::env-github[]
+ifdef::env-github[]gi
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
