@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
@@ -8,6 +10,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.model.book.SerialNumber;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -21,8 +24,14 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    public void parse_validArgs_returnsIndexDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_BOOK));
+    }
+
+    @Test
+    public void parse_validArgs_returnsSerialNumberDeleteCommand() {
+        SerialNumber sn = new SerialNumber(VALID_SERIAL_NUMBER_BOOK_1);
+        assertParseSuccess(parser, SERIAL_NUMBER_DESC_BOOK_1, new DeleteCommand(sn));
     }
 
     @Test
