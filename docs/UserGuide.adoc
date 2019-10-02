@@ -12,35 +12,24 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T12-4`      Since: `Aug 2019`      Licence: `-`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study using flashcards. More importantly, KFC is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, KFC can get your flash card management tasks faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java 11 or above installed in your Computer.
+.  Download the latest build keyboardflashcards.jar link:https://github.com/AY1920S1-CS2103T-T12-4/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your KFC app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
-
-[[Features]]
 == Features
 
 ====
@@ -52,126 +41,130 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
 
-Format: `help`
+=== Start flashcard test: `start`
 
-=== Adding a person: `add`
+Starts the flashcard test (assuming you are in the category ‘folder’)
+`start`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Starts the flashcard test from any specific category
+`start [category]`
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Add new category: `cat [name]`
 
-Examples:
+Creates a new empty category with the given name.
+`cat Math`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+=== Add new flashcard: `add [category]`
 
-=== Listing all persons : `list`
+Adds a new flashcard into your specific category/topic.
+`add Math`
+Fill in the question and answer on the card when prompted on the GUI.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Edit an existing flashcard: `edit [category] [ID]`
 
-=== Editing a person : `edit`
+Lists all the flashcards under the specific topic folder.
+`edit Math 10`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Delete entire topic: `delete [category]`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+`delete Math *`
 
-Examples:
+=== Set user preference for reminders: `remind [category] DD/MM HHmm`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Set a reminder for a specific category of flashcards.
+`remind Math 04/11 1030`
+ 
+=== List function topics and flashcards: `list [category]`
 
-=== Locating persons by name: `find`
+Lists all the flashcards under the specific topic folder. Each flashcard is color-coded to represent your familiarity with the content.
+`list Math`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+=== Get the full list of commands: `help`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+`help`
 
-Examples:
+=== Search flashcards: `search [keywords]`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+`search process`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+=== Stop test: `stop`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+`stop`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+=== Exit: `exit`
 
-Examples:
+`exit`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+=== View overall stats: `stats`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+`stats`
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Cycle through color themes: `theme` [coming in v2.0]
+
+`theme`
 
 === Exiting the program : `exit`
 
 Exits the program. +
-Format: `exit`
+`exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Flashcard data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How will the program know the correct answer to the questions? +
+*A*: You have to key in the answer manually when you create the question - it’s similar to a real set of flashcards.
+
+*Q*: How does the reminder system work? +
+*A*: You select a category and a date, and the program will remind you to revise that category when the date comes.
+
+*Q*: How will the program know if my answer is good or bad? +
+*A*: It doesn’t know - you have to decide for yourself whether you are satisfied with your answer.
+
+*Q*: Will I be able to resume the test from where I left off after I have stopped? +
+*A*: No. The program does not support that.
+
+*Q*: Can I undo the commands that I have entered? +
+*A*: No. However, a confirmation will be displayed before any potentially-hard-to-reverse actions are done.
+
+*Q*: Can I change the category of a flashcard? +
+*A*: Yes, it will be one of the fields you can change when you edit the flashcard. Do note that after you change the category, you will have to refer to it using its new category and ID.
+
+*Q*: Can I use my mouse to interact with the user interface? +
+*A*: Yes, but only to a very small extent, like closing the window. This application is targeted primarily at keyboard users.
+
+*Q*: What if I forget the format of a command’s arguments? +
+*A*: Don’t worry! You will be shown the expected format once you have keyed in the whole command.
+
+*Q*: Is there an autocomplete functionality? +
+*A*: Yes, you can press Tab to use this feature.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* Start a certain topic of flashcards - `start [keyword]` +
+e.g.  `start Mathematics`
+* Add a new (empty) category - `cat [name]` +
+e.g.  `cat Math`
+* Add a new flashcard - `add [category]` +
+e.g.  `add Math`
+* Edit an existing flashcard - `edit [category] [ID]` +
+e.g.  `edit Math 10`
+* Delete an existing flashcard - `delete [category] [ID]` +
+e.g.  `delete Math 10`
+* Delete an entire category - `delete [category]` +
+e.g.  `delete Math *`
+* Set user preference for reminders - `remind [category] DD/MM HHmm` +
+e.g.  `remind Math 04/10 1230`
+* List all flashcards under a specific category - `list [category]` +
+e.g.  `list Math`
+* Get full list of commands - `help` +
+e.g.  `help`
+* Search specific flashcards - `search [keywords]` +
+e.g.  `search UML diagrams`
+* Stop flashcard test - `stop`
+* Exit - `exit`
+* View overall statistics - `stats`
