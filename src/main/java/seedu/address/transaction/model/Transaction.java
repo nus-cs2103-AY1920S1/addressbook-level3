@@ -12,15 +12,19 @@ public class Transaction {
     private String category;
     private double amount;
     private Person person;
+    private String name;
+    private String id;
     private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
 
     public Transaction(String date, String description, String category,
-                       double amount, String name) {
+                       double amount, String name, int i) {
         this.date = LocalDate.parse(date, myFormatter);
         this.description = description;
         this.category = category;
         this.amount = amount;
         this.person = new DummyNamedPerson(name).getDummy();
+        this.name = name;
+        this.id = "" + i;
     }
 
     public Person getPerson() {
@@ -41,6 +45,14 @@ public class Transaction {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(int i) {
+        this.id = "" + i;
     }
 
     public String toWriteIntoFile() {

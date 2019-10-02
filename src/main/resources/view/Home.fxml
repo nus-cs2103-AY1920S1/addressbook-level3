@@ -20,14 +20,14 @@
                 <RowConstraints maxHeight="493.0" minHeight="10.0" prefHeight="467.0" valignment="CENTER" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <TableView GridPane.rowIndex="1">
+                <TableView fx:id="tableView" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn prefWidth="50.0" text="ID" />
-                        <TableColumn prefWidth="100.0" text="Date/Time" />
-                        <TableColumn prefWidth="230.0" text="Description" />
-                        <TableColumn prefWidth="100.0" text="Category" />
-                        <TableColumn prefWidth="100.0" text="Amount" />
-                        <TableColumn minWidth="0.0" prefWidth="100.0" text="Person" />
+                        <TableColumn fx:id="idCol" prefWidth="50.0" text="ID" />
+                        <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date/Time" />
+                        <TableColumn fx:id="descriptionCol" prefWidth="230.0" text="Description" />
+                        <TableColumn fx:id="categoryCol" prefWidth="100.0" text="Category" />
+                        <TableColumn fx:id="amountCol" prefWidth="100.0" text="Amount" />
+                        <TableColumn fx:id="personCol" minWidth="0.0" prefWidth="100.0" text="Person" />
                     </columns>
                     <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

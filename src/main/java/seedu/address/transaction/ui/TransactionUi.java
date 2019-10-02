@@ -3,7 +3,7 @@ package seedu.address.transaction.ui;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
-public class MyUi {
+public class TransactionUi {
     public static final String NO_SUCH_COMMAND =  "Sorry! There is no such command.";
 
     public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! Please type add with parameters:\n" +

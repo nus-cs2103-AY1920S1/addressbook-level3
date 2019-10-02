@@ -13,8 +13,9 @@ import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.transaction.logic.LogicManager;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.storage.StorageManager;
-import seedu.address.transaction.ui.MyMainWindow;
+import seedu.address.transaction.ui.Start;
 
+//NO LONGER USED (USED FOR CLI, NO UI)
 public class Main {
     public static void main(String[] args) {
         StorageManager storage = new StorageManager("data/transactionHistory.txt");
@@ -40,7 +41,7 @@ public class Main {
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);
         LogicManager lm = new LogicManager(mm, storage, personMM, personStorage);
 
-        MyMainWindow mw = new MyMainWindow(lm);
+        Start mw = new Start(lm);
 
         mw.show();
     }

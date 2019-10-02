@@ -5,12 +5,13 @@ import seedu.address.transaction.commands.CommandResult;
 import seedu.address.transaction.commands.exception.NoSuchPersonException;
 import seedu.address.transaction.logic.Logic;
 
-public class MyMainWindow {
+//NO LONGER USED (USED FOR CLI, NO UI)
+public class Start {
 
     private Logic logic;
     private String input;
 
-    public MyMainWindow(Logic logic) {
+    public Start(Logic logic) {
         this.input = input;
         this.logic = logic;
     }

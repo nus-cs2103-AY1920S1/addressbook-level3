@@ -8,16 +8,16 @@ import seedu.address.transaction.commands.DeleteCommand;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.commands.PersonCommand;
 import seedu.address.transaction.logic.exception.ParseException;
-import seedu.address.transaction.ui.MyUi;
+import seedu.address.transaction.ui.TransactionUi;
 
 public class HomeTabParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public Command parseCommand(String userInput) throws Exception {
+    public Command parseCommand(String userInput, int transactionListSize) throws Exception {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(MyUi.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            throw new ParseException(TransactionUi.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -25,7 +25,7 @@ public class HomeTabParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddCommandParser().parse(arguments, transactionListSize);
 
 
         case DeleteCommand.COMMAND_WORD:
@@ -38,7 +38,7 @@ public class HomeTabParser {
             return new PersonCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(MyUi.NO_SUCH_COMMAND);
+            throw new ParseException(TransactionUi.NO_SUCH_COMMAND);
 
         }
     }

@@ -14,6 +14,6 @@ public class PersonCommand extends Command {
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
         seedu.address.person.logic.commands.CommandResult personCommandResult = personAddCommand.execute(personModel);
-        return new seedu.address.transaction.commands.CommandResult(personCommandResult.toString());
+        return new seedu.address.transaction.commands.CommandResult(personCommandResult.getFeedbackToUser());
     }
 }

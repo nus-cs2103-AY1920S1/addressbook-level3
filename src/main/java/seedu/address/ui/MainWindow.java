@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -12,8 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.commands.CommandResult;
+import seedu.address.transaction.logic.Logic;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -63,6 +65,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab homeTab;
+
 //    @FXML
 //    private StackPane personListPanelPlaceholder;
 //
@@ -77,6 +85,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
+
         this.logic = logic;
 
         // Configure the UI
@@ -128,8 +137,8 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        home = new Home();
+    void fillInnerParts() throws  Exception{
+        home = new Home(logic);
         homePlaceholder.getChildren().add(home.getRoot());
 
         inventory = new Inventory();
@@ -147,8 +156,9 @@ public class MainWindow extends UiPart<Stage> {
         lion = new Lion();
         lionPlaceholder.getChildren().add(lion.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand); //this is in my transaction package
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
     }
 
     /**
@@ -203,8 +213,23 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-//            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            lion.setResponse(commandResult.getFeedbackToUser());
+            homePlaceholder.getChildren().removeAll();
+            homePlaceholder.getChildren().add(new Home(logic).getRoot());
 
+            inventoryPlaceholder.getChildren().removeAll();
+            inventoryPlaceholder.getChildren().add(new Inventory().getRoot());
+
+            reimbursementsPlaceholder.getChildren().removeAll();
+            reimbursementsPlaceholder.getChildren().add(new Reimbursements().getRoot());
+
+            cashierPlaceholder.getChildren().removeAll();
+            cashierPlaceholder.getChildren().add(new Cashier().getRoot());
+
+            overviewPlaceholder.getChildren().removeAll();
+            overviewPlaceholder.getChildren().add(new Overview().getRoot());
+
+            //later when we implement help and exit
             /*if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -216,7 +241,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (Exception e) {
             logger.info("Invalid command: " + commandText);
-//            resultDisplay.setFeedbackToUser(e.getMessage());
+            lion.setResponse(e.toString());
             throw e;
         }
     }

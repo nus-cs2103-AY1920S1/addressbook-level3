@@ -15,7 +15,9 @@ public interface Model {
 
     TransactionList getTransactionList();
 
-    void setTransaction(Transaction transactionToEdit, Transaction editedTransaction);
+    void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws Exception;
 
     boolean hasTransaction(Transaction editedTransaction);
+
+    void updateIndexes() throws Exception;
 }

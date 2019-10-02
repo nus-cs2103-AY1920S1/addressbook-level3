@@ -35,7 +35,8 @@ public class StorageManager implements Storage {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Transaction t = new Transaction(dateTimeArr[1], stringArr[1],
-                stringArr[2], Double.parseDouble(stringArr[3]), stringArr[4]);
+                stringArr[2], Double.parseDouble(stringArr[3]), stringArr[4],
+                Integer.parseInt(dateTimeArr[0].split("[.]")[0]));
         return t;
     }
 

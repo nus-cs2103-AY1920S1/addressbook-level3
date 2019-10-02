@@ -3,7 +3,7 @@ package seedu.address.transaction.util;
 import java.util.ArrayList;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
-import seedu.address.transaction.ui.MyUi;
+import seedu.address.transaction.ui.TransactionUi;
 
 public class TransactionList {
     private ArrayList<Transaction> tList;
@@ -19,7 +19,7 @@ public class TransactionList {
 
     public Transaction get(int index) throws NoSuchIndexException {
         if (index >= tList.size()) {
-            throw new NoSuchIndexException(MyUi.NO_SUCH_INDEX_TRANSACTION);
+            throw new NoSuchIndexException(TransactionUi.NO_SUCH_INDEX_TRANSACTION);
         } else {
             return tList.get(index);
         }
@@ -35,5 +35,9 @@ public class TransactionList {
 
     public int size() {
         return tList.size();
+    }
+
+    public void set(int i, Transaction transaction) {
+        tList.set(i, transaction);
     }
 }

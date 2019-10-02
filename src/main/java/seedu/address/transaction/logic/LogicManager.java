@@ -4,6 +4,7 @@ import seedu.address.transaction.commands.Command;
 import seedu.address.transaction.commands.CommandResult;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.storage.StorageManager;
+import seedu.address.transaction.util.TransactionList;
 
 public class LogicManager implements Logic {
 
@@ -24,10 +25,16 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws Exception {
-        Command command = parser.parseCommand(commandText);
+        Command command = parser.parseCommand(commandText,
+                model.getTransactionList().size());
         CommandResult commandResult = command.execute(model, personModel);
+        model.updateIndexes();
         personStorage.saveAddressBook(personModel.getAddressBook());
         storage.writeFile(model.getTransactionList());
         return commandResult;
+    }
+
+    public TransactionList getTransactionList() throws Exception {
+        return this.storage.getTransactionList();
     }
 }

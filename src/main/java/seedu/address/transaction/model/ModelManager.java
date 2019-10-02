@@ -27,8 +27,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) {
-
+    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws Exception {
+        for (int i = 0; i < transactionList.size(); i++) {
+            if (transactionList.get(i).equals(transactionToEdit)) {
+                transactionList.set(i, editedTransaction);
+            }
+        }
     }
 
     @Override
@@ -64,6 +68,13 @@ public class ModelManager implements Model {
     @Override
     public void writeInTransactionFile() throws Exception{
         storage.writeFile(transactionList);
+    }
+
+    @Override
+    public void updateIndexes() throws Exception {
+        for (int i = 0; i < transactionList.size(); i++) {
+            transactionList.get(i).setId(i + 1);
+        }
     }
 
 }
