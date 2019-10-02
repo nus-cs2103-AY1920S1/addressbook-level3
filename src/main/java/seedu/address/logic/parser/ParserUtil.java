@@ -98,7 +98,6 @@ public class ParserUtil {
      * Parses {@code Collection<String> categories} into a {@code Set<Category>}.
      */
     public static Set<Category> parseCategories (Collection<String> categories) throws ParseException {
-        requireNonNull(categories);
         final Set<Category> categorySet = new HashSet<>();
         for (String categoryName : categories) {
             categorySet.add(parseCategory(categoryName));
