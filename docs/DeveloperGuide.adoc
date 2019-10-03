@@ -357,6 +357,7 @@ Use case ends.
 6. FlashCard Pro matches answer with text on back of flash card.
 7. FlashCard Pro informs learner about correctness of the learner's answer.
 8. FlashCard Pro displays the correct answer, the text on the back of the flash card.
++
 Steps 3-8 are repeated until all the flash cards in the deck are completed.
 +
 Use case ends.
