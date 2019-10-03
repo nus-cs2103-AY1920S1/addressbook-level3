@@ -317,7 +317,10 @@ _{More to be added}_
 (For all use cases below, the *System* is  `Athletick` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Marking attendance of players
+=== System: Athletick
+
+=== Use case: UC1 - Marking attendance of players
+=== Actor: User
 
 *MSS*
 
@@ -343,7 +346,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC2 - Delete person
+=== Actor: User
 
 *MSS*
 
@@ -369,7 +373,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Key in Performance of a Player
+=== Use case: UC3 - Key in Performance of a Player
+=== Actor: User
 
 *MSS*
 
@@ -403,7 +408,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: View a player’s profile
+=== Use case: UC4 - View a player’s profile
+=== Actor: User
 
 *MSS*
 
@@ -430,7 +436,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add a person
+=== Use case: UC5 - Add a person
+=== Actor: User
 
 *MSS*
 
@@ -457,7 +464,10 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Undo a command
+
+[discrete]
+=== Use case: UC6 - Undo a command
+=== Actor: User
 
 *MSS*
 
@@ -498,7 +508,9 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case: Redo a command
+
+=== Use Case: UC7 - Redo a command
+=== Actor: User
 
 *MSS*
 
