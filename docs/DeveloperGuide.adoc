@@ -297,17 +297,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |student with subjects of different language mediums |add flashcards of differing languages  |I can customise my flashcards to the subject I am interested to do
 
-|`* * *` |user |add a new person |
+|`* * *` |user creating flash cards |save collections of thematically similar flash cards | I can share my cards easily to other users
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |beginner user |access a help page |i can learn about the features at a glance
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -385,8 +382,8 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should 
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse. 
+.  Should handle text input of english alphabets.
 
 _{More to be added}_
 
