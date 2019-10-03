@@ -48,6 +48,7 @@ The application is a combination of GUI outputs and CLI inputs to allow the admi
 
 == Acknowledgements
 
+* Original source of the code i.e. AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
