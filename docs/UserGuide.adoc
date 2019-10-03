@@ -47,10 +47,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `add|<item name>|<expiry date>`, `<item name>` and `<expiry date>` are parameters which can be used as `add|banana|25/09/2019`.
-* Items in square brackets are optional e.g `add|<item name>|<expiry date>|[#tag]` can be used as `add|strawberry|10/10/2019|#Fruit`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|#tag...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit` etc.
-//* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<threshold>`, `<index>` and `<threshold>` are parameters which can be used as `set reminder|1|7`.
+* Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
+* Optional parameters with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|[<tag>]...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit`.
 ====
 
 === Viewing help : `help`
@@ -60,7 +59,7 @@ Format: `help`
 === Adding an item: `add`
 
 Adds item to list +
-Format: `add|<item name>|<expiry date>[|#tag...]`
+Format: `add|<item name>|<expiry date>|[<tag>]...`
 
 [TIP]
 An item can have any number of tags (including 0)
@@ -102,7 +101,7 @@ Format: `view`
 === Listing expiring items : `check`
 
 Shows expiring items in the list. +
-Format: `check|<days>`
+Format: `check[|<days>]`
 
 ****
 * Lists items expiring within the specified number of `<days>`
@@ -117,7 +116,7 @@ Lists items expiring in the next 20 days.
 === Sorting all items : `sort`
 
 Sorts all items in the list by either name or date. +
-Format: `sort|<method>`
+Format: `sort|<key>`
 
 ****
 * Sorting by both name and date is done in ascending order.
@@ -133,7 +132,7 @@ Examples:
 === Searching item by name: `search`
 
 Search items whose names contain any of the given keywords. +
-Format: `search|<keyword>|[other keywords...]`
+Format: `search|<keyword>[|<other keywords>]...`
 
 ****
 * The search is case insensitive. e.g `ham` will match `Ham`
@@ -179,7 +178,7 @@ Deletes the 1st item in the results of the `search` command.
 === Tagging an item : `tag`
 
 Tags an item from the list according to user input or clears item of tags. +
-Format: `tag|<index>|#tag...`
+Format: `tag|<index>|[<tag>]...`
 
 ****
 * Tags the item at the specified `<index>`.
@@ -226,21 +225,21 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add|<item name>|<expiry date>` +
+* *Add* `add|<item name>|<expiry date>|[<tag>]...` +
 e.g. `add|durian|30/9/2019`
 * *Clear* : `clear`
 * *Delete* : `delete|<index>` +
 e.g. `delete|3`
 * *List* : `list`
-* *Sort* : `sort|<method>`+
+* *Sort* : `sort|<key>`+
 e.g. `sort|date`
 //* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 //e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Search* : `search|<keyword>|[other keywords...]` +
+* *Search* : `search|<keyword>[|<other keywords>]...` +
 e.g. `search|milk|tea|pearls`
-* *Tag* : `tag|<index>|#tag...`
+* *Tag* : `tag|<index>|[<tag>]...`
 * *View* : `view`
-* *Check* : `check|<days>` +
+* *Check* : `check[|<days>]` +
 e.g. `check|20`
 * *Help* : `help`
 

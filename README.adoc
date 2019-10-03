@@ -11,7 +11,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-Have you ever lost track of your items' expiry dates and end up throwing the items away? Have you ever open your fridge to search for your favourite chocolate, only to realise that it has already expired? Fret not! Xpire is here to save you! With features to help you keep track of your items' expiry dates as well as to remind you of soon-expiring items, you will never have to face any expired items ever again.
+Have you ever lost track of your items' expiry dates and end up throwing the items away? Have you ever open your fridge to search for your favourite chocolate, only to realise that it has already expired? Fret not! Xpire is here to save you! With features to help you keep track of your items' expiry dates as well as to remind you of soon-expiring items, you will never have to worry about when your items are expiring again. Next time, you will be sure to eat that chocolate before it expires!
 
 Interested to try out our application? Head over to the <<UserGuide#, UserGuide>> to get started!
 
