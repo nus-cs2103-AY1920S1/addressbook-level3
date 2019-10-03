@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S1-CS2103T-F11-1/main[image:https://travis-ci.com/AY1920S1-CS2103T-F11-1/main.svg?branch=master[Build Status]]
-https://app.netlify.com/sites/zen-shaw-6ce49a/deploys[image:https://api.netlify.com/api/v1/badges/fa789a98-6a94-45b4-80c6-ea8807ad74b1/deploy-status[Netlify Status]
+https://app.netlify.com/sites/zen-shaw-6ce49a/deploys[image:https://api.netlify.com/api/v1/badges/fa789a98-6a94-45b4-80c6-ea8807ad74b1/deploy-status[Netlify Status]]
 
 **Alfred isn't just for Batman. He's for all you Hackathon Organisers out there, too!**
 [quote, Alfred Pennyworth, The Dark Knight]
