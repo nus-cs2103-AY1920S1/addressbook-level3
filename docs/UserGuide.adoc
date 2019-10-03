@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= TagLine - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -52,126 +52,130 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
 
-Format: `help`
+== Basic Commands
 
-=== Adding a person: `add`
+=== Viewing help: `help`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Shows the list of commands and their usages.
 
-[TIP]
-A person can have any number of tags (including 0)
+Format:
 
-Examples:
+`help`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+=== Exiting the app: `help`
 
-=== Listing all persons : `list`
+Exits the application.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Format:
+`bye`
 
-=== Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+== Managing your contacts: `contact`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+=== Create a person: `create`
+
+Create a contact.
+
+Format:
+
+`contact create NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `contact create Dwayne Johnson`
+* `contact create Dwayne --d Friend from CS2100`
+* `contact create John --e johnson@gmail.com --d Friend from CS2100`
+* `contact create John --p 81234567 --a 21 Kent Ridge Rd`
+* `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
-=== Locating persons by name: `find`
+=== Listing all contacts: `list`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+List all contacts in application.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format:
 
-Examples:
+`list`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+=== Display the profile of a person: `show` `[coming in v2.0]`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+List all contacts in application.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format:
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+`contact show CONTACT_ID`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `contact show 00343`
 
-// end::delete[]
+=== Editing a person: `edit`
+
+Edits contact information.
+
+Format:
+
+`contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+
+Examples:
+
+* `contact edit 00343 --n Holland --e nightmonkey@starkindustries.com`
+
+Disclaimer: partial edit will be supported in v2.0
+
+=== Deleting a person: `delete`
+
+Deletes a contact with the following id.
+
+Format:
+
+`contact delete CONTACTID`
+
+Examples:
+
+* `contact delete 00343`
+
+
+=== Locating persons by keyword: `find`
+
+Lists all contacts whose name matches the given keyword.
+
+Format:
+
+`contact find KEYWORD`
+
+Examples:
+
+* `contact find wai fong`
+
+=== Pin a person: `pin` `[coming in v2.0]`
+
+Edits contact information.
+
+Format:
+
+`contact pin CONTACT_ID`
+
+Examples:
+
+* `contact pin 00343`
+
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
 
-=== Exiting the program : `exit`
+Format:
 
-Exits the program. +
-Format: `exit`
+`contact clear`
 
-=== Saving the data
+Examples:
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+* `contact clear`
+  Executing this command will trigger a confirmation in the chatbot: +
+  `Are you sure that you want to clear all data in your contact list? (Y/N)`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+  Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
-== FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
