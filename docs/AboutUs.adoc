@@ -20,11 +20,11 @@ Role: Project Advisor
 '''
 
 === Ko Gi Hun
-image::gihunk.jpg[width="150", align="left"]
+image::gihunk.png[width="150", align="left"]
 {empty}[http://github.com/nordic96[github]] [<<gihunk#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: In charge of `Storage`, `UI`
 
 '''
 
