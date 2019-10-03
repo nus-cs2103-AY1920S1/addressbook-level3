@@ -142,6 +142,33 @@ Deletes the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Setting shorthand commands: `alias`
+
+Set an alias for a command to do shorthand. +
+Format: `alias [SHORTHAND] [COMMAND]`
+
+Examples:
+
+* `alias ls list` +
+Typing `ls` now works equivalently as `list`.
+* `alias "show all persons" list` +
+Typing `show all persons` now works equivalently as `list`.
+
+=== Deleting shorthand commands: `deletealias`
+
+Delete a existing alias. +
+Format: `deletealias [SHORTHAND]`
+
+Examples:
+
+* `deletealias ls` +
+Typing `ls` is no longer equivalent to `list`.
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
 === Viewing Full Profile : `profile`
 
 Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing q to quit, or p to generate a text file of the profile. +
