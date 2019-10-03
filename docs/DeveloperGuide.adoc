@@ -301,17 +301,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | `* * *` | university student | use flashcards to remember things easily | prepare better for my exams
 | `* * *` | meticulous student | set priorities of each subject I am studying  | study subjects in an orderly manner
 | `* * *` | forgetful student | set exam reminders   | remember when to start studying for my exams
-| `* * *` | busy student  | exit the flashcard mode at any time  | perform other tasks
+| `* * *` | busy student  | exit the <<test, test>> mode at any time  | perform other tasks
 | `* * *` | meticulous student  | search for a particular flashcard | review a specific flashcard whenever I want
 | `* * *` | new user | key in part of a command and let the program suggest the rest | key in commands more easily
 | `* * *` | student | see a timer next to each flashcard  | know how long I&#39;ve spent answering the current question
 | `* * *` | student studying multiple subjects | categorize my flashcards under different modules | study them in such manner
-| `* * *` | meticulous student | sort my subjects manner.  | study subjects in an orderly
+| `* * *` | meticulous student | sort my subjects  | study subjects in an orderly manner
 | `* * *` | meticulous student | make use of colour codes  | highlight and know my weaknesses
 | `* * *` | advanced user | search through my content   | find subjects/topics easily
 | `* * *` | meticulous student,   | use the calendar to plan my study |  so that I will not miss any subject
 | `* * *` | meticulous student | view what tasks are overdue | know what I have not done
-| `* * *` | meticulous student | a mock test timer to simulate exam situation | be prepared for my upcoming exams
+| `* * *` | meticulous student | a mock <<test, test>> timer to simulate exam situation | be prepared for my upcoming exams
 | `* * *` | meticulous student | label difficult questions | the flash cards will appear more frequently for better knowledge absorption
 | `* * *` | student | move backward through the flashcards  | recall the previous question/answer
 | `* *`  | meticulous student | view the overall statistic | monitor my performance overtime
@@ -339,9 +339,9 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to list all flashcards in a category
+1.  User requests to list all flashcards in a <<category, category>>
 2.  System shows a list of flashcards with index
-3.  User requests to delete a flashcard in the list by providing category and index
+3.  User requests to delete a flashcard in the list by providing <<category, category>> and index
 4.  System deletes the flashcard
 
 +
@@ -354,7 +354,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given category is invalid.
+* 3a. The given <<category, category>> is invalid.
 +
 [none]
 ** 3a1. System shows an error message.
@@ -374,9 +374,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to list all flashcards in a category
+1.  User requests to list all flashcards in a <<category, category>>
 2.  System shows a list of flashcards with index
-3.  User requests to edit a flashcard in the list by providing category and index
+3.  User requests to edit a flashcard in the list by providing <<category, category>> and index
 4.  System provides a pop-up for user to enter changes
 5.  User enters changes
 6.  System updates flashcard with the user input
@@ -390,7 +390,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given category is invalid.
+* 3a. The given <<category, category>> is invalid.
 +
 [none]
 ** 3a1. System shows an error message.
@@ -423,11 +423,17 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[[category]] Category::
+A tag that can be assigned to a flashcard for better categorisation
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[test]] Test::
+The state in which the user is shown their flashcards one-by-one and in succession, allowing them to test their understanding of the covered content
 
 [appendix]
 == Product Survey
