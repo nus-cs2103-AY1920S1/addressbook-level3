@@ -117,6 +117,26 @@ Format: `generate schedule` +
 
 **Note:** This command requires the timetable of all available time slots to be generated first!
 
+=== Sending of email `email`
+==== Sending of interview time slot to interviewees
+Sends an email containing the interviewee’s allocated interview time slot to every interviewee, including other details such as the interviewer, time, date and location.
+
+Format: `email timeslots`
+
+**Note:** The email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Sending of interview results to interviewees `[Coming in v2.0]`
+Sends an email containing the interviewee’s result/interview outcome and other details that you might want to include.
+
+Format: `email results`
+
+**Note:** This email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Checking of email sending queue status `[Coming in v2.0]`
+Checks the status of the mail sending queue.
+
+Format: `email status`
+
 === Recording of additional statuses: `record` `[Coming in v2.0]`
 ==== Recording of interviewee’s attendance
 Bring up the window to record the attendance of interviewees. You can navigate through the table in the window (GUI)
