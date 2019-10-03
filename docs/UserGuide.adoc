@@ -154,6 +154,33 @@ Format: `delete interviewer NAME` +
 Deletes the specified interviewee from the database. +
 Format: `delete interviewee NAME`
 
+=== Importing existing availabilities `import`
+==== Importing interviewers’ availability
+Imports interviewers’ availability from a comma separated values (CSV) file. +
+Format: `import interviewer PATH_TO_FILE` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
+
+Example:
+
+ import interviewer C:\Users\johndoe\Interviewers.csv
+
+==== Importing interviewees’ availability
+Imports interviewees’ availability from a comma separated values (CSV) file. +
+Format: `import interviewee PATH_TO_FILE` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
+
+Example:
+
+ import interviewer C:\Users\johndoe\Interviewees.csv
+
+=== Exporting of interview schedule `export`
+Exports the allocated interview schedule timetable to a comma separated values (CSV) file. +
+Format: `export` +
+
+Note: This command requires the interview schedule to be generated first!
+
 === Tag interview slot `tag` `[Coming in v2.0]`
 Tags an interview slot with a name. +
 Format: `tag TAG_NAME` +
