@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Test Bank - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Group F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -98,9 +98,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TestBankParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a question).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -121,13 +121,13 @@ image::ModelClassDiagram.png[]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `Question Bank` object that represents the Question Bank.
+* stores the Test Bank data.
+* exposes an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Test Bank`, which `Question` can reference. This would allow `Test Bank` to only require one `Tag` object per unique `Tag`, instead of each `Question` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -141,8 +141,8 @@ image::StorageClassDiagram.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `Question Bank` objects in json format and read it back.
+* can save the Test Bank data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -154,85 +154,57 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=== [Proposed] Add questions feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The add questions mechanism is facilitated by `AddCommand`.
+It extends `Command` that will read a user command and execute the command result.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `AddCommand#addMcq()` -- Adds a mcq question to the test bank.
+* `AddCommand#addShortAns()` -- Adds a short answer question to the test bank.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#addMcqCommand()` and `Model#addShortAnsCommand()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the add questions mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user types `add mcq q/"string of question" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]`, this command adds a easy difficulty mcq question about UML with 4 options and option3 being the correct answer.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The command is being parse into the parser and the AddCommand object of type Command will be created.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The AddCommand object will call its `addMcq()` method, this method will read the command and store the question with the answers into the `test bank` accordingly.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not save the question into the `test bank`. It will however throw an invalid command exception.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the add question operation works:
 
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How add executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Read and parse the command to execute it
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Aspect: Format of the add command
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Use a single line containing all the information of the question.
+** Pros: Faster for user to add a question.
+** Cons: Hard for user to memorize the long sequence which may cause invalid command input.
+* **Alternative 2:** Use multiple steps to guide user on adding the question.
+** Pros: User do not have to memorize the correct format and less chance for an invalid command input.
+** Cons: Slow to add questions, requiring multiple steps to fully complete a question.
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -279,13 +251,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* is a CS2103/T student
+* prefer to use an app to help them to revise
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: helps student to ace CS2103/T
 
 [appendix]
 == User Stories
@@ -295,20 +267,64 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |lazy CS2103 student |refer to the revision tool solely for my consolidated module revision |do not have to refer to Luminus
 
-|`* * *` |user |add a new person |
+|`* * *` |CS2103 student |have a personalised application to store all my questions and answers in one place |refer to it conveniently for revision.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |CS2103 student |have a revision tool to test my coding skills and concepts through writing short codes |test myself on coding proficiency too.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |CS2103 student |keep track and see how much progress I have made in completing the questions |gauge my level of progress in completing the syllabus.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |vim-using CS2103/T student |use the keyboard-based commands |further increase my efficiency
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |busy CS2103/T |use quick revision tools |learn using spaced-retrieval
+
+|`* * *` |busy CS2103 student |mark certain concepts as easy |will not have to spend as much time studying the easy concepts.
+
+|`* * *` |CS2103 student with a lot of things on my mind |mark certain questions that I am unsure of |refer back to the question when I am free.
+
+|`* * *` |CS2103 student |import questions from my peers |study on my own.
+
+|`* * *` |conscientious CS2103 student |export the questions I am unsure of |raise them up during tutorials.
+
+|`* * *` |indecisive student |be recommended questions instead of me having to plan my own study plan |go directly to studying
+
+|`* *` |competitive CS2103 student |at least know where I stand among my cohort |look at who is the next person I can beat.
+
+|`* *` |gamer CS2103/T student |accomplish tasks that give me a sense of achievement, preferably through in application rewards |I feel good.
+
+|`* *` |A+ CS2103 student |review and give suggestions to improve the application |benefit more CS2103 students.
+
+|`* *` |CS2103 student |port this application over to my other modules |revise for my other modules using this application as well.
+
+|`* *` |unorganized CS2103 student |get reminders about my quiz deadlines |complete my quizzes on time
+
+|`* *` |organized CS2103 student |schedule reminders to remind me when I should use the application to do revision |will not forget to do revision.
+
+|`* *` |user of the application |get an estimate of my final grade for CS2103 |know what to expect on result release day.
+
+|`* *` |CS2103 peer tutor |use this as a form of teaching tool |teach better
+
+|`* *` |CAP 5.0 CS2103 student |show off my IQ by perfecting my test scores |motivate other students.
+
+|`* *` |CS2103 student |view the questions/topics that most students answered wrongly |revise for those topics.
+
+|`* *` |visual oriented student |the app to have different colours as compared to the regular black and white |learn better
+
+|`* *` |non-motivated CS2103 student |use the application to remind me to study |I will study
+
+|`* *` |student that wants shortcuts |type a partial command and have it be auto-completed |I can save time.
+
+|`* *` |CS2103 student new to Git |have a help function which lists all the commonly used Git commands |become more proficient with Git.
+
+|`* *` |master software engineer taking CS2103 |be able to access the source code |to make the application better and customise it for myself.
+
+|`* *` |CS2103 student |get recommended a list of questions that I frequently get wrong |learn from my mistakes
+
+|`*` |lonely CS2103 student |have someone to talk to, even if it’s a computer |I won't feel lonely
+
+|`*` |CS2103 student who keeps having stomach ache |the application to tell me where the nearest toilet is |go and shit
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases

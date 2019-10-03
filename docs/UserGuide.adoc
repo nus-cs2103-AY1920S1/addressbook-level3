@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= CS2103/T Revision Tool - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,17 +14,21 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F10-3`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+This CS2103/T Revision Tool (RT) is for those who *prefer to use a desktop app for storing test banks*.
+More importantly, RT is *optimized for those who prefer to work with a Command Line
+Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, RT can get your contact management tasks done faster than traditional
+GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest RT link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your `*test bank*`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +37,11 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : lists all categories and difficulties for the user to choose.
+* **`add`**`mcq/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
+of the above x/Padifield` : adds an mcq question with x/ (as in a cross for "wrong") marking the wrong answers and y/ (as in "yes") marking the correct answers.
+* **`delete`**`3` : deletes the 3rd question shown in the current list.
+* *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,83 +51,106 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add mcq/QUESTION`, `QUESTION` is a parameter
+which can be used as `add mcq/What the recommended user story format?`.
+* Items in square brackets are optional e.g `mcq/QUESTION [cat/CATEGORY]` can be used as
+`mcq/What is the recommended user story format cat?/Requirements` or as `mcq/What is the recommended user story format?`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[y/CORRECT_ANSWER]...` can be used as `{nbsp}` (i.e. 0 times), `y/Greenfield`, `y/Brownfield` etc.
+* Parameters can be in any order e.g. if the command specifies `mcq/QUESTION cat/CATEGORY`, `cat/CATEGORY mcq/QUESTION` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Starting the quiz: `start`.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+User can start by choosing a `category`, `difficulty` or `recommended` bank of questions.
+
+Format: `start cat/[CATEGORY] diff/[difficulty]`
 
 [TIP]
-A person can have any number of tags (including 0)
+If no category or difficulty is stated (i.e. `start`), program will start the quiz with a recommended list of questions based on categories
+that the user can improve on.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `start cat/implementation`
+* `start diff/2`
 
-=== Listing all persons : `list`
+=== Ending the quiz: `end`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+User can end the quiz and go back into configuration mode to perform commands such as `add`, `list`, and `status`
 
-=== Editing a person : `edit`
+Format: `end`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Check your progress: `status`
+
+Displays the number of questions answered correctly by category and difficulty.
+
+Format: `status`
+
+Example:
+
+`status`
+
+*Total*: 290/300 questions answered correctly
+
+Difficulty::
+* Level 1: 100/100
+* Level 2: 100/100
+* Level 3: 90/100
+
+Category::
+* Requirements: 100/100
+* Design: 50/100
+* Implementation: 50/100
+* Project Management: 90/100
+
+=== Adding a question: `add`
+
+Adds a question to the test bank
+
+Format: `add [mcq/QUESTION] [cat/CATEGORY] [diff/DIFFICULTY] [x/WRONG_ANSWER]... [y/CORRECT_ANSWER]...`
+
+Examples:
+
+* `mcq/ According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
+of the above x/Padifield`
+* `mcq/ What are some characteristics of well-defined requirements? y/Unambiguous x/Untestable y/Clear y/Atomic`
+
+//TODO: Improve edit. How to determine which question to change? Or just scrap this feature?
+=== `*Need improvement*` Editing a question : `edit`
+
+Edits an existing question in the test bank.
+
+Format: `edit INDEX [mcq/QUESTION] [cat/CATEGORY] [diff/DIFFICULTY] [x/WRONG_ANSWER]... [y/CORRECT_ANSWER]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing category and/or difficulty, the existing category and/or difficulty of the question will be removed
+i.e adding of category and/or difficulty is not cumulative.
+* You can remove all the question's category and/or difficulty by typing `cat/` or `diff/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 1 mcq/ e/johndoe@example.com` +
+Edits the phone number and email address of the 1st question to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Edits the name of the 2nd question to be `Betsy Crower` and clears all existing tags.
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a question : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified questions from the test bank. +
+Format: `delete INDEX [MORE_INDICES]`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Delete the question(s) at the specified `INDEX`s.
+* The index refers to the index number shown in the displayed question list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -130,16 +158,54 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 2nd question in the test bank list.
+* `find Greenfield` +
+`delete 1 3 5` +
+Deletes the 1st, 3rd and 5th question in the test bank list.
 
 // end::delete[]
+=== Listing all questions : `list`
+
+Shows a list of all questions in the test back. If appended with a category and/or difficulty, `*Insert name*` will show all questions
+of the chosen category and/or difficulty
+
+Format: `list cat/[CATEGORY] diff/[DIFFICULTY]`
+
+Examples:
+
+* `list cat/requirements`
+* `list cat/requiments diff/2`
+
+=== Locating questions: `find`
+
+Finds questions whose descriptions contain any of the given keywords. +
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `brownfield` will match `Brownfield`
+* The order of the keywords does not matter. e.g. `green field` will match `field green`
+* Only the name is searched.
+* Only full words will be matched e.g. `Requirement` will not match `Requirements`
+* Descriptions matching at least one keyword will be returned (i.e. `OR` search). e.g. `User story` will return `User Survery`, `User Input`
+****
+
+Examples:
+
+* `find User` +
+Returns `How do you gather user requirements?` and `What is the recommended user story format?`
+* `find User, Brownfield, Greenfield` +
+Returns any question containing descriptions `User`, `Brownfield`, or `Greenfield`
+
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all questions from the test bank. +
 Format: `clear`
+
+=== Restoring all entries : `restore`
+
+Clears all current questions from the test bank and restores the default questions that were in the original app. +
+Format: `restore`
 
 === Exiting the program : `exit`
 
@@ -148,30 +214,46 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Test bank data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::import/export[]
+=== Importing / Exporting test banks `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+_{explain how the user can import / export test banks}_
+// end::import/export[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Test Bank folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+
 * *Help* : `help`
+
+* *Start* `start [cat/CATEGORY] [diff/DIFFICULTY]
+
+* *End* `end`
+
+* *Status* : `status`
+
+* *Add* `add [mcq/QUESTION] [cat/CATEGORY] [diff/DIFFICULTY] [x/WRONG_ANSWER]... [y/CORRECT_ANSWER]...` +
+e.g. `mcq/ What are some characteristics of well-defined requirements? y/Unambiguous x/Untestable y/Clear y/Atomic`
+
+//TODO: update edit
+* *Edit (To be updated)* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+
+* *Delete* : `delete INDEX [MORE_INDICS]` +
+e.g. `delete 1 3 5`
+
+* *List* : `list`
+
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find user story`
+
+* *Clear* : `clear`
+
+* *Restore* : `restore`
