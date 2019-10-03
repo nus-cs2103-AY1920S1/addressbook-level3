@@ -332,6 +332,20 @@ Use case ends.
 [none]
 * 1a. FlashCard Pro detects deck name provided by learner is identical to an existing deck of cards in the library.
 ** 1a1. FlashCard Pro informs the learner that deck creation is unsuccessful.
+** 1a2. Learner creates a new deck with another unique deck name. 
+** Steps 1a1-1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
+
+* 2a. FlashCard Pro detects no front and/or back content specified by the learner.
+** 2a1. FlashCard Pro informs the learner that card creation is unsuccessful.
+** 2a2. Learner creates a new card with the correct front and/or back content.
+** Steps 2a1-2a2 are repeated until the format of the command entered is correct.
++
+(Was wondering if FlashCard Pro should create the deck, but with a numbering like untitled_1, untitled_2 etc)
+
+
+
+_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
