@@ -1,4 +1,4 @@
-= Tagline - Developer Guide
+= TagLine - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-F12-3/main
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master
 
-By: `Team AY1920S1-CS2103T-F12-3`      Since: `Sep 2019`      Licence: `MIT`
+By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 
 == Setting up
 
