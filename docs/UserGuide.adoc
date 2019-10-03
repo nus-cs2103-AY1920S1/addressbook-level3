@@ -199,6 +199,33 @@ Examples:
 * `deleteVisit n/Betsy d/12/12/12` +
 Deletes the visitation report made for `Betsy` on 12/12/12.
 
+=== Follow-Up with Person : `followup`
+
+Adds a follow-up reminder after a set number of days to be prompted when the program is run. +
+Format: `followup INDEX [d/DAYS]`
+
+[TIP]
+Creates a follow-up entry on patient with specified index for a set number of days or default 7 days.
+
+Examples:
+
+* `followup 9 d/10` +
+Creates a follow-up entry on patient with index 9 for 10 days later.
+
+=== Creating Reminders : `reminder`
+
+Creates a new reminder to show up when the program is launched. +
+Format: `reminder TEXT [d/DAYS]`
+
+[TIP]
+Creates a reminder to be displayed when the program launches for a set number of days or default 7 days.
+
+Examples:
+
+* `reminder Two Point Hospital closed d/7` +
+Creates a reminder “Two Point Hospital closed” that will display at launch for the next 7 days.
+
+
 === Exiting the program : `exit`
 
 Exits the program. +
