@@ -1,7 +1,7 @@
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
-:imagesDir: images
+:imagesDir: images/team
 :stylesDir: stylesheets
 
 DukeAcademy was developed by the https://github.com/AY1920S1-CS2103T-F14-1[AY1920S1-CS2103T-F14-1] team. +

@@ -4,9 +4,6 @@
 :stylesDir: stylesheets
 Data structure Practice App for your outstanding school results
 
-ifdef::env-github,env-browser[:relfileprefix: docs/]
-
-
 https://travis-ci.org/AY1920S1-CS2103T-F14-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-1/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F14-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F14-1/main/badge.svg?branch=master[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/967c7be5909941f486c674f65e6332e4["Codacy code quality", link="https://www.codacy.com/manual/dukecodedoc/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-F14-1/main&utm_campaign=Badge_Grade"]
@@ -25,6 +22,8 @@ image::Ui.png[width="600", text-center]
 You can browse questions:
 
 image::userguide/view.png[width="600", text-center]
+
+'''
 
 Attempt Questions and view results:
 
