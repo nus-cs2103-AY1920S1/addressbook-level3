@@ -1,4 +1,6 @@
-= Address Book (Level 3)
+== Duke Academy
+Data structure Practice App for your outstanding school results
+
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-F14-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-1/main.svg?branch=master[Build Status]]
@@ -10,18 +12,41 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600", text-center]
 endif::[]
 
-* DukeCode is a desktop application to auto-grade Data Structure & Algorithms problems. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+== What is Duke Academy?
+
+[none]
+* *Duke Academy* is a desktop application to auto-grade Data Structure & Algorithms problems.
 * It is a Java application intended for students learning Data Structure & Algorithms to practice their coding skills.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
-== Site Map
+== Preview
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
+You can browse questions:
+
+image::docs/images/userguide/view.png[text-center]
+
+Attempt Questions and view results:
+
+image::docs/images/userguide/submit.png[text-center]
+
+== Install
+[none]
+* Make sure your java version is at least `11`.
+* Download the jar file from the https://github.com/AY1920S1-CS2103T-F14-1/main/releases[latest release].
+
+== Quick Start
+* Open terminal and type `java -jar dukeacademy.jar` to start the app.
+* Type `list` in the command box. Open a question by `view <question ID>`, e.g. `view 2103`. Attempt the question by `attempt <question ID>`, e.g. `attempt 2103`.
+* Start your first Duke Academy code!
+* For any help, type `help`.
+
+== See Also
+
+* For students and educators, please refer to the <<UserGuide#, user guide>>.
+* This is an open source project. To contribute, please refer to the <<DeveloperGuide#, developer guide>> to get familiar with the code base.
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -29,6 +54,7 @@ endif::[]
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
+* The original source code comes from the https://se-education.org[AddressBook-Level 3 project] created by SE-EDU initiative.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
