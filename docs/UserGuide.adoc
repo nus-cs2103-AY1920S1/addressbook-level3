@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Horo - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*Horo* is for those who want to use a Command-Line-Interface (CLI) desktop application to manage one’s schedule and reminders. However, it is not just a fully implemented CLI program, but it also includes a Graphical User Interface (GUI) to make it visually appealing. *If you are able to remember the commands, *Horo* is definitely an efficient solution to help you store your Events and Reminders. Forgetful person or not, *Horo* will help you remember and remind you, as well as provide a visual aid for what the next most important task coming up is and when it occurs. Continue reading to find out what *Horo* has to offer!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `horo.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,10 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`task`**`` Celebrate Rori’s Birthday` : adds a task to the list of task.
+* **`delete`**` -task 3` : deletes the 3rd task shown in the list of task.
+* *`exit`* : exits the application.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,53 +45,81 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in double apostrophe are supplied by the user for this user guide - the double apostrophe itself are not needed in the actual program. +
+  E.g. `task "Celebrate Rori’s Birthday"`
+* Words in square brackets are optional terms - square brackets are not needed in the actual program. + 
+  E.g. `task "Celebrate Rori’s Birthday" [-at "18/08/2019 16:00"] [-remind "18/08/2019 12:00"]`
+* Words with … can be used multiple times including zero times - ellipsis are not needed in the actual program. +
+  E.g. `task "Celebrate Rori’s Birthday" [-at "18/08/2019 16:00"] [-tag "Birthday"]...`
+* Parameters can be in any order, but certain parameters require specific order: +
+  Correct: + 
+  `task "Celebrate Rori’s Birthday" [-tag "Birthday"]… [-at "18/08/2019 16:00"]` +
+  Wrong: +
+  `[-tag "Birthday"]… [-at "18/08/2019 16:00"] -task "Celebrate Rori’s Birthday"`
+
 ====
 
-=== Viewing help : `help`
+=== Asking for help : `help`
 
-Format: `help`
+==== Asking for help: `help`
 
-=== Adding a person: `add`
+Provides a guide for you if you have problems with commands and it’s format.+
+{empty}+
+Format and Example:+
+`help`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Calendar, Events and Task
 
-[TIP]
-A person can have any number of tags (including 0)
+The  following commands are related to Events and Tasks which revolves around a calendar. Here are the clarification for Events and Tasks
+{empty}+
 
-Examples:
+* Event:
+  - Will show up on the Calendar. 
+  - Unable to be marked as done.
+  - If past the specified date, it is removed from the Calendar, unless it is recurring.
+{empty}+
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* Task:
+  - May show up on the Calendar if time is specified. 
+  - Able to be marked as done.
+  - If past the specified date, it is archived into an undone list, which subsequently able to be unarchived.
+{empty}+
 
-=== Listing all persons : `list`
+==== Add
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds a Task to the Event Book
+{empty} +
 
-=== Editing a person : `edit`
+Format: +
+`task "Task" [-at "Time1"] [-tag "Tag"]...`
+{empty} +
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Examples: +
+`task Celebrate Rori’s Birthday -at 18/08/2019 16:00 -remind 18/08/2019 12:00 -tag Birthday`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+==== Editing a person: `edit`
 
-Examples:
+Allows you to edit an Event or Task by using the Event or Task’s index. At least one of the parameters are necessary for this command.
+{empty} +
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Format: +
+`edit -task "Number" [-at "Time"] [-tag "Tag"]...`
+{empty} +
+
+Examples: +
+`edit -task 1 -at 17/08/2019 19:00 -tag Rori`
+
+==== Mark a Task a complete: `done`
+
+Allows you to mark a Task as completed, which will be shown as done at the bottom of the list. This is not applicable for Events.
+{empty} +
+
+Format: +
+`done -task "Number"`
+{empty} +
+
+Examples: +
+`done -task 1`
 
 === Locating persons by name: `find`
 
