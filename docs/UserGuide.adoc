@@ -1,5 +1,3 @@
-Refer to <<Features>> for details of each command.
-=======
 = Deliveria - User Guide
 :site-section: UserGuide
 :toc:
@@ -79,3 +77,37 @@ Format: `list delivery`
 
 Shows a list of all persons in the address book. +
 Format: `list`
+
+=== Delete delivery tasks: `delete`
+Deletes an existing task shown in the current list +
+Format: `delete delivery INDEX`
+
+****
+* Deletes the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1,2,3,...
+****
+
+=== Update driver field for a delivery task: `update`
+
+Attach an existing task shown in the current list to Driver: `DriverName` +
+Format: `update delivery INDEX n/DriverName`
+
+****
+* Attaches the task at the specified `INDEX` to Driver: `DriverName`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1,2,3,...
+****
+
+Examples: +
+* `update delivery 3 n/John Doe`
+
+=== View list of drivers: `list`
+
+List all drivers +
+Format: `list drivers`
+
+=== Get driver details: `read`
+
+Retrieves the details of an existing driver shown in current list +
+Format: `read driver INDEX`
+
+****
+* Retrives the details of driver at specified `INDEX`. The index refers to the index number shown in the displayed driver list. The index *must be a positive integer* 1,2,3,...
+****
