@@ -137,7 +137,7 @@ Format: `redo`
 
 Examples:
 
-* `add /dMeeting on Monday` +
+* `add d/Meeting on Monday` +
 `undo` +
 `redo`
 Redos the previous undo command, i.e. the appointment with the description `Meeting on Monday` will reappear in the appointment manager.
