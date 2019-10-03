@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -23,7 +24,7 @@ AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for mana
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `iFridge.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,8 +34,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* *`list`* : lists all food items in your grocery list
+* **`add`**`add n/milk e/23/10/2019 a/1000 u/ml` : adds the food item `milk` to the iFridge application.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -51,6 +52,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with … after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/fruit`, `t/fruit t/healthy` etc.
 * Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME e/EXPIRY_DATE`, `e/EXPIRY_DATE n/ITEM_NAME` is also acceptable.
 ====
+
+=== Viewing help : `help`
+
+Format: `help`
 
 === System Management
 
@@ -94,7 +99,7 @@ For same name *and* same expiry dates, it will be displayed based on the order t
 
 ==== Waste list clearing
 Clearing of waste list is done automatically at the start of every month.
-=======
+
 === Grocery List Management
 
 ==== Adding a food item
@@ -139,7 +144,7 @@ Format: `edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [a/AMOUNT]`
 
 Edits an item based on the arguments provided
 
-=== Viewing grocery list
+=== Viewing Grocery List
 
 ==== Sort the grocery list
 
@@ -212,6 +217,7 @@ to the year following the start_date or the current time, whichever is earlier.
 end date to the end date.
 * If you wish to specify both the start and end dates, please ensure that they are at least one
 month apart.
+****
 
 Examples:
 
@@ -231,94 +237,140 @@ Shows the current month’s wastage statistics:
 * Feedback on how user is managing food waste compared to the average food waste management across the past year
 ****
 
-=== Viewing help : `help`
+==== View most commonly wasted food items: `wlist food`
 
-Format: `help`
+Format: `wlist food`
 
-=== Adding a person: `add`
+Generates a word cloud based on user's most commonly wasted food.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Templates List Management
+
+==== Add new template: 'tlist add'
+
+Adds a new template into template list. +
+Format: 'tlist add n/TEMPLATENAME'
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `tlist add n/Weekly Necessities`
+* `tlist add n/Birthday Party Prep`
+* `tlist add n/Cake-Making`
 
-=== Listing all persons : `list`
+==== Rename template: `tlist rename`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Updates name of specified template in template list. +
+Format: `tlist rename INDEX n/TEMPLATENAME`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the template at the specified `INDEX`. The index refers to the index number shown in the displayed template list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `tlist rename 1 n/Daily Necessities`
+Edits the name of the 1st template in the template list to `Daily Necessities`
+
+==== Deleting a template: `tlist delete`
+
+Deletes a specified template from the template list. +
+Format: `tlist delete INDEX`
+
+****
+* Deletes the template at the specified `INDEX`. The index refers to the index number shown in the displayed template list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `tlist delete 1`
+Deletes the 1st template in the template list
+
+==== Clear template list: `tlist clear`
+
+Clears all template entries from the template list. +
+Format: `tlist clear`
+
+==== Show list of all templates: `tlist all`
+
+Shows all entries in the template list +
+Format: `tlist all`
+
+
+=== Template Management
+
+==== Add new grocery item: `tlist n/TEMPLATENAME add`
+
+Adds an item into a specified template.+
+Format: `tlist n/TEMPLATENAME add f/FOODITEM a/AMOUNT`
+
+****
+* Adds item into the template under the specified `TEMPLATENAME` as shown in the displayed template list.
+****
+
+Examples:
+
+* `tlist n/Weekly Necessities add n/Milk a/1l`
+* `tlist n/Weekly Necessities add n/Eggs a/12`
+
+==== Edit item name: `tlist edit`
+
+Edits a specified item in the specified template `TEMPLATENAME`. +
+Format: `tlist n/TEMPLATENAME edit INDEX [f/FOODITEM] [a/AMOUNT]`
+
+****
+* Edits the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Units in the amount field must match that of the item specified
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `tlist n/Weekly Necessities edit 1 f/Low-Fat Milk`
+Edits the name of the first food item in the template `Weekly Necessities` to  `Low-Fat Milk`
+* `tlist n/Weekly Necessities edit 1 a/2l`
+Edits the amount of the first food item in the template `Weekly Necessities` to 2 litres.
 
-=== Locating persons by name: `find`
+==== Delete food item: `tlist n/TEMPLATENAME delete`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Deletes the specified item from the specified template. +
+Format: `tlist n/TEMPLATENAME delete INDEX`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `tlist n/Weekly Necessities delete 1`
+Deletes the first food item in the template `Weekly Necessities`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Shows template: `tlist n/TEMPLATENAME`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Shows all entries in the specified template. +
+Format: `tlist n/TEMPLATENAME`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `tlist n/Weekly Necessities`
+Shows all entries in the `Weekly Necessities` template
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Shopping List Management
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Generate shopping list: `slist addAll`
+
+Generates a shopping list from all missing grocery items in the template.
+Format: `slist addAll [l/TEMPLATENAME] ...`
+
+****
+* At least one template name must be provided.
+* In the case of multiple template lists, the amount of duplicate items will be summed up.
+* In the case of the shopping list already containing food items, the amount of duplicate items will be summed up.
+****
+
+Examples:
+* `slist addAll l/Weekly Necessities l/Birthday Cake`
+All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
 
 === Exiting the program : `exit`
 
@@ -327,14 +379,9 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+iFridge data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
