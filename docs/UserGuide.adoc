@@ -142,6 +142,33 @@ Deletes the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Setting shorthand commands: `alias`
+
+Set an alias for a command to do shorthand. +
+Format: `alias [SHORTHAND] [COMMAND]`
+
+Examples:
+
+* `alias ls list` +
+Typing `ls` now works equivalently as `list`.
+* `alias "show all persons" list` +
+Typing `show all persons` now works equivalently as `list`.
+
+=== Deleting shorthand commands: `deletealias`
+
+Delete a existing alias. +
+Format: `deletealias [SHORTHAND]`
+
+Examples:
+
+* `deletealias ls` +
+Typing `ls` is no longer equivalent to `list`.
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
 === Viewing Full Profile : `profile`
 
 Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing q to quit, or p to generate a text file of the profile. +
@@ -235,6 +262,24 @@ Format: `exit`
 
 VISIT's address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Inventory System `[Coming in v2.0]`
+
+VISIT v2.0 will include an inventory system for doctors to manage and organise their medical stores.
+Doctors will be able to generate the list of medication in their stock and assign them to patients using the app
+, which automatically deducts from that list. +
+Warnings of low stocks are also an intended feature.
+
+=== Printing of Medical Certificates `[Coming in v2.0]`
+
+In v2.0, VISIT will allow doctors to easily print an official Medical Certificate with a single command.
+
+=== Microsoft Azure Integration `[Coming in v2.0]`
+
+Microsoft Azure is a popular Cloud Computing platform that allows for data analysis, remote deployment and user
+authentication resources. We plan to leverage this power in VISIT v2.0 so that doctors may securely access
+VISIT from any location, truly bringing VISIT on-the-go.
+
 
 == FAQ
 
