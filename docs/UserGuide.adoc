@@ -81,7 +81,7 @@ Notes:
 === UI Display
 
 ==== Viewing details of interviewees
-You are able to view the list of interviewees and the following information:
+You can to view the list of interviewees and the following information:
 1. Name
 2. Time slot for interview
 3. Phone number
