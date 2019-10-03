@@ -46,10 +46,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/ITEM_NAME`, `ITEM_NAME` is a parameter which can be used as `add n/apple`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/apple t/fruit` or as `n/apple`.
+* Items with … after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/fruit`, `t/fruit t/healthy` etc.
+* Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME e/EXPIRY_DATE`, `e/EXPIRY_DATE n/ITEM_NAME` is also acceptable.
 ====
 
 === Grocery List Management
@@ -125,6 +125,68 @@ From the grocery list, returns a list of food items with the specified tag
 Format: `find STRING`
 
 Returns a list of items, of which the items contain the input string
+
+=== Waste List Management
+
+==== Moving an item into waste list
+
+When you delete an item from your grocery list using `delete`, the item will automatically be
+moved into the waste list if it has not been fully used (the amount of food remaining > 0).
+
+==== Moving all expired food items from grocery list to waste list
+
+By default, every time the application is launched, Food Orchestra helps you check which items
+are expired and automatically moves them into the waste list.
+
+==== Viewing the waste list: `wlist`
+
+Shows a list of the food items which have been wasted +
+Format: `wlist [m/MONTH_OF_YEAR]` +
+****
+* If a particular month is specified, the food waste of the particular month will be displayed.
+Otherwise, the food waste of the current month is displayed.
+* The `MONTH_OF_YEAR` should be in the format `mmyyyy`, e.g. `032018` indicates March of 2018.
+****
+
+Examples:
+
+* `wlist`
+* `wlist m/022019`
+
+==== Displaying food wastage statistics: `wlist report`
+
+Shows a charted report detailing your food wastage statistics across a time frame.
+Format: `wlist report [sd/START_DATE] [ed/END_DATE]`
+
+****
+* The report will display 3 charts: kg, litres and units of food wasted per month across the
+time frame.
+* If both the start date and the end date are not specified, the default will be for the time
+frame of 1 year, from 1 year before to the current time.
+* If only the starting date is specified, the report will show the statistics from start date
+to the year following the start_date or the current time, whichever is earlier.
+* If only the end date is specified, the report will show the statistics from the year before the
+end date to the end date.
+* If you wish to specify both the start and end dates, please ensure that they are at least one
+month apart.
+
+Examples:
+
+* `wlist report sd/3 Mar 2019`
+* `wlist report sd/3 Mar 2019 ed/4 Oct 2019`
+
+The allowable date formats can be found in the Natty library documentation.
+
+==== Obtain feedback based on current food wastage: `wlist feedback`
+
+Format: `wlist feedback`
+****
+Shows the current month’s wastage statistics:
+
+* How many kg, litres, and units wasted so far
+* Predicted wastage for the month
+* Feedback on how user is managing food waste compared to the average food waste management across the past year
+****
 
 === Viewing help : `help`
 
