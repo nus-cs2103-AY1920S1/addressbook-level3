@@ -286,7 +286,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: allow effective reinforcement learning of textual content by answering using CLI input to a question prompt from a GUI
 
 [appendix]
 == User Stories
