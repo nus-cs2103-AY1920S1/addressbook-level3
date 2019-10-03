@@ -237,6 +237,12 @@ Shows the current month’s wastage statistics:
 * Feedback on how user is managing food waste compared to the average food waste management across the past year
 ****
 
+==== View most commonly wasted food items: `wlist food`
+
+Format: `wlist food`
+
+Generates a word cloud based on user's most commonly wasted food.
+
 
 === Templates List Management
 
