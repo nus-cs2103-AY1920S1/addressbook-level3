@@ -11,7 +11,7 @@ We are Team https://github.com/AY1920S1-CS2103T-F12-2[UnrealUnity] based in the 
 == Project Team
 
 === Chattoraj Ayush
-image::ayushC.jpg[width="150", align="left"]
+image::ayushchatto.png[width="150", align="left"]
 {empty}[https://github.com/AyushChatto[github]] [<<AyushChatto#, portfolio>>]
 
 Role: Project Advisor / Consultant
@@ -19,7 +19,7 @@ Role: Project Advisor / Consultant
 '''
 
 === Jason Chee
-image::jasonC.png[width="150", align="left"]
+image::reignofcomputer.png[width="150", align="left"]
 {empty}[https://www.reignofcomputer.com/[homepage]] [http://github.com/reignofcomputer[github]] [<<reignofcomputer#, portfolio>>]
 
 Role: Team Lead / Managing Director +
@@ -28,7 +28,7 @@ Responsibilities: Project Manager, Developer, Legal & Compliance, Security, In c
 '''
 
 === Gabriel Chia
-image::gabrielC.jpg[width="150", align="left"]
+image::gachia.png[width="150", align="left"]
 {empty}[http://github.com/gachia[github]] [<<gabrielchia#, portfolio>>]
 
 Role: Developer +
@@ -37,7 +37,7 @@ Responsibilities: UI, Documentation, Concept Artist
 '''
 
 === Jerrold Tan
-image::jerroldT.png[width="150", align="left"]
+image::wingedevil.png[width="150", align="left"]
 {empty}[http://github.com/Wingedevil[github]] [<<jerroldtan#, portfolio>>]
 
 Role: Developer +
@@ -46,7 +46,7 @@ Responsibilities: Git Expert, In charge of ‘Alias’ Component
 '''
 
 === Zheng Shi Qiao
-image::shiqiaoZ.png[width="150", align="left"]
+image::sqwq.png[width="150", align="left"]
 {empty}[http://github.com/SQwQ[github]] [<<SQwQ#, portfolio>>]
 
 Role: Developer +
@@ -55,7 +55,7 @@ Responsibilities: IntelliJ Expert, Documentation, In charge of `Visit` Component
 '''
 
 === Gabriel Ong
-image::gabrielO.jpg[width="150", align="left"]
+image::q-gabe.png[width="150", align="left"]
 {empty}[https://q-gabe.me[homepage]] [http://github.com/q-gabe[github]] [<<q-gabe#, portfolio>>]
 
 Role: Developer / Tester +
