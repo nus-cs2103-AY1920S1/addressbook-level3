@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.person.Person;
 
 /**
@@ -95,13 +96,13 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    ReadOnlyEventsBook getEventsBook();
+    ReadOnlyEventList getEventList();
 
-    void setEventsBook(ReadOnlyEventsBook eventsBook);
+    void setEventList(ReadOnlyEventList eventList);
 
     boolean hasEvent(EventSource event);
 
-    void deletePerson(EventSource target);
+    void deleteEvent(EventSource target);
 
     void addEvent(EventSource event);
 
