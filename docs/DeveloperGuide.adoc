@@ -362,6 +362,21 @@ Steps 3-8 are repeated until all the flash cards in the deck are completed.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Import an existing deck of cards from a JSON file
+*MSS*
+
+1. Learner specifies the filepath of the deck of cards to import, in a JSON file format.
+2. FlashCard Pro loads the file in the filepath.
+3. FlashCard Pro parses the fields in the JSON file.
+4. FlashCard Pro constructs the deck of cards.
+5. FlashCard Pro stores the deck of cards in the library.
++
+Use case ends.
+* 2a. FlashCard Pro detects filepath is invalid.
+** 2a1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
+* 2b. FlashCard Pro detects that filepath does not lead to a JSON file.
+** 2b1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
 
 _{More to be added}_
 
@@ -371,6 +386,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should 
 
 _{More to be added}_
 
