@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Athletick - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103T-T12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,33 +279,34 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Team coaches for time-based, competitive sports
+* Has a need to manage a significant number of team members
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage team details faster and more accurately than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="90%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Team coach |Input attendance of my team  |Keep track of their attendance rate and commitment level
 
-|`* * *` |user |add a new person |
+|`* * *` |Team coach |Track performance of my team |Know how to help them improve
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Careless user |Undo my previous commands |Redo any mistakes
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Team coach |Assign tags to my team members |Differentiate roles of team members
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |Team coach |See all past and scheduled training sessions |Plan better to prepare for competitions
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |Coach who wants fit players |Filter players by overweight BMIs |Single them out and get them to lose weight
 |=======================================================================
 
 _{More to be added}_
@@ -313,17 +314,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is  `Athletick` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Marking attendance of players
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to list persons
+2. Athletick shows a list of persons
+3. User keys in players who attended training
+4. Athletick saves the training session
 +
 Use case ends.
 
@@ -337,9 +338,184 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Athletick shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete person
+
+*MSS*
+
+1. User requests to list persons
+2. Athletick shows a list of persons
+3. User requests to delete a specific person in the list
+4. Athletick deletes the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Athletick shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Key in Performance of a Player
+
+*MSS*
+
+1. User requests to list persons
+2. Athletick shows a list of persons
+3. User requests to tag a performance to a specific person in the list
+4. Athletick updates the player’s performances
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Athletick shows an error message.
++
+* 3b. Input event does not exist
++
+** 3b1. Athletick shows an error message
+* 3c. Timing is invalid
++
+** 3c1. Athletick shows an error message
+
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: View a player’s profile
+
+*MSS*
+
+1. User requests to list persons
+2. Athletic shows a list of persons
+3. User request to select a specific person in the list
+4. Athletick shows the profile of the person
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Athletick shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add a person
+
+*MSS*
+
+1. User keys in details of person to be added
+2. Person is added to the list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Details are invalid (eg. not all fields are filled up)
++
+[none]
+** 1a1. Athletick shows an error message.
++
+Use case ends.
+
+* 1b. Person has already been added
++
+[none]
+** 1b1. Athletick shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Undo a command
+
+*MSS*
+
+1. User calls for undo
+2. Most recent command is undone
++
+Use case ends.
+
+*Extensions*
+
+
+[none]
+* 1a. There are no tasks to be undone.
++
+[none]
+** 1a1. Athletick shows an error message.
++
+Use case ends
+
+* 1b. The most recent command cannot be undone.
++
+[none]
+** 1b1. Athletick shows the most recent command that can be undone and undo
+
+[none]
+* 1a. There are no tasks to be undone.
++
+[none]
+** Athletick shows an error message
++
+Use case ends.
+
+* 1b. The most recent command cannot be undone
++
+[none]
+** 1b1. Athletick shows the most recent command that can be undone and undo
++
+Use case ends.
+
+[discrete]
+=== Use Case: Redo a command
+
+*MSS*
+
+1. User calls for redo
+2. Undo command is redone
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No Redo Command to be redone
++
+[none]
+** 1a1. Athletick shows an error message.
++
+Use case ends.
 
 _{More to be added}_
 
@@ -358,8 +534,11 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[cli]] CLI::
+Command line interface (CLI) is a text-based interface that is used to operate software and operating systems while allowing the user to respond to visual prompts by typing single commands into the interface and receiving a reply in the same way.
+
+[[time-base-sports]] Time-base Sports::
+Examples of time-based sports are swimming and track & field, where performance can be measured in terms of time or distance.
 
 [appendix]
 == Product Survey
