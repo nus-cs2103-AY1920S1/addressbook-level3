@@ -85,13 +85,13 @@ The  following commands are related to Events and Tasks which revolves around a 
 {empty} +
 
 * Event:
-  - Will show up on the Calendar. 
+  - Will show up on the Calendar.
   - Unable to be marked as done.
   - If past the specified date, it is removed from the Calendar, unless it is recurring.
 {empty} +
 
 * Task **`[coming in v2.0]`**
-  - May show up on the Calendar if time is specified. 
+  - May show up on the Calendar if time is specified.
   - Able to be marked as done.
   - If past the specified date, it is archived into an undone list, which subsequently able to be unarchived.
 
@@ -226,7 +226,7 @@ Sets task(s) as done using it's task index as a parameter, so that you can keep 
 
 Format: +
 `done INDEX...`
-{empty} + 
+{empty} +
 
 Example: +
 `done 1` +
@@ -311,7 +311,7 @@ Format: +
 {empty} +
 
 Able to redo commands that have been undone and
-are not succeeded by any other state-changing commands (e.g. add_event, delete_event, edit) 
+are not succeeded by any other state-changing commands (e.g. add_event, delete_event, edit)
 
 
 === Exiting the program : `exit`
@@ -349,5 +349,3 @@ E.g. `find --tag homework cs2100`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Exiting the Program* : `exit`
-
-
