@@ -12,7 +12,7 @@ http://www.comp.nus.edu.sg[School of Computing, National University of Singapore
 == Project Team
 
 === Caesar Pang
-image::caesar.jpeg[width="150", align="left"]
+image::CaesarPang.jpeg[width="150", align="left"]
 link:https://github.com/caesarpjz[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Team Leader
@@ -21,7 +21,7 @@ Responsibilities: Data + Dev Ops
 '''
 
 === Kerwin Lim
-image::kerwin.png[width="150", align="left"]
+image::Kerwin Lim.png[width="150", align="left"]
 link:https://github.com/kerwin97[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Developer +
@@ -30,7 +30,7 @@ Responsibilities: UI + Dev Ops
 '''
 
 === Bryan Ng
-image::bryan.png[width="150", align="left"]
+image::Bryan Ng.png[width="150", align="left"]
 link:https://github.com/ngswbryan[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Developer +
@@ -39,7 +39,7 @@ Responsibilities: Data + Dev Ops
 '''
 
 === Teo Shyan Jie
-image::shyanjie.jpeg[width="150", align="left"]
+image::TeoShyanJie.jpeg[width="150", align="left"]
 link:https://github.com/TeoShyanJie[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Developer +
@@ -48,7 +48,7 @@ Responsibilities: Data + Dev Ops
 '''
 
 === Xu Tunan
-image::tunan.jpg[width="150", align="left"]
+image::Xuerneas.jpg[width="150", align="left"]
 link:https://github.com/Xuerneas[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Developer +
