@@ -21,7 +21,7 @@ Responsibilities: Code Quality
 '''
 
 === Ko Gi Hun
-image::gihunk.png[width="150", align="left"]
+image::nordic96.png[width="150", align="left"]
 {empty}[http://github.com/nordic96[github]] [<<gihunk#, portfolio>>]
 
 Role: Developer +
