@@ -313,33 +313,311 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *Actor* is the `user`, the precondition is that `user` needs to be *logged in*, unless specified otherwise)
 
+System: `PasswordSys`, `FileSys`, `NoteSys`, `CardSys`
 [discrete]
-=== Use case: Delete person
+=== Use case:
+1. UC01 - Access password window
+2. UC02 - Access file window
+3. UC03 - Access note window
+4. UC04 - Access credit card window
+
+---
+[discrete]
+=== Use case:
+`UC01 - Access password window.`
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User request to access password window
+2. PasswordSys checks if user is logged in and gives access to user
 +
 Use case ends.
+
+
+[discrete]
+=== Use case:
+`UC02 - Access file window`
+
+*MSS*
+
+1. User request to access file window
+2. FileSys checks if user is logged in and gives access to user
++
+Use case ends.
+
+[discrete]
+=== Use case:
+`UC03 - Access note window`
+
+*MSS*
+
+1. User request to access note window
+2. NoteSys checks if user is logged in and gives access to user
++
+Use case ends.
+
+[discrete]
+=== Use case:
+`UC02 - Access credit card window`
+
+*MSS*
+
+1. User request to access credit card window
+2. CardSys checks if user is logged in and gives access to user
++
+Use case ends.
+
+---
+
+System: `PasswordSys`
+[discrete]
+=== Use case:
+1. UC11 - Add a password
+2. UC12 - Delete a password
+3. UC13 - Update a password
+4. UC14 - Generate a password
+5. UC15 - Analyse all password
+
+---
+[discrete]
+=== Use case:
+`UC11 - Add a password`
+
+*MSS*
+
+1. User chooses to add password
+2. User enters details
+3. PasswordSys adds the password
++
+Use case ends
 
 *Extensions*
-
 [none]
-* 2a. The list is empty.
+* 2a. Not all details are entered.
 +
-Use case ends.
 
-* 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. PasswordSys shows an error message
 +
-Use case resumes at step 2.
+Use case end.
+
+[discrete]
+=== Use case:
+`UC12 - Delete a password`
+
+*MSS*
+
+1. User chooses to delete a password
+2. User enters description of password
+3. PasswordSys removes the password
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. Description entered is invalid
++
+
++
+[none]
+** 2a1. PasswordSys shows an error message
++
+Use case end.
+
+[discrete]
+=== Use case:
+`UC13 - Update a password`
+
+*MSS*
+
+1. User chooses to update a password
+2. User enters description of password and details of changed password
+3. PasswordSys updates the password
+
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. Description entered is invalid
++
+
++
+[none]
+** 2a1. PasswordSys shows an error message
++
+Use case end.
+
+[discrete]
+=== Use case:
+`UC14 - Generate a password`
+
+*MSS*
+
+1. User chooses to generate a password
+2. User enters description of password
+3. PasswordSys generates a password
+Use case ends
+
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. No description entered
++
+
++
+[none]
+** 2a1. PasswordSys shows an error message
++
+Use case end.
+--
+[none]
+* 2b. Description entered already exists
+[none]
+** 2b1. PasswordSys shows an error message
++
+Use case end.
+
+[discrete]
+=== Use case:
+`UC15 - Analyse all password`
+
+*MSS*
+
+1. User chooses to analyse passwords
+2. PasswordSys shows report of analysis
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. No passwords available
++
+
++
+[none]
+** 2a1. PasswordSys shows an error message
++
+Use case end.
+
+---
+
+System: `NoteSys`
+[discrete]
+=== Use case:
+1. UC31 - Add a note
+2. UC32 - Delete a note
+3. UC33 - Update a note
+
+---
+
+[discrete]
+=== Use case:
+`UC31 - Add a note`
+
+*Guarantees:*
+
+1. Note will be created after step 2 has been executed
+
+*MSS*
+
+1. User chooses to add a note
+2. User enters description of note
+3. NoteSys opens a new note
+4. User enters note details
+5. User submits the note
+6. NoteSys saves the note
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. Description entered already exists
++
+[none]
+** 2a1. NoteSys shows an error message
+** 2a2. NoteSys requests for a new description
+** 2a3. User enters new description
+** Steps 2a1-2a3 are repeated until the description entered is valid
+** Use case resumes from step 4
+
+--
+
+[none]
+* 5a. No text entered
++
+[none]
+** 5a1. NoteSys shows a warning message
+
++
+Use case resumes from step 5
+
+[discrete]
+=== Use case:
+`UC32 - Delete a note`
+
+*MSS*
+
+1. User chooses to delete a note
+2. User enters description of note
+3. NoteSys removes the note
+
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. Description entered is invalid
++
+
++
+[none]
+** 2a1. NoteSys shows an error message
++
+Use case end.
+
+[discrete]
+=== Use case:
+`UC33 - Update a note`
+
+*MSS*
+
+1. User chooses to update a note
+2. User enters description of password
+3. NoteSys opens the note
+4. User edits note details
+5. User submits the note
+6. NoteSys saves the note
+
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. Description entered is invalid
++
+
++
+[none]
+** 2a1. NoteSys shows an error message
++
+Use case end.
+[none]
+* 5a. No text entered
++
+
++
+[none]
+** 5a1. NoteSys shows an error message
++
+Use case end.
+
++
 
 _{More to be added}_
 
