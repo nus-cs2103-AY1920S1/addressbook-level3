@@ -1,22 +1,23 @@
 package seedu.address.model.events;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import java.time.Duration;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents an Event in Horo.
+ * It is immutable.
  */
 public class EventSource {
 
     // Identity fields
-    private final Name name;
+    private final String description;
     private final Time time;
-    private final Duration duration;
+    private Time end;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -24,24 +25,19 @@ public class EventSource {
     /**
      * Every field must be present and not null.
      */
-    public EventSource(Name name, Time time, Duration duration, Set<Tag> tags) {
-        requireAllNonNull(name, time, duration, tags);
-        this.name = name;
+    public EventSource(String description, Time time, Set<Tag> tags) {
+        requireAllNonNull(description, time, tags);
+        this.description = description;
         this.time = time;
-        this.duration = duration;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
     public Time getTime() {
         return time;
-    }
-
-    public Duration getDuration() {
-        return duration;
     }
 
     /**

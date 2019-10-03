@@ -13,7 +13,9 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,29 +25,27 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final EventsBook eventsBook;
+    private final EventList eventList;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<EventSource> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEventsBook eventsBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEventList eventList, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.eventsBook = new EventsBook(eventsBook);
+        this.eventList = new EventList(eventList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredEvents = new FilteredList<>(this.eventsBook.getEventList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new EventsBook(), new UserPrefs());
+        this(new AddressBook(), new EventList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -122,40 +122,34 @@ public class ModelManager implements Model {
     //=========== EventsBook ================================================================================
 
     @Override
-    public ReadOnlyEventsBook getEventsBook() {
-        return eventsBook;
+    public void addEvent(EventSource event) {
+        this.eventList.add(event);
     }
 
     @Override
-    public void setEventsBook(ReadOnlyEventsBook eventsBook) {
-        this.eventsBook.resetData(eventsBook);
+    public void deleteEvent(EventSource target) {
+        this.eventList.remove(target);
+    }
+
+    @Override
+    public ReadOnlyEventList getEventList() {
+        return this.eventList;
     }
 
     @Override
     public boolean hasEvent(EventSource event) {
-        requireNonNull(event);
-        return eventsBook.hasPerson(event);
-    }
-
-    @Override
-    public void deletePerson(EventSource target) {
-        eventsBook.removePerson(target);
-    }
-
-    @Override
-    public void addEvent(EventSource event) {
-        eventsBook.addEvent(event);
+        return this.eventList.contains(event);
     }
 
     @Override
     public void setEvent(EventSource target, EventSource editedEvent) {
-        requireAllNonNull(target, editedEvent);
-
-        eventsBook.setEvent(target, editedEvent);
+        this.eventList.replace(target, editedEvent);
     }
 
     @Override
-    public ObservableList<EventSource> getFilteredEventList() { return filteredEvents; }
+    public void setEventList(ReadOnlyEventList eventList) {
+        this.eventList.reset(eventList);
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -172,6 +166,11 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<EventSource> getFilteredEventList() {
+        return this.eventList.getReadOnlyList();
     }
 
     @Override
@@ -192,5 +191,4 @@ public class ModelManager implements Model {
             && userPrefs.equals(other.userPrefs)
             && filteredPersons.equals(other.filteredPersons);
     }
-
 }

@@ -2,6 +2,10 @@ package seedu.address.model.events;
 
 import java.time.Instant;
 
+/**
+ * Represents a date and time.
+ * Internally stored as seconds from epoch, without any timezone information.
+ */
 public class Time {
 
     private final Instant dateTime;
