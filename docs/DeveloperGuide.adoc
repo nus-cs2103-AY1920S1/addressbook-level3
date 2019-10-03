@@ -18,6 +18,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
+=== Purpose & Scope
+This document specifies architecture and software design decisions for the app NUSpend.
+The intended audience of this document is the developers, designers, and software testers of NUSpend.
+
+=== Software Overview
 NUSpend is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
 In particular, it is tailored to students in National University of Singapore who dines frequently in school canteens.
@@ -295,6 +300,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*:
+
 * manage contacts faster than a typical mouse/GUI driven app
 * optimized for students in National University of Singapore
 * make prediction for future spending based on extrapolation from past statistics and upcoming important dates
