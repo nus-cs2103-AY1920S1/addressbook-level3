@@ -22,7 +22,7 @@ Role: Project Advisor / Consultant
 image::jasonC.png[width="150", align="left"]
 {empty}[https://www.reignofcomputer.com/[homepage]] [http://github.com/reignofcomputer[github]] [<<reignofcomputer#, portfolio>>]
 
-Role: Team Lead / Managing Director
+Role: Team Lead / Managing Director +
 Responsibilities: Project Manager, Developer, Legal & Compliance, Security, In charge of `Reminder-Follow-Up` Component
 
 '''
@@ -31,7 +31,7 @@ Responsibilities: Project Manager, Developer, Legal & Compliance, Security, In c
 image::gabrielC.jpg[width="150", align="left"]
 {empty}[http://github.com/gachia[github]] [<<gabrielchia#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: UI, Documentation, Concept Artist
 
 '''
@@ -40,7 +40,7 @@ Responsibilities: UI, Documentation, Concept Artist
 image::jerroldT.png[width="150", align="left"]
 {empty}[http://github.com/Wingedevil[github]] [<<jerroldtan#, portfolio>>]
 
-Role: Developer++
+Role: Developer +
 Responsibilities: Git Expert, In charge of ‘Alias’ Component
 
 '''
@@ -49,16 +49,16 @@ Responsibilities: Git Expert, In charge of ‘Alias’ Component
 image::shiqiaoZ.png[width="150", align="left"]
 {empty}[http://github.com/SQwQ[github]] [<<SQwQ#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: IntelliJ Expert, Documentation, In charge of `Visit` Component
 
 '''
 
 === Gabriel Ong
 image::gabrielO.jpg[width="150", align="left"]
-{empty}[https://q-gabe.me[homepage]]
-[http://github.com/q-gabe[github]] [<<q-gabe#, portfolio>>]
+{empty}[https://q-gabe.me[homepage]] [http://github.com/q-gabe[github]] [<<q-gabe#, portfolio>>]
 
-Role: Developer / Tester
+Role: Developer / Tester +
 Responsibilities: Integration, Documentation, In charge of `ProfileView` Component
+
 '''
