@@ -4,9 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+TagLine was developed by the https://AY1920S1-CS2103T-F12-3.github.io/docs/Team.html[AY1920-F12-3] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -28,5 +26,17 @@ Role: Team Member
 === Ng Shi Wei
 image::shiwei.png[width="150", align="left"]
 {empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
+
+Role: Team Member
+
+=== Jonas Ong
+image::placeholder_image.png[width="150", align="left"]
+{empty}[https://github.com/e0031374[github]] [<<jonas#, portfolio>>]
+
+Role: Team Member
+
+=== Tan Likai
+image::placeholder_image.png[width="150", align="left"]
+{empty}[https://github.com/tanlk99[github]] [<<tanlikai#, portfolio>>]
 
 Role: Team Member
