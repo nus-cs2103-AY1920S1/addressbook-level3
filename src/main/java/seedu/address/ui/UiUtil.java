@@ -1,17 +1,22 @@
 package seedu.address.ui;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNotEmpty;
 
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Screen;
 import javafx.stage.Window;
 
 /**
@@ -156,4 +161,72 @@ public class UiUtil {
         addKeyCodeListener(node, keyEventConsumer, interestedKeyCode);
     }
 
+    /**
+     * Checks if the given {@code point} is located within what the user's screen(s) can show.
+     *
+     * @param point The point to check.
+     * @return Whether the given {@code point} can be displayed on a screen.
+     */
+    public static boolean isPointUserVisible(final Point2D point) {
+        return isPointUserVisible(point, Bounds.ALL);
+    }
+
+    /**
+     * Checks if the given {@code point} is both located within what the user's screen(s) can show and
+     * the desired bound.
+     *
+     * @param point The point to check.
+     * @param bound The screen bound that the point will be checked against.
+     * @return Whether the given {@code point} can be displayed on a screen, within the desired bound.
+     */
+    public static boolean isPointUserVisible(final Point2D point, Bounds bound) {
+        return isPointUserVisible(point, EnumSet.of(bound));
+    }
+
+    /**
+     * Checks if the given {@code point} is both located within what the user's screen(s) can show and
+     * the desired bounds.
+     *
+     * @param point       The point to check.
+     * @param checkBounds The screen bounds that the point will be checked against.
+     * @return Whether the given {@code point} can be displayed on a screen, within the desired bounds.
+     */
+    public static boolean isPointUserVisible(final Point2D point, final EnumSet<Bounds> checkBounds) {
+        requireAllNonNull(point, checkBounds);
+        requireAllNotEmpty(checkBounds);
+
+        return Screen.getScreens().stream().anyMatch(screen -> {
+            final Rectangle2D visualBounds = screen.getVisualBounds();
+            boolean userVisible = true;
+
+            if (userVisible && checkBounds.contains(Bounds.TOP)) {
+                userVisible = visualBounds.getMinY() <= point.getY();
+            }
+
+            if (userVisible && checkBounds.contains(Bounds.RIGHT)) {
+                userVisible = point.getX() <= visualBounds.getMaxX();
+            }
+
+            if (userVisible && checkBounds.contains(Bounds.BOTTOM)) {
+                userVisible = point.getY() <= visualBounds.getMaxY();
+            }
+
+            if (userVisible && checkBounds.contains(Bounds.LEFT)) {
+                userVisible = visualBounds.getMinX() <= point.getX();
+            }
+
+            return userVisible;
+        });
+    }
+
+    /**
+     * Represents the four basic UI layout bounds
+     */
+    public enum Bounds {
+        TOP, RIGHT, BOTTOM, LEFT;
+
+        public static final EnumSet<Bounds> HORIZONTAL = EnumSet.of(LEFT, RIGHT);
+        public static final EnumSet<Bounds> VERTICAL = EnumSet.of(TOP, BOTTOM);
+        public static final EnumSet<Bounds> ALL = EnumSet.allOf(Bounds.class);
+    }
 }
