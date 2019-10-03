@@ -4,52 +4,54 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Tutor Aid was Founded to help teacher assistant in NUS School of Computing  +
+Tutor Aid was Founded to help teacher assistant and improve their efficiency by 200% in NUS School of Computing  +
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a team based in the +
+http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== Caesar
+=== Caesar Pang
 image::caesar.jpeg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+link:https://github.com/caesarpjz[image:github_logo.png[width="30", align="left"]]
 
-Role: Project Leader
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+==== Role: Team Leader
+Responsibilities: Data + Dev Ops
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Kerwin Lim
+image::kerwin.png[width="150", align="left"]
+link:https://github.com/kerwin97[image:github_logo.png[width="30", align="left"]]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+==== Role: Developer +
+Responsibilities: UI + Dev Ops
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Bryan Ng
+image::bryan.png[width="150", align="left"]
+link:https://github.com/ngswbryan[image:github_logo.png[width="30", align="left"]]
 
-Role: Developer +
-Responsibilities: UI
+==== Role: Developer +
+Responsibilities: Data + Dev Ops
+
+'''
+
+=== Teo Shyan Jie
+image::shyanjie.jpeg[width="150", align="left"]
+link:https://github.com/TeoShyanJie[image:github_logo.png[width="30", align="left"]]
+
+==== Role: Developer +
+Responsibilities: Data + Dev Ops
+
+'''
+
+=== Xu Tunan
+image::tunan.jpg[width="150", align="left"]
+link:https://github.com/Xuerneas[image:github_logo.png[width="30", align="left"]]
+
+==== Role: Developer +
+Responsibilities: UI + Dev Ops
 
 '''
