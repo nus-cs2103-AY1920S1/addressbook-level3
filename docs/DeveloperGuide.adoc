@@ -279,8 +279,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has to learn new materials by reinforcement learning and self-testing
+* wishes to learn new materials by retrieval learning and self-testing
 * is an independent learner
+* contents of learning are largely textual
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -314,7 +315,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `FlashCard Pro` and the *Actor* is the `learner`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
