@@ -8,9 +8,11 @@ class ExpenseTest {
 
     @Test
     void getPrintableMsg() {
+        return;
     }
 
     @Test
     void testToString() {
+        return;
     }
 }
