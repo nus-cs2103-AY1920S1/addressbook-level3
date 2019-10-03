@@ -279,13 +279,34 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to practice a lot of algorithm / data structure problems with the following conditions satisfied:
++
+[none]
+** instant assessment of answers submitted
+** practices under timed conditions
+** automatic progress checker
+** personal tutor to recommend problems with suitable difficulties and topics
+** fun in learning with achievement badges to unlock
+** no WiFi needed,
+
+* or has a need to distribute problem sets:
++
+[none]
+** can set the coding problems easily
+** share problems via link
+** view-only answers protected by passwords
+
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+[none]
+* everyone can learn data structures - anytime, anywhere
+* make coding threshold-less
+* manage contacts faster than a typical mouse/GUI driven app
+
 
 [appendix]
 == User Stories
@@ -353,41 +374,104 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `Duke Academy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use case: UC01 Set questions
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to input problem sets.
+2. Duke Academy requires a file path.
+3. User select file path.
+4. Duke Academy imports the problem sets and prompts success message.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 4a. The input format is incorrect.
++
+Duke Academy reports wrong format error. Duke Academy resumes at step 3.
+
+=== Use case: UC02 View Questions
+*MSS*
+
+1. User finds a question by question ID, title or category.
+2. Duke Academy shows a list of problems that matches the keyword.
+3. User views the question identified by ID.
+4. Duke Academy displays the problem statement of the question.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. User inputs wrong keywords.
++
+Duke Academy reports error and prompts link to help page.
++
+Use case resumes at step 1.
+
+=== Use case: UC03 Attempt Questions
+*MSS*
+
+1. User chooses a problem to attempt.
+2. Duke Academy shows up the problem statement and an editor.
+3. User inputs the code in editor.
+4. User submit the answer.
+5. Duke Academy compiles the problem and display whether it has passed the test cases.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. User requests to reset the previous input in the editor for this question.
++
+[none]
+** 2a1. Duke Academy clears the cached code.
++
+** Use case resumes from step 3.
+
+* 2b. User requests to set a timer.
++
+[none]
+** 2b1. Duke Academy requests for a time duration.
+** 2b2. User inputs a time duration.
+** 2b3. Duke Academy displays a timer.
+** 2b4. User starts the timer.
++
+Use case resumes from step 4.
+
+* 2c. User requests to quit the program.
++
+[none]
+** 2c1. Duke Academy requests to save the draft.
+** 2c2. User confirms or denies.
+** 2c3. Duke Academy follows user's preference to save or discard the draft.
+** 2d4. Duke Academy exists.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* *a. At any time, user chooses to attempt an question imported from external resources.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** *a1. load the questions from file.
 +
-Use case resumes at step 2.
-
-_{More to be added}_
+*a2. Duke Academy stores the problem in local machine.
++
+*a3. User search for the problem imported.
++
+*a4. Duke Academy displays the question.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 problem sets without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Time taken to assess the submitted programmes should not exceed 3 minutes.
+. <<encryption,Data not intended for disclosure>> should be encrypted with minimum needs so that it's protected from direct access.
+. Should not take more than 5 seconds to load the initial screen.
+. If interrupted, the program should provide an auto-saved version and prompt for restore when the app opens next time.
 
-_{More to be added}_
+
 
 [appendix]
 == Glossary
@@ -395,8 +479,11 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[encryption]] Data not intended for disclosure::
+[none]
+* User information that is not meant to be shared with others.
+* Confidential program sets for technical interviews.
+* To prevent plagiarism, input code files intended for graded school assessment.
 
 [appendix]
 == Product Survey
