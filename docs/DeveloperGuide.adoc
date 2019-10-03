@@ -301,11 +301,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Driver Manager |search for tasks by a keyword |find a task more easily
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |Driver Manager |toggle dark or light theme for the interface | the UI can change according to user preference.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |Driver Manager |see the image of the drivers |can identify them easily
 |=======================================================================
 
 _{More to be added}_
