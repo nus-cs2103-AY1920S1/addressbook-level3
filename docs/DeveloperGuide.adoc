@@ -299,13 +299,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* * *` |user |add templates of grocery items |to keep track of what I want to have in my fridge
+|`* * *` |user |add <<template,templates>> of grocery items |to keep track of what I want to have in my fridge
 
 |`* * *` |user |edit templates of grocery items |edit items and volumes based on my current needs and preferences
 
@@ -315,15 +309,52 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |generate a shopping list using my templates |save time on checking what is missing from my fridge
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |environmentally-conscious user |compare my <<food-waste,food wastage statistics>> |better manage my food waste
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |environmentally-conscious user |get feedback on how I am performing on my food waste management |improve my food waste management
+
+|`* *` |environmentally-conscious user |see which kinds of food I most commonly waste |cut down on unnecessary food waste
+
+|`* * *` |forgetful user |see a list of my expired food items |retrieve and dispose of them
+
 |=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `iFridge` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `iFridge` application and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Removing a tag
+
+*MSS*
+
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to remove a tag from a specific food item in the list
+4.  iFridge removes the tag
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. iFridge shows an error message.
+[none]
+** Use case resumes at step 2.
++
+* 3b. The tag specified is non-existent.
+[none]
+** 3b1. iFridge shows an error message.
+[none]
+** Use case resumes at step 2.
 
 [discrete]
 === Use case: Delete grocery item
@@ -368,16 +399,17 @@ _{More to be added}_
 
 [appendix]
 == Glossary
-*Grocery*: Food items found in the fridge.
-*Waste*: Groceries that have expired and have not been fully consumed.
-*Template*: A list of food items that the user regularly wants to keep in their fridge.
-*Shopping*: Grocery items to be bought.
+
+[[grocery]] Grocery: Food items found in the fridge.
+
+[[food-waste]] Food Waste: Groceries that have expired and have not been fully consumed.
+
+[[template]] Template: A list of food items that the user regularly wants to keep in their fridge.
+
+[[shopping]] Shopping: Grocery items to be bought.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
