@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Horo
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-F12-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-F12-1/main.svg?branch=master[Build Status]]
@@ -14,15 +14,18 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+Ever forget to go for a group meeting or need reminders for your assignment date? Fret not anymore.
+Horo provides you the ability to store your Events and Tasks, while providing a reminder for whenever you set it.
+You can even tag it to sort by a certain order, as well as import or export your calendar to transfer between computers! +
+{empty}
+
+* This is a desktop Reminder application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is a Java application *written in an OOP fashion*, developed and intended for students that need reminders for their Events and Tasks.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -31,5 +34,6 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* The application was based of *AddressBook-Level3* project created by SE-EDU initiative at https://se-education.org
 
 == Licence : link:LICENSE[MIT]

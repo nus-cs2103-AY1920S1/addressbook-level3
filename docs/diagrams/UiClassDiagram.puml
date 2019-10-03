@@ -40,7 +40,7 @@ PersonListPanel -down-> PersonCard
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
+LogPanel --|> UiPart
 CommandBox --|> UiPart
 PersonListPanel --|> UiPart
 PersonCard --|> UiPart

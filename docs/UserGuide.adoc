@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Horo - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*Horo* is for those who want to use a Command-Line-Interface (CLI) desktop application to manage one’s schedule and reminders. However, it is not just a fully implemented CLI program, but it also includes a Graphical User Interface (GUI) to make it visually appealing. If you are able to remember the commands, *Horo* is definitely an efficient solution to help you store your Events and Reminders. Forgetful person or not, *Horo* will help you remember and remind you, as well as provide a visual aid for what the next most important task coming up is and when it occurs. Continue reading to find out what *Horo* has to offer!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `horo.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,10 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* `**add_event** Celebrate Rori’s Birthday`: adds an event to the event book.
+* `**delete** -task 3` : deletes the 3rd event shown in the event book.
+* *`exit`* : exits the application.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -44,118 +43,282 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*Command Format for Horo*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
+* The first word of any command should be a non-capitalized command, followed by the necessary arguments of the command itself.
+  - E.g. `help`
+  - E.g. `done 1`
+
+* If the argument contains more than 1 blank space, it should be contained in a double apostrophe.
+  - E.g. `delete 1`
+  - E.g. `add_event "Celebrate Rori's Birthday"`
+
+* Any sub-commands should be after the main command, and require a `--` before the sub-command itself. Sub commands should
+  - E.g. `add_event "Celebrate Horo's Birthday" --at 17/09/2019 23:59`
+
+
 ====
+*Command Format specifically for this User Guide*
 
-=== Viewing help : `help`
+* Words that are fully capitalized are the terms supplied by you.
+  - E.g. `event EVENT`
 
-Format: `help`
+* Words in square brackets, `[]`, are optional terms.
+  - E.g. `event EVENT [--at DATE_TIME]
 
-=== Adding a person: `add`
+* Words with ellipsis, `...`, can be used multiple times including zero times.
+  - E.g. `event EVENT [--at DATE_TIME] [--tag TAG_1] [--tag TAG_2]...`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Asking for help : `help` **`[coming in v2.0]`**
 
-Examples:
+Provides a guide for you if you have problems with commands and it’s format.
+{empty} +
+Format and Example: +
+`help`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+=== Calendar, Events and Task
 
-Shows a list of all persons in the address book. +
-Format: `list`
+The  following commands are related to Events and Tasks which revolves around a calendar. Here are the clarification for Events and Tasks:
+{empty} +
 
-=== Editing a person : `edit`
+* Event:
+  - Will show up on the Calendar. 
+  - Unable to be marked as done.
+  - If past the specified date, it is removed from the Calendar, unless it is recurring.
+{empty} +
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* Task **`[coming in v2.0]`**
+  - May show up on the Calendar if time is specified. 
+  - Able to be marked as done.
+  - If past the specified date, it is archived into an undone list, which subsequently able to be unarchived.
+
+==== Adding Events
+
+Adds an event to the event list.
+{empty} +
+
+Format: +
+`add_event DESCRIPTION DATE_TIME [--end DATE_TIME] [--remind DATE_TIME] [--tag TAG...]`
+{empty} +
+
+Examples: +
+`add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00”` +
+`add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00” --end “18/08/2019 20:00”` +
+`add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00” --remind “18/08/2019 12:00”` +
+`add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00” --tag Birthday Rori` +
+
+==== Deleting Events
+
+Deletes event(s) from the event list.
+1. Delete by event indexes
+2. Delete by tags
+{empty} +
+
+Format: +
+`delete_event [INDEX...] [--tag TAG...]`
+{empty} +
+
+Examples: +
+`delete_event 1` +
+`delete_event 1 2 3` +
+`delete_event --tag Birthday` +
+`delete_event 1 2 3 --tag Birthday`
+
+==== Editing Events
+
+Edits existing event(s) from the event list. +
+Edit by event indexes.
+{empty} +
+
+Format: +
+`edit_event INDEX... [--description DESCRIPTION] [--at DATE_TIME]  [--remind DATE_TIME] [--tag TAG...]`
+{empty} +
+
+Examples: +
+`edit_event 1 2 3 --tag Rori` +
+`edit_event 1 --description “Play Monster Hunter” --at “17/08/2019 19:00” --remind “17/08/2019 12:00” --tag Kyzure`
+
+==== Adding Tasks **`[coming in v2.0]`**
+
+Adds a task to the task list.
+{empty} +
+
+Format: +
+`add_task DESCRIPTION [--remind DATE_TIME] [--tag TAG...]`
+{empty} +
+
+Examples: +
+`add_task “Buy Rori a birthday cake”` +
+`add_task “Buy Rori a birthday cake” --end “18/08/2019 20:00”` +
+`add_task “Buy Rori a birthday cake” --remind “18/08/2019 12:00”` +
+`add_task “Buy Rori a birthday cake” --tag Birthday Rori`
+
+==== Deleting Tasks **`[coming in v2.0]`**
+
+Deletes Task(s) from the task list.
+1. Delete by task indexes
+2. Delete by tags
+{empty} +
+
+Format: +
+`delete_task [INDEX...] [--tag TAG...]`
+{empty} +
+
+Examples: +
+`delete_task 1` +
+`delete_task 1 2 3` +
+`delete_task --tag Birthday` +
+`delete_task 1 2 3 --tag Birthday`
+
+==== Editing Tasks **`[coming in v2.0]`**
+
+Edits existing task(s) from the task list. +
+Edit by task indexes.
+{empty} +
+
+Format: +
+`edit_task INDEX... [--description DESCRIPTION] [--remind DATE_TIME] [--tag TAG...]`
+{empty} +
+
+Examples: +
+`edit_task 1 2 3 --tag Present` +
+`edit_task 1 --description “Buy Rori a present” --remind “17/08/2019 12:00” --tag Present`
+
+==== Making recurring Events: `recur` **`[coming in v2.0]`**
+
+Makes an Event show up repeatedly in the Calendar
+{empty} +
+
+Format: +
+`recur INDEX... [-f|--frequency FREQUENCY]`
+{empty} +
+
+Examples: +
+`recur 1 2 3 -f daily` +
+`recur 1 2 3 --frequency daily`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* This will make Events 1, 2 and 3 recur daily on the Calendar.
 ****
 
-Examples:
+==== Finding Events and Tasks **`[coming in v2.0]`**
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Finds Events and Tasks whose name or tag contains the specified keyword. If unspecified, Rori will search for all events, tasks and tags containing the keyword.
+{empty} +
 
-=== Locating persons by name: `find`
+Format: +
+`find [KEYWORD] [--event KEYWORD] [--task KEYWORD] [--tag KEYWORD...]`
+{empty} +
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Example: +
+`find Birthday` +
+`find --event Rori` +
+`find --task Rori` +
+`find --tag Birthday` +
+`find --tag Birthday Pet`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+==== Completing Tasks **`[coming in v2.0]`**
 
-Examples:
+Sets task(s) as done using it's task index as a parameter, so that you can keep track of your progress.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Format: +
+`done INDEX...`
+{empty} + 
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Example: +
+`done 1` +
+`done 1 2 3`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+=== Tagging System **`[coming in v2.0]`**
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
 
-Examples:
+==== Adding Tags **`[coming in v2.0]`**
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Adds Tags to particular Events or Tasks
+{empty} +
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Format: +
+`tag INDEX... --tag TAG...`
+{empty} +
 
-Clears all entries from the address book. +
-Format: `clear`
+Example: +
+`tag 1 2 3 --tag Birthday`
+
+==== Removing Tags **`[coming in v2.0]`**
+Removes Tags from particular Events or Tasks
+{empty} +
+
+Format: +
+`remove_tag INDEX... --tag TAG...`
+
+Example: +
+`remove_tag 1 2 3 --tag Birthdays`
+
+
+==== Deleting Events and Tasks **`[coming in v2.0]`**
+
+Deletes all events and tasks.
+1. Delete by indexes
+2. Delete by tags
+{empty} +
+
+Format: +
+`delete [INDEX...] [--tag TAG...]`
+{empty} +
+
+Example: +
+`delete 1 2 3`
+`delete --tag Work` +
+* This will delete all events and tasks that have been tagged as Work.
+{empty} +
+
+`delete --tag Work "Project Animation"` +
+* This will delete all events and tasks that have been tagged as both Work AND Project Animation.
+
+=== UI
+
+==== Switching between List and Calendar view **`[coming in v2.0]`**
+
+This will toggle the UI on the right between the List and Calendar view. +
+Switching between List and Calendar view
+{empty} +
+
+Format: +
+`view`
+
+
+=== Undo Redo
+
+==== Undo **`[coming in v2.0]`**
+
+Undoes the previous command. +
+Commands can be undone up to the starting up of the program
+{empty} +
+
+Format: +
+`undo`
+
+==== Redo **`[coming in v2.0]`**
+
+Redoes the previously undone command
+{empty} +
+
+Format: +
+`redo`
+{empty} +
+
+Able to redo commands that have been undone and
+are not succeeded by any other state-changing commands (e.g. add_event, delete_event, edit) 
+
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Exits the program.
+{empty} +
 Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -164,14 +327,27 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Help* : `help` +
+* *Adding an Event* : `add_event DESCRIPTION DATE_TIME [--remind DATE_TIME] [--tag TAG...]` +
+E.g. `add_event "Celebrate Horo's Birthday" --at 17/09/2019 23:59`
+* *Deleting Events* : `delete_event [INDEX...] [--tag TAG...]` +
+E.g. `delete_event 1 2 3`
+* *Editing Events* : `edit_event INDEX... [--description DESCRIPTION] [--at DATE_TIME] [--remind DATE_TIME] [--tag TAG...]` +
+E.g. `edit_event 1 --description “Play Monster Hunter” --at “17/08/2019 19:00” --remind “17/08/2019 12:00” --tag Kyzure`
+* *Adding a Task* : `add_task DESCRIPTION [--tag TAG...]` +
+E.g. `add_task “Celebrate Horo’s Birthday” --tag Birthday`
+* *Deleting Tasks* : `delete_task [INDEX...] [--tag TAG...]` +
+E.g. `delete_task 1 2 3`
+* *Editing Tasks* : `edit_task INDEX... [--description DESCRIPTION] [--remind DATE_TIME] [--tag TAG...]` +
+E.g. `edit_task 1 --description “Play Monster Hunter” --remind “17/08/2019 12:00” --tag Kyzure`
+* *Adding a Tag* : `tag INDEX... --tag TAG...` +
+E.g. `tag 1 2 3 --tag Birthday`
+* *Removing a Tag* : `remove_tag INDEX... --tag TAG...` +
+E.g. `remove_tag 1 2 3 --tag Birthday`
+* *Find* : `find [--tag TAG] KEYWORD...` +
+E.g. `find --tag homework cs2100`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Exiting the Program* : `exit`
+
+
