@@ -318,32 +318,20 @@ _{More to be added}_
 (For all use cases below, the *System* is the `FlashCard Pro` and the *Actor* is the `learner`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Create a deck of cards
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. Learner creates a new empty deck and specifies the name of the deck of cards.
+2. Learner adds individual cards to the deck and specifies the content of the front and back of the cards.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
+* 1a. FlashCard Pro detects deck name provided by learner is identical to an existing deck of cards in the library.
+    1a1. FlashCard Pro informs the learner that deck creation is unsuccessful.
 
 [appendix]
 == Non Functional Requirements
