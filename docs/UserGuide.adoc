@@ -24,25 +24,26 @@ Since: `Jun 2016`      Licence: `MIT`
 
 Deliveria is a *desktop application* that allows a *delivery manager* to *manage and assign delivery tasks* efficiently. While it consists of a _Graphical User Interface_ (GUI) that is user-friendly, Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
 
-== Quick Start
+== Getting Started
+.Draft UI mockup
+image::/images/Ui.png[Ui]
+[caption="Figure 1: ",link="/images/Ui.png"]
+. Ensure you have Java 11 or above installed in your Computer.
+. Download the latest release deliveria.jar https://github.com/AY1920S1-CS2103T-F14-4/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Double-click the file to start the app. The GUI should appear in a few seconds.
+. Type the command in the command box and press Enter to execute it.
+e.g. typing help and pressing Enter will open the help window.
+. Some example commands you can try
+* Lists all contacts: `list`
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+* Adds a contact named John Doe to the Address Book: `Add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* Deletes the 3rd contact shown in the current list: `Delete 3`
 
-.  Refer to <<Features>> for details of each command.
+* Exits the app: `exit`
+
+. Refer to <<Features>>  for details of each command.
 
 [[Features]]
 == Features
