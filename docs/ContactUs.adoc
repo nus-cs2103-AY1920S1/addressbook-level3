@@ -4,4 +4,4 @@
 
 * *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103T-F14-1/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
-* *Email us* : You can also reach us through Lim Haw Jia, our Head of User Experience, at `hawjia.lim [at] u.nus.edu`
+* *Email us* : You can also reach us through Lim Haw Jia, our Head of User Experience, at `hawjia.lim@u.nus.edu`
