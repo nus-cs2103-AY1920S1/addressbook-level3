@@ -301,7 +301,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |mortuary manager |sort the bodies by certain characteristics using the `sort` command |view bodies of a speciic category and generate statistics easily
 
-|`* * *` |mortuary manager |filter the bodies by certain characteristics using `filer` command |view bodies of a certain category and generate statistics easily
+|`* * *` |mortuary manager |filter the bodies by certain characteristics using `filter` command |view bodies of a certain category and generate statistics easily
 
 |`* * *` |mortuary manager |update the status of each and every worker, body and fridge with the `update <body/worker/fridge ID> <attribute>:<status>` command |know when (date & time) was each step of the process completed and the findings of each process (eg. cause of death)
 
@@ -327,7 +327,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |mortuary manager |receive routine reports from the app automatically using the `genReport <body ID>` command |need not manually write in each and every single report
 
-|`* *` |mortuary manager |view past reports with the command ‘reports’ and individual reports with `report <body ID>` |easily obtain past reports for my own reference / authorities / other party
+|`* *` |mortuary manager |view past reports with the command `reports` and individual reports with `report <body ID>` |easily obtain past reports for my own reference / authorities / other party
 
 |`* *` |mortuary manager |assign workers to tasks using the `tagw` command |know who was responsible for a task
 
