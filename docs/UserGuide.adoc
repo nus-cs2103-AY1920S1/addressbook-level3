@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= iFridge - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -52,6 +52,49 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME e/EXPIRY_DATE`, `e/EXPIRY_DATE n/ITEM_NAME` is also acceptable.
 ====
 
+=== System Management
+
+==== Loading the file
+Upon launching the app, existing lists will be automatically loaded into their respective lists.
+
+==== Saving the file
+Upon exiting the app, updated lists will be automatically saved.
+
+==== Checking reminders on expiry dates
+Display list with all food expiring within n days.
+`rem n/NUMBER_OF_DAYS`
+
+Change default number of days which food is expiring in, to be displayed at the start of the app every time the app is launched.
+`remDefault n/NUMBER_OF_DAYS`
+
+Examples:
+
+* `rem n/3`
+* `remDefault n/3`
+
+Upon launching the app, list of food expiring within (default; 3 days if not yet specified) is displayed.
+
+==== Sort settings
+Supports sorting of list displayed by alphabetical order first, or expiry date first.
+
+`sort by/TYPE` - displays list with the specified sorting method first.
+`sortDefault by/TYPE` - change default sorting method when list method is called every time the app is launched.
+
+Examples:
+
+* `sort by/alphabetical`
+* `sortDefault by/expiry`
+
+For food with the same name, it will be automatically sorted by their expiry dates.
+For food with the same expiry dates, it will be automatically sorted by their alphabetical order.
+For same name *and* same expiry dates, it will be displayed based on the order they are added into the grocery list.
+
+==== Display settings
+`display merged` - display grocery list of food objects, where food objects with the same name and expiry dates are merged.
+
+==== Waste list clearing
+Clearing of waste list is done automatically at the start of every month.
+=======
 === Grocery List Management
 
 ==== Adding a food item
