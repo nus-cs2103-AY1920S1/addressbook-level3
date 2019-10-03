@@ -250,20 +250,20 @@ Format: `assignpolicy INDEX pol/POLICY [MORE_POLICIES]`
 ****
 * Adds the policies to the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The policy refers to the index number of the policy in the absolute list.
+* The policy refers to the name of the policy.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Each policy *must be a positive integer* 1, 2, 3, ...
+* Each policy name must match the policy exactly as it appears in the absolute policy list.
 * Any number of policies can be added as long as the person is eligible for the policy.
 ****
 
 Examples:
 
 * `listpeople` +
-`assignpolicy 2 pol/3` +
-Assigns the policy at index 3 to the 2nd person in the list of people.
+`assignpolicy 2 pol/Senior Care` +
+Assigns the 'Senior Care' policy to the 2nd person in the list of people.
 * `find Betsy` +
-`assignpolicy 1 pol/4` +
-Assigns the policy at index 4 to the 1st person in the results of the `find` command.
+`assignpolicy 1 pol/Accident Insurance` +
+Assigns the 'Accident Insurance' policy to the 1st person in the results of the `find` command.
 
 === Adding tags to a person : `addtag`
 
