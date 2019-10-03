@@ -153,6 +153,25 @@ Format: `delete interviewer NAME` +
 Deletes the specified interviewee from the database. +
 Format: `delete interviewee NAME`
 
+=== Tag interview slot `tag` `[Coming in v2.0]`
+Tags an interview slot with a name. +
+Format: `tag TAG_NAME` +
+
+User will also be able to filter by tags. +
+Format: `filter tag TAG_NAME` +
+
+=== Scheduling `generate`
+==== Generating timetable of all available time slots
+Generate the timetable of all available interview time slots based on the availability of interviewers. +
+Format: `generate timetable` +
+
+==== Generating full interview schedule
+Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
+the timetable of all available interview time slots. +
+Format: `generate schedule` +
+
+**Note:** This command requires the timetable of all available time slots to be generated first!
+
 === Importing existing availabilities `import`
 ==== Importing interviewers’ availability
 Imports interviewers’ availability from a comma separated values (CSV) file. +
@@ -179,25 +198,6 @@ Exports the allocated interview schedule timetable to a comma separated values (
 Format: `export` +
 
 Note: This command requires the interview schedule to be generated first!
-
-=== Tag interview slot `tag` `[Coming in v2.0]`
-Tags an interview slot with a name. +
-Format: `tag TAG_NAME` +
-
-User will also be able to filter by tags. +
-Format: `filter tag TAG_NAME` +
-
-=== Scheduling `generate`
-==== Generating timetable of all available time slots
-Generate the timetable of all available interview time slots based on the availability of interviewers. +
-Format: `generate timetable` +
-
-==== Generating full interview schedule
-Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
-the timetable of all available interview time slots. +
-Format: `generate schedule` +
-
-**Note:** This command requires the timetable of all available time slots to be generated first!
 
 === Sending of email `email`
 ==== Sending of interview time slot to interviewees
@@ -252,8 +252,15 @@ Format: `record rank`
 |`add interviewer name:"NAME" slot:SLOT...` +
  `add interviewee name:"NAME" slot:SLOT...`
 
-|Display interview schedule
-|`display` +
+|Display list of interviewers/interviewees
+|`display interviewers` +
+ `display interviewees`
+
+|Display weekly schedule
+|`display date DATE`
+
+Display available slots
+`display available date Date`
 
 |Get interview schedule for interviewer/interviewee
 |`get NAME` +
