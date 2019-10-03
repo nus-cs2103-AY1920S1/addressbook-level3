@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Abhiman Yadav
-image::Abhiman2211.png[width="150", align="left"]
+image::abhiman2211.png[width="150", align="left"]
 {empty}[http://github.com/Abhiman2211[github]] [<<johndoe#, portfolio>>]
 
 Role: Product Design +
@@ -32,7 +32,7 @@ Responsibilities: Storage
 '''
 
 === Joanna Yap
-image::Joanna-YJA.png[width="150", align="left"]
+image::joanna-yja.png[width="150", align="left"]
 {empty}[http://github.com/Joanna-YJA[github]] [<<johndoe#, portfolio>>]
 
 Role: Quality Assurance +
