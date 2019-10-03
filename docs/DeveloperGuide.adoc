@@ -295,17 +295,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |driver manager |view all unfinished delivery tasks |know which tasks have yet to be delivered
 
-|`* * *` |user |add a new person |
+|`* * *` |driver manager |view all delivered tasks |keep track of all delivered tasks in the past month
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |driver manager |sort and display delivery tasks by their starting time |view pending tasks in an orderly manner
 
-|`* * *` |Driver Manager |search for tasks by a keyword |find a task more easily
+|`* * *` |driver Manager |search for tasks by a keyword |find a task more easily
 
-|`* *` |Driver Manager |toggle dark or light theme for the interface | the UI can change according to user preference.
+|`* *` |driver Manager |toggle dark or light theme for the interface | the UI can change according to user preference.
 
-|`*` |Driver Manager |see the image of the drivers |can identify them easily
+|`*` |driver Manager |see the image of the drivers |can identify them easily
 |=======================================================================
 
 _{More to be added}_
