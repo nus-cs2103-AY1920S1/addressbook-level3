@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ang Ze Yu
-image::Ze Yu.png[width="150", align="left"]
+image::ang-zeyu.png[width="150", align="left"]
 {empty}[https://github.com/ang-zeyu[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -19,7 +19,7 @@ Responsibilities: Logic, Deliverables and deadlines
 '''
 
 === Derrick
-image::derrick.png[width="150", align="left"]
+image::teoha.png[width="150", align="left"]
 {empty}[https://github.com/teoha[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -28,7 +28,7 @@ Responsibilities: Model, Storage
 '''
 
 === Sakshi
-image::sakshi.png[width="150", align="left"]
+image::sakshipradyumn.png[width="150", align="left"]
 {empty}[https://github.com/SakshiPradyumn[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -37,7 +37,7 @@ Responsibilities: Testing, Integration
 '''
 
 === Tianyi
-image::tianyi.png[width="150", align="left"]
+image::arjunwangty.png[width="150", align="left"]
 {empty}[https://github.com/arjunwangty[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
