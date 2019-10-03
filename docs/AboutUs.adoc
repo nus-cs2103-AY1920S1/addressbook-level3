@@ -14,7 +14,7 @@ image::alxkohh.png[width="150", align="left"]
 {empty}[http://github.com/alxkohh[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer and Project Manager +
-Responsibilities: Intellij expert, Deliverables and deadlines, scheduling and tracking
+Responsibilities: Intellij expert, Deliverables and deadlines, Scheduling and tracking, Documentation
 
 '''
 
@@ -41,6 +41,6 @@ image::zhangj1an.png[width="150", align="left"]
 {empty}[http://github.com/zhangj1an[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer and Software Architect +
-Responsibilities: Git expert, Documentation, Data modelling, Software Architecture
+Responsibilities: Git expert, Data modelling, Software Architecture
 
 '''
