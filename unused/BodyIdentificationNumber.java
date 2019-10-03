@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-//@@author ambervoong
+//@@author ambervoong-unused
 /**
  *  Represents a body's identification number in Mortago.
  */

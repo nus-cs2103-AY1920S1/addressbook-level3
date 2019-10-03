@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+//@@author ambervoong-unused
 class BodyIdentificationNumberTest {
 
     @Test
