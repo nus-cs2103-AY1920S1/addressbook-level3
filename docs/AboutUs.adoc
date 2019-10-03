@@ -10,16 +10,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Alex Koh
-image::lejolly.jpg[width="150", align="left"]
+image::alxkohh.png[width="150", align="left"]
 {empty}[http://github.com/alxkohh[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer and Project Manager +
-Responsibilities: Intellij expert, Deliverables and deadlines, scheduling and tracking
+Responsibilities: Intellij expert, Deliverables and deadlines, Scheduling and tracking, Documentation
 
 '''
 
 === Lim Haw Jia
-image::yijinl.jpg[width="150", align="left"]
+image::limhawjia.png[width="150", align="left"]
 {empty}[http://github.com/limhawjia[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer and Head of User Experience +
@@ -28,7 +28,7 @@ Responsibilities: SceneBuilder expert, UI/UX, Code quality
 '''
 
 === Ning Sheng Ying
-image::m133225.jpg[width="150", align="left"]
+image::ning-sy210.png[width="150", align="left"]
 {empty}[http://github.com/ning-sy210[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer, Test Engineer and Head of DevOps +
@@ -37,10 +37,10 @@ Responsibilities: Travis expert, Testing, Integration, DevOps
 '''
 
 === Zhang Jian
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+image::zhangj1an.png[width="150", align="left"]
+{empty}[http://github.com/zhangj1an[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer and Software Architect +
-Responsibilities: Git expert, Documentation, Data modelling, Software Architecture
+Responsibilities: Git expert, Data modelling, Software Architecture
 
 '''
