@@ -243,7 +243,6 @@ Format: `wlist food`
 
 Generates a word cloud based on user's most commonly wasted food.
 
-
 === Templates List Management
 
 ==== Add new template: 'tlist add'
@@ -353,9 +352,86 @@ Format: `tlist n/TEMPLATENAME`
 Examples:
 
 * `tlist n/Weekly Necessities`
-Shows all entries in the `Weekly Necessities` template
+Shows all entries in the `Weekly Necessities` templa
+
 
 === Shopping List Management
+
+=== Add new item to shopping list: 'slist add'
+
+Adds a new item to the shopping list. +
+Format: 'slist add f/FOOD_ITEM a/AMOUNT'
+
+Examples:
+
+* `slist add n/apple a/2`
+* `slist add n/milk a/1l`
+* `slist add n/banana a/3`
+
+=== Edit item in shopping list: 'slist edit'
+
+Edits the name of a specified item in a shopping list. +
+Format: 'slist edit INDEX [f/FOODNAME] [a/AMOUNT]'
+
+****
+* Edits the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Units in the amount field must match that of the item specified
+
+Examples:
+* `slist edit 3 f/pomegranate`
+Edits the name of the third food item in the shopping list to  `pomegranate`
+* `slist edit 2 a/2l`
+Edits the amount of the second food item in the shopping list to 2 litres.
+
+=== Delete item in shopping list: 'slist delete'
+
+Delete specified item from shopping list. +
+Format: 'slist delete INDEX'
+
+****
+* Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `slist delete 1`
+Deletes the first food item in the shopping list.
+
+=== Show shopping list: 'slist'
+
+Lists out all items in the shopping list with bought items first
+Format: `slist`
+
+Examples:
+
+* `slist`
+Shows all entries in the shopping list.
+
+=== Mark item as ‘bought’: 'slist bought'
+
+Marks an item as bought and assigns the expiry date and amount to that item
+There is flexibility in the amount of items that are bought. You can indicate more or less number of items bought than the number indicated in the shopping list.
+Format: `slist bought INDEX e/EXPIRYDATE a/AMOUNT`
+
+Examples:
+
+* `slist bought 1 e/3 Dec 2019 a/3`
+Marks the item at index 1 as bought and sets its expiry date as 3rd December, 2019 and amount as 3.
+* `slist bought 2 e/3 Nov 2019 a/2l`
+Marks the item at index 2 as bought and sets its expiry date as 3rd November, 2019 and amount as 2 litres.
+
+=== Add bought items: 'slist merge bought'
+
+Adds all items marked as ‘bought’ to the grocery list.
+Format: `slist merge bought`
+
+****
+* Adds all the items marked as bought in shopping list into the grocery list.
+* If the item with same expiry date is already present in the shopping list, just add the amount to the amount already present in the grocery list.
+* `slist merge bought`
+Merges all the items in shopping list marked as bought into the grocery list.
 
 ==== Generate shopping list: `slist addAll`
 
@@ -390,14 +466,8 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Add* `slist add f/FOOD_ITEM a/AMOUNT`
+* *Delete* : `slist delete INDEX`
+* *Edit* : `slist edit INDEX [f/FOOD_ITEM] [a/AMOUNT]`
+* *Merge* : `slist merge bought`
+* *Bought* : `slist bought INDEX [e/EXPIRY_DATE] [a/AMOUNT]`
