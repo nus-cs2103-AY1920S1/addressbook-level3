@@ -212,7 +212,7 @@ public class UiUtil {
             }
 
             if (userVisible && checkBounds.contains(Bounds.LEFT)) {
-                userVisible = visualBounds.getMinX() >= point.getX();
+                userVisible = visualBounds.getMinX() <= point.getX();
             }
 
             return userVisible;
