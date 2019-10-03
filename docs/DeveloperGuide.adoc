@@ -318,6 +318,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`* * *` |user |get reminders on expiring food items |prevent food wastage
+
+|`* * *` |user |set default reminder settings |get reminders of expiring food within the specified number of days every time I launch the app
+
+|`* * *` |user |sort food items |view grocery list with the specified sorting method
+
+|`* * *` |user |set default sort settings |view grocery list with the specified sorting method every time I display the grocery list
+
+|`* * *` |user |merge food items with same name and expiry date when viewing grocery list |view grocery list in a more organized manner
 |=======================================================================
 
 [appendix]
@@ -330,10 +340,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to use a certain amount of a specific food item
+4.  iFridge reduces the amount of the specific food item
 +
 Use case ends.
 
@@ -344,14 +354,18 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given amount is more than the amount of food registered in the list.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. iFridge shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The given amount is exactly the same as amount of food registered in the list.
+[none]
+** 3b1. iFridge removes the food item from the list.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
