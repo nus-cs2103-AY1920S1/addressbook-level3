@@ -279,13 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant number of groceries
+* has a tendency to forget to keep track of expiring items
+* interested in reducing their own food waste
+* wants an hassle-free way to shop for groceries
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage food inventory in order to reduce food waste
 
 [appendix]
 == User Stories
@@ -303,12 +305,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |add templates of grocery items |to keep track of what I want to have in my fridge
+
+|`* * *` |user |edit templates of grocery items |edit items and volumes based on my current needs and preferences
+
+|`* * *` |user |delete templates |maintain a short list of templates I regularly use
+
+|`* * *` |user |add multiple templates |use different templates depending on the occasion
+
+|`* * *` |user |generate a shopping list using my templates |save time on checking what is missing from my fridge
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -345,15 +355,23 @@ _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
-
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Application should be used by a single user.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  A user must be able to work with command-line interface.
+.  Should be able to hold up to 1000 food items without a noticeable sluggishness in performance for typical usage.
+.  Storage comprises of human editable file.
+.  No database management systems used.
+.  Application has object-oriented design.
+.  Application is platform independent, portable and does not use a remote server or external software.
+.  Application has easy to test features.
 
 [appendix]
 == Glossary
+*Grocery*: Food items found in the fridge.
+*Waste*: Groceries that have expired and have not been fully consumed.
+*Template*: A list of food items that the user regularly wants to keep in their fridge.
+*Shopping*: Grocery items to be bought.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
