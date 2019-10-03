@@ -385,7 +385,7 @@ Use case ends.
 
 * 1b. The user specifies an invalid member ID
 ** 1b1. +Work informs user that they have entered an invalid ID
-** 1b2. User enters a valid ID 
+** 1b2. User enters a valid ID
 ** Steps 1b1 - 1b2 are repeated until user provides a valid ID
 +
 Use case resumes from step 2.
@@ -404,14 +404,14 @@ Use case ends.
 *Extensions*
 * 1a. The user specifies an invalid team member and/or task ID
 ** 1a1. +Work informs user that they have entered an invalid ID
-** 1a2. User enters a valid ID 
+** 1a2. User enters a valid ID
 ** Steps 1a1 - 1a2 are repeated until user provides a valid ID
 +
 Use case resumes from step 2.
 
 * 1b. The user does not specify either/both team member and member ID
 ** 1b1. +Work informs user that they need to enter a valid ID
-** 1b2. User enters specifies the valid ID 
+** 1b2. User enters specifies the valid ID
 ** Steps 1b1 - 1b2 are repeated until user provides a valid ID
 +
 Use case resumes from step 2.
@@ -431,14 +431,14 @@ Use case ends.
 
 * 1a. The user specifies an invalid team member and/or task ID
 ** 1a1. +Work informs user that they have entered an invalid ID
-** 1a2. User enters a valid ID 
+** 1a2. User enters a valid ID
 ** Steps 1a1 - 1a2 are repeated until user provides a valid ID
 +
 Use case resumes from step 2.
 
 * 1b. The user does not specify either/both team member and member ID
 ** 1b1. +Work informs user that they need to enter the valid ID
-** 1b2. User enters specifies the valid ID 
+** 1b2. User enters specifies the valid ID
 ** Steps 1b1 - 1b2 are repeated until user provides a valid ID
 +
 Use case resumes from step 2.
@@ -479,7 +479,7 @@ Use case ends.
 
 * 1a. The user specifies an invalid task ID
 ** 1a1. +Work informs user that they have entered an invalid ID
-** 1a2. User enters a valid ID 
+** 1a2. User enters a valid ID
 ** Steps 1a1 - 1a2 are repeated until user provides a valid id
 +
 Use case resumes from step 2.
@@ -499,7 +499,7 @@ Use case ends.
 
 * 1a. The user specifies an invalid task ID
 ** 1a1. +Work informs user that they have entered an invalid ID
-** 1a2. User enters a valid ID 
+** 1a2. User enters a valid ID
 ** Steps 1a1 - 1a2 are repeated until user provides a valid id
 +
 Use case resumes from step 2.
@@ -536,7 +536,7 @@ Use case ends.
 
 * 1a. The user specifies an invalid task ID
 ** 1a1. +Work informs user that they have entered an invalid ID
-** 1a2. User enters a valid ID 
+** 1a2. User enters a valid ID
 ** Steps 1a1 - 1a2 are repeated until user provides a valid id
 +
 Use case resumes from step 2.
@@ -556,12 +556,12 @@ Use case ends.
 
 * 1a. The user specifies an invalid task ID
 ** 1a1. +Work informs user that they have entered an invalid ID
-** 1a2. User enters a valid ID 
+** 1a2. User enters a valid ID
 ** Steps 1a1 - 1a2 are repeated until user provides a valid ID
 +
 Use case resumes from step 2.
 
-* 1b. The user gives the deadline in the wrong format 
+* 1b. The user gives the deadline in the wrong format
 ** 1b1. +Work informs user that deadline must be in the format `dd-mm-yy hh:mm`
 ** 1b2. User enters the deadline in the correct format
 ** Steps 1b1 - 1b2 are repeated until user provides a valid deadline
@@ -641,7 +641,7 @@ Use case ends.
 
 * 1a. The user specifies an invalid inventory ID
 ** 1a1. +Work informs user that they have entered an invalid ID
-** 1a2. User enters a valid ID 
+** 1a2. User enters a valid ID
 ** Steps 1a1 - 1a2 are repeated until user provides a valid ID
 +
 Use case resumes from step 2.
