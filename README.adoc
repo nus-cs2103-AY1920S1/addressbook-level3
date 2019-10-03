@@ -29,7 +29,9 @@ With MAMS, solving module appeals becomes easier. Our application provides quick
 
 == Acknowledgements
 
-* The original source of the code is the AddressBook-Level3 project, created by the SE-EDU initiative.
+* The original source of the code is the AddressBook-Level3 project, created by the SE-EDU initiative at https://se-education.org
+
+
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
