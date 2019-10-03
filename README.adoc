@@ -15,21 +15,25 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* Tagline is a desktop note management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java application which is developed from an addressbook as part of CS2103T assessment, a Software Engineering module.
+== About TagLine
+Tired of Sticky Notes? +
+Having trouble finding the right note in your messy collage of notes? +
+Want a CLI note-taking app befitting of the techie that you are?
+
+TagLine is just for you!
+
+Being a multi-purpose note-taking app, not only can you take notes from the command line, you can also tag your notes with hashtags, contacts or groups. Managing your notes have never been easier!
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* The original source of the code was created by SE-EDU initiative at https://se-education.org
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]

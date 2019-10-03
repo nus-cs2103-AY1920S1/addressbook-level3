@@ -394,4 +394,3 @@ Example:
 |`tag list FILTER`
 |`tag list cs`
 |Lists all hashtags matching the filter “cs”, which may include “cs2100” or “cs2103” but not “trip”.
-|===

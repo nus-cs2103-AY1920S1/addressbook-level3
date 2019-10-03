@@ -23,11 +23,15 @@ image::Yehezkiel01.png[width="150", align="left"]
 
 Role: Team Member
 
+'''
+
 === Ng Shi Wei
 image::shiweing.png[width="150", align="left"]
 {empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
 
 Role: Team Member
+
+'''
 
 === Jonas Ong
 image::placeholder_image.png[width="150", align="left"]
@@ -35,15 +39,18 @@ image::placeholder_image.png[width="150", align="left"]
 
 Role: Team Member
 
+'''
+
 === Tan Likai
 image::placeholder_image.png[width="150", align="left"]
 {empty}[https://github.com/tanlk99[github]] [<<tanlikai#, portfolio>>]
 
 Role: Team Member
 
+'''
+
 === Steven Wijaya
 image::placeholder_image.png[width="150", align="left"]
 {empty}[https://github.com/stevenwjy[github]] [<<steven#, portfolio>>]
 
 Role: Team Member
-=======
