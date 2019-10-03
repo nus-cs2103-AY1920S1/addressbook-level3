@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
 import javafx.stage.Window;
@@ -122,17 +121,27 @@ public class SuggestingCommandBox extends CommandBox {
                 KeyCode.TAB
         );
 
+        final var listSelection = listView.getSelectionModel();
+
+        popup.showingProperty().addListener((unused1, unused2, isShowing) -> {
+            // pre-select the first item in the list when suggestions are being shown
+            if (!isShowing || !listSelection.isEmpty()) {
+                return;
+            }
+
+            listSelection.selectFirst();
+        });
+
         UiUtil.addKeyCodeListener(listView, KeyCode.TAB, keyEvent -> {
-            final MultipleSelectionModel<String> selectionModel = listView.getSelectionModel();
-            if (selectionModel.isEmpty()) {
+            if (listSelection.isEmpty()) {
                 if (listView.getItems().isEmpty()) {
                     return;
                 }
-                selectionModel.selectFirst();
+                listSelection.selectFirst();
             }
             keyEvent.consume();
 
-            final String selectedCommand = selectionModel.getSelectedItem();
+            final String selectedCommand = listSelection.getSelectedItem();
             commandTextField.setText(selectedCommand + " ");
             commandTextField.positionCaret(Integer.MAX_VALUE);
         });
