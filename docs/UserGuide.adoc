@@ -38,8 +38,8 @@ image::Ui.png[width="790"]
 +
 .  The panel on the left is the Chatbot Interface. Type a command in the message box and press Enter to execute it.
 .  Some commands you can try:
-    - `contact list`: Lists all contacts
-    - `note list`: Lists all notes
+- `contact list`: Lists all contacts
+- `note list`: Lists all notes
 .  Your output will be displayed on the panel on the right. For more features on each command, refer to the Command List.
 .  Refer to <<Command List>> for details of each command.
 
@@ -123,7 +123,7 @@ Examples:
 
 * `contact edit 00343 --n Holland --e nightmonkey@starkindustries.com`
 
-Disclaimer: partial edit will be supported in v2.0
+NOTE: Partial edit will be supported in v2.0
 
 ==== Deletes a person: `delete`
 
@@ -172,10 +172,12 @@ Format:
 Examples:
 
 * `contact clear`
-  Executing this command will trigger a confirmation in the chatbot: +
++
+Executing this command will trigger a confirmation in the chatbot:
++
   `Are you sure that you want to clear all data in your contact list? (Y/N)`
-
-  Then, if you answer "Y", the chatbot will clear all data in your contact list.
++
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
 === Manage groups: `group`
 
@@ -394,3 +396,4 @@ Example:
 |`tag list FILTER`
 |`tag list cs`
 |Lists all hashtags matching the filter “cs”, which may include “cs2100” or “cs2103” but not “trip”.
+|===
