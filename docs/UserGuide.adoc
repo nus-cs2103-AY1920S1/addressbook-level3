@@ -72,7 +72,7 @@ Options: +
 +
 Example: +
 `expense edit 2 -d “buy a math book”` +
-Edits the expense at index 2  with new description of: “buy a math book” +
+Edit the expense at index 2  with new description of: “buy a math book” +
 {nbsp} +
 
 . _Delete an existing expense: expense rm_ +
