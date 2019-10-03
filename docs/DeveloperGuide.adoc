@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F12-1/main
 
-By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -45,7 +45,7 @@ The rest of the App consists of four components.
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to the hard disk.
 
 Each of the four components
 
@@ -439,29 +439,6 @@ Use case resumes at step 1
 Use case ends
 
 [discrete]
-=== Use case 1: Add a Task
-
-*MSS*
-
-1.  User requests to add a Task
-2.  Horo replies that the Task has been added
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. The user adds additional sub-commands to the Task command
-+
-Use case ends.
-
-* 2a. The given add Task command is of the wrong format.
-+
-[none]
-** 2a1. Horo displays an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
 === Use case 5: Edit a Task
 
 *MSS*
@@ -561,24 +538,5 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
 
-. Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
