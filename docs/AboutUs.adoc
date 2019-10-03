@@ -32,7 +32,7 @@ Responsibilities: UI
 image::yijinl.png[width="150", align="left"]
 {empty}[http://github.com/uggi121[github]] [<<SudharshanMadhavan#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Logic
 
 '''
