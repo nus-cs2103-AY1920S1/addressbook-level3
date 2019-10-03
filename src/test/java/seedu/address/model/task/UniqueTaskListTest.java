@@ -14,8 +14,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.task.exceptions.DuplicatePersonException;
-import seedu.address.model.task.exceptions.PersonNotFoundException;
+import seedu.address.model.task.exceptions.DuplicateTaskException;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueTaskListTest {
@@ -54,7 +54,7 @@ public class UniqueTaskListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniqueTaskList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueTaskList.add(ALICE));
+        assertThrows(DuplicateTaskException.class, () -> uniqueTaskList.add(ALICE));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class UniqueTaskListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueTaskList.setTask(ALICE, ALICE));
+        assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.setTask(ALICE, ALICE));
     }
 
     @Test
@@ -105,7 +105,7 @@ public class UniqueTaskListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueTaskList.add(ALICE);
         uniqueTaskList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniqueTaskList.setTask(ALICE, BOB));
+        assertThrows(DuplicateTaskException.class, () -> uniqueTaskList.setTask(ALICE, BOB));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class UniqueTaskListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueTaskList.remove(ALICE));
+        assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.remove(ALICE));
     }
 
     @Test
@@ -158,7 +158,7 @@ public class UniqueTaskListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Task> listWithDuplicateTasks = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueTaskList.setTasks(listWithDuplicateTasks));
+        assertThrows(DuplicateTaskException.class, () -> uniqueTaskList.setTasks(listWithDuplicateTasks));
     }
 
     @Test

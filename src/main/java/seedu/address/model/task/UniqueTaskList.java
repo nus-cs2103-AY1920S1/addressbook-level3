@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.task.exceptions.DuplicatePersonException;
-import seedu.address.model.task.exceptions.PersonNotFoundException;
+import seedu.address.model.task.exceptions.DuplicateTaskException;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -43,7 +43,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void add(Task toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
     }
@@ -58,11 +58,11 @@ public class UniqueTaskList implements Iterable<Task> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
 
         if (!target.isSamePerson(editedTask) && contains(editedTask)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateTaskException();
         }
 
         internalList.set(index, editedTask);
@@ -75,7 +75,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void remove(Task toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
     }
 
@@ -91,7 +91,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
         if (!TasksAreUnique(tasks)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateTaskException();
         }
 
         internalList.setAll(tasks);
