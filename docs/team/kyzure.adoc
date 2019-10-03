@@ -1,0 +1,77 @@
+= Timothy Yu Zhiwen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Horo
+
+---
+
+== Overview
+
+Horo is a desktop Reminder application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is a Java application *written in an OOP fashion*, developed and intended for Students requiring a place to consolidate their Events and Task.
+
+== Summary of contributions
+
+* *Major enhancement*: enhanced *UI* component.
+** What it does: allows the user to interact with the GUI together with CLI, showing the Events and Task to the user as well as outputting the log for what the user did.
+** Justification: This feature is what makes the product visually appealing for the user, making the Events and Tasks compact and concise for the user to see, as well as having a log for what the user previously did.
+** Highlights: This enhancement affects the current and future commands, as it requires several other components for it to show the result to the user. Future commands or addition to Events and Task requires changes to the existing UI, as the GUI and UI component will require further changes.
+** Credits: _[https://top.gg/bot/349920059549941761[Reminder Bot]]_
+
+* *Minor enhancement*: _To be implemented_
+
+* *Code contributed*: _To be implemented_
+
+* *Other contributions*:
+
+_To be implemented_ +
+{empty} +
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+_To be implemented_
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+_To be implemented_
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
