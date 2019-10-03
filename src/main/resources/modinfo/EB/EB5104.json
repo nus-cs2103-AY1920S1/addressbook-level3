@@ -1,0 +1,8 @@
+{
+    "courseCode": "EB5104",
+    "courseCredit": "8",
+    "description": "The course aims to equip students with knowledge and skills to optimize business problems with large number of constraints and variables. Techniques, including linear programming, the transportation model, network models, goal programming, non-linear programming, and inventory models will enable students to address a wide range of applications in healthcare, logistics, defence, transportation, logistics, and economics. Students will learn how to formulate a model for the business problem, by identifying the decision variables, objective function and constraints. They will then learn how to validate their model, determine the optimal solution perform sensitivity analysis, and interpret the results, and make recommendations for decision making.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": "EB5001",
+    "title": "Decision Making and Optimization"
+}

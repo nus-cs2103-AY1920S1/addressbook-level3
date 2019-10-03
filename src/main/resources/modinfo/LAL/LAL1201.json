@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAL1201",
+    "courseCredit": "4",
+    "description": "The module aims at enabling non-Tamil-speaking beginners to achieve competence in understanding and using basic Tamil, both its spoken and written forms. The emphasis is mainly on conversational Tamil and its practical use at the level of everyday discourse and on written Tamil and its use at the beginners' level. To facilitate immersion into the Tamil language, students will be taught the necessary skills of listening, reading, writing and speaking initially through a Romanised script; during the semester the students will learn the orthographic system of the Tamil language. The essential aspects of Tamil grammar will also be taught. By the end of module, students will be able to write and read small texts by using the Tamil orthographic system and possess listening and speaking skills in Tamil language.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAL2201"
+    ],
+    "title": "Tamil 1"
+}

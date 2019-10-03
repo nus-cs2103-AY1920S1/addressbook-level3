@@ -1,0 +1,14 @@
+{
+    "courseCode": "MNO3321",
+    "courseCredit": "4",
+    "description": "This module aims to prepare students for the challenging task of training and developing effective employees to help organisations realise their missions and visions. Students will be given the role of an internal or external training consultant and tasked to conduct simulated consulting projects to put theories and concepts into action. Learning by doing will be the theme of this module. The course will uncover the practical value of T&amp;D (training and development) methods and learning theories/concepts to promote continuous learning in organisations. Students are expected to be knowledgeable about the field of human resource development (HRD) and the systematic approach to employee T&amp;D efforts by the end of the module. The module is highly application oriented and student assessment will be based solely on the experiential exercises designed for the module. Both students presentation skills and knowledge about training and development will be assessed. This module is designed to equip students for the roles of HR (human resource)/training specialists and/or non-HR managers/executives/supervisors with training and development responsibilities. Hence, this module does not require students to have taken an HRM (human resource management) module before, i.e., HRM is desired but not a compulsory prerequisite to this module. Note however that Lesson 10 requires students to apply basic HRM concepts when dealing with the lesson on Selecting and Managing Trainers. Regardless of whether students have taken an HRM module previously, they must read or reread the recommended HRM textbook in advance in order to fully benefit from the lesson.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3313C or BZ3503 or BK3305 or SW5254",
+    "prereqTree": {
+        "and": [
+            "MNO1001",
+            "MNO2007"
+        ]
+    },
+    "title": "Training and Development"
+}

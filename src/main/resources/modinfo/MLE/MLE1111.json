@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MLE1111",
+    "courseCredit": "4",
+    "description": "This module is a pure materials science and materials engineering module, which focuses on foundation and core concepts that practicing materials engineer must know. A number of applications will be used to help emphasise the importance of this core knowledge. Major topics covered in depth include: Atomic structure and bonding; structures, crystal systems, crystalline, noncrystalline and semicrystalline materials; Imperfections in Solids covering point defects, line defects, surface defects and grain boundaries; Fundamental concepts into mechanical properties of materials, involving statics and mechanics of materials, beam structures and beam bending will be covered here.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE3203",
+        "MLE3202",
+        "MLE3104",
+        "MLE3102",
+        "MLE2107",
+        "MLE2106",
+        "MLE2105",
+        "MLE2104",
+        "MLE2103"
+    ],
+    "preclusion": "MLE1101",
+    "title": "Foundation Materials Science and Engineering I"
+}

@@ -279,13 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* NUS student
+* plans his own modules
 * prefers typing over mouse input
+* can type fast
 * is reasonably comfortable using CLI apps
+* has to manage a significant number of tasks
+* has a tight budget
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: optimised for NUS students who have busy schedules and a tight budget
 
 [appendix]
 == User Stories
@@ -294,45 +296,51 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a(n) ... |I want to ... |So that I can...
+|`* * *` |social student |keep track of who owes me money & how much | not have anyone owe me any money.
 
-|`* * *` |user |add a new person |
+|`* * *` |busy student |keep track of all the tasks I have done | work on tasks that I have yet to do.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |indecisive student |roll back and forth changes that I have done | track my ever-changing schedule.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |NUS student | view all the prerequisites for a specified module | plan my academic roadmap accordingly.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |busy student |be reminded when I am nearing a deadline |be on top of all my assignments
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |student |calculate my CAP easily |keep track of my progress in university.
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
+(For all use cases below, the *System* is the `JARVIS` and the *Actor* is the `user`, unless specified otherwise)
 [discrete]
-=== Use case: Delete person
+=== Use case: Set tabs in finance tracker
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User inputs amount paid and the names of people who he paid for
+2. JARVIS calculates equal tab for all names including user
+3. JARVIS stores individual tabs for names input
+4. JARVIS prompts user that tabs have been added
+5. User requests to see list of debts owed to him
+6. JARVIS shows list of debts
++
+Use case ends.
+
+[discrete]
+=== Use case: Marks task in planner as done
+
+*MSS*
+
+1. User requests to list tasks in planner
+2. JARVIS shows lists of tasks in planner
+3. User requests to mark a certain task as done
+4. JARVIS finds task and marks it as done
 +
 Use case ends.
 
 *Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
 
 * 3a. The given index is invalid.
 +
@@ -341,16 +349,45 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Undo previous command
+
+*MSS*
+
+1. User adds a project meeting into planner
+2. JARVIS adds meeting into planner
+3. User requests to undo project meeting
+4. JARVIS rolls backs back the command
++
+Use case ends.
+
+[discrete]
+=== Use case: View prerequisite tree
+
+*MSS*
+
+1. User requests to for the prerequisite tree of a certain module
+2. JARVIS shows the prerequisite tree
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The given module code is invalid
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  JARVIS should work on any mainstream OS as long as it has Java 12 or above installed.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  JARVIS should respond within two seconds.
+.  JARVIS should be usable by a novice who has never used a command line interface.
+.  JARVIS should be able to work without any internet connection.
 
 [appendix]
 == Glossary
@@ -358,8 +395,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[CLI]] CLI::
+Command Line Interface
 
 [appendix]
 == Product Survey

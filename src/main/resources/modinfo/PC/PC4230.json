@@ -1,0 +1,12 @@
+{
+    "courseCode": "PC4230",
+    "courseCredit": "4",
+    "description": "This elective module covers a range of advanced topics in Quantum Mechanics. The basics of relativistic quantum mechanics will be covered: the Klein-Gordon equation; the Dirac equation and the covariant formulation of the Dirac theory, as well as the plane wave solution of the Dirac equation, the solution of the Dirac equation for a central potential and its non-relativistic limit The rest of the module is devoted to special topics, which may include the van der Waals interaction; the behaviour of electrons in solids; masers and lasers, the EPR argument and Bell\u2019s theorem, the interpretations of QM.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5206"
+    ],
+    "preclusion": "PC4130",
+    "prereqTree": "PC3130",
+    "title": "Quantum Mechanics III"
+}

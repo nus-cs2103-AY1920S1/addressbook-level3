@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCE5025",
+    "courseCredit": "4",
+    "description": "A broad range of diverse technologies, including information processing, computing, communications, control and electronics can be applied to our transportation and systems. The combination of these technologies, known commonly as intelligent transportation systems (ITS), enables engineers to effectively manage transportation problems at the system level. The topics covered in this module include state-of-the-practice and state-of-the-art systems and technologies in rapidly progressing ITS research and development. This module enables the student opportunity acquiring the knowledge and practical skills through the lectures, field investigations, and course projects.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TP5025",
+    "prereqTree": "TCE3121",
+    "title": "Intelligent Transportation Systems"
+}

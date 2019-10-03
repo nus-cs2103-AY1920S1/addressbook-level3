@@ -1,0 +1,26 @@
+{
+    "courseCode": "FNA2002",
+    "courseCredit": "4",
+    "description": "This course covers major concepts, tools and techniques in managerial accounting. It provides students with an appreciation of how managerial accounting evolves with changes in the business environment and why the usefulness of managerial accounting systems depends on the organisational context. The emphasis is on the use of managerial accounting information for decision-making, planning, and controlling activities. Students are introduced to both traditional and contemporary managerial accounting concepts and techniques.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC3602",
+        "FNA3112"
+    ],
+    "preclusion": "BH2002 or BZ3102 or BK2001",
+    "prereqTree": {
+        "or": [
+            "BK1003",
+            "BZ1002",
+            "BH1002",
+            "FNA1002",
+            "FNA1002X",
+            "FNA1002E",
+            "BH1002E",
+            "CS1304",
+            "EC3212",
+            "EG1422"
+        ]
+    },
+    "title": "Managerial Accounting"
+}

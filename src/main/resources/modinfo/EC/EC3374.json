@@ -1,0 +1,23 @@
+{
+    "courseCode": "EC3374",
+    "courseCredit": "4",
+    "description": "The module aims to help students understand certain key contemporary issues in the Chinese economy, particularly those relating to the process of its transition from a centrally planned closed economy to a market-based economy open to international trade. Students are expected to develop a comprehensive and critical perspective of China's economic transition and its impact on the rest of the world economy.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EC2374",
+            {
+                "and": [
+                    "EC2101",
+                    {
+                        "or": [
+                            "EC2102",
+                            "BSP2001"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "title": "Economy of Modern China II"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "SYE5204",
+    "courseCredit": "4",
+    "description": "This module deals with collecting and drawing inferences from data from operational processes to allow the decision maker to characterize, improve and design such processes. Statistical methods for supervised and unsupervised learning will be covered in this module. Topics include descriptive statistics, correlation analysis, regression analysis, multivariate analysis, nonparametric methods, associate rules, and cluster analysis. The subject is application oriented and examples drawn from service processes rather than mathematical development will be used wherever possible to introduce a topic.",
+    "faculty": "Engineering",
+    "preclusion": "IE5006 Learning from Data",
+    "title": "Learning from Data and Knowledge Discovery"
+}

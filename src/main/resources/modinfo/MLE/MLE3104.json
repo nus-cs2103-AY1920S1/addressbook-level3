@@ -1,0 +1,22 @@
+{
+    "courseCode": "MLE3104",
+    "courseCredit": "4",
+    "description": "Classification of polymers, polymer structure, molecular weight distribution; Basic synthetic and characterisation methods; Amorphous state and glass transition, crystalline state; General properties of polymers: physical, chemical, mechanical and electrical; Engineering and specialty polymers: processing and applications; Polymer-based composite materials: fabrication, structure and properties.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BN3301",
+        "MLE4203",
+        "MLE4202"
+    ],
+    "prereqTree": {
+        "or": [
+            "MLE1101",
+            "CM1121",
+            "CM1501",
+            "MLE1111",
+            "MLE1001",
+            "MLE1002"
+        ]
+    },
+    "title": "Polymeric and Composite Materials"
+}

@@ -1,0 +1,9 @@
+{
+    "courseCode": "YID3210",
+    "courseCredit": "5",
+    "description": "This course draws upon new research across the arts, humanities and social sciences to help students better understand the cultural and social dimensions of our currents patterns of energy use, their environmental impacts, and the possibility of new energy futures. More generally, the course introduces students to the field of environmental humanities, and models the contributions of the humanities to a deeper understanding of environmental issues.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YID2202 (previous module code)",
+    "prereqTree": "YID1201",
+    "title": "Energy Humanities: Culture, Energy, and the Environment"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "BN5102",
+    "courseCredit": "4",
+    "description": "This module is designed to make student acquire an adequate knowledge related to the design, construction and clinical testing of biomedical electronics and instrumentation for electrophysiological acquisition from the body. The major topics covered include the fundamentals of sensors and instrumentation electronics; biomedical devices, clinical instrumentation and imaging, and biomedical measurements.",
+    "faculty": "Engineering",
+    "title": "Clinical Instrumentation"
+}

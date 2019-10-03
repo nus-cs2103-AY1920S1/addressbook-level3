@@ -1,0 +1,15 @@
+{
+    "courseCode": "CN4123R",
+    "courseCredit": "6",
+    "description": "In this capstone design project, students execute a group project to design a chemical production facility. They solve a practical design problem in the same way as might be expected in an industrial situation. Students develop and evaluate process flowsheet alternatives via rigorous simulation, perform preliminary sizing, analyze safety and hazards, and estimate costs and profitability. Further, they learn how to solve open-ended problems by making critical design decisions with sound scientific justification and giving due consideration to cost and safety. Project coordinators act as facilitators, and students work almost independently on the project and exercise their creativity.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN3135",
+            "CN3421",
+            "CN4122",
+            "EG2401"
+        ]
+    },
+    "title": "Final Year Design Project"
+}

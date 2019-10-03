@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSC2225",
+    "courseCredit": "5",
+    "description": "The course aims to introduce student to the physical chemistry concepts that are essential to understanding and investigating the molecular and macroscopic world. Students will learn about quantum mechanics and spectroscopy, thermodynamics and statistical concepts, and reaction kinetics and dynamics.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3228"
+    ],
+    "prereqTree": {
+        "or": [
+            "YSC1207",
+            "YSC1213"
+        ]
+    },
+    "title": "Physical Chemistry"
+}

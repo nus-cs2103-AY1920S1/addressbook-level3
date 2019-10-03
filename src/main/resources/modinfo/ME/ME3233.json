@@ -1,0 +1,12 @@
+{
+    "courseCode": "ME3233",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "OT5305"
+    ],
+    "preclusion": "ME3231",
+    "prereqTree": "ME2134",
+    "title": "Unsteady Flow in Fluid Systems"
+}

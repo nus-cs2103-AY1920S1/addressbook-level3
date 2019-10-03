@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSC4206",
+    "courseCredit": "5",
+    "description": "Harmonic Analysis is a classical field of mathematics with roots in solving partial differential equations and also playing a major role in quantum physics. 'Big Data' has made applied harmonic analysis a major field of current mathematical research. Applications range from medical to astronomical imaging, from X-ray crystallography to data compression or machine learning. This module is an introduction to basic techniques of harmonic analysis (convolution, approximation, Fourier analysis) and applications in physics or data science (frames wavelets, sparsity). The choice of topics will depend on the instructor.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC2209",
+            "YSC3206",
+            "YSC2232"
+        ]
+    },
+    "title": "Harmonic Analysis"
+}

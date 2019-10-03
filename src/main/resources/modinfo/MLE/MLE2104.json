@@ -1,0 +1,29 @@
+{
+    "courseCode": "MLE2104",
+    "courseCredit": "4",
+    "description": "Stress and strain of material; Elastic deformation: Young\u2019s modulus, Poisson\u2019s ratio, stress-strain relation, stiffness/compliance matrix; Dislocations: Edge/screw/mixed dislocation, burgers vectors, twining, stress field of dislocation, dislocation interaction; Plastic deformation of single and polycrystalline materials: Schmid\u2019s law, plastic flow; Inelastic deformation: Viscosity, deformation of inorganic glasses, deformation of noncrystalline and crystalline polymers; Mechanical fracture: ductile and brittle facture, creep, fatigue; Testing methods, Introductory mechanics of materials.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE4102A",
+        "MLE4101A",
+        "MLE4101R",
+        "MLE4206",
+        "MLE4101",
+        "MLE3103",
+        "MLE2106",
+        "PC3242",
+        "PC3241"
+    ],
+    "prereqTree": {
+        "or": [
+            "EG1109FC",
+            "EG1109",
+            "MLE1101",
+            "MLE2101",
+            "MLE1111",
+            "MLE1001",
+            "MLE1002"
+        ]
+    },
+    "title": "Mechanical Properties of Materials"
+}

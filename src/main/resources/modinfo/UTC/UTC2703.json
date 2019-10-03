@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2703",
+    "courseCredit": "4",
+    "description": "Waves of infectious diseases like Ebola, SARS, and avian flu have shaken countries in recent years. The complex unpredictable nature of infectious diseases has also been a source of fear and threat to humans and other life forms for several centuries. The origin, spread, prevention and control of infectious diseases involve actors including animals, birds, insects, humans, environment, society and economics. This module will explore the interconnections and interdependencies between these actors as models that involve a 'system of systems'. Besides helping to relate model structure to dynamic behaviour, the models will be used to design optimal vaccination and control policies.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Infectious Diseases: Dynamics, Strategies and Policies"
+}

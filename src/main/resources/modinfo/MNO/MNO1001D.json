@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MNO1001D",
+    "courseCredit": "4",
+    "description": "This module addresses the essence of what managers do. To understand this, we begin by focusing on the two basic building blocks in organisations; the individual and the group. The broader environment in which managers and organisations will also be addressed. Lectures, case studies and experiential learning are used as tools for learning when appropriate.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have taken BE2106, EG1423, CS1303, BK2002 or BZ1001 or BH1001 are not allowed to take MNO1001. Students who took or are taking HR2001, HR2101, HR3111 or HR3308 cannot take MNO1001",
+    "title": "Management And Organisation"
+}

@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW2001P",
+    "courseCredit": "4",
+    "description": "Science fiction is less about the future than it is about the present. Many science fiction narratives critique contemporary social issues, particularly imperialism and colonialism. This course will introduce students to the theories of colonialism and their importance in a modern context. Armed with this knowledge, students will engage with classic and contemporary science fiction texts in order to understand, as well as question, how such narratives describe and proscribe ways of ordering the world. In developing their original research projects, students will explore how this intersection between popular narrative and ideology influences many of the ways we think about culture today.",
+    "faculty": "NUS",
+    "preclusion": "IEM2201%,\nUTW2001%",
+    "prereqTree": {
+        "or": [
+            "IEM1201",
+            "UTW1001"
+        ]
+    },
+    "title": "Science Fiction and Empire"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1020",
+    "courseCredit": "4",
+    "description": "Charles Darwin is remembered like no other figure in the history of science. However, public understanding of Darwin and evolution remains a serious problem. What most people think they know about Darwin, his life and his famous book \u2018On the origin of species\u2019 is wrong. This module provides a solid background for understanding how the theory of evolution actually unfolded. It covers the history of geology, palaeontology and biology from the 1700s to the 20th century. The central focus is on the life and work of Charles Darwin and how biological evolution was uncovered, debated and accepted by the international scientific community in the 19th century, and beyond. There will be a lot of myth busting and this provides case studies on how to assess historical claims and evidence, and discussions on recent developments in evolutionary biology, human evolution and anthropology are included.",
+    "faculty": "Science",
+    "preclusion": "GEM1902B Junior Seminar: The Darwinian Revolution. GEM1536",
+    "title": "Darwin and Evolution"
+}

@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAS3202",
+    "courseCredit": "4",
+    "description": "This module is a continuation of Spanish 3. Students taking this module will build upon what was covered in the first half and continue to expand their command of written and spoken Spanish. Spanish 4 pays close attention to aural/oral practice while strengthening more complex grammar skills (e.g., the subjunctive, passive voice), writing, and reading comprehension.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAS4201"
+    ],
+    "preclusion": "YS2202 Intermediate Spanish II",
+    "prereqTree": {
+        "or": [
+            "LAS3201",
+            "YLS2201"
+        ]
+    },
+    "title": "Spanish 4"
+}

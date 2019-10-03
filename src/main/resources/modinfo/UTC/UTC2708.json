@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2708",
+    "courseCredit": "4",
+    "description": "Singapore as a Smart Nation - where citizens enjoy a high quality of life, seamlessly enabled by technology and providing new opportunities for innovation and creativity. 'Internet of Things' (IoT) and 'Big Data' are essential ingredients to such a \"smart nation\". With the plethora and ubiquity of connected devices (50 Billion by 2020) and the clarion call to understand 'Big Data - The New Oil' (5 Exabytes every few days ) this module will provide insights into what these terms mean, their importance, challenges, and drivers. The module will have a blend of Lectures, Experiential Learning, Case Studies and some External Subject Matter Experts.",
+    "faculty": "Residential College",
+    "preclusion": "UTS2702 or UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Singapore - A Smart Nation in Context : IoT & Big Data"
+}

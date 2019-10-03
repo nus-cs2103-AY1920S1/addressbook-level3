@@ -1,0 +1,13 @@
+{
+    "courseCode": "DEP5110",
+    "courseCredit": "8",
+    "description": "DEP5110 is the second studio module of the MUP programme, including two different scale levels of Urban Planning: the level of urban design on local level (precinct and neighbourhood) and the level of urban planning at a larger township scale. Students work at choice in different subgroups learning to deal with the two scales of design and planning via an integrated assignment (urban design and urban planning). The results will be confronted with each other to discuss scale dependency as well as methodological implications of design and planning approaches.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "and": [
+            "DEP5101",
+            "DEP5103"
+        ]
+    },
+    "title": "Urban Design and Planning"
+}

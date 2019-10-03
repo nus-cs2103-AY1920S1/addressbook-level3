@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3247",
+    "courseCredit": "5",
+    "description": "Examining works of fiction, criticism, art, and film, this course unpacks the controversial term 'Afropolitan' (African Cosmopolitan), troubling certain stereotypes about Africa by studying African cities as global metropoles and African creators as international innovators. First used in 2005, the term 'Afropolitan' has attracted criticism as being applicable only to a certain social class: the wealthy global elite. We will begin by looking at writing both critical and laudatory of this term, and continue on to study key creative works in depth. No previous knowledge of African literature or arts is assumed, and students have the option of completing a creative final assignment.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "The Afropolitans: Contemporary African Lit. & Film"
+}

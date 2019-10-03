@@ -1,0 +1,8 @@
+{
+    "courseCode": "SPH5103",
+    "courseCredit": "4",
+    "description": "This module is an introduction to collection, management and data analysis of quantitative surveys in public health research, with strong emphasis on acquiring hands-on experience for handling public health data with the STATA software. It will cover essential concepts such as sampling and design of questionnaires as well as practical components such as data storage, management, and basic statistical analysis of questionnaire data.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5232 Collection, Management & Analysis of Quantitative Data",
+    "title": "Collection, Management & Analysis of Quantitative Data"
+}

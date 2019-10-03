@@ -1,0 +1,15 @@
+{
+    "courseCode": "MUT3223",
+    "courseCredit": "4",
+    "description": "This module introduces students to the compositional ideas developed in the early twentieth century (1900-1945). It provides students the skills and techniques for analysing this repertoire and composing music in this style. Perspectives will include not only the musical materials of these works but also some insights into their cultural context and historical placement. Class meetings will include a combination of lectures and group tutorials. The first half of the semester focuses on organizations of pitch, rhythm, form, texture and orchestration in the early twentieth century while the second half focuses on pitch-class set theory and twelve-tone theory.",
+    "faculty": "YST Conservatory of Music",
+    "prereqTree": {
+        "and": [
+            "MUT1121",
+            "MUT1122",
+            "MUT2117",
+            "MUT2118"
+        ]
+    },
+    "title": "Early Twentieth-Century Music"
+}

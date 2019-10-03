@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BT1101",
+    "courseCredit": "4",
+    "description": "This module provides students with an introduction to the fundamental concepts and tools needed to understand the emerging role of business analytics in business and non-profit organizations. The module aims to demonstrate to students how to apply basic business analytics tools in a spreadsheet environment, and how to communicate with analytics professionals to effectively use and interpret analytic models and results for making better and more well-informed business decisions.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "BT2102",
+        "BT2101",
+        "IS4241",
+        "IS3221"
+    ],
+    "preclusion": "DSC1007 or DSC1007X",
+    "title": "Introduction to Business Analytics"
+}

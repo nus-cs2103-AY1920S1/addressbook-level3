@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF2102",
+    "courseCredit": "4",
+    "description": "This module covers the principles underlying the performance and safety of structures. The major topics include concepts of forces, moments and equilibrium; structural design lifecycle; principles of structural analysis; properties of common structural materials; principles of foundation design; structural behaviour of simple buildings; and high rise systems.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "AR3324"
+    ],
+    "preclusion": "Students from Civil Engineering, PF2501",
+    "title": "Structural Systems"
+}

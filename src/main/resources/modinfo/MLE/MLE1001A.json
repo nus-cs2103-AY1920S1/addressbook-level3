@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MLE1001A",
+    "courseCredit": "4",
+    "description": "Notations for points, directions and planes. Basic crystal structures of metals. (BCC, FCC, and HCP), Basic crystal structures of ceramics and semiconductors. Imperfections in Solids covering point defects, line defects, surface defects and grain boundaries, Noncrystalline and semicrystalline materials Mechanical Properties. XRD and impact testing. Tension test and work hardening. Diffusion in solids; phase diagrams, inclusive of Gibbs phase rule, binary phase diagram and equilibrium diagrams.",
+    "faculty": "Engineering",
+    "preclusion": "MLE1001",
+    "title": "Materials Science & Engineering Principles & Practice I"
+}

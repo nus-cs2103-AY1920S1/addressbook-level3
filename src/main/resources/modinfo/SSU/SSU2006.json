@@ -1,0 +1,14 @@
+{
+    "courseCode": "SSU2006",
+    "courseCredit": "4",
+    "description": "This module concentrates on the Asian built environment \u2013 architecture, urban planning and sustainable development. The theme of the archaeology of the future considers the many layers of the city, from examining its past to identifying its already emerging possible urban futures. Discussions and readings that provide in-depth, analytical, and critical perspectives on urbanisation and urbanism in Asia will be supplemented with a field trip to URA\u2019s City Gallery and workshops on Futures Thinking. In particular, students will be taught the Casual Layered Analysis (CLA) methodology to help them think critically and deeply about present trends and the multiplicity of future scenarios. Through Singapore as a case study, students will gain a deeper understanding of challenges facing a rapidly-urbanising Asia, cultivate intellectual tools to evaluate these challenges and embody solutions through a hands-on creative project.",
+    "faculty": "Residential College",
+    "preclusion": "SSU2000% or SSU2004% or SSU2006% or UTS21% or UTC2109 or GEM2909%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Asia Now! The Archaeology of the Future City"
+}

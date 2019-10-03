@@ -1,0 +1,13 @@
+{
+    "courseCode": "ME2112",
+    "courseCredit": "4",
+    "description": "This course provides basic mechanical engineering knowledge and theory of mechanics of materials, and how they are used to solve practical engineering problems. The course includes introduction to statics, concept of stress and strain, analysis of stresses and deflections in a loaded beam, torsion of a circular bar as well as analysis of frames and machines.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME2114",
+        "ME2114E",
+        "TME2114"
+    ],
+    "prereqTree": "EG1111",
+    "title": "Strength of Materials"
+}

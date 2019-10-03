@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS3284",
+    "courseCredit": "5",
+    "description": "The concentrated population of city living has long posed a challenge to the human health. This problematic is the focus of this course. Using an interdisciplinary approach, the course examines the relationship between urbanization and public health, including understanding how cities might become healthier and more resilient. Students will be introduced to key analytical concepts and theories relevant to understanding urban public health generally, and in relation to urban environments, specifically. They will also be given an historical perspective on why urbanization and poor health are related.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS2220",
+            "YID1201",
+            "YSS2224"
+        ]
+    },
+    "title": "Healthy and Resilient Cities"
+}

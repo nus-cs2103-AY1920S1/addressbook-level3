@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3242",
+    "courseCredit": "4",
+    "description": "This module will study the usefulness and relevance of \u2018intercultural theatre\u2019 as an approach to productions that combine different theatrical forms and cultures. It aims to explore the critical issues and implications of intercultural theatre, a term largely used by Western critics, from specifically Asian positions to practice, and to assess interculturalism as an approach against other concepts such as adaptation, cultural ownership, and cultural \u2018borrowing\u2019. The study of various theoretical approaches and performance texts in this module will be related to broader issues such as (post)colonialism, globalisation, and transnationalism.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Intercultural Theatre"
+}

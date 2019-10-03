@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2213",
+    "courseCredit": "4",
+    "description": "Broadly speaking, Metaphysics is the study of fundamental conceptual categories, including that of space and time, appearance and reality, mind and body, substance and existence, objects and their properties, and God. These concepts pertain to the structure of &quot;ultimate reality&quot; and generate perplexing philosophical issues, a sample of which will be discussed in this course. Some topics: the problem of universals, paradoxes of the infinite, the concept of God, paradoxes of time travel, problems of cause and effect, free will, fatalism and determinism, the mind-body problem, realism and idealism, existence, identity, and individuation, essentialism, the relation between logic and metaphysics.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3242",
+        "PH3244"
+    ],
+    "title": "Metaphysics"
+}

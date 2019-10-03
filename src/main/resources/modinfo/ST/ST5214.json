@@ -1,0 +1,12 @@
+{
+    "courseCode": "ST5214",
+    "courseCredit": "4",
+    "description": "Probability measures and their distribution functions. Random variable: properties of mathematical expectation, independence, conditional probability and expectation. Convergence concepts: various modes of convergence of sequence of random variables; almost sure convergence, Borel-Cantelli Lemma, uniform integrability, convergence of moments. Weak and strong law of large numbers. Convergence in distribution, characteristic function: general properties, convolution, uniqueness and inversion, Lindeberg conditions and central limit theorem. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5260"
+    ],
+    "preclusion": "MA5259",
+    "prereqTree": "ST2131",
+    "title": "Advanced Probability Theory"
+}

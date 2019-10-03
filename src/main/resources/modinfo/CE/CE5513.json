@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5513",
+    "courseCredit": "4",
+    "description": "This module provides students with basic knowledge on the theory of plasticity and their application for analysis and design of civil engineering structures. The topics covered include basic concepts of plasticity; the plastic hinge; tools used in plastic analysis and design; plastic design of beams, portal frames and multi-storey buildings, and computer methods for analysing large scale framework. Students are taught to deal with general inelastic problems of frames including computer applications and numerical formulation. The module of specialized context targets at undergraduate and graduate students in research or engineering practices relating to structural analysis and design.",
+    "faculty": "Engineering",
+    "preclusion": "CE5885A Topics in Structural Engineering: Advanced Analysis",
+    "prereqTree": "CE2155",
+    "title": "Plastic Analysis Of Structures"
+}

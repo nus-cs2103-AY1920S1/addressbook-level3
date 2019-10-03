@@ -1,0 +1,20 @@
+{
+    "courseCode": "MNO3301",
+    "courseCredit": "4",
+    "description": "This course deals with the study of human behavior in organisations: how people influence organisational events and how events within the organisation influence people's behaviour. Organisational behavior is a field that draws ideas from psychology, social psychology, sociology, anthropology, political science, and management and applies them to the organisation. The field of organisational behaviour covers a wide range of topics: organisational culture, motivation, decision making, communication, work stress and so on. In the end, the field of organisational behavior asks two questions: (1) why do people behave as they do within organisations? (2) how can we use this information to improve the effectiveness of the organisation?",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3301 or BZ3501 or BK3309M or PS3243",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "BH1001",
+            "BZ1001",
+            "BK2002",
+            "HR2001",
+            "HR2101",
+            "HR3111",
+            "HR3308"
+        ]
+    },
+    "title": "Organisational Behaviour"
+}

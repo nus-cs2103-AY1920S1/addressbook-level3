@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6107",
+    "courseCredit": "4",
+    "description": "Basic concepts and principles of system optimality with applications to control and state estimation will be taught in the module. Major topics covered are optimality, selection of cost functions, linear quadratic Gaussian controllers, Kalman filter, and model predictive control. The recent development in optimal system and control has brought in new topics and methods, which are covered in this module, including inverse optimality, linear matrix inequality, numerical optimal algorithms, randomized optimization algorithms, nonlinear H\u221e",
+    "faculty": "Engineering",
+    "preclusion": "EE5107 Optimal Control Systems,\nEE5105 Optimal Control Systems (old code for EE5107)",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401"
+        ]
+    },
+    "title": "Optimal Control Systems (Advanced)"
+}

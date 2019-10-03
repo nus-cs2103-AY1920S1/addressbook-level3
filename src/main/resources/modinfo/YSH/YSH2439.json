@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSH2439",
+    "courseCredit": "1",
+    "description": "This course is a sequel to and can only be taken upon successful completion of Introduction to Financial Markets 1. It covers fundamental concepts in financial markets and valuation. We will learn about more advanced financial securities such as forwards/futures, and options, and the methods to value them. We will discuss the concepts of risk and return, portfolio optimization, diversification, and market efficiency.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSH2438",
+    "title": "Introduction to Financial Markets 2"
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIE4220",
+    "courseCredit": "4",
+    "description": "This course introduces the fundamentals of supply chain concepts. It covers issues and basic techniques of distribution strategies, transportation logistics and supply chain network optimisation models. Students are equipped with fundamental concepts and quantitative tools that are essential to solving logistics and supply chain problems.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "IE4220E",
+    "title": "Supply Chain Modelling"
+}

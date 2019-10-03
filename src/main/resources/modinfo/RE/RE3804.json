@@ -1,0 +1,9 @@
+{
+    "courseCode": "RE3804",
+    "courseCredit": "4",
+    "description": "This module deals with the legal issues that affect real estate development. It examines the regulatory framework for real estate development and taxation. It also deals with the regulations pertaining to the acquisition of land for public and private developments. Topics to be covered include: land use planning and zoning, development and building controls, betterment value and development charge, property tax, stamp duty, income tax, and goods and services tax.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE3221 Real Estate Development Law",
+    "prereqTree": "RE2702",
+    "title": "Real Estate Development Law"
+}

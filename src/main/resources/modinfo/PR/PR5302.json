@@ -1,0 +1,23 @@
+{
+    "courseCode": "PR5302",
+    "courseCredit": "4",
+    "description": "This module is aimed at reviewing the drug discovery and drug development processes with an emphasis on the regulatory aspects of these activities. Animal pre-clinical research and human clinical research are discussed, along with the three phases of human clinical trials. The chemistry manufacturing and control (CMC) aspects of drug development are presented. The ICH documentation requirements and the application of manufacturing process analytical technologies will also be discussed. The course will conclude with a brief overview of patents and international regulatory issues. Target students: Enrolment in M.Sc. (Pharmaceutical Sciences & Technology) programme.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    {
+                        "or": [
+                            "PR2101",
+                            "PR3102"
+                        ]
+                    },
+                    "PR4106"
+                ]
+            },
+            "PR3301"
+        ]
+    },
+    "title": "Regulation of Drug Development"
+}

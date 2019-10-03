@@ -1,0 +1,29 @@
+{
+    "courseCode": "BT4015",
+    "courseCredit": "4",
+    "description": "This module will offer an in-depth coverage of geospatial analysis, starting with the transferring of knowledge in the gathering, display, and manipulation of imagery, GPS, satellite photography and historical data. Geospatial storage tools such as PostGIS that have been created to provide a more scalable backend will be introduced. Other geospatial tools, such as ArcGIS, will be covered. Exploratory Spatial and Spatio-temporal Data Analysis (ESDA, ESTDA) and spatial statistics, including spatial autocorrelation and spatial regression are some of the geospatial data analytics methods covered in detail on the variety of business contexts, operations and applications.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    {
+                        "or": [
+                            "ST2131",
+                            "ST2334"
+                        ]
+                    },
+                    "BT2101"
+                ]
+            },
+            "BT2102",
+            {
+                "or": [
+                    "CS2010",
+                    "CS2040"
+                ]
+            }
+        ]
+    },
+    "title": "Geospatial Analytics"
+}

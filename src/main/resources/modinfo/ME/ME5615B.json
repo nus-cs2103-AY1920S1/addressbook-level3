@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5615B",
+    "courseCredit": "2",
+    "description": "Post-processing is an indispensable step to improve the final quality of the additively manufactured metal parts. This module exposes the students to a series of key machining and finishing methods as well as their applications in AM post-processing. This module covers the major topics about post-processing of the additively manufactured metal parts including surface integrity and material characterisation of AM, heat treatment for 3DPed metal parts, post machining technology, magnetic assisted finishing technology, conventional and non-conventional post-processing methods, etc. This module provides the knowledge and practical expertise to the students who are and will be engaged in a career related to additive manufacturing.",
+    "faculty": "Engineering",
+    "preclusion": "ME6604 Modelling of Machining Processes",
+    "title": "Post-processing for Additive Manufacturing"
+}

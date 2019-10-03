@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAF4202",
+    "courseCredit": "5",
+    "description": "Building on the foundations of French 5, this module helps the students to develop and put in practical use the knowledge acquired in various specific fields, such as commercial French, contemporary culture, advanced conversation and writing skills.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAF4203"
+    ],
+    "prereqTree": "LAF4201",
+    "title": "French 6"
+}

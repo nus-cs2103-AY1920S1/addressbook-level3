@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3252",
+    "courseCredit": "4",
+    "description": "This module traces the development of how we have come to our contemporary 'affective turn.' We will begin with where the question of affects supposedly begun: Spinoza. We will then read how Deleuze underscored its importance, and how that has been carried through politically by Brian Massumi today. At the same time, we will be equally invested in Eve Sedgwick\u2019s development of affect for feminist and queer theory in Berlant, Cvetkovich, Love, Edelman, Stewart, Nelson, and others. Finally, we will explore how affect theory affects literary studies with a reading of Ottessa Moshfegh\u2019s My Year of Rest and Relaxation.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "The Genealogy of Affect Theory"
+}

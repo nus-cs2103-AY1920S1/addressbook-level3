@@ -1,0 +1,11 @@
+{
+    "courseCode": "MA4235",
+    "courseCredit": "4",
+    "description": "This module covers some advanced as well as special topics in Graph Theory. The topics are to be chosen from: Domination Theory, Edge Coloring, List Coloring, Graph Ramsey Theory, Chromatic Polynomials, Reconstruction Problem, Planar Graphs, Perfect Graphs, Matroid Theory.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5235"
+    ],
+    "prereqTree": "MA3233",
+    "title": "Topics in Graph Theory"
+}

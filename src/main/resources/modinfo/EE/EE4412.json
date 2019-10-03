@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4412",
+    "courseCredit": "4",
+    "description": "This module covers the operation, modeling and fabrication of silicon bipolar and MOS transistors, the understanding of which is essential for the integrated circuit engineer. At the end of this module, students will gain a good understanding of the issues regarding the design and fabrication of modern silicon transistors as their dimensions continue to shrink. They will be exposed to the basic techniques of modeling, simulation and technology of these devices. Topics covered: MOS Capacitor: C-V characteristics, physical models; MOSFETs: long and short channel devices, threshold voltage, subthreshold behaviour, device scaling, short-channel effects, gate, drain and dielectric engineering; Bipolar transistors: structures and operations, high current effects, emitter, base and collector engineering; Polyemitter and Si-Ge heterojunction transistors; CMOS, bipolar and BiCMOS technology.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2021",
+    "title": "Technology & Modelling Of Si Transistors"
+}

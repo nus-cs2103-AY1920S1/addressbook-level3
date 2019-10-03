@@ -1,0 +1,15 @@
+{
+    "courseCode": "PH3241",
+    "courseCredit": "4",
+    "description": "One of the main problems of consciousness concerns whether consciousness can be explained solely in terms of brain activity and the like. Some philosophers think so. After all, science has successfully explained various cognitive functions in such terms, and it\u2019s natural to think that its success will eventually extend to consciousness. Other philosophers disagree, finding it hard to fathom how consciousness can arise from the purely physical. To help us decide which answer is correct, we shall examine various important positions on the nature of consciousness including physicalism, dualism, eliminativism, and idealism.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PH3212",
+    "prereqTree": {
+        "or": [
+            "PH2241",
+            "PH2242",
+            "PH3210"
+        ]
+    },
+    "title": "Consciousness"
+}

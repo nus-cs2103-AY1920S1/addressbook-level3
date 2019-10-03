@@ -1,0 +1,10 @@
+{
+    "courseCode": "ES5001A",
+    "courseCredit": "0",
+    "description": "ES5001A aims to raise the proficiency level of the students' English in terms of their writing and oral presentation skills, so that they have confidence in using English for academic purposes. Students will be involved in writing short paragraphs, a short research report, and a summary analysis. Also, they will be taught principles of good writing and effective use of the dictionary. To prepare them for speaking at seminars and conferences, they will be trained to give oral presentations. This module is primarily for foreign graduate students of NUS who graduated from non-English medium universities who are not exempted based on their Diagnostic English Test results.",
+    "faculty": "NUS",
+    "fulfillRequirements": [
+        "ES5002"
+    ],
+    "title": "Graduate English Course (Intermediate Level)"
+}

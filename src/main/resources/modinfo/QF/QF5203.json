@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "QF5203",
+    "courseCredit": "4",
+    "description": "This graduate module on quantitative finance provides a study of the nature, measurement, analysis of, and management of different types of financial risks, including market risk, credit risk, operational risk, liquidity and model risks. It develops the mathematical fundamentals and models for risk management, including a general framework of risk and credit measures, dynamic analysis of financial derivative parameters (Greeks) and their changes in real-time for trading risk management. Examples from current and/or past developments in financial markets will be chosen to provide illustrations so that students may understand the various types of risk and learn the methods to handle the management of risks.",
+    "faculty": "Science",
+    "title": "Risk Management"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1116",
+    "courseCredit": "2",
+    "description": "This module provides first-year piano students with an introduction to instrumental accompaniment, equipping students with knowledge and skills essential for working professionally with instrumentalists. Students will receive coaching on various selected works, as well as participate in classes which will provide a general overview and delve into the common issues of instrumental accompaniment.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2242",
+        "MUA2243"
+    ],
+    "title": "Foundations of Instrumental Accompaniment"
+}

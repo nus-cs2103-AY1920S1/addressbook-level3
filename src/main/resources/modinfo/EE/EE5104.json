@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5104",
+    "courseCredit": "4",
+    "description": "The course aims to introduce the basic concepts and design methods of adaptive control. The concepts underlying adaptive control schemes, such as Lyapunov-based direct adaptive control scheme, self-tuning regulator and model reference adaptive control, will be studied in detail. Least squares estimate and the issues related to parameter adaptation will also be introduced. To provide an understanding of an alternative to \"adaptation\", the concept and basic design of variable structure control will be discussed. Case studies of various engineering control problems will be used throughout the course to provide insights and useful design guideline.",
+    "faculty": "Engineering",
+    "preclusion": "EE6104 Adaptive Control Systems (Advanced)",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401"
+        ]
+    },
+    "title": "Adaptive Control Systems"
+}

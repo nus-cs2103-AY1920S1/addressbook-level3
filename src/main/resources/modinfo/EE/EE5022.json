@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "EE5022",
+    "courseCredit": "2",
+    "description": "This module will introduce tools and methodologies for cyber secucity of IoT systems. The topics covered include the basic of cyber security for IoT systems, threats and vulnerabilities, tools and techniques for detecting attacks, and mitigation strategies. In addition to the fundatental concepts, students will be exposed to hands on training for analysing IoT and cyber-physical system data for detecting cyber-threats and attacks.",
+    "faculty": "Engineering",
+    "title": "Cyber Security for Internet of Things"
+}

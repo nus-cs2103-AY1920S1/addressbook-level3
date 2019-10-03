@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3213",
+    "courseCredit": "4",
+    "description": "The study of language typology and universals is concerned with the evaluation of how the various linguistic subsystems in any language differ from those found in most other languages, and whether linguistic diversity is a norm or otherwise. In this introduction to typology, students will acquire a fundamental overview of the grammatical make-up of languages, and an appreciation for an important approach in contemporary linguistics. Language typology contributes to and draws on core areas of linguistics such as phonetics, phonology, morphology, syntax, psycholinguistics, sociolinguistics, and language acquisition, among others.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL2101",
+            "EL2201"
+        ]
+    },
+    "title": "Language Typology"
+}

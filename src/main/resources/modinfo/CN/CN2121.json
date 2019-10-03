@@ -1,0 +1,23 @@
+{
+    "courseCode": "CN2121",
+    "courseCredit": "4",
+    "description": "This module provides students with an understanding of the basic laws and concepts of thermodynamics for applying to analyze chemical engineering problems. The basic definition, applications and limitations of chemical engineering thermodynamics are first introduced followed by a review of basic laws, properties and concepts of thermodynamics. The application of basic concepts of energy conversion is extended to refrigeration and liquefaction processes. The development and discussion of thermodynamic property relations for systems of constant and variable compositions are covered in detail. The developed property relationships together with the basic laws are then applied to the analysis of the various equilibrium problems in chemical engineering such as vapour-liquid, vapour-liquid-liquid, liquid-liquid, solid-liquid and chemical reaction equilibria. This module is targeted at level 2 chemical engineering students.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN2108",
+        "CN4211R",
+        "CN3135",
+        "CN4122",
+        "CN4251",
+        "CN3101"
+    ],
+    "prereqTree": {
+        "or": [
+            "CN1111FC",
+            "CN1111",
+            "CN1111X",
+            "CM1502"
+        ]
+    },
+    "title": "Chemical Engineering Thermodynamics"
+}

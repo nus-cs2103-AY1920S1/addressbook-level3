@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5608B",
+    "courseCredit": "2",
+    "description": "This introductory module emphasizes on hybrid manufacturing techniques. This will focus on how to use two or more non-conventional material additive and removal processes in macro, micro and nano-scale to machine features. Topics include: bio-micro printing, chemicalmechanical polishing (CMP), electrical-chemical machining (ECM), ultra-precision diamond turning (UPDG), Electrolytic in-process dressing (ELID) grinding, laser-based machining, Ultrasonic Machining, Abrasive Machining Processes, etc. Students are expected to carry out an independent study by project or term paper on the related topics. A structured programme of lectures, term papers, and a final examination are included in this module.",
+    "faculty": "Engineering",
+    "preclusion": "ME5608: Additive and Non-Conventional Manufacturing Processes",
+    "title": "Hybrid Manufacturing"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5109",
+    "courseCredit": "4",
+    "description": "This is a module for engineering students of any disciplines. One part of it is used as a PGMC for a Graduate Certificate on Robotics and Automation. The module covers practical approaches to modelling and identification of dynamical systems, and the applications of mechatronics, including the constituent technology components of sensors, actuators and control. Case studies of mechatronic applications will be done. Hands-on sessions will be conducted and a group design project will be done.",
+    "faculty": "Engineering",
+    "preclusion": "MCH5002 Applications of Mechatronics or EE5063 Modeling of\nMechatronic Systems",
+    "title": "Modelling and Applications of Mechatronic Systems"
+}

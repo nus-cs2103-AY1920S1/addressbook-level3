@@ -1,0 +1,12 @@
+{
+    "courseCode": "YLC3204",
+    "courseCredit": "5",
+    "description": "The course is the continuation of Advanced Chinese 1 and prepares students to take further courses in advanced-level Chinese. It is designed for students who have studied at least two-and-a-half years of Chinese at the college level to achieve greater proficiency in oral and written uses of modern Mandarin. The course further develop language skills in listening, speaking, reading, and writing, with particular emphasis on enhancing reading and writing abilities. It builds upon the foundations of Advanced Chinese 1 yet differs in giving the students increased exposure to authentic written (and audio-visual) materials not specifically designed for classroom learning.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YLC3205",
+        "YLC3206"
+    ],
+    "prereqTree": "YLC3203",
+    "title": "Advanced Chinese 2"
+}

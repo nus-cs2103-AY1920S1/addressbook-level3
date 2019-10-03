@@ -1,0 +1,13 @@
+{
+    "courseCode": "BN2401",
+    "courseCredit": "4",
+    "description": "This module will introduce signals and systems in both continuous and discrete time domains with examples from biomedical signals processing. The theory is motivated by examples from biomedical signals and systems, such as EEG and ECG. Numerous MATLAB commands for solving a wide range of problems arising in processing physiological signals will be illustrated. Topics will include the introduction to biosignal examples, continuous and discrete signals, linear time invariant discrete and continuous systems, convolution, Fourier series, Fourier transforms, filtering, Laplace transforms. Hands-on experiments on biosignal sampling, frequency analysis, and filtering will be performed using MATLAB.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BN4406",
+        "EE4603"
+    ],
+    "preclusion": "EE2023 Signals and Systems",
+    "prereqTree": "MA1506",
+    "title": "Biosignals Processing"
+}

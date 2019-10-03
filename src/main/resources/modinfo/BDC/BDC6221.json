@@ -1,0 +1,13 @@
+{
+    "courseCode": "BDC6221",
+    "courseCredit": "4",
+    "description": "Stochastic models are used extensively to analyze and optimize in a wide variety of applications including business operations, economic systems, finance and engineering. This module provides the core knowledge for graduate students specializing in operation management and management sciences. Topic covered includes dynamic programming, stochastic ordering and their applications.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "BDC6112",
+            "IE6004"
+        ]
+    },
+    "title": "Stochastic Modelling and Optimization"
+}

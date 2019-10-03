@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "EN4401",
+    "courseCredit": "15",
+    "description": "The Honours Thesis is usually done in the final semester of a student's pursuing an Honours degree.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EN4660",
+    "title": "Honours Thesis"
+}

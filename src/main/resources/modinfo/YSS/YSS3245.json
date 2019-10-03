@@ -1,0 +1,10 @@
+{
+    "courseCode": "YSS3245",
+    "courseCredit": "5",
+    "description": "This course explores key debates in contemporary urban planning and policy, including questions of agglomeration, property rights, rationality, democracy, diversity, and justice. While these questions are crucial for successfully intervening in contemporary urban transformation, they are not new. Rather, they are part of ongoing debates that stretch back to the origins of urban planning and policy. In order to understand the issues facing contemporary urban planning, it is therefore necessary to excavate their historical development. Through this excavation, we will develop informed positions on contemporary practice in urban planning and policy.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4213"
+    ],
+    "title": "Key Debates in Urban Planning and Policy"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS4218",
+    "courseCredit": "4",
+    "description": "This module covers the concepts and practice of software testing including unit testing, integration testing, and regression testing. Various testing coverage criteria will be discussed. Debugging methods for finding the root-cause of errors in failing test cases will also be investigated. The use of testing and analysis for performance prediction, performance clustering and performance debugging will be studied. Students will acquire crucial skills on testing and debugging through hands-on assignments.",
+    "faculty": "Computing",
+    "prereqTree": "CS3219",
+    "title": "Software Testing"
+}

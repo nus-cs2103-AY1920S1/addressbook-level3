@@ -1,0 +1,41 @@
+{
+    "courseCode": "PC2131",
+    "courseCredit": "4",
+    "description": "Among the four fundamental forces in nature, the electromagnetic force has great technological importance and is critical for the understanding of other subjects in science and engineering, such as optics, radiation, chemistry, biology and electrical engineering. This module provides a comprehensive treatment of electromagnetic fields and forces. It covers the following topics: vector analysis, electrostatics, special techniques in electrostatics, magnetostatics, electric and magnetic fields in matter, electromotive force, electromagnetic induction, and Maxwell\u2019s equations. This module is targeted at physics majors and science students in general.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC3267",
+        "PC3247",
+        "PC3243",
+        "PC3242",
+        "PC3241",
+        "PC3231"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PC1143",
+                    "PC1432",
+                    "PC1432X"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1513",
+                    "MA1508E"
+                ]
+            },
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    "MA1511",
+                    "MA1512"
+                ]
+            }
+        ]
+    },
+    "title": "Electricity & Magnetism I"
+}

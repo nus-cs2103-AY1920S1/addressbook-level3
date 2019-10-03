@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2707",
+    "courseCredit": "4",
+    "description": "The rapid growth of the elderly population in Singapore is a source of concern due to the health implications of aging. While people are increasingly avoiding fatal events, they are often not avoiding the physiological changes associated with aging and the accumulation of chronic conditions and functional disability. Keeping pace with rising healthcare demand poses a key challenge for policymakers. This module explores the complex relationships between health and social care in the context of an aging society, with Singapore as a case. Students will be introduced to concepts and tools for health system-wide analysis of health and social care policies and strategies.",
+    "faculty": "Residential College",
+    "preclusion": "UTS2701 or UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Understanding Health and Social Care in Singapore"
+}

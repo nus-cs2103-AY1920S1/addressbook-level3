@@ -1,0 +1,11 @@
+{
+    "courseCode": "GE3244",
+    "courseCredit": "4",
+    "description": "The existence of commercial deposits of oil and gas depends on geological conditions. These include the presence of a source rock, a reservoir rock and a geological structure to migrate, trap and concentrate hydrocarbons. This module focuses on the petroleum system and its significance for understanding the subsurface environments in which hydrocarbon resources accumulate. The module provides a useful introduction to geological information used by the upstream petroleum industry in exploration, appraisal and production.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE3243"
+    ],
+    "preclusion": "GE3880A Topics in Petroleum Geoscience",
+    "title": "Fundamentals of Petroleum Exploration"
+}

@@ -1,0 +1,34 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BH2004",
+    "courseCredit": "4",
+    "description": "This course helps students to understand the key concepts and tools in Finance. It provides a broad overview of the financial environment under which a firm operates. It equips the students with the conceptual and analytical skills necessary to make sound financial decisions for a firm. Topics to be covered include introduction to finance, financial statement analysis, long-term financial planning, time value of money, risk and return analysis, capital budgeting methods and applications, common stock valuation, bond valuation, short term management and financing.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "FIN3101",
+        "FIN3101A",
+        "FIN3101B",
+        "FIN3101C",
+        "FIN3102",
+        "FIN3102A",
+        "FIN3102B",
+        "FIN3102C",
+        "FIN3103",
+        "FIN3103A",
+        "FIN3103B",
+        "FIN3119",
+        "FNA3101",
+        "FNA3101A",
+        "FNA3101B",
+        "FNA3102",
+        "FNA3102A",
+        "FNA3102B",
+        "FNA3103",
+        "FNA3119",
+        "FIN3103C",
+        "FIN3102D"
+    ],
+    "title": "Finance"
+}

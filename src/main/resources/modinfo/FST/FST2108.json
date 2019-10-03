@@ -1,0 +1,23 @@
+{
+    "courseCode": "FST2108",
+    "courseCredit": "4",
+    "description": "This module examines the major sources of food contaminants, the ways of preventing contamination and the likely consequences as regards health of consumers if contaminated food is consumed. Emphasis is placed on both biological and chemical contaminants and how these affect the consumer. An introduction to epidemiology is included and some methods of determining the levels of contamination are discussed and utilised. The main aim of the module is to explain the importance of safe and quality food and how this may be achieved.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST3105"
+    ],
+    "preclusion": "FST3102",
+    "prereqTree": {
+        "or": [
+            "FST2102B",
+            {
+                "and": [
+                    "LSM1103",
+                    "LSM2103"
+                ]
+            },
+            "LSM1106"
+        ]
+    },
+    "title": "Food Safety Assurance"
+}

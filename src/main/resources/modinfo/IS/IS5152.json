@@ -1,0 +1,13 @@
+{
+    "courseCode": "IS5152",
+    "courseCredit": "4",
+    "description": "Data driven decision making improves productivity and profitability of businesses. This module teaches students decision making techniques based on data analysis. Various Machine Learning (ML) techniques for data analysis will be presented. The module also discusses aspects related to building an effective model for decision making such as: (i) methods for data preparation such as feature selection, data reduction and sample selection, (ii) metrics for determining a good model, (iii) visualization of model performance, (iv) overfitting and its avoidance. Examples of practical business decision making problems will be used to illustrate the merits of the ML techniques presented.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "ST2334",
+            "ST1131"
+        ]
+    },
+    "title": "Data-Driven Decision Making"
+}

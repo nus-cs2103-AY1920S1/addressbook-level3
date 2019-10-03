@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF2205",
+    "courseCredit": "4",
+    "description": "This module covers project financing for infrastructure projects. Major topics include time value of money; balance sheets and income statements; financial ratios and returns; project finance structures; major stakeholders in project finance; contracts and agreements; and risk management.",
+    "faculty": "Design and Environment",
+    "preclusion": "PF2204",
+    "title": "Project Finance"
+}

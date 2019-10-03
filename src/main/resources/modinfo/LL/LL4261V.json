@@ -1,0 +1,25 @@
+{
+    "courseCode": "LL4261V",
+    "courseCredit": "5",
+    "description": "Taken concurrently with 'Crossing Borders' but with an emphasis on experiential learning, this module offers students the opportunity to explore the legal issues affecting migrant workers, both in the classroom and through externships and case work. Students will spend most of their time outside of class, gaining practical experience by first interning at the Ministry of Manpower over the holidays and then, during the semester, volunteering an average of 10 hours weekly with either Justice Without Borders (JWB) or the NUS-HOME Theft Project ('Theft Project'). In class, using peer learning, including roundtable case review, students will hone their legal skills while examining the legal framework governing Singapore\u2019s foreign workers. Analysing their externship experiences, students will explore the relationship between law on the books and law in action.",
+    "faculty": "Law",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "LL4134",
+                    "LL5134",
+                    "LL6134"
+                ]
+            },
+            {
+                "or": [
+                    "LL4134V",
+                    "LL5134V",
+                    "LL6134V"
+                ]
+            }
+        ]
+    },
+    "title": "Employment Law & Migrant Workers Clinic"
+}

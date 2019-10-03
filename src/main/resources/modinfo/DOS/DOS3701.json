@@ -1,0 +1,15 @@
+{
+    "courseCode": "DOS3701",
+    "courseCredit": "4",
+    "description": "This course considers the operation of a supply chain from a managerial perspective, serving two main objectives: to provide tools for design, analysis, management and performance improvement of supply chains, and to introduce and discuss recent influential innovations in supply chain management such as B2B portals. Students will be taught to appreciate the need to balance between responsiveness and efficiency in the four major components of the chain: Inventory, Transportation, Facilities, and Information. These four components will be introduced to the students through suitable mathematical and behavioural models. It is recommended that students have some understanding of the Internet and e-business.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DOS4711",
+        "DOS4751",
+        "DOS4752",
+        "DOS4761"
+    ],
+    "preclusion": "DSC3201",
+    "prereqTree": "DAO2703",
+    "title": "Supply Chain Management"
+}

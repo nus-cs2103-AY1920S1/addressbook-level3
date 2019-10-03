@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ID2102",
+    "courseCredit": "6",
+    "description": "Objective - This module will focus the study of design issues related to the context of technological developments and the need for connectivity. Topics - The module will deal with issues pertaining to communication systems, and the development of industrial products to serve the urban community. It will discuss the importance of modern technology and concepts related to connectivity. It will introduce basic research methodology on design and development for the understanding of the design process as part of the module requirement.",
+    "faculty": "Design and Environment",
+    "preclusion": "Module not offered to non-industrial design students",
+    "title": "Design For Context & Connectivity"
+}

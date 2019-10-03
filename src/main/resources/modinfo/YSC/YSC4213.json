@@ -1,0 +1,15 @@
+{
+    "courseCode": "YSC4213",
+    "courseCredit": "5",
+    "description": "Partial differential equations are used to provide quantitative, predictive models for the universe. We study the essential equations of classical mathematical physics, including the heat and wave equations. Students will assemble a toolbox of mathematical techniques to solve initial and boundary value problems, including separation of variables, and Fourier series and integral transforms.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "Ordinary & Partial Differential Equations (YSC3230) (a&b)",
+    "prereqTree": {
+        "and": [
+            "YSC2205",
+            "YSC3240",
+            "YSC2232"
+        ]
+    },
+    "title": "Partial Differential Equations"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEH1005",
+    "courseCredit": "4",
+    "description": "This course introduces first and second year students to methods of analysis of literary texts. This is achieved by juxtaposing two literary genres from different traditions (Western detective fiction and Chinese court-case fiction) and exploring the issues that arise from reading them together. We will seek to link the role of technical features in the texts with the production of meaning for the individual reader and for society. Issues will include the role of watchdog figures; the possibility that crime may arise from a failure of society to redress wrongs; the relationship between class and the justice system; and basic problems of justice. (This module is taught in English.)",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GEK1021",
+    "title": "Crime Fiction in Eng & Chinese"
+}

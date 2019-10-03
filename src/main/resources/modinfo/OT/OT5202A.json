@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "OT5202A",
+    "courseCredit": "2",
+    "description": "This module provides students with knowledge in the analysis of steel offshore structures. The major topics covered include planning considerations; design criteria and procedures; methods for determining loads; member and joint selection; and structural analysis methods. The module will be valuable to students interested in offshore engineering.",
+    "faculty": "Engineering",
+    "title": "Analysis of Fixed Offshore Structures"
+}

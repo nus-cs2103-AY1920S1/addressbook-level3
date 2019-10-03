@@ -1,0 +1,18 @@
+{
+    "courseCode": "PC3267",
+    "courseCredit": "4",
+    "description": "This module aims to introduce the principles and approaches of physics in the area of molecular biophysics. It includes molecular complexes of biomolecules; physical and symmetrical relationships between biomolecules; physical and structural characteristics of proteins and amino acids; symmetric and statistical descriptions of nucleic acids; first law and second law of thermodynamics in biological systems; bonding and non-bonding potentials, and stabilizing interactions in biomacromolecules, and the correlation to macromolecular structures; molecular mechanics in biological systems; bio soft condensed materials, bio-membrane and biomembrane structure, principles of molecular self assembly of biomolecules. There is a lab component included in this module. This module is targeted at both physics and non-physics students who already have basic knowledge in physics and life sciences.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC4268",
+        "PC4267"
+    ],
+    "prereqTree": {
+        "or": [
+            "PC2131",
+            "PC2267",
+            "EE2011"
+        ]
+    },
+    "title": "Biophysics II"
+}

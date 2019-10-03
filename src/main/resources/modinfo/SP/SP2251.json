@@ -1,0 +1,24 @@
+{
+    "courseCode": "SP2251",
+    "courseCredit": "4",
+    "description": "Many topics debated in nanoscience are frontier and futuristic, although some have immediate technological applications. The fundamental scientific principles of all nanotechnology applications, however, are grounded in basic physics and chemistry. This module thus aims to illustrate and discuss the physics and chemistry that are operative at the nanoscale. Students will be introduced to some fundamental principles of physics and chemistry important to the nanoscale and learn to appreciate what the world is like when things are shrunk to this scale. They will also learn about some basic physical tools that can be used to explore structures at this length scale. On completion of this module, students will learn to appreciate the linkages between the fundamental sciences and practical applications in nanotechnology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "SP3277",
+        "CM3251",
+        "PC3251"
+    ],
+    "preclusion": "N.A.",
+    "prereqTree": {
+        "or": [
+            "PC1144",
+            "PC1432",
+            "PC1432X",
+            "CM1101",
+            "CM1131",
+            "PC1321",
+            "GEK1509"
+        ]
+    },
+    "title": "Science at the Nanoscale"
+}

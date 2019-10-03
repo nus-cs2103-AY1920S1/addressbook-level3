@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC3217",
+    "courseCredit": "5",
+    "description": "While YSC3207 focused on programming in different languages and tools to help software development, students at this point do not really understand how an Operating System works. Operating Systems are also actually programs and as such, follow the same rules and logic on a lower level. Computer Scientists should have enough knowledge to understand these low level mechanisms in order to be able to develop on any given platform.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YCC2221",
+            "YSC1212"
+        ]
+    },
+    "title": "Programming Operating Systems, Interfaces & eXtras"
+}

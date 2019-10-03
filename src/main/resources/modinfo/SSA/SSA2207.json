@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SSA2207",
+    "courseCredit": "4",
+    "description": "Political systems in Southeast display a great variety of characteristics. Some, for example, are authoritarian while others are democratic. Some appear stable while others are subject to tumultuous change. This module examines the historical background and the nature of political competition in different countries of the region: how various groups have succeeded or failed in gaining power, the institutions that structure political contests, and the ideas behind different political agendas. The aim is to provide a multidisciplinary understanding of politics in Southeast Asia with which we can revisit ongoing debates on such issues as democracy, legitimacy, stability and reform.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "SE2213, SE2281, SS2207SE. Students majoring in SE are precluded from taking this module.",
+    "title": "Politics in Southeast Asia"
+}

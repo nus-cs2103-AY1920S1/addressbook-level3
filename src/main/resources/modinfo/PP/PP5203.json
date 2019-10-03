@@ -1,0 +1,14 @@
+{
+    "courseCode": "PP5203",
+    "courseCredit": "4",
+    "description": "Traditional economics, which is one of the key theoretical cornerstones of public policy, typically assumes that human behavior is rational, preferences are stable, and individuals are smart and unemotional. However, human behavior often deviates from standard assumptions due to psychological and social factors; analysis based on traditional economics can therefore misinform policies and lead to detrimental consequences. This course discusses behavioral regularities that are of potential importance for public policy. Students will be exposed to behavioral economic theory and its applications to public policy in the areas of savings, investment, healthcare, climate change, taxation, labor supply, and monetary policy.",
+    "faculty": "LKY School of Public Policy",
+    "prereqTree": {
+        "or": [
+            "PP5101",
+            "PP5301",
+            "PP5501"
+        ]
+    },
+    "title": "Behavioral Economics and Public Policy"
+}

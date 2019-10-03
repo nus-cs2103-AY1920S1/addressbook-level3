@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6733",
+    "courseCredit": "4",
+    "description": "This course is designed to give graduate students a comprehensive understanding of topics at the confluence of computer vision, computer graphics, machine learning and image processing. This module will expose students to the most recent research and highlight the foundations and trends in these fields. We will discuss selected papers on most recent research problems, with topics covering lighting, geometry, image processing, medical image analysis, recognition and machine learning.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EE5907",
+                    "EE5907R"
+                ]
+            },
+            {
+                "or": [
+                    "EE5731",
+                    "EE5731R"
+                ]
+            }
+        ]
+    },
+    "title": "Advanced Topics on Vision and Machine Learning"
+}

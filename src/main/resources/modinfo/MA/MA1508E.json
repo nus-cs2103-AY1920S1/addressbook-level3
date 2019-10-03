@@ -1,0 +1,41 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1508E",
+    "courseCredit": "4",
+    "description": "The module is targeted at students from the Faculty of Engineering and it provides the basic fundamental principles of Linear Algebra relevant to the field of Engineering. Topics include: System of linear equations and their solutions. Gaussian elimination. Matrices, matrix operations and invertibility. Determinant of a matrix. Euclidean space and vectors. Subspaces, linear combinations and linear span. Linear independence, basis and coordinate vectors. Dimension of a vector space. Rank and nullity theorem for matrices. Linear approximation and least squares solution to a linear system. Orthogonal projection. Eigenvalues, eigenvectors and diagonalization. Complex numbers. Applications of eigenvalues and eigenvectors to differential equation",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CS5240",
+        "CS5246",
+        "CS6244",
+        "CS5461",
+        "CS3244",
+        "CS4243",
+        "CS3242",
+        "CS4347",
+        "CS3218",
+        "CS4234",
+        "CS4268",
+        "ESP2107",
+        "MA3266",
+        "MA3252",
+        "MA3229",
+        "MA3220",
+        "MA2501",
+        "MA2219",
+        "MA2214",
+        "MA2213",
+        "MA2101S",
+        "MA2101",
+        "PC2132",
+        "PC2131",
+        "PC2130",
+        "CS5477",
+        "CS4277",
+        "IT3011"
+    ],
+    "preclusion": "MA1101R, MA1311, MA1506, MA1508, MA1513 (2 way preclusion)",
+    "title": "Linear Algebra for Engineering"
+}

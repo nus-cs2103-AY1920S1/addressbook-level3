@@ -1,0 +1,10 @@
+{
+    "courseCode": "MUA5162",
+    "courseCredit": "10",
+    "description": "This module revolves around individual instrumental / composition lessons specially designed for performance / composition majors. It continues to consolidate and hone processes initiated in the previous semester, with a view to the presentation of a preliminary major Public Recital during the semester.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA6161"
+    ],
+    "title": "Major Study 5B"
+}

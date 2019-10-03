@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6230",
+    "courseCredit": "4",
+    "description": "This module aims to prepare graduate students for research and development in information security, by investigating selected topics in cryptography and information theoretic security. Selected topics may include classical issues such as provable security, design of symmetric key ciphers, and public key cryptography, as well as emerging topics, such as pairing-based cryptography, homomorphic encryption, privacy-preserving methods, information hiding, and data forensic. Other topics of current research interests may also be included.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS4236",
+            "CS5321"
+        ]
+    },
+    "title": "Topics in Information Security"
+}

@@ -1,0 +1,52 @@
+{
+    "courseCode": "FNA2004",
+    "courseCredit": "4",
+    "description": "This course helps students to understand the key concepts and tools in Finance. It provides a broad overview of the financial environment under which a firm operates. It equips the students with the conceptual and analytical skills necessary to make sound financial decisions for a firm. Topics to be covered include introduction to finance, financial statement analysis, long-term financial planning, time value of money, risk and return analysis, capital budgeting methods and applications, common stock valuation, bond valuation, short term management and financing.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC3612",
+        "ACC3614",
+        "FNA3126",
+        "FIN3101",
+        "FIN3101A",
+        "FIN3101B",
+        "FIN3101C",
+        "FIN3102",
+        "FIN3102A",
+        "FIN3102B",
+        "FIN3102C",
+        "FIN3103",
+        "FIN3103A",
+        "FIN3103B",
+        "FIN3117",
+        "FIN3119",
+        "FNA3101",
+        "FNA3101A",
+        "FNA3101B",
+        "FNA3102",
+        "FNA3102A",
+        "FNA3102B",
+        "FNA3103",
+        "FNA3117",
+        "FNA3119",
+        "FIN3103C",
+        "FIN3102D",
+        "LL4188",
+        "QF3201"
+    ],
+    "preclusion": "Students who have taken CS2251 or EC3209 or EC3333 or BK2004 or BZ2004 or BH2004 are not allowed to take FNA2004.\n \n1st Year BSc (BU & RE), all BSc (RE) and Computational Finance are not allowed to take FNA2004.",
+    "prereqTree": {
+        "or": [
+            "BK1003",
+            "BZ1002",
+            "BH1002",
+            "FNA1002",
+            "FNA1002X",
+            "FNA1002E",
+            "BH1002E",
+            "EC3212",
+            "EG1422"
+        ]
+    },
+    "title": "Finance"
+}

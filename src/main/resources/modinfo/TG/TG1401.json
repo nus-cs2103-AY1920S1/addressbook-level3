@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TG1401",
+    "courseCredit": "4",
+    "description": "This module builds and exposes students to the mathematical foundational concepts that are necessary in a variety of engineering disciplines. The topics include the following: Ordinary differential equations. Laplace transform. Matrix algebra. Vector Space. Eigenvalues and Eigenvectors. Determinants and Inverses. Solution of linear equations. Diagonalisation. Functions of Matrices. Matrix exponential. Matrix differential equations.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TE2002",
+        "EE2023E",
+        "EE3013E"
+    ],
+    "preclusion": "TE2102 or TM1401 or TTG1401",
+    "title": "Engineering Mathematics I"
+}

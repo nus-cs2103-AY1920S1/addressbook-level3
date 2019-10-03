@@ -1,0 +1,21 @@
+{
+    "courseCode": "BSP2011",
+    "courseCredit": "4",
+    "description": "This module builds an understanding of business environments in Asia. The first part of the course focuses on macroeconomic fundamentals, politics, culture, and institutions in Asian countries and regions. The second part of the course explores relationships between national and regional characteristics and business operations. The aspects of business covered in this segment vary from year to year, but typically include business groups, innovation, trade, and foreign direct investment. Topics: PART I Macroeconomic Fundamentals, Institutions, Politics, Corruption, Culture PART II Business Groups, Innovation, Trade, Foreign Direct Investment, Lecturer Discretion",
+    "faculty": "NUS Business School",
+    "preclusion": "BSP2005",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "BSP1703",
+                    "BSP1707",
+                    "EC1101E",
+                    "EC1301"
+                ]
+            },
+            "BSP2701"
+        ]
+    },
+    "title": "Asian Business Environments"
+}

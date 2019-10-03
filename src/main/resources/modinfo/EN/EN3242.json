@@ -1,0 +1,13 @@
+{
+    "courseCode": "EN3242",
+    "courseCredit": "4",
+    "description": "This module is an introductory survey of the history of the motion picture from its invention up to the present. We will look at the way that the medium has developed as an art and a business. In addition, we will examine a number of different film movements around the world as well as key filmmakers and genres. Lectures and readings will consider film's relationship to society as well as to other cultural forms. This course aims to provide students with a critical perspective on the complex forces that have shaped the motion picture's evolutionary phases.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EN2203",
+            "EN2204"
+        ]
+    },
+    "title": "History of Film"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4306",
+    "courseCredit": "4",
+    "description": "The module distributed autonomous robotic systems will cover topics such as multi-agent systems, multiple robotic systems and computational intelligence. The tools presented include genetic algorithms, simulated annealing, soft computing and multi-objective optimisation. Some applications to pattern recognition, function mapping, sensor fusion, obstacle avoidance and learning in robotic systems are also presented.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3331C",
+    "title": "Distributed Autonomous Robotic Systems"
+}

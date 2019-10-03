@@ -1,0 +1,15 @@
+{
+    "courseCode": "YSC3225",
+    "courseCredit": "2",
+    "description": "Logic is an indispensable tool in computer science and is used in every facet of the field. One may even argue that computers are built on top of logic (logic gates are the basic building blocks of computers). In this course, you\u2019ll learn the basics of logic in computer science (propositional logic, predicate logic, and, if time permits, temporal logic) in a rigorous, but hands-on manner. Applications covered in this course will mostly use examples from constraint programming, artificial intelligence, and software verification, but could also use examples from databases, and electronic design automation.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSC1202",
+            "YSC2229",
+            "YSC2204",
+            "YSC2209"
+        ]
+    },
+    "title": "Logic in Computer Science"
+}

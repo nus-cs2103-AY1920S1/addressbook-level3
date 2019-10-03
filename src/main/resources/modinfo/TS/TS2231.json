@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2231",
+    "courseCredit": "4",
+    "description": "This module provides a broad historical overview of Western theatrical conventions beginning with the Ancient Greeks, continuing through the Medieval period and the Renaissance era to Neoclassicism. Representative plays will be studied in detail, and dramatic theory and criticism, from Plato and Aristotle to Hedelin d'Aubignac and Boileau will be placed against historical contexts, thus enabling students to see the tripartite relationship between history, theory and praxis. The module is targeted at Theatre majors and other students interested in the foundations and early history of Western Theatre.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "History and Theory of Western Theatre 1"
+}

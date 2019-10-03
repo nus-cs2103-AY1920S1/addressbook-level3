@@ -1,0 +1,21 @@
+{
+    "courseCode": "RE3807",
+    "courseCredit": "4",
+    "description": "This module covers principles and methods in real estate corporate finance. Students will learn the theory and practice of firm valuation, project finance and risk management while focusing on the activities of developers, investment brokers, intermediaries, funds and international corporations with significant exposure to the property sector. The module addresses capital structure decisions, building on principles of contracting and financial statement analysis, and introduces topics related to capital structure dynamics, taxation, dividend policies, M&A activities, transparency and corporate governance. The real options framework of property investment is also proposed for quantifying the value of entry options, investment and development opportunities.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "FIN3718",
+        "FIN3761A",
+        "FIN4711",
+        "FIN4712",
+        "FIN4713",
+        "FIN4714",
+        "FIN4716",
+        "FIN4717",
+        "FIN4761A",
+        "FIN4761B",
+        "FIN4761D"
+    ],
+    "prereqTree": "RE3701",
+    "title": "Corporate Finance for Real Estate"
+}

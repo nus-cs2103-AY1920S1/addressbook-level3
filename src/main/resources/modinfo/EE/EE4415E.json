@@ -1,0 +1,15 @@
+{
+    "courseCode": "EE4415E",
+    "courseCredit": "4",
+    "description": "This module introduces the students to the design of integrated circuits. It covers basic concepts including integrated circuits fabrication technology, CMOS and nMOS design, inverter design, aspect ratios of pull-up and pull-down transistors, switching characteristics of CMOS and nMOS inverters, latch-up, stick diagram, design rules, mask layout, sub-systems design, ASIC challenges and issues, ASIC design flow, Verilog hardware design language basics, and logic synthesis. Each student will do a design exercise using the EDA tools.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TEE4415",
+    "prereqTree": {
+        "or": [
+            "EE2006E",
+            "EE2020E",
+            "TEE2026"
+        ]
+    },
+    "title": "Integrated Digital Design"
+}

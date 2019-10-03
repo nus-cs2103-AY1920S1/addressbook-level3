@@ -1,0 +1,23 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TCE2112",
+    "courseCredit": "4",
+    "description": "This is an introductory module in soil mechanics and geotechnical engineering. The course teaches students the fundamental engineering geological knowledge and basic soil mechanics, and their impact on geotechnical and foundation engineering design and construction. Students will learn to understand the basic characteristics of soils, fundamental effective stress principle, and mechanical behaviour of soil including the strength, compressibility and consolidation properties of soil through lectures, tutorial discussions, and case studies, the course covers the basic soil properties, soil testing, shear strength parameters in drained and undrained conditions, compressibility of granular soil, and the consolidation characteristic of cohesive soils. The course also enables students to acquire the knowledge and practical skills of functioning as an engineer and consultants through the laboratory soil tests and submission of a consultant report arising from the analysis of a given mini-project, conducting appropriate soil tests and the engineering evaluation.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCE5106",
+        "TCE5107",
+        "TCE5108",
+        "TCE5113",
+        "TCE5206",
+        "TCE3115",
+        "TCE3116"
+    ],
+    "preclusion": "CE2112",
+    "prereqTree": "EG1109",
+    "title": "Soil Mechanics"
+}

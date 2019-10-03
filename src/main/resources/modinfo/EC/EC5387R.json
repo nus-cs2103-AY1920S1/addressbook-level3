@@ -1,0 +1,18 @@
+{
+    "courseCode": "EC5387R",
+    "courseCredit": "5",
+    "description": "This course is designed to provide an in-depth insight into selected specific issues that are of concern to maritime and port industry as well as to policy makers. The issues covered include shipping markets, shipping networks, increasing ship sizes, cabotage, freight determination, port choice, efficiency measurements, maritime safety, maritime hub strategy and green maritime logistics.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EC2104",
+                    "EC2303"
+                ]
+            },
+            "EC3101"
+        ]
+    },
+    "title": "Issues in Maritime and Shipping Economics"
+}

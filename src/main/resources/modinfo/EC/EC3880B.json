@@ -1,0 +1,13 @@
+{
+    "courseCode": "EC3880B",
+    "courseCredit": "4",
+    "description": "The course begins by introducing the concepts of population ageing and examines the current trends across countries. The economic effects of ageing will be discussed based on recent research findings. These effects include labour supply, savings and consumption, capital accumulation and investment, productivity improvements, economic growth, fiscal pressures and sustainability, retirement adequacy, etc. With reference to Singapore\u2019s context, this course will examine policy options available to mitigate the effects of ageing, including their trade\u2010offs.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "EC2101",
+            "EC2102"
+        ]
+    },
+    "title": "Topics in Economics: Economics of Ageing"
+}

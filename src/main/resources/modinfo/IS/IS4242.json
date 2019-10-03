@@ -1,0 +1,40 @@
+{
+    "courseCode": "IS4242",
+    "courseCredit": "4",
+    "description": "This module provides a broad coverage of intelligent systems in various industries (through examples of real world applications) and the tools and techniques used to design such intelligent systems (e.g. data warehousing, data mining and optimization). Applications from several domains such as finance, healthcare, transportation, web and retail are discussed. The use of technology to solve business problems (such as real-time optimization, personalization, trend discovery and unstructured data analysis) are described. Software tools to apply these techniques are introduced. The emphasis of the course is on modelling, conceptual understanding of techniques, and applications to business problems.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS5006"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1312",
+                    "MA1521",
+                    "MA1505",
+                    {
+                        "and": [
+                            "MA1511",
+                            "MA1512"
+                        ]
+                    }
+                ]
+            },
+            {
+                "or": [
+                    "ST2334",
+                    "ST2131",
+                    "ST2132"
+                ]
+            },
+            {
+                "or": [
+                    "IS3106",
+                    "BT3103"
+                ]
+            }
+        ]
+    },
+    "title": "Intelligent Systems and Techniques"
+}

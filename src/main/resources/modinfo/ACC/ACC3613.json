@@ -1,0 +1,14 @@
+{
+    "courseCode": "ACC3613",
+    "courseCredit": "4",
+    "description": "To equip students with a good understanding of the theoretical and practical knowledge/techniques for a variety of assurance and attestation work other than the statutory audit. Such work is often more complex and requires advanced methodologies.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have passed FNA3128 are not allowed to take ACC3613.",
+    "prereqTree": {
+        "or": [
+            "FNA3121",
+            "ACC3603"
+        ]
+    },
+    "title": "Advanced Assurance and Attestation"
+}

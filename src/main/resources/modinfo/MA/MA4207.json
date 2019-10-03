@@ -1,0 +1,19 @@
+{
+    "courseCode": "MA4207",
+    "courseCredit": "4",
+    "description": "This is an introductory mathematical course in logic. It gives a mathematical treatment of basic ideas and results of logic, such as the definition of truth, the definition of proof and Godel's completeness theorem. The objectives are to present the important concepts and theorems of logic and to explain their significance and their relationship to other mathematical work. Major topics: Sentential logic. Structures and assignments. Elementary equivalence. Homomorphisms of structures. Definability. Substitutions. Logical axioms. Deducibility. Deduction and generalization theorems. Soundness, completeness and compactness theorems. Prenex formulas.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5220",
+        "MA5219"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA3110",
+            "MA3110S",
+            "MA3205",
+            "MA3219"
+        ]
+    },
+    "title": "Mathematical Logic"
+}

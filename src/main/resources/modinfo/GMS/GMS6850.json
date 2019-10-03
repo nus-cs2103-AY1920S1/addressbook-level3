@@ -1,0 +1,8 @@
+{
+    "courseCode": "GMS6850",
+    "courseCredit": "4",
+    "description": "This one-semester module covers core concepts in bioinformatics with an emphasis on working with omics-scale data. Covered topics: biological sequence analysis include alignments, searching, and annotation; analysis of next-generation DNA and RNA sequencing data in multiple applications, including de-novo sequencing, re-sequencing for germ-line and cancer genetics, RNA-sequencing for multiple applications and ChIP-seq; microarray based SNP, gene-expression, and DNA-methylation analysis; metabolomics; proteomics; gene-set enrichment analysis; pathway analysis; analysis of protein-protein interaction networks; integrated analysis of multiple kinds of \u2018omic\u2019 data; availability and use of public data for all of the above The module will also provide a brief introduction to methods of computational modeling for biological networks.",
+    "faculty": "Duke-NUS Medical School",
+    "prereqTree": "GMS6901",
+    "title": "Core Concepts in Bioinformatics"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "PL3241",
+    "courseCredit": "4",
+    "description": "This module introduces students to research on personality and individual differences. The main theories and measurement of related constructs will be discussed with an emphasis on normal, rather than abnormal, populations. Topics covered may include personality traits, motivational constructs, cognitive ability constructs and cognitive styles. Reference will also be made to some current applications such as personnel selection.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131"
+        ]
+    },
+    "title": "Personality & Individual Differences"
+}

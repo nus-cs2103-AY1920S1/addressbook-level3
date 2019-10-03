@@ -1,0 +1,8 @@
+{
+    "courseCode": "GEQ1000",
+    "courseCredit": "4",
+    "description": "There are many ways to ask questions, and many kinds of questions that different disciplines investigate. For a start, this module introduces six dominant modes of questioning from the perspective of computational thinking, design thinking, engineering, philosophy, science, and social sciences. These six perspectives serve as a starting point to introduce all undergraduate students to different modes of questioning across these disciplines, and provide an initial exposure to how scholars from these disciplines pursue specific lines of questioning of everyday issues. We emphasize that while there is only limited time and space within one module to devote to specific disciplinary lines of investigations, we encourage all students to actively think about other lines of questioning, other questions that need to be asked, particularly in disciplines not represented in this introductory platform as we move through this journey together. We expect that in future subsequent offerings, other disciplinary modes of investigations may also be introduced.",
+    "faculty": "NUS",
+    "preclusion": "GEQ1000H, GEQ1000E, GEQ1000K, GEQ1000W, GEQ1000R, GEQ1000S, GEQ1000T, GEQ1000P",
+    "title": "Asking Questions"
+}

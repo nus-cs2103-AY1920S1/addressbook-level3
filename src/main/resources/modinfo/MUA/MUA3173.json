@@ -1,0 +1,8 @@
+{
+    "courseCode": "MUA3173",
+    "courseCredit": "4",
+    "description": "This course module covers electroacoustic transducers and systems. Transducers commonly used in audio recording and production include a variety of types of microphones and speakers including dynamic moving coil, condenser, ribbon, piezo, and electrostatic. Electroacoustic systems will be explored including the basics of analog and digital electronics for recording, amplification, signal processing, and reproduction.",
+    "faculty": "YST Conservatory of Music",
+    "prereqTree": "MUA2172",
+    "title": "Electroacoustics"
+}

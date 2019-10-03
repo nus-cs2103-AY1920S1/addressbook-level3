@@ -1,0 +1,9 @@
+{
+    "courseCode": "MA3256",
+    "courseCredit": "4",
+    "description": "Major topics: Historical review. Modern cryptosystems. Data Encryption Standard (DES). Stream cipher. Introduction to complexity theory. Public key cryptosystems (including RSA and knapsack schemes). Authentication. Digital signature and cryptographic applications (e.g. smart card).",
+    "faculty": "Science",
+    "preclusion": "CS423.",
+    "prereqTree": "MA2202",
+    "title": "Applied Cryptography"
+}

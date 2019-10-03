@@ -1,0 +1,25 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MLE1002",
+    "courseCredit": "6",
+    "description": "Oral communication situations relevant to engineering practice. Diffusion in solids; phase diagrams, inclusive of Gibbs phase rule, binary phase diagram and equilibrium diagrams. Metals, properties and processing. Ceramics, properties and processing. Polymers, properties and processing. Composites, properties and processing. Corrosion & materials degradation. How to choose the best material? Matching materials to design. Selecting a Manufacturing process. Aspects beyond the technical domain in materials selection & design.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE3203",
+        "MLE4102A",
+        "MLE3202",
+        "MLE3111",
+        "MLE3104",
+        "MLE3103",
+        "MLE3102",
+        "MLE3101",
+        "MLE2107",
+        "MLE2106",
+        "MLE2105",
+        "MLE2104",
+        "MLE2103"
+    ],
+    "title": "Materials Science & Engineering Principles & Practice II"
+}

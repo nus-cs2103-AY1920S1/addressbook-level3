@@ -1,0 +1,26 @@
+{
+    "courseCode": "TCN4208",
+    "courseCredit": "4",
+    "description": "This module familiarizes students with the upstream section of a biologics manufacturing plant. It starts with the drug discovery process and natural products research. The rudimentaries of cells, building blocks of proteins, carbohydrates and nucleic acids, as well as fundamental enzyme kinetics are next introduced. Before going into the heart of the module, which is the design of a fermenter, growth and product kinetics are introduced, followed by the concepts of recombinant DNA technology and hybridoma technology for the production of biopharmaceuticals. Detailed treatment of the design of the fermenter, including the operating strategies and transport phenomena with respect to agitation and aeration, follows. Finally a discussion of media sterilization and process monitoring of a bioprocess completes the module.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CN4208E",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "TC2106",
+                    "CN2116E",
+                    "TCN2116"
+                ]
+            },
+            {
+                "or": [
+                    "TC2112",
+                    "CN2122E",
+                    "TCN2122"
+                ]
+            }
+        ]
+    },
+    "title": "Biochemical Engineering"
+}

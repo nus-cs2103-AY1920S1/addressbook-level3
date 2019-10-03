@@ -1,0 +1,17 @@
+{
+    "courseCode": "EC2383",
+    "courseCredit": "4",
+    "description": "The economic causes of environmental and resource problems are a major theme of the module. Economic theory is applied to environmental questions associated with resource exploitation; the problem of externalities and their management through various economic institutions, economic incentives and other instruments and policies. Means of analysing the economic implications of environmental policy are also discussed as well as the valuation of environmental quality, assessment of environmental damages, and tools needed for the evaluation of projects such as cost-benefit analysis, and environmental impact assessments. Selected topics on international environmental issues will also be discussed.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC3383",
+    "prereqTree": {
+        "or": [
+            "EC1301",
+            "EC1101E",
+            "BSP1703",
+            "BSP1005",
+            "RE1704"
+        ]
+    },
+    "title": "Environmental Economics"
+}

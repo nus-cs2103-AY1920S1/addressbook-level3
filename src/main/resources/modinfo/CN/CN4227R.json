@@ -1,0 +1,8 @@
+{
+    "courseCode": "CN4227R",
+    "courseCredit": "4",
+    "description": "The first topic discusses the effect of model/plant mismatch on the closed-loop system, followed by the robust controller design method with the aim to maintain stability or/and achieve performance in the presence of the modelling error. As most chemical processes are multivariable in nature, the design issues related to multi-loop (or decentralised) and decoupling controllers are discussed in the next topic. For digital computer control topic, in many ways, the materials taught parallel those covered in CN3121. The last topic focuses on a powerful and modern control technique called as model predictive control that has received wide-spread use in the refining and chemical process industries.",
+    "faculty": "Engineering",
+    "prereqTree": "CN3121",
+    "title": "Advanced Process Control"
+}

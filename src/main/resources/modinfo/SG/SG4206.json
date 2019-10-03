@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG4206",
+    "courseCredit": "3",
+    "description": "The objectives of this course are to teach students the different technologies that are currently being used to meet the integration needs of organizations, to show how to perform architectural analysis, design and implementation for an enterprise integration solution, to identify possible architectural options and determine the most suitable option for a given business scenario, and how to plan and manage integration. Topics covered in the course include fundamental concepts of Enterprise Integration; an overview of critical technologies; Integration Methodology, B2B Integration, and Web Services for Enabling Integration. There will be a Design/Programming assignment. This course is intended for IT professionals who are involved in developing or integrating enterprise-wide applications.",
+    "faculty": "Institute of Systems Science",
+    "title": "Enterprise Integration"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "BSE4712",
+    "courseCredit": "4",
+    "description": "This module link business strategy to organizational structure. It considers how to organize businesses to achieve their performance objectives. Part 1 of the module takes business activities as given and considers organizational design, including issues of incentive pay, decentralization, transfer pricing, and complementarities. Part 2 examines the boundaries of the firm, and covers horizontal and vertical mergers, outsourcing, and diversification.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "BSP1703",
+            "BSP1707",
+            "EC2101"
+        ]
+    },
+    "title": "Economics of Organization"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PA1113A",
+    "courseCredit": "4",
+    "description": "This is a team-taught module that aims to prepare Master of Nursing students with the fundamental principles in how drugs influence human body and how human body handles these agents. These principles are key to introducing system pharmacology here which includes major topics: autonomic, corticosteroid, steroid hormone and immune-pharmacology.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": "NUR5102",
+    "title": "Basic Pharmacology"
+}

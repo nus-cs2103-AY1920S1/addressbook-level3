@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "IT1001",
+    "courseCredit": "4",
+    "description": "This module aims to provide basic IT understanding for students who have no or little knowledge of computing. It is structured to be the course for students who either plans to take only one course in computing in her entire undergraduate studies or wants to equip herself to do further more specialised computing studies. The module tries to be broad by touching on most aspects of computing. However, there will also be some technical depth in standard introductory computing topics. The lectures will be intensely complemented by Web exploring activities.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IT2001"
+    ],
+    "preclusion": "CS1010 or CS1010E, CS1010FC, CS1010S, CS1101, CS1101C, CS1101S, GEK1511. SoC students and engineering students. Science students requiring this module for their minor should not register it as ULR-Breadth. Arts and Social Science students reading CNM as a subject/concentration and matriculated before AY2001/02 are not allowed to read this module as URL-Breadth",
+    "title": "Introduction to Computing"
+}

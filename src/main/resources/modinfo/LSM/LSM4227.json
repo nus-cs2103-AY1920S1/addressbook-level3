@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "LSM4227",
+    "courseCredit": "4",
+    "description": "This module will provide a detailed and critical introduction in the biology of stem cells and regenerative medicine. Students will investigate the origin of embryonic and adult stem cells and learn biological concepts relating to pluripotency, self-renewal, transdifferentiation, reprogramming and regeneration. The cell-fate determination and differentiation of selected types of cells, with a focus on their potential biological and medical applications, will be presented. Specialized topics on cancer stem cells, wound healing and tissue regeneration will provide a glimpse of how mankind's future could be further shaped.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "LSM2232",
+            "LSM2233"
+        ]
+    },
+    "title": "Stem Cell Biology"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "SDM5001",
+    "courseCredit": "4",
+    "description": "Systems Architecture deals with principles of implementation and evaluation of complex systems. Developing architecture is the most abstract function in system/product development. The course examines various notions of systems architecting (including aspects of organizational and information architecture) and offers principles and tools for its development. A wide variety of real-world case studies (including examples of transportation, utility, electronic, mechanical, enterprise, traditional information and document management systems, etc.) will be drawn upon. The course addresses issues such as dealing with legacy and change, enterprise-wide interoperability as well as support for knowledge management.",
+    "faculty": "Engineering",
+    "title": "Systems Architecture"
+}

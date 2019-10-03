@@ -1,0 +1,12 @@
+{
+    "courseCode": "LL6076",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5283V",
+        "LL6283V",
+        "LL4283V"
+    ],
+    "title": "IT Law I"
+}

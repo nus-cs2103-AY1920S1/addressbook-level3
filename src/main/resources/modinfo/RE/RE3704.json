@@ -1,0 +1,15 @@
+{
+    "courseCode": "RE3704",
+    "courseCredit": "4",
+    "description": "This module comprises two parts. Part 1 covers the theoretical principles and concepts relating to the marketing of real estate, including aspects such as marketing mix, market research and segmentation, product management and pricing, negotiation and selling techniques, distribution methods, etc. Part 2 focuses the practical applications of marketing theories to actual case studies in the real estate market, emphasizing on residential, commercial and industrial properties.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "MKT4715",
+        "MKT4714",
+        "MKT4811",
+        "MKT4812",
+        "RE4701"
+    ],
+    "preclusion": "RE2106 Real Estate Marketing & Negotiation",
+    "title": "Real Estate Marketing"
+}

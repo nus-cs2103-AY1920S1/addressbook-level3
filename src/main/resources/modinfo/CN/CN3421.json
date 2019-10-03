@@ -1,0 +1,26 @@
+{
+    "courseCode": "CN3421",
+    "courseCredit": "4",
+    "description": "This module introduces model formulation for various chemical and environmental processes and numerical techniques in solving the associated algebraic and differential equations. Students also learn data sampling and analysis, hypothesis testing and experimental design essential for today?s chemical and environmental engineers. This course covers the formulation of process models and necessary numerical techniques for solving the model equations arising in thermodynamics, fluid mechanics, heat and mass transfer, reaction engineering, transport phenomena, and process systems engineering. The numerical techniques include methods for solving systems of linear and non-linear algebraic equations and systems of linear and non-linear ordinary and partial differential equations. Direct and iterative techniques, numerical differentiation and integration, error propagation, convergence and stability analysis are taught, followed by basic concepts of probability, discrete and continuous random variables, expected values, joint probability distributions, and independence. Hypothesis testing, least square regression, experimental design and sensitivity analysis are also introduced. This module is targeted at level 3 chemical and environmental engineering students.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN4205R",
+        "CN4291",
+        "CN4123R",
+        "CN4123"
+    ],
+    "prereqTree": {
+        "and": [
+            "MA1505",
+            "MA1506",
+            {
+                "or": [
+                    "CN1111",
+                    "CN1111FC",
+                    "CN1111X"
+                ]
+            }
+        ]
+    },
+    "title": "Process Modeling And Numerical Simulation"
+}

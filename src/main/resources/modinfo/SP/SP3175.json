@@ -1,0 +1,11 @@
+{
+    "courseCode": "SP3175",
+    "courseCredit": "4",
+    "description": "This is the third module in a series of four covering scales from \u2018Atoms to Molecules\u2019, through \u2018The Cell\u2019 and \u2018The Earth\u2019 to \u2018The Universe\u2019. This module focuses on the physical, chemical and biological processes that have shaped the development of the Earth. The module takes a systems approach in order to understand the interconnectivity between the various components of the Earth system, i.e. the atmosphere, biosphere, hydrosphere and lithosphere. Using this approach, students will study the impact that anthropogenic activities, such as burning fossil fuels, has had on the Earth system.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "SP3176"
+    ],
+    "prereqTree": "SP2174",
+    "title": "The Earth"
+}

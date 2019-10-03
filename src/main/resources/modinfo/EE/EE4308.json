@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE4308",
+    "courseCredit": "4",
+    "description": "The module will cover topics such as autonomous robotic systems, multiple mobile robotic systems, unmanned aerial vehicles and cyber physical security. Applications to multiple mobile robot path planning, multi-sensor fusion, obstacle avoidance and learning in robotic systems will be discussed. An animated virtual-robot learning platform will be used for gaining hands on experience in designing autonomous robots, terrain building, path planning, obstacle avoidance and robot control. A quadrotor and a motion capture system will be adopted for real-world implementation and experiment.",
+    "faculty": "Engineering",
+    "preclusion": "EE4306 Distributed Autonomous Robotic Systems",
+    "prereqTree": {
+        "or": [
+            "EE3331C",
+            "ME2142"
+        ]
+    },
+    "title": "Autonomous Robot Systems"
+}

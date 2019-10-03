@@ -1,10 +1,11 @@
-= Address Book (Level 3)
+= JARVIS
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://travis-ci.org/AY1920S1-CS2103T-T10-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-T10-1/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/marcfyk/main[image:https://ci.appveyor.com/api/projects/status/36rduw72xsyscn9o?svg=true[Build status]]
+https://coveralls.io/github/AY1920S1-CS2103T-T10-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T10-1/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.codacy.com/project/badge/Grade/78777849c5a44d42bef0726f03d6fc1a["Codacy code quality", link="https://www.codacy.com/manual/marcfyk/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-T10-1/main&utm_campaign=Badge_Grade"]
+https://gitter.im/AY1920S1-CS2103T-T10-1-JARVIS/Lobby[image:https://badges.gitter.im/AY1920S1-CS2103T-T10-1-JARVIS/Lobby.svg[Gitter Chat]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,20 +15,23 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+== What is JARVIS
+JARVIS is a productivity manager tool designed for NUS students who want to consolidate
+their schedule, tasks, finances and modules in one place.
+
+Download JARVIS now to *_abstract_* your problems away.
+
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
+* Original source code is from https://se-education.org/[AddressBook Level 3] by the _SE-EDU initiative_.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]

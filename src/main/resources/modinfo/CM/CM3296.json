@@ -1,0 +1,8 @@
+{
+    "courseCode": "CM3296",
+    "courseCredit": "4",
+    "description": "Fundamental concepts of molecular modelling; survey of computational methods; molecular mechanics and force fields; empirical and semi-empirical methods; Ab initio theory; basis sets; electron correlation methods; density functional theory; chemical visualization and graphics models; qualitative molecular orbital theory; potential energy surfaces and minimization' molecular dynamics and Monte-Carlo simulations; calculation of molecular properties (IR, UV, NMR and electron density distribution); use of molecular modelling software (Spartan and Gaussian); applications of modelling to chemical problems, modelling biomolecules: conformational analysis, QSAR, docking, ligand design.",
+    "faculty": "Science",
+    "prereqTree": "CM2101",
+    "title": "Molecular Modelling: Theory & Practice"
+}

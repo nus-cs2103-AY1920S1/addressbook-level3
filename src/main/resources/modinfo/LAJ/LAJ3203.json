@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ3203",
+    "courseCredit": "4",
+    "description": "Students will be taught the specialised vocabulary and communication styles found in the Japanese business world, including both the written and the oral forms of communication. The ability to read, understand and write minutes will be emphasised. Students will also be introduced to the language-related work style found in the Japanese business environment.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAJ3202",
+        "LAJ4203",
+        "LAJ3204",
+        "LAJ3205"
+    ],
+    "preclusion": "LAJ3201 (Japanese 5), LAJ3202 (Japanese 6) & JLPT Level 1",
+    "prereqTree": "LAJ2203",
+    "title": "Business Japanese 1"
+}

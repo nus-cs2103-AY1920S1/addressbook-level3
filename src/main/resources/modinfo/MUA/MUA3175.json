@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA3175",
+    "courseCredit": "4",
+    "description": "This module covers fundamentals of large format digital console design and applications. The module will also provides concepts, skills and hands on experience with regards to close miking techniques. The module will also cover some basic audio editing skills on Protools software. Students will be requested to finish at least 40 hours of recording studio sessions, and submit one 5 tracks CD with technical description. In this module, students need to finish each project session with module supervisor together. Each project session should be fully under the direction of the module supervisor.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3176"
+    ],
+    "prereqTree": "MUA2176",
+    "title": "AAS Project 3"
+}

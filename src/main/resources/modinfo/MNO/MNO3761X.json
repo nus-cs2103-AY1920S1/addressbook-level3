@@ -1,0 +1,14 @@
+{
+    "courseCode": "MNO3761X",
+    "courseCredit": "4",
+    "description": "The topic(s) addressed in this module will involve specialised issues that are worthy of more in-depth treatment than what is provided in the other modules. The specific topics may range from current theoretical debates to the strategies and tactics that are utilised by leading organisations to resolve practical problems. The primary mode of instruction will feature discussion of research articles, case studies and/or projects involving practical applications.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Topics in Leadership and Human Capital Management"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "EE4002D",
+    "courseCredit": "8",
+    "description": "In this module, students will do a team project that involves a varied mix of research, design and development components. It is carried out over two semesters on a topic of current interest in Electrical and Computer Engineering. Students learn how to apply knowledge and skills acquired in the classroom and also think of innovative ways of solving complex problems. Apart from problem solving, students are able to acquire skills for independent lifelong learning, teamwork and effective communication.",
+    "faculty": "Engineering",
+    "preclusion": "EE3032; EG3301R",
+    "title": "Design Capstone"
+}

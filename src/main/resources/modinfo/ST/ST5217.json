@@ -1,0 +1,14 @@
+{
+    "courseCode": "ST5217",
+    "courseCredit": "4",
+    "description": "This is a level 5000 course on genetic data analysis focusing on human and population genetics. The emphasis will be in understanding the role of statistics and data analysis in modern genetics research and its applications. Numerical and computational methods will be discussed with applications to real data sets. To equip the students with the tools to conduct genetic data analysis. Topics include introduction to genetics,gene mapping,sequence data, population genetics and coalescent theory,phylogeny reconstruction,pedigree analysis,genetic epidemiology,role of genetic factors in human diseases,familial aggregation,segregation and linkage analysis, analysis of complex and quantitative traits. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "LSM1102",
+            "ST2132",
+            "ST3236"
+        ]
+    },
+    "title": "Statistical Methods For Genetic Analysis"
+}

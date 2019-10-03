@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU4234",
+    "courseCredit": "5",
+    "description": "Since the colonial conquests of the 19th century that characterised the Arab world\u2019s modern encounter with Europe, the region has been marked by a collective sense of trauma and loss, something that has continued into the 21st century. This course will explore the effects multiple foreign occupations, post-independence authoritarian regimes, and forced displacements have wrought on the literary and cultural production of the Middle East and North Africa. Special attention will be paid to minority writing in the region through the work of Arab Jewish and Christian authors who have often found themselves at the center of extraordinary violence.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Trauma, Loss, Exile and the Literary Imagination"
+}

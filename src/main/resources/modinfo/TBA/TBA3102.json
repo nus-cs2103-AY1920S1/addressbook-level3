@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TBA3102",
+    "courseCredit": "4",
+    "description": "This module discusses the basic concepts and methods of text analytics including capturing, representing, and interpreting unstructured or loosely structured textual information. Such textual information includes newswire stories, blogs, and forum discussions among others. This module also serves as the foundation for analysing textbased information (e.g., sentiment analysis) on the social media platforms.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": "TBA2105",
+    "title": "Text Analytics"
+}

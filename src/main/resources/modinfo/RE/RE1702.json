@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "RE1702",
+    "courseCredit": "4",
+    "description": "This is the first of three modules in the real estate quantitative methods track. It introduces students to the types of data typically used in real estate analyses. Students will learn how to access the data and understand their distributions. Then, they will learn how to process the data to support real estate decision-making. In the first half of the module, basic statistical concepts are taught through detailed applications in the real estate domain using REALIS transactions and spatial information. The second half of the module presents parametric and non-parametric analyses that demonstrate their functions in real estate data analytics.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE2801"
+    ],
+    "title": "Real Estate Data Analytics"
+}

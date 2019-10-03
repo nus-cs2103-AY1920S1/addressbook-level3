@@ -1,0 +1,16 @@
+{
+    "courseCode": "CN4291",
+    "courseCredit": "4",
+    "description": "This elective module aims to provide an in-depth knowledge in the selected topics of interest to chemical engineers. The topics will be chosen according to the availability of expertise (e.g., visiting staff, researchers in research institutes and engineers from industry), and will be advanced, based on industry practice and new developments.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "CN2116",
+            "CN3124",
+            "CN3132",
+            "CN3135",
+            "CN3421"
+        ]
+    },
+    "title": "Selected Topics in Chemical Engineering"
+}

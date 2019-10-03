@@ -1,0 +1,13 @@
+{
+    "courseCode": "CM4282",
+    "courseCredit": "4",
+    "description": "This module comprises of a physico-chemical study of the energy resources and the environmental and economic implications of their exploitation. Following the history of energy consumption, the current situation is summarized, and the implications of the continuation of the status quo identified. Concepts of fitness for purpose, and environmental and economic sustainability are explored. Key technologies areas cover generation, use efficiency, and storage and transmission. These are illustrated with quantitative case studies.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "CM1131",
+            "CM1111"
+        ]
+    },
+    "title": "Energy Resources"
+}

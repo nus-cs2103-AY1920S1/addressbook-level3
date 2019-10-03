@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1322",
+    "courseCredit": "4",
+    "description": "The first part of the module covers the observations of celestial objects and their influences on the ancient cultures. Students will learn how calendars and astrology were developed, and how the fundamental laws of nature were discovered. The second part covers the use of telescopes and space missions to explore the universe. Discoveries of stars and galaxies and their impact on mankind's perceptions of the Universe will be explored. Students will learn how Earth formed as a planet that develops and sustains life. There will be a discussion on the latest developments in searching for Earth-like extraterrestrial objects, and explore their impacts on the societies.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "GEK2508"
+    ],
+    "preclusion": "GEH1031. Students majoring in Physics are not allowed to take this module.",
+    "title": "Understanding the Universe"
+}

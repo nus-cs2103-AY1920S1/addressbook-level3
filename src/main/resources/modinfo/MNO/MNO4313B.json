@@ -1,0 +1,16 @@
+{
+    "courseCode": "MNO4313B",
+    "courseCredit": "4",
+    "description": "The objectives of this module are to: (1) Develop an understanding of culture and its variables, (2) Discuss the impact of culture on management in different countries, especially those in Asia, (3) Develop cultural knowledge, sensitivity and skills necessary for working in a culturally diverse business environment. Students are expected to read about current events that are related to cultural sensitivity. They must be prepared to discuss the implications of such events in a multi-cultural environment.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "HR2001",
+            "HR2101",
+            "HR3111",
+            "HR3308"
+        ]
+    },
+    "title": "SIMHC: Culture and Management in Asia"
+}

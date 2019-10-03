@@ -1,0 +1,10 @@
+{
+    "courseCode": "MDG5108",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "ST5318"
+    ],
+    "title": "Biostatistics For Basic Research"
+}

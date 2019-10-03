@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5304",
+    "courseCredit": "4",
+    "description": "The design of subsea systems is significantly affected by operational considerations and can radically change a system configuration. Key considerations that must be taken into account in a subsea system design include vessel availability, design for weather window, reduction in number of operations, elimination of construction risk and ability to perform an early production start-up. This module considers key operational aspects that will be encountered in everyday offshore operations, and will look specifically at technologies that are used in subsea operations that are essential to understand their use and limitations.",
+    "faculty": "Engineering",
+    "title": "Subsea Construction & Operational Support"
+}

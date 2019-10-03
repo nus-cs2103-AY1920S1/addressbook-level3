@@ -1,0 +1,10 @@
+{
+    "courseCode": "YLC1201",
+    "courseCredit": "5",
+    "description": "A Beginning Chinese course in listening, speaking, reading, and writing in Modern Standard Chinese. The student will learn pinyin, basic grammar, and a limited set of characters to understand basic everyday conversations and elementary readings. The course is designed for the absolute beginners and intended primarily for non-heritage students with no previous exposure to Chinese.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YLC1202"
+    ],
+    "title": "Beginning Chinese 1"
+}

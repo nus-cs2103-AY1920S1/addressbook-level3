@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BN2203",
+    "courseCredit": "4",
+    "description": "This module introduces the students to the basic elements for design of medical devices through a hands-on design project performed in teams. Examples of engineering analysis and design are applied to representative topics in bioengineering, such as biomechanics, bioinstrumentation, biomaterials, biotechnology, and related areas. Topics include: identification of the technological needs, design methodology, evaluation of costs and benefits, quality of life and ethical considerations.",
+    "faculty": "Engineering",
+    "title": "Introduction to Bioengineering Design"
+}

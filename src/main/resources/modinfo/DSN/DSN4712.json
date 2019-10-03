@@ -1,0 +1,8 @@
+{
+    "courseCode": "DSN4712",
+    "courseCredit": "4",
+    "description": "Statistical learning is machine learning for statistical analysis. An example of statistical learning would be constructing a predictive function based on a large volume of data. Students will be introduced to the use of statistical learning techniqes via an online platform, using data similar to those they might encounter in their future workplaces.",
+    "faculty": "NUS Business School",
+    "prereqTree": "DSC1704",
+    "title": "Statistical Learning for Managerial Decision"
+}

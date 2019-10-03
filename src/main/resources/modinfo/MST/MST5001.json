@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "MST5001",
+    "courseCredit": "4",
+    "description": "This module equips students with the basic knowledge of structures and properties of engineering materials. The topics covered include atomic bonding and condensed phases; crystal structures, crystallography and crystal imperfections; the thermodynamics of alloys, phase equilibrium and phase diagrams; thermally activated processes, diffusion, kinetics of phase transformation, non-equilibrium phases; mechanical properties and strengthening mechanisms, fracture of materials, corrosion and oxidation resistance, other properties. Working engineers and graduate students who have no former training in materials but wish to pursue further studies and R&D in engineering materials should attend this course.",
+    "faculty": "Engineering",
+    "title": "Structures and Properties of Materials"
+}

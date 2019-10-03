@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TCE3001",
+    "courseCredit": "4",
+    "description": "Topics covered in this module include water and wastewater sources, characteristics of water and wastewater (physical, chemical, and biological parameters), principles of physical, chemical, and biological processes for water and wastewater treatment, and water reclamation. Applications of fundamental principles for process analysis and design will be discussed with a focus on commonalities in applications across industry. Laboratory experiments relevant to water quality assessment and engineering are also included in the module.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCE4401"
+    ],
+    "preclusion": "ESE2401 & ESE3401 & ESE3001",
+    "title": "Water Quality Engineering"
+}

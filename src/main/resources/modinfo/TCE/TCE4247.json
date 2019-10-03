@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCE4247",
+    "courseCredit": "4",
+    "description": "This course introduces the student to the application of the basic concepts in pipe and open channel flows that were covered earlier to the design of the pumping system and associated facilities in a water or sewage treatment plant. Topics covered include selection of pumps for optimal efficiency, hydraulic design of the pump sump and the sewage/treated water delivery system and surge mitigation. Students will be involved in a project on the design of such a system.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE4247",
+    "prereqTree": "TCE2134",
+    "title": "Treatment Plant Hydraulics"
+}

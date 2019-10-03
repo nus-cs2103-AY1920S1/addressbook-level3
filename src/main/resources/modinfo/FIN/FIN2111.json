@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "FIN2111",
+    "courseCredit": "4",
+    "description": "This is an introductory course on how to manage one's personal finance. Topics to be covered include starting a financial plan, cash budgeting, managing liquid assets, investments, managing credit, insuring one's assets, income tax and estate planning. Each topic is given a rigorous and balanced treatment by applying methods such as time value and basic investment principles to practical issues. At the end of the course, a student should have a better perspective of what personal financial planning entails, how to get started, avoid common pitfalls in financial planning and achieve desired outcomes for your financial goals.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have passed BZ3314 or BH2111 or FNA2111 are not allowed to take FIN2111.",
+    "title": "Personal Finance"
+}

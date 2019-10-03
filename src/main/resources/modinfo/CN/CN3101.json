@@ -1,0 +1,15 @@
+{
+    "courseCode": "CN3101",
+    "courseCredit": "4",
+    "description": "Students learn how to perform laboratory-scale experiments in a small team. They also learn communication skills through report writing and oral presentations. Experiments in this module are related to chemical engineering thermodynamics, fluid mechanics, heat and mass transfer and reaction engineering. Moreover, students learn how to use safety equipment to handle hazardous waste following safety protocols. They also learn assembly/disassembly of equipment, fault diagnosis, operation of thermocouples and flow meters, instrumental analysis, data logging and processing, operation of process plant items, error analysis and data validation. Students will perform 8 experiments (5 hours each) during the semester.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "CN2121",
+            "CN2122",
+            "CN2116",
+            "CN2125"
+        ]
+    },
+    "title": "Chemical Engineering Process Lab I"
+}

@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6230",
+    "courseCredit": "4",
+    "description": "This module covers selected topics in biomedical circuits and systems, which address areas at the crossroads of circuits and systems and life science. It focuses on fundamental principles and circuits in bio-signal processing and low-p ower biomedical systems. Topics covered include ultra-low-power circuits for wireless wearable and implantable devices, and low-power bio-signal processing techniques. Case studies of selected real-world problems will be discussed to show how to apply the fundamental principles in biomedical devices. The students are expected to learn useful skills and build up interdisciplinary background for further research in biomedical circuits and system.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EE5507",
+                    "EE5507R"
+                ]
+            },
+            {
+                "or": [
+                    "EE5518",
+                    "EE5518R"
+                ]
+            }
+        ]
+    },
+    "title": "Advanced Biomedical Circuits and Systems"
+}

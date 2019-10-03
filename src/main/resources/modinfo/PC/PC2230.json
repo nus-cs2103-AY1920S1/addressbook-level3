@@ -1,0 +1,25 @@
+{
+    "courseCode": "PC2230",
+    "courseCredit": "4",
+    "description": "This module is an introductory course in statistical and thermal physics, and is a prerequisite to advanced statistical mechanics. The topics to be covered include: mathematical background, laws of thermodynamics, thermodynamics functions, chemical equilibrium and phase transitions, kinetic theory, postulates of statistical mechanics, independent particle approach of statistical mechanics, basic distributions, ideal gases, paramagnetism, equipartition theorem, etc. Science and engineering students with a background knowledge of general physics are the targeted students.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ESP4401",
+        "PC4241"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PC1142",
+                    "PC1144",
+                    "PC1431",
+                    "PC1431FC",
+                    "PC1431X"
+                ]
+            },
+            "MA1102R"
+        ]
+    },
+    "title": "Thermodynamics and Statistical Mechanics"
+}

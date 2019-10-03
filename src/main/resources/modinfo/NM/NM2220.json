@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NM2220",
+    "courseCredit": "4",
+    "description": "This introductory module provides instruction and practice in writing for the mass media, including the Internet. It explores the similarities and differences in writing styles for all mass media and for the professions of journalism, public affairs, public relations, advertising and telecommunications. It emphasizes accuracy, responsibility, clarity and style in presenting information through the various channels of mass communication. It surveys communication theories of various professions that communicate via the mass media, establishing the basis for advanced studies in writing and communication. It helps students acquire the writing skills they need in communication management careers",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "NM3219"
+    ],
+    "title": "Introduction to Media Writing"
+}

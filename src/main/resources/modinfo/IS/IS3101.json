@@ -1,0 +1,27 @@
+{
+    "courseCode": "IS3101",
+    "courseCredit": "4",
+    "description": "The course covers the essentials in management of information systems in an organisational setting. Students will gain an understanding of the managerial issues in the development and operation of information systems. The main topics include: information systems planning, management of systems development and maintenance, implementation management, end-user computing, data centre operations, information systems control and evaluation, acquisition of IS resources and management of IS personnel. Case studies will be used to illustrate the issues and solutions.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS4261",
+        "IS4204",
+        "IS4010",
+        "IS4228",
+        "IS4233",
+        "IS4243"
+    ],
+    "preclusion": "CS3253",
+    "prereqTree": {
+        "or": [
+            "CS2250",
+            {
+                "and": [
+                    "IS1103",
+                    "IS1105"
+                ]
+            }
+        ]
+    },
+    "title": "Management of Information Systems"
+}

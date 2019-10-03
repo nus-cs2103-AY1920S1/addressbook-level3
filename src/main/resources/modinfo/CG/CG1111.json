@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CG1111",
+    "courseCredit": "6",
+    "description": "This module aims to equip first year engineering students to a computer engineer's way of thinking and will focus on the engineering principles of how computer-aided systems work and fail and the engineering practice of how they are designed, built and valued. Students will be presented a practical computer engineering system, e.g., a sensorassisted autonomous vehicle, a drone, or an engineering event. They are then guided to reconstruct the system via interconnected subsystems through laboratory sessions and group discussions, to explain using engineering principles how the system works and could fail.",
+    "faculty": "Multi Disciplinary Programme",
+    "fulfillRequirements": [
+        "CG1112",
+        "CG2027"
+    ],
+    "preclusion": "CG1108 Electrical Engineering, EG1112 Engineering Principles and Practice II",
+    "title": "Engineering Principles and Practice I"
+}

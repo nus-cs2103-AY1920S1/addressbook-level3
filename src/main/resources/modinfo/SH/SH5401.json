@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "SH5401",
+    "courseCredit": "4",
+    "description": "The course will include an assessment of all the elements covered in current worldwide codes, standards, and legislature. The different models will be compared to determine overlaps and omissions. Models that will be covered in detail include ISO 9000 series, BS 7750/ISO 14000, OSHA Process Safety Management Rule, CCPS Technical Safety Management of Chemical Process Safety, API 750, Singapore Legislation of Management Systems related to the shipyards and construction industries, Management systems required under CIMAH type regulations. In addition, the course will cover auditing techniques and the skills required undertake audits.",
+    "faculty": "Engineering",
+    "preclusion": "ESE5602 Environmental Management System",
+    "title": "Safety, Health, Environment & Quality Management System"
+}

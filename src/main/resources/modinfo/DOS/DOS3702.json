@@ -1,0 +1,12 @@
+{
+    "courseCode": "DOS3702",
+    "courseCredit": "4",
+    "description": "The primary aim of this course is to get students interested in and acquainted with the fundamental concepts, models and instruments in purchasing and materials management. Key areas like buying supplies, logistics, contracts, stock and inventory control, distribution and warehouse management will be covered. Some insights into the current developments and biggest problem areas in this field are provided. A combination of informative and interactive lectures and application-oriented case assignments will be used for the pedagogy and considerable attention is devoted to the discussion of practical / managerial issues.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DOS4811"
+    ],
+    "preclusion": "DSC3202",
+    "prereqTree": "DAO2703",
+    "title": "Purchasing and Materials Management"
+}

@@ -1,0 +1,34 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1507",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide a foundation for calculus of one and several variables. The module is targeted at students in the Engineering Science Programme. Topics: brief review of one variable calculus, sequences and series, tests of convergence and divergence, power series in one variable, interval of convergence, Maclaurin and Taylor series, Taylor's theorem with remainder, lines and planes, functions of several variables, continuity of functions of several variables, partial derivatives, chain rule, directional derivatives, normal lines and tangent planes to surfaces, extrema of functions, vector-valued functions, curves, tangents and arc length, gradient, divergence and curl, line, surface and volume integrals, Green's theorem, divergence theorem, Stokes' theorem.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "EC3314",
+        "ESP2107",
+        "MA4269A",
+        "MA4271",
+        "MA4269",
+        "MA2216",
+        "QF3101",
+        "MA3236",
+        "MA3229",
+        "MA3227",
+        "MA3220",
+        "MA3209",
+        "MA3111S",
+        "MA3111",
+        "MA2501",
+        "MA2219",
+        "MA2213",
+        "MA2108S",
+        "MA2108",
+        "ST2334",
+        "ST2131"
+    ],
+    "preclusion": "Students reading a primary major in Mathematics/Applied Mathematics/Quantitative Finance/Data Science and Analytics s, MA1102R, MA1505, MA1511, MA1512, MA1521, MA2104, MA2311",
+    "title": "Advanced Calculus"
+}

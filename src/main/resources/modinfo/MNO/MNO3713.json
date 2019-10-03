@@ -1,0 +1,15 @@
+{
+    "courseCode": "MNO3713",
+    "courseCredit": "4",
+    "description": "This course aims to train students to effectively handle employee relations in Singapore. It will address various environmental and structural constraints managers face when dealing with employees in Singapore. It delves into such topics as the history, key institutions, and the tripartism philosophy adopted in Singapore, as well as several key legislations and their applications. Because of its strong orientation towards real-world practices, students will find this course useful when looking for employment or actually managing employees in the future. Students are expected to keep themselves updated with regard to the current trends in employee relations, as well as to demonstrate their ability to apply concepts and skills learned from the course.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO3323",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Management of Employee Relations"
+}

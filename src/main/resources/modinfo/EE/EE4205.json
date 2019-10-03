@@ -1,0 +1,20 @@
+{
+    "courseCode": "EE4205",
+    "courseCredit": "4",
+    "description": "This module introduces engineering undergraduate students to the basic concepts of quantum communication technology, focusing on applying analytical methods of ECE to study quantum communication systems. In particular, it aims to provide engineering students with the necessary skills for the analysis of practical quantum communication devices. The topics include nonlocal games, quantum cryptography, randomness quantification, quantum random number generators and quantum secure communication. The module only requires that the students have basic understandings of probability theory, statistics, linear algebra, and communication systems. No quantum physics background is required.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EE2012",
+                    "EE2012A"
+                ]
+            },
+            "EE2023",
+            "ST2334",
+            "CG2023"
+        ]
+    },
+    "title": "Quantum Communication and Cryptography"
+}

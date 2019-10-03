@@ -1,0 +1,13 @@
+{
+    "courseCode": "CM5268",
+    "courseCredit": "4",
+    "description": "This module builds on the module Advanced Polymer Science (CM 4268). A major focus will be directed towards the preparation and application of advanced polymers and biopolymers. It will be accompanied by presentations and case studies delivered by selected Industry researchers. The following aspects will be covered: (i) Liquid Crystals; (ii) Photovoltaics Materials; (iii) Organic Electronics & Devices; (iv) Nanostructured Surfaces; (v) Sensors; (vi) Nanoparticles and Quantum Dots; (vii) Biomimetic and Intelligent Materials; (viii) Tissue Engineering. The module is suited for final year students majoring in chemistry, applied chemistry and related disciplines.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "CM3221",
+            "CM4268"
+        ]
+    },
+    "title": "Advanced Organic Materials"
+}

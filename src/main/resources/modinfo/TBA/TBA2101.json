@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TBA2101",
+    "courseCredit": "4",
+    "description": "This module aims to provide students with knowledge and understanding of how to develop an organisation for analytics. The module starts by describing how an organisation can transform itself to become an analytics organisation. It will then move on to the methods and techniques for applied analytics, managing and governing data for analytics, reporting of data for key performance indicators, and optimisation and testing with applied analytics. Solutions to address organisational silos are also discussed. Examples will be drawn from various industry domains and organisations.",
+    "faculty": "Cont and Lifelong Education",
+    "title": "Building an Analytics Organisation"
+}

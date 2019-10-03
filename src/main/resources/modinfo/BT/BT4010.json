@@ -1,0 +1,11 @@
+{
+    "courseCode": "BT4010",
+    "courseCredit": "12",
+    "description": "This module aims to equip students with an intermediate exposure to working in industry with theories, methods and applications of business analytics learnt. Their progress on internship projects will be monitored during internship period, and their performance will be assessed through a Completed Satisfactory/Completed Unsatisfactory (CS/CU) grade at the end of the internship. The internship duration will be approximately 24 weeks full-time.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "BT4011"
+    ],
+    "prereqTree": "BT2010",
+    "title": "Business Analytics Internship Programme"
+}

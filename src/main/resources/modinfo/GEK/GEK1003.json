@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1003",
+    "courseCredit": "4",
+    "description": "The purpose of this module is to impart a preliminary overview of political science and its sub-fields so that students have a basic orientation of the discipline. It briefly explains the scope and components of each of the four sub-fields (political theory, comparative politics, international relations and public administration) and familiarises students with the major issues and arguments related to power, justice, political culture, national identity, accountability, ethics and world order. It also focuses on key political institutions. The module will be of interest to students across the university who want to gain a basic understanding of politics.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PS1101, GEM1003K, PS1101E.  Not for students majoring in PS",
+    "title": "Introduction to Politics"
+}

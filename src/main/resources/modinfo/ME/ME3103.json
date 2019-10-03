@@ -1,0 +1,14 @@
+{
+    "courseCode": "ME3103",
+    "courseCredit": "6",
+    "description": "This module consists of a project which is either (i) an industrysponsored project, (ii) an in-house project linked to external competitions, or, (iii) a project according to a prescribed theme proposed by a group of students. The students will work in groups to complete the design of a mechanical product/system in the first half of the semester to be followed by the fabrication/testing of prototype(s) in the second half. In the course of project work, students will be exposed to the working of team dynamics, the engineering design process, report writing, oral presentation and project management.",
+    "faculty": "Engineering",
+    "preclusion": "ME3101 Mechanical Systems Design I\nME3102 Mechanical Systems Design II",
+    "prereqTree": {
+        "or": [
+            "ME2101",
+            "ME2103"
+        ]
+    },
+    "title": "Mechanical Systems Design"
+}

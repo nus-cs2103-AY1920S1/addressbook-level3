@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6735",
+    "courseCredit": "4",
+    "description": "This course introduces ECE and SoC graduate students to the fundamentals of machine learning from a statistical perspective, bringing the student to a level at which he can conduct independent research in this interdisciplinary area. The course will cover Bayesian statistics and emphasizes the powerful formalism of graphical models. We introduce exact and approximate inference and learning of graphical models, which serve as unifying themes for many models and algorithms in control, communications, speech analysis, signal processing, computer vision and biomedical image analysis, such as Kalman filtering, hidden Markov models, Viterbi algorithm and LDPC decoding.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE4131",
+            "EE5137",
+            "EE5137R"
+        ]
+    },
+    "title": "Algorithms for Statistical Inference"
+}

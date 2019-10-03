@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5225",
+    "courseCredit": "4",
+    "description": "Molecular imaging becomes indispensable tool for the biomedical research and modern day clinical management. This module explores principles of molecular imaging, key imaging equipment used for molecular imaging and examples of applications in clinical management and biomedical research. Basics of imaging principles will be introduced. Principles of transmission and emission tomography will be explained. Molecular imaging techniques such as nuclear medicine techniques (single photon emission tomography - SPECT, positron emission tomography - PET), magnetic resonance imaging (MRI), magnetic resonance spectroscopy (MRS), optical imaging and hybrid imaging techniques (SPECT/CT, PET/CT, PET/MR) will be covered for both instrumentation principles and applications. Molecular basis of imaging and molecular imaging probe design will be explained.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "title": "Fundamentals of Molecular Imaging"
+}

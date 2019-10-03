@@ -1,0 +1,10 @@
+{
+    "courseCode": "LL6008A",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL4008B"
+    ],
+    "title": "Carriage of Goods by Sea"
+}

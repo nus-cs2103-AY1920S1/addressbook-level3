@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ACC1002",
+    "courseCredit": "4",
+    "description": "The course provides an introduction to financial accounting. It examines accounting from an external user's perspective: an external user being an investor or a creditor. Such users would need to understand financial accounting in order to make investing or lending decisions. However, to attain a good understanding, it is also necessary to be familiar with how the information is derived. Therefore, students would learn how to prepare the reports or statements resulting from financial accounting and how to use them for decision-making.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC1006",
+        "ACC2002",
+        "ACC3601",
+        "ACC3605",
+        "ACC3611",
+        "ACC3616",
+        "FIN2004",
+        "FIN4115",
+        "FIN3132",
+        "FIN2004X",
+        "FIN3130",
+        "FIN3113",
+        "FIN3114"
+    ],
+    "preclusion": "Students who have passed FNA1002 are not allowed to take ACC1002.",
+    "title": "Financial Accounting"
+}

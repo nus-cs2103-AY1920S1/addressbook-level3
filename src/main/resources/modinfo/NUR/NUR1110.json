@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1110",
+    "courseCredit": "4",
+    "description": "This module explores the importance and need for nurses to communicate in an effective manner with patients, family members and other health care professionals in order to facilitate optimal health outcomes for the patients.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "NUR2120"
+    ],
+    "title": "Effective Communication for Health Professionals"
+}

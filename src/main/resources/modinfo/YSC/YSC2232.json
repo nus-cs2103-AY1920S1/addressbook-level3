@@ -1,0 +1,19 @@
+{
+    "courseCode": "YSC2232",
+    "courseCredit": "5",
+    "description": "A first course in linear algebra of finite-dimensional real and complex vector spaces, balancing theoretical and computational material. The course covers vectors and linear transformations, building geometric intuition, algebraic aptitude, and computational proficiency. Topics include spaces and subspaces, linear maps, linear independence and spanning, basis, and representations by coordinates and matrices. The theory of linear operators is developed, including eigenvalues and eigenvectors, self-adjoint operators, the spectral theorem, and the singular value decomposition. Some topics from numerical linear algebra, especially implementation of algorithms and assessment of their efficiency are included. Applications to statistics, economics, engineering and science are presented.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3206",
+        "YSC3218",
+        "YSC4201A",
+        "YSC4202",
+        "YSC4206",
+        "YSC4213",
+        "YSC4216",
+        "YSC3244",
+        "YSC4220"
+    ],
+    "preclusion": "YSC3205 Linear Algebra (previous code)",
+    "title": "Linear Algebra"
+}

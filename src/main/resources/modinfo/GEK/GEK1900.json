@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1900",
+    "courseCredit": "4",
+    "description": "From the global increase in obesity to SARS, a range of health issues and solutions will be explored in differing contexts throughout the world. Working in small groups, students debate and evaluate paths to addressing global health issues in a variety of cultural contexts. For example, lessons learned about tuberculosis in Russia may be applied to the Singaporean context, or students may examine efforts to prevent newborn deaths in developing nations. Students will develop an appreciation of how the health of an entire population impacts individuals and how complex problems can be prevented or addressed using culturally appropriate solutions.",
+    "faculty": "SSH School of Public Health",
+    "fulfillRequirements": [
+        "SPH3109"
+    ],
+    "preclusion": "GEH1049",
+    "title": "Public Health in Action"
+}

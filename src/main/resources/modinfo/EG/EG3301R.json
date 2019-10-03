@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "EG3301R",
+    "courseCredit": "12",
+    "description": "This module focuses on the implementation and realization of an engineering design concept. It provides an avenue for students to experience an integrated design process where technology plays a central role. Students will go through thorough design steps from reviewing the conceptual system design, breaking down the system design into component design, prototyping at various stages of design, fabrication, and validating the design intents.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EG4301A"
+    ],
+    "preclusion": "ESP3902: Major Design Project 1 (4 MC)\nESP3903: Major Design Project 2 (4 MC)\nBN2203: Introduction to Bioengineering Design (4 MC)\nBN3101: Biomedical Engineering Design (6 MC)\nCG3002: Embedded Systems Design Project (6 MC)\nEE3001: Project (4 MC)\nEE3031: Innovation & Enterprise I (4 MC)\nEE3032: Innovation & Enterprise II (6 MC)\nIE3100M: Systems Design Project (12 MC)\nME3101: Mechanical Systems Design I (4 MC)\nME3102: Mechanical Systems Design II (4 MC)\nESE4501: Design Project (4 MC)\nMLE3103: Materials Design and Selection (4 MC)\nMLE4102: Design Project (4 MC)\nEG3301: DCC Project (10MC)",
+    "title": "DCP Project"
+}

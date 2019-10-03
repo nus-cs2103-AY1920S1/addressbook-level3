@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UIT2206",
+    "courseCredit": "4",
+    "description": "Formal methods of reasoning have been studied in all major civilizations, but the appearance of automatic computing devices in the 20th century has led to an explosion of interest in and applications of formal logic. Today, the advantages of formal reasoning are recognized and utilized far beyond computer science. Students of this module will discover the power as well as the limitations of formal methods for philosophy and mathematics, and learn to apply them in diverse areas such as political speeches and arguments, analysis of detective novels and the scheduling of sports tournaments.",
+    "faculty": "University Scholars Programme",
+    "preclusion": "Not applicable to USP modules.",
+    "title": "The Importance of Being Formal"
+}

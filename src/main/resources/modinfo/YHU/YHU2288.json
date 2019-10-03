@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2288",
+    "courseCredit": "5",
+    "description": "This course focuses on twentieth-century narratives that explore sexuality and gender issues in their socio-historical contexts. It examines adolescent attachments, sororal and brotherly love, friendship, etc., and how these relations tip over to homosociality and eroticism. As an introductory course, it familiarises students with debates on sexual identities and politics through analyses of fictional works from the US, UK, and Asia, offering a vocabulary for queer experience and perspectives that illuminate queer interiority and same-sex relations. Overall, the course reflects on and challenges fictions and critical approaches that are essentially \"queer.\"",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Queer Fictions"
+}

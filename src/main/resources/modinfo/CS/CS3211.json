@@ -1,0 +1,17 @@
+{
+    "courseCode": "CS3211",
+    "courseCredit": "4",
+    "description": "A concurrent system consists of a set of processes that executes simultaneously and that may collaborate by communicating and synchronising with one another. Examples of concurrent systems are parallel programs that describe sets of collaborating processes. This module introduces the design, development and debugging of parallel programs. It will build on the concurrency concepts gained from the Operating Systems module. It covers concepts and modelling tools for specifying and reasoning (about the properties of) concurrent systems and parallel programs. It also covers principles of performance analysis, asynchronous and asynchronous parallel programming, and engineering concurrent systems and parallel programs.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5223",
+        "CS6213"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS2106",
+            "CG2271"
+        ]
+    },
+    "title": "Parallel and Concurrent Programming"
+}

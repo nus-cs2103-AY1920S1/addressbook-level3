@@ -1,0 +1,11 @@
+{
+    "courseCode": "CM3225",
+    "courseCredit": "4",
+    "description": "An introduction on the four major classes of biomolecules in life: nucleic acids, proteins, carbohydrates and fatty acids will be given. The bioorganic aspects of these molecules, e.g. how proteins behaves, how DNAs are damaged and repaired, how enzymes catalyze chemical transformations, and how drugs are developed, will be discussed. Fundamentals in biochemistry and physical methods for bioorganic chemistry will be introduced. Basic concepts in how to synthesize biologically active compounds in drug discovery through combinatorial chemistry will be introduced.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM4271"
+    ],
+    "prereqTree": "CM2121",
+    "title": "Biomolecules"
+}

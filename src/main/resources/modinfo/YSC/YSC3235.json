@@ -1,0 +1,17 @@
+{
+    "courseCode": "YSC3235",
+    "courseCredit": "5",
+    "description": "The aim of this course is to examine animal behavior from a biological, and especially an evolutionary, point of view. We will explore the causes and consequences of animal behaviors, including topics such as: optimality and foraging; predation and risk; territoriality and aggression; mating competition; parent-offspring and sibling conflict; personality and behavioural syndromes; living in groups; altruism, mutualism, and eusociality. We will also address some questions of the evolution of cognition in animals. Students will discuss the primary literature, conduct small group and independent projects on animals, and write individual review papers.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC2240"
+    ],
+    "prereqTree": {
+        "and": [
+            "YCC1122",
+            "YCC1131",
+            "YSC2231"
+        ]
+    },
+    "title": "Animal Behaviour"
+}

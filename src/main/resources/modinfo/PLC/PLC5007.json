@@ -1,0 +1,13 @@
+{
+    "courseCode": "PLC5007",
+    "courseCredit": "4",
+    "description": "This module provides advanced training in empirically supported psychological therapies targeting third wave cognitive behavioural therapies (CBT) for various psychiatric and personality disorders. It builds on the training in therapeutic skills and techniques provided in module PLC5004 Psychological Intervention and Therapy and prepares students further for clinical practice. The emphasis on the training will include Acceptance and Commitment Therapy (ACT), Dialectical Behavioural Therapy (DBT), and Functional Analysis Psychotherapy (FAP) to treat more complex types of psychopathology.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PLC5011",
+            "PLC5004"
+        ]
+    },
+    "title": "Advanced Psychological Practice"
+}

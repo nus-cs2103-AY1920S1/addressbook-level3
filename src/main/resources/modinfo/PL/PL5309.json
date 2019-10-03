@@ -1,0 +1,14 @@
+{
+    "courseCode": "PL5309",
+    "courseCredit": "4",
+    "description": "Effective teachers, leaders, entrepreneurs, and advertisers have one thing in common \u2013 they have mastered the skill of motivating others. Whether you are trying to persuade people, inspire teams, negotiate strategically, or nudge people towards better decisions, you need to understand what drives people. In this course, we will read research papers on motivation theories, ranging from the older classics to more cutting\u2010edge research. We will also learn about interventions that successfully motivate behavior change and apply this knowledge to addressing real-world issues.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL2131",
+            "PL2132",
+            "PL3235"
+        ]
+    },
+    "title": "Motivation and Behaviour Change"
+}

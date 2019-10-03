@@ -1,0 +1,18 @@
+{
+    "courseCode": "CS5249",
+    "courseCredit": "4",
+    "description": "This module aims at providing students with an in-depth understanding of modern audio technologies, ranging from low-level audio representation to high-level content analysis; and from basic waveform to advanced audio compression and compressed domain processing. Upon completion of this module, students should be able to perform research such as narrowing the semantic gap between low-level features and high-level concepts. Topics include: discretization, sampling, audio formats, audio synthesis, spatial audio, feature extraction, speech recognition, audio segmentation and summarization, source separation, and audio compression.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "MA1102R",
+            "MA1505",
+            "MA1505C",
+            "MA1521",
+            "MA1101R",
+            "MA1506"
+        ]
+    },
+    "title": "Audio in Multimedia Systems"
+}

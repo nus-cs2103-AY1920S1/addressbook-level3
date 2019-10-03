@@ -1,0 +1,17 @@
+{
+    "courseCode": "RE4180",
+    "courseCredit": "4",
+    "description": "This exit module is designed to provide students with an integrated perspective and education on the various real estate core disciplines taught in the earlier years of the curriculum. Students are exposed to several cutting-edge topics and state-of-the-art in real estate business practice and research and their linkages in this dynamic environment. The module will engage students in understanding and capitalising on opportunities/threats and providing innovative solutions in establishing, developing and managing a real estate business venture in the modern economy. Another important component of the module is to require students to participate in research seminars and provide critique on papers in applied and academic real estate research. Possible topics include real estate capital markets, housing policy and development, and international real estate. This is a 100% continuous-assessment module.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "and": [
+            "RE3280",
+            "RE3281",
+            "RE3382",
+            "RE3383",
+            "RE3482",
+            "RE3483"
+        ]
+    },
+    "title": "Real Estate Practice And Research"
+}

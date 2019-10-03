@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAS4202",
+    "courseCredit": "5",
+    "description": "This course is the culmination of the Spanish language programme and serves as a bridge to further study of Spanish language and culture. Students will work on refining their writing and speaking skills by engaging in a variety of tasks (e.g. analysing short stories by a variety of authors, reviewing current films, discussing current events). Students will read texts on cultural and literary analysis with the aim of refining their linguistics and critical thinking skills.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAS4203"
+    ],
+    "preclusion": "YLS3202 Advanced Spanish II",
+    "prereqTree": {
+        "or": [
+            "LAS4201",
+            "YLS3201"
+        ]
+    },
+    "title": "Spanish 6"
+}

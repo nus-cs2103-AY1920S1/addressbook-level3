@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC3218",
+    "courseCredit": "5",
+    "description": "This course focuses on the extension of calculus to smooth functions of many variables. A geometric approach leads to a treatment of regions in n-dimensional space, smooth functions and their derivatives, differential forms, cycles, and integration. This course may be suitable for students seeking advanced study in mathematics for physics or economics.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC2209",
+            "YSC2232"
+        ]
+    },
+    "title": "Advanced Calculus"
+}

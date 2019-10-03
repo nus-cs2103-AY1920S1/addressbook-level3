@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAR3201",
+    "courseCredit": "4",
+    "description": "Arabic 3 is a continuation of Arabic 2. Its focus is to improve upon the students\u2019 ability to interact in the language, augment their active vocabulary, and build upon their structural knowledge. An inductive/communicative approach is employed with all skills; the students are given real\u2010life situations so that they can put into practice their acquired vocabulary and newly learnt grammar points. Also, students are exposed to a good amount of comprehensible input, such as real conversations between native speakers, audios of newscasts, and parts of movies. They are also asked to write short compositions using newly taught structures and vocabulary.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAR3202"
+    ],
+    "prereqTree": "LAR2201",
+    "title": "Arabic 3"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "ST3245",
+    "courseCredit": "4",
+    "description": "The module focuses on how statistics has been used successfully in solving important problems in molecular biology. Major topics covered are: Genetics, basic molecular biology, discrete probability, stochastic processes, design of experiments, parameter estimation, the bootstrap, testing hypotheses, Markov Chain Monte Carlo. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisite.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "ST2131",
+            "ST2334"
+        ]
+    },
+    "title": "Statistics in Molecular Biology"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2211",
+    "courseCredit": "5",
+    "description": "When and how did Roman authors develop the literary culture that became as dominant as their imperial power? How did Romans distinguish their own literary production from the Greek models that influenced them so greatly? This survey of Roman literary culture from the earliest inscriptional evidence through subversive erotic poetry and martial epic examines the growth and afterlife of one of the world\u2019s most influential literary traditions. We will explore the changing political and cultural contexts of exemplary works from Rome\u2019s long history, and these works\u2019 impact on subsequent art and literature.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Roman Literary Cultures"
+}

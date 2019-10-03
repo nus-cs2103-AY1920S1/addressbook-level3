@@ -1,0 +1,28 @@
+{
+    "courseCode": "LL5379V",
+    "courseCredit": "5",
+    "description": "The course will examine recent developments and future directions in international commercial arbitration. Recent innovations such as emergency arbitrations, arb-med-arb protocols, expeditious dismissal of manifestly unmeritorious claims, consolidation and joinder, and expedited procedures will be examined from a comparative and analytical perspective with a focus on jurisdictions in the Asia-Pacific region. It will also attempt to identify future trends in international commercial arbitration, including the use of artificial intelligence, online dispute resolution, block chain technology and other procedural and technological innovations. It will utilize case studies to allow students to gain hands-on experience with arbitral rules, legislation and procedure.",
+    "faculty": "Law",
+    "preclusion": "LL4379/LL5379/LL6379 Future of Int\u2019l Commercial Arbitration in APAC Region",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "LL4029V",
+                    "LL5029V",
+                    "LL6029V",
+                    "LC5262V"
+                ]
+            },
+            {
+                "or": [
+                    "LL4029AV",
+                    "LL5029AV",
+                    "LL6029AV",
+                    "LC5262AV"
+                ]
+            }
+        ]
+    },
+    "title": "Future of Int'l Commercial Arbitration in APAC Region"
+}

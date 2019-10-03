@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Jarvis - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,574 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T10-1`      Since: `Sep 2019`      Licence: `MIT`
 
-== Introduction
+= Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+First paragraph changes font.
 
-== Quick Start
+Ensure you have https://www.java.com/en/download/[Java 11] or above installed
+on your PC.
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+Jarvis is your personal student assistant. He is able to manage your schoolwork
+and finances. Jarvis offers three main features to bolster your productivity,
+a:
+
+1. **Schedule Planner**
+2. **Finance Planner**
+3. **Module Planner**
+
+Jarvis allows you to track calendar events, keep an eye on your expenses and
+many more features as listed below.
+
+Jarvis also supports undo and redo functionality, allowing you easily
+undo and redo any mistakes in the application.
+
+= Quick Start
+
+Ensure you have https://www.java.com/en/download/[Java 11] or above installed
+on your PC.
+
+Download the latest `Jarvis` https://www.google.com/[here].
+
+Copy the downloaded file to the folder that you would like to use as the
+home folder for `Jarvis`.
+
+Double-click `jarvis.jar` to start the app. The GUI will appear in a few
+seconds.
+
+= Features
+
+== Command Format
+
+1. Words in `UPPER CASE` are the parameters supplied by the user, while those
+in `lower case` are *key-words* used by the program.
 +
-image::Ui.png[width="790"]
+For example:
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+`add t/TASK-TYPE/TASK-DESCRIPTION`
++
+In this case, `TASK-TYPE` and `TASK-DESCRIPTION` and `add` is a key-word.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+2. Items in square brackets `[]` are optional fields with the command.
++
+For example:
++
+`add t/TASK-TYPE/TASK-DESCRIPTION [d/DATE]`
++
+Can be used
++
+With a date:: `t/todo/CS2103T Assignment d/12/03/2019`
+Without a date:: `t/todo/CS2103T Assignment`
 
-.  Refer to <<Features>> for details of each command.
+3. Parameters with `...` can be used 0, or any number of items
++
+For example:
++
+`[#TAG]...` can are both optional, or used like `#friend #family #food` etc
 
-[[Features]]
-== Features
+4. Jarvis can parse the commands in any order.
 
-====
-*Command Format*
+5. Commands that can take different inputs are represented with a pipe,
+surrounded by curly braces, i.e `{|}`.
++
+For example:
++
+`delete {INDEX | t/TASK-DESCRIPTION}`
++
+means you can use the command as `delete 2` or `delete t/Assignment`
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+////
+DATE Section, coordinate with team to standardise on a single date format.
+////
 
-=== Viewing help : `help`
+////
+Task Scheduler
 
-Format: `help`
+Feature by
+-> Tan Ye Kai
+-> Anisha Nicole Joseph
+////
+== Task Scheduler
 
-=== Adding a person: `add`
+==== List all tasks: `list`
+Lists tasks in the planner based on the given `DATE` or `#TAG`(s).
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `list {d/DATE | #TAG...}`
 
-[TIP]
-A person can have any number of tags (including 0)
+Examples: +
+`list #food #science_club` +
+`list d/10/06/2019`
 
-Examples:
+==== Adding a task: `add`
+Adds a task to the planner.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+A task must have a:
 
-=== Listing all persons : `list`
+* `TASK-TYPE`: `todo`, `event` or `deadline`
+* `TASK-DESCRIPTION`: a short description of the task
 
-Shows a list of all persons in the address book. +
-Format: `list`
+A task *can* have a:
 
-=== Editing a person : `edit`
+* `DATE`
+* `TAG`: any number of tags, such as `#school` or `#cca`
+* `PRIORITY` level: `high`, `medium` or `low`
+* `FREQ` frequency: `daily`, `weekly`, `monthly` or `yearly`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `add t/TASK-TYPE/TASK-DESCRIPTION [d/DATE] [#TAG]... [p/PRIORITY r/FREQ]`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Examples: +
+`add t/event/my birthday d/10/04/2017 r/yearly` +
+`add t/deadline/cs2101 assignment d/20/09/2019 p/high`
 
-Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+==== Deleting a task: `delete`
+Deletes a task from the planner.
 
-=== Locating persons by name: `find`
+Format: `delete {INDEX | t/TASK-DESCRIPTION}`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+where `INDEX` is the **one-based** index of the task list.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Examples: +
+`delete 3` +
+`delete t/cs2101 assignment`
 
-Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+==== Finding a task: `find`
+Locates a task from a given `KEYWORD`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Format: `find KEYWORD`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Examples: +
+`find assignment` +
+`find homework cs ma1101r`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
 
-Examples:
+==== Editing a task: `edit`
+Edits the task by `TASK-DESCRIPTION` or `INDEX`.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`NEW-DESCRIPTION` can be a new task description or any of the characteristics
+used to create a task.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Format: `edit {t/TASK-DESCRIPTION/NEW-DESCRIPTION | INDEX/NEW-DESCRIPTION}`
 
-Clears all entries from the address book. +
-Format: `clear`
+Examples: +
+`edit t/project part 1/project part 2` +
+`edit t/project part 1/project part2 d/18/09/2019` +
+`edit 3/r/weekly`
 
-=== Exiting the program : `exit`
 
-Exits the program. +
-Format: `exit`
+==== Tagging a task: `#tag`
+Creates a tag. Tags can then be added to different tasks.
 
-=== Saving the data
+Format: `create #TAG...`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Examples: +
+`create #work` +
+`create #play` +
+`create #study`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Updating a task's status: `done`
+Updates the status of a task. By default on an `add`, all tasks are marked
+as undone, represented by a `[✗]`. Upon finishing the task, the task will be
+represented with a `[✓]`.
 
-== FAQ
+Format: `done INDEX`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+where `INDEX` is the **one-based** index of the task list.
 
-== Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+==== Clearing entries: `clear`
+Clears tasks from the planner. Tasks can be cleared by `#TAG` or `d/DATE`.
+The command `clear` with no parameters succeeding it will result in all tasks
+being cleared.
+
+Format: `clear [#TAG]... [d/DATE]`
+
+Examples: +
+`clear #school` +
+`clear d/12/09/2019`
+
+
+==== Retrieving statistics: `stats`
+Shows various statistics of the items in the app. This will include statistics
+such as the total number of tasks done, the total number of tasks left and
+blocks of free time.
+
+Format: `stats`
+
+
+////
+Finance Tracker
+
+Feature by
+-> Goh Si Ning
+////
+== Finance Tracker
+
+
+==== Add a single-use payment: `pay`
+Adds a single use payment to the finance tracker. The amount spent will be
+added to the current spending to keep track of the budget set by the user.
+
+Payments can be added either by a tag, or to a person.
+
+Format: `pay a/AMOUNT {#TAG | n/PERSON}`
+
+Examples: +
+`pay a/30 #food` +
+`pay a/30 n/jessica`
+
+
+==== Delete a payment: `pay delete`
+Deletes payments in the list of payments tracked by Jarvis.
+
+Format: `pay delete INDEX`
+
+where `INDEX` is the **one-based** index of the payment list.
+
+
+==== Setting Instalments: `instal set`
+Sets instalments, such as a subscription to a service that is paid monthly.
+The amount is assumed to be deducted on the first of every month.
+
+Format: `instal set n/ITEM a/AMOUNT`
+
+Examples: +
+`instal set n/Spotify a/10` +
+`instal set n/Netflix a/5`
+
+
+==== Edit Instalments: `instal edit`
+Edits the instalments in the list of existing instalments.
+
+Format: `instal edit INDEX {n/ITEM | a/AMOUNT}`
+
+Examples: +
+`instal edit 1 a/10` +
+`instal edit 2 n/Spotify-Family`
+
+
+==== Delete Instalments: `instal delete`
+Deletes instalments in the list of existing instalments
+
+Format: `instal delete INDEX`
+
+
+==== Listing Instalments: `instal list`
+Shows all instalments that the user has subscribed to.
+
+Format: `instal list`
+
+
+==== Listing Expenditures: `expenses list`
+Shows all payments that the user has made this month.
+
+Format: `expenses list`
+
+
+==== Setting Monthly Limit: `set monthly`
+Sets a monthly budget limit. From the monthly limit, the program will
+automatically calculate your weekly and daily limit.
+
+Format: `set monthly a/AMOUNT`
+
+Examples: +
+`set monthly a/300`
+
+
+==== Compare Expenditure between Two Months: `compare`
+Shows a comparison of expenditure between the two given months.
+
+Format: `compare m/DATE m/DATE`
+
+Example: +
+`compare m/Jan2019 m/Feb2019`
+
+
+==== Estimating Remaining Budget: `est`
+Estimates the amount of money that can be spent for
+
+1. the current day
+2. the current month
+
+Format: `est {day | month}`
+
+The amount shown takes the amount spent for the current day or month, and
+minuses it from the user's monthly limit. If no monthly limit has been
+specified, the program will show:
+
+`Oops, there does not seem to be a monthly limit.`
+
+
+==== Adding owed amounts: `owe` & `debt`
+`owe`: saves a payment owed by someone else to the user. +
+`debt`: saves a payment owed by the user to someone else.
+
+Format: `owe n/PERSON a/AMOUNT` or `debt n/PERSON a/AMOUNT`
+
+
+==== Splitting a Tab: `tab`
+Divides and tracks a tab for a bill. All names are input to Jarvis will
+then have a separate tab
+
+Format: `tab a/AMOUNT n/PERSON...`
+
+Examples: +
+`tab a/20 n/Alice n/Bob n/Charlie`
+
+
+==== Mark a debt as paid: `paid debt`
+Marks a payment owed by the user to someone else as paid. Payment is identified
+by its index in the list of debts. Once marked as paid, the corresponding
+amount will be added to spending amount. The debt will be removed form the
+list of debts and added t othe list of payments.
+
+Format: `paid debt INDEX`
+
+where `INDEX` is the **one-based** index of the payment list.
+
+Example: +
+`paid tab 1`
+
+
+==== Listing Debts
+Shows all debts that user owes or is owed.
+
+Format: `list debts`
+
+
+==== Loans: `set loans`
+Set loans with interest per annum.
+
+Format: `set loan a/TOTAL [i/INTEREST]`
+
+where `INTEREST` is in `% per annum`
+
+Example: +
+`set loan a/10000 i/3.7`
+
+
+==== Export to File: `export`
+Export the current expenditure to a file, either as a `.txt`, `.csv`
+or `xlsx` format.
+
+Format: `export {csv | txt | xlsx} f/FILENAME`
+
+Examples: +
+`export csv f/expenditures`
+
+This will create a file called `expenditures.csv` in the current directory,
+containing all expenditures.
+
+
+==== Track Income: `income`
+Enables additional budgeting options when monthly income is specified.
+
+Format: `income a/AMOUNT`
+
+Example: +
+`income a/3000`
+
+
+==== Display as Graph: `graph`
+Show detailed statistics about your expenditures.
+
+Format: `graph`
+
+
+////
+Module Lookup
+
+Feature by
+-> Ryan Tan Yu
+////
+== Course Lookup
+
+==== Add a course: `add`
+Adds the specified module to the user's list. If the user does not
+specify any grade, the grade will be taken as to not exist.
+
+Format: `add c/MODCODE [g/GRADE]`
+
+Example: +
+`add cs3230` +
+`add ab1234 A+`
+
+
+==== Delete a course: `delete`
+Deletes the specified course from the user's list. If no such course exists,
+a warning is thrown.
+
+Format: `delete c/MODCODE`
+
+Example: +
+`delete cs3230`
+
+
+==== Lookup a course's information: `lookup`
+Retrieves information about the specified course - such as name, course code,
+number of credits and its prerequisites.
+
+Format: `lookup c/MODCODE`
+
+Example: +
+`lookup cs3230`
+
+==== Check a course: `check`
+Checks if the user can take the specified course. The outcome is dependent
+on the courses that the user has added into their list.
+
+Format: `check c/MODCODE`
+
+Example: +
+`check cs2103t`
+
+==== Calculate CAP: `cap`
+Calculates the user's Cumulative Average Point (CAP). Requires at least one
+course to have been added. Any course that does not have a `GRADE` added
+will not be counted in the calculation.
+
+Format: `cap`
+
+
+==== Check NUS focus-areas: `focus`
+Returns a list of courses available to take to fulfill *Focus Area* requirements
+for NUS Computer Science. The list can also tell you
+
+1. Number of courses to take
+2. The courses you have already fulfilled
+3. Giving suggestions on what courses to take
+
+Available Focus Areas
+https://www.comp.nus.edu.sg/programmes/ug/focus/[reference]
+
+
+* Algorithms & Theory `algorithms` `algo`
+* Artificial Intelligence `artificial` `intelligence` `ai`
+* Computer Graphics and Games `computer graphics` `gfx`
+* Computer Security `computer security` `cs`
+* Database Systems `database` `db`
+* Multimedia Information Retrieval `multimedia` `media`
+* Networking and Distributed Systems `networking` `net`
+* Parallel Computing `parallel computing` `pc`
+* Programming Languages `programming languages` `pl`
+* Software Engineering `software engineering` `swe`
+
+Format: `focus n/FOCUS-AREA`
+
+Example: +
+`focus algo` +
+`focus computer graphics`
+
+
+////
+Undo/Redo
+
+Feature by
+-> Marc Fong Yung Kit
+////
+== App History
+
+==== undo
+Undo action(s) on the application. This will allow users to roll back certain
+actions that the user may have accidentally or erroneously done on the
+application.
+
+Format: `undo [r/NUMBER-OF-COMMANDS]`
+
+Examples: +
+`undo` (undoes the latest action) +
+`undo r/3` (undoes the last three actions) +
+`undo r/all` (undoes all actions that Jarvis remembers (20 max))
+
+
+
+==== redo
+Redo action(s) on the application. This will allow users to redo certain
+actions, or any accidental or erroneous undos.
+
+Format: `redo [r/NUMBER-OF-COMMANDS]`
+
+Examples: +
+`redo` (redoes the latest undo) +
+`redo r/3` (redoes the last three undos) +
+`redo r/all` (redoes all actions that has been undone (20 max))
+
+= FAQ
+
+**Q:** How is the budget for monthly limit calculated?
+
+**A:** Budget is calculated from the 1st to the last day of every month. The budget is split evenly across all days.
+
+'''
+
+**Q:** What if I am still learning this application and I make a mistake on the application and I do not know how to revert the changes made in my latest command?
+
+**A:** Simple undo the command, the application will revert your changes automatically.
+
+'''
+
+**Q:** How do I know what I am undo-ing?
+
+**A:** enter history into the command line, which will display where you are relative to what you can undo and redo.
+
+'''
+
+**Q:** If I accidentally undo something, can i revert this mistake?
+
+**A:** enter redo to undo your undo mistake, if you made multiple undo mistakes, you can redo <number> to redo those mistakes quickly.
+
+= Command Summary
+
+=== Task Scheduler
+
+* `list {d/DATE | #TAG...}`
+* `add t/TASK-TYPE/TASK-DESCRIPTION [d/DATE] [#TAG]... [p/PRIORITY] [r/FREQ]`
+* `delete {INDEX | t/TASK-DESCRIPTION}`
+* `find KEYWORD`
+* `edit {t/TASK-DESCRIPTION/NEW-DESCRIPTION | INDEX/NEW-DESCRIPTION}`
+* `create #TAG...`
+* `done INDEX`
+* `clear [#TAG]... [d/DATE]`
+* `stats`
+
+=== Finance Tracker
+
+* `pay a/AMOUNT {#TAG | n/PERSON}`
+* `pay delete INDEX`
+* `instal set n/ITEM a/AMOUNT`
+* `instal edit INDEX {n/ITEM | a/AMOUNT}`
+* `instal delete INDEX`
+* `instal list`
+* `expenses list`
+* `set monthly a/AMOUNT`
+* `compare m/DATE m/DATE`
+* `est {day | month}`
+* `owe n/PERSON a/AMOUNT`
+* `debt n/PERSON a/AMOUNT`
+* `tab a/AMOUNT n/PERSON...`
+* `paid debt INDEX`
+* `list debts`
+* `set loans a/TOTAL [i/INTEREST]`
+* `export {csv | txt | xlsx} f/FILENAME`
+* `income a/AMOUNT`
+* `graph`
+
+
+=== Course Lookup
+
+* `add c/MODCODE [g/GRADE`
+* `delete c/MODCODE`
+* `lookup c/MODCODE`
+* `check c/MODCODE`
+* `cap`
+* `focus n/FOCUS-AREA`
+
+=== App History
+
+* `undo`
+* `redo`

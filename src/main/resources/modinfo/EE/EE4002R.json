@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "EE4002R",
+    "courseCredit": "8",
+    "description": "This research capstone project provides students with an opportunity to work on a complex engineering problem with a strong element of investigative and exploratory research. It requires a confluence of knowledge, skills and capabilities in project management and communications. The project will involve a varied blend of research, design and development activities and is carried out over two semesters. The project proposal can come from a faculty member or student. It may arise during the student\u2019s industrial attachment or as part of an on-going research project and may involve direct industrial and research institutes\u2019 participation. Students will be assessed individually.",
+    "faculty": "Engineering",
+    "preclusion": "EE4001, EG4301, CG4001",
+    "title": "Research Capstone"
+}

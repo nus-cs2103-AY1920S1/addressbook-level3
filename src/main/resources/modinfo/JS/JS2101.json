@@ -1,0 +1,11 @@
+{
+    "courseCode": "JS2101",
+    "courseCredit": "4",
+    "description": "This module provides students with a practical skill base for further studies of Japan. We focus on developing three core skills : (1) Knowledge and use of Japanese studies source materials; (2) Knowledge and understanding of major debates within Japanese studies; and (3) Application of critical reading, writing, and research skills. The module is for those majoring or intending to major in the field of Japanese studies.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "JS3101"
+    ],
+    "prereqTree": "JS1101E",
+    "title": "Approaches to Japanese Studies I"
+}

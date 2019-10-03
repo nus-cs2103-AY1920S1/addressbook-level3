@@ -1,0 +1,32 @@
+{
+    "courseCode": "YCC1113",
+    "courseCredit": "5",
+    "description": "This is the first module of a two semester sequence exploring philosophy and political thought. Texts and ideas from many times and many cultures around the world will be explored. Special attention is given to developing skills of oral and written expression.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YCC1114",
+        "YCC2121",
+        "YSS2208",
+        "YHU2213",
+        "YHU2209",
+        "YHU3224",
+        "YHU2252",
+        "YSS3241",
+        "YHU3245",
+        "YHU3259",
+        "YHU3261",
+        "YHU3265",
+        "YHU3267",
+        "YHU2271",
+        "YHU4232",
+        "YHU3294",
+        "YHU2297",
+        "YHU3305",
+        "YHU3304",
+        "YHU3307",
+        "YHU3312",
+        "YHU2304",
+        "YHU3320"
+    ],
+    "title": "Philosophy and  Political Thought 1"
+}

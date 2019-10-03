@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEH1029",
+    "courseCredit": "4",
+    "description": "Human society is facing major challenges in meeting the requirements of a technological age. Internet is ubiquitous and so are a variety of devices, all of which are based on utilizing the semi-conductor. Another pervasive technology is that of GPS. The module will focus on de-mystifying these technologies and show how the principles of science are indispensable in the functioning of these technologies. For example, the semi-conductor will be shown to be the result of quantum mechanics. Nuclear energy, with emphasis on fusion as possible source of clean energy, and GPS will be shown to an application of the theory of relativity.",
+    "faculty": "Science",
+    "preclusion": "GEK1510",
+    "title": "Great Ideas in Contemporary Physics"
+}

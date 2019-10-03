@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIC2501",
+    "courseCredit": "4",
+    "description": "This module provides a broad introduction to computer networks and networked applications as well as network application programming. It covers a range of topics including basic computer network concepts, protocols, network computing concepts and principles, networked applications development and network security.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC3302",
+        "TIC4005"
+    ],
+    "preclusion": "EE4210E, TEE4210",
+    "prereqTree": "TIC1002",
+    "title": "Computer Networks and Applications"
+}

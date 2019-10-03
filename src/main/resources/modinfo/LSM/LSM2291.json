@@ -1,0 +1,16 @@
+{
+    "courseCode": "LSM2291",
+    "courseCredit": "4",
+    "description": "This module gives an overview of microbial diversity, the biological properties of microbes, methods and approaches in the study of microbiology. At the end of the module, students should have fundamental knowledge of microbiology, including tools in the study of cells and microbes and the awareness of biosafety, and students should be excited by the microbial world and wishing to know more.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3226"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1106"
+        ]
+    },
+    "title": "Fundamental Techniques in Microbiology"
+}

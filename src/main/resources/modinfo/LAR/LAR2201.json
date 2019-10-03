@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAR2201",
+    "courseCredit": "4",
+    "description": "Arabic 2 is a beginners\u2019 module, and is a continuation of Arabic 1. It is an integrated course which will help students gain higher basic proficiency in the four skills (listening, speaking, reading, and writing), grammar, vocabulary (including the Arabic alphabet), for personal interaction and communication in authentic situations.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAR3201"
+    ],
+    "prereqTree": "LAR1201",
+    "title": "Arabic 2"
+}

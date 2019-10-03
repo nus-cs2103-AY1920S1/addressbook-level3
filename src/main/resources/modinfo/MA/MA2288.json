@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "urop": true
+    },
+    "courseCode": "MA2288",
+    "courseCredit": "4",
+    "description": "This module is entirely project based. It allows the student the opportunity to engage in independent learning and research. It also affords the student the chance to delve into topics that may not be present in the regular curriculum.",
+    "faculty": "Science",
+    "prereqTree": "MA1101R",
+    "title": "Basic UROPS in Mathematics I"
+}

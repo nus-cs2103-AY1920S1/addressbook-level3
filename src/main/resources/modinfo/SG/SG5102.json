@@ -1,0 +1,11 @@
+{
+    "courseCode": "SG5102",
+    "courseCredit": "8",
+    "description": "SG5002-1 Basic Project Management Techniques The objectives of this module are to teach basic project management skills The course covers project planning techniques including selecting the appropriate software development Life cycles, assessing and controlling risks, constructing Work Breakdown Structures, basic effort estimating, network and precedence analysis and, project scheduling The course also includes producing project plans and quality plans and techniques for project monitoring and control. There are project planning and Project control assignments. This module is compulsory for all SE students. SG5002-2 Software Economics The objectives of this module are to explore the economic issues associated with Software engineering. The module focuses on the use of parametric models in software cost estimation, in particular using the COCOMO model as an example. Issues associated with software sizing are also discussed and the technique of function point counting (FPC) is described in detail. The subject of overall project costing is also covered. This module is compulsory for all SE students. SG5002-3 OO Development Management The objectives of this module are to explore the particular issues associated with Management of technically innovative Object Oriented Projects. It examines how specific issues associated with OO projects are resolved in planning the project, and how technical leadership is performed when carrying out OO projects. This module is compulsory for all SE students. SG5002-4 Advanced Project Management Topics The objectives of this module are to describe advanced project management issues and Techniques. The subject of Software requirements management is explored, with topics such as managing project scope, organizing requirements and change management being explored. This module is compulsory for all SE students.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "SG5117",
+        "SG5118"
+    ],
+    "title": "Software Project Management"
+}

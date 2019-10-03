@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6205",
+    "courseCredit": "4",
+    "description": "The aim of this course is to provide students with the ability to model, simulate and analyse complex systems in a reasonable time. This course is divided into three parts and covers advanced techniques in simulation model design, model execution, and model analysis. A selection of model design techniques such as conceptual models, declarative models, functional models, constraint models, and multi-models will be discussed. Model execution techniques include discussion of serial and parallel discrete-event simulation algorithms. For model analysis, topics include input-output analysis, variance reduction techniques and experimental design.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS3232",
+            "CS4237"
+        ]
+    },
+    "title": "Advanced Modelling & Simulation"
+}

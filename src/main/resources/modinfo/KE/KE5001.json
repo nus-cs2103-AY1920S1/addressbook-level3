@@ -1,0 +1,7 @@
+{
+    "courseCode": "KE5001",
+    "courseCredit": "4",
+    "description": "KE5001-1 Knowledge Acquisition & Problem Modeling The objectives of this module are to describe the knowledge engineering process. The module will teach identification of knowledge-based application, knowledge elicitation techniques (including interviewing techniques, LaFrance knowledge acquisition grids, concept dictionary, goal reduction trees, etc.), knowledge modeling based on CommonKADS, knowledge-based design and implementation: block diagram, interaction diagram, validation and verification of knowledge-bases. This module is compulsory for all KE students. KE5001-2 KBS Prototyping Project The objective of this prototyping project is to consolidate the training in Units 1 (KE fundamentals) and Unit 3 (developing knowledge based systems) as well as prepare students for their internship project by giving them the experience in developing a knowledge-based system prototype, from knowledge acquisition (including mock interviews with a domain expert), knowledge modeling, design, implementation and testing. The prototype system will be developed using an expert system tool introduced in Unit 1, such as Eclipse or CLIPS; and a technical report must be written. This module is compulsory for all KE students.",
+    "faculty": "Institute of Systems Science",
+    "title": "Kbs Development"
+}

@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "courseCode": "BLD3002",
+    "courseCredit": "2",
+    "description": "\"This is an independent study module about leadership at the highest level of an organization. As the ultimate 'synergizing force' to create value for the organization by uniting, coordinating, and synchronising all elements of an organization to strive to attain organizational objectives, the CEOs are the most critical component in the leadership 'food chain'. What must a leader add to the system to ensure that the organization will function like a welloiled machine to generate value for shareholders?\"",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MNO1706",
+                    "MNO1706X",
+                    "PL3239"
+                ]
+            },
+            "MNO2705"
+        ]
+    },
+    "title": "CEOs as Leaders"
+}

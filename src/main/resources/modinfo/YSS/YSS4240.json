@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4240",
+    "courseCredit": "5",
+    "description": "The goal of this module is to provide a critical and broad overview to the field of clinical psychology. Students will have an opportunity to read both historical (landmark) and contemporary literature related to major topics within clinical psychology, ranging from classification of psychological disorders, multicultural issues in clinical practice, to controversies surrounding empirically supported interventions. The module will have a specific focus on assessment and major intervention approaches, along with student-led presentations on the etiology and/or treatment of various psychological disorders. Readings consist of a combination of textbook sources, empirical research articles, and critical, narrative pieces on selected issues.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSS2201",
+            "YSS3214"
+        ]
+    },
+    "title": "Advanced Clinical Psychology"
+}

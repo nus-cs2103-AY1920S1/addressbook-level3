@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIC2601",
+    "courseCredit": "4",
+    "description": "This module consists of two parts. The first introduces the fundamental concepts and techniques necessary for the understanding and practice of design and implementation of database applications and of the management of data with relational database management systems. The module covers entity-relationship model, functional dependencies, normalisation, and programming with SQL. The second part builds on top of the first and introduces students to contemporary techniques in building simple CRUD-based Web applications with a database backend and a JavaScript-based frontend.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC3002",
+        "TIC3001",
+        "TIC4304",
+        "TBA2105"
+    ],
+    "prereqTree": "TIC1002",
+    "title": "Database and Web Applications"
+}

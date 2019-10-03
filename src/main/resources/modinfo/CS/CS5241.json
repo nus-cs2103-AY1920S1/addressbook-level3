@@ -1,0 +1,26 @@
+{
+    "courseCode": "CS5241",
+    "courseCredit": "4",
+    "description": "This module exposes the graduate students to the fundamental theory of speech processing, focusing primarily on automatic speech recognition. Upon completion of this module, students should be able to perform research on speech recognition topics and commercial speech technology development. Topics covered by this module include: speech signal processing, automatic speech recognition (ASR), continuous speech recognition, acoustic modelling using the Hidden Markov Model (HMM), language modelling for ASR and advanced speech recognition techniques for state-of-the-art large vocabulary continuous speech recognition (adaptation and robustness, discriminative training and decoding strategies).",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS1020",
+            "CS1231",
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    "MA1521"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1506"
+                ]
+            }
+        ]
+    },
+    "title": "Speech Processing"
+}

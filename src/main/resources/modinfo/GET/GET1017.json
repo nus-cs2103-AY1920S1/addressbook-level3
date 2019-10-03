@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1017",
+    "courseCredit": "4",
+    "description": "The objectives of this course are to introduce basic notions in mathematics and to develop thinking skills in terms of ideas and intuition. Illustrated by simple examples and with wonderful developments, the course is especially designed to inspire students to apply imagination and creativity in understanding mathematics. For example, how do we recognise simple number patterns and geometric figures, guess a formula, and justify its validity? Does intuitive idea always work? Why do we need axioms and what are undefined terms? What are analogies and generalizations in mathematics? How do algorithms such as the algorithm of finding the greatest common divisor of two numbers come about in terms of thinking process? What do we think of mathematics? The course also includes a discussion on some famous incidents of pleasant surprises and discoveries in the scientific and mathematical communities.",
+    "faculty": "Science",
+    "preclusion": "GEK1517",
+    "title": "Mathematical Thinking"
+}

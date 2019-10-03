@@ -1,0 +1,15 @@
+{
+    "courseCode": "YSC4211A",
+    "courseCredit": "5",
+    "description": "This course fulfils one of the upper division requirements for the Life Science Major. This course aims to be an advanced research seminar examining the latest findings in Molecular, Cellular and Developmental Biology. The focus will be on analysis of primary literature. Students will work on scientific writing and presentation. The seminar topic is on Heredity & Epigenetics in Semester 2 AY2018/2019. This course will combine evolutionary thinking and high-end molecular, cellular, and epigenetic papers from the primary literature, to get students to think about the role of the environment in creating heritable modifications, in the form of epigenetic marks or transmitted miRNAs, that might bias or impact organismal evolution.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC3233",
+            "YSC3238",
+            "YSC2233",
+            "YSC3214"
+        ]
+    },
+    "title": "Adv Topics Molecular, Cell Bio: Heredity & Epigenetics"
+}

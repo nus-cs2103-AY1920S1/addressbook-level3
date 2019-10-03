@@ -1,0 +1,15 @@
+{
+    "courseCode": "OMS3100",
+    "courseCredit": "1",
+    "description": "This module provides undergraduates with a holistic, multidisciplinary approach to identify, diagnose and understand the aetiology and pathogenesis of common pathologies affecting the oral and maxillofacial structures using a combination of history taking, clinical, histological and radiographic investigations. At the end of the module, undergraduates will be empowered to apply the knowledge in planning patientcentric treatment plans to manage patients who present with common oral maxillofacial pathologies.",
+    "faculty": "Dentistry",
+    "prereqTree": {
+        "or": [
+            "AY1111",
+            "OL1000",
+            "MD2112A",
+            "RY2000"
+        ]
+    },
+    "title": "Oral & Maxillofacial Medicine, Pathology & Radiology"
+}

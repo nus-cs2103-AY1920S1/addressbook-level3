@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TBA4212",
+    "courseCredit": "4",
+    "description": "This module teaches the concepts, techniques and methods to analyse and improve the visibility of a website or a web page in search engines via the 'natural' or unpaid ('organic' or 'algorithmic') search results. The module will emphasise the relationship of search engine optimisation to digital marketing in terms of building high quality web pages to engage and persuade, setting up analytics programs to enable sites to measure results, and improving a site\u2019s conversion rate.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": "TBA3204",
+    "title": "Search Engine Optimisation and Analytics"
+}

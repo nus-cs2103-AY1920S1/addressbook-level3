@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4401",
+    "courseCredit": "4",
+    "description": "Optoelectronics is the study of the interaction of light/radiation with the electronic properties of matter, which are mainly but not exclusively semiconductor-based. This module is designed with a mix of theory and application, emphasizing both the fundamental principles underlying device operation and the relevant technology in the photonics industry. At the end of the module, the student will be equipped with the basic physics of light production, emission and modulation, in semiconductors, electro-optic crystals and liquid crystal substances, and their application in display components and devices, and optical communications. Experiments on optical heterodyning, liquid crystal modulation and characteristics of semiconductor lasers and LEDs are included for practical hands-on experience. Topics covered include basic photometry and radiometry; bandgap engineering in III-V and II-VI compound semiconductors, exciton, isoelectronic traps; LED, semiconductor laser, photodetectors, optical modulators, liquid crystals, display technologies, and recent advances e.g. nanophotonics, organic LEDs and quantum well detectors. Topics covered: Basic photometry and radiometry. Bandgap engineering in III-V and II-VI compound semiconductors. Exciton, isoelectronic traps. LED, semiconductor laser and photodetector device structure and operational characteristics. Optical modulators. Liquid crystal displays. Nanophotonics.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3431C",
+    "title": "Optoelectronics"
+}

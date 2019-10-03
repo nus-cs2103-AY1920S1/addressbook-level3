@@ -1,0 +1,9 @@
+{
+    "courseCode": "RE3802",
+    "courseCredit": "4",
+    "description": "This module deals with the legal aspects of conducting and participating in the business of investing in real estate. Topics covered include the formation, management and liability of business organisations as well as joint venture agreements. Students will also gain an understanding of the regulatory framework that governs real estate lending institutions and mortgages, real-estate backed securities and other forms of real estate financing. The original Trust concept and its adaptation to business trusts and real estate investment trusts (REITS) will also be discussed from the legal perspective.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE3211 Real Estate Finance Law",
+    "prereqTree": "RE1703",
+    "title": "Real Estate Finance Law"
+}

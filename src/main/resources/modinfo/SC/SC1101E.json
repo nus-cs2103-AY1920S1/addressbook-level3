@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SC1101E",
+    "courseCredit": "4",
+    "description": "Students are introduced to the concepts used in Sociology and Anthropology. The main objective is to train students to use Sociology in analyzing social institutions and processes. For this reason, students are encouraged to relate their experiences in society to the discipline of Sociology and Anthropology. The topics covered in the module are the logic and methods of social investigation; family, work and organization; power and the state; social inequality (including gender and ethnicity); mass communication and popular culture; values and beliefs; and deviance and social control.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SC2226"
+    ],
+    "title": "Making Sense of Society"
+}

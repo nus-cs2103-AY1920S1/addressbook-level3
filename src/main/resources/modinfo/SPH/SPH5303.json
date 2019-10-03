@@ -1,0 +1,19 @@
+{
+    "courseCode": "SPH5303",
+    "courseCredit": "4",
+    "description": "The workplaces to be visited represent common manufacturing industries such as electronics, metalworking, , chemical manufacturing, food, agriculture and health care industries. There will also be visits to a diving unit and an aeromedical centre. Reading of the work processes and work activities of the workplace to be visited is expected before each visit, and participants are required to make observations and assessments of the work environment during the visit. The visits will be followed by class presentations and discussions and submission of a report of the workplace visited.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5317 Workplace Assessment",
+    "prereqTree": {
+        "and": [
+            "CO5305",
+            {
+                "or": [
+                    "CO5306",
+                    "SPH5302"
+                ]
+            }
+        ]
+    },
+    "title": "Workplace Assessment"
+}

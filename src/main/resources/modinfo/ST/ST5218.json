@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST5218",
+    "courseCredit": "4",
+    "description": "The objective of the module is to familiarize the students with selected advanced methods in quantitative finance. The major topics to be covered are: - Realized volatility and high frequency data - Risk management under heavy-tailed distributional assumptions - Independent component analysis and its applications - Local parametric estimation of violatility",
+    "faculty": "Science",
+    "prereqTree": "ST4245",
+    "title": "Advanced Statistical Methods in Finance"
+}

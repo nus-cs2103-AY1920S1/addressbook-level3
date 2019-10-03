@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2243",
+    "courseCredit": "4",
+    "description": "Epistemology is the study of knowledge. Epistemologists want to know what knowledge is, how we acquire it, and how we should respond to arguments for philosophical scepticism, according to which there is very little that we know. We shall read the works of philosophers who have grappled with such perennial issues in philosophy, and explore and discuss various theories of knowledge. Along the way, we shall also discuss related issues having to do with justification, rationality, and the reliability of memory, testimony, intuition, sensory perception, and inductive reasoning.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3243",
+        "PH3248"
+    ],
+    "preclusion": "PH3211 Theory of Knowledge",
+    "title": "Epistemology"
+}

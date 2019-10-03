@@ -1,0 +1,23 @@
+{
+    "courseCode": "MA3291",
+    "courseCredit": "4",
+    "description": "The seminar module aims to train the students\u2019 ability to present, discuss and write about mathematics. The topic(s) for the module will be chosen by the instructor and may change from year to year. Students will give presentations and contribute to the discussion at seminars. They may collaborate in studying the topics, but each will write an individual report. Students may also be tested on their grasp of the mathematical content through other forms of assessment.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2101",
+                    "MA2101S"
+                ]
+            },
+            {
+                "or": [
+                    "MA2108",
+                    "MA2108S"
+                ]
+            }
+        ]
+    },
+    "title": "Undergraduate Seminar in Mathematics"
+}

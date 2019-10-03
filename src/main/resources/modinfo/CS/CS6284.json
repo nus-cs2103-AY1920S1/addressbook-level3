@@ -1,0 +1,14 @@
+{
+    "courseCode": "CS6284",
+    "courseCredit": "4",
+    "description": "Recently, there has been a renewed interest in the area of big-data systems on emerging hardware. The opportunities and challenges from emerging big-data processing systems have been raised different scales, from a single machine to thousands of machines. The need for effectively utilizing computing resources creates new technologies and research directions: from conventional ones (e.g., cluster computing, in-memory computing), to more recent ones (e.g., GPGPU, many-core processors, NVRAM). This module will introduce students to the architecture, performance optimization and design of big data systems on various emerging high performance computing hardware including many-core processors and accelerators.",
+    "faculty": "Computing",
+    "preclusion": "Variable, depend on the choice of topics or departmental approval.",
+    "prereqTree": {
+        "and": [
+            "CS2100",
+            "CS2102"
+        ]
+    },
+    "title": "Topics in Computer Science: Big Data Meets New Hardware"
+}

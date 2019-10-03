@@ -1,0 +1,12 @@
+{
+    "courseCode": "LL6134",
+    "courseCredit": "4",
+    "description": "Migration is not a new phenomenon but the intensity, frequency and ease with which persons are crossing borders today, both voluntarily and involuntarily, is unprecedented. This course examines the legal issues impacting a person\u2019s migration path into and in Singapore. We will examine the criteria for admission to Singapore on a temporary or permanent basis, the evolution of immigration and nationality laws, as well as the domestic responses to the growing global problem of human trafficking. Theoretical perspectives on migration and citizenship are examined with a view to a range of normative questions including: How should constitutional democracies respond to and balance rights claims by citizens, residents, and others within their borders?",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5261V",
+        "LL6261V",
+        "LL4261V"
+    ],
+    "title": "Crossing Borders: Law, Migration & Citizenship"
+}
