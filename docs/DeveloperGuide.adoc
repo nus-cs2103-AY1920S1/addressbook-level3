@@ -494,7 +494,7 @@ Use case ends.
 [none]
 ** 1a1. Mortago shows an error message.
 +
-Use case resumes at step 1.
+Use case ends.
 
 [discrete]
 === Use case: Alert for unclaimed bodies.
