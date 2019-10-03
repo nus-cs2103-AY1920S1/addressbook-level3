@@ -6,38 +6,39 @@
 
 Tutor Aid was Founded to help teacher assistant in NUS School of Computing  +
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a team based in the +
+http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== Caesar
+=== Caesar Pang
 image::caesar.jpeg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+xref:https://github.com/caesarpjz[image:github_logo.png[width="30", align="left"]]
 
 Role: Project Leader
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Kerwin Lim
+image::kerwin.png[width="150", align="left"][link: https://github.com/caesarpjz]
+{empty}[https://github.com/kerwin97[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Bryan Ng
+image::bryan.png[width="150", align="left"]
+{empty}[https://github.com/ngswbryan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
+=== Teo Shyan Jie
+image::shyanjie.jpeg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -45,8 +46,8 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
+=== Xu Tunan
+image::tunan.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
