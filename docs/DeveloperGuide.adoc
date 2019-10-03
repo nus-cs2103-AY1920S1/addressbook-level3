@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-1/main
 
 By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 
@@ -372,7 +372,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to delete a specific event from the already displayed list
+1.  User requests to delete a specific Task from the already displayed list
 2.  Horo deletes the Task
 +
 Use case ends.
@@ -412,8 +412,8 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to add an Event
-2.  Horo replies that the Event has been added
+1.  User requests to add an Task
+2.  Horo replies that the Task has been added
 3.  User requests to undo the command
 4.  Horo replies that the previous command has been undone
 +
@@ -431,10 +431,10 @@ Use case ends.
 ** 2a1. Horo displays an error message.
 Use case resumes at step 1
 
-* 4a. User decides the to Redo the added Event
+* 4a. User decides the to Redo the added Task
 +
 [none]
-** 3a1. Horo replies that the added Event has been redone
+** 3a1. Horo replies that the added Task has been redone
 +
 Use case ends
 
@@ -514,7 +514,7 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[event]] event::
+[[event]] Event::
 A thing that happens or takes place during a certain period of time, or of a general time.
 
 [[task]] Task::
@@ -534,7 +534,7 @@ Pros:
 
 Cons:
 
-* Lack of visualization of the Events
+* Lack of visualization of the Events and Tasks
 * Parsing english language makes it slower to type with a longer requirement as compared to CLI styled commands
 
 [appendix]
