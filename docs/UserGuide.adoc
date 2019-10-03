@@ -78,7 +78,62 @@ Notes:
 - Slots should be given in the format: `DD/MM/YYYY HH:MM - DD/MM/YYYY HH:MM`, where the first date and time is the starting time and the second date and time is the ending time of availability.
 - The starting date should be a date and time that is earlier than the ending date
 
+=== UI Display
 
+==== Viewing details of interviewees
+You can to view the list of interviewees and the following information:
+1. Name
+2. Time slot for interview
+3. Phone number
+4. Email
+5. Tags
+
+The interviewee list can be viewed by typing the following command +
+Format: `display interviewees`
+
+image::Ui/Interviewee.png[width="500", align="left"]
+
+In this screen, you can edit, add or delete interviewees accordingly by using the other features explained in
+this User Guide.
+
+==== Viewing details of interviewers
+You are able to view the list of interviewers and the following information:
+1. Name
+2. Time slot for interview
+3. Phone number
+4. Email
+5. Tags
+
+The interviewee list can be viewed by typing the following command +
+Format: `display interviewers`
+
+In this screen, you can edit, add or delete interviewers accordingly by using the other features explained in
+this User Guide.
+
+==== Display weekly schedule
+Display the interviews that has been scheduled by the application. Allows you to have an weekly overview of
+interviews during that week by typing the following command +
+Format:  `display date DATE (eg. 24/06/2019)`
+
+Doing so will allow the scheduler to show the timetable for that week.
+
+image::Ui/Timetable.png[width="500", align="left"]
+
+==== Display available timeslots
+This is used to display the available timeslot that you have indicated in your excel sheet as you have imported
+into this scheduler. Using the following command +
+Format: `disply available date DATE (eg. 24/06/2019)`
+
+This will also show a weekly timetable, however this timetable will show the timeslots that are available and the
+rest of the slots will be indicated by grey color to show that you are unavailable at that time. This also factors
+in the interviews that you have already scheduled.
+
+==== Differentiating the importance of timetable slots through colours `[Coming in v2.0]`
+As you can see from the timetable above, there are 2 different colours of time slots. This is implemented so you
+are able to differentiate which interviews are important by using the colour code as shown in the timetable.
+By default, the slots will be green in colour. However, you are able to change the colours based on importance using
+the following command +
+Format: `change DATE TIME IMPORTANCE`
 
 === Get interview schedule `get` `[Coming in v2.0]`
 Find an interviewer/interviewee and display his/her interview schedule. +
@@ -178,50 +233,6 @@ Format: `record result`
 ==== Ranking of interviewees
 Bring up the window to rank the interviewees. The way to record the result is the same as 2.12.1. +
 Format: `record rank`
-
-=== UI Display
-
-==== Viewing details of interviewees
-You are able to view the list of interviewees and the following information:
-1. Name
-2. Time slot for interview
-3. Phone number
-4. Email
-5. Tags
-
-The interviewee list can be viewed by typing the following command +
-Format: `display interviewees`
-
-image::Ui/Interviewee.png[width="500", align="left"]
-
-In this screen, you can edit, add or delete interviewees accordingly by using the other features explained in
-this User Guide.
-
-
-==== Display weekly schedule
-Display the interviews that has been scheduled by the application. Allows you to have an weekly overview of
-interviews during that week by typing the following command +
-Format:  `display date: DATE (eg. 24/06/2019)`
-
-Doing so will allow the scheduler to show the timetable for that week.
-
-image::Ui/Timetable.png[width="500", align="left"]
-
-==== Display available timeslots
-This is used to display the available timeslot that you have indicated in your excel sheet as you have imported
-into this scheduler. Using the following command +
-Format: `disply available date DATE (eg. 24/06/2019)`
-
-This will also show a weekly timetable, however this timetable will show the timeslots that are available and the
-rest of the slots will be indicated by grey color to show that you are unavailable at that time. This also factors
-in the interviews that you have already scheduled.
-
-==== Differentiating the importance of timetable slots through colours `[Coming in v2.0]`
-As you can see from the timetable above, there are 2 different colours of time slots. This is implemented so you
-are able to differentiate which interviews are important by using the colour code as shown in the timetable.
-By default, the slots will be green in colour. However, you are able to change the colours based on importance using
-the following command +
-Format: `change DATE TIME IMPORTANCE`
 
 == FAQ
 
