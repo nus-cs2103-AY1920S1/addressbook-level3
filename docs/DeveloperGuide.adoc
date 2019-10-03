@@ -279,13 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant number of groceries
+* has a tendency to forget to keep track of expiring items
+* interested in reducing their own food waste
+* wants an hassle-free way to shop for groceries
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage food inventory in order to reduce food waste
 
 [appendix]
 == User Stories
@@ -297,33 +299,148 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add <<template,templates>> of grocery items |to keep track of what I want to have in my fridge
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |edit templates of grocery items |edit items and volumes based on my current needs and preferences
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete templates |maintain a short list of templates I regularly use
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |add multiple templates |use different templates depending on the occasion
+
+|`* * *` |user |generate a shopping list using my templates |save time on checking what is missing from my fridge
+
+|`* * *` |environmentally-conscious user |compare my <<food-waste,food wastage statistics>> |better manage my food waste
+
+|`* * *` |environmentally-conscious user |get feedback on how I am performing on my food waste management |improve my food waste management
+
+|`* *` |environmentally-conscious user |see which kinds of food I most commonly waste |cut down on unnecessary food waste
+
+|`* * *` |forgetful user |see a list of my expired food items |retrieve and dispose of them
+
+|`* * *` |user |add groceries |keep track of all the groceries bought
+
+|`* * *` |user |see the expiry dates of my groceries |know when they expire.
+
+|`* * *` |user |update my grocery list |keep track of the amount of groceries I have
+
+|`* *` |user |find a specific grocery |know more information about that grocery
+
+|`* * *` |user |view all groceries |know what to buy more of
+
+|`* * *` |user |remove a grocery |maintain only usable items in the fridge
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
 
-_{More to be added}_
+|`* * *` |user |get reminders on expiring food items |prevent food wastage
+
+|`* * *` |user |set default reminder settings |get reminders of expiring food within the specified number of days every time I launch the app
+
+|`* * *` |user |sort food items |view grocery list with the specified sorting method
+
+|`* * *` |user |set default sort settings |view grocery list with the specified sorting method every time I display the grocery list
+
+|`* * *` |user |merge food items with same name and expiry date when viewing grocery list |view grocery list in a more organized manner
+|=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `iFridge` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add food item
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to add an item to the list
+4.  iFridge appends the item to the list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given input is invalid
++
+[none]
+** 3a1. iFridge shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Removing a tag
+
+*MSS*
+
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to remove a tag from a specific food item in the list
+4.  iFridge removes the tag
++
+Use case ends.
+
+*Extensions*
+
+[none]
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. iFridge shows an error message.
+[none]
+** Use case resumes at step 2.
++
+* 3b. The tag specified is non-existent.
+[none]
+** 3b1. iFridge shows an error message.
+[none]
+** Use case resumes at step 2.
+
+[discrete]
+=== Use case: Removing a tag
+
+*MSS*
+
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to use a certain amount of a specific food item
+4.  iFridge reduces the amount of the specific food item
++
+Use case ends.
+
+* 3a. The given amount is more than the amount of food registered in the list.
++
+** 3a1. iFridge shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given amount is exactly the same as amount of food registered in the list.
+[none]
+** 3b1. iFridge removes the food item from the list.
++
+Use case ends.
+[none]
+** 3a1. iFridge shows an error message.
+
+[discrete]
+=== Use case: Delete grocery item
+
+*MSS*
+
+1.  User requests to list grocery items
+2.  GroceryList shows a list of grocery items
+3.  User requests to delete a specific grocery item in the list
+4.  GroceryList deletes the person
 +
 Use case ends.
 
@@ -337,29 +454,36 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. GroceryList shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
-
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Application should be used by a single user.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  A user must be able to work with command-line interface.
+.  Should be able to hold up to 1000 food items without a noticeable sluggishness in performance for typical usage.
+.  Storage comprises of human editable file.
+.  No database management systems used.
+.  Application has object-oriented design.
+.  Application is platform independent, portable and does not use a remote server or external software.
+.  Application has easy to test features.
 
 [appendix]
 == Glossary
 
+[[grocery]] Grocery: Food items found in the fridge.
+
+[[food-waste]] Food Waste: Groceries that have expired and have not been fully consumed.
+
+[[template]] Template: A list of food items that the user regularly wants to keep in their fridge.
+
+[[shopping]] Shopping: Grocery items to be bought.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
@@ -387,7 +511,6 @@ Given below are instructions to test the app manually.
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
-
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
