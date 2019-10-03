@@ -111,3 +111,84 @@ Format: `read driver INDEX`
 ****
 * Retrives the details of driver at specified `INDEX`. The index refers to the index number shown in the displayed driver list. The index *must be a positive integer* 1,2,3,...
 ****
+
+=== Delete a driver : `delete driver`
+
+Deletes the specified driver from the driver list. +
+Format: `delete driver INDEX`
+
+****
+* Deletes the driver at the specified `INDEX`.
+* The driver cannot be deleted if it's already assigned to a task.
+* The index refers to the index numbers shown in the displayed driver's list.
+* The index *must be a positive integer* 1, 2, 3, ..
+****
+
+Examples:
+
+* `list` +
+`delete driver 2` +
+Deletes the 2nd driver in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+
+
+=== Editing a driver : `update driver`
+
+Edits an existing driver in the address book. +
+Format: `update driver INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the driver at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+
+=== Assign a task to a driver: `assign`
+
+Assign an existing task a driver. +
+Format: `assign TASK_INDEX DRIVER_INDEX`
+
+****
+* If the driver is not available for that task, an error message will be shown.
+* The indices refer to the numbers shown in the displayed lists.
+****
+
+Examples:
+
+* `assign 1 3` +
+Assigns the task at index 1 to the driver at index 3.
+
+// end::delete[]
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+*Q*: Where is the saved file at? +
+*A*:  It is located in the same folder where the .jar file is. There will be a folder called `data`.
+
+*Q*: How do I know the list of commands? +
+*A*: The `help` command will give a list of available commands.
+
