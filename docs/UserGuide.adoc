@@ -277,6 +277,10 @@ Display available slots
 |Get interview schedule for interviewer/interviewee
 |`get NAME` +
 
+|Edit availability of interveiwer/interviewee
+|`edit interviewer NAME` +
+ `edit interviewee NAME`
+
 |Delete interviewer/interviewee
 |`delete interviewer NAME` +
  `delete interviewee NAME`
