@@ -282,6 +282,16 @@ Format: `notify -d [-A] [INDEX]`
 === Auto-complete feature `[coming in v2.0]`
 Returns suggestions when you are typing commands.
 
+=== Set a timer for test mode `[coming in v2.0]`
+The student sets a time limit for the test mode. The app will exit test mode once the time ends.
+
+=== Share notes and questions with other users `[coming in v2.0]`
+The student shares notes and questions with other students with Internet connection.
+
+=== Login using email and password `[coming in v2.0]`
+The student can register and login to the application using their email and password.
+
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
