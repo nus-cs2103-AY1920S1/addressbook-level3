@@ -159,6 +159,46 @@ Examples:
 * `profile 2` +
 Opens up a pop-up panel detailing the profile of the patient with the index of 2.
 
+=== Adding a new visitation report: `addVisit`
+
+Adds a visitation report. +
+Format: `addvisit [n/NAME] [d/DATE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+Examples:
+
+* `addVisit n/Betsy Crowe t/12/12/12 e/Betsy@example.com` +
+Adds new report for the patient `Betsy Crower` on 12/12/12 with email detail prefilled.
+
+* `addVisit n/Betsy Crower t/12/12/12 p/91234567  e/Betsy@example.com t/Cancer` +
+Adds new report for the patient `Betsy Crower` on 12/12/12 with email/hp info prefilled and tagged cancer.
+
+=== Editing a visitation record : `editVisit`
+
+Edits an existing visitation record in the address book. +
+Format: `editVisit [n/NAME] [d/date] [f/FIELDTOEDIT]...`
+
+Examples:
+
+* `editVisit n/Betsy Crower t/12/12/12 p/prescription` +
+Edits the prescription of the `Betsy Crower` visitation report on 12/12/12.
+* `editVisit n/Betsy Crower t/12/12/12 d/DIAGNOSIS` +
+Edits the diagnosis of the `Betsy Crower` visitation report on 12/12/12.
+
+// tag::delete[]
+=== Deleting a visitation record : `deleteVisit`
+
+Deletes the specified visitation record. +
+Format: `deleteVisit [n/NAME] [d/DATE]`
+
+****
+* Deletes the visitation record of person NAME on DATE
+****
+
+Examples:
+
+* `deleteVisit n/Betsy d/12/12/12` +
+Deletes the visitation report made for `Betsy` on 12/12/12.
+
 === Exiting the program : `exit`
 
 Exits the program. +
