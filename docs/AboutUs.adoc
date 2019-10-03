@@ -40,7 +40,7 @@ Responsibilities: Password generation and Analysis
 image::yhtingg.jpg[width="150", align="left"]
 {empty}[http://github.com/yhtingg[github]]
 
-Role: Developer / Design  +
+Role: Developer / Analysis  +
 Responsibilities: Credit card details encryption
 
 '''
@@ -49,7 +49,7 @@ Responsibilities: Credit card details encryption
 image::jityong.jpg[width="150", align="left"]
 {empty}[http://github.com/jityong[github]]
 
-Role: Developer / Documentation +
+Role: Developer / Design +
 Responsibilities: Notes encryption
 
 '''
