@@ -331,7 +331,7 @@ Use case ends.
 
 [none]
 * 1a. FlashCard Pro detects deck name provided by learner is identical to an existing deck of cards in the library.
-    1a1. FlashCard Pro informs the learner that deck creation is unsuccessful.
+** 1a1. FlashCard Pro informs the learner that deck creation is unsuccessful.
 
 [appendix]
 == Non Functional Requirements
