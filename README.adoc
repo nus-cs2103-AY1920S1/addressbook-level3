@@ -1,6 +1,5 @@
 = TutorAid
 ifdef::env-github,env-browser[:relfileprefix: docs/]
-
 https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
@@ -32,6 +31,21 @@ TutorAid simply makes your life 200% easier as a TA. No more messy unorganized n
 * Keep track of the progress of your students. View and input their attendance, results and participation!
 * Takes notes for individual lessons to remind yourself of what to go through during the class!
 
+## What Is TutorAid?
+
+TutorAid is a desktop task manager and tracker application. It has a Graphical User Interface (GUI) but most of the user interactions happens using a CLI (Command Line Interface). To put it in layman terms, you type in information about your classes and TutorAid takes note of them for you!
+
+## Why Should I Use TutorAid?
+
+TutorAid simply makes your life 200% easier as a TA. No more messy unorganized notes on when your tutorial classes are, where they are or even what you want to cover in class later on. All the information you need can now be easily retrieved with TutorAid.
+
+## Features
+
+* Add, delete or edit classes and locations to your schedule and view them in calender form!
+* Reminder feature that keeps track of when your next class is!
+* Track your earnings from teaching and view reports of your daily, weekly or monthly earnings.
+* Keep track of the progress of your students. View and input their attendance, results and participation!
+* Takes notes for individual lessons to remind yourself of what to go through during the class!
 == Site Map
 
 * <<UserGuide#, User Guide>>
@@ -40,9 +54,9 @@ TutorAid simply makes your life 200% easier as a TA. No more messy unorganized n
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
-
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Original Source of code: AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
 == Licence : link:LICENSE[MIT]
