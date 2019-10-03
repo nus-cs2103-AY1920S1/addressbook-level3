@@ -11,18 +11,18 @@ import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 
 /**
- * Deletes an item identified using its displayed index from the expiry date tracker.
+ * Deletes an item identified with its displayed index.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the item identified by the index number used in the displayed item list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + ": Deletes the item identified by the index number.\n"
+            + "Format: delete|<index> (index must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + "|1";
 
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %s";
 
     private final Index targetIndex;
 
@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         List<Item> lastShownList = model.getFilteredItemList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
@@ -48,6 +48,6 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && this.targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 }

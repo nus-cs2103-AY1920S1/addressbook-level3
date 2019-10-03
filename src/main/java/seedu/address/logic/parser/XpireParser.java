@@ -10,9 +10,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.SetReminderCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.TagCommand;
@@ -22,7 +22,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class ExpiryDateTrackerParser {
+public class XpireParser {
     /**
      * Parses user input into command for execution.
      *
@@ -31,14 +31,16 @@ public class ExpiryDateTrackerParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        final String trimmedUserInput = userInput.trim();
-        final String commandWord = trimmedUserInput.split("\\|", 2)[0].trim();
-        String arguments;
+        // Removes leading and trailing white spaces and trailing bars.
+        String trimmedUserInput = userInput.trim()
+                .replaceAll("\\|+$", "");
 
+        String commandWord = trimmedUserInput.split("\\|", 2)[0].trim();
         if (commandWord.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
+        String arguments;
         try {
             arguments = trimmedUserInput.split("\\|", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -59,11 +61,11 @@ public class ExpiryDateTrackerParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case SearchCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

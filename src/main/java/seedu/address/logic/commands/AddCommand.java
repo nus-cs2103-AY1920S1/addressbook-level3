@@ -7,24 +7,18 @@ import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 
 /**
- * Adds an item to the expiry date tracker.
+ * Adds an item to the list.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the expiry date tracker. "
-            + "Parameters: "
-            + "NAME|"
-            + "EXPIRY DATE"
-            + "[|#TAG...]\n"
-            + "Example: " + COMMAND_WORD + "|"
-            + "Strawberry|"
-            + "11/12/1999|"
-            + "#fruit";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the list.\n"
+            + "Format: add|<item name>|<expiry date>|[<tag>]... (each tag has to be prefixed with '#')\n"
+            + "Example: " + COMMAND_WORD + "|Strawberry|11/12/1999|#fruit #fridge";
 
-    public static final String MESSAGE_SUCCESS = "New item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the expiry date tracker";
+    public static final String MESSAGE_SUCCESS = "New item added: %s";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists";
 
     private final Item toAdd;
 
@@ -33,25 +27,25 @@ public class AddCommand extends Command {
      */
     public AddCommand(Item item) {
         requireNonNull(item);
-        toAdd = item;
+        this.toAdd = item;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasItem(toAdd)) {
+        if (model.hasItem(this.toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ITEM);
         }
 
-        model.addItem(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.addItem(this.toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, this.toAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                && this.toAdd.equals(((AddCommand) other).toAdd));
     }
 }

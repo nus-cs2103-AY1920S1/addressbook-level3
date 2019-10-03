@@ -6,12 +6,12 @@ import seedu.address.model.ExpiryDateTracker;
 import seedu.address.model.Model;
 
 /**
- * Clears the expiry date tracker.
+ * Clears all items in the list.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "ExpiryDateTracker has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Item list has been cleared!";
 
 
     @Override

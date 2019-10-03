@@ -6,13 +6,13 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import seedu.address.model.Model;
 
 /**
- * Lists all items in the expiry date tracker to the user.
+ * Display all items to the user.
  */
-public class ListCommand extends Command {
+public class ViewCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_SUCCESS = "Listed all items";
+    public static final String MESSAGE_SUCCESS = "Displayed all items";
 
 
     @Override

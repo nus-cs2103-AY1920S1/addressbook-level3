@@ -50,14 +50,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         return new AddCommand(item);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
     private static boolean areArgumentsPresent(String...arguments) {
         return arguments.length >= 2;
     }
