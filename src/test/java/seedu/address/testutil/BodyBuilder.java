@@ -35,7 +35,6 @@ public class BodyBuilder {
     public static final String DEFAULT_DATE_OF_DEATH = "02/10/2019";
     public static final String DEFAULT_DATE_OF_ADMISSION = "03/10/2019";
 
-
     public static final String DEFAULT_NEXT_OF_KIN = "Jane Doe";
     public static final String DEFAULT_RELATIONSHIP = "Mother";
     public static final String DEFAULT_KIN_PHONE = "81234568";
@@ -145,7 +144,7 @@ public class BodyBuilder {
     }
 
     /**
-     * Sets the {@code organsForDonation} of the {@code Body} that we are building.
+     * Sets the list of {@code organsForDonation} of the {@code Body} that we are building.
      */
     public BodyBuilder withOrgansForDonation(ArrayList<String> organsForDonation) {
         this.organsForDonation = organsForDonation;
@@ -177,7 +176,7 @@ public class BodyBuilder {
     }
 
     /**
-     * Sets the {@code relationship} of the {@code Body} that we are building.
+     * Sets the next-of-kin {@code relationship} of the {@code Body} that we are building.
      */
     public BodyBuilder withRelationship(String relationship) {
         this.relationship = relationship;

@@ -7,6 +7,7 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.Religion;
 import seedu.address.model.entity.body.Status;
 
+//@@author ambervoong
 /**
  * A utility class containing {@code Body} objects to be used in tests.
  */
