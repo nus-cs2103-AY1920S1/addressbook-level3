@@ -279,13 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* wishes to learn new materials by retrieval learning and self-testing
+* is an independent learner
+* contents of learning are largely textual
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: allow effective reinforcement learning of textual content by answering using CLI input to a question prompt from a GUI
 
 [appendix]
 == User Stories
@@ -295,17 +297,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |student with subjects of different language mediums |add flashcards of differing languages  |I can customise my flashcards to the subject I am interested to do
 
-|`* * *` |user |add a new person |
+|`* * *` |user creating flash cards |save collections of thematically similar flash cards | I can share my cards easily to other users
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |beginner user |access a help page |i can learn about the features at a glance
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -313,33 +312,68 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `FlashCard Pro` and the *Actor* is the `learner`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Create a deck of cards
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. Learner creates a new empty deck and specifies the name of the deck of cards.
+2. Learner adds individual cards to the deck and specifies the content of the front and back of the cards.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. FlashCard Pro detects deck name provided by learner is identical to an existing deck of cards in the library.
+** 1a1. FlashCard Pro informs the learner that deck creation is unsuccessful.
+** 1a2. Learner creates a new deck with another unique deck name.
+** Steps 1a1-1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
+
+* 2a. FlashCard Pro detects no front and/or back content specified by the learner.
+** 2a1. FlashCard Pro informs the learner that card creation is unsuccessful.
+** 2a2. Learner creates a new card with the correct front and/or back content.
+** Steps 2a1-2a2 are repeated until the format of the command entered is correct.
++
+(Was wondering if FlashCard Pro should create the deck, but with a numbering like untitled_1, untitled_2 etc)
+
+
+[discrete]
+=== Use case: Start a untimed test
+
+*MSS*
+
+1. Learner starts untimed test with a deck of cards by specifying deck name.
+2. FlashCard Pro begins test.
+3. FlashCard Pro flashes text on the front of a flash card to learner.
+4. FlashCard Pro waits for learner's answer.
+5. Learner enters answer.
+6. FlashCard Pro matches answer with text on back of flash card.
+7. FlashCard Pro informs learner about correctness of the learner's answer.
+8. FlashCard Pro displays the correct answer, the text on the back of the flash card.
++
+Steps 3-8 are repeated until all the flash cards in the deck are completed.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Import an existing deck of cards from a JSON file
+*MSS*
+
+1. Learner specifies the filepath of the deck of cards to import, in a JSON file format.
+2. FlashCard Pro loads the file in the filepath.
+3. FlashCard Pro parses the fields in the JSON file.
+4. FlashCard Pro constructs the deck of cards.
+5. FlashCard Pro stores the deck of cards in the library.
 +
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+Use case ends.
+* 2a. FlashCard Pro detects filepath is invalid.
+** 2a1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
+* 2b. FlashCard Pro detects that filepath does not lead to a JSON file.
+** 2b1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
 
 _{More to be added}_
 
@@ -349,6 +383,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should handle text input of english alphabets.
 
 _{More to be added}_
 
