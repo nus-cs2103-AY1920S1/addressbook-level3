@@ -21,7 +21,8 @@ By: `Team Alfred`      Since: `Sept 2019`      Licence: `MIT`
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
-==== Note: Image here to the updated in the later milestones.
+[NOTE]
+Image here to the updated in the later milestones.
 
 [[Design-Architecture]]
 === Architecture
@@ -75,7 +76,10 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-=== Note: UI image and description to be updated with the later milestones.
+
+[NOTE]
+UI image and description to be updated with the later milestones.
+
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -91,7 +95,8 @@ The `UI` component,
 
 [[Design-Logic]]
 === Logic component
-==== Note: Logic Architecture image and description to be updated with the later milestones.
+[NOTE]
+Logic Architecture image and description to be updated with the later milestones.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -127,13 +132,13 @@ The `Model`,
 * stores the lists of our various entities.
 * Model is the bridge between Logic and Storage and provides an abstraction of how the data is stored in memory.
 * It exposes a `ReadableEntityList` which only has the list method to remind Logic that the data given should not be modified.
-- The UI can be bound to these lists so that it automatically updates when the contents of the list change.
+* The UI can be bound to these lists so that it automatically updates when the contents of the list change.
 * The `Model` interface also serves as an API through which controller can edit the data stored in memory.
 
 
 [[Design-Storage]]
 === Storage component
-==== Note: To be updated with the later milestones.
+NOTE: To be updated with the later milestones.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -217,7 +222,8 @@ image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
-==== Note: To be updated with the later milestones.
+NOTE: To be updated with the later milestones.
+
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire address book.
@@ -472,7 +478,6 @@ Use case resumes from step 2.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The system should not seem sluggish if it contains less than 1500 entities.
 .  Project is not intended for use on mobile and only should be used on desktop.
-_{More to be added}_
 .  The application assumes that the user is comfortable with the concept of the command line.
 .  The application is meant to run offline.
 .  The application is largely a personnel/HR manager, and is not expected to do anything more than that (eg hackathon finances etc).
@@ -480,8 +485,6 @@ _{More to be added}_
 .  The application assumes that the hackathon is a short term affair (no longer than 4 days).
 .  The application assumes that this is an English medium hackathon and that no non-English names are expected.
 .  The GUI should display the result of commands in an intuitive, organized manner that is readable by the laymen(as part of the organization/ affordability of the application).
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -512,7 +515,7 @@ Team is the base unit of this project. It contains references to an associated l
 
 *Google Sheets*
 
-Author: ...
+Author: Google
 
 Pros:
 
