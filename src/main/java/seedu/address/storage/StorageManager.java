@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -19,12 +20,15 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private ModulesInfoStorage modulesInfoStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          ModulesInfoStorage modulesInfoStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.modulesInfoStorage = modulesInfoStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -72,6 +76,18 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    // ================ ModulesInfo methods ==============================
+
+    @Override
+    public Path getModulesInfoPath() {
+        return modulesInfoStorage.getModulesInfoPath();
+    }
+
+    @Override
+    public Optional<ModulesInfo> readModulesInfo() throws DataConversionException, IOException {
+        return modulesInfoStorage.readModulesInfo();
     }
 
 }

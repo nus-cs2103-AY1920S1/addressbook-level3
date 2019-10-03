@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -18,13 +19,17 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ModuleInfo;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonModulesInfoStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ModulesInfoStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -57,7 +62,18 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(config.getModulesInfoFilePath());
+        ModulesInfo modulesInfo = initModulesInfo(modulesInfoStorage);
+
+        // TODO: modulesInfo is not used from here on out -- use it with StorageManager/ModelManager/LogicManager
+        // These show how the module information could be used for verification. They should be tests too later on
+        // Remove this block once a proper place is found for modulesInfo (after refactoring)
+        ModuleInfo cs4248 = modulesInfo.find("CS4248");
+        cs4248.verify(Arrays.asList(new String[] {"CS3243", "ST2334"})); // true
+        cs4248.verify(Arrays.asList(new String[] {"CS3245", "ST2334"})); // true
+        cs4248.verify(Arrays.asList(new String[] {"CS3243", "ST2131"})); // false
+
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, modulesInfoStorage);
 
         initLogging(config);
 
@@ -163,6 +179,32 @@ public class MainApp extends Application {
         }
 
         return initializedPrefs;
+    }
+
+    /**
+     * Returns a {@code ModulesInfo} using the file at {@code storage}'s modules info file path.
+     */
+    protected ModulesInfo initModulesInfo(ModulesInfoStorage storage) {
+        Path prefsFilePath = storage.getModulesInfoPath();
+        logger.info("Using modules info file : " + prefsFilePath);
+
+        ModulesInfo initializedModulesInfo;
+        try {
+            Optional<ModulesInfo> prefsOptional = storage.readModulesInfo();
+            initializedModulesInfo = prefsOptional.orElse(new ModulesInfo());
+        } catch (DataConversionException e) {
+            logger.warning("ModulesInfo file at " + prefsFilePath + " is not in the correct format. "
+                    + "Will proceed without modules information");
+            initializedModulesInfo = new ModulesInfo();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting without modules information");
+            initializedModulesInfo = new ModulesInfo();
+        }
+
+        // Parse the prereq trees from the prereq strings, as read from the JSON file
+        initializedModulesInfo.parsePrereqTrees();
+
+        return initializedModulesInfo;
     }
 
     @Override
