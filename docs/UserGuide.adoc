@@ -55,7 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 == Basic Commands
 
-=== Viewing help: `help`
+=== Views help: `help`
 
 Shows the list of commands and their usages.
 
@@ -63,7 +63,7 @@ Format:
 
 `help`
 
-=== Exiting the app: `help`
+=== Exits the app: `bye`
 
 Exits the application.
 
@@ -71,11 +71,11 @@ Format:
 `bye`
 
 
-== Managing your contacts: `contact`
+== Manages your contacts: `contact`
 
-=== Create a person: `create`
+=== Creates a contact: `create`
 
-Create a contact.
+Creates a contact.
 
 Format:
 
@@ -89,17 +89,17 @@ Examples:
 * `contact create John --p 81234567 --a 21 Kent Ridge Rd`
 * `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
-=== Listing all contacts: `list`
+=== Lists all contacts: `list`
 
-List all contacts in application.
+Lists all contacts in application.
 
 Format:
 
 `list`
 
-=== Display the profile of a person: `show` `[coming in v2.0]`
+=== Displays the profile of a person: `show` `[coming in v2.0]`
 
-List all contacts in application.
+Lists all contacts in application.
 
 Format:
 
@@ -109,7 +109,7 @@ Examples:
 
 * `contact show 00343`
 
-=== Editing a person: `edit`
+=== Edits a person: `edit`
 
 Edits contact information.
 
@@ -123,7 +123,7 @@ Examples:
 
 Disclaimer: partial edit will be supported in v2.0
 
-=== Deleting a person: `delete`
+=== Deletes a person: `delete`
 
 Deletes a contact with the following id.
 
@@ -136,7 +136,7 @@ Examples:
 * `contact delete 00343`
 
 
-=== Locating persons by keyword: `find`
+=== Locates persons by keyword: `find`
 
 Lists all contacts whose name matches the given keyword.
 
@@ -148,9 +148,9 @@ Examples:
 
 * `contact find wai fong`
 
-=== Pin a person: `pin` `[coming in v2.0]`
+=== Pins a person: `pin` `[coming in v2.0]`
 
-Edits contact information.
+Pins a contact to the top of the contact list.
 
 Format:
 
@@ -160,7 +160,7 @@ Examples:
 
 * `contact pin 00343`
 
-=== Clearing all entries : `clear`
+=== Clears all entries : `clear`
 
 Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
 
@@ -177,5 +177,115 @@ Examples:
 
   Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
+== Manages your notes: `note`
 
+=== Creates a note: `create`
 
+Creates a new note.
+
+Format:
+
+`note create --c CONTENT`
+
+Example:
+
+* `note create --c Today I don’t feel like doing anything`
+  Adds a note with content “Today I don’t feel like doing anything”.
+
+Disclaimer: Upload of image will be supported in v2.0
+
+=== Deletes a note: `delete`
+
+Deletes a note.
+
+Format:
+
+`note delete NOTE_ID`
+
+Example:
+
+* `note delete 00002`
+  Deletes note with id 00002.
+
+=== Edits a note: `edit`
+
+Edits a saved note.
+
+Format:
+
+`note edit NOTE_ID --c NEW_CONTENT`
+
+Example:
+
+* `note edit 00002 --c Today I don’t feel like doing anything`
+  Replaces the content of the note which id is 2 with “Today I don’t feel like doing anything.”
+
+Disclaimer: Upload of image will be supported in v2.0
+Disclaimer: Partial editing will be supported in v2.0
+
+=== Tags a note: tag
+
+Tags a note with one or more tags.
+
+Format:
+
+`note tag NOTE_ID [--t TAG]+`
+
+Example:
+
+* `note tag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
+  Tags note with id 00002 with tag #CS2103T, #Duke and user with id @12300 and group %cs2103T
+
+=== Untags a note: untag
+
+Untags a note from one or more tags.
+
+Format:
+
+`note untag NOTE_ID [--t TAG]+`
+
+Example:
+
+* `note untag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
+  Untags note id 00002 with tag #CS2103T, #Duke and user with id @12300 and group %cs2103T
+
+=== Filters notes: list
+
+Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
+
+Format:
+
+`note list [# / @ / %][FILTER]`
+
+Example:
+
+[cols=3*,options=header]
+|===
+|Format
+|Example
+|Outcome
+
+|`note list`
+|`note list`
+|Lists all notes.
+
+|`note list KEYWORD`
+|`note list meeting`
+|Lists all notes which contain the phrase “meeting”.
+
+|`note list #HASHTAG`
+|`note list #cs2100`
+|Lists all notes with the hashtag #cs2100.
+
+|`note list @CONTACTID`
+|`note list @12345`
+|Lists all notes tagged with the contact which ID is 12345.
+
+|`note list %GROUPNAME`
+|`note list %cs2103 team`
+|Lists all notes tagged with the group “cs2103 team”.
+|===
+
+Disclaimer: Filtering by multi tag will be supported in v2.0
+
+=== Sorts notes: sort (Coming in v2.0)
