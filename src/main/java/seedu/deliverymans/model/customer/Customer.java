@@ -7,15 +7,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
-import seedu.deliverymans.model.Email;
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Order;
 import seedu.deliverymans.model.Phone;
+import seedu.deliverymans.model.Email;
+import seedu.deliverymans.model.Order;
+import seedu.address.model.tag.Tag;
 
-/**
- * (To be added)
- */
 public class Customer {
 
     // Identity fields
