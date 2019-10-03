@@ -14,9 +14,9 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team F11-1`      
+By: `Team F11-1`
 
-Since: `August 2019`      
+Since: `August 2019`
 
 Licence: `MIT`
 
