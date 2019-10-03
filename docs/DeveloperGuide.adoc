@@ -330,6 +330,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |remove a grocery |maintain only usable items in the fridge
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`* * *` |user |get reminders on expiring food items |prevent food wastage
+
+|`* * *` |user |set default reminder settings |get reminders of expiring food within the specified number of days every time I launch the app
+
+|`* * *` |user |sort food items |view grocery list with the specified sorting method
+
+|`* * *` |user |set default sort settings |view grocery list with the specified sorting method every time I display the grocery list
+
+|`* * *` |user |merge food items with same name and expiry date when viewing grocery list |view grocery list in a more organized manner
 |=======================================================================
 
 [appendix]
@@ -378,6 +388,7 @@ Use case ends.
 *Extensions*
 
 [none]
+
 * 2a. The list is empty.
 +
 Use case ends.
@@ -394,8 +405,32 @@ Use case ends.
 ** 3b1. iFridge shows an error message.
 [none]
 ** Use case resumes at step 2.
+
+[discrete]
+=== Use case: Removing a tag
+
+*MSS*
+
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to use a certain amount of a specific food item
+4.  iFridge reduces the amount of the specific food item
 +
 Use case ends.
+
+* 3a. The given amount is more than the amount of food registered in the list.
++
+** 3a1. iFridge shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given amount is exactly the same as amount of food registered in the list.
+[none]
+** 3b1. iFridge removes the food item from the list.
++
+Use case ends.
+[none]
+** 3a1. iFridge shows an error message.
 
 [discrete]
 === Use case: Delete grocery item
@@ -422,8 +457,6 @@ Use case ends.
 ** 3a1. GroceryList shows an error message.
 +
 Use case resumes at step 2.
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
