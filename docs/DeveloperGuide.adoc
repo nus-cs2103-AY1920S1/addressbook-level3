@@ -295,13 +295,13 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*:
-* manage contacts faster than a typical mouse/GUI driven app
-* optimized for students in National University of Singapore
-* make prediction for future spending based on extrapolation from past statistics and upcoming important dates
-* customizable categories, budgets and aliases
-* flexible forms of viewing a summary of expenses
-* give input suggestions while typing
-* more convenient time format
+.  manage contacts faster than a typical mouse/GUI driven app
+.  optimized for students in National University of Singapore
+.  make prediction for future spending based on extrapolation from past statistics and upcoming important dates
+.  customizable categories, budgets and aliases
+.  flexible forms of viewing a summary of expenses
+.  give input suggestions while typing
+.  more convenient time format
 
 [appendix]
 == User Stories
@@ -394,32 +394,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 == Use Cases
 
 (For all use cases below, the *System* is `NUSpend` and the *Actor* is the `user`, unless specified otherwise)
-
-[discrete]
-=== Use case: Delete person
-
-*MSS*
-
-1.  User requests to list persons.
-2.  AddressBook shows a list of persons.
-3.  User requests to delete a specific person in the list.
-4.  AddressBook deletes the person.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
 
 [discrete]
 === Use case: Add a budget and switch to it
@@ -520,9 +494,11 @@ _{More to be added}_
 .  Should be able to hold up to 1000 expenses without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should be at the least usable for a novice to command line interfaces.
+.  The system should respond within two seconds after user types in a command.
 .  Data entered must not be volatile (i.e. can only be changed at the user's command).
 .  Past data must be saved permanently unless deleted at the user's command.
-.  Not required to have digital wallet support.
+.  Should adhere to the project scope (e.g. Not required to have digital wallet support).
+.  Should be able to work without internet connection.
 
 _{More to be added}_
 
