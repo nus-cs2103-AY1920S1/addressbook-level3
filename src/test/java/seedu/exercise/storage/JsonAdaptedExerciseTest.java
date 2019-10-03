@@ -34,8 +34,8 @@ public class JsonAdaptedExerciseTest {
 
     @Test
     public void toModelType_validExerciseDetails_returnsExercise() throws Exception {
-        JsonAdaptedExercise person = new JsonAdaptedExercise(SWIM);
-        assertEquals(SWIM, person.toModelType());
+        JsonAdaptedExercise exercise = new JsonAdaptedExercise(SWIM);
+        assertEquals(SWIM, exercise.toModelType());
     }
 
     @Test

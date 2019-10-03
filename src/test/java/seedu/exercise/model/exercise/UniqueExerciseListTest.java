@@ -97,9 +97,9 @@ public class UniqueExerciseListTest {
     public void setExercise_editedExerciseHasDifferentIdentity_success() {
         uniqueExerciseList.add(WALK);
         uniqueExerciseList.setExercise(WALK, BASKETBALL);
-        UniqueExerciseList expectedUniquePersonList = new UniqueExerciseList();
-        expectedUniquePersonList.add(BASKETBALL);
-        assertEquals(expectedUniquePersonList, uniqueExerciseList);
+        UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
+        expectedUniqueExerciseList.add(BASKETBALL);
+        assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }
 
     @Test
@@ -123,8 +123,8 @@ public class UniqueExerciseListTest {
     public void remove_existingExercise_removesExercise() {
         uniqueExerciseList.add(WALK);
         uniqueExerciseList.remove(WALK);
-        UniqueExerciseList expectedUniquePersonList = new UniqueExerciseList();
-        assertEquals(expectedUniquePersonList, uniqueExerciseList);
+        UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
+        assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }
 
     @Test
@@ -135,10 +135,10 @@ public class UniqueExerciseListTest {
     @Test
     public void setExercises_uniqueExerciseList_replacesOwnListWithProvidedUniqueExerciseList() {
         uniqueExerciseList.add(WALK);
-        UniqueExerciseList expectedUniquePersonList = new UniqueExerciseList();
-        expectedUniquePersonList.add(BASKETBALL);
-        uniqueExerciseList.setExercises(expectedUniquePersonList);
-        assertEquals(expectedUniquePersonList, uniqueExerciseList);
+        UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
+        expectedUniqueExerciseList.add(BASKETBALL);
+        uniqueExerciseList.setExercises(expectedUniqueExerciseList);
+        assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }
 
     @Test

@@ -12,7 +12,7 @@ import seedu.exercise.model.tag.Muscle;
 import seedu.exercise.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Exercise objects.
  */
 public class ExerciseBuilder {
 

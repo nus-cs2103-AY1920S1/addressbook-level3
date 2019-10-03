@@ -77,12 +77,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasExercise_personNotInExerciseBook_returnsFalse() {
+    public void hasExercise_exerciseNotInExerciseBook_returnsFalse() {
         assertFalse(modelManager.hasExercise(WALK));
     }
 
     @Test
-    public void hasExercise_personInExerciseBook_returnsTrue() {
+    public void hasExercise_exerciseInExerciseBook_returnsTrue() {
         modelManager.addExercise(WALK);
         assertTrue(modelManager.hasExercise(WALK));
     }

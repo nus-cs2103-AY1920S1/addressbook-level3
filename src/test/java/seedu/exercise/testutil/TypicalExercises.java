@@ -19,7 +19,7 @@ import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.exercise.Exercise;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Exercise} objects to be used in tests.
  */
 public class TypicalExercises {
 
@@ -44,7 +44,7 @@ public class TypicalExercises {
     public static final Exercise SLAP = new ExerciseBuilder().withName("Slapping").withDate("28/09/2019")
         .withCalories("234").withQuantity("2 tight slaps").build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
+    // Manually added - Exercise's details found in {@code CommandTestUtil}
     public static final Exercise AEROBICS = new ExerciseBuilder().withName(VALID_NAME_AEROBICS)
         .withDate(VALID_DATE_AEROBICS).withCalories(VALID_CALORIES_AEROBICS)
         .withQuantity(VALID_QUANTITY_AEROBICS).withMuscles(VALID_MUSCLE_BASKETBALL).build();
@@ -58,7 +58,7 @@ public class TypicalExercises {
     } // prevents instantiation
 
     /**
-     * Returns an {@code ExerciseBook} with all the typical persons.
+     * Returns an {@code ExerciseBook} with all the typical exercises.
      */
     public static ExerciseBook getTypicalExerciseBook() {
         ExerciseBook eb = new ExerciseBook();

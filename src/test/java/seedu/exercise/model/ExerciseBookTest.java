@@ -45,7 +45,7 @@ public class ExerciseBookTest {
 
     @Test
     public void resetData_withDuplicateExercises_throwsDuplicateExerciseException() {
-        // Two persons with the same identity fields
+        // Two exercises with the same identity fields
         Exercise editedWalk = new ExerciseBuilder(WALK).withQuantity(VALID_QUANTITY_BASKETBALL)
             .withMuscles(VALID_MUSCLE_AEROBICS).build();
         List<Exercise> newExercises = Arrays.asList(WALK, editedWalk);

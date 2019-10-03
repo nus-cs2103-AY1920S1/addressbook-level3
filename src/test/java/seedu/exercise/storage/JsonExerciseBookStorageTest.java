@@ -64,24 +64,24 @@ public class JsonExerciseBookStorageTest {
     public void readAndSaveExerciseBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempExerciseBook.json");
         ExerciseBook original = getTypicalExerciseBook();
-        JsonExerciseBookStorage jsonAddressBookStorage = new JsonExerciseBookStorage(filePath);
+        JsonExerciseBookStorage jsonExerciseBookStorage = new JsonExerciseBookStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveExerciseBook(original, filePath);
-        ReadOnlyExerciseBook readBack = jsonAddressBookStorage.readExerciseBook(filePath).get();
+        jsonExerciseBookStorage.saveExerciseBook(original, filePath);
+        ReadOnlyExerciseBook readBack = jsonExerciseBookStorage.readExerciseBook(filePath).get();
         assertEquals(original, new ExerciseBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addExercise(CLAP);
         original.removeExercise(WALK);
-        jsonAddressBookStorage.saveExerciseBook(original, filePath);
-        readBack = jsonAddressBookStorage.readExerciseBook(filePath).get();
+        jsonExerciseBookStorage.saveExerciseBook(original, filePath);
+        readBack = jsonExerciseBookStorage.readExerciseBook(filePath).get();
         assertEquals(original, new ExerciseBook(readBack));
 
         // Save and read without specifying file path
         original.addExercise(SLAP);
-        jsonAddressBookStorage.saveExerciseBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readExerciseBook().get(); // file path not specified
+        jsonExerciseBookStorage.saveExerciseBook(original); // file path not specified
+        readBack = jsonExerciseBookStorage.readExerciseBook().get(); // file path not specified
         assertEquals(original, new ExerciseBook(readBack));
 
     }
