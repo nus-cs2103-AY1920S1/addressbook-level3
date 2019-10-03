@@ -26,11 +26,7 @@ Horo is a desktop Reminder application. It has a GUI but most of the user intera
 * *Other contributions*:
 
 _To be implemented_ +
-<<<<<<< HEAD
-{empty} + 
-=======
 {empty} +
->>>>>>> master
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
