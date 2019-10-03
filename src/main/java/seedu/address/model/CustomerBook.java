@@ -77,7 +77,7 @@ public class CustomerBook implements ReadOnlyDataBook<Customer> {
     /**
      * Replaces the given customer {@code target} in the list with {@code editedCustomer}.
      * {@code target} must exist in the customer book.
-     * The customer identity of {@code editedCustomer} must not be the same as another existing customer in the customer book.
+     * The customer identity of {@code editedCustomer} must not be the same as another existing customer.
      */
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireNonNull(editedCustomer);

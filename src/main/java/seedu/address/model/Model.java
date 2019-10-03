@@ -130,8 +130,8 @@ public interface Model {
 
     /**
      * Replaces the given customer {@code target} with {@code editedCustomer}.
-     * {@code target} must exist in the address book.
-     * The customer identity of {@code editedCustomer} must not be the same as another existing customer in the address book.
+     * {@code target} must exist in the customer book.
+     * The customer identity of {@code editedCustomer} must not be the same as another existing customer.
      */
     void setCustomer(Customer target, Customer editedCustomer);
 
@@ -260,7 +260,7 @@ public interface Model {
     /**
      * Replaces the given schedule {@code target} with {@code editedSchedule}.
      * {@code target} must exist in the address book.
-     * The schedule identity of {@code editedSchedule} must not be the same as another existing schedule in the address book.
+     * The schedule identity of {@code editedSchedule} must not be the same as another existing schedule.
      */
     void setSchedule(Schedule target, Schedule editedSchedule);
 

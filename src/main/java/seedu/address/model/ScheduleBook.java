@@ -77,7 +77,7 @@ public class ScheduleBook implements ReadOnlyDataBook<Schedule> {
     /**
      * Replaces the given schedule {@code target} in the list with {@code editedSchedule}.
      * {@code target} must exist in the schedule book.
-     * The schedule identity of {@code editedSchedule} must not be the same as another existing schedule in the schedule book.
+     * The schedule identity of {@code editedSchedule} must not be the same as another existing schedule.
      */
     public void setSchedule(Schedule target, Schedule editedSchedule) {
         requireNonNull(editedSchedule);
