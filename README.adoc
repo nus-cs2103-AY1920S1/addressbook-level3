@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Incident Management System
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-T11-1/main[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
@@ -16,13 +16,26 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
+
 * This is an Incident Management System (IMS), a desktop application tailored for emergency call operators.
 * Using this app, call operators will record essential information on the incident, and dispatch nearest available vehicles to site at high efficiency.
 * The streamlined workflow of the IMS is designed to enable call operators to dispatch vehicles and prepare reports without wasting any precious time.
 * IMS is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
+The roles of an emergency response operator is not only to pick up these calls, but also:
 
-== Site Map
+* 1. dispatch vehicles accordingly
+* 2. capture incident details in a report
+
+The Incident Management System is a more convenient and less error prone way for the users to complete their jobs.
+It allows users to:
+
+* 1. Create and store incidents/reports
+* 2. Automised filling of certain fields e.g. Date, time to reduce human error
+* 3. Retrieve the report at a later date for reference
+* 4. Modify/Update the report
+
+== Contents:
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
