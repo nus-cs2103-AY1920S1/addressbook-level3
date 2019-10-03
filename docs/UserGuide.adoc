@@ -1,4 +1,7 @@
 = TagLine - User Guide
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,43 +21,44 @@ By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-TagLine is for those who *prefer to use a desktop app for managing notes*. More importantly, TagLine is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Tagline can streamline your note management much faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Tagline is for those who prefer to use a desktop app for managing notes.
+More importantly, Tagline is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Tagline can
+streamline your note management much faster than traditional GUI apps. Interested? Jump to the Quick Start
+to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure that you have Java 11 or above installed.
+.  Download the latest Tagline.jar here.
+.  Move the file to the folder you want to use as the home folder for Tagline. You are recommended to create a new folder for Tagline as it will create files to store your data.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  The panel on the left is the Chatbot Interface. Type a command in the message box and press Enter to execute it.
+.  Some commands you can try:
+    - `contact list`: Lists all contacts
+    - `note list`: Lists all notes
+.  Your output will be displayed on the panel on the right. For more features on each command, refer to the Command List.
+.  Refer to <<Command List>> for details of each command.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
-
-[[Glossary]]
-== Glossary
+== Command List
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact create NAME`, `NAME` is a parameter which can be used as `contact create John Doe`.
+* Items in square brackets are optional e.g `[--n NAME]` and `[--e EMAIL]` can be used as `--n John Doe --e j.doe@gmail.com` or only `--n John Doe`.
+* Items with `\*` after them can be used multiple times including zero times e.g. `[--t TAG]*`​ can be used as `<empty>` (i.e. 0 times), `--t friend`, `--t friend --t family`, etc.
+* Items with `+`​ after them can be used one or multiple times e.g. `[--t TAG]+`​ can be used as `--t friend` and `--t friend --t family` but cannot be used as `<empty>` (i.e. 0 times),
+* Parameters can be in any order e.g. `--n NAME --p PHONE_NUMBER` and `--p PHONE_NUMBER --n NAME` are considered the same.
 ====
 
-== Basic Commands
+=== Basic Commands
 
-=== View help: `help`
+==== Views help: `help`
 
 Displays the list of commands and their usages.
 
@@ -62,16 +66,189 @@ Format:
 
 `help`
 
-=== Exit the app: `bye`
+==== Exits the app: `bye`
 
 Exits the application.
 
 Format:
 `bye`
 
-== Manage notes: `note`
+=== Manage contacts: `contact`
 
-=== Create a note: `create`
+==== Create a contact: `create`
+
+Creates a contact.
+
+Format:
+
+`contact create NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+
+Examples:
+
+* `contact create Dwayne Johnson`
+* `contact create Dwayne --d Friend from CS2100`
+* `contact create John --e johnson@gmail.com --d Friend from CS2100`
+* `contact create John --p 81234567 --a 21 Kent Ridge Rd`
+* `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
+
+==== Lists all contacts: `list`
+
+Lists all contacts in application.
+
+Format:
+
+`list`
+
+==== Displays the profile of a person: `show` `[coming in v2.0]`
+
+Display the profile page of a contact which shows the contact details and notes tagged with the contact.
+
+Format:
+
+`contact show CONTACT_ID`
+
+Examples:
+
+* `contact show 00343`
+
+==== Edits a person: `edit`
+
+Edits contact information.
+
+Format:
+
+`contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+
+Examples:
+
+* `contact edit 00343 --n Holland --e nightmonkey@starkindustries.com`
+
+Disclaimer: partial edit will be supported in v2.0
+
+==== Deletes a person: `delete`
+
+Deletes a contact with the following id.
+
+Format:
+
+`contact delete CONTACTID`
+
+Examples:
+
+* `contact delete 00343`
+
+==== Locates persons by keyword: `find`
+
+Lists all contacts whose name matches the given keyword.
+
+Format:
+
+`contact find KEYWORD`
+
+Examples:
+
+* `contact find wai fong`
+
+==== Pins a person: `pin` `[coming in v2.0]`
+
+Pins a contact to the top of the contact list.
+
+Format:
+
+`contact pin CONTACT_ID`
+
+Examples:
+
+* `contact pin 00343`
+
+==== Clears all entries : `clear`
+
+Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
+
+Format:
+
+`contact clear`
+
+Examples:
+
+* `contact clear`
+  Executing this command will trigger a confirmation in the chatbot: +
+  `Are you sure that you want to clear all data in your contact list? (Y/N)`
+
+  Then, if you answer "Y", the chatbot will clear all data in your contact list.
+
+=== Manage groups: `group`
+
+==== Create a contact group: `create`
+Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
+
+Format:
+
+`group create GROUP_NAME [--i CONTACT_ID]*`
+
+Example:
+
+* `group create CS2103-F12-3`
++
+Creates a group with name '_CS2103-F12-3_'.
+
+* `group create CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
++
+Creates a group with name '_CS2103-F12-3_' that contains contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' as group members.
+
+==== Add member to a group: `add`
+Adds members to a group.
+
+Format:
+
+`group add GROUP_NAME [--i CONTACT_ID]+`
+
+Example:
+
+* `group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
++
+Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
+
+==== Remove member from a group: `remove`
+Removes member from a group.
+
+Format:
+
+`group remove GROUP_NAME [--i CONTACT_ID]+`
+
+Examples:
+
+* `group remove CS2103-F12-3 --i 12345 --i 12347`
++
+Removes group members with contact ID '_12345_' and '_12347_' from '_CS2103-F12-3_' group.
+
+==== Display profile of a group: `show` `[coming in v2.0]`
+Display the profile page of a contact group which shows the members of the group and notes tagged with the group.
+
+Format:
+
+`group show GROUP_NAME`
+
+Example:
+
+* `group show CS2103-F12-3`
+
+==== Delete a group: `delete`
+Deletes a contact group.
+
+Format:
+
+`group delete GROUP_NAME​`
+
+Example:
+
+* `group delete CS2103-F12-3`
++
+Deletes a group with name '_CS2103-F12-3_'.
+
+=== Manages your notes: `note`
+
+==== Creates a note: `create`
 
 Creates a new note.
 
@@ -82,12 +259,16 @@ Format:
 Example:
 
 * `note create --c Today I don’t feel like doing anything`
-+
 Adds a note with content “Today I don’t feel like doing anything”.
++
+Executing this command will trigger a confirmation in the chatbot:
+ `Are you sure that you want to clear all data in your contact list? (Y/N)`
++
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
 NOTE: Upload of image will be supported in v2.0
 
-=== Delete a note: `delete`
+==== Delete a note: `delete`
 
 Deletes a note.
 
@@ -101,7 +282,7 @@ Example:
 +
 Deletes note with id '_00002_'.
 
-=== Edit a note: `edit`
+==== Edit a note: `edit`
 
 Edits a saved note.
 
@@ -118,7 +299,7 @@ Replaces the content of the note which id is '_00002_' with “_Today I don’t 
 NOTE: Upload of image will be supported in v2.0 +
 Partial editing will be supported in v2.0
 
-=== Tag a note: tag
+==== Tag a note: `tag`
 
 Tags a note with one or more tags.
 
@@ -132,7 +313,7 @@ Example:
 +
 Tags note with id '_00002_' with tag '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_'.
 
-=== Untag a note: untag
+==== Untag a note: `untag`
 
 Untags a note from one or more tags.
 
@@ -146,7 +327,7 @@ Example:
 +
 Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
 
-=== Filter notes: list
+==== Filter notes: `list`
 
 Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
 
@@ -185,181 +366,32 @@ Example:
 
 NOTE: Filtering by multi tag will be supported in v2.0
 
-=== Sorts notes: `sort` `[coming in v2.0]`
+==== Sorts notes: `sort` `[coming in v2.0]`
 Sort notes in different orders (i.e last updated date, alphabetically).
 
-== Manage contacts: `contact`
+=== Manages your tags: `tag`
 
-=== Create a contact: `create`
+==== Filter tags: `list`
 
-Creates a contact.
-
-Format:
-
-`contact create NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
-
-Examples:
-
-* `contact create Dwayne Johnson`
-* `contact create Dwayne --d Friend from CS2100`
-* `contact create John --e johnson@gmail.com --d Friend from CS2100`
-* `contact create John --p 81234567 --a 21 Kent Ridge Rd`
-* `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
-
-=== List all contacts: `list`
-
-Lists all contacts in application.
+Lists all tags that are currently associated with your notes. You can also choose to filter them by name or type.
 
 Format:
 
-`list`
-
-=== Display the profile of a contact: `show` `[coming in v2.0]`
-
-Display the profile page of a contact which shows the contact details and notes tagged with the contact.
-
-Format:
-
-`contact show CONTACT_ID`
-
-Examples:
-
-* `contact show 00343`
-
-=== Edit a contact: `edit`
-
-Edits contact information.
-
-Format:
-
-`contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
-
-Examples:
-
-* `contact edit 00343 --n Holland --e nightmonkey@starkindustries.com`
-
-Disclaimer: partial edit will be supported in v2.0
-
-=== Delete a contact: `delete`
-
-Deletes a contact with the following id.
-
-Format:
-
-`contact delete CONTACTID`
-
-Examples:
-
-* `contact delete 00343`
-
-=== Locate contacts by keyword: `find`
-
-Lists all contacts whose name matches the given keyword.
-
-Format:
-
-`contact find KEYWORD`
-
-Examples:
-
-* `contact find wai fong`
-
-=== Pin a contact: `pin` `[coming in v2.0]`
-
-Pins a contact to the top of the contact list.
-
-Format:
-
-`contact pin CONTACT_ID`
-
-Examples:
-
-* `contact pin 00343`
-
-=== Clear all contact : `clear`
-
-Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
-
-Format:
-
-`contact clear`
-
-Examples:
-
-* `contact clear`
-+
-Executing this command will trigger a confirmation in the chatbot:
-
- `Are you sure that you want to clear all data in your contact list? (Y/N)`
-+
-Then, if you answer "Y", the chatbot will clear all data in your contact list.
-
-== Manage groups: `group`
-
-=== Create a contact group: `create`
-Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
-
-Format:
-
-`group create GROUP_NAME [--i CONTACT_ID]*`
+`tag list [FILTER]`
 
 Example:
 
-* `group create CS2103-F12-3`
-+
-Creates a group with name '_CS2103-F12-3_'.
+[cols=3*,options=header]
+|===
+|Format
+|Example
+|Outcome
 
-* `group create CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
-+
-Creates a group with name '_CS2103-F12-3_' that contains contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' as group members.
+|`tag list`
+|`tag list`
+|Lists all hashtags.
 
-=== Delete a group: `delete`
-Deletes a contact group.
-
-Format:
-
-`group delete GROUP_NAME​`
-
-Example:
-
-* `group delete CS2103-F12-3`
-+
-Deletes a group with name '_CS2103-F12-3_'.
-
-=== Add member to a group: `add`
-Adds members to a group.
-
-Format:
-
-`group add GROUP_NAME [--i CONTACT_ID]+`
-
-Example:
-
-* `group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
-+
-Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
-
-=== Remove member from a group: remove
-Removes member from a group.
-
-Format:
-
-`group remove GROUP_NAME [--i CONTACT_ID]+`
-
-Examples:
-
-* `group remove CS2103-F12-3 --i 12345 --i 12347`
-+
-Removes group members with contact ID '_12345_' and '_12347_' from '_CS2103-F12-3_' group.
-
-=== Display profile of a group: `show` `[coming in v2.0]`
-Display the profile page of a contact group which shows the members of the group and notes tagged with the group.
-
-Format:
-
-`group show GROUP_NAME`
-
-Example:
-
-* `group show CS2103-F12-3`
-
+|`tag list FILTER`
+|`tag list cs`
+|Lists all hashtags matching the filter “cs”, which may include “cs2100” or “cs2103” but not “trip”.
+|===
