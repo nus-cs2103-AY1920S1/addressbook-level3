@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Sudharshan Madhavan
-image::yijinl.png[width="150", align="left"]
+image::uggi121.png[width="150", align="left"]
 {empty}[http://github.com/uggi121[github]] [<<SudharshanMadhavan#, portfolio>>]
 
 Role: Developer +
