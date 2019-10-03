@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= CS2103/T Revision Tool
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-F10-3/main[image:https://travis-ci.org/AY1920S1-CS2103-F10-3/main.svg?branch=master[Build Status]]
@@ -15,9 +15,10 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+
+CS2103/T Revision Tool is a desktop application for storing test banks and acting as your one stop customisable revision tool before the exams! The features will be optimised for usage by CS2103/T students who happens to like using the CLI (Command Line Interface) for typing down their solutions. In addition, it also comes with the benefits of having a beautiful Graphical User Interface (GUI)! 
+
+
 
 == Site Map
 
@@ -29,8 +30,5 @@ endif::[]
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* the original source of the code is from AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
-== Licence : link:LICENSE[MIT]
