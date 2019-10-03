@@ -52,6 +52,80 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME e/EXPIRY_DATE`, `e/EXPIRY_DATE n/ITEM_NAME` is also acceptable.
 ====
 
+=== Grocery List Management
+
+==== Adding a food item
+
+Format: `add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT u/UNIT [t/TAG]`
+
+Adds a food item to the grocery list
+
+==== Listing all food items
+Format: `list`
+
+Shows a list of food items in the grocery list
+
+==== Deleting a food item (Throw away)
+
+Format: `delete INDEX`
+
+Deletes the specified food item from the grocery list when it is done being used
+If the amount of the food item left > 0, the item will be moved to the waste list
+
+==== Tagging a food item
+
+Format: `tag INDEX t/TAG`
+
+Adds a tag to the specified food item in the grocery list
+
+==== Remove a tag from an item
+
+Format: `remove INDEX t/TAG`
+
+Removes the specified tag from the specified food item from the grocery list
+
+==== Use an item (Subtract by the amount)
+
+Format: `use INDEX a/AMOUNT`
+
+Decreases the amount left of the item by the specified amount.
+
+==== Edit an item
+
+Format: `edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [a/AMOUNT]`
+
+Edits an item based on the arguments provided
+
+=== Viewing grocery list
+
+==== Sort the grocery list
+
+Format: `sort by/TYPE`
+
+Sorts the grocery list based on the type of sorting
+The type of sorting is as follows:
+****
+* alphabetical: Sort the grocery list in alphabetical order
+* expiry date: Sort the grocery list based on the expiry date
+****
+
+Examples:
+
+* `sort by/alphabetical`
+* `sort by/expiry`
+
+==== Filter
+
+Format: `filter t/TAG`
+
+From the grocery list, returns a list of food items with the specified tag
+
+==== Find an item
+
+Format: `find STRING`
+
+Returns a list of items, of which the items contain the input string
+
 === Waste List Management
 
 ==== Moving an item into waste list
@@ -95,7 +169,6 @@ to the year following the start_date or the current time, whichever is earlier.
 end date to the end date.
 * If you wish to specify both the start and end dates, please ensure that they are at least one
 month apart.
-****
 
 Examples:
 
