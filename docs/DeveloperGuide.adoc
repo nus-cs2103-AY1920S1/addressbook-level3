@@ -325,8 +325,7 @@ System: `PasswordSys`, `FileSys`, `NoteSys`, `CardSys`
 
 ---
 [discrete]
-=== Use case:
-`UC01 - Access password window.`
+=== UC01 - Access password window
 
 *MSS*
 
@@ -337,8 +336,7 @@ Use case ends.
 
 
 [discrete]
-=== Use case:
-`UC02 - Access file window`
+=== UC02 - Access file window
 
 *MSS*
 
@@ -348,8 +346,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case:
-`UC03 - Access note window`
+=== UC03 - Access note window
 
 *MSS*
 
@@ -359,8 +356,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case:
-`UC02 - Access credit card window`
+=== UC02 - Access credit card window
 
 *MSS*
 
@@ -382,8 +378,7 @@ System: `PasswordSys`
 
 ---
 [discrete]
-=== Use case:
-`UC11 - Add a password`
+=== UC11 - Add a password
 
 *MSS*
 
@@ -405,8 +400,7 @@ Use case ends
 Use case end.
 
 [discrete]
-=== Use case:
-`UC12 - Delete a password`
+=== UC12 - Delete a password
 
 *MSS*
 
@@ -428,8 +422,7 @@ Use case ends
 Use case end.
 
 [discrete]
-=== Use case:
-`UC13 - Update a password`
+=== UC13 - Update a password
 
 *MSS*
 
@@ -452,8 +445,7 @@ Use case ends
 Use case end.
 
 [discrete]
-=== Use case:
-`UC14 - Generate a password`
+=== UC14 - Generate a password
 
 *MSS*
 
@@ -484,8 +476,7 @@ Use case end.
 Use case end.
 
 [discrete]
-=== Use case:
-`UC15 - Analyse all password`
+=== UC15 - Analyse all password
 
 *MSS*
 
@@ -507,6 +498,56 @@ Use case end.
 
 ---
 
+System: `FileSys`
+[discrete]
+=== Use case:
+1. UC21 - Encrypt a file
+2. UC22 - Decrypt a file
+
+---
+
+[discrete]
+=== UC21 - Encrypt a file
+
+*MSS*
+
+1. User chooses to encrypt a file
+2. User enter details
+3. FileSys encrypts the file
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. Details entered are invalid
++
+[none]
+** 2a1. FileSys shows an error message
++
+Use case ends
+
+[discrete]
+=== UC22 - Decrypt a file
+
+*MSS*
+
+1. User chooses to decrypt a file
+2. User enters details
+3. FileSys decrypts the file
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. Details entered are invalid
++
+[none]
+** 2a1. FileSys shows an error message
++
+Use case ends
+
+---
+
 System: `NoteSys`
 [discrete]
 === Use case:
@@ -517,8 +558,7 @@ System: `NoteSys`
 ---
 
 [discrete]
-=== Use case:
-`UC31 - Add a note`
+=== UC31 - Add a note
 
 *Guarantees:*
 
@@ -558,8 +598,7 @@ Use case ends
 Use case resumes from step 5
 
 [discrete]
-=== Use case:
-`UC32 - Delete a note`
+=== UC32 - Delete a note
 
 *MSS*
 
@@ -579,11 +618,10 @@ Use case ends
 [none]
 ** 2a1. NoteSys shows an error message
 +
-Use case end.
+Use case ends
 
 [discrete]
-=== Use case:
-`UC33 - Update a note`
+=== UC33 - Update a note
 
 *MSS*
 
@@ -606,7 +644,7 @@ Use case ends
 [none]
 ** 2a1. NoteSys shows an error message
 +
-Use case end.
+Use case ends
 [none]
 * 5a. No text entered
 +
@@ -615,14 +653,92 @@ Use case end.
 [none]
 ** 5a1. NoteSys shows an error message
 +
-Use case end.
+Use case ends
+
+---
+
+System: `CardSys`
+[discrete]
+=== Use Case:
+1. UC41 - Add a card
+2. UC42 - Delete a card
+
+---
+
+[discrete]
+=== UC41 - Add a card
+
+*MSS*
+
+1. User chooses to add a card
+2. User enters description and details
+3. CardSys adds the card
 
 +
+Use case ends
 
-_{More to be added}_
+*Extensions*
+[none]
+* 2a. Details entered are invalid
++
+
++
+[none]
+** 2a1. CardSys shows an error message
+** 2a2.CardSys requests for new details
+** 2a3. User enters new details
+** Steps 2s1-2s3 are repeated until the details entered are valid
+** Use case resumes from step 3
+
+[discrete]
+=== UC42 - Delete a card
+
+*MSS*
+
+1. User chooses to delete a card
+2. User enters description
+3. CardSys removes the card
+
++
+Use case ends
+
+*Extensions*
+[none]
+* 2a. Description entered does not exist
++
+
++
+[none]
+** 2a1. CardSys shows an error message
++
+Use case ends
 
 [appendix]
 == Non Functional Requirements
+Accessibility
+
+* A user shall be able to download the released JAR file conveniently from the newest tagged release.
+*  The app shall be accessible by anyone who has downloaded the released JAR file.
+
+Efficiency
+
+*  The response of the app to any user action shall appear within 5 seconds.
+
+Performance
+
+*  The app shall be able to contain up to 1000 items without any drop in performance.
+
+Reliability
+
+* The app shall throw appropriate exceptions when any user input is invalid or any user action fails to execute completely.
+
+Security
+
+* The app shall resist unauthorised, accidential or unintended usage and provide access only to legitimate users.
+
+Usability
+
+*  A user with above average typing speed for regular English (i.e. not code, not system admin commands) shall be able to accomplish most of the tasks faster using commands than using the mouse.
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
