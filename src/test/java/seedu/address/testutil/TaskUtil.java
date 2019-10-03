@@ -15,7 +15,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class for Task.
  */
-public class PersonUtil {
+public class TaskUtil {
 
     /**
      * Returns an add command string for adding the {@code task}.

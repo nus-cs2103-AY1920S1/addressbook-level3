@@ -6,7 +6,7 @@ import seedu.address.model.task.Task;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code AddressBook ab = new AddressBookBuilder().withTask("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
@@ -23,7 +23,7 @@ public class AddressBookBuilder {
     /**
      * Adds a new {@code Task} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withPerson(Task task) {
+    public AddressBookBuilder withTask(Task task) {
         addressBook.addTask(task);
         return this;
     }
