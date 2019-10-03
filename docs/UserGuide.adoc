@@ -63,6 +63,31 @@ image::quickstart/5_excel.png[width="500", align="left"]
 
 ====
 
+=== Viewing help
+Shows helpful information on using this software.
+Format: `help`
+
+=== Importing existing availabilities `import`
+==== Importing interviewers’ availability
+Imports interviewers’ availability from a comma separated values (CSV) file. +
+Format: `import interviewer PATH_TO_FILE` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
+
+Example:
+
+ import interviewer C:\Users\johndoe\Interviewers.csv
+
+==== Importing interviewees’ availability
+Imports interviewees’ availability from a comma separated values (CSV) file. +
+Format: `import interviewee PATH_TO_FILE` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
+
+Example:
+
+ import interviewer C:\Users\johndoe\Interviewees.csv
+
 === Add interviewers/interviewees `add`
 Manually add a new interviewer to the database. +
 Format: `add interviewer name:"NAME" slot:SLOT...` +
@@ -143,6 +168,14 @@ Example:
 
  get "John Doe"
 
+=== Changing availabilities `edit` `[Coming in v2.0]`
+==== Changing availabilities of existing interviewer (interview slot)
+Change the specified interviewer from the database +
+Format: `edit interviewer NAME`
+
+==== Changing availabilities of existing interviewee
+Change the specified interviewee from the database. +
+Format: `edit interviewee NAME`
 
 === Delete interviewer/interviewee `delete`
 ==== Delete existing interviewer (interview slot)
@@ -171,27 +204,6 @@ the timetable of all available interview time slots. +
 Format: `generate schedule` +
 
 **Note:** This command requires the timetable of all available time slots to be generated first!
-
-=== Importing existing availabilities `import`
-==== Importing interviewers’ availability
-Imports interviewers’ availability from a comma separated values (CSV) file. +
-Format: `import interviewer PATH_TO_FILE` +
-    - PATH_TO_FILE is the absolute path to the file. +
-    - E.g C:\\Users\Bob\file.csv
-
-Example:
-
- import interviewer C:\Users\johndoe\Interviewers.csv
-
-==== Importing interviewees’ availability
-Imports interviewees’ availability from a comma separated values (CSV) file. +
-Format: `import interviewee PATH_TO_FILE` +
-    - PATH_TO_FILE is the absolute path to the file. +
-    - E.g C:\\Users\Bob\file.csv
-
-Example:
-
- import interviewer C:\Users\johndoe\Interviewees.csv
 
 === Exporting of interview schedule `export`
 Exports the allocated interview schedule timetable to a comma separated values (CSV) file. +
@@ -264,6 +276,10 @@ Display available slots
 
 |Get interview schedule for interviewer/interviewee
 |`get NAME` +
+
+|Edit availability of interveiwer/interviewee
+|`edit interviewer NAME` +
+ `edit interviewee NAME`
 
 |Delete interviewer/interviewee
 |`delete interviewer NAME` +
