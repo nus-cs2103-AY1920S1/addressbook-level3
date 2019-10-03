@@ -39,7 +39,7 @@ Responsibilities: Data
 '''
 
 === Hu Yuchen
-image: brebeek.jpg[width="150", align="left"]
+image: brebeek.png[width="150", align="left"]
 {empty}[http://github.com/brebeek[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
