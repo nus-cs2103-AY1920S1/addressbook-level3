@@ -320,6 +320,129 @@ Deletes the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Templates List Management
+=== Add new template: 'tlist add'
+
+Adds a new template into template list. +
+Format: 'tlist add n/TEMPLATENAME'
+
+Examples:
+
+* `tlist add n/Weekly Necessities`
+* `tlist add n/Birthday Party Prep`
+* `tlist add n/Cake-Making`
+
+=== Rename template: `tlist rename`
+
+Updates name of specified template in template list. +
+Format: `tlist rename INDEX n/TEMPLATENAME`
+
+****
+* Edits the template at the specified `INDEX`. The index refers to the index number shown in the displayed template list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `tlist rename 1 n/Daily Necessities`
+Edits the name of the 1st template in the template list to `Daily Necessities`
+
+=== Deleting a template: `tlist delete`
+
+Deletes a specified template from the template list. +
+Format: `tlist delete INDEX`
+
+****
+* Deletes the template at the specified `INDEX`. The index refers to the index number shown in the displayed template list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `tlist delete 1`
+Deletes the 1st template in the template list
+
+=== Clear template list: `tlist clear`
+
+Clears all template entries from the template list. +
+Format: `tlist clear`
+
+=== Show list of all templates: `tlist all`
+
+Shows all entries in the template list +
+Format: `tlist all`
+
+=== Template Management
+=== Add new grocery item: `tlist n/TEMPLATENAME add`
+
+Adds an item into a specified template.+
+Format: `tlist n/TEMPLATENAME add f/FOODITEM a/AMOUNT`
+
+****
+* Adds item into the template under the specified `TEMPLATENAME` as shown in the displayed template list.
+****
+
+Examples:
+
+* `tlist n/Weekly Necessities add n/Milk a/1l`
+* `tlist n/Weekly Necessities add n/Eggs a/12`
+
+=== Edit item name: `tlist edit`
+
+Edits a specified item in the specified template `TEMPLATENAME`. +
+Format: `tlist n/TEMPLATENAME edit INDEX [f/FOODITEM] [a/AMOUNT]`
+
+****
+* Edits the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Units in the amount field must match that of the item specified
+****
+
+Examples:
+
+* `tlist n/Weekly Necessities edit 1 f/Low-Fat Milk`
+Edits the name of the first food item in the template `Weekly Necessities` to  `Low-Fat Milk`
+* `tlist n/Weekly Necessities edit 1 a/2l`
+Edits the amount of the first food item in the template `Weekly Necessities` to 2 litres.
+
+=== Delete food item: `tlist n/TEMPLATENAME delete`
+
+Deletes the specified item from the specified template. +
+Format: `tlist n/TEMPLATENAME delete INDEX`
+
+****
+* Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `tlist n/Weekly Necessities delete 1`
+Deletes the first food item in the template `Weekly Necessities`
+
+=== Shows template: `tlist n/TEMPLATENAME`
+
+Shows all entries in the specified template. +
+Format: `tlist n/TEMPLATENAME`
+
+Examples:
+
+* `tlist n/Weekly Necessities`
+Shows all entries in the `Weekly Necessities` template
+
+=== Generate shopping list: `slist addAll`
+
+Generates a shopping list from all missing grocery items in the template.
+Format: `slist addAll [l/TEMPLATENAME] ...`
+
+****
+* At least one template name must be provided.
+* In the case of multiple template lists, the amount of duplicate items will be summed up.
+* In the case of the shopping list already containing food items, the amount of duplicate items will be summed up.
+****
+
+Examples:
+* `slist addAll l/Weekly Necessities l/Birthday Cake`
+All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
+
 === Exiting the program : `exit`
 
 Exits the program. +
