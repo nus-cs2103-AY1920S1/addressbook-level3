@@ -280,14 +280,14 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * an NUS student
-* managing an NUS project team. 
-* has a significant amount of tasks to manage among team members 
+* managing an NUS project team.
+* has a significant amount of tasks to manage among team members
 * can type fast
-* prefers desktop apps over mobile apps 
+* prefers desktop apps over mobile apps
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage tasks assigned to project mates, finding common time slots and keep track of inventory faster than GUI apps. 
+*Value proposition*: manage tasks assigned to project mates, finding common time slots and keep track of inventory faster than GUI apps.
 
 [appendix]
 == User Stories
@@ -645,7 +645,7 @@ Use case ends
 *Extensions*
 
 2. The list is empty.
-Use case ends 
+Use case ends
 
 3. The given index is invalid.
 4. +work shoes an error message
@@ -671,7 +671,7 @@ Windows, Linux, Unix, OS-X
 National University of Singapore
 
 [[CLI]] CLI::
-command line interface (bash, git) 
+command line interface (bash, git)
 
 [[GUI]] GUI::
 graphical user interface
