@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Abhinav Ramnath
-image::abhinav.png[width="150", align="left"]
+image::ambhinav.png[width="150", align="left"]
 {empty}[https://github.com/ambhinav[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
