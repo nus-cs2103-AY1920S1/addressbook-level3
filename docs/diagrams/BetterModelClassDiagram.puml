@@ -4,18 +4,46 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+abstract Entity
+abstract EntityList
+interface ReadableEntityList <<Interface>>
 
-UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+Model *-right-> "1" ParticipantList
+Model *-right-> "1" MentorList
+Model *-right-> "1" TeamList
 
-Person o-up-> "*" Tag
+EntityList .down.|> ParticipantList
+EntityList .down.|> TeamList
+EntityList .down.|> MentorList
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+ReadableEntityList .down.|> ParticipantList
+ReadableEntityList .down.|> TeamList
+ReadableEntityList .down.|> MentorList
+
+ParticipantList *-down-> "*" Participant
+MentorList *-down-> "*" Mentor
+TeamList *-down-> "*" Team
+
+Entity *--> Name
+Entity *--> Id
+Participant .up.|> Entity
+Team .up.|> Entity
+Mentor .up.|> Entity
+
+Participant *-down-> Phone
+Participant *-down-> Email
+
+Team *-down-> "*" Participant
+Team *-down-> "0..1" Mentor
+Team *-down-> "1" SubjectName
+Team *-down-> "1" Score
+Team *-down-> "1" Name
+Team *-down-> "1" ProjectType
+Team *-down-> "1" Location
+
+Mentor *-down-> "1" Phone
+Mentor *-down-> "1" Email
+Mentor *-down-> "1" Name
+Mentor *-down-> "1" Name
+Mentor *-down-> "1" SubjectName
 @enduml

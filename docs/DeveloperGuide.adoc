@@ -14,14 +14,14 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Alfred`      Since: `Sept 2019`      Licence: `MIT`
 
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
-
+==== Note: Image here to the updated in the later milestones.
 [[Design-Architecture]]
 === Architecture
 
@@ -62,7 +62,6 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[]
 
 [discrete]
-==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
@@ -75,6 +74,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
+==== Note: UI image and description to be updated with the later milestones.
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -91,6 +91,7 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+==== Note: Logic Architecture image and description to be updated with the later milestones.
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
@@ -115,24 +116,24 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+
+image::BetterModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the lists of our various entities.
+* Model is the bridge between Logic and Storage and provides an abstraction of how the data is stored in memory.
+* It exposes a `ReadableEntityList` which only has the list method to remind Logic that the data given should not be modified.
+The UI can be bound to these lists so that it automatically updates when the contents of the list change.
+* The `Model` interface also serves as an API through which controller can edit the data stored in memory.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+==== Note: To be updated with the later milestones.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -216,6 +217,7 @@ image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
+==== Note: To be updated with the later milestones.
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire address book.
@@ -347,10 +349,16 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should not seem sluggish if it contains less than 1500 entities.
+.  Project is not intended for use on mobile and only should be used on desktop.
+.  The application assumes that the user is comfortable with the concept of the command line.
+.  The application is meant to run offline.
+.  The application is largely a personnel/HR manager, and is not expected to do anything more than that (eg hackathon finances etc).
+.  The application is to be used for a single hackathon only and not for multiple hackathons.
+.  The application assumes that the hackathon is a short term affair (no longer than 4 days).
+.  The application assumes that this is an English medium hackathon and that no non-English names are expected.
+.  The GUI should display the result of commands in an intuitive, organized manner that is readable by the laymen(as part of the organization/ affordability of the application).
 
 [appendix]
 == Glossary
@@ -361,22 +369,40 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[logging]] Logging::
+Logging uses file(s) containing information about the activity of a computer program for the developers to consult and monitor.
+
+[[entity]] Entity::
+Entities are the main objects Alfred stores. The Entities are Participant, Mentor and Team as described below.
+
+[[participant]] Participant::
+It represents a participant taking part in the hackathon
+
+[[mentor]] Mentor::
+It represents a mentor available for teams to choose
+
+[[team]] Team::
+Team is the base unit of this project. It contains references to an associated list of participants and an optional mentor.
+
 [appendix]
 == Product Survey
 
-*Product Name*
+*Google Sheets*
 
-Author: ...
+Author: Google
 
 Pros:
 
-* ...
-* ...
+* This is extremely versatile as Google Sheets come with a list of extremely helpful macros that could help in the storage of participants.
+* The display and UI of Google Sheets is extremely intuitive and will come as second nature to anyone using the web.
+* Convenient and accessible by multiple HR personnel simultaneously.
 
 Cons:
 
-* ...
-* ...
+* Google Sheets has no concept of objects and thus it cannot accurately depict the relationships between our different entities.
+* As above, it is hard to look for relationships between our entities, such as Team/Participant associations.
+* Google Sheets may be useful for storing information, but it does not support command line arguments.
+* Google Sheets is also unable to perform input validation as it lacks the logic to do so.
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,8 +418,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum. +
+   _Note: If you are a OS X user, you might need to run this from your command line instead._
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.

@@ -14,6 +14,14 @@ src/main/resources/docs/
 /preferences.json
 /*.log.*
 
+# Build files
+bin/
+
+# Local Intellij settings
+.settings
+.classpath
+.project
+
 # Test sandbox files
 src/test/data/sandbox/
 
