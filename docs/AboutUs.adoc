@@ -43,7 +43,7 @@ image: brebeek.jpg[width="150", align="left"]
 {empty}[http://github.com/brebeek[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Functionality
+Responsibilities: In charge of functionality
 
 '''
 
