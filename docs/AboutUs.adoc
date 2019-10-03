@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::niqiukun.jpg[width="150", align="left"]
 {empty}[http://github.com/niqiukun[github]]
 
-Role: Developer +
+Role: Developer / Code Quality +
 Responsibilities: File encryption
 
 '''
@@ -22,7 +22,7 @@ Responsibilities: File encryption
 image::hooncp.jpg[width="150", align="left"]
 {empty}[http://github.com/hooncp[github]]
 
-Role: Developer +
+Role: Developer / Testing +
 Responsibilities: Password encryption
 
 '''
@@ -31,7 +31,7 @@ Responsibilities: Password encryption
 image::eejian97.jpg[width="150", align="left"]
 {empty}[http://github.com/eejian97[github]]
 
-Role: Developer +
+Role: Developer / UI +
 Responsibilities: Password generation and Analysis
 
 '''
@@ -40,7 +40,7 @@ Responsibilities: Password generation and Analysis
 image::yhtingg.jpg[width="150", align="left"]
 {empty}[http://github.com/yhtingg[github]]
 
-Role: Developer +
+Role: Developer / Design  +
 Responsibilities: Credit card details encryption
 
 '''
@@ -49,7 +49,7 @@ Responsibilities: Credit card details encryption
 image::jityong.jpg[width="150", align="left"]
 {empty}[http://github.com/jityong[github]]
 
-Role: Developer +
+Role: Developer / Documentation +
 Responsibilities: Notes encryption
 
 '''
