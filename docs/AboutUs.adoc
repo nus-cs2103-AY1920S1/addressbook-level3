@@ -4,53 +4,49 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Deliveria was developed by the AY1920S1-CS2103T-F14-4 team.
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
+'''
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chee You
+image::/images/cheeyou.png[width="150", align="left"]
+{empty}[https://github.com/cheeyou[github]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Kris Kunthamas
+image::/images/argvampir.png[width="150", align="left"]
+{empty}[https://github.com/ArgVampir[github]]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Sam Yong Jek
+image::/images/samyj2606.png[width="150", align="left"]
+{empty}[http://github.com/SamYJ2606[github]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer
+
+'''
+
+=== Song Tianyi
+image::/images/tysng.png[width="150", align="left"]
+{empty}[http://github.com/tysng[github]]
+
+Role: Developer
+
+'''
+
+=== Tan Jun Bang
+image::/images/junnbang.png[width="150", align="left"]
+{empty}[http://github.com/junnbang[github]]
+
+Role: Developer
 
 '''
