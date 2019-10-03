@@ -295,13 +295,13 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*:
-.  manage contacts faster than a typical mouse/GUI driven app
-.  optimized for students in National University of Singapore
-.  make prediction for future spending based on extrapolation from past statistics and upcoming important dates
-.  customizable categories, budgets and aliases
-.  flexible forms of viewing a summary of expenses
-.  give input suggestions while typing
-.  more convenient time format
+* manage contacts faster than a typical mouse/GUI driven app
+* optimized for students in National University of Singapore
+* make prediction for future spending based on extrapolation from past statistics and upcoming important dates
+* customizable categories, budgets and aliases
+* flexible forms of viewing a summary of expenses
+* give input suggestions while typing
+* more convenient time format
 
 [appendix]
 == User Stories
