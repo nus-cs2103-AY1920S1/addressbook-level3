@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.core;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

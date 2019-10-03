@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= ClerkPro - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of patients and doctors
+* is a clerk/receptionist working at a small clinic
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage queue and appointments faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,15 +298,62 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* *` |clerk|use auto-complete to predict my commands|save time on verifying its existence and correctness
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* *` |clerk|quick-fill the command box with the suggestions of Auto-Complete|so that it reduces typing of the entire command
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |clerk|refer to command history|review entered commands that maybe incorrect
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |clerk|quick-fill the command box with history commands|inputting last few commands is easier
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |clerk|find out the upcoming appointments for given patients. |
+
+|`* * *` |clerk|update the doctors' details by typing commands and user details. |
+
+|`* * *` |clerk|add new doctors into system |
+
+|`* *` |clerk|remove a patient from the queue if they leave. |
+
+|`* *` |clerk|view the number of patients who visited the clinic today |
+
+|`* * *` |clerk|edit patients' details | keep their particulars up to date
+
+|`* * *` |clerk|register new patients with optional fields |
+
+|`* *` |clerk|find all patients who have missed their appointments. | keep track of the list of patients whom I need to inform
+
+|`* * *` |clerk|add ad-hoc patients to the queue |
+
+|`* *` |clerk|acknowledge appointments if patients are present for their appointments | keep track of patients who came for their appointments
+
+|`* *` |clerk|tag patient with known allergies. | keep track of their allegies
+
+|`* *` |clerk|cancel appointments for patients | free up appointment time slots
+
+|`* * *` |clerk|search for patients using their name or phone number |
+
+|`* * *` |clerk|look up how many patients are in the queue, on a side panel | recommend estimated time that the patient will be attended to
+
+|`* * *` |clerk|look up patient using a reference id. |
+
+|`* * *` |clerk|reschedule appointments of patients |
+
+|`* * *` |clerk|search for appointment slots easily | schedule appointments for patients easily.
+
+|`* * *` |clerk|assign a queue number to each patient in the queue |
+
+|`* *` |clerk|schedule patient's follow up appointments |
+
+|`* * *` |clerk|use the appointment scheduler | schedule appointments for my patients
+
+|`* * *` |clerk|save time managing the queue | have more time to do my own work
+
+|`* * *` |clerk|take note of the doctors that are on-shift | effectively direct patients to available doctors.
+
+|`* *` |experienced user|create custom aliases to commands |
+
+|`* *` |receptionist|use the undo and redo feature to remedy any mistakes.|
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,33 +361,87 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ClerkPro` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add patient into queue (UC1)
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  New patient arrives at the clinic
+2.  User wants to add new patient into the queue
+3.  ClerkPro adds the patient into the queue
+
+Use case ends.
+
+*Extensions*
+
+* 2a. Actor inputs invalid format
 +
+Use case ends.
+
+* 2a. ClerkPro requests for correct input format. +
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Remove person from queue (UC2)
+
+*MSS*
+
+1.  Patient wants to leave
+2.  User requests to remove patient from the queue
+3.  ClerkPro removes the person from queue
+
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. Person is not in queue
 +
 Use case ends.
 
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. ClerkPro shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Change appointment date (UC3)
+
+*MSS*
+
+1.  Patient calls to change appointment date
+2.  User checks whether the current appointment can be postponed.
+3.  User checks and updates appointment's appointment time slots.
+4.  ClerkPro updates the appointment date of the patient.
+
+Use case ends.
+
+*Extensions*
+
+* 2a. Current appointment date is invalid +
++
+Use case ends
+
+* 3a. Appointment date is taken
++
+Use case ends
+
+[discrete]
+=== Use case: Set next appointment (UC4)
+
+*MSS*
+
+1.  Patient wants to set next appointment
+2.  User requests to set the patient's appointment date
+3.  ClerkPro changes the patient's appointment date
+
+Use case ends.
+
 
 _{More to be added}_
 
@@ -347,8 +449,11 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 10000 persons and 10000 events without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  No internet required.
+.  System allows user to undo incorrect or accidental destructive actions
+.  App can be downloaded and run via a jar file
 
 _{More to be added}_
 
