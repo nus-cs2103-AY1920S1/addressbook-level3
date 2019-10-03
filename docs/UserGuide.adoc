@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Deliveria - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,11 +14,15 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+Group Name: `CS2103-F14-4`
+
+By: `Chee You, Rushagrid Kunthamas, Sam Yong Jek, Song Tianyi, Tan Jun Bang`
+
+Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Deliveria is a *desktop application* that allows a *delivery manager* to *manage and assign delivery tasks* efficiently. While it consists of a _Graphical User Interface_ (GUI) that is user-friendly, Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
 
 == Quick Start
 
