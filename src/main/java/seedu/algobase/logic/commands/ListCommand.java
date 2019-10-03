@@ -1,7 +1,7 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PROBLEMS;
 
 import seedu.algobase.model.Model;
 
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

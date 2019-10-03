@@ -19,7 +19,7 @@ import seedu.algobase.model.problem.Problem;
 @JsonRootName(value = "algobase")
 class JsonSerializableAlgoBase {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Problems list contains duplicate Problem(s).";
+    public static final String MESSAGE_DUPLICATE_PROBLEM = "Problems list contains duplicate Problem(s).";
 
     private final List<JsonAdaptedProblem> problems = new ArrayList<>();
 
@@ -50,7 +50,7 @@ class JsonSerializableAlgoBase {
         for (JsonAdaptedProblem jsonAdaptedProblem : problems) {
             Problem problem = jsonAdaptedProblem.toModelType();
             if (algoBase.hasProblem(problem)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PROBLEM);
             }
             algoBase.addProblem(problem);
         }

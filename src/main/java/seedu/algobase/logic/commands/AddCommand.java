@@ -37,7 +37,7 @@ public class AddCommand extends Command {
             + PREFIX_SOURCE + "Kattis";
 
     public static final String MESSAGE_SUCCESS = "New Problem added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This Problem already exists in the algobase";
+    public static final String MESSAGE_DUPLICATE_PROBLEM = "This Problem already exists in the algobase";
 
     private final Problem toAdd;
 
@@ -54,7 +54,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasProblem(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_PROBLEM);
         }
 
         model.addProblem(toAdd);
