@@ -47,7 +47,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validTask);
         ModelStub modelStub = new ModelStubWithPerson(validTask);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_TASK, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -163,7 +163,7 @@ public class AddCommandTest {
         @Override
         public boolean hasTask(Task task) {
             requireNonNull(task);
-            return this.task.isSamePerson(task);
+            return this.task.isSameTask(task);
         }
     }
 
@@ -176,7 +176,7 @@ public class AddCommandTest {
         @Override
         public boolean hasTask(Task task) {
             requireNonNull(task);
-            return personsAdded.stream().anyMatch(task::isSamePerson);
+            return personsAdded.stream().anyMatch(task::isSameTask);
         }
 
         @Override

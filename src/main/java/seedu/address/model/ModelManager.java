@@ -102,7 +102,7 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         addressBook.addTask(task);
-        updateFilteredTasksList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override

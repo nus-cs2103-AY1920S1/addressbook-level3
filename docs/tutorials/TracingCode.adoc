@@ -180,7 +180,7 @@ image::LogicSequenceDiagram.png[]
 public CommandResult execute(Model model) throws CommandException {
     ...
     Person taskToEdit = lastShownList.get(index.getZeroBased());
-    Person editedTask = createEditedPerson(taskToEdit, editPersonDescriptor);
+    Person editedTask = createEditedPerson(taskToEdit, editTaskDescriptor);
     if (!taskToEdit.isSamePerson(editedTask) && model.hasPerson(editedTask)) {
         throw new CommandException(MESSAGE_DUPLICATE_PERSON);
     }
