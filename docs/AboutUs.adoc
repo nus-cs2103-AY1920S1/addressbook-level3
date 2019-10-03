@@ -48,7 +48,7 @@ Responsibilities: In charge of functionality
 '''
 
 === Ng Jun Hao
-image::junhao.png[width="150", align="left"]
+image::jun-ha0.png[width="150", align="left"]
 {empty}[https://github.com/jun-ha0[github]] [<<junhao#, portfolio>>]
 
 Role: Developer +
