@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.task.exceptions.DuplicatePersonException;
+import seedu.address.model.task.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -53,7 +53,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * {@code target} must exist in the list.
      * The task identity of {@code editedTask} must not be the same as another existing task in the list.
      */
-    public void setPerson(Task target, Task editedTask) {
+    public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
         int index = internalList.indexOf(target);
@@ -79,7 +79,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }
 
-    public void setPersons(UniqueTaskList replacement) {
+    public void setTasks(UniqueTaskList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,9 +88,9 @@ public class UniqueTaskList implements Iterable<Task> {
      * Replaces the contents of this list with {@code tasks}.
      * {@code tasks} must not contain duplicate tasks.
      */
-    public void setPersons(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
-        if (!personsAreUnique(tasks)) {
+        if (!TasksAreUnique(tasks)) {
             throw new DuplicatePersonException();
         }
 
@@ -124,7 +124,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Returns true if {@code tasks} contains only unique tasks.
      */
-    private boolean personsAreUnique(List<Task> tasks) {
+    private boolean TasksAreUnique(List<Task> tasks) {
         for (int i = 0; i < tasks.size() - 1; i++) {
             for (int j = i + 1; j < tasks.size(); j++) {
                 if (tasks.get(i).isSamePerson(tasks.get(j))) {

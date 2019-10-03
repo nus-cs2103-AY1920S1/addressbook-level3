@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Task;
 
 /**
  * A utility class containing a list of {@code Task} objects to be used in tests.
@@ -63,7 +63,7 @@ public class TypicalPersons {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Task task : getTypicalPersons()) {
-            ab.addPerson(task);
+            ab.addTask(task);
         }
         return ab;
     }

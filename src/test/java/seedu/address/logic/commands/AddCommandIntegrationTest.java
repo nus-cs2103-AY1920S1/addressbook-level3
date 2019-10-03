@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -30,7 +30,7 @@ public class AddCommandIntegrationTest {
         Task validTask = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validTask);
+        expectedModel.addTask(validTask);
 
         assertCommandSuccess(new AddCommand(validTask), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validTask), expectedModel);
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Task taskInList = model.getAddressBook().getPersonList().get(0);
+        Task taskInList = model.getAddressBook().getTaskList().get(0);
         assertCommandFailure(new AddCommand(taskInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
