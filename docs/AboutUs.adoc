@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Anqi Chen
-image::anqi.png[width="150", align="left"]
+image::anqichen9856.png[width="150", align="left"]
 {empty}[https://github.com/anqichen9856[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -21,7 +21,7 @@ Responsibilities: In charge of Budgeting & Expense Tracking
 '''
 
 === Brian Fung
-image::brian.png[width="150", align="left"]
+image::briyanii.png[width="150", align="left"]
 {empty}[http://github.com/briyanii[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer  +
@@ -30,7 +30,7 @@ Responsibilities: In charge of GUI
 '''
 
 === Chong Zi Kang
-image::zikang.png[width="150", align="left"]
+image::czkay.png[width="150", align="left"]
 {empty}[http://github.com/czkay[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -39,7 +39,7 @@ Responsibilities: In charge of Reminder & Prediction
 '''
 
 === Ryo Chandra Putra Armanda
-image::ryo.png[width="150", align="left"]
+image::ryoarmanda.png[width="150", align="left"]
 {empty}[http://github.com/ryoarmanda[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -48,7 +48,7 @@ Responsibilities: In charge of Budgeting
 '''
 
 === Quek Wei Ping
-image::weiping.png[width="150", align="left"]
+image::qweiping31415.png[width="150", align="left"]
 {empty}[http://github.com/qweiping31415[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
