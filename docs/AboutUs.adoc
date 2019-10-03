@@ -27,3 +27,12 @@ Role: Developer +
 Responsibilities: TBC
 
 '''
+
+=== Tan Yan Zhen, Natalie
+image::nattanyz.png[width="150", align="left"]
+{empty}[http://github.com/nattanyz[github]] [<<nattanyz#, portfolio>>]
+
+Role: Developer +
+Responsibilities: TBC
+
+'''
