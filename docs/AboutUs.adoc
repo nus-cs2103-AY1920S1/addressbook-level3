@@ -4,53 +4,59 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+TravEzy was developed by the https://ay1920s1-cs2103t-t17-2.github.io/main/ team. +
+
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Ong Bing Jue
+image::bjhoohaha.png[width="150", align="left"]
+{empty}[https://github.com/bjhoohaha[github]]
 
-Role: Project Advisor
+Role: Chief Operations Officer +
 
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Developer - Address Book
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Hon Hao Chen
+image::honhaochen.png[width="150", align="left"]
+{empty}[http://github.com/honhaochen[github]]
 
-Role: Developer +
-Responsibilities: Data
+Role: Chief Financial Officer +
 
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Developer - Financial Tracker
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Ng Zhao Ming
+image::ngzhaoming.png[width="150", align="left"]
+{empty}[http://github.com/ngzhaoming[github]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Chief Technology Officer +
+
+Responsibilities: Developer - Itinerary
+
+'''
+
+=== Poh Lin Wei
+image::pohlinwei.png[width="150", align="left"]
+{empty}[http://github.com/pohlinwei[github]]
+
+Role: Chief Strategy Officer +
+
+Responsibilities: Developer - Calendar
+
+'''
+
+=== Tishya Khanna
+image::tishyakhanna97.png[width="150", align="left"]
+{empty}[http://github.com/tishyakhanna97[github]]
+
+Role: Chief Information Officer +
+
+Responsibilities: Developer - Travel Diary
 
 '''
