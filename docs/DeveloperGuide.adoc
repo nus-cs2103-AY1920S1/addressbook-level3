@@ -344,6 +344,23 @@ Use case ends.
 (Was wondering if FlashCard Pro should create the deck, but with a numbering like untitled_1, untitled_2 etc)
 
 
+[discrete]
+=== Use case: Start a untimed test
+
+*MSS*
+
+1. Learner starts untimed test with a deck of cards by specifying deck name.
+2. FlashCard Pro begins test.
+3. FlashCard Pro flashes text on the front of a flash card to learner.
+4. FlashCard Pro waits for learner's answer.
+5. Learner enters answer.
+6. FlashCard Pro matches answer with text on back of flash card.
+7. FlashCard Pro informs learner about correctness of the learner's answer.
+8. FlashCard Pro displays the correct answer, the text on the back of the flash card.
+Steps 3-8 are repeated until all the flash cards in the deck are completed.
++
+Use case ends.
+
 
 _{More to be added}_
 
