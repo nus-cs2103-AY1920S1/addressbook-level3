@@ -2,6 +2,13 @@
 :site-section: ContactUs
 :stylesDir: stylesheets
 
-* *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level3/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
-* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
-* *Email us* : You can also reach us at `damith [at] comp.nus.edu.sg`
+* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103T-F14-2/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
+* *Contributing* : We welcome pull requests. Follow the process described https://github.com/AY1920S1-CS2103T-F14-2/main[here]
+* *Email us* : You can also reach us at +
+- *Caesar Pang* `e0357450 [at] u.nus.edu`
+- *Kerwin Lim* `e0325440 [at] u.nus.edu`
+- *Bryan Ng* `bryan.ng.soon.wei [at] u.nus.edu`
+- *Teo Shyan Jie* `e0191413 [at] u.nus.edu`
+- *Xu Tunan* `e0316056 [at] u.nus.edu`
+
+* *THANK YOU* Please do not hesitate to contact us.
