@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.tarence.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_SECOND_IN_LIST;
 import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
@@ -16,37 +15,44 @@ import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
-import seedu.tarence.model.person.Person;
+import seedu.tarence.model.tutorial.TutName;
+import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.testutil.TutorialBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
  */
-public class DeleteStudentCommandTest {
+public class DeleteTutorialCommandTest {
 
+    public static final String VALID_MODCODE = "GET1029";
+    public static final String VALID_MODCODE_ALT = "CS2040";
+    public static final String VALID_TUTNAME = "WhyIsThisClassAt8am";
     private Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_IN_LIST.getZeroBased());
-        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_IN_LIST);
+        Tutorial tutorialToDelete = new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
+        model.addTutorial(tutorialToDelete);
+        DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(INDEX_FIRST_IN_LIST);
 
-        String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteTutorialCommand.MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.deleteTutorial(tutorialToDelete);
 
-        assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteTutorialCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(outOfBoundIndex);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTutorialList().size() + 1);
+        DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteStudentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteTutorialCommand, model, Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
     }
 
+    /* todo: implement later?
     @Test
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_IN_LIST);
@@ -67,7 +73,7 @@ public class DeleteStudentCommandTest {
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_IN_LIST);
 
-        Index outOfBoundIndex = INDEX_SECOND_IN_LIST;
+        Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of class list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getApplication().getPersonList().size());
 
@@ -75,17 +81,41 @@ public class DeleteStudentCommandTest {
 
         assertCommandFailure(deleteStudentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+    */
+
+    @Test
+    public void execute_multipleTutorialsOfSameName_throwsCommandException() {
+        Tutorial tutorialOne = new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
+        Tutorial tutorialTwo = new TutorialBuilder().withModCode(VALID_MODCODE_ALT).withTutName(VALID_TUTNAME).build();
+        model.addTutorial(tutorialOne);
+        model.addTutorial(tutorialTwo);
+        DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(new TutName(VALID_TUTNAME));
+
+        assertCommandFailure(deleteTutorialCommand, model, Messages.MESSAGE_INVALID_TUTORIAL_MULTIPLE);
+    }
+
+    @Test
+    public void execute_tutorialNameDoesNotExist_throwsCommandException() {
+        for (Tutorial tutorial : model.getFilteredTutorialList()) {
+            if (tutorial.getTutName().toString().equals(VALID_TUTNAME)) {
+                model.deleteTutorial(tutorial);
+            }
+        }
+        DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(new TutName(VALID_TUTNAME));
+
+        assertCommandFailure(deleteTutorialCommand, model, Messages.MESSAGE_INVALID_TUTORIAL_IN_APPLICATION);
+    }
 
     @Test
     public void equals() {
-        DeleteStudentCommand deleteFirstCommand = new DeleteStudentCommand(INDEX_FIRST_IN_LIST);
-        DeleteStudentCommand deleteSecondCommand = new DeleteStudentCommand(INDEX_SECOND_IN_LIST);
+        DeleteTutorialCommand deleteFirstCommand = new DeleteTutorialCommand(INDEX_FIRST_IN_LIST);
+        DeleteTutorialCommand deleteSecondCommand = new DeleteTutorialCommand(INDEX_SECOND_IN_LIST);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteStudentCommand deleteFirstCommandCopy = new DeleteStudentCommand(INDEX_FIRST_IN_LIST);
+        DeleteTutorialCommand deleteFirstCommandCopy = new DeleteTutorialCommand(INDEX_FIRST_IN_LIST);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

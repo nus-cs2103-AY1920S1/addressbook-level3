@@ -9,11 +9,7 @@ import java.util.regex.Matcher;
  * Additionally, looks out for optional arguments without prefixes, such as matriculation number, NUSNET ID, and email.
  * These are detected via regex pattern matching.<br>
  */
-public class StudentArgumentTokenizer extends ArgumentTokenizer {
-
-    private static final OptionalArgument[] optionalArgs = {
-        OptionalArgument.OPTIONAL_MATNO,
-        OptionalArgument.OPTIONAL_NUSID};
+public class OptionalArgumentTokenizer extends ArgumentTokenizer {
 
     /**
      * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
@@ -25,10 +21,10 @@ public class StudentArgumentTokenizer extends ArgumentTokenizer {
      * @param prefixes   Prefixes to tokenize the arguments string with
      * @return           ArgumentMultimap object that maps prefixes to their arguments
      */
-    public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
+    public static ArgumentMultimap tokenize(String argsString, OptionalArgument[] optionalArgs, Prefix... prefixes) {
 
         // Step 1: Detect and extract optional arguments not specified by a prefix
-        ArgumentMultimap argMultimap = extractOptionalArguments(argsString);
+        ArgumentMultimap argMultimap = extractOptionalArguments(argsString, optionalArgs);
         Prefix[] optionalPrefixes = Arrays.stream(optionalArgs).map(a -> a.getPrefix()).toArray(Prefix[]::new);
         for (Prefix p : optionalPrefixes) {
             if (argMultimap.getValue(p).isPresent()) {
@@ -57,7 +53,7 @@ public class StudentArgumentTokenizer extends ArgumentTokenizer {
      * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @return           ArgumentMultimap object that maps prefixes to their arguments.
      */
-    public static ArgumentMultimap extractOptionalArguments(String argsString) {
+    public static ArgumentMultimap extractOptionalArguments(String argsString, OptionalArgument[] optionalArgs) {
         ArgumentMultimap argMultimap = new ArgumentMultimap();
 
         for (OptionalArgument optionalArg : optionalArgs) {

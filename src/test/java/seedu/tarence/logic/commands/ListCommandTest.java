@@ -2,7 +2,7 @@ package seedu.tarence.logic.commands;
 
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.tarence.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +33,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST_IN_LIST);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

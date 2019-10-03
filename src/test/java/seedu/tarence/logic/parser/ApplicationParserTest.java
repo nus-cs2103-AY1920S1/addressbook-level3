@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tarence.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.tarence.testutil.Assert.assertThrows;
-import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,8 +44,8 @@ public class ApplicationParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteStudentCommand command = (DeleteStudentCommand) parser.parseCommand(
-                DeleteStudentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteStudentCommand(INDEX_FIRST_PERSON), command);
+                DeleteStudentCommand.COMMAND_WORD + " " + INDEX_FIRST_IN_LIST.getOneBased());
+        assertEquals(new DeleteStudentCommand(INDEX_FIRST_IN_LIST), command);
     }
 
     @Test
@@ -53,8 +53,8 @@ public class ApplicationParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_IN_LIST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_IN_LIST, descriptor), command);
     }
 
     @Test

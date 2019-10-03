@@ -10,7 +10,9 @@ import seedu.tarence.logic.commands.AddModuleCommand;
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.AddTutorialCommand;
 import seedu.tarence.logic.commands.Command;
+import seedu.tarence.logic.commands.DeleteModuleCommand;
 import seedu.tarence.logic.commands.DeleteStudentCommand;
+import seedu.tarence.logic.commands.DeleteTutorialCommand;
 import seedu.tarence.logic.commands.EditCommand;
 import seedu.tarence.logic.commands.ExitCommand;
 import seedu.tarence.logic.commands.FindCommand;
@@ -50,6 +52,10 @@ public class ApplicationParser {
             return new EditCommandParser().parse(arguments);
         } else if (DeleteStudentCommand.isMatchingCommandWord(commandWord)) {
             return new DeleteStudentCommandParser().parse(arguments);
+        } else if (DeleteModuleCommand.isMatchingCommandWord(commandWord)) {
+            return new DeleteModuleCommandParser().parse(arguments);
+        } else if (DeleteTutorialCommand.isMatchingCommandWord(commandWord)) {
+            return new DeleteTutorialCommandParser().parse(arguments);
         } else if (FindCommand.isMatchingCommandWord(commandWord)) {
             return new FindCommandParser().parse(arguments);
         } else if (ListCommand.isMatchingCommandWord(commandWord)) {

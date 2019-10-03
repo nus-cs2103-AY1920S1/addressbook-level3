@@ -142,6 +142,9 @@ class ModelStub implements Model {
     }
 
     @Override
+    public void deleteModule(Module module) {}
+
+    @Override
     public boolean hasTutorial(Tutorial tutorial) {
         // todo: Implement test for hasTutorial
         return false;
@@ -150,6 +153,11 @@ class ModelStub implements Model {
     @Override
     public void addTutorial(Tutorial tutorial) {
         // todo: Implement test for addTutorial
+    }
+
+    @Override
+    public void deleteTutorial(Tutorial tutorial) {
+        // todo: Implement test for deleteTutorial
     }
 
     @Override
@@ -172,5 +180,10 @@ class ModelStub implements Model {
     public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
         // to implement
         return false;
+    }
+
+    @Override
+    public int getNumberOfTutorialsOfName(TutName tutName) {
+        return 0;
     }
 }

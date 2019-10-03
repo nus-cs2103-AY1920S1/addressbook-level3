@@ -149,9 +149,17 @@ public interface Model {
      */
     void addModule(Module module);
 
+    /**
+     * Deletes the given module.
+     * Assumes the module exists in the application.
+     */
+    void deleteModule(Module module);
+
     boolean hasTutorial(Tutorial tutorial);
 
     void addTutorial(Tutorial tutorial);
+
+    void deleteTutorial(Tutorial tutorial);
 
     void addTutorialToModule(Tutorial tutorial);
 
@@ -161,4 +169,9 @@ public interface Model {
      * Checks if a tutorial of the given name exists in a module of the given code.
      */
     boolean hasTutorialInModule(ModCode modCode, TutName tutName);
+
+    /**
+     * Checks if there are multiple tutorials of the same name in the application.
+     */
+    int getNumberOfTutorialsOfName(TutName tutName);
 }
