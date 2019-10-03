@@ -313,17 +313,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Deliveria` and the *Actor* is the `Delivery Manager`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete Driver
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Delivery Manager requests the list of drivers
+2.  Deliveria shows a list of drivers
+3.  Delivery Manager requests to delete a specific driver in the list
+4.  Deliveria deletes the driver
 +
 Use case ends.
 
@@ -337,9 +337,53 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Deliveria shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Creating a new task
+
+*MSS*
+
+1.  User creates a delivery task
+2.  Deliveria adds the task to a list of delivery tasks
+3.  Deliveria prints to assure that the task is added
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Task given in invalid format
+[none]
+** 1a1. Deliveria shows an error message
+** 1a2. Use case resumes at step 1
++
+Use case ends
+
+[discrete]
+=== Use Case: Assign Driver to delivery task
+
+*MSS*
+
+1. Delivery Manager view the incomplete task list.
+2. Deliveria shows the incomplete task list.
+3. User assign a driver to one of the task
+4. Deliveria shows the confirmation of driver being assigned to the task.
+5. Deliveria indicate the incomplete task as On-going.
++
+Use case ends.
+
+*Extension*
+
+[none]
+* 3a. If driver is unavailable to take up the task
+[none]
+** 3a1. Deliveria prompts that driver is busy
+** 3a2. Deliveria shows the available time of the driver
++
+Use case resumes at step 3.
 
 _{More to be added}_
 
