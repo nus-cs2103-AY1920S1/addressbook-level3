@@ -31,4 +31,3 @@ CS2103/T Revision Tool is a desktop application for storing test banks and actin
 == Acknowledgements
 
 * the original source of the code is from AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
-
