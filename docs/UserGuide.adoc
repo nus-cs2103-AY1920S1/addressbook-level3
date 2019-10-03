@@ -26,7 +26,7 @@ Click on <<Quick Start, Quick Start>> to get started!
 This guide shows you how to import your interview schedules into Scheduler to begin managing your interview schedule.
 It also shows you basic tips on how to add or delete and edit interviewers/interviewees based on your changing needs.
 
-=== Import your csv file into the application `[Coming in v2.0]`
+=== Import your csv file into the application
 
 TIP: Converting your Excel file into .csv format
 
