@@ -16,7 +16,7 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 
-CS2103/T Revision Tool is a desktop application for storing test banks and acting as your one stop customisable revision tool before the exams! The features will be optimised for usage by CS2103/T students who happens to like using the CLI (Command Line Interface) for typing down their solutions. In addition, it also comes with the benefits of having a beautiful Graphical User Interface (GUI)! 
+CS2103/T Revision Tool is a desktop application for storing test banks and acting as your one stop customisable revision tool before the exams! The features will be optimised for usage by CS2103/T students who happens to like using the CLI (Command Line Interface) for typing down their solutions. In addition, it also comes with the benefits of having a beautiful Graphical User Interface (GUI)!
 
 
 
