@@ -38,7 +38,7 @@ Responsibilities: Fighter
 '''
 
 === Stanley Yuan
-image::m133225.jpg[width="150", align="left"]
+image::soilingrogue.png[width="150", align="left"]
 {empty}[https://github.com/SoilingRogue[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
