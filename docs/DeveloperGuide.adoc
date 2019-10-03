@@ -403,6 +403,8 @@ Use case ends
 1. Student gives the command to delete a lecture note – `deletenote INDEX`
 2. Application deletes the note from the note list
 
+Use case ends
+
 *Extensions*
 
 [none]
@@ -420,85 +422,87 @@ Use case ends
 
 *MSS*
 
-1. Student keys in revision task command and specifies the note set name or question set name he/she wants to add to revision plan, with starting date and starting time.
-2. NUStudy adds the task to revision plan.
-3. NUStudy informs the Student about successful addition of the task.
+1. Student keys in revision task command and specifies the note set name or question set name he/she wants to add to revision plan, with starting date and starting time
+2. NUStudy adds the task to revision plan
+3. NUStudy informs the Student about successful addition of the task
 
-Use case ends.
+Use case ends
 
 *Extensions*
 
 [none]
-* 1a. NUStudy detects that neither a note set or a question set is entered by Student.
+* 1a. NUStudy detects that neither a note set or a question set is entered by Student
 [none]
-** 1a1. NUStudy requests for the correct input with a note set name or a question set name.
-** 1a2. Student enters correct input.
-** Steps 1a1 - 1a2 are repeated until the input is correct.
-* Use case resumes from Step 2.
+** 1a1. NUStudy requests for the correct input with a note set name or a question set name
+** 1a2. Student enters correct input
+** Steps 1a1 - 1a2 are repeated until the input is correct
+* Use case resumes from Step 2
 
 [none]
-* 1b. NUStudy detects missing starting date or time.
+* 1b. NUStudy detects missing starting date or time
 [none]
-** 1b1. NUStudy requests for correct input with starting date and time.
-** 1b2. Student enters correct input following the format.
-** Steps 1b1 - 1b2 are repeated until getting a correct input with valid starting date and time.
-* Use case resumes from Step 2.
+** 1b1. NUStudy requests for correct input with starting date and time
+** 1b2. Student enters correct input following the format
+** Steps 1b1 - 1b2 are repeated until getting a correct input with valid starting date and time
+* Use case resumes from Step 2
 
 [none]
-* 1c. NUStudy detects invalid date or time.
+* 1c. NUStudy detects invalid date or time
 [none]
-** 1c1. NUStudy requests for valid date and time.
-** 1c2. Student enters correct input with valid date and time.
-** Steps 1c1 - 1c2 are repeated until getting a correct input with valid date and time.
-* Use case resumes from Step 2.
+** 1c1. NUStudy requests for valid date and time
+** 1c2. Student enters correct input with valid date and time
+** Steps 1c1 - 1c2 are repeated until getting a correct input with valid date and time
+* Use case resumes from Step 2
 
 [discrete]
 === Use case: Delete a task from revision plan (Shui Yao)
 
 *MSS*
 
-1. Student requests to list revision plan.
-2. NUStudy lists the revision plan.
-3. Student specifies the index of the task in the revision plan list.
-4. NUStudy removes the task from the revision plan.
-5. NUStudy informs the Student about the successful removal of the task.
-Use case ends.
+1. Student requests to list revision plan
+2. NUStudy lists the revision plan
+3. Student specifies the index of the task in the revision plan list
+4. NUStudy removes the task from the revision plan
+5. NUStudy informs the Student about the successful removal of the task
+
+Use case ends
 
 *Extensions*
 
 [none]
-* 1a. NUStudy detects that the revision plan has no tasks.
+* 1a. NUStudy detects that the revision plan has no tasks
 [none]
 ** 1a1. NUStudy informs the Student that the revision plan is empty
-* Use case ends.
+* Use case ends
 
 [none]
-* 3a. NUStudy detects an index that is not in the revision plan.
+* 3a. NUStudy detects an index that is not in the revision plan
 [none]
-** 3a1. NUStudy requests for correct input with valid index.
-** 3a2. Student enters correct input with valid index.
+** 3a1. NUStudy requests for correct input with valid index
+** 3a2. Student enters correct input with valid index
 ** Steps 3a1 - 3a2 are repeated until getting a valid index
-* Use case resumes from Step 2.
+* Use case resumes from Step 2
 
 [discrete]
 === Use case: Clear the revision plan (Shui Yao)
 
 *MSS*
 
-1. Student clears the revision plan.
-2. NUStudy requests for confirmation.
-3. Student confirms the clear operation.
-4. NUStudy clears the revision plan.
-5. NUStudy informs the Student that the revision plan is successfully cleared.
+1. Student clears the revision plan
+2. NUStudy requests for confirmation
+3. Student confirms the clear operation
+4. NUStudy clears the revision plan
+5. NUStudy informs the Student that the revision plan is successfully cleared
+
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Student disapprove the clear operation.
+* 2a. Student disapprove the clear operation
 [none]
-** 2a1. NUStudy informs the Student of the cancellation of clear operation.
-* Use case ends.
+** 2a1. NUStudy informs the Student of the cancellation of clear operation
+* Use case ends
 
 [discrete]
 === Use case: get statistics for subjects (Irene)
@@ -521,7 +525,7 @@ Use case ends
 * 1b. Student provides more than one subject
 [none]
 ** 1b1. Application returns a piechart totaling the statistics of question answered correctly and incorrectly for all subjects as well as a list of the individual statistics for each subject
-* Use case ends.
+* Use case ends
 
 [discrete]
 === Use case: get statistics for individual questions (Irene)
@@ -548,7 +552,9 @@ Use case ends
 *MSS*
 
 1. Student specifies the difficulty level as the last tag while adding a questions - `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
-2. Application shows and stores the question with its difficulty level.
+2. Application shows and stores the question with its difficulty level
+
+Use case ends
 
 *Extensions*
 
@@ -567,6 +573,8 @@ Use case ends
 
 1. Student changes the difficulty level of a question - edit `-dif id/INDEX d/DIFFICULTY`
 2. Application shows and stores the question with the updated difficulty level
+
+Use case ends
 
 *Extensions*
 
@@ -600,6 +608,8 @@ Use case ends
 
 1. Student gives the command to get the statistics of the number of questions attempted at the specific difficulty level for a subject stats - `-dif d/DIFFICULTY s/SUBJECT`
 2. Application returns a bar chart which consists of the questions index and the number of attempts for this difficulty level
+
+Use case ends
 
 *Extensions*
 
@@ -655,20 +665,20 @@ Use case ends
 
 *Extensions*
 
-[None]
+[none]
 * 1a. Student inputs the invalid test commands
 [none]
 ** 1a1. Application returns the correct format for test command
 ** 1a2. Students enter the correct test command
 * Use case resumes from step 1
 
-[None]
+[none]
 * 2a. Student chooses to change the difficulty of questions by giving `change -dif DIFFICULTY`
 [none]
 ** 2a1. The question set will change to a new difficulty
 * Use case resumes from step 2
 
-[None]
+[none]
 * 3a. Student chooses to skip current questions by giving `skip`
 [none]
 ** Application skips this question and display the next question
