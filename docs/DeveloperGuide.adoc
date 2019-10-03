@@ -292,8 +292,8 @@ compared to a typical note-taking app
 
 Priorities:
 
-* High (must have) – `* * \*`
-* Medium (nice to have) – `* \*`
+* High (must have) – `* * *`
+* Medium (nice to have) – `* *`
 * Low (unlikely to have) – `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%,<30%",options="header",]
@@ -365,7 +365,7 @@ Priorities:
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `NUStudy` and the *Actor* is the `student`)
+(For all use cases below, the system is `NUStudy` and the actor is the `student`)
 
 [discrete]
 === Use case: Create lecture note (Jeremy)
@@ -579,7 +579,7 @@ Use case ends
 *Extensions*
 
 [none]
-* 1a.Student does not provide the updated difficulty level
+* 1a. Student does not provide the updated difficulty level
 [none]
 ** 1a1. Application shows an error message to require difficulty level update
 ** 1a2. Student inputs the new difficulty level
@@ -691,10 +691,10 @@ Use case ends
 * Use case resumes from step 2
 
 [none]
-* *a. At any time, Student chooses to exit from the test
+* a. At any time, Student chooses to exit from the test
 [none]
-** *a1. Student gives the command `quit`
-** *a2. Application exits from the test mode
+** a1. Student gives the command `quit`
+** a2. Application exits from the test mode
 * Use case ends
 
 [appendix]
@@ -711,23 +711,6 @@ rather than merely linking to somewhere on the filesystem
 [[lecture-note]] Lecture note::
 An object stored in the application model that includes a title, text content and optionally an image.
 It is not quizzable.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -751,8 +734,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -764,13 +745,3 @@ _{ more test cases ... }_
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

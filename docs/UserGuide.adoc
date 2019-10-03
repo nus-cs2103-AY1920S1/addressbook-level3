@@ -232,8 +232,7 @@ Format: `overview -ln`
 
 ==== Get overview of questions attempted: overview -q
 Gets an overview of the types of questions that have been attempted overall.
-A stacked bar graph, sorted by subjects will be returned.
-//You can choose to add in a time period, `dt/`, to see which questions have been attempted then. +
+A stacked bar graph, sorted by subjects will be returned. +
 Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks
