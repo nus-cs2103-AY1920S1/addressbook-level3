@@ -1,3 +1,4 @@
+
 = Teacher’s Notebook - User Guide
 :site-section: UserGuide
 :toc:
@@ -139,6 +140,247 @@ GitHub
 AY1920S1-CS2103-T14-1/main
 Address Book - Level 3. Contribute to AY1920S1-CS2103-T14-1/main development by creating an account on GitHub.
  Sends system notification to user 10 minutes before event (assumes user keeps program running continuously). +
+Format: none, reminder should come automatically
+
+//end::reminder[]
+
+//tag::find[]
+=== Locating: find
+
+== Students by name
+
+Find students whose name matches a given keyword. +
+Format: find s/STUDENT_NAME
+
+Examples:
+* find s/John Doe
+* find s/Jane Doe
+
+== Assignments by name
+
+Find assignments which name matches given keyword. +
+Format: find [c/CLASS] as/ASSIGNMENT
+
+Examples:
+* find c/4E3 as/CS2103
+* find as/CS2103
+
+//end::find[]
+
+//tag::delete[]
+=== Deleting an assignment: delete
+
+Deletes the specified assignment from the assignment hashmap. The name refers to the key of the hashmap of assignments. +
+Format: delete ASSIGNMENT
+
+Examples:
+* delete CS2103 midterm
+* delete CS2103 project
+
+//end::delete[]
+
+//tag::undo[]
+=== Undo: undo
+
+Restores application to the state before previous before previous command was executed.
+Format: undo
+
+//end::undo[]
+
+//tag::history[]
+=== History
+
+Generates user’s last typed command. +
+Format: up arrow key brings up last typed command into user input box.
+
+//end::history[]
+
+//tag::generate[]
+=== Generate file: generate
+
+Generate test score of class for every test into csv file. This will be in a more readable format for users to see. +
+Format: generate CLASS_NAME
+
+Examples:
+* generate 4C
+* generate 5E3
+
+//end::generate[]
+
+//tag::save[]
+=== Saving data
+
+The programme automatically saves the data in a txt file whenever a command is issued. +
+Format: none, saving data will be done automatically
+
+//end::save[]
+
+//tag::exit[]
+=== Exiting the programme: exit
+
+Exits the program. +
+Format: exit
+
+//end::exit[]
+
+== FAQ
+
+Coming up soon!
+
+== Command Summary
+* Add: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_CONDITIONS] [t/TAG] … +
+e.g. add n/John Doe p/91234567 e/john_doe@gmail.com
+* Edit: edit c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
+[m/MEDICAL_CONDITIONS], [t/TAG] +
+e.g. edit c/4C 2 p/91111111
+* List: list class
+* Find: find s/STUDENT_NAME +
+e.g. find s/John Doe
+* Delete: delete ASSIGNMENT +
+e.g. delete midterms
+* Undo: undo
+* Generate: generate CLASSNAME +
+e.g. generate 4C
+* Exit: exit
+=======
+= Teacher’s Notebook - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103-T14-1/main
+By: 'Team CS2103-T14-1'	   Since: 'Sep 2019'
+
+== Introduction
+
+Teacher’s Notebook is for teachers who prefer to make use of an application to keep track of the deliverables, tasks and students’ information. It is optimized for teachers who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a teacher who wants to manage your students and your tasks efficiently, and can type fast, Teacher’s Notebook can get your work done much faster than traditional applications! Jump to Section 2, “Quick Start” to get started! Enjoy!
+
+== Quick Start
+
+.  Ensure you have Java 11 or above installed in your Computer.
+.  Download the latest teachersnotebook.jar here.
+.  Copy the file to the folder you want to use as the home folder for your Teacher’s Notebook.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Type in the commands and press enter to execute them. Refer to Section 3: Features for more details on the commands.
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+* Words in UPPER_CASE are the parameters supplied by the user e.g. in add c/CLASS, CLASS is a parameter which can be used as add c/4C.
+* Items in square brackets are optional e.g. n/NAME [a/ADDRESS] can be used as n/John Doe a/National University of Singapore or n/John Doe.
+* Items with … after them can be used multiple times including zero times e.g. [m/MEDICAL_CONDITIONS]... can be used as   (i.e. 0 times), m/Sinus, m/Sinus m/Asthma etc.
+* Parameters can be in any order e.g. if the command specifies n/NAME i/INDEX, n/NAME, i/INDEX is also acceptable
+====
+
+// tag::add[]
+== Adding: add
+
+=== Classes
+
+Adds a class to the class list. +
+Format: add c/CLASS
+
+Examples:
+* add c/4C
+* add c/3E5
+
+=== Students
+
+Adds a student to the student list. +
+Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_CONDITIONS] [t/TAG]...
+
+Examples: +
+* add n/John Doe p/91234567 e/john.doe@gmail.com a/John Street, Block 123, #01-01 +
+* add n/Jane Doe p/98765432 e/jane.doe@gmail.com a/Jane Street, Block 123, #10-10
+
+===Assignments
+
+Adds an assignment to the assignment list +
+Format: add as/ASSIGNMENT d/DEADLINE
+
+Examples:
+* add as/CS2103 Team Project d/31/10/2019
+* add as/CS2103 Individual Project d/30/09/2019
+
+// end::add[]
+
+// tag::edit[]
+=== Editing: edit
+
+== Students’ information
+
+Edits an existing student in the student list. +
+Format: edit c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
+[m/MEDICAL_CONDITIONS], [t/TAG]...
+
+Examples:
+* edit c/4C 2 p/91111111
+* edit c/5E2 4 e/new_email@gmail.com
+
+== Assignment List
+
+Edits an existing assignment in the assignment list. +
+Format: edit as/ASSIGNMENT [as/ASSIGNMENT] [d/DEADLINE]
+
+Examples:
+* edit as/CS2103 Assignment 2 [as/CS2103 Assignment 3]
+* edit as/CS2103 Examinations [d/19/09/2019]
+
+== Students’ grades for individual assignments
+
+Edits the grades for students in the individual assignments. +
+Format: edit as/ASSIGNMENT GRADE_ONE/GRADE_TWO/GRADE_THREE/...
+
+Examples:
+* edit as/CS2103 70/30/50
+* edit as/CS2103 Assignment 1 1/2/3/4/5/6/7/8/9/10
+
+//end::edit[]
+
+//tag::list[]
+=== Listing: list
+
+== Class list
+
+Shows a list of all classes taken by the user. +
+Format: list class
+
+== Student list
+
+Shows a list of all students in a particular class of the user. +
+Format: list [c/CLASS] students
+
+Examples:
+* list c/4E3 students
+* list students
+
+== Assignment list
+
+Shows a list of all assignments of classes of the user. +
+Format: list c/CLASS assignments
+
+Examples:
+* list c/4C assignments
+* list c/5E3 assignments
+//end::list[]
+
+//tag::reminder[]
+=== Sending reminders to teachers
+
+Sends system notification to user 10 minutes before event (assumes user keeps program running continuously). +
 Format: none, reminder should come automatically
 
 //end::reminder[]
