@@ -4,53 +4,61 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+VISIT is an Address Book application for Doctors to plan their visits to patients. Doctors can have granular control over each visit, log each diagnosis, schedule follow-up with patients, and keep track of their appointments.
+
+We are Team https://github.com/AY1920S1-CS2103T-F12-2[UnrealUnity] based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chattoraj Ayush
+image::ayushC.jpg[width="150", align="left"]
+{empty}[https://github.com/AyushChatto[github]] [<<AyushChatto#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Project Advisor / Consultant
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Jason Chee
+image::jasonC.png[width="150", align="left"]
+{empty}[https://www.reignofcomputer.com/[homepage]] [http://github.com/reignofcomputer[github]] [<<reignofcomputer#, portfolio>>]
+
+Role: Team Lead / Managing Director +
+Responsibilities: Project Manager, Developer, Legal & Compliance, Security, In charge of `Reminder-Follow-Up` Component
+
+'''
+
+=== Gabriel Chia
+image::gabrielC.jpg[width="150", align="left"]
+{empty}[http://github.com/gachia[github]] [<<gabrielchia#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: UI, Documentation, Concept Artist
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Jerrold Tan
+image::jerroldT.png[width="150", align="left"]
+{empty}[http://github.com/Wingedevil[github]] [<<jerroldtan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Git Expert, In charge of ‘Alias’ Component
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Zheng Shi Qiao
+image::shiqiaoZ.png[width="150", align="left"]
+{empty}[http://github.com/SQwQ[github]] [<<SQwQ#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: IntelliJ Expert, Documentation, In charge of `Visit` Component
+
+'''
+
+=== Gabriel Ong
+image::gabrielO.jpg[width="150", align="left"]
+{empty}[https://q-gabe.me[homepage]] [http://github.com/q-gabe[github]] [<<q-gabe#, portfolio>>]
+
+Role: Developer / Tester +
+Responsibilities: Integration, Documentation, In charge of `ProfileView` Component
 
 '''

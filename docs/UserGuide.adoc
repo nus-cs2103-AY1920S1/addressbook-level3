@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= VISIT - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team UnrealUnity`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*VISIT* is a *desktop address book application* for Doctors to *plan their visits* and *manage their patient information*. Most notably, VISIT is *optimized for Doctors who prefer to use a Command Line Interface* (CLI) while still having a pleasant Graphical User Interface (GUI). If your typing speed is sufficiently quick, VISIT can *greatly increase your efficiency* in managing your patient profiles and appointments. Interested in spending less time resolving logistical hiccups and more time doing your job? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `VISITapp.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for VISIT.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,8 +33,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* *`list`* : lists all patients
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a patient named `John Doe` to VISIT's address book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -47,18 +47,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/cough` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/cancer`, `t/pneumonia t/h1n1` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
+Shows a list of available user commands. +
 Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
+Adds a person to VISIT's address book. +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
@@ -67,7 +68,7 @@ A person can have any number of tags (including 0)
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/cold e/betsycrowe@example.com a/Changi Hospital p/1234567 t/pneumonia`
 
 === Listing all persons : `list`
 
@@ -141,6 +142,117 @@ Deletes the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Setting shorthand commands: `alias`
+
+Set an alias for a command to do shorthand. +
+Format: `alias [SHORTHAND] [COMMAND]`
+
+Examples:
+
+* `alias ls list` +
+Typing `ls` now works equivalently as `list`.
+* `alias "show all persons" list` +
+Typing `show all persons` now works equivalently as `list`.
+
+=== Deleting shorthand commands: `deletealias`
+
+Delete a existing alias. +
+Format: `deletealias [SHORTHAND]`
+
+Examples:
+
+* `deletealias ls` +
+Typing `ls` is no longer equivalent to `list`.
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Viewing Full Profile : `profile`
+
+Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing q to quit, or p to generate a text file of the profile. +
+Format: `profile INDEX`
+
+****
+* Shows full profile for the patient at the specified INDEX.
+* The index refers to the index number shown in the displayed patient list.
+* The index must be a positive integer 1, 2, 3, …
+* The generated text file will overwrite the older text file if it exists.
+****
+
+Examples:
+
+* `profile 2` +
+Opens up a pop-up panel detailing the profile of the patient with the index of 2.
+
+=== Adding a new visitation report: `addVisit`
+
+Adds a visitation report. +
+Format: `addvisit [n/NAME] [d/DATE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+Examples:
+
+* `addVisit n/Betsy Crowe t/12/12/12 e/Betsy@example.com` +
+Adds new report for the patient `Betsy Crower` on 12/12/12 with email detail prefilled.
+
+* `addVisit n/Betsy Crower t/12/12/12 p/91234567  e/Betsy@example.com t/Cancer` +
+Adds new report for the patient `Betsy Crower` on 12/12/12 with email/hp info prefilled and tagged cancer.
+
+=== Editing a visitation record : `editVisit`
+
+Edits an existing visitation record in the address book. +
+Format: `editVisit [n/NAME] [d/date] [f/FIELDTOEDIT]...`
+
+Examples:
+
+* `editVisit n/Betsy Crower t/12/12/12 p/prescription` +
+Edits the prescription of the `Betsy Crower` visitation report on 12/12/12.
+* `editVisit n/Betsy Crower t/12/12/12 d/DIAGNOSIS` +
+Edits the diagnosis of the `Betsy Crower` visitation report on 12/12/12.
+
+// tag::delete[]
+=== Deleting a visitation record : `deleteVisit`
+
+Deletes the specified visitation record. +
+Format: `deleteVisit [n/NAME] [d/DATE]`
+
+****
+* Deletes the visitation record of person NAME on DATE
+****
+
+Examples:
+
+* `deleteVisit n/Betsy d/12/12/12` +
+Deletes the visitation report made for `Betsy` on 12/12/12.
+
+=== Follow-Up with Person : `followup`
+
+Adds a follow-up reminder after a set number of days to be prompted when the program is run. +
+Format: `followup INDEX [d/DAYS]`
+
+[TIP]
+Creates a follow-up entry on patient with specified index for a set number of days or default 7 days.
+
+Examples:
+
+* `followup 9 d/10` +
+Creates a follow-up entry on patient with index 9 for 10 days later.
+
+=== Creating Reminders : `reminder`
+
+Creates a new reminder to show up when the program is launched. +
+Format: `reminder TEXT [d/DAYS]`
+
+[TIP]
+Creates a reminder to be displayed when the program launches for a set number of days or default 7 days.
+
+Examples:
+
+* `reminder Two Point Hospital closed d/7` +
+Creates a reminder “Two Point Hospital closed” that will display at launch for the next 7 days.
+
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -148,14 +260,26 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+VISIT's address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Inventory System `[Coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+VISIT v2.0 will include an inventory system for doctors to manage and organise their medical stores.
+Doctors will be able to generate the list of medication in their stock and assign them to patients using the app
+, which automatically deducts from that list. +
+Warnings of low stocks are also an intended feature.
+
+=== Printing of Medical Certificates `[Coming in v2.0]`
+
+In v2.0, VISIT will allow doctors to easily print an official Medical Certificate with a single command.
+
+=== Microsoft Azure Integration `[Coming in v2.0]`
+
+Microsoft Azure is a popular Cloud Computing platform that allows for data analysis, remote deployment and user
+authentication resources. We plan to leverage this power in VISIT v2.0 so that doctors may securely access
+VISIT from any location, truly bringing VISIT on-the-go.
+
 
 == FAQ
 
@@ -164,14 +288,28 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add Visit* : `addvisit [n/NAME] [d/DATE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `addVisit n/Betsy Crowe t/12/12/12 e/Betsy@example.com`
+* *Add a Follow-Up* : `followup INDEX [d/DAYS]` +
+e.g. `followup 9 d/10`
+* *Add a Reminder* : `reminder TEXT [d/DAYS]` +
+e.g. `reminder Two Point Hospital closed d/7`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
+* *Delete Visit* : `deleteVisit [n/NAME] [d/DATE]` +
+e.g. `deleteVisit n/Betsy d/12/12/12`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit Visit* : `editVisit [n/NAME] [d/date] [f/FIELDTOEDIT]...` +
+e.g. `editVisit n/Betsy Crower t/12/12/12 p/prescription`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *View a Patient Profile* : `profile INDEX` +
+e.g. `profile 2`
+* *Shorthand Commands* : `alias [SHORTHAND] [COMMAND]` +
+e.g. `alias ls list`, `alias "show all persons" list`
 * *List* : `list`
 * *Help* : `help`
