@@ -227,7 +227,7 @@ Format: `record rank`
  `add interviewee name:"NAME" slot:SLOT...`
 
 |Display list of interviewers/interviewees
-|`display interviewees`
+|`display interviewees` +
  `display interviewers`
 
 |Display weekly schedule
