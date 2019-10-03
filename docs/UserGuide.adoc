@@ -1,4 +1,4 @@
-= ɯeme - User Guide
+= Weme - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
