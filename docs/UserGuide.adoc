@@ -21,17 +21,17 @@ By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-Tagline is for those who prefer to use a desktop app for managing notes.
-More importantly, Tagline is optimized for those who prefer to work with a Command Line Interface (CLI)
-while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Tagline can
+TagLine is for those who prefer to use a desktop app for managing notes.
+More importantly, TagLine is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TagLine can
 streamline your note management much faster than traditional GUI apps. Interested? Jump to the Quick Start
 to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure that you have Java 11 or above installed.
-.  Download the latest Tagline.jar here.
-.  Move the file to the folder you want to use as the home folder for Tagline. You are recommended to create a new folder for Tagline as it will create files to store your data.
+.  Download the latest TagLine.jar here.
+.  Move the file to the folder you want to use as the home folder for TagLine. You are recommended to create a new folder for TagLine as it will create files to store your data.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -91,15 +91,15 @@ Examples:
 * `contact create John --p 81234567 --a 21 Kent Ridge Rd`
 * `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
-==== Lists all contacts: `list`
+==== List all contacts: `list`
 
-Lists all contacts in application.
+Lists all contacts in the application.
 
 Format:
 
 `list`
 
-==== Displays the profile of a person: `show` `[coming in v2.0]`
+==== Display the profile of a person: `show` `[coming in v2.0]`
 
 Display the profile page of a contact which shows the contact details and notes tagged with the contact.
 
@@ -111,7 +111,7 @@ Examples:
 
 * `contact show 00343`
 
-==== Edits a person: `edit`
+==== Edit a person: `edit`
 
 Edits contact information.
 
@@ -125,7 +125,7 @@ Examples:
 
 NOTE: Partial edit will be supported in v2.0
 
-==== Deletes a person: `delete`
+==== Delete a person: `delete`
 
 Deletes a contact with the following id.
 
@@ -137,7 +137,7 @@ Examples:
 
 * `contact delete 00343`
 
-==== Locates persons by keyword: `find`
+==== Locate persons by keyword: `find`
 
 Lists all contacts whose name matches the given keyword.
 
@@ -149,7 +149,7 @@ Examples:
 
 * `contact find wai fong`
 
-==== Pins a person: `pin` `[coming in v2.0]`
+==== Pin a person: `pin` `[coming in v2.0]`
 
 Pins a contact to the top of the contact list.
 
@@ -161,7 +161,7 @@ Examples:
 
 * `contact pin 00343`
 
-==== Clears all entries : `clear`
+==== Clear all entries : `clear`
 
 Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
 
@@ -248,7 +248,7 @@ Example:
 +
 Deletes a group with name '_CS2103-F12-3_'.
 
-=== Manages your notes: `note`
+=== Manage your notes: `note`
 
 ==== Creates a note: `create`
 
@@ -366,12 +366,12 @@ Example:
 |Lists all notes tagged with the group '_cs2103 team_'.
 |===
 
-NOTE: Filtering by multi tag will be supported in v2.0
+NOTE: Filtering by multiple tags will be supported in v2.0
 
-==== Sorts notes: `sort` `[coming in v2.0]`
+==== Sort your notes: `sort` `[coming in v2.0]`
 Sort notes in different orders (i.e last updated date, alphabetically).
 
-=== Manages your tags: `tag`
+=== Manage your tags: `tag`
 
 ==== Filter tags: `list`
 

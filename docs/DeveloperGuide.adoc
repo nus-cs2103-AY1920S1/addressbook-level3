@@ -498,8 +498,6 @@ Use case ends.
 .  Should be able to display and navigate large text files without decrease in performance
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
