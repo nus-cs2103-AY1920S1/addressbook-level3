@@ -4,13 +4,12 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S1-CS2103T-F13-1/main/[image:https://travis-ci.org/AY1920S1-CS2103T-F13-1/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F13-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F13-1/main/badge.svg?branch=master[Coverage Status]]
 
-TODO: update Ui.png
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 * *Liberry* is a desktop library management application.
