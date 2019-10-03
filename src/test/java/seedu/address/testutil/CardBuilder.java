@@ -3,9 +3,9 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.card.Card;
 import seedu.address.model.card.Description;
 import seedu.address.model.card.Name;
-import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -15,8 +15,8 @@ import seedu.address.model.util.SampleDataUtil;
 public class CardBuilder {
 
     public static final String DEFAULT_NAME = "Pikachu";
-    public static final String DEFAULT_DESCRIPTION = "This forest-dwelling Pokémon stores electricity in its cheeks, " +
-            "so you'll feel a tingly shock if you touch it.";
+    public static final String DEFAULT_DESCRIPTION = "This forest-dwelling Pokémon stores electricity in its cheeks, "
+            + "so you'll feel a tingly shock if you touch it.";
 
     private Name name;
     private Description description;

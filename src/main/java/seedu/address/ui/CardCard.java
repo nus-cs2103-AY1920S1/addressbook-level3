@@ -12,7 +12,7 @@ import seedu.address.model.card.Card;
 /**
  * An UI component that displays information of a {@code Card}.
  */
-public class cardCard extends UiPart<Region> {
+public class CardCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -37,7 +37,7 @@ public class cardCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public cardCard(Card card, int displayedIndex) {
+    public CardCard(Card card, int displayedIndex) {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
@@ -57,12 +57,12 @@ public class cardCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof cardCard)) {
+        if (!(other instanceof CardCard)) {
             return false;
         }
 
         // state check
-        cardCard card = (cardCard) other;
+        CardCard card = (CardCard) other;
         return id.getText().equals(card.id.getText())
                 && this.card.equals(card.card);
     }

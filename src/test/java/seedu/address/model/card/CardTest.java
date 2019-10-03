@@ -17,8 +17,8 @@ public class CardTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Card Card = new CardBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> Card.getTags().remove(0));
+        Card card = new CardBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> card.getTags().remove(0));
     }
 
     @Test
@@ -30,20 +30,20 @@ public class CardTest {
         assertFalse(ABRA.isSameName(null));
 
         // different name -> returns false
-        Card editedABRA = new CardBuilder(ABRA).withName(VALID_NAME_BUTTERFREE).build();
-        assertFalse(ABRA.isSameName(editedABRA));
+        Card editedAbra = new CardBuilder(ABRA).withName(VALID_NAME_BUTTERFREE).build();
+        assertFalse(ABRA.isSameName(editedAbra));
 
         // same name, different attributes -> returns true
-        editedABRA = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE)
+        editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE)
                 .withTags(VALID_TAG_BUG).build();
-        assertTrue(ABRA.isSameName(editedABRA));
+        assertTrue(ABRA.isSameName(editedAbra));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Card ABRACopy = new CardBuilder(ABRA).build();
-        assertTrue(ABRA.equals(ABRACopy));
+        Card abraCopy = new CardBuilder(ABRA).build();
+        assertTrue(ABRA.equals(abraCopy));
 
         // same object -> returns true
         assertTrue(ABRA.equals(ABRA));
@@ -58,15 +58,15 @@ public class CardTest {
         assertFalse(ABRA.equals(BUTTERFREE));
 
         // different name -> returns false
-        Card editedABRA = new CardBuilder(ABRA).withName(VALID_NAME_BUTTERFREE).build();
-        assertFalse(ABRA.equals(editedABRA));
+        Card editedAbra = new CardBuilder(ABRA).withName(VALID_NAME_BUTTERFREE).build();
+        assertFalse(ABRA.equals(editedAbra));
 
         // different description -> returns false
-        editedABRA = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).build();
-        assertFalse(ABRA.equals(editedABRA));
+        editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).build();
+        assertFalse(ABRA.equals(editedAbra));
 
         // different tags -> returns false
-        editedABRA = new CardBuilder(ABRA).withTags(VALID_TAG_BUG).build();
-        assertFalse(ABRA.equals(editedABRA));
+        editedAbra = new CardBuilder(ABRA).withTags(VALID_TAG_BUG).build();
+        assertFalse(ABRA.equals(editedAbra));
     }
 }

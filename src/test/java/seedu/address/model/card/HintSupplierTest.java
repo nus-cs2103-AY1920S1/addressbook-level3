@@ -1,9 +1,11 @@
 package seedu.address.model.card;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static seedu.address.testutil.Assert.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class HintSupplierTest {
     @Test

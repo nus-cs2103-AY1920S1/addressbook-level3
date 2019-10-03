@@ -1,5 +1,7 @@
 package seedu.address.model.card;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,11 +9,9 @@ import java.util.function.Supplier;
 
 import seedu.address.commons.core.index.Index;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * Supplies a hint consisting of a letter and the index the letter occurs.
- * Each character in the string is output once in random order.g
+ * Each character in the string is output once in random order.
  */
 public class HintSupplier implements Supplier<Hint> {
 

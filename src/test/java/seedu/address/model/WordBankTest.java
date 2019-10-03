@@ -60,22 +60,22 @@ public class WordBankTest {
     }
 
     @Test
-    public void hasCard_CardNotInWordBank_returnsFalse() {
+    public void hasCard_cardNotInWordBank_returnsFalse() {
         assertFalse(wordBank.hasCard(ABRA));
     }
 
     @Test
-    public void hasCard_CardInWordBank_returnsTrue() {
+    public void hasCard_cardInWordBank_returnsTrue() {
         wordBank.addCard(ABRA);
         assertTrue(wordBank.hasCard(ABRA));
     }
 
     @Test
-    public void hasCard_CardWithSameIdentityFieldsInWordBank_returnsTrue() {
+    public void hasCard_cardWithSameIdentityFieldsInWordBank_returnsTrue() {
         wordBank.addCard(ABRA);
-        Card editedABRA = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).withTags(VALID_TAG_BUG)
+        Card editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).withTags(VALID_TAG_BUG)
                 .build();
-        assertTrue(wordBank.hasCard(editedABRA));
+        assertTrue(wordBank.hasCard(editedAbra));
     }
 
     @Test
@@ -87,15 +87,15 @@ public class WordBankTest {
      * A stub ReadOnlyWordBank whose cards list can violate interface constraints.
      */
     private static class WordBankStub implements ReadOnlyWordBank {
-        private final ObservableList<Card> Cards = FXCollections.observableArrayList();
+        private final ObservableList<Card> cards = FXCollections.observableArrayList();
 
-        WordBankStub(Collection<Card> Cards) {
-            this.Cards.setAll(Cards);
+        WordBankStub(Collection<Card> cards) {
+            this.cards.setAll(cards);
         }
 
         @Override
         public ObservableList<Card> getCardList() {
-            return Cards;
+            return cards;
         }
     }
 
