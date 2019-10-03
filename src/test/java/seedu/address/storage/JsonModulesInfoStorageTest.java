@@ -73,10 +73,11 @@ public class JsonModulesInfoStorageTest {
     }
 
     private ModulesInfo getTypicalModulesInfo() {
-        ModuleInfo cs2040s = new ModuleInfo("CS2040S", 4, false, new ArrayList<>(), new ArrayList<>(),
-                "CS2040S description", "(AND CS1231S CS1101S)");
-        ModuleInfo cs4248 = new ModuleInfo("CS4248", 4, false, new ArrayList<>(Arrays.asList("AI", "MIR")),
-                new ArrayList<>(), "CS4248 description", "(AND (OR CS3243 CS3245) ST2334)");
+        ModuleInfo cs2040s = new ModuleInfo("CS2040S", "Data Structures and Algorithms", 4, false, new ArrayList<>(),
+                new ArrayList<>(), "CS2040S description", "(AND CS1231S CS1101S)");
+        ModuleInfo cs4248 = new ModuleInfo("CS4248", "Natural Language Processing", 4, false,
+                new ArrayList<>(Arrays.asList("AI", "MIR")), new ArrayList<>(), "CS4248 description",
+                "(AND (OR CS3243 CS3245) ST2334)");
         ModulesInfo modulesInfo = new ModulesInfo(new ArrayList<>(Arrays.asList(cs2040s, cs4248)));
         return modulesInfo;
     }

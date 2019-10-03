@@ -2,6 +2,7 @@
   "modulesInfo": [
     {
       "code": "CS2040S",
+      "name": "Data Structures and Algorithms",
       "mc": 4,
       "su": false,
       "core": true,
@@ -16,6 +17,7 @@
     },
     {
       "code": "CS4248",
+      "name": "Natural Language Processing",
       "mc": 4,
       "su": false,
       "core": false,
