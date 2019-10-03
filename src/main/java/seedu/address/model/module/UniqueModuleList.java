@@ -24,6 +24,7 @@ public class UniqueModuleList implements Iterable<Module> {
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
     private final ObservableList<Module> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private int mcCount = 0;
 
     /**
      * Returns true if the list contains an equivalent module as the given argument.
@@ -43,6 +44,7 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new DuplicateModuleException();
         }
         internalList.add(toAdd);
+        mcCount += toAdd.getMcCount();
     }
 
     /**
@@ -74,6 +76,8 @@ public class UniqueModuleList implements Iterable<Module> {
         if (!internalList.remove(toRemove)) {
             throw new ModuleNotFoundException();
         }
+        mcCount -= toRemove.getMcCount();
+        assert(mcCount >= 0);
     }
 
     public void setModules(UniqueModuleList replacement) {
@@ -130,5 +134,9 @@ public class UniqueModuleList implements Iterable<Module> {
             }
         }
         return true;
+    }
+
+    public int getMcCount() {
+        return mcCount;
     }
 }
