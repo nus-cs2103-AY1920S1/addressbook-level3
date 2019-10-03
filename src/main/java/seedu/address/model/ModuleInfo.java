@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class ModuleInfo {
 
     private String code;
+    private String name;
     private int mc;
     private boolean su;
     private List<String> focusPrimaries;
@@ -21,9 +22,10 @@ public class ModuleInfo {
     public ModuleInfo() {
     }
 
-    public ModuleInfo(String code, int mc, boolean su, List<String> focusPrimaries, List<String> focusElectives,
-                      String description, String prereqTreeString) {
+    public ModuleInfo(String code, String name, int mc, boolean su, List<String> focusPrimaries,
+                      List<String> focusElectives, String description, String prereqTreeString) {
         this.code = code;
+        this.name = name;
         this.mc = mc;
         this.su = su;
         this.focusPrimaries = focusPrimaries;
@@ -35,6 +37,15 @@ public class ModuleInfo {
 
     public String getCode() {
         return this.code;
+    }
+
+    /**
+     * Returns a String displaying all information about the module, in a human-readable format.
+     */
+    public String getInformation() {
+        return this.code + ": " + this.name + " " + "\n"
+                + this.mc + " MCs, " + (this.su ? "" : "not ") + "S/U-able" + "\n"
+                + this.description;
     }
 
     public void parsePrereqTree() {
@@ -96,8 +107,8 @@ public class ModuleInfo {
         return list;
     }
 
-    public boolean verify(List<String> prevSemCodes) {
-        return prereqTree.verify(prevSemCodes);
+    public boolean verify(List<String> prevSemModuleCodes) {
+        return prereqTree.verify(prevSemModuleCodes);
     }
 
     @Override
@@ -112,6 +123,7 @@ public class ModuleInfo {
         ModuleInfo o = (ModuleInfo) other;
 
         return code.equals(o.code)
+                && name.equals(o.name)
                 && mc == o.mc
                 && su == o.su
                 && focusPrimaries.equals(o.focusPrimaries)
