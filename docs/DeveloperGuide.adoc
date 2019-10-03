@@ -317,23 +317,35 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
+|`* * *` |user |add groceries |keep track of all the groceries bought
+
+|`* * *` |user |see the expiry dates of my groceries |know when they expire.
+
+|`* * *` |user |update my grocery list |keep track of the amount of groceries I have
+
+|`* *` |user |find a specific grocery |know more information about that grocery
+
+|`* * *` |user |view all groceries |know what to buy more of
+
+|`* * *` |user |remove a grocery |maintain only usable items in the fridge
+
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `iFridge` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add food item
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list all food items
+2.  iFridge shows a list of food items
+3.  User requests to add an item to the list
+4.  iFridge appends the item to the list
 +
 Use case ends.
 
@@ -344,10 +356,10 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given input is invalid
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. iFridge shows an error message.
 +
 Use case resumes at step 2.
 
