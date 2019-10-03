@@ -180,4 +180,3 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find James Jake`
 * *List* : `list`
 * *Help* : `help`
->>>>>>> 3882423a39480bb1d10efd565e6106862ffa233f
