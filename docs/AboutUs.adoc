@@ -12,7 +12,7 @@ http://www.comp.nus.edu.sg[School of Computing, National University of Singapore
 == Project Team
 
 === Caesar Pang
-image::CaesarPang.jpeg[width="150", align="left"]
+image::caesarpjz.jpeg[width="150", align="left"]
 link:https://github.com/caesarpjz[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Team Leader
@@ -21,7 +21,7 @@ Responsibilities: Data + Dev Ops
 '''
 
 === Kerwin Lim
-image::Kerwin Lim.png[width="150", align="left"]
+image::kerwin97.png[width="150", align="left"]
 link:https://github.com/kerwin97[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Developer +
@@ -30,7 +30,7 @@ Responsibilities: UI + Dev Ops
 '''
 
 === Bryan Ng
-image::Bryan Ng.png[width="150", align="left"]
+image::ngswbryan.png[width="150", align="left"]
 link:https://github.com/ngswbryan[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Developer +
