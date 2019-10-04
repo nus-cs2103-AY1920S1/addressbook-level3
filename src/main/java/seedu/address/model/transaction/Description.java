@@ -3,6 +3,10 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Transaction's description in the transaction recorder.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
+ */
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
