@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= FlashCard Pro - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,28 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-F09-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F09-02`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FlashCard Pro is an application designed for students of all fields who prefer to use a desktop app for managing flashcards, as well as teachers who would like to provide resources (in the form of custom flashcard decks) to support their students’ learning.
+
+FlashCard Pro is optimised for users who are comfortable with Command Line Interface-based interaction, allowing them to work more efficiently than with traditional Graphical User Interface (GUI)-based flashcard apps, while still being able to use their flashcards in a familiar GUI format.
+
+== Flashcards
+
+What is a flashcard? Flashcards are containers for information. Each card has a “front” and a “back”. Although FlashCard Pro is agnostic in its implementation, one recommended use case is such: the user stores a question on the “front” of the card and the answer on the “back”.
+
+After sets of flashcards (known as “decks”) have been created, the user may interact with the flashcards in various ways. For example, FlashCard Pro can be configured to show the “front” of the card, prompting the user to enter their guess for what is on the “back” of the card. The user’s attempt is gauged “correct” if it matches the definition of the card.
+
+As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming. For example, teachers may define basic coding problems which their students can attempt to answer. FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `flashcardpro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -46,116 +56,166 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+* Items in square brackets are optional.
+* Items with `…` after them can be used multiple times including zero times.
+* Parameters can be in any order.
 ====
 
-=== Viewing help : `help`
+=== Show help page for commands available : `help`
 
-Format: `help`
+Shows the help page and guides you through the available commands for FlashCard Pro. You can also choose a specific command to look up how to use it
 
-=== Adding a person: `add`
+Format: `help [command/COMMAND_NAME]`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+****
+* Shows all the available commands and syntax in the application if user supplied no parameters except command.
+* Shows the specific command syntax if the command is specified in the optional parameters.
+* All commands that are available, except for help, can be queried, and other non-valid commands will give a “command not found” message.
+****
+
+Examples:
+
+* `help`
+Displays the commands available for FlashCard Pro
+* `help command/view`
+Displays the syntax to use command `view`
+
+=== Importing flashcards from disk : `import`
+
+Adds a deck of flashcards from a JSON file path to FlashCard Pro's library
+
+Format: `import filepath/FILE_NAME`
+
+=== Exporting flashcards to disk: `export`
+
+Saves the deck of flashcards to a JSON file in the specified file path
+
+Format: `export deck/DECK_NAME FILE_NAME`
 
 [TIP]
-A person can have any number of tags (including 0)
+You can share the deck of cards in the JSON file saved to another user to use in FlashCard Pro via the `import` function.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* example
 
-=== Listing all persons : `list`
+=== Viewing user statistics : `stats`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Shows your usage statistics, such as time spent and usage count in general of for a deck of cards in a graphical format (i.e. pie charts, bar graphs etc)
 
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `stats [deck/DECK_NAME]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `stats`
+Displays the overview of the time spent and usage count of all decks of cards.
+* `stats deck/science_deck`
+Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 
-=== Locating persons by name: `find`
+=== Viewing flashcards in library: `view`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+View the flashcard decks or the individual flashcards in a specific deck
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: `view [deck/DECK_NAME]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `view`
+Displays all the decks of cards in the library
+* `view deck/science_deck`
+Displays all the cards in the deck of cards, `science_deck`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+=== Creating new flashcards : `create`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Create a new deck of flashcards
+
+Format: `create deck/DECK_NAME`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Creates a deck of cards with a series of prompt steps:
+
+`create japanese`
+
+`Let’s begin creating the deck ‘Japanese’. When done, simply type ‘quit’!`
+
+`Type the front of your 1st card…`
+
+`apple`
+
+`Type the back of your 1st card…`
+
+`ringo`
+
+`Type the front of your 2nd card…`
+
+`watermelon`
+
+`Type the back of your 2nd card…`
+
+`suika`
+
+`Type the back of your 3rd card…`
+
+`quit`
+
+`You have created the deck ‘Japanese’ with a total of 2 cards!`
 ****
+
+=== Start test with flashcards : `test`
+
+Starts a test with a deck of flashcards, with the choice of a timed or untimed test
+
+****
+* Starts the test and the timer for the specified duration `TIME_LIMIT_ALLOWED`.
+
+* The duration TIME_LIMIT_ALLOWED refers to the time allowed for the test. The test will proceed with a countdown until the time hits 00:00.
+
+* The duration must be a positive integer in minutes e.g. 1, 2, 3, …
+****
+
+Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `test deck/science_deck`
+Starts a untimed test with the deck of cards, `science_deck`
+* `test duration/50 deck/science_deck`
+Starts a timed test with the deck of cards, `science_deck`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Quit test or flashcard creation : `exit`
 
-Clears all entries from the address book. +
-Format: `clear`
+Exits the test or flashcard creation process
 
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Editing the cards of an existing deck of flashcards : `edit`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+The edit command allows the user to change, add or remove the flashcards in any existing deck.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+****
+* You can select the following options depending on your choice of action for `action`: `add`, `change`, `remove`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* For options `add`, you must furnish the options `front` and `back`, and any input to `index` will be ignored
+
+* For options `remove`, you must furnish the options `index`, which corresponds to the index of the flashcard, and any input to `front` and `back` will be ignored
+
+* For options `edit`, you must furnish the options `index` (compulsory), as well as `front` and/or `back` depending on the change, and any command that lacks any of the three options will be regarded as an error and no flashcard wil be added
+
+* The `index` option must be a positive integer e.g. 1, 2, 3, … and must be less than or equal to the total number of cards in the specified deck
+
+* Any command with no input to `front`, `back` and `index` will be regarded as an error and no action will be taken
+****
+
+Format: `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]`
+
+Examples:
+
+* `edit deck/science_deck`
+Returns error as no input is added
+* `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
+Edits the first flashcard of the deck `science_deck`
+
 
 == FAQ
 
@@ -164,14 +224,17 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *help* `help [command/COMMAND_NAME]` +
+e.g. `help command/view`
+* *import* : `import filepath/FILE_NAME`
+* *export* : `export deck/DECK_NAME FILE_NAME`
+* *stats* : `stats [deck/DECK_NAME]` +
+e.g. `stats deck/science_deck`
+* *view* : `view [deck/DECK_NAME]` +
+e.g. `view deck/science_deck`
+* *create* : `create deck/DECK_NAME`
+* *test* : `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` +
+e.g. `test deck/science_deck`
+* *exit* : `exit`
+* *edit* : `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]` +
+e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`

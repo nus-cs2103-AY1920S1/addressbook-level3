@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Leong Jia Hao, Timothy - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
