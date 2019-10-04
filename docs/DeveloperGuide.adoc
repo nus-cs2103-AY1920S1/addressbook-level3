@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/Raikonen/main
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-2/main
 
 By: `Team-F13-2`      Since: `Sep 2019`      Licence: `MIT`
 
