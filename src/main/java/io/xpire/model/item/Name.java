@@ -5,11 +5,10 @@ import static java.util.Objects.requireNonNull;
 import io.xpire.commons.util.AppUtil;
 
 /**
- * Represents an Item's name in the expiry date tracker.
+ * Represents an Item's name in xpire.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
@@ -19,7 +18,7 @@ public class Name {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullName;
+    private final String name;
 
     /**
      * Constructs a {@code Name}.
@@ -29,7 +28,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        this.name = name;
     }
 
     /**
@@ -39,22 +38,25 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
-
     @Override
     public String toString() {
-        return fullName;
+        return this.name;
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof Name)) {
+            return false;
+        } else {
+            Name other = (Name) obj;
+            return this.name.equals(other.name);
+        }
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return name.hashCode();
     }
-
 }

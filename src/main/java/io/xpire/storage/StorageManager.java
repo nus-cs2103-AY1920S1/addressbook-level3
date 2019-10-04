@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import io.xpire.commons.core.LogsCenter;
 import io.xpire.commons.exceptions.DataConversionException;
-import io.xpire.model.ReadOnlyExpiryDateTracker;
+import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.ReadOnlyUserPrefs;
 import io.xpire.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Xpire data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private ExpiryDateTrackerStorage expiryDateTrackerStorage;
+    private XpireStorage xpireStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(ExpiryDateTrackerStorage expiryDateTrackerStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(XpireStorage xpireStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.expiryDateTrackerStorage = expiryDateTrackerStorage;
+        this.xpireStorage = xpireStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -31,48 +31,48 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getUserPrefsFilePath() {
-        return userPrefsStorage.getUserPrefsFilePath();
+        return this.userPrefsStorage.getUserPrefsFilePath();
     }
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-        return userPrefsStorage.readUserPrefs();
+        return this.userPrefsStorage.readUserPrefs();
     }
 
     @Override
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
-        userPrefsStorage.saveUserPrefs(userPrefs);
+        this.userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
 
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getExpiryDateTrackerFilePath() {
-        return expiryDateTrackerStorage.getExpiryDateTrackerFilePath();
+    public Path getXpireFilePath() {
+        return this.xpireStorage.getXpireFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyExpiryDateTracker> readExpiryDateTracker() throws DataConversionException, IOException {
-        return readExpiryDateTracker(expiryDateTrackerStorage.getExpiryDateTrackerFilePath());
+    public Optional<ReadOnlyXpire> readXpire() throws DataConversionException, IOException {
+        return readXpire(this.xpireStorage.getXpireFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyExpiryDateTracker> readExpiryDateTracker(Path filePath) throws
+    public Optional<ReadOnlyXpire> readXpire(Path filePath) throws
             DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return expiryDateTrackerStorage.readExpiryDateTracker(filePath);
+        return this.xpireStorage.readXpire(filePath);
     }
 
     @Override
-    public void saveExpiryDateTracker(ReadOnlyExpiryDateTracker expiryDateTracker) throws IOException {
-        saveExpiryDateTracker(expiryDateTracker, expiryDateTrackerStorage.getExpiryDateTrackerFilePath());
+    public void saveXpire(ReadOnlyXpire xpire) throws IOException {
+        saveXpire(xpire, this.xpireStorage.getXpireFilePath());
     }
 
     @Override
-    public void saveExpiryDateTracker(ReadOnlyExpiryDateTracker expiryDateTracker, Path filePath) throws IOException {
+    public void saveXpire(ReadOnlyXpire xpire, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        expiryDateTrackerStorage.saveExpiryDateTracker(expiryDateTracker, filePath);
+        this.xpireStorage.saveXpire(xpire, filePath);
     }
 
 }

@@ -11,6 +11,5 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getExpiryDateTrackerFilePath();
-
+    Path getXpireFilePath();
 }

@@ -2,7 +2,7 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import io.xpire.model.ExpiryDateTracker;
+import io.xpire.model.Xpire;
 import io.xpire.model.Model;
 
 /**
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setExpiryDateTracker(new ExpiryDateTracker());
+        model.setXpire(new Xpire());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

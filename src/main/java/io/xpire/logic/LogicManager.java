@@ -12,7 +12,7 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.XpireParser;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
-import io.xpire.model.ReadOnlyExpiryDateTracker;
+import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.item.Item;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveExpiryDateTracker(model.getExpiryDateTracker());
+            storage.saveXpire(model.getXpire());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyExpiryDateTracker getExpiryDateTracker() {
-        return model.getExpiryDateTracker();
+    public ReadOnlyXpire getExpiryDateTracker() {
+        return model.getXpire();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getExpiryDateTrackerFilePath() {
-        return model.getExpiryDateTrackerFilePath();
+        return model.getXpireFilePath();
     }
 
     @Override

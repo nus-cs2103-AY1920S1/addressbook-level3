@@ -24,7 +24,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        String[] nameKeywords = trimmedArgs.split("\\|");
 
         return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }

@@ -9,34 +9,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import io.xpire.commons.exceptions.IllegalValueException;
-import io.xpire.model.ExpiryDateTracker;
-import io.xpire.model.ReadOnlyExpiryDateTracker;
+import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable Xpire that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableExpiryDateTracker {
+@JsonRootName(value = "xpire")
+class JsonSerializableXpire {
 
     public static final String MESSAGE_DUPLICATE_ITEM = "Items list contains duplicate item(s).";
 
     private final List<JsonAdaptedItem> items = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableExpiryDateTracker} with the given items.
+     * Constructs a {@code JsonSerializableXpire} with the given items.
      */
     @JsonCreator
-    public JsonSerializableExpiryDateTracker(@JsonProperty("items") List<JsonAdaptedItem> items) {
+    public JsonSerializableXpire(@JsonProperty("items") List<JsonAdaptedItem> items) {
         this.items.addAll(items);
     }
 
     /**
-     * Converts a given {@code ReadOnlyExpiryDateTracker} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyXpire} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableExpiryDateTracker}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableXpire}.
      */
-    public JsonSerializableExpiryDateTracker(ReadOnlyExpiryDateTracker source) {
+    public JsonSerializableXpire(ReadOnlyXpire source) {
         items.addAll(source.getItemList().stream().map(JsonAdaptedItem::new).collect(Collectors.toList()));
     }
 
@@ -45,16 +45,16 @@ class JsonSerializableExpiryDateTracker {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public ExpiryDateTracker toModelType() throws IllegalValueException {
-        ExpiryDateTracker expiryDateTracker = new ExpiryDateTracker();
+    public Xpire toModelType() throws IllegalValueException {
+        Xpire xpire = new Xpire();
         for (JsonAdaptedItem jsonAdaptedItem : items) {
             Item item = jsonAdaptedItem.toModelType();
-            if (expiryDateTracker.hasItem(item)) {
+            if (xpire.hasItem(item)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
             }
-            expiryDateTracker.addItem(item);
+            xpire.addItem(item);
         }
-        return expiryDateTracker;
+        return xpire;
     }
 
 }

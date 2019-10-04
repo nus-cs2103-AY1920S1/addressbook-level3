@@ -7,7 +7,7 @@ import io.xpire.logic.commands.CommandResult;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
-import io.xpire.model.ReadOnlyExpiryDateTracker;
+import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.item.Item;
 import javafx.collections.ObservableList;
 
@@ -27,9 +27,9 @@ public interface Logic {
     /**
      * Returns the ExpiryDateTracker.
      *
-     * @see Model#getExpiryDateTracker()
+     * @see Model#getXpire()
      */
-    ReadOnlyExpiryDateTracker getExpiryDateTracker();
+    ReadOnlyXpire getExpiryDateTracker();
 
     /** Returns an unmodifiable view of the filtered list of items */
     ObservableList<Item> getFilteredItemList();

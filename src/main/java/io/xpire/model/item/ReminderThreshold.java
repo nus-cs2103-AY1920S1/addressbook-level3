@@ -1,62 +1,62 @@
 package io.xpire.model.item;
 
+import static java.util.Objects.requireNonNull;
+
 import io.xpire.commons.util.AppUtil;
+import io.xpire.commons.util.StringUtil;
+
 
 /**
- * Represents an Item's reminder threshold in the expiry date tracker.
+ * Represents an Item's reminder threshold.
  * Guarantees: immutable; is valid as declared in {@link #isValidReminderThreshold(String)}
  */
 public class ReminderThreshold {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Reminder threshold should be a non-negative integer.";
+    public static final String MESSAGE_CONSTRAINTS = "Reminder threshold should be a non-negative integer.";
 
-    private final int threshold;
+    private final int reminderThreshold;
 
     /**
      * Constructs a {@code ReminderThreshold}.
      *
-     * @param threshold A valid reminder threshold.
+     * @param reminderThreshold A valid reminder threshold.
      */
-    public ReminderThreshold(String threshold) {
-        AppUtil.checkArgument(isValidReminderThreshold(String.valueOf(threshold)), MESSAGE_CONSTRAINTS);
-        this.threshold = Integer.parseInt(threshold);
+    public ReminderThreshold(String reminderThreshold) {
+        requireNonNull(reminderThreshold);
+        AppUtil.checkArgument(isValidReminderThreshold(reminderThreshold), MESSAGE_CONSTRAINTS);
+        this.reminderThreshold = Integer.parseInt(reminderThreshold);
     }
 
     /**
      * Returns true if a given integer is a valid reminder threshold.
      */
     public static boolean isValidReminderThreshold(String test) {
-        int num = Integer.parseInt(test);
-        try {
-            if (num < 0) {
-                throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
-            }
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+        return StringUtil.isNonNegativeInteger(test);
     }
 
-    public int getThreshold() {
-        return threshold;
+    public int getValue() {
+        return this.reminderThreshold;
     }
 
     @Override
     public String toString() {
-        return "Reminder threshold: " + this.threshold;
+        return "" + this.reminderThreshold;
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReminderThreshold // instanceof handles nulls
-                && threshold == ((ReminderThreshold) other).getThreshold()); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof ReminderThreshold)) {
+            return false;
+        } else {
+            ReminderThreshold other = (ReminderThreshold) obj;
+            return this.reminderThreshold == other.reminderThreshold;
+        }
     }
 
     @Override
     public int hashCode() {
-        return ("" + threshold).hashCode();
+        return this.reminderThreshold;
     }
-
 }

@@ -13,15 +13,15 @@ import io.xpire.commons.util.ConfigUtil;
 import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.Logic;
 import io.xpire.logic.LogicManager;
-import io.xpire.model.ExpiryDateTracker;
+import io.xpire.model.Xpire;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
-import io.xpire.model.ReadOnlyExpiryDateTracker;
+import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.ReadOnlyUserPrefs;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.util.SampleDataUtil;
-import io.xpire.storage.ExpiryDateTrackerStorage;
-import io.xpire.storage.JsonExpiryDateTrackerStorage;
+import io.xpire.storage.XpireStorage;
+import io.xpire.storage.JsonXpireStorage;
 import io.xpire.storage.JsonUserPrefsStorage;
 import io.xpire.storage.Storage;
 import io.xpire.storage.StorageManager;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing ExpiryDateTracker ]===========================");
+        logger.info("=============================[ Initializing Xpire ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,10 +56,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ExpiryDateTrackerStorage expiryDateTrackerStorage = new JsonExpiryDateTrackerStorage(
-                userPrefs.getExpiryDateTrackerFilePath()
+        XpireStorage xpireStorage = new JsonXpireStorage(
+                userPrefs.getXpireFilePath()
         );
-        storage = new StorageManager(expiryDateTrackerStorage, userPrefsStorage);
+        storage = new StorageManager(xpireStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -77,20 +77,20 @@ public class MainApp extends Application {
      * {@code storage}'s expiry date tracker.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyExpiryDateTracker> expiryDateTrackerOptional;
-        ReadOnlyExpiryDateTracker initialData;
+        Optional<ReadOnlyXpire> expiryDateTrackerOptional;
+        ReadOnlyXpire initialData;
         try {
-            expiryDateTrackerOptional = storage.readExpiryDateTracker();
+            expiryDateTrackerOptional = storage.readXpire();
             if (!expiryDateTrackerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Expiry Date Tracker");
             }
-            initialData = expiryDateTrackerOptional.orElseGet(SampleDataUtil::getSampleExpiryDateTracker);
+            initialData = expiryDateTrackerOptional.orElseGet(SampleDataUtil::getSampleXpire);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Expiry Date Tracker");
-            initialData = new ExpiryDateTracker();
+            initialData = new Xpire();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Expiry Date Tracker");
-            initialData = new ExpiryDateTracker();
+            initialData = new Xpire();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -170,13 +170,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting ExpiryDateTracker " + MainApp.VERSION);
+        logger.info("Starting Xpire " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping ExpiryDateTracker ] =============================");
+        logger.info("============================ [ Stopping Xpire ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

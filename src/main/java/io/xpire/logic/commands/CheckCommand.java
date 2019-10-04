@@ -2,9 +2,11 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import io.xpire.model.Model;
-import io.xpire.model.item.CheckCommandPredicate;
 import io.xpire.model.item.ExpiringSoonPredicate;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.ReminderThresholdExceededPredicate;
 
 /**
@@ -17,12 +19,12 @@ public class CheckCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays all items whose expiry date is within"
             + "the specified duration (in days). Expired items, if any, are also included in the list.\n"
-            + "Format: check[|<days>]\n"
+            + "Format: check[|<days>] (days must be a non negative number)\n"
             + "Example: " + COMMAND_WORD + "|7\n"
             + "If no duration is specified, expired items and items whose days to expiry date are less than or equals "
             + "to the remainder threshold will be displayed.\n";
 
-    private final CheckCommandPredicate predicate;
+    private final Predicate<Item> predicate;
 
     public CheckCommand(ExpiringSoonPredicate predicate) {
         this.predicate = predicate;
