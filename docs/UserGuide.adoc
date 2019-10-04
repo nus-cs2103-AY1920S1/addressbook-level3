@@ -166,7 +166,6 @@ Swaps the current view to the reminder list view.
 
 // end::show[]
 
-=======
 // tag::undo[]
 === Undoing the latest command(s) : `undo`
 
