@@ -31,6 +31,7 @@ public class DateOfBirth {
     public DateOfBirth(String dateOfBirth) {
         requireNonNull(dateOfBirth);
         checkArgument(isValidDateOfBirth(dateOfBirth), MESSAGE_CONSTRAINTS);
+
         this.value = dateOfBirth;
         this.dateOfBirth = createLocalDate(dateOfBirth);
     }

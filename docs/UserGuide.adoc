@@ -62,7 +62,11 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the list of people +
+<<<<<<< HEAD
 Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH [pol/POLICY]... [t/TAG]...​`
+=======
+Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH  [t/TAG]…​`
+>>>>>>> 10c94419b365dae9d2e09c28fb52a592a310c692
 
 ****
 * A person can have any number of tags (including 0).
@@ -72,12 +76,20 @@ Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH [
 
 Examples:
 
+<<<<<<< HEAD
 * `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 pol/1 pol/2 t/diabetic t/smoker`
+=======
+* `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/12.09.1980 t/high-priority`
+>>>>>>> 10c94419b365dae9d2e09c28fb52a592a310c692
 
 === Adding a policy: `addpolicy`
 
 Adds a policy to the list of policies +
+<<<<<<< HEAD
 Format: `addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] p/PRICE [sa/START_AGE] [ea/END_AGE] [t/TAGS]...[cri/CRITERIA]...`
+=======
+Format: `addpolicy  add pol n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] p/PRICE [sa/START_AGE] [ea/END_AGE]... [t/TAGS]...`
+>>>>>>> 10c94419b365dae9d2e09c28fb52a592a310c692
 
 ****
 * A policy can have any number of tags (including 0).
@@ -87,7 +99,11 @@ Format: `addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID]
 ****
 Examples:
 
+<<<<<<< HEAD
 * `addpolicy n/SeniorCare d/Care for seniors c/days/20 months/11 years/5 p/50000 sa/50 ea/75`
+=======
+* `add pol n/SeniorCare d/care for seniors c/months/10 p/$50000 [sa/50 ea/75]`
+>>>>>>> 10c94419b365dae9d2e09c28fb52a592a310c692
 
 === Listing all persons : `listpeople`
 
@@ -120,8 +136,12 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears the address tag
 === Editing a policy : `editpolicy`
 
 Edits an existing person in the address book. +
+<<<<<<< HEAD
 
 Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID]] [p/PRICE] [sa/START_AGE] [ea/END_AGE]`
+=======
+Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] ] [p/PRICE]`
+>>>>>>> 10c94419b365dae9d2e09c28fb52a592a310c692
 
 ****
 * Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...

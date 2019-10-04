@@ -63,7 +63,7 @@ public class ParserUtil {
      * Parses a {@code String NRIC} into a {@code Nric}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws seedu.address.logic.parser.exceptions.ParseException if the given {@code nric} is invalid.
+     * @throws ParseException if the given {@code nric} is invalid.
      */
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);

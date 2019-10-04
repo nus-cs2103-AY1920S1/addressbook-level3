@@ -83,6 +83,7 @@ public class AddressBookParser {
         case DeletePolicyTagCommand.COMMAND_WORD:
             return new DeletePolicyTagCommandParser().parse(arguments);
         */
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 

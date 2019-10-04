@@ -82,6 +82,7 @@ class JsonAdaptedPolicy {
     public Policy toModelType() throws IllegalValueException {
         final List<Tag> policyTags = new ArrayList<>();
         final List<Tag> criteriaTags = new ArrayList<>();
+
         for (JsonAdaptedTag tag : tagged) {
             policyTags.add(tag.toModelType());
         }

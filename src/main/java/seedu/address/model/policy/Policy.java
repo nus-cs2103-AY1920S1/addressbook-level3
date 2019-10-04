@@ -27,7 +27,6 @@ public class Policy {
     private final StartAge startAge;
     private final EndAge endAge;
 
-
     private final Set<Tag> criteria = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
