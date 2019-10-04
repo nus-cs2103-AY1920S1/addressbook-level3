@@ -279,13 +279,19 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a significant number of confidential documents to keep track of
+
+
+* prefers localised storage for confidential documents to online or third party vault for storing personal information and passwords
+
+
 * can type fast
-* prefers typing over mouse input
+
+
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*: Remember only one password, and save the hassle of remembering all other confidential documents (account details, credit card details, secret files, secret notes). Have a safe and secure way to store all confidential documents locally, without the use of the online/ third party / cloud-reliant vaults.
 
 [appendix]
 == User Stories
@@ -295,17 +301,38 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |employee with multiple confidential items |only have to remember a single password|store all other confidential documents
 
-|`* * *` |user |add a new person |
+|`* * *` |employee with multiple passwords |store my passwords| access the passwords easily if I forget them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |employee handling confidential files |encrypt my files (image , text files) |other users cannot access my files
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |employee handling confidential files |decrypt my files (images, text files) |re-access my encrypted file/ deem them as no longer confidential
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |employee with multiple credit/debit cards |store my credit / debit card information |access the card information easily if i did not bring it out
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |employee that has to remember confidential snippets of information |Store notes |other users cannot see my notes  / I have a list of confidential notes which i can access easily
+
+|`* *` |employee with multiple passwords |delete my passwords | my list of passwords will not have any passwords which I do not need
+
+|`* *` |employee with multiple passwords |update my passwords | I can have the most updated list of passwords
+
+|`* *` |employee with multiple passwords |generate strong passwords | I can create new passwords will not be cracked easily
+
+|`* *` |employee with multiple passwords |analyse my passwords |I know which passwords are vulnerable and I should change them
+
+|`* *` |employee handling confidential files |receive confirmation of which files have been encrypted |I can be sure that I have encrypted the correct files
+
+|`*  *` |employee handling confidential files |see the encryption status of my files |I can know which files are encrypted at one glance
+
+|`*  *` |employee with many credit cards/debit cards |delete my credit cards/debit cards |my list of credit cards/debit cards will not have any unnecessary ones
+
+|`*  *` |employee with many credit cards/debit cards |receive expiry date notifications |I can be sure that my cards are not expired
+
+|`*  *` |employee that has to remember confidential snippets of information|delete notes |my list of confidential notes will not have any unnecessary confidential notes
+
+|`*  *` |employee that has to remember confidential snippets of information|update notes |I can change my notes if there are any new updates to the confidential information
+
 |=======================================================================
 
 _{More to be added}_
@@ -719,6 +746,8 @@ Accessibility
 
 * A user shall be able to download the released JAR file conveniently from the newest tagged release.
 *  The app shall be accessible by anyone who has downloaded the released JAR file.
+* Should be accommodating for both advanced, seasoned users as well as new users.
+
 
 Efficiency
 
@@ -739,6 +768,12 @@ Security
 Usability
 
 *  A user with above average typing speed for regular English (i.e. not code, not system admin commands) shall be able to accomplish most of the tasks faster using commands than using the mouse.
+
+Data Integrity
+
+* Should be able to check for the data integrity as to verify that no one has modified the files within secureIT in an unauthorised fashion.
+
+
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
