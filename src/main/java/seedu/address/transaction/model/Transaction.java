@@ -62,8 +62,8 @@ public class Transaction {
     }
 
     public String toString() {
-        String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category +
-                " | " + this.amount + " | " + this.person.getName();
+        String msg = "Date: " + this.date.format(myFormatter) + "\nDescription: " + this.description + "\nCategory: " + this.category +
+                "\nAmount: $" + this.amount + "\nPaid by: " + this.person.getName();
         return msg;
     }
 

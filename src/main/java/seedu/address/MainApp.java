@@ -88,9 +88,9 @@ public class MainApp extends Application {
         }*/
         /*seedu.address.person.model.ModelManager personMM =
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);*/
-        seedu.address.transaction.logic.LogicManager logic = new
+        seedu.address.transaction.logic.LogicManager transactionLogic = new
                 seedu.address.transaction.logic.LogicManager(transactionManager, transactionStorage, model, storage);
-        ui = new UiManager(logic);
+        ui = new UiManager(transactionLogic, logic);
 
     }
 

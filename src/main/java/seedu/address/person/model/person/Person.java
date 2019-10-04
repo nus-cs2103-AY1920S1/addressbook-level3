@@ -59,6 +59,14 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public String getTagsAsStrings() {
+        final StringBuilder builder = new StringBuilder();
+        for (Tag tag: tags) {
+            builder.append(tag + "\n");
+        }
+        return builder.toString();
+    }
+
     /**
      * Returns true if both persons of the same name.
      * This defines a weaker notion of equality between two persons.

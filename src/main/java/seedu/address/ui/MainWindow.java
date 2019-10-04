@@ -14,8 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.transaction.commands.CommandResult;
-import seedu.address.transaction.logic.Logic;
+import seedu.address.util.OverallCommandResult;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -28,7 +27,8 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    private seedu.address.transaction.logic.Logic transactionLogic;
+    private seedu.address.person.logic.Logic personLogic;
 
     // Independent Ui parts residing in this Ui container
     private Home home;
@@ -57,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane overviewPlaceholder;
 
     @FXML
+    private AnchorPane membersPlaceholder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -80,13 +83,16 @@ public class MainWindow extends UiPart<Stage> {
 //    @FXML
 //    private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
+                      seedu.address.person.logic.Logic personLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
 
-        this.logic = logic;
+        this.transactionLogic = transactionLogic;
+        this.personLogic = personLogic;
+        //add all our logicManager
 
         // Configure the UI
         //setWindowDefaultSize(logic.getGuiSettings());
@@ -138,7 +144,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() throws  Exception{
-        home = new Home(logic);
+        home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
         inventory = new Inventory();
@@ -155,6 +161,9 @@ public class MainWindow extends UiPart<Stage> {
 
         lion = new Lion();
         lionPlaceholder.getChildren().add(lion.getRoot());
+
+        PersonListPanel personListPanel = new PersonListPanel(personLogic.getFilteredPersonList());
+        membersPlaceholder.getChildren().add(personListPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -209,13 +218,27 @@ public class MainWindow extends UiPart<Stage> {
      * Executes the command and returns the result.
      *
      */
-    private CommandResult executeCommand(String commandText) throws Exception{
+    private OverallCommandResult executeCommand(String commandText) throws Exception{
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            OverallCommandResult commandResult;
+            if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
+                commandResult = transactionLogic.execute(commandText);
+            }   else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
+                commandResult = personLogic.execute(commandText);
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
+                commandResult = new OverallCommandResult("Implement reimbursement logic"); //should be replace with reimbursement's logic
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
+                commandResult = new OverallCommandResult("Implement inventory logic"); //should be replace with inventory's logic
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
+                commandResult = new OverallCommandResult("Implement cashier logic"); //should be replace with cashier's logic
+            } else {
+                commandResult = new OverallCommandResult("Implement overview logic"); //should be replace with overview's logic
+            }
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             lion.setResponse(commandResult.getFeedbackToUser());
             homePlaceholder.getChildren().removeAll();
-            homePlaceholder.getChildren().add(new Home(logic).getRoot());
+            homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
 
             inventoryPlaceholder.getChildren().removeAll();
             inventoryPlaceholder.getChildren().add(new Inventory().getRoot());

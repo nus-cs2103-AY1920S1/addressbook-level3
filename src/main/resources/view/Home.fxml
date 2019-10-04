@@ -22,12 +22,12 @@
             <children>
                 <TableView fx:id="tableView" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="idCol" prefWidth="50.0" text="ID" />
-                        <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date/Time" />
-                        <TableColumn fx:id="descriptionCol" prefWidth="230.0" text="Description" />
-                        <TableColumn fx:id="categoryCol" prefWidth="100.0" text="Category" />
-                        <TableColumn fx:id="amountCol" prefWidth="100.0" text="Amount" />
-                        <TableColumn fx:id="personCol" minWidth="0.0" prefWidth="100.0" text="Person" />
+                        <TableColumn fx:id="idCol" prefWidth="36.00000059604645" text="ID" />
+                        <TableColumn fx:id="dateCol" prefWidth="97.60000228881836" text="Date/Time" />
+                        <TableColumn fx:id="descriptionCol" prefWidth="232.80003356933594" text="Description" />
+                        <TableColumn fx:id="categoryCol" prefWidth="114.39996337890625" text="Category" />
+                        <TableColumn fx:id="amountCol" prefWidth="92.00003051757812" text="Amount" />
+                        <TableColumn fx:id="personCol" minWidth="0.0" prefWidth="108.00006103515625" text="Person" />
                     </columns>
                     <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
