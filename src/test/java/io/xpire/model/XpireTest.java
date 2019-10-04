@@ -22,25 +22,25 @@ import io.xpire.testutil.ItemBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ExpiryDateTrackerTest {
+public class XpireTest {
 
-    private final ExpiryDateTracker expiryDateTracker = new ExpiryDateTracker();
+    private final Xpire xpire = new Xpire();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), expiryDateTracker.getItemList());
+        assertEquals(Collections.emptyList(), xpire.getItemList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expiryDateTracker.resetData(null));
+        assertThrows(NullPointerException.class, () -> xpire.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyExpiryDateTracker_replacesData() {
-        ExpiryDateTracker newData = getTypicalExpiryDateTracker();
-        expiryDateTracker.resetData(newData);
-        assertEquals(newData, expiryDateTracker);
+        Xpire newData = getTypicalExpiryDateTracker();
+        xpire.resetData(newData);
+        assertEquals(newData, xpire);
     }
 
     @Test
@@ -49,47 +49,47 @@ public class ExpiryDateTrackerTest {
         Item editedAlice = new ItemBuilder(APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE).withTags(VALID_TAG_FRUIT)
                                                    .build();
         List<Item> newPersons = Arrays.asList(APPLE, editedAlice);
-        ExpiryDateTrackerStub newData = new ExpiryDateTrackerStub(newPersons);
+        XpireStub newData = new XpireStub(newPersons);
 
-        assertThrows(DuplicateItemException.class, () -> expiryDateTracker.resetData(newData));
+        assertThrows(DuplicateItemException.class, () -> xpire.resetData(newData));
     }
 
     @Test
     public void hasItem_nullItem_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expiryDateTracker.hasItem(null));
+        assertThrows(NullPointerException.class, () -> xpire.hasItem(null));
     }
 
     @Test
     public void hasItem_itemNotInExpiryDateTracker_returnsFalse() {
-        assertFalse(expiryDateTracker.hasItem(APPLE));
+        assertFalse(xpire.hasItem(APPLE));
     }
 
     @Test
     public void hasItem_itemInExpiryDateTracker_returnsTrue() {
-        expiryDateTracker.addItem(APPLE);
-        assertTrue(expiryDateTracker.hasItem(APPLE));
+        xpire.addItem(APPLE);
+        assertTrue(xpire.hasItem(APPLE));
     }
 
     @Test
     public void hasItem_itemWithSameIdentityFieldsInExpiryDateTracker_returnsTrue() {
-        expiryDateTracker.addItem(APPLE);
+        xpire.addItem(APPLE);
         Item editedAlice = new ItemBuilder(APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE).withTags(VALID_TAG_FRUIT)
                                                    .build();
-        assertTrue(expiryDateTracker.hasItem(editedAlice));
+        assertTrue(xpire.hasItem(editedAlice));
     }
 
     @Test
     public void getItemList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> expiryDateTracker.getItemList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> xpire.getItemList().remove(0));
     }
 
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
-    private static class ExpiryDateTrackerStub implements ReadOnlyExpiryDateTracker {
+    private static class XpireStub implements ReadOnlyXpire {
         private final ObservableList<Item> items = FXCollections.observableArrayList();
 
-        ExpiryDateTrackerStub(Collection<Item> items) {
+        XpireStub(Collection<Item> items) {
             this.items.setAll(items);
         }
 

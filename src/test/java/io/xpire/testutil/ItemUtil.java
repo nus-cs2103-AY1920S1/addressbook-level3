@@ -28,11 +28,11 @@ public class ItemUtil {
      */
     public static String getItemDetails(Item item) {
         StringBuilder sb = new StringBuilder("");
-        sb.append(item.getName().fullName + "|");
+        sb.append(item.getName().toString() + "|");
         sb.append(item.getExpiryDate().toString());
         if (!item.getTags().isEmpty()) {
             sb.append("|");
-            item.getTags().stream().forEach(s -> sb.append(s.tagName + " "));
+            item.getTags().stream().forEach(s -> sb.append(s.getTagName() + " "));
         }
         return sb.toString();
     }
@@ -42,14 +42,14 @@ public class ItemUtil {
      */
     public static String getEditItemDescriptorDetails(EditItemDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.toString()).append(" "));
         descriptor.getExpiryDate().ifPresent(ed -> sb.append(PREFIX_EXPIRY_DATE).append(ed.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
                 sb.append(PREFIX_TAG);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.getTagName()).append(" "));
             }
         }
         return sb.toString();

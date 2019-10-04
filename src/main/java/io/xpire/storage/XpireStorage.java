@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import io.xpire.commons.exceptions.DataConversionException;
-import io.xpire.model.Xpire;
 import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.Xpire;
 
 /**
  * Represents a storage for {@link Xpire}.

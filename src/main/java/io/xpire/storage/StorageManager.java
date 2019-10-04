@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import io.xpire.commons.core.LogsCenter;
 import io.xpire.commons.exceptions.DataConversionException;
-import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.ReadOnlyUserPrefs;
+import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.UserPrefs;
 
 /**

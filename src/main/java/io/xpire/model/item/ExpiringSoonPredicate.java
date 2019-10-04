@@ -1,6 +1,5 @@
 package io.xpire.model.item;
 
-import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import io.xpire.commons.util.DateUtil;
@@ -17,7 +16,7 @@ public class ExpiringSoonPredicate implements Predicate<Item> {
 
     @Override
     public boolean test(Item item) {
-        return DateUtil.isWithinRange(this.days, LocalDate.now(), item.getExpiryDate().getDate());
+        return DateUtil.isWithinRange(this.days, DateUtil.getCurrentDate(), item.getExpiryDate().getDate());
     }
 
     @Override

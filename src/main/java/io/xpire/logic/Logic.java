@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
@@ -25,19 +26,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the ExpiryDateTracker.
+     * Returns an xpire object.
      *
      * @see Model#getXpire()
      */
-    ReadOnlyXpire getExpiryDateTracker();
+    ReadOnlyXpire getXpire();
 
     /** Returns an unmodifiable view of the filtered list of items */
     ObservableList<Item> getFilteredItemList();
 
     /**
-     * Returns the user prefs' expiry date tracker file path.
+     * Returns the user prefs' xpire file path.
      */
-    Path getExpiryDateTrackerFilePath();
+    Path getXpireFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

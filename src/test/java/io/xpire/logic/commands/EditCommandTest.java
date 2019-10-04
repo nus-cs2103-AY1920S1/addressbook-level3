@@ -20,10 +20,10 @@ import org.junit.jupiter.api.Test;
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.EditCommand.EditItemDescriptor;
-import io.xpire.model.ExpiryDateTracker;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
+import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 import io.xpire.testutil.EditItemDescriptorBuilder;
 import io.xpire.testutil.ItemBuilder;
@@ -43,7 +43,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new ExpiryDateTracker(model.getExpiryDateTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Xpire(model.getXpire()), new UserPrefs());
         expectedModel.setItem(model.getFilteredItemList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -64,7 +64,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new ExpiryDateTracker(model.getExpiryDateTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Xpire(model.getXpire()), new UserPrefs());
         expectedModel.setItem(lastItem, editedItem);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -77,7 +77,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new ExpiryDateTracker(model.getExpiryDateTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Xpire(model.getXpire()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -93,7 +93,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new ExpiryDateTracker(model.getExpiryDateTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Xpire(model.getXpire()), new UserPrefs());
         expectedModel.setItem(model.getFilteredItemList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -113,7 +113,7 @@ public class EditCommandTest {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
         // edit person in filtered list into a duplicate in address book
-        Item personInList = model.getExpiryDateTracker().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
+        Item personInList = model.getXpire().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
                 new EditItemDescriptorBuilder(personInList).build());
 
@@ -138,7 +138,7 @@ public class EditCommandTest {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
         Index outOfBoundIndex = INDEX_SECOND_ITEM;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getExpiryDateTracker().getItemList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getXpire().getItemList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditItemDescriptorBuilder().withName(VALID_NAME_APPLE).build());

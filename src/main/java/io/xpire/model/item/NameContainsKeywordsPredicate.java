@@ -1,5 +1,6 @@
 package io.xpire.model.item;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -12,6 +13,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Item> {
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
+        Collections.sort(keywords);
         this.keywords = keywords;
     }
 

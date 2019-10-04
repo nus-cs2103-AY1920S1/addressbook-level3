@@ -23,7 +23,7 @@ public class ViewCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
-        expectedModel = new ModelManager(model.getExpiryDateTracker(), new UserPrefs());
+        expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
     }
 
     @Test

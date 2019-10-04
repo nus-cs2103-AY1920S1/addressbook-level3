@@ -1,6 +1,6 @@
 package io.xpire.testutil;
 
-import io.xpire.model.ExpiryDateTracker;
+import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 
 /**
@@ -10,25 +10,25 @@ import io.xpire.model.item.Item;
  */
 public class ExpiryDateTrackerBuilder {
 
-    private ExpiryDateTracker expiryDateTracker;
+    private Xpire xpire;
 
     public ExpiryDateTrackerBuilder() {
-        expiryDateTracker = new ExpiryDateTracker();
+        xpire = new Xpire();
     }
 
-    public ExpiryDateTrackerBuilder(ExpiryDateTracker expiryDateTracker) {
-        this.expiryDateTracker = expiryDateTracker;
+    public ExpiryDateTrackerBuilder(Xpire xpire) {
+        this.xpire = xpire;
     }
 
     /**
      * Adds a new {@code Item} to the {@code ExpiryDateTracker} that we are building.
      */
     public ExpiryDateTrackerBuilder withItem(Item item) {
-        expiryDateTracker.addItem(item);
+        xpire.addItem(item);
         return this;
     }
 
-    public ExpiryDateTracker build() {
-        return expiryDateTracker;
+    public Xpire build() {
+        return xpire;
     }
 }

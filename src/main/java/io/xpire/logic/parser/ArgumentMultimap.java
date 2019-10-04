@@ -28,7 +28,7 @@ public class ArgumentMultimap {
     public void put(Prefix prefix, String argValue) {
         List<String> argValues = getAllValues(prefix);
         argValues.add(argValue);
-        argMultimap.put(prefix, argValues);
+        this.argMultimap.put(prefix, argValues);
     }
 
     /**
@@ -45,10 +45,10 @@ public class ArgumentMultimap {
      * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
      */
     public List<String> getAllValues(Prefix prefix) {
-        if (!argMultimap.containsKey(prefix)) {
+        if (!this.argMultimap.containsKey(prefix)) {
             return new ArrayList<>();
         }
-        return new ArrayList<>(argMultimap.get(prefix));
+        return new ArrayList<>(this.argMultimap.get(prefix));
     }
 
     /**

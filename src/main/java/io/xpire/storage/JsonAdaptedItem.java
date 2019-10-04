@@ -39,7 +39,9 @@ class JsonAdaptedItem {
         this.name = name;
         this.expiryDate = expiryDate;
         this.reminderThreshold = reminderThreshold;
-        this.tags.addAll(tags);
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
     }
 
     /**

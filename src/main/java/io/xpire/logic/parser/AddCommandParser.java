@@ -1,9 +1,10 @@
 package io.xpire.logic.parser;
 
+import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.Arrays;
 import java.util.Set;
 
-import io.xpire.commons.core.Messages;
 import io.xpire.logic.commands.AddCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ExpiryDate;
@@ -15,7 +16,6 @@ import io.xpire.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
-
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -25,7 +25,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         String[] arguments = args.split("\\|", 3);
         if (!areArgumentsPresent(arguments)) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(arguments[0]);

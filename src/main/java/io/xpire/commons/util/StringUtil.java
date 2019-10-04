@@ -27,7 +27,7 @@ public class StringUtil {
         String trimmedPhrase = phrase.trim();
         AppUtil.checkArgument(!trimmedPhrase.isEmpty(), "Phrase parameter cannot be empty");
 
-        return sentence.contains(trimmedPhrase);
+        return sentence.toLowerCase().contains(trimmedPhrase.toLowerCase());
     }
 
     /**

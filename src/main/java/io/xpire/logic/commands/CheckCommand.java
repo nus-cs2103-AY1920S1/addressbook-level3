@@ -34,7 +34,6 @@ public class CheckCommand extends Command {
         this.predicate = predicate;
     }
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

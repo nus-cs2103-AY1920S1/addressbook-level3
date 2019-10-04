@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.xpire.model.Xpire;
 import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.Xpire;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;

@@ -25,7 +25,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         Assertions.assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new ExpiryDateTracker(), new ExpiryDateTracker(modelManager.getExpiryDateTracker()));
+        assertEquals(new Xpire(), new Xpire(modelManager.getXpire()));
     }
 
     @Test
@@ -36,14 +36,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setExpiryDateTrackerFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setXpireFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setExpiryDateTrackerFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setXpireFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,14 +61,14 @@ public class ModelManagerTest {
 
     @Test
     public void setExpiryDateTrackerFilePath_nullPath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setExpiryDateTrackerFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.setXpireFilePath(null));
     }
 
     @Test
     public void setExpiryDateTrackerFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setExpiryDateTrackerFilePath(path);
-        assertEquals(path, modelManager.getExpiryDateTrackerFilePath());
+        modelManager.setXpireFilePath(path);
+        assertEquals(path, modelManager.getXpireFilePath());
     }
 
     @Test
@@ -95,14 +95,14 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ExpiryDateTracker expiryDateTracker = new ExpiryDateTrackerBuilder()
+        Xpire xpire = new ExpiryDateTrackerBuilder()
                 .withItem(TypicalItems.KIWI).withItem(TypicalItems.BANANA).build();
-        ExpiryDateTracker differentAddressBook = new ExpiryDateTracker();
+        Xpire differentAddressBook = new Xpire();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(expiryDateTracker, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(expiryDateTracker, userPrefs);
+        modelManager = new ModelManager(xpire, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(xpire, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -118,16 +118,16 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalItems.KIWI.getName().fullName.split("\\s+");
+        String[] keywords = TypicalItems.KIWI.getName().toString().split("\\s+");
         modelManager.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(expiryDateTracker, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(xpire, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setExpiryDateTrackerFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(expiryDateTracker, differentUserPrefs)));
+        differentUserPrefs.setXpireFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(xpire, differentUserPrefs)));
     }
 }

@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
     public void execute_newItem_success() {
         Item validItem = new ItemBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getExpiryDateTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         expectedModel.addItem(validItem);
 
         assertCommandSuccess(new AddCommand(validItem), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateItem_throwsCommandException() {
-        Item personInList = model.getExpiryDateTracker().getItemList().get(0);
+        Item personInList = model.getXpire().getItemList().get(0);
         assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_ITEM);
     }
 

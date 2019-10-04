@@ -25,10 +25,10 @@ public class SearchCommandParserTest {
         // no leading and trailing whitespaces
         SearchCommand expectedSearchCommand =
                 new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedSearchCommand);
+        assertParseSuccess(parser, "Alice|Bob", expectedSearchCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedSearchCommand);
+        assertParseSuccess(parser, "  Alice |   Bob  ", expectedSearchCommand);
     }
 
 }

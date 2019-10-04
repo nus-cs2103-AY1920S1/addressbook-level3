@@ -34,9 +34,19 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof SearchCommand // instanceof handles nulls
-                && this.predicate.equals(((SearchCommand) other).predicate)); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof SearchCommand)) {
+            return false;
+        } else {
+            SearchCommand other = (SearchCommand) obj;
+            return this.predicate.equals(other.predicate);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.predicate.hashCode();
     }
 }

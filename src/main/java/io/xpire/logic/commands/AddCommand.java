@@ -43,9 +43,19 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && this.toAdd.equals(((AddCommand) other).toAdd));
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof AddCommand)) {
+            return false;
+        } else {
+            AddCommand other = (AddCommand) obj;
+            return this.toAdd.equals(other.toAdd);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.toAdd.hashCode();
     }
 }

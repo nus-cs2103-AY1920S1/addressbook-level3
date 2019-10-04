@@ -1,6 +1,5 @@
 package io.xpire.model.item;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -75,17 +74,6 @@ public class Item {
      */
     public void setReminderThreshold(ReminderThreshold reminderThreshold) {
         this.reminderThreshold = reminderThreshold;
-    }
-
-    /**
-     * Tests if this item is expiring before the specified date.
-     *
-     * @param when a date
-     * @return {@Code true} if and only if the expiry date of this {@Code Item} is strictly earlier
-     * than {@Code when}; {@Code false} otherwise.
-     */
-    boolean isExpiring(LocalDate when) {
-        return this.getExpiryDate().getDate().isBefore(when);
     }
 
     /**

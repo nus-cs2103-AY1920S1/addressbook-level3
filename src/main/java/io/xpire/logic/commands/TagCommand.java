@@ -44,12 +44,12 @@ public class TagCommand extends Command {
         requireNonNull(model);
         List<Item> lastShownList = model.getFilteredItemList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (this.index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        Item itemToTag = lastShownList.get(index.getZeroBased());
-        Item taggedItem = createTaggedItem(itemToTag, tagItemDescriptor);
+        Item itemToTag = lastShownList.get(this.index.getZeroBased());
+        Item taggedItem = createTaggedItem(itemToTag, this.tagItemDescriptor);
 
         model.setItem(itemToTag, taggedItem);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
@@ -101,7 +101,7 @@ public class TagCommand extends Command {
 
         public TagItemDescriptor(TagItemDescriptor toCopy) {
             if (toCopy.tags.isEmpty()) {
-                isClear = true;
+                this.isClear = true;
             }
             setTags(toCopy.tags);
         }
@@ -115,7 +115,7 @@ public class TagCommand extends Command {
         }
 
         public Set<Tag>getTags() {
-            return (tags != null) ? Collections.unmodifiableSet(tags) : null;
+            return (this.tags != null) ? Collections.unmodifiableSet(this.tags) : null;
         }
     }
 

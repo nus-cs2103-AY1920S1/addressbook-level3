@@ -47,25 +47,21 @@ public class CommandResult {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof CommandResult)) {
+        } else if (!(obj instanceof CommandResult)) {
             return false;
+        } else {
+            CommandResult other = (CommandResult) obj;
+            return this.feedbackToUser.equals(other.feedbackToUser)
+                    && this.showHelp == other.showHelp
+                    && this.exit == other.exit;
         }
-
-        CommandResult otherCommandResult = (CommandResult) other;
-        return this.feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && this.showHelp == otherCommandResult.showHelp
-                && this.exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.feedbackToUser, this.showHelp, this.exit);
     }
-
 }

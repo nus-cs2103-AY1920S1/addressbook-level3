@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import io.xpire.model.ExpiryDateTracker;
+import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 
 /**
@@ -33,8 +33,8 @@ public class TypicalItems {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static ExpiryDateTracker getTypicalExpiryDateTracker() {
-        ExpiryDateTracker edt = new ExpiryDateTracker();
+    public static Xpire getTypicalExpiryDateTracker() {
+        Xpire edt = new Xpire();
         for (Item item : getTypicalItems()) {
             edt.addItem(item);
         }

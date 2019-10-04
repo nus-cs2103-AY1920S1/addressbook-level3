@@ -1,12 +1,12 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
-import io.xpire.commons.util.CollectionUtil;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
@@ -36,7 +36,7 @@ public class SetReminderCommand extends Command {
      * @param threshold New threshold.
      */
     public SetReminderCommand(Index index, String threshold) {
-        CollectionUtil.requireAllNonNull(index, threshold);
+        requireAllNonNull(index, threshold);
 
         this.index = index;
         this.threshold = threshold;

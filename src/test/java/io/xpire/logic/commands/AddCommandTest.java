@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.core.GuiSettings;
 import io.xpire.logic.commands.exceptions.CommandException;
-import io.xpire.model.ExpiryDateTracker;
 import io.xpire.model.Model;
-import io.xpire.model.ReadOnlyExpiryDateTracker;
 import io.xpire.model.ReadOnlyUserPrefs;
+import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.sort.MethodOfSorting;
 import io.xpire.testutil.ItemBuilder;
@@ -100,12 +100,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getExpiryDateTrackerFilePath() {
+        public Path getXpireFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setExpiryDateTrackerFilePath(Path addressBookFilePath) {
+        public void setXpireFilePath(Path xpireFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -115,12 +115,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setExpiryDateTracker(ReadOnlyExpiryDateTracker newData) {
+        public void setXpire(ReadOnlyXpire newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyExpiryDateTracker getExpiryDateTracker() {
+        public ReadOnlyXpire getXpire() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -197,8 +197,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyExpiryDateTracker getExpiryDateTracker() {
-            return new ExpiryDateTracker();
+        public ReadOnlyXpire getXpire() {
+            return new Xpire();
         }
     }
 

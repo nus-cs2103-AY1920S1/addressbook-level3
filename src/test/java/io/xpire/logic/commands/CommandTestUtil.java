@@ -10,8 +10,8 @@ import java.util.List;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.CliSyntax;
-import io.xpire.model.ExpiryDateTracker;
 import io.xpire.model.Model;
+import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.NameContainsKeywordsPredicate;
 import io.xpire.testutil.Assert;
@@ -110,11 +110,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        ExpiryDateTracker expectedExpiryDateTracker = new ExpiryDateTracker(actualModel.getExpiryDateTracker());
+        Xpire expectedXpire = new Xpire(actualModel.getXpire());
         List<Item> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList());
 
         Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedExpiryDateTracker, actualModel.getExpiryDateTracker());
+        assertEquals(expectedXpire, actualModel.getXpire());
         assertEquals(expectedFilteredList, actualModel.getFilteredItemList());
     }
     /**
@@ -125,7 +125,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList().size());
 
         Item item = model.getFilteredItemList().get(targetIndex.getZeroBased());
-        final String[] splitName = item.getName().fullName.split("\\s+");
+        final String[] splitName = item.getName().toString().split("\\s+");
         model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredItemList().size());

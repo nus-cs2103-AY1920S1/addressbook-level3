@@ -31,7 +31,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        xpireParser = new XpireParser();
+        this.xpireParser = new XpireParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = xpireParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        Command command = this.xpireParser.parseCommand(commandText);
+        commandResult = command.execute(this.model);
 
         try {
-            storage.saveXpire(model.getXpire());
+            this.storage.saveXpire(this.model.getXpire());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,27 +52,27 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyXpire getExpiryDateTracker() {
-        return model.getXpire();
+    public ReadOnlyXpire getXpire() {
+        return this.model.getXpire();
     }
 
     @Override
     public ObservableList<Item> getFilteredItemList() {
-        return model.getFilteredItemList();
+        return this.model.getFilteredItemList();
     }
 
     @Override
-    public Path getExpiryDateTrackerFilePath() {
-        return model.getXpireFilePath();
+    public Path getXpireFilePath() {
+        return this.model.getXpireFilePath();
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
+        return this.model.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
+        this.model.setGuiSettings(guiSettings);
     }
 }

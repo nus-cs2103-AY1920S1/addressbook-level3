@@ -39,15 +39,25 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        Item itemToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Item itemToDelete = lastShownList.get(this.targetIndex.getZeroBased());
         model.deleteItem(itemToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && this.targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof DeleteCommand)) {
+            return false;
+        } else {
+            DeleteCommand other = (DeleteCommand) obj;
+            return this.targetIndex.equals(other.targetIndex);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.targetIndex.hashCode();
     }
 }

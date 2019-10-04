@@ -22,11 +22,11 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
-import io.xpire.model.ReadOnlyExpiryDateTracker;
+import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.item.Item;
-import io.xpire.storage.JsonExpiryDateTrackerStorage;
 import io.xpire.storage.JsonUserPrefsStorage;
+import io.xpire.storage.JsonXpireStorage;
 import io.xpire.storage.StorageManager;
 import io.xpire.testutil.ItemBuilder;
 
@@ -41,8 +41,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonExpiryDateTrackerStorage addressBookStorage =
-                new JsonExpiryDateTrackerStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonXpireStorage addressBookStorage =
+                new JsonXpireStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -69,8 +69,8 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonExpiryDateTrackerStorage addressBookStorage =
-                new JsonExpiryDateTrackerIoExceptionThrowingStub(
+        JsonXpireStorage addressBookStorage =
+                new JsonXpireIoExceptionThrowingStub(
                         temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
@@ -127,7 +127,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getExpiryDateTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -147,13 +147,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonExpiryDateTrackerIoExceptionThrowingStub extends JsonExpiryDateTrackerStorage {
-        private JsonExpiryDateTrackerIoExceptionThrowingStub(Path filePath) {
+    private static class JsonXpireIoExceptionThrowingStub extends JsonXpireStorage {
+        private JsonXpireIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveExpiryDateTracker(ReadOnlyExpiryDateTracker addressBook, Path filePath) throws IOException {
+        public void saveXpire(ReadOnlyXpire xpire, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

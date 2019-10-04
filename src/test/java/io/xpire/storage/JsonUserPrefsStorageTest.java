@@ -72,7 +72,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setExpiryDateTrackerFilePath(Paths.get("data/addressbook.json"));
+        userPrefs.setXpireFilePath(Paths.get("xpire.json"));
         return userPrefs;
     }
 

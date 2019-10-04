@@ -1,6 +1,8 @@
 package io.xpire.logic.parser;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.logic.commands.SearchCommand;
@@ -24,9 +26,11 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\|");
+        List<String> keywords = Arrays.stream(trimmedArgs.split("\\|"))
+                .map(String::trim)
+                .collect(Collectors.toList());
 
-        return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new SearchCommand(new NameContainsKeywordsPredicate(keywords));
     }
 
 }

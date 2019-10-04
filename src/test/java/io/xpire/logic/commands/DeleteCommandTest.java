@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getExpiryDateTracker(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
-        Model expectedModel = new ModelManager(model.getExpiryDateTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);
         showNoItem(expectedModel);
 
@@ -69,7 +69,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_ITEM;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getExpiryDateTracker().getItemList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getXpire().getItemList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
