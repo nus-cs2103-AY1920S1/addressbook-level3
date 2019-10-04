@@ -14,6 +14,7 @@ public class ItemModel {
     private TaskList taskList;
     private EventList eventList;
     private ReminderList reminderList;
+    // The list to be used for visualizing in the Ui
     private ItemList visualList;
 
     public ItemModel() {
@@ -45,6 +46,15 @@ public class ItemModel {
     }
 
     /**
+     * Adds an item to a specific list
+     * @param item the item to be added to the list
+     * @param il the list the item is to be added to
+     */
+    public void add (Item item, ItemList il) {
+        il.add(item);
+    }
+
+    /**
      * Remove an item from the current list.
      * @param index the item to be removed from the current list
      * @return the item that was removed
@@ -57,6 +67,8 @@ public class ItemModel {
             eventList.remove(item);
         } else if (visualList instanceof ReminderList) {
             reminderList.remove(item);
+        } else {
+            // never reached here as there are only three variants for the visualList
         }
 
         return item;
@@ -78,5 +90,13 @@ public class ItemModel {
 
     public ItemList getVisualList() {
         return this.visualList;
+    }
+
+    /**
+     * Set the new item list to be the visualization list.
+     * @param il the item list to be visualized
+     */
+    public void setVisualList(ItemList il) {
+        this.visualList = il;
     }
 }

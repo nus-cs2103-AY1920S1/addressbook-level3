@@ -77,7 +77,7 @@ public class ItemList {
      */
     protected ItemList find(String searchString, ItemList il) {
         for (Item i : list) {
-            if (i.getDescription().contains(searchString)) {
+            if (i.getDescription().toLowerCase().contains(searchString.toLowerCase())) {
                 il.add(i);
             }
         }
