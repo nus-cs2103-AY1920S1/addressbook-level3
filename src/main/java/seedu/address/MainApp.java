@@ -90,6 +90,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
+        // return new ModelManager(new CustomerBook(), new PhoneBook(), new OrderBook(), new ScheduleBook(), userPrefs);
         return new ModelManager(initialData, userPrefs);
     }
 
