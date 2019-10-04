@@ -2,6 +2,7 @@
   "modulesInfo": [
     {
       "code": "CS1101S",
+      "name": "Programming Methodology",
       "mc": 4,
       "su": true,
       "core": true,
@@ -16,6 +17,7 @@
     },
     {
       "code": "CS1231S",
+      "name": "Discrete Structures",
       "mc": 4,
       "su": true,
       "core": true,
@@ -30,6 +32,7 @@
     },
     {
       "code": "CS2030",
+      "name": "Programming Methodology II",
       "mc": 4,
       "su": false,
       "core": true,
@@ -44,6 +47,7 @@
     },
     {
       "code": "CS2040S",
+      "name": "Data Structures and Algorithms",
       "mc": 4,
       "su": false,
       "core": true,
@@ -58,6 +62,7 @@
     },
     {
       "code": "CS2100",
+      "name": "Computer Organisation",
       "mc": 4,
       "su": false,
       "core": true,
@@ -72,6 +77,7 @@
     },
     {
       "code": "CS2103T",
+      "name": "Software Engineering",
       "mc": 4,
       "su": false,
       "core": true,
@@ -86,6 +92,7 @@
     },
     {
       "code": "CS2105",
+      "name": "Introduction to Computer Networks",
       "mc": 4,
       "su": false,
       "core": true,
@@ -100,6 +107,7 @@
     },
     {
       "code": "CS2106",
+      "name": "Introduction to Operating Systems",
       "mc": 4,
       "su": false,
       "core": true,
@@ -114,6 +122,7 @@
     },
     {
       "code": "CS3230",
+      "name": "Design and Analysis of Algorithms",
       "mc": 4,
       "su": false,
       "core": true,
@@ -128,6 +137,7 @@
     },
     {
       "code": "IS1103X",
+      "name": "IS Innovations in Organisation",
       "mc": 4,
       "su": true,
       "core": true,
@@ -142,6 +152,7 @@
     },
     {
       "code": "CS2101",
+      "name": "Effective Communication for Computing Professionals",
       "mc": 4,
       "su": true,
       "core": true,
@@ -156,6 +167,7 @@
     },
     {
       "code": "ES2660",
+      "name": "Communicating in the Information Age",
       "mc": 4,
       "su": true,
       "core": true,
@@ -170,6 +182,7 @@
     },
     {
       "code": "MA1521",
+      "name": "Calculus for Computing",
       "mc": 4,
       "su": true,
       "core": true,
@@ -184,6 +197,7 @@
     },
     {
       "code": "MA1101R",
+      "name": "Linear Algebra I",
       "mc": 4,
       "su": true,
       "core": true,
@@ -198,6 +212,7 @@
     },
     {
       "code": "ST2334",
+      "name": "Probability and Statistics",
       "mc": 4,
       "su": false,
       "core": true,
@@ -212,6 +227,7 @@
     },
     {
       "code": "CS3236",
+      "name": "Introduction to Information Theory",
       "mc": 4,
       "su": false,
       "core": false,
@@ -226,6 +242,7 @@
     },
     {
       "code": "CS4231",
+      "name": "Parallel and Distributed Algorithms",
       "mc": 4,
       "su": false,
       "core": false,
@@ -242,6 +259,7 @@
     },
     {
       "code": "CS4232",
+      "name": "Theory of Computation",
       "mc": 4,
       "su": false,
       "core": false,
@@ -256,6 +274,7 @@
     },
     {
       "code": "CS4234",
+      "name": "Optimisation Algorithms",
       "mc": 4,
       "su": false,
       "core": false,
@@ -270,6 +289,7 @@
     },
     {
       "code": "CS3233",
+      "name": "Competitive Programming",
       "mc": 4,
       "su": false,
       "core": false,
@@ -284,6 +304,7 @@
     },
     {
       "code": "CS4257",
+      "name": "Algorithmic Foundations of Privacy",
       "mc": 4,
       "su": false,
       "core": false,
@@ -299,6 +320,7 @@
     },
     {
       "code": "CS4268",
+      "name": "Quantum Computing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -313,6 +335,7 @@
     },
     {
       "code": "CS5230",
+      "name": "Computational Complexity",
       "mc": 4,
       "su": false,
       "core": false,
@@ -327,6 +350,7 @@
     },
     {
       "code": "CS5234",
+      "name": "Algorithms at Scale",
       "mc": 4,
       "su": false,
       "core": false,
@@ -341,6 +365,7 @@
     },
     {
       "code": "CS5236",
+      "name": "Advanced Automata Theory",
       "mc": 4,
       "su": false,
       "core": false,
@@ -355,6 +380,7 @@
     },
     {
       "code": "CS5237",
+      "name": "Computational Geometry and Applications",
       "mc": 4,
       "su": false,
       "core": false,
@@ -370,6 +396,7 @@
     },
     {
       "code": "CS5238",
+      "name": "Advanced Combinatorial Methods in Bioinformatics",
       "mc": 4,
       "su": false,
       "core": false,
@@ -384,6 +411,7 @@
     },
     {
       "code": "CS5330",
+      "name": "Randomized Algorithms",
       "mc": 4,
       "su": false,
       "core": false,
@@ -398,6 +426,7 @@
     },
     {
       "code": "CS3243",
+      "name": "Introduction to Artificial Intelligence",
       "mc": 4,
       "su": false,
       "core": false,
@@ -412,6 +441,7 @@
     },
     {
       "code": "CS3244",
+      "name": "Machine Learning",
       "mc": 4,
       "su": false,
       "core": false,
@@ -426,6 +456,7 @@
     },
     {
       "code": "CS4243",
+      "name": "Computer Vision and Pattern Recognition",
       "mc": 4,
       "su": false,
       "core": false,
@@ -440,6 +471,7 @@
     },
     {
       "code": "CS4244",
+      "name": "Knowledge Representation and Reasoning",
       "mc": 4,
       "su": false,
       "core": false,
@@ -454,6 +486,7 @@
     },
     {
       "code": "CS4246",
+      "name": "AI Planning and Decision Making",
       "mc": 4,
       "su": false,
       "core": false,
@@ -468,6 +501,7 @@
     },
     {
       "code": "CS4248",
+      "name": "Natural Language Processing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -483,6 +517,7 @@
     },
     {
       "code": "CS4216",
+      "name": "Constraint Logic Programming",
       "mc": 4,
       "su": false,
       "core": false,
@@ -498,6 +533,7 @@
     },
     {
       "code": "CS4220",
+      "name": "Knowledge Discovery Methods in Bioinformatics",
       "mc": 4,
       "su": false,
       "core": false,
@@ -513,6 +549,7 @@
     },
     {
       "code": "CS4277",
+      "name": "3D Computer Vision",
       "mc": 4,
       "su": false,
       "core": false,
@@ -527,6 +564,7 @@
     },
     {
       "code": "CS5209",
+      "name": "Foundation in Logic and AI",
       "mc": 4,
       "su": false,
       "core": false,
@@ -541,6 +579,7 @@
     },
     {
       "code": "CS5228",
+      "name": "Knowledge Discovery and Data Mining",
       "mc": 4,
       "su": false,
       "core": false,
@@ -556,6 +595,7 @@
     },
     {
       "code": "CS5242",
+      "name": "Neural Networks and Deep Learning",
       "mc": 4,
       "su": false,
       "core": false,
@@ -570,6 +610,7 @@
     },
     {
       "code": "CS5340",
+      "name": "Uncertainty Modelling in AI",
       "mc": 4,
       "su": false,
       "core": false,
@@ -584,6 +625,7 @@
     },
     {
       "code": "CS5339",
+      "name": "Theory and Algorithms for Machine Learning",
       "mc": 4,
       "su": false,
       "core": false,
@@ -598,6 +640,7 @@
     },
     {
       "code": "CS3241",
+      "name": "Computer Graphics",
       "mc": 4,
       "su": false,
       "core": false,
@@ -612,6 +655,7 @@
     },
     {
       "code": "CS3242",
+      "name": "3D Modeling and Animation",
       "mc": 4,
       "su": false,
       "core": false,
@@ -626,6 +670,7 @@
     },
     {
       "code": "CS3247",
+      "name": "Game Development",
       "mc": 4,
       "su": false,
       "core": false,
@@ -640,6 +685,7 @@
     },
     {
       "code": "CS4247",
+      "name": "Graphics Rendering Techniques",
       "mc": 4,
       "su": false,
       "core": false,
@@ -654,6 +700,7 @@
     },
     {
       "code": "CS4350",
+      "name": "Game Development Project",
       "mc": 4,
       "su": false,
       "core": false,
@@ -668,6 +715,7 @@
     },
     {
       "code": "CS3218",
+      "name": "Multimodal Processing in Mobile Platforms",
       "mc": 4,
       "su": false,
       "core": false,
@@ -682,6 +730,7 @@
     },
     {
       "code": "CS3240",
+      "name": "Interaction Design",
       "mc": 4,
       "su": false,
       "core": false,
@@ -696,6 +745,7 @@
     },
     {
       "code": "CS3249",
+      "name": "User Interface Development",
       "mc": 4,
       "su": false,
       "core": false,
@@ -710,6 +760,7 @@
     },
     {
       "code": "CS4240",
+      "name": "Interaction Design for Virtual and Augmented Reality",
       "mc": 4,
       "su": false,
       "core": false,
@@ -724,6 +775,7 @@
     },
     {
       "code": "CS4249",
+      "name": "Phenomena and Theories of Human-Computer Interaction",
       "mc": 4,
       "su": false,
       "core": false,
@@ -738,6 +790,7 @@
     },
     {
       "code": "CS4344",
+      "name": "Networked and Mobile Gaming",
       "mc": 4,
       "su": false,
       "core": false,
@@ -753,6 +806,7 @@
     },
     {
       "code": "CS4345",
+      "name": "General-Purpose Computation on GPU",
       "mc": 4,
       "su": false,
       "core": false,
@@ -768,6 +822,7 @@
     },
     {
       "code": "CS4351",
+      "name": "Real-Time Graphics",
       "mc": 4,
       "su": false,
       "core": false,
@@ -782,6 +837,7 @@
     },
     {
       "code": "CS5240",
+      "name": "Theoretical Foundations in MultiMedia",
       "mc": 4,
       "su": false,
       "core": false,
@@ -796,6 +852,7 @@
     },
     {
       "code": "CS5343",
+      "name": "Advanced Computer Animation",
       "mc": 4,
       "su": false,
       "core": false,
@@ -810,6 +867,7 @@
     },
     {
       "code": "CS5346",
+      "name": "Information Visualisation",
       "mc": 4,
       "su": false,
       "core": false,
@@ -824,6 +882,7 @@
     },
     {
       "code": "CS2107",
+      "name": "Introduction to Information Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -838,6 +897,7 @@
     },
     {
       "code": "CS3235",
+      "name": "Computer Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -852,6 +912,7 @@
     },
     {
       "code": "CS4236",
+      "name": "Cryptography Theory and Practice",
       "mc": 4,
       "su": false,
       "core": false,
@@ -866,6 +927,7 @@
     },
     {
       "code": "CS4238",
+      "name": "Computer Security Practice",
       "mc": 4,
       "su": false,
       "core": false,
@@ -880,6 +942,7 @@
     },
     {
       "code": "CS4239",
+      "name": "Software Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -895,6 +958,7 @@
     },
     {
       "code": "CS3221",
+      "name": "Operating Systems Design and Pragmatics",
       "mc": 4,
       "su": false,
       "core": false,
@@ -909,6 +973,7 @@
     },
     {
       "code": "CS4276",
+      "name": "IoT Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -923,6 +988,7 @@
     },
     {
       "code": "CS5231",
+      "name": "Systems Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -937,6 +1003,7 @@
     },
     {
       "code": "CS5250",
+      "name": "Advanced Operating Systems",
       "mc": 4,
       "su": false,
       "core": false,
@@ -952,6 +1019,7 @@
     },
     {
       "code": "CS5321",
+      "name": "Network Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -967,6 +1035,7 @@
     },
     {
       "code": "CS5322",
+      "name": "Database Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -982,6 +1051,7 @@
     },
     {
       "code": "CS5331",
+      "name": "Web Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -996,6 +1066,7 @@
     },
     {
       "code": "CS5332",
+      "name": "Biometric Authentication",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1010,6 +1081,7 @@
     },
     {
       "code": "IFS4101",
+      "name": "Legal Aspects of Information Security",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1024,6 +1096,7 @@
     },
     {
       "code": "IFS4102",
+      "name": "Digital Forensics",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1038,6 +1111,7 @@
     },
     {
       "code": "IFS4103",
+      "name": "Penetration Testing Practice",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1052,6 +1126,7 @@
     },
     {
       "code": "IS4231",
+      "name": "Information Security Management",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1066,6 +1141,7 @@
     },
     {
       "code": "CS2102",
+      "name": "Database Systems",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1080,6 +1156,7 @@
     },
     {
       "code": "CS3223",
+      "name": "Database Systems Implementation",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1094,6 +1171,7 @@
     },
     {
       "code": "CS4221",
+      "name": "Database Applications Design and Tuning",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1108,6 +1186,7 @@
     },
     {
       "code": "CS4224",
+      "name": "Distributed Databases",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1122,6 +1201,7 @@
     },
     {
       "code": "CS4225",
+      "name": "Big Data Systems for Data Science",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1136,6 +1216,7 @@
     },
     {
       "code": "CS5226",
+      "name": "Database Tuning",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1150,6 +1231,7 @@
     },
     {
       "code": "CS2108",
+      "name": "Introduction to Media Computing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1164,6 +1246,7 @@
     },
     {
       "code": "CS3245",
+      "name": "Information Retrieval",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1178,6 +1261,7 @@
     },
     {
       "code": "CS4242",
+      "name": "Social Media Computing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1192,6 +1276,7 @@
     },
     {
       "code": "CS4347",
+      "name": "Sound and Music Computing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1206,6 +1291,7 @@
     },
     {
       "code": "CS5246",
+      "name": "Text Mining",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1220,6 +1306,7 @@
     },
     {
       "code": "CS5241",
+      "name": "Speech Processing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1234,6 +1321,7 @@
     },
     {
       "code": "CS6242",
+      "name": "Digital Libraries",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1248,6 +1336,7 @@
     },
     {
       "code": "CS3103",
+      "name": "Computer Networks Practice",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1262,6 +1351,7 @@
     },
     {
       "code": "CS4222",
+      "name": "Wireless Networking",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1276,6 +1366,7 @@
     },
     {
       "code": "CS4226",
+      "name": "Internet Architecture",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1290,6 +1381,7 @@
     },
     {
       "code": "CS5223",
+      "name": "Distributed Systems",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1305,6 +1397,7 @@
     },
     {
       "code": "CS5224",
+      "name": "Cloud Computing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1320,6 +1413,7 @@
     },
     {
       "code": "CS5229",
+      "name": "Advanced Computer Networks",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1334,6 +1428,7 @@
     },
     {
       "code": "CS5248",
+      "name": "Systems Support for Continuous Media",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1348,6 +1443,7 @@
     },
     {
       "code": "CS3210",
+      "name": "Parallel Computing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1362,6 +1458,7 @@
     },
     {
       "code": "CS3211",
+      "name": "Parallel and Concurrent Programming",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1377,6 +1474,7 @@
     },
     {
       "code": "CS4223",
+      "name": "Multi-core Architectures",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1391,6 +1489,7 @@
     },
     {
       "code": "CS5207",
+      "name": "Foundation in Operating Systems",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1405,6 +1504,7 @@
     },
     {
       "code": "CS5222",
+      "name": "Advanced Computer Architecture",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1419,6 +1519,7 @@
     },
     {
       "code": "CS5239",
+      "name": "Computer System Performance Analysis",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1433,6 +1534,7 @@
     },
     {
       "code": "CS2104",
+      "name": "Programming Language Concepts",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1447,6 +1549,7 @@
     },
     {
       "code": "CS4215",
+      "name": "Programming Language Implementation",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1461,6 +1564,7 @@
     },
     {
       "code": "CS4212",
+      "name": "Compiler Design",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1475,6 +1579,7 @@
     },
     {
       "code": "CS3234",
+      "name": "Logic for Proofs and Programs",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1490,6 +1595,7 @@
     },
     {
       "code": "CS5232",
+      "name": "Formal Specification and Design Techniques",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1505,6 +1611,7 @@
     },
     {
       "code": "CS5214",
+      "name": "Design of Optimising Compilers",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1519,6 +1626,7 @@
     },
     {
       "code": "CS5215",
+      "name": "Constraint Processing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1534,6 +1642,7 @@
     },
     {
       "code": "CS5218",
+      "name": "Principles and Practice of Program Analysis",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1548,6 +1657,7 @@
     },
     {
       "code": "CS3219",
+      "name": "Software Engineering Principles and Patterns",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1562,6 +1672,7 @@
     },
     {
       "code": "CS4211",
+      "name": "Formal Methods for Software Engineering",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1576,6 +1687,7 @@
     },
     {
       "code": "CS4218",
+      "name": "Software Testing",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1590,6 +1702,7 @@
     },
     {
       "code": "CS3216",
+      "name": "Software Product Engineering for Digital Markets",
       "mc": 5,
       "su": false,
       "core": false,
@@ -1604,6 +1717,7 @@
     },
     {
       "code": "CS3217",
+      "name": "Software Engineering on Modern Application Platforms",
       "mc": 5,
       "su": false,
       "core": false,
@@ -1618,6 +1732,7 @@
     },
     {
       "code": "CS3226",
+      "name": "Web Programming and Applications",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1632,6 +1747,7 @@
     },
     {
       "code": "CS5219",
+      "name": "Automated Software Validation",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1646,6 +1762,7 @@
     },
     {
       "code": "CS5272",
+      "name": "Embedded Software Design",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1660,6 +1777,7 @@
     },
     {
       "code": "CS2220",
+      "name": "Introduction to Computational Biology",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1674,6 +1792,7 @@
     },
     {
       "code": "CS4330",
+      "name": "Combinatorial Methods in Bioinformatics",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1688,6 +1807,7 @@
     },
     {
       "code": "CS5233",
+      "name": "Simulation and Modelling Techniques",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1702,6 +1822,7 @@
     },
     {
       "code": "CS3203",
+      "name": "Software Engineering Project",
       "mc": 8,
       "su": false,
       "core": false,
@@ -1716,6 +1837,7 @@
     },
     {
       "code": "CS3281",
+      "name": "Thematic Systems Project I",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1730,6 +1852,7 @@
     },
     {
       "code": "CS3282",
+      "name": "Thematic Systems Project II",
       "mc": 4,
       "su": false,
       "core": false,
@@ -1744,6 +1867,7 @@
     },
     {
       "code": "CP3880",
+      "name": "Advanced Technology Attachment Programme",
       "mc": 12,
       "su": false,
       "core": false,
@@ -1758,6 +1882,7 @@
     },
     {
       "code": "IS4010",
+      "name": "Industry Internship Programme",
       "mc": 12,
       "su": false,
       "core": false,
@@ -1772,6 +1897,7 @@
     },
     {
       "code": "CP3200",
+      "name": "Internship",
       "mc": 6,
       "su": false,
       "core": false,
@@ -1786,6 +1912,7 @@
     },
     {
       "code": "CP3202",
+      "name": "Internship II",
       "mc": 6,
       "su": false,
       "core": false,
@@ -1800,6 +1927,7 @@
     },
     {
       "code": "CP3107",
+      "name": "Computing for Voluntary Welfare Organisations",
       "mc": 6,
       "su": false,
       "core": false,
@@ -1814,6 +1942,7 @@
     },
     {
       "code": "CP4101",
+      "name": "B.Comp. Dissertation",
       "mc": 12,
       "su": false,
       "core": false,
