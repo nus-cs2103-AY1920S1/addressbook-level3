@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <TabPane fx:id="tabPanel" styleClass="STYLE_CLASS_FLOATING stack-pane">
+      <tabs>
+         <Tab text="Customers" >
+           <content>
+               <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="20" right="0" bottom="0" left="0" />
+                   </padding>
+                   <Label text="Customers"> </Label>
+                   <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
+           </content>
+         </Tab>
+         <Tab text="Phones">
+           <content>
+               <VBox fx:id="phoneList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="20" right="0" bottom="0" left="0" />
+                   </padding>
+                   <Label text="Phones"> </Label>
+                   <StackPane fx:id="phoneListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
+           </content>
+         </Tab>
+         <Tab text="Order">
+           <content>
+               <VBox fx:id="orderList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="20" right="0" bottom="0" left="0" />
+                   </padding>
+                   <Label text="Order"> </Label>
+                   <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
+           </content>
+         </Tab>
+         <Tab text="Schedule">
+           <content>
+               <VBox fx:id="scheduleList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="20" right="0" bottom="0" left="0" />
+                   </padding>
+                   <Label text="schedule"> </Label>
+                   <StackPane fx:id="scheduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
+           </content>
+         </Tab>
+      </tabs></TabPane>
+</VBox>
