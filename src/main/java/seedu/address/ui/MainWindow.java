@@ -129,7 +129,7 @@ public class MainWindow extends UiPart<Stage> {
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
 
-        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel,scheduleListPanel);
+        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, scheduleListPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

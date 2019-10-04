@@ -190,6 +190,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyDataBook<Customer> getCustomerBook() {
+
         return customerBook;
     }
 

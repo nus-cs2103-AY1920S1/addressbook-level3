@@ -66,7 +66,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Customer> getFilteredCustomerList() { return model.getFilteredCustomerList(); }
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return model.getFilteredCustomerList(); }
 
     @Override
     public ObservableList<Phone> getFilteredPhoneList() {
@@ -79,7 +80,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Schedule> getFilteredScheduleList() { return model.getFilteredScheduleList(); }
+    public ObservableList<Schedule> getFilteredScheduleList() {
+        return model.getFilteredScheduleList(); }
 
     @Override
     public Path getAddressBookFilePath() {

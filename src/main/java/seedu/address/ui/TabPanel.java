@@ -44,7 +44,7 @@ public class TabPanel extends UiPart<Region> {
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
         phoneListPanel = phoneListPanel;
-        phoneListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+        phoneListPanelPlaceholder.getChildren().add(phoneListPanel.getRoot());
 
         orderlistPanel = orderlistPanel;
         orderListPanelPlaceholder.getChildren().add(orderlistPanel.getRoot());
