@@ -24,13 +24,13 @@ public class SampleDataUtil {
         SerialNumberGenerator.setCatalog(new Catalog());
         return new Book[] {
             new Book(new Title("Harry Botter"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("J K Rowling"), getTagSet("Fiction")),
+                    new Author("J K Rowling"), null, getTagSet("Fiction")),
             new Book(new Title("Legend of the Condor Heroes"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("Jin Yong"), getTagSet("Fiction", "History")),
+                    new Author("Jin Yong"), null, getTagSet("Fiction", "History")),
             new Book(new Title("Animal the Farm"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("George Orwell"), getTagSet("Fiction")),
+                    new Author("George Orwell"), null, getTagSet("Fiction")),
             new Book(new Title("Harry Botter and the Full Blood Prince"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("J K Rowling"), getTagSet("Fiction", "Action")),
+                    new Author("J K Rowling"), null, getTagSet("Fiction", "Action")),
         };
     }
 

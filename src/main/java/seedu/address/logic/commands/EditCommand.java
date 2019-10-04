@@ -24,6 +24,7 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
+import seedu.address.model.loan.Loan;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -93,9 +94,16 @@ public class EditCommand extends Command {
         Title updatedTitle = editBookDescriptor.getTitle().orElse(bookToEdit.getTitle());
         SerialNumber updatedSerialNumber = editBookDescriptor.getSerialNumber().orElse(bookToEdit.getSerialNumber());
         Author updatedAuthor = editBookDescriptor.getAuthor().orElse(bookToEdit.getAuthor());
+        boolean bookHasLoan = bookToEdit.getLoan().isPresent();
+        Loan updatedLoan;
+        if (bookHasLoan) {
+            updatedLoan = editBookDescriptor.getLoan().orElse(bookToEdit.getLoan().get());
+        } else {
+            updatedLoan = null;
+        }
         Set<Genre> updatedGenres = editBookDescriptor.getGenres().orElse(bookToEdit.getGenres());
 
-        return new Book(updatedTitle, updatedSerialNumber, updatedAuthor, updatedGenres);
+        return new Book(updatedTitle, updatedSerialNumber, updatedAuthor, updatedLoan, updatedGenres);
     }
 
     @Override
@@ -124,6 +132,7 @@ public class EditCommand extends Command {
         private Title title;
         private SerialNumber serialNumber;
         private Author author;
+        private Loan loan;
         private Set<Genre> genres;
 
         public EditBookDescriptor() {}
@@ -136,6 +145,7 @@ public class EditCommand extends Command {
             setTitle(toCopy.title);
             setSerialNumber(toCopy.serialNumber);
             setAuthor(toCopy.author);
+            setLoan(toCopy.loan);
             setGenres(toCopy.genres);
         }
 
@@ -164,6 +174,14 @@ public class EditCommand extends Command {
 
         public void setAuthor(Author author) {
             this.author = author;
+        }
+
+        public void setLoan(Loan loan) {
+            this.loan = loan;
+        }
+
+        public Optional<Loan> getLoan() {
+            return Optional.ofNullable(loan);
         }
 
         public Optional<Author> getAuthor() {
