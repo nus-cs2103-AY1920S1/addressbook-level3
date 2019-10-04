@@ -8,7 +8,7 @@ import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.testutil.TypicalPersons.CARL;
 import static mams.testutil.TypicalPersons.ELLE;
 import static mams.testutil.TypicalPersons.FIONA;
-import static mams.testutil.TypicalPersons.getTypicalAddressBook;
+import static mams.testutil.TypicalPersons.getTypicalMams;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import mams.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMams(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalMams(), new UserPrefs());
 
     @Test
     public void equals() {

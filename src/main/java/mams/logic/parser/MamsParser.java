@@ -18,7 +18,7 @@ import mams.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class MamsParser {
 
     /**
      * Used for initial separation of command word and args.

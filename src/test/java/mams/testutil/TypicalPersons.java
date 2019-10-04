@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import mams.logic.commands.CommandTestUtil;
-import mams.model.AddressBook;
+import mams.model.Mams;
 import mams.model.person.Person;
 
 /**
@@ -50,10 +50,10 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code Mams} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static Mams getTypicalMams() {
+        Mams ab = new Mams();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

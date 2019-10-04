@@ -15,7 +15,7 @@ import java.util.List;
 
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
-import mams.model.AddressBook;
+import mams.model.Mams;
 import mams.model.Model;
 import mams.model.person.NameContainsKeywordsPredicate;
 import mams.model.person.Person;
@@ -104,11 +104,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        Mams expectedMams = new Mams(actualModel.getMams());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedMams, actualModel.getMams());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
     /**

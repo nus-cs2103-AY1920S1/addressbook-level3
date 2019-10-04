@@ -21,25 +21,25 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class AddressBookTest {
+public class MamsTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final Mams mams = new Mams();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), mams.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        Assert.assertThrows(NullPointerException.class, () -> mams.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = TypicalPersons.getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyMams_replacesData() {
+        Mams newData = TypicalPersons.getTypicalMams();
+        mams.resetData(newData);
+        assertEquals(newData, mams);
     }
 
     @Test
@@ -48,47 +48,49 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(TypicalPersons.ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        MamsStub newData = new MamsStub(newPersons);
 
-        Assert.assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        Assert.assertThrows(DuplicatePersonException.class, () -> mams.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        Assert.assertThrows(NullPointerException.class, () -> mams.hasPerson(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(TypicalPersons.ALICE));
+    public void hasPerson_personNotInMams_returnsFalse() {
+        assertFalse(mams.hasPerson(TypicalPersons.ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(TypicalPersons.ALICE);
-        assertTrue(addressBook.hasPerson(TypicalPersons.ALICE));
+    public void hasPerson_personInMams_returnsTrue() {
+        mams.addPerson(TypicalPersons.ALICE);
+        assertTrue(mams.hasPerson(TypicalPersons.ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(TypicalPersons.ALICE);
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+    public void hasPerson_personWithSameIdentityFieldsInMams_returnsTrue() {
+        mams.addPerson(TypicalPersons.ALICE);
+        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE)
+                .withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
+                .withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(mams.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> mams.getPersonList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyMams whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class MamsStub implements ReadOnlyMams {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        MamsStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 

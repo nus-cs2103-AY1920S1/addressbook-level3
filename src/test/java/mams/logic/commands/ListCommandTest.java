@@ -3,7 +3,7 @@ package mams.logic.commands;
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static mams.testutil.TypicalPersons.getTypicalAddressBook;
+import static mams.testutil.TypicalPersons.getTypicalMams;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalMams(), new UserPrefs());
+        expectedModel = new ModelManager(model.getMams(), new UserPrefs());
     }
 
     @Test

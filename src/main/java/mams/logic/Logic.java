@@ -8,7 +8,7 @@ import mams.logic.commands.CommandResult;
 import mams.logic.commands.exceptions.CommandException;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
-import mams.model.ReadOnlyAddressBook;
+import mams.model.ReadOnlyMams;
 import mams.model.person.Person;
 
 /**
@@ -25,11 +25,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the Mams.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getMams()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyMams getMams();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -37,7 +37,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getMamsFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

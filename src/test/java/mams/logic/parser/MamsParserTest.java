@@ -29,9 +29,9 @@ import mams.testutil.EditPersonDescriptorBuilder;
 import mams.testutil.PersonBuilder;
 import mams.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class MamsParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final MamsParser parser = new MamsParser();
 
     @Test
     public void parseCommand_add() throws Exception {

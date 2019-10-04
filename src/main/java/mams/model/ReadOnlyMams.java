@@ -6,7 +6,7 @@ import mams.model.person.Person;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyMams {
 
     /**
      * Returns an unmodifiable view of the persons list.

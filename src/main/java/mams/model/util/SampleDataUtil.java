@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import mams.model.AddressBook;
-import mams.model.ReadOnlyAddressBook;
+import mams.model.Mams;
+import mams.model.ReadOnlyMams;
 import mams.model.person.Address;
 import mams.model.person.Email;
 import mams.model.person.Name;
@@ -14,7 +14,7 @@ import mams.model.person.Phone;
 import mams.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Mams} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyMams getSampleMams() {
+        Mams sampleAb = new Mams();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

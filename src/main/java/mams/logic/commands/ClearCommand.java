@@ -2,7 +2,7 @@ package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import mams.model.AddressBook;
+import mams.model.Mams;
 import mams.model.Model;
 
 /**
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setMams(new Mams());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

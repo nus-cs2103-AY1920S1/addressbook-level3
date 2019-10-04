@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import mams.model.Mams;
+import mams.model.ReadOnlyMams;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import mams.commons.core.GuiSettings;
 import mams.logic.commands.exceptions.CommandException;
-import mams.model.AddressBook;
 import mams.model.Model;
-import mams.model.ReadOnlyAddressBook;
 import mams.model.ReadOnlyUserPrefs;
 import mams.model.person.Person;
 import mams.testutil.PersonBuilder;
@@ -99,12 +99,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getMamsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setMamsFilePath(Path mamsFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setMams(ReadOnlyMams newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyMams getMams() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,8 +186,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyMams getMams() {
+            return new Mams();
         }
     }
 

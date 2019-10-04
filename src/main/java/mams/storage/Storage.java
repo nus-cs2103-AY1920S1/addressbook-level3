@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import mams.commons.exceptions.DataConversionException;
-import mams.model.ReadOnlyAddressBook;
+import mams.model.ReadOnlyMams;
 import mams.model.ReadOnlyUserPrefs;
 import mams.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends MamsStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +21,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getMamsFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyMams> readMams() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveMams(ReadOnlyMams mams) throws IOException;
 
 }

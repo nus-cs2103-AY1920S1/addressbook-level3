@@ -15,15 +15,15 @@ import mams.commons.util.ConfigUtil;
 import mams.commons.util.StringUtil;
 import mams.logic.Logic;
 import mams.logic.LogicManager;
-import mams.model.AddressBook;
+import mams.model.Mams;
 import mams.model.Model;
 import mams.model.ModelManager;
-import mams.model.ReadOnlyAddressBook;
+import mams.model.ReadOnlyMams;
 import mams.model.ReadOnlyUserPrefs;
 import mams.model.UserPrefs;
 import mams.model.util.SampleDataUtil;
-import mams.storage.AddressBookStorage;
-import mams.storage.JsonAddressBookStorage;
+import mams.storage.MamsStorage;
+import mams.storage.JsonMamsStorage;
 import mams.storage.JsonUserPrefsStorage;
 import mams.storage.Storage;
 import mams.storage.StorageManager;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Mams ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        MamsStorage mamsStorage = new JsonMamsStorage(userPrefs.getMamsFilePath());
+        storage = new StorageManager(mamsStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -74,20 +74,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyMams> mamsOptional;
+        ReadOnlyMams initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            mamsOptional = storage.readMams();
+            if (!mamsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Mams");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = mamsOptional.orElseGet(SampleDataUtil::getSampleMams);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Mams");
+            initialData = new Mams();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Mams");
+            initialData = new Mams();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Mams");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,7 +167,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Mams " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

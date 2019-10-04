@@ -10,10 +10,10 @@ import mams.commons.core.LogsCenter;
 import mams.logic.commands.Command;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.exceptions.CommandException;
-import mams.logic.parser.AddressBookParser;
+import mams.logic.parser.MamsParser;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
-import mams.model.ReadOnlyAddressBook;
+import mams.model.ReadOnlyMams;
 import mams.model.person.Person;
 import mams.storage.Storage;
 
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final MamsParser mamsParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        mamsParser = new MamsParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = mamsParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveMams(model.getMams());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyMams getMams() {
+        return model.getMams();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getMamsFilePath() {
+        return model.getMamsFilePath();
     }
 
     @Override

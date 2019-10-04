@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.nio.file.Path;
 
 import mams.commons.core.GuiSettings;
-import mams.model.AddressBook;
-import mams.model.ReadOnlyAddressBook;
+import mams.model.Mams;
+import mams.model.ReadOnlyMams;
 import mams.model.UserPrefs;
 import mams.testutil.TypicalPersons;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +23,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonMamsStorage mamsStorage = new JsonMamsStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(mamsStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -47,21 +47,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void mamsReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonMamsStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonMamsStorageTest} class.
          */
-        AddressBook original = TypicalPersons.getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        Mams original = TypicalPersons.getTypicalMams();
+        storageManager.saveMams(original);
+        ReadOnlyMams retrieved = storageManager.readMams().get();
+        assertEquals(original, new Mams(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getMamsFilePath() {
+        assertNotNull(storageManager.getMamsFilePath());
     }
 
 }
