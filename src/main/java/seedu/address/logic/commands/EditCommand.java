@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -136,6 +138,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private DateOfBirth dateOfBirth;
+        private Set<Policy> policies;
+        private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
 
@@ -150,6 +154,8 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setDateOfBirth(toCopy.dateOfBirth);
+            setPolicies(toCopy.policies);
+            setTags(toCopy.tags);
         }
 
         /**
@@ -206,6 +212,41 @@ public class EditCommand extends Command {
         public Optional<DateOfBirth> getDateOfBirth() {
             return Optional.ofNullable(dateOfBirth);
         }
+
+        /**
+         * Sets {@code policies} to this object's {@code policies}.
+         * A defensive copy of {@code policies} is used internally.
+         */
+        public void setPolicies(Set<Policy> policies) {
+            this.policies = (policies != null) ? new HashSet<>(policies) : null;
+        }
+
+        /**
+         * Returns an unmodifiable policy set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code policy} is null.
+         */
+        public Optional<Set<Policy>> getPolicies() {
+            return (policies != null) ? Optional.of(Collections.unmodifiableSet(policies)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tags} is null.
+         */
+        public Optional<Set<Tag>> getTags() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
 
         @Override
         public boolean equals(Object other) {
