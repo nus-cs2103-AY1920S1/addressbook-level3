@@ -14,9 +14,9 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.deliverymans.commons.core.GuiSettings;
 
 public class ModelManagerTest {
 
