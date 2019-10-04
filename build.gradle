@@ -153,3 +153,9 @@ task copyStylesheets(type: Copy) {
 asciidoctor.dependsOn copyStylesheets
 
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+
+run {
+
+	standardInput = System.in 
+
+}
