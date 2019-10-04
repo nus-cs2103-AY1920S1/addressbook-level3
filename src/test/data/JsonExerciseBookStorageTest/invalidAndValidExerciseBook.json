@@ -3,11 +3,13 @@
     "name": "Running",
     "date": "20/09/2019",
     "calories": "333",
-    "quantity": "20km"
+    "quantity": "20",
+    "unit" : "km"
   }, {
     "name": "Exercise with wrong date",
     "date": "33/20/2019",
     "calories": "234a",
-    "quantity": "50km"
+    "quantity": "50km",
+    "unit" : " km"
   } ]
 }

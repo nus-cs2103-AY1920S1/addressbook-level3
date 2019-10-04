@@ -3,11 +3,13 @@
     "name": "Running",
     "date": "26/09/2019",
     "calories": "333",
-    "quantity": "2.4km"
+    "quantity": "2.4",
+    "unit" : "km"
   }, {
     "name": "Running",
     "date": "26/09/2019",
     "calories": "333",
-    "quantity": "2.4km"
+    "quantity": "2.4",
+    "unit" : "km"
   } ]
 }

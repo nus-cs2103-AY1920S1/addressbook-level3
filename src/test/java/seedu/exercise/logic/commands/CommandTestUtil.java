@@ -7,6 +7,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -32,8 +33,10 @@ public class CommandTestUtil {
     public static final String VALID_DATE_BASKETBALL = "27/09/2019";
     public static final String VALID_CALORIES_AEROBICS = "333";
     public static final String VALID_CALORIES_BASKETBALL = "444";
-    public static final String VALID_QUANTITY_AEROBICS = "30 counts of 5";
-    public static final String VALID_QUANTITY_BASKETBALL = "Did it for 30h";
+    public static final String VALID_QUANTITY_AEROBICS = "30";
+    public static final String VALID_QUANTITY_BASKETBALL = "3";
+    public static final String VALID_UNIT_AEROBICS = "counts";
+    public static final String VALID_UNIT_BASKETBALL = "hour";
     public static final String VALID_MUSCLE_AEROBICS = "Back";
     public static final String VALID_MUSCLE_BASKETBALL = "Arms";
 
@@ -45,13 +48,16 @@ public class CommandTestUtil {
     public static final String CALORIES_DESC_BASKETBALL = " " + PREFIX_CALORIES + VALID_CALORIES_BASKETBALL;
     public static final String QUANTITY_DESC_AEROBICS = " " + PREFIX_QUANTITY + VALID_QUANTITY_AEROBICS;
     public static final String QUANTITY_DESC_BASKETBALL = " " + PREFIX_QUANTITY + VALID_QUANTITY_BASKETBALL;
+    public static final String UNIT_DESC_AEROBICS = " " + PREFIX_UNIT + VALID_UNIT_AEROBICS;
+    public static final String UNIT_DESC_BASKETBALL = " " + PREFIX_UNIT + VALID_UNIT_BASKETBALL;
     public static final String MUSCLE_DESC_AEROBICS = " " + PREFIX_MUSCLE + VALID_MUSCLE_AEROBICS;
     public static final String MUSCLE_DESC_BASKETBALL = " " + PREFIX_MUSCLE + VALID_MUSCLE_BASKETBALL;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Dance&"; // '&' not allowed in names
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "31a/10/2019"; // 'a' not allowed in date
     public static final String INVALID_CALORIES_DESC = " " + PREFIX_CALORIES + "33a"; // 'a' not allowed in calories
-    public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY; // empty string not allowed for quantity
+    public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "22a"; // 'a' not allowed in quantity
+    public static final String INVALID_UNIT_DESC = " " + PREFIX_UNIT; // empty string not allowed in unit
     public static final String INVALID_MUSCLE_DESC = " " + PREFIX_MUSCLE + "Chest*"; // '*' not allowed in muscle
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

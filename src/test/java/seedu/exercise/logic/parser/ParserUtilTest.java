@@ -29,7 +29,7 @@ public class ParserUtilTest {
 
     private static final String VALID_NAME = "Dance";
     private static final String VALID_DATE = "26/09/2019";
-    private static final String VALID_QUANTITY = "Danced 3h";
+    private static final String VALID_QUANTITY = "3";
     private static final String VALID_CALORIES = "321";
     private static final String VALID_MUSCLE_1 = "Legs";
     private static final String VALID_MUSCLE_2 = "Arms";

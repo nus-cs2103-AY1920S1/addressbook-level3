@@ -68,15 +68,19 @@ public class ExerciseTest {
         Exercise editedWalk = new ExerciseBuilder(WALK).withName(VALID_NAME_BASKETBALL).build();
         assertFalse(WALK.equals(editedWalk));
 
-        // different phone -> returns false
+        // different date -> returns false
         editedWalk = new ExerciseBuilder(WALK).withDate(VALID_DATE_BASKETBALL).build();
         assertFalse(WALK.equals(editedWalk));
 
-        // different email -> returns false
+        // different calories -> returns false
         editedWalk = new ExerciseBuilder(WALK).withCalories(VALID_CALORIES_BASKETBALL).build();
         assertFalse(WALK.equals(editedWalk));
 
-        // different exercise -> returns false
+        // different quantity -> returns false
+        editedWalk = new ExerciseBuilder(WALK).withQuantity(VALID_QUANTITY_BASKETBALL).build();
+        assertFalse(WALK.equals(editedWalk));
+
+        // different quantity -> returns false
         editedWalk = new ExerciseBuilder(WALK).withQuantity(VALID_QUANTITY_BASKETBALL).build();
         assertFalse(WALK.equals(editedWalk));
 

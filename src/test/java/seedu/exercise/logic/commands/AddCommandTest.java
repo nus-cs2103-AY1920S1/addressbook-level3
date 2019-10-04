@@ -47,7 +47,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validExercise);
         ModelStub modelStub = new ModelStubWithExercise(validExercise);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXERCISE, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+            AddCommand.MESSAGE_DUPLICATE_EXERCISE, () -> addCommand.execute(modelStub));
     }
 
     @Test

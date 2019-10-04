@@ -38,7 +38,8 @@ class JsonAdaptedExercise {
     @JsonCreator
     public JsonAdaptedExercise(@JsonProperty("name") String name, @JsonProperty("date") String date,
                                @JsonProperty("calories") String calories, @JsonProperty("quantity") String quantity,
-                               @JsonProperty("unit") String unit, @JsonProperty("muscles") List<JsonAdaptedMuscle> muscles) {
+                               @JsonProperty("unit") String unit,
+                               @JsonProperty("muscles") List<JsonAdaptedMuscle> muscles) {
         this.name = name;
         this.date = date;
         this.calories = calories;

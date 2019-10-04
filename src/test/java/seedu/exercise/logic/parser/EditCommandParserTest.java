@@ -10,6 +10,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_MUSCLE_DESC;
 import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
+import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_UNIT_DESC;
 import static seedu.exercise.logic.commands.CommandTestUtil.MUSCLE_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.MUSCLE_DESC_BASKETBALL;
 import static seedu.exercise.logic.commands.CommandTestUtil.NAME_DESC_AEROBICS;
@@ -40,6 +41,7 @@ import seedu.exercise.model.exercise.Calories;
 import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
+import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.tag.Muscle;
 import seedu.exercise.testutil.EditExerciseDescriptorBuilder;
 
@@ -84,7 +86,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
         assertParseFailure(parser, "1" + INVALID_CALORIES_DESC, Calories.MESSAGE_CONSTRAINTS); // invalid calories
-        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS); // invalid exercise
+        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS); // invalid quantity
+        assertParseFailure(parser, "1" + INVALID_UNIT_DESC, Unit.MESSAGE_CONSTRAINTS); // invalid unit
         assertParseFailure(parser, "1" + INVALID_MUSCLE_DESC, Muscle.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid date followed by valid calories

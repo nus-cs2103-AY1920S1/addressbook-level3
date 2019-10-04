@@ -119,7 +119,7 @@ public class Exercise {
             .append(getCalories())
             .append(" Quantity: ")
             .append(getQuantity())
-            .append("Unit")
+            .append(" Unit: ")
             .append(getUnit())
             .append(" Muscle(s): ");
         getMuscles().forEach(builder::append);

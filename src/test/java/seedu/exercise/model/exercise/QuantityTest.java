@@ -29,8 +29,8 @@ public class QuantityTest {
         assertFalse(Quantity.isValidQuantity(" ")); // spaces only
 
         // valid quantity
-        assertTrue(Quantity.isValidQuantity("10 counts of 5"));
+        assertTrue(Quantity.isValidQuantity("10"));
         assertTrue(Quantity.isValidQuantity("1")); // one character
-        assertTrue(Quantity.isValidQuantity("20km clocked"));
+        assertTrue(Quantity.isValidQuantity("2.4"));
     }
 }

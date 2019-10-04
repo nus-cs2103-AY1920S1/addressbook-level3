@@ -8,6 +8,7 @@ import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
+import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.tag.Muscle;
 import seedu.exercise.model.util.SampleDataUtil;
 
@@ -19,12 +20,14 @@ public class ExerciseBuilder {
     private static final String DEFAULT_NAME = "Running";
     private static final String DEFAULT_DATE = "26/09/2019";
     private static final String DEFAULT_CALORIES = "111";
-    private static final String DEFAULT_QUANTITY = "2.4km clocked";
+    private static final String DEFAULT_QUANTITY = "0.5";
+    private static final String DEFAULT_UNIT = "hours";
 
     private Name name;
     private Date date;
     private Calories calories;
     private Quantity quantity;
+    private Unit unit;
     private Set<Muscle> muscles;
 
     public ExerciseBuilder() {
@@ -32,6 +35,7 @@ public class ExerciseBuilder {
         date = new Date(DEFAULT_DATE);
         calories = new Calories(DEFAULT_CALORIES);
         quantity = new Quantity(DEFAULT_QUANTITY);
+        unit = new Unit(DEFAULT_UNIT);
         muscles = new HashSet<>();
     }
 
@@ -43,6 +47,7 @@ public class ExerciseBuilder {
         date = exerciseToCopy.getDate();
         calories = exerciseToCopy.getCalories();
         quantity = exerciseToCopy.getQuantity();
+        unit = exerciseToCopy.getUnit();
         muscles = new HashSet<>(exerciseToCopy.getMuscles());
     }
 
@@ -86,8 +91,16 @@ public class ExerciseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Unit} of the {@code Exercise} that we are building.
+     */
+    public ExerciseBuilder withUnit(String unit) {
+        this.unit = new Unit(unit);
+        return this;
+    }
+
     public Exercise build() {
-        return new Exercise(name, date, calories, quantity, muscles);
+        return new Exercise(name, date, calories, quantity, unit, muscles);
     }
 
 }

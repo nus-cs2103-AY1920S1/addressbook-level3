@@ -10,13 +10,13 @@ import static seedu.exercise.commons.util.AppUtil.checkArgument;
 public class Unit extends Property {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Units should only contain alphabets and spaces, and it should not be blank";
+            "Units should only contain alphabets and it should not be blank";
 
     /*
      * The first character of the unit must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[ A-Za-z]+$";
+    public static final String VALIDATION_REGEX = "^[A-Za-z]+$";
 
     public final String unit;
 

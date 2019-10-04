@@ -7,6 +7,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.CALORIES_DESC_AEROBI
 import static seedu.exercise.logic.commands.CommandTestUtil.DATE_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.NAME_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_AEROBICS;
+import static seedu.exercise.logic.commands.CommandTestUtil.UNIT_DESC_AEROBICS;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.TypicalExercises.AEROBICS;
 
@@ -80,7 +81,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AEROBICS + DATE_DESC_AEROBICS + CALORIES_DESC_AEROBICS
-            + QUANTITY_DESC_AEROBICS;
+            + QUANTITY_DESC_AEROBICS + UNIT_DESC_AEROBICS;
         Exercise expectedExercise = new ExerciseBuilder(AEROBICS).withMuscles().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExercise(expectedExercise);

@@ -70,6 +70,6 @@ public class NameContainsKeywordsPredicateTest {
         // Keywords match date and calories, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Dance", "26/09/2019", "333"));
         assertFalse(predicate.test(new ExerciseBuilder().withName("Walk").withDate("26/09/2019")
-                .withCalories("333").withQuantity("Danced 2h").build()));
+                .withCalories("333").withQuantity("2").build()));
     }
 }
