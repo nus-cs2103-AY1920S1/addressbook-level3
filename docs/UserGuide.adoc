@@ -27,7 +27,7 @@ Extremely Loud and Intelligent Student Assistant (ELISA) is for students who *wa
 .  Copy the file to the folder you want to use as the home folder for ELISA.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::MainWindow.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -131,7 +131,7 @@ Edits the event description and the priority of the 2nd event to be `CS2103 team
 // tag::delete[]
 === Deleting a reminder/task/event : `delete`
 
-Deletes the reminder/task/event from the ELISA. +
+Deletes the reminder/task/event from ELISA. +
 Format: `delete INDEX`
 
 ****
@@ -142,11 +142,29 @@ Format: `delete INDEX`
 
 Examples:
 
-* `show -r` +
+* `show -R` +
 `delete 2` +
 Deletes the 2nd reminder in the shown reminder list.
 
 // end::delete[]
+
+// tag::show[]
+=== Swapping the view : `show`
+
+Swaps the current view. +
+Format: `show -VIEW`
+
+****
+* Swaps the current view to the specified `VIEW`.
+* VIEW must be the first letter bracketed in the tabs.
+****
+
+Examples:
+
+* `show -R` +
+Swaps the current view to the reminder list view.
+
+// end::show[]
 
 === Exiting the program : `exit`
 
