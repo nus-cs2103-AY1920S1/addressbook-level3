@@ -1,10 +1,10 @@
 package seedu.deliverymans.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.commons.util.AppUtil.checkArgument;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Order of food.
@@ -15,7 +15,7 @@ public class Order {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String orderName;
-    public final Set<Food> foods = new HashSet<>(); //implement food class
+    public final Set<Food> foods = new HashSet<>();   //implement food class
 
     /**
      * Constructs a {@code Order}
