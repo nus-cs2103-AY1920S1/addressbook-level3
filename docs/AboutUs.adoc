@@ -21,7 +21,7 @@ Responsibilities: Code Quality, Documentation, Integration, Testing
 
 === Low Ee Ter
 image::lejolly.jpg[width="150", align="left"]
-{empty}[https://github.com/etlow[github]] 
+{empty}[https://github.com/etlow[github]]
 
 Role: Team Lead +
 Responsibilities: Code Quality, Documentation, Integration, Testing
@@ -30,7 +30,7 @@ Responsibilities: Code Quality, Documentation, Integration, Testing
 
 === Ryan Tay
 image::ryantay232.png[width="150", align="left"]
-{empty}[http://github.com/ryantay232[github]] 
+{empty}[http://github.com/ryantay232[github]]
 
 Role: Developer +
 Responsibilities: Code Quality, Documentation, Integration, Testing
@@ -48,7 +48,7 @@ Responsibilities: Code Quality, Documentation, Integration, Testing
 
 === Zhou Tianyu
 image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/MackyMaguire[github]] 
+{empty}[http://github.com/MackyMaguire[github]]
 
 Role: Developer +
 Responsibilities: Code Quality, Documentation, Integration, Testing
