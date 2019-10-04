@@ -59,15 +59,6 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                      <Tab id="inventoryTab" text="Inventory">
-                        <content>
-                          <AnchorPane fx:id="inventoryPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
                         <Tab id="reimbursementsTab" text="Reimbursements">
                           <content>
                             <AnchorPane fx:id="reimbursementsPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -77,6 +68,15 @@
                               </AnchorPane>
                           </content>
                         </Tab>
+                      <Tab id="inventoryTab" text="Inventory">
+                        <content>
+                          <AnchorPane fx:id="inventoryPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
                         <Tab id="cashierTab" text="Cashier">
                           <content>
                             <AnchorPane fx:id="cashierPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
