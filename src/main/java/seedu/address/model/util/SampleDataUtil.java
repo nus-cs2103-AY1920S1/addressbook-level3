@@ -30,7 +30,7 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Nric("S000001A"), new Phone("87438807"),
                     new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"),
-                    new DateOfBirth("12.12.1998"), getPolicySet("teenage"), getTagSet("high priority")),
+                    new DateOfBirth("12.12.1998"), getPolicySet("teenage"), getTagSet("diabetic")),
             new Person(new Name("Bernice Yu"), new Nric("S000001B"), new Phone("99272758"),
                     new Email("berniceyu@example.com"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                     new DateOfBirth("11.11.1991"), getPolicySet("young adult", "midlife"),
@@ -69,11 +69,16 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    public static Set<Tag> getCriteriaSet(String... strings) {
+        return getTagSet(strings);
+    }
+
     public static Set<Policy> getPolicySet(String... strings) {
         return Arrays.stream(strings)
                 .map(string -> new Policy(new PolicyName(string), new Description(string),
-                        new Coverage("12","12", "12") , new Price("$500"),
-                        new StartAge("50"), new EndAge("75"), getTagSet("sample")))
+                        new Coverage(" days/10 months/11 years/12") , new Price("$500"),
+                        new StartAge("50"), new EndAge("75"), getCriteriaSet("diabetic"),
+                        getTagSet("sample")))
                 .collect(Collectors.toSet());
     }
 
