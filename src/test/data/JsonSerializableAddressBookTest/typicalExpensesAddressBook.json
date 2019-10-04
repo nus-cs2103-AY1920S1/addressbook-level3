@@ -1,0 +1,32 @@
+{
+  "_comment": "AddressBook save file which contains the same Expense values as in TypicalExpenses#getTypicalAddressBook()",
+  "expenses" : [ {
+    "description" : "Alices Birthday",
+    "price" : "20",
+    "tagged" : [ "AnniversaryAndHoliday" ]
+  }, {
+    "description" : "Busan Trip",
+    "price" : "1300",
+    "tagged" : [ "Travel", "Korea", "Food", "Transport" ]
+  }, {
+    "description" : "Chicken Rice extra Chicken",
+    "price" : "3.50",
+    "tagged" : [ "nusDeck", "Favourite" ]
+  }, {
+    "description" : "Whiskey and Coke",
+    "price" : "50",
+    "tagged" : [ "Party", "AnniversaryAndHoliday" ]
+  }, {
+    "description" : "Marvel Movie Marathon",
+    "price" : "75",
+    "tagged" : [ "Entertainment"]
+  }, {
+    "description" : "Clothes for the New Year",
+    "price" : "88.88",
+    "tagged" : [ ]
+  }, {
+    "description" : "Groceries for September meal preps",
+    "price" : "125.35",
+    "tagged" : [ ]
+  } ]
+}

@@ -1,0 +1,9 @@
+{
+  "expenses": [ {
+    "description": "Valid Expense",
+    "price": "9482424"
+  }, {
+    "description": "Expense With Invalid Price Field",
+    "price": "948asdf2424"
+  } ]
+}
