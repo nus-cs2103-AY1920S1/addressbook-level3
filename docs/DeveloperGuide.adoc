@@ -279,12 +279,12 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of tasks
-* needs reminders to take breaks or move on to cover all their work
+* has a need to manage a large number of tasks
+* needs reminders to take breaks or move on to finish all their work
 * prefers to be more organized with their time and tasks
-* prefer desktop apps over other types
-* can type fast
+* prefer desktop apps over other types of apps
 * prefers typing over mouse input
+* can type fast
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: manage time and tasks more efficiently than a typical mouse/GUI driven app

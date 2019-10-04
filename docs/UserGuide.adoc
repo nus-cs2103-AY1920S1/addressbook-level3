@@ -78,9 +78,9 @@ An event can have any number of tags (including 0)
 
 Examples:
 
-* `event John’s Birthday -d 19/09/2019`
-* `event John’s Birthday -d 19/09/2019 -r at 2pm`
-* `event John’s Birthday -d 19/09/2019 -p high -t friend`
+* `event John’s Birthday -d 20/09/2019`
+* `event John’s Birthday -d 20/09/2019 -r at 2pm`
+* `event John’s Birthday -d 20/09/2019 -p high -t friend`
 
 === Adding a reminder: `reminder`
 
