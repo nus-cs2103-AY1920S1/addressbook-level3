@@ -142,8 +142,11 @@ public class Person {
                 .append(getAddress())
                 .append(" Date of birth: ")
                 .append(getDateOfBirth())
-                .append(" Tags: ");
+                .append(" Policies: ");
+        getPolicies().forEach(builder::append);
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
+
         return builder.toString();
     }
 

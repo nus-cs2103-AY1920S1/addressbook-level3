@@ -74,6 +74,14 @@ public class Policy {
     }
 
     /**
+     * Returns an immutable criteria set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getCriteria() {
+        return Collections.unmodifiableSet(criteria);
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
