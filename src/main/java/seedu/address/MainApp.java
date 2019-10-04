@@ -1,33 +1,26 @@
 package seedu.address;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
+import seedu.address.person.commons.core.Config;
+import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.commons.core.Version;
+import seedu.address.person.model.AddressBook;
+import seedu.address.person.model.ReadOnlyAddressBook;
+import seedu.address.person.model.UserPrefs;
+import seedu.address.person.model.util.SampleDataUtil;
+import seedu.address.person.storage.AddressBookStorage;
+import seedu.address.person.storage.JsonAddressBookStorage;
+import seedu.address.person.storage.JsonUserPrefsStorage;
+import seedu.address.person.storage.UserPrefsStorage;
+import seedu.address.transaction.logic.Logic;
+import seedu.address.transaction.logic.LogicManager;
+import seedu.address.transaction.model.Model;
+import seedu.address.transaction.model.ModelManager;
+import seedu.address.transaction.storage.Storage;
+import seedu.address.transaction.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -44,14 +37,14 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
+    //protected Config config;
 
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        AppParameters appParameters = AppParameters.parse(getParameters());
+        /*AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
@@ -65,7 +58,31 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
+        ui = new UiManager(logic);*/
+        StorageManager storage = new StorageManager("data/transactionHistory.txt");
+        ModelManager mm = new ModelManager(storage);
+
+        //no config for ui yet
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
+        UserPrefs userPrefs = new UserPrefs();
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        seedu.address.person.storage.StorageManager personStorage =
+                new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
+
+        ReadOnlyAddressBook initialData;
+        try {
+            Optional<ReadOnlyAddressBook> addressBookOptional = personStorage.readAddressBook();
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
+        } catch (Exception e) {
+
+            initialData = new AddressBook();
+        }
+        seedu.address.person.model.ModelManager personMM =
+                new seedu.address.person.model.ModelManager(initialData, userPrefs);
+        logic = new LogicManager(mm, storage, personMM, personStorage);
         ui = new UiManager(logic);
+
     }
 
     /**
@@ -73,7 +90,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    /*private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
@@ -91,18 +108,18 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialData, userPrefs);
-    }
+    }*/
 
-    private void initLogging(Config config) {
+    /*private void initLogging(Config config) {
         LogsCenter.init(config);
-    }
+    }*/
 
     /**
      * Returns a {@code Config} using the file at {@code configFilePath}. <br>
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    /*protected Config initConfig(Path configFilePath) {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -131,14 +148,14 @@ public class MainApp extends Application {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
         return initializedConfig;
-    }
+    }*/
 
     /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+    /*protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
@@ -163,7 +180,7 @@ public class MainApp extends Application {
         }
 
         return initializedPrefs;
-    }
+    }*/
 
     @Override
     public void start(Stage primaryStage) {
@@ -171,7 +188,7 @@ public class MainApp extends Application {
         ui.start(primaryStage);
     }
 
-    @Override
+    /*@Override
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
@@ -179,5 +196,5 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-    }
+    }*/
 }

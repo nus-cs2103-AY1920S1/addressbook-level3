@@ -8,9 +8,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
+import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.commons.util.StringUtil;
+import seedu.address.transaction.logic.Logic;
 
 /**
  * The manager of the UI component.
