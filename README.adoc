@@ -2,6 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/AY1920S1-CS2103-F09-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103-F09-2/main"]
+[![Netlify Status](https://api.netlify.com/api/v1/badges/342bdfcd-063b-4527-b762-2139c38ba234/deploy-status)](https://app.netlify.com/sites/flashcardpro/deploys)
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 image:https://coveralls.io/repos/github/AY1920S1-CS2103-F09-2/addressbook-level3/badge.svg?branch=master[]
 
