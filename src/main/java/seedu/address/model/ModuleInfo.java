@@ -133,6 +133,7 @@ public class ModuleInfo {
                 && focusPrimaries.equals(o.focusPrimaries)
                 && focusElectives.equals(o.focusElectives)
                 && description.equals(o.description)
-                && prereqTreeString.equals(o.prereqTreeString);
+                && prereqTreeString.equals(o.prereqTreeString)
+                && prereqTree.equals(o.prereqTree);
     }
 }

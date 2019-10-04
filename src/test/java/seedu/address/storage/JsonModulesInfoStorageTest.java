@@ -3,19 +3,16 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalModulesInfo.getTypicalModulesInfo;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ModuleInfo;
 import seedu.address.model.ModulesInfo;
 
 public class JsonModulesInfoStorageTest {
@@ -71,18 +68,5 @@ public class JsonModulesInfoStorageTest {
         ModulesInfo actual = readModulesInfo("ExtraValuesModulesInfo.json").get();
 
         assertEquals(expected, actual);
-    }
-
-    private ModulesInfo getTypicalModulesInfo() {
-        ModuleInfo cs2040s = new ModuleInfo("CS2040S", "Data Structures and Algorithms", 4, false, new ArrayList<>(),
-                new ArrayList<>(), "CS2040S description", "(AND CS1231S CS1101S)");
-        ModuleInfo cs4248 = new ModuleInfo("CS4248", "Natural Language Processing", 4, false,
-                new ArrayList<>(Arrays.asList("AI", "MIR")), new ArrayList<>(), "CS4248 description",
-                "(AND (OR CS3243 CS3245) ST2334)");
-        HashMap<String, ModuleInfo> mapModulesInfo = new HashMap<String, ModuleInfo>();
-        mapModulesInfo.put("CS2040S", cs2040s);
-        mapModulesInfo.put("CS4248", cs4248);
-        ModulesInfo modulesInfo = new ModulesInfo(mapModulesInfo);
-        return modulesInfo;
     }
 }
