@@ -18,7 +18,8 @@ public class EndAge {
      */
     public static final String VALIDATION_REGEX = "[\\p{N}]*";
     public static final String INFINITY = "300";
-    public String age = INFINITY;
+
+    private String age = INFINITY;
     /**
      * Constructs a {@code EndAge}.
      *
@@ -35,6 +36,10 @@ public class EndAge {
      */
     public static boolean isValidAge(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getAge() {
+        return age;
     }
 
     @Override

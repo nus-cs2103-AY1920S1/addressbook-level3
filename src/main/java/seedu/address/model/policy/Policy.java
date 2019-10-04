@@ -10,8 +10,14 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
+/**
+ * Represents a Policy in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Policy {
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "This policy is not available.";
     private static final ArrayList<Policy> policies = new ArrayList<>();
 
     private final PolicyName name;
@@ -21,12 +27,13 @@ public class Policy {
     private final StartAge startAge;
     private final EndAge endAge;
 
+
     private final Set<Tag> criteria = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "This policy does not exist.";
-
+    /**
+     * Every field must be present and not null.
+     */
     public Policy(PolicyName name, Description description, Coverage coverage, Price price, StartAge startAge,
                   EndAge endAge, Set<Tag> criteria, Set<Tag> tags) {
         requireAllNonNull(name, description, coverage, price, startAge, endAge, criteria, tags);
@@ -94,6 +101,11 @@ public class Policy {
                 && otherPolicy.getName().equals(getName());
     }
 
+    /**
+     * Checks if the input policy exists.
+     * @param policyName Name of the policy.
+     * @return Whether the policy exists.
+     */
     public static boolean isAvailable(String policyName) {
         for (int i = 0; i < policies.size(); i++) {
             if (policies.get(i).getName().equals(policyName)) {

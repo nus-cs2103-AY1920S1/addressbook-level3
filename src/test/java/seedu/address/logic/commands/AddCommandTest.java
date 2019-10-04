@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -114,6 +115,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPolicy(Policy policy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -172,6 +178,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Policy> policiesAdded = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -183,6 +190,12 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public void addPolicy(Policy policy) {
+            requireNonNull(policy);
+            policiesAdded.add(policy);
         }
 
         @Override

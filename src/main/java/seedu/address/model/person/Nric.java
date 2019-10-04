@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "NRICs should only contain alphanumeric characters. It should start with S, T, F or G, followed by 6" +
-                    " numerical numbers and a checksum letter. It should not be blank";
+            "NRICs should only contain alphanumeric characters. It should start with S, T, F or G, followed by 6"
+                    + " numerical numbers and a checksum letter. It should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,

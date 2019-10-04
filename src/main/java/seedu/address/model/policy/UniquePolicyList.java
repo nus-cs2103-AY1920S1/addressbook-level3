@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
 import seedu.address.model.policy.exceptions.DuplicatePolicyException;
 import seedu.address.model.policy.exceptions.PolicyNotFoundException;
 

@@ -38,7 +38,7 @@ public class SampleDataUtil {
             new Person(new Name("Charlotte Oliveiro"), new Nric("S000001C"), new Phone("93210283"),
                     new Email("charlotte@example.com"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     new DateOfBirth("10.9.2000"), getPolicySet("health"), getTagSet("low priority")),
-            new Person(new Name("David Li"),  new Nric("S000001D"), new Phone("91031282"),
+            new Person(new Name("David Li"), new Nric("S000001D"), new Phone("91031282"),
                     new Email("lidavid@example.com"), new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                     new DateOfBirth("4.6.1969"), getPolicySet("midlife", "retirement"),
                 getTagSet("high priority")),

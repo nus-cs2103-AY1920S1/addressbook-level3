@@ -26,13 +26,12 @@ public class Coverage {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{N}]*";
-
-    public final Period period;
-    public final String coverage;
-
     private static final int dayIndex = 0;
     private static final int monthIndex = 1;
     private static final int yearIndex = 2;
+
+    public final Period period;
+    public final String coverage;
 
     /**
      * Constructs a {@code Coverage}.
@@ -73,10 +72,10 @@ public class Coverage {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(coverage, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS);
         String days = (argMultimap.getValue(PREFIX_DAYS).isPresent() ? argMultimap.getValue(PREFIX_DAYS).get() : "0");
-        String months = (argMultimap.getValue(PREFIX_MONTHS).isPresent() ?
-                argMultimap.getValue(PREFIX_MONTHS).get() : "0");
-        String years = (argMultimap.getValue(PREFIX_YEARS).isPresent() ?
-                argMultimap.getValue(PREFIX_YEARS).get() : "0");
+        String months = (argMultimap.getValue(PREFIX_MONTHS).isPresent()
+                ? argMultimap.getValue(PREFIX_MONTHS).get() : "0");
+        String years = (argMultimap.getValue(PREFIX_YEARS).isPresent()
+                ? argMultimap.getValue(PREFIX_YEARS).get() : "0");
         coverageBreakDown.add(days);
         coverageBreakDown.add(months);
         coverageBreakDown.add(years);

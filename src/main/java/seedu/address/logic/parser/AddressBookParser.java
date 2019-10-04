@@ -61,7 +61,7 @@ public class AddressBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-/*
+        /*
         case DeletePolicyCommand.COMMAND_WORD:
             return new DeletePolicyCommandParser().parse(arguments);
 
@@ -82,22 +82,22 @@ public class AddressBookParser {
 
         case DeletePolicyTagCommand.COMMAND_WORD:
             return new DeletePolicyTagCommandParser().parse(arguments);
-*/
+        */
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-/*
+        /*
         case FindPolicyCommand.COMMAND_WORD:
             return new FindPolicyCommandParser().parse(arguments);
-*/
+        */
         case ListPeopleCommand.COMMAND_WORD:
             return new ListPeopleCommand();
-/*
+        /*
         case ListPolicyCommand.COMMAND_WORD:
             return new ListPolicyCommand();
-*/
+        */
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 

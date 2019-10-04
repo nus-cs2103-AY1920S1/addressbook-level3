@@ -18,7 +18,7 @@ public class StartAge {
      */
     public static final String VALIDATION_REGEX = "[\\p{N}]*";
 
-    public String age = "0";
+    private String age = "0";
     /**
      * Constructs a {@code StartAge}.
      *
@@ -35,6 +35,10 @@ public class StartAge {
      */
     public static boolean isValidAge(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getAge() {
+        return age;
     }
 
     @Override

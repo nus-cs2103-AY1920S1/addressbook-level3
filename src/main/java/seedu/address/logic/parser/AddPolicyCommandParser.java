@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.policy.Coverage;
@@ -26,7 +25,7 @@ import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddPolicyCommand object
  */
 public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
 

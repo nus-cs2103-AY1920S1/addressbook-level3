@@ -104,6 +104,12 @@ public class ParserUtil {
         return new Address(trimmedAddress);
     }
 
+    /**
+     * Parses a {@code String dateOfBirth} into an {@code DateOfBirth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateOfBirth} is invalid.
+     */
     public static DateOfBirth parseDateOfBirth(String dateOfBirth) throws ParseException {
         requireNonNull(dateOfBirth);
         String trimmedDateOfBirth = dateOfBirth.trim();

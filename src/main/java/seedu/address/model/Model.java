@@ -86,5 +86,10 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    void addPolicy(Policy toAdd);
+    /**
+     * Adds the given policy.
+     * {@code policy} must not already exist in the address book.
+     */
+    void addPolicy(Policy policy);
+
 }

@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.security.IdentityScope;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,12 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Nric;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.EndAge;
@@ -31,7 +24,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedPolicy {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Policy's %s field is missing!";
 
     private final String name;
     private final String description;
@@ -73,8 +66,8 @@ class JsonAdaptedPolicy {
         description = source.getDescription().description;
         coverage = source.getCoverage().toString();
         price = source.getPrice().price;
-        startAge = source.getStartAge().age;
-        endAge = source.getEndAge().age;
+        startAge = source.getStartAge().getAge();
+        endAge = source.getEndAge().getAge();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -83,7 +76,8 @@ class JsonAdaptedPolicy {
     /**
      * Converts this Jackson-friendly adapted policy object into the model's {@code Policy} object.
      *
-     * @throws seedu.address.commons.exceptions.IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws seedu.address.commons.exceptions.IllegalValueException if there were
+     * any data constraints violated in the adapted person.
      */
     public Policy toModelType() throws IllegalValueException {
         final List<Tag> policyTags = new ArrayList<>();
@@ -97,7 +91,8 @@ class JsonAdaptedPolicy {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PolicyName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PolicyName.class.getSimpleName()));
         }
         if (!PolicyName.isValidName(name)) {
             throw new IllegalValueException(PolicyName.MESSAGE_CONSTRAINTS);
@@ -105,7 +100,8 @@ class JsonAdaptedPolicy {
         final PolicyName modelName = new PolicyName(name);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -113,7 +109,8 @@ class JsonAdaptedPolicy {
         final Description modelDescription = new Description(description);
 
         if (coverage == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Coverage.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Coverage.class.getSimpleName()));
         }
         if (!Coverage.isValidCoverage(coverage)) {
             throw new IllegalValueException(Coverage.MESSAGE_CONSTRAINTS);
@@ -129,7 +126,8 @@ class JsonAdaptedPolicy {
         final Price modelPrice = new Price(price);
 
         if (startAge == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StartAge.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    StartAge.class.getSimpleName()));
         }
         if (!StartAge.isValidAge(startAge)) {
             throw new IllegalValueException(StartAge.MESSAGE_CONSTRAINTS);
