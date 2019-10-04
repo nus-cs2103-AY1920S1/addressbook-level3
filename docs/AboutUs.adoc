@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ni Tian Zhen
-image::niqiukun.jpg[width="150", align="left"]
+image::niqiukun.png[width="150", align="left"]
 {empty}[http://github.com/niqiukun[github]]
 
 Role: Developer / Code Quality +
@@ -19,7 +19,7 @@ Responsibilities: File encryption
 '''
 
 === Hoon Chee Ping
-image::hooncp.jpg[width="150", align="left"]
+image::hooncp.png[width="150", align="left"]
 {empty}[http://github.com/hooncp[github]]
 
 Role: Developer / Testing +
@@ -28,7 +28,7 @@ Responsibilities: Password encryption
 '''
 
 === Lee Ee Jian
-image::eejian97.jpg[width="150", align="left"]
+image::eejian97.png[width="150", align="left"]
 {empty}[http://github.com/eejian97[github]]
 
 Role: Developer / UI +
@@ -37,7 +37,7 @@ Responsibilities: Password generation and Analysis
 '''
 
 === Yang Hui Ting
-image::yhtingg.jpg[width="150", align="left"]
+image::yhtingg.png[width="150", align="left"]
 {empty}[http://github.com/yhtingg[github]]
 
 Role: Developer / Analysis  +
@@ -46,7 +46,7 @@ Responsibilities: Credit card details encryption
 '''
 
 === Leow Jit Yong
-image::jityong.jpg[width="150", align="left"]
+image::jityong.png[width="150", align="left"]
 {empty}[http://github.com/jityong[github]]
 
 Role: Developer / Design +
