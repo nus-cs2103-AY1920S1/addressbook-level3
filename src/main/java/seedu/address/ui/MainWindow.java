@@ -120,7 +120,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanel2 = new PersonListPanel(logic.getFilteredPersonList());
         personListPanel3 = new PersonListPanel(logic.getFilteredPersonList());
@@ -140,6 +139,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        this.showPhonePanel();
     }
 
     /**
@@ -212,4 +213,33 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * switch selected tab to customer tab
+     */
+    public void showCustomerPanel() {
+        tabPanel.switchTabCustomer();
+    }
+
+    /**
+     * switch selected tab to phone tab
+     */
+    public void showPhonePanel() {
+        tabPanel.switchTabPhone();
+    }
+
+    /**
+     * switch selected tab to order tab
+     */
+    public void showPhoneOrder() {
+        tabPanel.switchTabOrder();
+    }
+
+    /**
+     * switch selected tab to schedule tab
+     */
+    public void showPhoneSchedule() {
+        tabPanel.switchTabSchedule();
+    }
+
 }

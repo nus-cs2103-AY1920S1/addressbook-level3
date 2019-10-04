@@ -49,9 +49,6 @@ public class TabPanel extends UiPart<Region> {
 
 
         tabPanel.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
-
-        this.switchTabSchedule();
     }
 
     protected void switchTabCustomer() {
