@@ -70,7 +70,7 @@ public class DateUtil {
      */
     public static boolean isWithinRange(int days, LocalDate earlierDate, LocalDate laterDate) {
         requireAllNonNull(earlierDate, laterDate);
-        AppUtil.checkArgument(days < 0);
+        AppUtil.checkArgument(days >= 0);
         return earlierDate.plusDays(days).compareTo(laterDate) >= 0;
     }
 
