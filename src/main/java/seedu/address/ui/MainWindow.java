@@ -156,7 +156,7 @@ public class MainWindow extends UiPart<Stage> {
         lion = new Lion();
         lionPlaceholder.getChildren().add(lion.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand); //this is in my transaction package
+        CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
     }

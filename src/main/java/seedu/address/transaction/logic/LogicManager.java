@@ -11,11 +11,11 @@ public class LogicManager implements Logic {
     private Model model;
     private StorageManager storage;
     private HomeTabParser parser;
-    private seedu.address.person.storage.StorageManager personStorage;
+    private seedu.address.person.storage.Storage personStorage;
     private seedu.address.person.model.Model personModel;
 
     public LogicManager(Model model, StorageManager storage,
-                        seedu.address.person.model.Model personModel, seedu.address.person.storage.StorageManager personStorage) {
+                        seedu.address.person.model.Model personModel, seedu.address.person.storage.Storage personStorage) {
         this.model = model;
         this.storage = storage;
         parser = new HomeTabParser();
