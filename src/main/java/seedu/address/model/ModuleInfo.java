@@ -16,8 +16,8 @@ public class ModuleInfo {
     private List<String> focusPrimaries;
     private List<String> focusElectives;
     private String description;
-    private String prereqTreeString;
-    private PrereqTree prereqTree;
+    private String prereqTreeString; // this is for reading from JSON
+    private PrereqTree prereqTree; // this is actually what's being used
 
     public ModuleInfo() {
     }
@@ -33,6 +33,18 @@ public class ModuleInfo {
         this.description = description;
         this.prereqTreeString = prereqTreeString;
         this.prereqTree = null;
+        init();
+    }
+
+    /**
+     * This method should be called to create {@code prereqTree} after ModuleInfo is created or read from JSON
+     */
+    public void init() {
+        this.prereqTree = parsePrereqTree(this.prereqTreeString);
+    }
+
+    public PrereqTree getPrereqTree() {
+        return this.prereqTree;
     }
 
     public String getCode() {
@@ -46,10 +58,6 @@ public class ModuleInfo {
         return this.code + ": " + this.name + " " + "\n"
                 + this.mc + " MCs, " + (this.su ? "" : "not ") + "S/U-able" + "\n"
                 + this.description;
-    }
-
-    public void parsePrereqTree() {
-        this.prereqTree = parsePrereqTree(this.prereqTreeString);
     }
 
     /**
@@ -129,6 +137,7 @@ public class ModuleInfo {
                 && focusPrimaries.equals(o.focusPrimaries)
                 && focusElectives.equals(o.focusElectives)
                 && description.equals(o.description)
-                && prereqTreeString.equals(o.prereqTreeString);
+                && prereqTreeString.equals(o.prereqTreeString)
+                && prereqTree.equals(o.prereqTree);
     }
 }
