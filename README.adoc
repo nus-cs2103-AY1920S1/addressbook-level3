@@ -20,11 +20,7 @@ https://travis-ci.org/AY1920S1-CS2103T-T10-4/main[image:https://travis-ci.org/AY
 https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T10-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T10-4/main/badge.svg?branch=master[Coverage Status]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
-
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
-
+https://www.codacy.com/manual/AY1920S1-CS2103T-T10-4/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2103T-T10-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/6efe8b569efb4c928ba846a370d681e7[Codacy Badge]]
 ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
