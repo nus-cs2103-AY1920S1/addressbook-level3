@@ -16,6 +16,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.panels.CustomerListPanel;
+import seedu.address.ui.panels.OrderListPanel;
+import seedu.address.ui.panels.PhoneListPanel;
+import seedu.address.ui.panels.ScheduleListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -37,11 +41,11 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
 
-    //dummy panels (for now)
-    private PersonListPanel personListPanel;
-    private PersonListPanel personListPanel2;
-    private PersonListPanel personListPanel3;
-    private PersonListPanel personListPanel4;
+    //real panels
+    private CustomerListPanel customerListPanel;
+    private PhoneListPanel phoneListPanel;
+    private OrderListPanel orderListPanel;
+    private ScheduleListPanel scheduleListPanel;
 
 
     @FXML
@@ -51,8 +55,8 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     /*@FXML
-    private StackPane personListPanelPlaceholder;
-*/
+    private StackPane personListPanelPlaceholder;*/
+
     @FXML
     private StackPane resultDisplayPlaceholder;
 
@@ -120,16 +124,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanel2 = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanel3 = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanel4 = new PersonListPanel(logic.getFilteredPersonList());
-        tabPanel = new TabPanel(personListPanel, personListPanel2,
-                personListPanel3, personListPanel4);
-        tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
+        customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+        phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
+        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
 
-        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel,scheduleListPanel);
+        tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

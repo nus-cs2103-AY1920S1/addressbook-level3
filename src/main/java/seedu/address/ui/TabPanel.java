@@ -4,6 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.ui.panels.CustomerListPanel;
+import seedu.address.ui.panels.OrderListPanel;
+import seedu.address.ui.panels.PhoneListPanel;
+import seedu.address.ui.panels.ScheduleListPanel;
 
 /**
  * class containing TabPane class
@@ -11,10 +15,11 @@ import javafx.scene.layout.StackPane;
 public class TabPanel extends UiPart<Region> {
     private static final String FXML = "TabPanel.fxml";
 
-    private PersonListPanel personListPanel;
-    private PersonListPanel personListPanel2;
-    private PersonListPanel personListPanel3;
-    private PersonListPanel personListPanel4;
+    //private PersonListPanel personListPanel;
+    private CustomerListPanel customerListPanel;
+    private PhoneListPanel phoneListPanel;
+    private OrderListPanel orderlistPanel;
+    private ScheduleListPanel scheduleListPanel;
 
     @FXML
     private StackPane phoneListPanelPlaceholder;
@@ -30,22 +35,22 @@ public class TabPanel extends UiPart<Region> {
     @FXML
     private TabPane tabPanel;
 
-    public TabPanel(PersonListPanel personListPanel,
-                    PersonListPanel personListPanel2,
-                    PersonListPanel personListPanel3,
-                    PersonListPanel personListPanel4) {
+    public TabPanel(CustomerListPanel customerListPanel,
+                    PhoneListPanel phoneListPanel,
+                    OrderListPanel orderlistPanel,
+                    ScheduleListPanel scheduleListPanel) {
         super(FXML);
-        personListPanel = personListPanel;
-        customerListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        customerListPanel = customerListPanel;
+        customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
-        personListPanel2 = personListPanel2;
-        phoneListPanelPlaceholder.getChildren().add(personListPanel2.getRoot());
+        phoneListPanel = phoneListPanel;
+        phoneListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
-        personListPanel3 = personListPanel3;
-        orderListPanelPlaceholder.getChildren().add(personListPanel3.getRoot());
+        orderlistPanel = orderlistPanel;
+        orderListPanelPlaceholder.getChildren().add(orderlistPanel.getRoot());
 
-        personListPanel4 = personListPanel4;
-        scheduleListPanelPlaceholder.getChildren().add(personListPanel4.getRoot());
+        scheduleListPanel = scheduleListPanel;
+        scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());
 
 
         tabPanel.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
