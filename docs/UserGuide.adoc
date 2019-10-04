@@ -148,6 +148,27 @@ Deletes the 2nd reminder in the shown reminder list.
 
 // end::delete[]
 
+// tag::undo[]
+=== Undoing the latest command(s) : `undo`
+
+Reverts the latest commands given on the ELISA. +
+Format: `undo [number of commands]`
+
+****
+* Omitting the number reverts the last one command
+* The number of commands must be *at most 20*
+* The number *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `undo` +
+Undoes the last command
+* `undo 2` +
+Undoes the last 2 commands
+
+// end::undo[]
+
 === Exiting the program : `exit`
 
 Exits the program. +
