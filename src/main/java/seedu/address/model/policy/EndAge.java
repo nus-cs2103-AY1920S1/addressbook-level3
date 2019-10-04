@@ -16,9 +16,9 @@ public class EndAge {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{N}] ]*";
-
-    public final String age;
+    public static final String VALIDATION_REGEX = "[\\p{N}]*";
+    public static final String INFINITY = "300";
+    public String age = INFINITY;
     /**
      * Constructs a {@code EndAge}.
      *

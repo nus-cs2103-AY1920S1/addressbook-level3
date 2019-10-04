@@ -21,6 +21,7 @@ import java.time.format.DateTimeFormatter;
     public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d LLLL Y");
 
     public final LocalDate dateOfBirth;
+    public final String value;
 
     /**
      * Constructs a {@code Name}.
@@ -30,6 +31,7 @@ import java.time.format.DateTimeFormatter;
     public DateOfBirth(String dateOfBirth) {
         requireNonNull(dateOfBirth);
         checkArgument(isValidDateOfBirth(dateOfBirth), MESSAGE_CONSTRAINTS);
+        this.value = dateOfBirth;
         this.dateOfBirth = createLocalDate(dateOfBirth);
     }
 
@@ -106,15 +108,15 @@ import java.time.format.DateTimeFormatter;
     }
 
     private static int extractDay(String test) {
-        return Integer.parseInt(test.split("/")[0]);
+        return Integer.parseInt(test.split("\\.")[0]);
     }
 
     private static int extractMonth(String test) {
-        return Integer.parseInt(test.split("/")[1]);
+        return Integer.parseInt(test.split("\\.")[1]);
     }
 
     private static int extractYear(String test) {
-        return Integer.parseInt(test.split("/")[2]);
+        return Integer.parseInt(test.split("\\.")[2]);
     }
 
     private static boolean isLeapYear(int year) {

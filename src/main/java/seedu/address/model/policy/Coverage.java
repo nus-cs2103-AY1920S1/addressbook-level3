@@ -2,12 +2,19 @@ package seedu.address.model.policy;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTHS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEARS;
 
 import java.time.Period;
+import java.util.ArrayList;
+
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 
 /**
  * Represents a Policy's coverage in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidCoverage(String, String, String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCoverage(String)}
  */
 public class Coverage {
 
@@ -18,25 +25,29 @@ public class Coverage {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{N}] ]*";
+    public static final String VALIDATION_REGEX = "[\\p{N}]*";
 
     public final Period period;
     public final String coverage;
 
+    private static final int dayIndex = 0;
+    private static final int monthIndex = 1;
+    private static final int yearIndex = 2;
+
     /**
      * Constructs a {@code Coverage}.
      *
-     * @param days A valid number of days the policy covers.
-     * @param months A valid number of months the policy covers.
-     * @param years A valid number of years the policy covers.
+     * @param coverage A valid coverage declaration.
      */
-    public Coverage(String days, String months, String years) {
-        requireNonNull(days);
-        requireNonNull(months);
-        requireNonNull(years);
-        checkArgument(isValidCoverage(days, months, years), MESSAGE_CONSTRAINTS);
+    public Coverage(String coverage) {
+        requireNonNull(coverage);
+        checkArgument(isValidCoverage(coverage), MESSAGE_CONSTRAINTS);
+        ArrayList<String> coverageBreakDown = getCoverageBreakDown(coverage);
+        String days = coverageBreakDown.get(dayIndex);
+        String months = coverageBreakDown.get(monthIndex);
+        String years = coverageBreakDown.get(yearIndex);
         this.period = getPeriod(days, months, years);
-        this.coverage = days + "." + months + "." + years;
+        this.coverage = coverage;
     }
 
     public Period getPeriod(String days, String months, String years) {
@@ -49,8 +60,27 @@ public class Coverage {
     /**
      * Returns true if a given string is a valid coverage declaration.
      */
-    public static boolean isValidCoverage(String testDay, String testMonth, String testYear) {
-        return testDay.matches(VALIDATION_REGEX) && testMonth.matches(VALIDATION_REGEX) && testYear.matches(VALIDATION_REGEX);
+    public static boolean isValidCoverage(String coverage) {
+        ArrayList<String> coverageBreakDown = getCoverageBreakDown(coverage);
+        String days = coverageBreakDown.get(dayIndex);
+        String months = coverageBreakDown.get(monthIndex);
+        String years = coverageBreakDown.get(yearIndex);
+        return days.matches(VALIDATION_REGEX) && months.matches(VALIDATION_REGEX) && years.matches(VALIDATION_REGEX);
+    }
+
+    private static ArrayList<String> getCoverageBreakDown(String coverage) {
+        ArrayList<String> coverageBreakDown = new ArrayList<>();
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(coverage, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS);
+        String days = (argMultimap.getValue(PREFIX_DAYS).isPresent() ? argMultimap.getValue(PREFIX_DAYS).get() : "0");
+        String months = (argMultimap.getValue(PREFIX_MONTHS).isPresent() ?
+                argMultimap.getValue(PREFIX_MONTHS).get() : "0");
+        String years = (argMultimap.getValue(PREFIX_YEARS).isPresent() ?
+                argMultimap.getValue(PREFIX_YEARS).get() : "0");
+        coverageBreakDown.add(days);
+        coverageBreakDown.add(months);
+        coverageBreakDown.add(years);
+        return coverageBreakDown;
     }
 
 
