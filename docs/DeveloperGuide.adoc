@@ -149,7 +149,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `mamsbook.commons` package.
 
 == Implementation
 
