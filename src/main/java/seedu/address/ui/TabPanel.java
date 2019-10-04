@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.logic.Logic;
 
 /**
  * class containing TabPane class
@@ -34,7 +33,7 @@ public class TabPanel extends UiPart<Region> {
     public TabPanel(PersonListPanel personListPanel,
                     PersonListPanel personListPanel2,
                     PersonListPanel personListPanel3,
-                    PersonListPanel personListPanel4  ) {
+                    PersonListPanel personListPanel4) {
         super(FXML);
         personListPanel = personListPanel;
         customerListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -70,6 +69,5 @@ public class TabPanel extends UiPart<Region> {
     protected void switchTabSchedule() {
         this.tabPanel.getSelectionModel().select(3);
     }
-
 
 }
