@@ -5,9 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.genre.Genre;
+import seedu.address.model.loan.Loan;
 
 /**
  * Represents a Book in the Catalog.
@@ -19,17 +21,19 @@ public class Book {
     private final Title title;
     private final SerialNumber serialNumber;
     private final Author author;
+    private final Optional<Loan> loan;
     private final Set<Genre> genres = new HashSet<>();
 
 
     /**
      * Constructor when loading the file from history or when loading sample data/tests.
      */
-    public Book(Title title, SerialNumber serialNumber, Author author, Set<Genre> genres) {
+    public Book(Title title, SerialNumber serialNumber, Author author, Loan loan, Set<Genre> genres) {
         requireAllNonNull(title, serialNumber, author, genres);
         this.title = title;
         this.serialNumber = serialNumber;
         this.author = author;
+        this.loan = Optional.ofNullable(loan);
         this.genres.addAll(genres);
     }
 
@@ -52,6 +56,10 @@ public class Book {
      */
     public Set<Genre> getGenres() {
         return Collections.unmodifiableSet(genres);
+    }
+
+    public Optional<Loan> getLoan() {
+        return loan;
     }
 
     /**
