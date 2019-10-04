@@ -31,9 +31,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    //private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private TabPanel tabPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -41,11 +42,14 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    @FXML
+    /*@FXML
     private StackPane personListPanelPlaceholder;
-
+*/
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane tabPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -107,8 +111,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        tabPanel = new TabPanel(this.logic);
+        tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
+
+        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,9 +168,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
+    /*public PersonListPanel getPersonListPanel() {
         return personListPanel;
-    }
+    }*/
 
     /**
      * Executes the command and returns the result.
