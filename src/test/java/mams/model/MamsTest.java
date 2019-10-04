@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 import mams.logic.commands.CommandTestUtil;
-import mams.model.person.Person;
-import mams.model.person.exceptions.DuplicatePersonException;
+import mams.model.student.Person;
+import mams.model.student.exceptions.DuplicatePersonException;
 import mams.testutil.Assert;
 import mams.testutil.PersonBuilder;
 import mams.testutil.TypicalPersons;

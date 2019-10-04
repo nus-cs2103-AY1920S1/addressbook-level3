@@ -11,13 +11,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import mams.model.person.Address;
+import mams.model.student.Address;
 import org.junit.jupiter.api.Test;
 
 import mams.logic.parser.exceptions.ParseException;
-import mams.model.person.Email;
-import mams.model.person.Name;
-import mams.model.person.Phone;
+import mams.model.student.Email;
+import mams.model.student.Name;
+import mams.model.student.Phone;
 import mams.model.tag.Tag;
 
 public class ParserUtilTest {

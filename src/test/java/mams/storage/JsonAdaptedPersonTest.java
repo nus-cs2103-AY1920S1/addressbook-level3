@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import mams.commons.exceptions.IllegalValueException;
-import mams.model.person.Address;
-import mams.model.person.Email;
-import mams.model.person.Name;
-import mams.model.person.Phone;
+import mams.model.student.Address;
+import mams.model.student.Email;
+import mams.model.student.Name;
+import mams.model.student.Phone;
 import mams.testutil.Assert;
 import mams.testutil.TypicalPersons;
 import org.junit.jupiter.api.Assertions;

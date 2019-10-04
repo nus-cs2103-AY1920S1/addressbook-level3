@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * An Immutable MAMS that is serializable to JSON format.

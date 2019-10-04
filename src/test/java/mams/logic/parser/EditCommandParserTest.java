@@ -12,10 +12,10 @@ import mams.commons.core.index.Index;
 import mams.logic.commands.CommandTestUtil;
 import mams.logic.commands.EditCommand;
 import mams.logic.commands.EditCommand.EditPersonDescriptor;
-import mams.model.person.Address;
-import mams.model.person.Email;
-import mams.model.person.Name;
-import mams.model.person.Phone;
+import mams.model.student.Address;
+import mams.model.student.Email;
+import mams.model.student.Name;
+import mams.model.student.Phone;
 import mams.model.tag.Tag;
 import mams.testutil.EditPersonDescriptorBuilder;
 

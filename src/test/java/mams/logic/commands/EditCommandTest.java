@@ -23,7 +23,7 @@ import mams.logic.commands.EditCommand.EditPersonDescriptor;
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
-import mams.model.person.Person;
+import mams.model.student.Person;
 import mams.testutil.EditPersonDescriptorBuilder;
 import mams.testutil.PersonBuilder;
 

@@ -9,10 +9,10 @@ import java.util.Set;
 import mams.commons.core.index.Index;
 import mams.commons.util.StringUtil;
 import mams.logic.parser.exceptions.ParseException;
-import mams.model.person.Address;
-import mams.model.person.Email;
-import mams.model.person.Name;
-import mams.model.person.Phone;
+import mams.model.student.Address;
+import mams.model.student.Email;
+import mams.model.student.Name;
+import mams.model.student.Phone;
 import mams.model.tag.Tag;
 
 /**

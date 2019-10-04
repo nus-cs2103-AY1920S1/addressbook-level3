@@ -14,7 +14,7 @@ import mams.logic.parser.MamsParser;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
 import mams.model.ReadOnlyMams;
-import mams.model.person.Person;
+import mams.model.student.Person;
 import mams.storage.Storage;
 
 /**

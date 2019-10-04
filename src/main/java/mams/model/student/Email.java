@@ -1,4 +1,4 @@
-package mams.model.person;
+package mams.model.student;
 
 import static java.util.Objects.requireNonNull;
 

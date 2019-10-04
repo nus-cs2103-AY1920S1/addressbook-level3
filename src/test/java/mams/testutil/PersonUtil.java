@@ -5,7 +5,7 @@ import java.util.Set;
 import mams.logic.commands.AddCommand;
 import mams.logic.commands.EditCommand;
 import mams.logic.parser.CliSyntax;
-import mams.model.person.Person;
+import mams.model.student.Person;
 import mams.model.tag.Tag;
 
 /**

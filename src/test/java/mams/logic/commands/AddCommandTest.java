@@ -20,7 +20,7 @@ import mams.commons.core.GuiSettings;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 import mams.model.ReadOnlyUserPrefs;
-import mams.model.person.Person;
+import mams.model.student.Person;
 import mams.testutil.PersonBuilder;
 
 public class AddCommandTest {

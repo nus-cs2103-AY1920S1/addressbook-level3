@@ -1,7 +1,7 @@
 package mams.model;
 
 import javafx.collections.ObservableList;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * Unmodifiable view of an address book

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
-import mams.model.person.NameContainsKeywordsPredicate;
+import mams.model.student.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

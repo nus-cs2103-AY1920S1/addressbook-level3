@@ -1,7 +1,7 @@
 package mams.testutil;
 
 import mams.model.Mams;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * A utility class to help with building MAMS objects.

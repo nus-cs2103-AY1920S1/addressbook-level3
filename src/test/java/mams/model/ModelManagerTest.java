@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 import mams.commons.core.GuiSettings;
-import mams.model.person.NameContainsKeywordsPredicate;
+import mams.model.student.NameContainsKeywordsPredicate;
 import mams.testutil.MamsBuilder;
 import mams.testutil.Assert;
 import mams.testutil.TypicalPersons;

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import mams.commons.core.Messages;
 import mams.model.Model;
-import mams.model.person.NameContainsKeywordsPredicate;
+import mams.model.student.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.

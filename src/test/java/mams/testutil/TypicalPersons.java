@@ -6,7 +6,7 @@ import java.util.List;
 
 import mams.logic.commands.CommandTestUtil;
 import mams.model.Mams;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.

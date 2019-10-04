@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import mams.commons.core.LogsCenter;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * Panel containing the list of persons.

@@ -16,7 +16,7 @@ import mams.commons.core.index.Index;
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

@@ -9,7 +9,7 @@ import mams.logic.commands.exceptions.CommandException;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
 import mams.model.ReadOnlyMams;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * API of the Logic component

@@ -23,7 +23,7 @@ import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
-import mams.model.person.Person;
+import mams.model.student.Person;
 import mams.storage.JsonMamsStorage;
 import mams.storage.JsonUserPrefsStorage;
 import mams.storage.StorageManager;

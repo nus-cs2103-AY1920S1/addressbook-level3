@@ -11,7 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
 import mams.commons.util.CollectionUtil;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * Represents the in-memory model of the address book data.

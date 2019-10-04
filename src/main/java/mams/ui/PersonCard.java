@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.

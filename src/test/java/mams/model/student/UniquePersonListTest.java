@@ -1,4 +1,4 @@
-package mams.model.person;
+package mams.model.student;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.List;
 
 import mams.logic.commands.CommandTestUtil;
-import mams.model.person.exceptions.DuplicatePersonException;
-import mams.model.person.exceptions.PersonNotFoundException;
+import mams.model.student.exceptions.DuplicatePersonException;
+import mams.model.student.exceptions.PersonNotFoundException;
 import mams.testutil.Assert;
 import mams.testutil.PersonBuilder;
 import mams.testutil.TypicalPersons;

@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import mams.commons.core.GuiSettings;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * The API of the Model component.

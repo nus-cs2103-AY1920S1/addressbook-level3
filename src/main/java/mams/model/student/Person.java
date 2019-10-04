@@ -1,4 +1,4 @@
-package mams.model.person;
+package mams.model.student;
 
 import java.util.Collections;
 import java.util.HashSet;

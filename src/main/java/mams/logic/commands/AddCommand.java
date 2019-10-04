@@ -9,7 +9,7 @@ import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * Adds a person to the address book.

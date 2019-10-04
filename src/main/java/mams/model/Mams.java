@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import mams.model.person.Person;
-import mams.model.person.UniquePersonList;
+import mams.model.student.Person;
+import mams.model.student.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level

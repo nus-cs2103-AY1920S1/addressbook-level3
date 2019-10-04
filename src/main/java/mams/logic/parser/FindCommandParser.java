@@ -5,7 +5,7 @@ import java.util.Arrays;
 import mams.commons.core.Messages;
 import mams.logic.commands.FindCommand;
 import mams.logic.parser.exceptions.ParseException;
-import mams.model.person.NameContainsKeywordsPredicate;
+import mams.model.student.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

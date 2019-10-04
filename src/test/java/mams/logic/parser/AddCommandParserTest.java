@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import mams.logic.commands.AddCommand;
 import mams.logic.commands.CommandTestUtil;
-import mams.model.person.Address;
-import mams.model.person.Email;
-import mams.model.person.Name;
-import mams.model.person.Person;
-import mams.model.person.Phone;
+import mams.model.student.Address;
+import mams.model.student.Email;
+import mams.model.student.Name;
+import mams.model.student.Person;
+import mams.model.student.Phone;
 import mams.model.tag.Tag;
 import mams.testutil.PersonBuilder;
 

@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import mams.commons.core.index.Index;
 import mams.model.Model;
-import mams.model.person.Person;
+import mams.model.student.Person;
 
 /**
  * A utility class for test cases.

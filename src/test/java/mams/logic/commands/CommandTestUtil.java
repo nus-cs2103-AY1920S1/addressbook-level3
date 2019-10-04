@@ -17,8 +17,8 @@ import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Mams;
 import mams.model.Model;
-import mams.model.person.NameContainsKeywordsPredicate;
-import mams.model.person.Person;
+import mams.model.student.NameContainsKeywordsPredicate;
+import mams.model.student.Person;
 import mams.testutil.EditPersonDescriptorBuilder;
 
 /**

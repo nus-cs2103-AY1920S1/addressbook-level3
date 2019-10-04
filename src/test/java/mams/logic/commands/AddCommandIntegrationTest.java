@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
-import mams.model.person.Person;
+import mams.model.student.Person;
 import mams.testutil.PersonBuilder;
 
 /**
