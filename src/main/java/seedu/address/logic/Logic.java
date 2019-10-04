@@ -41,7 +41,7 @@ public interface Logic {
     ObservableList<Customer> getFilteredCustomerList();
 
     /** Returns an unmodifiable view of the filtered list of phone */
-    ObservableList<Phone> getFilteredPhonelist();
+    ObservableList<Phone> getFilteredPhoneList();
 
     /** Returns an unmodifiable view of the filtered list of order */
     ObservableList<Order> getFilteredOrderList();
