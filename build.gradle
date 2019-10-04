@@ -134,7 +134,7 @@ asciidoctor {
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'Liberry',
-        'site-githuburl': 'https://ay1920s1-cs2103t-f13-1.github.io/main/',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-F13-1/main',
         // 'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
