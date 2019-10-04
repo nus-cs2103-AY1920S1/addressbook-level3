@@ -342,7 +342,7 @@ borrowers
 
 |`* *` |careless librarian |be able to undo a command |undo my input mistakes
 
-|`* *` |careless librarian |be able to redo a command |redo my undo commands, in case I need it, without having to
+|`* *` |careless librarian |be able to redo a command |undo my undo commands, in case I need it, without having to
 type out a possibly lengthy command
 
 |`* *` |health conscious, night-working librarian |change the user interface into a night mode |reduce the impact
