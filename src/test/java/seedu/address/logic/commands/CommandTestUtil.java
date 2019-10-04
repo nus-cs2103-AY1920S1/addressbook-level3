@@ -19,7 +19,8 @@ import seedu.address.model.ModulePlanner;
 import seedu.address.model.Model;
 import seedu.address.model.studyplan.NameContainsKeywordsPredicate;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.testutil.EditStudyPlanDescriptorBuilder;
+import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
+import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -57,15 +58,15 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditStudyPlanDescriptor DESC_AMY;
-    public static final EditCommand.EditStudyPlanDescriptor DESC_BOB;
+    public static final EditTitleCommand.EditTitleStudyPlanDescriptor DESC_AMY;
+    public static final EditTitleCommand.EditTitleStudyPlanDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditStudyPlanDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+        DESC_AMY = new EditTitleStudyPlanDescriptorBuilder().withName(VALID_NAME_AMY)
+                //.withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditStudyPlanDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        DESC_BOB = new EditTitleStudyPlanDescriptorBuilder().withName(VALID_NAME_BOB)
+                //.withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
@@ -119,7 +120,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredStudyPlanList().size());
 
         StudyPlan studyPlan = model.getFilteredStudyPlanList().get(targetIndex.getZeroBased());
-        final String[] splitName = studyPlan.getName().fullName.split("\\s+");
+        final String[] splitName = studyPlan.getTitle().toString().split("\\s+");
         model.updateFilteredStudyPlanList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudyPlanList().size());

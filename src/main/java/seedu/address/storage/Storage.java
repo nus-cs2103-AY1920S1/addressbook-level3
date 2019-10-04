@@ -13,6 +13,7 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
+// NOTE: this has been changed to support module planner instead of address book
 public interface Storage extends ModulePlannerStorage, UserPrefsStorage, ModulesInfoStorage {
 
     @Override
@@ -28,8 +29,9 @@ public interface Storage extends ModulePlannerStorage, UserPrefsStorage, Modules
     Optional<ReadOnlyModulePlanner> readModulePlanner() throws DataConversionException, IOException;
 
     @Override
-    void saveModulePlanner(ReadOnlyModulePlanner modulePlanner) throws IOException;
+    void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner) throws IOException;
 
     @Override
     Optional<ModulesInfo> readModulesInfo() throws DataConversionException, IOException;
 }
+

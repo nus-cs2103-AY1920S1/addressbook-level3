@@ -50,7 +50,7 @@ class JsonSerializableModulePlanner {
         ModulePlanner modulePlanner = new ModulePlanner();
         for (JsonAdaptedStudyPlan jsonAdaptedStudyPlan : studyPlans) {
             StudyPlan studyPlan = jsonAdaptedStudyPlan.toModelType();
-            // if (modulePlanner.hasPerson(person)) {
+            // if (modulePlanner.hasStudyPlan(studyPlan)) {
             //    throw new IllegalValueException(MESSAGE_DUPLICATE_STUDYPLAN);
             // }
 

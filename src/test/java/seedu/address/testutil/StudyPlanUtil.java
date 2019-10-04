@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.CreateStudyPlanCommand;
-import seedu.address.logic.commands.EditCommand.EditStudyPlanDescriptor;
+import seedu.address.logic.commands.EditTitleCommand.EditTitleStudyPlanDescriptor;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UserTag;
 
@@ -43,7 +43,7 @@ public class StudyPlanUtil {
     /**
      * Returns the part of command string for the given {@code EditStudyPlanDescriptor}'s details.
      */
-    public static String getEditStudyPlanDescriptorDetails(EditStudyPlanDescriptor descriptor) {
+    public static String getEditStudyPlanDescriptorDetails(EditTitleStudyPlanDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

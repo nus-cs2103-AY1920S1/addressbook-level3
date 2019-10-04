@@ -1,12 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDYPLANS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,13 +14,24 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.UserTag;
 
 /**
- * Edits the details of an existing studyPlan in the module planner.
+ * Edits the title of an existing studyPlan in the module planner.
  */
-public class EditCommand extends Command {
+public class EditTitleCommand extends Command {
 
+    // TODO: implement this entire class
+
+    public static final String COMMAND_WORD = "title";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "Edits the title of the study plan "
+            + "Parameters: "
+            + "PLAN_TITLE \n"
+            + "Example: "
+            + "title Algo and Graphics";
+    /*
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the studyPlan identified "
@@ -48,11 +53,13 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditStudyPlanDescriptor editStudyPlanDescriptor;
+     */
 
     /**
-     * @param index of the studyPlan in the filtered studyPlan list to edit
-     * @param editStudyPlanDescriptor details to edit the studyPlan with
+     * @param //index of the studyPlan in the filtered studyPlan list to edit
+     * @param //editStudyPlanDescriptor details to edit the studyPlan with
      */
+    /*
     public EditCommand(Index index, EditStudyPlanDescriptor editStudyPlanDescriptor) {
         requireNonNull(index);
         requireNonNull(editStudyPlanDescriptor);
@@ -60,9 +67,11 @@ public class EditCommand extends Command {
         this.index = index;
         this.editStudyPlanDescriptor = new EditStudyPlanDescriptor(editStudyPlanDescriptor);
     }
+    */
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        /*
         requireNonNull(model);
         List<StudyPlan> lastShownList = model.getFilteredStudyPlanList();
 
@@ -80,12 +89,15 @@ public class EditCommand extends Command {
         model.setStudyPlan(studyPlanToEdit, editedStudyPlan);
         model.updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDYPLANS);
         return new CommandResult(String.format(MESSAGE_EDIT_STUDYPLAN_SUCCESS, editedStudyPlan));
+         */
+        return new CommandResult("this is just a temporary holder");
     }
 
     /**
      * Creates and returns a {@code StudyPlan} with the details of {@code studyPlanToEdit}
      * edited with {@code editStudyPlanDescriptor}.
      */
+    /*
     private static StudyPlan createEditedStudyPlan(StudyPlan studyPlanToEdit, EditStudyPlanDescriptor editStudyPlanDescriptor) {
         assert studyPlanToEdit != null;
 
@@ -115,35 +127,42 @@ public class EditCommand extends Command {
         return index.equals(e.index)
                 && editStudyPlanDescriptor.equals(e.editStudyPlanDescriptor);
     }
+    */
 
     /**
      * Stores the details to edit the studyPlan with. Each non-empty field value will replace the
      * corresponding field value of the studyPlan.
      */
-    public static class EditStudyPlanDescriptor {
+    public static class EditTitleStudyPlanDescriptor {
+        // TODO: implement this entire class
+        /*
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
         private Set<UserTag> tags;
+         */
 
-        public EditStudyPlanDescriptor() {}
+        public EditTitleStudyPlanDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditStudyPlanDescriptor(EditStudyPlanDescriptor toCopy) {
+        public EditTitleStudyPlanDescriptor(EditTitleStudyPlanDescriptor toCopy) {
+            /*
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            */
         }
 
         /**
          * Returns true if at least one field is edited.
          */
+        /*
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
         }
@@ -179,20 +198,22 @@ public class EditCommand extends Command {
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
         }
-
+        */
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
+        /*
         public void setTags(Set<UserTag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
-
+        */
         /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
+        /*
         public Optional<Set<UserTag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
@@ -218,5 +239,6 @@ public class EditCommand extends Command {
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }
+         */
     }
 }

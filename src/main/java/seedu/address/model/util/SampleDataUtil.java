@@ -15,6 +15,8 @@ import seedu.address.model.tag.UserTag;
 public class SampleDataUtil {
     public static StudyPlan[] getSampleStudyPlans() {
         return new StudyPlan[] {
+            // TODO: add sample study plans
+            /*
             new StudyPlan(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends")),
@@ -33,6 +35,7 @@ public class SampleDataUtil {
             new StudyPlan(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("colleagues"))
+             */
         };
     }
 

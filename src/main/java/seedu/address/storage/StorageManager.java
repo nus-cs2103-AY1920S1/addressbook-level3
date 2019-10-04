@@ -22,7 +22,6 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private ModulesInfoStorage modulesInfoStorage;
 
-
     public StorageManager(ModulePlannerStorage modulePlannerStorage, UserPrefsStorage userPrefsStorage,
                           ModulesInfoStorage modulesInfoStorage) {
         super();
@@ -62,7 +61,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyModulePlanner> readModulePlanner(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyModulePlanner> readModulePlanner(Path filePath) throws DataConversionException,
+            IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return modulePlannerStorage.readModulePlanner(filePath);
     }

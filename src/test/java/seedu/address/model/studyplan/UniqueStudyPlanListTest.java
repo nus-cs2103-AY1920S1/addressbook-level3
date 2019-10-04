@@ -16,8 +16,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.studyplan.exceptions.DuplicateStudyPlanException;
-import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
-import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.testutil.StudyPlanBuilder;
 
 public class UniqueStudyPlanListTest {

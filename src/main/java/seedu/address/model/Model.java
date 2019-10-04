@@ -47,7 +47,7 @@ public interface Model {
     void setModulePlannerFilePath(Path modulePlannerFilePath);
 
     /**
-     * Replaces module planner data with the data in {@code modulePlanner}.
+     * Replaces module planner data with the data in {@code ModulePlanner}.
      */
     void setModulePlanner(ReadOnlyModulePlanner modulePlanner);
 
@@ -57,36 +57,37 @@ public interface Model {
     ReadOnlyModulePlanner getModulePlanner();
 
     /**
-     * Returns true if a studyPlan with the same identity as {@code studyPlan} exists in the module planner.
+     * Returns true if a StudyPlan with the same identity as {@code StudyPlan} exists in the module planner.
      */
     boolean hasStudyPlan(StudyPlan studyPlan);
 
     /**
-     * Deletes the given studyPlan.
-     * The studyPlan must exist in the module planner.
+     * Deletes the given StudyPlan.
+     * The StudyPlan must exist in the module planner.
      */
     void deleteStudyPlan(StudyPlan target);
 
     /**
-     * Adds the given studyPlan.
-     * {@code studyPlan} must not already exist in the module planner.
+     * Adds the given StudyPlan.
+     * {@code StudyPlan} must not already exist in the module planner.
      */
     void addStudyPlan(StudyPlan studyPlan);
 
     /**
-     * Replaces the given studyPlan {@code target} with {@code editedStudyPlan}.
+     * Replaces the given StudyPlan {@code target} with {@code editedStudyPlan}.
      * {@code target} must exist in the module planner.
-     * The studyPlan identity of {@code editedStudyPlan} must not be the same as another existing studyPlan in the module planner.
+     * The StudyPlan identity of {@code editedStudyPlan} must not be the same as another existing StudyPlan
+     * in the module planner.
      */
     void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan);
 
     /**
-     * Returns an unmodifiable view of the filtered studyPlan list
+     * Returns an unmodifiable view of the filtered StudyPlan list
      */
     ObservableList<StudyPlan> getFilteredStudyPlanList();
 
     /**
-     * Updates the filter of the filtered studyPlan list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered StudyPlan list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */

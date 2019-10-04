@@ -24,7 +24,7 @@ public class ModelManager implements Model {
     private final FilteredList<StudyPlan> filteredStudyPlans;
 
     /**
-     * Initializes a ModelManager with the given modulePlanner and userPrefs.
+     * Initializes a ModelManager with the given ModulePlanner and userPrefs.
      */
     public ModelManager(ReadOnlyModulePlanner modulePlanner, ReadOnlyUserPrefs userPrefs) {
         super();
