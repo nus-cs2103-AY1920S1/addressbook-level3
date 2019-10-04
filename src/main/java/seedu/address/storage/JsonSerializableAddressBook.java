@@ -9,52 +9,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ModulePlanner;
+import seedu.address.model.ReadOnlyModulePlanner;
+import seedu.address.model.studyplan.StudyPlan;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable ModulePlanner that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "moduleplanner")
+class JsonSerializableModulePlanner {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_STUDYPLAN = "StudyPlans list contains duplicate studyPlan(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedStudyPlan> studyPlans = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableModulePlanner} with the given studyPlans.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableModulePlanner(@JsonProperty("studyPlans") List<JsonAdaptedStudyPlan> studyPlans) {
+        this.studyPlans.addAll(studyPlans);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyModulePlanner} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableModulePlanner}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+    public JsonSerializableModulePlanner(ReadOnlyModulePlanner source) {
+        studyPlans.addAll(source.getStudyPlanList().stream().map(JsonAdaptedStudyPlan::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this module planner into the model's {@code ModulePlanner} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+    public ModulePlanner toModelType() throws IllegalValueException {
+        ModulePlanner modulePlanner = new ModulePlanner();
+        for (JsonAdaptedStudyPlan jsonAdaptedStudyPlan : studyPlans) {
+            StudyPlan studyPlan = jsonAdaptedStudyPlan.toModelType();
+            if (modulePlanner.hasStudyPlan(studyPlan)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDYPLAN);
             }
-            addressBook.addPerson(person);
+            modulePlanner.addStudyPlan(studyPlan);
         }
-        return addressBook;
+        return modulePlanner;
     }
 
 }

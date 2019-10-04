@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * The API of the Model component.
@@ -14,7 +14,7 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<StudyPlan> PREDICATE_SHOW_ALL_STUDYPLANS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,58 +37,58 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' module planner file path.
      */
-    Path getAddressBookFilePath();
+    Path getModulePlannerFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' module planner file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setModulePlannerFilePath(Path modulePlannerFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces module planner data with the data in {@code modulePlanner}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setModulePlanner(ReadOnlyModulePlanner modulePlanner);
 
     /**
-     * Returns the AddressBook
+     * Returns the ModulePlanner
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyModulePlanner getModulePlanner();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a studyPlan with the same identity as {@code studyPlan} exists in the module planner.
      */
-    boolean hasPerson(Person person);
+    boolean hasStudyPlan(StudyPlan studyPlan);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given studyPlan.
+     * The studyPlan must exist in the module planner.
      */
-    void deletePerson(Person target);
+    void deleteStudyPlan(StudyPlan target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given studyPlan.
+     * {@code studyPlan} must not already exist in the module planner.
      */
-    void addPerson(Person person);
+    void addStudyPlan(StudyPlan studyPlan);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given studyPlan {@code target} with {@code editedStudyPlan}.
+     * {@code target} must exist in the module planner.
+     * The studyPlan identity of {@code editedStudyPlan} must not be the same as another existing studyPlan in the module planner.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered studyPlan list
      */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<StudyPlan> getFilteredStudyPlanList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered studyPlan list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 }

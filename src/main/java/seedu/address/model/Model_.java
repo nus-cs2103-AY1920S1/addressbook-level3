@@ -37,17 +37,17 @@ public interface Model_ {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' module planner file path.
      */
     Path getModulePlannerFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' module planner file path.
      */
     void setModulePlannerFilePath(Path modulePlannerFilePath);
 
     /**
-     * Replaces address book data with the data in {@code ModulePlanner}.
+     * Replaces module planner data with the data in {@code ModulePlanner}.
      */
     void setModulePlanner(ReadOnlyModulePlanner modulePlanner);
 
@@ -57,27 +57,27 @@ public interface Model_ {
     ReadOnlyModulePlanner getModulePlanner();
 
     /**
-     * Returns true if a StudyPlan with the same identity as {@code StudyPlan} exists in the address book.
+     * Returns true if a StudyPlan with the same identity as {@code StudyPlan} exists in the module planner.
      */
     boolean hasStudyPlan(StudyPlan studyPlan);
 
     /**
      * Deletes the given StudyPlan.
-     * The StudyPlan must exist in the address book.
+     * The StudyPlan must exist in the module planner.
      */
     void deleteStudyPlan(StudyPlan target);
 
     /**
      * Adds the given StudyPlan.
-     * {@code StudyPlan} must not already exist in the address book.
+     * {@code StudyPlan} must not already exist in the module planner.
      */
     void addStudyPlan(StudyPlan studyPlan);
 
     /**
      * Replaces the given StudyPlan {@code target} with {@code editedStudyPlan}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the module planner.
      * The StudyPlan identity of {@code editedStudyPlan} must not be the same as another existing StudyPlan
-     * in the address book.
+     * in the module planner.
      */
     void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan);
 
@@ -101,7 +101,7 @@ public interface Model_ {
 //    /**
 //     * {@code Predicate} that always evaluate to true
 //     */
-//    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+//    Predicate<Person> PREDICATE_SHOW_ALL_STUDYPLANS = unused -> true;
 //
 //    /**
 //     * Replaces user prefs data with the data in {@code userPrefs}.

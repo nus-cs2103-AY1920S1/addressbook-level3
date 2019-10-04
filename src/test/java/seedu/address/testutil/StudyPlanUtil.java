@@ -8,42 +8,42 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Person;
+import seedu.address.logic.commands.CreateStudyPlanCommand;
+import seedu.address.logic.commands.EditCommand.EditStudyPlanDescriptor;
+import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UserTag;
 
 /**
- * A utility class for Person.
+ * A utility class for StudyPlan.
  */
-public class PersonUtil {
+public class StudyPlanUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code studyPlan}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getCreateStudyPlanCommand(StudyPlan studyPlan) {
+        return CreateStudyPlanCommand.COMMAND_WORD + " " + getStudyPlanDetails(studyPlan);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code studyPlan}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getStudyPlanDetails(StudyPlan studyPlan) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + studyPlan.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + studyPlan.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + studyPlan.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + studyPlan.getAddress().value + " ");
+        studyPlan.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.getTagName() + " ")
         );
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditStudyPlanDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditStudyPlanDescriptorDetails(EditStudyPlanDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

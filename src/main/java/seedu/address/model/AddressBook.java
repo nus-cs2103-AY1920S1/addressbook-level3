@@ -5,16 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.studyplan.UniqueStudyPlanList;
+import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameStudyPlan comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ModulePlanner implements ReadOnlyModulePlanner {
 
-    private final UniquePersonList persons;
+    private final UniqueStudyPlanList studyPlans;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,15 +24,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        studyPlans = new UniqueStudyPlanList();
     }
 
-    public AddressBook() {}
+    public ModulePlanner() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ModulePlanner using the StudyPlans in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ModulePlanner(ReadOnlyModulePlanner toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -40,81 +40,81 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the studyPlan list with {@code studyPlans}.
+     * {@code studyPlans} must not contain duplicate studyPlans.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setStudyPlans(List<StudyPlan> studyPlans) {
+        this.studyPlans.setStudyPlans(studyPlans);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ModulePlanner} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyModulePlanner newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setStudyPlans(newData.getStudyPlanList());
     }
 
-    //// person-level operations
+    //// studyPlan-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a studyPlan with the same identity as {@code studyPlan} exists in the module planner.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public boolean hasStudyPlan(StudyPlan studyPlan) {
+        requireNonNull(studyPlan);
+        return studyPlans.contains(studyPlan);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Adds a studyPlan to the module planner.
+     * The studyPlan must not already exist in the module planner.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
+    public void addStudyPlan(StudyPlan p) {
+        studyPlans.add(p);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Replaces the given studyPlan {@code target} in the list with {@code editedStudyPlan}.
+     * {@code target} must exist in the module planner.
+     * The studyPlan identity of {@code editedStudyPlan} must not be the same as another existing studyPlan in the module planner.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan) {
+        requireNonNull(editedStudyPlan);
+
+        studyPlans.setStudyPlan(target, editedStudyPlan);
+    }
+
+    /**
+     * Removes {@code key} from this {@code ModulePlanner}.
+     * {@code key} must exist in the module planner.
+     */
+    public void removeStudyPlan(StudyPlan key) {
+        studyPlans.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return studyPlans.asUnmodifiableObservableList().size() + " studyPlans";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<StudyPlan> getStudyPlanList() {
+        return studyPlans.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof ModulePlanner // instanceof handles nulls
+                && studyPlans.equals(((ModulePlanner) other).studyPlans));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return studyPlans.hashCode();
     }
 }

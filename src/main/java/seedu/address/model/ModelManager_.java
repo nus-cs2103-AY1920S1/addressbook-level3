@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the module planner data.
  */
 public class ModelManager_ implements Model_ {
     private static final Logger logger = LogsCenter.getLogger(ModelManager_.class);
@@ -30,7 +30,7 @@ public class ModelManager_ implements Model_ {
         super();
         requireAllNonNull(modulePlanner, userPrefs);
 
-        logger.fine("Initializing with address book: " + modulePlanner + " and user prefs " + userPrefs);
+        logger.fine("Initializing with module planner: " + modulePlanner + " and user prefs " + userPrefs);
 
         this.modulePlanner = new ModulePlanner(modulePlanner);
         this.userPrefs = new UserPrefs(userPrefs);

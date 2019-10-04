@@ -16,17 +16,17 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ModulePlanner;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ModuleInfo;
 import seedu.address.model.ModulesInfo;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.ModulePlannerStorage;
+import seedu.address.storage.JsonModulePlannerStorage;
 import seedu.address.storage.JsonModulesInfoStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.ModulesInfoStorage;
@@ -53,7 +53,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing ModulePlanner ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -61,7 +61,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getModulePlannerFilePath());
+        ModulePlannerStorage modulePlannerStorage = new JsonModulePlannerStorage(userPrefs.getModulePlannerFilePath());
         ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(config.getModulesInfoFilePath());
         ModulesInfo modulesInfo = initModulesInfo(modulesInfoStorage);
 
@@ -73,7 +73,7 @@ public class MainApp extends Application {
         cs4248.verify(Arrays.asList(new String[] {"CS3245", "ST2334"})); // true
         cs4248.verify(Arrays.asList(new String[] {"CS3243", "ST2131"})); // false
 
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, modulesInfoStorage);
+        storage = new StorageManager(modulePlannerStorage, userPrefsStorage, modulesInfoStorage);
 
         initLogging(config);
 
@@ -85,25 +85,25 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s module planner and {@code userPrefs}. <br>
+     * The data from the sample module planner will be used instead if {@code storage}'s module planner is not found,
+     * or an empty module planner will be used instead if errors occur when reading {@code storage}'s module planner.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyModulePlanner> modulePlannerOptional;
+        ReadOnlyModulePlanner initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            modulePlannerOptional = storage.readModulePlanner();
+            if (!modulePlannerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ModulePlanner");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = modulePlannerOptional.orElseGet(SampleDataUtil::getSampleModulePlanner);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty ModulePlanner");
+            initialData = new ModulePlanner();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty ModulePlanner");
+            initialData = new ModulePlanner();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -167,7 +167,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ModulePlanner");
             initializedPrefs = new UserPrefs();
         }
 
@@ -209,13 +209,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ModulePlanner " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Module Planner ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
