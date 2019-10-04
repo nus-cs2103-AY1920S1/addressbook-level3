@@ -5,6 +5,7 @@ import seedu.address.model.person.Person;
 public class ReimbursementRecord {
     private static final String PENDING = "pending";
     private static final String COMPLETED = "completed";
+    private TransactionList list;
     private Person person;
     private double amount;
     private String description;
@@ -23,6 +24,7 @@ public class ReimbursementRecord {
         this.amount = amount;
         this.description = des;
         this.status = status;
+        list = new TransactionList();
     }
 
     public ReimbursementRecord(Transaction trans) {
