@@ -34,4 +34,6 @@ public class BorrowerId {
     public int hashCode() {
         return value.hashCode();
     }
+
+    //TODO tostring method
 }
