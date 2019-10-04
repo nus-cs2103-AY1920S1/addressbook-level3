@@ -24,11 +24,11 @@ public class Index {
     }
 
     public int getZeroBased() {
-        return zeroBasedIndex;
+        return this.zeroBasedIndex;
     }
 
     public int getOneBased() {
-        return zeroBasedIndex + 1;
+        return this.zeroBasedIndex + 1;
     }
 
     /**
@@ -46,9 +46,19 @@ public class Index {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Index // instanceof handles nulls
-                && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof Index)) {
+            return false;
+        } else {
+            Index other = (Index) obj;
+            return this.zeroBasedIndex == other.zeroBasedIndex;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.zeroBasedIndex;
     }
 }
