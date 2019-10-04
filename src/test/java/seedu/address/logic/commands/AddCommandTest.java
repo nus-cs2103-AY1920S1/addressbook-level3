@@ -1,5 +1,5 @@
 package seedu.address.logic.commands;
-
+/*
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -22,7 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
-
+*/
 public class AddCommandTest {
 
     /*
@@ -73,11 +73,11 @@ public class AddCommandTest {
 
         // different person -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
-    }
-    */
+    }*/
+
     /**
      * A default model stub that have all of the methods failing.
-     *
+
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
