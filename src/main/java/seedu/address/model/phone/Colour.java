@@ -9,10 +9,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Colour {
 
-    public static final String MESSAGE_CONSTRAINTS = "Colours must be from the rainbow.";
+    public static final String MESSAGE_CONSTRAINTS = "Colours can take any values, and should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the colour must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
