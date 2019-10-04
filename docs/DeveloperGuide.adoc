@@ -298,16 +298,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="75%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |librarian |add a book brought/donated by people to the library |keep track of the addition of the book
+|`* * *` |librarian |add a book brought/donated by people to the library |maintain a record of all the books
+in the library
 
-|`* * *` |librarian |delete books that are no longer available |keep track of the deletion of the book
+|`* * *` |librarian |delete books that are no longer available |maintain a record of all the books in the library
 
 |`* * *` |helpful librarian |search for certain book by the title/author/genre |help borrowers check if it is
 available
 
-|`* * *` |forgetful librarian |mark a book as loaned out |tell borrowers if the book is available
+|`* * *` |forgetful librarian |mark a book as loaned |tell borrowers that the book is loaned out and unavailable
+for borrowing
 
-|`* * *` |forgetful librarian |mark a book as returned |let borrowers know that the book will now be available
+|`* * *` |forgetful librarian |mark a book as available |let borrowers know that the book will now be available
+for borrowing
 
 |`* * *` |librarian |generate a list of overdue books and their borrowers |know which borrower has overdue books
 and which books are overdue
@@ -316,7 +319,7 @@ and which books are overdue
 
 |`* * *` |meticulous librarian |record the movement of books in and out |keep track of available books here
 
-|`* * *` |helpful librarian |assist a borrower to registering in the system |help new borrowers start borrowing books
+|`* * *` |helpful librarian |register a new borrower in the system |help new borrowers start borrowing books
 
 |`* * *` |librarian |search for certain book by the author |recommend other books of the same author
 
@@ -339,7 +342,7 @@ borrowers
 
 |`* *` |careless librarian |be able to undo a command |undo my input mistakes
 
-|`* *` |careless librarian |be able to redo a command |undo my undo commands, in case I need it, without having to
+|`* *` |careless librarian |be able to redo a command |redo my undo commands, in case I need it, without having to
 type out a possibly lengthy command
 
 |`* *` |health conscious, night-working librarian |change the user interface into a night mode |reduce the impact
@@ -352,7 +355,7 @@ of light and glare on my eyes when I am working at night
 |`* *` |helpful librarian |be able to reserve a currently on-loan book |allow borrowers to borrow the book once it
 is returned
 
-|`* *` |librarian |be able to see an image of the book cover |be reminded of the commands available
+|`* *` |librarian |be able to see an image of the book cover |borrowers can know how the book looks like
 
 |`*` |helpful librarian |be able generate a list of most popular books |recommend books to borrowers
 
