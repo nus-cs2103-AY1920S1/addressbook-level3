@@ -55,7 +55,7 @@ public class PersonCard extends UiPart<Region> {
         nric.setText(person.getNric().nric);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
-        dateOfBirth.setText(person.getDateOfBirth().toString());
+        dateOfBirth.setText(person.getDateOfBirth().value);
         email.setText(person.getEmail().value);
         person.getPolicies().stream()
                 .sorted(Comparator.comparing(policy -> policy.getName().policyName))

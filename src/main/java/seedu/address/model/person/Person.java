@@ -119,6 +119,7 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getDateOfBirth().equals(getDateOfBirth())
+                && otherPerson.getPolicies().equals(getPolicies())
                 && otherPerson.getTags().equals(getTags());
     }
 
@@ -143,7 +144,7 @@ public class Person {
                 .append(" Date of birth: ")
                 .append(getDateOfBirth())
                 .append(" Policies: ");
-        getPolicies().forEach(builder::append);
+        getPolicies().forEach(policy -> builder.append(policy.getName().policyName));
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
 
