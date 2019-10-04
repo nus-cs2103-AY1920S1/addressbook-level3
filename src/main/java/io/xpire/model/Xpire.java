@@ -9,32 +9,21 @@ import io.xpire.model.item.UniqueItemList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the expiry-date-tracker level
+ * Wraps all data at xpire level
  * Duplicates are not allowed (by .isSameItem comparison)
  */
-public class ExpiryDateTracker implements ReadOnlyExpiryDateTracker {
+public class Xpire implements ReadOnlyXpire {
 
-    private final UniqueItemList items;
+    private final UniqueItemList items = new UniqueItemList();
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        items = new UniqueItemList();
-    }
-
-    public ExpiryDateTracker() {}
+    public Xpire() {}
 
     /**
-     * Creates an ExpiryDateTracker using the Items in the {@code toBeCopied}
+     * Creates a Xpire object using the Items in the {@code toBeCopied}
      */
-    public ExpiryDateTracker(ReadOnlyExpiryDateTracker toBeCopied) {
+    public Xpire(ReadOnlyXpire toBeCopied) {
         this();
-        resetData(toBeCopied);
+        this.resetData(toBeCopied);
     }
 
     //// list overwrite operations
@@ -48,47 +37,47 @@ public class ExpiryDateTracker implements ReadOnlyExpiryDateTracker {
     }
 
     /**
-     * Resets the existing data of this {@code ExpiryDateTracker} with {@code newData}.
+     * Resets the existing data of this {@code Xpire} with {@code newData}.
      */
-    public void resetData(ReadOnlyExpiryDateTracker newData) {
+    public void resetData(ReadOnlyXpire newData) {
         requireNonNull(newData);
-        setItems(newData.getItemList());
+        this.setItems(newData.getItemList());
     }
 
     //// person-level operations
 
     /**
-     * Returns true if an item with the same identity as {@code item} exists in the tracker.
+     * Returns true if an item with the same identity as {@code item} exists in xpire.
      */
     public boolean hasItem(Item item) {
         requireNonNull(item);
-        return items.contains(item);
+        return this.items.contains(item);
     }
 
     /**
-     * Adds a item to the tracker.
-     * The item must not already exist in the tracker.
+     * Adds a item to xpire.
+     * The item must not already exist in xpire.
      */
-    public void addItem(Item p) {
-        items.add(p);
+    public void addItem(Item item) {
+        this.items.add(item);
     }
 
     /**
      * Replaces the given item {@code target} in the list with {@code editedItem}.
-     * {@code target} must exist in the tracker.
-     * The item identity of {@code editedItem} must not be the same as another existing item in the tracker.
+     * {@code target} must exist in xpire.
+     * The item identity of {@code editedItem} must not be the same as another existing item in xpire.
      */
     public void setItem(Item target, Item editedItem) {
         requireNonNull(editedItem);
-        items.setItem(target, editedItem);
+        this.items.setItem(target, editedItem);
     }
 
     /**
-     * Removes {@code key} from this {@code ExpiryDateTracker}.
-     * {@code key} must exist in the tracker.
+     * Removes {@code key} from this {@code Xpire}.
+     * {@code key} must exist in xpire.
      */
     public void removeItem(Item key) {
-        items.remove(key);
+        this.items.remove(key);
     }
 
 
@@ -96,24 +85,29 @@ public class ExpiryDateTracker implements ReadOnlyExpiryDateTracker {
 
     @Override
     public String toString() {
-        return items.asUnmodifiableObservableList().size() + " items";
+        return this.items.asUnmodifiableObservableList().size() + " items";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Item> getItemList() {
-        return items.asUnmodifiableObservableList();
+        return this.items.asUnmodifiableObservableList();
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ExpiryDateTracker // instanceof handles nulls
-                && items.equals(((ExpiryDateTracker) other).items));
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof Xpire)) {
+            return false;
+        } else {
+            Xpire other = (Xpire) obj;
+            return this.items.equals(other.items);
+        }
     }
 
     @Override
     public int hashCode() {
-        return items.hashCode();
+        return this.items.hashCode();
     }
 }

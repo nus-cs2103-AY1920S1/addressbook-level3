@@ -3,29 +3,22 @@ package io.xpire.model.item;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import io.xpire.commons.util.AppUtil;
+import io.xpire.commons.util.DateUtil;
 
 /**
- * Represents an Item's expiry date in the expiry date tracker.
+ * Represents an Item's expiry date in xpire.
  * Guarantees: immutable; is valid as declared in {@link #isValidExpiryDate(String)} (String)}
  */
 public class ExpiryDate {
-
-    /*
-    public static final String VALIDATION_REGEX = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))"
-            + "\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^"
-            + "(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:"
-            + "(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])"
-            + "|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
-     */
+    private static final String DATE_FORMAT = "dd/MM/yyyy";
+    private static final String EXPIRED = "Expired!";
+    private static final String DAYS_LEFT = "%d day%s left";
     public static final String MESSAGE_CONSTRAINTS =
-            "Expiry dates should only contain numbers, in the format dd/MM/yyyy";
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            "Expiry dates should only contain numbers, in the format " + DATE_FORMAT;
 
-    private LocalDate date;
+    private final LocalDate date;
 
     /**
      * Constructs a {@code ExpiryDate}.
@@ -35,40 +28,44 @@ public class ExpiryDate {
     public ExpiryDate(String expiryDate) {
         requireNonNull(expiryDate);
         AppUtil.checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
-        this.date = LocalDate.parse(expiryDate, DATE_FORMAT);
+        this.date = DateUtil.convertStringToDate(expiryDate, DATE_FORMAT);
     }
 
     /**
      * Returns true if a given string is a valid expiry date.
      */
     public static boolean isValidExpiryDate(String test) {
-        try {
-            LocalDate.parse(test, DATE_FORMAT);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
+        return DateUtil.convertStringToDate(test, DATE_FORMAT) != null;
+    }
+
+    public String getStatus(LocalDate current) {
+        int offset = DateUtil.getOffsetDays(current, this.date);
+        return offset > 0 ? String.format(DAYS_LEFT, offset, offset == 1 ? "" : "s") : EXPIRED;
     }
 
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
 
     @Override
     public String toString() {
-        return this.date.format(DATE_FORMAT);
+        return DateUtil.convertDateToString(this.date, DATE_FORMAT);
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ExpiryDate // instanceof handles nulls
-                && date.equals(((ExpiryDate) other).date)); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof ExpiryDate)) {
+            return false;
+        } else {
+            ExpiryDate other = (ExpiryDate) obj;
+            return this.date.equals(other.date);
+        }
     }
 
     @Override
     public int hashCode() {
         return date.hashCode();
     }
-
 }

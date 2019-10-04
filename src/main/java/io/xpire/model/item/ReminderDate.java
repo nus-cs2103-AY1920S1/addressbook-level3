@@ -22,7 +22,7 @@ public class ReminderDate {
     }
 
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
 
     @Override
@@ -34,12 +34,12 @@ public class ReminderDate {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReminderDate // instanceof handles nulls
-                && date.equals(((ReminderDate) other).date)); // state check
+                && this.date.equals(((ReminderDate) other).date)); // state check
     }
 
     @Override
     public int hashCode() {
-        return date.hashCode();
+        return this.date.hashCode();
     }
 
 }

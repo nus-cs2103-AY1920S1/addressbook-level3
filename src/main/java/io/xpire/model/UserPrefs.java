@@ -14,7 +14,7 @@ import io.xpire.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path expiryDateTrackerFilePath = Paths.get("data" , "addressbook.json");
+    private Path xpireFilePath = Paths.get("data" , "xpire.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,11 +35,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setExpiryDateTrackerFilePath(newUserPrefs.getExpiryDateTrackerFilePath());
+        setXpireFilePath(newUserPrefs.getXpireFilePath());
     }
 
     public GuiSettings getGuiSettings() {
-        return guiSettings;
+        return this.guiSettings;
     }
 
     public void setGuiSettings(GuiSettings guiSettings) {
@@ -47,41 +47,37 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getExpiryDateTrackerFilePath() {
-        return expiryDateTrackerFilePath;
+    public Path getXpireFilePath() {
+        return this.xpireFilePath;
     }
 
-    public void setExpiryDateTrackerFilePath(Path expiryDateTrackerFilePath) {
+    public void setXpireFilePath(Path expiryDateTrackerFilePath) {
         requireNonNull(expiryDateTrackerFilePath);
-        this.expiryDateTrackerFilePath = expiryDateTrackerFilePath;
+        this.xpireFilePath = expiryDateTrackerFilePath;
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
-        }
-        if (!(other instanceof UserPrefs)) { //this handles null as well.
+        } else if (!(obj instanceof UserPrefs)) {
             return false;
+        } else {
+            UserPrefs other = (UserPrefs) obj;
+            return this.guiSettings.equals(other.guiSettings) && this.xpireFilePath.equals(other.xpireFilePath);
         }
-
-        UserPrefs o = (UserPrefs) other;
-
-        return guiSettings.equals(o.guiSettings)
-                && expiryDateTrackerFilePath.equals(o.expiryDateTrackerFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, expiryDateTrackerFilePath);
+        return Objects.hash(this.guiSettings, this.xpireFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + expiryDateTrackerFilePath);
+        sb.append("Gui Settings : " + this.guiSettings + "\n");
+        sb.append("Local data file location : " + this.xpireFilePath);
         return sb.toString();
     }
-
 }

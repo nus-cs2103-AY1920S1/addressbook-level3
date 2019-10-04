@@ -17,15 +17,24 @@ public class NameContainsKeywordsPredicate implements Predicate<Item> {
 
     @Override
     public boolean test(Item item) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(item.getName().fullName, keyword));
+        return this.keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(item.getName().toString(), keyword));
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof NameContainsKeywordsPredicate)) {
+            return false;
+        } else {
+            NameContainsKeywordsPredicate other = (NameContainsKeywordsPredicate) obj;
+            return this.keywords.equals(other.keywords);
+        }
     }
 
+    @Override
+    public int hashCode() {
+        return this.keywords.hashCode();
+    }
 }

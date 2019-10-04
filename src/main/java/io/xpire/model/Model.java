@@ -36,44 +36,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' xpire file path.
      */
-    Path getExpiryDateTrackerFilePath();
+    Path getXpireFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' xpire file path.
      */
-    void setExpiryDateTrackerFilePath(Path expiryDateTrackerFilePath);
+    void setXpireFilePath(Path xpireFilePath);
 
     /**
-     * Replaces expiry date tracker data with the data in {@code expiryDateTracker}.
+     * Replaces xpire data with the data in {@code xpire}.
      */
-    void setExpiryDateTracker(ReadOnlyExpiryDateTracker expiryDateTracker);
+    void setXpire(ReadOnlyXpire xpire);
 
-    /** Returns the expiry date tracker */
-    ReadOnlyExpiryDateTracker getExpiryDateTracker();
+    /** Returns the xpire */
+    ReadOnlyXpire getXpire();
 
     /**
-     * Returns true if an item with the same identity as {@code item} exists in the expiry date tracker.
+     * Returns true if an item with the same identity as {@code item} exists in xpire.
      */
     boolean hasItem(Item item);
 
     /**
      * Deletes the given item.
-     * The item must exist in the tracker.
+     * The item must exist in xpire.
      */
     void deleteItem(Item target);
 
     /**
      * Adds the given item.
-     * {@code item} must not already exist in the tracker.
+     * {@code item} must not already exist in xpire.
      */
     void addItem(Item item);
 
     /**
      * Replaces the given item {@code target} with {@code editedItem}.
-     * {@code target} must exist in the tracker.
-     * The item identity of {@code editedItem} must not be the same as another existing item in the expiry date tracker.
+     * {@code target} must exist in xpire.
+     * The item identity of {@code editedItem} must not be the same as another existing item in xpire.
      */
     void setItem(Item target, Item editedItem);
 

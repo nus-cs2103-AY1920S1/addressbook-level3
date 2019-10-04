@@ -27,14 +27,14 @@ public class UniqueItemList implements Iterable<Item> {
 
     private final ObservableList<Item> internalList = FXCollections.observableArrayList();
     private final ObservableList<Item> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(this.internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent item as the given argument.
      */
     public boolean contains(Item toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameItem);
+        return this.internalList.stream().anyMatch(toCheck::isSameItem);
     }
 
     /**
@@ -46,93 +46,90 @@ public class UniqueItemList implements Iterable<Item> {
         if (contains(toAdd)) {
             throw new DuplicateItemException();
         }
-        internalList.add(toAdd);
+        this.internalList.add(toAdd);
     }
 
     /**
      * Replaces the item {@code target} in the list with {@code editedItem}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The item identity of {@code editedItem} must not be the same as another existing item in the list.
      */
-    public void setItem(Item target, Item editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
+    public void setItem(Item target, Item editedItem) {
+        CollectionUtil.requireAllNonNull(target, editedItem);
 
-        int index = internalList.indexOf(target);
+        int index = this.internalList.indexOf(target);
         if (index == -1) {
             throw new ItemNotFoundException();
         }
 
-        if (!target.isSameItem(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameItem(editedItem) && contains(editedItem)) {
             throw new DuplicateItemException();
         }
 
-        internalList.set(index, editedPerson);
+        this.internalList.set(index, editedItem);
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent item from the list.
+     * The item must exist in the list.
      */
     public void remove(Item toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        if (!this.internalList.remove(toRemove)) {
             throw new ItemNotFoundException();
         }
     }
 
     public void setItems(UniqueItemList replacement) {
         requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
+        this.internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code items}.
+     * {@code items} must not contain duplicate items.
      */
-    public void setItems(List<Item> persons) {
-        CollectionUtil.requireAllNonNull(persons);
-        if (!itemsAreUnique(persons)) {
+    public void setItems(List<Item> items) {
+        CollectionUtil.requireAllNonNull(items);
+        if (!itemsAreUnique(items)) {
             throw new DuplicateItemException();
         }
-
-        internalList.setAll(persons);
+        this.internalList.setAll(items);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Item> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+        return this.internalUnmodifiableList;
     }
 
     @Override
     public Iterator<Item> iterator() {
-        return internalList.iterator();
+        return this.internalList.iterator();
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueItemList // instanceof handles nulls
-                        && internalList.equals(((UniqueItemList) other).internalList));
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof UniqueItemList)) {
+            return false;
+        } else {
+            UniqueItemList other = (UniqueItemList) obj;
+            return this.internalList.equals(other.internalList);
+        }
     }
 
     @Override
     public int hashCode() {
-        return internalList.hashCode();
+        return this.internalList.hashCode();
     }
 
     /**
      * Returns true if {@code items} contains only unique items.
      */
     private boolean itemsAreUnique(List<Item> items) {
-        for (int i = 0; i < items.size() - 1; i++) {
-            for (int j = i + 1; j < items.size(); j++) {
-                if (items.get(i).isSameItem(items.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return items.size() == items.stream().distinct().count();
     }
 }

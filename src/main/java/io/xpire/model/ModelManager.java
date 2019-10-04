@@ -17,34 +17,33 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 /**
- * Represents the in-memory model of the expiryDateTracker data.
+ * Represents the in-memory model of the xpire data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final ExpiryDateTracker expiryDateTracker;
+    private final Xpire xpire;
     private final UserPrefs userPrefs;
     private final FilteredList<Item> filteredItems;
     private SortedList<Item> sortedItems;
 
-
     /**
-     * Initializes a ModelManager with the given expiryDateTracker and userPrefs.
+     * Initializes a ModelManager with the given xpire and userPrefs.
      */
-    public ModelManager(ReadOnlyExpiryDateTracker expiryDateTracker, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyXpire xpire, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(expiryDateTracker, userPrefs);
+        CollectionUtil.requireAllNonNull(xpire, userPrefs);
 
-        logger.fine("Initializing with address book: " + expiryDateTracker + " and user prefs " + userPrefs);
+        logger.fine("Initializing with xpire: " + xpire + " and user prefs " + userPrefs);
 
-        this.expiryDateTracker = new ExpiryDateTracker(expiryDateTracker);
+        this.xpire = new Xpire(xpire);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredItems = new FilteredList<>(this.expiryDateTracker.getItemList());
-        sortedItems = new SortedList<>(this.expiryDateTracker.getItemList());
+        this.filteredItems = new FilteredList<>(this.xpire.getItemList());
+        this.sortedItems = new SortedList<>(this.xpire.getItemList());
     }
 
     public ModelManager() {
-        this(new ExpiryDateTracker(), new UserPrefs());
+        this(new Xpire(), new UserPrefs());
     }
 
     //=========== UserPrefs =========================================================================================
@@ -57,68 +56,67 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+        return this.userPrefs;
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
+        return this.userPrefs.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
+        this.userPrefs.setGuiSettings(guiSettings);
     }
 
     @Override
-    public Path getExpiryDateTrackerFilePath() {
-        return userPrefs.getExpiryDateTrackerFilePath();
+    public Path getXpireFilePath() {
+        return this.userPrefs.getXpireFilePath();
     }
 
     @Override
-    public void setExpiryDateTrackerFilePath(Path expiryDateTrackerFilePath) {
-        requireNonNull(expiryDateTrackerFilePath);
-        userPrefs.setExpiryDateTrackerFilePath(expiryDateTrackerFilePath);
+    public void setXpireFilePath(Path xpireFilePath) {
+        requireNonNull(xpireFilePath);
+        this.userPrefs.setXpireFilePath(xpireFilePath);
     }
 
     //=========== expiryDateTracker  ================================================================================
 
     @Override
-    public void setExpiryDateTracker(ReadOnlyExpiryDateTracker expiryDateTracker) {
-        this.expiryDateTracker.resetData(expiryDateTracker);
+    public void setXpire(ReadOnlyXpire xpire) {
+        this.xpire.resetData(xpire);
     }
 
     @Override
-    public ReadOnlyExpiryDateTracker getExpiryDateTracker() {
-        return expiryDateTracker;
+    public ReadOnlyXpire getXpire() {
+        return this.xpire;
     }
 
     @Override
     public boolean hasItem(Item item) {
         requireNonNull(item);
-        return expiryDateTracker.hasItem(item);
+        return this.xpire.hasItem(item);
     }
 
     @Override
     public void deleteItem(Item target) {
-        expiryDateTracker.removeItem(target);
+        this.xpire.removeItem(target);
     }
 
     @Override
     public void addItem(Item item) {
-        expiryDateTracker.addItem(item);
+        this.xpire.addItem(item);
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
     }
 
     @Override
-    public void setItem(Item target, Item editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
-        expiryDateTracker.setItem(target, editedPerson);
+    public void setItem(Item target, Item editedItem) {
+        CollectionUtil.requireAllNonNull(target, editedItem);
+        this.xpire.setItem(target, editedItem);
     }
 
     //=========== Sorted Item List Accessors ========================================================================
-
 
     @Override
     public void sortItemList(MethodOfSorting method) {
@@ -130,62 +128,55 @@ public class ModelManager implements Model {
 
         switch (method.getValue()) {
         case "name":
-            sortedItems = new SortedList<>(expiryDateTracker.getItemList() , nameSorter);
+            this.sortedItems = new SortedList<>(this.xpire.getItemList() , nameSorter);
             break;
         case "date":
-            sortedItems = new SortedList<>(expiryDateTracker.getItemList() , dateSorter);
+            this.sortedItems = new SortedList<>(this.xpire.getItemList() , dateSorter);
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + method);
+            throw new IllegalStateException("Unexpected method: " + method);
         }
-        expiryDateTracker.setItems(sortedItems);
+        this.xpire.setItems(this.sortedItems);
     }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Item} backed by the internal list of
+     * {@code versionedXpire}
      */
     @Override
     public ObservableList<Item> getSortedItemList() {
-        return sortedItems;
+        return this.sortedItems;
     }
 
 
     // =========== Filtered Item List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Item} backed by the internal list of
+     * {@code versionedXpire}
      */
     @Override
     public ObservableList<Item> getFilteredItemList() {
-        return filteredItems;
+        return this.filteredItems;
     }
 
     @Override
     public void updateFilteredItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
-        filteredItems.setPredicate(predicate);
+        this.filteredItems.setPredicate(predicate);
     }
-
 
     @Override
     public boolean equals(Object obj) {
-        // short circuit if same object
         if (obj == this) {
             return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
+        } else if (!(obj instanceof ModelManager)) {
             return false;
+        } else {
+            ModelManager other = (ModelManager) obj;
+            return this.xpire.equals(other.xpire)
+                    && this.userPrefs.equals(other.userPrefs)
+                    && this.filteredItems.equals(other.filteredItems);
         }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return expiryDateTracker.equals(other.expiryDateTracker)
-                && userPrefs.equals(other.userPrefs)
-                && filteredItems.equals(other.filteredItems);
     }
-
 }

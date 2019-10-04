@@ -10,7 +10,7 @@ import io.xpire.commons.util.AppUtil;
  */
 public class MethodOfSorting {
 
-    public static final String MESSAGE_CONSTRAINTS = "Sorting can only be done by name or date.";
+    public static final String MESSAGE_CONSTRAINTS = "Sorting can only be done by 'name' or 'date'.";
     private final String method;
 
     /**
@@ -35,6 +35,6 @@ public class MethodOfSorting {
      * @return The string representation of the method of sorting.
      */
     public String getValue() {
-        return method;
+        return this.method;
     }
 }

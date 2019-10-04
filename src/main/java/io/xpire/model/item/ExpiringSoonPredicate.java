@@ -1,32 +1,39 @@
 package io.xpire.model.item;
 
 import java.time.LocalDate;
+import java.util.function.Predicate;
+
+import io.xpire.commons.util.DateUtil;
 
 /**
  * Tests that a {@code Item}'s {@code ExpiryDate} falls within the date given.
  */
-public class ExpiringSoonPredicate extends CheckCommandPredicate {
+public class ExpiringSoonPredicate implements Predicate<Item> {
+    private final int days;
 
-    private String checkDate;
-
-    public ExpiringSoonPredicate(String checkDate) {
-        this.checkDate = checkDate;
-    }
-
-    private LocalDate toDate() {
-        LocalDate current = LocalDate.now();
-        return current.plusDays(Long.parseLong(checkDate));
+    public ExpiringSoonPredicate(int days) {
+        this.days = days;
     }
 
     @Override
     public boolean test(Item item) {
-        return item.isExpiring(this.toDate());
+        return DateUtil.isWithinRange(this.days, LocalDate.now(), item.getExpiryDate().getDate());
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ExpiringSoonPredicate // instanceof handles nulls
-                && checkDate.equals(((ExpiringSoonPredicate) other).checkDate)); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof ExpiringSoonPredicate)) {
+            return false;
+        } else {
+            ExpiringSoonPredicate other = (ExpiringSoonPredicate) obj;
+            return this.days == other.days;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.days;
     }
 }

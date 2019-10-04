@@ -4,14 +4,12 @@ import io.xpire.model.item.Item;
 import javafx.collections.ObservableList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an xpire.
  */
-public interface ReadOnlyExpiryDateTracker {
-
+public interface ReadOnlyXpire {
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the item list.
+     * This list will not contain any duplicate items.
      */
     ObservableList<Item> getItemList();
-
 }

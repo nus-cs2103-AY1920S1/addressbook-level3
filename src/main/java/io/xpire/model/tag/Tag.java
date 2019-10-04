@@ -9,11 +9,10 @@ import io.xpire.commons.util.AppUtil;
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric and start with #";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public final String tagName;
+    private final String tagName;
 
     /**
      * Constructs a {@code Tag}.
@@ -26,6 +25,10 @@ public class Tag {
         this.tagName = tagName;
     }
 
+    public String getTagName() {
+        return this.tagName;
+    }
+
     /**
      * Returns true if a given string is a valid tag name.
      */
@@ -34,22 +37,27 @@ public class Tag {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName)); // state check
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof Tag)) {
+            return false;
+        } else {
+            Tag other = (Tag) obj;
+            return this.tagName.equals(other.tagName);
+        }
     }
 
     @Override
     public int hashCode() {
-        return tagName.hashCode();
+        return this.tagName.hashCode();
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return '[' + this.tagName + ']';
     }
 
 }
