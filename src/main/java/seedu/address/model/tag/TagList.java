@@ -2,6 +2,8 @@ package seedu.address.model.tag;
 
 import java.util.HashSet;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 /**
  * Represents a storage for default and user-created tags.
  */
@@ -38,11 +40,11 @@ public class TagList {
     /**
      * Removes a user-created tag from the {@code TagList}
      * @param userTag The user-created tag to be removed.
-     * @throws IllegalArgumentException If the user-created tag is not in the {@code TagList}.
+     * @throws IllegalValueException If the user-created tag is not in the {@code TagList}.
      */
-    public void deleteUserTag(UserTag userTag) throws IllegalArgumentException {
+    public void deleteUserTag(UserTag userTag) throws IllegalValueException {
         if (!containsUserTag(userTag)) {
-            throw new IllegalArgumentException("TagList does not contain " + userTag);
+            throw new IllegalValueException("TagList does not contain " + userTag);
         }
         userTags.remove(userTag);
     }
@@ -62,13 +64,13 @@ public class TagList {
      * @return The existing {@code UserTag}, if present.
      * @throws IllegalArgumentException If there is no equivalent existing user-created tag.
      */
-    public UserTag getExistingUserTag(UserTag userTag) throws IllegalArgumentException {
+    public UserTag getExistingUserTag(UserTag userTag) throws IllegalValueException {
         for (UserTag existingUserTag : userTags) {
             if (existingUserTag.equals(userTag)) {
                 return existingUserTag;
             }
         }
-        throw new IllegalArgumentException("TagList does not contain " + userTag);
+        throw new IllegalValueException("TagList does not contain " + userTag);
     }
 
     private void initialiseDefaultTags() {
