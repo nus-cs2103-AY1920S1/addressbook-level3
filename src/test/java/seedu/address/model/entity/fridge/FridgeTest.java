@@ -33,8 +33,8 @@ public class FridgeTest {
 
     @Test
     void getFridgeIdNum() {
-        assertEquals(IdentificationNumber.customGenerateId("F", 1),
-                EMPTY_FRIDGE.getFridgeIdNum());
+        assertEquals(IdentificationNumber.customGenerateId("F", 2),
+                ALICE_FRIDGE.getFridgeIdNum());
     }
 
     @Test
