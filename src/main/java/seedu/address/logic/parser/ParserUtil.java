@@ -1,27 +1,13 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTHS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_YEARS;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
@@ -77,13 +63,13 @@ public class ParserUtil {
      * Parses a {@code String NRIC} into a {@code Nric}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code nric} is invalid.
+     * @throws seedu.address.logic.parser.exceptions.ParseException if the given {@code nric} is invalid.
      */
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim().toUpperCase();
         if (!Nric.isValidNric(trimmedNric)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }
         return new Nric(nric);
     }
@@ -220,15 +206,10 @@ public class ParserUtil {
     public static Coverage parseCoverage (String coverage) throws ParseException {
         requireNonNull(coverage);
         String trimmedCoverage = coverage.trim();
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(trimmedCoverage, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS);
-        String days = (argMultimap.getValue(PREFIX_DAYS).isEmpty() ? "0" : argMultimap.getValue(PREFIX_DAYS).get());
-        String months = (argMultimap.getValue(PREFIX_MONTHS).isEmpty() ? "0" : argMultimap.getValue(PREFIX_MONTHS).get());
-        String years = (argMultimap.getValue(PREFIX_YEARS).isEmpty() ? "0" : argMultimap.getValue(PREFIX_YEARS).get());
-        if (!Coverage.isValidCoverage(days, months, years)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        if (!Coverage.isValidCoverage(trimmedCoverage)) {
+            throw new ParseException(Coverage.MESSAGE_CONSTRAINTS);
         }
-        return new Coverage(days, months, years);
+        return new Coverage(trimmedCoverage);
     }
 
     /**
