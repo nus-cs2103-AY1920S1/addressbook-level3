@@ -26,36 +26,34 @@ class JsonAdaptedItem {
     private final String name;
     private final String expiryDate;
     private final String reminderThreshold;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedItem} with the given item details.
      */
     @JsonCreator
-    public JsonAdaptedItem(@JsonProperty("name") String name, @JsonProperty("expiryDate") String expiryDate,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("reminder") String threshold) {
+    public JsonAdaptedItem(@JsonProperty("name") String name,
+                           @JsonProperty("expiryDate") String expiryDate,
+                           @JsonProperty("reminderThreshold") String reminderThreshold,
+                           @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.expiryDate = expiryDate;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
-        if (threshold == null) {
-            this.reminderThreshold = "0";
-        } else {
-            this.reminderThreshold = threshold;
-        }
+        this.reminderThreshold = reminderThreshold;
+        this.tags.addAll(tags);
     }
 
     /**
      * Converts a given {@code Item} into this class for Jackson use.
      */
     public JsonAdaptedItem(Item source) {
-        name = source.getName().fullName;
-        expiryDate = source.getExpiryDate().toString();
-        tagged.addAll(source.getTags().stream()
+        this.name = source.getName().toString();
+        this.expiryDate = source.getExpiryDate().toString();
+        this.reminderThreshold = source.getReminderThreshold().toString();
+        this.tags.addAll(source
+                .getTags()
+                .stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        reminderThreshold = String.valueOf(source.getReminderThreshold().getThreshold());
     }
 
     /**
@@ -64,34 +62,39 @@ class JsonAdaptedItem {
      * @throws IllegalValueException if there were any data constraints violated in the adapted item.
      */
     public Item toModelType() throws IllegalValueException {
-        final List<Tag> itemTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            itemTags.add(tag.toModelType());
-        }
 
-        if (name == null) {
+        if (this.name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValidName(this.name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Name modelName = new Name(this.name);
 
-        if (expiryDate == null) {
+        if (this.expiryDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ExpiryDate.class.getSimpleName()));
         }
-        if (!ExpiryDate.isValidExpiryDate(expiryDate)) {
+        if (!ExpiryDate.isValidExpiryDate(this.expiryDate)) {
             throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS);
         }
-        final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
+        final ExpiryDate modelExpiryDate = new ExpiryDate(this.expiryDate);
 
-        if (!ReminderThreshold.isValidReminderThreshold(reminderThreshold)) {
+        if (this.reminderThreshold == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ReminderThreshold.class.getSimpleName()));
+        }
+        if (!ReminderThreshold.isValidReminderThreshold(this.reminderThreshold)) {
             throw new IllegalValueException(ReminderThreshold.MESSAGE_CONSTRAINTS);
         }
-        final ReminderThreshold modelReminderThreshold = new ReminderThreshold(reminderThreshold);
+        final ReminderThreshold modelReminderThreshold = new ReminderThreshold(this.reminderThreshold);
 
+        final List<Tag> itemTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : this.tags) {
+            itemTags.add(tag.toModelType());
+        }
         final Set<Tag> modelTags = new HashSet<>(itemTags);
+
         Item item = new Item(modelName, modelExpiryDate, modelTags);
         item.setReminderThreshold(modelReminderThreshold);
         return item;
