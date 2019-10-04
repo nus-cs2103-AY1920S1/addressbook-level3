@@ -109,6 +109,11 @@ public class Fridge {
                     .append(getStatus())
                     .append(" Body: ")
                     .append(getBody());
+        } else {
+            builder.append(" Fridge ID: ")
+                    .append(getFridgeIdNum())
+                    .append(" Status: ")
+                    .append(getStatus());
         }
         return builder.toString();
     }
