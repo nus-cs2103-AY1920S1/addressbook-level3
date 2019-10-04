@@ -41,7 +41,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find t/TITLE`, `BOOK_TITLE` is a parameter which can be used as `find t/Harry Potter`.
-* Items in square brackets are optional e.g `t/TITLE [g/GENRE]` can be used as `t/Harry Potter g/fiction` or as `t/Harry Potter`.
+* Items in square brackets are optional e.g. `t/TITLE [g/GENRE]` can be used as `t/Harry Potter g/fiction` or as `t/Harry Potter`.
+* Curly brackets indicate that at least 1 of the optional parameters have to be given e.g. `{ [t/TITLE] [a/AUTHOR] }` can be used as `t/Harry Potter`
 * Items with `...`​ after them can be used multiple times including zero times e.g. `[g/GENRE]...` can be used as `{nbsp}` (i.e. 0 times), `g/fiction`, `g/fiction g/adventure` etc.
 * Parameters can be in any order e.g. if the command specifies `t/TITLE a/AUTHOR`, `a/AUTHOR t/TITLE` is also acceptable.
 ====
@@ -58,7 +59,8 @@ Format: `help`
 ==== Locating books by title: `find`
 
 Shows all relevant books found. +
-Format: `find [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available]`
+Format: `find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue]/[-loaned]/[-available] } [NUMBER]` +
+Format: `find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue]/[-loaned]/[-available] [-rated] [-popular] [-new] } [NUMBER]` ** - Coming in v2.0**
 
 ****
 * The search is case insensitive. e.g `harry` will match `Harry`
@@ -72,11 +74,11 @@ Format: `find [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned
 * `[-overdue]` will only show overdue books
 * `[-loaned]` will only show loaned books
 * `[-available]` will only show available books
-//* Adding one of the following will sort the books such that:
-//* `[-popular]` will list the top 10 most borrowed books
-//* `[-new]` will list the 10 newest books
-//* `[-rated]` will list the top 10 highly rated books
-//* `[NUMBER]` will list this NUMBER of books instead
+* Adding one of the following will sort the books such that:
+* `[-rated]` will list the top 10 highly rated books ** - Coming in v2.0**
+* `[-popular]` will list the top 10 most borrowed books ** - Coming in v2.0**
+* `[-new]` will list the 10 newest books ** - Coming in v2.0**
+* `[NUMBER]` will list this `NUMBER` of books instead
 ****
 
 Examples:
@@ -111,7 +113,7 @@ Liberry will then auto-generate a valid serial number for the new book.
 
 Examples:
 
-* `add t/Harry Botter and the Baby's Potty a/Raylei Jolking sn/B2010 g/children`
+* `add t/Harry Botter and the Baby's Potty a/Raylei Jolking sn/B02010 g/children`
 * `add t/Inferno a/Tande g/classic g/epic`
 
 ==== Deleting a book : `delete`
@@ -135,17 +137,17 @@ Examples:
 * `find t/harry` +
 `delete 1` +
 Deletes the 1st book in the results of the `find` command.
-* `delete sn/B0422` +
-Deletes the book with serial number `sn/B0422`.
+* `delete sn/B00422` +
+Deletes the book with serial number `sn/B00422`.
 
 ==== Registering a new borrower: `register`
 
-Registers a new borrower to the library records. A unique ID associated with the borrower will automatically be generated. +
-Format: `register u/NAME p/PHONE_NUMBER a/ADDRESS`
+Registers a new borrower to the library records. A unique ID associated with the borrower will automatically be generated and displayed. Borrowers are expected to know his ID in order for loans to be processed+
+Format: `register u/NAME p/PHONE_NUMBER e/EMAIL`
 
 Example:
 
-* `register u/matt p/83938249 a/8th Ave The Martian #02-21`
+* `register u/matt p/83938249 e/matt@damon.com`
 
 ==== Undoing: `undo`
 
@@ -157,15 +159,30 @@ Format: `undo`
 Redo the most recent undo should there be no more commands/actions after the most recent undo +
 Format: `redo`
 
-==== Toggling night mode: `toggleui`
+==== Set loan time: `setLoanTime`
 
-Toggles between day mode and night mode for the UI +
-Format: `toggleui`
+Sets the standard number of days for any book loan +
+Format: `setLoanTime DAYS`
+
+==== Set renewal time: `setRenewTime`
+
+Sets the standard number of days for any book renewal +
+Format: `setRenewTime DAYS`
+
+==== Set fine (in cents): `setFineAmt`
+
+Sets the amount of fine per book per day, in cents +
+Format: `setFineAmt CENTS`
 
 ==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
+
+==== Toggling night mode: `toggleui` ** - Coming in v2.0**
+
+Toggles between day mode and night mode for the UI +
+Format: `toggleui`
 
 '''
 
@@ -192,7 +209,7 @@ Format: `done`
 ==== Editing a borrower: `edit`
 
 Edit borrower’s particulars. +
-Format: `edit [u/NAME] [p/PHONE_NUMBER] [a/ADDRESS]`
+Format: `edit { [u/NAME] [p/PHONE_NUMBER] [e/email] }`
 
 ****
 * Edits the currently serving borrower's particulars.
@@ -202,30 +219,30 @@ Format: `edit [u/NAME] [p/PHONE_NUMBER] [a/ADDRESS]`
 
 Examples:
 
-* `edit p/91234567 e/21 Jane St West Building` +
-Edits the phone number and borrower's address to be `91234567` and `21 Jane St West Building` respectively.
+* `edit p/91234567 e/jane@austen.com` +
+Edits the phone number and borrower's email address to be `91234567` and `jane@austen.com` respectively.
 * `edit n/Betsy Crower` +
 Edits the name of the borrower to be `Betsy Crower`
 
-==== Loaning books: `loan`
+==== Loaning book(s): `loan`
 
 Loan book(s) by their serial number +
-Format: `loan sn/BOOK_SN ... `
+Format: `loan sn/BOOK_SN...`
 
 Examples:
 
-* `loan sn/B0041` +
-Loans the book with serial number B0041
-* `loan sn/B0201 sn/B2929 sn/B0203` +
-Loans the books with serial numbers B0201, B2929 and B0203
+* `loan sn/B00041` +
+Loans the book with serial number B00041
+* `loan sn/B00201 sn/B02929 sn/B00203` +
+Loans the books with serial numbers B00201, B02929 and B00203
 
-==== Renewing books: `renew`
+==== Renewing book(s): `renew`
 
 Renew book(s) from the list of currently loaned books, i.e., extend their due dates +
 Format: `renew INDEX… [-all]` +
 Including `-all` will renew all currently loaned books
 
-==== Returning books: `return`
+==== Returning book(s): `return`
 
 Return book(s) that were loaned by the borrower +
 Format: `return INDEX… [-all]` +
@@ -233,9 +250,30 @@ Including `-all` will return all currently loaned books
 
 ==== Paying fines: `pay`
 
-//==== Reserving books: `reserve`
-//Reserves a currently on-loan book based on search index. +
-//Format: reserve `INDEX`
+Reduces the oustanding amount of borrower's fines by AMOUNT (in cents) and adds a transaction record to his account +
+Format: `pay AMOUNT`
+
+==== Reserve a book: `reserve`
+
+Reserve a particular book
+Format: `reserve INDEX` or `reserve sn/BOOK_SN`
+
+****
+* Reserves the book at the specified `INDEX`  for the currently served user.
+* The index refers to the index number shown in the displayed book list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* `[INDEX]` indicates the book at this index in the search results list
+* `[sn/BOOK_SN]` indicates the particular book with this serial number
+****
+
+Examples:
+
+* `find t/lord` +
+`reserve 2` +
+reserve the 2nd book in the results of the `find` command for the currently served user
+* `reserve sn/B02422` +
+Reserves the book with serial number `sn/B02422` for the currently served user
+
 
 '''
 
@@ -251,32 +289,35 @@ Liberry data are saved in the hard disk automatically after any command that cha
 == Command Summary
 
 * *Help* : `help`
-* *Find a book* : `find [[t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available]` +
-e.g. `find t/Animal Farm a/George Orwell`, `find g/mystery g/children -available`
+* *Find a book* : `find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }` +
+e.g. `find t/Animal Farm a/George Orwell`, `find g/mystery g/children -available` +
+`[-rated] [-popular] [-new]` ** - Coming in v2.0**
 * *View book info* : `info INDEX`
 * *Clear results* : `clear`
 * *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]` +
-e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/02010 g/children`
+e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/B02010 g/children`
 * *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
-* *Register a borrower* : `register u/NAME p/PHONE_NUMBER a/ADDRESS` +
-e.g. `register u/matt p/83938249 a/8th Ave The Martian #02-21`
+* *Register a borrower* : `register u/NAME p/PHONE_NUMBER e/EMAIL` +
+e.g. `register u/matt p/83938249 e/matt@damon.com`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Toggle night mode*: `toggleui`
+* *Set standard number of days for a loan* : `setLoanTime DAYS`
+* *Set standard number of days for a renewal* : `setRenewTime DAYS`
+* *Set fine* : `setFineAmt CENTS`
 * *Exit* : `exit`
-//* *Rate a book* : `rate INDEX r/RATING`
-//* *Recommend books* : `list [[-popular] [-new] [-rating]] [NUMBER]`
+* *Rate a book* : `rate INDEX r/RATING` ** - Coming in v2.0**
 
 '''
 
 * *Serve mode* : `serve id/BORROWER_ID` +
 e.g. `serve id/peterparker`
 * *Exit serve mode* : `done`
-* *Edit a borrower* : `edit [[u/NAME] [p/PHONE_NUMBER] [a/ADDRESS]]` +
-e.g. `edit p/91234567 e/21 Jane St West Building`
-* *Loan* : `loan sn/BOOK_SN...` +
-e.g. `loan sn/B0201 sn/B2929 sn/B0203`
-* *Renew* : `renew INDEX… [-all]`
-* *Return* : `return INDEX… [-all]`
+* *Edit a borrower's particulars* : `edit { [u/NAME] [p/PHONE_NUMBER] [e/email] }` +
+e.g. `edit p/91234567 e/jane@austen.com`
+* *Loan book(s)* : `loan sn/BOOK_SN...` +
+e.g. `loan sn/B00201 sn/B02929 sn/B00203`
+* *Renew book(s)* : `renew INDEX… [-all]`
+* *Return book(s)* : `return INDEX… [-all]`
 * *Pay fines* : `pay AMOUNT`
-//* *Reserve* : `reserve INDEX`
+* *Reserve book* : `reserve INDEX` or `reserve sn/BOOK_SN`

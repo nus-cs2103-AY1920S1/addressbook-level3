@@ -13,17 +13,17 @@ import seedu.address.model.book.Book;
 public class TypicalBooks {
 
     public static final Book BOOK_1 = new BookBuilder().withTitle("Harry Botter")
-            .withSerialNumber("B0001").withAuthor("J K Rowling").withGenres("Fiction").build();
+            .withSerialNumber("B00001").withAuthor("J K Rowling").withGenres("Fiction").build();
     public static final Book BOOK_2 = new BookBuilder().withTitle("Legend of the Condor Heroes")
-            .withAuthor("Jin Yong").withSerialNumber("B0002").withGenres("Fiction", "Action").build();
-    public static final Book BOOK_3 = new BookBuilder().withTitle("Animal the Farm").withSerialNumber("B0003")
+            .withAuthor("Jin Yong").withSerialNumber("B00002").withGenres("Fiction", "Action").build();
+    public static final Book BOOK_3 = new BookBuilder().withTitle("Animal the Farm").withSerialNumber("B00003")
             .withAuthor("George Orwell").build();
     public static final Book BOOK_4 = new BookBuilder().withTitle("Harri Botter and the Full Blood Prince")
-            .withSerialNumber("B0004").withAuthor("J K Rowling").withGenres("Fiction", "Action").build();
+            .withSerialNumber("B00004").withAuthor("J K Rowling").withGenres("Fiction", "Action").build();
     public static final Book BOOK_5 = new BookBuilder().withTitle("The Heavenly Sword and the Dragon Saber")
-            .withSerialNumber("B0005").withAuthor("Jin Yong").withGenres("Fiction", "Action").build();
+            .withSerialNumber("B00005").withAuthor("Jin Yong").withGenres("Fiction", "Action").build();
     public static final Book BOOK_6 = new BookBuilder().withTitle("My Book")
-            .withSerialNumber("B0006").withAuthor("Jin Yong").withGenres("Fiction", "Action").build();
+            .withSerialNumber("B00006").withAuthor("Jin Yong").withGenres("Fiction", "Action").build();
 
     private TypicalBooks() {} // prevents instantiation
 

@@ -15,26 +15,26 @@ class SerialNumberGeneratorTest {
     @Test
     void generateSerialNumber_newCatalog_autoGenerateSuccess() {
         SerialNumberGenerator.setCatalog(catalog);
-        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0001"));
-        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0002"));
-        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0003"));
-        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0004"));
-        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0005"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00001"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00002"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00003"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00004"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00005"));
     }
 
     @Test
     void generateSerialNumber_typicalCatalog_autoGenerateSuccess() {
         SerialNumberGenerator.setCatalog(getTypicalCatalog());
-        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0005"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00005"));
     }
 
     @Test
     void generateSerialNumber_nonConcurrentSerialNumber_autoGenerateSuccess() {
         Catalog catalog = getTypicalCatalog();
-        Book newBook = new BookBuilder().withTitle("testBook").withSerialNumber("B0006").build();
+        Book newBook = new BookBuilder().withTitle("testBook").withSerialNumber("B00006").build();
         catalog.addBook(newBook);
         SerialNumberGenerator.setCatalog(catalog);
-        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0005"));
-        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B0007"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00005"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00007"));
     }
 }

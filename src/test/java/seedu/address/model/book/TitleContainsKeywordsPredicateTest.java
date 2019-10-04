@@ -2,6 +2,7 @@ package seedu.address.model.book;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,9 +70,9 @@ public class TitleContainsKeywordsPredicateTest {
 
         // Keywords match serial number, author and genre, but does not match title
         predicate = new TitleContainsKeywordPredicate(Arrays.asList("12345", "JKRowling", "Fiction", "Action"));
-        Book b = new BookBuilder().withTitle("Harry").withSerialNumber("B0001")
+        Book b = new BookBuilder().withTitle("Harry").withSerialNumber(VALID_SERIAL_NUMBER_BOOK_1)
                 .withAuthor("J K Rowling").withGenres("Fiction", "Action").build();
-        assertFalse(predicate.test(new BookBuilder().withTitle("Harry").withSerialNumber("B0001")
+        assertFalse(predicate.test(new BookBuilder().withTitle("Harry").withSerialNumber(VALID_SERIAL_NUMBER_BOOK_1)
                 .withAuthor("JKRowling").withGenres("Fiction", "Action").build()));
     }
 }

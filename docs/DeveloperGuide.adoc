@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Liberry- Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 

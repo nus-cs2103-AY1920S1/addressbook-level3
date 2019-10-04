@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
@@ -45,7 +46,7 @@ public class CatalogTest {
     @Test
     public void resetData_withDuplicateBookDifferentSerialNumber_success() {
         // Two books with the same identity fields but different serial number
-        Book editedBook1 = new BookBuilder(BOOK_1).withSerialNumber("B0002").build();
+        Book editedBook1 = new BookBuilder(BOOK_1).withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
         List<Book> newBooks = Arrays.asList(BOOK_1, editedBook1);
         CatalogStub newData = new CatalogStub(newBooks);
         assertTrue(true);

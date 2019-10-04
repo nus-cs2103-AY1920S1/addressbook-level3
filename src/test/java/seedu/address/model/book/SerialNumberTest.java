@@ -50,16 +50,16 @@ public class SerialNumberTest {
         // invalid phone numbers
         assertFalse(SerialNumber.isValidSerialNumber("")); // empty string
         assertFalse(SerialNumber.isValidSerialNumber(" ")); // spaces only
-        assertFalse(SerialNumber.isValidSerialNumber("B91")); // less than 4 numbers
-        assertFalse(SerialNumber.isValidSerialNumber("C0001")); // different prefix
+        assertFalse(SerialNumber.isValidSerialNumber("B91")); // less than 5 numbers
+        assertFalse(SerialNumber.isValidSerialNumber("C00001")); // different prefix
         assertFalse(SerialNumber.isValidSerialNumber("phone")); // non-numeric
         assertFalse(SerialNumber.isValidSerialNumber("9011p041")); // alphabets within digits
         assertFalse(SerialNumber.isValidSerialNumber("9312 1534")); // spaces within digits
 
         // valid phone numbers
-        assertTrue(SerialNumber.isValidSerialNumber("B0911")); // exactly 4 numbers
-        assertTrue(SerialNumber.isValidSerialNumber("B0001")); // smallest serial number
-        assertTrue(SerialNumber.isValidSerialNumber("B9999")); // largest serial number
+        assertTrue(SerialNumber.isValidSerialNumber("B00911")); // exactly 5 numbers
+        assertTrue(SerialNumber.isValidSerialNumber("B00001")); // smallest serial number
+        assertTrue(SerialNumber.isValidSerialNumber("B99099")); // largest serial number
     }
 
     @Test
@@ -87,20 +87,20 @@ public class SerialNumberTest {
     @Test
     public void toString_correctStringRepresentation_assertTrue() {
         SerialNumberGenerator.setCatalog(new Catalog());
-        assertTrue(SerialNumberGenerator.generateSerialNumber().toString().equals("B0001"));
+        assertTrue(SerialNumberGenerator.generateSerialNumber().toString().equals("B00001"));
     }
 
     @Test
     public void equals_sameSerialNumber_assertTrue() {
-        SerialNumber sn1 = new SerialNumber("B0001");
-        SerialNumber sn2 = new SerialNumber("B0001");
+        SerialNumber sn1 = new SerialNumber("B00001");
+        SerialNumber sn2 = new SerialNumber("B00001");
         assertTrue(sn1.equals(sn2));
     }
 
     @Test
     public void hashCode_sameSerialNumberSameHashCode_assertTrue() {
-        SerialNumber sn1 = new SerialNumber("B0001");
-        SerialNumber sn2 = new SerialNumber("B0001");
+        SerialNumber sn1 = new SerialNumber("B00001");
+        SerialNumber sn2 = new SerialNumber("B00001");
         assertTrue(sn1.hashCode() == sn2.hashCode());
     }
 

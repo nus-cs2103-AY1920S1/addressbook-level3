@@ -1,7 +1,7 @@
 {
   "book": [ {
     "title": "Person with invalid name field: Ha!ns Mu@ster",
-    "serialNumber": "B0001",
+    "serialNumber": "B00001",
     "author": "hands",
   } ]
 }
