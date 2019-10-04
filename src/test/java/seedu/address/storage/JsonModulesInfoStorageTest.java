@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -78,7 +79,10 @@ public class JsonModulesInfoStorageTest {
         ModuleInfo cs4248 = new ModuleInfo("CS4248", "Natural Language Processing", 4, false,
                 new ArrayList<>(Arrays.asList("AI", "MIR")), new ArrayList<>(), "CS4248 description",
                 "(AND (OR CS3243 CS3245) ST2334)");
-        ModulesInfo modulesInfo = new ModulesInfo(new ArrayList<>(Arrays.asList(cs2040s, cs4248)));
+        HashMap<String, ModuleInfo> mapModulesInfo = new HashMap<String, ModuleInfo>();
+        mapModulesInfo.put("CS2040S", cs2040s);
+        mapModulesInfo.put("CS4248", cs4248);
+        ModulesInfo modulesInfo = new ModulesInfo(mapModulesInfo);
         return modulesInfo;
     }
 }

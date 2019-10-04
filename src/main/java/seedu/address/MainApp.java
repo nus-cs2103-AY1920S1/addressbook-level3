@@ -65,7 +65,7 @@ public class MainApp extends Application {
         ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(config.getModulesInfoFilePath());
         ModulesInfo modulesInfo = initModulesInfo(modulesInfoStorage);
 
-        // TODO: modulesInfo is not used from here on out -- use it with StorageManager/ModelManager/LogicManager
+        // TODO: modulesInfo is not used from here on out -- use it with ModelManager
         // These show how the module information could be used for verification. They should be tests too later on
         // Remove this block once a proper place is found for modulesInfo (after refactoring)
         ModuleInfo cs4248 = modulesInfo.find("CS4248");
@@ -200,9 +200,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting without modules information");
             initializedModulesInfo = new ModulesInfo();
         }
-
-        // Parse the prereq trees from the prereq strings, as read from the JSON file
-        initializedModulesInfo.parsePrereqTrees();
 
         return initializedModulesInfo;
     }

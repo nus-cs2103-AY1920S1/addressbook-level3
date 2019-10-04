@@ -35,6 +35,9 @@ public class JsonModulesInfoStorage implements ModulesInfoStorage {
      */
     public Optional<ModulesInfo> readModulesInfo(Path prefsFilePath) throws DataConversionException {
         Optional<ModulesInfo> modulesInfo = JsonUtil.readJsonFile(prefsFilePath, ModulesInfo.class);
+        if (!modulesInfo.isEmpty()) {
+            modulesInfo.get().init();
+        }
         return modulesInfo;
     }
 }
