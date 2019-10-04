@@ -21,13 +21,13 @@ public class TaskUtil {
      * Returns an add command string for adding the {@code task}.
      */
     public static String getAddCommand(Task task) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(task);
+        return AddCommand.COMMAND_WORD + " " + getTaskDetails(task);
     }
 
     /**
      * Returns the part of command string for the given {@code task}'s details.
      */
-    public static String getPersonDetails(Task task) {
+    public static String getTaskDetails(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + task.getName().fullName + " ");
         sb.append(PREFIX_PHONE + task.getPhone().value + " ");
@@ -41,7 +41,7 @@ public class TaskUtil {
     /**
      * Returns the part of command string for the given {@code EditTaskDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditTaskDescriptor descriptor) {
+    public static String getEditTaskDescriptorDetails(EditCommand.EditTaskDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

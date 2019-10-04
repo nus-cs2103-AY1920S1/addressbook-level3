@@ -68,7 +68,7 @@ public class UniqueTaskListTest {
     }
 
     @Test
-    public void setTask_targetTaskNotInList_throwsPersonNotFoundException() {
+    public void setTask_targetTaskNotInList_throwsTaskNotFoundException() {
         assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.setTask(ALICE, ALICE));
     }
 
@@ -102,7 +102,7 @@ public class UniqueTaskListTest {
     }
 
     @Test
-    public void setTask_editedTaskHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setTask_editedTaskHasNonUniqueIdentity_throwsDuplicateTaskException() {
         uniqueTaskList.add(ALICE);
         uniqueTaskList.add(BOB);
         assertThrows(DuplicateTaskException.class, () -> uniqueTaskList.setTask(ALICE, BOB));
