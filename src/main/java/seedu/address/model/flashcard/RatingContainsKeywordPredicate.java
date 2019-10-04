@@ -9,9 +9,7 @@ public class RatingContainsKeywordPredicate implements Predicate<FlashCard> {
 
     private final String keyword;
 
-    public RatingContainsKeywordPredicate(String keyword) {
-        this.keyword = keyword;
-    }
+    public RatingContainsKeywordPredicate(String keyword) { this.keyword = keyword; }
 
     @Override
     public boolean test(FlashCard flashCard) {

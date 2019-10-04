@@ -11,9 +11,7 @@ import seedu.address.commons.util.StringUtil;
 public class QuestionContainsAnyKeywordsPredicate implements Predicate<FlashCard> {
     private final List<String> keywords;
 
-    public QuestionContainsAnyKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
-    }
+    public QuestionContainsAnyKeywordsPredicate(List<String> keywords) { this.keywords = keywords; }
 
     @Override
     public boolean test(FlashCard flashCard) {
