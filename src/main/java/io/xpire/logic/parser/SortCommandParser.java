@@ -22,7 +22,6 @@ public class SortCommandParser implements Parser<SortCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
-        System.out.println(trimmedArgs);
         String[] nameKeywords = trimmedArgs.split("\\|");
         MethodOfSorting method = ParserUtil.parseMethodOfSorting(nameKeywords[0]);
         return new SortCommand(method);

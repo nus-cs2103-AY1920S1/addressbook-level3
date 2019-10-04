@@ -1,5 +1,8 @@
 package io.xpire.logic.parser;
 
+import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.commands.CheckCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ExpiringSoonPredicate;
@@ -17,10 +20,16 @@ public class CheckCommandParser implements Parser<CheckCommand> {
      */
     public CheckCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
+
         if (trimmedArgs.isEmpty()) {
             return new CheckCommand(new ReminderThresholdExceededPredicate());
-        } else {
-            return new CheckCommand(new ExpiringSoonPredicate(trimmedArgs));
         }
+
+        if (!StringUtil.isNonNegativeInteger(trimmedArgs)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
+        }
+
+        return new CheckCommand(new ExpiringSoonPredicate(Integer.parseInt(trimmedArgs)));
     }
 }

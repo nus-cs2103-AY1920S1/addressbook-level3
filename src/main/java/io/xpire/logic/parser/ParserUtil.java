@@ -9,10 +9,9 @@ import java.util.Set;
 import io.xpire.commons.core.index.Index;
 import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.parser.exceptions.ParseException;
-import io.xpire.model.item.Email;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Name;
-import io.xpire.model.item.Phone;
+import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.sort.MethodOfSorting;
 import io.xpire.model.tag.Tag;
 
@@ -20,7 +19,6 @@ import io.xpire.model.tag.Tag;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
@@ -52,7 +50,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String expiryDate} into a {@code ExpiryDate}.
+     * Parses a {@code String expiryDate} into an {@code ExpiryDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
@@ -64,36 +62,6 @@ public class ParserUtil {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
         }
         return new ExpiryDate(trimmedDate);
-    }
-
-    /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
     }
 
     /**
@@ -127,18 +95,32 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String method} into an {@code MethodOfSorting}.
+     * Parses a {@code String key} into a {@code MethodOfSorting}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code method} is invalid.
+     * @throws ParseException if the given {@code key} is invalid.
      */
-    public static MethodOfSorting parseMethodOfSorting(String method) throws ParseException {
-        requireNonNull(method);
-        String trimmedMethodOfSorting = method.trim();
+    public static MethodOfSorting parseMethodOfSorting(String key) throws ParseException {
+        requireNonNull(key);
+        String trimmedMethodOfSorting = key.trim();
         if (!MethodOfSorting.isValidMethodOfSorting(trimmedMethodOfSorting)) {
             throw new ParseException(MethodOfSorting.MESSAGE_CONSTRAINTS);
         }
         return new MethodOfSorting(trimmedMethodOfSorting);
     }
 
+    /**
+     * Parses a {@code String reminderThreshold} into an {@code }.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code reminderThreshold} is invalid.
+     */
+    public static ReminderThreshold parseReminderThreshold(String reminderThreshold) throws ParseException {
+        requireNonNull(reminderThreshold);
+        String trimmedReminderThreshold = reminderThreshold.trim();
+        if (!ReminderThreshold.isValidReminderThreshold(trimmedReminderThreshold)) {
+            throw new ParseException(ReminderThreshold.MESSAGE_CONSTRAINTS);
+        }
+        return new ReminderThreshold(trimmedReminderThreshold);
+    }
 }
