@@ -12,10 +12,10 @@ import seedu.address.model.person.Phone;
 //@@author ambervoong
 /**
  * Represents a Body in Mortago.
- * Guarantees: dateofAdmission and bodyIdentificationNumber is guaranteed to be present.
+ * Guarantees: dateofAdmission and bodyIdNum is guaranteed to be present.
  */
 public class Body {
-    private final IdentificationNumber bodyIdentificationNumber;
+    private final IdentificationNumber bodyIdNum;
     private final Date dateOfAdmission;
 
     // Identity fields.
@@ -38,7 +38,7 @@ public class Body {
     private Phone kinPhoneNumber;
 
     public Body(Date dateOfAdmission) {
-        this.bodyIdentificationNumber = IdentificationNumber.generateNewBodyId();
+        this.bodyIdNum = IdentificationNumber.generateNewBodyId();
         this.dateOfAdmission = dateOfAdmission;
     }
 
@@ -47,10 +47,10 @@ public class Body {
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
                 String relationship, Phone kinPhoneNumber) {
         if (isTestUnit) {
-            this.bodyIdentificationNumber = IdentificationNumber.customGenerateId("B",
+            this.bodyIdNum = IdentificationNumber.customGenerateId("B",
                     identificationNumber);
         } else {
-            this.bodyIdentificationNumber = IdentificationNumber.generateNewBodyId();
+            this.bodyIdNum = IdentificationNumber.generateNewBodyId();
         }
         this.dateOfAdmission = dateOfAdmission;
         this.name = name;
@@ -69,8 +69,8 @@ public class Body {
     }
 
     // Getters and Setters
-    public IdentificationNumber getBodyIdentificationNumber() {
-        return bodyIdentificationNumber;
+    public IdentificationNumber getBodyIdNum() {
+        return bodyIdNum;
     }
 
     public Name getName() {
@@ -196,7 +196,7 @@ public class Body {
             return false;
         }
         Body body = (Body) o;
-        return getBodyIdentificationNumber().equals(body.getBodyIdentificationNumber())
+        return getBodyIdNum().equals(body.getBodyIdNum())
                 && getDateOfAdmission().equals(body.getDateOfAdmission())
                 && Objects.equals(getName(), body.getName())
                 && getSex() == body.getSex()
@@ -215,7 +215,7 @@ public class Body {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBodyIdentificationNumber(), getDateOfAdmission(), getName(), getSex(), getNric(),
+        return Objects.hash(getBodyIdNum(), getDateOfAdmission(), getName(), getSex(), getNric(),
                 getReligion(), getCauseOfDeath(), getOrgansForDonation(), getStatus(), getFridgeId(), getDateOfBirth(),
                 getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
     }

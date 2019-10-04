@@ -58,9 +58,9 @@ class BodyTest {
 
 
     @Test
-    void getBodyIdentificationNumber() {
+    void getBodyIdNum() {
         // Final field; does not have a setter method.
-        assertEquals(IdentificationNumber.customGenerateId("B", 1), ALICE.getBodyIdentificationNumber());
+        assertEquals(IdentificationNumber.customGenerateId("B", 1), ALICE.getBodyIdNum());
     }
 
     @Test
