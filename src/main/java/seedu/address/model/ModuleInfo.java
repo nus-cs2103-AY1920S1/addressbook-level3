@@ -43,6 +43,10 @@ public class ModuleInfo {
         this.prereqTree = parsePrereqTree(this.prereqTreeString);
     }
 
+    public PrereqTree getPrereqTree() {
+        return this.prereqTree;
+    }
+
     public String getCode() {
         return this.code;
     }
