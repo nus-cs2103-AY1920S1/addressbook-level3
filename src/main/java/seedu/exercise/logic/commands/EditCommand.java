@@ -6,6 +6,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
+import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.tag.Muscle;
 
 /**
@@ -40,7 +42,8 @@ public class EditCommand extends Command {
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_CALORIES + "CALORIES] "
         + "[" + PREFIX_QUANTITY + "QUANTITY] "
-        + "[" + PREFIX_MUSCLE + "TAG]...\n"
+        + "[" + PREFIX_UNIT + "UNIT] "
+        + "[" + PREFIX_MUSCLE + "MUSCLE]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_DATE + "03/10/2019 "
         + PREFIX_CALORIES + "800";
@@ -97,9 +100,10 @@ public class EditCommand extends Command {
         Calories updatedCalories = editExerciseDescriptor.getCalories().orElse(exerciseToEdit.getCalories());
         Date updatedDate = editExerciseDescriptor.getDate().orElse(exerciseToEdit.getDate());
         Quantity updatedQuantity = editExerciseDescriptor.getQuantity().orElse(exerciseToEdit.getQuantity());
+        Unit updatedUnit = editExerciseDescriptor.getUnit().orElse(exerciseToEdit.getUnit());
         Set<Muscle> updatedMuscles = editExerciseDescriptor.getMuscles().orElse(exerciseToEdit.getMuscles());
 
-        return new Exercise(updatedName, updatedDate, updatedCalories, updatedQuantity, updatedMuscles);
+        return new Exercise(updatedName, updatedDate, updatedCalories, updatedQuantity, updatedUnit, updatedMuscles);
     }
 
     @Override
@@ -129,6 +133,7 @@ public class EditCommand extends Command {
         private Calories calories;
         private Date date;
         private Quantity quantity;
+        private Unit unit;
         private Set<Muscle> muscles;
 
         public EditExerciseDescriptor() {
@@ -143,6 +148,7 @@ public class EditCommand extends Command {
             setCalories(toCopy.calories);
             setDate(toCopy.date);
             setQuantity(toCopy.quantity);
+            setUnit(toCopy.unit);
             setMuscles(toCopy.muscles);
         }
 
@@ -185,6 +191,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(quantity);
         }
 
+        public void setUnit(Unit unit) {
+            this.unit = unit;
+        }
+
+        public Optional<Unit> getUnit() {
+            return Optional.ofNullable(unit);
+        }
+
         /**
          * Sets {@code muscles} to this object's {@code muscles}.
          * A defensive copy of {@code muscles} is used internally.
@@ -221,6 +235,7 @@ public class EditCommand extends Command {
                 && getCalories().equals(e.getCalories())
                 && getDate().equals(e.getDate())
                 && getQuantity().equals(e.getQuantity())
+                && getUnit().equals(e.getUnit())
                 && getMuscles().equals(e.getMuscles());
         }
     }

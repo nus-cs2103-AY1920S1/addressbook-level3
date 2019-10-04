@@ -45,14 +45,14 @@ public class JsonExerciseBookStorage implements ExerciseBookStorage {
     public Optional<ReadOnlyExerciseBook> readExerciseBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableExerciseBook> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableExerciseBook> jsonExerciseBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableExerciseBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonExerciseBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonExerciseBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

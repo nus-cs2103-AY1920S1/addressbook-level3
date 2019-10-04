@@ -9,7 +9,7 @@ import static seedu.exercise.commons.util.AppUtil.checkArgument;
  */
 public class Muscle {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Muscle groups should contain only alphabetical characters";
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$";
 
     public final String muscleName;

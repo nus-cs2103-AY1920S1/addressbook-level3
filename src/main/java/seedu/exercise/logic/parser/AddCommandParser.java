@@ -6,6 +6,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -17,6 +18,7 @@ import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
+import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.tag.Muscle;
 
 /**
@@ -33,9 +35,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE, PREFIX_CALORIES, PREFIX_QUANTITY,
-                PREFIX_MUSCLE);
+                PREFIX_UNIT, PREFIX_MUSCLE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_QUANTITY, PREFIX_DATE, PREFIX_CALORIES)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_QUANTITY, PREFIX_DATE, PREFIX_CALORIES, PREFIX_UNIT)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -44,9 +46,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Calories calories = ParserUtil.parseCalories(argMultimap.getValue(PREFIX_CALORIES).get());
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
+        Unit unit = ParserUtil.parseUnit(argMultimap.getValue(PREFIX_UNIT).get());
         Set<Muscle> muscleList = ParserUtil.parseMuscles(argMultimap.getAllValues(PREFIX_MUSCLE));
 
-        Exercise exercise = new Exercise(name, date, calories, quantity, muscleList);
+        Exercise exercise = new Exercise(name, date, calories, quantity, unit, muscleList);
 
         return new AddCommand(exercise);
     }

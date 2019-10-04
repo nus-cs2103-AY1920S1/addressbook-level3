@@ -39,6 +39,8 @@ public class ExerciseCard extends UiPart<Region> {
     @FXML
     private Label quantity;
     @FXML
+    private Label unit;
+    @FXML
     private FlowPane tags;
 
     public ExerciseCard(Exercise exercise, int displayedIndex) {
@@ -49,6 +51,7 @@ public class ExerciseCard extends UiPart<Region> {
         date.setText(exercise.getDate().toString());
         calories.setText(exercise.getCalories().value + " kcal");
         quantity.setText(exercise.getQuantity().value);
+        unit.setText(exercise.getUnit().unit);
         exercise.getMuscles().stream()
             .sorted(Comparator.comparing(muscle -> muscle.muscleName))
             .forEach(muscle -> tags.getChildren().add(new Label(muscle.muscleName)));

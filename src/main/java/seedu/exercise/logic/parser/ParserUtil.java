@@ -13,6 +13,7 @@ import seedu.exercise.model.exercise.Calories;
 import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
+import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.tag.Muscle;
 
 /**
@@ -49,6 +50,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String unit} into a {@code Unit}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Unit parseUnit(String unit) throws ParseException {
+        requireNonNull(unit);
+        String trimmedUnit = unit.trim();
+        if (!Unit.isValidUnit(trimmedUnit)) {
+            throw new ParseException(Unit.MESSAGE_CONSTRAINTS);
+        }
+        return new Unit(trimmedUnit);
     }
 
     /**

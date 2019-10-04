@@ -11,5 +11,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_CALORIES = new Prefix("c/");
     public static final Prefix PREFIX_QUANTITY = new Prefix("q/");
     public static final Prefix PREFIX_MUSCLE = new Prefix("m/");
+    public static final Prefix PREFIX_UNIT = new Prefix("u/");
 
 }

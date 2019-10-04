@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.exercise.model.tag.Muscle;
 
 /**
- * Represents an Exercise in the quantity book.
+ * Represents an Exercise in the exercise book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Exercise {
@@ -21,18 +21,20 @@ public class Exercise {
 
     // Data fields
     private final Quantity quantity;
+    private final Unit unit;
     private final Calories calories;
     private final Set<Muscle> muscles = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Exercise(Name name, Date date, Calories calories, Quantity quantity, Set<Muscle> muscles) {
-        requireAllNonNull(name, date, calories, quantity, muscles);
+    public Exercise(Name name, Date date, Calories calories, Quantity quantity, Unit unit, Set<Muscle> muscles) {
+        requireAllNonNull(name, date, calories, quantity, unit, muscles);
         this.name = name;
         this.date = date;
         this.calories = calories;
         this.quantity = quantity;
+        this.unit = unit;
         this.muscles.addAll(muscles);
     }
 
@@ -50,6 +52,10 @@ public class Exercise {
 
     public Quantity getQuantity() {
         return quantity;
+    }
+
+    public Unit getUnit() {
+        return unit;
     }
 
     /**
@@ -93,13 +99,14 @@ public class Exercise {
             && otherExercise.getCalories().equals(getCalories())
             && otherExercise.getDate().equals(getDate())
             && otherExercise.getQuantity().equals(getQuantity())
+            && otherExercise.getUnit().equals(getUnit())
             && otherExercise.getMuscles().equals(getMuscles());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, calories, quantity, muscles);
+        return Objects.hash(name, date, calories, quantity, unit, muscles);
     }
 
     @Override
@@ -112,6 +119,8 @@ public class Exercise {
             .append(getCalories())
             .append(" Quantity: ")
             .append(getQuantity())
+            .append("Unit")
+            .append(getUnit())
             .append(" Muscle(s): ");
         getMuscles().forEach(builder::append);
         return builder.toString();

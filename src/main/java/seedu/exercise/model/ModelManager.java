@@ -121,7 +121,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedExerciseBook}
      */
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {

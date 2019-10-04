@@ -11,6 +11,7 @@ import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
+import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.tag.Muscle;
 
 /**
@@ -20,22 +21,22 @@ public class SampleDataUtil {
     public static Exercise[] getSampleExercises() {
         return new Exercise[]{
             new Exercise(new Name("Rope Skipping"), new Date("26/09/2019"), new Calories("330"),
-                new Quantity("10 counts of 10"),
+                new Quantity("10"), new Unit("counts"),
                 getMuscleSet("Legs")),
             new Exercise(new Name("Cycling"), new Date("26/09/2019"), new Calories("284"),
-                new Quantity("Cycled 5km"),
+                new Quantity("5"), new Unit("km"),
                 getMuscleSet("Legs")),
             new Exercise(new Name("Strength Training"), new Date("26/09/2019"), new Calories("341"),
-                new Quantity("20 counts of 10"),
+                new Quantity("20"), new Unit("counts"),
                 getMuscleSet("Chest")),
             new Exercise(new Name("Swimming"), new Date("26/09/2019"), new Calories("354"),
-                new Quantity("10 laps"),
+                new Quantity("10"), new Unit("laps"),
                 getMuscleSet("Calves")),
             new Exercise(new Name("Bench Press"), new Date("26/09/2019"), new Calories("222"),
-                new Quantity("30 counts"),
+                new Quantity("30"), new Unit("counts"),
                 getMuscleSet("Triceps")),
             new Exercise(new Name("Running"), new Date("26/09/2019"), new Calories("9999999"),
-                new Quantity("2.4km clocked"),
+                new Quantity("2.4"), new Unit("km"),
                 getMuscleSet("Legs"))
         };
     }

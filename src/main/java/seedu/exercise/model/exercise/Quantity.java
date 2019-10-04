@@ -9,13 +9,13 @@ import static seedu.exercise.commons.util.AppUtil.checkArgument;
  */
 public class Quantity extends Property {
 
-    public static final String MESSAGE_CONSTRAINTS = "Quantity can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Quantity should only contain numbers, and it should not be blank";
 
     /*
-     * The first character of the exercise must not be a whitespace,
+     * The first character of the quantity must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "\\d+(\\.\\d+)?";
 
     public final String value;
 

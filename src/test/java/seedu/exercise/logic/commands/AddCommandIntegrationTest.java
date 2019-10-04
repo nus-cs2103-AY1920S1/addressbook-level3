@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicateExercise_throwsCommandException() {
         Exercise exerciseInList = model.getAllData().getExerciseList().get(0);
-        assertCommandFailure(new AddCommand(exerciseInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCommand(exerciseInList), model, AddCommand.MESSAGE_DUPLICATE_EXERCISE);
     }
 
 }

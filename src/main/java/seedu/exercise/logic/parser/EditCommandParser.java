@@ -7,6 +7,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE, PREFIX_CALORIES,
-            PREFIX_QUANTITY, PREFIX_MUSCLE);
+            PREFIX_QUANTITY, PREFIX_UNIT, PREFIX_MUSCLE);
 
         Index index;
 
@@ -55,6 +56,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_QUANTITY).isPresent()) {
             editExerciseDescriptor.setQuantity(ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get()));
+        }
+        if (argMultimap.getValue(PREFIX_UNIT).isPresent()) {
+            editExerciseDescriptor.setUnit(ParserUtil.parseUnit(argMultimap.getValue(PREFIX_UNIT).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_MUSCLE)).ifPresent(editExerciseDescriptor::setMuscles);
 

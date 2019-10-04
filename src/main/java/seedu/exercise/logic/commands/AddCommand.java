@@ -6,6 +6,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
@@ -24,16 +25,17 @@ public class AddCommand extends Command {
         + PREFIX_DATE + "DATE "
         + PREFIX_CALORIES + "CALORIES "
         + PREFIX_QUANTITY + "QUANTITY "
-        + "[" + PREFIX_MUSCLE + "TAG]...\n"
+        + "[" + PREFIX_MUSCLE + "MUSCLE]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "Run "
         + PREFIX_DATE + "22/09/2019 "
         + PREFIX_CALORIES + "1500 "
         + PREFIX_QUANTITY + "2.4 "
-        + PREFIX_MUSCLE + "Leg ";
+        + PREFIX_UNIT + "km "
+        + PREFIX_MUSCLE + "Leg";
 
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This exercise already exists in the exercise book";
+    public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in the exercise book";
 
     private final Exercise toAdd;
 
@@ -50,7 +52,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasExercise(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
         model.addExercise(toAdd);
