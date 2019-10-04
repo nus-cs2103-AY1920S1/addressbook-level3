@@ -35,6 +35,7 @@ public class CommandTestUtil {
     public static final String VALID_AUTHOR_BOOK_2 = "Jin Yong";
     public static final String VALID_GENRE_ACTION = "Action";
     public static final String VALID_GENRE_FICTION = "Fiction";
+    public static final String VALID_BORROWER_ID = "K0001";
 
     public static final String TITLE_DESC_BOOK_1 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_1;
     public static final String TITLE_DESC_BOOK_2 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_2;

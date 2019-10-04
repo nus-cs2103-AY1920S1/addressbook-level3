@@ -3,7 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
@@ -96,6 +98,32 @@ public class Catalog implements ReadOnlyCatalog {
      */
     public void removeBook(Book key) {
         books.remove(key);
+    }
+
+    /**
+     * Returns a list of loaned books from the current catalog.
+     *
+     * @return an ObservableList of books that are loaned out.
+     */
+    public ObservableList<Book> getLoanedBooks() {
+        List<Book> loanedBooks = getBookList()
+                .stream()
+                .filter(book -> book.isCurrentlyLoanedOut())
+                .collect(Collectors.toList());
+        return FXCollections.observableArrayList(loanedBooks);
+    }
+
+    /**
+     * Returns a list of available books from the current catalog.
+     *
+     * @return an ObservableList of books that are available.
+     */
+    public ObservableList<Book> getAvailableBooks() {
+        List<Book> availableBooks = getBookList()
+                .stream()
+                .filter(book -> !book.isCurrentlyLoanedOut())
+                .collect(Collectors.toList());
+        return FXCollections.observableArrayList(availableBooks);
     }
 
     //// util methods

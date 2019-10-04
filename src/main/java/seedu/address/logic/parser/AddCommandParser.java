@@ -17,6 +17,7 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
+import seedu.address.model.loan.Loan;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -49,7 +50,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             serialNumber = SerialNumberGenerator.generateSerialNumber();
         }
         Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));
-        Book book = new Book(title, serialNumber, author, genreList);
+        Loan loan = null; //stub for loan object
+        Book book = new Book(title, serialNumber, author, loan, genreList);
         return new AddCommand(book);
     }
 

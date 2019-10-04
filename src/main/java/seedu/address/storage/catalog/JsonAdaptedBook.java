@@ -15,6 +15,7 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
+import seedu.address.model.loan.Loan;
 
 /**
  * Jackson-friendly version of {@link Book}.
@@ -26,6 +27,7 @@ public class JsonAdaptedBook {
     private final String title;
     private final String serialNumber;
     private final String author;
+    private final String loan;
     private final List<JsonAdaptedTag> genres = new ArrayList<>();
 
     /**
@@ -34,6 +36,7 @@ public class JsonAdaptedBook {
     @JsonCreator
     public JsonAdaptedBook(@JsonProperty("title") String title, @JsonProperty("serialNumber") String serialNumber,
                            @JsonProperty("author") String author,
+                           @JsonProperty("loan") String loan,
                            @JsonProperty("genres") List<JsonAdaptedTag> genres) {
         this.title = title;
         this.serialNumber = serialNumber;
@@ -41,6 +44,7 @@ public class JsonAdaptedBook {
         if (genres != null) {
             this.genres.addAll(genres);
         }
+        this.loan = loan;
     }
 
     /**
@@ -50,15 +54,21 @@ public class JsonAdaptedBook {
         title = source.getTitle().value;
         serialNumber = source.getSerialNumber().value;
         author = source.getAuthor().value;
+        boolean hasLoan = source.getLoan().isPresent();
+        if (hasLoan) {
+            loan = source.getLoan().get().toString(); //toString for now
+        } else {
+            loan = null;
+        }
         genres.addAll(source.getGenres().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Book} object.
+     * Converts this Jackson-friendly adapted book object into the model's {@code Book} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted book.
      */
     public Book toModelType() throws IllegalValueException {
         final List<Genre> personGenres = new ArrayList<>();
@@ -87,9 +97,10 @@ public class JsonAdaptedBook {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Author.class.getSimpleName()));
         }
         final Author modelAuthor = new Author(author);
+        final Loan modelLoan = null; //stub as null until we decide how to store loan in json
 
         final Set<Genre> modelGenres = new HashSet<>(personGenres);
-        return new Book(modelTitle, modelSerialNumber, modelAuthor, modelGenres);
+        return new Book(modelTitle, modelSerialNumber, modelAuthor, modelLoan, modelGenres);
     }
 
 }
