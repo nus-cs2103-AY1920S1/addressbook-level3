@@ -4,8 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://ay1920s1-cs2103t-f13-2.github.io/main[F13] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+$aveNUS was developed by the https://ay1920s1-cs2103t-f13-2.github.io/main[F13-2] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -13,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Roby Tanama
 image::robytanama.png[width="150", align="left"]
-{empty}[https://github.com/robytanama[github]] [<<johndoe#, portfolio>>]
+{empty}[Github](https://github.com/robytanama) | <<johndoe#, Portfolio>>
 
 Role: Project lead +
 Responsibilities: UI
@@ -22,7 +21,7 @@ Responsibilities: UI
 
 === Low Jun Kai Sean
 image::seanlowjk.png[width="150", align="left"]
-{empty}[https://github.com/seanlowjk[github]] [<<johndoe#, portfolio>>]
+{empty}[Github](https://github.com/seanlowjk) | <<johndoe#, Portfolio>>
 
 Role: Documentation +
 Responsibilities: Deliverables and deadlines
@@ -31,7 +30,7 @@ Responsibilities: Deliverables and deadlines
 
 === Chua Jia Cheng Jon
 image::jon-chua.png[width="150", align="left"]
-{empty}[http://github.com/jon-chua[github]] [<<johndoe#, portfolio>>]
+{empty}[Github](http://github.com/jon-chua) | <<johndoe#, Portfolio>>
 
 Role: Developer +
 Responsibilities: Storage handling
@@ -40,7 +39,7 @@ Responsibilities: Storage handling
 
 === Koh Wee Lun Clarence
 image::fatclarence.png[width="150", align="left"]
-{empty}[http://github.com/fatclarence[github]] [<<johndoe#, portfolio>>]
+{empty}[Github](http://github.com/fatclarence) | <<johndoe#, Portfolio>>
 
 Role: Developer +
 Responsibilities: Implementing features
@@ -49,7 +48,7 @@ Responsibilities: Implementing features
 
 === Choo Ze Yuan
 image::raikonen.png[width="150", align="left"]
-{empty}[http://github.com/raikonen[github]] [<<johndoe#, portfolio>>]
+{empty}[Github](http://github.com/raikonen) | <<johndoe#, Portfolio>>
 
 Role: Developer +
 Responsibilities: Implementing features
