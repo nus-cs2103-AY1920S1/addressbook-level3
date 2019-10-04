@@ -27,7 +27,7 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 .  Copy the file to the folder you want to use as the home folder for your +Work.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::AY1920S1-CS2103T-T12-1.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
