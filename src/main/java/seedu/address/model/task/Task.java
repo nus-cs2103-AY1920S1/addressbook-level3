@@ -25,8 +25,8 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+    public Task(Name name, Phone modelPhone, Email email, Set<Tag> tags) {
+        requireAllNonNull(name, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
