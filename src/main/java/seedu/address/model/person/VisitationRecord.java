@@ -6,10 +6,10 @@ import static java.util.Objects.requireNonNull;
  * Represents a Person's remark in the address book.
  * Guarantees: immutable; is always valid
  */
-public class Remark {
+public class VisitationRecord {
     public final String value;
 
-    public Remark(String remark) {
+    public VisitationRecord(String remark) {
         requireNonNull(remark);
         value = remark;
     }
@@ -22,8 +22,8 @@ public class Remark {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Remark // instanceof handles nulls
-                && value.equals(((Remark) other).value)); // state check
+                || (other instanceof VisitationRecord // instanceof handles nulls
+                && value.equals(((VisitationRecord) other).value)); // state check
     }
 
     @Override

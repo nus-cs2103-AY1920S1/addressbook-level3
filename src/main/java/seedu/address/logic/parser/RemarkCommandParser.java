@@ -8,7 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddVisitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Remark;
+import seedu.address.model.person.VisitationRecord;
 
 /**
  * Parses input arguments and creates a new {@code RemarkCommand} object
@@ -32,6 +32,6 @@ public class RemarkCommandParser implements Parser<AddVisitCommand> {
 
         String remark = argMultimap.getValue(PREFIX_VISIT).orElse("");
 
-        return new AddVisitCommand(index, new Remark(remark));
+        return new AddVisitCommand(index, new VisitationRecord(remark));
     }
 }
