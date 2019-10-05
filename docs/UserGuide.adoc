@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= SecureIT - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,32 +12,24 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `SecureIT`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+SecureIT is for those who *prefer a secure password manager that stores your password locally*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `SecureIT.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your SecureIT.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Enter password for SecureIT or set up a new password if it is your first time accessing the application.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -52,90 +44,178 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+===  Accessing password directory : `goto password`
 
-Format: `help`
+==== Adding a password : `add`
 
-=== Adding a person: `add`
+Adds a password to the app.
+Format: `add <desc> <username> <password>`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Example: `add Gmail user1 password1`
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Accessing a password : `open`
 
-Examples:
+Shows the username and password for the specified password description provided by the user.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Format: `open <desc>`
 
-=== Listing all persons : `list`
+Example: `open Gmail`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Updating a password : `update`
 
-=== Editing a person : `edit`
+Updates a password as specified by the user.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `update <desc>`
 
+Example: `update Gmail`
+
+===== Updating description: `-d`
+
+Updates specified password’s description.
+
+Format: `-d <desc>`
+
+Example: `-d Hotmail`
+
+===== Updating username: `-u`
+
+Updates specified password’s username.
+
+Format: `-u <username>`
+
+Example: `-u user2`
+
+===== Updating password: `-p`
+
+Updates specified password’s password.
+
+Format: `-p <password>`
+
+Example: `-p password2`
+
+
+==== Deleting a password: `delete`
+
+Deletes a password as specified by the user.
+
+Format: `delete <desc>`
+
+Example: `delete Gmail`
+
+==== Finding a password: `find`
+
+Finds a password description as specified by the user.
+
+Format: `find <desc>`
+
+Example: `find Gmail`
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
+* The search is case insensitive. e.g `gmail` will match `Gmail`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Only the description is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
-Examples:
+==== Generating a new password: `generate`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Generates a new random strong password for the user with the specified description username.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Format: `generate <desc> <username>`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Example: `generate Gmail user3`
 
+==== Analysing all password: `analyse`
+
+Analyses all passwords for the user and creates a report for the user.
+
+Format: `analyse`
+
+===  Accessing card directory : `goto card`
+
+==== Creating a card : `add`
+
+Adds a credit/debit card to the app.
+
+Format: `add <description> <cardNumber> <expiry> <cvc>`
+
+Example: `add VisaPOSB`
+
+==== Deleting a card: `delete`
+
+Deletes a card as specified by the user.
+
+Format: `delete <description>`
+
+Example: `delete VisaPOSB`
+
+===  Accessing note directory : `goto file`
+
+==== Encrypting a file : `encrypt`
+
+Encrypts a local file as specified by the user.
+
+Format: `encrypt <filepath> <filename>`
+
+Example: `encrypt /docs/mysecret/secret_photo.png secretphoto`
+
+==== Decrypting a file : `encrypt`
+
+Decrypts a local file as specified by the user.
+
+Format: `decrypt <filepath> <filename>`
+
+Example: `decrypt /docs/mysecret/secret_photo.png secretphoto`
+
+==== Finding a file: `find`
+
+Finds a local file as specified by the user.
+
+Format: `find <filename>`
+
+Example: `find secretphoto`
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The search is case insensitive. e.g `secretphoto` will match `SecretPhoto`
+* Only the description is searched.
 ****
 
-Examples:
+===  Accessing note directory : `goto note`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+==== Creating a note : `add`
 
-// end::delete[]
+Adds a note to the app.
+
+Format: `add <title>`
+
+Example: `add personal_diary`
+
+==== Accessing a note : `open`
+
+Opens a note to the app.
+
+Format: `open <note>`
+
+Example: `open personal_diary`
+
+==== Deleting a note: `delete`
+
+Deletes a note as specified by the user.
+
+Format: `delete <note>`
+
+Example: `delete personal_diary`
+
+==== Finding a note: `find`
+
+Finds a note as specified by the user.
+
+Format: `find <note>`
+
+Example: `find personal_diary`
+****
+* The search is case insensitive. e.g `Personal_diary` will match `personal_diary`
+* Only the description is searched.
+****
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -148,30 +228,10 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+SecureIT data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+*A*: Install the app in the other computer and copy store.tmp files from the application’s directory to the new computer.
