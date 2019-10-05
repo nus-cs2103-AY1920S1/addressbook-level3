@@ -5,6 +5,7 @@ matrix:
 
 before_install:
   - chmod +x gradlew
+  - chmod +x config/travis/*
 
 script: >-
     ./config/travis/run-checks.sh &&
