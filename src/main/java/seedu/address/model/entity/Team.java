@@ -153,16 +153,16 @@ public class Team extends Entity {
 
     @Override
     public boolean equals(Object other) {
-       if (other == this) {
-           return true;
-       }
+        if (other == this) {
+            return true;
+        }
 
-       if (!(other instanceof Team)) {
-           return false;
-       }
+        if (!(other instanceof Team)) {
+            return false;
+        }
 
-       Team otherTeam = ((Team) other);
-       return otherTeam.getName() == this.getName()
+        Team otherTeam = ((Team) other);
+        return otherTeam.getName() == this.getName()
                && otherTeam.getId() == this.getId()
                && otherTeam.getParticipants() == this.getParticipants()
                && otherTeam.getSubject() == this.getSubject()

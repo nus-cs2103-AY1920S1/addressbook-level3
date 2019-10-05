@@ -1,19 +1,21 @@
-package seedu.address.logic.parser.AddCommandParsers;
+package seedu.address.logic.parser.addcommandparser;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+
 import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.addcommand.AddTeamCommand;
+import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Location;
@@ -27,7 +29,7 @@ import seedu.address.model.entity.Team;
 import seedu.address.model.entitylist.TeamList;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new {@link AddTeamCommand} object.
  */
 public class AddTeamCommandParser implements Parser<AddCommand> {
 
@@ -38,15 +40,15 @@ public class AddTeamCommandParser implements Parser<AddCommand> {
      */
     public AddTeamCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SPECIALISATION, PREFIX_PROJECT_NAME,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SUBJECT_NAME, PREFIX_PROJECT_NAME,
                         PREFIX_PROJECT_TYPE, PREFIX_LOCATION);
 
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SPECIALISATION).get());
+        SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT_NAME).get());
         Name projectName = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_PROJECT_NAME).get());
         ProjectType projectType = AlfredParserUtil.parseProjectType(argMultimap.getValue(PREFIX_PROJECT_TYPE).get());
         Location location = AlfredParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
-        Id id = new TeamList().generateID();
+        Id id = new TeamList().generateId();
         List<Participant> participants = new LinkedList<>();
         Score score = new Score(0);
         Optional<Mentor> mentor = Optional.empty();

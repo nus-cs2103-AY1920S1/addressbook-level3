@@ -5,21 +5,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
-
-
 /**
- * Represents a seating location of  an Entity in the address book.
- * Guarantees: details are present and not null,
- * field values is  validated, immutable.
+ * Represents a seating location of an Entity in the address book. Guarantees:
+ * details are present and not null, field values is validated, immutable.
  */
 public class Location {
 
     // Constants
     public static final String MESSAGE_CONSTRAINTS_INVALID_TABLE_NUMBER = "Table number should be an integer"
-            + "and adhere to the following constraints:\n"
-            + "1. The tableNumber can be any digit.\n"
-            + "The tableNumber must:\n"
-            + "    -be at least one digit long\n"
+            + "and adhere to the following constraints:\n" + "1. The tableNumber can be any digit.\n"
+            + "The tableNumber must:\n" + "    -be at least one digit long\n"
             + "    -contain only digits from 0 to 9\n";
 
     private static final String TABLE_NUMBER_REGEX = "^\\d+$";
@@ -64,8 +59,8 @@ public class Location {
     }
 
     /**
-     * Returns true if both Location objects have the same data fields.
-     * This defines a stronger notion of equality between two Location object.
+     * Returns true if both Location objects have the same data fields. This defines
+     * a stronger notion of equality between two Location object.
      *
      * @param other Other Locatio object.
      */
@@ -83,8 +78,7 @@ public class Location {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(" Table Number: ")
-                .append(getTableNumber());
+        builder.append(" Table Number: ").append(getTableNumber());
         return builder.toString();
     }
 

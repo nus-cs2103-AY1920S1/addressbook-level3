@@ -7,13 +7,17 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Participant;
 
+/**
+ * Adds a {@link Participant} to Alfred.
+ */
 public class AddParticipantCommand extends AddCommand {
 
-     /* Possible Fields */
-     private static final String MESSAGE_SUCCESS = "New participant added: %s";
-     private static final String MESSAGE_DUPLICATE_PARTICIPANT = "This participant already exists in this Hackathon";
+    /* Possible Fields */
+    public static final String COMMAND_WORD = "addParticipant";
+    private static final String MESSAGE_SUCCESS = "New participant added: %s";
+    private static final String MESSAGE_DUPLICATE_PARTICIPANT = "This participant already exists in this Hackathon";
 
-     private Participant participant;
+    private Participant participant;
 
     public AddParticipantCommand(Participant participant) {
         requireNonNull(participant);

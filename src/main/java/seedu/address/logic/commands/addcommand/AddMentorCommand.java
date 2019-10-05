@@ -7,6 +7,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Mentor;
 
+/**
+ * Adds a {@link Mentor} to Alfred.
+ */
 public class AddMentorCommand extends AddCommand {
 
     /* Possible Fields: */

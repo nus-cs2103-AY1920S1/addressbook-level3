@@ -4,7 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.entity.Team;
 
+/**
+ * Lists every {@link Team} in Alfred.
+ */
 public class ListTeamCommand extends ListCommand {
 
     /* Possible Fields? */

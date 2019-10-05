@@ -2,6 +2,7 @@ package seedu.address.model.entitylist;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import seedu.address.AlfredException;
 import seedu.address.AlfredRuntimeException;
 import seedu.address.model.entity.Entity;
@@ -9,6 +10,10 @@ import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
 
+/**
+ * This interface serves as the new API for the model.
+ * {@code ParticipantList} should behave as a singleton.
+ */
 public class ParticipantList extends EntityList {
     private List<Participant> participants;
     private int lastUsedId;
@@ -17,8 +22,8 @@ public class ParticipantList extends EntityList {
      * Constructor.
      */
     public ParticipantList() {
-       this.participants = new ArrayList<>();
-       this.lastUsedId = 0;
+        this.participants = new ArrayList<>();
+        this.lastUsedId = 0;
     }
 
     /**
@@ -89,7 +94,7 @@ public class ParticipantList extends EntityList {
     /**
      * Gets the list but with element type Participant.
      *
-     * @return List<Participant>
+     * @return List of Participants.
      */
     public List<Participant> getSpecificTypedList() {
         return this.participants;
@@ -98,7 +103,7 @@ public class ParticipantList extends EntityList {
     /**
      * List the participants.
      *
-     * @return List<Participant>
+     * @return List of Participants.
      */
     @Override
     public List<? extends Entity> list() {
@@ -127,7 +132,7 @@ public class ParticipantList extends EntityList {
      * @return ID
      */
     @Override
-    public Id generateID() {
+    public Id generateId() {
         this.lastUsedId++;
         return new Id(PrefixType.P, this.lastUsedId);
     }

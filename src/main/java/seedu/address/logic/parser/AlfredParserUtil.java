@@ -10,9 +10,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.Email;
+import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Phone;
+import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.tag.Tag;
@@ -30,12 +32,15 @@ public class AlfredParserUtil {
      * trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static Index parseIndex(String oneBasedIndex) throws ParseException {
-        String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+    public static Id parseIndex(String oneBasedIndex, PrefixType prefix) throws ParseException {
+        oneBasedIndex = oneBasedIndex.trim().toLowerCase();
+        String trimmedIndex = oneBasedIndex.substring(1);
+        String expectedPrefix = prefix.name();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex) || !oneBasedIndex.startsWith(expectedPrefix)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
-        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+        int id = Integer.parseInt(trimmedIndex);
+        return new Id(prefix, id);
     }
 
     /**

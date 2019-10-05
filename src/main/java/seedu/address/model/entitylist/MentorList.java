@@ -2,6 +2,7 @@ package seedu.address.model.entitylist;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import seedu.address.AlfredException;
 import seedu.address.AlfredRuntimeException;
 import seedu.address.model.entity.Entity;
@@ -9,6 +10,10 @@ import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.PrefixType;
 
+/**
+ * This interface serves as the new API for the model.
+ * {@code MentorList} should behave as a singleton.
+ */
 public class MentorList extends EntityList {
     private List<Mentor> mentors;
     private int lastUsedId;
@@ -87,7 +92,7 @@ public class MentorList extends EntityList {
     /**
      * Returns a list but with element type Mentor.
      *
-     * @return List<Mentor>.
+     * @return List of Mentors.
      */
     public List<Mentor> getSpecificTypedList() {
         return this.mentors;
@@ -96,7 +101,7 @@ public class MentorList extends EntityList {
     /**
      * List the mentors.
      *
-     * @return List<Mentor>
+     * @return List of Mentors.
      */
     @Override
     public List<? extends Entity> list() {
@@ -125,7 +130,7 @@ public class MentorList extends EntityList {
      * @return ID
      */
     @Override
-    public Id generateID() {
+    public Id generateId() {
         this.lastUsedId++;
         return new Id(PrefixType.M, this.lastUsedId);
     }

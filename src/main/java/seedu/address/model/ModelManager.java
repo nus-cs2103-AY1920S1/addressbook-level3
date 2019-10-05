@@ -16,11 +16,9 @@ import seedu.address.AlfredRuntimeException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.Id;
-import seedu.address.model.entity.Issue;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Team;
-import seedu.address.model.entitylist.IssueList;
 import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.ReadableEntityList;
@@ -40,7 +38,6 @@ public class ModelManager implements Model {
     // EntityLists
     private final ParticipantList participantList;
     private final TeamList teamList;
-    private final IssueList issueList;
     private final MentorList mentorList;
 
     /**
@@ -58,7 +55,6 @@ public class ModelManager implements Model {
 
         this.participantList = new ParticipantList();
         this.teamList = new TeamList();
-        this.issueList = new IssueList();
         this.mentorList = new MentorList();
     }
 
@@ -119,15 +115,6 @@ public class ModelManager implements Model {
      */
     public ReadableEntityList getTeamList() {
         return this.teamList;
-    }
-
-    /**
-     * Returns the issue list located in the Model Manager.
-     *
-     * @return ReadableEntityList
-     */
-    public ReadableEntityList getIssueList() {
-        return this.issueList;
     }
 
     /**
@@ -229,7 +216,7 @@ public class ModelManager implements Model {
         for (Team t: teams) {
             Optional<Mentor> mentor = t.getMentor();
             if (mentor.isPresent()) {
-                if(mentor.get().getId() == mentorId) {
+                if (mentor.get().getId() == mentorId) {
                     return t;
                 }
             }
@@ -313,52 +300,6 @@ public class ModelManager implements Model {
     public Mentor deleteMentor(Id id) throws AlfredException {
         return this.mentorList.delete(id);
     }
-
-    /* Issue Methods */
-
-    /**
-     * Gets issue by Id.
-     *
-     * @param id
-     * @return Issue
-     * @throws AlfredException
-     */
-    public Issue getIssue(Id id) throws AlfredException {
-        return this.issueList.get(id);
-    }
-
-    /**
-     * Adds issue into the list.
-     *
-     * @param issue
-     * @throws AlfredException
-     */
-    public void addIssue(Issue issue) throws AlfredException {
-        this.issueList.add(issue);
-    }
-
-    /**
-     * Updates the issue in the list.
-     *
-     * @param id
-     * @param issue
-     * @return boolean
-     */
-    public boolean updateIssue(Id id, Issue issue) {
-        return this.issueList.update(id, issue);
-    }
-
-    /**
-     * Deletes the issue in the list.
-     *
-     * @param id
-     * @return Issue
-     * @throws AlfredException
-     */
-    public Issue deleteIssue(Id id) throws AlfredException {
-        return this.issueList.delete(id);
-    }
-
 
     //=========== AddressBook ================================================================================
 
