@@ -4,30 +4,29 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
+import seedu.address.person.commons.core.Config;
+import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.commons.core.Version;
+import seedu.address.person.commons.exceptions.DataConversionException;
+import seedu.address.person.commons.util.ConfigUtil;
+import seedu.address.person.commons.util.StringUtil;
+import seedu.address.person.logic.Logic;
+import seedu.address.person.logic.LogicManager;
+import seedu.address.person.model.AddressBook;
+import seedu.address.person.model.Model;
+import seedu.address.person.model.ModelManager;
+import seedu.address.person.model.ReadOnlyAddressBook;
+import seedu.address.person.model.ReadOnlyUserPrefs;
+import seedu.address.person.model.UserPrefs;
+import seedu.address.person.model.util.SampleDataUtil;
+import seedu.address.person.storage.AddressBookStorage;
+import seedu.address.person.storage.JsonAddressBookStorage;
+import seedu.address.person.storage.JsonUserPrefsStorage;
+import seedu.address.person.storage.Storage;
+import seedu.address.person.storage.StorageManager;
+import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -65,7 +64,34 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        //ui = new UiManager(logic);
+        seedu.address.transaction.storage.StorageManager transactionStorage =
+                new seedu.address.transaction.storage.StorageManager("data/transactionHistory.txt");
+        seedu.address.transaction.model.ModelManager transactionManager =
+                new seedu.address.transaction.model.ModelManager(transactionStorage);
+
+        //no config for ui yet
+        /*UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
+        UserPrefs userPrefs = new UserPrefs();
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        seedu.address.person.storage.StorageManager personStorage =
+                new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
+
+        ReadOnlyAddressBook initialData;
+        try {
+            Optional<ReadOnlyAddressBook> addressBookOptional = personStorage.readAddressBook();
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
+        } catch (Exception e) {
+
+            initialData = new AddressBook();
+        }*/
+        /*seedu.address.person.model.ModelManager personMM =
+                new seedu.address.person.model.ModelManager(initialData, userPrefs);*/
+        seedu.address.transaction.logic.LogicManager transactionLogic = new
+                seedu.address.transaction.logic.LogicManager(transactionManager, transactionStorage, model, storage);
+        ui = new UiManager(transactionLogic, logic);
+
     }
 
     /**

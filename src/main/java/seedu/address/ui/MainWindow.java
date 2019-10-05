@@ -1,10 +1,11 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -12,12 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.util.OverallCommandResult;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,7 +27,8 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    private seedu.address.transaction.logic.Logic transactionLogic;
+    private seedu.address.person.logic.Logic personLogic;
 
     // Independent Ui parts residing in this Ui container
     private Home home;
@@ -59,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane overviewPlaceholder;
 
     @FXML
+    private AnchorPane membersPlaceholder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -66,6 +67,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab homeTab;
 
 //    @FXML
 //    private StackPane personListPanelPlaceholder;
@@ -76,17 +83,21 @@ public class MainWindow extends UiPart<Stage> {
 //    @FXML
 //    private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
+                      seedu.address.person.logic.Logic personLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
+
+        this.transactionLogic = transactionLogic;
+        this.personLogic = personLogic;
+        //add all our logicManager
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        //setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
+        //setAccelerators();
 
         helpWindow = new HelpWindow();
     }
@@ -95,9 +106,9 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setAccelerators() {
+    /*private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
+    }*/
 
     /**
      * Sets the accelerator of a MenuItem.
@@ -132,8 +143,8 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        home = new Home();
+    void fillInnerParts() throws  Exception{
+        home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
         inventory = new Inventory();
@@ -151,33 +162,37 @@ public class MainWindow extends UiPart<Stage> {
         lion = new Lion();
         lionPlaceholder.getChildren().add(lion.getRoot());
 
+        PersonListPanel personListPanel = new PersonListPanel(personLogic.getFilteredPersonList());
+        membersPlaceholder.getChildren().add(personListPanel.getRoot());
+
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
     }
 
     /**
      * Sets the default size based on {@code guiSettings}.
      */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
+    /*private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
-    }
+    }*/
 
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
-    @FXML
+    /*@FXML
     public void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
             helpWindow.focus();
         }
-    }
+    }*/
 
     void show() {
         primaryStage.show();
@@ -186,14 +201,14 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Closes the application.
      */
-    @FXML
+    /*@FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
+    }*/
 
 //    public PersonListPanel getPersonListPanel() {
 //        return personListPanel;
@@ -202,26 +217,54 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private OverallCommandResult executeCommand(String commandText) throws Exception{
         try {
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-//            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            OverallCommandResult commandResult;
+            if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
+                commandResult = transactionLogic.execute(commandText);
+            }   else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
+                commandResult = personLogic.execute(commandText);
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
+                commandResult = new OverallCommandResult("Implement reimbursement logic"); //should be replace with reimbursement's logic
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
+                commandResult = new OverallCommandResult("Implement inventory logic"); //should be replace with inventory's logic
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
+                commandResult = new OverallCommandResult("Implement cashier logic"); //should be replace with cashier's logic
+            } else {
+                commandResult = new OverallCommandResult("Implement overview logic"); //should be replace with overview's logic
+            }
 
-            if (commandResult.isShowHelp()) {
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            lion.setResponse(commandResult.getFeedbackToUser());
+            homePlaceholder.getChildren().removeAll();
+            homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
+
+            inventoryPlaceholder.getChildren().removeAll();
+            inventoryPlaceholder.getChildren().add(new Inventory().getRoot());
+
+            reimbursementsPlaceholder.getChildren().removeAll();
+            reimbursementsPlaceholder.getChildren().add(new Reimbursements().getRoot());
+
+            cashierPlaceholder.getChildren().removeAll();
+            cashierPlaceholder.getChildren().add(new Cashier().getRoot());
+
+            overviewPlaceholder.getChildren().removeAll();
+            overviewPlaceholder.getChildren().add(new Overview().getRoot());
+
+            //later when we implement help and exit
+            /*if (commandResult.isShowHelp()) {
                 handleHelp();
             }
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
+            }*/
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (Exception e) {
             logger.info("Invalid command: " + commandText);
-//            resultDisplay.setFeedbackToUser(e.getMessage());
+            lion.setResponse(e.toString());
             throw e;
         }
     }
