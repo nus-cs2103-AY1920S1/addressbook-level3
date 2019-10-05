@@ -3,6 +3,9 @@ package seedu.address.logic.commands.tag;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 public class CreateTagCommand extends Command {
 
@@ -12,7 +15,7 @@ public class CreateTagCommand extends Command {
         + "Parameters: "
         + "TAG_NAME \n"
         + "Example: "
-        +  "newtag exchange";
+        + "newtag exchange";
 
     public static final String MESSAGE_SUCCESS = "New tag created: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This tag already exists";
@@ -26,6 +29,22 @@ public class CreateTagCommand extends Command {
     public CreateTagCommand(String tagName) {
         requireNonNull(tagName);
         this.tagName = tagName;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        // TODO: implement this
+        /*
+        requireNonNull(model);
+
+        if (model.hasPerson(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        model.addPerson(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+         */
+        return new CommandResult("this is just a temporary holder");
     }
 
 }
