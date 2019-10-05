@@ -76,6 +76,10 @@ public class MainWindow extends UiPart<Stage> {
         ChangeListener<Number> guiChangeListener = (observable, oldValue, newValue) -> {
             if (model.getUserPrefs().isGuiPrefsLocked()) {
                 setWindowDefaultSize(model.getGuiSettings());
+            } else {
+                GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                        (int) primaryStage.getX(), (int) primaryStage.getY());
+                model.setGuiSettings(guiSettings);
             }
         };
 

@@ -15,7 +15,6 @@ public class CheckBoxFormItem extends FormItem<Boolean> {
         super(FXML, executeChangeHandler);
         formItemLabel.setText(textFormItemName);
         formCheckBox.setSelected(initialValue);
-        splitPaneItems.add(formCheckBox);
     }
 
     public CheckBoxFormItem(String textFormItemName, Consumer<Boolean> executeChangeHandler) {

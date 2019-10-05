@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
+import javafx.scene.layout.AnchorPane;
 import seedu.address.ui.UiPart;
 
 import java.util.function.Consumer;
@@ -16,8 +16,7 @@ import java.util.function.Consumer;
  * Requires all implementing classes to set the executeChangeHandler, to be executed when
  * the value of the form field changes.
  */
-public abstract class FormItem<T> extends UiPart<SplitPane> {
-    final ObservableList<Node> splitPaneItems;
+public abstract class FormItem<T> extends UiPart<AnchorPane> {
 
     /** Form field change handler that receives the form field value of type {@code T}. */
     Consumer<T> executeChangeHandler;
@@ -28,9 +27,6 @@ public abstract class FormItem<T> extends UiPart<SplitPane> {
     FormItem(String FXML, Consumer<T> executeChangeHandler) {
         super(FXML);
         this.executeChangeHandler = executeChangeHandler;
-        splitPaneItems = this.getRoot().getItems();
-        splitPaneItems.clear();
-        splitPaneItems.add(formItemLabel);
     }
 
     /**

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F2DFD7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox fx:id="formItemsPlaceholder" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <VBox fx:id="formItemsPlaceholder" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     <GridPane alignment="BOTTOM_CENTER" style="-fx-background-color: #50514F;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

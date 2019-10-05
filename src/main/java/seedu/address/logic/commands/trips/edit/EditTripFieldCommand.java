@@ -148,6 +148,7 @@ public class EditTripFieldCommand extends Command {
          * @param newDescriptor New {@code EditTripDescriptor} to use.
          */
         public EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
+            this();
             newDescriptor.name.ifPresentOrElse(this::setName,
                     () -> oldDescriptor.name.ifPresent(this::setName));
 

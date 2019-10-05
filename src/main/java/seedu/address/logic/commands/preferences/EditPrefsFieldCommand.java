@@ -157,6 +157,7 @@ public class EditPrefsFieldCommand extends Command {
          * @param newDescriptor New {@code EditTripDescriptor} to use.
          */
         public EditPrefsDescriptor(EditPrefsDescriptor oldDescriptor, EditPrefsDescriptor newDescriptor) {
+            this();
             newDescriptor.windowWidth.ifPresentOrElse(
                     this::setWindowWidth,
                     () -> oldDescriptor.windowWidth.ifPresent(this::setWindowWidth));

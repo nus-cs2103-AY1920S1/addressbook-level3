@@ -20,7 +20,6 @@ public class DateFormItem extends FormItem<LocalDate> {
         super(FXML, executeChangeHandler);
         formItemLabel.setText(textFormItemName);
         formDateField.setValue(initialDate);
-        splitPaneItems.add(formDateField);
     }
 
     public DateFormItem(String textFormItemName, Consumer<LocalDate> executeChangeHandler) {

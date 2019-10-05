@@ -18,12 +18,6 @@ public abstract class Page<T extends Node> extends UiPart<T> {
     protected MainWindow mainWindow;
     protected Logic logic;
     protected Model model;
-    /**
-     * The callback function to execute, after executing a command successfully.
-     * It must be defined by the implementing classes.
-     */
-    protected MainWindow.CommandUpdater commandUpdater;
-
 
     protected Page(String fxml, MainWindow mainWindow, Logic logic, Model model) {
         super(fxml);
