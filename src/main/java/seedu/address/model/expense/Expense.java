@@ -15,6 +15,9 @@ import seedu.address.model.tag.Tag;
  */
 public class Expense {
 
+    // identity fields
+    private final UniqueIdentifier uniqueIdentifier;
+    // data fields
     private final Description description;
     private final Price price;
 
@@ -23,10 +26,11 @@ public class Expense {
     /**
      * Every field must be present and not null.
      */
-    public Expense(Description description, Price price, Set<Tag> tags) {
-        requireAllNonNull(description, price, tags);
+    public Expense(Description description, Price price, Set<Tag> tags, UniqueIdentifier uniqueIdentifier) {
+        requireAllNonNull(description, price, tags, uniqueIdentifier);
         this.description = description;
         this.price = price;
+        this.uniqueIdentifier = uniqueIdentifier;
         this.tags.addAll(tags);
     }
 
@@ -38,6 +42,10 @@ public class Expense {
         return price;
     }
 
+    public UniqueIdentifier getUniqueIdentifier() {
+        return uniqueIdentifier;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -47,7 +55,7 @@ public class Expense {
     }
 
     /**
-     * Returns true if both expenses of the same description have at least one other identity field that is the same.
+     * Returns true if both expenses of the same unique identifier.
      * This defines a weaker notion of equality between two expenses.
      */
     public boolean isSameExpense(Expense otherExpense) {
@@ -56,12 +64,11 @@ public class Expense {
         }
 
         return otherExpense != null
-                && otherExpense.getDescription().equals(getDescription())
-                && (otherExpense.getPrice().equals(getPrice()));
+                && otherExpense.getUniqueIdentifier().equals(getUniqueIdentifier());
     }
 
     /**
-     * Returns true if both expenses have the same identity and data fields.
+     * Returns true if both expenses have the same unique identifier and data fields.
      * This defines a stronger notion of equality between two expenses.
      */
     @Override
@@ -75,7 +82,8 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getDescription().equals(getDescription())
+        return otherExpense.getUniqueIdentifier().equals(getUniqueIdentifier())
+                && otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getPrice().equals(getPrice())
                 && otherExpense.getTags().equals(getTags());
     }
@@ -83,19 +91,19 @@ public class Expense {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, tags);
+        return Objects.hash(description, price, tags, uniqueIdentifier);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("|| Description: ")
+        builder.append("Expense: ")
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
-                .append(" Tags: ");
+                .append(" [Tags: ");
         getTags().forEach(builder::append);
-        builder.append("||");
+        builder.append("]");
         return builder.toString();
     }
 
