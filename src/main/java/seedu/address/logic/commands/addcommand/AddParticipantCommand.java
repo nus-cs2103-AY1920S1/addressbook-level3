@@ -12,6 +12,7 @@ public class AddParticipantCommand extends AddCommand {
      /* Possible Fields */
      private static final String MESSAGE_SUCCESS = "New participant added: %s";
      private static final String MESSAGE_DUPLICATE_PARTICIPANT = "This participant already exists in this Hackathon";
+     public static final String COMMAND_WORD = "addParticipant";
 
      private Participant participant;
 
