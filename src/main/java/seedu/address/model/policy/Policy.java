@@ -145,6 +145,7 @@ public class Policy {
                 && otherPolicy.getPrice().equals(getPrice())
                 && otherPolicy.getStartAge().equals(getStartAge())
                 && otherPolicy.getEndAge().equals(getEndAge())
+                && otherPolicy.getCriteria().equals(getCriteria())
                 && otherPolicy.getTags().equals(getTags());
     }
 

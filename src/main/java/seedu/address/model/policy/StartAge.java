@@ -19,9 +19,8 @@ public class StartAge {
     public static final String VALIDATION_REGEX = "[\\p{N}]*";
 
     private String age = "0";
-
     /**
-     * Constructs a {@code StartAge}.
+     * Constructs a {@code EndAge}.
      *
      * @param age A valid age.
      */
