@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.PanelType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.panels.CustomerListPanel;
@@ -207,6 +208,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            //I retrieve the type that this works on here;
+            PanelType panelToSwitchTo = commandResult.getPanelType();
+            switchPanel(panelToSwitchTo);
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -216,30 +220,46 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * checks which panel the command acts on and switches it
+     * @param input type of panel the result works on
+     */
+    private void switchPanel(PanelType input) {
+        if (input.equals(PanelType.CUSTOMER)) {
+            this.showCustomerPanel();
+        } else if (input.equals(PanelType.PHONE)) {
+            this.showPhonePanel();
+        } else if (input.equals(PanelType.ORDER)) {
+            this.showOrderPanel();
+        } else if (input.equals(PanelType.SCHEDULE)) {
+            this.showSchedulePanel();
+        }
+    }
+
+    /**
      * switch selected tab to customer tab
      */
-    public void showCustomerPanel() {
+    private void showCustomerPanel() {
         tabPanel.switchTabCustomer();
     }
 
     /**
      * switch selected tab to phone tab
      */
-    public void showPhonePanel() {
+    private void showPhonePanel() {
         tabPanel.switchTabPhone();
     }
 
     /**
      * switch selected tab to order tab
      */
-    public void showPhoneOrder() {
+    private void showOrderPanel() {
         tabPanel.switchTabOrder();
     }
 
     /**
      * switch selected tab to schedule tab
      */
-    public void showPhoneSchedule() {
+    private void showSchedulePanel() {
         tabPanel.switchTabSchedule();
     }
 

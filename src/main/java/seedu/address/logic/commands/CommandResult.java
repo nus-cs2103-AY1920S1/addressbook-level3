@@ -17,10 +17,13 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final PanelType panelType;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this.panelType = PanelType.DEFAULT;
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -32,6 +35,17 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
+    }
+
+    public CommandResult(String feedbackToUser, PanelType type) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.panelType = type;
+    }
+
+    public PanelType getPanelType() {
+        return panelType;
     }
 
     public String getFeedbackToUser() {
