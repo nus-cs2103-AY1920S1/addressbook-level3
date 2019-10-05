@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Deliveria - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Team CS2103T-F14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -391,16 +391,19 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to maintain up to 100 drivers and 1000 tasks without performance degradation.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should comply with the company's privacy regulations and safely store the data files.
+.  Should be able to scale quickly and adaptable for different companies.
 
-_{More to be added}_
+
+
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows 10, MacOS Mojave, Ubuntu
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
