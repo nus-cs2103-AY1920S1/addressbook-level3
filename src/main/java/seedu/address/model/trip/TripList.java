@@ -1,8 +1,8 @@
-package seedu.address.model.itinerary.trip;
+package seedu.address.model.trip;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
-import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
-import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 import java.util.List;
 

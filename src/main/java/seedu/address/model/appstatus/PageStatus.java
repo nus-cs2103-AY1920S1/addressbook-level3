@@ -2,7 +2,7 @@ package seedu.address.model.appstatus;
 
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.model.itinerary.day.Day;
-import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.trip.Trip;
 
 public class PageStatus {
     private final PageType pageType;

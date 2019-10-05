@@ -5,26 +5,16 @@ import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import seedu.address.Main;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.trips.EnterCreateTripCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.trip.Trip;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.Page;
-import seedu.address.ui.UiPart;
-import seedu.address.ui.components.CommandBox;
-import seedu.address.ui.components.ResultDisplay;
-import seedu.address.ui.components.StatusBarFooter;
-import seedu.address.ui.template.WindowWithoutSidebar;
+import seedu.address.ui.template.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +22,7 @@ import java.util.stream.IntStream;
 
 public class TripsPage extends Page<AnchorPane> {
 
-    private static final String FXML = "TripsPage.fxml";
+    private static final String FXML = "trips/TripsPage.fxml";
     private static final int MAX_COLUMNS = 5;
 
     private int nextRowToFill = 0;
@@ -46,12 +36,13 @@ public class TripsPage extends Page<AnchorPane> {
 
     public TripsPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
+        fillPage();
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
-    public void fillInnerParts() {
+    public void fillPage() {
         tripGridPane.getChildren().clear();
         List<Trip> trips = model.getTravelPal().getTripList();
         List<Node> tripCards = IntStream.range(0, trips.size())
@@ -73,11 +64,7 @@ public class TripsPage extends Page<AnchorPane> {
     }
 
     @FXML
-    private void handleAddTrip() throws CommandException, ParseException {
-        mainWindow.executeCommand(EnterCreateTripCommand.COMMAND_WORD);
-    }
-
-    public void switchTo() {
-        mainWindow.switchHandler(getRoot(), this::fillInnerParts);
+    private void handleAddTrip() {
+        mainWindow.executeGuiCommand(EnterCreateTripCommand.COMMAND_WORD);
     }
 }

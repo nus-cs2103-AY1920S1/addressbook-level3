@@ -24,7 +24,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <image>
-            <Image url="@../images/dummytrip.jpeg" />
+            <Image url="@../../images/dummytrip.jpeg" />
          </image>
       </ImageView>
       <Label fx:id="tripNameLabel" text="Label" GridPane.rowIndex="1">

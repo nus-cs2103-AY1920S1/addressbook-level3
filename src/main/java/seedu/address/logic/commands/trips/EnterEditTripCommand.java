@@ -8,8 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
-import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.ui.trips.EditTripPage;
+import seedu.address.model.trip.Trip;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ import static java.util.Objects.requireNonNull;
 public class EnterEditTripCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the trip information editing screen"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the trip information editing screen\n"
             + "Parameters: INDEX (must be a positive integer)";
 
     public static final String MESSAGE_EDIT_TRIP_SUCCESS = " Welcome to your trip! %1$s";
@@ -47,7 +46,7 @@ public class EnterEditTripCommand extends Command {
                 .withNewTrip(tripToEdit)
                 .withNewEditTripDescriptor(editTripDescriptor));
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToEdit), EditTripPage.class);
+        return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToEdit), true);
     }
 
     @Override

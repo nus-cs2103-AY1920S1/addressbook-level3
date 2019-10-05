@@ -19,9 +19,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
+import seedu.address.ui.template.Page;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
 
@@ -63,10 +65,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.model = model;
 
-
         fillInnerParts();
-        //setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -81,56 +80,16 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-/*
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
-    /**
-     * Sets the accelerator of a MenuItem.
-     * @param keyCombination the KeyCombination value of the accelerator
-     *//*
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-/*
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        /*
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
-    }
-*/
-    /**
-     * Fills up all the placeholders of this window.
-     */
-    //protected abstract void fillInnerParts();
-
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
     protected void show() {
+        handleSwitch();
         primaryStage.show();
     }
 
     /**
-     * Executes the command and returns the result.
+     * Executes the command and returns the {@code CommandResult}.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
@@ -148,8 +107,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.getPage().isPresent()) {
-                switchWindow(commandResult.getPage().get());
+            if (commandResult.doSwitchPage()) {
+                handleSwitch();
             }
 
             commandUpdater.executeUpdateCallback();
@@ -159,6 +118,19 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Executes the command and returns the {@code CommandResult}.
+     *
+     * @see seedu.address.logic.Logic#execute(String)
+     */
+    public CommandResult executeGuiCommand(String commandText) {
+        try {
+            return executeCommand(commandText);
+        } catch (CommandException | ParseException e) {
+            return null;
         }
     }
 
@@ -186,46 +158,93 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public void switchHandler(Node node, CommandUpdater commandUpdater) {
+    /**
+     * Retrieves the {@code Page} type and attempts to switch the content in
+     * {@code contentPlaceholder} with it.
+     */
+    private void handleSwitch() {
+        final String MESSAGE_PAGE_NOT_IMPLEMENTED = "Sorry! We haven't implemented the %1$s page!";
+        PageType currentPageType = model.getPageStatus().getPageType();
+        Page<? extends Node> newPage;
+
+        switch (currentPageType) {
+        case TRIP_MANAGER:
+            newPage = new TripsPage(this, logic, model);
+            break;
+        case ADD_TRIP:
+            newPage = new EditTripPage(this, logic, model);
+            break;
+        default:
+            resultDisplay.setFeedbackToUser(
+                    String.format(MESSAGE_PAGE_NOT_IMPLEMENTED, currentPageType.toString()));
+            return;
+        }
+
+        switchContent(newPage);
+        this.commandUpdater = newPage::fillPage;
+    }
+
+    /**
+     * Switches the content in the {@code contentPlaceholder} {@code StackPane}.
+     *
+     * @param page The {@code Page} to switch to.
+     */
+    private void switchContent(Page<? extends Node> page) {
+        Node pageNode = page.getRoot();
+
         //transition
         List<Node> currentChildren = contentPlaceholder.getChildren();
-        node.translateXProperty().set(primaryStage.getWidth());
-        contentPlaceholder.getChildren().add(node);
+        pageNode.translateXProperty().set(primaryStage.getWidth());
+        contentPlaceholder.getChildren().add(pageNode);
 
         Timeline timeline = new Timeline();
         KeyValue yTranslateKv =
-                new KeyValue(node.translateXProperty(), 0, Interpolator.EASE_IN);
+                new KeyValue(pageNode.translateXProperty(), 0, Interpolator.EASE_IN);
         KeyFrame keyFrame = new KeyFrame(new Duration(200), yTranslateKv);
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
-
-        this.commandUpdater = commandUpdater;
-    }
-
-    private void switchWindow(Class<? extends Page> mainWindowClass) {
-        Page navigation = null;
-        if (TripsPage.class.equals(mainWindowClass)) {
-            navigation = new TripsPage(this, logic, model);
-        } else if (EditTripPage.class.equals(mainWindowClass)) {
-            navigation = new EditTripPage(this, logic, model);
-        } /*else if (DaysPage.class.equals(mainWindowClass)) {
-            navigation = DaysPage::switchTo;
-        } else if (EditDayPage.class.equals(mainWindowClass)) {
-            navigation = EditDayPage::switchTo;
-        } else if (EventsPage.class.equals(mainWindowClass)) {
-            navigation = EventsPage::switchTo;
-        } else if (EditEventPage.class.equals(mainWindowClass)) {
-            navigation = EditEventPage::switchTo;
-        } else if (PreferencesPage.class.equals(mainWindowClass)) {
-            navigation = PreferencesPage::switchTo;
-        }*/
-        if (navigation != null) {
-            navigation.switchTo();
-        }
     }
 
     @FunctionalInterface
     public interface CommandUpdater {
         void executeUpdateCallback();
     }
+
+    //setAccelerator code from AB3 for opening help window
+    /*
+    private void setAccelerators() {
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    /**
+     * Sets the accelerator of a MenuItem.
+     * @param keyCombination the KeyCombination value of the accelerator
+     *//*
+    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+        menuItem.setAccelerator(keyCombination);
+    /*
+        /*
+         * TODO: the code below can be removed once the bug reported here
+         * https://bugs.openjdk.java.net/browse/JDK-8131666
+         * is fixed in later version of SDK.
+         *
+         * According to the bug report, TextInputControl (TextField, TextArea) will
+         * consume function-key events. Because CommandBox contains a TextField, and
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
+         * not work when the focus is in them because the key event is consumed by
+         * the TextInputControl(s).
+         *
+         * For now, we add following event filter to capture such key events and open
+         * help window purposely so to support accelerators even when focus is
+         * in CommandBox or ResultDisplay.
+         */
+        /*
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
+            }
+        });
+    }
+    */
 }

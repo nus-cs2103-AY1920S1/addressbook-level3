@@ -2,8 +2,8 @@ package seedu.address.model.itinerary;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
-import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 import java.util.Iterator;
 import java.util.List;

@@ -5,10 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.model.itinerary.trip.TripList;
-import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
-import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
+import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.TripList;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 

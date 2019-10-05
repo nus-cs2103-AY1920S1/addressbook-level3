@@ -49,7 +49,6 @@ public class UiManager implements Ui {
         try {
             MainWindow mainWindow = new MainWindow(primaryStage, logic, model);
             TripsPage initialPage = new TripsPage(mainWindow, logic, model);
-            initialPage.switchTo();
             mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

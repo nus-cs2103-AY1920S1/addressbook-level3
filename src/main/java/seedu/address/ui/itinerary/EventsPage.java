@@ -1,12 +1,11 @@
 package seedu.address.ui.itinerary;
 
-import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.template.WindowWithSidebar;
+import seedu.address.ui.template.PageWithSidebar;
 
-public class EventsPage extends WindowWithSidebar {
+public class EventsPage extends PageWithSidebar {
 
     private static final String FXML = "EventsPage.fxml";
 
@@ -17,6 +16,6 @@ public class EventsPage extends WindowWithSidebar {
     /**
      * Fills up all the placeholders of this window.
      */
-    protected void fillInnerParts() {
+    public void fillPage() {
     }
 }
