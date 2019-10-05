@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Represent an Issue raised by the user.
+ */
 public class Issue extends Entity {
     private String description;
     private IssueType type;
@@ -83,7 +86,8 @@ public class Issue extends Entity {
     /**
      * Returns the minimal view of this entity.
      *
-     * @return HashMap<String, String>
+     * @return HashMap Maps String to a String,
+     * maps name, id, type and isCompleted to their respective value.
      */
     @Override
     public HashMap<String, String> viewMinimal() {
@@ -98,7 +102,8 @@ public class Issue extends Entity {
     /**
      * Returns the detailed view of this entity.
      *
-     * @return HashMap<String, String>
+     * @return HashMap Maps String to a String,
+     * maps name, id, type, description, time and isCompleted to their respective value.
      */
     @Override
     public HashMap<String, String> viewDetailed() {
@@ -112,6 +117,11 @@ public class Issue extends Entity {
         return result;
     }
 
+    /**
+     * Returns string representation of object.
+     *
+     * @return Issue in string format.
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

@@ -3,7 +3,7 @@ package seedu.address.commons.exceptions;
 import seedu.address.AlfredException;
 
 /**
- * Signals that some given data does not fulfill some constraints.
+ * Represents an exception thrown to signals that some given data does not fulfill some constraints.
  */
 public class IllegalValueException extends AlfredException {
     /**

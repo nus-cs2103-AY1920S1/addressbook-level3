@@ -109,6 +109,7 @@ public class Team extends Entity {
         this.location = location;
     }
 
+    /*
     @Override
     public HashMap<String, String> viewMinimal() {
         HashMap<String, String> result = new HashMap<>();
@@ -120,6 +121,8 @@ public class Team extends Entity {
         result.put("participants", participantsString);
         return result;
     }
+
+     */
 
     @Override
     public HashMap<String, String> viewDetailed() {

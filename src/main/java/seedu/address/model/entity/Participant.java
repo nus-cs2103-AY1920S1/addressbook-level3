@@ -3,17 +3,20 @@ package seedu.address.model.entity;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Represents a {@code Participant} in the address book.
+ */
 public class Participant extends Entity {
     private Email email;
     private Phone phone;
 
     /**
-     * Constructor without team.
+     * Constructs an {@code Pariticipant}.
      *
-     * @param name
-     * @param email
-     * @param phone
-     * @param id
+     * @param name Name of Entity.
+     * @param id Identification number of Entity.
+     * @param email Email address of Participant.
+     * @param phone Phone number of Participant.
      */
     public Participant(Name name, Id id, Email email, Phone phone) {
         super(id, name);
@@ -21,46 +24,24 @@ public class Participant extends Entity {
         this.phone = phone;
     }
 
-    // Getters - Note the return types will be changed from phone and email to the respective types - Just for demo
-
-    /**
-     * Gets the email.
-     *
-     * @return Email
-     */
     public Email getEmail() {
         return this.email;
     }
 
-    /**
-     * Gets the phone number.
-     *
-     * @return Phone
-     */
     public Phone getPhone() {
         return this.phone;
     }
 
-    // Setters - Argument types will be changed
-
-    /**
-     * Sets the phone.
-     *
-     * @param phone
-     */
     public void setPhone(Phone phone) {
-       this.phone = phone;
+        this.phone = phone;
     }
 
-    /**
-     * Sets the email.
-     *
-     * @param email
-     */
+
     public void setEmail(Email email) {
         this.email = email;
     }
 
+    /*
     @Override
     public HashMap<String, String> viewMinimal() {
         HashMap<String, String> result = new HashMap<>();
@@ -68,7 +49,13 @@ public class Participant extends Entity {
         result.put("phone", getPhone().toString());
         return result;
     }
+     */
 
+    /**
+     * Returns the full details of the Participant, in the HashMap format.
+     *
+     * @return HashMap Maps String to a String, each key is mapped to a data field.
+     */
     @Override
     public HashMap<String, String> viewDetailed() {
         HashMap<String, String> result = new HashMap<>();
@@ -83,6 +70,12 @@ public class Participant extends Entity {
         return Objects.hash(id, name, email, phone);
     }
 
+    /**
+     * Returns true if both Participant objects have the same data fields.
+     * This defines a stronger notion of equality between two Participant object.
+     *
+     * @param other Other Participant object.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -100,6 +93,11 @@ public class Participant extends Entity {
                 && otherParticipant.getEmail() == this.getEmail();
     }
 
+    /**
+     * Returns string representation of object.
+     *
+     * @return Participant in string format.
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
