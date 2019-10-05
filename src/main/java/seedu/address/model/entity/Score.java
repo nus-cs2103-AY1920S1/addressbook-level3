@@ -40,16 +40,16 @@ public class Score {
      *
      * @return Score in string format.
      */
-   public String toString(){
-    return Integer.toString(this.score);
-   }
+    public String toString() {
+        return Integer.toString(this.score);
+    }
 
     /**
      * Returns string representation of object, for storage.
      *
      * @return Score in string format.
      */
-   public int toStorageValue(){
-    return this.score;
-   }
+    public int toStorageValue() {
+        return this.score;
+    }
 }

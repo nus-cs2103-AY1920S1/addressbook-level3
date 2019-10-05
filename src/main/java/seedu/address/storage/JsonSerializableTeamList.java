@@ -8,11 +8,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.AlfredException;
-import seedu.address.model.entitylist.TeamList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Team;
+import seedu.address.model.entitylist.TeamList;
 
 /**
  * An Immutable TeamList that is serializable to JSON format.

@@ -5,9 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.AlfredException;
-import seedu.address.model.entitylist.ParticipantList;
-
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.entitylist.ParticipantList;
 
 /**
  * Represents a storage for {@link seedu.address.model.entitylist.TeamList}
@@ -29,7 +28,8 @@ public interface ParticipantListStorage {
     /**
      * @see #getParticipantListFilePath()
      */
-    Optional<ParticipantList> readParticipantList(Path filePath) throws DataConversionException, IOException, AlfredException;
+    Optional<ParticipantList> readParticipantList(Path filePath)
+            throws DataConversionException, IOException, AlfredException;
 
     /**
      * Saves the given {@link ParticipantList} to the storage.
@@ -43,4 +43,3 @@ public interface ParticipantListStorage {
      */
     void saveParticipantList(ParticipantList participantList, Path filePath) throws IOException;
 }
-

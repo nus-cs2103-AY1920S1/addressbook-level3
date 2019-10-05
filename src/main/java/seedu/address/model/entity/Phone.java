@@ -13,6 +13,8 @@ public class Phone {
 
     // Constants
     private static final String SPECIAL_CHARACTERS = "-. ";
+    private static final String DIGITS = "\\d+";
+
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers be of the format (optional)country-code + phone-number "
                     + "and should adhere to the following constraints:\n"
@@ -23,8 +25,6 @@ public class Phone {
                     + "    -contain numbers\n"
                     + "    -contain these special characters only, excluding parentheses,"
                     + "(" + SPECIAL_CHARACTERS + ").";
-
-    public static final String DIGITS = "\\d+";
     public static final String COUNTRY_CODE_REGEX = "\\+" + DIGITS;
     public static final String PHONE_NUMBER_PART_REGEX = "[" + SPECIAL_CHARACTERS + "]" + "?" + DIGITS;
     public static final String PHONE_NUMBER_REGEX = "(" + PHONE_NUMBER_PART_REGEX + ")" + "*";

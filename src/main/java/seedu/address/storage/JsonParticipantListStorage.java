@@ -44,7 +44,8 @@ public class JsonParticipantListStorage implements ParticipantListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ParticipantList> readParticipantList(Path filePath) throws DataConversionException, AlfredException {
+    public Optional<ParticipantList> readParticipantList(Path filePath)
+            throws DataConversionException, AlfredException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableParticipantList> jsonParticipantList = JsonUtil.readJsonFile(

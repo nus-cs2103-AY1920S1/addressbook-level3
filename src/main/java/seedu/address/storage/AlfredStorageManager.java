@@ -11,8 +11,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
-import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.MentorList;
+import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.TeamList;
 
 /**
@@ -61,12 +61,14 @@ public class AlfredStorageManager implements AlfredStorage {
     }
 
     @Override
-    public Optional<ParticipantList> readParticipantList() throws DataConversionException, IOException, AlfredException {
+    public Optional<ParticipantList> readParticipantList()
+            throws DataConversionException, IOException, AlfredException {
         return readParticipantList(pStore.getParticipantListFilePath());
     }
 
     @Override
-    public Optional<ParticipantList> readParticipantList(Path filePath) throws DataConversionException, IOException, AlfredException {
+    public Optional<ParticipantList> readParticipantList(Path filePath)
+            throws DataConversionException, IOException, AlfredException {
         logger.fine("Attempting to read data from file: " + filePath);
         return pStore.readParticipantList(filePath);
     }
@@ -94,7 +96,8 @@ public class AlfredStorageManager implements AlfredStorage {
     }
 
     @Override
-    public Optional<MentorList> readMentorList(Path filePath) throws DataConversionException, IOException, AlfredException {
+    public Optional<MentorList> readMentorList(Path filePath)
+            throws DataConversionException, IOException, AlfredException {
         logger.fine("Attempting to read data from file: " + filePath);
         return mStore.readMentorList(filePath);
     }

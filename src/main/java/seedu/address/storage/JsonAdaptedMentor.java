@@ -1,24 +1,17 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
-import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.Name;
+import seedu.address.model.entity.Phone;
+import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.SubjectName;
-
 
 /**
  * Jackson-friendly version of {@link Mentor}.
@@ -41,7 +34,8 @@ class JsonAdaptedMentor {
     @JsonCreator
     public JsonAdaptedMentor(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("organization") String organization,
-                             @JsonProperty("subject") String subject, @JsonProperty("prefixTypeStr") String prefixTypeStr,
+                             @JsonProperty("subject") String subject,
+                             @JsonProperty("prefixTypeStr") String prefixTypeStr,
                              @JsonProperty("idNum") int idNum) {
         this.name = name;
         this.phone = phone;
@@ -96,7 +90,8 @@ class JsonAdaptedMentor {
         final Email modelEmail = new Email(email);
 
         if (organization == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()) + "(Organization)");
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()) + "(Organization)");
         }
         if (!Name.isValidName(organization)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -104,7 +99,8 @@ class JsonAdaptedMentor {
         final Name modelOrganization = new Name(organization);
 
         if (subject == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SubjectName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, SubjectName.class.getSimpleName()));
         }
         if (!SubjectName.isValidSubjectName(subject)) {
             throw new IllegalValueException(SubjectName.MESSAGE_CONSTRAINTS);
@@ -112,7 +108,8 @@ class JsonAdaptedMentor {
         final SubjectName modelSubjectName = SubjectName.valueOf(subject);
 
         if (prefixTypeStr == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PrefixType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, PrefixType.class.getSimpleName()));
         }
         if (!PrefixType.isValidPrefixType(prefixTypeStr)) {
             throw new IllegalValueException(PrefixType.MESSAGE_CONSTRAINTS);

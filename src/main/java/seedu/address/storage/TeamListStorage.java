@@ -1,8 +1,8 @@
 package seedu.address.storage;
 
-import java.util.Optional;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import seedu.address.AlfredException;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -28,7 +28,7 @@ public interface TeamListStorage {
     /**
      * @see #getTeamListFilePath()
      */
-    Optional<TeamList> readTeamList(Path filePath) throws DataConversionException, IOException,AlfredException;
+    Optional<TeamList> readTeamList(Path filePath) throws DataConversionException, IOException, AlfredException;
 
     /**
      * Saves the given {@link TeamList} to the storage.

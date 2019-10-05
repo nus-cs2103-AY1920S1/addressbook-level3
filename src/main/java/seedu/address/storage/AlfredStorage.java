@@ -9,10 +9,13 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
-import seedu.address.model.entitylist.TeamList;
-import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.MentorList;
+import seedu.address.model.entitylist.ParticipantList;
+import seedu.address.model.entitylist.TeamList;
 
+/**
+ * Alfred Storage is the API to the storage of the system.
+ */
 public interface AlfredStorage extends UserPrefsStorage, TeamListStorage,
         ParticipantListStorage, MentorListStorage {
 

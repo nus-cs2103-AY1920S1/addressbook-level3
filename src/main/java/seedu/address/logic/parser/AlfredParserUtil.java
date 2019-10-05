@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.Email;
@@ -103,6 +102,13 @@ public class AlfredParserUtil {
         return new Tag(trimmedTag);
     }
 
+    /**
+     * Parses a {@code String} into a {@code Location}.
+     *
+     * @param location
+     * @return Location
+     * @throws ParseException if the {@code String} is invalid.
+     */
     public static Location parseLocation(String location) throws ParseException {
         requireNonNull(location);
         int trimmedLocation = Integer.parseInt(location.trim());
@@ -112,6 +118,13 @@ public class AlfredParserUtil {
         return new Location(trimmedLocation);
     }
 
+    /**
+     * Parses a {@code String} into a {@code Subject}.
+     *
+     * @param subject
+     * @return SubjectName
+     * @throws ParseException if the {@code String} is invalid.
+     */
     public static SubjectName parseSubject(String subject) throws ParseException {
         requireNonNull(subject);
         String trimmedSubject = subject.trim();
@@ -121,7 +134,13 @@ public class AlfredParserUtil {
         return SubjectName.SOCIAL;
     }
 
-
+    /**
+     * Parses a {@code String} into a {@code ProjectType}.
+     *
+     * @param type
+     * @return ProjectType
+     * @throws ParseException if the {@code String} is invalid.
+     */
     public static ProjectType parseProjectType(String type) throws ParseException {
         requireNonNull(type);
         String trimmedType = type.trim();

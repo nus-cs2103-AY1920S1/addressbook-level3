@@ -1,10 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import seedu.address.model.AddressBook;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
@@ -12,8 +7,10 @@ import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.SubjectName;
-import seedu.address.model.person.Person;
 
+/**
+ * TypicalMentors is a class with mock Mentor Objects.
+ */
 public class TypicalMentors {
     public static final Mentor A = new Mentor(new Name("Mentor A"),
                                               new Id(PrefixType.M, 3),

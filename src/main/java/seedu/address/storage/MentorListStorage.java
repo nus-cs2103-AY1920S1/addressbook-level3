@@ -1,13 +1,12 @@
 package seedu.address.storage;
 
-import java.util.Optional;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import seedu.address.AlfredException;
-import seedu.address.model.entitylist.MentorList;
-
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.entitylist.MentorList;
 
 /**
  * Represents a storage for {@link seedu.address.model.entitylist.MentorList}

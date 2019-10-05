@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class JsonMentorListStorageTest {
 
     @org.junit.jupiter.api.Test
@@ -24,4 +22,5 @@ class JsonMentorListStorageTest {
     //@org.junit.jupiter.api.Test
     //void testSaveMentorList() {
     //}
+
 }

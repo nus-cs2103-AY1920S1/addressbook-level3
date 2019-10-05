@@ -1,26 +1,24 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.entity.Id;
-import seedu.address.model.entity.Team;
+import seedu.address.model.entity.Location;
+import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
-import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.Location;
-import seedu.address.model.entity.SubjectName;
-import seedu.address.model.entity.Score;
 import seedu.address.model.entity.ProjectType;
+import seedu.address.model.entity.Score;
+import seedu.address.model.entity.SubjectName;
+import seedu.address.model.entity.Team;
 
 /**
  * Jackson-friendly version of {@link Team}.
@@ -99,7 +97,8 @@ class JsonAdaptedTeam {
         }
 
         if (teamName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()) + "(teamName)");
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()) + "(teamName)");
         }
         if (!Name.isValidName(teamName)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -107,20 +106,22 @@ class JsonAdaptedTeam {
         final Name modelTeamName = new Name(teamName);
 
         if (subject == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SubjectName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, SubjectName.class.getSimpleName()));
         }
         if (!SubjectName.isValidSubjectName(subject)) {
             throw new IllegalValueException(SubjectName.MESSAGE_CONSTRAINTS);
         }
         final SubjectName modelSubject = SubjectName.valueOf(subject);
 
-        if (!Score.isValidScore(score)){
+        if (!Score.isValidScore(score)) {
             throw new IllegalValueException(Score.MESSAGE_CONSTRAINTS);
         }
         final Score modelScore = new Score(score);
 
         if (projectName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()) + "(projectName)");
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()) + "(projectName)");
         }
         if (!Name.isValidName(projectName)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -128,7 +129,8 @@ class JsonAdaptedTeam {
         final Name modelProjectName = new Name(projectName);
 
         if (projectType == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProjectType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, ProjectType.class.getSimpleName()));
         }
         if (!ProjectType.isValidProjectType(projectType)) {
             throw new IllegalValueException(ProjectType.MESSAGE_CONSTRAINTS);
@@ -150,7 +152,8 @@ class JsonAdaptedTeam {
         final Mentor modelMentor = mentor.toModelType();
 
         if (prefixTypeStr == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PrefixType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, PrefixType.class.getSimpleName()));
         }
         if (!PrefixType.isValidPrefixType(prefixTypeStr)) {
             throw new IllegalValueException(PrefixType.MESSAGE_CONSTRAINTS);
@@ -163,7 +166,8 @@ class JsonAdaptedTeam {
         final int modelIdNum = idNum;
         final Id modelId = new Id(modelPrefixType, modelIdNum);
 
-        return new Team(modelId, modelTeamName, modelParticipants, Optional.of(modelMentor), modelSubject, modelScore, modelProjectName, modelProjectType, modelLocation);
+        return new Team(modelId, modelTeamName, modelParticipants, Optional.of(modelMentor),
+                modelSubject, modelScore, modelProjectName, modelProjectType, modelLocation);
     }
 
 }

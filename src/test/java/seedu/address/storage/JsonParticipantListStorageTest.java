@@ -1,22 +1,20 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.List;
 
-import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.AlfredException;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Phone;
-import seedu.address.model.entity.Name;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entitylist.ParticipantList;
-import seedu.address.AlfredException;
 
 class JsonParticipantListStorageTest {
 

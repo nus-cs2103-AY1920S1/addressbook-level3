@@ -7,6 +7,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * Team is the main entity of this system.
+ */
 public class Team extends Entity {
     private List<Participant> participants;
     private Optional<Mentor> mentor;

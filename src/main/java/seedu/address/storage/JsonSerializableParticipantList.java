@@ -10,10 +10,9 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.AlfredException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entitylist.ParticipantList;
-import seedu.address.model.entity.Entity;
-
 
 /**
  * An Immutable ParticipantList that is serializable to JSON format.

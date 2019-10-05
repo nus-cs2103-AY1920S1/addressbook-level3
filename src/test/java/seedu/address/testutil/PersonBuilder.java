@@ -76,13 +76,20 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Address} of the {@code Person} that we are building.
+     */
     public PersonBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
 
+    /**
+     * This builds a standard {@code Person} object.
+     *
+     * @return Person
+     */
     public Person build() {
         return new Person(name, phone, email, tags);
     }
-
 }
