@@ -20,7 +20,7 @@ public class Name {
             + "2.Contain at least one character";
 
 
-    private static final String VALIDATION_REGEX = "^[" + SPECIAL_CHARACTERS + " a-zA-Z" + "]+$";
+    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     // Data fields
     public final String fullName;

@@ -14,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.PrefixType;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -37,22 +38,22 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> AlfredParserUtil.parseIndex("10 a"));
+        assertThrows(ParseException.class, () -> AlfredParserUtil.parseIndex("10", PrefixType.M));
     }
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> AlfredParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+            -> AlfredParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1), PrefixType.M));
     }
 
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, AlfredParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_PERSON, AlfredParserUtil.parseIndex("1", PrefixType.M));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, AlfredParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_PERSON, AlfredParserUtil.parseIndex("  1  ", PrefixType.M));
     }
 
     @Test

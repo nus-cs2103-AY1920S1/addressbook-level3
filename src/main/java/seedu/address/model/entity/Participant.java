@@ -87,10 +87,14 @@ public class Participant extends Entity {
         }
 
         Participant otherParticipant = ((Participant) other);
-        return otherParticipant.getName() == this.getName()
-                && otherParticipant.getId() == this.getId()
-                && otherParticipant.getPhone() == this.getPhone()
-                && otherParticipant.getEmail() == this.getEmail();
+        //return otherParticipant.getName() == this.getName()
+        //        && otherParticipant.getId() == this.getId()
+        //        && otherParticipant.getPhone() == this.getPhone()
+        //        && otherParticipant.getEmail() == this.getEmail();
+        return otherParticipant.getName().equals(this.getName())
+                && otherParticipant.getId().equals(this.getId())
+                && otherParticipant.getPhone().equals(this.getPhone())
+                && otherParticipant.getEmail().equals(this.getEmail());
     }
 
     /**

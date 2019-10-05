@@ -7,8 +7,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Encapsulates possible topics for a Hackathon project.
  */
 public enum SubjectName {
-
-    PLACEHOLDER("placeholder");
+    ENVIRONMENTAL("Environmental"),
+    SOCIAL("Social"),
+    HEALTH("Health"),
+    EDUCATION("Education");
 
     private static final String SPECIAL_CHARACTERS = "-'";
 

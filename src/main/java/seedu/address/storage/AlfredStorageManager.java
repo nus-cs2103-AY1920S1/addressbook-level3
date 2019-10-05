@@ -14,7 +14,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.entitylist.TeamList;
-import seedu.address.model.entitylist.IssueList;
 
 /**
  * Manages storage of Entity (Participant, Mentor, Issue, Team) and UserPref data in local storage.
@@ -24,20 +23,17 @@ public class AlfredStorageManager implements AlfredStorage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ParticipantListStorage pStore;
     private MentorListStorage mStore;
-    private IssueListStorage iStore;
     private TeamListStorage tStore;
     private UserPrefsStorage userPrefsStorage;
 
 
     public AlfredStorageManager(ParticipantListStorage pStore,
                                 MentorListStorage mStore,
-                                IssueListStorage iStore,
                                 TeamListStorage tStore,
                                 UserPrefsStorage userPrefsStorage) {
         super();
         this.pStore = pStore;
         this.mStore = mStore;
-        this.iStore = iStore;
         this.tStore = tStore;
         this.userPrefsStorage = userPrefsStorage;
     }
@@ -112,34 +108,6 @@ public class AlfredStorageManager implements AlfredStorage {
     public void saveMentorList(MentorList mList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         mStore.saveMentorList(mList, filePath);
-    }
-
-    // ================ IssueList methods ==============================
-    @Override
-    public Path getIssueListFilePath() {
-        return iStore.getIssueListFilePath();
-    }
-
-    @Override
-    public Optional<IssueList> readIssueList() throws DataConversionException, IOException, AlfredException {
-        return readIssueList(iStore.getIssueListFilePath());
-    }
-
-    @Override
-    public Optional<IssueList> readIssueList(Path filePath) throws DataConversionException, IOException, AlfredException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return iStore.readIssueList(filePath);
-    }
-
-    @Override
-    public void saveIssueList(IssueList iList) throws IOException {
-        saveIssueList(iList, iStore.getIssueListFilePath());
-    }
-
-    @Override
-    public void saveIssueList(IssueList iList, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        iStore.saveIssueList(iList, filePath);
     }
 
     // ================ TeamList methods ==============================

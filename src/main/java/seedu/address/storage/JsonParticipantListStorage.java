@@ -34,7 +34,7 @@ public class JsonParticipantListStorage implements ParticipantListStorage {
     }
 
     @Override
-    public Optional<ParticipantList> readParticipantList() throws DataConversionException, AlfredException {
+    public Optional<ParticipantList> readParticipantList() throws AlfredException {
         return readParticipantList(filePath);
     }
 
