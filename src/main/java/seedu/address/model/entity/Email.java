@@ -5,10 +5,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's email in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: email address is present and not null,
+ * field values is  validated as declared in {@link #isValidEmail(String)}, immutable.
  */
 public class Email {
 
+    //Constants
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
             + "and adhere to the following constraints:\n"
@@ -19,6 +21,7 @@ public class Email {
             + "    - be at least 2 characters long\n"
             + "    - start and end with alphanumeric characters\n"
             + "    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.";
+
     // alphanumeric and special characters
     private static final String LOCAL_PART_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
@@ -27,12 +30,13 @@ public class Email {
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
 
+    // Data field
     public final String value;
 
     /**
      * Constructs an {@code Email}.
      *
-     * @param email A valid email address.
+     * @param email A valid email address that is present and not null.
      */
     public Email(String email) {
         requireNonNull(email);
@@ -43,11 +47,29 @@ public class Email {
     /**
      * Returns if a given string is a valid email.
      *
-     * @param test Email.
-     * @return boolean whether test is in valid email format.
+     * @param test email address.
+     * @return boolean whether test is in valid email format according to regex.
      */
     public static boolean isValidEmail(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if both Email objects have the same data fields.
+     * This defines a stronger notion of equality between two Email object.
+     *
+     * @param other Other Email object.
+     */
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Email // instanceof handles nulls
+                && value.equals(((Email) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 
     /**
@@ -63,22 +85,10 @@ public class Email {
     /**
      * Returns string representation of object, for storage.
      *
-     * @return Email address in string format.
+     * @return Email address in string format, for storage.
      */
     public String toStorageValue() {
         return this.toString();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && value.equals(((Email) other).value)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
     }
 
 }
