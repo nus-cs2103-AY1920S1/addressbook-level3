@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -16,19 +16,19 @@ import seedu.address.model.person.Remark;
 /**
  * Changes the remark of an existing person in the address book.
  */
-public class RemarkCommand extends Command {
-    public static final String COMMAND_WORD = "remark";
+public class AddVisitCommand extends Command {
+    public static final String COMMAND_WORD = "addVisit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the visitation record of the person identified "
             + "by the index number used in the last person listing. "
-            + "Existing remark will be overwritten by the input.\n"
+            + "Existing record will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_REMARK + "r/ [REMARK]\n"
+            + PREFIX_VISIT + "[DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_REMARK + "Likes to swim.";
+            + PREFIX_VISIT + "31/12/2019";
 
-    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added visit to Person: %1$s";
+    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed visit from Person: %1$s";
 
     private final Index index;
     private final Remark remark;
@@ -37,7 +37,7 @@ public class RemarkCommand extends Command {
      * @param index of the person in the filtered person list to edit the remark
      * @param remark of the person to be updated to
      */
-    public RemarkCommand(Index index, Remark remark) {
+    public AddVisitCommand(Index index, Remark remark) {
         requireAllNonNull(index, remark);
 
         this.index = index;
@@ -79,12 +79,12 @@ public class RemarkCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RemarkCommand)) {
+        if (!(other instanceof AddVisitCommand)) {
             return false;
         }
 
         // state check
-        RemarkCommand e = (RemarkCommand) other;
+        AddVisitCommand e = (AddVisitCommand) other;
         return index.equals(e.index)
                 && remark.equals(e.remark);
     }
