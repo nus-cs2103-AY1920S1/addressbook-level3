@@ -212,6 +212,7 @@ public class ParserUtil {
     public static Coverage parseCoverage (String coverage) throws ParseException {
         requireNonNull(coverage);
         String trimmedCoverage = coverage.trim();
+        System.out.println(trimmedCoverage);
         if (!Coverage.isValidCoverage(trimmedCoverage)) {
             throw new ParseException(Coverage.MESSAGE_CONSTRAINTS);
         }
@@ -242,7 +243,7 @@ public class ParserUtil {
     public static StartAge parseStartAge (String startAge) throws ParseException {
         requireNonNull(startAge);
         String trimmedAge = startAge.trim();
-        if (!Price.isValidPrice(trimmedAge)) {
+        if (!StartAge.isValidAge(trimmedAge)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new StartAge(trimmedAge);
@@ -257,7 +258,7 @@ public class ParserUtil {
     public static EndAge parseEndAge (String endAge) throws ParseException {
         requireNonNull(endAge);
         String trimmedAge = endAge.trim();
-        if (!Price.isValidPrice(trimmedAge)) {
+        if (!EndAge.isValidAge(trimmedAge)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new EndAge(trimmedAge);

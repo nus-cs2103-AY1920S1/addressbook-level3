@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COVERAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CRITERIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -49,13 +50,14 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Coverage coverage = ParserUtil.parseCoverage(argMultimap.getValue(PREFIX_COVERAGE).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        StartAge startAge = ParserUtil.parseStartAge(argMultimap.getValue(PREFIX_START_AGE).get());
-        EndAge endAge = ParserUtil.parseEndAge(argMultimap.getValue(PREFIX_END_AGE).get());
+        StartAge startAge = argMultimap.getValue(PREFIX_START_AGE).isPresent()
+                ? ParserUtil.parseStartAge(argMultimap.getValue(PREFIX_START_AGE).get()) : ParserUtil.parseStartAge("");
+        EndAge endAge = argMultimap.getValue(PREFIX_END_AGE).isPresent()
+                ? ParserUtil.parseEndAge(argMultimap.getValue(PREFIX_END_AGE).get()) : ParserUtil.parseEndAge("");
         Set<Tag> criteriaList = ParserUtil.parseCriteria(argMultimap.getAllValues(PREFIX_CRITERIA));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Policy policy = new Policy(name, description, coverage, price, startAge, endAge, criteriaList, tagList);
-
         return new AddPolicyCommand(policy);
     }
 

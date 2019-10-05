@@ -13,6 +13,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
@@ -46,10 +48,38 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        boolean isInvalidNric = false;
+        boolean isInvalidPhone = false;
+        boolean isInvalidEmail = false;
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Nric nric = null;
+        try {
+            nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
+        } catch (ParseException e) {
+            isInvalidNric = true;
+        }
+        Phone phone = null;
+        try {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        } catch (ParseException e) {
+            isInvalidPhone = true;
+        }
+        Email email = null;
+        try {
+            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        } catch (ParseException e) {
+            isInvalidEmail = true;
+        }
+        if (isInvalidNric) {
+            ParseExceptionHandler.handleNricException(name, phone, email);
+        }
+        if (isInvalidPhone) {
+            ParseExceptionHandler.handlePhoneException(name, email);
+        }
+        if (isInvalidEmail) {
+            ParseExceptionHandler.handleEmailException(name, phone);
+        }
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         DateOfBirth dateOfBirth = ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).get());
         Set<Policy> policyList = ParserUtil.parsePolicies(argMultimap.getAllValues(PREFIX_POLICY));
