@@ -48,7 +48,7 @@ public class AddTeamCommandParser implements Parser<AddCommand> {
         Name projectName = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_PROJECT_NAME).get());
         ProjectType projectType = AlfredParserUtil.parseProjectType(argMultimap.getValue(PREFIX_PROJECT_TYPE).get());
         Location location = AlfredParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
-        Id id = new TeamList().generateID();
+        Id id = new TeamList().generateId();
         List<Participant> participants = new LinkedList<>();
         Score score = new Score(0);
         Optional<Mentor> mentor = Optional.empty();

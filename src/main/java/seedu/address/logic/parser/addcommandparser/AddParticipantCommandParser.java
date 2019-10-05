@@ -33,7 +33,7 @@ public class AddParticipantCommandParser implements Parser<AddParticipantCommand
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = AlfredParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = AlfredParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Id id = new ParticipantList().generateID();
+        Id id = new ParticipantList().generateId();
 
         Participant participant = new Participant(name, id, email, phone);
 

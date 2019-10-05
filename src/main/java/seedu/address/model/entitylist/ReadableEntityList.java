@@ -1,9 +1,13 @@
 package seedu.address.model.entitylist;
 
 import java.util.List;
+
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 
+/**
+ * Aims to make each EntityList readable.
+ */
 public interface ReadableEntityList {
     /**
      * Checks if a given entity list contains a certain entity.
@@ -25,5 +29,6 @@ public interface ReadableEntityList {
      *
      * @return Id
      */
-    Id generateID();
+    Id generateId();
+
 }
