@@ -3,6 +3,7 @@ package seedu.address.model.entity.fridge;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.FridgeBuilder.DEFAULT_BODY;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
 import static seedu.address.testutil.TypicalFridges.ALICE_FRIDGE;
@@ -12,6 +13,7 @@ import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.testutil.FridgeBuilder;
 
 //@@author arjavibahety
 public class FridgeTest {
@@ -32,9 +34,34 @@ public class FridgeTest {
     }
 
     @Test
+    public void equals() {
+        Fridge aliceFridgeCopy = new FridgeBuilder(ALICE_FRIDGE).build();
+        Fridge emptyFridgeCopy = new FridgeBuilder(EMPTY_FRIDGE).build();
+
+        assertTrue(ALICE_FRIDGE.equals(ALICE_FRIDGE));
+        assertEquals(ALICE_FRIDGE.hashCode(), aliceFridgeCopy.hashCode());
+        assertTrue(ALICE_FRIDGE.equals(aliceFridgeCopy));
+
+        assertTrue(EMPTY_FRIDGE.equals(EMPTY_FRIDGE));
+        assertEquals(EMPTY_FRIDGE.hashCode(), emptyFridgeCopy.hashCode());
+        assertTrue(EMPTY_FRIDGE.equals(emptyFridgeCopy));
+
+        assertFalse(ALICE_FRIDGE.equals(null));
+        assertFalse(EMPTY_FRIDGE.equals(null));
+
+        // Different fields
+        assertFalse(ALICE_FRIDGE.equals(BOB_FRIDGE));
+        assertFalse(ALICE_FRIDGE.equals(EMPTY_FRIDGE));
+
+        Fridge editedAliceFridge = new FridgeBuilder(ALICE_FRIDGE).withBody(DEFAULT_BODY).build();
+        assertFalse(ALICE_FRIDGE.equals(editedAliceFridge));
+
+    }
+
+    @Test
     void getFridgeIdNum() {
-        assertEquals(IdentificationNumber.customGenerateId("F", 2),
-                ALICE_FRIDGE.getFridgeIdNum());
+        assertEquals(IdentificationNumber.customGenerateId("F", 1),
+                EMPTY_FRIDGE.getFridgeIdNum());
     }
 
     @Test

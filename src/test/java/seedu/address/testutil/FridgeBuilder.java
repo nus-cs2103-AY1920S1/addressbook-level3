@@ -40,9 +40,9 @@ public class FridgeBuilder {
      */
     public Fridge build() {
         if (body == null) {
-            return new Fridge();
+            return new Fridge(true);
         } else {
-            return new Fridge(body);
+            return new Fridge(body, true);
         }
     }
 }

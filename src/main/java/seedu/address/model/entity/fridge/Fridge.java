@@ -25,8 +25,32 @@ public class Fridge {
         this.body = null;
     }
 
+    public Fridge(boolean isTestFridge) {
+        if (isTestFridge) {
+            fridgeIdNum = IdentificationNumber.customGenerateId("F", 1);
+        } else {
+            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
+        }
+        this.status = Status.UNOCCUPIED;
+        this.body = null;
+    }
+
     public Fridge(Body body) {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
+        this.body = body;
+        if (body == null) {
+            this.status = Status.UNOCCUPIED;
+        } else {
+            this.status = Status.OCCUPIED;
+        }
+    }
+
+    public Fridge(Body body, boolean isTestFridge) {
+        if (isTestFridge) {
+            this.fridgeIdNum = IdentificationNumber.customGenerateId("F", 1);
+        } else {
+            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
+        }
         this.body = body;
         if (body == null) {
             this.status = Status.UNOCCUPIED;
@@ -88,7 +112,7 @@ public class Fridge {
         }
 
         Fridge otherFridge = (Fridge) other;
-        return otherFridge.getFridgeIdNum() == getFridgeIdNum()
+        return otherFridge.getFridgeIdNum().toString().equals(getFridgeIdNum().toString())
                 && otherFridge.getStatus() == getStatus()
                 && otherFridge.getBody() == getBody();
     }
