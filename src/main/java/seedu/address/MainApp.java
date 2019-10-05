@@ -31,6 +31,12 @@ import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
+/*
+Step 0.
+
+import seedu.address.Game.*;
+ */
+
 /**
  * Runs the application.
  */
@@ -45,6 +51,11 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+
+    /*
+    Step 1.
+    protected Game game;
+     */
 
     @Override
     public void init() throws Exception {
@@ -61,8 +72,20 @@ public class MainApp extends Application {
 
         initLogging(config);
 
+        /*
+        Step 2. Create game here.
+
+        game = initGameManager(storage, userPrefs);
+         */
+
         model = initModelManager(storage, userPrefs);
 
+        /*
+        Step 8.
+        Pass game to LogicManager
+
+        logic = new LogicManager(game, model, storage);
+         */
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
@@ -92,6 +115,24 @@ public class MainApp extends Application {
 
         return new ModelManager(initialData, userPrefs);
     }
+
+    /*
+    Step 3.
+    Extends to Step 4 : storage.readGame()
+    Extends to Step 5 : define ReadOnlyGame class;
+    Extends to Step 6 : constructor for new Game();
+    Extends to Step 7 : constructor for new GameManger;
+
+
+    private Game initGameManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyGame initialData;
+        Optional<ReadOnlyGame> gameOptional;
+
+        gameOptional = storage.readGame();
+        initialData = new Game();
+        return new GameManager(initialData, userPrefs);
+    }
+    */
 
     private void initLogging(Config config) {
         LogsCenter.init(config);

@@ -40,6 +40,12 @@ public class AddressBookParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
+        /*
+        Step 10.
+        Additional commands to be done
+        Have 2 separate user modes: Game, Normal
+         */
+
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
