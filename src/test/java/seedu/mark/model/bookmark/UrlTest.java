@@ -28,9 +28,11 @@ public class UrlTest {
         assertFalse(Url.isValidUrl("")); // empty string
         assertFalse(Url.isValidUrl(" ")); // spaces only
 
-        // invalid compulsory parts
+        // invalid scheme
         assertFalse(Url.isValidUrl("example.com")); // missing scheme
         assertFalse(Url.isValidUrl("abc://example.com")); // invalid scheme
+
+        // invalid authority
         assertFalse(Url.isValidUrl("https://")); // missing authority
         assertFalse(Url.isValidUrl("https://a")); // authority too short
         assertFalse(Url.isValidUrl("https://.example.com")); // authority starts with a period
@@ -38,16 +40,13 @@ public class UrlTest {
         assertFalse(Url.isValidUrl(" http://peterjack.example.com")); // leading space
         assertFalse(Url.isValidUrl("https://peterjack.example.com ")); // trailing space
         assertFalse(Url.isValidUrl("https://peter jack.example.com")); // spaces in authority
-        assertFalse(Url.isValidUrl("https://example?.com/path?query")); // '?' symbol in authority
 
         // invalid optional parts
         assertFalse(Url.isValidUrl("https://example.com//")); // empty path segment
         assertFalse(Url.isValidUrl("https://example.com?")); // empty query
         assertFalse(Url.isValidUrl("https://example.com#")); // empty fragment
-        assertFalse(Url.isValidUrl("https://example.com??example")); // double '?' symbol
         assertFalse(Url.isValidUrl("https://example.com##example")); // double '#' symbol
         assertFalse(Url.isValidUrl("https://example.com#example1#example")); // double fragment
-        assertFalse(Url.isValidUrl("https://example.com#example1?example")); // fragment before query
 
         // valid url scheme
         assertTrue(Url.isValidUrl("http://example.com"));
@@ -78,7 +77,7 @@ public class UrlTest {
         // valid url - special characters
         assertTrue(Url.isValidUrl("http://!$&'*+,;=:()@-_.~")); // special characters in authority
         assertTrue(Url.isValidUrl("https://example.com/!$&'*+,;=:()@-_~.")); // special characters in path
-        assertTrue(Url.isValidUrl("https://example.com?!$&'*+,;=:()@-_~.")); // special characters in query
-        assertTrue(Url.isValidUrl("https://example.com#!$&'*+,;=:()@-_~.")); // special characters in response
+        assertTrue(Url.isValidUrl("https://example.com?!$&'*+,;=:()@-_~./?")); // special characters in query
+        assertTrue(Url.isValidUrl("https://example.com#!$&'*+,;=:()@-_~./?")); // special characters in response
     }
 }
