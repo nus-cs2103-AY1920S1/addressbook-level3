@@ -70,7 +70,7 @@ public class Coverage {
     private static ArrayList<String> getCoverageBreakDown(String coverage) {
         ArrayList<String> coverageBreakDown = new ArrayList<>();
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(coverage, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS);
+                ArgumentTokenizer.tokenize(" " + coverage, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS);
         String days = (argMultimap.getValue(PREFIX_DAYS).isPresent() ? argMultimap.getValue(PREFIX_DAYS).get() : "0");
         String months = (argMultimap.getValue(PREFIX_MONTHS).isPresent()
                 ? argMultimap.getValue(PREFIX_MONTHS).get() : "0");
