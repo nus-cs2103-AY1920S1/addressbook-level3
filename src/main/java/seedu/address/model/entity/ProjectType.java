@@ -5,6 +5,7 @@ public enum ProjectType {
     PLACEHOLDER("placeholder");
 
     private final String projectTypeString;
+    public static final String MESSAGE_CONSTRAINTS = "Placeholder text here"; //TODO: Update this
 
     private ProjectType(String projectTypeString) {
         this.projectTypeString = projectTypeString;
@@ -27,5 +28,14 @@ public enum ProjectType {
      */
     public String toStorageValue(){
         return this.toString();
+    }
+
+    public static boolean isValidProjectType(String projectType) {
+        try {
+            ProjectType validProjectType = ProjectType.valueOf(projectType);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 }

@@ -1,11 +1,15 @@
 package seedu.address.storage;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.PrefixType;
 
 
 /**
@@ -90,7 +94,7 @@ class JsonAdaptedParticipant {
         final int modelIdNum = idNum;
         final Id modelId = new Id(modelPrefixType, modelIdNum);
 
-        return new Participant(modelName, modelEmail, modelPhone, modelId);
+        return new Participant(modelName, modelId, modelEmail, modelPhone);
     }
 
 }

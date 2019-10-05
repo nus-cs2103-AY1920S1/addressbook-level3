@@ -6,27 +6,22 @@ public enum PrefixType {
     T, // Team
     I; // Issue
 
-    public static final String MESSAGE_CONSTRAINTS = "Prefix type should be a string of either one of the following values:\n" +
-            "P: to indicate Entity is a Participant\n" +
-            "M: to indicate Entity is a Mentor\n" +
-            "I: to indicate Entity is an Issue\n" +
-            "T: to indicate Entity is  a Team\n";
+    public static final String MESSAGE_CONSTRAINTS = "Prefix type should be a string of either one of the following values:\n"
+            + "P: to indicate Entity is a Participant\n"
+            + "M: to indicate Entity is a Mentor\n"
+            + "I: to indicate Entity is an Issue\n"
+            + "T: to indicate Entity is  a Team\n";
 
-    public String toStorageValue(){
+    public String toStorageValue() {
         return this.name();
     }
 
-    public boolean isValidPrefix(String test){
-    try{
-        PrefixType result = PrefixType.valueOf(test);
-        return true;
-
-    } catch (IllegalArgumentException e){
-        return false;
+    public static boolean isValidPrefixType(String test) {
+        try {
+            PrefixType result = PrefixType.valueOf(test);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
-
-    }
-
-
-
 }

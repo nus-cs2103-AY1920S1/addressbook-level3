@@ -8,8 +8,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import seedu.address.AlfredException;
+import seedu.address.model.entitylist.MentorList;
+import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.Mentor;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
 
 /**
  * An Immutable MentorList that is serializable to JSON format.
@@ -47,7 +51,7 @@ class JsonSerializableMentorList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public MentorList toModelType() throws IllegalValueException {
+    public MentorList toModelType() throws IllegalValueException, AlfredException {
         MentorList mentorList = new MentorList();
         for (JsonAdaptedMentor jsonAdaptedMentor : mentors) {
             Mentor mentor = jsonAdaptedMentor.toModelType();
@@ -55,7 +59,7 @@ class JsonSerializableMentorList {
             //if (mentorList.hasMentor(mentor)) {
             //    throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
             //}
-            mentorList.addMentor(mentor);
+            mentorList.add(mentor);
         }
         return mentorList;
     }

@@ -36,6 +36,14 @@ public class Issue extends Entity {
         this.time = time;
     }
 
+    public Issue (Name name, Id id, String description, IssueType type, boolean isCompleted) {
+        super(id, name);
+        this.description = description;
+        this.type = type;
+        this.isCompleted = isCompleted;
+        this.time = Optional.empty();
+    }
+
     // Getters
 
     public String getDescription() {

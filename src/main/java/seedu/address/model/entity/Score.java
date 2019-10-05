@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Score {
 
-    private static final String MESSAGE_CONSTRAINTS = "Score should contain only positive integers from 0 to 100";
+    public static final String MESSAGE_CONSTRAINTS = "Score should contain only positive integers from 0 to 100";
     private int score;
 
 

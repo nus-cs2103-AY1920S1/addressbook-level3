@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.AlfredException;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -28,7 +29,7 @@ public interface AlfredStorage extends UserPrefsStorage, TeamListStorage,
     Path getTeamListFilePath();
 
     @Override
-    Optional<TeamList> readTeamList() throws DataConversionException, IOException;
+    Optional<TeamList> readTeamList() throws DataConversionException, IOException, AlfredException;
 
     @Override
     void saveTeamList(TeamList teamList) throws IOException;
@@ -38,7 +39,7 @@ public interface AlfredStorage extends UserPrefsStorage, TeamListStorage,
     Path getParticipantListFilePath();
 
     @Override
-    Optional<ParticipantList> readParticipantList() throws DataConversionException, IOException;
+    Optional<ParticipantList> readParticipantList() throws DataConversionException, IOException, AlfredException;
 
     @Override
     void saveParticipantList(ParticipantList participantList) throws IOException;
@@ -48,7 +49,7 @@ public interface AlfredStorage extends UserPrefsStorage, TeamListStorage,
     Path getIssueListFilePath();
 
     @Override
-    Optional<IssueList> readIssueList() throws DataConversionException, IOException;
+    Optional<IssueList> readIssueList() throws DataConversionException, IOException, AlfredException;
 
     @Override
     void saveIssueList(IssueList issueList) throws IOException;
@@ -58,7 +59,7 @@ public interface AlfredStorage extends UserPrefsStorage, TeamListStorage,
     Path getMentorListFilePath();
 
     @Override
-    Optional<MentorList> readMentorList() throws DataConversionException, IOException;
+    Optional<MentorList> readMentorList() throws DataConversionException, IOException, AlfredException;
 
     @Override
     void saveMentorList(MentorList mentorList) throws IOException;

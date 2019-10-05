@@ -5,16 +5,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.Optional;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.entity.Id;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Team;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-
+import seedu.address.model.entity.Team;
+import seedu.address.model.entity.Name;
+import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.PrefixType;
+import seedu.address.model.entity.Location;
+import seedu.address.model.entity.SubjectName;
+import seedu.address.model.entity.Score;
+import seedu.address.model.entity.ProjectType;
 
 /**
  * Jackson-friendly version of {@link Team}.
@@ -64,29 +70,19 @@ class JsonAdaptedTeam {
      * Converts a given {@code Team} into this class for Jackson use.
      */
     public JsonAdaptedTeam(Team source) {
-        this.teamName = teamName;
-        this.mentor = mentor;
-        this.subject = subject;
-        this.score = score;
-        this.projectName = projectName;
-        this.projectType = projectType;
-        this.location = location;
-        this.prefixTypeStr = prefixTypeStr;
-        this.idNum = idNum;
-
         if (pList != null) {
             this.pList.addAll(pList);
         }
-        teamName = source.getTeamName().toStorageValue();
+        teamName = source.getName().toStorageValue();
         subject = source.getSubject().name();
-        score = source.getScore.toStorageValue(); //Not implemented currently
+        score = source.getScore().toStorageValue(); //Not implemented currently
         projectName = source.getProjectName().toStorageValue();
         projectType = source.getProjectType().name();
         location = source.getLocation().toStorageValue();
-        mentor = JsonAdaptedMentor(source.getMentor().get()); //Must deal with Optional
+        mentor = new JsonAdaptedMentor(source.getMentor().get()); //Must deal with Optional
         prefixTypeStr = source.getId().getPrefix().name();
         idNum = source.getId().getNumber();
-        pList.addAll(source.getParticipants().get().stream()
+        pList.addAll(source.getParticipants().stream()
                 .map(JsonAdaptedParticipant::new)
                 .collect(Collectors.toList()));
     }
@@ -167,7 +163,7 @@ class JsonAdaptedTeam {
         final int modelIdNum = idNum;
         final Id modelId = new Id(modelPrefixType, modelIdNum);
 
-        return new Team(modelId, modelTeamName, modelParticipants, modelMentor, modelSubject, modelScore, modelProjectName, modelProjectType, modelLocation);
+        return new Team(modelId, modelTeamName, modelParticipants, Optional.of(modelMentor), modelSubject, modelScore, modelProjectName, modelProjectType, modelLocation);
     }
 
 }

@@ -7,11 +7,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import seedu.address.AlfredException;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.entitylist.TeamList;
 
 /**
  * A class to access TeamList data stored as a json file on the hard disk.
@@ -31,7 +33,7 @@ public class JsonTeamListStorage implements TeamListStorage {
     }
 
     @Override
-    public Optional<TeamList> readTeamList() throws DataConversionException {
+    public Optional<TeamList> readTeamList() throws AlfredException {
         return readTeamList(filePath);
     }
 
@@ -41,7 +43,7 @@ public class JsonTeamListStorage implements TeamListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<TeamList> readTeamList(Path filePath) throws DataConversionException {
+    public Optional<TeamList> readTeamList(Path filePath) throws AlfredException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableTeamList> jsonTeamList = JsonUtil.readJsonFile(
