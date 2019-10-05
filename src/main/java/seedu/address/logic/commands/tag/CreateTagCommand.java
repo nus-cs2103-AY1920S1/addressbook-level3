@@ -7,6 +7,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Creates a new tag.
+ */
 public class CreateTagCommand extends Command {
 
     public static final String COMMAND_WORD = "newtag";

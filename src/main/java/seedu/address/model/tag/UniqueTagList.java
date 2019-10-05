@@ -62,6 +62,12 @@ public class UniqueTagList implements Iterable<Tag> {
         mapTags.put(toAdd.getTagName(), toAdd);
     }
 
+    /**
+     * Adds a DefaultTag to the list.
+     * The DefaultTag must not already exist in the list.
+     * @param toAdd The {@code DefaultTag} to be added.
+     * @throws DuplicateTagException if the list already contains the tag.
+     */
     private void addDefaultTag(DefaultTag toAdd) throws DuplicateTagException {
         requireAllNonNull(toAdd);
         if (contains(toAdd)) {

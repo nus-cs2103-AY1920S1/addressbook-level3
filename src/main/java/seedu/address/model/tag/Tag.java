@@ -1,9 +1,5 @@
 package seedu.address.model.tag;
 
-import java.util.HashSet;
-
-import seedu.address.model.module.Module;
-
 /**
  * Represents a Tag.
  */
