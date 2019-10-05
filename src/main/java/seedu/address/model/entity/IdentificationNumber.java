@@ -10,6 +10,9 @@ import java.util.Objects;
  */
 public class IdentificationNumber {
 
+    public static final String MESSAGE_CONSTRAINTS =
+        "IdentificationNumber should have either of the following formats:\n" + "- B########\n" + "- W#####" + "- F##";
+
     private static final String ID_PREFIX_BODY = "B";
     private static final String ID_PREFIX_WORKER = "W";
     private static final String ID_PREFIX_FRIDGE = "F";
@@ -61,6 +64,32 @@ public class IdentificationNumber {
 
     public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
         return new IdentificationNumber(typeOfEntity, idNum);
+    }
+
+    private static boolean isValidIdPrefix (String prefix) {
+        return prefix.equalsIgnoreCase(ID_PREFIX_BODY) || (
+                prefix.equalsIgnoreCase(ID_PREFIX_FRIDGE) || prefix.equalsIgnoreCase(ID_PREFIX_WORKER));
+    }
+
+    /**
+     * Checks if given {@code String id} is a valid identification number.
+     */
+    public static boolean isValidIdentificationNumber(String id) {
+        String idPrefix = id.charAt(0) + "";
+        if (isValidIdPrefix(idPrefix)) {
+            int numberLength = id.substring(1).length();
+            switch (idPrefix) {
+            case ID_PREFIX_BODY:
+                return numberLength == 8;
+            case ID_PREFIX_WORKER:
+                return numberLength == 5;
+            case ID_PREFIX_FRIDGE:
+                return numberLength == 2;
+            default:
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override

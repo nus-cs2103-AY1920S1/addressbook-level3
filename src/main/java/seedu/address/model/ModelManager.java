@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.person.Person;
 
 /**
@@ -89,27 +90,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasEntity(Entity entity) {
+        requireNonNull(entity);
+        return addressBook.hasEntity(entity);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteEntity(Entity target) {
+        addressBook.removeEntity(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
+    public void addEntity(Entity entity) {
+        addressBook.addEntity(entity);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setEntity(Entity target, Entity editedEntity) {
+        requireAllNonNull(target, editedEntity);
 
-        addressBook.setPerson(target, editedPerson);
+        addressBook.setEntity(target, editedEntity);
     }
 
     //=========== Filtered Person List Accessors =============================================================

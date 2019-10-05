@@ -3,7 +3,9 @@ package seedu.address.model.entity.worker;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
@@ -12,22 +14,22 @@ import seedu.address.model.person.Phone;
  * Represents a worker entry in Mortago.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Worker {
+public class Worker implements Entity {
 
     // Identity fields
     private final IdentificationNumber workerIdNum;
     private final Name name;
     private Phone phone;
-    private String sex; // NOTE: type String will be replaced with Sex class after Amber's PR is merged
+    private Sex sex;
 
     // Data fields
     private Date dateOfBirth;
     private Date dateJoined;
-    private Designation designation;
+    private String designation;
     private String employmentStatus;
 
-    public Worker(Name name, Phone phone, String sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
-                  Designation designation) {
+    public Worker(Name name, Phone phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
+                  String designation) {
         this.workerIdNum = IdentificationNumber.generateNewWorkerId();
         this.name = name;
         this.phone = phone;
@@ -38,8 +40,8 @@ public class Worker {
         this.designation = designation;
     }
 
-    public Worker(Name name, Phone phone, String sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
-                  Designation designation, boolean isTestWorker) {
+    public Worker(Name name, Phone phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
+                  String designation, boolean isTestWorker) {
         if (isTestWorker) {
             this.workerIdNum = IdentificationNumber.customGenerateId("W", 1);
         } else {
@@ -67,7 +69,7 @@ public class Worker {
         return phone;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
@@ -79,7 +81,7 @@ public class Worker {
         return dateJoined;
     }
 
-    public Designation getDesignation() {
+    public String getDesignation() {
         return designation;
     }
 
@@ -91,7 +93,7 @@ public class Worker {
         this.phone = phone;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -103,7 +105,7 @@ public class Worker {
         this.dateJoined = dateJoined;
     }
 
-    public void setDesignation(Designation designation) {
+    public void setDesignation(String designation) {
         this.designation = designation;
     }
 
@@ -124,6 +126,11 @@ public class Worker {
             && otherWorker.getName().equals(getName())
             && otherWorker.getSex().equals(getSex())
             && (otherWorker.getPhone().equals(getPhone()));
+    }
+
+    @Override
+    public boolean isSameEntity(Object o) {
+        return isSameEntity(o);
     }
 
     /**

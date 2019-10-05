@@ -3,6 +3,7 @@ package seedu.address.model.entity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -49,6 +50,13 @@ class IdentificationNumberTest {
         assertNotEquals(testId, IdentificationNumber.generateNewFridgeId());
         assertNotEquals(testId, IdentificationNumber.generateNewWorkerId());
         assertNotEquals(testId, null);
+    }
+
+    @Test
+    void isValidIdentificationNumber_true() {
+        assertTrue(IdentificationNumber.isValidIdentificationNumber("F01"));
+        assertTrue(IdentificationNumber.isValidIdentificationNumber("W00005"));
+        assertTrue(IdentificationNumber.isValidIdentificationNumber("B00000001"));
     }
 
 }

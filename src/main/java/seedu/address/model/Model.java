@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.person.Person;
 
 /**
@@ -53,28 +54,28 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an entity with the same identity as {@code entity} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasEntity(Entity entity);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given entity.
+     * The entity must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteEntity(Entity target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given entity.
+     * {@code entity} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addEntity(Entity entity);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given entity {@code target} with {@code editedEntity}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The entity identity of {@code editedEntity} must not be the same as another existing entity in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setEntity(Entity target, Entity editedEntity);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 
 import org.junit.jupiter.api.Test;
 
@@ -96,6 +97,12 @@ public class ArgumentTokenizerTest {
         assertArgumentPresent(argMultimap, pSlash, "pSlash value");
         assertArgumentPresent(argMultimap, dashT, "dashT-Value");
         assertArgumentPresent(argMultimap, hatQ, "111");
+
+        // Tests PREFIX_FLAG
+        argsString = "add -f";
+        argMultimap = ArgumentTokenizer.tokenize(argsString, PREFIX_FLAG);
+        assertPreamblePresent(argMultimap, "add");
+        assertArgumentPresent(argMultimap, PREFIX_FLAG, "f");
 
         /* Also covers: Reusing of the tokenizer multiple times */
 

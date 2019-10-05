@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
@@ -14,7 +15,7 @@ import seedu.address.model.person.Phone;
  * Represents a Body in Mortago.
  * Guarantees: dateofAdmission and bodyIdNum is guaranteed to be present.
  */
-public class Body {
+public class Body implements Entity {
     private final IdentificationNumber bodyIdNum;
     private final Date dateOfAdmission;
 
@@ -235,6 +236,11 @@ public class Body {
         }
         Body body = (Body) o;
         return Objects.equals(getNric(), body.getNric());
+    }
+
+    @Override
+    public boolean isSameEntity(Object o) {
+        return isSameBody(o);
     }
 }
 

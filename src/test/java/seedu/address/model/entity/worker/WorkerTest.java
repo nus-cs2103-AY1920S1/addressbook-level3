@@ -3,6 +3,7 @@ package seedu.address.model.entity.worker;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.model.entity.Sex.FEMALE;
 import static seedu.address.testutil.TypicalWorkers.ALICE;
 import static seedu.address.testutil.TypicalWorkers.BENSON;
 import static seedu.address.testutil.WorkerBuilder.DEFAULT_DATE_JOINED;
@@ -13,12 +14,12 @@ import static seedu.address.testutil.WorkerBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.WorkerBuilder.DEFAULT_PHONE;
 import static seedu.address.testutil.WorkerBuilder.DEFAULT_SEX;
 
-import java.text.ParseException;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -100,15 +101,15 @@ class WorkerTest {
         testWorker.setDateOfBirth(newDate);
         assertEquals(newDate, testWorker.getDateOfBirth());
 
-        testWorker.setDesignation(Designation.MANAGER);
-        assertEquals(Designation.MANAGER, testWorker.getDesignation());
+        testWorker.setDesignation("manager");
+        assertEquals("manager", testWorker.getDesignation());
 
         Phone newPhone = new Phone("90000001");
         testWorker.setPhone(newPhone);
         assertEquals(newPhone, testWorker.getPhone());
 
-        testWorker.setSex("Female");
-        assertEquals("Female", testWorker.getSex());
+        testWorker.setSex(FEMALE);
+        assertEquals(FEMALE, testWorker.getSex());
 
         testWorker.setEmploymentStatus("Test status");
         assertEquals("Test status", testWorker.getEmploymentStatus());
