@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_GENERIC_BOOLEAN;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -120,6 +121,24 @@ public abstract class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses the given {@code String} into a {@code boolean}.
+     * Returns true if the string is "t", or false if "f".
+     * It is case insensitive.
+     *
+     * @param bool The boolean string to parse.
+     * @throws ParseException If the string is neither "t" nor "f" (case-insensitive).
+     */
+    public static boolean parseBool(String bool) throws ParseException {
+        if (bool.equalsIgnoreCase("t")) {
+            return true;
+        } else if (bool.equalsIgnoreCase("f")) {
+            return false;
+        }
+
+        throw new ParseException(MESSAGE_INVALID_GENERIC_BOOLEAN);
     }
 
 }

@@ -7,6 +7,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -26,6 +27,7 @@ import seedu.address.ui.components.StatusBarFooter;
 import seedu.address.ui.template.Page;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
+import seedu.address.ui.utility.PreferencesPage;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -65,8 +67,22 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.model = model;
 
+        setStageListeners();
         fillInnerParts();
         helpWindow = new HelpWindow();
+    }
+
+    private void setStageListeners() {
+        ChangeListener<Number> guiChangeListener = (observable, oldValue, newValue) -> {
+            if (model.getUserPrefs().isGuiPrefsLocked()) {
+                setWindowDefaultSize(model.getGuiSettings());
+            }
+        };
+
+        primaryStage.widthProperty().addListener(guiChangeListener);
+        primaryStage.heightProperty().addListener(guiChangeListener);
+        primaryStage.xProperty().addListener(guiChangeListener);
+        primaryStage.yProperty().addListener(guiChangeListener);
     }
 
     private void fillInnerParts() {
@@ -84,6 +100,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the help window or focuses on it if it's already opened.
      */
     protected void show() {
+        setWindowDefaultSize(model.getGuiSettings());
         handleSwitch();
         primaryStage.show();
     }
@@ -151,9 +168,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        model.setGuiSettings(guiSettings);
+        //Save gui size on exit only if gui prefs are not locked.
+        if (!model.getUserPrefs().isGuiPrefsLocked()) {
+            GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                    (int) primaryStage.getX(), (int) primaryStage.getY());
+            model.setGuiSettings(guiSettings);
+        }
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -174,6 +194,9 @@ public class MainWindow extends UiPart<Stage> {
         case ADD_TRIP:
             newPage = new EditTripPage(this, logic, model);
             break;
+        case PREFERENCES:
+            newPage = new PreferencesPage(this, logic, model);
+            break;
         default:
             resultDisplay.setFeedbackToUser(
                     String.format(MESSAGE_PAGE_NOT_IMPLEMENTED, currentPageType.toString()));
@@ -190,6 +213,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param page The {@code Page} to switch to.
      */
     private void switchContent(Page<? extends Node> page) {
+        setWindowDefaultSize(model.getGuiSettings());
         Node pageNode = page.getRoot();
 
         //transition
@@ -208,6 +232,18 @@ public class MainWindow extends UiPart<Stage> {
     @FunctionalInterface
     public interface CommandUpdater {
         void executeUpdateCallback();
+    }
+
+    /**
+     * Sets the default size based on {@code guiSettings}.
+     */
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
     }
 
     //setAccelerator code from AB3 for opening help window
