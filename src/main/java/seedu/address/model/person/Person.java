@@ -2,12 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -17,46 +12,17 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
-    private final Remark remark;
-
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Set<Tag> tags, Remark remark) {
-        requireAllNonNull(name, phone, email, tags, remark);
+    public Person(Name name) {
+        requireAllNonNull(name);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.tags.addAll(tags);
-        this.remark = remark;
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Remark getRemark() {
-        return remark;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -69,8 +35,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && otherPerson.getName().equals(getName());
     }
 
     /**
@@ -88,31 +53,19 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getTags().equals(getTags())
-                && otherPerson.getRemark().equals(getRemark());
+        return otherPerson.getName().equals(getName());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags, remark);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Tags: ")
-                .append(" Remark: ");
-        getTags().forEach(builder::append);
+        builder.append(getName());
         return builder.toString();
     }
-
 }
