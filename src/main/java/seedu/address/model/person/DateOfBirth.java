@@ -183,7 +183,7 @@ public class DateOfBirth {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DateOfBirth // instanceof handles nulls
-                && dateOfBirth.equals(((DateOfBirth) other).dateOfBirth)); // state check
+                && value.equals(((DateOfBirth) other).value)); // state check
     }
 
     @Override
