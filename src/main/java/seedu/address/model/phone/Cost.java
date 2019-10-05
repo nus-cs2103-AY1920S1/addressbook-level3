@@ -3,9 +3,6 @@ package seedu.address.model.phone;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
-
 /**
  * Represents a Phone's cost in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidCost(String)}
@@ -13,7 +10,9 @@ import java.text.ParseException;
 public class Cost {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Costs must be non-negative, start with \'$\' and have at most 2 decimals.";
+            "Costs must start with $, have at most 2 decimals and be non-negative.";
+
+    public static final String VALIDATION_REGEX = "\\$\\d+(\\.\\d{1,2})?";
 
     public final String value;
 
@@ -31,13 +30,8 @@ public class Cost {
     /**
      * Returns true if a given string is a valid cost.
      */
-    public static boolean isValidCost(String cost) {
-        try {
-            Number number = NumberFormat.getCurrencyInstance().parse(cost);
-            return number != null;
-        } catch (ParseException e) {
-            return false;
-        }
+    public static boolean isValidCost(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
