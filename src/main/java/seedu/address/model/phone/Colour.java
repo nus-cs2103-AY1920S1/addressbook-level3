@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Phone's colour in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidColour(String)}
  */
-public class Colour {
+public class Colour implements Cloneable {
 
     public static final String MESSAGE_CONSTRAINTS = "Colours can take any values, and should not be blank";
 
@@ -52,6 +52,11 @@ public class Colour {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
 }

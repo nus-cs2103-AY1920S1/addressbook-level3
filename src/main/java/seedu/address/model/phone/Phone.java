@@ -18,12 +18,12 @@ public class Phone implements Cloneable {
 
     // Identity fields
     private final UUID id;
+
+    // Data fields
     private final Name name;
     private final Brand brand;
     private final Capacity capacity;
     private final Colour colour;
-
-    // Data fields
     private final Cost cost;
     private final Set<Tag> tags = new HashSet<>();
 
@@ -31,6 +31,18 @@ public class Phone implements Cloneable {
                  Set<Tag> tags) {
         requireAllNonNull(name, brand, capacity, colour, cost, tags);
         this.id = UUID.randomUUID();
+        this.name = name;
+        this.brand = brand;
+        this.capacity = capacity;
+        this.colour = colour;
+        this.cost = cost;
+        this.tags.addAll(tags);
+    }
+
+    private Phone(UUID id, Name name, Brand brand, Capacity capacity, Colour colour, Cost cost,
+                 Set<Tag> tags) {
+        requireAllNonNull(id, name, brand, capacity, colour, cost, tags);
+        this.id = id;
         this.name = name;
         this.brand = brand;
         this.capacity = capacity;
@@ -73,7 +85,6 @@ public class Phone implements Cloneable {
 
     /**
      * Returns true if both phones have the same identity fields.
-     * This defines a weaker notion of equality between two phones.
      */
     public boolean isSamePhone(Phone otherPhone) {
         if (otherPhone == this) {
@@ -81,16 +92,11 @@ public class Phone implements Cloneable {
         }
 
         return otherPhone != null
-                && otherPhone.getId().equals(getId())
-                && otherPhone.getName().equals(getName())
-                && otherPhone.getBrand().equals((getBrand()))
-                && otherPhone.getCapacity().equals((getCapacity()))
-                && otherPhone.getColour().equals((getColour()));
+                && otherPhone.getId().equals(getId());
     }
 
     /**
-     * Returns true if both phones have the same identity and data fields.
-     * This defines a stronger notion of equality between two phones.
+     * Returns true if both phones have the same data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -103,8 +109,7 @@ public class Phone implements Cloneable {
         }
 
         Phone otherPhone = (Phone) other;
-        return otherPhone.getId().equals(getId())
-                && otherPhone.getName().equals(getName())
+        return otherPhone.getName().equals(getName())
                 && otherPhone.getBrand().equals((getBrand()))
                 && otherPhone.getCapacity().equals((getCapacity()))
                 && otherPhone.getColour().equals((getColour()))
@@ -114,7 +119,9 @@ public class Phone implements Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Phone clone = new Phone(this.id, (Name) this.name.clone(), (Brand) this.brand.clone(), this.capacity,
+                (Colour) this.colour.clone(), (Cost) this.cost.clone(), this.tags);
+        return clone;
     }
 
     @Override
