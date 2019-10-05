@@ -1,12 +1,13 @@
 package seedu.address.model.phone;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.PhoneBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.TypicalPhones.IPHONEONE;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.PhoneBuilder;
 
 class PhoneTest {
 
