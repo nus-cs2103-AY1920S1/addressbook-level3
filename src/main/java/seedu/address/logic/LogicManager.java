@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GameCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -51,6 +52,7 @@ public class LogicManager implements Logic {
         */
         Command command = addressBookParser.parseCommand(commandText);
 
+<<<<<<< HEAD
         /*
         Step 11.
         Extends to Step 13 in Command.java
@@ -58,6 +60,15 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model, game);
          */
         commandResult = command.execute(model);
+=======
+        if (command instanceof GameCommand) {
+            //Game logic
+            commandResult = new GameLogic(model, (GameCommand) command).process();
+        } else {
+            //Non-game Logic
+            commandResult = command.execute(model);
+        }
+>>>>>>> e91fbbf... Implemented a skeletal Game logic and Model
 
         /*
         Step 12.

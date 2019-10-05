@@ -17,4 +17,15 @@ public class Answer {
     public String getAnswerString() {
         return answerString;
     }
+
+    @Override
+    public String toString() {
+        return getAnswerString();
+    }
+
+    public boolean equals(Answer answer) {
+        String otherAnswerString = answer.getAnswerString().toLowerCase();
+        String thisAnswerString = this.getAnswerString().toLowerCase();
+        return thisAnswerString.equals(otherAnswerString);
+    }
 }

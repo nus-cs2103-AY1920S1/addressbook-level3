@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.game.Game;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +23,19 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    //Placeholder game model
+    private Game game = null;
+
+
+    //Placeholder setGame method
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return this.game;
+    }
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.

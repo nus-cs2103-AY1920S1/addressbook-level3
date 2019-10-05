@@ -9,11 +9,13 @@ public class Flashcard {
 
     private final Answer answer;
     private final Question question;
+    private final Hint hint;
 
-    public Flashcard(Answer answer, Question question) {
+    public Flashcard(Answer answer, Question question, Hint hint) {
         requireAllNonNull(answer, question);
         this.answer = answer;
         this.question = question;
+        this.hint = hint;
     }
 
     public Question getQuestion() {
@@ -23,4 +25,9 @@ public class Flashcard {
     public Answer getAnswer() {
         return answer;
     }
+
+    public Hint getHint() {
+        return hint;
+    }
+
 }

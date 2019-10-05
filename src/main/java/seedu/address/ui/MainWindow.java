@@ -184,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             //resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            gameTimer = new GameTimer(commandResult.getFeedbackToUser(), 500, resultDisplay);
+            gameTimer = new GameTimer(commandResult.getFeedbackToUser(), 800, resultDisplay);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -199,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             gameTimer = new GameTimer(
-                    e.getMessage() + ", Clearing Result Display", 500, resultDisplay);
+                    e.getMessage() + ", Clearing Result Display", 800, resultDisplay);
             throw e;
         }
     }

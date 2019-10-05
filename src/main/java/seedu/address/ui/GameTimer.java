@@ -20,7 +20,7 @@ public class GameTimer {
         this.mainMessage = mainMessage;
         this.resultDisplay = resultDisplay;
         this.currentMilliSeconds = durationInMs;
-        this.timer = new Timer();
+        this.timer = new Timer(true);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -47,5 +47,6 @@ public class GameTimer {
 
     public void abortTimer() {
         this.timer.cancel();
+        this.timer.purge();
     }
 }

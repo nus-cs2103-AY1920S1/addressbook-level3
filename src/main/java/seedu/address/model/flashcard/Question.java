@@ -14,7 +14,12 @@ public class Question {
         this.questionString = questionString;
     }
 
-    public String getQuestionString() {
+    private String getQuestionString() {
         return questionString;
+    }
+
+    @Override
+    public String toString() {
+        return getQuestionString();
     }
 }
