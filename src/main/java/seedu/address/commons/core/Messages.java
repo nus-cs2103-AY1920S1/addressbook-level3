@@ -11,5 +11,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_GENERIC_INDEX = "The index for the operation you provided was invalid!";
+    public static final String MESSAGE_INVALID_PATH = "The path you specified for the operation was invalid!";
+    public static final String MESSAGE_FILE_NOT_EXISTING = "The file you specified for the operation dosen't exist!";
 
 }
