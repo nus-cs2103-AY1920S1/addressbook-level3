@@ -8,7 +8,8 @@ public class CliSyntax {
     /* Prefix definitions */
     public static final Prefix PREFIX_FIRST_NAME = new Prefix("/firstName");
     public static final Prefix PREFIX_MIDDLE_NAME = new Prefix("/middleName");
-    public static final Prefix PREFIX_LAST_NAME = new Prefix(".lastName");
+    public static final Prefix PREFIX_LAST_NAME = new Prefix("/lastName");
+    //disabled for now so that standard command format for Person still valid
     //public static final Prefix PREFIX_PHONE = new Prefix("/phoneNo");
     public static final Prefix PREFIX_SEX = new Prefix("/sex");
     public static final Prefix PREFIX_DATE_OF_BIRTH = new Prefix("/dob");

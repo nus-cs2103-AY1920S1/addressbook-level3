@@ -6,6 +6,7 @@ import java.util.Date;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
@@ -26,7 +27,7 @@ public class WorkerBuilder {
     public static final String DEFAULT_EMPLOYMENT_STATUS = "cleaning";
 
     private Name name;
-    private Phone phone;
+    private PhoneNumber phone;
     private Sex sex;
     private Date dateOfBirth;
     private Date dateJoined;
@@ -35,7 +36,7 @@ public class WorkerBuilder {
 
     public WorkerBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        phone = new PhoneNumber(DEFAULT_PHONE);
         sex = DEFAULT_SEX;
         try {
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
@@ -88,7 +89,7 @@ public class WorkerBuilder {
      * Sets the {@code Phone} of the {@code Worker} that we are building.
      */
     public WorkerBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.phone = new PhoneNumber(phone);
         return this;
     }
 

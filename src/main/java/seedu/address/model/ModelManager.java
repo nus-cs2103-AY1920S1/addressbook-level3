@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,6 +25,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Worker> filteredWorkers;
+    private final FilteredList<Body> filteredBodies;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +40,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
+        filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
     }
 
     public ModelManager() {
@@ -128,6 +134,40 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Workers List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Workers} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Worker> getFilteredWorkerList() {
+        return filteredWorkers;
+    }
+
+    @Override
+    public void updateFilteredWorkerList(Predicate<Worker> predicate) {
+        requireNonNull(predicate);
+        filteredWorkers.setPredicate(predicate);
+    }
+
+    //=========== Filtered Workers List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Bodies} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Body> getFilteredBodyList() {
+        return filteredBodies;
+    }
+
+    @Override
+    public void updateFilteredBodyList(Predicate<Body> predicate) {
+        requireNonNull(predicate);
+        filteredBodies.setPredicate(predicate);
     }
 
     @Override

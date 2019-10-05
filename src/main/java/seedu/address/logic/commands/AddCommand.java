@@ -1,11 +1,15 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESIGNATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LAST_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MIDDLE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,20 +22,27 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a worker to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
+            + PREFIX_FIRST_NAME + "FIRST NAME "
+            + PREFIX_MIDDLE_NAME + "MIDDLE NAME "
+            + PREFIX_LAST_NAME + "LAST NAME "
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_SEX + "SEX "
+            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
+            + PREFIX_DATE_JOINED + "DATE JOINED "
+            + PREFIX_DESIGNATION + "DESIGNATION "
+            + PREFIX_EMPLOYMENT_STATUS + "EMPLOYMENT STATUS"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_FIRST_NAME + " John "
+            + PREFIX_MIDDLE_NAME + " Charlie "
+            + PREFIX_LAST_NAME + " Doe "
+            + PREFIX_PHONE + " 91234567 "
+            + PREFIX_SEX + " Male "
+            + PREFIX_DATE_OF_BIRTH + " 12/12/1997 "
+            + PREFIX_DATE_JOINED + " 1/1/2019 "
+            + PREFIX_DESIGNATION + " Technician "
+            + PREFIX_EMPLOYMENT_STATUS + " Cleaning";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.WorkerBuilder;
@@ -104,7 +105,7 @@ class WorkerTest {
         testWorker.setDesignation("manager");
         assertEquals("manager", testWorker.getDesignation());
 
-        Phone newPhone = new Phone("90000001");
+        PhoneNumber newPhone = new PhoneNumber("90000001");
         testWorker.setPhone(newPhone);
         assertEquals(newPhone, testWorker.getPhone());
 

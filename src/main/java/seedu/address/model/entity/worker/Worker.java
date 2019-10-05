@@ -5,9 +5,9 @@ import java.util.Objects;
 
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 
 //@@author shaoyi
 /**
@@ -19,7 +19,7 @@ public class Worker implements Entity {
     // Identity fields
     private final IdentificationNumber workerIdNum;
     private final Name name;
-    private Phone phone;
+    private PhoneNumber phone;
     private Sex sex;
 
     // Data fields
@@ -28,7 +28,7 @@ public class Worker implements Entity {
     private String designation;
     private String employmentStatus;
 
-    public Worker(Name name, Phone phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
+    public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
                   String designation) {
         this.workerIdNum = IdentificationNumber.generateNewWorkerId();
         this.name = name;
@@ -40,7 +40,7 @@ public class Worker implements Entity {
         this.designation = designation;
     }
 
-    public Worker(Name name, Phone phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
+    public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
                   String designation, boolean isTestWorker) {
         if (isTestWorker) {
             this.workerIdNum = IdentificationNumber.customGenerateId("W", 1);
@@ -65,7 +65,7 @@ public class Worker implements Entity {
         return name;
     }
 
-    public Phone getPhone() {
+    public PhoneNumber getPhone() {
         return phone;
     }
 
@@ -89,7 +89,7 @@ public class Worker implements Entity {
         return employmentStatus;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(PhoneNumber phone) {
         this.phone = phone;
     }
 

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueEntityLists;
 
@@ -15,7 +17,7 @@ import seedu.address.model.person.UniqueEntityLists;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueEntityLists persons;
+    private final UniqueEntityLists entities;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,7 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueEntityLists();
+        entities = new UniqueEntityLists();
     }
 
     public AddressBook() {}
@@ -41,11 +43,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code entities}.
+     * {@code entities} must not contain duplicate entities.
      */
     public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+        this.entities.setPersons(persons);
+    }
+
+    /**
+     * Replaces the contents of the workers list with {@code workers}.
+     * {@code workers} must not contain duplicate workers.
+     */
+    public void setWorkers(List<Worker> workers) {
+        this.entities.setWorkers(workers);
+    }
+
+    /**
+     * Replaces the contents of the bodies list with {@code bodies}.
+     * {@code bodies} must not contain duplicate bodies.
+     */
+    public void setBodies(List<Body> bodies) {
+        this.entities.setBodies(bodies);
     }
 
     /**
@@ -55,6 +73,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setWorkers(newData.getWorkerList());
+        setBodies(newData.getBodyList());
     }
 
     //// person-level operations
@@ -64,7 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasEntity(Entity entity) {
         requireNonNull(entity);
-        return persons.contains(entity);
+        return entities.contains(entity);
     }
 
     /**
@@ -72,7 +92,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addEntity(Entity e) {
-        persons.add(e);
+        entities.add(e);
     }
 
     /**
@@ -83,7 +103,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setEntity(Entity target, Entity editedEntity) {
         requireNonNull(editedEntity);
 
-        persons.setPerson(target, editedEntity);
+        entities.setEntity(target, editedEntity);
     }
 
     /**
@@ -91,31 +111,41 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeEntity(Entity key) {
-        persons.remove(key);
+        entities.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return entities.asUnmodifiableObservableListPerson().size() + " entities";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return entities.asUnmodifiableObservableListPerson();
+    }
+
+    @Override
+    public ObservableList<Worker> getWorkerList() {
+        return entities.asUnmodifiableObservableListWorker();
+    }
+
+    @Override
+    public ObservableList<Body> getBodyList() {
+        return entities.asUnmodifiableObservableListBody();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && entities.equals(((AddressBook) other).entities));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return entities.hashCode();
     }
 }

@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.person.Address;
@@ -56,6 +57,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String phone} into a {@code PhoneNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phoneNumber} is invalid.
+     */
+    public static PhoneNumber parsePhoneNumber(String phone) throws ParseException {
+        requireNonNull(phone);
+        String trimmedPhone = phone.trim();
+        if (!PhoneNumber.isValidPhoneNumber(trimmedPhone)) {
+            throw new ParseException(PhoneNumber.VALID_NUMBER);
+        }
+        return new PhoneNumber(trimmedPhone);
+    }
+
+    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -69,6 +85,7 @@ public class ParserUtil {
         }
         return new Phone(trimmedPhone);
     }
+
 
     /**
      * Parses a {@code String address} into an {@code Address}.

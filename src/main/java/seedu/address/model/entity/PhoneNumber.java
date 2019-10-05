@@ -68,5 +68,10 @@ public class PhoneNumber {
 
         return isLengthEight && isDigits && isFirstDigitCorrect;
     }
+
+    @Override
+    public String toString() {
+        return getPhoneNumber();
+    }
 }
 
