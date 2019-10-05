@@ -37,6 +37,10 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and specified {@Code type},
+     * and set other fields to their default value.
+     */
     public CommandResult(String feedbackToUser, PanelType type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;

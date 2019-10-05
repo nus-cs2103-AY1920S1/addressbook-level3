@@ -208,7 +208,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            //I retrieve the type that this works on here;
+            //retrieve the type that the command works on here;
             PanelType panelToSwitchTo = commandResult.getPanelType();
             switchPanel(panelToSwitchTo);
             return commandResult;
@@ -232,6 +232,8 @@ public class MainWindow extends UiPart<Stage> {
             this.showOrderPanel();
         } else if (input.equals(PanelType.SCHEDULE)) {
             this.showSchedulePanel();
+        } else if (input.equals(PanelType.DEFAULT)) {
+            //do nothing
         }
     }
 
