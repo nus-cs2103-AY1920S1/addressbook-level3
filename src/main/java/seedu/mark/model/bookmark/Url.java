@@ -9,7 +9,7 @@ import static seedu.mark.commons.util.AppUtil.checkArgument;
  */
 public class Url {
 
-    private static final String SPECIAL_CHARACTERS = "\\(\\.\\-_~!\\$&'\\*\\+,;=:@\\)";
+    private static final String SPECIAL_CHARACTERS = "\\(\\.\\-_~!\\$&'\\*\\+,;=:@\\)"; // (.-_~!$&'*+,;=:@)
     private static final String NON_PERIOD_SPECIAL_CHARACTERS = "\\(\\-_~!\\$&'\\*\\+,;=:@\\)";
     public static final String MESSAGE_CONSTRAINTS = "URLs should be of the format "
             + "scheme://authority[/path][?query][#fragment][/] "
@@ -25,17 +25,23 @@ public class Url {
             + "4. Next, a URL may contain a query string, which begins with a '?'.\n"
             + "5. It may also contain a fragment after the query string (if present), which begins with a '#'.\n"
             + "6. Finally, a URL can end with an optional slash '/'.\n";
-    private static final String REGEX_URL_SCHEME = "^((http(s?))|(ftp)|(file))://";
+
+    // TODO: Make %HH a valid URL character, where HH are two hexadecimal digits
     // alphanumeric and special characters
     private static final String URL_CHARACTERS = "[\\w" + SPECIAL_CHARACTERS + "]";
     // alphanumeric and special characters excluding period '.'
     private static final String NON_PERIOD_URL_CHARACTERS = "[\\w" + NON_PERIOD_SPECIAL_CHARACTERS + "]";
+    // URL characters and '/' and '?'
+    private static final String QUERY_AND_FRAGMENT_CHARACTERS = "[\\w" + SPECIAL_CHARACTERS + "/?]";
+
+    private static final String REGEX_URL_SCHEME = "^((http(s?))|(ftp)|(file))://";
     private static final String REGEX_URL_AUTHORITY =
             NON_PERIOD_URL_CHARACTERS + URL_CHARACTERS + "*" + NON_PERIOD_URL_CHARACTERS;
     private static final String REGEX_URL_PATH_SEGMENT = "/" + URL_CHARACTERS + "+";
     private static final String REGEX_URL_PATH = "(" + REGEX_URL_PATH_SEGMENT + ")*"; // zero or more path segments
-    private static final String REGEX_URL_QUERY = "(\\?" + URL_CHARACTERS + "+)?"; // optional query
-    private static final String REGEX_URL_FRAGMENT = "(#" + URL_CHARACTERS + "+)?"; // optional fragment
+    private static final String REGEX_URL_QUERY = "(\\?" + QUERY_AND_FRAGMENT_CHARACTERS + "+)?"; // optional query
+    private static final String REGEX_URL_FRAGMENT = "(#" + QUERY_AND_FRAGMENT_CHARACTERS + "+)?"; // optional fragment
+
     public static final String VALIDATION_REGEX = REGEX_URL_SCHEME + REGEX_URL_AUTHORITY
             + REGEX_URL_PATH + REGEX_URL_QUERY + REGEX_URL_FRAGMENT + "/?$";
 
