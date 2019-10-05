@@ -101,7 +101,7 @@ engvocab (i.e with the tag engvocab).
 * `list tag` : List all the existing tags.
 
 
-=== Editing a flashcard : `edit`
+=== Editing a flashcard
 
 Edits an existing flashcard in the address book. +
 
