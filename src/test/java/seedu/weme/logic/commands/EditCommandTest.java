@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.weme.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -54,11 +53,11 @@ public class EditCommandTest {
         Meme lastMeme = model.getFilteredMemeList().get(indexLastPerson.getZeroBased());
 
         MemeBuilder memeInList = new MemeBuilder(lastMeme);
-        Meme editedMeme = memeInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Meme editedMeme = memeInList.withName(VALID_NAME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);

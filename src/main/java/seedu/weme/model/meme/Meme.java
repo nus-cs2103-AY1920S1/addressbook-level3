@@ -17,8 +17,6 @@ public class Meme {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
 
     // Data fields
     private final Address address;
@@ -27,25 +25,15 @@ public class Meme {
     /**
      * Every field must be present and not null.
      */
-    public Meme(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Meme(Name name, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, address, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
         this.address = address;
         this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Address getAddress() {
@@ -70,8 +58,7 @@ public class Meme {
         }
 
         return otherMeme != null
-                && otherMeme.getName().equals(getName())
-                && (otherMeme.getPhone().equals(getPhone()) || otherMeme.getEmail().equals(getEmail()));
+                && otherMeme.getName().equals(getName());
     }
 
     /**
@@ -90,8 +77,6 @@ public class Meme {
 
         Meme otherMeme = (Meme) other;
         return otherMeme.getName().equals(getName())
-                && otherMeme.getPhone().equals(getPhone())
-                && otherMeme.getEmail().equals(getEmail())
                 && otherMeme.getAddress().equals(getAddress())
                 && otherMeme.getTags().equals(getTags());
     }
@@ -99,17 +84,13 @@ public class Meme {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

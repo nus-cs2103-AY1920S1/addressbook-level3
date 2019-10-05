@@ -7,10 +7,8 @@ import java.util.stream.Stream;
 import seedu.weme.logic.commands.EditCommand;
 import seedu.weme.logic.commands.EditCommand.EditMemeDescriptor;
 import seedu.weme.model.meme.Address;
-import seedu.weme.model.meme.Email;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.Name;
-import seedu.weme.model.meme.Phone;
 import seedu.weme.model.tag.Tag;
 
 /**
@@ -34,8 +32,6 @@ public class EditMemeDescriptorBuilder {
     public EditMemeDescriptorBuilder(Meme meme) {
         descriptor = new EditMemeDescriptor();
         descriptor.setName(meme.getName());
-        descriptor.setPhone(meme.getPhone());
-        descriptor.setEmail(meme.getEmail());
         descriptor.setAddress(meme.getAddress());
         descriptor.setTags(meme.getTags());
     }
@@ -45,22 +41,6 @@ public class EditMemeDescriptorBuilder {
      */
     public EditMemeDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code EditMemeDescriptor} that we are building.
-     */
-    public EditMemeDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code EditMemeDescriptor} that we are building.
-     */
-    public EditMemeDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
         return this;
     }
 
