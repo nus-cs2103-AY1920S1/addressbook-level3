@@ -10,6 +10,8 @@ import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.tag.exceptions.DuplicateTagException;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 
 /**
@@ -48,22 +50,22 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Adds a UserTag to the list.
      * The UserTag must not already exist in the list.
+     * @param toAdd The {@code UserTag} to be added.
+     * @throws DuplicateTagException if the list already contains the tag.
      */
-    public void addUserTag(UserTag toAdd) {
+    public void addUserTag(UserTag toAdd) throws DuplicateTagException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            // TODO: implement DuplicateTagException
-
-            // throw new DuplicateTagException();
+            throw new DuplicateTagException();
         }
         internalList.add(toAdd);
         mapTags.put(toAdd.getTagName(), toAdd);
     }
 
-    private void addDefaultTag(DefaultTag toAdd) {
+    private void addDefaultTag(DefaultTag toAdd) throws DuplicateTagException {
         requireAllNonNull(toAdd);
         if (contains(toAdd)) {
-            // throw new DuplicateTagException();
+            throw new DuplicateTagException();
         }
         internalList.add(toAdd);
         mapTags.put(toAdd.getTagName(), toAdd);
@@ -75,19 +77,16 @@ public class UniqueTagList implements Iterable<Tag> {
      * The UserTag identity of {@code editedTag} must not be the same as another existing
      * UserTag in the list.
      */
-    public void setUserTag(UserTag target, UserTag editedTag) {
+    public void setUserTag(UserTag target, UserTag editedTag) throws TagNotFoundException, DuplicateTagException {
         requireAllNonNull(target, editedTag);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            // TODO: implement TagNotFoundException
-            // throw new TagNotFoundException();
+            throw new TagNotFoundException();
         }
 
         if (!target.isSameTag(editedTag) && contains(editedTag)) {
-            // TODO: implement DuplicateTagException
-
-            // throw new DuplicateTagException();
+            throw new DuplicateTagException();
         }
 
         internalList.set(index, editedTag);
@@ -99,12 +98,10 @@ public class UniqueTagList implements Iterable<Tag> {
      * Removes the equivalent UserTag from the list.
      * The UserTag must exist in the list.
      */
-    public void remove(UserTag toRemove) {
+    public void remove(UserTag toRemove) throws TagNotFoundException {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-
-            // TODO: implement TagNotFoundException
-            //throw new TagNotFoundException();
+            throw new TagNotFoundException();
         }
         mapTags.remove(toRemove.getTagName());
     }
@@ -124,12 +121,10 @@ public class UniqueTagList implements Iterable<Tag> {
      * Replaces the contents of this list with {@code UserTags}.
      * {@code UserTags} must not contain duplicate UserTags.
      */
-    public void setTags(List<UserTag> userTags) {
+    public void setTags(List<UserTag> userTags) throws DuplicateTagException {
         requireAllNonNull(userTags);
         if (!userTagsAreUnique(userTags)) {
-
-            // TODO: implement DuplicateTagException
-            // throw new DuplicateTagException();
+            throw new DuplicateTagException();
         }
         internalList.setAll(userTags);
         mapTags.clear();
