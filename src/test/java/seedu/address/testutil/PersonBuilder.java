@@ -61,6 +61,20 @@ public class PersonBuilder {
     }
 
     /**
+     * Initializes the PersonBuilder with the data of {@code policies and tags}.
+     */
+    public PersonBuilder(Set<Policy> policies, Set<Tag> tags) {
+        name = new Name(DEFAULT_NAME);
+        nric = new Nric(DEFAULT_NRIC);
+        phone = new Phone(DEFAULT_PHONE);
+        email = new Email(DEFAULT_EMAIL);
+        address = new Address(DEFAULT_ADDRESS);
+        dateOfBirth = new DateOfBirth(DEFAULT_DATE_OF_BIRTH);
+        this.policies = new HashSet<>(policies);
+        this.tags = new HashSet<>(tags);
+    }
+
+    /**
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public PersonBuilder withName(String name) {

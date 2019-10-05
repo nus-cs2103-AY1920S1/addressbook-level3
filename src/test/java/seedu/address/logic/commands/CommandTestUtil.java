@@ -41,7 +41,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_DATE_OF_BIRTH_AMY = "1.1.1991";
     public static final String VALID_DATE_OF_BIRTH_BOB = "2.2.1992";
-    public static final String VALID_POLICY_HEALTH = "health policy";
+    public static final String VALID_POLICY_HEALTH = "health";
     public static final String VALID_TAG_DIABETIC = "diabetic";
     public static final String VALID_TAG_SMOKER = "smoker";
 

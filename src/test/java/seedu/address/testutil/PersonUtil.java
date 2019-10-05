@@ -37,7 +37,7 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_DATE_OF_BIRTH + person.getDateOfBirth().value + " ");
         person.getPolicies().stream().forEach(
-                s -> sb.append(PREFIX_POLICY + s.getName().policyName + " ")
+            s -> sb.append(PREFIX_POLICY + s.getName().policyName + " ")
         );
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")

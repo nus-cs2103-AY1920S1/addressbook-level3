@@ -1,12 +1,15 @@
 {
   "persons": [ {
     "name": "Alice Pauline",
+    "nric" : "S000001J",
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
+    "date of birth" : "12.12.1992",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
+    "nric" : "S000001J",
     "phone": "94351253",
     "email": "pauline@example.com",
     "address": "4th street"
