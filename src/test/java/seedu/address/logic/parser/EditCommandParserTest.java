@@ -28,6 +28,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -126,6 +127,7 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    @Disabled
     @Test
     public void parse_oneFieldSpecified_success() {
         // name

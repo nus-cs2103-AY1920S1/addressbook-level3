@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
+
 import seedu.address.AlfredException;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
@@ -19,6 +21,7 @@ import seedu.address.model.entitylist.ParticipantList;
 class JsonParticipantListStorageTest {
 
     @org.junit.jupiter.api.Test
+    @Disabled
     void getParticipantListFilePath() {
         Name n = new Name("p one");
         Id i = new Id(PrefixType.P, 1);
