@@ -51,11 +51,6 @@ public class JsonMemeBookStorageTest {
     }
 
     @Test
-    public void readMemeBook_invalidMemeMemeBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readMemeBook("invalidMemeMemeBook.json"));
-    }
-
-    @Test
     public void readMemeBook_invalidAndValidMemeMemeBook_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readMemeBook("invalidAndValidMemeMemeBook.json"));
     }
