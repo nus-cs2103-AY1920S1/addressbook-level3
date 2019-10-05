@@ -4,8 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Mark was developed by the team https://github.com/orgs/AY1920S1-CS2103T-T13-4/teams/developers[CS2103T-T13-4].
-
+Mark was developed by the team https://github.com/orgs/AY1920S1-CS2103T-T13-4/teams/developers[CS2103T-T13-4]. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team

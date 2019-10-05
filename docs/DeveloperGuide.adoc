@@ -22,6 +22,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+This section shows the design of AddressBook Level 3, which Mark is adapted from. It will be updated in a future release.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -277,15 +279,22 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Our target user*:
 
-* has a need to manage a significant number of bookmarks
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* needs to manage a significant number of bookmarks
+* needs to make notes on webpage content quite frequently
+* needs reminders to submit forms or visit websites
+* prefers desktop apps over other types
+* types fast and prefers typing over mouse input
+* likes using CLI apps
 
-*Value proposition*: manage bookmarks faster than a typical mouse/GUI driven app
+*Our value proposition*:
+
+* manage bookmarks faster than a typical mouse/ GUI driven app
+* access and annotate webpage content without an Internet connection
+* set reminders to visit websites at specific times
+* minimize the need to manually categorize bookmarks
+
 
 [appendix]
 == User Stories
@@ -295,15 +304,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="80%",cols="17%,<17%,<31%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |learn how to use the app quickly
 
-|`* * *` |user |add a new bookmark |
+|`* * *` |user |add a new bookmark |keep track of websites that I want to visit later
 
 |`* * *` |user |bookmark the current website being viewed |save the page without having to copy-and-paste the URL
 
-|`* * *` |user |delete a bookmark |remove entries that I no longer need
+|`* * *` |user |delete a bookmark |remove bookmarks that I no longer need
 
-|`* * *` |user |find a bookmark by name, URL or tag |locate details of bookmarks without having to go through the entire list
+|`* * *` |user |find a bookmark by name, URL or tag |locate details of bookmarks without having to scroll through the entire list
 
 |`* * *` |user |edit a bookmark | make changes in case I type something wrongly or change my mind
 
@@ -313,11 +322,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add multiple tags to a bookmark | see what type of bookmark it is at a glance
 
-|`* * *` |user |auto tag a bookmark based on certain conditions (such as domain) |save time from tagging bookmarks from the same domain with the same tag
+|`* * *` |user |automatically tag a bookmark based on certain conditions (such as its domain) |save time by avoiding the repeated tagging of bookmarks from the same domain
 
-|`* * *` |user with many bookmarks |organise all the bookmarks in a folder structure |
+|`* * *` |user with many bookmarks |organise all the bookmarks in a hierarchical folder structure |find my bookmarks more easily
 
-|`* * *` |user |move a bookmark to a different folder |
+|`* * *` |user |move a bookmark to a different folder |re-organize my bookmarks when my needs change
 
 |`* * *` |user |open a bookmark within the App |easily visit a website without switching to other windows
 
@@ -325,31 +334,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |update the offline copy of bookmarks manually or automatically |keep offline copies updated
 
-|`* * *` |user |keep old offline copies |can still refer to them
+|`* * *` |user |keep old offline copies |can refer to them in case information gets removed from the webpage
 
-|`* * *` |user |remove an specific offline copy |remove <<cache,cache>> that I no longer need
+|`* * *` |user |remove an specific offline copy |free up storage space by removing <<cache,cached>> copies that I no longer need
 
-|`* * *` |user |highlight and annotate specific paragraphs in a bookmark |refer to my notes easily
+|`* * *` |user |highlight and annotate specific paragraphs in a bookmark |refer to the original content when reading my notes
 
-|`* * *` |user |edit highlighting and annotations |
+|`* * *` |user |edit highlighting and annotations |update my notes as I learn more about the content
 
-|`* * *` |user |remove highlighting and annotations |
+|`* * *` |user |remove highlighting and annotations |remove notes about content that is no longer important to me
 
-|`* * *` |user |add reminders for a bookmark |remember to visit certain bookmarks at specified time
+|`* * *` |user |add reminders for a bookmark |remember to submit online forms, to prepare for upcoming deadlines, etc.
 
-|`* * *` |user |edit a reminder |
+|`* * *` |user |edit a reminder |adjust my reminders when deadlines change
 
-|`* * *` |user |delete a reminder |
+|`* * *` |user |delete a reminder |remove reminders if I make a mistake when entering them
 
 |`* * *` |user |export and import all the bookmark data |easily migrate to another computer
 
-|`* *` |user |favorite a bookmark |
+|`* *` |user |favorite a bookmark |access it more easily in future
 
 |`* *` |user |mark a bookmark as 'read later' |know which bookmarks I have not read yet
 
 |`* *` |user |check my view history |see what websites I have visited
 
-|`* *` |user |automatically clean up old or outdated bookmarks |
+|`* *` |user |automatically clean up old or outdated bookmarks |keep my bookmark list up to date without having to look through it regularly
 
 |`* *` |user |sort the bookmarks according to name |locate a specific bookmark
 |=======================================================================
@@ -361,8 +370,9 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
 
+[[UC01]]
 [discrete]
-=== Use case 01: List bookmarks
+=== Use case: UC01 - List bookmarks
 
 *MSS*
 
@@ -371,8 +381,9 @@ _{More to be added}_
 +
 Use case ends.
 
+[[UC02]]
 [discrete]
-=== Use case 02: Add bookmark
+=== Use case: UC02 - Add bookmark
 
 *MSS*
 
@@ -384,14 +395,17 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 2a. The given URL is invalid.
 +
+[none]
 ** 2a1. Mark shows an error message.
 +
 Use case resumes at step 2.
 
+[[UC03]]
 [discrete]
-=== Use case 03: Delete bookmark
+=== Use case: UC03 - Delete bookmark
 
 *MSS*
 
@@ -416,8 +430,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[[UC04]]
 [discrete]
-=== Use case 04: Edit bookmark
+=== Use case: UC04 - Edit bookmark
 
 *MSS*
 
@@ -442,8 +457,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[[UC05]]
 [discrete]
-=== Use case 05: Open bookmark
+=== Use case: UC05 - Open bookmark
 
 *MSS*
 
@@ -468,8 +484,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[[UC06]]
 [discrete]
-=== Use case 06: Export bookmarks
+=== Use case: UC06 - Export bookmarks
 
 *MSS*
 
@@ -491,8 +508,9 @@ Use case ends.
 +
 Use case resumes at step 4.
 
+[[UC07]]
 [discrete]
-=== Use case 07: Import bookmarks
+=== Use case: UC07 - Import bookmarks
 
 *MSS*
 
@@ -518,8 +536,9 @@ Use case resumes at step 1.
 +
 Use case ends.
 
+[[UC08]]
 [discrete]
-=== Use case 08: Make a bookmark available offline
+=== Use case: UC08 - Make a bookmark available offline
 
 *MSS*
 
@@ -544,14 +563,242 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+[[UC09]]
+[discrete]
+=== Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
+
+*MSS*
+
+1. User requests to undo the previous undoable command
+2. Marks restores the list to the state before the previous
+undoable command was executed
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no command to undo.
++
+Mark shows an error message.
++
+Use case ends.
+
+[[UC10]]
+[discrete]
+=== Use case: UC10 - Redo previously undone commands
+
+*MSS*
+
+1. User requests to redo the previously undone command
+2. Marks reverses the most recent ‘undo’ command
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no previous `undo` command to redo.
++
+Mark shows an error message.
++
+Use case ends.
+
+[[UC11]]
+[discrete]
+=== Use case: UC11 - Browse the web
+
+*MSS*
+
+1. User requests to browse the web.
+2. Mark provides in-built web browser.
+3. User browses the web.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. Mark does not have internet access.
+[none]
+** 1a1. Mark tells user that there is no internet access and suggests that user sees cache.
++
+Use case ends.
+
+[[UC12]]
+[discrete]
+=== Use case: UC12 - Add bookmarks from web browser
+
+*MSS*
+
+1. User <<UC11,[.underline]#browses the web (UC11)#>>.
+2. User requests to bookmark the currently showing webpage.
+3. Mark uses current website's URL and <<UC02,[.underline]#adds bookmark (UC02)#>>.
++
+Use case ends.
+
+[[UC13]]
+[discrete]
+=== Use case: UC13 - Annotate offline documents
+
+*MSS*
+
+1. User chooses bookmark document to annotate.
+2. Mark shows the annotated document.
+3. User annotates the document.
+4. Mark shows document with new annotations.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. Mark detects invalid bookmark index or non-existent document of bookmark.
+[none]
+** 1a1. Mark gives warning and requests for correct index.
+** 1a2. User enters revised data.
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes from step 2.
+
+[none]
+* 3a. Mark detects invalid paragraph index.
+[none]
+** 3a1. Mark gives warning and requests for correct paragraph index.
+** 3a2. User enters new data.
+Steps 3a1-3a2 are repeated until the data entered are correct.
++
+Use case resumes from step 4.
+
+[none]
+* 3b. Mark detects invalid highlight colour.
+[none]
+** 3b1. Mark gives warning and sets highlight colour to default colour.
++
+Use case resumes from step 4.
+
+[[UC14]]
+[discrete]
+=== Use case: UC14 - Add a reminder
+
+*MSS*
+
+1. User requests to list bookmarks.
+2. Mark shows a list of bookmarks.
+3. User requests to add a reminder for a specific bookmark in the list.
+4. Mark shows the new reminder in the reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+[none]
+* 3a. Mark detects invalid index.
+[none]
+** 3a1. Mark shows an error message.
++
+Use case resumes at step 2.
+[none]
+* 3b. Mark detects the specified bookmark already has a reminder.
+[none]
+** 3b1. Mark shows an error message.
++
+Use case resumes from step 2.
+[none]
+* 3c. Mark detects the time format is wrong.
+[none]
+** 3c1. Mark shows an error message.
++
+Use case resumes from step 2.
+
+[[UC15]]
+[discrete]
+=== Use case: UC15 - Edit a reminder
+
+*MSS*
+
+1. Mark shows a list of reminders.
+2. User requests to edit a specified reminder in the list.
+3. Mark shows the edited reminder in the reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid index.
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 2b. Mark detects the time format is wrong.
+[none]
+** 2b1. Mark shows an error message.
++
+Use case resumes from step 1.
+
+[[UC16]]
+[discrete]
+=== Use case: UC16 - Delete a reminder
+
+*MSS*
+
+1. Mark shows a list of reminders.
+2. User requests to delete a specified reminder in the list.
+3. Mark shows the edited reminder list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid index.
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
+
+[[UC17]]
+[discrete]
+=== Use case: UC17 - Sort the bookmark list
+
+*MSS*
+
+1. Mark shows a list of bookmarks.
+2. User requests to sort the list in the specified criterion.
+3. Mark shows the sorted bookmark list.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+[none]
+* 2a. Mark detects invalid criterion.
+[none]
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 1.
+
 _{More to be added}_
 
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 bookmarks without a noticeable sluggishness in performance for typical usage.
+.  The product should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  The product should be able to hold up to 500 bookmarks without a noticeable sluggishness in performance for typical usage.
+.  The product's major features should not depend on Internet access.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The project is expected to adhere to a schedule that delivers features in increments every two weeks.
 
@@ -566,22 +813,9 @@ Windows, Linux, Unix, OS-X
 [[cache]] Cache::
 The collection of offline copies of a specific bookmark
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[undoable-commands]] Undoable commands::
+Commands that modify the bookmark list or reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
+`reminder edit`, and `reminder delete`
 
 [appendix]
 == Instructions for Manual Testing

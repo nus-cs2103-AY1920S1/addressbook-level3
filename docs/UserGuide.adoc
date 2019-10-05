@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T13-4/main
 
-By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
+By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -29,6 +29,8 @@ started. Enjoy!
 
 == Quick Start
 
+Here are a few steps to get you started on Mark: +
+
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `mark.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Bookmark Manager.
@@ -38,7 +40,8 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
++
+Some example commands you can try:
 
 * *`list`* : lists all bookmarks
 * *`add u/git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
@@ -55,60 +58,62 @@ of each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g.
-in `add u/URL`, `URL` is a parameter which can be used as `add u/luminus.nus.edu.sg`.
-* Items in square brackets are optional e.g `u/URL [t/TAG]` can be used as
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+E.g. In the command format `*add* u/URL`, `URL` is a parameter which can be used as `*add* u/luminus.nus.edu.sg`.
+* Items in square brackets are optional. +
+E.g `u/URL [t/TAG]` can be used as
 `u/luminus.nus.edu.sg t/NUS` or as `u/luminus.nus.edu.sg`.
-* Default values for optional items are specified with an `=` symbol. E.g.
-`u/URL [t/TAG=CS2103T]`, the default value for the tag is `CS2103T` if not
-specified.
-* Items with `…`​ after them can be used multiple times including zero times
-e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
+* Default values for optional items are specified with an `=` symbol. +
+E.g. When `u/URL [t/TAG=CS2103T]` is specified in the command format, the default value for the tag is `CS2103T` if not
+it is not provided.
+* Items with `…`​ after them can be used multiple times, including zero times. +
+E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 `t/module t/read-later` etc.
-* Parameters can be in any order e.g. if the command specifies
-`u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
+* Parameters can be in any order. +
+E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 ====
 
-=== Viewing help: `help`
+=== Viewing help: *`help`*
+Shows the list of commands in the bookmark manager.
 
-Format: `help`
+Format: *`help`*
 
-=== Adding a bookmark: `add`
+=== Adding a bookmark: *`add`*
 
 Adds a bookmark to the bookmark manager.
 
-Format: `add u/URL n/NAME [f/FOLDER] [t/TAG]…​`
+Format: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​`
 
 ****
 * A bookmark can have any number of tags (including 0).
 * Use the keyword `this` in place of URL to bookmark the current page,
-e.g. `add u/this n/Homepage`
+e.g. `*add* u/this n/Homepage`
 ****
 
 Examples:
 
-* `add u/this n/Homepage` +
+* `*add* u/this n/Homepage` +
 Bookmarks the current place and names it `Homepage`.
 Only valid if a web-page is currently being viewed.
-* `add u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T`
-* `add u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
+* `*add* u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T`
+* `*add* u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
 
-=== Listing all bookmarks: `list`
+=== Listing all bookmarks: *`list`*
 
 Shows a list of all bookmarks in the bookmark manager.
 
-Format: `list`
+Format: `*list*`
 
-=== Editing a bookmark: `edit`
+=== Editing a bookmark: *`edit`*
 
 Edits an existing bookmark in the bookmark manager.
 
-Format: `edit INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+Format: `*edit* INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
 
 ****
 * Edits the bookmark at the specified `INDEX`. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
-positive integer 1, 2, 3, …​
+positive integer `1`, `2`, `3`, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the bookmark will be removed i.e
@@ -119,18 +124,18 @@ any tags after it.
 
 Examples:
 
-* `edit 1 n/CS2103T Website f/AY1920-S1` +
+* `*edit* 1 n/CS2103T Website f/AY1920-S1` +
 Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920-S1 respectively.
 
-* `edit 2 t/` +
+* `*edit* 2 t/` +
 Clears all existing tags from the 2nd bookmark.
 
-=== Locating bookmarks by name, URL, or tag: `find`
+=== Locating bookmarks by name, URL, or tag: *`find`*
 
 Finds bookmarks that contain any of the given keywords in their name or
 URL, or that are tagged with the given tag(s).
 
-Format: `find [KEYWORD]... [t/TAG]...`
+Format: `*find* [KEYWORD]... [t/TAG]...`
 
 ****
 * At least one keyword or tag must be provided.
@@ -138,50 +143,50 @@ Format: `find [KEYWORD]... [t/TAG]...`
 * The order of the keywords does not matter. e.g. `Website Video` will match `Video Website`.
 * Keywords are only searched in the URL and name.
 * Words will be partially matched e.g. `Video` will match `Videos`.
-* Bookmarks matching at least one search criteria will be returned (i.e. OR search).
+* Bookmarks matching at least one search criterion will be returned (i.e. OR search).
 ****
 
 Examples:
 
-* `find Website Video t/Fun will` +
+* `*find* Website Video t/Fun will` +
 Returns CS2103T Website, Video Streaming, and all bookmarks tagged with Fun.
 
-* `find Luminus` +
+* `*find* Luminus` +
 Returns luminus website and GER1000 LumiNUS
 
-* `find CS2103T CS2101 CS2105` +
+* `*find* CS2103T CS2101 CS2105` +
 Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its url
 
-* `find GitHub t/CS2103T` +
+* `*find* GitHub t/CS2103T` +
 Returns any bookmark with the tag CS2103T or that contains github in either name or URL.
 
-=== Deleting a bookmark: `delete`
+=== Deleting a bookmark: *`delete`*
 
 Deletes the specified bookmark from the bookmark manager.
 
-Format: `delete INDEX`
+Format: `*delete* INDEX`
 
 ****
 * Deletes the bookmark at the specified INDEX.
 * The index refers to the index number shown in the displayed bookmark list.
-* The index must be a positive integer 1, 2, 3, …​
+* The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
+* `*list*` +
+`*delete* 2` +
 Deletes the 2nd bookmark in the bookmark manager.
 
-* `find luminus` +
-`delete 1` +
+* `*find* luminus` +
+`*delete* 1` +
 Deletes the 1st bookmark in the results of the find command.
 
-=== Opening a bookmark: `goto`
+=== Opening a bookmark: *`goto`*
 
 Opens the specified version of the bookmark from the bookmark manager.
 
-Format: `goto INDEX [v/VERSION]`
+Format: `*goto* INDEX [v/VERSION]`
 
 ****
 * If the flag `v/` is not present, go to the online version.
@@ -191,43 +196,43 @@ the most current version of the bookmark will be opened.
 
 Examples:
 
-* `list` +
-`goto 1` +
+* `*list*` +
+`*goto* 1` +
 Opens the first bookmark in the bookmark manager.
 
-* `list` +
-`goto 1 v/1` +
+* `*list*` +
+`*goto* 1 v/1` +
 Opens the first version of the first bookmark in the bookmark manager.
 
-=== Opening a bookmark from a reminder: `goto reminder`
+=== Opening a bookmark from a reminder: *`goto reminder`*
 
 Opens the related bookmark of the specified reminder from the bookmark manager.
 
-Format: `goto reminder INDEX`
+Format: `*goto reminder* INDEX`
 
 ****
 * INDEX is the index of the reminder as viewed on the dashboard.
-* The index must be a positive integer 1, 2, 3, …​
+* The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
 Examples:
 
-* `goto reminder 1` +
+* `*goto reminder* 1` +
 If reminder 1 points to bookmark 5, this command is equivalent to
-`goto 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
+`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
-=== Clearing all entries: `clear`
+=== Clearing all entries: *`clear`*
 
 Clears all entries from the bookmark manager.
 
-Format: `clear`
+Format: `*clear*`
 
-=== Undoing previous command: `undo`
+=== Undoing previous command: *`undo`*
 
 Restores the list to the state before the previous undoable command was
 executed.
 
-Format: `undo`
+Format: `*undo*`
 
 ****
 * Undoable commands include commands that modify the bookmark list or
@@ -235,17 +240,17 @@ reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
 `reminder edit`, `reminder delete`, etc).
 ****
 
-=== Redoing the previously undone command: `redo`
+=== Redoing the previously undone command: *`redo`*
 
-Reverses the most recent ‘undo’ command.
+Reverses the most recent `*undo*` command.
 
-Format: `redo`
+Format: `*redo*`
 
-=== Exiting the program: `exit`
+=== Exiting the program: *`exit`*
 
 Exits the program.
 
-Format: `exit`
+Format: `*exit*`
 
 === Saving the data
 
@@ -253,14 +258,15 @@ Mark data are saved in the hard disk automatically after any command
 that changes the data.
 
 There is no need to save data manually. It is also possible to save
-specific bookmarks with a different file name using the command `export`
-(see <<_exporting_bookmarks_export>>).
+specific bookmarks with a different file name using the command `*export*`
+(see <<exporting-bookmarks>>).
 
-=== Exporting bookmarks: `export`
+[[exporting-bookmarks]]
+=== Exporting bookmarks: *`export`*
 
 Exports the currently displayed list of bookmarks to the hard disk.
 
-Format: `export [FILENAME]`
+Format: `*export* [FILENAME]`
 
 ****
 * {blank}
@@ -276,27 +282,27 @@ first bookmark followed by “AndOtherBookmarks”. E.g.
 
 Examples:
 
-* `list` +
-`export myBookmarks` +
+* `*list*` +
+`*export* myBookmarks` +
 Exports all bookmarks in the bookmark manager to a file named
 `myBookmarks.json`.
 
-* `find luminus` +
-`export` +
-Exports all bookmarks found using `find` (e.g. `cs2101Luminus`,
+* `*find* luminus` +
+`*export*` +
+Exports all bookmarks found using `*find*` (e.g. `cs2101Luminus`,
 `cs2103TLuminus`, `cs2105Luminus`) to a file named
 `cs2101LuminusAndOtherBookmarks.json`.
 
-* `find t/favorite` +
- `export favorites` +
+* `*find* t/favorite` +
+ `*export* favorites` +
 Exports all bookmarks tagged with `favorite` to a file named
 `favorites.json`.
 
-=== Importing bookmarks: `import`
+=== Importing bookmarks: *`import`*
 
 Imports bookmarks from files on the hard disk.
 
-Format: `import FILENAME [MORE_FILENAMES]...`
+Format: `*import* FILENAME [MORE_FILENAMES]...`
 
 ****
 * `FILENAME` should not include the file extension. E.g. `myBookmarks` and not
@@ -305,25 +311,25 @@ Format: `import FILENAME [MORE_FILENAMES]...`
 * `FILENAME` should be a file stored in the folder
 `[applicationHome]/data/bookmarks/`.
 * The file corresponding to `FILENAME` should have a valid format, identical
-to the JSON files produced by `export`.
+to the JSON files produced by `*export*`.
 ****
 
 Examples:
 
-* `import myBookmarks` +
+* `*import* myBookmarks` +
 Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
 file `mark/data/bookmarks/myBookmarks.json`
 
-* `import myBookmarks nusBookmarks youtubeBookmarks` +
+* `*import* myBookmarks nusBookmarks youtubeBookmarks` +
 Imports bookmarks from the files `myBookmarks.json`, `nusBookmarks.json`,
 and `youtubeBookmarks.json`.
 
-=== Creating automatic tags: `autotag`
+=== Creating automatic tags: *`autotag`*
 
 Creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
-Format: `autotag NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]
+Format: `*autotag* NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]
 [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
 
 ****
@@ -346,19 +352,19 @@ tagged with the tag `YouTube`.
 
 Examples:
 
-* `autotag Miscellaneous f/NUS nt/academic nt/admin` +
+* `*autotag* Miscellaneous f/NUS nt/academic nt/admin` +
  Creates an autotag that adds the tag `Miscellaneous` to all bookmarks that are
 in the folder `NUS` but are not tagged with `academic` or `admin`.
 
-* `autotag Luminus u/luminus` +
+* `*autotag* Luminus u/luminus` +
  Creates an autotag that adds the tag `Luminus` to all bookmarks with URLs
 containing `luminus`.
 
-=== Saving offline Readable copies of bookmarked website: `cache`
+=== Saving offline Readable copies of bookmarked website: *`cache`*
 
 Saves the bookmarked website locally for offline viewing.
 
-Format: `cache INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
+Format: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
 
 ****
 * `INDEX` is the bookmark that you want to save a local copy of
@@ -371,105 +377,109 @@ the different versions and delete them / name them
 
 Examples:
 
-* `cache 1 s/true u/true` +
+* `*cache* 1 s/true u/true` +
 Saves the bookmark at index 1 locally, and updates it daily.
 
-* `cache 1` +
+* `*cache* 1` +
 Show the list of cached copies.
 
-* `cache 1 d/2` +
+* `*cache* 1 d/2` +
 Deletes the cached version at the second index.
 
-* `cache 1 u/true` +
+* `*cache* 1 u/true` +
 Manually save a new copy of the site.
 
-=== Making annotations on offline copy of bookmarked website: `annotate`
+=== Making annotations on offline copy of bookmarked website: *`annotate`*
 
 Adds new annotations on locally saved, offline version of the bookmarked
 website. When this command is given, the UI will switch to the offline tab showing the results of your command.
 With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
 note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
-++
+
 Overwriting an existing note is possible with this command.
 
-Format: `annotate INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
+Format: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
- * INDEX is the bookmark that you want to annotate offline version of.
- If INDEX is invalid, a warning message will be displayed.
- * P_NUM is the number of the paragraph to be marked.
- If P_NUM is invalid, a warning message will be displayed.
- * NOTES is the content of notes to add.
- * HIGHLIGHT_COLOUR is either `orange`, `pink`, `green` or `yellow`. This selects
+****
+ * `INDEX` is the bookmark that you want to annotate offline version of.
+ If `INDEX` is invalid, a warning message will be displayed.
+ * `P_NUM` is the number of the paragraph to be marked.
+ If `P_NUM` is invalid, a warning message will be displayed.
+ * `NOTES` is the content of notes to add.
+ * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
 the highlight colour to mark out paragraphs. If no colour is specified,
 yellow is the default colour.
 If colour provided is invalid, a warning message will be displayed.
+****
 
 Examples:
 
-* `annotate 1 p/2 n/summary of paragraph h/yellow` +
+* `*annotate* 1 p/2 n/summary of paragraph h/yellow` +
 In offline copy of bookmark 1, highlights paragraph 2 yellow and
 attaches note with content “summary of paragraph” to the paragraph.
 
-* `annotate 1 p/2 h/pink` +
+* `*annotate* 1 p/2 h/pink` +
 In offline copy of bookmark 1, overwrites any existing highlight and
 highlights paragraph 2 with pink. Any notes attached remain attached.
 
-* `annotate 1 p/2 n/change or add note content` +
+* `*annotate* 1 p/2 n/change or add note content` +
 In offline copy of bookmark 1, if paragraph 2 had pre-existing note,
 changes note attached to paragraph 2 to note with content “change or add note content”. Highlight
 colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
 a new note with content "change or add note content" will be added to the paragraph.
 
 
-=== Deleting annotations on offline copy of bookmarked website: `annotate delete`
+=== Deleting annotations on offline copy of bookmarked website: *`annotate delete`*
 
 Deletes selected highlights or notes from the offline copy of the given bookmarked website.
 When this command is given, the UI will switch to the offline tab showing the results of your command.
 You can choose to remove just the notes and/or highlight of a paragraph, or clear all annotations
 on an offline copy to revert it to clean slate. You can also choose to remove a note from the
-<<stray-notes,Stray Notes Section>>. If given paragraph does not have any notes to remove, nothing is performed.
+<<stray-notes,_Stray Notes Section_>>. If given paragraph does not have any notes to remove, nothing is performed.
 
-Format: `annotate delete INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
+Format: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 
-* INDEX is the bookmark that you want to remove annotations of.
- If INDEX is invalid, a warning message will be displayed.
-* P_NUM is the paragraph number or identifier of stray notes to remove. If P_NUM is not provided, all annotations
+****
+* `INDEX` is the bookmark that you want to remove annotations of.
+ If `INDEX` is invalid, a warning message will be displayed.
+* `P_NUM` is the paragraph number or identifier of stray notes to remove. If `P_NUM` is not provided, all annotations
 will be cleared, reverting the offline document to a clean slate.
  In the event that an identifier to a stray note is given, the remaining optional fields will be ignored,
  i.e. that stray note will be deleted.
- If P_NUM is invalid, a warning message will be displayed.
-* KEEP_NOTES is either `true` or `false`. If `true`, the notes of the paragraph will not be deleted (but
-if the paragraph's highlight is removed, the notes will be moved to the _Stray Notes Section_). Otherwise,
-the notes will be removed. KEEP_NOTES is false by default.
- If KEEP_NOTES is invalid, KEEP_NOTES will be set to `true`.
-* KEEP_HIGHLIGHT is either `true` or `false`. If `true`, the highlight of the paragraph will not be deleted
-(if the paragraph's note is not removed, the notes will be moved to the _Stray Notes Section_). Otherwise,
-the highlight will be removed. KEEP_HIGHLIGHT is false by default.
- If KEEP_HIGHLIGHT is invalid, KEEP_HIGHLIGHT will be set to `true`.
+ If `P_NUM` is invalid, a warning message will be displayed.
+* `KEEP_NOTES` is either `true` or `false`. If `true`, the notes of the paragraph will not be deleted (but
+if the paragraph's highlight is removed, the notes will be moved to the <<stray-notes,_Stray Notes Section_>>). Otherwise,
+the notes will be removed. `KEEP_NOTES` is `false` by default.
+ If `KEEP_NOTES` is invalid, `KEEP_NOTES` will be set to `true`.
+* `KEEP_HIGHLIGHT` is either `true` or `false`. If `true`, the highlight of the paragraph will not be deleted
+(if the paragraph's note is not removed, the notes will be moved to the <<stray-notes,_Stray Notes Section_>>). Otherwise,
+the highlight will be removed. `KEEP_HIGHLIGHT` is `false` by default.
+ If `KEEP_HIGHLIGHT`` is invalid, `KEEP_HIGHLIGHT` will be set to `true`.
+****
 
 Examples:
 
-* `annotate delete 1 p/2` +
+* `*annotate delete* 1 p/2` +
 In the offline copy of bookmark 1, removes both the note and highlight from paragraph 2.
 
-* `annotate delete 1 p/2 n/true` +
+* `*annotate delete* 1 p/2 n/true` +
 In the offline copy of bookmark 1, removes the highlight of paragraph 2 and moves the note to _Stray Note Section_.
 
-* `annotate delete 1 p/2 h/true` +
+* `*annotate delete* 1 p/2 h/true` +
 In the offline copy of bookmark 1, removes the note of paragraph 2, leaving the highlight untouched.
 
-* `annotate delete 1 p/2 n/true h/true` +
+* `*annotate delete* 1 p/2 n/true h/true` +
 Nothing happens as both the note and highlight are left alone.
 
-* `annotate delete 2 p/S1` +
+* `*annotate delete* 2 p/S1` +
 Deletes stray note S1 from the offline copy of bookmark 2.
 
-* `annotate delete 1` +
+* `*annotate delete* 1` +
 Removes all annotations of the offline copy of bookmark 1.
 
 
-=== Modifying annotations on offline copy of bookmarked website: `annotate edit`
+=== Modifying annotations on offline copy of bookmarked website: *`annotate edit`*
 
 Modifies existing annotations on the offline version of the bookmarked
 website. When this command is given, the UI will switch to the offline tab showing the results of your command.
@@ -477,202 +487,220 @@ With this command, you can choose to overwrite the existing notes to a particula
 choose to move notes from a paragraph to another paragraph. This command also supports moving
 a stray note (see Glossary) back to the main text by specifying which paragraph to move it to.
 
-Format: `annotate edit INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+Format: `*annotate edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 
- * INDEX is the bookmark that you want to annotate offline version of.
- If INDEX is invalid, a warning message will be displayed.
- * P_NUM is the number of the paragraph or stray note identifier whose annotation is to be edited.
- If P_NUM is invalid, a warning message will be displayed.
- * NEW_P_NUM is the number of the paragraph to move any annotation to.
- If NEW_P_NUM is invalid, a warning message will be displayed.
- * NOTES is the content of notes to change to. Whenever notes is given, it
- replaces any pre-existing note to paragraph P_NUM, if applicable.
- * HIGHLIGHT_COLOUR is either `orange`, `pink`, `green` or `yellow`. This selects
+****
+ * `INDEX` is the bookmark that you want to annotate offline version of.
+ If `INDEX` is invalid, a warning message will be displayed.
+ * `P_NUM` is the number of the paragraph or stray note identifier whose annotation is to be edited.
+ If `P_NUM` is invalid, a warning message will be displayed.
+ * `NEW_P_NUM` is the number of the paragraph to move any annotation to.
+ If `NEW_P_NUM` is invalid, a warning message will be displayed.
+ * `NOTES` is the content of notes to change to. Whenever notes is given, it
+ replaces any pre-existing note to paragraph `P_NUM`, if applicable.
+ * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
 the highlight colour to mark out paragraphs. When no colour is specified, if source paragraph is
 already highlighted, the highlight stays the same colour; otherwise the default colour yellow will be used.
 If colour provided is invalid, a warning message will be displayed.
-If HIGHLIGHT_COLOUR is specified with a stray note identifier, nothing happens.
-
+If `HIGHLIGHT_COLOUR` is specified with a stray note identifier, nothing happens.
+****
 
 Examples:
 
-* `annotate edit 1 p/2 to/3` +
+* `*annotate edit* 1 p/2 to/3` +
 In the offline copy of bookmark 1, moves both highlight and notes from paragraph 2 to paragraph 3. Highlight of paragraph 2
 will be removed.
 
-* `annotate edit 1 p/2 to/3 h/orange` +
+* `*annotate edit* 1 p/2 to/3 h/orange` +
 In the offline copy of bookmark 1, moves note from paragraph 2 to paragraph 3. Highlight of paragraph 2
 will be removed and paragraph 3 will be highlighted with orange.
 
-* `annotate edit 1 p/1 n/new notes` +
+* `*annotate edit* 1 p/1 n/new notes` +
 In the offline copy of bookmark 1, replaces the content of the note for paragraph 1 with "new notes".
 
-* `annotate edit 1 p/1 h/yellow` +
+* `*annotate edit* 1 p/1 h/yellow` +
 In the offline copy of bookmark 1, changes the highlight colour to yellow for paragraph 1.
 
-* `annotate edit 1 S2 p/1` +
+* `*annotate edit* 1 S2 p/1` +
 In the offline copy of bookmark 1, moves stray notes S2 to paragraph 1. If paragraph 1 had a highlight, highlight
 remains and overwrite any existing note with S2 note content. If not default highlight colour yellow is used.
 
-* `annotate edit 1 p/2 to/3 n/changing and moving notes` +
+* `*annotate edit* 1 p/2 to/3 n/changing and moving notes` +
 In the offline copy of bookmark 1, paragraph 3 is annotated with the highlight of paragraph 2 and
 note with content "changing and moving notes". Annotation on paragraph 2 is removed.
 
 
-=== Viewing annotated bookmarked website: `offline`
+=== Viewing annotated bookmarked website: *`offline`*
 
 Switches to offline tab and shows offline copy of a selected bookmark. The offline view tab will
 show the latest offline copy with annotations by default.
 
-Format: `offline INDEX [v/VERSION = current]`
+Format: `*offline* INDEX [v/VERSION = current]`
 
-* INDEX is the bookmark that you want to view notes of
- * VERSION is the version of the cached version to show. Default is the
+****
+* `INDEX` is the bookmark that you want to view notes of
+ * `VERSION` is the version of the cached version to show. Default is the
 current version
+****
 
 Examples:
 
-* `offline 1` +
+* `*offline* 1` +
 Shows annotated offline copy of bookmark 1.
 
-* `offline 1 v/2` +
+* `*offline* 1 v/2` +
 Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
 then annotations are shown as well.
 
 
-=== Adding reminder: `reminder`
+=== Adding a reminder: *`reminder`*
 
-Adds a reminder to visit a bookmark. You can set the time for the reminder. The app
-will inform you at that time. You can also choose whether to open the bookmark.
-The default setting is open.
+Adds a reminder of a specified bookmark. You can set the time for the reminder.
 
-Format: `reminder INDEX t/TIME_DATE [n/NOTE=Open]`
+Format: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 
-* INDEX is the index of the bookmark that you want to add with a reminder.
- * TIME_DATE follows HHMM dd/mm/yyyy format.
-* NOTE is the setting of whether you want to open the bookmark.
-
+****
+* `INDEX` is the index of the bookmark that you want to add with a reminder.
+ * `TIME_DATE` follows `_HHMM dd/mm/yyyy_` format.
+* `NOTE` is the description of the reminder, the default value is Open.
+****
 Examples:
 
-* `reminder 1 t/2359 02/07/2019` +
-Adds a reminder for bookmark 1, and set the time at 02/07/2019. The
-reminder will remind you at 23:59 on 2nd July, 2019.
-It will also open the bookmark for you.
+* `*reminder* 1 t/2359 02/07/2019` +
+Adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
+It reminds you to open the bookmark.
 
-* `reminder 1 t/2359 02/07/2019 n/Close` +
-Adds a reminder for bookmark 1, and set the time at 23:59 of 02/07/2019. The reminder will
-remind you at the time and would not open the bookmark for you.
-
-=== Editing reminder: `reminder edit`
-Edit a reminder at the reminder's index. You can edit either time or whether to open it.
-
-Format: `reminder edit INDEX [t/TIME_DATE] [n/NOTE]`
-* INDEX is the index of the reminder that you want to edit.
-* TIME_DATE is the time you want to edit. The time follows HHMM dd/mm/yyyy format.
-* NOTE is the setting that you want to edit. It is whether you want to open the bookmark.
-
-* `reminder edit 1 t/2359 02/07/2019` +
-Edit reminder in index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
-
-* `reminder 1 t/2359 02/07/2019 n/Close` +
-Edit reminder in index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
-Reset to not to open the bookmark.
+* `*reminder* 1 t/2359 02/07/2019 n/Read announcements` +
+Adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
+The reminder reminds you to read announcements.
 
 
-=== Deleting reminder: `reminder delete`
 
-Deletes the the specified reminder.
+=== Editing a reminder: *`reminder edit`*
+Edits the reminder at the specified index. You can edit either the time or the note of the reminder.
 
-Format: `reminder delete INDEX`
-* INDEX is the index of the reminder that you want to delete.
+Format: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
-* `reminder delete 1` +
-Delete the reminder at index 1.
+****
+* `INDEX` is the index of the reminder you want to edit on the dashboard.
+* `TIME_DATE` is the time you want to edit. The time follows `_HHMM dd/mm/yyyy_` format.
+* `NOTE` is the description of the reminder that you want to edit.
+****
+Examples:
 
-=== Sorting bookmarks: `sort`
+* `*reminder edit* 1 t/2359 02/07/2019` +
+Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
-Sorts the displayed bookmarks according to different criteria (name,
+* `*reminder edit* 1 t/2359 02/07/2019 n/Check daily news` +
+Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+Reset the note to Check daily news.
+
+=== Deleting a reminder: *`reminder delete`*
+
+Deletes the the reminder at the specified index.
+
+Format: `*reminder delete* INDEX`
+
+****
+* `INDEX` is the index of the reminder you want to delete on the dashboard.
+****
+Examples:
+
+* `*reminder delete* 1` +
+Delete the reminder of index 1.
+
+=== Sorting bookmarks: *`sort`*
+
+Sorts the displayed bookmarks according to different criterion (name,
 order added) and displays them as a list.
 
-Format: `sort [CRITERIA]`
+Format: `*sort* [CRITERION]`
 
-* CRITERIA is the field you use to sort. Acceptable values of CRITERIA
+****
+* `CRITERION` is the field you use to sort. Acceptable values of `CRITERION`
 are: *name* and *default*. *default* is sorting at the order when the bookmark is added.
- * CRITERIA is case insensitive, e.g. both URL and url are acceptable
-criteria.
-
+ * `CRITERION` is case insensitive, e.g. both URL and url are acceptable
+criterion.
+****
 Examples:
 
-* `sort name` +
+* `*sort* name` +
 Lists all the bookmarks based on name/alphabetical order.
 
-* `sort default` +
+* `*sort* default` +
 Sort all the bookmarks based on the order they were added.
 
-=== Expanding folder hierarchy: `expand`
+=== Expanding folder hierarchy: *`expand`*
 
 Expands the folder hierarchy by the specified number of levels.
 
-Format: `expand [LEVEL]`
+Format: `*expand* [LEVEL]`
 
 ****
-* LEVEL should be an integer. If it is more than zero, folder hierarchy
-will expand by LEVEL number of levels. If LEVEL is less than zero,
-folder hierarchy will collapse by the given number of levels. If LEVEL
+* `LEVEL` should be an integer. If it is more than zero, folder hierarchy
+will expand by `LEVEL` number of levels. If `LEVEL` is less than zero,
+folder hierarchy will collapse by the given number of levels. If `LEVEL`
 is zero, nothing happens.
-* Current level of display + LEVEL must be positive and less than or equal
+* Current level of display + `LEVEL` must be positive and less than or equal
 to the maximum number of levels.
-* If LEVEL is not specified, expand to the maximum number of levels.
+* If `LEVEL` is not specified, expand to the maximum number of levels.
 ****
 
 Examples:
 
-* `expand 3` +
+* `*expand* 3` +
 Expands the folder hierarchy by 3 levels.
 
-=== Collapsing folder hierarchy: `collapse`
+=== Collapsing folder hierarchy: *`collapse`*
 
 Collapses the folder hierarchy by the specified number of levels.
 
-Format: `collapse [LEVEL]`
+Format: `*collapse* [LEVEL]`
 
 ****
-* LEVEL should be an integer. If it is more than zero, folder hierarchy
-will collapse by LEVEL number of levels. If LEVEL is less than zero,
-folder hierarchy will expand by the given number of levels. If LEVEL is
+* `LEVEL` should be an integer. If it is more than zero, folder hierarchy
+will collapse by `LEVEL` number of levels. If `LEVEL` is less than zero,
+folder hierarchy will expand by the given number of levels. If `LEVEL` is
 zero, nothing happens.
-* Current level of display + LEVEL must be positive and less than or equal
+* Current level of display + `LEVEL` must be positive and less than or equal
 to the maximum number of levels of the folder hierarchy.
-* If LEVEL is not specified, collapse to show only one level of folders.
+* If `LEVEL` is not specified, collapse to show only one level of folders.
 ****
 
 Examples:
 
-* `collapse 1` +
+* `*collapse* 1` +
 Collapses the folder hierarchy by 1 level.
 
-=== Switching <<Tabs,tabs>>: `tab`
+=== Switching <<Tabs,tabs>>: *`tab`*
 
 Switches the current app view to the tab that corresponds to the given
 index.
 
-Format: `tab INDEX`
+Format: `*tab* INDEX`
 
 ****
-* INDEX is 1, 2 or 3, which correspond to the
+* `INDEX` is `1`, `2` or `3`, which correspond to the
 <<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
 ****
 
 Examples:
 
-* `tab 1` +
+* `*tab* 1` +
 Goes to the <<Dashboard,Dashboard>> tab.
 
-* `tab 2` +
+* `*tab* 2` +
 Goes to the Online tab which is a web view.
 
-* `tab 3` +
+* `*tab* 3` +
 Goes to the Offline tab which shows the offline copy of bookmarks.
+
+
+=== Automatically completing partially typed commands `[coming in v2.0]`
+Automatically fills in partially typed commands if the command is unique.
+
+=== Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
+Shares your bookmarks and notes with your friends via Email or Telegram.
 
 == FAQ
 
@@ -728,4 +756,30 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 
 == Command Summary
 
-_{ coming soon }_
+* *Help*: `*help*`
+* *Add*: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​`
+* *List*: `*list*`
+* *Edit*: `*edit* INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+* *Find*: `*find* [KEYWORD]... [t/TAG]...`
+* *Delete*: `*delete* INDEX`
+* *Goto*: `*goto* INDEX [v/VERSION]`
+* *Goto*: `*goto reminder* INDEX`
+* *Clear*: `*clear*`
+* *Undo*: `*undo*`
+* *Redo*: `*redo*`
+* *Exit*: `*exit*`
+* *Export*: `*export* [FILENAME]`
+* *Import*: `*import* FILENAME [MORE_FILENAMES]...`
+* *Autotag*: `*autotag* NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]`
+* *Cache*: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
+* *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
+* *Annotate (delete)*: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
+* *Annotate (edit)*: `*annotate edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+* *Offline*: `*offline* INDEX [v/VERSION=current]`
+* *Reminder*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
+* *Reminder*: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
+* *Reminder*: `*reminder delete* INDEX`
+* *Sort*: `*sort* [CRITERION]`
+* *Expand*: `*expand* [LEVEL]`
+* *Collapse*: `*collapse* [LEVEL]`
+* *Tab*: `*tab* INDEX`
