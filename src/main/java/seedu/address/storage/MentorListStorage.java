@@ -1,8 +1,11 @@
 package seedu.address.storage;
 
+import java.util.Optional;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Optional;
+
+import seedu.address.AlfredException;
+import seedu.address.model.entitylist.MentorList;
 
 import seedu.address.commons.exceptions.DataConversionException;
 
@@ -21,12 +24,12 @@ public interface MentorListStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<MentorList> readMentorList() throws DataConversionException, IOException;
+    Optional<MentorList> readMentorList() throws DataConversionException, IOException, AlfredException;
 
     /**
      * @see #getMentorListFilePath()
      */
-    Optional<MentorList> readMentorList(Path filePath) throws DataConversionException, IOException;
+    Optional<MentorList> readMentorList(Path filePath) throws DataConversionException, IOException, AlfredException;
 
     /**
      * Saves the given {@link MentorList} to the storage.

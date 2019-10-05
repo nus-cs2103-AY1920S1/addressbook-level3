@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.AlfredException;
+import seedu.address.model.entitylist.IssueList;
+
 import seedu.address.commons.exceptions.DataConversionException;
 
 /**
@@ -21,12 +24,12 @@ public interface IssueListStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<IssueList> readIssueList() throws DataConversionException, IOException;
+    Optional<IssueList> readIssueList() throws DataConversionException, IOException, AlfredException;
 
     /**
      * @see #getIssueListFilePath()
      */
-    Optional<IssueList> readIssueList(Path filePath) throws DataConversionException, IOException;
+    Optional<IssueList> readIssueList(Path filePath) throws DataConversionException, IOException, AlfredException;
 
     /**
      * Saves the given {@link IssueList} to the storage.

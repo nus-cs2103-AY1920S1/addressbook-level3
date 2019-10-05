@@ -83,4 +83,17 @@ public class Location {
     public int toStorageValue(){
         return this.tableNumber;
     }
+
+    /**
+     * Checks if the input tableNumber is a valid one.
+     * @param tableNumber
+     * @return boolean indicating whether the table number is valid.
+     */
+    public static boolean isValidLocation(int tableNumber) {
+        if (tableNumber < 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

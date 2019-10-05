@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import seedu.address.AlfredException;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -33,7 +34,7 @@ public class JsonParticipantListStorage implements ParticipantListStorage {
     }
 
     @Override
-    public Optional<ParticipantList> readParticipantList() throws DataConversionException {
+    public Optional<ParticipantList> readParticipantList() throws DataConversionException, AlfredException {
         return readParticipantList(filePath);
     }
 
@@ -43,7 +44,7 @@ public class JsonParticipantListStorage implements ParticipantListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ParticipantList> readParticipantList(Path filePath) throws DataConversionException {
+    public Optional<ParticipantList> readParticipantList(Path filePath) throws DataConversionException, AlfredException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableParticipantList> jsonParticipantList = JsonUtil.readJsonFile(

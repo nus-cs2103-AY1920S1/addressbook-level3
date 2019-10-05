@@ -7,15 +7,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.entity.Id;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-
+import seedu.address.model.entity.Name;
+import seedu.address.model.entity.Issue;
+import seedu.address.model.entity.IssueType;
 import seedu.address.model.entity.PrefixType;
 
 

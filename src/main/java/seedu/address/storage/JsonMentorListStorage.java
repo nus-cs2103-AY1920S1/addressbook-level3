@@ -7,11 +7,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import seedu.address.AlfredException;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.entitylist.MentorList;
 
 /**
  * A class to access MentorList data stored as a json file on the hard disk.
@@ -31,7 +33,7 @@ public class JsonMentorListStorage implements MentorListStorage {
     }
 
     @Override
-    public Optional<MentorList> readMentorList() throws DataConversionException {
+    public Optional<MentorList> readMentorList() throws DataConversionException, AlfredException {
         return readMentorList(filePath);
     }
 
@@ -41,7 +43,7 @@ public class JsonMentorListStorage implements MentorListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<MentorList> readMentorList(Path filePath) throws DataConversionException {
+    public Optional<MentorList> readMentorList(Path filePath) throws DataConversionException, AlfredException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableMentorList> jsonMentorList = JsonUtil.readJsonFile(

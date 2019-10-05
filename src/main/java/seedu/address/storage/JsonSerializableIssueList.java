@@ -8,8 +8,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import seedu.address.AlfredException;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
+import seedu.address.model.entitylist.IssueList;
+import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.Issue;
 
 /**
  * An Immutable IssueList that is serializable to JSON format.
@@ -46,7 +49,7 @@ class JsonSerializableIssueList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public IssueList toModelType() throws IllegalValueException {
+    public IssueList toModelType() throws IllegalValueException, AlfredException {
         IssueList issueList = new IssueList();
         for (JsonAdaptedIssue jsonAdaptedIssue : issues) {
             Issue issue = jsonAdaptedIssue.toModelType();

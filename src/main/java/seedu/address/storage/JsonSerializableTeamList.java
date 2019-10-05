@@ -9,7 +9,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
+import seedu.address.AlfredException;
+import seedu.address.model.entitylist.TeamList;
+import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.Team;
 
 /**
  * An Immutable TeamList that is serializable to JSON format.
@@ -46,7 +49,7 @@ class JsonSerializableTeamList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public TeamList toModelType() throws IllegalValueException {
+    public TeamList toModelType() throws IllegalValueException, AlfredException {
         TeamList teamList = new TeamList();
         for (JsonAdaptedTeam jsonAdaptedTeam : teams) {
             Team team = jsonAdaptedTeam.toModelType();
@@ -54,7 +57,7 @@ class JsonSerializableTeamList {
             //if (teamList.hasTeam(team)) {
             //    throw new IllegalValueException(MESSAGE_DUPLICATE_ENTITY);
             //}
-            teamList.addTeam(team);
+            teamList.add(team);
         }
         return teamList;
     }

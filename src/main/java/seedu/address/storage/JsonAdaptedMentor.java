@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.entity.PrefixType;
@@ -13,6 +16,8 @@ import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Phone;
+import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.SubjectName;
 
 
 /**
