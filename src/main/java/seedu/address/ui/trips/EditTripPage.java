@@ -1,7 +1,9 @@
 package seedu.address.ui.trips;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -13,6 +15,8 @@ import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.ui.MainWindow;
+import seedu.address.ui.Page;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
@@ -27,7 +31,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-public class EditTripPage extends WindowWithoutSidebar {
+public class EditTripPage extends Page<AnchorPane> {
 
     private static final String FXML = "EditTripPage.fxml";
 
@@ -38,37 +42,19 @@ public class EditTripPage extends WindowWithoutSidebar {
     private ExpenditureFormItem tripTotalBudgetFormItem;
 
     @FXML
-    private StackPane commandBoxPlaceholder;
-
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
-
-    @FXML
     private VBox formItemsPlaceholder;
 
     @FXML
     private Button addButton;
 
-    public EditTripPage(Stage primaryStage, Logic logic, Model model) {
-        super(FXML, primaryStage, logic, model);
+    public EditTripPage(MainWindow mainWindow, Logic logic, Model model) {
+        super(FXML, mainWindow, logic, model);
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     protected void fillInnerParts() {
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(model.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
         //create new trip, use fresh display data
         tripNameFormItem = new TextFormItem("Name of trip : ", nameFormValue -> {
             try {
@@ -137,8 +123,8 @@ public class EditTripPage extends WindowWithoutSidebar {
         try {
             executeCommand(commandText);
         } catch (ParseException | CommandException ex) {
-            logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(ex.getMessage());
+            //logger.info("Invalid command: " + commandText);
+            //resultDisplay.setFeedbackToUser(ex.getMessage());
         }
     }
 
@@ -165,15 +151,14 @@ public class EditTripPage extends WindowWithoutSidebar {
         }
     }
 
-    @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        CommandResult executionResult = super.executeCommand(commandText);
+        CommandResult executionResult = mainWindow.executeCommand(commandText);
         fillFormWithModel();
         return executionResult;
     }
 
-    public static void switchTo(Stage stage, Logic logic, Model model) {
-        new EditTripPage(stage, logic, model);
+    public void switchTo() {
+        mainWindow.switchHandler(getRoot(), this::fillFormWithModel);
     }
 
 }

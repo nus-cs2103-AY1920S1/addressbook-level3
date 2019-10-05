@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
-import java.util.logging.Level;
+import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.animation.PauseTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -15,25 +19,26 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
-import seedu.address.ui.itinerary.DaysPage;
-import seedu.address.ui.itinerary.EditDayPage;
-import seedu.address.ui.itinerary.EditEventPage;
-import seedu.address.ui.itinerary.EventsPage;
+import seedu.address.ui.components.StatusBarFooter;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
-import seedu.address.ui.utility.PreferencesPage;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public abstract class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> {
+
+    private static String FXML = "MainWindow.fxml";
 
     protected final Logger logger = LogsCenter.getLogger(getClass());
     protected Stage primaryStage;
     protected Logic logic;
     protected Model model;
+
+    private CommandUpdater commandUpdater;
 
     @FXML
     protected StackPane commandBoxPlaceholder;
@@ -44,12 +49,15 @@ public abstract class MainWindow extends UiPart<Stage> {
     @FXML
     protected StackPane statusbarPlaceholder;
 
+    @FXML
+    protected StackPane contentPlaceholder;
+
     // Independent Ui parts residing in this Ui container
     protected ResultDisplay resultDisplay;
     HelpWindow helpWindow;
 
-    public MainWindow(String fxmlFileName, Stage primaryStage, Logic logic, Model model) {
-        super(fxmlFileName, primaryStage);
+    public MainWindow(Stage primaryStage, Logic logic, Model model) {
+        super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -60,17 +68,17 @@ public abstract class MainWindow extends UiPart<Stage> {
         //setAccelerators();
 
         helpWindow = new HelpWindow();
+    }
 
-        //Temporary hacky workaround for scene switch leading to node placement incorrect problem
-        PauseTransition t = new PauseTransition(new Duration(10));
-        primaryStage.setHeight(primaryStage.getHeight() - 1);
-        primaryStage.setMaximized(!primaryStage.isMaximized());
-        t.setOnFinished((e) -> {
-            logger.log(Level.WARNING, "Hacky workaround for page switch still in use.");
-            primaryStage.setHeight(primaryStage.getHeight() + 1);
-            primaryStage.setMaximized(!primaryStage.isMaximized());
-        });
-        t.play();
+    private void fillInnerParts() {
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(model.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
 /*
@@ -112,7 +120,7 @@ public abstract class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    protected abstract void fillInnerParts();
+    //protected abstract void fillInnerParts();
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -126,7 +134,7 @@ public abstract class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -143,6 +151,8 @@ public abstract class MainWindow extends UiPart<Stage> {
             if (commandResult.getPage().isPresent()) {
                 switchWindow(commandResult.getPage().get());
             }
+
+            commandUpdater.executeUpdateCallback();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -176,13 +186,29 @@ public abstract class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    private void switchWindow(Class<? extends MainWindow> mainWindowClass) {
-        WindowNavigation navigation = null;
+    public void switchHandler(Node node, CommandUpdater commandUpdater) {
+        //transition
+        List<Node> currentChildren = contentPlaceholder.getChildren();
+        node.translateXProperty().set(primaryStage.getWidth());
+        contentPlaceholder.getChildren().add(node);
+
+        Timeline timeline = new Timeline();
+        KeyValue yTranslateKv =
+                new KeyValue(node.translateXProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame keyFrame = new KeyFrame(new Duration(200), yTranslateKv);
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
+
+        this.commandUpdater = commandUpdater;
+    }
+
+    private void switchWindow(Class<? extends Page> mainWindowClass) {
+        Page navigation = null;
         if (TripsPage.class.equals(mainWindowClass)) {
-            navigation = TripsPage::switchTo;
+            navigation = new TripsPage(this, logic, model);
         } else if (EditTripPage.class.equals(mainWindowClass)) {
-            navigation = EditTripPage::switchTo;
-        } else if (DaysPage.class.equals(mainWindowClass)) {
+            navigation = new EditTripPage(this, logic, model);
+        } /*else if (DaysPage.class.equals(mainWindowClass)) {
             navigation = DaysPage::switchTo;
         } else if (EditDayPage.class.equals(mainWindowClass)) {
             navigation = EditDayPage::switchTo;
@@ -192,9 +218,14 @@ public abstract class MainWindow extends UiPart<Stage> {
             navigation = EditEventPage::switchTo;
         } else if (PreferencesPage.class.equals(mainWindowClass)) {
             navigation = PreferencesPage::switchTo;
-        }
+        }*/
         if (navigation != null) {
-            navigation.switchToThisWindow(primaryStage, logic, model);
+            navigation.switchTo();
         }
+    }
+
+    @FunctionalInterface
+    public interface CommandUpdater {
+        void executeUpdateCallback();
     }
 }

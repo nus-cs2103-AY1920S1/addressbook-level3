@@ -3,10 +3,12 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import seedu.address.Main;
 import seedu.address.MainApp;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -40,13 +42,14 @@ public class UiManager implements Ui {
         logger.info("Starting UI...");
 
         this.primaryStage = primaryStage;
-        //primaryStage.setMaximized(true);
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
         setWindowDefaultSize(model.getGuiSettings());
 
         try {
-            MainWindow mainWindow = new TripsPage(primaryStage, logic, model);
+            MainWindow mainWindow = new MainWindow(primaryStage, logic, model);
+            TripsPage initialPage = new TripsPage(mainWindow, logic, model);
+            initialPage.switchTo();
             mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.ui.MainWindow;
+import seedu.address.ui.Page;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,7 +16,7 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /** The page class to switch to, if any. */
-    private final Class<? extends MainWindow> page;
+    private final Class<? extends Page> page;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -26,7 +27,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Class<? extends MainWindow> page) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Class<? extends Page> page) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -53,7 +54,7 @@ public class CommandResult {
      * and a page switch {@code Class} extending from {@code MainWindow} using {@code page},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser, Class<? extends MainWindow> page) {
+    public CommandResult(String feedbackToUser, Class<? extends Page> page) {
         this(feedbackToUser, false, false, page);
     }
 
@@ -69,7 +70,7 @@ public class CommandResult {
         return exit;
     }
 
-    public Optional<Class<? extends MainWindow>> getPage() {
+    public Optional<Class<? extends Page>> getPage() {
         return Optional.ofNullable(page);
     }
 
