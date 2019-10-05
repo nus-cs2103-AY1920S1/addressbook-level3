@@ -7,7 +7,11 @@ import java.util.HashMap;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.entity.Participant;
 
+/**
+ * Lists every {@link Participant} in Alfred.
+ */
 public class ListParticipantCommand extends ListCommand {
 
     /* Possible Fields? */

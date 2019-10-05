@@ -12,11 +12,15 @@ import seedu.address.model.Model;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Participant;
 
+/**
+ * Shows detailed view of the {@link Participant} at specified ID.
+ */
 public class ViewParticipantCommand extends ViewCommand {
 
     /* Possible Fields? */
     public static final String MESSAGE_SUCCESS = "Showed specified participant";
-    public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX = "The participant index provided is invalid";
+    public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX =
+            "The participant index provided is invalid";
 
     // Eventually change to take in Name (or add a new constructor)
     public ViewParticipantCommand(Id id) {

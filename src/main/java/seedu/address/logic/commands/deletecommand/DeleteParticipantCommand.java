@@ -9,6 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Participant;
 
+/**
+ * Deletes a {@link Participant} in Alfred.
+ */
 public class DeleteParticipantCommand extends DeleteCommand {
 
     /* Possible Fields? */

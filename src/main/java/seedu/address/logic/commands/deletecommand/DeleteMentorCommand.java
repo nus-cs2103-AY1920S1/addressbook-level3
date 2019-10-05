@@ -6,7 +6,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Mentor;
 
+/**
+ * Deletes a {@link Mentor} in Alfred.
+ */
 public class DeleteMentorCommand extends DeleteCommand {
 
     /* Possible Fields? */
