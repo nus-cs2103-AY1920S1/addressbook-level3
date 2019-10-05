@@ -11,6 +11,8 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 public class ListAvailCommand extends Command {
     public static final String COMMAND_WORD = "lista";
 
+    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen";
+
     public ListAvailCommand(String arguments) {
 
     }

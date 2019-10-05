@@ -11,6 +11,8 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
+    public static final String MESSAGE_SORT_SUCCESS = "Deliverymen sorted.";
+
     public SortCommand(String arguments) {
 
     }

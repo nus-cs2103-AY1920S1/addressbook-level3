@@ -10,6 +10,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
  */
 public class StatusCommand extends Command {
     public static final String COMMAND_WORD = "status";
+    public static final String MESSAGE_SHOW_STATUS_SUCCESS = "Showed status of delivery #";
 
     public StatusCommand(String arguments) {
 
