@@ -279,13 +279,19 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of contacts and claims
 * prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* can type fast and prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* has secretarial or finance management duties
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Simplify the tasks of the finance secretary by providing intuitive commands to commonly done tasks (check net balance, show surplus, show deficit)
+* Makes said task more cohesive by integrating 3 types of tracking (claims, budget and income) into a single application
+* Provides convenience by making it easier to manage documents and accountability for money (Cash on-hand)
+* Reduces the probability of mistakes made by the Finance Secretary by providing accurate tracking details of the various claims and accounts
+
 
 [appendix]
 == User Stories
@@ -295,25 +301,107 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |ensure the contacts list to look like an address book still |easily access people I had dealt with before
+|`* * *` |busy user |ensure the contacts list to have a filter/search bar |easily find people in my contacts list
+|`* * *` |user |ensure the app can create Groups and Events such as Sports, Marketing, FOP etc |manage them easier
+|`* * *` |user |ensure the app can categorise the people to the Groups and Events |manage them easier.
+|`* * *` |user |ensure the app can help me record the amount of money I have on hand |manage it easier.
+|`* * *` |busy user |ensure the app can help me record the amount of money I am supposed to have |manage it easier.
+|`* * *` |user |ensure the app can help me calculate the difference of money I have vs the amount of money I am supposed to have |manage it easier.
+|`* * *` |user |ensure the app can give me a warning when the difference of money I have on hand vs the amount of money I am supposed to have is not 0 |be notified if something like that does happen.
+|`* * *` |user |ensure the app can show me the transactions I had with people in the past, even after the transaction is done |keep a history of them.
+|`* * *` |user |ensure the app can show me a list of DONE people |manage them easier.
+|`* * *` |user |ensure the app can show me a list of NOT DONE people |manage them easier.
+|`* * *` |user |ensure the app can show me the date stamp of the transaction done |keep a history of them.
+|`* * *` |user |ensure the app can sort the value of claims in ascending/descending order |manage them easier.
+|`* * *` |user |ensure the app can be able to freely manipulate accessible data (add, delete, change name, change amount etc.) |manage them easier.
+|`* * *` |clumsy user |ensure the app can app could detect any anomalies such as duplicate claims |make less mistakes.
+|`* *` |user |ensure the app can be colorful and vibrant but not that painful to the eye |look at it without straining my eyes.
+|`* *` |user |ensure the app can send notifications to my email for any major deadlines |manage them easier.
+|`* *` |user |ensure the app can warn me when the particular group is going to exceed their budget at a certain threshold, like let’s say ($500 left) |be notified if something like that does happen.
+|`* *` |user |ensure the app can show me the transaction sorted by month |manage it easier.
+|`* *` |user |ensure the app can show a checklist of to-dos as a Finance Secretary |manage them easier.
+|`* *` |fellow director of the organisation |ensure the app can transform into a to-do list for any other departments |manage them easier.
+|`* *` |user |ensure the app can have graphical representation of data such as pie charts |look at it without straining my eyes.
+|`* *` |lazy user |ensure the app can generate a pseudo report based on the claims |not have to do it myself.
+|`* *` |clumsy user |ensure the app can perform periodic backups  |revert the data in the event that I mess up horribly.
+|`* *` |superior of the finance secretary |have reading access to the information related to the budget, claims and deposits| check on the user's work.
+|`*` |user |ensure the app can have some form of security |ensure no one can see the transactions I have done before
+|`*` |lazy user |ensure the app can email the offending parties if there is a discrepancy or fault with the claims |not have to do it myself
+|`*` |cautious finance secretary |ensure the app can check which secretary changed what details |hold them accountable for any foul play.
+|`*` |cautious finance secretary |ensure the app can have an automated checking system |prevent embezzlement of funds.
+|`*` |user |ensure the app can check for the petty cash holdings |keep track of all money including petty cash.
+|`*` |user |ensure the app can have notifications when claims are left untouched for too long |be notified if something like that does happen.
+|`*` |user |ensure the app can be customised to my needs |make the app suit me.
 
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-_{More to be added}_
+
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `FinSec` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Adding a person
+
+*MSS*
+
+1. User requests to add a person
+2. FinSec adds a person
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The name is invalid.
+
+[none]
+** 2a1. FinSec shows an error message.
++
+Use case resumes at step 1
+
+[none]
+* 3a. The given name is existing.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+** 3a2. FinSec confirms the addition.
+
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Editing a person
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests which person to edit and the details to change
+4. FinSec edits the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list of people is empty.
+
+User case ends
+
+[none]
+* 3a. The name is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
 
 [discrete]
 === Use case: Delete person
@@ -321,9 +409,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  FinSec shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  FinSec deletes the person
 +
 Use case ends.
 
@@ -337,20 +425,339 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. FinSec shows an error message.
 +
 Use case resumes at step 2.
 
 _{More to be added}_
 
+[discrete]
+=== Use case: Change View
+
+*MSS*
+
+1. User requests to change view (People, Claims, Income)
+2. FinSec shows a list of views available
+3. User requests which view to go to
+4. FinSec brings user to that view
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The view is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given view is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add Claim
+
+*MSS*
+
+1. User requests to add claim
+2. FinSec adds claim
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The details of claim is invalid.
++
+[none]
+** 2a1. FinSec shows an error.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Claim
+
+*MSS*
+
+1. User requests to view list of claims
+2. FinSec shows a list of claims
+3. User requests which claim to edit
+4. FinSec edits claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claim list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The entered claim is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add Income
+
+*MSS*
+
+1. User requests to add income
+2. FinSec adds income
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The details of income is invalid.
++
+[none]
+** 2a1. FinSec shows an error.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Income
+
+*MSS*
+
+1. User requests to view list of income
+2. FinSec shows a list of income
+3. User requests which income to edit
+4. FinSec edits income
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The income list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The income entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Check details of person
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests which person to check by index
+4. FinSec displays person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Check existing claims of person
+
+*MSS*
+
+1. User requests to change view to Claims
+2. FinSec changes view to Claims
+3. User requests to view list of people in claims
+4. FinSec shows a list of people in claims
+5. User requests which person to check by index
+6. FinSec displays person with their claims
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 4a. The index entered is invalid.
++
+[none]
+** 4a1. FinSec shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Filter using keywords from list
+
+*MSS*
+
+1. User requests to view list of income or people
+2. FinSec shows a list of income or people
+3. User requests to filter the list based on keyword
+4. FinSec returns a list of filtered results
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The income or people list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The keyword entered is yielded no result.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: See budget
+
+*MSS*
+
+1. User requests to view current budget
+2. FinSec shows current budget
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Sort claims in chronological order
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to sort the claims
+4. FinSec shows sorted claims
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Resolving claims
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to resolve claim from index
+4. FinSec resolves claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
+
+[discrete]
+=== Use case: Adding pictures to claims
+
+*MSS*
+
+1. User requests to change view to claims
+2. FinSec shows the claim view
+3. User requests to add picture to claim by index
+4. FinSec adds a picture to that claim
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The claims list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Adding tags
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests to add tags to people
+4. FinSec adds tags to the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The people list is empty.
++
+Use case ends.
+
+
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 persons or claims without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should work on both 32-bit and 64-bit environments.
+.  The system should respond within two seconds.
+.  The system should be intuitive and usable by anyone who can use excel.
 
 [appendix]
 == Glossary
@@ -364,19 +771,19 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
+*Microsoft Excel*
 
-Author: ...
+Author: Microsoft
 
 Pros:
 
-* ...
-* ...
+* Very common application that can be found in any computer with Microsoft Office
+* Able to customise formulas for calculation
 
 Cons:
 
-* ...
-* ...
+* Very bare-bones UI
+* Multiple spreadsheets with multiple tabs can get very confusing
 
 [appendix]
 == Instructions for Manual Testing

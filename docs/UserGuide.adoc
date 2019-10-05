@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= FinSec - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,13 +12,15 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a CLI app.
+The app focuses on the tracking of claims that will help the While FinSec has a Graphical User Interface (GUI), its main form of input is Command Line Interface (CLI) based, thus favoring people who can type fast. Starting using it now and enjoy!
+
 
 == Quick Start
 
@@ -33,8 +35,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -56,69 +57,117 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Changing Views : `goto`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Displays a list of all people in the contact list +
 
-[TIP]
-A person can have any number of tags (including 0)
+Keyword: `goto` +
 
-Examples:
+Additional Parameters: claims, contacts, income +
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Format: `goto (parameter)`
 
-=== Listing all persons : `list`
+Example:
+`goto contacts`
+`goto claims`
+`goto income`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Adding a person `add_person`
 
-=== Editing a person : `edit`
+Adds a person to the contacts list +
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format:
+`add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `add_person n/John Doe p/98765432 e/johnd@example.com`
 
-=== Locating persons by name: `find`
+=== Editing a person : `edit_person`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Edits an existing person +
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Keyword: `edit_person`
+
+Format:
+`edit_person INDEX n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* ` edit_person 2 n/john lim p/92222223 e/johnlim@gmail.com`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+=== Adding a claim : `add_claim`
 
-Deletes the specified person from the address book. +
+Adds a claim to the claims list +
+
+Keyword: `add_claim`
+
+Format: `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+
+Examples:
+
+* `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+
+=== Editing a claim : `edit_claim`
+
+Edits an existing claim +
+
+Keyword: `edit_claim`
+
+Format: `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+
+Examples:
+
+* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+
+=== Adding an income
+
+Adds an income to the income list +
+
+Keyword: `add_income`
+
+Format: `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+
+Examples:
+
+* `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
+
+=== Editing an income
+
+Edits an income on the income list +
+
+Keyword: `edit_income`
+
+Format: `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+
+Examples:
+
+* `edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP`
+
+=== Checking a Person or Claim
+
+Displays the details of the Person or Claim
+
+Keyword: `check`
+
+Format: `check INDEX`
+
+Examples:
+
+* `check 1` (in contacts page, show details of the person in index 1)
+* `check 2` (in claims page, show details of the claim in index 2)
+
+=== Deleting a Person
+
+Deletes a Person from the contact list
+
+Keyword: `delete`
+
 Format: `delete INDEX`
+
+Examples:
+
+* `delete 1` (removes first person in the contact list)
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -126,20 +175,95 @@ Format: `delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+=== Filter
+
+Filters using a keyword from the list
+
+Keyword: `filter`
+
+Format: `filter w/KEYWORD)
+
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `filter w/Sports`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang` +
 
-Clears all entries from the address book. +
-Format: `clear`
+Examples:
+
+* `filter John` +
+Returns `john` and `John Doe` +
+
+* `filter Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+****
+
+=== See budget (Pop-up)
+
+Format: `budget`
+
+=== Sorting claims list based on dates
+
+Sorts claims in claims list based on dates, either in chronological or reverse order
+
+Keyword: `sort`
+
+Format:
+
+* Sort in normal order `sort`
+* Sort in reverse order `sort -r`
+
+=== Resolving claims
+
+Resolves claims
+
+Keyword: `resolve`
+
+Format: `resolve INDEX s/STATUS`
+
+Examples:
+
+* `resolve 1 s/approved (in claims page, approve a claim)`
+* `resolve 2 s/rejected (in claims page, reject a claim)`
+
+=== Attaching Pictures to Claims
+
+Attaches a picture of the claim in the 'docs/claims/images' folder (directory is subject to change) to a claim.
+
+Keyword: `attach`
+
+Format: `attach INDEX`
+
+Examples:
+
+* `attach 1`
+
+****
+* Popup will appear upon entering of this command to allow the user to choose an image and it will be attached to the
+specified index from the user input
+****
+
+=== Grouping Users
+
+Assigns tags to the people in the contact list to group them together to aid in finding specific groups of people
+
+Keyword: `tag`
+
+Format: `tag INDEX t/TAG`
+
+Examples:
+
+* `tag 1 t/FOP t/Sports`
+
+****
+* Further tagging can be done to people with current tags already, it will append to each other and be seen
+in the contacts list
+****
 
 === Exiting the program : `exit`
 
@@ -151,11 +275,24 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+== Upcoming Features
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Keeping a Transaction History
+
+Keeps a list of past records
+
+=== Detecting duplicates
+
+Automatically detect duplicate names of contacts or claims
+
+=== Budgeting and limiting
+
+Adds a separate limit to warn the user if the person’s claims exceeded the budget or if resolving the claim puts the cash-on-hand below budget.
+
+
+=== Typing Guide
+
+Automatically detects command and comes up with suggestions as a pop-up on what syntax comes next
 
 == FAQ
 
@@ -164,14 +301,55 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+
+* *Changing of Views* `goto (parameter)`
+e.g. `goto claims`
+
+* *Add person* `add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+* *Edit person* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
+e.g. `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports` +
+
+* *Add claim* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+
+* *Edit claim* `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+e.g. `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+
+* *Adding income* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+e.g. `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
+
+* *Editing income* `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+e.g. `edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP`
+
+* *Checking Person or Claim* `check INDEX` +
+e.g.
+** `check 1` (in contacts page, show details of the person in index 1)
+** `check 2` (in claims page, show details of the claim in index 2)
+
+* *Deleting a person* `delete INDEX` +
+e.g. `delete 3`
+
+* *Filter* : `filter w/KEYWORD` +
+e.g. `filter Orientation Camp`
+
+* *See Budget* `budget`
+
+* *Sorting claims based on dates* `sort` or `sort -r`
+
+* *Resolving Claims* `resolve INDEX s/STATUS` +
+e.g.
+** `resolve 1 s/approved (in claims page, approve a claim)`
+** `resolve 2 s/rejected (in claims page, reject a claim)`
+
+* *Attaching Pictures to Claims* `attach INDEX` +
+e.g. `attach 1`
+
+* *Grouping Users* `tag INDEX t/TAG` +
+e.g. `tag 1 t/FOP t/Sports`
+
+* *Closing application* `exit`
+
+
