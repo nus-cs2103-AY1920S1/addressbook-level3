@@ -21,8 +21,8 @@ Responsibilities: Goto feature(Changing views)
 
 === Lee Wei Gen
 image::weigenie.png[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-ZZ
+{empty}[http://github.com/weigenie[github]] [<<johndoe#, portfolio>>]
+
 Role: Developer +
 Responsibilities: Claims Feature
 
