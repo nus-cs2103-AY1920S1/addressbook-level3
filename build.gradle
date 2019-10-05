@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-    mainClassName = "seedu.address.Main"
+mainClassName = "seedu.address.Main"
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -70,11 +70,6 @@ shadowJar {
     archiveName = 'addressbook.jar'
 
     destinationDir = file("${buildDir}/jar/")
-}
-
-javafx {
-    version = "11.0.2"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 task coverage(type: JacocoReport) {
