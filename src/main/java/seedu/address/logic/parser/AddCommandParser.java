@@ -11,11 +11,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Task;
 
 /**
  * Parses input arguments and creates a new AddCommand object

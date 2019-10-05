@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Task;
 
 /**
  * Jackson-friendly version of {@link Task}.
@@ -91,7 +91,7 @@ class JsonAdaptedTask {
         final Email modelEmail = new Email(email);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Task(modelName, modelPhone, modelEmail,  modelTags);
+        return new Task(modelName, modelPhone, modelEmail, modelTags);
     }
 
 }
