@@ -2,7 +2,6 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-F14-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-3/main[Build Status]]
-https://travis-ci.org/jun-ha0/main.svg?branch=master[image:image:https://travis-ci.org/AY1920S1-CS2103T-F14-3/main[Build Status][Build Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
