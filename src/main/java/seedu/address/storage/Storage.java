@@ -26,6 +26,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     @Override
     Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
 
+    /*
+    Step 4.
+    Define method signature of readGame here.
+    Extends into concrete definition in StorageManager.java
+     */
+
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 

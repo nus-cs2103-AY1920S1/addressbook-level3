@@ -31,6 +31,10 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        /*
+        Step 9.
+        this.game = game //get from constructor
+         */
         addressBookParser = new AddressBookParser();
     }
 
@@ -39,9 +43,27 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
+
+        /*
+        Step 10.
+        Modify parseCommand()
+        2 user modes: Game mode and Normal mode
+        */
         Command command = addressBookParser.parseCommand(commandText);
+
+        /*
+        Step 11.
+        Extends to Step 13 in Command.java
+
+        commandResult = command.execute(model, game);
+         */
         commandResult = command.execute(model);
 
+        /*
+        Step 12.
+        We save game here too.
+        Similar methods to saveAddressBook();
+         */
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
