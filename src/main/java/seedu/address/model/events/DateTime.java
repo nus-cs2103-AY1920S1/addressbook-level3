@@ -6,11 +6,11 @@ import java.time.Instant;
  * Represents a date and time.
  * Internally stored as seconds from epoch, without any timezone information.
  */
-public class Time {
+public class DateTime {
 
     private final Instant dateTime;
 
-    public Time(Instant dateTime) {
+    public DateTime(Instant dateTime) {
         this.dateTime = dateTime;
     }
 
