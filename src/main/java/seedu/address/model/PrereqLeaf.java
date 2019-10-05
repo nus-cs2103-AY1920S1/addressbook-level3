@@ -21,4 +21,17 @@ public class PrereqLeaf extends PrereqTree {
     public String toString() {
         return this.code;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof PrereqLeaf)) { // this handles null as well
+            return false;
+        }
+
+        PrereqLeaf o = (PrereqLeaf) other;
+        return this.code.equals(o.code);
+    }
 }

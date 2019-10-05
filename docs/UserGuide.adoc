@@ -94,7 +94,7 @@ Format: `revert COMMIT_NUMBER` +
 Example:
 
 * `revert 1.1` +
-This allows the user to revert to commit 1 of study plan 1, discarding all commits after 1.1 (e.g. 1.2 and 1.3)
+This allows the user to revert to commit 1 of study plan 1, discarding all commits after 1.1 (e.g. 1.2 and 1.3).
 
 ==== Viewing another study plan: `viewplan`
 Shows the study plan with a given index. +

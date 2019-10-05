@@ -20,7 +20,7 @@ public class CheckCommandParser implements Parser<CheckCommand> {
         if ("".equals(args)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
         } else {
-            return new CheckCommand(args);
+            return new CheckCommand(args.strip());
         }
     }
 }

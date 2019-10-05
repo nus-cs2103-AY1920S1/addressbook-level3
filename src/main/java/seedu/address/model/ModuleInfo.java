@@ -10,20 +10,22 @@ import java.util.stream.Collectors;
 public class ModuleInfo {
 
     private String code;
+    private String name;
     private int mc;
     private boolean su;
     private List<String> focusPrimaries;
     private List<String> focusElectives;
     private String description;
-    private String prereqTreeString;
-    private PrereqTree prereqTree;
+    private String prereqTreeString; // this is for reading from JSON
+    private PrereqTree prereqTree; // this is actually what's being used
 
     public ModuleInfo() {
     }
 
-    public ModuleInfo(String code, int mc, boolean su, List<String> focusPrimaries, List<String> focusElectives,
-                      String description, String prereqTreeString) {
+    public ModuleInfo(String code, String name, int mc, boolean su, List<String> focusPrimaries,
+                      List<String> focusElectives, String description, String prereqTreeString) {
         this.code = code;
+        this.name = name;
         this.mc = mc;
         this.su = su;
         this.focusPrimaries = focusPrimaries;
@@ -31,14 +33,31 @@ public class ModuleInfo {
         this.description = description;
         this.prereqTreeString = prereqTreeString;
         this.prereqTree = null;
+        init();
+    }
+
+    /**
+     * This method should be called to create {@code prereqTree} after ModuleInfo is created or read from JSON
+     */
+    public void init() {
+        this.prereqTree = parsePrereqTree(this.prereqTreeString);
+    }
+
+    public PrereqTree getPrereqTree() {
+        return this.prereqTree;
     }
 
     public String getCode() {
         return this.code;
     }
 
-    public void parsePrereqTree() {
-        this.prereqTree = parsePrereqTree(this.prereqTreeString);
+    /**
+     * Returns a String displaying all information about the module, in a human-readable format.
+     */
+    public String getInformation() {
+        return this.code + ": " + this.name + " " + "\n"
+                + this.mc + " MCs, " + (this.su ? "" : "not ") + "S/U-able" + "\n"
+                + this.description;
     }
 
     /**
@@ -96,8 +115,8 @@ public class ModuleInfo {
         return list;
     }
 
-    public boolean verify(List<String> prevSemCodes) {
-        return prereqTree.verify(prevSemCodes);
+    public boolean verify(List<String> prevSemModuleCodes) {
+        return prereqTree.verify(prevSemModuleCodes);
     }
 
     @Override
@@ -112,11 +131,13 @@ public class ModuleInfo {
         ModuleInfo o = (ModuleInfo) other;
 
         return code.equals(o.code)
+                && name.equals(o.name)
                 && mc == o.mc
                 && su == o.su
                 && focusPrimaries.equals(o.focusPrimaries)
                 && focusElectives.equals(o.focusElectives)
                 && description.equals(o.description)
-                && prereqTreeString.equals(o.prereqTreeString);
+                && prereqTreeString.equals(o.prereqTreeString)
+                && prereqTree.equals(o.prereqTree);
     }
 }

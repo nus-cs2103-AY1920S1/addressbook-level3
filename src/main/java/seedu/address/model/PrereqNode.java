@@ -40,4 +40,19 @@ public class PrereqNode extends PrereqTree {
         return "(" + (this.operator == AND ? "AND" : "OR") + " "
                 + children.stream().map(x -> x.toString()).collect(Collectors.joining(" ")) + ")";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof PrereqNode)) { // this handles null as well
+            return false;
+        }
+
+        PrereqNode o = (PrereqNode) other;
+
+        return this.operator == o.operator
+                && this.children.equals(o.children);
+    }
 }
