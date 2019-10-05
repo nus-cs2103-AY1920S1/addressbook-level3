@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
-    <TabPane fx:id="tabPanel" styleClass="STYLE_CLASS_FLOATING stack-pane" VBox.vgrow="ALWAYS">
+    <TabPane fx:id="tabPanel" VBox.vgrow="ALWAYS">
       <tabs>
          <Tab text="Customers" >
              <graphic>
