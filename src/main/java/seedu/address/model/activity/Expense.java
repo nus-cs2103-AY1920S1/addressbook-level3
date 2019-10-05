@@ -1,8 +1,8 @@
 package seedu.address.model.activity;
 
-import seedu.address.model.person.Person;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import seedu.address.model.person.Person;
 
 /**
  * Represents an expense by a person in an activity.
