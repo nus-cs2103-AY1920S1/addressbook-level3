@@ -4,11 +4,13 @@ package seedu.address.model.tag;
  * Represents default types of tags.
  */
 public enum DefaultTagType {
-    COMPLETED("completed"),
-    CORE("core"),
-    SU("s/u-able"),
-    UE("ue"),
-    ULR("ulr");
+    COMPLETED("Completed"),
+    CORE("Core"),
+    SU("S/U-able"),
+    UE("UE"),
+    ULR("ULR"),
+    PRIMARY("P"),
+    ELECTIVE("E");
 
     private String defaultName;
 
