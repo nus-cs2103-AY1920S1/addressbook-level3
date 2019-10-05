@@ -53,7 +53,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 Format: `help`
 
-=== Dispatching Vehicles
+=== Logging in: `login`
+
+Registers the user for the active session
+Format: `login USERNAME`
+
+=== Create New Incident: `new`
 ==== Assumptions
 * User has logged in
 
@@ -61,10 +66,9 @@ Format: `help`
 * Takes in postal code of accident site and dispatches vehicle closest to it.
 * Once operator picks up the call, they will key in the postal code of accident site to dispatch vehicles.
 
-
 ==== Usage
 
-Format: `POSTAL_CODE [y/ n]`
+Format: `new POSTAL_CODE`
 
 For multi-step:
 
@@ -73,11 +77,11 @@ For multi-step:
 ** `n`- an indexed list of available vehicles near the given postal code is given in descending order of proximity.
 
 === Filling a new report: `fill`
+
 ==== Description
 * Generates a new report and prompts operator to enter data into report fields.
-* Unique ID automatically bgenerated for report.
+* Unique ID automatically generated for report.
 * Date/time, operator name, and operator name are auto-filled.
-
 
 ==== Usage
 
@@ -89,6 +93,7 @@ For multi-step:
 * Prompts for description of incident. Operator types it and presses `enter`.
 
 === Submit a report: `submit`
+
 ==== Description
 
 * Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports.
@@ -111,12 +116,6 @@ For other reports:
 1. an unique ID will be generated to tag the report
 2. an automated email will be sent to the operator's supervisor
 3. the report will be saved in the database
-
-=== Adding a person: `add`
-
-
-Registers the user for the active session
-Format: `login USERNAME`
 
 === Adding a user: `add`
 
@@ -226,6 +225,10 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
+* *Login* `login USERNAME`
+* *New* `new POSTAL_CODE`
+* *Fill* `fill n/CALLER_NAME d/INCIDENT_DESCRIPTION`
+* *Submit* `submit`
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
