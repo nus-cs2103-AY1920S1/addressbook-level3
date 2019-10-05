@@ -13,5 +13,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_GENERIC_INDEX = "The index for the operation you provided was invalid!";
     public static final String MESSAGE_INVALID_PATH = "The path you specified for the operation was invalid!";
     public static final String MESSAGE_FILE_NOT_EXISTING = "The file you specified for the operation dosen't exist!";
+    public static final String MESSAGE_INVALID_GENERIC_BOOLEAN = "The boolean you specified for the operation was invalid!";
 
 }

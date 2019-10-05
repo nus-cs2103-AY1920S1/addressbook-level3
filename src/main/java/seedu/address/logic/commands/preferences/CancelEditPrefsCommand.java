@@ -24,14 +24,14 @@ public class CancelEditPrefsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        EditPrefsDescriptor currentlyEditingTrip = model.getPageStatus().getEditPrefsDescriptor();
+        EditPrefsDescriptor currentEditedPrefs = model.getPageStatus().getEditPrefsDescriptor();
         model.setPageStatus(model.getPageStatus()
                 .withNewEditPrefsDescriptor(null)
                 .withNewPageType(PageType.TRIP_MANAGER));
 
 
         return new CommandResult(
-                String.format(MESSAGE_CANCEL_EDIT_SUCCESS, currentlyEditingTrip),
+                String.format(MESSAGE_CANCEL_EDIT_SUCCESS, currentEditedPrefs),
                 true);
     }
 

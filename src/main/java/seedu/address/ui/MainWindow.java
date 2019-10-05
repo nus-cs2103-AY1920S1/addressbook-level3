@@ -7,6 +7,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -66,8 +67,22 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.model = model;
 
+        setStageListeners();
         fillInnerParts();
         helpWindow = new HelpWindow();
+    }
+
+    private void setStageListeners() {
+        ChangeListener<Number> guiChangeListener = (observable, oldValue, newValue) -> {
+            if (model.getUserPrefs().isGuiPrefsLocked()) {
+                setWindowDefaultSize(model.getGuiSettings());
+            }
+        };
+
+        primaryStage.widthProperty().addListener(guiChangeListener);
+        primaryStage.heightProperty().addListener(guiChangeListener);
+        primaryStage.xProperty().addListener(guiChangeListener);
+        primaryStage.yProperty().addListener(guiChangeListener);
     }
 
     private void fillInnerParts() {
@@ -153,9 +168,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        model.setGuiSettings(guiSettings);
+        //Save gui size on exit only if gui prefs are not locked.
+        if (!model.getUserPrefs().isGuiPrefsLocked()) {
+            GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                    (int) primaryStage.getX(), (int) primaryStage.getY());
+            model.setGuiSettings(guiSettings);
+        }
         helpWindow.hide();
         primaryStage.hide();
     }

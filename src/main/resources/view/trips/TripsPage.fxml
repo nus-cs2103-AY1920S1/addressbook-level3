@@ -35,6 +35,7 @@
             <GridPane style="-fx-background-color: #50514F;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
@@ -49,7 +50,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Help" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Help" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Consolas" size="16.0" />
                      </font>
@@ -57,6 +58,14 @@
                         <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
                   </Button>
+         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#handlePreferences" prefHeight="35.0" prefWidth="150.0" text="Preferences" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <font>
+               <Font name="Consolas" size="16.0" />
+            </font>
+            <GridPane.margin>
+               <Insets bottom="5.0" top="5.0" />
+            </GridPane.margin>
+         </Button>
                </children>
             </GridPane>
       </AnchorPane>

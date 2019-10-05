@@ -9,23 +9,22 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.itinerary.Expenditure;
-import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Name;
-import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.trip.Trip;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_XPOS;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_YPOS;
 
 /**
  * Constructs a command that attempts to modify the current values in the edit trip page.
@@ -40,9 +39,12 @@ public class EditPrefsFieldCommand extends Command {
             + "by the index of the form field as displayed, or by the various prefixes of the fields. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_WINDOW_HEIGHT + "WINDOW HEIGHT] "
-            + "[" + PREFIX_WINDOW_WIDTH + "WINDOW WIDTH] "
-            + "[" + PREFIX_DATA_FILE_PATH + "DATA FILE PATH]...\n"
+            + "[" + PREFIX_WINDOW_WIDTH + "WINDOW WIDTH (must be a positive decimal integer)] "
+            + "[" + PREFIX_WINDOW_HEIGHT + "WINDOW HEIGHT (must be a positive decimal integer)] "
+            + "[" + PREFIX_WINDOW_XPOS + "WINDOW X POSITION (must be an integer)] "
+            + "[" + PREFIX_WINDOW_YPOS + "WINDOW Y POSITION (must be an integer)] "
+            + "[" + PREFIX_GUI_LOCK + "GUI LOCK ('t' or 'f', case insensitive)] "
+            + "[" + PREFIX_DATA_FILE_PATH + "DATA FILE PATH (must be a valid path to an existing file)]...\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_WINDOW_WIDTH + "800 "
             + PREFIX_WINDOW_HEIGHT + "600";
@@ -100,18 +102,21 @@ public class EditPrefsFieldCommand extends Command {
      * corresponding field value of the preferences field.
      */
     public static class EditPrefsDescriptor {
-        private Optional<Double> windowWidth;
-        private Optional<Double> windowHeight;
-        private Optional<Integer> windowXPosition;
-        private Optional<Integer> windowYPosition;
+
+        private OptionalDouble windowWidth;
+        private OptionalDouble windowHeight;
+        private OptionalInt windowXPosition;
+        private OptionalInt windowYPosition;
         private Optional<String> dataFilePath;
+        private Optional<Boolean> isGuiLocked;
 
         public EditPrefsDescriptor() {
-            windowWidth = Optional.empty();
-            windowHeight = Optional.empty();
-            windowXPosition = Optional.empty();
-            windowYPosition = Optional.empty();
+            windowWidth = OptionalDouble.empty();
+            windowHeight = OptionalDouble.empty();
+            windowXPosition = OptionalInt.empty();
+            windowYPosition = OptionalInt.empty();
             dataFilePath = Optional.empty();
+            isGuiLocked = Optional.empty();
         }
 
         /**
@@ -124,6 +129,7 @@ public class EditPrefsFieldCommand extends Command {
             windowXPosition = toCopy.getWindowXPos();
             windowYPosition = toCopy.getWindowYPos();
             dataFilePath = toCopy.getDataFilePath();
+            isGuiLocked = toCopy.isGuiLocked();
         }
 
         /**
@@ -134,11 +140,12 @@ public class EditPrefsFieldCommand extends Command {
             GuiSettings currentGuiSettings = toCopy.getGuiSettings();
             Path currentDataFilePath = toCopy.getTravelPalFilePath();
 
-            windowHeight = Optional.of(currentGuiSettings.getWindowHeight());
-            windowWidth = Optional.of(currentGuiSettings.getWindowWidth());
-            windowXPosition = Optional.of(currentGuiSettings.getWindowCoordinates().x);
-            windowYPosition = Optional.of(currentGuiSettings.getWindowCoordinates().y);
+            windowHeight = OptionalDouble.of(currentGuiSettings.getWindowHeight());
+            windowWidth = OptionalDouble.of(currentGuiSettings.getWindowWidth());
+            windowXPosition = OptionalInt.of(currentGuiSettings.getWindowCoordinates().x);
+            windowYPosition = OptionalInt.of(currentGuiSettings.getWindowCoordinates().y);
             dataFilePath = Optional.of(currentDataFilePath.toString());
+            isGuiLocked = Optional.of(toCopy.isGuiPrefsLocked());
         }
 
         /**
@@ -150,25 +157,26 @@ public class EditPrefsFieldCommand extends Command {
          * @param newDescriptor New {@code EditTripDescriptor} to use.
          */
         public EditPrefsDescriptor(EditPrefsDescriptor oldDescriptor, EditPrefsDescriptor newDescriptor) {
-            newDescriptor.windowHeight.ifPresentOrElse(
-                    newHeight -> setWindowHeight(newHeight),
-                    () -> setWindowHeight(oldDescriptor.windowHeight.get()));
-
             newDescriptor.windowWidth.ifPresentOrElse(
-                    newWidth -> setWindowWidth(newWidth),
-                    () -> setWindowWidth(oldDescriptor.windowWidth.get()));
+                    this::setWindowWidth,
+                    () -> oldDescriptor.windowWidth.ifPresent(this::setWindowWidth));
+            newDescriptor.windowHeight.ifPresentOrElse(
+                    this::setWindowHeight,
+                    () -> oldDescriptor.windowHeight.ifPresent(this::setWindowHeight));
 
             newDescriptor.windowXPosition.ifPresentOrElse(
-                    newXPos -> setWindowXPos(newXPos),
-                    () -> setWindowXPos(oldDescriptor.windowXPosition.get()));
-
+                    this::setWindowXPos,
+                    () -> oldDescriptor.windowXPosition.ifPresent(this::setWindowXPos));
             newDescriptor.windowYPosition.ifPresentOrElse(
-                    newYPos -> setWindowYPos(newYPos),
-                    () -> setWindowYPos(oldDescriptor.windowYPosition.get()));
+                    this::setWindowYPos,
+                    () -> oldDescriptor.windowYPosition.ifPresent(this::setWindowYPos));
 
             newDescriptor.dataFilePath.ifPresentOrElse(
-                    newFilePath -> setDataFilePath(newFilePath),
-                    () -> setDataFilePath(oldDescriptor.dataFilePath.get()));
+                    this::setDataFilePath,
+                    () -> oldDescriptor.dataFilePath.ifPresent(this::setDataFilePath));
+            newDescriptor.isGuiLocked.ifPresentOrElse(
+                    this::setGuiLocked,
+                    () -> oldDescriptor.isGuiLocked.ifPresent(this::setGuiLocked));
         }
 
         /**
@@ -179,15 +187,18 @@ public class EditPrefsFieldCommand extends Command {
          * @throws NullPointerException If any of the specified fields are empty.
          */
         public UserPrefs buildUserPrefs() throws NullPointerException {
-            if (isAllPresent(windowHeight, windowWidth, windowXPosition, windowYPosition, dataFilePath)) {
-                UserPrefs userPrefs = new UserPrefs();
+            if (isAllPresent(dataFilePath, isGuiLocked) && windowWidth.isPresent() && windowHeight.isPresent()
+                    && windowXPosition.isPresent() && windowYPosition.isPresent()) {
 
-                GuiSettings guiSettings = new GuiSettings(windowWidth.get(), windowHeight.get(),
-                        windowXPosition.get(), windowYPosition.get());
+                UserPrefs userPrefs = new UserPrefs();
+                GuiSettings guiSettings = new GuiSettings(windowWidth.getAsDouble(), windowHeight.getAsDouble(),
+                        windowXPosition.getAsInt(), windowYPosition.getAsInt());
                 userPrefs.setGuiSettings(guiSettings);
 
                 Path dataFilePath = Paths.get(this.dataFilePath.get());
                 userPrefs.setTravelPalFilePath(dataFilePath);
+
+                userPrefs.setGuiPrefsLocked(isGuiLocked.get());
 
                 return userPrefs;
             } else {
@@ -199,39 +210,40 @@ public class EditPrefsFieldCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(
-                    windowHeight, windowWidth, windowXPosition, windowYPosition, dataFilePath);
+            return CollectionUtil.isAnyPresent(dataFilePath, isGuiLocked)
+                    || windowWidth.isPresent() || windowHeight.isPresent()
+                    || windowXPosition.isPresent() || windowYPosition.isPresent();
         }
 
         public void setWindowHeight(double windowHeight) {
-            this.windowHeight = Optional.of(windowHeight);
+            this.windowHeight = OptionalDouble.of(windowHeight);
         }
 
-        public Optional<Double> getWindowHeight() {
+        public OptionalDouble getWindowHeight() {
             return this.windowHeight;
         }
 
         public void setWindowWidth(double windowWidth) {
-            this.windowWidth = Optional.of(windowWidth);
+            this.windowWidth = OptionalDouble.of(windowWidth);
         }
 
-        public Optional<Double> getWindowWidth() {
+        public OptionalDouble getWindowWidth() {
             return this.windowWidth;
         }
 
         public void setWindowXPos(int windowXPosition) {
-            this.windowXPosition = Optional.of(windowXPosition);
+            this.windowXPosition = OptionalInt.of(windowXPosition);
         }
 
-        public Optional<Integer> getWindowXPos() {
+        public OptionalInt getWindowXPos() {
             return this.windowXPosition;
         }
 
         public void setWindowYPos(int windowYPosition) {
-            this.windowYPosition = Optional.of(windowYPosition);
+            this.windowYPosition = OptionalInt.of(windowYPosition);
         }
 
-        public Optional<Integer> getWindowYPos() {
+        public OptionalInt getWindowYPos() {
             return this.windowYPosition;
         }
 
@@ -241,6 +253,14 @@ public class EditPrefsFieldCommand extends Command {
 
         public Optional<String> getDataFilePath() {
             return this.dataFilePath;
+        }
+
+        public Optional<Boolean> isGuiLocked() {
+            return isGuiLocked;
+        }
+
+        public void setGuiLocked(boolean isGuiLocked) {
+            this.isGuiLocked = Optional.of(isGuiLocked);
         }
 
         @Override
@@ -262,18 +282,20 @@ public class EditPrefsFieldCommand extends Command {
                     && getWindowHeight().equals(e.getWindowHeight())
                     && getWindowXPos().equals(e.getWindowXPos())
                     && getWindowYPos().equals(e.getWindowYPos())
-                    && getDataFilePath().equals(e.getDataFilePath());
+                    && getDataFilePath().equals(e.getDataFilePath())
+                    && isGuiLocked().equals(e.isGuiLocked());
         }
 
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
 
-            windowHeight.ifPresent(height -> builder.append(" Window Height: ").append(windowHeight));
-            windowWidth.ifPresent(width -> builder.append(" Window Width: ").append(windowWidth));
-            windowXPosition.ifPresent(width -> builder.append(" Window X Position: ").append(windowXPosition));
-            windowYPosition.ifPresent(width -> builder.append(" Window Y Position: ").append(windowYPosition));
-            dataFilePath.ifPresent(width -> builder.append(" Data file path: ").append(dataFilePath));
+            windowHeight.ifPresent(height -> builder.append(" Window Height: ").append(height));
+            windowWidth.ifPresent(width -> builder.append(" Window Width: ").append(width));
+            windowXPosition.ifPresent(xPos -> builder.append(" Window X Position: ").append(xPos));
+            windowYPosition.ifPresent(yPos -> builder.append(" Window Y Position: ").append(yPos));
+            isGuiLocked.ifPresent(guiLocked -> builder.append(" Is gui locked: ").append(guiLocked));
+            dataFilePath.ifPresent(dataFilePath -> builder.append(" Data file path: ").append(dataFilePath));
 
             return builder.toString();
         }

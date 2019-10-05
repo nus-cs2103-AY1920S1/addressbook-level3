@@ -12,10 +12,12 @@ import seedu.address.logic.commands.preferences.EditPrefsFieldCommand.EditPrefsD
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.form.TextFormItem;
+import seedu.address.ui.components.form.CheckBoxFormItem;
 import seedu.address.ui.template.Page;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
 
@@ -28,6 +30,7 @@ public class PreferencesPage extends Page<AnchorPane> {
     private TextFormItem windowXPosFormItem;
     private TextFormItem windowYPosFormItem;
     private TextFormItem dataFilePathFormItem;
+    private CheckBoxFormItem guiLockFormItem;
 
     @FXML
     private VBox formItemsPlaceholder;
@@ -48,11 +51,14 @@ public class PreferencesPage extends Page<AnchorPane> {
                 = model.getPageStatus().getEditPrefsDescriptor();
         requireNonNull(currentPrefsDescriptor);
 
-        windowWidthFormItem.setValue(currentPrefsDescriptor.getWindowWidth().get().toString());
-        windowHeightFormItem.setValue(currentPrefsDescriptor.getWindowHeight().get().toString());
-        //windowXPosFormItem.setValue(currentPrefsDescriptor.getWindowXPos().get().toString());
-        //windowYPosFormItem.setValue(currentPrefsDescriptor.getWindowYPos().get().toString());
+        windowWidthFormItem.setValue(
+                String.format("%1$.3f", currentPrefsDescriptor.getWindowWidth().getAsDouble()));
+        windowHeightFormItem.setValue(
+                String.format("%1$.3f", currentPrefsDescriptor.getWindowHeight().getAsDouble()));
+        windowXPosFormItem.setValue(currentPrefsDescriptor.getWindowXPos().getAsInt() + "");
+        windowYPosFormItem.setValue(currentPrefsDescriptor.getWindowYPos().getAsInt() + "");
         dataFilePathFormItem.setValue(currentPrefsDescriptor.getDataFilePath().get());
+        guiLockFormItem.setValue(currentPrefsDescriptor.isGuiLocked().get());
     }
 
     /**
@@ -68,30 +74,33 @@ public class PreferencesPage extends Page<AnchorPane> {
             mainWindow.executeGuiCommand(
                     EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_HEIGHT + windowHeight);
         });
+        windowXPosFormItem = new TextFormItem("Window X Position: ", xPos -> {
+            mainWindow.executeGuiCommand(
+                    EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_WIDTH + xPos);
+        });
+        windowYPosFormItem = new TextFormItem("Window Y Position: ", yPos -> {
+            mainWindow.executeGuiCommand(
+                    EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_WIDTH + yPos);
+        });
         dataFilePathFormItem = new TextFormItem("Data file path: ", dataFilePath -> {
             mainWindow.executeGuiCommand(
                     EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_DATA_FILE_PATH + dataFilePath);
         });
-        /*
-        windowWidthFormItem = new TextFormItem("Window Width: ", windowWidth -> {
-            mainWindow.executeGuiCommand(
-                    EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_WIDTH + windowWidth);
+        guiLockFormItem = new CheckBoxFormItem("Lock gui settings: ", isLocked -> {
+            mainWindow.executeGuiCommand(EditPrefsFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_GUI_LOCK
+                    + (isLocked.booleanValue() ? "t" : "f"));
         });
-        windowWidthFormItem = new TextFormItem("Window Width: ", windowWidth -> {
-            mainWindow.executeGuiCommand(
-                    EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_WIDTH + windowWidth);
-        });
-        */
 
-
-        fillPage(); //update and overwrite with existing edit descriptor
+        fillPage();
 
         formItemsPlaceholder.getChildren().addAll(
                 windowWidthFormItem.getRoot(),
                 windowHeightFormItem.getRoot(),
+                windowXPosFormItem.getRoot(),
+                windowYPosFormItem.getRoot(),
+                guiLockFormItem.getRoot(),
                 dataFilePathFormItem.getRoot());
-                //tripTotalBudgetFormItem.getRoot(),
-                //tripDestinationFormItem.getRoot());
     }
 
     @FXML

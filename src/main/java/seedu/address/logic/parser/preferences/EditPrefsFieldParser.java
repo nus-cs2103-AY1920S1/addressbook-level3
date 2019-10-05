@@ -19,10 +19,14 @@ import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_EXISTING;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_XPOS;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_YPOS;
 
 public class EditPrefsFieldParser implements Parser<EditPrefsFieldCommand> {
 
@@ -38,7 +42,10 @@ public class EditPrefsFieldParser implements Parser<EditPrefsFieldCommand> {
                 ArgumentTokenizer.tokenize(args,
                         PREFIX_WINDOW_HEIGHT,
                         PREFIX_WINDOW_WIDTH,
-                        PREFIX_DATA_FILE_PATH);
+                        PREFIX_WINDOW_XPOS,
+                        PREFIX_WINDOW_YPOS,
+                        PREFIX_DATA_FILE_PATH,
+                        PREFIX_GUI_LOCK);
 
         Optional<Index> index;
 
@@ -57,11 +64,48 @@ public class EditPrefsFieldParser implements Parser<EditPrefsFieldCommand> {
         }
         //edit by prefixes
         EditPrefsDescriptor editPrefsDescriptor = new EditPrefsDescriptor();
+        setPrefsDescriptor(argMultimap, editPrefsDescriptor);
 
-        argMultimap.getValue(PREFIX_WINDOW_HEIGHT)
-                .ifPresent(height -> editPrefsDescriptor.setWindowHeight(Double.parseDouble(height)));
-        argMultimap.getValue(PREFIX_WINDOW_WIDTH)
-                .ifPresent(width -> editPrefsDescriptor.setWindowWidth(Double.parseDouble(width)));
+        if (!editPrefsDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditPrefsFieldCommand.MESSAGE_NOT_EDITED
+                    + "\n"
+                    + EditPrefsFieldCommand.MESSAGE_USAGE);
+        }
+
+        return new EditPrefsFieldCommand(editPrefsDescriptor);
+    }
+
+    private void setPrefsDescriptor(ArgumentMultimap argMultimap, EditPrefsDescriptor editPrefsDescriptor) throws ParseException {
+        try {
+            argMultimap.getValue(PREFIX_WINDOW_HEIGHT)
+                    .ifPresent(height -> {
+                        double heightVal = Double.parseDouble(height);
+                        if (heightVal <= 0) {
+                            throw new NumberFormatException();
+                        }
+                        editPrefsDescriptor.setWindowHeight(heightVal);
+                    });
+            argMultimap.getValue(PREFIX_WINDOW_WIDTH)
+                    .ifPresent(width -> {
+                        double widthVal = Double.parseDouble(width);
+                        if (widthVal <= 0) {
+                            throw new NumberFormatException();
+                        }
+                        editPrefsDescriptor.setWindowWidth(widthVal);
+                    });
+            argMultimap.getValue(PREFIX_WINDOW_XPOS)
+                    .ifPresent(xPos -> editPrefsDescriptor.setWindowXPos(Integer.parseInt(xPos)));
+            argMultimap.getValue(PREFIX_WINDOW_YPOS)
+                    .ifPresent(yPos -> editPrefsDescriptor.setWindowYPos(Integer.parseInt(yPos)));
+
+            if (argMultimap.getValue(PREFIX_GUI_LOCK).isPresent()) {
+                editPrefsDescriptor.setGuiLocked(
+                        ParserUtil.parseBool(argMultimap.getValue(PREFIX_GUI_LOCK).get()));
+            }
+        } catch (NumberFormatException | ParseException ex) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPrefsFieldCommand.MESSAGE_USAGE));
+        }
+
         if (argMultimap.getValue(PREFIX_DATA_FILE_PATH).isPresent()) {
             try {
                 Path p = Paths.get(argMultimap.getValue(PREFIX_DATA_FILE_PATH).get());
@@ -72,11 +116,5 @@ public class EditPrefsFieldParser implements Parser<EditPrefsFieldCommand> {
                 throw new ParseException(MESSAGE_INVALID_PATH);
             }
         }
-
-        if (!editPrefsDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditPrefsFieldCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditPrefsFieldCommand(editPrefsDescriptor);
     }
 }

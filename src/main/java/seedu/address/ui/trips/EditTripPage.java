@@ -51,21 +51,17 @@ public class EditTripPage extends Page<AnchorPane> {
         if (currentEditDescriptor == null) {
             return;
         }
-        if (currentEditDescriptor.getName() != null) {
-            tripNameFormItem.setValue(currentEditDescriptor.getName().toString());
-        }
-        if (currentEditDescriptor.getDestination() != null) {
-            tripDestinationFormItem.setValue(currentEditDescriptor.getDestination().toString());
-        }
-        if (currentEditDescriptor.getStartDate() != null) {
-            tripStartDateFormItem.setValue(currentEditDescriptor.getStartDate().toLocalDate());
-        }
-        if (currentEditDescriptor.getEndDate() != null) {
-            tripEndDateFormItem.setValue(currentEditDescriptor.getEndDate().toLocalDate());
-        }
-        if (currentEditDescriptor.getBudget() != null) {
-            tripTotalBudgetFormItem.setValue(currentEditDescriptor.getBudget());
-        }
+
+        currentEditDescriptor.getName().ifPresent(name ->
+                tripNameFormItem.setValue(name.toString()));
+        currentEditDescriptor.getDestination().ifPresent(destination ->
+                tripDestinationFormItem.setValue(destination.toString()));
+        currentEditDescriptor.getStartDate().ifPresent(startDate ->
+                tripStartDateFormItem.setValue(startDate.toLocalDate()));
+        currentEditDescriptor.getEndDate().ifPresent(endDate ->
+                tripEndDateFormItem.setValue(endDate.toLocalDate()));
+        currentEditDescriptor.getBudget().ifPresent(budget ->
+                tripTotalBudgetFormItem.setValue(budget));
     }
 
     /**
