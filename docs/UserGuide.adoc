@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Flashback - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,17 +14,21 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `SEEDU`      Since: `JUN 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Flashback helps students to use their time breaks to memorize things
+like vocabulary and some general knowledges, especially those who prefer
+command line interface (CLI) over clicks. Everything is organized into
+flashcards, each contain one question. Users can also tag the flashcards
+to group them and see their progress over time through statistics.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `flashback.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your flashback.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +37,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all flashcards
+* *`add How long is Mount Blanc Tunnel? | 11611m`*: Add a flashcard about Mount Blanc Tunnel
+* **`delete`**`3` : deletes the flashcard with ID number 3.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -48,130 +52,162 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* To view all the available commands that the user can use. Use help command +
+Format: `help`
 ====
 
-=== Viewing help : `help`
 
-Format: `help`
+=== Taging flashcards to form a set
+Tags existing flashcards with a particular keyword. +
+Format: `tag ID TAGNAME`
 
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+****
+* Adds the tag to the flashcard with the specified ID
+* TAGNAME can be an existing tag or a new tag
+* To use existing tags the TAGNAME entered must match the exiting tag exactly
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `Tag 1 Biology` +
+Assigns a Biology tag to flashcard 1
 
-=== Listing all persons : `list`
+=== Adding new flashcards
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Add a new flashcard and specify its question and answer. The system will automatically
+generate its ID number. +
+Format: `add QUESTION|ANSWER`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Both QUESTION and ANSWER must be provided by the user.
+****
+
+Examples:
+
+* `add What is the tallest mountain? | Mount Everest` : Creates a new flashcard with the given question and answer.
+
+=== Listing all flashcards and tags
+
+Shows a list of all existing flashcards (classified by sets). +
+Format: `list TAG`
+
+Examples:
+
+* `list all` : Lists all the existing flashcard.
+* `list engvocab` : Lists all flashcards in the set
+engvocab (i.e with the tag engvocab).
+* `list tag` : List all the existing tags.
+
+
+=== Editing a flashcard
+
+Edits an existing flashcard in the address book. +
+
+Format: `edit ID [-q NEW_QUESTION] [-a NEW_ANSWER]`
+
+
+****
+* Edits the flashcard with the specified `ID`. The ID is a unique ID generated for each flashcard.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+
+Examples:
+
+* `edit 100342 -q What is the tallest mountain?` +
+Edits the question of the card with unique id 100342 to "What is the tallest mountain?".
+* `edit 100342 -a Mount Everest`
+Edits the answer of the card with unique id 100342 to "Mount Everest".
+
+=== Quiz mode
+Starts a quiz using a particular set of flashcards. +
+Format:
+
+* `quiz set TAGNAME`
+* `quiz set TAGNAME SECONDS`
+
+****
+* start a quiz using the flashcards from the tag given by TAGNAME
+* Default is 30 seconds per flashcard before it marks wrong and displays the next flashcard
+* Optionally can set the question delay by entering the number of SECONDS of delay
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `quiz` : creates a new quiz with a random flashcard.
+* `quiz set Biology` : creates a new quiz using flashcards from the biology tag
+* `quiz set Biology 60` : creates a new quiz using flashcards from the biology tag however the default delay timer is now 1 minute or 60 seconds
 
-=== Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+=== Display current progress
+Shows the current progress of a set of flashcards. +
+Format: `progress TAGNAME`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Statistics shown include number of completed cards and accuracy
+* TAGNAME indicates the tag to be reviewed
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `progress <Biology>` : Displays the progress of a the flashcards tagged with Biology.
 
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+=== Delete a flashcard
+Deletes the specified flashcard from the list of all flashcards. +
+Format: `delete FLASHCARD_ID`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the person with the specified `FLASHCARD_ID`.
+* The ID of a flashcard refers to the specific number assigned to that flashcard upon creation.
+* The flashcard ID *must be a positive 6-digit integer* 000001, 000002, 000003, ...
 ****
 
-Examples:
+Example:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete 100342` : Removes the flashcard with unique ID 100342
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Set up time limit for each flashcard
+The default time limit for each flashcard in the quiz mode is 30 seconds.
+The user can also custom time limit for each flashcard or flashcards under
+one tag. +
+Format: `time ID SECONDS` to set up time limit for a single flashcard
+or `time TAG SECONDS` to set up time limit for all cards in a tag.
 
-Clears all entries from the address book. +
-Format: `clear`
+****
+* time limits sets latest will take effect. That is to say, if card number 15
+is under tag "tunnel", then the user first assign card 15 with time limit 40 seconds
+then assign tag tunnel with time limit 50 seconds, then card 15 will have time limit
+50 seconds because this time limit is assigned later.
+****
 
-=== Exiting the program : `exit`
+Example:
+
+* `time 15 40` : Set the time limit of card with ID 15 to be 40 seconds.
+* `time tunnel 40` : Set the time limit of cards with tag "tunnel" with time limit 40 seconds.
+
+=== Finding a flashcard
+Find a flashcard based on the keyword in its question, answer or ID. This can also find
+tags. +
+Format: `find -c KEYWORD` to find a particular flashcard or `find -t KEYWORD`
+to find a particular tag based on keywords in its name.
+
+****
+* The key word must not be empty.
+****
+
+Example:
+
+* `find -c Blanc` : Find flashcards whose question or answer contains string "Blanc".
+
+=== Exiting the program
 
 Exits the program. +
 Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Flashcards are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`

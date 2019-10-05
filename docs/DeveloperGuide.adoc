@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Flashback - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -279,13 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* needs to memorize a large amount of discrete knowledge like vocabulary
+* want to check his/her progress over a period of time
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage short knowledge like vocabulary faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,15 +298,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new flashcard |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a flashcard |remove flashcards that I have already firmly memorized
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a flashcard by keywords in its question or answer |locate details of flashcards without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |tag the flashcards |group them based on their fields
+
+|`* * *` |user |start a quiz |train myself on the flashcards
+
+|`* * *` |user |see my statistics over time | I know what parts I need to train more, what parts I am weak at
+
+|`* *` |user |edit a flashcard |do adjustment on the cards instead of typing the question and answer all over again
+
+|`* *` |user |import flashcards from other documents |add a lot of questions into the system without typing them one by one
+
+|`* *` |user |set time limit to each flashcard |
+
+|`* *` |user |set up a deadline to train on each set of flashcards |
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |automatically judge my answer to my short answer question |I can know how well I am doing
+
+|`*` |user |automatically decide duplicate flashcard |I will add same flashcard into the system multiple times
 |=======================================================================
 
 _{More to be added}_
@@ -316,30 +333,217 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Find a flashcard ID number
+
+Actor: User
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list flashcards.
+2.  FlashMind shows a list of flashcards.
+3.  User finds the flashcard ID number.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The user requests to list flashcards based on tags or keywords.
++
+[none]
+** 1a1. FlashMind shows the list of flashcards under the given tag or whose question or answer matches the keyword.
++
+Use case resumes at step 3.
+
+[none]
+* 1b. The flashcard list is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+
+[discrete]
+=== Use case: UC02 - Delete a flashcard
+
+Actor: User
+
+*MSS*
+
+1.  User [.underline]#finds the flashcard ID number (UC01)#.
+2.  User request to delete the flashcard with given ID number.
+3.  FlashMind deletes the flashcard.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given ID number is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. FlashMind shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: UC03 - Tag a flashcard
+
+Actor: User
+
+*MSS*
+
+1.  User [.underline]#finds the flashcard ID number (UC01)#.
+2.  User requires to tag the flashcard with a given tag name.
+3.  FlashMind creates a new tag with the given tag name and put the flashcard under the given tag name.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given tag already exist, but the target flashcard is not under this tag yet.
++
+[none]
+** 2a1. FlashMind puts the given flashcard under the existing tag instead of creating a new tag.
++
+Use case ends.
+
+[none]
+* 2b. The target flashcard is already under the given tag.
++
+[none]
+** 2b1. FlashMind shows an error message.
++
+Use case ends.
+
+[none]
+* 2c. The input flashcard ID number is invalid.
++
+[none]
+** 2c1. FlashMind shows an error message.
++
+Use case ends.
+
+[none]
+* 2d. The given tag name is empty.
++
+[none]
+** 2d1. FlashMind shows an error message including the constraints on tag names.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - edit a flashcard
+
+Actor: User
+
+*MSS*
+
+1. User [.underline]#finds the flashcard ID number (UC01)#.
+2. User request to edit the question or answer of a flashcard.
+3. FlashMind updates the question or answer on the given flashcard.
+
+*Extensions*
+
+[none]
+* 2a. The requested question or answer is in wrong format
++
+[none]
+** 2a1. FlashMind shows an error message including the constraints of the question and answer.
++
+Use case ends.
+
+[none]
+* 2b. The input flashcard Id number is invalid
++
+[none]
+** 2b1. FlashMind shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - find a tag name
+
+Actor: User
+
+*MSS*
+
+1. User request to list the tags.
+2. FlashMind shows a list of all current tags.
+3. User finds the tag.
+
+[none]
+* 2a. The tag list is empty.
++
+user case ends.
+
+[discrete]
+=== Use case: UC06 - edit a tag name
+
+Actor: User
+
+*MSS*
+
+1. User [.underline]#finds the tag (UC05)#.
+2. User requests to update the tag name.
+3. FlashMind updates the name of the tag.
+
+*Extensions*
+
+[none]
+* 4a. The tag user wants to update does not exist.
++
+[none]
+** 4a1. FlashMind shows an error message.
++
+Use case ends.
+
+[none]
+* 4b. The new tag name is invalid.
++
+[none]
+** 4b1. FlashMind shows an error message including the constraints on the tag name.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - delete a tag from the tag list
+
+Actor: User
+
+*MSS*
+
+1. User [.underline]#finds the tag (UC05)#.
+2. User requests to delete the tag.
+3. FlashMind deletes the tag from all flashcards with this tag and delete it from the tag list.
+
+*Extensions*
+[none]
+* 4a. The tag user wants to delete does not exist.
++
+[none]
+** 4a1. FlashMind shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 - delete a tag from a flashcard
+
+Actor: User
+
+*MSS*
+
+1. User [.underline]#finds the flashcard (UC01)#.
+2. User requests to delete the tag from the flashcard.
+3. FlashMind deletes the tag from the flashcard.
+
+*Extensions*
+[none]
+* 4a. The tag user wants to delete does not exist.
++
+[none]
+** 4a1. FlashMind shows an error message.
++
+Use case ends.
 
 _{More to be added}_
 
@@ -347,7 +551,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 flashcards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -358,8 +562,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[flashcard]] Flashcard::
+A digital card that contains a short knowledge like an English word or a geography common knowledge.
 
 [appendix]
 == Product Survey
