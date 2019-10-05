@@ -2,18 +2,21 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.Email;
-import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Phone;
-import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.SubjectName;
-import seedu.address.model.entitylist.MentorList;
+import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -27,15 +30,12 @@ public class AlfredParserUtil {
      * trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static Id parseIndex(String oneBasedIndex, PrefixType prefix) throws ParseException {
-        oneBasedIndex = oneBasedIndex.trim().toLowerCase();
-        String trimmedIndex = oneBasedIndex.substring(1);
-        String expectedPrefix = prefix.name();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex) || !oneBasedIndex.startsWith(expectedPrefix)) {
+    public static Index parseIndex(String oneBasedIndex) throws ParseException {
+        String trimmedIndex = oneBasedIndex.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
-        int id = Integer.parseInt(trimmedIndex);
-        return new Id(prefix, id);
+        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
     /**
@@ -83,6 +83,21 @@ public class AlfredParserUtil {
         return new Email(trimmedEmail);
     }
 
+    /**
+     * Parses a {@code String tag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tag} is invalid.
+     */
+    public static Tag parseTag(String tag) throws ParseException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Tag(trimmedTag);
+    }
+
     public static Location parseLocation(String location) throws ParseException {
         requireNonNull(location);
         int trimmedLocation = Integer.parseInt(location.trim());
@@ -109,5 +124,17 @@ public class AlfredParserUtil {
             throw new ParseException(SubjectName.MESSAGE_CONSTRAINTS);
         }
         return ProjectType.PLACEHOLDER;
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(parseTag(tagName));
+        }
+        return tagSet;
     }
 }

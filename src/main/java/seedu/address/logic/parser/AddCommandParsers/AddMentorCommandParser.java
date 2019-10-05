@@ -4,7 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
 import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.addcommand.AddMentorCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -39,12 +39,12 @@ public class AddMentorCommandParser implements Parser<AddCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANISATION,
-                        PREFIX_SUBJECT);
+                        PREFIX_SPECIALISATION);
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = AlfredParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = AlfredParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Name organisation = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_ORGANISATION).get());
-        SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
+        SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SPECIALISATION).get());
         Id id = new MentorList().generateID();
 
         Mentor mentor = new Mentor(name, id, phone, email, organisation, subject);
