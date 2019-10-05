@@ -46,7 +46,7 @@
                         <Font name="Consolas" size="16.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="2.0" top="2.0" />
+                        <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Help" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -54,7 +54,7 @@
                         <Font name="Consolas" size="16.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="2.0" top="2.0" />
+                        <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
                   </Button>
                </children>
