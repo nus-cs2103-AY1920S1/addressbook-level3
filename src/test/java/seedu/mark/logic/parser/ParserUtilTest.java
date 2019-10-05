@@ -22,7 +22,7 @@ import seedu.mark.model.tag.Tag;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_URL = "exam?ple.com?";
-    private static final String INVALID_REMARK = " ";
+    private static final String INVALID_REMARK = "t/ means tag";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -84,6 +84,12 @@ public class ParserUtilTest {
     @Test
     public void parseRemark_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseRemark(INVALID_REMARK));
+    }
+
+    @Test
+    public void parseRemark_validValueEmpty_returnsDefaultRemark() throws Exception {
+        Remark expectedRemark = new Remark(Remark.DEFAULT_VALUE);
+        assertEquals(expectedRemark, ParserUtil.parseRemark(WHITESPACE));
     }
 
     @Test
