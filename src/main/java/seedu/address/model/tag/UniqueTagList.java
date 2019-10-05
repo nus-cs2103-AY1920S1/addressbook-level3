@@ -1,0 +1,198 @@
+package seedu.address.model.tag;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+
+/**
+ * A list of tags that enforces uniqueness between its elements and does not allow nulls.
+ * A tag is considered unique by comparing using {@code Tag#isSameTag(Tag)}.
+ * As such, adding and updating of tags uses Tag#isSameTag(Tag) for equality so as
+ * to ensure that the Tag being added or updated is unique in terms of identity in the UniqueTagList.
+ * However, the removal of a Tag uses Tag#equals (Object) so as to ensure that the tag with
+ * exactly the same fields will be removed.
+ * Supports a minimal set of list operations.
+ *
+ * @see Tag#isSameTag(Tag)
+ */
+public class UniqueTagList implements Iterable<Tag> {
+
+    private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Tag> internalUnmodifiableList =
+        FXCollections.unmodifiableObservableList(internalList);
+    private final HashMap<String, Tag> mapTags = new HashMap<String, Tag>();
+
+    /**
+     * Constructs a {@code UniqueTagList} that contains the default tags by default.
+     */
+    public UniqueTagList() {
+        initDefaultTags();
+    }
+
+    /**
+     * Returns true if the list contains an equivalent Tag as the given argument.
+     */
+    public boolean contains(Tag toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameTag);
+    }
+
+    /**
+     * Adds a UserTag to the list.
+     * The UserTag must not already exist in the list.
+     */
+    public void addUserTag(UserTag toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            // TODO: implement DuplicateTagException
+
+            // throw new DuplicateTagException();
+        }
+        internalList.add(toAdd);
+        mapTags.put(toAdd.getTagName(), toAdd);
+    }
+
+    private void addDefaultTag(DefaultTag toAdd) {
+        requireAllNonNull(toAdd);
+        if (contains(toAdd)) {
+            // throw new DuplicateTagException();
+        }
+        internalList.add(toAdd);
+        mapTags.put(toAdd.getTagName(), toAdd);
+    }
+
+    /**
+     * Replaces the UserTag {@code target} in the list with {@code editedTag}.
+     * {@code target} must exist in the list.
+     * The UserTag identity of {@code editedTag} must not be the same as another existing
+     * UserTag in the list.
+     */
+    public void setUserTag(UserTag target, UserTag editedTag) {
+        requireAllNonNull(target, editedTag);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            // TODO: implement TagNotFoundException
+            // throw new TagNotFoundException();
+        }
+
+        if (!target.isSameTag(editedTag) && contains(editedTag)) {
+            // TODO: implement DuplicateTagException
+
+            // throw new DuplicateTagException();
+        }
+
+        internalList.set(index, editedTag);
+        mapTags.remove(target.getTagName());
+        mapTags.put(editedTag.getTagName(), editedTag);
+    }
+
+    /**
+     * Removes the equivalent UserTag from the list.
+     * The UserTag must exist in the list.
+     */
+    public void remove(UserTag toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+
+            // TODO: implement TagNotFoundException
+            //throw new TagNotFoundException();
+        }
+        mapTags.remove(toRemove.getTagName());
+    }
+
+    public void setTags(UniqueTagList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+        mapTags.clear();
+        HashMap<String, Tag> newMap = replacement.getMapTags();
+        Set<String> newKeys = newMap.keySet();
+        for (String newKey : newKeys) {
+            mapTags.put(newKey, newMap.get(newKey));
+        }
+    }
+
+    /**
+     * Replaces the contents of this list with {@code UserTags}.
+     * {@code UserTags} must not contain duplicate UserTags.
+     */
+    public void setTags(List<UserTag> userTags) {
+        requireAllNonNull(userTags);
+        if (!userTagsAreUnique(userTags)) {
+
+            // TODO: implement DuplicateTagException
+            // throw new DuplicateTagException();
+        }
+        internalList.setAll(userTags);
+        mapTags.clear();
+        initDefaultTags();
+        for (UserTag newUserTag: userTags) {
+            mapTags.put(newUserTag.getTagName(), newUserTag);
+        }
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Tag> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
+
+    /**
+     * Finds a specific tag that has the given tag name.
+     * @param tagName Name of the tag
+     * @return Tag
+     */
+    public Tag find(String tagName) {
+        return mapTags.get(tagName);
+    }
+
+    @Override
+    public Iterator<Tag> iterator() {
+        return internalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof seedu.address.model.tag.UniqueTagList // instanceof handles nulls
+            && internalList.equals(((seedu.address.model.tag.UniqueTagList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
+
+    public HashMap<String, Tag> getMapTags() {
+        return mapTags;
+    }
+
+    /**
+     * Returns true if {@code Tags} contains only unique UserTags.
+     */
+    private boolean userTagsAreUnique(List<UserTag> userTags) {
+        for (int i = 0; i < userTags.size() - 1; i++) {
+            for (int j = i + 1; j < userTags.size(); j++) {
+                if (userTags.get(i).isSameTag(userTags.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void initDefaultTags() {
+        for (DefaultTagType defaultTagType: DefaultTagType.values()) {
+            addDefaultTag(new DefaultTag(defaultTagType));
+        }
+    }
+}
