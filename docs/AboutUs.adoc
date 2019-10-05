@@ -20,7 +20,7 @@ Responsibilities: Goto feature(Changing views)
 '''
 
 === Lee Wei Gen
-image::lejolly.jpg[width="150", align="left"]
+image::weigenie.png[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 ZZ
 Role: Developer +
