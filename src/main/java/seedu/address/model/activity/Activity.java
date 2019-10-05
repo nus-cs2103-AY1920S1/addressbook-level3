@@ -1,6 +1,7 @@
 package seedu.address.model.activity;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 
 import seedu.address.model.person.Person;
@@ -43,10 +44,18 @@ public class Activity {
         return expenses;
     }
 
+    /**
+     * Gets the name of the activity.
+     * @return A String representation of the name of the activity.
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Invite people to the activity.
+     * @param people The people that will be added into the activity.
+     */
     public void invite(Person ... people) {
         for (int i = 0; i < people.length; i++) {
             // haven't implement check for person with same name
@@ -55,6 +64,10 @@ public class Activity {
         }
     }
 
+    /**
+     * Remove people from the activity
+     * @param people The people that will be removed from the activity.
+     */
     public void disinvite(Person ... people) {
         for (int i = 0; i < people.length; i++) {
             if (participants.contains(people[i])) {
@@ -64,6 +77,10 @@ public class Activity {
         }
     }
 
+    /**
+     * Add expense to the activity
+     * @param expenditures The expense(s) to be added.
+     */
     public void addExpense(Expense ... expenditures) {
         for (int i = 0; i < expenditures.length; i++) {
             expenses.add(expenditures[i]);
