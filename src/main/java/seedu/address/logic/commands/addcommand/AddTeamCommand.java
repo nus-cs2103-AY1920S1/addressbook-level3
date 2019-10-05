@@ -7,6 +7,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Team;
 
+/**
+ * Adds a {@link Team} to Alfred.
+ */
 public class AddTeamCommand extends AddCommand {
 
     /* Possible Fields: */

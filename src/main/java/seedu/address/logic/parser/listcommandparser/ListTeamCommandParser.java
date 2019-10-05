@@ -1,19 +1,20 @@
-package seedu.address.logic.parser.ViewCommandParsers;
+package seedu.address.logic.parser.listcommandparser;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.AlfredParserUtil;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class ViewParticipantCommandParser implements Parser<EditCommand> {
+public class ListTeamCommandParser implements Parser<EditCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -23,7 +24,7 @@ public class ViewParticipantCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
 
         // The return type of this command will also have to be corrected
-        // to return a ViewTeamCommand object as designed by John instead of an
+        // to return a ListTeamCommand object as designed by John instead of an
         // EditCommand Object.
 
         /**

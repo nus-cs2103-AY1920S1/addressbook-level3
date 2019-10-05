@@ -6,9 +6,13 @@ import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Name;
 
+/**
+ * Edits an {@link Entity} in Alfred.
+ */
 public abstract class EditCommand extends Command {
 
     /* Possible Fields */
@@ -22,6 +26,10 @@ public abstract class EditCommand extends Command {
         this.id = id;
     }
 
+    /**
+     * Stores the details to edit the entity with. Each non-empty field value will replace the
+     * corresponding field value of the entity.
+     */
     public static class EditEntityDescriptor {
 
         protected Name name;

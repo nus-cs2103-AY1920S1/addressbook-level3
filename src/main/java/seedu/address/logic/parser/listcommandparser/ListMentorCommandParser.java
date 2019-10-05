@@ -1,20 +1,13 @@
-package seedu.address.logic.parser.EditCommandParsers;
+package seedu.address.logic.parser.listcommandparser;
 
-import static java.util.Objects.requireNonNull;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditCommand object.
  */
-public class EditParticipantCommandParser implements Parser<EditCommand> {
+public class ListMentorCommandParser implements Parser<EditCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -23,11 +16,16 @@ public class EditParticipantCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
 
+        // The return type of this command will also have to be corrected
+        // to return a ListMentorCommand object as designed by John instead of an
+        // EditCommand Object.
+
         /**
          * This is just placeholder code. We will implement proper code
-         * when the Participant class has been finalised.
+         * when the Mentor class has been finalised.
          */
 
         return null;
     }
+
 }

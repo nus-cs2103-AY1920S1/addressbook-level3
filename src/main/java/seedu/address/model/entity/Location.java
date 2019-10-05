@@ -36,7 +36,7 @@ public class Location {
      * @param tableNumber tableNumber that team is seated on.
      * @return boolean whether test is in valid tableNumber format.
      */
-    public static boolean isValidNumber(int tableNumber){
+    public static boolean isValidNumber(int tableNumber) {
         return Integer.toString(tableNumber).matches(TABLE_NUMBER_REGEX);
     }
 

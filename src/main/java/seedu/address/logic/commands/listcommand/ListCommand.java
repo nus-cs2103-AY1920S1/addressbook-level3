@@ -6,9 +6,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.entity.Entity;
 
-/*
- * This Command is for listing everything (issue, mentor, participant, team).
+/**
+ * Lists every {@link Entity} (i.e. mentor, participant, team) in Alfred.
  */
 public class ListCommand extends Command {
 

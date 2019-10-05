@@ -15,13 +15,17 @@ import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Phone;
 
+/**
+ * Edits a {@link Participant} in Alfred.
+ */
 public class EditParticipantCommand extends EditCommand {
 
     /* Possible Fields */
     public static final String MESSAGE_EDIT_PARTICIPANT_SUCCESS = "Edited Participant: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided."; // to be used in Parser
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PARTICIPANT = "This person already exists in the address book.";
-    public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX = "The participant index provided is invalid";
+    public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX =
+            "The participant index provided is invalid";
 
     private EditParticipantDescriptor editParticipantDescriptor;
 
@@ -52,12 +56,20 @@ public class EditParticipantCommand extends EditCommand {
          * }
          */
         if (model.updateParticipant(this.id, editedParticipant)) {
-//        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(String.format(MESSAGE_EDIT_PARTICIPANT_SUCCESS, editedParticipant.toString()));
         }
         return new CommandResult(MESSAGE_DUPLICATE_PARTICIPANT);
     }
 
+    /**
+     * Creates and returns a new {@code Participant} with the details {@code participantToEdit}
+     * edited with {@code editParticipantDescriptor}.
+     *
+     * @param participantToEdit {@code Participant} that will be updated.
+     * @param editParticipantDescriptor Descriptor with the details to edit {@code participantToEdit}.
+     * @return Updated {@code Participant}.
+     */
     private Participant createEditedParticipant(Participant participantToEdit,
                                                 EditParticipantDescriptor editParticipantDescriptor) {
         assert participantToEdit != null;
@@ -71,6 +83,10 @@ public class EditParticipantCommand extends EditCommand {
         return new Participant(updatedName, updatedId, updatedEmail, updatedPhone);
     }
 
+    /**
+     * Stores the details to edit the {@code Participant} with. Each non-empty field value will replace the
+     * corresponding field value of the {@code Participant}.
+     */
     public static class EditParticipantDescriptor extends EditEntityDescriptor {
 
         private Email email;
