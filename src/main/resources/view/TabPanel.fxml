@@ -8,49 +8,76 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <TabPane fx:id="tabPanel" styleClass="STYLE_CLASS_FLOATING stack-pane">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+    <TabPane fx:id="tabPanel" styleClass="STYLE_CLASS_FLOATING stack-pane" VBox.vgrow="ALWAYS">
       <tabs>
          <Tab text="Customers" >
+             <graphic>
+                 <ImageView>
+                     <image>
+                         <Image url="@../images/address_book_32.png"/>
+                     </image>
+                 </ImageView>
+             </graphic>
            <content>
                <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                    <padding>
-                       <Insets top="20" right="0" bottom="0" left="0" />
+                       <Insets top="5" right="0" bottom="0" left="0" />
                    </padding>
-                   <Label text="Customers"> </Label>
                    <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </VBox>
            </content>
          </Tab>
          <Tab text="Phones">
+             <graphic>
+                 <ImageView>
+                     <image>
+                         <Image url="@../images/address_book_32.png"/>
+                     </image>
+                 </ImageView>
+             </graphic>
            <content>
                <VBox fx:id="phoneList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                    <padding>
-                       <Insets top="20" right="0" bottom="0" left="0" />
+                       <Insets top="5" right="0" bottom="0" left="0" />
                    </padding>
-                   <Label text="Phones"> </Label>
                    <StackPane fx:id="phoneListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </VBox>
            </content>
          </Tab>
          <Tab text="Order">
+             <graphic>
+                 <ImageView>
+                     <image>
+                         <Image url="@../images/address_book_32.png"/>
+                     </image>
+                 </ImageView>
+             </graphic>
            <content>
                <VBox fx:id="orderList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                    <padding>
-                       <Insets top="20" right="0" bottom="0" left="0" />
+                       <Insets top="5" right="0" bottom="0" left="0" />
                    </padding>
-                   <Label text="Order"> </Label>
                    <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </VBox>
            </content>
          </Tab>
          <Tab text="Schedule">
+             <graphic>
+                 <ImageView>
+                     <image>
+                         <Image url="@../images/address_book_32.png"/>
+                     </image>
+                 </ImageView>
+             </graphic>
            <content>
                <VBox fx:id="scheduleList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                    <padding>
-                       <Insets top="20" right="0" bottom="0" left="0" />
+                       <Insets top="5" right="0" bottom="0" left="0" />
                    </padding>
-                   <Label text="schedule"> </Label>
+
                    <StackPane fx:id="scheduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </VBox>
            </content>

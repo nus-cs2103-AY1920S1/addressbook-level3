@@ -47,11 +47,11 @@
           </padding>
         </StackPane>
 
-        <VBox id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <VBox  styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
         <StackPane VBox.vgrow="ALWAYS" fx:id="tabPanelPlaceholder" styleClass="pane-with-border"
                    minHeight="200"  >
           <padding>
-            <Insets top="10" right="20" bottom="10" left="20" />
+            <Insets top="5" right="20" bottom="10" left="20" />
           </padding>
         </StackPane>
       </VBox>
