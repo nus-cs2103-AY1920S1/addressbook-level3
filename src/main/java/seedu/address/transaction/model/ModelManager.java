@@ -1,24 +1,24 @@
 package seedu.address.transaction.model;
 
+import java.util.logging.Logger;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
 
 public class ModelManager implements Model {
-    private TransactionList transactionList;
-    private StorageManager storage;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public ModelManager(TransactionList transactionList) {
+    private final TransactionList transactionList;
+    private final StorageManager storage;
+
+    /*public ModelManager(TransactionList transactionList) {
         this.transactionList = transactionList;
-    }
+    }*/
 
     public ModelManager(StorageManager storage) {
         this.storage = storage;
-        try {
-            this.transactionList = storage.getTransactionList();
-        } catch (Exception e) {
-            this.transactionList = new TransactionList();
-        }
+        this.transactionList = storage.getTransactionList();
     }
 
     @Override
@@ -29,7 +29,8 @@ public class ModelManager implements Model {
     @Override
     public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws Exception {
         for (int i = 0; i < transactionList.size(); i++) {
-            if (transactionList.get(i).equals(transactionToEdit)) {
+            Transaction curr = transactionList.get(i);
+            if (curr.equals(transactionToEdit)) {
                 transactionList.set(i, editedTransaction);
             }
         }

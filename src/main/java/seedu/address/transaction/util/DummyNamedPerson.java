@@ -1,4 +1,4 @@
-package seedu.address.transaction.util;
+/*package seedu.address.transaction.util;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,7 @@ import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.Phone;
 import seedu.address.person.model.tag.Tag;
 
-public class DummyNamedPerson {
+public class DummyNamedPerson extends Person {
     Person dummy;
 
     public DummyNamedPerson(String name) {
@@ -25,4 +25,4 @@ public class DummyNamedPerson {
     public Person getDummy() {
         return this.dummy;
     }
-}
+}*/

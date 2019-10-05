@@ -8,6 +8,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
+import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.person.commons.util.CollectionUtil.requireAllNonNull;
@@ -147,4 +148,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    public Person getPersonByName(String name) throws PersonNotFoundException {
+       return addressBook.getPersonByName(name);
+    }
 }

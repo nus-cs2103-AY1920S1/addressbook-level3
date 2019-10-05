@@ -6,6 +6,7 @@ import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
 public class TransactionUi {
+    public static final String  NO_SUCH_PERSON = "Sorry! There is no such member in our database. Do add the member in.";
     private static final Logger logger = LogsCenter.getLogger(TransactionUi.class);
 
     public static final String NO_SUCH_COMMAND =  "Sorry! There is no such command.";
@@ -35,14 +36,14 @@ public class TransactionUi {
         return "Deleted Transaction:\n" + transaction;
     }
 
-    public String printAllTransactions(TransactionList transactionList) {
+    public String printAllTransactionsAndPerson(TransactionList transactionList) {
         String msg = "";
         try {
             for (int i = 0; i < transactionList.size(); i++) {
-                msg = msg + transactionList.get(i) + "\n";
+                msg = msg + transactionList.get(i) + "\n" + transactionList.get(i).getPerson() + "\n";
             }
         } catch (Exception e) {
-            logger.severe("problem here.");
+            logger.severe("problem reading transaction list.");
         }
         return msg;
     }

@@ -35,9 +35,9 @@ public class CommandResult extends OverallCommandResult {
         this(feedbackToUser, false, false);
     }
 
-    public String getFeedbackToUser() {
+    /*public String getFeedbackToUser() {
         return feedbackToUser;
-    }
+    }*/
 
     public boolean isShowHelp() {
         return showHelp;

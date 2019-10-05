@@ -62,14 +62,16 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+
 
         //ui = new UiManager(logic);
         seedu.address.transaction.storage.StorageManager transactionStorage =
-                new seedu.address.transaction.storage.StorageManager("data/transactionHistory.txt");
+                new seedu.address.transaction.storage.StorageManager("data/transactionHistory.txt", model);
         seedu.address.transaction.model.ModelManager transactionManager =
                 new seedu.address.transaction.model.ModelManager(transactionStorage);
-
+        seedu.address.transaction.logic.LogicManager transactionLogic = new
+                seedu.address.transaction.logic.LogicManager(transactionManager, transactionStorage, model, storage);
+        logic = new LogicManager(model, storage, transactionLogic);
         //no config for ui yet
         /*UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
         UserPrefs userPrefs = new UserPrefs();
@@ -88,8 +90,7 @@ public class MainApp extends Application {
         }*/
         /*seedu.address.person.model.ModelManager personMM =
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);*/
-        seedu.address.transaction.logic.LogicManager transactionLogic = new
-                seedu.address.transaction.logic.LogicManager(transactionManager, transactionStorage, model, storage);
+
         ui = new UiManager(transactionLogic, logic);
 
     }

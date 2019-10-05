@@ -44,6 +44,7 @@ public class EditCommandParser {
         if (argMultimap.getValue(PREFIX_PERSON).isPresent()) {
             editPersonDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
         }
+
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(TransactionUi.MESSAGE_NOT_EDITED);
         }

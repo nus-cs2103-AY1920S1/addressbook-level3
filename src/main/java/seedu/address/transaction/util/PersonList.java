@@ -1,4 +1,4 @@
-package seedu.address.transaction.util;
+/*package seedu.address.transaction.util;
 
 import java.util.ArrayList;
 import seedu.address.person.model.person.Person;
@@ -52,4 +52,4 @@ public class PersonList {
     public int size() {
         return pList.size();
     }
-}
+}*/
