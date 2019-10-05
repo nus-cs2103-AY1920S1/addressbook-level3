@@ -8,8 +8,6 @@ public class Score {
     public static final String MESSAGE_CONSTRAINTS = "Score should contain only positive integers from 0 to 100";
     private int score;
 
-
-
     /**
      * Constructs a {@code Score}
      *
