@@ -40,7 +40,7 @@ public class AddMentorCommandParser implements Parser<AddCommand> {
         Email email = AlfredParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Name organisation = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_ORGANISATION).get());
         SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT_NAME).get());
-        Id id = new MentorList().generateID();
+        Id id = new MentorList().generateId();
 
         Mentor mentor = new Mentor(name, id, phone, email, organisation, subject);
 

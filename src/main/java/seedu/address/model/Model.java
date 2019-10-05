@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import seedu.address.AlfredException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.entity.Id;
-import seedu.address.model.entity.Issue;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Team;
@@ -62,11 +61,6 @@ public interface Model {
     ReadableEntityList getTeamList();
 
     /**
-     * Returns the IssueList.
-     */
-    ReadableEntityList getIssueList();
-
-    /**
      * Returns the MentorList.
      */
     ReadableEntityList getMentorList();
@@ -106,16 +100,6 @@ public interface Model {
     boolean updateMentor(Id id, Mentor mentor);
 
     Mentor deleteMentor(Id id) throws AlfredException;
-
-    /* Issue methods */
-
-    Issue getIssue(Id id) throws AlfredException;
-
-    void addIssue(Issue issue) throws AlfredException;
-
-    boolean updateIssue(Id id, Issue issue);
-
-    Issue deleteIssue(Id id) throws AlfredException;
 
     /**
      * Replaces address book data with the data in {@code addressBook}.

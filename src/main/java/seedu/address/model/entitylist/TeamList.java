@@ -2,6 +2,7 @@ package seedu.address.model.entitylist;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import seedu.address.AlfredException;
 import seedu.address.AlfredRuntimeException;
 import seedu.address.model.entity.Entity;
@@ -9,6 +10,10 @@ import seedu.address.model.entity.Id;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Team;
 
+/**
+ * This interface serves as the new API for the model.
+ * {@code TeamList} should behave as a singleton.
+ */
 public class TeamList extends EntityList {
     private List<Team> teams;
     private int lastUsedId;
@@ -88,7 +93,7 @@ public class TeamList extends EntityList {
     /**
      * Returns a list but with element type Team.
      *
-     * @return List<Team>
+     * @return List of Teams.
      */
     public List<Team> getSpecificTypedList() {
         return this.teams;
@@ -97,7 +102,7 @@ public class TeamList extends EntityList {
     /**
      * List the teams.
      *
-     * @return List<Team>
+     * @return List of Teams.
      */
     public List<? extends Entity> list() {
         return this.teams;
@@ -125,7 +130,7 @@ public class TeamList extends EntityList {
      * @return ID
      */
     @Override
-    public Id generateID() {
+    public Id generateId() {
         this.lastUsedId++;
         return new Id(PrefixType.T, this.lastUsedId);
     }
