@@ -17,7 +17,7 @@
              <graphic>
                  <ImageView>
                      <image>
-                         <Image url="@../images/address_book_32.png"/>
+                         <Image url="@../images/peopleIcon.png"/>
                      </image>
                  </ImageView>
              </graphic>
@@ -34,7 +34,7 @@
              <graphic>
                  <ImageView>
                      <image>
-                         <Image url="@../images/address_book_32.png"/>
+                         <Image url="@../images/phoneIcon.png"/>
                      </image>
                  </ImageView>
              </graphic>
@@ -51,7 +51,7 @@
              <graphic>
                  <ImageView>
                      <image>
-                         <Image url="@../images/address_book_32.png"/>
+                         <Image url="@../images/orderIcon.png"/>
                      </image>
                  </ImageView>
              </graphic>
@@ -68,7 +68,7 @@
              <graphic>
                  <ImageView>
                      <image>
-                         <Image url="@../images/address_book_32.png"/>
+                         <Image url="@../images/scheduleIcon.png"/>
                      </image>
                  </ImageView>
              </graphic>
