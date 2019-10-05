@@ -53,7 +53,7 @@ public class Cost implements Cloneable {
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        return new Cost(new String(value));
     }
 
 }

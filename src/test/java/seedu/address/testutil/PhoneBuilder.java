@@ -19,6 +19,7 @@ public class PhoneBuilder {
 
     public static final String DEFAULT_NAME = "Samsung Galaxy 10";
     public static final String DEFAULT_BRAND = "Samsung";
+    public static final Capacity DEFAULT_CAPACITY = Capacity.SIZE_8GB;
     public static final String DEFAULT_COLOUR = "Vanilla White";
     public static final String DEFAULT_COST = "$42.42";
 
@@ -32,7 +33,7 @@ public class PhoneBuilder {
     public PhoneBuilder() {
         name = new Name(DEFAULT_NAME);
         brand = new Brand(DEFAULT_BRAND);
-        capacity = Capacity.SIZE_64GB;
+        capacity = DEFAULT_CAPACITY;
         colour = new Colour(DEFAULT_COLOUR);
         cost = new Cost(DEFAULT_COST);
         tags = new HashSet<>();
