@@ -27,12 +27,6 @@ public class AddParticipantCommandParser implements Parser<AddParticipantCommand
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddParticipantCommand parse(String args) throws ParseException {
-
-        /**
-         * Added the below code as a placeholder. We will replace it with proper code
-         * once the Participant class is finalised.
-         */
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL);
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
