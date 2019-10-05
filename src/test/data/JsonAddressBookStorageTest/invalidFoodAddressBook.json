@@ -1,7 +1,7 @@
 {
   "foods": [ {
     "name": "food with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424",
+    "price": "9482424",
     "email": "hans@example.com"
   } ]
 }

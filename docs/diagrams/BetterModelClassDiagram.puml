@@ -15,6 +15,6 @@ UniqueFoodList o-right-> Food
 Food o-up-> "*" Tag
 
 Food *--> Name
-Food *--> Phone
+Food *--> Price
 Food *--> Email
 @enduml

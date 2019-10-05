@@ -19,7 +19,7 @@ Package Food {
 Class Food
 Class Email
 Class Name
-Class Phone
+Class Price
 Class UniqueFoodList
 }
 
@@ -42,12 +42,12 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 AddressBook *--> "1" UniqueFoodList
 UniqueFoodList o--> "*" Food
 Food *--> Name
-Food *--> Phone
+Food *--> Price
 Food *--> Email
 Food *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
+Name -[hidden]right-> Price
+Price -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager -->"1" Food : filtered list

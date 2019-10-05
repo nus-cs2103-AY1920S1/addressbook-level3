@@ -1,11 +1,11 @@
 {
   "foods": [ {
     "name": "Valid food",
-    "phone": "9482424",
+    "price": "9482424",
     "email": "hans@example.com"
   }, {
-    "name": "food With Invalid Phone Field",
-    "phone": "948asdf2424",
+    "name": "food With Invalid Price Field",
+    "price": "948asdf2424",
     "email": "hans@example.com"
   } ]
 }
