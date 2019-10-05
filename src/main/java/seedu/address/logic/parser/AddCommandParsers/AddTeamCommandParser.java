@@ -4,7 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -38,11 +38,11 @@ public class AddTeamCommandParser implements Parser<AddCommand> {
      */
     public AddTeamCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SPECIALISATION, PREFIX_PROJECT_NAME,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SUBJECT, PREFIX_PROJECT_NAME,
                         PREFIX_PROJECT_TYPE, PREFIX_LOCATION);
 
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SPECIALISATION).get());
+        SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
         Name projectName = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_PROJECT_NAME).get());
         ProjectType projectType = AlfredParserUtil.parseProjectType(argMultimap.getValue(PREFIX_PROJECT_TYPE).get());
         Location location = AlfredParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());

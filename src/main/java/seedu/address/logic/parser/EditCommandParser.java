@@ -37,7 +37,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         try {
-            index = AlfredParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
@@ -73,7 +73,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(AlfredParserUtil.parseTags(tagSet));
+        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
 }
