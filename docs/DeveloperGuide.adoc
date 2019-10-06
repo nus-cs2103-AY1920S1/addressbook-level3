@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= TutorAid - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/kerwin97/main
+:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F14-2`      Since: `Sept 2019`      Licence: `NUS`
 
 == Setting up
 
@@ -279,13 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage classes and related tasks
+* has a need to track earnings
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage calendar and track earnings faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,15 +298,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new task | check the details of the task when I want
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |edit an existing task |update task information when I need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |tutor |check the time I spent on preparing tutorial materials |ask for salary
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |forgetful tutor |be reminded before my tutorials |go for the tutorials on time
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |caring tutor |check the upcoming events |remind my students
 |=======================================================================
 
 _{More to be added}_
@@ -313,17 +314,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TutorAid` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete task
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list tasks
+2.  TutorAid shows a list of tasks
+3.  User requests to delete a specific task in the list
+4.  TutorAid deletes the person
 +
 Use case ends.
 
@@ -332,12 +333,15 @@ Use case ends.
 [none]
 * 2a. The list is empty.
 +
+[none]
+** 2a1. TutorAid tells user that there is no task.
++
 Use case ends.
 
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TutorAid shows an error message.
 +
 Use case resumes at step 2.
 
@@ -347,7 +351,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_

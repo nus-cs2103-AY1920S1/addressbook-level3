@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= TutorAid - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/kerwin97/main
+:repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-F14-2`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TutorAid is for teaching assistants or tutors who prefer to use a desktop app for managing their classes and related tasks. More importantly, TutorAid is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorAid can get your tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `tutoraid.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your TutorAid.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+
+* *`help`* : gives you a list of commands that are available.
+* **`add`**`CS2103T Lecture /at 20/9/2019 16:00` : adds a module named CS2103T that is on 20th September 2019 4pm.
+* **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
