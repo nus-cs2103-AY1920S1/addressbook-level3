@@ -148,7 +148,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredWorkerList(Predicate<Worker> predicate) {
+    public void updateFilteredWorkerList(Predicate<Entity> predicate) {
         requireNonNull(predicate);
         filteredWorkers.setPredicate(predicate);
     }
@@ -165,7 +165,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredBodyList(Predicate<Body> predicate) {
+    public void updateFilteredBodyList(Predicate<Entity> predicate) {
         requireNonNull(predicate);
         filteredBodies.setPredicate(predicate);
     }
