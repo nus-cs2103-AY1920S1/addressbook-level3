@@ -25,8 +25,6 @@ public class FindCommand extends Command {
         this.predicate = predicate;
     }
 
-    // TODO: modify to include vehicle finding as well
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
