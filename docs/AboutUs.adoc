@@ -57,4 +57,3 @@ Role: Project Management + Git Master +
 Responsibilities: Model + Entity
 
 '''
-

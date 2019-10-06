@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master
 
 By: `Team F11-1`
 
@@ -72,11 +72,12 @@ For example in the case of `add {mentor/participant/list}`, you can choose to ty
 
 This command displays a help page in a separate pop-up window. Should you require further information,
 the pop-up window also includes links to further references and documentation. +
+
 Format: `help`
 
 === Adding an Entity: `add {participant/mentor/team}`
 
-Adds an entity for Alfred to keep track of +
+Use this command to add an entity for Alfred to keep track of. +
 ****
 * Creates an Entity as specified by you. Each Entity object will have a unique ID autmatically assigned to it.
 * As of version 1.1, you must provide all the fields. There are no optional fields.
@@ -120,6 +121,9 @@ Edits an entity based on the supplied parameter values you supply.
 ****
 
 Examples:
+* `edit mentor M01 \nNewMentorName`
+* `edit team T01 \nNewTeamName`
+* `edit participant P01 \nNewParticipantNAme`
 
 * `edit mentor M01 /nNewMentorName`
 
@@ -136,6 +140,9 @@ Shows a list of all the Entities that Alfred keeps track of +
 ****
 
 Examples:
+* `list mentor M01`
+* `list participant P01`
+* `list team T01`
 
 * `list mentor` will list all mentors stored within Alfred.
 
@@ -151,8 +158,6 @@ This is a permanent operation, so please be careful.
 * Deletes the Entity with the ID that you specify.
 * As of version 1.1, the delete operation is permanent and irreversible. Be careful.
 ****
-
-Examples:
 
 * `delete mentor M01` will delete the mentor with ID M01 from Alfred.
 

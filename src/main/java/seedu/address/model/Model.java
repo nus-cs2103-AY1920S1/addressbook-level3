@@ -4,7 +4,13 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.AlfredException;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.Team;
+import seedu.address.model.entitylist.ReadableEntityList;
 import seedu.address.model.person.Person;
 
 /**
@@ -43,6 +49,57 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the ParticipantList.
+     */
+    ReadableEntityList getParticipantList();
+
+    /**
+     * Returns the TeamList.
+     */
+    ReadableEntityList getTeamList();
+
+    /**
+     * Returns the MentorList.
+     */
+    ReadableEntityList getMentorList();
+
+    /* Below is the API exposed for the controllers to call */
+
+    /* Participant methods */
+
+    Participant getParticipant(Id id) throws AlfredException;
+
+    void addParticipant(Participant participant) throws AlfredException;
+
+    boolean updateParticipant(Id id, Participant participant);
+
+    Participant deleteParticipant(Id id) throws AlfredException;
+
+    /* Team methods */
+
+    Team getTeam(Id teamId) throws AlfredException;
+
+    Team getTeamByParticipantId(Id participantId) throws AlfredException;
+
+    Team getTeamByMentorId(Id mentorId) throws AlfredException;
+
+    void addTeam(Team team) throws AlfredException;
+
+    boolean updateTeam(Id teamId, Team team);
+
+    Team deleteTeam(Id id) throws AlfredException;
+
+    /* Mentor methods */
+
+    Mentor getMentor(Id id) throws AlfredException;
+
+    void addMentor(Mentor mentor) throws AlfredException;
+
+    boolean updateMentor(Id id, Mentor mentor);
+
+    Mentor deleteMentor(Id id) throws AlfredException;
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
