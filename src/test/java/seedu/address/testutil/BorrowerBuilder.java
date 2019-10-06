@@ -64,6 +64,7 @@ public class BorrowerBuilder {
     public BorrowerBuilder withBorrowerId(String id) {
         this.borrowerId = new BorrowerId(id);
         return this;
+
     }
 
     public Borrower build() {

@@ -5,7 +5,7 @@ import java.util.Objects;
 import seedu.address.model.BorrowerIdGenerator;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Borrower.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Borrower {
@@ -62,7 +62,10 @@ public class Borrower {
         }
 
         return otherBorrower != null
-                && otherBorrower.getBorrowerId().equals(getBorrowerId());
+                && otherBorrower.getBorrowerId().equals(getBorrowerId())
+                && otherBorrower.getName().equals(getName())
+                && (otherBorrower.getPhone().equals(getPhone())
+                    || otherBorrower.getEmail().equals(getEmail()));
     }
 
     /**
@@ -89,15 +92,14 @@ public class Borrower {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email);
+        return Objects.hash(name, phone, email, borrowerId);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Name: ")
-                .append(getName())
+                .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
