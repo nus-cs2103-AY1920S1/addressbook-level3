@@ -38,7 +38,7 @@ public class AddVisitCommandTest {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
 
-        AddVisitCommand addVisitCommand = new AddVisitCommand(INDEX_FIRST_PERSON, new VisitList(editedPerson.getVisitList().value));
+        AddVisitCommand addVisitCommand = new AddVisitCommand(INDEX_FIRST_PERSON, "");
 
         String expectedMessage = String.format(AddVisitCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
 

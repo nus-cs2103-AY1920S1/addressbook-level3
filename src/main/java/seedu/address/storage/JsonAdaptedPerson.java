@@ -25,7 +25,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final String remark;
+    private final List<JsonAdaptedVisit> visitList = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,12 +34,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("visitList") List<JsonAdaptedVisit> visitList, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.remark = remark;
+        if (visitList != null) {
+            this.visitList.addAll(visitList);
+        }
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -53,7 +55,9 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        remark = source.getVisitList().value;
+        visitList.addAll(source.getVisitList().getRecords().stream()
+                .map(JsonAdaptedVisit::new)
+                .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -68,6 +72,11 @@ class JsonAdaptedPerson {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+
+        final ArrayList<VisitReport> personVisits = new ArrayList<>();
+        for (JsonAdaptedVisit visit : visitList) {
+            personVisits.add(visit.toModelType());
         }
 
         if (name == null) {
@@ -101,10 +110,8 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-        if (remark == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VisitList.class.getSimpleName()));
-        }
-        final VisitList modelVisitList = new VisitList(remark);
+
+        final VisitList modelVisitList = new VisitList(personVisits);
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelVisitList, modelTags);

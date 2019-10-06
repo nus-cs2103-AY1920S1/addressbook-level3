@@ -4,17 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.VisitList;
+import seedu.address.model.person.VisitReport;
+
 
 /**
- * Jackson-friendly version of {@link VisitList}.
+ * Jackson-friendly version of {@link VisitReport}.
  */
 class JsonAdaptedVisit {
 
     private final String visitDate;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedVisit} with the given {@code tagName}.
      */
     @JsonCreator
     public JsonAdaptedVisit(String date) {
@@ -24,9 +25,10 @@ class JsonAdaptedVisit {
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
-    public JsonAdaptedVisit(VisitList source) {
+    public JsonAdaptedVisit(VisitReport source) {
         visitDate = source.value;
     }
+
 
     @JsonValue
     public String getVisitationRecord() {
@@ -38,11 +40,11 @@ class JsonAdaptedVisit {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
-    public VisitList toModelType() throws IllegalValueException {
-        if (!VisitList.isValidVisitDate(visitDate)) {
-            throw new IllegalValueException(VisitList.MESSAGE_CONSTRAINTS);
+    public VisitReport toModelType() throws IllegalValueException {
+        if (!VisitReport.isValidVisitDate(visitDate)) {
+            throw new IllegalValueException(VisitReport.MESSAGE_CONSTRAINTS);
         }
-        return new VisitList(visitDate);
+        return new VisitReport(visitDate);
     }
 
 }

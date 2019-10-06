@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -7,18 +10,28 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class VisitList {
-    public final String value;
+    //public final String value = "";
     public static final String MESSAGE_CONSTRAINTS = "Visit date should follow dd/mm/yyyy format";
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
 
-    public VisitList(String date) {
-        requireNonNull(date);
-        value = date;
+    private ArrayList<VisitReport> records = new ArrayList<>();
+
+    public VisitList(ArrayList<VisitReport> lst) {
+        //requireNonNull(lst);
+        records = lst;
     }
 
+    public VisitList addRecord(VisitReport report) {
+        records.add(report);
+        return this;
+    }
+
+    public ArrayList<VisitReport> getRecords() {
+        return this.records;
+    }
     @Override
     public String toString() {
-        return value;
+        return records.toString();
     }
 
     /**
@@ -27,7 +40,7 @@ public class VisitList {
     public static boolean isValidVisitDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
+    /*
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -39,4 +52,7 @@ public class VisitList {
     public int hashCode() {
         return value.hashCode();
     }
+    */
+
+
 }

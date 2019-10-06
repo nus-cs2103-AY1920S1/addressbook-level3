@@ -11,7 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.VisitList;
+import seedu.address.model.person.VisitReport;
 
 /**
  * Changes the visitList of an existing person in the address book.
@@ -31,17 +31,17 @@ public class AddVisitCommand extends Command {
     public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed visit from Person: %1$s";
 
     private final Index index;
-    private final VisitList visitList;
+    private final VisitReport visitReport;
 
     /**
      * @param index of the person in the filtered person list to edit the visitList
-     * @param visitList of the person to be updated to
+     * @param reportDate of the person to be updated to
      */
-    public AddVisitCommand(Index index, VisitList visitList) {
-        requireAllNonNull(index, visitList);
+    public AddVisitCommand(Index index, String reportDate) {
+        requireAllNonNull(index, reportDate);
 
         this.index = index;
-        this.visitList = visitList;
+        this.visitReport = new VisitReport(reportDate);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AddVisitCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), visitList, personToEdit.getTags());
+                personToEdit.getAddress(),personToEdit.getVisitList().addRecord(visitReport) , personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -67,7 +67,7 @@ public class AddVisitCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !visitList.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        String message = !visitReport.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
         return String.format(message, personToEdit);
     }
 
@@ -86,6 +86,6 @@ public class AddVisitCommand extends Command {
         // state check
         AddVisitCommand e = (AddVisitCommand) other;
         return index.equals(e.index)
-                && visitList.equals(e.visitList);
+                && visitReport.equals(e.visitReport);
     }
 }
