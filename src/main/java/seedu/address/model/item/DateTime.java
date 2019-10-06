@@ -14,6 +14,14 @@ public class DateTime {
         itemDateTime = dt;
     }
 
+    public String getDate() {
+        return itemDateTime;
+    }
+
+    public boolean isPresent() {
+        return (!itemDateTime.isEmpty());
+    }
+
     public static boolean isValidDateTime(String dateTime) {
         return (!dateTime.isEmpty());
     }

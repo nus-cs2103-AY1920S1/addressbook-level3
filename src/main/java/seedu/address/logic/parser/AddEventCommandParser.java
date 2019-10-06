@@ -6,15 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.DateTime;
-import seedu.address.model.item.Description;
-import seedu.address.model.item.ItemReminder;
-import seedu.address.model.item.Priority;
+import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,9 +42,12 @@ public class AddEventCommandParser implements Parser<AddCommand> {
         Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        //Person person = new Person(name, phone, email, address, tagList);
         Event event = new Event();
-        Item item = new Item(description, event);
+        if (itemReminder.isPresent()) {
+            Reminder reminder = new Reminder();
+            reminder.setDate(itemReminder.getDate());
+        }
+        Item item = new Item(description.toString(), Optional.empty(), Optional.of(event), Optional.empty(), tagList);
 
         return new AddCommand(item);
     }

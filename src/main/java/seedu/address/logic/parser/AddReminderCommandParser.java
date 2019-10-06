@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -43,10 +44,9 @@ public class AddReminderCommandParser implements Parser<AddCommand> {
         Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        //Person person = new Person(name, phone, email, address, tagList);
         Reminder reminder = new Reminder();
-        reminder.setDate(itemReminder);
-        Item item = new Item(description, reminder);
+        reminder.setDate(itemReminder.getDate());
+        Item item = new Item(description.toString(), Optional.empty(), Optional.empty(), Optional.of(reminder), tagList);
 
         return new AddCommand(item);
     }

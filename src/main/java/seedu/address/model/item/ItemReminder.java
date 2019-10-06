@@ -19,6 +19,14 @@ public class ItemReminder {
         return (!reminder.isEmpty());
     }
 
+    public boolean isPresent() {
+        return (!itemReminder.isEmpty());
+    }
+
+    public String getDate() {
+        return itemReminder;
+    }
+
     @Override
     public String toString() {
         return itemReminder;
