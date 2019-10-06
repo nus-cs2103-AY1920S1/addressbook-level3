@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -105,7 +103,7 @@ public class OrderBuilder {
         try {
             return new Order(customer, phone, price, status, schedule, tags);
         } catch (CloneNotSupportedException e) {
-            fail();
+            e.printStackTrace();
         }
     }
 }

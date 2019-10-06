@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -80,7 +78,7 @@ public class ScheduleBuilder {
         try {
             return new Schedule(order, calendar, venue, tags);
         } catch (CloneNotSupportedException e) {
-            fail();
+            e.printStackTrace();
         }
     }
 

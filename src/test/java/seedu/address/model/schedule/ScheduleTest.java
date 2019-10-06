@@ -2,6 +2,7 @@ package seedu.address.model.schedule;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Calendar;
 
@@ -26,12 +27,26 @@ public class ScheduleTest {
 
         // null -> returns false
         assertFalse(SCHEDULEONE.isSameSchedule(null));
+
+        // clone -> returns true
+        try {
+            assertTrue(SCHEDULEONE.isSameSchedule((Schedule) SCHEDULEONE.clone()));
+        } catch (CloneNotSupportedException e) {
+            fail();
+        }
     }
 
     @Test
     public void testEquals() {
         // same object -> returns true
         assertTrue(SCHEDULEONE.equals(SCHEDULEONE));
+
+        // clone -> returns true
+        try {
+            assertTrue(SCHEDULEONE.equals((Schedule) SCHEDULEONE.clone()));
+        } catch (CloneNotSupportedException e) {
+            fail();
+        }
 
         // null -> returns false
         assertFalse(SCHEDULEONE.equals(null));

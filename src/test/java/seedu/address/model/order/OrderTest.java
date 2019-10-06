@@ -2,6 +2,7 @@ package seedu.address.model.order;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import static seedu.address.testutil.TypicalOrders.ORDERTWO;
 import seedu.address.testutil.TypicalCustomers.CUSTOMERTHREE;
@@ -26,13 +27,27 @@ public class OrderTest {
         assertFalse(ORDERONE.isSameOrder(null));
 
         // different id -> returns false
-        assertFalse(ORDERONE.isSameOrder(ORDERTWO));
+        assertFalse(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).build()));
+
+        // clone -> returns true
+        try {
+            assertTrue(ORDERONE.isSameOrder((Order) ORDERONE.clone()));
+        } catch (CloneNotSupportedException e) {
+            fail();
+        }
     }
 
     @Test
     public void testEquals() {
         // same object -> returns true
         assertTrue(ORDERONE.equals(ORDERONE));
+
+        // clone -> returns true
+        try {
+            assertTrue(ORDERONE.equals((Order) ORDERONE.clone()));
+        } catch (CloneNotSupportedException e) {
+            fail();
+        }
 
         // null -> returns false
         assertFalse(ORDERONE.equals(null));
