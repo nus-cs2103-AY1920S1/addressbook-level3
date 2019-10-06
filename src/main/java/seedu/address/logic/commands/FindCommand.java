@@ -43,7 +43,7 @@ public class FindCommand extends Command {
                 throw new CommandException("Please switch to Workers or Bodies tab to execute this command.");
             }
         } catch (CommandException e){
-            return new CommandResult(e.toString());
+            return new CommandResult(e.getMessage());
         }
     }
 

@@ -1,7 +1,7 @@
 package seedu.address.model.entity;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.entity.NameContainsKeywordsPredicate;
+
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.WorkerBuilder;
 

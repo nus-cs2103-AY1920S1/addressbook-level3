@@ -8,6 +8,5 @@ import seedu.address.model.person.Name;
 public interface Entity {
 
     Name getName();
-    void setName(Name name);
     boolean isSameEntity(Object o);
 }
