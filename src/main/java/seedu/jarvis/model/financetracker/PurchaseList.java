@@ -1,7 +1,9 @@
-package seedu.jarvis.model.financeTracker;
+package seedu.jarvis.model.financetracker;
 
 import java.util.ArrayList;
-
+/**
+ * Manages list of monthly expenditures made by the user.
+ */
 public class PurchaseList {
     private ArrayList<Purchase> allPurchases;
 

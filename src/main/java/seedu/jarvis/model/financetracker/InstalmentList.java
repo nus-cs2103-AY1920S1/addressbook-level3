@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financeTracker;
+package seedu.jarvis.model.financetracker;
 
 import java.util.ArrayList;
 
@@ -52,6 +52,11 @@ public class InstalmentList {
         totalMoneySpentOnInstalments = this.calculateTotalInstalmentSpending();
     }
 
+    /**
+     * Deletes instalment from the list of instalments based on the instalment number.
+     * @param instalmentNumber of the instalment in the list
+     * @return Instalment object that has been removed from the list
+     */
     public Instalment deleteInstalment(int instalmentNumber) {
         if (instalmentNumber > allInstallments.size()) {
             //todo throw error
@@ -59,6 +64,10 @@ public class InstalmentList {
         return allInstallments.remove(instalmentNumber - 1);
     }
 
+    /**
+     * Calculates the total monthly spending from all instalments currently subscribed to by the user.
+     * @return double containing the total money spent to be included in monthly expenditure
+     */
     private double calculateTotalInstalmentSpending() {
         double amount = 0;
         for (Instalment instalment : allInstallments) {

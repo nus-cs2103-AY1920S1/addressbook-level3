@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financeTracker;
+package seedu.jarvis.model.financetracker;
 
 /**
  * Creates a instance object of a payment owed to a person by the user or by a person to the user.

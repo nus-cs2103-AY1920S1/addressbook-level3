@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financeTracker;
+package seedu.jarvis.model.financetracker;
 
 import java.util.ArrayList;
 
