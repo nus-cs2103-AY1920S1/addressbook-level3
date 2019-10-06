@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 import seedu.address.model.userprefs.UserPrefs;
 
@@ -18,12 +19,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private AppointmentBookStorage appointmentBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, AddressBookStorage addressBookStorage,
+                          AppointmentBookStorage appointmentBookStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.appointmentBookStorage = appointmentBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -74,4 +78,34 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+
+    // ================ AppointmentBook methods ==============================
+
+    @Override
+    public Path getAppointmentBookFilePath() {
+        return appointmentBookStorage.getAppointmentBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyAppointmentBook> readAppointmentBook() throws DataConversionException, IOException {
+        return readAppointmentBook(appointmentBookStorage.getAppointmentBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return appointmentBookStorage.readAppointmentBook(filePath);
+    }
+
+    @Override
+    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentsBook) throws IOException {
+        saveAppointmentBook(appointmentsBook, appointmentBookStorage.getAppointmentBookFilePath());
+    }
+
+    @Override
+    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentsBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        appointmentBookStorage.saveAppointmentBook(appointmentsBook, filePath);
+    }
 }

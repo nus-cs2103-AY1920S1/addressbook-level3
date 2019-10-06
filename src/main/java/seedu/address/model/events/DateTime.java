@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
 
 public class DateTime {
 
-    public static final String DATETIME_FORMAT = "dd MM yyyy HHmm";
+    public static final String DATETIME_FORMAT = "dd/MM/yyyy HHmm";
     public static final String MESSAGE_CONSTRAINTS =
         "date time must be follow the format of'" + DATETIME_FORMAT + "'.";
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATETIME_FORMAT);

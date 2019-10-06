@@ -1,33 +1,21 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.common.Tag;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.parameters.Address;
-import seedu.address.model.person.parameters.Email;
-import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PatientReferenceId;
 import seedu.address.model.person.parameters.PersonReferenceId;
-import seedu.address.model.person.parameters.Phone;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Event}.
  */
-class JsonAdaptedEvent {
+public class JsonAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
 
