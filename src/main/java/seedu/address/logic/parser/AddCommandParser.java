@@ -130,6 +130,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             String details = argMultimap.getValue(PREFIX_BODY_DETAILS).get();
             List<String> organsForDonation = ParserUtil.parseOrgansForDonation(
                     argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).get());
+
             IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
                     argMultimap.getValue(PREFIX_FRIDGE_ID).get());
             Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).get());

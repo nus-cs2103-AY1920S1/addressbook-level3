@@ -153,7 +153,7 @@ public class ModelManager implements Model {
         filteredWorkers.setPredicate(predicate);
     }
 
-    //=========== Filtered Workers List Accessors =============================================================
+    //=========== Filtered Body List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Bodies} backed by the internal list of
