@@ -25,6 +25,8 @@ public class UiManager implements Ui {
     private Logic logic;
     private MainWindow mainWindow;
 
+    public static Tab tab;
+
     public UiManager(Logic logic) {
         super();
         this.logic = logic;
@@ -81,6 +83,10 @@ public class UiManager implements Ui {
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
+    }
+
+    public enum Tab {
+        DASHBOARD, BODIES, WORKERS, FRIDGES;
     }
 
 }
