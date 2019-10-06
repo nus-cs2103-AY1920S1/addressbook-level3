@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.worker.Worker;
