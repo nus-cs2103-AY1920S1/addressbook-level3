@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::lawncegoh.png[width="150", align="left"]
 {empty}[https://github.com/lawncegoh[github]][<<lawncegoh#, portfolio>>]
 
-Role: Developer +
+Roles: Documentation + Scheduling and Tracking
 Responsibilities: Goto feature(Changing views)
 
 '''
@@ -23,7 +23,7 @@ Responsibilities: Goto feature(Changing views)
 image::weigenie.png[width="150", align="left"]
 {empty}[http://github.com/weigenie[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Team Lead + Code Quality
 Responsibilities: Claims Feature
 
 '''
@@ -32,7 +32,7 @@ Responsibilities: Claims Feature
 image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Testing
 Responsibilities: Income Feature
 
 '''
@@ -41,7 +41,7 @@ Responsibilities: Income Feature
 image::tanzhanming.png[width="150", align="left"]
 {empty}[http://https://github.com/TanZhanMing[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Integration
 Responsibilities: Budget Feature
 
 
