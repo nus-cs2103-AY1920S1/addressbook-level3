@@ -30,11 +30,13 @@ public class CreateQuestionCommandParser implements Parser<CreateQuestionCommand
     public CreateQuestionCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer
+            .tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE)
             || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateQuestionCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateQuestionCommand.MESSAGE_USAGE));
         }
 
         String question = argMultimap.getValue(PREFIX_QUESTION).orElse("");
@@ -42,11 +44,14 @@ public class CreateQuestionCommandParser implements Parser<CreateQuestionCommand
         String typeName = argMultimap.getValue(PREFIX_TYPE).orElse("");
         QuestionType type;
         switch (typeName) {
-        case "open": type = QuestionType.OPEN;
+        case "open":
+            type = QuestionType.OPEN;
             break;
-        case "mcq": type = QuestionType.MCQ;
+        case "mcq":
+            type = QuestionType.MCQ;
             break;
-        default: type = QuestionType.OPEN;
+        default:
+            type = QuestionType.OPEN;
             break;
         }
 
@@ -57,8 +62,10 @@ public class CreateQuestionCommandParser implements Parser<CreateQuestionCommand
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap,
+        Prefix... prefixes) {
+        return Stream.of(prefixes)
+            .allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

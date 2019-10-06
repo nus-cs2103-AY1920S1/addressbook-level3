@@ -1,5 +1,8 @@
 package seedu.address.model.question;
 
+/**
+ * Represents a question in the question list.
+ */
 public class Question {
 
     private String question;
@@ -10,17 +13,17 @@ public class Question {
      * Creates a new question.
      *
      * @param question to set.
-     * @param answer to the question.
-     * @param type of question e.g open or mcq.
+     * @param answer   to the question.
+     * @param type     of question e.g open or mcq.
      */
-    public Question(String question, String answer, QuestionType type){
+    public Question(String question, String answer, QuestionType type) {
         this.question = question;
         this.answer = answer;
         this.type = type;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return question;
     }
 }

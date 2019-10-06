@@ -9,6 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionType;
 
+/**
+ * Creates a new question to be added to the question list.
+ */
 public class CreateQuestionCommand extends Command {
 
     public static final String COMMAND_WORD = "question";
@@ -43,6 +46,7 @@ public class CreateQuestionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Question question = new Question(this.question, this.answer, this.type);
+        model.addQuestion(question);
         return new CommandResult(generateSuccessMessage(question));
     }
 
