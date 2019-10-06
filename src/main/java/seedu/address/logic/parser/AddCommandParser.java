@@ -64,9 +64,9 @@ public class AddCommandParser implements Parser<AddCommand> {
                                 PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
                                         PREFIX_BODY_DETAILS, PREFIX_NRIC, PREFIX_RELATIONSHIP, PREFIX_RELIGION,
                                                 PREFIX_NAME_NOK, PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION,
-                                                        PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS);
-        // checks if mandatory fields are given
-        String flag = argMultimap.getValue(PREFIX_FLAG).get();
+                                                        PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
+                                                                PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
+        String flag = argMultimap.getValue(PREFIX_FLAG).orElse("");
         boolean arePrefixesPresent;
         switch (flag) {
         case "w":
@@ -76,9 +76,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             break;
         case "b":
             arePrefixesPresent = arePrefixesPresent(argMultimap, PREFIX_FIRST_NAME, PREFIX_LAST_NAME, PREFIX_PHONE,
-                    PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
-                            PREFIX_BODY_DETAILS, PREFIX_NRIC, PREFIX_RELATIONSHIP, PREFIX_RELIGION, PREFIX_NAME_NOK,
-                                    PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION, PREFIX_FRIDGE_ID);
+                    PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_NRIC,
+                            PREFIX_CAUSE_OF_DEATH, PREFIX_BODY_DETAILS, PREFIX_RELATIONSHIP, PREFIX_RELIGION,
+                                    PREFIX_NAME_NOK, PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION, PREFIX_FRIDGE_ID);
             break;
         default:
             arePrefixesPresent = arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
@@ -89,10 +89,22 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        if (flag.isEmpty()) {
+            Name namePerson = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+            Person person = new Person(namePerson, phone, email, address, tagList);
+
+            return new AddCommand(person);
+        }
+
         String firstName = argMultimap.getValue(PREFIX_FIRST_NAME).get();
         String middleName = argMultimap.getValue(PREFIX_MIDDLE_NAME).orElse("");
         String lastName = argMultimap.getValue(PREFIX_LAST_NAME).get();
-        Name name = ParserUtil.parseName(firstName + middleName + lastName);
+        Name name = ParserUtil.parseName(firstName + " " + middleName + " " + lastName);
         Sex sex = ParserUtil.parseSex(argMultimap.getValue(PREFIX_SEX).get());
         Date dateOfBirth = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).get());
 
@@ -121,15 +133,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
             return new AddCommand(body);
         } else {
-            Name namePerson = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-            Person person = new Person(namePerson, phone, email, address, tagList);
-
-            return new AddCommand(person);
+            throw new ParseException("Invalid flag");
         }
     }
 

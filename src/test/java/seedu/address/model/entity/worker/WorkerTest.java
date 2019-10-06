@@ -23,7 +23,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.testutil.WorkerBuilder;
 
 class WorkerTest {

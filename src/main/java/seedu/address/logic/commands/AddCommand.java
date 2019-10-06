@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESIGNATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LAST_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MIDDLE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -24,6 +25,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a worker to the address book. "
             + "Parameters: "
+            + PREFIX_FLAG + "w "
             + PREFIX_FIRST_NAME + "FIRST NAME "
             + PREFIX_MIDDLE_NAME + "MIDDLE NAME "
             + PREFIX_LAST_NAME + "LAST NAME "

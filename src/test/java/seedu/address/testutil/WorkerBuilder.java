@@ -10,7 +10,6 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 
 /**
  * A utility class to help with building Worker objects.
