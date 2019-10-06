@@ -16,6 +16,9 @@ public class TypicalWorkers {
     public static final Worker BENSON = new WorkerBuilder().withName("Benson Meier")
         .withPhone("98765432").withDateJoined("12/12/2019").withSex(MALE)
         .withEmploymentStatus("transporting").build();
+    public static final Worker CLARA = new WorkerBuilder().withName("Clara Doe")
+            .withPhone("84371233").withDateJoined("13/12/2019").withSex(FEMALE)
+            .withEmploymentStatus("cleaning").build();
 
     private TypicalWorkers() {} // prevents instantiation
 }

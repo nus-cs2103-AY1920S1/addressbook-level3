@@ -209,7 +209,8 @@ public class ParserUtil {
         if (!IdentificationNumber.isValidIdentificationNumber(trimmedId)) {
             throw new ParseException(IdentificationNumber.MESSAGE_CONSTRAINTS);
         }
-        return IdentificationNumber.customGenerateId(id.charAt(0) + "", Integer.parseInt(id.substring(1)));
+        return IdentificationNumber.customGenerateId(trimmedId.charAt(0) + "",
+                Integer.parseInt(trimmedId.substring(1)));
     }
 
     /**

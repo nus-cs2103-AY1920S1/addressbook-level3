@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
+import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_ID_NUM;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -48,9 +50,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        DeleteCommand bodyCommand = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + FIRST_BODY_ID_NUM.toString());
+        assertEquals(new DeleteCommand(FIRST_BODY_ID_NUM), bodyCommand);
+
+        DeleteCommand workerCommand = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + FIRST_WORKER_ID_NUM.toString());
+        assertEquals(new DeleteCommand(FIRST_WORKER_ID_NUM), workerCommand);
+
+        // todo add parser test for fridge class
     }
 
     @Test

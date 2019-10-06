@@ -170,6 +170,24 @@ public class ModelManager implements Model {
         filteredBodies.setPredicate(predicate);
     }
 
+    //=========== Filtered Entities List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Entities} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<? extends Entity> getFilteredEntityList(String entityType) {
+        if (entityType.equals("W") || entityType.equals("w")) {
+            return filteredWorkers;
+        } else if (entityType.equals("B") || entityType.equals("b")) {
+            return filteredBodies;
+        }
+        // to add fridge!
+        return null;
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

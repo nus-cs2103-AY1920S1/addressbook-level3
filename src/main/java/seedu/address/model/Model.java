@@ -88,6 +88,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered list of bodies */
     ObservableList<Body> getFilteredBodyList();
 
+    /** Returns an unmodifiable view of the filtered list of bodies */
+    ObservableList<? extends Entity> getFilteredEntityList(String entityType);
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
