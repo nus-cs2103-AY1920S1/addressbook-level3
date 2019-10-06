@@ -16,16 +16,15 @@ import seedu.address.logic.Logic;
  * The manager of the UI component.
  */
 public class UiManager implements Ui {
-
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
+    private static Tab tab;
+
     private Logic logic;
     private MainWindow mainWindow;
-
-    public static Tab tab;
 
     public UiManager(Logic logic) {
         super();
@@ -85,6 +84,13 @@ public class UiManager implements Ui {
         System.exit(1);
     }
 
+    public static Tab getTab() {
+        return tab;
+    }
+
+    /**
+     * The various tabs users can switch to.
+     */
     public enum Tab {
         DASHBOARD, BODIES, WORKERS, FRIDGES;
     }

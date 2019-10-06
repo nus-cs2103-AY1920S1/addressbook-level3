@@ -31,18 +31,18 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            if (UiManager.tab == UiManager.Tab.BODIES) {
+            if (UiManager.getTab() == UiManager.Tab.BODIES) {
                 model.updateFilteredBodyList(predicate);
                 return new CommandResult(
                         String.format(Messages.MESSAGE_WORKERS_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
-            } else if (UiManager.tab == UiManager.Tab.WORKERS) {
+            } else if (UiManager.getTab() == UiManager.Tab.WORKERS) {
                 model.updateFilteredWorkerList(predicate);
                 return new CommandResult(
                         String.format(Messages.MESSAGE_WORKERS_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
             } else {
                 throw new CommandException("Please switch to Workers or Bodies tab to execute this command.");
             }
-        } catch (CommandException e){
+        } catch (CommandException e) {
             return new CommandResult(e.getMessage());
         }
     }
