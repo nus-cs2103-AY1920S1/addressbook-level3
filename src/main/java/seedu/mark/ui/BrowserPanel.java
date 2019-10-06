@@ -10,7 +10,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -26,10 +25,12 @@ import seedu.mark.commons.core.LogsCenter;
  */
 public class BrowserPanel extends UiPart<Region> {
 
+    /** Default html page to be loaded when not connected to internet. */
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class
                     .getResource(FXML_FILE_FOLDER + "default.html"));
 
+    /** Name of corresponding fxml file. */
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -56,6 +57,9 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage("https://google.com.sg");
     }
 
+    /**
+     * Initialises the address bar.
+     */
     private void loadGuiAddress() {
         addressBar.focusedProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> {
@@ -72,12 +76,18 @@ public class BrowserPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Initialises the button that leads to google home page when pressed.
+     */
     private void loadGuiGoogleButton() {
         googleLogo.setImage(new Image(
                 MainWindow.class.getResourceAsStream("/images/gLogo.png")
         ));
     }
 
+    /**
+     * Initialises the embedded browser.
+     */
     private void loadGuiBrowser() {
         webEngine = browser.getEngine();
 
@@ -97,8 +107,7 @@ public class BrowserPanel extends UiPart<Region> {
                                 }
                                 showAddressOnAddressBar(currentPageUrl);
                             }
-                        }
-                );
+                        });
     }
 
     ////////////////////// MAIN METHODS /////////////////////////
@@ -113,10 +122,18 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> webEngine.load(url));
     }
 
+    /**
+     * Gets the url of the page the browser currently shows.
+     * @return url of current page.
+     */
     public String getCurrentPageUrl() {
         return webEngine.getLocation();
     }
 
+    /**
+     * Sets address bar text as url.
+     * @param url url to set address bar content to.
+     */
     private void showAddressOnAddressBar(String url) {
         addressBar.setText(url);
     }
@@ -150,7 +167,7 @@ public class BrowserPanel extends UiPart<Region> {
     private boolean checkUrlValid(String url) {
         //check if have protocol in front
         //if true then test out by creating a url and catching malinformedurlexception?
-        return true;
+        return url.isBlank(); //dummy code
     }
 
     /**
@@ -163,7 +180,7 @@ public class BrowserPanel extends UiPart<Region> {
     private String parseNonUrl(String input) {
         //if is url without protocol, add protocol http://
         //else google search it... how?
-        return "";
+        return input; //dummy code
     }
 
     /**
