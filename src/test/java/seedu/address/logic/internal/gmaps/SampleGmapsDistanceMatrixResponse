@@ -1,0 +1,126 @@
+{
+  "destination_addresses":[
+    "10 Lower Kent Ridge Rd, National University of Singapore, Singapore",
+    "Lower Kent Ridge Rd, Singapore",
+    "11 Computing Dr, Singapore 117416"
+  ],
+  "rows":[
+    {
+      "elements":[
+        {
+          "duration":{
+            "text":"1 min",
+            "value":0
+          },
+          "distance":{
+            "text":"1 ft",
+            "value":0
+          },
+          "status":"OK"
+        },
+        {
+          "duration":{
+            "text":"3 mins",
+            "value":157
+          },
+          "distance":{
+            "text":"0.3 mi",
+            "value":466
+          },
+          "status":"OK"
+        },
+        {
+          "duration":{
+            "text":"8 mins",
+            "value":455
+          },
+          "distance":{
+            "text":"1.4 mi",
+            "value":2293
+          },
+          "status":"OK"
+        }
+      ]
+    },
+    {
+      "elements":[
+        {
+          "duration":{
+            "text":"2 mins",
+            "value":145
+          },
+          "distance":{
+            "text":"0.3 mi",
+            "value":466
+          },
+          "status":"OK"
+        },
+        {
+          "duration":{
+            "text":"1 min",
+            "value":0
+          },
+          "distance":{
+            "text":"1 ft",
+            "value":0
+          },
+          "status":"OK"
+        },
+        {
+          "duration":{
+            "text":"6 mins",
+            "value":348
+          },
+          "distance":{
+            "text":"1.2 mi",
+            "value":1964
+          },
+          "status":"OK"
+        }
+      ]
+    },
+    {
+      "elements":[
+        {
+          "duration":{
+            "text":"9 mins",
+            "value":526
+          },
+          "distance":{
+            "text":"1.6 mi",
+            "value":2534
+          },
+          "status":"OK"
+        },
+        {
+          "duration":{
+            "text":"7 mins",
+            "value":434
+          },
+          "distance":{
+            "text":"1.4 mi",
+            "value":2205
+          },
+          "status":"OK"
+        },
+        {
+          "duration":{
+            "text":"1 min",
+            "value":0
+          },
+          "distance":{
+            "text":"1 ft",
+            "value":0
+          },
+          "status":"OK"
+        }
+      ]
+    }
+  ],
+  "origin_addresses":[
+    "10 Lower Kent Ridge Rd, National University of Singapore, Singapore",
+    "Lower Kent Ridge Rd, Singapore",
+    "11 Computing Dr, Singapore 117416"
+  ],
+  "status":"OK"
+}
