@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
+import seedu.address.model.weekschedule.WeekSchedule;
 
 
 /**
@@ -357,4 +359,11 @@ public class ModelManager implements Model {
     public TimeBook getTimeBook() {
         return this.timeBook;
     }
+
+    @Override
+    public WeekSchedule getWeekSchedule(String scheduleName, LocalDateTime dateTime, ArrayList<Person> persons) {
+        return new WeekSchedule(scheduleName, dateTime, persons);
+    }
+
+
 }

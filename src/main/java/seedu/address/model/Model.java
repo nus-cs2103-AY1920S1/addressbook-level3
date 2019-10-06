@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
@@ -19,6 +20,7 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
+import seedu.address.model.weekschedule.WeekSchedule;
 
 /**
  * The API of the Model component.
@@ -207,6 +209,8 @@ public interface Model {
 
 
     TimeBook getTimeBook();
+
+    WeekSchedule getWeekSchedule(String scheduleName, LocalDateTime dateTime, ArrayList<Person> persons);
 
 
 }
