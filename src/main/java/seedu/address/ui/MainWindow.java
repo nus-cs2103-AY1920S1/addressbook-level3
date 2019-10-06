@@ -36,6 +36,8 @@ import seedu.address.ui.utility.PreferencesPage;
 public class MainWindow extends UiPart<Stage> {
 
     private static String FXML = "MainWindow.fxml";
+    private static final int PAGE_TRANSITION_DURATION_MILLIS = 500;
+    private static final double PAGE_TRANSITION_INITIAL_OPACITY = 0.2;
 
     protected final Logger logger = LogsCenter.getLogger(getClass());
     protected Stage primaryStage;
@@ -222,14 +224,27 @@ public class MainWindow extends UiPart<Stage> {
 
         //transition
         List<Node> currentChildren = contentPlaceholder.getChildren();
-        pageNode.translateXProperty().set(primaryStage.getWidth());
+        int numChildren = currentChildren.size();
+        assert numChildren == 0 || numChildren == 1;
+
+        pageNode.translateXProperty().set(contentPlaceholder.getWidth());
+        pageNode.opacityProperty().set(PAGE_TRANSITION_INITIAL_OPACITY);
         contentPlaceholder.getChildren().add(pageNode);
 
         Timeline timeline = new Timeline();
         KeyValue yTranslateKv =
                 new KeyValue(pageNode.translateXProperty(), 0, Interpolator.EASE_IN);
-        KeyFrame keyFrame = new KeyFrame(new Duration(200), yTranslateKv);
+        KeyValue opacityKv =
+                new KeyValue(pageNode.opacityProperty(), 1.0, Interpolator.EASE_IN);
+        KeyFrame keyFrame = new KeyFrame(
+                new Duration(PAGE_TRANSITION_DURATION_MILLIS), yTranslateKv, opacityKv);
         timeline.getKeyFrames().add(keyFrame);
+
+        if (numChildren == 1) {
+            Node previousPage = currentChildren.get(0);
+            timeline.setOnFinished(event -> currentChildren.remove(previousPage));
+        }
+
         timeline.play();
     }
 
