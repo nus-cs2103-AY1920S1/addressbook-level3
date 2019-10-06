@@ -29,6 +29,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -39,6 +40,8 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.Nric;
+import seedu.address.model.entity.body.Religion;
+import seedu.address.model.entity.body.Status;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -75,10 +78,10 @@ public class AddCommandParser implements Parser<AddCommand> {
                             PREFIX_EMPLOYMENT_STATUS);
             break;
         case "b":
-            arePrefixesPresent = arePrefixesPresent(argMultimap, PREFIX_FIRST_NAME, PREFIX_LAST_NAME, PREFIX_PHONE,
+            arePrefixesPresent = arePrefixesPresent(argMultimap, PREFIX_FIRST_NAME, PREFIX_LAST_NAME,
                     PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_NRIC,
-                            PREFIX_CAUSE_OF_DEATH, PREFIX_BODY_DETAILS, PREFIX_RELATIONSHIP, PREFIX_RELIGION,
-                                    PREFIX_NAME_NOK, PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION, PREFIX_FRIDGE_ID);
+                            PREFIX_CAUSE_OF_DEATH, PREFIX_RELATIONSHIP, PREFIX_RELIGION, PREFIX_NAME_NOK,
+                                    PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION, PREFIX_FRIDGE_ID);
             break;
         default:
             arePrefixesPresent = arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
@@ -119,17 +122,22 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else if (flag.equals("b")) {
             Date dateOfDeath = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_DEATH).get());
             Date dateOfAdmission = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_ADMISSION).get());
-            String status = argMultimap.getValue(PREFIX_STATUS).get();
+            Status status = Status.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
             Name nameNok = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME_NOK).get());
             Phone phoneNok = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE_NOK).get());
             String causeOfDeath = argMultimap.getValue(PREFIX_CAUSE_OF_DEATH).get();
             String details = argMultimap.getValue(PREFIX_BODY_DETAILS).get();
-            String organsForDonation = argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).get();
+            List<String> organsForDonation = ParserUtil.parseOrgansForDonation(
+                    argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).get());
             IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
                     argMultimap.getValue(PREFIX_FRIDGE_ID).get());
+            Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).get());
+            String relationsip = argMultimap.getValue(PREFIX_RELATIONSHIP).get();
 
-            Body body = new Body(dateOfAdmission); // todo: modify body class for standard constructor
+            Body body = new Body(false, 1, dateOfAdmission, name, sex, nric, religion,
+                    causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationsip,
+                            phoneNok);
 
             return new AddCommand(body);
         } else {
