@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Njoy Teaching Assistant
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-W13-2/main[image:https://travis-ci.org/AY1920S1-CS2103T-W13-2/main.svg?branch=master[Build Status]]
@@ -14,9 +14,9 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* This is a desktop Teacher Assistant application called njoy Assistant. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It aims to help teachers easily manage their students and activities.
+* With njoy Assistant, teachers will be able to create questions, generate quizzes, view statistics and more with just a few taps of their keyboards!
 
 == Site Map
 
