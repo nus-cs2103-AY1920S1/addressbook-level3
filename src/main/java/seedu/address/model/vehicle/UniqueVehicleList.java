@@ -13,10 +13,12 @@ import seedu.address.model.vehicle.exceptions.VehicleNotFoundException;
 
 /**
  * A list of Vehicles that enforces uniqueness between its elements and does not allow nulls.
- * A Vehicle is considered unique by comparing using {@code Vehicle#isSameVehicle(Vehicle)}. As such, adding and updating of
- * Vehicles uses Vehicle#isSameVehicle(Vehicle) for equality so as to ensure that the Vehicle being added or updated is
- * unique in terms of identity in the UniqueVehicleList. However, the removal of a Vehicle uses Vehicle#equals(Object) so
- * as to ensure that the Vehicle with exactly the same fields will be removed.
+ * A Vehicle is considered unique by comparing using {@code Vehicle#isSameVehicle(Vehicle)}.
+ * As such, adding and updating of Vehicles uses Vehicle#isSameVehicle(Vehicle) for equality,
+ * so as to ensure that the Vehicle being added or updated is unique
+ * in terms of identity in the UniqueVehicleList.
+ * However, the removal of a Vehicle uses Vehicle#equals(Object)
+ * so as to ensure that the Vehicle with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -90,7 +92,7 @@ public class UniqueVehicleList implements Iterable<Vehicle> {
      */
     public void setVehicles(List<Vehicle> Vehicles) {
         requireAllNonNull(Vehicles);
-        if (!VehiclesAreUnique(Vehicles)) {
+        if (!vehiclesAreUnique(Vehicles)) {
             throw new DuplicateVehicleException();
         }
 
@@ -124,7 +126,7 @@ public class UniqueVehicleList implements Iterable<Vehicle> {
     /**
      * Returns true if {@code Vehicles} contains only unique Vehicles.
      */
-    private boolean VehiclesAreUnique(List<Vehicle> Vehicles) {
+    private boolean vehiclesAreUnique(List<Vehicle> Vehicles) {
         for (int i = 0; i < Vehicles.size() - 1; i++) {
             for (int j = i + 1; j < Vehicles.size(); j++) {
                 if (Vehicles.get(i).isSameVehicle(Vehicles.get(j))) {
