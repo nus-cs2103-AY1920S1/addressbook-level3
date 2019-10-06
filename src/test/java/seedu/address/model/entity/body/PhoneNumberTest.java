@@ -65,4 +65,8 @@ class PhoneNumberTest {
         assertTrue(PhoneNumber.isValidPhoneNumber("98984444"));
     }
 
+    @Test
+    void toString_equals() {
+        assertEquals("91234567", new PhoneNumber("91234567").toString());
+    }
 }

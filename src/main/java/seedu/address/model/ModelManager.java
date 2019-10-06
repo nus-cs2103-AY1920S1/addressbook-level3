@@ -12,9 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.Entity;
-import seedu.address.model.person.Person;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -43,6 +43,7 @@ public class ModelManager implements Model {
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
         //filteredFridge = new FilteredList<>(this.addressBook.getFridgeList());
+
     }
 
     public ModelManager() {

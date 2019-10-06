@@ -30,15 +30,15 @@ public class UniqueEntityLists {
 
     private final ObservableList<Person> internalListPerson = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableListPerson =
-            FXCollections.unmodifiableObservableList(internalListPerson);
+        FXCollections.unmodifiableObservableList(internalListPerson);
 
     private final ObservableList<Worker> internalListWorker = FXCollections.observableArrayList();
     private final ObservableList<Worker> internalUnmodifiableListWorker =
-            FXCollections.unmodifiableObservableList(internalListWorker);
+        FXCollections.unmodifiableObservableList(internalListWorker);
 
     private final ObservableList<Body> internalListBody = FXCollections.observableArrayList();
     private final ObservableList<Body> internalUnmodifiableListBody =
-            FXCollections.unmodifiableObservableList(internalListBody);
+        FXCollections.unmodifiableObservableList(internalListBody);
 
     /**
      * Returns true if the respective list contains an equivalent entity as the given argument.
@@ -139,7 +139,7 @@ public class UniqueEntityLists {
      */
     public void setPersons(List<Person> persons) {
         requireAllNonNull(persons);
-        if (!entitiesAreUnique((List<? extends Entity>) persons)) {
+        if (!entitiesAreUnique(persons)) {
             throw new DuplicatePersonException();
         }
 

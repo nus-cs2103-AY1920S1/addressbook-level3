@@ -80,7 +80,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
+<<<<<<< HEAD
      * Returns true if an entity with the same identity as {@code entity} exists in Mortago.
+=======
+     * Returns true if an identity with the same identity as {@code identity} exists in the address book.
+>>>>>>> 3d6139ff17940259cd651c893e21b80f90742383
      */
     public boolean hasEntity(Entity entity) {
         requireNonNull(entity);
@@ -96,7 +100,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedEntity}.
+     * Replaces the given entity {@code target} in the list with {@code editedEntity}.
      * {@code target} must exist in Mortago.
      * The person identity of {@code editedEntity} must not be the same as another existing entity in Mortago.
      */

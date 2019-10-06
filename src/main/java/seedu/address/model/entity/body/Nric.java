@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class Nric {
 
-    private static final String VALID_NRIC = "A valid NRIC number has 9 digits in total, with a letter at the start and"
+    public static final String VALID_NRIC = "A valid NRIC number has 9 digits in total, with a letter at the start and"
             + " end. Singaporeans either have the starting alphabets 'S' or 'T' while foreigners have the alphabets "
             + "F' or 'G'. The ending character of each NRIC number can be any alphabet.";
 
