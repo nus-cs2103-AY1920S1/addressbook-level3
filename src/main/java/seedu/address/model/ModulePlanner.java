@@ -60,7 +60,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
 
     /**
-     * Returns true if a study plan with the same identity as {@code study plan} exists in the address book.
+     * Returns true if a study plan with the same identity as {@code study plan} exists in the module planner.
      */
     public boolean hasStudyPlan(StudyPlan studyPlan) {
         requireNonNull(studyPlan);
@@ -77,9 +77,9 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     /**
      * Replaces the given study plan {@code target} in the list with {@code editedStudyPlan}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the module planner.
      * The person identity of {@code editedStudyPlan} must not be the same as another existing study plan
-     * in the address book.
+     * in the module planner.
      */
     public void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan) {
         requireNonNull(editedStudyPlan);

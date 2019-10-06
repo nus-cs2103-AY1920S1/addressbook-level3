@@ -11,34 +11,34 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.studyplan.StudyPlan;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the module planner data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ModulePlanner modulePlanner;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<StudyPlan> filteredStudyPlans;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given ModulePlanner and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyModulePlanner modulePlanner, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(modulePlanner, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with module planner: " + modulePlanner + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.modulePlanner = new ModulePlanner(modulePlanner);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredStudyPlans = new FilteredList<>(this.modulePlanner.getStudyPlanList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ModulePlanner(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,67 +66,67 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getModulePlannerFilePath() {
         return userPrefs.getModulePlannerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setModulePlannerFilePath(addressBookFilePath);
+    public void setModulePlannerFilePath(Path modulePlannerFilePath) {
+        requireNonNull(modulePlannerFilePath);
+        userPrefs.setModulePlannerFilePath(modulePlannerFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ModulePlanner ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
+        this.modulePlanner.resetData(modulePlanner);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyModulePlanner getModulePlanner() {
+        return modulePlanner;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public boolean hasStudyPlan(StudyPlan studyPlan) {
+        requireNonNull(studyPlan);
+        return modulePlanner.hasStudyPlan(studyPlan);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void deleteStudyPlan(StudyPlan target) {
+        modulePlanner.removeStudyPlan(target);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public void addStudyPlan(StudyPlan studyPlan) {
+        modulePlanner.addStudyPlan(studyPlan);
+        updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDYPLANS);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan) {
+        requireAllNonNull(target, editedStudyPlan);
+
+        modulePlanner.setStudyPlan(target, editedStudyPlan);
+    }
+
+    //=========== Filtered StudyPlan List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code StudyPlan} backed by the internal list of
+     * {@code versionedModulePlanner}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<StudyPlan> getFilteredStudyPlanList() {
+        return filteredStudyPlans;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredStudyPlans.setPredicate(predicate);
     }
 
     @Override
@@ -143,9 +143,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return modulePlanner.equals(other.modulePlanner)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredStudyPlans.equals(other.filteredStudyPlans);
     }
 
 }
