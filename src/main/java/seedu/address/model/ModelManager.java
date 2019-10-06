@@ -189,7 +189,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredWorkers.equals(other.filteredWorkers)
                 && filteredBodies.equals(other.filteredBodies);
-                //&& filteredFridges.equals(other.filteredFridges);
+        //&& filteredFridges.equals(other.filteredFridges);
     }
 
 }
