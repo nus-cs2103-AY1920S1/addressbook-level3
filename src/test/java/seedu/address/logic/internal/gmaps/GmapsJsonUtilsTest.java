@@ -13,7 +13,132 @@ public class GmapsJsonUtilsTest {
 
     @Test
     public void contructs_nxn_matrix() {
-        String gmapsResponse = "{\"destination_addresses\":[\"10 Lower Kent Ridge Rd, National University of Singapore, Singapore\",\"Lower Kent Ridge Rd, Singapore\",\"11 Computing Dr, Singapore 117416\"],\"rows\":[{\"elements\":[{\"duration\":{\"text\":\"1 min\",\"value\":0},\"distance\":{\"text\":\"1 ft\",\"value\":0},\"status\":\"OK\"},{\"duration\":{\"text\":\"3 mins\",\"value\":157},\"distance\":{\"text\":\"0.3 mi\",\"value\":466},\"status\":\"OK\"},{\"duration\":{\"text\":\"8 mins\",\"value\":455},\"distance\":{\"text\":\"1.4 mi\",\"value\":2293},\"status\":\"OK\"}]},{\"elements\":[{\"duration\":{\"text\":\"2 mins\",\"value\":145},\"distance\":{\"text\":\"0.3 mi\",\"value\":466},\"status\":\"OK\"},{\"duration\":{\"text\":\"1 min\",\"value\":0},\"distance\":{\"text\":\"1 ft\",\"value\":0},\"status\":\"OK\"},{\"duration\":{\"text\":\"6 mins\",\"value\":348},\"distance\":{\"text\":\"1.2 mi\",\"value\":1964},\"status\":\"OK\"}]},{\"elements\":[{\"duration\":{\"text\":\"9 mins\",\"value\":526},\"distance\":{\"text\":\"1.6 mi\",\"value\":2534},\"status\":\"OK\"},{\"duration\":{\"text\":\"7 mins\",\"value\":434},\"distance\":{\"text\":\"1.4 mi\",\"value\":2205},\"status\":\"OK\"},{\"duration\":{\"text\":\"1 min\",\"value\":0},\"distance\":{\"text\":\"1 ft\",\"value\":0},\"status\":\"OK\"}]}],\"origin_addresses\":[\"10 Lower Kent Ridge Rd, National University of Singapore, Singapore\",\"Lower Kent Ridge Rd, Singapore\",\"11 Computing Dr, Singapore 117416\"],\"status\":\"OK\"}\n";
+        String gmapsResponse = "{ \n" +
+                "   \"destination_addresses\":[ \n" +
+                "      \"10 Lower Kent Ridge Rd, National University of Singapore, Singapore\",\n" +
+                "      \"Lower Kent Ridge Rd, Singapore\",\n" +
+                "      \"11 Computing Dr, Singapore 117416\"\n" +
+                "   ],\n" +
+                "   \"rows\":[ \n" +
+                "      { \n" +
+                "         \"elements\":[ \n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"1 min\",\n" +
+                "                  \"value\":0\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"1 ft\",\n" +
+                "                  \"value\":0\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            },\n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"3 mins\",\n" +
+                "                  \"value\":157\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"0.3 mi\",\n" +
+                "                  \"value\":466\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            },\n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"8 mins\",\n" +
+                "                  \"value\":455\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"1.4 mi\",\n" +
+                "                  \"value\":2293\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            }\n" +
+                "         ]\n" +
+                "      },\n" +
+                "      { \n" +
+                "         \"elements\":[ \n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"2 mins\",\n" +
+                "                  \"value\":145\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"0.3 mi\",\n" +
+                "                  \"value\":466\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            },\n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"1 min\",\n" +
+                "                  \"value\":0\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"1 ft\",\n" +
+                "                  \"value\":0\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            },\n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"6 mins\",\n" +
+                "                  \"value\":348\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"1.2 mi\",\n" +
+                "                  \"value\":1964\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            }\n" +
+                "         ]\n" +
+                "      },\n" +
+                "      { \n" +
+                "         \"elements\":[ \n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"9 mins\",\n" +
+                "                  \"value\":526\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"1.6 mi\",\n" +
+                "                  \"value\":2534\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            },\n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"7 mins\",\n" +
+                "                  \"value\":434\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"1.4 mi\",\n" +
+                "                  \"value\":2205\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            },\n" +
+                "            { \n" +
+                "               \"duration\":{ \n" +
+                "                  \"text\":\"1 min\",\n" +
+                "                  \"value\":0\n" +
+                "               },\n" +
+                "               \"distance\":{ \n" +
+                "                  \"text\":\"1 ft\",\n" +
+                "                  \"value\":0\n" +
+                "               },\n" +
+                "               \"status\":\"OK\"\n" +
+                "            }\n" +
+                "         ]\n" +
+                "      }\n" +
+                "   ],\n" +
+                "   \"origin_addresses\":[ \n" +
+                "      \"10 Lower Kent Ridge Rd, National University of Singapore, Singapore\",\n" +
+                "      \"Lower Kent Ridge Rd, Singapore\",\n" +
+                "      \"11 Computing Dr, Singapore 117416\"\n" +
+                "   ],\n" +
+                "   \"status\":\"OK\"\n" +
+                "}\n";
         JSONParser parser = new JSONParser();
         ArrayList<Long> expectedRow1 = new ArrayList<>();
         expectedRow1.add((long) 0);
