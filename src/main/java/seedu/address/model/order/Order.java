@@ -32,7 +32,6 @@ public class Order implements Cloneable {
 
     /**
      * Every field must be present and not null.
-     * @throws CloneNotSupportedException If Customer/Phone class does not implement Cloneable interface.
      */
     public Order(Customer customer, Phone phone, Price price, Set<Tag> tags) throws CloneNotSupportedException {
         requireAllNonNull(customer, phone, price, tags);
@@ -42,6 +41,30 @@ public class Order implements Cloneable {
         this.price = price;
         this.status = Status.UNSCHEDULED;
         this.schedule = null;
+        this.tags.addAll(tags);
+    }
+
+    public Order(Customer customer, Phone phone, Price price, Status status, Schedule schedule, Set<Tag> tags)
+            throws CloneNotSupportedException {
+        requireAllNonNull(customer, phone, price, tags);
+        this.id = UUID.randomUUID();
+        this.customer = (Customer) customer.clone();
+        this.phone = (Phone) phone.clone();
+        this.price = price;
+        this.status = Status.UNSCHEDULED;
+        this.schedule = null;
+        this.tags.addAll(tags);
+    }
+
+    private Order(UUID id, Customer customer, Phone phone, Price price, Status status, Schedule schedule,
+                  Set<Tag> tags) {
+        requireAllNonNull(id, customer, phone, price, status, schedule, tags);
+        this.id = id;
+        this.customer = customer;
+        this.phone = phone;
+        this.price = price;
+        this.status = status;
+        this.schedule = schedule;
         this.tags.addAll(tags);
     }
 
@@ -91,7 +114,7 @@ public class Order implements Cloneable {
     }
 
     /**
-     * Returns true if both orders have the same identity and data fields.
+     * Returns true if both orders have the same data fields.
      * This defines a stronger notion of equality between two orders.
      */
     @Override
@@ -105,8 +128,7 @@ public class Order implements Cloneable {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getId().equals(getId())
-                && otherOrder.getCustomer().equals(getCustomer())
+        return otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getPrice().equals(getPrice())
                 && otherOrder.getStatus().equals(getStatus())
@@ -116,7 +138,9 @@ public class Order implements Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Order clone = new Order(this.id, (Customer) this.customer.clone(), (Phone) this.phone.clone(),
+                (Price) this.price.clone(), this.status, (Schedule) this.schedule.clone(), this.getTags());
+        return clone;
     }
 
     @Override
