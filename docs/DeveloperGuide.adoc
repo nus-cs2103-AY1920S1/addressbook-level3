@@ -545,6 +545,54 @@ Actor: User
 +
 Use case ends.
 
+[discrete]
+=== Use case: UC09 - Start a quiz on a tag
+
+Actor: User
+
+Precondition: The tag exists in the database
+
+*MSS*
+
+1. User starts a quiz on a tag
+2. FlashMind shows a question
+3. User answers the question
+4. FlashMind displays result
+5. User confirms the result
+[none]
+* steps 2-5 are repeated until all the flashcard in the tag have been displayed.
+6. Quiz shows the results of the quiz
+
+Use case ends
+
+*Extensions*
+[none]
+* 3a. User does not give an answer
+[none]
+** 3a1. FlashMind waits for the set period
+** 3a2. User still has no answer
+** Use case resumes from step 4 (question is marked wrong)
+
+[none]
+* *a. At any time, User decides to quit the quiz
+[none]
+** *a1. FlashMind  requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
+** use case ends
+
+[discrete]
+=== Use case: UC10 - Show progress of tag
+Actor: user
+
+Precondition: Tag exists in the system.
+
+*MSS*
+
+1. User requests for the progress of a tag
+2. System shows the statistics of the desired tag
+
+Use case ends
+
 _{More to be added}_
 
 [appendix]
@@ -553,6 +601,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 flashcards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Command format should be easily understandable and intuitive to make it easier then using a GUI interface
 
 _{More to be added}_
 
