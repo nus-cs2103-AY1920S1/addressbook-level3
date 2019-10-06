@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class PurchaseList {
     private ArrayList<Purchase> allPurchases;
 
-    public PurchaseList(ArrayList<Purchase> allPurchases) {
+    public PurchaseList(ArrayList<Purchase> allPurchases) throws Exception {
         if (allPurchases.size() == 0) {
-            //todo throw new error for no existing purchase list
+            throw new Exception("This purchase does not exist in your list!");
         } else {
             this.allPurchases = allPurchases;
         }
@@ -28,8 +28,6 @@ public class PurchaseList {
      * @param newPurchase of payment to a person
      */
     public void addSinglePayment(Purchase newPurchase) {
-        /*Purchase newPurchase = new Purchase(description, value);
-        newPurchase.setPersonPaid(personPaid);*/
         allPurchases.add(newPurchase);
     }
 

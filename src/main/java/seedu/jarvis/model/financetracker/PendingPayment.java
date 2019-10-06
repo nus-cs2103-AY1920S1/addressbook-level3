@@ -6,6 +6,7 @@ package seedu.jarvis.model.financetracker;
 public class PendingPayment {
     private String personName;
     private double moneyAmount;
+    private String description;
     private PaymentDirection paymentDirection;
 
     /**
@@ -13,9 +14,10 @@ public class PendingPayment {
      * @param personName of the other person involved in the transaction
      * @param moneyAmount the amount involved in the transaction
      */
-    public PendingPayment(String personName, double moneyAmount) {
+    public PendingPayment(String personName, double moneyAmount, String description) {
         this.personName = personName;
         this.moneyAmount = moneyAmount;
+        this.description = description;
     }
 
     /**
@@ -38,6 +40,10 @@ public class PendingPayment {
 
     public double getMoneyAmount() {
         return this.moneyAmount;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public PaymentDirection getPaymentDirection() {
