@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX;
 import static seedu.weme.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.weme.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.weme.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.weme.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.weme.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.TypicalMemes.AMY;
 
@@ -79,7 +77,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + ADDRESS_DESC_AMY;
         Meme expectedMeme = new MemeBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

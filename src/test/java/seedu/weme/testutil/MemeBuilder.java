@@ -4,10 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.weme.model.meme.Address;
-import seedu.weme.model.meme.Email;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.Name;
-import seedu.weme.model.meme.Phone;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.util.SampleDataUtil;
 
@@ -16,21 +14,15 @@ import seedu.weme.model.util.SampleDataUtil;
  */
 public class MemeBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_NAME = "Alice Kingsleigh";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
-    private Phone phone;
-    private Email email;
     private Address address;
     private Set<Tag> tags;
 
     public MemeBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -40,8 +32,6 @@ public class MemeBuilder {
      */
     public MemeBuilder(Meme memeToCopy) {
         name = memeToCopy.getName();
-        phone = memeToCopy.getPhone();
-        email = memeToCopy.getEmail();
         address = memeToCopy.getAddress();
         tags = new HashSet<>(memeToCopy.getTags());
     }
@@ -70,24 +60,8 @@ public class MemeBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Phone} of the {@code Meme} that we are building.
-     */
-    public MemeBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code Meme} that we are building.
-     */
-    public MemeBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
     public Meme build() {
-        return new Meme(name, phone, email, address, tags);
+        return new Meme(name, address, tags);
     }
 
 }
