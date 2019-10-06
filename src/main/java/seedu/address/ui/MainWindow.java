@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private EventListPanel eventListPanel;
+    private ListPanel listPanel;
     private LogPanel logPanel;
     private HelpWindow helpWindow;
 
@@ -48,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane logPanelPlaceholder;
@@ -124,9 +124,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
-        eventListPanel = new EventListPanel(logic.getFilteredEventList());
-        personListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        listPanel = new ListPanel(logic.getFilteredEventList());
+        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         logPanel = new LogPanel();
         logPanelPlaceholder.getChildren().add(logPanel.getRoot());
@@ -148,21 +147,13 @@ public class MainWindow extends UiPart<Stage> {
         double screenHeight = primaryScreenBounds.getHeight();
         double screenWidth = primaryScreenBounds.getWidth();
 
-        logPanelPlaceholder.setPrefHeight(screenHeight);
-        personListPanelPlaceholder.setPrefHeight(screenHeight);
-
-        personListPanelPlaceholder.setMinWidth(screenWidth / 2 - WIDTH_PADDING);
-
-        logPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
-        personListPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
+        logPanelPlaceholder.setPrefWidth(screenWidth);
+        listPanelPlaceholder.setPrefWidth(screenWidth);
+        // listPanelPlaceholder.setPrefHeight(screenHeight);
 
         // Set the stage width and height
         primaryStage.setMaxWidth(screenWidth);
         primaryStage.setMaxHeight(screenHeight);
-        primaryStage.setMinHeight(screenHeight / 1.25);
-        primaryStage.setMinWidth(screenWidth / 1.25);
-
-
     }
 
     /**
@@ -203,10 +194,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public EventListPanel getEventListPanel() {
-        return eventListPanel;
     }
 
     /**

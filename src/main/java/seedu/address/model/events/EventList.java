@@ -3,8 +3,6 @@ package seedu.address.model.events;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.events.exceptions.EventNotFoundException;
@@ -15,10 +13,10 @@ import seedu.address.model.events.exceptions.EventNotFoundException;
  */
 public class EventList implements ReadOnlyEventList {
 
-    private final ArrayList<EventSource> list;
+    private final ObservableList<EventSource> list;
 
     public EventList() {
-        this.list = new ArrayList<>();
+        this.list = FXCollections.observableArrayList();
     }
 
     public EventList(ReadOnlyEventList eventList) {
@@ -84,6 +82,6 @@ public class EventList implements ReadOnlyEventList {
 
     @Override
     public ObservableList<EventSource> getReadOnlyList() {
-        return FXCollections.unmodifiableObservableList(FXCollections.observableList(this.list));
+        return FXCollections.unmodifiableObservableList(this.list);
     }
 }
