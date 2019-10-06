@@ -32,4 +32,17 @@ public class CollectionUtil {
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
+
+    /**
+     * Throws {@link IllegalArgumentException} if any of the {@code collections} is empty.
+     *
+     * @see Collection#isEmpty()
+     */
+    public static void requireAllNotEmpty(Collection<?>... collections) {
+        requireNonNull(collections);
+        if (Stream.of(collections).anyMatch(Collection::isEmpty)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
 }

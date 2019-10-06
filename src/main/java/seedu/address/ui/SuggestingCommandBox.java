@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
 import javafx.stage.Window;
@@ -66,7 +65,28 @@ public class SuggestingCommandBox extends CommandBox {
      */
     private void bindPopupPosition() {
         final InvalidationListener repositionPopup = (observable -> {
-            final Point2D absolutePosition = commandTextField.localToScreen(0, commandTextField.getHeight());
+            if (!popup.isShowing()) {
+                return;
+            }
+
+            final double commandTextFieldHeight = commandTextField.getHeight();
+            final double popupHeight = popup.getHeight();
+            final double fullHeight = commandTextFieldHeight + popupHeight;
+
+            double verticalOffset;
+
+            // calculate the expected bottom-left Point2D of the popup window if it's placed below the command input box
+            final Point2D popupBottomLeftPoint = commandTextField.localToScreen(0, fullHeight);
+            if (UiUtil.isPointUserVisible(popupBottomLeftPoint, UiUtil.Bounds.VERTICAL)) {
+                // there's enough space to place the popup window below the command input box, so we'll do that
+                verticalOffset = commandTextFieldHeight;
+            } else {
+                // not enough space to place the popup window below the command input box, so we'll place it above
+                // instead
+                verticalOffset = popupHeight * -1;
+            }
+
+            final Point2D absolutePosition = commandTextField.localToScreen(0, verticalOffset);
             popup.setX(absolutePosition.getX());
             popup.setY(absolutePosition.getY());
         });
@@ -101,17 +121,27 @@ public class SuggestingCommandBox extends CommandBox {
                 KeyCode.TAB
         );
 
+        final var listSelection = listView.getSelectionModel();
+
+        popup.showingProperty().addListener((unused1, unused2, isShowing) -> {
+            // pre-select the first item in the list when suggestions are being shown
+            if (!isShowing || !listSelection.isEmpty()) {
+                return;
+            }
+
+            listSelection.selectFirst();
+        });
+
         UiUtil.addKeyCodeListener(listView, KeyCode.TAB, keyEvent -> {
-            final MultipleSelectionModel<String> selectionModel = listView.getSelectionModel();
-            if (selectionModel.isEmpty()) {
+            if (listSelection.isEmpty()) {
                 if (listView.getItems().isEmpty()) {
                     return;
                 }
-                selectionModel.selectFirst();
+                listSelection.selectFirst();
             }
             keyEvent.consume();
 
-            final String selectedCommand = selectionModel.getSelectedItem();
+            final String selectedCommand = listSelection.getSelectedItem();
             commandTextField.setText(selectedCommand + " ");
             commandTextField.positionCaret(Integer.MAX_VALUE);
         });

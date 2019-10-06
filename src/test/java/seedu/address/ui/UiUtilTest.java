@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,15 +20,18 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import javafx.application.Platform;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 class UiUtilTest {
+    private static Point2D originPoint;
 
     /**
      * Set up a JavaFX Application thread for test functions to use {@link Platform#runLater(Runnable)}.
@@ -38,6 +42,9 @@ class UiUtilTest {
         // TODO: find a better way to test JavaFX-related things without invoking JavaFX
         Platform.startup(() -> {
         });
+
+        final var primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        originPoint = new Point2D(primaryScreenBounds.getMinX(), primaryScreenBounds.getMinY());
     }
 
     /**
@@ -300,4 +307,119 @@ class UiUtilTest {
 
         assertTrue(receivedKeyEvents.isEmpty());
     }
+
+    Point2D pointWithX(final Point2D point, final double x) {
+        return new Point2D(x, point.getY());
+    }
+
+    Point2D pointWithY(final Point2D point, final double y) {
+        return new Point2D(point.getX(), y);
+    }
+
+    @Test
+    void isPointUserVisible_origin_true() {
+        assertTrue(UiUtil.isPointUserVisible(originPoint));
+    }
+
+    @Test
+    void isPointUserVisible_offscreenMinXy_false() {
+        final Point2D offscreenMinXyPoint = new Point2D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+        assertFalse(UiUtil.isPointUserVisible(offscreenMinXyPoint));
+    }
+
+    @Test
+    void isPointUserVisible_offscreenMaxXy_false() {
+        final Point2D offscreenMaxXyPoint = new Point2D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        assertFalse(UiUtil.isPointUserVisible(offscreenMaxXyPoint));
+    }
+
+    @Test
+    void isPointUserVisible_offscreenOriginXMinY_false() {
+        final Point2D originXMinYPoint = pointWithY(originPoint, Double.NEGATIVE_INFINITY);
+        assertFalse(UiUtil.isPointUserVisible(originXMinYPoint));
+    }
+
+    @Test
+    void isPointUserVisible_offscreenOriginXMaxY_false() {
+        final Point2D originXMaxYPoint = pointWithY(originPoint, Double.POSITIVE_INFINITY);
+        assertFalse(UiUtil.isPointUserVisible(originXMaxYPoint));
+    }
+
+    @Test
+    void isPointUserVisible_offscreenMinXOriginY_false() {
+        final Point2D minXOriginYPoint = pointWithX(originPoint, Double.NEGATIVE_INFINITY);
+        assertFalse(UiUtil.isPointUserVisible(minXOriginYPoint));
+    }
+
+    @Test
+    void isPointUserVisible_offscreenMaxXOriginY_false() {
+        final Point2D maxXOriginYPoint = pointWithX(originPoint, Double.POSITIVE_INFINITY);
+        assertFalse(UiUtil.isPointUserVisible(maxXOriginYPoint));
+    }
+
+    @Test
+    void isPointUserVisibleTopBound_offscreenXoriginY_true() {
+        final Point2D offscreenXoriginY = pointWithX(originPoint, Double.NEGATIVE_INFINITY);
+        final UiUtil.Bounds bound = UiUtil.Bounds.TOP;
+
+        assertTrue(UiUtil.isPointUserVisible(offscreenXoriginY, bound));
+    }
+
+    @Test
+    void isPointUserVisibleTopBound_offscreenXoffscreenY_false() {
+        final Point2D offscreenXoffscreenYPoint = new Point2D(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY);
+        final UiUtil.Bounds bound = UiUtil.Bounds.TOP;
+
+        assertFalse(UiUtil.isPointUserVisible(offscreenXoffscreenYPoint, bound));
+    }
+
+    @Test
+    void isPointUserVisibleRightBound_originXoffscreenY_true() {
+        final Point2D originXoffscreenYPoint = pointWithY(originPoint, Double.POSITIVE_INFINITY);
+        ;
+        final UiUtil.Bounds bound = UiUtil.Bounds.RIGHT;
+
+        assertTrue(UiUtil.isPointUserVisible(originXoffscreenYPoint, bound));
+    }
+
+    @Test
+    void isPointUserVisibleRightBound_offscreenXoffscreenY_false() {
+        final Point2D offscreenXoffscreenYPoint = new Point2D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        final UiUtil.Bounds bound = UiUtil.Bounds.RIGHT;
+
+        assertFalse(UiUtil.isPointUserVisible(offscreenXoffscreenYPoint, bound));
+    }
+
+    @Test
+    void isPointUserVisibleBottomBound_offscreenXoriginY_true() {
+        final Point2D offscreenXoriginY = pointWithX(originPoint, Double.NEGATIVE_INFINITY);
+        final UiUtil.Bounds bound = UiUtil.Bounds.BOTTOM;
+
+        assertTrue(UiUtil.isPointUserVisible(offscreenXoriginY, bound));
+    }
+
+    @Test
+    void isPointUserVisibleBottomBound_offscreenXoffscreenY_false() {
+        final Point2D offscreenXoffscreenYPoint = new Point2D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        final UiUtil.Bounds bound = UiUtil.Bounds.BOTTOM;
+
+        assertFalse(UiUtil.isPointUserVisible(offscreenXoffscreenYPoint, bound));
+    }
+
+    @Test
+    void isPointUserVisibleLeftBound_originXoffscreenY_true() {
+        final Point2D originXoffscreenYPoint = pointWithY(originPoint, Double.NEGATIVE_INFINITY);
+        final UiUtil.Bounds bound = UiUtil.Bounds.LEFT;
+
+        assertTrue(UiUtil.isPointUserVisible(originXoffscreenYPoint, bound));
+    }
+
+    @Test
+    void isPointUserVisibleLeftBound_offscreenXoffscreenY_false() {
+        final Point2D offscreenXoffscreenYPoint = new Point2D(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        final UiUtil.Bounds bound = UiUtil.Bounds.LEFT;
+
+        assertFalse(UiUtil.isPointUserVisible(offscreenXoffscreenYPoint, bound));
+    }
+
 }
