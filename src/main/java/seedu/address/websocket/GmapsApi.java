@@ -32,7 +32,8 @@ public class GmapsApi {
      * @throws InvalidParameterException
      * @throws ConnectException
      */
-    public JSONObject getDistanceMatrix(ArrayList<String> locations) throws InvalidParameterException, ConnectException {
+    public JSONObject getDistanceMatrix(ArrayList<String> locations)
+            throws InvalidParameterException, ConnectException {
         if (locations.size() > 10) {
             throw new InvalidParameterException("GMAPS API Only can make request to 10 locations.");
         }
