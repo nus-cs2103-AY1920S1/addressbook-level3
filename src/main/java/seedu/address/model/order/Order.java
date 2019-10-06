@@ -44,6 +44,9 @@ public class Order implements Cloneable {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Constructor for OrderBuilder to create an object with corresponding data fields with random UUID.
+     */
     public Order(Customer customer, Phone phone, Price price, Status status, Schedule schedule, Set<Tag> tags)
             throws CloneNotSupportedException {
         requireAllNonNull(customer, phone, price, tags);
@@ -51,11 +54,14 @@ public class Order implements Cloneable {
         this.customer = (Customer) customer.clone();
         this.phone = (Phone) phone.clone();
         this.price = price;
-        this.status = Status.UNSCHEDULED;
-        this.schedule = null;
+        this.status = status;
+        this.schedule = schedule;
         this.tags.addAll(tags);
     }
 
+    /**
+     * Private constructor to make a cloned Order.
+     */
     private Order(UUID id, Customer customer, Phone phone, Price price, Status status, Schedule schedule,
                   Set<Tag> tags) {
         requireAllNonNull(id, customer, phone, price, status, schedule, tags);
