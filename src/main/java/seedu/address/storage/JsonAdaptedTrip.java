@@ -8,7 +8,7 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.trip.Trip;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

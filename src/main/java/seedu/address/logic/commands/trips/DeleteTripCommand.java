@@ -6,7 +6,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.trip.Trip;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import static java.util.Objects.requireNonNull;
 public class DeleteTripCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a trip from TravelPal. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a trip from TravelPal.\n"
             + "Parameters: INDEX (must be a positive integer)";
 
     public static final String MESSAGE_DELETE_TRIP_FAILURE = "Failed to delete your trip, "

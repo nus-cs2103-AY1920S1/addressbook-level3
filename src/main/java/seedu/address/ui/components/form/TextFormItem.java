@@ -25,7 +25,6 @@ public class TextFormItem extends FormItem<String> {
                 executeChangeHandler.accept(getValue());
             }
         });
-        splitPaneItems.add(formTextField);
     }
 
     public TextFormItem(String textFormItemName, Consumer<String> executeChangeHandler) {

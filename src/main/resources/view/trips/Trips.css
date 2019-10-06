@@ -1,0 +1,9 @@
+.TripCard {
+    -fx-background-color: #FFFFF3;
+}
+
+.TripCardIndex {
+    -fx-font-family: "Book Antiqua";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}

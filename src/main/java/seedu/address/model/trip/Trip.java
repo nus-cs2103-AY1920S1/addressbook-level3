@@ -1,4 +1,4 @@
-package seedu.address.model.itinerary.trip;
+package seedu.address.model.trip;
 
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.itinerary.Expenditure;
@@ -99,8 +99,7 @@ public class Trip {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Name: ")
+        builder.append("Name: ")
                 .append(name.toString())
                 .append(" From: ")
                 .append(ParserDateUtil.getDisplayTime(startDate))

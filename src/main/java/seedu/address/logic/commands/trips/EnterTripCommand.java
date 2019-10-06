@@ -6,9 +6,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.trip.Trip;
 import seedu.address.model.appstatus.PageType;
-import seedu.address.ui.itinerary.DaysPage;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import static java.util.Objects.requireNonNull;
 public class EnterTripCommand extends Command {
     public static final String COMMAND_WORD = "goto";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the main landing page of the trip. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the main landing page of the trip.\n"
             + "Parameters: INDEX (must be a positive integer)";
 
     public static final String MESSAGE_ENTER_TRIP_SUCCESS = " Welcome to your trip! %1$s";
@@ -42,7 +41,7 @@ public class EnterTripCommand extends Command {
                 .withNewPageType(PageType.ITINERARY)
                 .withNewTrip(tripToEnter));
 
-        return new CommandResult(String.format(MESSAGE_ENTER_TRIP_SUCCESS, tripToEnter), DaysPage.class);
+        return new CommandResult(String.format(MESSAGE_ENTER_TRIP_SUCCESS, tripToEnter), true);
     }
 
     @Override

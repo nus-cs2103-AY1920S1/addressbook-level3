@@ -23,9 +23,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appstatus.PageStatus;
-import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
-import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
+import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 

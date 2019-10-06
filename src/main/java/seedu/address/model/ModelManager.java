@@ -11,9 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
-import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
+import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 import seedu.address.model.appstatus.PageStatus;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.model.person.Person;
@@ -43,7 +43,7 @@ public class ModelManager implements Model {
 
         this.travelPal = new TravelPal(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.pageStatus = new PageStatus(PageType.TRIP_MANAGER, null, null, null);
+        this.pageStatus = new PageStatus(PageType.TRIP_MANAGER, null, null, null, null);
         filteredPersons = new FilteredList<>(this.travelPal.getPersonList());
         filteredTripList = new FilteredList<>(this.travelPal.getTripList());
     }

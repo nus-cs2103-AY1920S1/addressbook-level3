@@ -4,11 +4,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
-import seedu.address.model.itinerary.trip.exceptions.TripNotFoundException;
+import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 import seedu.address.model.appstatus.PageType;
-import seedu.address.ui.trips.TripsPage;
 
 import static java.util.Objects.requireNonNull;
 
@@ -19,7 +18,7 @@ public class DoneEditTripCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits your new or edited trip information ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits your new or edited trip information.";
 
     public static final String MESSAGE_CREATE_TRIP_SUCCESS = "Created Trip: %1$s";
     public static final String MESSAGE_EDIT_TRIP_SUCCESS = "Edited Trip: %1$s";
@@ -41,8 +40,8 @@ public class DoneEditTripCommand extends Command {
 
         try {
             if (tripToEdit == null) {
-                //buildTrip() requires all fields to be non null, failing which NullPointerException
-                //is caught below
+                //buildTrip() requires all fields to be non null, failing which
+                //NullPointerException is caught below
                 tripToAdd = editTripDescriptor.buildTrip();
                 model.addTrip(tripToAdd);
             } else {
@@ -53,13 +52,14 @@ public class DoneEditTripCommand extends Command {
 
             model.setPageStatus(model.getPageStatus()
                     .withNewEditTripDescriptor(null)
-                    .withNewPageType(PageType.TRIP_MANAGER));
+                    .withNewPageType(PageType.TRIP_MANAGER)
+                    .withNewTrip(null));
 
-            return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToAdd), TripsPage.class);
+            return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToAdd), true);
         } catch (NullPointerException | TripNotFoundException ex) {
-            return new CommandResult(MESSAGE_NOT_EDITED);
+            throw new CommandException(MESSAGE_NOT_EDITED);
         } catch (ClashingTripException ex) {
-            return new CommandResult(MESSAGE_CLASHING_TRIP);
+            throw new CommandException(MESSAGE_CLASHING_TRIP);
         }
     }
 

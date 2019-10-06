@@ -5,11 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.trip.Trip;
 import seedu.address.ui.UiPart;
 
 public class TripCard extends UiPart<GridPane> {
-    private static final String FXML = "TripCard.fxml";
+    private static final String FXML = "trips/TripCard.fxml";
 
     @FXML
     private Label tripDisplayIndexLabel;

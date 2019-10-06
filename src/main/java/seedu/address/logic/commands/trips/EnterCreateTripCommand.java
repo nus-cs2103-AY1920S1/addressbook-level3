@@ -12,7 +12,7 @@ import static java.util.Objects.requireNonNull;
 public class EnterCreateTripCommand extends Command {
     public static final String COMMAND_WORD = "create";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the trip creation page of TravelPal. ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the trip creation page of TravelPal.";
 
     public static final String MESSAGE_SUCCESS = "Entered the trip creation screen.";
 
@@ -23,7 +23,7 @@ public class EnterCreateTripCommand extends Command {
         model.setPageStatus(
                 model.getPageStatus().withNewPageType(PageType.ADD_TRIP));
 
-        return new CommandResult(MESSAGE_SUCCESS, EditTripPage.class);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     @Override

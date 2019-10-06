@@ -1,4 +1,4 @@
-package seedu.address.model.itinerary.trip;
+package seedu.address.model.trip;
 
 import java.util.UUID;
 

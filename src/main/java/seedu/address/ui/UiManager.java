@@ -3,10 +3,12 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import seedu.address.Main;
 import seedu.address.MainApp;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -40,13 +42,12 @@ public class UiManager implements Ui {
         logger.info("Starting UI...");
 
         this.primaryStage = primaryStage;
-        //primaryStage.setMaximized(true);
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
-        setWindowDefaultSize(model.getGuiSettings());
 
         try {
-            MainWindow mainWindow = new TripsPage(primaryStage, logic, model);
+            MainWindow mainWindow = new MainWindow(primaryStage, logic, model);
+            TripsPage initialPage = new TripsPage(mainWindow, logic, model);
             mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -69,7 +70,7 @@ public class UiManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/LightTheme.css");
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -88,17 +89,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
-    /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
-    }
-
 }

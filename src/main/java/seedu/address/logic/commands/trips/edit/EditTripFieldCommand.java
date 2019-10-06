@@ -11,14 +11,21 @@ import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.itinerary.trip.Trip;
+import seedu.address.model.trip.Trip;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.isAllPresent;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -32,18 +39,17 @@ public class EditTripFieldCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits or creates the details of the trip "
-            + "by the index number used in the displayed trip list in the trip manager. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of your form "
+            + "by the index of the form field as displayed, or by the various prefixes of the fields. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + "[" + PREFIX_DATE_START + "START DATE] "
+            + "[" + PREFIX_DATE_END + "END DATE] "
+            + "[" + PREFIX_LOCATION + "DESTINATION] "
+            + "[" + PREFIX_BUDGET + "TOTAL BUDGET]...\n"
+            + "Example: " + COMMAND_WORD + " 1 Thailand trip"
+            + PREFIX_BUDGET + "3000";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
@@ -95,24 +101,30 @@ public class EditTripFieldCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditTripDescriptor {
-        private Name name;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
-        private Location destination;
-        private Expenditure totalBudget;
+        private Optional<Name> name;
+        private Optional<LocalDateTime> startDate;
+        private Optional<LocalDateTime> endDate;
+        private Optional<Location> destination;
+        private Optional<Expenditure> totalBudget;
 
-        public EditTripDescriptor() {}
+        public EditTripDescriptor() {
+            name = Optional.empty();
+            startDate = Optional.empty();
+            endDate = Optional.empty();
+            destination = Optional.empty();
+            totalBudget = Optional.empty();
+        }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
         public EditTripDescriptor(EditTripDescriptor toCopy) {
-            setName(toCopy.name);
-            setStartDate(toCopy.startDate);
-            setEndDate(toCopy.endDate);
-            setDestination(toCopy.destination);
-            setBudget(toCopy.totalBudget);
+            name = toCopy.getName();
+            startDate = toCopy.getStartDate();
+            endDate = toCopy.getEndDate();
+            destination = toCopy.getDestination();
+            totalBudget = toCopy.getBudget();
         }
 
         /**
@@ -136,21 +148,21 @@ public class EditTripFieldCommand extends Command {
          * @param newDescriptor New {@code EditTripDescriptor} to use.
          */
         public EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
-            setName(newDescriptor.name == null
-                    ? oldDescriptor.name
-                    : newDescriptor.name);
-            setStartDate(newDescriptor.startDate == null
-                    ? oldDescriptor.startDate
-                    : newDescriptor.startDate);
-            setEndDate(newDescriptor.endDate == null
-                    ? oldDescriptor.endDate
-                    : newDescriptor.endDate);
-            setDestination(newDescriptor.destination == null
-                    ? oldDescriptor.destination
-                    : newDescriptor.destination);
-            setBudget(newDescriptor.totalBudget == null
-                    ? oldDescriptor.totalBudget
-                    : newDescriptor.totalBudget);
+            this();
+            newDescriptor.name.ifPresentOrElse(this::setName,
+                    () -> oldDescriptor.name.ifPresent(this::setName));
+
+            newDescriptor.startDate.ifPresentOrElse(this::setStartDate,
+                    () -> oldDescriptor.startDate.ifPresent(this::setStartDate));
+
+            newDescriptor.endDate.ifPresentOrElse(this::setEndDate,
+                    () -> oldDescriptor.endDate.ifPresent(this::setEndDate));
+
+            newDescriptor.destination.ifPresentOrElse(this::setDestination,
+                    () -> oldDescriptor.destination.ifPresent(this::setDestination));
+
+            newDescriptor.totalBudget.ifPresentOrElse(this::setBudget,
+                    () -> oldDescriptor.totalBudget.ifPresent(this::setBudget));
         }
 
         /**
@@ -158,11 +170,15 @@ public class EditTripFieldCommand extends Command {
          * Requires name, startDate, destination and budget to have been set minimally.
          *
          * @return New {@code Trip} created.
+         * @throws NullPointerException If any of the fields are empty.
          */
         public Trip buildTrip() {
-            requireAllNonNull(name, startDate, endDate, destination, totalBudget);
-
-            return new Trip(name, startDate, endDate, destination, totalBudget, new DayList());
+            if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
+                return new Trip(name.get(), startDate.get(), endDate.get(),
+                        destination.get(), totalBudget.get(), new DayList());
+            } else {
+                throw new NullPointerException();
+            }
         }
 
         /**
@@ -179,20 +195,20 @@ public class EditTripFieldCommand extends Command {
             Location destination = trip.getDestination();
             Expenditure budget = trip.getBudget();
 
-            if (this.name != null) {
-                tripName = this.name;
+            if (this.name.isPresent()) {
+                tripName = this.name.get();
             }
-            if (this.startDate != null) {
-                startDate = this.startDate;
+            if (this.startDate.isPresent()) {
+                startDate = this.startDate.get();
             }
-            if (this.endDate != null) {
-                endDate = this.endDate;
+            if (this.endDate.isPresent()) {
+                endDate = this.endDate.get();
             }
-            if (this.destination != null) {
-                destination = this.destination;
+            if (this.destination.isPresent()) {
+                destination = this.destination.get();
             }
-            if (this.totalBudget != null) {
-                budget = this.totalBudget;
+            if (this.totalBudget.isPresent()) {
+                budget = this.totalBudget.get();
             }
 
             return new Trip(tripName, startDate, endDate, destination, budget, trip.getDayList());
@@ -202,47 +218,47 @@ public class EditTripFieldCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, startDate, endDate, destination, totalBudget);
+            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget);
         }
 
         public void setName(Name name) {
-            this.name = name;
+            this.name = Optional.of(name);
         }
 
-        public Name getName() {
+        public Optional<Name> getName() {
             return name;
         }
 
         public void setStartDate(LocalDateTime startDate) {
-            this.startDate = startDate;
+            this.startDate = Optional.of(startDate);
         }
 
-        public LocalDateTime getStartDate() {
+        public Optional<LocalDateTime> getStartDate() {
             return startDate;
         }
 
         public void setEndDate(LocalDateTime endDate) {
-            this.endDate = endDate;
+            this.endDate = Optional.of(endDate);
         }
 
-        public LocalDateTime getEndDate() {
+        public Optional<LocalDateTime> getEndDate() {
             //end date is optional, but return null to conform with the rest.
             return endDate;
         }
 
         public void setDestination(Location destination) {
-            this.destination = destination;
+            this.destination = Optional.of(destination);
         }
 
-        public Location getDestination() {
+        public Optional<Location> getDestination() {
             return destination;
         }
 
         public void setBudget(Expenditure totalBudget) {
-            this.totalBudget = totalBudget;
+            this.totalBudget = Optional.of(totalBudget);
         }
 
-        public Expenditure getBudget() {
+        public Optional<Expenditure> getBudget() {
             return totalBudget;
         }
 
@@ -271,21 +287,14 @@ public class EditTripFieldCommand extends Command {
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
-            if (name != null) {
-                builder.append(" Name of trip: ").append(name);
-            }
-            if (startDate != null) {
-                builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate));
-            }
-            if (endDate != null) {
-                builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate));
-            }
-            if (destination != null) {
-                builder.append(" Destination: ").append(destination);
-            }
-            if (totalBudget != null) {
-                builder.append(" Total Budget: ").append(totalBudget);
-            }
+
+            this.name.ifPresent(name -> builder.append(" Name of trip: ").append(name));
+            this.startDate.ifPresent(startDate ->
+                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate)));
+            this.endDate.ifPresent(endDate ->
+                    builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
+            this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
+            this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
 
             return builder.toString();
         }

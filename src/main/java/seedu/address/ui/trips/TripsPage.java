@@ -6,27 +6,24 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.commands.trips.EnterCreateTripCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.ui.components.CommandBox;
-import seedu.address.ui.components.ResultDisplay;
-import seedu.address.ui.components.StatusBarFooter;
-import seedu.address.ui.template.WindowWithoutSidebar;
+import seedu.address.model.trip.Trip;
+import seedu.address.ui.MainWindow;
+import seedu.address.ui.template.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class TripsPage extends WindowWithoutSidebar {
+public class TripsPage extends Page<AnchorPane> {
 
-    private static final String FXML = "TripsPage.fxml";
+    private static final String FXML = "trips/TripsPage.fxml";
     private static final int MAX_COLUMNS = 5;
 
     private int nextRowToFill = 0;
@@ -38,23 +35,16 @@ public class TripsPage extends WindowWithoutSidebar {
     @FXML
     private Button addButton;
 
-    public TripsPage(Stage primaryStage, Logic logic, Model model) {
-        super(FXML, primaryStage, logic, model);
+    public TripsPage(MainWindow mainWindow, Logic logic, Model model) {
+        super(FXML, mainWindow, logic, model);
+        fillPage();
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
-    protected void fillInnerParts() {
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(model.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
+    public void fillPage() {
+        tripGridPane.getChildren().clear();
         List<Trip> trips = model.getTravelPal().getTripList();
         List<Node> tripCards = IntStream.range(0, trips.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
@@ -75,11 +65,12 @@ public class TripsPage extends WindowWithoutSidebar {
     }
 
     @FXML
-    private void handleAddTrip() throws CommandException, ParseException {
-        executeCommand(EnterCreateTripCommand.COMMAND_WORD);
+    private void handleAddTrip() {
+        mainWindow.executeGuiCommand(EnterCreateTripCommand.COMMAND_WORD);
     }
 
-    public static void switchTo(Stage stage, Logic logic, Model model) {
-        new TripsPage(stage, logic, model);
+    @FXML
+    private void handlePreferences() {
+        mainWindow.executeGuiCommand(EnterPrefsCommand.COMMAND_WORD);
     }
 }

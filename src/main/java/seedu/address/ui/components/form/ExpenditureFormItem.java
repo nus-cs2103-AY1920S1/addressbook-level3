@@ -26,7 +26,6 @@ public class ExpenditureFormItem extends FormItem<Expenditure> {
                 executeChangeHandler.accept(getValue());
             }
         });
-        splitPaneItems.add(formExpenditureField);
     }
 
     public ExpenditureFormItem(String textFormItemName, Consumer<Expenditure> executeChangeHandler) {

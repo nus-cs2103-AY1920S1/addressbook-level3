@@ -39,6 +39,11 @@ jacocoTestReport {
 
 test {
     useJUnitPlatform()
+    enableAssertions = true
+}
+
+run {
+    enableAssertions = true
 }
 
 dependencies {

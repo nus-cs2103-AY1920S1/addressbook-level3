@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.ui.MainWindow;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
@@ -14,30 +12,30 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** The page class to switch to, if any. */
-    private final Class<? extends MainWindow> page;
+    /** Whether a page switch operation should be performed. */
+    private final boolean doSwitchPage;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
     /** The application should exit. */
-    private final boolean exit;
+    private final boolean shouldExit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Class<? extends MainWindow> page) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit, boolean doSwitchPage) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
-        this.exit = exit;
-        this.page = page;
+        this.shouldExit = shouldExit;
+        this.doSwitchPage = doSwitchPage;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, null);
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit) {
+        this(feedbackToUser, showHelp, shouldExit, false);
     }
 
     /**
@@ -53,8 +51,8 @@ public class CommandResult {
      * and a page switch {@code Class} extending from {@code MainWindow} using {@code page},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser, Class<? extends MainWindow> page) {
-        this(feedbackToUser, false, false, page);
+    public CommandResult(String feedbackToUser, boolean doSwitchPage) {
+        this(feedbackToUser, false, false, doSwitchPage);
     }
 
     public String getFeedbackToUser() {
@@ -66,11 +64,11 @@ public class CommandResult {
     }
 
     public boolean isExit() {
-        return exit;
+        return shouldExit;
     }
 
-    public Optional<Class<? extends MainWindow>> getPage() {
-        return Optional.ofNullable(page);
+    public boolean doSwitchPage() {
+        return doSwitchPage;
     }
 
     @Override
@@ -87,12 +85,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && shouldExit == otherCommandResult.shouldExit
+                && doSwitchPage == otherCommandResult.doSwitchPage;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, shouldExit);
     }
 
 }

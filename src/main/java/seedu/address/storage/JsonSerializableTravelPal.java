@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.TravelPal;
-import seedu.address.model.itinerary.trip.Trip;
-import seedu.address.model.itinerary.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.exceptions.ClashingTripException;
 
 /**
  * An Immutable TravelPal that is serializable to JSON format.

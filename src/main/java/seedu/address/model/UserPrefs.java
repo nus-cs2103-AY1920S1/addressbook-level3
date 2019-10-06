@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
 
+    private boolean isGuiLocked;
     private GuiSettings guiSettings = new GuiSettings();
     private Path travelPalFilePath = Paths.get("data" , "travelpal.json");
 
@@ -36,8 +37,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setTravelPalFilePath(newUserPrefs.getTravelPalFilePath());
+        setGuiPrefsLocked(newUserPrefs.isGuiPrefsLocked());
     }
 
+    @Override
+    public boolean isGuiPrefsLocked() {
+        return isGuiLocked;
+    }
+
+    public void setGuiPrefsLocked(boolean doLock) {
+        isGuiLocked = doLock;
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return guiSettings;
     }
@@ -47,6 +59,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    @Override
     public Path getTravelPalFilePath() {
         return travelPalFilePath;
     }
@@ -80,6 +93,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append(" | Is gui settings locked: " + isGuiLocked);
         sb.append("\nLocal data file location : " + travelPalFilePath);
         return sb.toString();
     }

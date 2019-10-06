@@ -1,25 +1,21 @@
 package seedu.address.ui.itinerary;
 
-import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
-import seedu.address.ui.template.WindowWithSidebar;
+import seedu.address.ui.MainWindow;
+import seedu.address.ui.template.PageWithSidebar;
 
-public class DaysPage extends WindowWithSidebar {
+public class DaysPage extends PageWithSidebar {
 
     private static final String FXML = "DaysPage.fxml";
 
-    public DaysPage(Stage primaryStage, Logic logic, Model model) {
-        super(FXML, primaryStage, logic, model);
+    public DaysPage(MainWindow mainWindow, Logic logic, Model model) {
+        super(FXML, mainWindow, logic, model);
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
-    protected void fillInnerParts() {
-    }
-
-    public static void switchTo(Stage stage, Logic logic, Model model) {
-        DaysPage p = new DaysPage(stage, logic, model);
+    public void fillPage() {
     }
 }
