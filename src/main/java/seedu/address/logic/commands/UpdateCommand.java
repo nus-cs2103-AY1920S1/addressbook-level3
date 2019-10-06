@@ -25,6 +25,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BODIES;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -112,6 +113,22 @@ public class UpdateCommand extends Command {
         this.updateEntityDescriptor = updateEntityDescriptor;
     }
 
+    /**
+     * Saves the original fields of the given {@code Entity} into an UpdateEntityDescriptor.
+     * @param entity the entity to save
+     * @return an UpdateEntityDescriptor with the entity's current fields
+     * @throws CommandException if the Entity is not a Body, Worker, or Fridge.
+     */
+    public static UpdateEntityDescriptor saveOriginalFields(Entity entity) throws CommandException {
+        if (entity instanceof Body) {
+            return new UpdateBodyDescriptor((Body) entity);
+        } else if (entity instanceof Worker) {
+            return new UpdateWorkerDescriptor((Worker) entity);
+        }
+        // todo: add support for fridge
+        throw new CommandException("Could not find original entity.");
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -121,7 +138,7 @@ public class UpdateCommand extends Command {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
 
-        this.originalEntityDescriptor = saveOriginalFields(model, entity);
+        this.originalEntityDescriptor = saveOriginalFields(entity);
 
         model.setEntity(entity, updateEntityDescriptor.apply(entity));
         model.updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
@@ -145,25 +162,8 @@ public class UpdateCommand extends Command {
                 }
             }
         }
-        // todo: add support for worker, fridge
-        throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
-    }
-
-    /**
-     * Saves the original fields of the given {@code Entity} into an UpdateEntityDescriptor.
-     * @param model model of Mortago
-     * @param entity the entity to save
-     * @return an UpdateEntityDescriptor with the entity's current fields
-     * @throws CommandException
-     */
-    public UpdateEntityDescriptor saveOriginalFields(Model model, Entity entity) throws CommandException {
-        if (entity instanceof Body) {
-            return new UpdateBodyDescriptor((Body) entity);
-        } else if (entity instanceof Worker) {
-            return new UpdateWorkerDescriptor((Worker) entity);
-        }
         // todo: add support for fridge
-        throw new CommandException("Could not find original entity.");
+        throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
     }
 
     @Override
@@ -180,8 +180,12 @@ public class UpdateCommand extends Command {
 
         // state check
         UpdateCommand e = (UpdateCommand) other;
-        return entity.equals(e.entity)
-                && updateEntityDescriptor.equals(e.updateEntityDescriptor)
-                && originalEntityDescriptor.equals(e.originalEntityDescriptor);
+        return id.equals(e.id)
+                && updateEntityDescriptor.equals(e.updateEntityDescriptor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, updateEntityDescriptor);
     }
 }

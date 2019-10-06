@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -24,6 +25,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -34,13 +36,18 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.body.Body;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.BodyBuilder;
 
+//@@author ambervoong
 public class UpdateCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
@@ -49,6 +56,20 @@ public class UpdateCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
 
     private UpdateCommandParser parser = new UpdateCommandParser();
+/*
+    @Test
+    public void executeBody_invalidUpdateName_failure() throws CommandException {
+        Body body = new BodyBuilder().build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
+        descriptor.setName(new Name("123"));
+        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
+
+        String expectedMessage = MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
+
+        assertCommandFailure(updateCommand, model, expectedMessage);
+    }
+
+ */
 /*
     @Test
     public void parse_missingParts_failure() {

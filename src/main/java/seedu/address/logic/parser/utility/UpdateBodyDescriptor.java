@@ -2,6 +2,7 @@ package seedu.address.logic.parser.utility;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -219,5 +220,37 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
 
     public void setKinPhoneNumber(PhoneNumber kinPhoneNumber) {
         this.kinPhoneNumber = kinPhoneNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UpdateBodyDescriptor)) {
+            return false;
+        }
+        UpdateBodyDescriptor that = (UpdateBodyDescriptor) o;
+        return getName().equals(that.getName())
+                && getSex().equals(that.getSex())
+                && getNric().equals(that.getNric())
+                && getReligion().equals(that.getReligion())
+                && getCauseOfDeath().equals(that.getCauseOfDeath())
+                && getOrgansForDonation().equals(that.getOrgansForDonation())
+                && getStatus().equals(that.getStatus())
+                && getFridgeId().equals(that.getFridgeId())
+                && getDateOfBirth().equals(that.getDateOfBirth())
+                && getDateOfDeath().equals(that.getDateOfDeath())
+                && getNextOfKin().equals(that.getNextOfKin())
+                && getRelationship().equals(that.getRelationship())
+                && getKinPhoneNumber().equals(that.getKinPhoneNumber());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSex(), getNric(), getReligion(), getCauseOfDeath(), getOrgansForDonation(),
+                getStatus(), getFridgeId(), getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(),
+                getKinPhoneNumber());
     }
 }

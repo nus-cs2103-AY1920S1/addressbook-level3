@@ -1,34 +1,25 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.BodyBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 //@@author ambervoong
 /**
@@ -40,7 +31,7 @@ public class UpdateCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void executeBody_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
+    public void executeBody_allFieldsSpecifiedFilteredList_success() throws CommandException {
         Body body = new BodyBuilder().build();
         model.addEntity(body);
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
@@ -55,128 +46,89 @@ public class UpdateCommandTest {
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
-/*
+
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+    public void executeBody_someFieldsSpecifiedFilteredList_success() throws CommandException {
+        Body body = new BodyBuilder().build();
+        body.setSex(null);
+        body.setCauseOfDeath(null);
+        model.addEntity(body);
 
-        PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setSex(null);
+        descriptor.setCauseOfDeath(null);
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        UpdateCommand updateCommand = new UpdateCommand(indexLastPerson, descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        updateCommand.execute(model);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, editedPerson);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setEntity(lastPerson, editedPerson);
+        expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+    public void executeBody_bodyIdNotInFilteredList_failure() throws CommandException {
+        // Fails because the Body was not added to the model.
+        Body body = new BodyBuilder().build();
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, editedPerson);
+        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), new UpdateBodyDescriptor());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        String expectedMessage = MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 
-        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(updateCommand, model, expectedMessage);
     }
 
     @Test
-    public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void getEntityFromId_invalidBodyId_failure() throws CommandException {
+        UpdateCommand updateCommand = new UpdateCommand(
+                IdentificationNumber.customGenerateId("B", 2), new UpdateBodyDescriptor());
 
-        Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+        String expectedMessage = MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, editedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setEntity(model.getFilteredPersonList().get(0), editedPerson);
-
-        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(updateCommand, model, expectedMessage);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor);
-
-        assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+    public void saveOriginalFields_body_success() throws CommandException {
+        Body body = new BodyBuilder().build();
+        UpdateBodyDescriptor descriptor = (UpdateBodyDescriptor) UpdateCommand.saveOriginalFields(body);
+        assertEquals(descriptor.getCauseOfDeath().get(), body.getCauseOfDeath());
     }
 
-    @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(personInList).build());
-
-        assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
-    }
-
-    @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, descriptor);
-
-        assertCommandFailure(updateCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-*/
-/*
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
-     *
-    @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-
-        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
-
-        assertCommandFailure(updateCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
 
     @Test
     public void equals() {
-        final UpdateCommand standardCommand = new UpdateCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        Body body = new BodyBuilder().build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        UpdateCommand commandWithSameValues = new UpdateCommand(INDEX_FIRST_PERSON, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        UpdateBodyDescriptor copyDescriptor = new UpdateBodyDescriptor(body);
+        UpdateCommand commandWithSameValues = new UpdateCommand(new BodyBuilder().build().getBodyIdNum(),
+                copyDescriptor);
+        assertTrue(updateCommand.equals(commandWithSameValues));
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertTrue(updateCommand.equals(updateCommand));
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertFalse(updateCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(updateCommand.equals(new ExitCommand()));
 
-        // different index -> returns false
-        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        // different identification number -> returns false
+        IdentificationNumber diffId = IdentificationNumber.customGenerateId("B", 2);
+        assertFalse(updateCommand.equals(new UpdateCommand(diffId, copyDescriptor)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        copyDescriptor.setSex(Sex.FEMALE);
+        assertFalse(updateCommand.equals(new UpdateCommand(body.getBodyIdNum(), copyDescriptor)));
+
+        commandWithSameValues =  new UpdateCommand(body.getBodyIdNum(), descriptor);
+        assertEquals(updateCommand.hashCode(), commandWithSameValues.hashCode());
     }
-    */
 }
