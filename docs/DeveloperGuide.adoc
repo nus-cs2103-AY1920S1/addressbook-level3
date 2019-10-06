@@ -298,18 +298,40 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |secretary |add an appointment |organise and schedule meetings/appointments
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |secretary |request ro edit a specific appointment |fix any misinformation that I typed wrongly
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |secretary under a busy manager |find specific appointments |schedule meetings/appointments efficiently
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |secretary |have the option to clear the appointment list |restart from scratch
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |secretary |undo my previous commands |recall commands made by mistake
+
+|`* * *` |secretary |redo recalled commands |retrieve the commands undone by mistake
+
+|`* * *` |secretary |select and delete a specific appointment from the list |manage inactive or cancelled appointments
+
+|`* * *` |busy secretary |able to see the appointments in calendar view |enjoy better convenience
+
+|`* * *` |user |save and load data from a local file |keep the appointment list locally
+
+|`* *` |secretary under a busy manager |sort all appointments |see them in the order I want
+
+|`* *` |user |have a command to terminate the application |
+
+|`* *` |advanced user |be able to execute compound statements |improve efficiency
+
+|`*` |bored secretary |have a built-in game feature |keep myself entertained
+
+|`*` |highly driven secretary |have a way to practice typing |improve my efficiency during work
+
+|`*` |fast-typer |have a way to amend trivial spelling errors |improve typing efficiency
+
+|`*` |secretary |generate a PDF file of a selected appointment |make a distributable copy of the appointment
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -393,6 +415,25 @@ Use case ends.
 ** 4a1. System shows error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: (UC03) List appointments
+
+*MSS*
+
+1.  User requests to list appointments
+2.  System displays the list of appointments in chronological order
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. User specifies ordering method
+** 2a1. System displays the list of appointments in specified order
+[none]
+* 2a. The list is empty.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
