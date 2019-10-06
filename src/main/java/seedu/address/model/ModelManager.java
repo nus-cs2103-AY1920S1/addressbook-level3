@@ -187,8 +187,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredWorkers.equals(other.filteredWorkers)
-                && filteredBodies.equals(other.filteredBodies);
+                && filteredPersons.equals(other.filteredPersons);
+        //&& filteredWorkers.equals(other.filteredWorkers);
+        //&& filteredBodies.equals(other.filteredBodies);
         //&& filteredFridges.equals(other.filteredFridges);
     }
 
