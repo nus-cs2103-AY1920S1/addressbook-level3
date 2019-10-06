@@ -46,7 +46,6 @@
         </StackPane>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-      
               <VBox fx:id="personList" minWidth="113.0" prefHeight="100.0" prefWidth="113.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <padding>
                   <Insets bottom="10" left="10" right="10" top="10" />

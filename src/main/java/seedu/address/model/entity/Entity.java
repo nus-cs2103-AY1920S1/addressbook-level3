@@ -5,5 +5,5 @@ package seedu.address.model.entity;
  */
 public interface Entity {
 
-    public boolean isSameEntity(Object o);
+    boolean isSameEntity(Object o);
 }

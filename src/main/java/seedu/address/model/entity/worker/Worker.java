@@ -117,15 +117,18 @@ public class Worker implements Entity {
      * Returns true if both workers have the same identity fields.
      * This defines a weaker notion of equality between two workers.
      */
-    public boolean isSamePerson(Worker otherWorker) {
-        if (otherWorker == this) {
+    public boolean isSamePerson(Object o) {
+        if (o == this) {
             return true;
+        } else if (o instanceof Worker) {
+            Worker otherWorker = (Worker) o;
+            return otherWorker != null
+                && otherWorker.getName().equals(getName())
+                && otherWorker.getSex().equals(getSex())
+                && (otherWorker.getPhone().equals(getPhone()));
+        } else {
+            return false;
         }
-
-        return otherWorker != null
-            && otherWorker.getName().equals(getName())
-            && otherWorker.getSex().equals(getSex())
-            && (otherWorker.getPhone().equals(getPhone()));
     }
 
     @Override
@@ -156,7 +159,7 @@ public class Worker implements Entity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, sex);
+        return Objects.hash(name, phone, sex, workerIdNum, employmentStatus, dateJoined, dateOfBirth, designation);
     }
 
     @Override
