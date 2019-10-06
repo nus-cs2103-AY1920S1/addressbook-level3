@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
@@ -16,5 +17,13 @@ public class UiViewManager {
 
     public void changeUiDetailsView(Person p) {
         ui.changeView(p);
+    }
+
+    public void changeUiDetailsView(Group g) {
+        ui.changeView(g);
+    }
+
+    public void changeUiDetailsView(String message) {
+        ui.changeView(message);
     }
 }

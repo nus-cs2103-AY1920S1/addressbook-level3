@@ -47,8 +47,8 @@ public class ShowCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
 
-        uiViewManager.changeUiDetailsView(person.get());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
+                false, "show", person.get());
     }
 
     @Override

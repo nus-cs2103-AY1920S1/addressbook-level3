@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.stage.Stage;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
@@ -13,4 +14,10 @@ public interface Ui {
 
     /** Changes the details view to this person */
     void changeView(Person person);
+
+    /** Changes the details view to this group */
+    void changeView(Group group);
+
+    /**Changes the details view to this string */
+    void changeView(String message);
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -16,7 +17,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.util.Pair;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.schedule.Event;
@@ -40,7 +40,8 @@ public class ScheduleView extends UiPart<Region> {
 
     private Schedule schedule;
     private ArrayList<StackPane> dayTimeslotStackPanes = new ArrayList<StackPane>();
-    private int oneHourLength = 40;
+    private ArrayList<StackPane> timeHeaderStackPanes = new ArrayList<StackPane>();
+    private int oneHourLength = 60;
     private int preferredWidth = 140;
     private double blockWidth = 140;
     private int startTime = 8;
@@ -73,7 +74,7 @@ public class ScheduleView extends UiPart<Region> {
 
     private ScheduleView initialise() {
         scheduleView = new GridPane();
-        scheduleView.setStyle("-fx-border-width: 2; -fx-border-color: black;");
+        scheduleView.setStyle("-fx-border-width: 2; -fx-border-color: black; -fx-pref-width: 1100;");
         return this;
     }
 
@@ -89,23 +90,23 @@ public class ScheduleView extends UiPart<Region> {
         secondPlaceHolder.setStyle("-fx-background-color: lightgrey");
         scheduleView.add(secondPlaceHolder, 8, 0);
         ColumnConstraints colCOffset = new ColumnConstraints();
-        colCOffset.setPercentWidth(11.2);
+        colCOffset.setPercentWidth(5);
         scheduleView.getColumnConstraints().add(colCOffset);
         //day headers
         for (int i = 0; i < dayNames.size(); i++) {
             StackPane sp = new StackPane();
-            Text dayText = new Text(dayNames.get(i));
+            Label dayText = new Label(dayNames.get(i));
             Region dayLabelRegion = new Region();
             dayLabelRegion.setPrefSize(preferredWidth, 50);
             ColumnConstraints colC = new ColumnConstraints();
-            colC.setPercentWidth(11.2);
+            colC.setPercentWidth(12.857);
             scheduleView.getColumnConstraints().add(colC);
             dayLabelRegion.setStyle("-fx-background-color: white; -fx-border-width: 2");
             sp.getChildren().addAll(dayLabelRegion, dayText);
             scheduleView.add(sp, i + 1, 0);
         }
         ColumnConstraints colCOffset2 = new ColumnConstraints();
-        colCOffset2.setPercentWidth(11.2);
+        colCOffset2.setPercentWidth(5);
         scheduleView.getColumnConstraints().add(colCOffset2);
         //timeslot headers
         for (int j = startTime; j < endTime; j++) {
@@ -113,8 +114,7 @@ public class ScheduleView extends UiPart<Region> {
             Region timeslotLeftLabelContainer = new Region();
             timeslotLeftLabelContainer.setPrefSize(preferredWidth, oneHourLength);
             timeslotLeftLabelContainer.setStyle("-fx-background-color: white; -fx-border-color: white;");
-            Text timeslotLeftText = new Text(j * 100 + "");
-            timeslotLeftText.setTranslateX(preferredWidth / 3);
+            Label timeslotLeftText = new Label(j * 100 + "");
             StackPane leftTimeslotHeaderContainer = new StackPane();
             leftTimeslotHeaderContainer.getChildren().addAll(timeslotLeftLabelContainer, timeslotLeftText);
             scheduleView.add(leftTimeslotHeaderContainer, 0, j - startTime + 1);
@@ -123,8 +123,7 @@ public class ScheduleView extends UiPart<Region> {
             Region timeslotRightLabelContainer = new Region();
             timeslotRightLabelContainer.setPrefSize(preferredWidth, oneHourLength);
             timeslotRightLabelContainer.setStyle("-fx-background-color: white; -fx-border-color: white;");
-            Text timeslotRightText = new Text(j * 100 + "");
-            timeslotRightText.setTranslateX(-preferredWidth / 3);
+            Label timeslotRightText = new Label(j * 100 + "");
             StackPane rightTimeslotHeaderContainer = new StackPane();
             rightTimeslotHeaderContainer.getChildren().addAll(timeslotRightLabelContainer, timeslotRightText);
             scheduleView.add(rightTimeslotHeaderContainer, 8, j - startTime + 1);
@@ -150,7 +149,7 @@ public class ScheduleView extends UiPart<Region> {
                 VBox timeslotMinorRegion = new VBox();
                 Region offset = makeEmptyTimeslot(30);
                 Region timeslotMinorRegion1 = new Region();
-                timeslotMinorRegion1.setStyle("-fx-border-color: lightgrey; -fx-border-style: dashed none none dashed");
+                timeslotMinorRegion1.setStyle("-fx-border-color: lightgrey; -fx-border-style: dotted none none dotted");
                 timeslotMinorRegion1.setPrefSize(preferredWidth, oneHourLength / 2.0);
                 timeslotMinorRegion.getChildren().addAll(offset, timeslotMinorRegion1);
                 if (k == endTime - 1) {

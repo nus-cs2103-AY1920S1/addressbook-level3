@@ -1,7 +1,12 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.group.Group;
+import seedu.address.model.person.Person;
+import seedu.address.ui.UiViewManager;
+
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,13 +27,59 @@ public class CommandResult {
     private final boolean exit;
 
     /**
+     * The platform that manages between Logic and UI.
+     */
+    private final UiViewManager uiViewManager;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.uiViewManager = null;
     }
+
+    /**
+     * Constructs an alternative CommandResult that would affect the UI. (Showing person).
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord, Person p) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.uiViewManager = new UiViewManager();
+        if (commandWord.equals("show")) {
+            uiViewManager.changeUiDetailsView(p);
+        }
+    }
+
+    /**
+     * Constructs an alternative CommandResult that would affect the UI. (Showing groups).
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord, Group g) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.uiViewManager = new UiViewManager();
+        if (commandWord.equals("show")) {
+            uiViewManager.changeUiDetailsView(g);
+        }
+    }
+
+    /**
+     * Constructs an alternative CommandResult that would affect the UI. (Showing strings).
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord, String msg) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.uiViewManager = new UiViewManager();
+        if (commandWord.equals("show")) {
+            uiViewManager.changeUiDetailsView(msg);
+        }
+    }
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},

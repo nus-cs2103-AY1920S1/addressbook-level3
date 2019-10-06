@@ -5,12 +5,15 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
@@ -53,6 +56,21 @@ public class UiManager implements Ui {
     public void changeView(Person person) {
         mainWindow.handleChangeOnDetailsView(new DetailsView(person).getDetailsView());
     }
+
+    @Override
+    public void changeView(Group group) {
+        //To do.
+        //mainWindow.handleChangeOnDetailsView(group.getDetails());
+    }
+
+    @Override
+    public void changeView(String message) {
+        TextArea textArea = new TextArea(message);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(textArea);
+        mainWindow.handleChangeOnDetailsView(scrollPane);
+    }
+
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
