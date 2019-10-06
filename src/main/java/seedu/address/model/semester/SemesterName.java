@@ -1,7 +1,7 @@
 package seedu.address.model.semester;
 
 /**
- * Represents the possible names of the semesters from year 1 to 5.
+ * Represents the possible names of the semesters from Year 1 to 5.
  */
 public enum SemesterName {
     Y1S1, Y1S2, Y2S1, Y2S2, Y3S1, Y3S2, Y4S1, Y4S2, Y5S1, Y5S2,

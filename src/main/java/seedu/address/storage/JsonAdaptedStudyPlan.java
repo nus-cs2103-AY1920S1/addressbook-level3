@@ -50,9 +50,7 @@ class JsonAdaptedStudyPlan {
         title = source.getTitle().toString();
         index = source.getIndex();
         isActive = source.isActive();
-        // TODO: not just name! copy modules etc also
-        semesters.addAll(Arrays.asList(source.getSemesterList()).stream()
-                .map(Object::toString)
+        semesters.addAll(source.getSemesterList().getSemesters().stream()
                 .map(JsonAdaptedSemester::new)
                 .collect(Collectors.toList()));
     }

@@ -4,9 +4,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.Color;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,9 +18,10 @@ import seedu.address.model.tag.Tag;
 public class Module {
 
     // Identity fields
-    private final Name name;
+    private Name name;
     private final ModuleCode moduleCode;
-    private final int mcCount;
+    private int mcCount;
+    private Color color;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<Tag>();
@@ -27,15 +30,38 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, ModuleCode moduleCode, int mcCount, Set<Tag> tags, UniqueModuleList prerequisites) {
+    public Module(Name name, ModuleCode moduleCode, int mcCount, Color color, Set<Tag> tags, UniqueModuleList prerequisites) {
         requireAllNonNull(name, moduleCode, tags);
         this.name = name;
         this.moduleCode = moduleCode;
         this.mcCount = mcCount;
+        this.color = color;
         this.tags.addAll(tags);
         for (Module prerequisite : prerequisites) {
             this.prerequisites.add(prerequisite);
         }
+    }
+
+    /**
+     * This constructor is used for {@code JsonAdaptedSkeletalModule} to create a skeletal module object from
+     * JSON file. This skeletal module object is temporary and will be replace by the actual {@code Module}
+     * once its study plan gets activated.
+     */
+    public Module(ModuleCode moduleCode) {
+        requireAllNonNull(moduleCode);
+        this.moduleCode = moduleCode;
+    }
+
+    /**
+     * This constructor is used for {@code JsonAdaptedModule} to create an incomplete module object from
+     * JSON file. This incomplete module object resides in the "Mega module list" of a study plan. Its data
+     * fields will be filled from {@code ModuleInfo} once its study plan gets activated.
+     */
+    public Module(ModuleCode moduleCode, Color color, List<Tag> tags) {
+        requireAllNonNull(moduleCode, color, tags);
+        this.moduleCode = moduleCode;
+        this.color = color;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -61,6 +87,14 @@ public class Module {
         }
         tags.add(tag);
         return true;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     /**
