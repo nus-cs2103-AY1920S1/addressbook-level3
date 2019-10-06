@@ -37,4 +37,8 @@ public class DetailsView extends UiPart<Region> {
         sp.setContent(this.detailsView);
         return sp;
     }
+
+    public VBox exportNode() {
+        return detailsView;
+    }
 }

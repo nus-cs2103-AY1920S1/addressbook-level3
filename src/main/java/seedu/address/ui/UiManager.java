@@ -1,18 +1,22 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.export.VisualExporter;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
@@ -54,7 +58,8 @@ public class UiManager implements Ui {
 
     @Override
     public void changeView(Person person) {
-        mainWindow.handleChangeOnDetailsView(new DetailsView(person).getDetailsView());
+        DetailsView detailsView = new DetailsView(person);
+        mainWindow.handleChangeOnDetailsView(detailsView.getDetailsView());
     }
 
     @Override
@@ -71,6 +76,23 @@ public class UiManager implements Ui {
         mainWindow.handleChangeOnDetailsView(scrollPane);
     }
 
+    @Override
+    public void exportVisual(Person p) {
+        DetailsView detailsView = new DetailsView(p);
+        StackPane sp = new StackPane();
+        sp.getChildren().add(detailsView.exportNode());
+        Scene s = new Scene(sp);
+        try {
+            VisualExporter.exportTo(sp, "png", "./export.png");
+        } catch (IOException e) {
+            changeView(e.getMessage());
+        }
+    }
+
+    @Override
+    public void exportVisual(Group group) {
+        //To do.
+    }
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));

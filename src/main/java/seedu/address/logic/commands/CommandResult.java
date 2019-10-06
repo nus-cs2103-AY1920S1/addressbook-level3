@@ -52,6 +52,9 @@ public class CommandResult {
         if (commandWord.equals("show")) {
             uiViewManager.changeUiDetailsView(p);
         }
+        if (commandWord.equals("export")) {
+            uiViewManager.exportVisual(p);
+        }
     }
 
     /**
@@ -64,6 +67,9 @@ public class CommandResult {
         this.uiViewManager = new UiViewManager();
         if (commandWord.equals("show")) {
             uiViewManager.changeUiDetailsView(g);
+        }
+        if (commandWord.equals("export")) {
+            uiViewManager.exportVisual(g);
         }
     }
 
