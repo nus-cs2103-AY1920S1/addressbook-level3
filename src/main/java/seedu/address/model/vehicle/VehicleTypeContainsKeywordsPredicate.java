@@ -28,3 +28,4 @@ public class VehicleTypeContainsKeywordsPredicate implements Predicate<Vehicle> 
                 && keywords.equals(((VehicleTypeContainsKeywordsPredicate) other).keywords)); // state check
     }
 }
+
