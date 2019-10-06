@@ -13,9 +13,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents an object which can build commands.
+ * Responsible for giving the correct user input to the correct arguments.
  */
 public abstract class CommandBuilder {
 
+    // Context is the current CommandOption to add arguments to. Default CommandOption is null.
     private CommandOption context;
 
     private Integer argumentIndex;

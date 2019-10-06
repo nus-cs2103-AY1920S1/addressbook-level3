@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a parser that can parse user input into a command.
+ * Example user input: command_keyword [argument] [arguments...] [--option] [argument]
  */
 public class CommandParser implements Parser<Command> {
 
