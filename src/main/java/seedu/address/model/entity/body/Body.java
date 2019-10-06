@@ -6,9 +6,10 @@ import java.util.Objects;
 
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+
 
 //@@author ambervoong
 /**
@@ -36,7 +37,7 @@ public class Body implements Entity {
     // Next of kin details
     private Name nextOfKin;
     private String relationship;
-    private Phone kinPhoneNumber;
+    private PhoneNumber kinPhoneNumber;
 
     public Body(Date dateOfAdmission) {
         this.bodyIdNum = IdentificationNumber.generateNewBodyId();
@@ -46,7 +47,7 @@ public class Body implements Entity {
     public Body(boolean isTestUnit, int identificationNumber, Date dateOfAdmission, Name name, Sex sex, Nric nric,
                 Religion religion, String causeOfDeath, List<String> organsForDonation, Status status,
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
-                String relationship, Phone kinPhoneNumber) {
+                String relationship, PhoneNumber kinPhoneNumber) {
         if (isTestUnit) {
             this.bodyIdNum = IdentificationNumber.customGenerateId("B",
                     identificationNumber);
@@ -142,11 +143,11 @@ public class Body implements Entity {
         this.relationship = relationship;
     }
 
-    public Phone getKinPhoneNumber() {
+    public PhoneNumber getKinPhoneNumber() {
         return kinPhoneNumber;
     }
 
-    public void setKinPhoneNumber(Phone kinPhoneNumber) {
+    public void setKinPhoneNumber(PhoneNumber kinPhoneNumber) {
         this.kinPhoneNumber = kinPhoneNumber;
     }
 

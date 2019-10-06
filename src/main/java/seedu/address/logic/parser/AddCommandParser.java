@@ -125,7 +125,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             Status status = Status.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
             Name nameNok = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME_NOK).get());
-            Phone phoneNok = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE_NOK).get());
+            PhoneNumber phoneNok = ParserUtil.parsePhoneNumber(argMultimap.getValue(PREFIX_PHONE_NOK).get());
             String causeOfDeath = argMultimap.getValue(PREFIX_CAUSE_OF_DEATH).get();
             String details = argMultimap.getValue(PREFIX_BODY_DETAILS).get();
             List<String> organsForDonation = ParserUtil.parseOrgansForDonation(

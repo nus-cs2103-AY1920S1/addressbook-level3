@@ -30,10 +30,12 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateEntityDescriptor;
+import seedu.address.logic.parser.utility.UpdateWorkerDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 
 
 //@@author ambervoong
@@ -135,6 +137,13 @@ public class UpdateCommand extends Command {
                     return body;
                 }
             }
+        } else if (descriptor instanceof UpdateWorkerDescriptor) {
+            List<Worker> lastShownList = model.getFilteredWorkerList();
+            for (Worker worker : lastShownList) {
+                if (worker.getWorkerIdNum().equals(id)) {
+                    return worker;
+                }
+            }
         }
         // todo: add support for worker, fridge
         throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
@@ -150,8 +159,10 @@ public class UpdateCommand extends Command {
     public UpdateEntityDescriptor saveOriginalFields(Model model, Entity entity) throws CommandException {
         if (entity instanceof Body) {
             return new UpdateBodyDescriptor((Body) entity);
+        } else if (entity instanceof Worker) {
+            return new UpdateWorkerDescriptor((Worker) entity);
         }
-        // todo: add support for worker, fridge
+        // todo: add support for fridge
         throw new CommandException("Could not find original entity.");
     }
 

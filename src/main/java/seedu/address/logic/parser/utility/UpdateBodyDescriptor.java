@@ -7,13 +7,13 @@ import java.util.Optional;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
 import seedu.address.model.entity.body.Status;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 
 //@@author ambervoong
 /**
@@ -35,7 +35,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
 
     private Name nextOfKin;
     private String relationship;
-    private Phone kinPhoneNumber;
+    private PhoneNumber kinPhoneNumber;
 
     public UpdateBodyDescriptor() {
 
@@ -213,11 +213,11 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.relationship = relationship;
     }
 
-    public Optional<Phone> getKinPhoneNumber() {
+    public Optional<PhoneNumber> getKinPhoneNumber() {
         return Optional.ofNullable(kinPhoneNumber);
     }
 
-    public void setKinPhoneNumber(Phone kinPhoneNumber) {
+    public void setKinPhoneNumber(PhoneNumber kinPhoneNumber) {
         this.kinPhoneNumber = kinPhoneNumber;
     }
 }
