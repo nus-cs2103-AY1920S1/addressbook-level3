@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.help.SecondaryCommand;
+import seedu.address.model.help.Type;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -93,6 +95,40 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String command} into an {@code Command}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code command} is invalid.
+     */
+    public static SecondaryCommand parseCommand(String command) throws ParseException {
+        requireNonNull(command);
+        String trimmedCommand = command.trim();
+
+
+        if (!SecondaryCommand.isValidSecondaryCommand(trimmedCommand)) {
+            throw new ParseException(SecondaryCommand.MESSAGE_CONSTRAINTS);
+        }
+        return new SecondaryCommand(trimmedCommand);
+    }
+
+    /**
+     * Parses a {@code String command} into an {@code Command}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code command} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+
+
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
     }
 
     /**

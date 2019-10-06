@@ -19,7 +19,11 @@ import java.net.URI;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String HELP_MESSAGE ="The 'help' command format is as follows: " +
+            "help cmd/COMMAND type/TYPE\nCommand List: [help], [add], [edit], " +
+            "[find], [delete], [list]\nType List: [brief], [api], [guide]\n" +
+            "Example: help cmd/add type/guide\nFor more information, " +
+            "you can refer to the user guide by clicking on the button";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
