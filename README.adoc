@@ -1,11 +1,12 @@
-= Address Book (Level 3)
+= Incident Management System
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
+https://travis-ci.org/AY1920S1-CS2103-T11-1/main[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
+// https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
+// https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+// https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://app.netlify.com/sites/whattheduke/deploys[image:https://api.netlify.com/api/v1/badges/3b2b545d-4c96-47b6-8dcb-6f818d9621fb/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -15,20 +16,34 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
-== Site Map
+* This is an Incident Management System (IMS), a desktop application tailored for emergency call operators.
+* Using this app, call operators will record essential information on the incident, and dispatch nearest available vehicles to site at high efficiency.
+* The streamlined workflow of the IMS is designed to enable call operators to dispatch vehicles and prepare reports without wasting any precious time.
+* IMS is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+The roles of an emergency response operator is not only to pick up these calls, but also:
+
+* 1. dispatch vehicles accordingly
+* 2. capture incident details in a report
+
+The Incident Management System is a more convenient and less error prone way for the users to complete their jobs.
+It allows users to:
+
+* 1. Create and store incidents/reports
+* 2. Automised filling of certain fields e.g. Date, time to reduce human error
+* 3. Retrieve the report at a later date for reference
+* 4. Modify/Update the report
+
+== Contents:
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
-
+* This is a brownfield project, expanding on the source code of AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]

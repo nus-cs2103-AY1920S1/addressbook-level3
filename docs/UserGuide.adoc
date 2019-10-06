@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Incident Management System - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T11-1/main
 
-By: `AY1920S1-CS2103-T11-1`      Since: `Sep 2019`      Licence: `MIT`
+
+By: `Team CS2103-T11-1`      Since: `October 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -52,38 +53,86 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 Format: `help`
 
+=== Logging in: `login`
+
+Registers the user for the active session
+Format: `login USERNAME`
+
+=== Create New Incident: `new`
+==== Assumptions
+* User has logged in
+
+==== Description
+* Takes in postal code of accident site and dispatches vehicle closest to it.
+* Once operator picks up the call, they will key in the postal code of accident site to dispatch vehicles.
+
+==== Usage
+
+Format: `new POSTAL_CODE`
+
+For multi-step:
+
+* Prompts for default vehicle dispatchment.
+** `y`- the available vehicle nearest to given postal code is dispatched.
+** `n`- an indexed list of available vehicles near the given postal code is given in descending order of proximity.
+
 === Filling a new report: `fill`
-Generates a new report and prompts operator to enter data into report fields. +
-Format: `fill`
-****
+
+==== Description
+* Generates a new report and prompts operator to enter data into report fields.
+* Unique ID automatically generated for report.
+* Date/time, operator name, and operator name are auto-filled.
+
+==== Usage
+
+Format: `fill [n/CALLER_NAME d/INCIDENT_DESCRIPTION]`
+
+For multi-step:
+
 * Prompts for name of caller. Operator types it and presses `enter`.
 * Prompts for description of incident. Operator types it and presses `enter`.
-* Date/time, operator name, and operator name is autofilled.
-****
-=== Submit a report: `submit`
-Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports. +
-Format: `submit`
-****
-* Once a new report has just been filled, the IMS prompts the operator to type `y` to submit. The operator can either type `y` or `submit` to submit the report.
-* If the operator issues the `submit` command at any other time, they will be shown an indexed list of unsubmitted draft reports. The IMS will then prompt them to enter the index number of the report they wish to submit. The operator types that number and presses `enter` to submit the chosen report.
-* The submission of a report will trigger three other operations: 1) an ID will be generated to tag the report, 2) an automated email will be sent to the operator's supervisor, and 3) the report will be saved in the database.
-****
-=== Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Submit a report: `submit`
+
+==== Description
+
+* Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports.
+
+==== Usage
+Format: `submit`
+
+For new report:
+
+* Once the user fills in a new report and presses `enter`, the IMS prompts the operator to submit.
+* `y` or `submit`- to submit the report immediately.
+* Submission has to be done before user can edit again.
+* `n`- to save entry as draft.
+
+For other reports:
+
+* If the the `submit` command is issued at any other time, the operator will be shown an indexed list of unsubmitted draft reports.
+* The IMS will then prompt thehe operator to enter the index number of the report they wish to submit. The operator types that number and presses `enter` to submit the chosen report.
+* The submission of a report will trigger three other operations:
+1. an unique ID will be generated to tag the report
+2. an automated email will be sent to the operator's supervisor
+3. the report will be saved in the database
+
+=== Adding a user: `add`
+
+Adds a person to the IMS as a registered user +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com u/op1`
+* `add n/Betsy Crowe e/betsycrowe@example.com u/oc1 p/1234567 t/Team-1-OC`
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all persons registered in the address book. +
 Format: `list`
 
 === Editing a person : `edit`
@@ -176,6 +225,10 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
+* *Login* `login USERNAME`
+* *New* `new POSTAL_CODE`
+* *Fill* `fill n/CALLER_NAME d/INCIDENT_DESCRIPTION`
+* *Submit* `submit`
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
