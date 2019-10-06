@@ -9,8 +9,8 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.tarence.model.tutorial.exeptions.DuplicateTutorialException;
-import seedu.tarence.model.tutorial.exeptions.TutorialNotFoundException;
+import seedu.tarence.model.tutorial.exceptions.DuplicateTutorialException;
+import seedu.tarence.model.tutorial.exceptions.TutorialNotFoundException;
 
 /**
  * Represents a list of Tutorials.

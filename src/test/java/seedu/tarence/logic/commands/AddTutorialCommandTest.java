@@ -31,7 +31,7 @@ public class AddTutorialCommandTest {
         CommandResult commandResult = new AddTutorialCommand(validTutorial).execute(modelStub);
         String expectedMessage = String.format(AddTutorialCommand.MESSAGE_SUCCESS, validTutorial,
                 validTutorial.getTimeTable().getDay(), validTutorial.getTimeTable().getWeeks(),
-                validTutorial.getTimeTable().getTime(), validTutorial.getTimeTable().getDuration().toMinutes());
+                validTutorial.getTimeTable().getStartTime(), validTutorial.getTimeTable().getDuration().toMinutes());
 
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTutorial), modelStub.tutorials);

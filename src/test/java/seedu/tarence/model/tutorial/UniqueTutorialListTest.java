@@ -13,8 +13,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tarence.model.tutorial.exeptions.DuplicateTutorialException;
-import seedu.tarence.model.tutorial.exeptions.TutorialNotFoundException;
+import seedu.tarence.model.tutorial.exceptions.DuplicateTutorialException;
+import seedu.tarence.model.tutorial.exceptions.TutorialNotFoundException;
 import seedu.tarence.testutil.TutorialBuilder;
 
 public class UniqueTutorialListTest {

@@ -28,7 +28,7 @@ public class ModCode {
     public ModCode(String modCode) {
         requireNonNull(modCode);
         checkArgument(isValidModCode(modCode), MESSAGE_CONSTRAINTS);
-        this.modCode = modCode.toUpperCase();
+        this.modCode = modCode;
     }
 
     /**
@@ -48,7 +48,7 @@ public class ModCode {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ModCode // instanceof handles nulls
-                && modCode.equals(((ModCode) other).modCode)); // state check
+                && modCode.equalsIgnoreCase(((ModCode) other).modCode)); // state check
     }
 
     @Override

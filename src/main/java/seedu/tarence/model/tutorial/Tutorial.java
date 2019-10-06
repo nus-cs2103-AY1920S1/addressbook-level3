@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
@@ -23,17 +24,20 @@ public class Tutorial {
     protected final TimeTable timeTable;
     protected List<Student> students;
     protected ModCode modCode;
+    protected Attendance attendance;
 
     /**
      * Every field must be present and not null.
      */
     public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
-            List<Integer> weeks, Duration duration, List<Student> students, ModCode modCode) {
+            Set<Week> weeks, Duration duration,
+            List<Student> students, ModCode modCode) {
         requireAllNonNull(tutName, day, startTime, weeks, students, modCode);
         this.tutName = tutName;
         this.timeTable = new TimeTable(day, startTime, weeks, duration);
         this.students = students;
         this.modCode = modCode;
+        this.attendance = new Attendance(weeks, students);
     }
 
     public TutName getTutName() {
@@ -56,8 +60,12 @@ public class Tutorial {
         return modCode;
     }
 
+    public Attendance getAttendance() {
+        return attendance;
+    }
+
     /**
-     * Returns true if both tutorials have the same name and students.
+     * Returns true if both tutorials have the same identity or data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -65,13 +73,16 @@ public class Tutorial {
             return true;
         }
 
-        if (!(other instanceof Class)) {
+        if (!(other instanceof Tutorial)) {
             return false;
         }
 
         Tutorial otherTutorial = (Tutorial) other;
         return otherTutorial.getTutName().equals(getTutName())
-                && otherTutorial.getStudents().equals(getStudents());
+                && otherTutorial.getStudents().equals(getStudents())
+                && otherTutorial.getModCode().equals(getModCode())
+                && otherTutorial.getTimeTable().equals(getTimeTable())
+                && otherTutorial.getAttendance().equals(getAttendance());
     }
 
     @Override
@@ -88,7 +99,7 @@ public class Tutorial {
     }
 
     /**
-     * Returns true if both Tutorials have the same name & timetable.
+     * Returns true if both Tutorials have the same name, timetable and modcode.
      *
      */
     public boolean isSameTutorial(Tutorial otherTutorial) {

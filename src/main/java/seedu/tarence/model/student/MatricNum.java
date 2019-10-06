@@ -46,7 +46,7 @@ public class MatricNum {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MatricNum // instanceof handles nulls
-                && value.equals(((MatricNum) other).value)); // state check
+                && value.equalsIgnoreCase(((MatricNum) other).value)); // state check
     }
 
     @Override

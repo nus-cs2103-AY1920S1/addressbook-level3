@@ -13,8 +13,7 @@ import seedu.tarence.model.tutorial.Tutorial;
 public class TypicalTutorials {
 
     public static final Tutorial CS1020_LAB01 = new TutorialBuilder().withModCode("CS1020")
-            .withTutName("Lab 1")
-            .build();
+            .withTutName("Lab 1").build();
     public static final Tutorial CS2040_TUT02 = new TutorialBuilder().withModCode("CS2040")
             .withTutName("Tutorial 2").build();
     public static final Tutorial CS1101S_LAB04 = new TutorialBuilder().withModCode("CS1101S")

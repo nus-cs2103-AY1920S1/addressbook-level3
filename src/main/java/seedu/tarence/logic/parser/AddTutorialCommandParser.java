@@ -12,6 +12,7 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.tarence.logic.commands.AddTutorialCommand;
@@ -20,6 +21,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.Week;
 
 /**
  * Parses input arguments and creates a new AddMTutorialCommand object
@@ -55,7 +57,7 @@ public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
 
         DayOfWeek day = ParserUtil.parseDayOfWeek(tutorialDay);
         Duration duration = ParserUtil.parseDuration(tutorialDuration);
-        ArrayList<Integer> weeks = ParserUtil.parseWeeks(tutorialWeeks);
+        Set<Week> weeks = ParserUtil.parseWeeks(tutorialWeeks);
         LocalTime startTime = ParserUtil.parseLocalTime(tutorialStartTime);
 
         // Empty list of Students is created for a new Tutorial
