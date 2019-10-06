@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.commonVariables.Name;
+import seedu.address.model.commonVariables.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
