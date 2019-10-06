@@ -29,7 +29,7 @@ public interface Storage_ extends ModulePlannerStorage, UserPrefsStorage, Module
     Optional<ReadOnlyModulePlanner> readModulePlanner() throws DataConversionException, IOException;
 
     @Override
-    void saveModulePlanner(ReadOnlyModulePlanner modulePlanner) throws IOException;
+    void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner) throws IOException;
 
     @Override
     Optional<ModulesInfo> readModulesInfo() throws DataConversionException, IOException;
