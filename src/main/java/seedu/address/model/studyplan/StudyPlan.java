@@ -40,6 +40,14 @@ public class StudyPlan implements Cloneable {
 
     // TODO: furnish this constructor. This is created so that JsonAdaptedStudyPlan works
     public StudyPlan(Title modelTitle, int modelIndex, boolean modelIsActive, Set<Semester> modelSemesters) {
+        try {
+            this.title = modelTitle.clone();
+            this.index = modelIndex;
+            this.isActive = modelIsActive;
+            this.semesterList = SemesterList.toSemesterList(modelSemesters);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     // make a copy of the current study without incrementing the index, for version tracking commits
