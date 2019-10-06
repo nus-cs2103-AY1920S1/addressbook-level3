@@ -11,46 +11,47 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Kevin Lim
+image::lyskevin.png[width="150", align="left"]
+{empty}[https://github.com/lyskevin[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Code Quality
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Ko Gi Hun
+image::nordic96.png[width="150", align="left"]
+{empty}[http://github.com/nordic96[github]] [<<gihunk#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: In charge of `Storage`, `UI`
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Sudharshan Madhavan
+image::uggi121.png[width="150", align="left"]
+{empty}[http://github.com/uggi121[github]] [<<SudharshanMadhavan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Logic
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Hu Yuchen
+image::brebeek.png[width="150", align="left"]
+{empty}[http://github.com/brebeek[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: In charge of functionality
+
+'''
+
+=== Ng Jun Hao
+image::jun-ha0.png[width="150", align="left"]
+{empty}[https://github.com/jun-ha0[github]] [<<junhao#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Typing game
 
 '''
