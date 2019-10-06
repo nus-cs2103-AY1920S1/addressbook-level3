@@ -15,16 +15,16 @@ image::lawncegoh.png[width="150", align="left"]
 {empty}[https://github.com/lawncegoh[github]][<<lawncegoh#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Income Feature
+Responsibilities: Goto feature(Changing views)
 
 '''
 
 === Lee Wei Gen
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-ZZ
+image::weigenie.png[width="150", align="left"]
+{empty}[http://github.com/weigenie[github]] [<<johndoe#, portfolio>>]
+
 Role: Developer +
-Responsibilities: Claim Feature
+Responsibilities: Claims Feature
 
 '''
 
@@ -33,7 +33,7 @@ image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Income Feature
 
 '''
 
@@ -42,7 +42,7 @@ image::tanzhanming.png[width="150", align="left"]
 {empty}[http://https://github.com/TanZhanMing[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Product testing and Feature robustness
+Responsibilities: Budget Feature
 
 
 '''

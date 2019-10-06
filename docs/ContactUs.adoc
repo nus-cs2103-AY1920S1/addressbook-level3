@@ -7,4 +7,5 @@
 
 * *If you still have any questions, feel free to contact any of our developers and they are as follows:*
 1. Lawnce Goh : `lawnce_goh@u.nus.edu`
-2. Tan Zhan Ming : `e0349703@u.nus.edu`
+2. Lee Wei Gen: `leeweigen@u.nus.edu`
+3. Tan Zhan Ming : `e0349703@u.nus.edu`
