@@ -101,6 +101,14 @@ public class StudyPlan implements Cloneable {
         return index;
     }
 
+    public UniqueModuleList getModules() {
+        return modules;
+    }
+
+    public UniqueTagList getTags() {
+        return tags;
+    }
+
     /**
      * Returns true if both study plans of the same index have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two study plans.
