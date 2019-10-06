@@ -3,9 +3,11 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -15,6 +17,8 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Nric;
+import seedu.address.model.entity.body.Religion;
+import seedu.address.model.entity.body.Status;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -208,4 +212,32 @@ public class ParserUtil {
         return IdentificationNumber.customGenerateId(id.charAt(0) + "", Integer.parseInt(id.substring(1)));
     }
 
+    /**
+     * Parses a {@code String id} into an {@code IdentificationNumber}.
+     *
+     */
+    public static List<String> parseOrgansForDonation(String stringOfOrgans) {
+        requireNonNull(stringOfOrgans);
+        String trimmedOrgans = stringOfOrgans.trim();
+        String[] arrayOforgans = trimmedOrgans.split(" ");
+        return Arrays.asList(arrayOforgans);
+    }
+
+    /**
+     * Parses {@code String religion} to return the corresponding {@code Religion}.
+     */
+    public static Religion parseReligion(String religion) {
+        requireNonNull(religion);
+        String trimmedReligion = religion.trim();
+        return Religion.parseReligion(trimmedReligion);
+    }
+
+    /**
+     * Parses {@code String status} to return the corresponding {@code Status}.
+     */
+    public static Status parseStatus(String status) {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+        return Status.parseStatus(trimmedStatus);
+    }
 }

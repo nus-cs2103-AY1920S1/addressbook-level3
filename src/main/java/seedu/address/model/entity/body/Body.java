@@ -1,7 +1,7 @@
 package seedu.address.model.entity.body;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.entity.Entity;
@@ -26,7 +26,7 @@ public class Body implements Entity {
     private Religion religion;
 
     private String causeOfDeath;
-    private ArrayList<String> organsForDonation;
+    private List<String> organsForDonation;
     private Status status;
     private IdentificationNumber fridgeId;
 
@@ -44,7 +44,7 @@ public class Body implements Entity {
     }
 
     public Body(boolean isTestUnit, int identificationNumber, Date dateOfAdmission, Name name, Sex sex, Nric nric,
-                Religion religion, String causeOfDeath, ArrayList<String> organsForDonation, Status status,
+                Religion religion, String causeOfDeath, List<String> organsForDonation, Status status,
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
                 String relationship, Phone kinPhoneNumber) {
         if (isTestUnit) {
@@ -158,11 +158,11 @@ public class Body implements Entity {
         this.causeOfDeath = causeOfDeath;
     }
 
-    public ArrayList<String> getOrgansForDonation() {
+    public List<String> getOrgansForDonation() {
         return organsForDonation;
     }
 
-    public void setOrgansForDonation(ArrayList<String> organsForDonation) {
+    public void setOrgansForDonation(List<String> organsForDonation) {
         this.organsForDonation = organsForDonation;
     }
 

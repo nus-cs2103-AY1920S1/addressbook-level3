@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -45,7 +45,7 @@ public class BodyBuilder {
     private Religion religion;
 
     private String causeOfDeath;
-    private ArrayList<String> organsForDonation;
+    private List<String> organsForDonation;
     private Status status;
     private IdentificationNumber fridgeId;
 
@@ -65,7 +65,7 @@ public class BodyBuilder {
         nric = new Nric(DEFAULT_NRIC);
         religion = DEFAULT_RELIGION;
         causeOfDeath = DEFAULT_CAUSE_OF_DEATH;
-        organsForDonation = new ArrayList<>(Arrays.asList(DEFAULT_ORGANS_FOR_DONATION.split(" ")));
+        organsForDonation = Arrays.asList(DEFAULT_ORGANS_FOR_DONATION.split(" "));
         status = DEFAULT_STATUS;
         fridgeId = IdentificationNumber.customGenerateId("F", DEFAULT_FRIDGE_ID);
 
@@ -146,7 +146,7 @@ public class BodyBuilder {
     /**
      * Sets the list of {@code organsForDonation} of the {@code Body} that we are building.
      */
-    public BodyBuilder withOrgansForDonation(ArrayList<String> organsForDonation) {
+    public BodyBuilder withOrgansForDonation(List<String> organsForDonation) {
         this.organsForDonation = organsForDonation;
         return this;
     }
