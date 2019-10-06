@@ -1,7 +1,7 @@
 package seedu.weme.testutil;
 
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -20,33 +20,33 @@ import seedu.weme.model.meme.Meme;
 public class TypicalMemes {
 
     public static final Meme ALICE = new MemeBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111")
+            .withDescription("Description of Alice")
             .withTags("friends").build();
     public static final Meme BENSON = new MemeBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
+            .withDescription("Description of Benson")
             .withTags("owesMoney", "friends").build();
     public static final Meme CARL = new MemeBuilder().withName("Carl Kurz")
-            .withAddress("wall street").build();
+            .withDescription("Description of Carl").build();
     public static final Meme DANIEL = new MemeBuilder().withName("Daniel Meier")
-            .withAddress("10th street").withTags("friends").build();
+            .withDescription("Description of Daniel").withTags("friends").build();
     public static final Meme ELLE = new MemeBuilder().withName("Elle Meyer")
-            .withAddress("michegan ave").build();
+            .withDescription("Description of Elle").build();
     public static final Meme FIONA = new MemeBuilder().withName("Fiona Kunz")
-            .withAddress("little tokyo").build();
+            .withDescription("Description of Fiona").build();
     public static final Meme GEORGE = new MemeBuilder().withName("George Best")
-            .withAddress("4th street").build();
+            .withDescription("Description of George").build();
 
     // Manually added
     public static final Meme HOON = new MemeBuilder().withName("Hoon Meier")
-            .withAddress("little india").build();
+            .withDescription("Meme created in CS2103 Lecture").build();
     public static final Meme IDA = new MemeBuilder().withName("Ida Mueller")
-            .withAddress("chicago ave").build();
+            .withDescription("Meme created in CS2103 Lecture").build();
 
     // Manually added - Meme's details found in {@code CommandTestUtil}
     public static final Meme AMY = new MemeBuilder().withName(VALID_NAME_AMY)
-            .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Meme BOB = new MemeBuilder().withName(VALID_NAME_BOB)
-            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

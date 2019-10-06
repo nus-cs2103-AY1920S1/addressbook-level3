@@ -19,16 +19,16 @@ public class Meme {
     private final Name name;
 
     // Data fields
-    private final Address address;
+    private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Meme(Name name, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, address, tags);
+    public Meme(Name name, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, description, tags);
         this.name = name;
-        this.address = address;
+        this.description = description;
         this.tags.addAll(tags);
     }
 
@@ -36,8 +36,8 @@ public class Meme {
         return name;
     }
 
-    public Address getAddress() {
-        return address;
+    public Description getDescription() {
+        return description;
     }
 
     /**
@@ -77,22 +77,22 @@ public class Meme {
 
         Meme otherMeme = (Meme) other;
         return otherMeme.getName().equals(getName())
-                && otherMeme.getAddress().equals(getAddress())
+                && otherMeme.getDescription().equals(getDescription())
                 && otherMeme.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, address, tags);
+        return Objects.hash(name, description, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

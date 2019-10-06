@@ -9,7 +9,7 @@ import java.util.Set;
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.commons.util.StringUtil;
 import seedu.weme.logic.parser.exceptions.ParseException;
-import seedu.weme.model.meme.Address;
+import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Name;
 import seedu.weme.model.tag.Tag;
 
@@ -49,18 +49,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String weme} into an {@code Address}.
+     * Parses a {@code String weme} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code weme} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Description(trimmedDescription);
     }
 
     /**

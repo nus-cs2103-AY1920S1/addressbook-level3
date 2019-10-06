@@ -33,7 +33,7 @@ public class MemeCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label address;
+    private Label description;
     @FXML
     private FlowPane tags;
 
@@ -42,7 +42,7 @@ public class MemeCard extends UiPart<Region> {
         this.meme = meme;
         id.setText(displayedIndex + ". ");
         name.setText(meme.getName().fullName);
-        address.setText(meme.getAddress().value);
+        description.setText(meme.getDescription().value);
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

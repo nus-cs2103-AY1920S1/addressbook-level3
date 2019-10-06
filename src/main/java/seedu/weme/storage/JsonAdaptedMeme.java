@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
-import seedu.weme.model.meme.Address;
+import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.Name;
 import seedu.weme.model.tag.Tag;
@@ -23,17 +23,17 @@ class JsonAdaptedMeme {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Meme's %s field is missing!";
 
     private final String name;
-    private final String address;
+    private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMeme} with the given meme details.
      */
     @JsonCreator
-    public JsonAdaptedMeme(@JsonProperty("name") String name, @JsonProperty("weme") String address,
+    public JsonAdaptedMeme(@JsonProperty("name") String name, @JsonProperty("weme") String description,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.address = address;
+        this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -44,7 +44,7 @@ class JsonAdaptedMeme {
      */
     public JsonAdaptedMeme(Meme source) {
         name = source.getName().fullName;
-        address = source.getAddress().value;
+        description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -69,16 +69,17 @@ class JsonAdaptedMeme {
         }
         final Name modelName = new Name(name);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (description == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(memeTags);
-        return new Meme(modelName, modelAddress, modelTags);
+        return new Meme(modelName, modelDescription, modelTags);
     }
 
 }

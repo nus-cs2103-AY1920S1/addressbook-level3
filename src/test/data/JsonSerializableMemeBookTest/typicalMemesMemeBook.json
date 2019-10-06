@@ -2,31 +2,31 @@
   "_comment": "AddressBook save file which contains the same Meme values as in TypicalMemes#getTypicalAddressBook()",
   "memes" : [ {
     "name" : "Alice Pauline",
-    "address" : "123, Jurong West Ave 6, #08-111",
+    "description": "Description of Alice",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
-    "address" : "311, Clementi Ave 2, #02-25",
+    "description": "Description of Benson",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
-    "address" : "wall street",
+    "description": "Description of Carl",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
-    "address" : "10th street",
+    "description": "Description of Daniel",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
-    "address" : "michegan ave",
+    "description": "Description of Elle",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "address" : "little tokyo",
+    "description": "Description of Fiona",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
-    "address" : "4th street",
+    "description": "Description of George",
     "tagged" : [ ]
   } ]
 }

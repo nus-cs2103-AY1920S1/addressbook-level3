@@ -3,7 +3,7 @@ package seedu.weme.model.meme;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.TypicalMemes.ALICE;
@@ -42,7 +42,7 @@ public class UniqueMemeListTest {
     @Test
     public void contains_memeWithSameIdentityFieldsInList_returnsTrue() {
         uniqueMemeList.add(ALICE);
-        Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Meme editedAlice = new MemeBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueMemeList.contains(editedAlice));
     }
@@ -85,7 +85,7 @@ public class UniqueMemeListTest {
     @Test
     public void setMeme_editedMemeHasSameIdentity_success() {
         uniqueMemeList.add(ALICE);
-        Meme editedAlice = new MemeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Meme editedAlice = new MemeBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueMemeList.setMeme(ALICE, editedAlice);
         UniqueMemeList expectedUniqueMemeList = new UniqueMemeList();

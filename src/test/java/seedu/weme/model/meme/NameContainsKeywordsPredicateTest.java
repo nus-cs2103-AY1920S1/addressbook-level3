@@ -70,6 +70,6 @@ public class NameContainsKeywordsPredicateTest {
         // Keywords match and weme, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "Main", "Street"));
         assertFalse(predicate.test(new MemeBuilder().withName("Alice")
-                .withAddress("Main Street").build()));
+                .withDescription("Main Street").build()));
     }
 }

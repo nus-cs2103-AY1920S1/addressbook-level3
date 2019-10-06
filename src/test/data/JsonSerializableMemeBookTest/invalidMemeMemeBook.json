@@ -1,6 +1,8 @@
 {
   "memes": [ {
-    "name": "Hans Muster",
-    "address": ""
-  } ]
+    "name": "Alice Pau@!line",
+    "description": "Popular Meme among NUS Students",
+    "tagged": [ "friends" ]
+  }
+  ]
 }
