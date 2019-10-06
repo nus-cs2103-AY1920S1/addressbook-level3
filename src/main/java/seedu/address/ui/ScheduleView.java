@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -38,19 +39,17 @@ public class ScheduleView extends UiPart<Region> {
     @FXML
     private GridPane scheduleView;
 
-    private Schedule schedule;
-    private ArrayList<StackPane> dayTimeslotStackPanes = new ArrayList<StackPane>();
-    private ArrayList<StackPane> timeHeaderStackPanes = new ArrayList<StackPane>();
+    private HashMap<DayOfWeek, StackPane> dayTimeslotStackPanes = new HashMap<DayOfWeek, StackPane>();
     private int oneHourLength = 60;
     private int preferredWidth = 140;
     private double blockWidth = 140;
     private int startTime = 8;
     private int endTime = 20;
-
+    private int currentDay;
 
     public ScheduleView(Schedule schedule) {
         super(FXML);
-        this.schedule = schedule;
+        this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         initialise();
         initialiseHeaders();
         initialiseTableCells();
@@ -60,6 +59,7 @@ public class ScheduleView extends UiPart<Region> {
 
     public ScheduleView(ArrayList<Schedule> schedules) {
         super(FXML);
+        this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         initialise();
         initialiseHeaders();;
         initialiseTableCells();
@@ -93,9 +93,10 @@ public class ScheduleView extends UiPart<Region> {
         colCOffset.setPercentWidth(5);
         scheduleView.getColumnConstraints().add(colCOffset);
         //day headers
-        for (int i = 0; i < dayNames.size(); i++) {
+        for (int i = 1; i <= 7; i++) {
+            int offset = (currentDay + i - 1) > 7 ? currentDay + i - 8 : currentDay + i - 1;
             StackPane sp = new StackPane();
-            Label dayText = new Label(dayNames.get(i));
+            Label dayText = new Label(DayOfWeek.of(offset).toString());
             Region dayLabelRegion = new Region();
             dayLabelRegion.setPrefSize(preferredWidth, 50);
             ColumnConstraints colC = new ColumnConstraints();
@@ -103,7 +104,7 @@ public class ScheduleView extends UiPart<Region> {
             scheduleView.getColumnConstraints().add(colC);
             dayLabelRegion.setStyle("-fx-background-color: white; -fx-border-width: 2");
             sp.getChildren().addAll(dayLabelRegion, dayText);
-            scheduleView.add(sp, i + 1, 0);
+            scheduleView.add(sp, i, 0);
         }
         ColumnConstraints colCOffset2 = new ColumnConstraints();
         colCOffset2.setPercentWidth(5);
@@ -135,7 +136,8 @@ public class ScheduleView extends UiPart<Region> {
      */
     private void initialiseTableCells() {
         //timeslot data
-        for (int l = 0; l < dayNames.size(); l++) {
+        for (int l = 1; l <= 7; l++) {
+            int offsetDay = (currentDay + l - 1) > 7 ? (currentDay + l - 8) : (currentDay + l - 1);
             StackPane stackPane = new StackPane();
             VBox timeslotContainer = new VBox();
             Region firstRegionOffset = new Region();
@@ -163,8 +165,8 @@ public class ScheduleView extends UiPart<Region> {
                 }
             }
             stackPane.getChildren().add(timeslotContainer);
-            dayTimeslotStackPanes.add(stackPane);
-            scheduleView.add(stackPane, l + 1, 1, 1, endTime - startTime);
+            dayTimeslotStackPanes.put(DayOfWeek.of(offsetDay), stackPane);
+            scheduleView.add(stackPane, l, 1, 1, endTime - startTime);
         }
     }
 
@@ -299,7 +301,7 @@ public class ScheduleView extends UiPart<Region> {
                                            String color) {
         for (int i = 1; i <= 7; i++) {
             ArrayList<Pair<PersonId, Pair<Integer, Integer>>> daySchedule = map.get(DayOfWeek.of(i));
-            StackPane dayStackPane = dayTimeslotStackPanes.get(i - 1);
+            StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));
             ArrayList<Pair<Integer, Integer>> startEndTimes = daySchedule.stream()
                     .map(p -> p.getValue())
                     .collect(Collectors.toCollection(ArrayList::new));
@@ -323,12 +325,12 @@ public class ScheduleView extends UiPart<Region> {
         //Loop to next day.
         ArrayList<String> colors = generateColorList(schedules.size());
         blockWidth = blockWidth / (schedules.size());
-        for (int i = 0; i < dayTimeslotStackPanes.size(); i++) {
-            StackPane dayStackPane = dayTimeslotStackPanes.get(i);
+        for (int i = 1; i <= 7; i++) {
+            StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));
             HBox groupTimeslot = new HBox();
             for (int j = 0; j < schedules.size(); j++) {
                 HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> personSchedule = schedules.get(j);
-                ArrayList<Pair<Integer, Integer>> daySchedule = personSchedule.get(DayOfWeek.of(i + 1)).stream()
+                ArrayList<Pair<Integer, Integer>> daySchedule = personSchedule.get(DayOfWeek.of(i)).stream()
                         .map(p -> p.getValue())
                         .collect(Collectors.toCollection(ArrayList::new));
                 VBox dayScheduleVBox = getDayVBoxOfIndividualSchedule(daySchedule, colors.get(j));
@@ -344,16 +346,4 @@ public class ScheduleView extends UiPart<Region> {
         return scheduleView;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        } else {
-            if (other instanceof ScheduleView) {
-                return ((ScheduleView) other).schedule.equals(this.schedule);
-            } else {
-                return false;
-            }
-        }
-    }
 }
