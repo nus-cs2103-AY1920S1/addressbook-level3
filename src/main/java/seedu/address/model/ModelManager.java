@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.person.Person;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +25,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Worker> filteredWorkers;
+    private final FilteredList<Body> filteredBodies;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +40,9 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
+        filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
+        //filteredFridge = new FilteredList<>(this.addressBook.getFridgeList());
     }
 
     public ModelManager() {
@@ -89,28 +97,61 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasEntity(Entity entity) {
+        requireNonNull(entity);
+        return addressBook.hasEntity(entity);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteEntity(Entity target) {
+        addressBook.removeEntity(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
+    public void addEntity(Entity entity) {
+        addressBook.addEntity(entity);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setEntity(Entity target, Entity editedEntity) {
+        requireAllNonNull(target, editedEntity);
 
-        addressBook.setPerson(target, editedPerson);
+        addressBook.setEntity(target, editedEntity);
     }
+    //=========== Filtered Body List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Worker} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Body> getFilteredBodyList() {
+        return filteredBodies;
+    }
+
+    @Override
+    public void updateFilteredBodyList(Predicate<Body> predicate) {
+        requireNonNull(predicate);
+        filteredBodies.setPredicate(predicate);
+    }
+
+    //=========== Filtered Worker List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Worker} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Worker> getFilteredWorkerList() {
+        return filteredWorkers;
+    }
+
+    @Override
+    public void updateFilteredWorkerList(Predicate<Worker> predicate) {
+        requireNonNull(predicate);
+        filteredWorkers.setPredicate(predicate);
+    }
+
+    //=========== Filtered Fridge List Accessors =============================================================
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -145,7 +186,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredWorkers.equals(other.filteredWorkers)
+                && filteredBodies.equals(other.filteredBodies);
+                //&& filteredFridges.equals(other.filteredFridges);
     }
 
 }
