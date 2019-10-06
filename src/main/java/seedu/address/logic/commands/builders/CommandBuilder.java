@@ -53,12 +53,16 @@ public abstract class CommandBuilder {
      */
     private void addArgument(String argument) throws ParseException {
         if (this.context == null) {
-            this.arguments.get(this.argumentIndex).setValue(argument);
-            this.argumentIndex++;
+            if (this.argumentIndex < this.arguments.size()) {
+                this.arguments.get(this.argumentIndex).setValue(argument);
+                this.argumentIndex++;
+            }
         } else {
             Integer optionIndex = this.optionsIndex.getOrDefault(this.context, 0);
-            this.context.getArguments().get(optionIndex).setValue(argument);
-            this.optionsIndex.put(this.context, optionIndex + 1);
+            if (optionIndex < this.context.getArguments().size()) {
+                this.context.getArguments().get(optionIndex).setValue(argument);
+                this.optionsIndex.put(this.context, optionIndex + 1);
+            }
         }
     }
 

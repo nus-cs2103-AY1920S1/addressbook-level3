@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -56,7 +57,7 @@ public class CommandParser implements Parser<Command> {
 
                 // Throw exception if no pattern matches.
                 if (result == null) {
-                    throw new Exception("Invalid User Input.");
+                    throw new Exception(MESSAGE_INVALID_COMMAND_FORMAT);
                 }
 
                 state = result.next;

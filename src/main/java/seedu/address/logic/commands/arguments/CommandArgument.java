@@ -2,6 +2,8 @@ package seedu.address.logic.commands.arguments;
 
 import static seedu.address.commons.core.Messages.MESSAGE_REQUIRED_COMMAND_ARGUMENT;
 
+import java.util.Objects;
+
 import seedu.address.logic.commands.exceptions.ArgumentException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -23,10 +25,11 @@ public abstract class CommandArgument<T> {
     }
 
     public void setValue(String userInput) throws ParseException {
+        Objects.requireNonNull(userInput);
         this.value = parse(userInput);
     }
 
-    public abstract T parse(String userInput) throws ParseException;
+    abstract T parse(String userInput) throws ParseException;
 
     public T getValue() throws ArgumentException {
         if (this.required && this.value == null) {
