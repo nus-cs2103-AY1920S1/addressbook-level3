@@ -11,10 +11,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.VisitationRecord;
+import seedu.address.model.person.VisitList;
 
 /**
- * Changes the visitationRecord of an existing person in the address book.
+ * Changes the visitList of an existing person in the address book.
  */
 public class AddVisitCommand extends Command {
     public static final String COMMAND_WORD = "addVisit";
@@ -31,17 +31,17 @@ public class AddVisitCommand extends Command {
     public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed visit from Person: %1$s";
 
     private final Index index;
-    private final VisitationRecord visitationRecord;
+    private final VisitList visitList;
 
     /**
-     * @param index of the person in the filtered person list to edit the visitationRecord
-     * @param visitationRecord of the person to be updated to
+     * @param index of the person in the filtered person list to edit the visitList
+     * @param visitList of the person to be updated to
      */
-    public AddVisitCommand(Index index, VisitationRecord visitationRecord) {
-        requireAllNonNull(index, visitationRecord);
+    public AddVisitCommand(Index index, VisitList visitList) {
+        requireAllNonNull(index, visitList);
 
         this.index = index;
-        this.visitationRecord = visitationRecord;
+        this.visitList = visitList;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AddVisitCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), visitationRecord, personToEdit.getTags());
+                personToEdit.getAddress(), visitList, personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -63,11 +63,11 @@ public class AddVisitCommand extends Command {
     }
 
     /**
-     * Generates a command execution success message based on whether the visitationRecord is added to or removed from
+     * Generates a command execution success message based on whether the visitList is added to or removed from
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !visitationRecord.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        String message = !visitList.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
         return String.format(message, personToEdit);
     }
 
@@ -86,6 +86,6 @@ public class AddVisitCommand extends Command {
         // state check
         AddVisitCommand e = (AddVisitCommand) other;
         return index.equals(e.index)
-                && visitationRecord.equals(e.visitationRecord);
+                && visitList.equals(e.visitList);
     }
 }

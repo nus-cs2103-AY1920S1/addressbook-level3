@@ -27,7 +27,7 @@ import seedu.address.logic.commands.AddVisitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.VisitationRecord;
+import seedu.address.model.person.VisitList;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -93,10 +93,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_remark() throws Exception {
-        final VisitationRecord visitationRecord = new VisitationRecord("Some visitationRecord.");
+        final VisitList visitList = new VisitList("Some visitList.");
         AddVisitCommand command = (AddVisitCommand) parser.parseCommand(AddVisitCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_VISIT + visitationRecord.value);
-        assertEquals(new AddVisitCommand(INDEX_FIRST_PERSON, visitationRecord), command);
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_VISIT + visitList.value);
+        assertEquals(new AddVisitCommand(INDEX_FIRST_PERSON, visitList), command);
     }
 
     @Test

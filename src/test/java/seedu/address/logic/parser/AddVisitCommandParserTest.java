@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddVisitCommand;
-import seedu.address.model.person.VisitationRecord;
+import seedu.address.model.person.VisitList;
 
 public class AddVisitCommandParserTest {
-    private RemarkCommandParser parser = new RemarkCommandParser();
+    private AddVisitCommandParser parser = new AddVisitCommandParser();
     private final String nonEmptyRemark = "Some remark.";
 
     @Test
@@ -21,12 +21,12 @@ public class AddVisitCommandParserTest {
         // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_VISIT + nonEmptyRemark;
-        AddVisitCommand expectedCommand = new AddVisitCommand(INDEX_FIRST_PERSON, new VisitationRecord(nonEmptyRemark));
+        AddVisitCommand expectedCommand = new AddVisitCommand(INDEX_FIRST_PERSON, new VisitList(nonEmptyRemark));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // no remark
         userInput = targetIndex.getOneBased() + " " + PREFIX_VISIT;
-        expectedCommand = new AddVisitCommand(INDEX_FIRST_PERSON, new VisitationRecord(""));
+        expectedCommand = new AddVisitCommand(INDEX_FIRST_PERSON, new VisitList(""));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

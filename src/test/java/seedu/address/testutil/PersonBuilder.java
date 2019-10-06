@@ -3,12 +3,8 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.VisitationRecord;
+import seedu.address.model.person.*;
+import seedu.address.model.person.VisitList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -27,7 +23,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private VisitationRecord visitationRecord;
+    private VisitList visitList;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -35,7 +31,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        visitationRecord = new VisitationRecord(DEFAULT_REMARK);
+        visitList = new VisitList(DEFAULT_REMARK);
         tags = new HashSet<>();
     }
 
@@ -47,7 +43,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        visitationRecord = personToCopy.getVisitationRecord();
+        visitList = personToCopy.getVisitList();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -91,16 +87,16 @@ public class PersonBuilder {
         return this;
     }
     /**
-     * Sets the {@code VisitationRecord} of the {@code Person} that we are building.
+     * Sets the {@code VisitList} of the {@code Person} that we are building.
      */
     public PersonBuilder withRemark(String remark) {
-        this.visitationRecord = new VisitationRecord(remark);
+        this.visitList = new VisitList(remark);
         return this;
     }
 
 
     public Person build() {
-        return new Person(name, phone, email, address, visitationRecord, tags);
+        return new Person(name, phone, email, address, visitList, tags);
     }
 
 }
