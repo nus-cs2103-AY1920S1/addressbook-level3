@@ -113,6 +113,10 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> webEngine.load(url));
     }
 
+    public String getCurrentPageUrl() {
+        return webEngine.getLocation();
+    }
+
     private void showAddressOnAddressBar(String url) {
         addressBar.setText(url);
     }
