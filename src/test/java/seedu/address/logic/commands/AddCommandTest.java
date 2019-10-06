@@ -20,6 +20,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -109,7 +112,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addEntity(Entity entity) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,17 +127,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasEntity(Entity entity) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteEntity(Entity target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setEntity(Entity target, Entity editedEntity) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -145,6 +148,26 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Worker> getFilteredWorkerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredWorkerList(Predicate<Worker> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Body> getFilteredBodyList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBodyList(Predicate<Body> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -161,9 +184,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasEntity(Entity entity) {
             requireNonNull(person);
-            return this.person.isSamePerson(person);
+            return this.person.isSameEntity(person);
         }
     }
 
@@ -174,15 +197,15 @@ public class AddCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasEntity(Entity entity) {
+            requireNonNull(entity);
+            return personsAdded.stream().anyMatch(entity::isSameEntity);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addEntity(Entity entity) {
+            requireNonNull(entity);
+            personsAdded.add((Person) entity);
         }
 
         @Override

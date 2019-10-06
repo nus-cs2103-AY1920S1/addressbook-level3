@@ -8,12 +8,12 @@ import static seedu.address.testutil.BodyBuilder.DEFAULT_SEX;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
@@ -58,9 +58,9 @@ class BodyTest {
 
 
     @Test
-    void getBodyIdentificationNumber() {
+    void getBodyIdNum() {
         // Final field; does not have a setter method.
-        assertEquals(IdentificationNumber.customGenerateId("B", 1), ALICE.getBodyIdentificationNumber());
+        assertEquals(IdentificationNumber.customGenerateId("B", 1), ALICE.getBodyIdNum());
     }
 
     @Test

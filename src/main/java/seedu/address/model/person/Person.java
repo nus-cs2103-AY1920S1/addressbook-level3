@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.entity.Entity;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Person implements Entity {
 
     // Identity fields
     private final Name name;
@@ -72,6 +73,11 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+    }
+
+    @Override
+    public boolean isSameEntity(Object o) {
+        return isSamePerson((Person) o);
     }
 
     /**

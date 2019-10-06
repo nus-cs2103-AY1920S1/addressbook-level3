@@ -11,6 +11,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
+import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.body.Nric;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -53,6 +57,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String phone} into a {@code PhoneNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phoneNumber} is invalid.
+     */
+    public static PhoneNumber parsePhoneNumber(String phone) throws ParseException {
+        requireNonNull(phone);
+        String trimmedPhone = phone.trim();
+        if (!PhoneNumber.isValidPhoneNumber(trimmedPhone)) {
+            throw new ParseException(PhoneNumber.VALID_NUMBER);
+        }
+        return new PhoneNumber(trimmedPhone);
+    }
+
+    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -66,6 +85,7 @@ public class ParserUtil {
         }
         return new Phone(trimmedPhone);
     }
+
 
     /**
      * Parses a {@code String address} into an {@code Address}.
@@ -126,11 +146,66 @@ public class ParserUtil {
 
     /**
      * Parses {@code String date} into a {@code Date date}.
-     * @throws java.text.ParseException if the given {@code String date} is invalid.
+     *
+     * @throws ParseException if the given {@code String date} is invalid.
      */
-    public static Date parseDate(String date) throws java.text.ParseException {
+    public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        return format.parse(date);
+        try {
+            return format.parse(date);
+        } catch (java.text.ParseException e) {
+            throw new ParseException("Wrong date format"); // todo: abstract out message
+        }
     }
+
+    /**
+     * Parses {@code String sex} into a {@code Sex sex}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Nric} is invalid.
+     */
+    public static Sex parseSex(String sex) throws ParseException {
+        requireNonNull(sex);
+        String trimmedSex = sex.trim();
+        if (Sex.isValidSex(trimmedSex)) {
+            if (Sex.isMale(trimmedSex)) {
+                return Sex.MALE;
+            } else {
+                return Sex.FEMALE;
+            }
+        } else {
+            throw new ParseException(Sex.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String nric} into an {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Nric} is invalid.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.VALID_NRIC);
+        }
+        return new Nric(trimmedNric);
+    }
+
+    /**
+     * Parses a {@code String id} into an {@code IdentificationNumber}.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
+     */
+    public static IdentificationNumber parseIdentificationNumber(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        if (!IdentificationNumber.isValidIdentificationNumber(trimmedId)) {
+            throw new ParseException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+        }
+        return IdentificationNumber.customGenerateId(id.charAt(0) + "", Integer.parseInt(id.substring(1)));
+    }
+
 }
