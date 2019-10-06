@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import seedu.address.logic.commands.builders.AddEventCommandBuilder;
 import seedu.address.logic.commands.builders.CommandBuilder;
+import seedu.address.logic.commands.builders.DeleteEventCommandBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -15,12 +16,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CommandKeywordParser implements Parser<CommandBuilder> {
 
     private static final String COMMAND_ADD_EVENT = "add_event";
+    private static final String COMMAND_DELETE_EVENT = "delete_event";
 
     private static final HashMap<String, Supplier<CommandBuilder>> BUILDERS;
 
     static {
         BUILDERS = new HashMap<>();
         BUILDERS.put(COMMAND_ADD_EVENT, AddEventCommandBuilder::new);
+        BUILDERS.put(COMMAND_DELETE_EVENT, DeleteEventCommandBuilder::new);
     }
 
     @Override

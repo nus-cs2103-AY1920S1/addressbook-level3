@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.arguments;
+package seedu.address.logic.commands.builders.arguments;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,7 +11,7 @@ class CommandArgumentTest {
 
     @Test
     void getValue_optionalArgument_success() {
-        assertDoesNotThrow(() -> new CommandArgumentMock(false).getValue());
+        assertDoesNotThrow(() -> new CommandArgumentMock().build(false));
     }
 
     @Test
@@ -19,16 +19,16 @@ class CommandArgumentTest {
         String[] tests = { "", " ", "a" };
         for (String test : tests) {
             assertDoesNotThrow(() -> {
-                CommandArgument argument = new CommandArgumentMock(false);
-                argument.setValue(test);
-                argument.getValue();
+                Argument argument = new CommandArgumentMock();
+                argument.accept(test);
+                argument.build(false);
             });
         }
     }
 
     @Test
     void getValue_requiredArgument_failure() {
-        assertThrows(ArgumentException.class, () -> new CommandArgumentMock(true).getValue());
+        assertThrows(ArgumentException.class, () -> new CommandArgumentMock().build(true));
     }
 
     @Test
@@ -36,17 +36,17 @@ class CommandArgumentTest {
         String[] tests = { "", " ", "a" };
         for (String test : tests) {
             assertDoesNotThrow(() -> {
-                CommandArgument argument = new CommandArgumentMock(true);
-                argument.setValue(test);
-                argument.getValue();
+                Argument argument = new CommandArgumentMock();
+                argument.accept(test);
+                argument.build(true);
             });
         }
     }
 
-    private static class CommandArgumentMock extends CommandArgument {
+    private static class CommandArgumentMock extends Argument<Object> {
 
-        CommandArgumentMock(boolean required) {
-            super("", required);
+        CommandArgumentMock() {
+            super("", o -> {});
         }
 
         @Override

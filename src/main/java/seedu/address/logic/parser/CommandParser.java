@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a parser that can parse user input into a command.
- * Example user input: command_keyword [argument] [arguments...] [--option] [argument]
+ * Example user input: command_keyword [argument] [arguments...] [--option] [option_argument]
  */
 public class CommandParser implements Parser<Command> {
 
@@ -33,16 +33,10 @@ public class CommandParser implements Parser<Command> {
         state1.addPattern("\\s*", matches -> state2);
         state2.addPattern("[^\\s]+", matches -> {
             this.commandBuilder = new CommandKeywordParser().parse(matches.get(0));
+            this.commandBuilder.initialize();
             return state3;
         });
-        state3.addPattern("\\s*", matches -> {
-            if (matches.get(0).length() == 0) {
-                this.command = this.commandBuilder.build();
-                return null;
-            } else {
-                return state4;
-            }
-        });
+        state3.addPattern("\\s+", matches -> state4);
         state4.addPattern("\"(.*?)\"", matches -> {
             this.commandBuilder.acceptSentence(matches.get(1));
             return state3;
@@ -52,24 +46,24 @@ public class CommandParser implements Parser<Command> {
             return state3;
         });
 
-        try {
-            State state = state1;
-            while (state != null) {
-                StateResult result = state.apply(userInput);
+        State state = state1;
+        while (state != null && !userInput.equals("")) {
+            StateResult result = state.apply(userInput);
 
-                // Throw exception if no pattern matches.
-                if (result == null) {
-                    throw new Exception(MESSAGE_INVALID_COMMAND_FORMAT);
-                }
-
-                state = result.next;
-                userInput = userInput.substring(result.matchLength);
+            // Throw exception if no pattern matches.
+            if (result == null) {
+                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
             }
+
+            state = result.next;
+            userInput = userInput.substring(result.matchLength);
+        }
+
+        try {
+            return this.commandBuilder.build();
         } catch (Exception e) {
             throw new ParseException(e.getMessage());
         }
-
-        return this.command;
     }
 
     /**
@@ -77,7 +71,7 @@ public class CommandParser implements Parser<Command> {
      * Returns the next state to transition to.
      */
     private interface StateFunction {
-        State apply(List<String> matches) throws Exception;
+        State apply(List<String> matches) throws ParseException;
     }
 
     /**
@@ -98,9 +92,9 @@ public class CommandParser implements Parser<Command> {
          * Gives input to this state and get the next state to transition to.
          * @param userInput the user input
          * @return a StateResult
-         * @throws Exception if an exception is thrown in StateFunction for this pattern
+         * @throws ParseException if an exception is thrown in StateFunction for this pattern
          */
-        private StateResult apply(String userInput) throws Exception {
+        private StateResult apply(String userInput) throws ParseException {
             for (Map.Entry<Pattern, StateFunction> entry : this.patterns.entrySet()) {
                 Pattern pattern = entry.getKey();
                 StateFunction function = entry.getValue();

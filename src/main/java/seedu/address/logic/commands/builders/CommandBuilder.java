@@ -1,34 +1,36 @@
 package seedu.address.logic.commands.builders;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.arguments.CommandArgument;
+import seedu.address.logic.commands.builders.options.Option;
 import seedu.address.logic.commands.exceptions.ArgumentException;
-import seedu.address.logic.commands.options.CommandOption;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents an object which can build commands.
- * Responsible for giving the correct user input to the correct arguments.
+ * Responsible for giving the correct user input to the correct {@link Option}.
  */
 public abstract class CommandBuilder {
 
-    // Context is the current CommandOption to add arguments to. Default CommandOption is null.
-    private CommandOption context;
+    // Context is the current Option to add arguments to.
+    private Option context;
 
-    private Integer argumentIndex;
-    private Map<CommandOption, Integer> optionsIndex;
+    // Represents the command arguments in a Command.
+    private Option arguments;
+    private Map<String, Option> options;
 
-    private List<CommandArgument> arguments;
-    private Map<String, CommandOption> options;
+    /**
+     * This method must be called first.
+     */
+    public void initialize() {
+        this.arguments = this.getCommandArguments();
+        this.options = new HashMap<>(this.getCommandOptions());
 
-    CommandBuilder() {
-        this.argumentIndex = 0;
-        this.optionsIndex = new HashMap<>();
+        // Set the initial context.
+        this.context = this.arguments;
+        this.context.setActive();
     }
 
     /**
@@ -38,43 +40,32 @@ public abstract class CommandBuilder {
      * @throws ParseException thrown if the sentence is an argument, but failed to be parsed
      */
     public void acceptSentence(String sentence) throws ParseException {
-        this.arguments = new ArrayList<>(getCommandArguments());
-        this.options = new HashMap<>(getCommandOptions());
-
         if (this.options.containsKey(sentence)) {
-            this.setContext(sentence);
+            // Sets the context.
+            this.context = this.options.get(sentence);
+            this.context.setActive();
         } else {
-            this.addArgument(sentence);
+            // Adds an argument to the context.
+            this.context.acceptArgument(sentence);
         }
     }
 
     /**
-     * Adds an argument to the appropriate context.
-     * @param argument the argument
-     * @throws ParseException if the argument failed to be parsed
+     * Builds all arguments and returns a Command.
+     * @return the built Command
+     * @throws ArgumentException if any argument is required but null
      */
-    private void addArgument(String argument) throws ParseException {
-        if (this.context == null) {
-            if (this.argumentIndex < this.arguments.size()) {
-                this.arguments.get(this.argumentIndex).setValue(argument);
-                this.argumentIndex++;
-            }
-        } else {
-            Integer optionIndex = this.optionsIndex.getOrDefault(this.context, 0);
-            if (optionIndex < this.context.getArguments().size()) {
-                this.context.getArguments().get(optionIndex).setValue(argument);
-                this.optionsIndex.put(this.context, optionIndex + 1);
-            }
+    public Command build() throws ArgumentException {
+        this.arguments.build();
+        for (Option option : this.options.values()) {
+            option.build();
         }
+        return this.buildCommand();
     }
 
-    private void setContext(String option) {
-        this.context = this.options.get(option);
-    }
+    abstract Option getCommandArguments();
 
-    public abstract List<CommandArgument> getCommandArguments();
+    abstract Map<String, Option> getCommandOptions();
 
-    public abstract Map<String, CommandOption> getCommandOptions();
-
-    public abstract Command build() throws ArgumentException;
+    abstract Command buildCommand();
 }
