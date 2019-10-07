@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.person.commons.core.Config;
@@ -63,15 +64,28 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
 
 
-
         //ui = new UiManager(logic);
+        //For Transaction
         seedu.address.transaction.storage.StorageManager transactionStorage =
                 new seedu.address.transaction.storage.StorageManager("data/transactionHistory.txt", model);
         seedu.address.transaction.model.ModelManager transactionManager =
                 new seedu.address.transaction.model.ModelManager(transactionStorage);
         seedu.address.transaction.logic.LogicManager transactionLogic = new
                 seedu.address.transaction.logic.LogicManager(transactionManager, transactionStorage, model, storage);
-        logic = new LogicManager(model, storage, transactionLogic);
+
+        //For Reimbursement
+        seedu.address.reimbursement.storage.StorageManager reimbursementStorage =
+                new seedu.address.reimbursement.storage.StorageManager("data/transactionHistory.txt", "data" +
+                        "/reimbursementInformation.txt", model);
+        seedu.address.reimbursement.model.ModelManager reimbursementManager =
+                new seedu.address.reimbursement.model.ModelManager(reimbursementStorage);
+        seedu.address.reimbursement.logic.LogicManager reimbursementLogic = new
+                seedu.address.reimbursement.logic.LogicManager(reimbursementManager, reimbursementStorage,
+                transactionManager, transactionStorage, model);
+
+        //logic
+        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic);
+
         //no config for ui yet
         /*UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
         UserPrefs userPrefs = new UserPrefs();
@@ -91,7 +105,7 @@ public class MainApp extends Application {
         /*seedu.address.person.model.ModelManager personMM =
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);*/
 
-        ui = new UiManager(transactionLogic, logic);
+        ui = new UiManager(transactionLogic, reimbursementLogic, logic);
 
     }
 

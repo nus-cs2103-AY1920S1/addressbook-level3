@@ -28,6 +28,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private seedu.address.transaction.logic.Logic transactionLogic;
+    private seedu.address.reimbursement.logic.Logic reimbursementLogic;
     private seedu.address.person.logic.Logic personLogic;
 
     // Independent Ui parts residing in this Ui container
@@ -84,6 +85,7 @@ public class MainWindow extends UiPart<Stage> {
 //    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
+                      seedu.address.reimbursement.logic.Logic reimbursementLogic,
                       seedu.address.person.logic.Logic personLogic) {
         super(FXML, primaryStage);
 
@@ -91,6 +93,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
 
         this.transactionLogic = transactionLogic;
+        this.reimbursementLogic = reimbursementLogic;
         this.personLogic = personLogic;
         //add all our logicManager
 
@@ -226,7 +229,7 @@ public class MainWindow extends UiPart<Stage> {
             }   else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
                 commandResult = personLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
-                commandResult = new OverallCommandResult("Implement reimbursement logic"); //should be replace with reimbursement's logic
+                commandResult = reimbursementLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
                 commandResult = new OverallCommandResult("Implement inventory logic"); //should be replace with inventory's logic
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
