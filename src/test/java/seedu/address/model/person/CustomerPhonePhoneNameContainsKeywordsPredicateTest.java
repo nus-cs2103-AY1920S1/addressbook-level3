@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class NameContainsKeywordsPredicateTest {
+public class CustomerPhonePhoneNameContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {
