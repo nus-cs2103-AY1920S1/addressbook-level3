@@ -19,6 +19,8 @@ public class EditCommand extends Command {
 
     public EditCommand(int index, EditTransactionDescriptor editTransactionDescriptor) {
         this.index = index;
+
+
         this.id = index;
         this.editTransactionDescriptor = new EditTransactionDescriptor(editTransactionDescriptor);
     }
@@ -30,7 +32,7 @@ public class EditCommand extends Command {
 
         Transaction editedTransaction = createdEditedTransaction(transactionToEdit, editTransactionDescriptor);
 
-        if (!transactionToEdit.isSameTransaction(editedTransaction) && model.hasTransaction(editedTransaction)) {
+        if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {

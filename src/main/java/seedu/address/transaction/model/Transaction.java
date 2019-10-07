@@ -71,7 +71,7 @@ public class Transaction {
         return this.person.getName().toString();
     }
 
-    public boolean isSameTransaction(Transaction editedTransaction) {
+    public boolean equals(Transaction editedTransaction) {
         return this.person.equals(editedTransaction.getPerson()) &&
                 this.description.equals(editedTransaction.getDescription()) &&
                 this.category.equals(editedTransaction.getCategory()) &&
