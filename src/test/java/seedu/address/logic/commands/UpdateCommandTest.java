@@ -128,7 +128,7 @@ public class UpdateCommandTest {
         copyDescriptor.setSex(Sex.FEMALE);
         assertFalse(updateCommand.equals(new UpdateCommand(body.getBodyIdNum(), copyDescriptor)));
 
-        commandWithSameValues =  new UpdateCommand(body.getBodyIdNum(), descriptor);
+        commandWithSameValues = new UpdateCommand(body.getBodyIdNum(), descriptor);
         assertEquals(updateCommand.hashCode(), commandWithSameValues.hashCode());
     }
 }

@@ -19,11 +19,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.entity.Sex;
@@ -31,7 +31,6 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.BodyBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -58,7 +57,7 @@ public class AddressBookParserTest {
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
-/*
+    /*
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
@@ -68,7 +67,7 @@ public class AddressBookParserTest {
         assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
- */
+    */
     //@@author ambervoong
     @Test
     public void parseCommand_update() throws Exception {

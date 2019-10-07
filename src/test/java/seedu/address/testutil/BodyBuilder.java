@@ -14,7 +14,6 @@ import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 
 //@@author ambervoong
 /**

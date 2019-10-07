@@ -76,6 +76,11 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         IdentificationNumber identificationNumber;
         UpdateEntityDescriptor updateEntityDescriptor;
 
+        if (idNum == null || idNum.isEmpty() || idNum.chars().anyMatch(Character::isLetter)
+                || Integer.parseInt(idNum) <= 0) {
+            throw new ParseException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+        }
+
         boolean arePrefixesPresent;
 
         switch (flag) {
@@ -180,7 +185,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                     argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).get()));
         }
         if (!argMultimap.getValue(PREFIX_STATUS).orElse("").isEmpty()) {
-            bodyDescriptor.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
+            bodyDescriptor.setBodyStatus(ParserUtil.parseBodyStatus(argMultimap.getValue(PREFIX_STATUS).get()));
         }
         if (!argMultimap.getValue(PREFIX_FRIDGE_ID).orElse("").isEmpty()) {
             bodyDescriptor.setFridgeId(ParserUtil.parseIdentificationNumber(

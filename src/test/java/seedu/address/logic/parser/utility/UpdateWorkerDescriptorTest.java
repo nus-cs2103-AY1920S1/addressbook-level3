@@ -96,7 +96,7 @@ class UpdateWorkerDescriptorTest {
     @Test
     void equals() {
         Worker worker = new WorkerBuilder().build();
-        UpdateWorkerDescriptor descriptor =  new UpdateWorkerDescriptor(worker);
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
         UpdateWorkerDescriptor copyDescriptor = new UpdateWorkerDescriptor(worker);
         assertEquals(descriptor, copyDescriptor);
         assertEquals(descriptor.hashCode(), copyDescriptor.hashCode());

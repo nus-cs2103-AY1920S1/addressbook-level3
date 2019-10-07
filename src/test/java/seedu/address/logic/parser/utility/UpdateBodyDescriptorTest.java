@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.utility;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,9 +16,9 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
-import seedu.address.model.entity.body.Status;
 import seedu.address.model.person.Name;
 import seedu.address.testutil.BodyBuilder;
 
@@ -106,8 +105,8 @@ class UpdateBodyDescriptorTest {
     @Test
     void getSetStatus() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setStatus(Status.PENDING_IDENTIFICATION);
-        assertEquals(Status.PENDING_IDENTIFICATION, body.getStatus());
+        body.setBodyStatus(BodyStatus.PENDING_IDENTIFICATION);
+        assertEquals(BodyStatus.PENDING_IDENTIFICATION, body.getBodyStatus());
     }
 
     @Test
@@ -158,7 +157,7 @@ class UpdateBodyDescriptorTest {
     @Test
     void equals() {
         Body body = new BodyBuilder().build();
-        UpdateBodyDescriptor descriptor =  new UpdateBodyDescriptor(body);
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
         UpdateBodyDescriptor copyDescriptor = new UpdateBodyDescriptor(body);
         assertEquals(descriptor, copyDescriptor);
         assertEquals(descriptor.hashCode(), copyDescriptor.hashCode());

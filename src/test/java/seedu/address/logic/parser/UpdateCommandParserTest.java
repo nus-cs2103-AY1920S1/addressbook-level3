@@ -1,57 +1,26 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.BodyBuilder.DEFAULT_NAME;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalBodies.ALICE;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BodyBuilder;
 
 //@@author ambervoong
 public class UpdateCommandParserTest {
-
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
@@ -61,45 +30,88 @@ public class UpdateCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, DEFAULT_NAME, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, DEFAULT_NAME, IdentificationNumber.MESSAGE_CONSTRAINTS);
 
         // no field specified
-        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1", IdentificationNumber.MESSAGE_CONSTRAINTS);
 
         // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
-    }
-/*
-    @Test
-    public void executeBody_invalidUpdateName_failure() throws CommandException {
-        Body body = new BodyBuilder().build();
-        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
-        descriptor.setName(new Name("123"));
-        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        assertParseFailure(parser, "", IdentificationNumber.MESSAGE_CONSTRAINTS);
 
-        String expectedMessage = MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
-
-        assertCommandFailure(updateCommand, model, expectedMessage);
-    }
-
- */
-/*
-
-
-    @Test
-    public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5", IdentificationNumber.MESSAGE_CONSTRAINTS);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0", IdentificationNumber.MESSAGE_CONSTRAINTS);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string", IdentificationNumber.MESSAGE_CONSTRAINTS);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 i/ string", IdentificationNumber.MESSAGE_CONSTRAINTS);
+
+        // invalid characters
+        assertParseFailure(parser, "@#!$!@#$raf3,1947889''", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " شتا تاتا تاتا [كاملة", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "汉字汉字汉字", IdentificationNumber.MESSAGE_CONSTRAINTS);
+
     }
+
+    @Test
+    public void parse_fieldsPresent_success() {
+        Body expectedBody = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
+        descriptor.setSex(Sex.MALE);
+
+        // Update command only requires one field to be specified at minimum
+        assertParseSuccess(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_SEX + " male",
+                new UpdateCommand(expectedBody.getBodyIdNum(), descriptor));
+
+        descriptor.setCauseOfDeath("asphyxiation");
+        // Two fields specified
+        assertParseSuccess(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_SEX + " male " + PREFIX_CAUSE_OF_DEATH + " asphyxiation",
+                new UpdateCommand(expectedBody.getBodyIdNum(), descriptor));
+    }
+
+    @Test
+    public void parse_noFieldsPresent_failure() {
+        // Update command  requires one field to be specified at minimum
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1",
+                MESSAGE_INVALID_FORMAT);
+
+    }
+
+    @Test
+    public void parse_invalidId_failure() {
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " -1 "
+                        + PREFIX_SEX + " male",
+                IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 0 "
+                        + PREFIX_SEX + " male",
+                IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " abc "
+                        + PREFIX_SEX + " male",
+                IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " "
+                        + PREFIX_SEX + " male",
+                IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + ""
+                        + PREFIX_SEX + " male",
+                IdentificationNumber.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_invalidFields_failure() {
+        // Update command  requires one field to be specified at minimum
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1",
+                MESSAGE_INVALID_FORMAT);
+
+    }
+
+    /*
+
 
     @Test
     public void parse_invalidValue_failure() {

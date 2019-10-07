@@ -11,9 +11,9 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
-import seedu.address.model.entity.body.Status;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
@@ -29,7 +29,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
 
     private String causeOfDeath;
     private List<String> organsForDonation;
-    private Status status;
+    private BodyStatus bodyStatus;
     private IdentificationNumber fridgeId;
     private Date dateOfBirth;
     private Date dateOfDeath;
@@ -52,7 +52,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         setReligion(toCopy.religion);
         setCauseOfDeath(toCopy.causeOfDeath);
         setOrgansForDonation(toCopy.organsForDonation);
-        setStatus(toCopy.status);
+        setBodyStatus(toCopy.bodyStatus);
         setFridgeId(toCopy.fridgeId);
         setDateOfBirth(toCopy.dateOfBirth);
         setDateOfDeath(toCopy.dateOfDeath);
@@ -73,7 +73,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.religion = body.getReligion();
         this.causeOfDeath = body.getCauseOfDeath();
         this.organsForDonation = body.getOrgansForDonation();
-        this.status = body.getStatus();
+        this.bodyStatus = body.getBodyStatus();
         this.fridgeId = body.getFridgeId();
         this.dateOfBirth = body.getDateOfBirth();
         this.dateOfDeath = body.getDateOfDeath();
@@ -87,7 +87,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
      */
     @Override
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, sex, nric, religion, causeOfDeath, organsForDonation, status,
+        return CollectionUtil.isAnyNonNull(name, sex, nric, religion, causeOfDeath, organsForDonation, bodyStatus,
                 fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship, kinPhoneNumber);
     }
 
@@ -105,7 +105,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setReligion(this.getReligion().orElse(body.getReligion()));
         body.setCauseOfDeath(this.getCauseOfDeath().orElse(body.getCauseOfDeath()));
         body.setOrgansForDonation(this.getOrgansForDonation().orElse(body.getOrgansForDonation()));
-        body.setStatus(this.getStatus().orElse(body.getStatus()));
+        body.setBodyStatus(this.getBodyStatus().orElse(body.getBodyStatus()));
         body.setFridgeId(this.getFridgeId().orElse(body.getFridgeId()));
         body.setDateOfBirth(this.getDateOfBirth().orElse(body.getDateOfBirth()));
         body.setDateOfDeath(this.getDateOfDeath().orElse(body.getDateOfDeath()));
@@ -166,12 +166,12 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.organsForDonation = organsForDonation;
     }
 
-    public Optional<Status> getStatus() {
-        return Optional.ofNullable(status);
+    public Optional<BodyStatus> getBodyStatus() {
+        return Optional.ofNullable(bodyStatus);
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setBodyStatus(BodyStatus bodyStatus) {
+        this.bodyStatus = bodyStatus;
     }
 
     public Optional<IdentificationNumber> getFridgeId() {
@@ -237,7 +237,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
                 && getReligion().equals(that.getReligion())
                 && getCauseOfDeath().equals(that.getCauseOfDeath())
                 && getOrgansForDonation().equals(that.getOrgansForDonation())
-                && getStatus().equals(that.getStatus())
+                && getBodyStatus().equals(that.getBodyStatus())
                 && getFridgeId().equals(that.getFridgeId())
                 && getDateOfBirth().equals(that.getDateOfBirth())
                 && getDateOfDeath().equals(that.getDateOfDeath())
@@ -250,7 +250,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getSex(), getNric(), getReligion(), getCauseOfDeath(), getOrgansForDonation(),
-                getStatus(), getFridgeId(), getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(),
+                getBodyStatus(), getFridgeId(), getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(),
                 getKinPhoneNumber());
     }
 }
