@@ -14,18 +14,40 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 public class PurchaseListTest {
 
     public static void main(String[] args) {
+        getPurchase_normalInput_retrievedCorrectly();
         addPurchase_normalInput_addedCorrectly();
+        countNumPurchases_normalInput_addedCorrectly();
         deletePurchase_normalInput_deletedCorrectly();
         deletePurchase_indexNonexistent_throwsError();
         totalSpending_normalInput_addedCorrectly();
     }
 
     @Test
+    public static void getPurchase_normalInput_retrievedCorrectly() {
+        ArrayList<Purchase> listPurchases = new ArrayList<>();
+        listPurchases.add(new PurchaseStub());
+        PurchaseList p = new PurchaseList(listPurchases);
+        assertEquals(new PurchaseStub().getDescription(), p.getPurchase(1).getDescription());
+        assertEquals(new PurchaseStub().getMoneySpent(), p.getPurchase(1).getMoneySpent());
+    }
+
+    @Test
     public static void addPurchase_normalInput_addedCorrectly() {
-        PurchaseList p = new PurchaseList(new ArrayList<Purchase>());
+        PurchaseList p = new PurchaseList(new ArrayList<>());
         p.addSinglePurchase(new PurchaseStub());
         assertEquals(new PurchaseStub().getDescription(), p.getPurchase(1).getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), p.getPurchase(1).getMoneySpent());
+        assertEquals(1, p.getNumPurchases());
+    }
+
+    @Test
+    public static void countNumPurchases_normalInput_addedCorrectly() {
+        ArrayList<Purchase> listPurchases = new ArrayList<>();
+        listPurchases.add(new PurchaseStub());
+        listPurchases.add(new PurchaseStub());
+        listPurchases.add(new PurchaseStub());
+        PurchaseList p = new PurchaseList(listPurchases);
+        assertEquals(3, p.getNumPurchases());
     }
 
     @Test
@@ -38,6 +60,7 @@ public class PurchaseListTest {
         Purchase removedPurchase = p.deletePurchase(3);
         assertEquals(new PurchaseStub().getDescription(), removedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), removedPurchase.getMoneySpent());
+        assertEquals(2, p.getNumPurchases());
     }
 
     @Test
@@ -48,6 +71,7 @@ public class PurchaseListTest {
         listPurchases.add(new PurchaseStub());
         PurchaseList p = new PurchaseList(listPurchases);
         assertThrows(IndexOutOfBoundsException.class, () -> p.deletePurchase(4));
+        assertEquals(3, p.getNumPurchases());
     }
 
     @Test

@@ -8,9 +8,6 @@ public class PurchaseList {
     private ArrayList<Purchase> allPurchases;
 
     public PurchaseList(ArrayList<Purchase> allPurchases) {
-//        if (allPurchases.size() == 0) {
-//            throw new Exception("This purchase does not exist in your list!");
-//        } else {
             this.allPurchases = allPurchases;
 //        }
     }
@@ -37,7 +34,7 @@ public class PurchaseList {
      * @return
      */
     public Purchase deletePurchase(int purchaseIndex) {
-        //todo check if the number is within the size of the list
+        //todo check if the number is within the size of the list and edit tests accordingly
         return allPurchases.remove(purchaseIndex - 1);
     }
 
@@ -51,5 +48,9 @@ public class PurchaseList {
 
     public Purchase getPurchase(int purchaseIndex) {
         return this.allPurchases.get(purchaseIndex - 1);
+    }
+
+    public int getNumPurchases() {
+        return this.allPurchases.size();
     }
 }

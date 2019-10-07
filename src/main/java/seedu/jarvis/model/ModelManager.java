@@ -152,6 +152,8 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== FinanceTracker ================================================================================
+
 //    @Override
 //    public void addPayment(Purchase purchase) {
 //        financeTracker.addSinglePayment(purchase);

@@ -30,6 +30,7 @@ public class Instalment {
      * EDIT METHODS
      */
     public void editDescription(String newDescription) {
+        Objects.requireNonNull(newDescription);
         this.description = newDescription;
     }
 

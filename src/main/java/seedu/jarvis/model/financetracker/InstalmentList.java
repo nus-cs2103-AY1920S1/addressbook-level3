@@ -1,6 +1,7 @@
 package seedu.jarvis.model.financetracker;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Manages a list of instalments saved by the user.
@@ -38,7 +39,8 @@ public class InstalmentList {
      * todo parse this command before this class (assign null if no change)
      */
     public void editInstalment(int instalmentNumber, String description, double value) {
-        //todo add exception for if the instalment does not exist
+        //todo add exception for if the instalment does not exist and edit tests accordingly
+        Objects.requireNonNull(description);
         allInstallments.get(instalmentNumber - 1).editDescription(description);
         allInstallments.get(instalmentNumber - 1).editAmount(value);
         totalMoneySpentOnInstalments = this.calculateTotalInstalmentSpending();
@@ -50,7 +52,7 @@ public class InstalmentList {
      * @return Instalment object that has been removed from the list
      */
     public Instalment deleteInstalment(int instalmentNumber) {
-        //todo check if the number is within the size of the list
+        //todo check if the number is within the size of the list and edit tests accordingly
         return allInstallments.remove(instalmentNumber - 1);
     }
 
@@ -72,6 +74,10 @@ public class InstalmentList {
 
     public Instalment getInstalment(int instalNum) {
         return allInstallments.get(instalNum - 1);
+    }
+
+    public int getNumInstalments() {
+        return this.allInstallments.size();
     }
 
     @Override
