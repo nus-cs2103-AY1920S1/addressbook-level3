@@ -10,10 +10,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.ContactNumber;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Phone;
+import seedu.address.model.customer.CustomerName;
 import seedu.address.model.customer.Email;
-import seedu.address.model.customer.Name;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -137,4 +138,22 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+
+    /**
+     * Parses a {@code String customerName} into a {@code customerName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code customerName} is invalid.
+     */
+    public static CustomerName parseCustomerName(String customerName) throws ParseException {
+        requireNonNull(customerName);
+        String trimmedCustomerName = customerName.trim();
+        if (!CustomerName.isValidName(trimmedCustomerName)) {
+            throw new ParseException(CustomerName.MESSAGE_CONSTRAINTS);
+        }
+        return new CustomerName(trimmedCustomerName);
+    }
+
+
 }

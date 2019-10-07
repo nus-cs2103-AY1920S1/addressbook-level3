@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Customer implements Cloneable {
 
     // Identity fields
-    private final Name name;
+    private final CustomerName customerName;
     private final ContactNumber contactNumber;
     private final Email email;
 
@@ -26,16 +26,16 @@ public class Customer implements Cloneable {
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, ContactNumber contactNumber, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, contactNumber, email, tags);
-        this.name = name;
+    public Customer(CustomerName customerName, ContactNumber contactNumber, Email email, Set<Tag> tags) {
+        requireAllNonNull(customerName, contactNumber, email, tags);
+        this.customerName = customerName;
         this.contactNumber = contactNumber;
         this.email = email;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public CustomerName getCustomerName() {
+        return customerName;
     }
 
     public ContactNumber getContactNumber() {
@@ -64,7 +64,7 @@ public class Customer implements Cloneable {
         }
 
         return otherCustomer != null
-                && otherCustomer.getName().equals(getName())
+                && otherCustomer.getCustomerName().equals(getCustomerName())
                 && (otherCustomer.getContactNumber().equals(getContactNumber())
                 || otherCustomer.getEmail().equals(getEmail()));
     }
@@ -84,7 +84,7 @@ public class Customer implements Cloneable {
         }
 
         Customer otherCustomer = (Customer) other;
-        return otherCustomer.getName().equals(getName())
+        return otherCustomer.getCustomerName().equals(getCustomerName())
                 && otherCustomer.getContactNumber().equals(getContactNumber())
                 && otherCustomer.getEmail().equals(getEmail())
                 && otherCustomer.getTags().equals(getTags());
@@ -98,13 +98,13 @@ public class Customer implements Cloneable {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, contactNumber, email, tags);
+        return Objects.hash(customerName, contactNumber, email, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getCustomerName())
                 .append(" ContactNumber: ")
                 .append(getContactNumber())
                 .append(" Email: ")

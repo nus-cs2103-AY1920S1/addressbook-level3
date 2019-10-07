@@ -13,8 +13,8 @@ import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.CustomerName;
 import seedu.address.model.customer.Email;
-import seedu.address.model.customer.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,12 +36,12 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        CustomerName customerName = ParserUtil.parseCustomerName(argMultimap.getValue(PREFIX_NAME).get());
         ContactNumber contactNumber = ParserUtil.parseContactNumber(argMultimap.getValue(PREFIX_CONTACT).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Customer customer = new Customer(name, contactNumber, email, tagList);
+        Customer customer = new Customer(customerName, contactNumber, email, tagList);
 
 
         return new AddCustomerCommand(customer);

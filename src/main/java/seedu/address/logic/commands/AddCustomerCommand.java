@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.person.Person;
 
 /**
  * Adds a customer to SML.
@@ -37,7 +36,7 @@ public class AddCustomerCommand extends Command {
     private final Customer toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Customer}
      */
     public AddCustomerCommand(Customer customer) {
         requireNonNull(customer);
