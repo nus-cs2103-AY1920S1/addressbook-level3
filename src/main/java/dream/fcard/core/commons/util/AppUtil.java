@@ -2,8 +2,8 @@ package dream.fcard.core.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.scene.image.Image;
 import dream.fcard.MainApp;
+import javafx.scene.image.Image;
 
 /**
  * A container for App specific utility functions

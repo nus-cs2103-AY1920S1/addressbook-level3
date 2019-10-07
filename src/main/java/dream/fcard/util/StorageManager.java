@@ -1,4 +1,7 @@
-package dream.fcard.util.jsontypes;
+package dream.fcard.util;
 
+/**
+ * ...
+ */
 public class StorageManager {
 }
