@@ -26,7 +26,8 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::Typee_highlevel_architecture_diagram.png[]
+image::ArchitectureDiagram.png[]
+
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
@@ -411,14 +412,7 @@ Use case resumes at step 2.
 
 //
 [discrete]
-=== Use case: (UC07) Update modified Appointment data (Save)
-*MSS*
-
-1. User make changes of the appointment via C.R.U.D
-2. System updates the change in the appointment list to the external text file
-3. System displays the updated appointment list in the main window
-+
-Use case ends.
+=== Use case: (UC07) Load and save data
 
 //updated by Ko Gi Hun 7/10/19
 [discrete]
