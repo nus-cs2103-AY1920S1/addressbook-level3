@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -46,7 +45,7 @@ public class NusModsShareLink {
 
     public final String value;
     public final SemesterNo semesterNo;
-    public final Map<ModuleCode, List<String>> moduleLessonsMap;
+    public final Map<ModuleCode, List<LessonNo>> moduleLessonsMap;
 
     public NusModsShareLink(String link) throws ParseException {
         requireNonNull(link);
@@ -66,12 +65,13 @@ public class NusModsShareLink {
             // parse pairs of module code & lessons from query string
             URL url = new URL(link);
             Map<String, String> queryMap = UrlUtil.splitQuery(url);
-            Map<ModuleCode, List<String>> moduleLessonsMap = new LinkedHashMap<>();
+            Map<ModuleCode, List<LessonNo>> moduleLessonsMap = new LinkedHashMap<>();
             for (Map.Entry<String, String> entry : queryMap.entrySet()) {
                 ModuleCode moduleCode = ParserUtil.parseModuleCode(entry.getKey());
                 String[] lessons = entry.getValue().split(",");
-                List<String> lessonsNos = Arrays.stream(lessons)
+                List<LessonNo> lessonsNos = Arrays.stream(lessons)
                         .map(l -> l.split(":")[1])
+                        .map(LessonNo::new)
                         .collect(Collectors.toList());
 
                 moduleLessonsMap.put(moduleCode, lessonsNos);

@@ -14,4 +14,19 @@ public class LessonNo {
     public String toString() {
         return lessonNo;
     }
+
+    /**
+     * Checks if this LessonNo is equal to other SemesterNo.
+     * @param other to be compared
+     * @return boolean
+     */
+    public boolean equals(LessonNo other) {
+        if (other == null) {
+            return false;
+        } else if (other.toString().equals(this.lessonNo)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

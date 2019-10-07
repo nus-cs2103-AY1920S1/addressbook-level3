@@ -5,7 +5,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleList;
 
 /**
- * Contains all the information the app needs from NUSMods.
+ * Contains all the information the app needs from NUSMods such as modules, venues, etc.
  */
 public class NusModsData {
 

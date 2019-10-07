@@ -7,6 +7,8 @@ import org.json.simple.JSONObject;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
 import seedu.address.websocket.NusModApi;
 
 /**
@@ -17,6 +19,8 @@ public class ImportNusModsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD;
 
+    public static final String MESSAGE_COMPLETE = "Import complete: \n\n";
+
     public ImportNusModsCommand() {
     }
 
@@ -25,23 +29,37 @@ public class ImportNusModsCommand extends Command {
         requireNonNull(model);
 
         NusModApi api = new NusModApi();
-        JSONObject moduleListJson = api.getModuleList();
+        JSONArray moduleListJsonArr = api.getModuleList();
 
-        // call api to get all necessary info and store in hard disk
-        // for each moduleCode in moduleListJson
-//        model.findModule(moduleCode);
-//        if not found,
-    //        api.getModule(moduleCode)
-//        model.addModule(moduleCode);
+        int numMods = moduleListJsonArr.size();
+        int numModsInLocalStorage = 0;
+        int numModsImportedFromApi = 0;
+        int numModsFailed = 0;
 
-        String result = "";
-        if (moduleListJson == null) {
-            result = "Error! Unable to get module details";
-            return new CommandResult(result);
-        } else {
-            result = moduleListJson.toString();
-            return new CommandResult(result);
+        for (int i = 0; i < moduleListJsonArr.size(); i++) {
+            JSONObject item = (JSONObject) moduleListJsonArr.get(i);
+            ModuleCode moduleCode = new ModuleCode(item.get("moduleCode").toString());
+            Module module = model.findModule(moduleCode);
+
+            if (module == null) {
+                JSONObject obj = api.getModule(moduleCode);
+                if (obj == null) {
+                    numModsFailed += 1;
+                    continue;
+                }
+                module = new Module(obj);
+                model.addModule(module);
+                numModsImportedFromApi += 1;
+            } else {
+                numModsInLocalStorage += 1;
+            }
         }
+
+        return new CommandResult(MESSAGE_COMPLETE
+                + "Total number of modules: " + numMods + "\n"
+                + "Number of modules in local storage: " + numModsInLocalStorage + "\n"
+                + "Number of modules imported from NUSMods API: " + numModsImportedFromApi + "\n"
+                + "Number of modules failed to retrieve info of: " + numModsFailed);
     }
 
     @Override

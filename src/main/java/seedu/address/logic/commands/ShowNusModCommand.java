@@ -22,6 +22,8 @@ public class ShowNusModCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_MODULE_CODE + "MODULE_CODE "
             + PREFIX_SEMESTER + "SEMESTER\n";
 
+    public static final String MESSAGE_MODULE_NOT_FOUND = "Unable to get module details";
+
     private final ModuleCode moduleCode;
     private final SemesterNo semesterNo;
 
@@ -33,21 +35,19 @@ public class ShowNusModCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        String result = "";
 
         Module module = model.findModule(moduleCode);
         if (module == null) {
             NusModApi api = new NusModApi();
             JSONObject obj = api.getModule(moduleCode);
             if (obj == null) {
-                result = "Error! Unable to get module details";
-                return new CommandResult(result);
+                return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
             } else {
                 module = new Module(obj);
             }
         }
 
-        result += module.toString() + "\n";
+        String result = module.toString() + "\n";
         result += module.getDescription().toString() + "\n";
         result += module.getSemester(semesterNo).toString();
         return new CommandResult(result);

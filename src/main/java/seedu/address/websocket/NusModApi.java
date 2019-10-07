@@ -36,15 +36,15 @@ public class NusModApi {
     }
 
     /**
-     * Returns a JSONObject of summaries of all modules in ACAD_YEAR.
+     * Returns a JSONArray of summaries of all modules in ACAD_YEAR.
      *
-     * @return JSONObject containing module code, title and available semesters for all modules in a year.
+     * @return JSONArray containing module code, title and available semesters for all modules in a year.
      */
-    public JSONObject getModuleList() {
+    public JSONArray getModuleList() {
         ApiQuery query = new ApiQuery(BASE_URL + ACAD_YEAR + MODULE_LIST + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
-            JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
+            JSONArray obj = ParserUtil.parseStringToJsonArray(queryResult.getResponseResult());
             return obj;
         } else {
             return null;
@@ -52,15 +52,15 @@ public class NusModApi {
     }
 
     /**
-     * Returns a JSONObject of detailed information about all modules in ACAD_YEAR.
+     * Returns a JSONArray of detailed information about all modules in ACAD_YEAR.
      *
-     * @return JSONObject containing all module info except timetable and prereq tree for all modules in a year.
+     * @return JSONArray containing all module info except timetable and prereq tree for all modules in a year.
      */
-    public JSONObject getModuleInfo() {
+    public JSONArray getModuleInfo() {
         ApiQuery query = new ApiQuery(BASE_URL + ACAD_YEAR + MODULE_INFO + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
-            JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
+            JSONArray obj = ParserUtil.parseStringToJsonArray(queryResult.getResponseResult());
             return obj;
         } else {
             return null;

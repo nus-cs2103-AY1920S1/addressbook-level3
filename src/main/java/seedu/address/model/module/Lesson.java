@@ -1,6 +1,14 @@
 package seedu.address.model.module;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.json.simple.JSONObject;
+
+import seedu.address.model.person.schedule.Timeslot;
 
 /**
  * A lesson in a semester timetable.
@@ -74,5 +82,28 @@ public class Lesson {
 
     public Venue getVenue() {
         return venue;
+    }
+
+    /**
+     * Generate all timeslots for the lesson, taking into account of holidays.
+     * @return
+     */
+    public List<Timeslot> generateTimeslots() {
+        List<Timeslot> timeslots = new ArrayList<>();
+
+        seedu.address.model.person.schedule.Venue venue = new
+                seedu.address.model.person.schedule.Venue(this.venue.toString());
+
+        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+        // need acad year and semester no
+
+        LocalDateTime startDateTime = LocalDateTime.parse(this.startTime.toString(), DATE_FORMATTER);
+        LocalDateTime endDateTime = LocalDateTime.parse(this.endTime.toString(), DATE_FORMATTER);
+
+        Timeslot ts = new Timeslot(startDateTime, endDateTime, venue);
+        timeslots.add(ts);
+
+        return timeslots;
     }
 }

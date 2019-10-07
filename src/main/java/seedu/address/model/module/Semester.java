@@ -41,7 +41,7 @@ public class Semester {
      * @param lessonNo Lesson number string.
      * @return ArrayList of Lessons matching the lesson number, returns empty list if no matching lessons.
      */
-    public ArrayList<Lesson> findLessons(String lessonNo) {
+    public ArrayList<Lesson> findLessons(LessonNo lessonNo) {
         ArrayList<Lesson> lessons = new ArrayList<>();
         for (int i = 0; i < timetable.size(); i++) {
             if (timetable.get(i).getLessonNo().equals(lessonNo)) {

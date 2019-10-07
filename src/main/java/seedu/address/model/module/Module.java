@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Timeslot;
 
 /**
  * The module details
@@ -78,20 +79,19 @@ public class Module {
 
     /**
      * Converts a {@code Module} to an {@code Event}.
-     * @return an Event translated from a Module.
+     * @return an Event translated from a Semester of a Module.
      */
-    public Event toEvent(SemesterNo semesterNo, List<String> lessonNos) {
-
-        Event event = new Event(moduleCode.toString());
-
-        for (String lessonNo : lessonNos) {
-            ArrayList<Lesson> lessons = this.getSemester(semesterNo).findLessons(lessonNo);
+    public Event toEvent(SemesterNo semesterNo, List<LessonNo> lessonNos) {
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        for (LessonNo lessonNo : lessonNos) {
+            lessons.addAll(this.getSemester(semesterNo).findLessons(lessonNo));
         }
 
-        // TODO: convert lessons to event timeslots
-        // See https://github.com/nusmodifications/nusmods/blob/master/website/src/data/academic-calendar.json
-        //     https://github.com/nusmodifications/nusmods/blob/master/website/src/data/holidays.json
+        ArrayList<Timeslot> timeslots = new ArrayList<>();
+        for (Lesson lesson : lessons) {
+            timeslots.addAll(lesson.generateTimeslots());
+        }
 
-        return event;
+        return new Event(moduleCode.toString(), timeslots);
     }
 }
