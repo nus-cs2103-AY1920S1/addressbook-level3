@@ -5,9 +5,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
+
+import java.time.LocalDateTime;
 
 /**
  * Adds a person.
@@ -42,6 +46,13 @@ public class AddPersonCommand extends Command {
         } else {
             Person person = model.addPerson(personDescriptor);
             if (person != null) {
+
+                // update main window
+                model.updateMainWindowDisplay(person.getName(), LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
+
+                // update side panel
+                model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+
                 return new CommandResult(MESSAGE_SUCCESS + person.details());
             } else {
                 return new CommandResult(MESSAGE_FAILURE + MESSAGE_DUPLICATE_PERSON);

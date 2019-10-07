@@ -1,4 +1,4 @@
-package seedu.address.model.weekschedule;
+package seedu.address.model.display.mainwindow;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -15,21 +15,22 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class WeekSchedule {
 
-    private final LocalTime STARTTIME = LocalTime.of(00,00);
-    private final LocalTime ENDTIME = LocalTime.of(23,59);
+    private final static int DAYS_OF_THE_WEEK = 7;
+    private final static LocalTime STARTTIME = LocalTime.of(00,00);
+    private final static LocalTime ENDTIME = LocalTime.of(23,59);
 
     private String weekScheduleName;
 
-    private ArrayList<DaySchedule> week;
+    private ArrayList<DaySchedule> weekSchedule;
 
     public WeekSchedule(String weekScheduleName, LocalDateTime now, ArrayList<Person> persons) {
 
         this.weekScheduleName = weekScheduleName;
         LocalDate currentDate = now.toLocalDate();
-        week = new ArrayList<>();
+        weekSchedule = new ArrayList<>();
 
-        for(int day = 0; day < 7; day++) {
-            week.add(new DaySchedule(currentDate));
+        for(int day = 0; day < DAYS_OF_THE_WEEK; day++) {
+            weekSchedule.add(new DaySchedule(currentDate));
 
             for(int p = 0; p < persons.size(); p ++) {
                 Person currentPerson = persons.get(p);
@@ -62,7 +63,7 @@ public class WeekSchedule {
                                     currentEndTime.toLocalTime(),
                                     currentVenue
                             );
-                            week.get(day).addTimeslot(timeslot);
+                            weekSchedule.get(day).addTimeslot(timeslot);
                         } else if (startDateDifference == 0 && endDateDifference > 0) {
                             DayTimeslot timeslot = new DayTimeslot(
                                     name,
@@ -71,7 +72,7 @@ public class WeekSchedule {
                                     ENDTIME,
                                     currentVenue
                             );
-                            week.get(day).addTimeslot(timeslot);
+                            weekSchedule.get(day).addTimeslot(timeslot);
                         } else if (startDateDifference < 0 && endDateDifference == 0) {
                             DayTimeslot timeslot = new DayTimeslot(
                                     name,
@@ -80,7 +81,7 @@ public class WeekSchedule {
                                     currentEndTime.toLocalTime(),
                                     currentVenue
                             );
-                            week.get(day).addTimeslot(timeslot);
+                            weekSchedule.get(day).addTimeslot(timeslot);
                         } else if (startDateDifference < 0 && endDateDifference > 0) {
                             DayTimeslot timeslot = new DayTimeslot(
                                     name,
@@ -89,17 +90,36 @@ public class WeekSchedule {
                                     ENDTIME,
                                     currentVenue
                             );
-                            week.get(day).addTimeslot(timeslot);
+                            weekSchedule.get(day).addTimeslot(timeslot);
                         }
                     }
                 }
             }
 
-            currentDate.plusDays(1);
+            currentDate = currentDate.plusDays(1);
         }
 
     }
 
+    public String getWeekScheduleName() {
+        return weekScheduleName;
+    }
+
+    public ArrayList<DaySchedule> getWeekSchedule() {
+        return weekSchedule;
+    }
+
+    // for debugging purposes only
+    @Override
+    public String toString() {
+        String output = "";
+
+        output += "=====" + weekScheduleName + "=====" + "\n";
+        for(int i = 0; i < weekSchedule.size(); i++) {
+            output += weekSchedule.get(i).toString();
+        }
 
 
+        return output;
+    }
 }

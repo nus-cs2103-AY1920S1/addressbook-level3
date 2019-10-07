@@ -2,12 +2,13 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
-import seedu.address.model.person.schedule.Schedule;
-import seedu.address.model.weekschedule.WeekSchedule;
+import seedu.address.model.display.mainwindow.WeekSchedule;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 public class ScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "schedule";
-    public static final String MESSAGE_SUCCESS = "Schedule found: ";
+    public static final String MESSAGE_SUCCESS = "Schedule found: \n\n";
     public static final String MESSAGE_FAILURE = "Unable to generate schedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_GROUPNAME + " GROUPNAME";
@@ -35,16 +36,14 @@ public class ScheduleCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
 
-        ArrayList<PersonId> personIds = model.findPersonsOfGroup(group.getGroupId());
-        ArrayList<Person> persons = new ArrayList<>();
+        // update main window
+        model.updateMainWindowDisplay(group.getGroupName(), LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
 
-        for(int i = 0; i < personIds.size(); i++) {
-            persons.add(model.findPerson(personIds.get(i)));
-        }
+        // update side panel
+        model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
 
-        WeekSchedule schedule = model.getWeekSchedule(groupName.toString(), LocalDateTime.now(), persons);
-
-        return new CommandResult(MESSAGE_SUCCESS);
+        WeekSchedule schedule = model.getMainWindowDisplay().getWeekSchedule();
+        return new CommandResult(MESSAGE_SUCCESS + schedule.toString());
     }
 
     @Override

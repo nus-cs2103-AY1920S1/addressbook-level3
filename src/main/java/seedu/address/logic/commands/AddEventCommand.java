@@ -7,8 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.schedule.Event;
+
+import java.time.LocalDateTime;
 
 /**
  * Adds an Event to the schedule of a person.
@@ -42,6 +46,13 @@ public class AddEventCommand extends Command {
         if (event == null) {
             return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_WRONG_TIMINGS);
         } else if (model.addEvent(name, event)) {
+
+            // updates main window
+            model.updateMainWindowDisplay(name, LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
+
+            // updates side panel
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+
             return new CommandResult(MESSAGE_SUCCESS + event.toString());
         } else {
             return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_UNABLE_TO_FIND_PERSON);

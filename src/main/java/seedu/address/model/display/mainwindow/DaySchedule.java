@@ -1,4 +1,6 @@
-package seedu.address.model.weekschedule;
+package seedu.address.model.display.mainwindow;
+
+import seedu.address.model.display.mainwindow.DayTimeslot;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,5 +34,17 @@ public class DaySchedule {
 
     public void setTimeslots(ArrayList<DayTimeslot> timeslots) {
         this.timeslots = timeslots;
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        output += day.toString() + ":\n";
+
+        for(int i = 0; i < timeslots.size(); i ++) {
+            output += timeslots.get(i).toString();
+            output += "\n";
+        }
+        return output;
     }
 }

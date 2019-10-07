@@ -7,6 +7,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.display.mainwindow.MainWindowDisplay;
+import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.sidepanel.SidePanelDisplay;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupId;
@@ -20,7 +24,7 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
-import seedu.address.model.weekschedule.WeekSchedule;
+import seedu.address.model.display.mainwindow.WeekSchedule;
 
 /**
  * The API of the Model component.
@@ -211,6 +215,20 @@ public interface Model {
     TimeBook getTimeBook();
 
     WeekSchedule getWeekSchedule(String scheduleName, LocalDateTime dateTime, ArrayList<Person> persons);
+
+    MainWindowDisplay getMainWindowDisplay();
+
+    SidePanelDisplay getSidePanelDisplay();
+
+    void updateMainWindowDisplay(MainWindowDisplay mainWindowDisplay);
+
+    void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay);
+
+    void updateMainWindowDisplay(Name name, LocalDateTime time, MainWindowDisplayType type);
+
+    public void updateMainWindowDisplay(GroupName groupName, LocalDateTime time, MainWindowDisplayType type);
+
+    public void updateSidePanelDisplay(SidePanelDisplayType type);
 
 
 }

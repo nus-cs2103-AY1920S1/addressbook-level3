@@ -1,0 +1,65 @@
+package seedu.address.model.display.sidepanel;
+
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonDescriptor;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
+import seedu.address.model.tag.Tag;
+
+import java.util.Set;
+
+public class PersonDisplay extends Display {
+    private final Name name;
+    private final Phone phone;
+    private final Email email;
+    private final Address address;
+    private final Remark remark;
+    private final Set<Tag> tags;
+
+    public Name getName() {
+        return name;
+    }
+
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Remark getRemark() {
+        return remark;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public PersonDisplay(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.remark = remark;
+        this.tags = tags;
+    }
+
+    public PersonDisplay(Person person) {
+        this.name = person.getName();
+        this.phone = person.getPhone();
+        this.email = person.getEmail();
+        this.address = person.getAddress();
+        this.remark = person.getRemark();
+        this.tags = person.getTags();
+    }
+
+
+}

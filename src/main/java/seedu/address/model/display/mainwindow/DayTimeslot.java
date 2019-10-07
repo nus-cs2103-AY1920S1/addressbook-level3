@@ -1,4 +1,4 @@
-package seedu.address.model.weekschedule;
+package seedu.address.model.display.mainwindow;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.schedule.Venue;
@@ -43,5 +43,17 @@ public class DayTimeslot {
 
     public Venue getVenue() {
         return venue;
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        output += name.toString() + " "
+                + eventName + " "
+                + startTime.toString() + " "
+                + endTime.toString() + " "
+                + venue.toString();
+
+        return output;
     }
 }

@@ -15,6 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.TimeBook;
+import seedu.address.model.display.mainwindow.MainWindowDisplay;
+import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -43,13 +45,6 @@ public class LogicManager implements Logic {
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        // legacy code
-        /*try {
-            storage.saveAddressBook(model.getAddressBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }*/
-
         try {
             storage.saveTimeBook(model.getTimeBook());
             logger.info("Attempting to save timebook");
@@ -57,8 +52,6 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             logger.severe("Unable to save timebook");
         }
-
-
         return commandResult;
     }
 
@@ -67,6 +60,21 @@ public class LogicManager implements Logic {
     public TimeBook getTimeBook() {
         return model.getTimeBook();
     }
+
+    @Override
+    public MainWindowDisplay getMainWindowDisplay() {
+        return model.getMainWindowDisplay();
+    }
+
+    @Override
+    public SidePanelDisplay getSidePanelDisplay() {
+        return model.getSidePanelDisplay();
+    }
+
+
+
+
+
 
 
 
