@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.claim.Claim;
 import seedu.address.model.person.Person;
 
 /**
@@ -112,6 +113,30 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasClaim(Claim claim) {
+        requireNonNull(claim);
+        return addressBook.hasClaim(claim);
+    }
+
+    @Override
+    public void deleteClaim(Claim target) {
+        addressBook.removeClaim(target);
+    }
+
+    @Override
+    public void addClaim(Claim claim) {
+        addressBook.addClaim(claim);
+        updateFilteredClaimList(PREDICATE_SHOW_ALL_CLAIMS);
+    }
+
+    @Override
+    public void setClaim(Claim target, Claim editedClaim) {
+        requireAllNonNull(target, editedClaim);
+
+        addressBook.setClaim(target, editedClaim);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -148,4 +173,18 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
+    public ObservableList<Claim> getFilteredClaimList() {
+        /*
+         FUNCTION TO BE EDITED
+         */
+        return null;
+    }
+
+    @Override
+    public void updateFilteredClaimList(Predicate<Claim> predicate) {
+        /*
+         FUNCTION TO BE EDITED
+         */
+    }
 }

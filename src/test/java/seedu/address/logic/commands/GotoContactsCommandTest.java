@@ -28,12 +28,14 @@ public class GotoContactsCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new GotoContactsCommand(), model, GotoContactsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new GotoContactsCommand("contacts"), model,
+                GotoContactsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new GotoContactsCommand(), model, GotoContactsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new GotoContactsCommand("contacts"), model,
+                GotoContactsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
