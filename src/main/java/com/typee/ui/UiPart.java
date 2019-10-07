@@ -5,8 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.net.URL;
 
-import javafx.fxml.FXMLLoader;
 import com.typee.MainApp;
+
+import javafx.fxml.FXMLLoader;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.

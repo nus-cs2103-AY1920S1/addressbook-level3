@@ -5,14 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import com.typee.commons.core.GuiSettings;
 import com.typee.model.AddressBook;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.UserPrefs;
 import com.typee.testutil.TypicalPersons;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 public class StorageManagerTest {
 

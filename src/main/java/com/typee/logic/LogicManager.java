@@ -15,6 +15,7 @@ import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.person.Person;
 import com.typee.storage.Storage;
+
 import javafx.collections.ObservableList;
 
 /**

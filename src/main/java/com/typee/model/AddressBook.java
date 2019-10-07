@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.typee.model.person.Person;
 import com.typee.model.person.UniquePersonList;
+
 import javafx.collections.ObservableList;
 
 /**

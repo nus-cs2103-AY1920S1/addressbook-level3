@@ -9,6 +9,7 @@ import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.person.Person;
+
 import javafx.collections.ObservableList;
 
 /**

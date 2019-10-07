@@ -1,8 +1,8 @@
 package com.typee.commons.util;
 
+import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static com.typee.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -108,8 +108,8 @@ public class ConfigUtilTest {
 
     private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
         return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
-                                  : null;
+                ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
+                : null;
     }
 
 

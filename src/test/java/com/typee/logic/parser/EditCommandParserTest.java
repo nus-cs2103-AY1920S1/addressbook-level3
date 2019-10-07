@@ -3,14 +3,14 @@ package com.typee.logic.parser;
 import static com.typee.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static com.typee.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
+import org.junit.jupiter.api.Test;
+
 import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
 import com.typee.logic.commands.CommandTestUtil;
-import com.typee.model.person.Name;
-import org.junit.jupiter.api.Test;
-
 import com.typee.logic.commands.EditCommand;
 import com.typee.logic.commands.EditCommand.EditPersonDescriptor;
+import com.typee.model.person.Name;
 import com.typee.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
@@ -35,10 +35,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        CommandParserTestUtil.assertParseFailure(parser, "-5" + CommandTestUtil.NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, "-5" + CommandTestUtil.NAME_DESC_AMY,
+                MESSAGE_INVALID_FORMAT);
 
         // zero index
-        CommandParserTestUtil.assertParseFailure(parser, "0" + CommandTestUtil.NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, "0" + CommandTestUtil.NAME_DESC_AMY,
+                MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         CommandParserTestUtil.assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -49,10 +51,12 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC,
+                Name.MESSAGE_CONSTRAINTS); // invalid name
 
         // multiple invalid values, but only the first invalid value is captured
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC + CommandTestUtil.VALID_ADDRESS_AMY + CommandTestUtil.VALID_PHONE_AMY,
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC
+                        + CommandTestUtil.VALID_ADDRESS_AMY + CommandTestUtil.VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -61,7 +65,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
@@ -72,7 +77,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
     }

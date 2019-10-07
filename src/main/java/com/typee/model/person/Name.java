@@ -1,9 +1,8 @@
 package com.typee.model.person;
 
-import com.typee.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
-import static com.typee.commons.util.AppUtil.checkArgument;
+
+import com.typee.commons.util.AppUtil;
 
 /**
  * Represents a Person's name in the address book.

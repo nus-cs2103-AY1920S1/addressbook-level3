@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.model.person.Person;
+
 import javafx.collections.ObservableList;
 
 /**

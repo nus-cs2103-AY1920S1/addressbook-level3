@@ -1,6 +1,7 @@
 package com.typee.model;
 
 import com.typee.model.person.Person;
+
 import javafx.collections.ObservableList;
 
 /**

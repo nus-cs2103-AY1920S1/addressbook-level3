@@ -3,6 +3,7 @@ package com.typee.ui;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

@@ -1,14 +1,14 @@
 package com.typee.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.typee.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static com.typee.testutil.Assert.assertThrows;
 import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.typee.model.person.Name;
 import org.junit.jupiter.api.Test;
 
 import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.model.person.Name;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

@@ -2,19 +2,19 @@ package com.typee.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static com.typee.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.model.UserPrefs;
 import com.typee.testutil.Assert;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 public class JsonUserPrefsStorageTest {
 

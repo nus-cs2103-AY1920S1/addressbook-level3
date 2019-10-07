@@ -1,7 +1,6 @@
 package com.typee.model;
 
 import static java.util.Objects.requireNonNull;
-import static com.typee.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -11,6 +10,7 @@ import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.CollectionUtil;
 import com.typee.model.person.Person;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.FileUtil;
+
 import javafx.application.Application;
 
 /**

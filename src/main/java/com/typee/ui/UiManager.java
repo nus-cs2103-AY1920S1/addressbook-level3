@@ -2,15 +2,16 @@ package com.typee.ui;
 
 import java.util.logging.Logger;
 
+import com.typee.MainApp;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.StringUtil;
 import com.typee.logic.Logic;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import com.typee.MainApp;
 
 /**
  * The manager of the UI component.

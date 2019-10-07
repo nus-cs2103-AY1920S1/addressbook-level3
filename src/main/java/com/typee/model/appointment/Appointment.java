@@ -1,10 +1,13 @@
 package com.typee.model.appointment;
 
-import com.typee.model.person.Person;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.typee.model.person.Person;
+
+/**
+ * Appointment class
+ */
 public class Appointment {
     private LocalDateTime start;
     private LocalDateTime end;

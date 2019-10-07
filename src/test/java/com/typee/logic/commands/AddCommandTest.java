@@ -1,27 +1,28 @@
 package com.typee.logic.commands;
 
+import static com.typee.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.typee.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import com.typee.commons.core.GuiSettings;
-import com.typee.model.person.Person;
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
+import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.AddressBook;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
+import com.typee.model.person.Person;
 import com.typee.testutil.PersonBuilder;
+
+import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 

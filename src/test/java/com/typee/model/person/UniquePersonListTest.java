@@ -1,11 +1,11 @@
 package com.typee.model.person;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.typee.testutil.Assert.assertThrows;
 import static com.typee.testutil.TypicalPersons.ALICE;
 import static com.typee.testutil.TypicalPersons.BOB;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -161,6 +161,6 @@ public class UniquePersonListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> uniquePersonList.asUnmodifiableObservableList()
-                        .remove(0));
+                .remove(0));
     }
 }

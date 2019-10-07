@@ -1,5 +1,7 @@
 {
-  "persons": [ {
-    "name": "Hans Muster"
-  } ]
+  "persons": [
+    {
+      "name": "Hans Muster"
+    }
+  ]
 }

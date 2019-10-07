@@ -1,8 +1,8 @@
 package com.typee.commons.util;
 
+import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.typee.testutil.Assert.assertThrows;
 
 import java.io.FileNotFoundException;
 
@@ -56,7 +56,8 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase("typical sentence", null));
+        assertThrows(NullPointerException.class, ()
+            -> StringUtil.containsWordIgnoreCase("typical sentence", null));
     }
 
     @Test
@@ -132,7 +133,7 @@ public class StringUtilTest {
     @Test
     public void getDetails_exceptionGiven() {
         assertTrue(StringUtil.getDetails(new FileNotFoundException("file not found"))
-            .contains("java.io.FileNotFoundException: file not found"));
+                .contains("java.io.FileNotFoundException: file not found"));
     }
 
     @Test

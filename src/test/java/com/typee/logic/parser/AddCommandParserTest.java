@@ -3,13 +3,13 @@ package com.typee.logic.parser;
 import static com.typee.testutil.TypicalPersons.AMY;
 import static com.typee.testutil.TypicalPersons.BOB;
 
+import org.junit.jupiter.api.Test;
+
 import com.typee.commons.core.Messages;
+import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.CommandTestUtil;
 import com.typee.model.person.Name;
 import com.typee.model.person.Person;
-import org.junit.jupiter.api.Test;
-
-import com.typee.logic.commands.AddCommand;
 import com.typee.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
@@ -20,10 +20,12 @@ public class AddCommandParserTest {
         Person expectedPerson = new PersonBuilder(BOB).build();
 
         // whitespace only preamble
-        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.PREAMBLE_WHITESPACE + CommandTestUtil.NAME_DESC_BOB, new AddCommand(expectedPerson));
+        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.PREAMBLE_WHITESPACE
+                + CommandTestUtil.NAME_DESC_BOB, new AddCommand(expectedPerson));
 
         // multiple names - last name accepted
-        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.NAME_DESC_BOB, new AddCommand(expectedPerson));
+        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_AMY
+                + CommandTestUtil.NAME_DESC_BOB, new AddCommand(expectedPerson));
 
         // multiple phones - last phone accepted
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_BOB, new AddCommand(expectedPerson));
@@ -36,7 +38,8 @@ public class AddCommandParserTest {
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).build();
-        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_BOB, new AddCommand(expectedPersonMultipleTags));
+        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_BOB,
+                new AddCommand(expectedPersonMultipleTags));
     }
 
     @Test
@@ -63,7 +66,8 @@ public class AddCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.PREAMBLE_NON_EMPTY + CommandTestUtil.NAME_DESC_BOB,
+        CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.PREAMBLE_NON_EMPTY
+                        + CommandTestUtil.NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

@@ -13,23 +13,24 @@ import com.typee.commons.util.ConfigUtil;
 import com.typee.commons.util.StringUtil;
 import com.typee.logic.Logic;
 import com.typee.logic.LogicManager;
-import com.typee.model.util.SampleDataUtil;
-import com.typee.ui.Ui;
-import com.typee.ui.UiManager;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import com.typee.model.AddressBook;
 import com.typee.model.Model;
 import com.typee.model.ModelManager;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
+import com.typee.model.util.SampleDataUtil;
 import com.typee.storage.AddressBookStorage;
 import com.typee.storage.JsonAddressBookStorage;
 import com.typee.storage.JsonUserPrefsStorage;
 import com.typee.storage.Storage;
 import com.typee.storage.StorageManager;
 import com.typee.storage.UserPrefsStorage;
+import com.typee.ui.Ui;
+import com.typee.ui.UiManager;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Runs the application.

@@ -1,22 +1,22 @@
 package com.typee.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static com.typee.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
-import com.typee.model.person.Person;
-import org.junit.jupiter.api.Test;
-
 import com.typee.logic.commands.EditCommand.EditPersonDescriptor;
 import com.typee.model.AddressBook;
 import com.typee.model.Model;
 import com.typee.model.ModelManager;
 import com.typee.model.UserPrefs;
+import com.typee.model.person.Person;
 import com.typee.testutil.EditPersonDescriptorBuilder;
 import com.typee.testutil.PersonBuilder;
 
@@ -49,7 +49,8 @@ public class EditCommandTest {
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withName(CommandTestUtil.VALID_NAME_BOB).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
+                .build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
@@ -113,7 +114,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
+                .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

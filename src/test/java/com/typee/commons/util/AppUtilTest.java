@@ -1,7 +1,7 @@
 package com.typee.commons.util;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static com.typee.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 

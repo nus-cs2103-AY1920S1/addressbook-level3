@@ -29,7 +29,8 @@ public class EditPersonDescriptorTest {
         assertFalse(CommandTestUtil.DESC_AMY.equals(CommandTestUtil.DESC_BOB));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY)
+                .withName(CommandTestUtil.VALID_NAME_BOB).build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
     }

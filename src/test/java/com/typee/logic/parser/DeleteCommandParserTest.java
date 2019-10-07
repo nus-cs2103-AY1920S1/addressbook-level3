@@ -2,9 +2,9 @@ package com.typee.logic.parser;
 
 import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import com.typee.commons.core.Messages;
 import org.junit.jupiter.api.Test;
 
+import com.typee.commons.core.Messages;
 import com.typee.logic.commands.DeleteCommand;
 
 /**
@@ -25,6 +25,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        CommandParserTestUtil.assertParseFailure(parser, "a", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        CommandParserTestUtil.assertParseFailure(parser, "a",
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

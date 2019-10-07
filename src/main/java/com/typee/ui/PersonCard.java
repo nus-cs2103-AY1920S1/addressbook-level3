@@ -1,6 +1,7 @@
 package com.typee.ui;
 
 import com.typee.model.person.Person;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

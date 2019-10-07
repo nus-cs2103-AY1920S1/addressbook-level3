@@ -1,7 +1,6 @@
 package com.typee.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static com.typee.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.List;
 import com.typee.commons.util.CollectionUtil;
 import com.typee.model.person.exceptions.DuplicatePersonException;
 import com.typee.model.person.exceptions.PersonNotFoundException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

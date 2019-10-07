@@ -4,6 +4,7 @@ import com.typee.logic.Logic;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

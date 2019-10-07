@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.typee.commons.core.Messages;
-import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.ClearCommand;
 import com.typee.logic.commands.Command;
@@ -14,6 +13,7 @@ import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.ListCommand;
+import com.typee.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.

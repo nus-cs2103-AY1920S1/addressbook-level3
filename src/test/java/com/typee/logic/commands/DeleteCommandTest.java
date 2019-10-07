@@ -1,20 +1,20 @@
 package com.typee.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static com.typee.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
-import com.typee.model.person.Person;
-import org.junit.jupiter.api.Test;
-
 import com.typee.model.Model;
 import com.typee.model.ModelManager;
 import com.typee.model.UserPrefs;
+import com.typee.model.person.Person;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

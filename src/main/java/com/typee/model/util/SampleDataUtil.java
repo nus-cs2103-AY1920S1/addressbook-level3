@@ -1,9 +1,9 @@
 package com.typee.model.util;
 
-import com.typee.model.person.Name;
-import com.typee.model.person.Person;
 import com.typee.model.AddressBook;
 import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.person.Name;
+import com.typee.model.person.Person;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

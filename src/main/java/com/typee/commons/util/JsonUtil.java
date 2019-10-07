@@ -19,9 +19,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-
-import com.typee.commons.exceptions.DataConversionException;
 import com.typee.commons.core.LogsCenter;
+import com.typee.commons.exceptions.DataConversionException;
 
 /**
  * Converts a Java object instance to JSON and vice versa

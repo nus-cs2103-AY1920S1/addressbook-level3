@@ -1,7 +1,7 @@
 package com.typee.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static com.typee.logic.parser.CliSyntax.PREFIX_NAME;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
