@@ -44,11 +44,6 @@ public class ModelManager implements Model {
 
     //=========== UserPrefs ==================================================================================
 
-    @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
-    }
 
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
@@ -71,47 +66,18 @@ public class ModelManager implements Model {
         return userPrefs.getAddressBookFilePath();
     }
 
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
 
     //=========== AddressBook ================================================================================
 
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
+
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
 
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
 
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
 
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
 
     //=========== Filtered Person List Accessors =============================================================
 
