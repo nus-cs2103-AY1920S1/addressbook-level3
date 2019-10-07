@@ -2,15 +2,10 @@ package seedu.address.model.rule;
 
 import java.util.function.Predicate;
 
-public class RulePredicate implements Predicate<Object> {
-
+/**
+ * Tests that a {@code Transaction} satisfies the given condition.
+ */
+public abstract class RulePredicate implements Predicate<Object> {
     @Override
-    public boolean test(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this;
-    }
+    public abstract boolean test(Object o);
 }
