@@ -9,16 +9,18 @@ import static java.util.Objects.requireNonNull;
 public class Location {
 
     public final String locationName;
-    public final String latitude;
-    public final String longitude;
+    private String latitude;
+    private String longitude;
 
     public Location(String locationName, String latitude, String longitude) {
         requireNonNull(locationName);
-        requireNonNull(latitude);
-        requireNonNull(longitude);
         this.locationName = locationName;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+    public Location(String locationName) {
+        requireNonNull(locationName);
+        this.locationName = locationName;
     }
 
     @Override
