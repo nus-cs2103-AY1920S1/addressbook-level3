@@ -1,14 +1,12 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.claim.Claim;
-import seedu.address.model.claim.UniqueClaimsList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.address.model.claim.Claim;
+import seedu.address.model.claim.UniqueClaimsList;
 
 /**
  * Wraps all data at the claims-book level
@@ -50,6 +48,17 @@ public class ClaimsBook implements ReadOnlyClaimsBook {
     }
 
     /**
+     * Replaces the given claim {@code target} in the list with {@code editedClaim}.
+     * {@code target} must exist in the address book.
+     * The claim identity of {@code editedClaim} must not be the same as another existing claim in the address book.
+     */
+    public void setClaims(Claim target, Claim editedClaim) {
+        requireNonNull(editedClaim);
+
+        claims.setClaim(target, editedClaim);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyClaimsBook newData) {
@@ -76,16 +85,6 @@ public class ClaimsBook implements ReadOnlyClaimsBook {
         claims.add(claim);
     }
 
-    /**
-     * Replaces the given claim {@code target} in the list with {@code editedClaim}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void setClaims(Claim target, Claim editedClaim) {
-        requireNonNull(editedClaim);
-
-        claims.setClaim(target, editedClaim);
-    }
 
     /**
      * Removes {@code key} from this {@code ClaimsBook}.

@@ -1,18 +1,16 @@
 package seedu.address.model.claim;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.claim.exceptions.ClaimNotFoundException;
-import seedu.address.model.claim.exceptions.DuplicateClaimException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.claim.exceptions.ClaimNotFoundException;
+import seedu.address.model.claim.exceptions.DuplicateClaimException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * A list of claims that enforces uniqueness between its elements and does not allow nulls.

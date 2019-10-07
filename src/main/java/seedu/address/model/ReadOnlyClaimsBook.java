@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.claim.Claim;
-import seedu.address.model.person.Person;
 
 /**
  * Unmodifiable view of an claims book

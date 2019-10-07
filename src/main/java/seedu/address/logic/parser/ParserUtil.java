@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.commonvariables.Name;
+import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.commonVariables.Name;
-import seedu.address.model.commonVariables.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
