@@ -8,7 +8,7 @@ import dream.fcard.commons.core.LogsCenter;
 import dream.fcard.logic.parser.AddressBookParser;
 import dream.fcard.model.Model;
 import dream.fcard.model.ReadOnlyAddressBook;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 import javafx.collections.ObservableList;
 import dream.fcard.storage.Storage;
 

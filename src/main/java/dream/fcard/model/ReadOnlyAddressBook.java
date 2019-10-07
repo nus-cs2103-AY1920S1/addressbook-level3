@@ -1,7 +1,7 @@
 package dream.fcard.model;
 
 import javafx.collections.ObservableList;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 
 /**
  * Unmodifiable view of an address book

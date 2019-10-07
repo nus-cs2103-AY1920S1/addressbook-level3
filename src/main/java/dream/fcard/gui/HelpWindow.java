@@ -1,4 +1,4 @@
-package dream.fcard.ui;
+package dream.fcard.gui;
 
 import java.util.logging.Logger;
 

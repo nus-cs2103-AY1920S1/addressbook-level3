@@ -1,4 +1,4 @@
-package dream.fcard.model.person;
+package dream.fcard.model.cards;
 
 import static dream.fcard.commons.util.CollectionUtil.requireAllNonNull;
 

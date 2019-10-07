@@ -1,4 +1,4 @@
-package dream.fcard.model.person.exceptions;
+package dream.fcard.model.cards.exceptions;
 
 /**
  * Signals that the operation is unable to find the specified person.

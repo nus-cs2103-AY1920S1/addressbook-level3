@@ -1,9 +1,9 @@
-package dream.fcard.ui;
+package dream.fcard.gui;
 
 import java.util.logging.Logger;
 
 import dream.fcard.commons.core.LogsCenter;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;

@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import dream.fcard.commons.core.GuiSettings;
 import javafx.collections.ObservableList;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 
 /**
  * The API of the Model component.

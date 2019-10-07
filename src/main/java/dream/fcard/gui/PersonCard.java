@@ -1,8 +1,6 @@
-package dream.fcard.ui;
+package dream.fcard.gui;
 
-import java.util.Comparator;
-
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;

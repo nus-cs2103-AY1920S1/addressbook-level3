@@ -1,4 +1,4 @@
-package dream.fcard.ui;
+package dream.fcard.gui;
 
 import static java.util.Objects.requireNonNull;
 

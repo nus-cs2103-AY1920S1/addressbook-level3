@@ -2,7 +2,7 @@ package dream.fcard.model.util;
 
 import dream.fcard.model.AddressBook;
 import dream.fcard.model.ReadOnlyAddressBook;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

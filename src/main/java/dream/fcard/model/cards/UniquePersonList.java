@@ -1,4 +1,4 @@
-package dream.fcard.model.person;
+package dream.fcard.model.cards;
 
 import static java.util.Objects.requireNonNull;
 import static dream.fcard.commons.util.CollectionUtil.requireAllNonNull;
@@ -7,10 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import dream.fcard.commons.util.CollectionUtil;
-import dream.fcard.model.person.exceptions.PersonNotFoundException;
+import dream.fcard.model.cards.exceptions.PersonNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import dream.fcard.model.person.exceptions.DuplicatePersonException;
+import dream.fcard.model.cards.exceptions.DuplicatePersonException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
