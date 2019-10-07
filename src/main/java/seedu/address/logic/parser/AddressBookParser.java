@@ -45,10 +45,10 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case AddContactCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddContactCommandParser().parse(arguments);
 
         case EditContactCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditContactCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
