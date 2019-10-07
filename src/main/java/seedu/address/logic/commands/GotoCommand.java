@@ -10,29 +10,40 @@ import seedu.address.model.View;
 /**
  * Lists all persons in the address book to the user.
  */
-public class GotoContactsCommand extends Command {
+public class GotoCommand extends Command {
 
     public static final String COMMAND_WORD = "goto";
 
-    private String message;
+    public static final String MESSAGE_SUCCESS = "DONE";
 
     private View gotoView;
 
-    public GotoContactsCommand(View view) throws ParseException {
-        gotoView = view;
+    public GotoCommand(View view) throws ParseException {
+        try {
+            if (view == null) {
+                throw new ParseException("error");
+            }
+            gotoView = view;
+        } catch (ParseException e) {
+            e.getMessage();
+        }
     }
+
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         if (gotoView.getIndex() == 1) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult("contacts listed");
+            //message = "contacts listed";
+            return new CommandResult(MESSAGE_SUCCESS);
         } else if (gotoView.getIndex() == 2) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult("claims listed");
+            //message = "claims listed";
+            return new CommandResult(MESSAGE_SUCCESS);
         } else {
-            return new CommandResult("nothing");
+            //message = "nothing";
+            return new CommandResult(MESSAGE_SUCCESS);
         }
     }
 }

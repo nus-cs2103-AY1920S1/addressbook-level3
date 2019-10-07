@@ -19,7 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.GotoContactsCommand;
+import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -64,8 +64,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = GotoContactsCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, GotoContactsCommand.MESSAGE_SUCCESS, model);
+        String gotocontactsCommand = GotoCommand.COMMAND_WORD;
+        assertCommandSuccess(gotocontactsCommand + " contacts", GotoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
