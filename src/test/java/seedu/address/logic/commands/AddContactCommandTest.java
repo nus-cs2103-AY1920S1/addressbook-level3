@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.claim.Claim;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -47,7 +48,8 @@ public class AddContactCommandTest {
         AddContactCommand addContactCommand = new AddContactCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_PERSON, () -> addContactCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddContactCommand.MESSAGE_DUPLICATE_PERSON, () -> addContactCommand.execute(modelStub));
     }
 
     @Test
@@ -146,6 +148,47 @@ public class AddContactCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasClaim(Claim claim) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+            return false;
+        }
+
+        @Override
+        public void deleteClaim(Claim target) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void addClaim(Claim claim) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void setClaim(Claim target, Claim editedClaim) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public ObservableList<Claim> getFilteredClaimList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredClaimList(Predicate<Claim> predicate) {
+            /*
+            FUNCTION TO BE EDITED
+             */
         }
     }
 

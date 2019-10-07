@@ -34,15 +34,10 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/EditCommandParserTest.java
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.commonvariables.Name;
-import seedu.address.model.commonvariables.Phone;
-=======
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditContactCommand.EditPersonDescriptor;
->>>>>>> 525dce786f9facae95b0671c2879d244bd3795fb:src/test/java/seedu/address/logic/parser/EditContactCommandParserTest.java
+import seedu.address.model.commonvariables.Name;
+import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.tag.Tag;

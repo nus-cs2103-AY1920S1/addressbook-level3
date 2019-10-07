@@ -1,7 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLAIMS;
 
 import java.util.Collections;
@@ -18,8 +22,8 @@ import seedu.address.model.Model;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Description;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.commonvariables.Name;
+import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,8 +43,10 @@ public class EditClaimCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_DESCRIPTION + "Logistics for Sports Day "
+            + PREFIX_CASH + "252.50 "
+            + PREFIX_NAME + "WEI GEN "
+            + PREFIX_PHONE + "91234567 ";
 
     public static final String MESSAGE_EDIT_CLAIM_SUCCESS = "Edited Claim: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

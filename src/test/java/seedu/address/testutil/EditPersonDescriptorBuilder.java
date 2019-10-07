@@ -4,13 +4,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-<<<<<<< HEAD
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditContactCommand.EditPersonDescriptor;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-=======
-import seedu.address.logic.commands.EditContactCommand.EditPersonDescriptor;
->>>>>>> 525dce786f9facae95b0671c2879d244bd3795fb
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;

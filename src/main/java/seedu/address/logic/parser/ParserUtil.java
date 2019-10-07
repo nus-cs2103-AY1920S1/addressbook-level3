@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.commonvariables.Name;
-import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
+import seedu.address.model.commonvariables.Name;
+import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.tag.Tag;
@@ -30,9 +30,12 @@ public class ParserUtil {
         return true;
     }
 
-
-
-
+    /**
+     * Parsers a View.
+     * @param view View command
+     * @return Trimmed view command
+     * @throws ParseException If the command cannot be parsed.
+     */
     public static String parseView(String view) throws ParseException {
         String trimmedView = view.trim();
         return "";

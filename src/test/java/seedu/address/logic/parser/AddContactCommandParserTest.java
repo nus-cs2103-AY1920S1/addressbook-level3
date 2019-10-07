@@ -31,13 +31,9 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCommandParserTest.java
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-=======
-import seedu.address.logic.commands.AddContactCommand;
->>>>>>> 525dce786f9facae95b0671c2879d244bd3795fb:src/test/java/seedu/address/logic/parser/AddContactCommandParserTest.java
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
