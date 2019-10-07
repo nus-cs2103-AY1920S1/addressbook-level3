@@ -1,7 +1,7 @@
 package mams.logic.parser;
 
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static mams.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static mams.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_STUDENT));
     }
 
     @Test

@@ -12,7 +12,7 @@ import mams.commons.exceptions.DataConversionException;
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
 import mams.testutil.Assert;
-import mams.testutil.TypicalPersons;
+import mams.testutil.TypicalStudents;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -48,19 +48,19 @@ public class JsonMamsStorageTest {
     }
 
     @Test
-    public void readMams_invalidPersonMams_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readMams("invalidPersonMams.json"));
+    public void readMams_invalidStudentMams_throwDataConversionException() {
+        Assert.assertThrows(DataConversionException.class, () -> readMams("invalidStudentMams.json"));
     }
 
     @Test
-    public void readMams_invalidAndValidPersonMams_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readMams("invalidAndValidPersonMams.json"));
+    public void readMams_invalidAndValidStudentMams_throwDataConversionException() {
+        Assert.assertThrows(DataConversionException.class, () -> readMams("invalidAndValidStudentMams.json"));
     }
 
     @Test
     public void readAndSaveMams_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempMams.json");
-        Mams original = TypicalPersons.getTypicalMams();
+        Mams original = TypicalStudents.getTypicalMams();
         JsonMamsStorage jsonMamsStorage = new JsonMamsStorage(filePath);
 
         // Save in new file and read back
@@ -69,14 +69,14 @@ public class JsonMamsStorageTest {
         assertEquals(original, new Mams(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(TypicalPersons.HOON);
-        original.removePerson(TypicalPersons.ALICE);
+        original.addStudent(TypicalStudents.HOON);
+        original.removeStudent(TypicalStudents.ALICE);
         jsonMamsStorage.saveMams(original, filePath);
         readBack = jsonMamsStorage.readMams(filePath).get();
         assertEquals(original, new Mams(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(TypicalPersons.IDA);
+        original.addStudent(TypicalStudents.IDA);
         jsonMamsStorage.saveMams(original); // file path not specified
         readBack = jsonMamsStorage.readMams().get(); // file path not specified
         assertEquals(original, new Mams(readBack));

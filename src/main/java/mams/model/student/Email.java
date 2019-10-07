@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import mams.commons.util.AppUtil;
 
 /**
- * Represents a Person's email in the address book.
+ * Represents a Student's email in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {

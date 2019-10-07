@@ -1,6 +1,6 @@
 {
-  "_comment": "MAMS save file which contains the same Person values as in TypicalPersons#getTypicalMams()",
-  "persons" : [ {
+  "_comment": "MAMS save file which contains the same Student values as in TypicalStudents#getTypicalMams()",
+  "students" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",

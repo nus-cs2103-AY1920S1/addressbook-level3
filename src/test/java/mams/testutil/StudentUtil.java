@@ -5,40 +5,40 @@ import java.util.Set;
 import mams.logic.commands.AddCommand;
 import mams.logic.commands.EditCommand;
 import mams.logic.parser.CliSyntax;
-import mams.model.student.Person;
+import mams.model.student.Student;
 import mams.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Student.
  */
-public class PersonUtil {
+public class StudentUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code student}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Student student) {
+        return AddCommand.COMMAND_WORD + " " + getStudentDetails(student);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code student}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getStudentDetails(Student student) {
         StringBuilder sb = new StringBuilder();
-        sb.append(CliSyntax.PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(CliSyntax.PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(CliSyntax.PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(CliSyntax.PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
+        sb.append(CliSyntax.PREFIX_NAME + student.getName().fullName + " ");
+        sb.append(CliSyntax.PREFIX_PHONE + student.getPhone().value + " ");
+        sb.append(CliSyntax.PREFIX_EMAIL + student.getEmail().value + " ");
+        sb.append(CliSyntax.PREFIX_ADDRESS + student.getAddress().value + " ");
+        student.getTags().stream().forEach(
             s -> sb.append(CliSyntax.PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditStudentDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditPersonDescriptor descriptor) {
+    public static String getEditStudentDescriptorDetails(EditCommand.EditStudentDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(CliSyntax.PREFIX_PHONE).append(phone.value).append(" "));

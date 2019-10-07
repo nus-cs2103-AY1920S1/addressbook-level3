@@ -1,7 +1,7 @@
 package mams.model;
 
 import javafx.collections.ObservableList;
-import mams.model.student.Person;
+import mams.model.student.Student;
 
 /**
  * Unmodifiable view of an address book
@@ -9,9 +9,9 @@ import mams.model.student.Person;
 public interface ReadOnlyMams {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the students list.
+     * This list will not contain any duplicate students.
      */
-    ObservableList<Person> getPersonList();
+    ObservableList<Student> getStudentList();
 
 }

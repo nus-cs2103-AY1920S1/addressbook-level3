@@ -11,7 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
 import mams.commons.util.CollectionUtil;
-import mams.model.student.Person;
+import mams.model.student.Student;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final Mams mams;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Student> filteredStudents;
 
     /**
      * Initializes a ModelManager with the given MAMS and userPrefs.
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.mams = new Mams(mams);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.mams.getPersonList());
+        filteredStudents = new FilteredList<>(this.mams.getStudentList());
     }
 
     public ModelManager() {
@@ -89,44 +89,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return mams.hasPerson(person);
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return mams.hasStudent(student);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        mams.removePerson(target);
+    public void deleteStudent(Student target) {
+        mams.removeStudent(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        mams.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addStudent(Student student) {
+        mams.addStudent(student);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
+    public void setStudent(Student target, Student editedStudent) {
+        CollectionUtil.requireAllNonNull(target, editedStudent);
 
-        mams.setPerson(target, editedPerson);
+        mams.setStudent(target, editedStudent);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Student List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
      * {@code versionedMams}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Student> getFilteredStudentList() {
+        return filteredStudents;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredStudents.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return mams.equals(other.mams)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredStudents.equals(other.filteredStudents);
     }
 
 }

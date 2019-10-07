@@ -1,9 +1,9 @@
 package mams.logic.commands;
 
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static mams.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static mams.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static mams.testutil.TypicalPersons.getTypicalMams;
+import static mams.logic.commands.CommandTestUtil.showStudentAtIndex;
+import static mams.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static mams.testutil.TypicalStudents.getTypicalMams;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showStudentAtIndex(model, INDEX_FIRST_STUDENT);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

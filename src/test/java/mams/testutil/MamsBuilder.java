@@ -1,12 +1,12 @@
 package mams.testutil;
 
 import mams.model.Mams;
-import mams.model.student.Person;
+import mams.model.student.Student;
 
 /**
  * A utility class to help with building MAMS objects.
  * Example usage: <br>
- *     {@code Mams ab = new MamsBuilder().withPerson("John", "Doe").build();}
+ *     {@code Mams ab = new MamsBuilder().withStudent("John", "Doe").build();}
  */
 public class MamsBuilder {
 
@@ -21,10 +21,10 @@ public class MamsBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code Mams} that we are building.
+     * Adds a new {@code Student} to the {@code Mams} that we are building.
      */
-    public MamsBuilder withPerson(Person person) {
-        mams.addPerson(person);
+    public MamsBuilder withStudent(Student student) {
+        mams.addStudent(student);
         return this;
     }
 

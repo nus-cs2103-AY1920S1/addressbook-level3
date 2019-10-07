@@ -11,11 +11,11 @@ import java.util.Collections;
 import java.util.List;
 
 import mams.logic.commands.CommandTestUtil;
-import mams.model.student.Person;
-import mams.model.student.exceptions.DuplicatePersonException;
+import mams.model.student.Student;
+import mams.model.student.exceptions.DuplicateStudentException;
 import mams.testutil.Assert;
-import mams.testutil.PersonBuilder;
-import mams.testutil.TypicalPersons;
+import mams.testutil.StudentBuilder;
+import mams.testutil.TypicalStudents;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -27,7 +27,7 @@ public class MamsTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), mams.getPersonList());
+        assertEquals(Collections.emptyList(), mams.getStudentList());
     }
 
     @Test
@@ -37,66 +37,66 @@ public class MamsTest {
 
     @Test
     public void resetData_withValidReadOnlyMams_replacesData() {
-        Mams newData = TypicalPersons.getTypicalMams();
+        Mams newData = TypicalStudents.getTypicalMams();
         mams.resetData(newData);
         assertEquals(newData, mams);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateStudents_throwsDuplicateStudentException() {
+        // Two students with the same identity fields
+        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(TypicalPersons.ALICE, editedAlice);
-        MamsStub newData = new MamsStub(newPersons);
+        List<Student> newStudents = Arrays.asList(TypicalStudents.ALICE, editedAlice);
+        MamsStub newData = new MamsStub(newStudents);
 
-        Assert.assertThrows(DuplicatePersonException.class, () -> mams.resetData(newData));
+        Assert.assertThrows(DuplicateStudentException.class, () -> mams.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> mams.hasPerson(null));
+    public void hasStudent_nullStudent_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> mams.hasStudent(null));
     }
 
     @Test
-    public void hasPerson_personNotInMams_returnsFalse() {
-        assertFalse(mams.hasPerson(TypicalPersons.ALICE));
+    public void hasStudent_studentNotInMams_returnsFalse() {
+        assertFalse(mams.hasStudent(TypicalStudents.ALICE));
     }
 
     @Test
-    public void hasPerson_personInMams_returnsTrue() {
-        mams.addPerson(TypicalPersons.ALICE);
-        assertTrue(mams.hasPerson(TypicalPersons.ALICE));
+    public void hasStudent_studentInMams_returnsTrue() {
+        mams.addStudent(TypicalStudents.ALICE);
+        assertTrue(mams.hasStudent(TypicalStudents.ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInMams_returnsTrue() {
-        mams.addPerson(TypicalPersons.ALICE);
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE)
+    public void hasStudent_studentWithSameIdentityFieldsInMams_returnsTrue() {
+        mams.addStudent(TypicalStudents.ALICE);
+        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
                 .withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(mams.hasPerson(editedAlice));
+        assertTrue(mams.hasStudent(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> mams.getPersonList().remove(0));
+    public void getStudentList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> mams.getStudentList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyMams whose persons list can violate interface constraints.
+     * A stub ReadOnlyMams whose students list can violate interface constraints.
      */
     private static class MamsStub implements ReadOnlyMams {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Student> students = FXCollections.observableArrayList();
 
-        MamsStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        MamsStub(Collection<Student> students) {
+            this.students.setAll(students);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Student> getStudentList() {
+            return students;
         }
     }
 

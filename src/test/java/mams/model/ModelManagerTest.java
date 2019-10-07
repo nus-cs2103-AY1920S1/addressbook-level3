@@ -13,7 +13,7 @@ import mams.commons.core.GuiSettings;
 import mams.model.student.NameContainsKeywordsPredicate;
 import mams.testutil.MamsBuilder;
 import mams.testutil.Assert;
-import mams.testutil.TypicalPersons;
+import mams.testutil.TypicalStudents;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -72,29 +72,29 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+    public void hasStudent_nullStudent_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasStudent(null));
     }
 
     @Test
-    public void hasPerson_personNotInMams_returnsFalse() {
-        assertFalse(modelManager.hasPerson(TypicalPersons.ALICE));
+    public void hasStudent_studentNotInMams_returnsFalse() {
+        assertFalse(modelManager.hasStudent(TypicalStudents.ALICE));
     }
 
     @Test
-    public void hasPerson_personInMams_returnsTrue() {
-        modelManager.addPerson(TypicalPersons.ALICE);
-        assertTrue(modelManager.hasPerson(TypicalPersons.ALICE));
+    public void hasStudent_studentInMams_returnsTrue() {
+        modelManager.addStudent(TypicalStudents.ALICE);
+        assertTrue(modelManager.hasStudent(TypicalStudents.ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void getFilteredStudentList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredStudentList().remove(0));
     }
 
     @Test
     public void equals() {
-        Mams mams = new MamsBuilder().withPerson(TypicalPersons.ALICE).withPerson(TypicalPersons.BENSON).build();
+        Mams mams = new MamsBuilder().withStudent(TypicalStudents.ALICE).withStudent(TypicalStudents.BENSON).build();
         Mams differentMams = new Mams();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -116,12 +116,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentMams, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalPersons.ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] keywords = TypicalStudents.ALICE.getName().fullName.split("\\s+");
+        modelManager.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(mams, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

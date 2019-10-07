@@ -1,7 +1,7 @@
 package mams.logic.commands;
 
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static mams.testutil.TypicalPersons.getTypicalMams;
+import static mams.testutil.TypicalStudents.getTypicalMams;
 
 import mams.model.Mams;
 import org.junit.jupiter.api.Test;

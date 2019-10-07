@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import mams.commons.util.AppUtil;
 /**
- * Represents a Person's name in the address book.
+ * Represents a Student's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

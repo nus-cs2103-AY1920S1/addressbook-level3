@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
-import mams.model.student.Person;
+import mams.model.student.Student;
 
 /**
  * An Immutable MAMS that is serializable to JSON format.
@@ -19,16 +19,16 @@ import mams.model.student.Person;
 @JsonRootName(value = "mams")
 class JsonSerializableMams {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "Students list contains duplicate student(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedStudent> students = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableMams} with the given persons.
+     * Constructs a {@code JsonSerializableMams} with the given students.
      */
     @JsonCreator
-    public JsonSerializableMams(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students) {
+        this.students.addAll(students);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableMams {
      * @param source future changes to this will not affect the created {@code JsonSerializableMams}.
      */
     public JsonSerializableMams(ReadOnlyMams source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableMams {
      */
     public Mams toModelType() throws IllegalValueException {
         Mams mams = new Mams();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (mams.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedStudent jsonAdaptedStudent : students) {
+            Student student = jsonAdaptedStudent.toModelType();
+            if (mams.hasStudent(student)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
             }
-            mams.addPerson(person);
+            mams.addStudent(student);
         }
         return mams;
     }

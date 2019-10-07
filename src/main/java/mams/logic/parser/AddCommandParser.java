@@ -15,7 +15,7 @@ import mams.logic.parser.exceptions.ParseException;
 import mams.model.student.Address;
 import mams.model.student.Email;
 import mams.model.student.Name;
-import mams.model.student.Person;
+import mams.model.student.Student;
 import mams.model.student.Phone;
 import mams.model.tag.Tag;
 
@@ -44,9 +44,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Student student = new Student(name, phone, email, address, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(student);
     }
 
     /**

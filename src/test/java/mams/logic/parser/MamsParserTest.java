@@ -5,29 +5,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static mams.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static mams.testutil.Assert.assertThrows;
-import static mams.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static mams.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import mams.testutil.StudentBuilder;
 import org.junit.jupiter.api.Test;
 
 import mams.logic.commands.AddCommand;
 import mams.logic.commands.ClearCommand;
 import mams.logic.commands.DeleteCommand;
 import mams.logic.commands.EditCommand;
-import mams.logic.commands.EditCommand.EditPersonDescriptor;
 import mams.logic.commands.ExitCommand;
 import mams.logic.commands.FindCommand;
 import mams.logic.commands.HelpCommand;
 import mams.logic.commands.ListCommand;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.student.NameContainsKeywordsPredicate;
-import mams.model.student.Person;
-import mams.testutil.EditPersonDescriptorBuilder;
-import mams.testutil.PersonBuilder;
-import mams.testutil.PersonUtil;
+import mams.model.student.Student;
+import mams.testutil.EditStudentDescriptorBuilder;
+import mams.testutil.StudentUtil;
 
 public class MamsParserTest {
 
@@ -35,9 +34,9 @@ public class MamsParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Student student = new StudentBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(StudentUtil.getAddCommand(student));
+        assertEquals(new AddCommand(student), command);
     }
 
     @Test
@@ -49,17 +48,17 @@ public class MamsParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_STUDENT.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_STUDENT), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Student student = new StudentBuilder().build();
+        EditCommand.EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(student).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_STUDENT.getOneBased() + " " + StudentUtil.getEditStudentDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_STUDENT, descriptor), command);
     }
 
     @Test

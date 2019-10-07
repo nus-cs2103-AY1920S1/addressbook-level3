@@ -9,7 +9,7 @@ import mams.commons.core.GuiSettings;
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
 import mams.model.UserPrefs;
-import mams.testutil.TypicalPersons;
+import mams.testutil.TypicalStudents;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -53,7 +53,7 @@ public class StorageManagerTest {
          * {@link JsonMamsStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonMamsStorageTest} class.
          */
-        Mams original = TypicalPersons.getTypicalMams();
+        Mams original = TypicalStudents.getTypicalMams();
         storageManager.saveMams(original);
         ReadOnlyMams retrieved = storageManager.readMams().get();
         assertEquals(original, new Mams(retrieved));
