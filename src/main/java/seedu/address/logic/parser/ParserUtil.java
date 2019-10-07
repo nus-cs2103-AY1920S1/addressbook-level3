@@ -22,6 +22,19 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    public static final String MESSAGE_INVALID_VIEW = "View is not recognised.";
+
+    public boolean checkView(String view) {
+        return true;
+    }
+
+
+
+
+    public static String parseView(String view) throws ParseException {
+        String trimmedView = view.trim();
+        return "";
+    }
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
