@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
-import seedu.address.logic.autocomplete.AutoCompleter;
 import seedu.address.logic.commands.core.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -31,7 +30,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private AutoCompleter autoCompleter;
 
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
@@ -63,7 +61,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.autoCompleter = new AutoCompleter();
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -205,6 +202,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void updateAutoCompleter(String commandText) {
-        aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
+        aco.showSuggestions(commandText, logic.updateAutoCompleter(commandText).getSuggestions());
     }
 }

@@ -30,7 +30,7 @@ public interface Logic {
      *
      * @param commandText The command as entered by the user.
      */
-    AutoCompleter update(String commandText);
+    AutoCompleter updateAutoCompleter(String commandText);
 
     /**
      * Returns the AddressBook.

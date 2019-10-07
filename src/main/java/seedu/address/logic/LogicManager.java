@@ -63,7 +63,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public AutoCompleter update(String commandText) {
+    public AutoCompleter updateAutoCompleter(String commandText) {
         return autoCompleter.update(commandText);
     }
 
