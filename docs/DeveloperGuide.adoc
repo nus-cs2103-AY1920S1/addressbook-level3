@@ -410,6 +410,7 @@ Use case resumes at step 2.
 [discrete]
 === Use case: (UC06) Request help information
 
+//
 [discrete]
 === Use case: (UC07) Load and save data
 
