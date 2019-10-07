@@ -1,6 +1,5 @@
 package seedu.mark.testutil;
 
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CONTACTS;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_AMY;

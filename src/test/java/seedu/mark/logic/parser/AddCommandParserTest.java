@@ -1,8 +1,6 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mark.logic.commands.CommandTestUtil.FOLDER_DESC_AMY;
-import static seedu.mark.logic.commands.CommandTestUtil.FOLDER_DESC_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;

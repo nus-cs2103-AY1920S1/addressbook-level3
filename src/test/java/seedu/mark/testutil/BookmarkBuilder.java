@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.model.util.SampleDataUtil;
 

@@ -46,7 +46,8 @@ public class JsonAdaptedBookmarkTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedBookmark bookmark = new JsonAdaptedBookmark(null, VALID_URL, VALID_REMARK, VALID_FOLDER, VALID_TAGS);
+        JsonAdaptedBookmark bookmark =
+                new JsonAdaptedBookmark(null, VALID_URL, VALID_REMARK, VALID_FOLDER, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, bookmark::toModelType);
     }
@@ -61,7 +62,8 @@ public class JsonAdaptedBookmarkTest {
 
     @Test
     public void toModelType_nullUrl_throwsIllegalValueException() {
-        JsonAdaptedBookmark bookmark = new JsonAdaptedBookmark(VALID_NAME, null, VALID_REMARK, VALID_FOLDER, VALID_TAGS);
+        JsonAdaptedBookmark bookmark =
+                new JsonAdaptedBookmark(VALID_NAME, null, VALID_REMARK, VALID_FOLDER, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Url.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, bookmark::toModelType);
     }
