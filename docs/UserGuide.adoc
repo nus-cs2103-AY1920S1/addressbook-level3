@@ -56,14 +56,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ==== Adding a problem: `add`
 
 Generates a new problem. +
-Format: `add n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...`
+Format: `add n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...`
+
+* `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (left open right close range)
 
 [TIP]
 A problem can have any number of tags (including 0)
 
 Examples:
 
-* `add  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
+* `add n/Sequences a/Tung Kam Chuen w/https://open.kattis.com/problems/sequences d/Find the sum of the number of inversions of the 2k sequences, modulo 1000000007 (109+7). diff/3.0 src/Kattis t/recursion`
 
 ==== Listing all problems : `list`
 
