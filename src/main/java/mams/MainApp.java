@@ -79,14 +79,14 @@ public class MainApp extends Application {
         try {
             mamsOptional = storage.readMams();
             if (!mamsOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Mams");
+                logger.info("Data file not found. Will be starting with a sample MAMS");
             }
             initialData = mamsOptional.orElseGet(SampleDataUtil::getSampleMams);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Mams");
+            logger.warning("Data file not in the correct format. Will be starting with an empty MAMS");
             initialData = new Mams();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Mams");
+            logger.warning("Problem while reading from the file. Will be starting with an empty MAMS");
             initialData = new Mams();
         }
 
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Mams");
+            logger.warning("Problem while reading from the file. Will be starting with an empty MAMS");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,7 +167,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Mams " + MainApp.VERSION);
+        logger.info("Starting MAMS " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
