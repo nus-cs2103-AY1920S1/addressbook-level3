@@ -22,11 +22,11 @@ Modulo is a desktop application helping National University of Singapore (NUS) s
 
 == Quick Start
 
-.  Make sure that `Java 11` or above is installed in your computer.
-* To check your current version: `java --version`
+.  Make sure that `Java 11` or above is installed in your computer. Otherwise, you can download Java 11 https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
+* Enter the follow command in Command Prompt for Windows or Terminal on Mac to check your current version of Java: `java --version`
 .  Download the latest modulo.jar here.
 .  Copy the `.jar` file to a folder you wish to set as your working directory for the application.
-.  Double-click the file to start Modulo. If the GUI does not appear in a few seconds, please try running `java -jar modulo.jar`
+.  Double-click the file to start Modulo. If the GUI does not appear in a few seconds, please try running `java -jar modulo.jar` in your command prompt or terminal.
 +
 image::Ui.png[width="790"]
 +
@@ -76,13 +76,75 @@ Format: `exit`
 === Calendar
 
 
-
-
 === Modules
 
+To enter the Module section please enter the command: `cap`
 
+==== Sort the modules : `sort`
+Sorting allows users to view their historical grades based on a few different arrangements.
+The few order types are: sorting by grades, time, mc and title.
 
+Format: `sort ORDER_TYPE`
+e.g. `sort grade`
 
+==== Add all modules in the current calendar to record : `integrate'
+The user can add all existing modules in the calendar into the records by specifying the semester to add.
+After the modules are added to the records, the grades are left blank. The user can subsequently choose to add the grades and other details.
+
+Format: `integrate YEAR_AND_SEMESTER`
+e.g. `integrate 1920S1`
+
+==== Manually add module to record : `add`
+The user can add new modules to the a specific semester, even for future semesters.
+
+Format: `add MODULE_CODE YEAR_AND_SEMESTER`
+e.g. `add CS2103 1920S1`
+
+==== Delete module from record : `delete`
+Delete a specific module from one of the selected semester.
+
+Format: `delete MODULE_CODE YEAR_AND_SEMESTER`
+e.g. `delete CS2103 1920S1`
+
+==== Edit details of a module : `edit`
+Edit the record of a module including specifications such as CAP and MC.
+
+Format: `edit MODULE_CODE YEAR_AND_SEMESTER`
+e.g. `edit CS2103 1920S1`
+
+==== Locating module by module code or title : `find`
+Finds the module with the module code or any module that contains the keyword entered by the user.
+The search is case insensitive. e.g. `cs1010s` matches `CS1010S`
+
+The search method adopts the inclusive OR search method that returns any sub-keywords associated with the keyword.
+e.g. searching for `prog meth` will return `Programming Methodology I`, `Programming Methodology II`, `Web Programming and Applications`.
+
+Format: `find MODULE_CODE [MORE_KEYWORDS]`
+e.g. `find CS1010S`, `find Programming Methodology I`
+
+==== Clear all modules in a specific semester or clean-slate all records : `clear`
+Deletes all modules in the record or delete all modules in a semester. The user can avoid clearing modules one-by-one when large number of modules have to be cleared.
+When the only single keyword `clear` is entered, Modulo would recognise it as a command to clear all the modules. As the action is not reversible, a notification would prompt the user to confirm this non-reversible action.
+
+Format: `clear [YEAR_AND_SEMESTER]`
+e.g. `clear 1920S2`
+
+==== Apply a certain grade to a specific module : `make`
+Applies a specified grade to a the specified module. This allows the user to experiment with future grades and set goals towards his/her graduation.
+This command allows the user to avoid the hustle of editing score through the edit command. This is a single command that changes the grade of a module instantaneously.
+It supports the Satisfactory / Unsatisfactory grades annotated as S and U respectively.
+
+Format: `make MODULE_CODE GRADE`
+e.g. `make CS1010S A`, `make CS2103 A`, `make CS2103 S`
+
+==== Change graduation requirement : `grad`
+The user can change the graduation by entering this command.
+
+Format: `grad`
+e.g. `grad`
+
+==== Password protection [Coming in V2.0]
+Prevent unauthorised access to your grades.
 
 === Quiz
 
