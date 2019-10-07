@@ -118,7 +118,7 @@ public class ModelManager implements Model {
         algoBase.setProblem(target, editedProblem);
     }
 
-    //=========== Problem List =============================================================
+    //=========== Plan List =============================================================
     @Override
     public boolean hasPlan(Plan plan) {
         requireNonNull(plan);
@@ -143,6 +143,14 @@ public class ModelManager implements Model {
         algoBase.setPlan(target, editedPlan);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Plan} backed by the internal list of
+     */
+    @Override
+    public ObservableList<Plan> getFilteredPlanList() {
+        return filteredPlans;
+    }
+
     //=========== Filtered Problem List Accessors =============================================================
 
     /**
@@ -161,10 +169,9 @@ public class ModelManager implements Model {
     }
 
     /**
-<<<<<<< HEAD
      * Updates the Problem list according to the given {@code problemComparator}.
      *
-     * @param problemComparator
+     * @param problemComparator a comparator of problems
      * @throws NullPointerException if {@code problemComparator} is null;
      */
     @Override
@@ -172,21 +179,6 @@ public class ModelManager implements Model {
         requireNonNull(problemComparator);
         sortedProblems.setComparator(problemComparator);
     }
-
-    //=========== Plan List =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
-=======
-     * Returns an unmodifiable view of the list of {@code Plan} backed by the internal list of
->>>>>>> add DeletePlanCommand
-     * {@code versionedAlgoBase}
-     */
-    @Override
-    public ObservableList<Plan> getFilteredPlanList() {
-        return filteredPlans;
-    }
-
 
     //============== Util ==================================================================
 

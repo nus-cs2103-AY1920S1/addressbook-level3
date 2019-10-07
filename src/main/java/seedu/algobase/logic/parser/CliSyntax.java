@@ -20,4 +20,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_PROBLEM = new Prefix("pr/");
     public static final Prefix PREFIX_PLAN_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PLAN_DESCRIPTION = new Prefix("d/");
+    public static final Prefix PREFIX_START_DATE = new Prefix("s/");
+    public static final Prefix PREFIX_END_DATE = new Prefix("e/");
 }

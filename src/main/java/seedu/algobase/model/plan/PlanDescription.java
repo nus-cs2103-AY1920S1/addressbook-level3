@@ -10,7 +10,8 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class PlanDescription {
 
     public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values, and it should not be blank";
-
+    public static final String DEFAULT_PLAN_DESCRIPTION_STRING = "";
+    public static final PlanDescription DEFAULT_PLAN_DESCRIPTION = new PlanDescription();
     /*
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -28,6 +29,10 @@ public class PlanDescription {
         requireNonNull(description);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
+    }
+
+    private PlanDescription() {
+        value = DEFAULT_PLAN_DESCRIPTION_STRING;
     }
 
     /**
