@@ -21,15 +21,32 @@ public class GroupCard extends UiPart<Region> {
     private VBox groupCardPane;
 
     @FXML
-    private HBox members;
-
-    @FXML
     private Label groupName;
 
     @FXML
     private Label groupDescription;
 
-    public GroupCard(Group g) {
+    private Group group;
+
+    public GroupCard(Group g, int displayedIndex) {
         super(FXML);
+        this.group = g;
+        groupName.setText(g.getGroupName().toString());
+        //Remark field in groups cannot be initialised to null.
+        groupDescription.setText("REMARK");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (o instanceof GroupCard) {
+            GroupCard g = (GroupCard) o;
+            return groupDescription.getText().equals(g.groupDescription.getText())
+                    && groupName.getText().equals(g.groupName.getText())
+                    && group.equals(g.group);
+        } else {
+            return false;
+        }
     }
 }

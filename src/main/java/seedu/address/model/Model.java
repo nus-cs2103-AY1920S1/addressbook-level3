@@ -137,6 +137,11 @@ public interface Model {
     GroupList getGroupList();
 
     /**
+     * Returns an observable list of groups.
+     */
+    ObservableList<Group> getObservableGroupList();
+
+    /**
      * Adds a Group with groupDescriptor into the list of Groups.
      */
     Group addGroup(GroupDescriptor groupDescriptor);

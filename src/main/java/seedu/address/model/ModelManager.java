@@ -36,6 +36,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    //To Do.
+    //private final FilteredList<Group> groupFilteredList;
 
     private PersonList personList;
     private GroupList groupList;
@@ -54,7 +56,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
         this.personList = personList;
         this.groupList = groupList;
         this.personToGroupMappingList = personToGroupMappingList;
@@ -225,8 +226,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Group> getObservableGroupList() {
+        return addressBook.getGroupList();
+    }
+
+    @Override
     public Group addGroup(GroupDescriptor groupDescriptor) {
         Group isAdded = this.groupList.addGroup(groupDescriptor);
+        this.addressBook.addGroup(isAdded);
         return isAdded;
     }
 

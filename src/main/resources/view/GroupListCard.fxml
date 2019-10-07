@@ -10,5 +10,4 @@
     <Label fx:id="groupName"></Label>
     <Label fx:id="groupDescription"></Label>
     <Label fx:id="memberLabel"></Label>
-    <HBox fx:id="members"></HBox>
 </VBox>

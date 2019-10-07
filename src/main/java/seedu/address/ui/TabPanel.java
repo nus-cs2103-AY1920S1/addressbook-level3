@@ -31,8 +31,9 @@ public class TabPanel extends UiPart<Region> {
         tabPanel.getTabs().addAll(personsTab, groupsTab);
     }
 
-    public void setContent(Node personList) {
+    public void setContent(Node personList, Node groupList) {
         personsTab.setContent(personList);
+        groupsTab.setContent(groupList);
     }
 
     public TabPane getTabs() {

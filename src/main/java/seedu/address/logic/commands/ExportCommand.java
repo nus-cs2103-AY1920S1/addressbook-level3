@@ -50,6 +50,12 @@ public class ExportCommand extends Command {
 
     @Override
     public boolean equals(Command command) {
-        return false;
+        if (command == this) {
+            return true;
+        } else if (command instanceof ExportCommand) {
+            return ((ExportCommand) command).name.equals(this.name);
+        } else {
+            return false;
+        }
     }
 }
