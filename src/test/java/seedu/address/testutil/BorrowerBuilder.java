@@ -70,4 +70,8 @@ public class BorrowerBuilder {
     public Borrower build() {
         return new Borrower(name, phone, email, borrowerId);
     }
+
+    public Borrower actual_build() {
+        return new Borrower(name, phone, email);
+    }
 }
