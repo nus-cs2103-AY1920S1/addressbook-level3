@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -28,6 +29,42 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
+     * Returns the TimeBook.
+     */
+    TimeBook getTimeBook();
+
+    //=========== UI Model =============================================================
+
+    /**
+     * Returns the current main window display model.
+     */
+    MainWindowDisplay getMainWindowDisplay();
+
+    /**
+     * Returns the current side panel display model.
+     */
+    SidePanelDisplay getSidePanelDisplay();
+
+    //=========== Suggesters =============================================================
+
+    /**
+     * Returns a list of Person's names that starts with prefix.
+     */
+    ArrayList<String> personSuggester(String prefix);
+
+    /**
+     * Returns a list of Person's names that starts with prefix in a Group.
+     */
+    ArrayList<String> personSuggester(String prefix, String groupName);
+
+    /**
+     * Returns a list of Group's names that starts with prefix.
+     */
+    ArrayList<String> groupSuggester(String prefix);
+
+    //=========== Legacy =============================================================
+
+    /**
      * Returns the AddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
@@ -53,14 +90,4 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
-
-    /**
-     * Returns the TimeBook.
-     * @return
-     */
-    TimeBook getTimeBook();
-
-    MainWindowDisplay getMainWindowDisplay();
-
-    SidePanelDisplay getSidePanelDisplay();
 }

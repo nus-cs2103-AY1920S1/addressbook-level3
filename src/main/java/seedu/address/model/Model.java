@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.display.mainwindow.MainWindowDisplay;
 import seedu.address.model.display.mainwindow.MainWindowDisplayType;
-import seedu.address.model.display.mainwindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -204,6 +203,60 @@ public interface Model {
      */
     void deleteGroupFromMapping(GroupId groupId);
 
+    //=========== UI Model =============================================================
+
+    /**
+     * Returns the current main window display model.
+     */
+    MainWindowDisplay getMainWindowDisplay();
+
+    /**
+     * Returns the current side panel display model.
+     */
+    SidePanelDisplay getSidePanelDisplay();
+
+    /**
+     * Updates the current main window display.
+     */
+    void updateMainWindowDisplay(MainWindowDisplay mainWindowDisplay);
+
+    /**
+     * Updates the current main window display with a Person's schedule.
+     */
+    void updateMainWindowDisplay(Name name, LocalDateTime time, MainWindowDisplayType type);
+
+    /**
+     * Updates the current main window display with a Group's schedule.
+     */
+    void updateMainWindowDisplay(GroupName groupName, LocalDateTime time, MainWindowDisplayType type);
+
+    /**
+     * Updates the current side panel display.
+     */
+    void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay);
+
+    /**
+     * Updates the current side panel display of a type.
+     */
+    void updateSidePanelDisplay(SidePanelDisplayType type);
+
+    //=========== Suggesters =============================================================
+
+    /**
+     * Returns a list of Person's names that starts with prefix.
+     */
+    ArrayList<String> personSuggester(String prefix);
+
+    /**
+     * Returns a list of Person's names that starts with prefix in a Group.
+     */
+    ArrayList<String> personSuggester(String prefix, String groupName);
+
+    /**
+     * Returns a list of Group's names that starts with prefix.
+     */
+    ArrayList<String> groupSuggester(String prefix);
+
     //=========== Others =============================================================
 
     /**
@@ -211,24 +264,7 @@ public interface Model {
      */
     String list();
 
-
     TimeBook getTimeBook();
-
-    WeekSchedule getWeekSchedule(String scheduleName, LocalDateTime dateTime, ArrayList<Person> persons);
-
-    MainWindowDisplay getMainWindowDisplay();
-
-    SidePanelDisplay getSidePanelDisplay();
-
-    void updateMainWindowDisplay(MainWindowDisplay mainWindowDisplay);
-
-    void updateMainWindowDisplay(Name name, LocalDateTime time, MainWindowDisplayType type);
-
-    void updateMainWindowDisplay(GroupName groupName, LocalDateTime time, MainWindowDisplayType type);
-
-    void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay);
-
-    void updateSidePanelDisplay(SidePanelDisplayType type);
 
 
 }

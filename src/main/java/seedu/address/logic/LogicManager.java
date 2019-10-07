@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -55,11 +56,12 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    // Used for UI to get model data.
     @Override
     public TimeBook getTimeBook() {
         return model.getTimeBook();
     }
+
+    //=========== UI Model =============================================================
 
     @Override
     public MainWindowDisplay getMainWindowDisplay() {
@@ -72,11 +74,24 @@ public class LogicManager implements Logic {
     }
 
 
+    //=========== Suggesters =============================================================
 
+    @Override
+    public ArrayList<String> personSuggester(String prefix) {
+        return model.personSuggester(prefix);
+    }
 
+    @Override
+    public ArrayList<String> personSuggester(String prefix, String groupName) {
+        return model.personSuggester(prefix, groupName);
+    }
 
+    @Override
+    public ArrayList<String> groupSuggester(String prefix) {
+        return model.groupSuggester(prefix);
+    }
 
-
+    //=========== Legacy =============================================================
 
 
     @Override

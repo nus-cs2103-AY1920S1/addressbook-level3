@@ -350,35 +350,7 @@ public class ModelManager implements Model {
         personToGroupMappingList.deleteGroupFromMapping(groupId);
     }
 
-
-    //=========== Others =============================================================
-
-    @Override
-    public String list() {
-        String output = "";
-        output += "PERSONS:\n";
-        output += personList.toString();
-
-        output += "--------------------------------------------\n";
-        output += "GROUPS:\n";
-        output += groupList.toString();
-
-        output += "--------------------------------------------\n";
-        output += "MAPPINGS: \n";
-        output += personToGroupMappingList.toString();
-
-        return output;
-    }
-
-    @Override
-    public TimeBook getTimeBook() {
-        return this.timeBook;
-    }
-
-    @Override
-    public WeekSchedule getWeekSchedule(String scheduleName, LocalDateTime dateTime, ArrayList<Person> persons) {
-        return new WeekSchedule(scheduleName, dateTime, persons);
-    }
+    //=========== UI Model =============================================================
 
     @Override
     public MainWindowDisplay getMainWindowDisplay() {
@@ -453,5 +425,77 @@ public class ModelManager implements Model {
         }
     }
 
+    //=========== Suggesters =============================================================
+
+    @Override
+    public ArrayList<String> personSuggester(String prefix) {
+        ArrayList<String> suggestions = new ArrayList<>();
+        ArrayList<Person> persons = timeBook.getPersonList().getPersons();
+
+        for (int i = 0; i < persons.size(); i++) {
+            String name = persons.get(i).getName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
+
+    @Override
+    public ArrayList<String> personSuggester(String prefix, String groupName) {
+        ArrayList<String> suggestions = new ArrayList<>();
+
+        Group group = findGroup(new GroupName(groupName));
+        if (group == null) {
+            return suggestions;
+        }
+
+        ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
+        for (int i = 0; i < personIds.size(); i++) {
+            String name = findPerson(personIds.get(i)).getName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
+
+    @Override
+    public ArrayList<String> groupSuggester(String prefix) {
+        ArrayList<String> suggestions = new ArrayList<>();
+        ArrayList<Group> groups = timeBook.getGroupList().getGroups();
+
+        for (int i = 0; i < groups.size(); i++) {
+            String name = groups.get(i).getGroupName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
+
+    //=========== Others =============================================================
+
+    @Override
+    public String list() {
+        String output = "";
+        output += "PERSONS:\n";
+        output += personList.toString();
+
+        output += "--------------------------------------------\n";
+        output += "GROUPS:\n";
+        output += groupList.toString();
+
+        output += "--------------------------------------------\n";
+        output += "MAPPINGS: \n";
+        output += personToGroupMappingList.toString();
+
+        return output;
+    }
+
+    @Override
+    public TimeBook getTimeBook() {
+        return this.timeBook;
+    }
 
 }
