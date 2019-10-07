@@ -23,8 +23,8 @@ public class Activity {
     public Activity(String title, Person ... people) {
         requireAllNonNull(title);
         this.title = title;
-        for (int i = 0; i < people.length; i++) {
-            participants.add(people[i]);
+        for (Person person : people) {
+            participants.add(person);
         }
     }
 
@@ -58,8 +58,8 @@ public class Activity {
      */
     public void invite(Person ... people) {
         for (int i = 0; i < people.length; i++) {
-            // haven't implement check for person with same name
-            // only if different name then add
+            // TODO: implement check for person with same name, add only if
+            // different name
             participants.add(people[i]);
         }
     }
@@ -89,12 +89,12 @@ public class Activity {
 
     /**
      * Soft deletes an expense within an activity
-     * @param numbers An int representing the expense number
+     * @param positions The 0-indexed expense number to delete
      */
-    public void deleteExpense(int ... numbers) {
-        for (int i = 0; i < numbers.length; i++) {
-            if (numbers[i] > 0 && numbers[i] <= expenses.size()) {
-                expenses.get(numbers[i] - 1).delete();
+    public void deleteExpense(int ... positions) {
+        for (int i = 0; i < positions.length; i++) {
+            if (positions[i] > 0 && positions[i] <= expenses.size()) {
+                expenses.get(positions[i] - 1).delete();
             } // if beyond range not implemented yet
         }
     }
