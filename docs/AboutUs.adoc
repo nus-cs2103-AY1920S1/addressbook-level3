@@ -42,7 +42,7 @@ image::woon17.png[width="150", align="left"]
 {empty}[http://github.com/woon17[github]]
 
 Role: Developer +
-Responsibilities: Model
+Responsibilities: Doctors, Patients, Appointments, Scheduling
 
 '''
 
@@ -51,6 +51,6 @@ image::wongsm7.png[width="150", align="left"]
 {empty}[http://github.com/wongsm7[github]]
 
 Role: Developer +
-Responsibilities: Model
+Responsibilities: Queue Management
 
 '''
