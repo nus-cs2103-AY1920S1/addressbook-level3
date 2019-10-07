@@ -15,10 +15,10 @@ public class LogicManager implements Logic {
     private ReimbursementTabParser parser;
 
 
-    public LogicManager(Model reimbursementModel, seedu.address.transaction.storage.StorageManager transactionStorage
-            , seedu.address.reimbursement.storage.StorageManager reimbursementStorage,
-                        seedu.address.person.model.Model personModel,
-                        seedu.address.transaction.model.Model transactionModel) {
+    public LogicManager(Model reimbursementModel, seedu.address.reimbursement.storage.StorageManager reimbursementStorage,
+                        seedu.address.transaction.model.Model transactionModel,
+                        seedu.address.transaction.storage.StorageManager transactionStorage,
+                        seedu.address.person.model.Model personModel) {
 
         this.reimbursementModel = reimbursementModel;
         this.reimbursementStorage = reimbursementStorage;

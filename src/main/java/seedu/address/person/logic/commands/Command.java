@@ -16,8 +16,8 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     //public abstract CommandResult execute(Model model) throws CommandException;
-
-    public abstract CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic)
+    public abstract CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
+                                          seedu.address.reimbursement.logic.Logic reimbursementLogic)
             throws CommandException;
 
 }

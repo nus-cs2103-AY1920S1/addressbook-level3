@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.util.StringUtil;
-import seedu.address.transaction.logic.Logic;
 
 /**
  * The manager of the UI component.
@@ -22,13 +21,17 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private Logic logic;
+    private seedu.address.transaction.logic.Logic transactionLogic;
+    private seedu.address.reimbursement.logic.Logic reimbursementLogic;
     private seedu.address.person.logic.Logic personLogic;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, seedu.address.person.logic.Logic personLogic) {
+    public UiManager(seedu.address.transaction.logic.Logic transactionLogic,
+                     seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                     seedu.address.person.logic.Logic personLogic) {
         super();
-        this.logic = logic;
+        this.transactionLogic = transactionLogic;
+        this.reimbursementLogic = reimbursementLogic;
         this.personLogic = personLogic;
     }
 
@@ -40,7 +43,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic, personLogic);
+            mainWindow = new MainWindow(primaryStage, transactionLogic, reimbursementLogic, personLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

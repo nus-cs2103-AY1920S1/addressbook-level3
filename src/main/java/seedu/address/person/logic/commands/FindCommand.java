@@ -26,7 +26,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic) {
+    public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
