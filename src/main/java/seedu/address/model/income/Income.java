@@ -1,15 +1,17 @@
 package seedu.address.model.income;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
