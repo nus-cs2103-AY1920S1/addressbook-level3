@@ -26,8 +26,12 @@ public class FilterByTagCommand extends Command {
 
     public String displayTagKeywords() {
         StringBuilder sb = new StringBuilder();
-        for (String s : this.tagKeywords) {
-            sb.append(s + " ");
+        for (int i = 0; i < tagKeywords.length; i++) {
+            if (i != tagKeywords.length - 1) {
+                sb.append(tagKeywords[i] + ", ");
+            } else {
+                sb.append(tagKeywords[i]);
+            }
         }
         return sb.toString();
     }
