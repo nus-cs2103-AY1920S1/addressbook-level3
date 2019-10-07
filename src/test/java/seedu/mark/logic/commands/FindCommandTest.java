@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
-import seedu.mark.model.bookmark.IdentifiersContainKeywordsPredicate;
+import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

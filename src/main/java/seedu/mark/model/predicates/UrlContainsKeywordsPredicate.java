@@ -1,9 +1,10 @@
-package seedu.mark.model.bookmark;
+package seedu.mark.model.predicates;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.mark.commons.util.StringUtil;
+import seedu.mark.model.bookmark.Bookmark;
 
 /**
  * Tests that a {@code Bookmark}'s {@code Url} matches any part of the keywords given.

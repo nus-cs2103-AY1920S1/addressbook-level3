@@ -23,7 +23,7 @@ import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ListCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.IdentifiersContainKeywordsPredicate;
+import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
 import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.BookmarkUtil;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;

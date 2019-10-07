@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.model.Model;
-import seedu.mark.model.bookmark.IdentifiersContainKeywordsPredicate;
+import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
 
 /**
  * Finds and lists all bookmarks in Mark whose identifiers contain any of the argument keywords.
