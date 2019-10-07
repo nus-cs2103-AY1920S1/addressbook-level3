@@ -7,6 +7,7 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.model.util.SampleDataUtil;
 
@@ -18,17 +19,20 @@ public class BookmarkBuilder {
     public static final String DEFAULT_NAME = "Alice Lee Website";
     public static final String DEFAULT_URL = "https://alice-lee.com";
     public static final String DEFAULT_REMARK = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_FOLDER = Folder.DEFAULT_FOLDER_NAME;
 
     private Name name;
     private Url url;
     private Remark remark;
     private Set<Tag> tags;
+    private Folder folder;
 
     public BookmarkBuilder() {
         name = new Name(DEFAULT_NAME);
         url = new Url(DEFAULT_URL);
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
+        folder = new Folder(DEFAULT_FOLDER);
     }
 
     /**
@@ -39,6 +43,7 @@ public class BookmarkBuilder {
         url = bookmarkToCopy.getUrl();
         remark = bookmarkToCopy.getRemark();
         tags = new HashSet<>(bookmarkToCopy.getTags());
+        folder = bookmarkToCopy.getFolder();
     }
 
     /**
@@ -66,6 +71,14 @@ public class BookmarkBuilder {
     }
 
     /**
+     * Sets the {@code Folder} of the {@code Bookmark} that we are building.
+     */
+    public BookmarkBuilder withFolder(String folder) {
+        this.folder = new Folder(folder);
+        return this;
+    }
+
+    /**
      * Sets the {@code Url} of the {@code Bookmark} that we are building.
      */
     public BookmarkBuilder withUrl(String url) {
@@ -74,7 +87,7 @@ public class BookmarkBuilder {
     }
 
     public Bookmark build() {
-        return new Bookmark(name, url, remark, tags);
+        return new Bookmark(name, url, remark, folder, tags);
     }
 
 }

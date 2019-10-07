@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
@@ -47,6 +48,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String folder} into a {@code Folder}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code folder} is invalid.
+     */
+    public static Folder parseFolder(String folder) throws ParseException {
+        requireNonNull(folder);
+        String trimmedFolder = folder.trim();
+        if (!Folder.isValidFolder(trimmedFolder)) {
+            throw new ParseException(Folder.MESSAGE_CONSTRAINTS);
+        }
+        return new Folder(trimmedFolder);
     }
 
     /**

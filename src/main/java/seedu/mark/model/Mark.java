@@ -2,11 +2,14 @@ package seedu.mark.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
+import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
  * Wraps all data at the bookmark-manager level
@@ -16,8 +19,11 @@ public class Mark implements ReadOnlyMark {
 
     private final UniqueBookmarkList bookmarks;
 
+    private FolderStructure folderStructure;
+
     public Mark() {
         bookmarks = new UniqueBookmarkList();
+        folderStructure = new FolderStructure(Folder.DEFAULT_FOLDER_NAME, new ArrayList<>());
     }
 
     /**
@@ -45,6 +51,7 @@ public class Mark implements ReadOnlyMark {
         requireNonNull(newData);
 
         setBookmarks(newData.getBookmarkList());
+        setFolderStructure(newData.getFolderStructure());
     }
 
     //// bookmark-level operations
@@ -85,6 +92,26 @@ public class Mark implements ReadOnlyMark {
         bookmarks.remove(key);
     }
 
+    //// folder operations
+
+    /**
+     * Replaces the folder structure with {@code bookmarks}.
+     * {@code bookmarks} must not contain duplicate bookmarks.
+     */
+    public void setFolderStructure(FolderStructure folderStructure) {
+        this.folderStructure = folderStructure;
+    }
+
+
+    /**
+     * Creates a new folder with name {@code folderName} under {@code parentFolderName}.
+     * {@code folderName} must not exist.
+     * {@code parentFolderName} must exist.
+     */
+    public void createFolder(String folderName, String parentFolderName) {
+        this.folderStructure.createFolder(folderName, parentFolderName);
+    }
+
     //// util methods
 
     @Override
@@ -99,10 +126,16 @@ public class Mark implements ReadOnlyMark {
     }
 
     @Override
+    public FolderStructure getFolderStructure() {
+        return folderStructure;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Mark // instanceof handles nulls
-                && bookmarks.equals(((Mark) other).bookmarks));
+                && bookmarks.equals(((Mark) other).bookmarks)
+                && folderStructure.equals(((Mark) other).folderStructure));
     }
 
     @Override

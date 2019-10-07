@@ -84,4 +84,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBookmarkList(Predicate<Bookmark> predicate);
+
+    void createFolder(String folderName, String parentFolderName);
 }

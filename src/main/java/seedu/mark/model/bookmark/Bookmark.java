@@ -22,16 +22,18 @@ public class Bookmark {
     // Data fields
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
+    private final Folder folder;
 
     /**
      * Every field must be present and not null.
      */
-    public Bookmark(Name name, Url url, Remark remark, Set<Tag> tags) {
+    public Bookmark(Name name, Url url, Remark remark, Folder folder, Set<Tag> tags) {
         requireAllNonNull(name, url, remark, tags);
         this.name = name;
         this.url = url;
         this.remark = remark;
         this.tags.addAll(tags);
+        this.folder = folder;
     }
 
     public Name getName() {
@@ -54,6 +56,9 @@ public class Bookmark {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Folder getFolder() {
+        return folder;
+    }
     /**
      * Returns true if both bookmarks have the same name or the same url.
      * This defines a weaker notion of equality between two bookmarks.
@@ -86,13 +91,14 @@ public class Bookmark {
         return otherBookmark.getName().equals(getName())
                 && otherBookmark.getUrl().equals(getUrl())
                 && otherBookmark.getRemark().equals(getRemark())
-                && otherBookmark.getTags().equals(getTags());
+                && otherBookmark.getTags().equals(getTags())
+                && otherBookmark.getFolder().equals(getFolder());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, url, remark, tags);
+        return Objects.hash(name, url, remark, tags, folder);
     }
 
     @Override
@@ -103,9 +109,10 @@ public class Bookmark {
                 .append(getUrl())
                 .append(" Remark: ")
                 .append(getRemark())
+                .append(" Folder: ")
+                .append(getFolder())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

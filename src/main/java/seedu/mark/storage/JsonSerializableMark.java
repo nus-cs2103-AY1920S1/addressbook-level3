@@ -12,6 +12,8 @@ import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
  * An Immutable Mark that is serializable to JSON format.
@@ -20,24 +22,33 @@ import seedu.mark.model.bookmark.Bookmark;
 class JsonSerializableMark {
 
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "Bookmark list contains duplicate bookmark(s).";
+    public static final String MESSAGE_DUPLICATE_FOLDER = "There are duplicate folder(s).";
+    public static final String MESSAGE_NO_ROOT_FOLDER = "The root folder is missing.";
 
     private final List<JsonAdaptedBookmark> bookmarks = new ArrayList<>();
+    private final JsonAdaptedFolderStructure folderStructure;
 
     /**
      * Constructs a {@code JsonSerializableMark} with the given bookmarks.
      */
     @JsonCreator
-    public JsonSerializableMark(@JsonProperty("bookmarks") List<JsonAdaptedBookmark> bookmarks) {
+    public JsonSerializableMark(@JsonProperty("bookmarks") List<JsonAdaptedBookmark> bookmarks,
+        @JsonProperty("folderStructure") JsonAdaptedFolderStructure folderStructure) {
         this.bookmarks.addAll(bookmarks);
+        this.folderStructure = folderStructure;
+        System.out.println(folderStructure.toString());
     }
 
     /**
      * Converts a given {@code ReadOnlyMark} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableMark}.
+     * @param source future changes to this will not affect the created {@code
+     *               JsonSerializableMark}.
      */
     public JsonSerializableMark(ReadOnlyMark source) {
-        bookmarks.addAll(source.getBookmarkList().stream().map(JsonAdaptedBookmark::new).collect(Collectors.toList()));
+        bookmarks.addAll(source.getBookmarkList().stream().map(JsonAdaptedBookmark::new)
+            .collect(Collectors.toList()));
+        folderStructure = new JsonAdaptedFolderStructure(source.getFolderStructure());
     }
 
     /**
@@ -54,6 +65,14 @@ class JsonSerializableMark {
             }
             mark.addBookmark(bookmark);
         }
+        FolderStructure modelFolderStructure = folderStructure.toModelType();
+        if (!modelFolderStructure.getName().equals(Folder.DEFAULT_FOLDER_NAME)) {
+            throw new IllegalValueException(MESSAGE_NO_ROOT_FOLDER);
+        }
+        if (!FolderStructure.isValidFolderStructure(modelFolderStructure)) {
+            throw new IllegalValueException(MESSAGE_DUPLICATE_FOLDER);
+        }
+        mark.setFolderStructure(modelFolderStructure);
         return mark;
     }
 

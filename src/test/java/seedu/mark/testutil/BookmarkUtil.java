@@ -1,5 +1,6 @@
 package seedu.mark.testutil;
 
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
@@ -32,6 +33,7 @@ public class BookmarkUtil {
         sb.append(PREFIX_NAME + bookmark.getName().fullName + " ");
         sb.append(PREFIX_URL + bookmark.getUrl().value + " ");
         sb.append(PREFIX_REMARK + bookmark.getRemark().value + " ");
+        sb.append(PREFIX_FOLDER + bookmark.getFolder().folderName + " ");
         bookmark.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

@@ -112,6 +112,13 @@ public class ModelManager implements Model {
         mark.setBookmark(target, editedBookmark);
     }
 
+
+    @Override
+    public void createFolder(String folderName, String parentFolderName) {
+        requireAllNonNull(folderName, parentFolderName);
+        mark.createFolder(folderName, parentFolderName);
+    }
+
     //=========== Filtered Bookmark List Accessors =============================================================
 
     /**

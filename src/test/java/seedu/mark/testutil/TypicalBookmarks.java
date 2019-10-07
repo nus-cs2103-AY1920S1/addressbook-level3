@@ -1,5 +1,6 @@
 package seedu.mark.testutil;
 
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CONTACTS;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
@@ -23,10 +24,11 @@ public class TypicalBookmarks {
 
     public static final Bookmark ALICE = new BookmarkBuilder().withName("Alice Pauline")
             .withRemark("123, Jurong West Ave 6, #08-111").withUrl("https://alice@example.com")
-            .withTags("friends").build();
+            .withFolder("contacts").withTags("friends").build();
     public static final Bookmark BENSON = new BookmarkBuilder().withName("Benson Meier")
             .withRemark("311, Clementi Ave 2, #02-25")
             .withUrl("https://johnd@example.com")
+            .withFolder("contacts")
             .withTags("owesMoney", "friends").build();
     public static final Bookmark CARL = new BookmarkBuilder().withName("Carl Kurz")
             .withUrl("https://heinz@example.com").withRemark("wall street").build();

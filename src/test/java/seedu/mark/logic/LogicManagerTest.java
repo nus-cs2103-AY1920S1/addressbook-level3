@@ -3,6 +3,7 @@ package seedu.mark.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX;
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.mark.logic.commands.CommandTestUtil.FOLDER_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_AMY;

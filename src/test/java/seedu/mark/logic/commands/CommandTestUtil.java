@@ -2,6 +2,7 @@ package seedu.mark.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
@@ -34,6 +35,7 @@ public class CommandTestUtil {
     public static final String VALID_REMARK_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_FOLDER_CONTACTS = "contacts";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -41,6 +43,8 @@ public class CommandTestUtil {
     public static final String URL_DESC_BOB = " " + PREFIX_URL + VALID_URL_BOB;
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
+    public static final String FOLDER_DESC_AMY = " " + PREFIX_FOLDER + VALID_FOLDER_CONTACTS;
+    public static final String FOLDER_DESC_BOB = " " + PREFIX_FOLDER + VALID_FOLDER_CONTACTS;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
