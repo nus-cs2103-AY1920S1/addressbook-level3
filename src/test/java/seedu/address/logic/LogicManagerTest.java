@@ -22,9 +22,15 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.*;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.storage.*;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonEventBookStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
