@@ -115,14 +115,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BASKETBALL + VALID_DATE_BASKETBALL
             + CALORIES_DESC_BASKETBALL + QUANTITY_DESC_BASKETBALL + UNIT_DESC_BASKETBALL, expectedMessage);
 
-        // missing calories prefix
-        assertParseFailure(parser, NAME_DESC_BASKETBALL + DATE_DESC_BASKETBALL
-            + VALID_CALORIES_BASKETBALL + QUANTITY_DESC_BASKETBALL + UNIT_DESC_BASKETBALL, expectedMessage);
-
-        // missing quantity prefix
-        assertParseFailure(parser, NAME_DESC_BASKETBALL + DATE_DESC_BASKETBALL
-            + CALORIES_DESC_BASKETBALL + VALID_QUANTITY_BASKETBALL + UNIT_DESC_BASKETBALL, expectedMessage);
-
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BASKETBALL + VALID_DATE_BASKETBALL
             + VALID_CALORIES_BASKETBALL + VALID_QUANTITY_BASKETBALL + UNIT_DESC_BASKETBALL, expectedMessage);

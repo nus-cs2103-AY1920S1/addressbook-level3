@@ -16,6 +16,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.MUSCLE_DESC_BASKETBA
 import static seedu.exercise.logic.commands.CommandTestUtil.NAME_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_BASKETBALL;
+import static seedu.exercise.logic.commands.CommandTestUtil.UNIT_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_BASKETBALL;
 import static seedu.exercise.logic.commands.CommandTestUtil.VALID_DATE_AEROBICS;
@@ -25,6 +26,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_BASKETB
 import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_BASKETBALL;
+import static seedu.exercise.logic.commands.CommandTestUtil.VALID_UNIT_AEROBICS;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -116,13 +118,13 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_EXERCISE;
-        String userInput = targetIndex.getOneBased() + DATE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS
+        String userInput = targetIndex.getOneBased() + DATE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS + UNIT_DESC_AEROBICS
             + CALORIES_DESC_AEROBICS + QUANTITY_DESC_AEROBICS + NAME_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL;
 
         EditCommand.EditExerciseDescriptor descriptor =
             new EditExerciseDescriptorBuilder().withName(VALID_NAME_AEROBICS)
                 .withDate(VALID_DATE_BASKETBALL).withCalories(VALID_CALORIES_AEROBICS)
-                .withQuantity(VALID_QUANTITY_AEROBICS)
+                .withQuantity(VALID_QUANTITY_AEROBICS).withUnit(VALID_UNIT_AEROBICS)
                 .withMuscles(VALID_MUSCLE_AEROBICS, VALID_MUSCLE_BASKETBALL).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -166,6 +168,13 @@ public class EditCommandParserTest {
         // quantity
         userInput = targetIndex.getOneBased() + QUANTITY_DESC_AEROBICS;
         descriptor = new EditExerciseDescriptorBuilder().withQuantity(VALID_QUANTITY_AEROBICS).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // unit
+        userInput = targetIndex.getOneBased() + UNIT_DESC_AEROBICS;
+        System.out.println("userinput: " + userInput);
+        descriptor = new EditExerciseDescriptorBuilder().withUnit(VALID_UNIT_AEROBICS).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

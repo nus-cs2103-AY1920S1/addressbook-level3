@@ -10,6 +10,7 @@ import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
+import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.tag.Muscle;
 
 /**
@@ -68,6 +69,14 @@ public class EditExerciseDescriptorBuilder {
      */
     public EditExerciseDescriptorBuilder withQuantity(String quantity) {
         descriptor.setQuantity(new Quantity(quantity));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Unit} of the {@code EditExerciseDescriptor} that we are building.
+     */
+    public EditExerciseDescriptorBuilder withUnit(String unit) {
+        descriptor.setUnit(new Unit(unit));
         return this;
     }
 

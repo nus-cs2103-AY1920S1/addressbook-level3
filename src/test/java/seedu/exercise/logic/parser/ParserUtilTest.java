@@ -18,19 +18,22 @@ import seedu.exercise.model.exercise.Calories;
 import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
+import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.tag.Muscle;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "D@nce";
     private static final String INVALID_DATE = "33/20/2019";
-    private static final String INVALID_QUANTITY = " ";
+    private static final String INVALID_QUANTITY = "123a";
     private static final String INVALID_CALORIES = "33a";
+    private static final String INVALID_UNIT = " ";
     private static final String INVALID_MUSCLE = "32friend";
 
     private static final String VALID_NAME = "Dance";
     private static final String VALID_DATE = "26/09/2019";
     private static final String VALID_QUANTITY = "3";
     private static final String VALID_CALORIES = "321";
+    private static final String VALID_UNIT = "km";
     private static final String VALID_MUSCLE_1 = "Legs";
     private static final String VALID_MUSCLE_2 = "Arms";
 
@@ -146,6 +149,29 @@ public class ParserUtilTest {
         String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
         Date expectedDate = new Date(VALID_DATE);
         assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
+    }
+
+    @Test
+    public void parseUnit_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseUnit((String) null));
+    }
+
+    @Test
+    public void parseUnit_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseUnit(INVALID_UNIT));
+    }
+
+    @Test
+    public void parseUnit_validValueWithoutWhitespace_returnsUnit() throws Exception {
+        Unit expectedUnit = new Unit(VALID_UNIT);
+        assertEquals(expectedUnit, ParserUtil.parseUnit(VALID_UNIT));
+    }
+
+    @Test
+    public void parseUnit_validValueWithWhitespace_returnsTrimmedUnit() throws Exception {
+        String unitWithWhitespace = WHITESPACE + VALID_UNIT + WHITESPACE;
+        Unit expectedUnit = new Unit(VALID_UNIT);
+        assertEquals(expectedUnit, ParserUtil.parseUnit(unitWithWhitespace));
     }
 
     @Test
