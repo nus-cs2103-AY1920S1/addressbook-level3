@@ -15,7 +15,7 @@ public enum Capacity {
 
     public final String value;
 
-    private Capacity(String value) {
+    Capacity(String value) {
         this.value = value;
     }
 

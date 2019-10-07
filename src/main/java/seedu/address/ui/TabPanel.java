@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.logic.Logic;
+import seedu.address.ui.panels.CustomerListPanel;
+import seedu.address.ui.panels.OrderListPanel;
+import seedu.address.ui.panels.PhoneListPanel;
+import seedu.address.ui.panels.ScheduleListPanel;
 
 /**
  * class containing TabPane class
@@ -12,10 +15,11 @@ import seedu.address.logic.Logic;
 public class TabPanel extends UiPart<Region> {
     private static final String FXML = "TabPanel.fxml";
 
-    private PersonListPanel personListPanel;
-    private PersonListPanel personListPanel2;
-    private PersonListPanel personListPanel3;
-    private PersonListPanel personListPanel4;
+    //private PersonListPanel personListPanel;
+    private CustomerListPanel customerListPanel;
+    private PhoneListPanel phoneListPanel;
+    private OrderListPanel orderlistPanel;
+    private ScheduleListPanel scheduleListPanel;
 
     @FXML
     private StackPane phoneListPanelPlaceholder;
@@ -31,22 +35,41 @@ public class TabPanel extends UiPart<Region> {
     @FXML
     private TabPane tabPanel;
 
-    public TabPanel(Logic logic) {
+    public TabPanel(CustomerListPanel customerListPanel,
+                    PhoneListPanel phoneListPanel,
+                    OrderListPanel orderlistPanel,
+                    ScheduleListPanel scheduleListPanel) {
         super(FXML);
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        customerListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        customerListPanel = customerListPanel;
+        customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
-        personListPanel2 = new PersonListPanel(logic.getFilteredPersonList());
-        phoneListPanelPlaceholder.getChildren().add(personListPanel2.getRoot());
+        phoneListPanel = phoneListPanel;
+        phoneListPanelPlaceholder.getChildren().add(phoneListPanel.getRoot());
 
-        personListPanel3 = new PersonListPanel(logic.getFilteredPersonList());
-        orderListPanelPlaceholder.getChildren().add(personListPanel3.getRoot());
+        orderlistPanel = orderlistPanel;
+        orderListPanelPlaceholder.getChildren().add(orderlistPanel.getRoot());
 
-        personListPanel4 = new PersonListPanel(logic.getFilteredPersonList());
-        scheduleListPanelPlaceholder.getChildren().add(personListPanel4.getRoot());
+        scheduleListPanel = scheduleListPanel;
+        scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());
 
 
         tabPanel.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+    }
+
+    protected void switchTabCustomer() {
+        this.tabPanel.getSelectionModel().select(0);
+    }
+
+    protected void switchTabPhone() {
+        this.tabPanel.getSelectionModel().select(1);
+    }
+
+    protected void switchTabOrder() {
+        this.tabPanel.getSelectionModel().select(2);
+    }
+
+    protected void switchTabSchedule() {
+        this.tabPanel.getSelectionModel().select(3);
     }
 
 }
