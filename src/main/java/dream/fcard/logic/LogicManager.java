@@ -1,29 +1,21 @@
 package dream.fcard.logic;
 
 import java.nio.file.Path;
-import java.util.logging.Logger;
 
 import dream.fcard.commons.core.GuiSettings;
-import dream.fcard.commons.core.LogsCenter;
 import dream.fcard.model.Model;
 import dream.fcard.model.ReadOnlyAddressBook;
 import dream.fcard.model.cards.Person;
 import javafx.collections.ObservableList;
-import dream.fcard.storage.Storage;
 
 /**
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
     private final Model model;
-    private final Storage storage;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model) {
         this.model = model;
-        this.storage = storage;
     }
 
 

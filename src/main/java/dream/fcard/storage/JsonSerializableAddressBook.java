@@ -23,13 +23,6 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
-    /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
-     */
-    @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
-    }
 
     /**
      * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
@@ -37,7 +30,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getPersonList().stream().map(x -> new JsonAdaptedPerson()).collect(Collectors.toList()));
     }
 
     /**
