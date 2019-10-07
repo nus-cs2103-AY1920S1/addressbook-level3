@@ -15,7 +15,7 @@ public interface Model {
 
     TransactionList getTransactionList();
 
-    void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws Exception;
+    void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws NoSuchIndexException;
 
     boolean hasTransaction(Transaction editedTransaction) throws NoSuchIndexException;
 

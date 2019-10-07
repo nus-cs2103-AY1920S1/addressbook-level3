@@ -26,7 +26,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws Exception {
+    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws NoSuchIndexException {
         for (int i = 0; i < transactionList.size(); i++) {
             Transaction curr = transactionList.get(i);
             if (curr.equals(transactionToEdit)) {
