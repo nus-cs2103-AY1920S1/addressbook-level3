@@ -45,9 +45,6 @@ dependencies {
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11'
 
-    // Updated by Ko Gi Hun 'itextpdf' API for generating .pdf
-    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.11'
-
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -66,7 +63,7 @@ dependencies {
 
     //Gihun pdf
     implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.4'
-    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.10'
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.11'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
