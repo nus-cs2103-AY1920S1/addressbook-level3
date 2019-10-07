@@ -2,10 +2,10 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
 
 /**
@@ -17,6 +17,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Claim> PREDICATE_SHOW_ALL_CLAIMS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -106,6 +109,32 @@ public interface Model {
      */
     void setClaim(Claim target, Claim editedClaim);
 
+    /**
+     * Returns true if an income with the same identity as {@code income} exists in the address book.
+     */
+    boolean hasIncome(Income income);
+
+    /**
+     * Deletes the given income.
+     * The income must exist in the address book.
+     */
+    void deleteIncome(Income target);
+
+    /**
+     * Adds the given income.
+     * {@code income} must not already exist in the address book.
+     */
+    void addIncome(Income income);
+
+    /**
+     * Replaces the given income {@code target} with {@code editedIncome}.
+     * {@code target} must exist in the address book.
+     * The income identity of {@code editedIncome} must not be the same as another existing income
+     * in the address book.
+     */
+    void setIncome(Income target, Income editedIncome);
+
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -123,4 +152,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredClaimList(Predicate<Claim> predicate);
+
+    /** Returns an unmodifiable view of the filtered income list */
+    ObservableList<Income> getFilteredIncomeList();
+
+    /**
+     * Updates the filter of the filtered income list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredIncomeList(Predicate<Income> predicate);
 }

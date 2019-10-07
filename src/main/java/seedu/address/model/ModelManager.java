@@ -2,16 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
 
 /**
@@ -137,6 +136,32 @@ public class ModelManager implements Model {
         addressBook.setClaim(target, editedClaim);
     }
 
+    @Override
+    public boolean hasIncome(Income income) {
+        requireNonNull(income);
+        return addressBook.hasIncome(income);
+    }
+
+    @Override
+    public void deleteIncome(Income target) {
+        addressBook.removeIncome(target);
+    }
+
+    @Override
+    public void addIncome(Income income) {
+        addressBook.addIncome(income);
+        updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
+    }
+
+    @Override
+    public void setIncome(Income target, Income editedIncome) {
+        requireAllNonNull(target, editedIncome);
+
+        addressBook.setIncome(target, editedIncome);
+    }
+
+
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -183,6 +208,21 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredClaimList(Predicate<Claim> predicate) {
+        /*
+         FUNCTION TO BE EDITED
+         */
+    }
+
+    @Override
+    public ObservableList<Income> getFilteredIncomeList() {
+        /*
+         FUNCTION TO BE EDITED
+         */
+        return null;
+    }
+
+    @Override
+    public void updateFilteredIncomeList(Predicate<Income> predicate) {
         /*
          FUNCTION TO BE EDITED
          */
