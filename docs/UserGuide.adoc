@@ -290,6 +290,8 @@ The student shares notes and questions with other students with Internet connect
 === Login using email and password `[coming in v2.0]`
 The student can register and login to the application using their email and password.
 
+=== Flash card grouping suggestions `[coming in v2.0]`
+NUStudy will intelligently suggest groupings of flash cards based on their content.
 
 == FAQ
 
