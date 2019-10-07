@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.order.IDContainsKeywordsPredicate;
+import seedu.address.model.order.IdContainsKeywordsPredicate;
 
 /**
  * Finds and lists all orders in order book whose name contains any of the argument keywords.
@@ -19,9 +19,9 @@ public class FindOrderCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + "12345678";
 
-    private final IDContainsKeywordsPredicate predicate;
+    private final IdContainsKeywordsPredicate predicate;
 
-    public FindOrderCommand(IDContainsKeywordsPredicate predicate) {
+    public FindOrderCommand(IdContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
