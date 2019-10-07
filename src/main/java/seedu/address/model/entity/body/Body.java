@@ -28,9 +28,8 @@ public class Body implements Entity {
 
     private String causeOfDeath;
     private List<String> organsForDonation;
-    private Status status;
+    private BodyStatus bodyStatus;
     private IdentificationNumber fridgeId;
-
     private Date dateOfBirth;
     private Date dateOfDeath;
 
@@ -45,7 +44,7 @@ public class Body implements Entity {
     }
 
     public Body(boolean isTestUnit, int identificationNumber, Date dateOfAdmission, Name name, Sex sex, Nric nric,
-                Religion religion, String causeOfDeath, List<String> organsForDonation, Status status,
+                Religion religion, String causeOfDeath, List<String> organsForDonation, BodyStatus bodyStatus,
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
                 String relationship, PhoneNumber kinPhoneNumber) {
         if (isTestUnit) {
@@ -61,7 +60,7 @@ public class Body implements Entity {
         this.religion = religion;
         this.causeOfDeath = causeOfDeath;
         this.organsForDonation = organsForDonation;
-        this.status = status;
+        this.bodyStatus = bodyStatus;
         this.fridgeId = fridgeId;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
@@ -167,12 +166,12 @@ public class Body implements Entity {
         this.organsForDonation = organsForDonation;
     }
 
-    public Status getStatus() {
-        return status;
+    public BodyStatus getBodyStatus() {
+        return bodyStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setBodyStatus(BodyStatus bodyStatus) {
+        this.bodyStatus = bodyStatus;
     }
 
     public IdentificationNumber getFridgeId() {
@@ -206,7 +205,7 @@ public class Body implements Entity {
                 && getReligion() == body.getReligion()
                 && Objects.equals(getCauseOfDeath(), body.getCauseOfDeath())
                 && Objects.equals(getOrgansForDonation(), body.getOrgansForDonation())
-                && getStatus() == body.getStatus()
+                && getBodyStatus() == body.getBodyStatus()
                 && Objects.equals(getFridgeId(), body.getFridgeId())
                 && Objects.equals(getDateOfBirth(), body.getDateOfBirth())
                 && Objects.equals(getDateOfDeath(), body.getDateOfDeath())
@@ -218,8 +217,8 @@ public class Body implements Entity {
     @Override
     public int hashCode() {
         return Objects.hash(getBodyIdNum(), getDateOfAdmission(), getName(), getSex(), getNric(),
-                getReligion(), getCauseOfDeath(), getOrgansForDonation(), getStatus(), getFridgeId(), getDateOfBirth(),
-                getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
+                getReligion(), getCauseOfDeath(), getOrgansForDonation(), getBodyStatus(), getFridgeId(),
+                getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
     }
 
     /**

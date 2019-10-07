@@ -16,9 +16,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
-import seedu.address.model.entity.body.Status;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -235,9 +235,9 @@ public class ParserUtil {
     /**
      * Parses {@code String status} to return the corresponding {@code Status}.
      */
-    public static Status parseStatus(String status) {
+    public static BodyStatus parseBodyStatus(String status) {
         requireNonNull(status);
         String trimmedStatus = status.trim();
-        return Status.parseStatus(trimmedStatus);
+        return BodyStatus.parseBodyStatus(trimmedStatus);
     }
 }
