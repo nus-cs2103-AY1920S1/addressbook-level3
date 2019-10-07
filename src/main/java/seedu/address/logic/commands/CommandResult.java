@@ -17,6 +17,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application show statistics in another window*/
+    private final boolean showStatistics;
+
     private final PanelType panelType;
 
     /**
@@ -25,6 +28,15 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.panelType = PanelType.DEFAULT;
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showStatistics = false;
+        this.showHelp = showHelp;
+        this.exit = exit;
+    }
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isStatistic) {
+        this.panelType = PanelType.DEFAULT;
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showStatistics = isStatistic;
         this.showHelp = showHelp;
         this.exit = exit;
     }
@@ -34,7 +46,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     /**
@@ -45,6 +57,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
+        this.showStatistics = false;
         this.panelType = type;
     }
 
@@ -63,6 +76,8 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
+
+    public boolean isShowStatistics() { return  showStatistics;}
 
     @Override
     public boolean equals(Object other) {
