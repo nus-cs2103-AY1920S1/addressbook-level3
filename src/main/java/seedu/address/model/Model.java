@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.claim.Claim;
 import seedu.address.model.person.Person;
 
 /**
@@ -68,6 +69,24 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+
+    /**
+     * Returns true if a claim with the same identity as {@code claim} exists.
+     */
+    boolean hasClaim(Claim claim);
+
+    /**
+     * Deletes the given claim.
+     * The claim must exist.
+     */
+    void deleteClaim(Claim target);
+
+    /**
+     * Adds the given claim.
+     * {@code claim} must not already exist.
+     */
+    void addClaim(Claim claim);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
