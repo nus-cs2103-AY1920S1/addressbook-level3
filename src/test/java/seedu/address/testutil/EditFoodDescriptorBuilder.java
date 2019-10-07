@@ -8,7 +8,7 @@ import seedu.address.logic.commands.EditCommand.EditFoodDescriptor;
 import seedu.address.model.food.Email;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
-import seedu.address.model.food.Phone;
+import seedu.address.model.food.Price;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,7 +32,7 @@ public class EditFoodDescriptorBuilder {
     public EditFoodDescriptorBuilder(Food food) {
         descriptor = new EditFoodDescriptor();
         descriptor.setName(food.getName());
-        descriptor.setPhone(food.getPhone());
+        descriptor.setPrice(food.getPrice());
         descriptor.setEmail(food.getEmail());
         descriptor.setTags(food.getTags());
     }
@@ -46,10 +46,10 @@ public class EditFoodDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditFoodDescriptor} that we are building.
+     * Sets the {@code Price} of the {@code EditFoodDescriptor} that we are building.
      */
-    public EditFoodDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditFoodDescriptorBuilder withPrice(String price) {
+        descriptor.setPrice(new Price(price));
         return this;
     }
 

@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.food.Email;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
-import seedu.address.model.food.Phone;
+import seedu.address.model.food.Price;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,7 +24,7 @@ class JsonAdaptedFood {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Food's %s field is missing!";
 
     private final String name;
-    private final String phone;
+    private final String price;
     private final String email;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -32,11 +32,11 @@ class JsonAdaptedFood {
      * Constructs a {@code JsonAdaptedFood} with the given food details.
      */
     @JsonCreator
-    public JsonAdaptedFood(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedFood(@JsonProperty("name") String name, @JsonProperty("price") String price,
                            @JsonProperty("email") String email,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.price = price;
         this.email = email;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -48,7 +48,7 @@ class JsonAdaptedFood {
      */
     public JsonAdaptedFood(Food source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        price = source.getPrice().value;
         email = source.getEmail().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -74,13 +74,13 @@ class JsonAdaptedFood {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (price == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Price.isValidPrice(price)) {
+            throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Price modelPrice = new Price(price);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -91,7 +91,7 @@ class JsonAdaptedFood {
         final Email modelEmail = new Email(email);
 
         final Set<Tag> modelTags = new HashSet<>(foodTags);
-        return new Food(modelName, modelPhone, modelEmail, modelTags);
+        return new Food(modelName, modelPrice, modelEmail, modelTags);
     }
 
 }

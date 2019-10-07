@@ -33,7 +33,7 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label price;
     @FXML
     private Label email;
     @FXML
@@ -44,7 +44,7 @@ public class FoodCard extends UiPart<Region> {
         this.food = food;
         id.setText(displayedIndex + ". ");
         name.setText(food.getName().fullName);
-        phone.setText(food.getPhone().value);
+        price.setText("$" + food.getPrice().value);
         email.setText(food.getEmail().value);
         food.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

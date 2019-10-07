@@ -17,7 +17,7 @@ public class Food {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Price price;
     private final Email email;
 
     // Data fields
@@ -26,10 +26,10 @@ public class Food {
     /**
      * Every field must be present and not null.
      */
-    public Food(Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+    public Food(Name name, Price price, Email email, Set<Tag> tags) {
+        requireAllNonNull(name, price, email, tags);
         this.name = name;
-        this.phone = phone;
+        this.price = price;
         this.email = email;
         this.tags.addAll(tags);
     }
@@ -38,8 +38,8 @@ public class Food {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Price getPrice() {
+        return price;
     }
 
     public Email getEmail() {
@@ -65,7 +65,7 @@ public class Food {
 
         return otherFood != null
                 && otherFood.getName().equals(getName())
-                && (otherFood.getPhone().equals(getPhone()) || otherFood.getEmail().equals(getEmail()));
+                && (otherFood.getPrice().equals(getPrice()) || otherFood.getEmail().equals(getEmail()));
     }
 
     /**
@@ -84,7 +84,7 @@ public class Food {
 
         Food otherFood = (Food) other;
         return otherFood.getName().equals(getName())
-                && otherFood.getPhone().equals(getPhone())
+                && otherFood.getPrice().equals(getPrice())
                 && otherFood.getEmail().equals(getEmail())
                 && otherFood.getTags().equals(getTags());
     }
@@ -92,15 +92,15 @@ public class Food {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, price, email, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Price: $")
+                .append(getPrice())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Tags: ");
