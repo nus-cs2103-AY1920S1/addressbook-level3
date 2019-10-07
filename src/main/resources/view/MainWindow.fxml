@@ -34,28 +34,28 @@
            </MenuBar>
                <HBox>
                   <children>
-         
+
                     <VBox fx:id="flashCardList" minWidth="340.0" prefWidth="340.0" styleClass="pane-with-border">
                    <padding>
                      <Insets bottom="10" left="10" right="10" top="10" />
                    </padding>
                    <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                  </VBox>
-            
+
                   <VBox>
-            
+
                     <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-            
+
                     <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-            
+
                     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                   </VBox>
                   </children>
