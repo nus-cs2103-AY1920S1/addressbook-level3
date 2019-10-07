@@ -28,7 +28,7 @@ public class BrowserPanel extends UiPart<Region> {
     /** Default html page to be loaded when not connected to internet. */
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class
-                    .getResource(FXML_FILE_FOLDER + "default.html"));
+                    .getResource(FXML_FILE_FOLDER + "defaultOfflinePage.html"));
 
     /** Name of corresponding fxml file. */
     private static final String FXML = "BrowserPanel.fxml";
@@ -40,9 +40,9 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private TextField addressBar;
     @FXML
-    private ImageView googleLogo;
+    private ImageView homepageLogo;
     @FXML
-    private Button googleButton;
+    private Button homeButton;
 
     private WebEngine webEngine;
     private String currentPageUrl;
@@ -54,7 +54,7 @@ public class BrowserPanel extends UiPart<Region> {
         loadGuiGoogleButton();
         loadGuiBrowser();
 
-        loadPage("https://google.com.sg");
+        gotoHomepage();
     }
 
     /**
@@ -64,10 +64,10 @@ public class BrowserPanel extends UiPart<Region> {
         addressBar.focusedProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> {
                 if (newValue) {
-                    logger.info("Address bar status: onfocus");
+                    logger.info("Address bar in focus");
                     addressBar.selectAll();
                 } else {
-                    logger.info("Address bar status: outfocus");
+                    logger.info("Address bar out of focus");
                     if (!currentPageUrl.equals(addressBar.getText())) {
                         addressBar.setText(currentPageUrl);
                     }
@@ -80,8 +80,8 @@ public class BrowserPanel extends UiPart<Region> {
      * Initialises the button that leads to google home page when pressed.
      */
     private void loadGuiGoogleButton() {
-        googleLogo.setImage(new Image(
-                MainWindow.class.getResourceAsStream("/images/gLogo.png")
+        homepageLogo.setImage(new Image(
+                MainWindow.class.getResourceAsStream("/images/googleLogo.png")
         ));
     }
 
@@ -117,7 +117,7 @@ public class BrowserPanel extends UiPart<Region> {
      * @param url valid url
      */
     public void loadPage(String url) {
-        assert checkUrlValid(url) : "invalid url passed to webEngine";
+        assert isValidUrl(url) : "invalid url passed to webEngine";
 
         Platform.runLater(() -> webEngine.load(url));
     }
@@ -150,12 +150,13 @@ public class BrowserPanel extends UiPart<Region> {
      */
     @FXML
     private void handleAddressBarInput() {
+        //TODO: link address bar to web engine
         //if address legit then load
         //if not legit h
         String input = addressBar.getText();
-        logger.info("address bar read: " + input);
+        logger.info("Reading address from address bar: " + input);
 
-        logger.info("Is given input a valid URL? " + checkUrlValid(input));
+        logger.info("Checking validity of input URL: " + isValidUrl(input));
         //dunnid clear input
     }
 
@@ -164,7 +165,8 @@ public class BrowserPanel extends UiPart<Region> {
      * @param url suspected url
      * @return true if url is valid; else false.
      */
-    private boolean checkUrlValid(String url) {
+    private boolean isValidUrl(String url) {
+        //TODO: parse and check if the url is a valid url
         //check if have protocol in front
         //if true then test out by creating a url and catching malinformedurlexception?
         return url.isBlank(); //dummy code
@@ -177,7 +179,8 @@ public class BrowserPanel extends UiPart<Region> {
      * @param input non-url input
      * @return a valid url based on given input.
      */
-    private String parseNonUrl(String input) {
+    private String makeValidUrl(String input) {
+        //TODO: parse a non url into a valid url (either by adding protocol or doing google search)
         //if is url without protocol, add protocol http://
         //else google search it... how?
         return input; //dummy code
@@ -187,7 +190,7 @@ public class BrowserPanel extends UiPart<Region> {
      * Changes webview to google search page.
      */
     @FXML
-    private void handleGotoGoogle() {
+    private void gotoHomepage() {
         loadPage("https://google.com.sg");
     }
 }
