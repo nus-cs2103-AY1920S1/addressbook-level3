@@ -1,4 +1,4 @@
-= Financial Tracker - User guide
+= Billboard - User guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -16,13 +16,13 @@ By: `CS2103T-F12-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-_Financial Tracker_ is for those who prefer to use desktop applications to manage and keep track of their expenses. _Financial Tracker_ is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI). If you can type fast, _Financial Tracker_ can help you manage your expenses faster than traditional GUI apps!
+_Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses. _Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI). If you can type fast, _Billboard_ can help you manage your expenses faster than traditional GUI apps!
 
 == Quick Start
 
 . Ensure you have Java 11 or above installed on your machine.
-. Download the latest version of _Financial Tracker_ +++<u>+++here.+++</u>+++
-. Copy the file to the folder you want to use as the Home folder for _Financial Tracker_
+. Download the latest version of _Billboard_ +++<u>+++here.+++</u>+++
+. Copy the file to the folder you want to use as the Home folder for _Billboard_
 . Double-click the file to open the application
 . Refer to <<Features>> for the details of each command
 
