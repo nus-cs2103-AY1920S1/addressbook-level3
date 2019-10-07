@@ -44,7 +44,7 @@ public class FoodCard extends UiPart<Region> {
         this.food = food;
         id.setText(displayedIndex + ". ");
         name.setText(food.getName().fullName);
-        price.setText(food.getPrice().value);
+        price.setText("$" + food.getPrice().value);
         email.setText(food.getEmail().value);
         food.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

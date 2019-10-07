@@ -11,7 +11,8 @@ public class Price {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Price numbers should only contain numbers, and only in 2 decimal places";
+            "Price numbers should only contain numbers and have either 0 or 2 decimal places.\n"
+            + "For example: p/1.50 or p/200";
     public static final String VALIDATION_REGEX = "\\d+(\\.\\d{2,2})?";
     public final String value;
 
@@ -63,7 +64,7 @@ public class Price {
      */
     public String convert(String price) {
         if (isPerfectNumber(price)) {
-            return Integer.parseInt(price) + ".00";
+            return String.format("%d.00", Integer.parseInt(price));
         } else {
             return String.format("%.2f", Double.parseDouble(price));
         }
