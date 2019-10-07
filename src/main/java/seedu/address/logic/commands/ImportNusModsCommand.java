@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,10 +22,17 @@ public class ImportNusModsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        NusModApi api = new NusModApi();
+        requireNonNull(model);
 
+        NusModApi api = new NusModApi();
         JSONObject moduleListJson = api.getModuleList();
 
+        // call api to get all necessary info and store in hard disk
+        // for each moduleCode in moduleListJson
+//        model.findModule(moduleCode);
+//        if not found,
+    //        api.getModule(moduleCode)
+//        model.addModule(moduleCode);
 
         String result = "";
         if (moduleListJson == null) {

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.module.ModuleCode;
 import seedu.address.websocket.util.ApiQuery;
 import seedu.address.websocket.util.ParserUtil;
 import seedu.address.websocket.util.QueryResult;
@@ -71,7 +72,7 @@ public class NusModApi {
      * @param moduleCode code of the specific module.
      * @return JSONObject containing all info available for a specific module including prerequisite tree and timetable.
      */
-    public JSONObject getModule(String moduleCode) {
+    public JSONObject getModule(ModuleCode moduleCode) {
         ApiQuery query = new ApiQuery(BASE_URL + ACAD_YEAR + MODULES + SLASH + moduleCode + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {

@@ -18,6 +18,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.NusModsData;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TimeBook;
@@ -25,8 +26,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonNusModsDataStorage;
 import seedu.address.storage.JsonTimeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.NusModsDataStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TimeBookStorage;
@@ -62,7 +65,9 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TimeBookStorage timeBookStorage = new JsonTimeBookStorage(userPrefs.getTimeBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage);
+        NusModsDataStorage nusModsDataStorage = new JsonNusModsDataStorage(userPrefs.getNusModsDataFilePath());
+
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage, nusModsDataStorage);
 
         initLogging(config);
 
@@ -114,7 +119,27 @@ public class MainApp extends Application {
             logger.severe("Failed to load TimeBook, starting with a new instance");
         }
 
-        return new ModelManager(initialData, timeBook, userPrefs);
+
+        // load NUSModsData
+        Optional<NusModsData> nusModsDataOptional;
+        NusModsData nusModsData;
+
+        try {
+            nusModsDataOptional = storage.readNusModsData();
+            if (!nusModsDataOptional.isPresent()) {
+                logger.info("ModuleList data file not found.");
+            }
+            nusModsData = nusModsDataOptional.orElse(new NusModsData());
+        } catch (DataConversionException e) {
+            logger.warning("ModuleList data not in the correct format. Will be starting with an empty NusModsData");
+            nusModsData = new NusModsData();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from NusModsData file. "
+                    + "Will be starting with an empty NusModsData");
+            nusModsData = new NusModsData();
+        }
+
+        return new ModelManager(initialData, timeBook, nusModsData, userPrefs);
     }
 
     private void initLogging(Config config) {

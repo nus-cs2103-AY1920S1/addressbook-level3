@@ -53,11 +53,15 @@ public class LogicManager implements Logic {
         try {
             storage.saveTimeBook(model.getTimeBook());
             logger.info("Attempting to save timebook");
-
         } catch (IOException ioe) {
             logger.severe("Unable to save timebook");
         }
 
+        try {
+            storage.saveNusModsData(model.getNusModsData());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
 
         return commandResult;
     }

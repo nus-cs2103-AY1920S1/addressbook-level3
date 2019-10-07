@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.SemesterNo;
 
 /**
  * Parses input arguments and creates a new ShowNusModCommand object.
@@ -33,12 +35,13 @@ public class ShowNusModCommandParser implements Parser<ShowNusModCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_SEMESTER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_SEMESTER)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowNusModCommand.MESSAGE_USAGE));
         }
 
-        String module = ParserUtil.parseModule(argMultimap.getValue(PREFIX_MODULE_CODE).get());
-
-        return new ShowNusModCommand(module, argMultimap.getValue(PREFIX_SEMESTER).get());
+        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
+        SemesterNo semesterNo = ParserUtil.parseSemesterNo(argMultimap.getValue(PREFIX_SEMESTER).get());
+        return new ShowNusModCommand(moduleCode, semesterNo);
     }
 }

@@ -19,6 +19,9 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -43,6 +46,10 @@ public class ModelManager implements Model {
     private GroupList groupList;
     private PersonToGroupMappingList personToGroupMappingList;
 
+    private NusModsData nusModsData;
+
+    private ModuleList moduleList;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -65,7 +72,8 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = personToGroupMappingList;
     }
 
-    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook,
+                        NusModsData nusModsData, ReadOnlyUserPrefs userPrefs) {
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
@@ -73,7 +81,10 @@ public class ModelManager implements Model {
         this.personList = timeBook.getPersonList();
         this.groupList = timeBook.getGroupList();
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
+        this.nusModsData = nusModsData;
+        this.moduleList = nusModsData.getModuleList();
 
+        //TODO: please abstract this
         int personCounter = -1;
         for (int i = 0; i < personList.getPersons().size(); i++) {
             if (personList.getPersons().get(i).getPersonId().getIdentifier() > personCounter) {
@@ -159,6 +170,17 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public Path getNusModsDataFilePath() {
+        return userPrefs.getNusModsDataFilePath();
+    }
+
+    @Override
+    public void setNusModsDataFilePath(Path nusModsDataFilePath) {
+        requireNonNull(nusModsDataFilePath);
+        userPrefs.setNusModsDataFilePath(nusModsDataFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -333,6 +355,34 @@ public class ModelManager implements Model {
         personToGroupMappingList.deleteGroupFromMapping(groupId);
     }
 
+
+
+    //=========== NusModsData ================================================================================
+
+    /**
+     * Returns the NusModsData
+     */
+    public NusModsData getNusModsData() {
+        return nusModsData;
+    };
+
+
+    //=========== Module Accessors =============================================================
+
+    @Override
+    public ModuleList getModuleList() {
+        return moduleList;
+    }
+
+    @Override
+    public void addModule(Module module) {
+        moduleList.addModule(module);
+    }
+
+    @Override
+    public Module findModule(ModuleCode moduleCode) {
+        return moduleList.findModule(moduleCode);
+    }
 
     //=========== Others =============================================================
 

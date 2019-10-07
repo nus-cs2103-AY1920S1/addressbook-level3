@@ -13,6 +13,9 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -60,6 +63,16 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the user prefs' NusModsData file path.
+     */
+    Path getNusModsDataFilePath();
+
+    /**
+     * Sets the user prefs' NusModsData file path.
+     */
+    void setNusModsDataFilePath(Path nusModsDataFilePath);
 
     //=========== AddressBook ================================================================================
 
@@ -197,6 +210,22 @@ public interface Model {
      * Deletes all mappings with GroupId.
      */
     void deleteGroupFromMapping(GroupId groupId);
+
+
+    //=========== NusModsData ================================================================================
+
+    /**
+     * Returns the NusModsData
+     */
+    NusModsData getNusModsData();
+
+    //=========== Module Accessors =============================================================
+
+    ModuleList getModuleList();
+
+    void addModule(Module module);
+
+    Module findModule(ModuleCode moduleCode);
 
     //=========== Others =============================================================
 

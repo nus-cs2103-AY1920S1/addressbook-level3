@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
@@ -8,6 +9,8 @@ import org.json.simple.JSONObject;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.websocket.NusModApi;
 
 /**
@@ -19,30 +22,35 @@ public class ShowNusModCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_MODULE_CODE + "MODULE_CODE "
             + PREFIX_SEMESTER + "SEMESTER\n";
 
-    private final String moduleCode;
-    private final String semesterNo;
+    private final ModuleCode moduleCode;
+    private final SemesterNo semesterNo;
 
-    public ShowNusModCommand(String moduleCode, String semesterNo) {
+    public ShowNusModCommand(ModuleCode moduleCode, SemesterNo semesterNo) {
         this.moduleCode = moduleCode;
         this.semesterNo = semesterNo;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        NusModApi api = new NusModApi();
-        JSONObject obj = api.getModule(moduleCode);
-
+        requireNonNull(model);
         String result = "";
-        if (obj == null) {
-            result = "Error! Unable to get module details";
-            return new CommandResult(result);
-        } else {
-            Module module = new Module(obj);
-            result += module.toString() + "\n";
-            result += module.getDescription().toString() + "\n";
-            result += module.getSemester(semesterNo).toString();
-            return new CommandResult(result);
+
+        Module module = model.findModule(moduleCode);
+        if (module == null) {
+            NusModApi api = new NusModApi();
+            JSONObject obj = api.getModule(moduleCode);
+            if (obj == null) {
+                result = "Error! Unable to get module details";
+                return new CommandResult(result);
+            } else {
+                module = new Module(obj);
+            }
         }
+
+        result += module.toString() + "\n";
+        result += module.getDescription().toString() + "\n";
+        result += module.getSemester(semesterNo).toString();
+        return new CommandResult(result);
     }
 
     @Override
