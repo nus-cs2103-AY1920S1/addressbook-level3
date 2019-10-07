@@ -2,13 +2,7 @@ package dream.fcard.model.person;
 
 import static dream.fcard.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import dream.fcard.commons.util.CollectionUtil;
-import dream.fcard.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -16,27 +10,16 @@ import dream.fcard.model.tag.Tag;
  */
 public class Person {
 
-    // Data fields
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(tags);
-
-        this.tags.addAll(tags);
+    public Person() {
     }
 
 
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
+
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
@@ -65,20 +48,19 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getTags().equals(getTags());
+        return false;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tags);
+        return Objects.hash(42);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Tags: ");
-        getTags().forEach(builder::append);
         return builder.toString();
     }
 
