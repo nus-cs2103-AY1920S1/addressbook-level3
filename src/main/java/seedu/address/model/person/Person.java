@@ -60,6 +60,10 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public boolean containsTag(Tag tag) {
+        return this.tags.contains(tag);
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
