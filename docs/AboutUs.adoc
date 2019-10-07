@@ -29,7 +29,7 @@ Responsibilities: Claims Feature
 '''
 
 === Joshua Seet
-image::joshuaseet.jpg[width="150", align="left"]
+image::joshuaseet.png[width="150", align="left"]
 {empty}[http://github.com/joshuaseetss[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing
