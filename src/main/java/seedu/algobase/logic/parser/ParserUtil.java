@@ -117,7 +117,7 @@ public class ParserUtil {
      */
     public static Remark parseRemark(String remark) throws ParseException {
         // TODO: implementation
-        return Remark.DEFAULT_REMARK;
+        return new Remark(remark);
     }
 
     /**
@@ -127,7 +127,7 @@ public class ParserUtil {
      */
     public static Source parseSource(String source) throws ParseException {
         // TODO: implementation
-        return Source.DEFAULT_SOURCE;
+        return new Source(source);
     }
 
     /**
