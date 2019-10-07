@@ -1,6 +1,7 @@
 = FinSec
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+https://travis-ci.org/AY1920S1-CS2103T-W12-1/main.svg?branch=master
 https://coveralls.io/github/AY1920S1-CS2103T-W12-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-W12-1/main/badge.svg?branch=master[Coverage Status]]
 https://ci.appveyor.com/project/weigenie/main/branch/master[image:https://ci.appveyor.com/api/projects/status/yla304kgo1qe3tlv/branch/master?svg=true[Build status]]
 https://app.netlify.com/sites/finsec/deploys[image:https://api.netlify.com/api/v1/badges/21cfe018-0bfd-48ac-8b4f-72551296e443/deploy-status[Netlify Status]]
