@@ -3,7 +3,11 @@ package seedu.algobase.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.algobase.logic.commands.CommandTestUtil.AUTHOR_DESC_ONE;
+import static seedu.algobase.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ONE;
+import static seedu.algobase.logic.commands.CommandTestUtil.NAME_DESC_ONE;
 import static seedu.algobase.testutil.Assert.assertThrows;
+import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -20,9 +25,11 @@ import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.UserPrefs;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
+import seedu.algobase.testutil.ProblemBuilder;
 
 
 public class LogicManagerTest {
@@ -63,11 +70,26 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonalgobaseBookIoExceptionThrowingStub
+        // Setup LogicManager with JsonAlgobaseBookIoExceptionThrowingStub
+        JsonAlgoBaseStorage jsonAlgoBaseStorage = new JsonalgobaseBookIoExceptionThrowingStub(
+                temporaryFolder.resolve("ioExceptionAlgoBase.json"));
+        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(
+                temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(jsonAlgoBaseStorage, jsonUserPrefsStorage);
+        logic = new LogicManager(model, storage);
+
+        // Execute add command
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_ONE + DESCRIPTION_DESC_ONE + AUTHOR_DESC_ONE;
+        Problem expectedProblem = new ProblemBuilder(QUICK_SORT).withTags().build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addProblem(expectedProblem);
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        // TODO: implementation
 //        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
