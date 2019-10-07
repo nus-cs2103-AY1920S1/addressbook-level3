@@ -39,27 +39,27 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if any part of the {@code sentence} contains the {@code partialWord}.
-     *   Ignores case, and a full word match is not required.
+     * Returns true if any part of the {@code sentence} contains the {@code phrase}.
+     *   Ignores case.
      *   <br>examples:<pre>
-     *       containsPartialWordIgnoreCase("ABc def", "Ab") == true
-     *       containsPartialWordIgnoreCase("ABc def", "abc") == true
-     *       containsPartialWordIgnoreCase("ABc def", "c DEF") == true
-     *       containsPartialWordIgnoreCase("ABc def", "abcdef") == false
+     *       containsPhraseIgnoreCase("ABc def", "Ab") == true
+     *       containsPhraseIgnoreCase("ABc def", "abc") == true
+     *       containsPhraseIgnoreCase("ABc def", "c DEF") == true
+     *       containsPhraseIgnoreCase("ABc def", "abcdef") == false
      *       </pre>
      * @param sentence cannot be null
-     * @param partialWord cannot be null, cannot be empty
+     * @param phrase cannot be null, cannot be empty
      */
-    public static boolean containsPartialWordIgnoreCase(String sentence, String partialWord) {
+    public static boolean containsPhraseIgnoreCase(String sentence, String phrase) {
         requireNonNull(sentence);
-        requireNonNull(partialWord);
+        requireNonNull(phrase);
 
-        String preppedPartialWord = partialWord.trim().toLowerCase();
-        checkArgument(!preppedPartialWord.isEmpty(), "Word parameter cannot be empty");
+        String preppedPhrase = phrase.trim().toLowerCase();
+        checkArgument(!preppedPhrase.isEmpty(), "Phrase parameter cannot be empty");
 
         String preppedSentence = sentence.toLowerCase(); // ignore case
 
-        return preppedSentence.contains(preppedPartialWord);
+        return preppedSentence.contains(preppedPhrase);
     }
 
     /**

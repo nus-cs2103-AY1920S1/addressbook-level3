@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.mark.commons.util.StringUtil;
-
 /**
  * Tests that a {@code Bookmark}'s {@code Name} or {@code Url} matches any
  * of the keywords given.
@@ -15,7 +13,8 @@ public class IdentifiersContainKeywordsPredicate implements Predicate<Bookmark> 
     private final List<Predicate<Bookmark>> predicates;
 
     public IdentifiersContainKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
+        this.keywords = keywords; // keywords needed for equals(Object) comparison
+
         this.predicates = new ArrayList<>();
         predicates.add(new NameContainsKeywordsPredicate(keywords));
         predicates.add(new UrlContainsKeywordsPredicate(keywords));

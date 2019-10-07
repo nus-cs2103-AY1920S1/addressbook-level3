@@ -18,7 +18,7 @@ public class UrlContainsKeywordsPredicate implements Predicate<Bookmark> {
     @Override
     public boolean test(Bookmark bookmark) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(bookmark.getUrl().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(bookmark.getUrl().value, keyword));
     }
 
     @Override
