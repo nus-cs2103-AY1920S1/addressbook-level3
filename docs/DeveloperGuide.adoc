@@ -334,8 +334,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |bored secretary |keep myself entertained|
 
 |`***` |secretary under a busy manager |find specific appointments fast |schedule appointments efficiently
-
-
+|=======================================================================
 
 [appendix]
 == Use Cases
@@ -344,7 +343,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 unless specified otherwise)
 
 [discrete]
-=== Use case: Delete appointment
+=== Use case: (UC01) Add appointment
+
+//Updated by Yu Chen
+[discrete]
+=== Use case: (UC02) List appointments
+*MSS*
+
+1.  User requests to list appointments
+2.  System displays the list of appointments in chronological order
++
+Use case ends.
+
+[none]
+* 1a. User specifies ordering method
+[none]
+** 2a1. System displays the list of appointments in specified order
+
+//Jun Hao
+[discrete]
+=== Use case: (UC03) Find appointment
+*MSS*
+
+1.  User requests to find appointments
+2.  User provides fields that the user wants to use to find appointments
+3.  System finds and displays the list of relevant appointment(s)
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+//Updated by Jun Hao
+[discrete]
+=== Use case: (UC04) Delete appointment
 
 *MSS*
 
@@ -369,11 +404,18 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
-
-//updated by Ko Gi Hun 30/09/19
 [discrete]
-=== Use case: (UC01) Edit selected appointment
+=== Use case: (UC05) Exit application ('bye')
+
+[discrete]
+=== Use case: (UC06) Request help information
+
+[discrete]
+=== Use case: (UC07) Load and save data
+
+//updated by Ko Gi Hun 7/10/19
+[discrete]
+=== Use case: (UC08) Edit selected appointment
 *MSS*
 
 1. User requests to list appointments
@@ -400,59 +442,17 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-//Updated by Ko Gi Hun 30/09/19
-=== Use case: (UC02) Generate appointment document in PDF format
-*MSS*
+=== Use case: (UC09) Undo previous command
 
-1. User requests to list appointments
-2. System displays the list of appointments
-3. User request for generate PDF of an appointment, providing the index number
-4. System generates a PDF file in a specific external directory
-5. System shows successful message
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 4a. System fails to generate PDF
-[none]
-** 4a1. System shows error message.
-+
-Use case resumes at step 2.
-
-//Updated by Yu Chen
 [discrete]
-=== Use case: (UC03) List appointments
-*MSS*
+=== Use case: (UC10) Redo previous command
 
-1.  User requests to list appointments
-2.  System displays the list of appointments in chronological order
-+
-Use case ends.
-
-[none]
-* 1a. User specifies ordering method
-** 2a1. System displays the list of appointments in specified order
-
-//Updated by Jun Hao
-=== Use case: (UC04) Find appointment
-*MSS*
-
-1.  User requests to find appointments
-2.  User provides fields that the user wants to use to find appointments
-3.  System finds and displays the list of relevant appointment(s)
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
+[discrete]
+=== Use case: (UC11) Switch to 'Calendar' view mode
 
 //Updated by Jun Hao
 [discrete]
-=== Use case: (UC05) Typing game
+=== Use case: (UC12) Typing game
 
 *MSS*
 
@@ -471,6 +471,30 @@ Use case ends.
 * 2a. User exits game
 +
 Use case ends.
+
+[discrete]
+=== Use case: (UC13) Checking spelling errors
+
+[discrete]
+//Updated by Ko Gi Hun 30/09/19
+=== Use case: (UC14) Generate appointment document in PDF format
+*MSS*
+
+1. User requests to list appointments
+2. System displays the list of appointments
+3. User request for generate PDF of an appointment, providing the index number
+4. System generates a PDF file in a specific external directory
+5. System shows successful message
++
+Use case ends.
+
+*Extensions*
+[none]
+* 4a. System fails to generate PDF
+[none]
+** 4a1. System shows error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
