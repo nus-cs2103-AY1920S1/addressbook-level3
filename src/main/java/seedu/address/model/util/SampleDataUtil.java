@@ -5,8 +5,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.AppointmentBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.common.Tag;
+import seedu.address.model.events.DateTime;
+import seedu.address.model.events.Event;
+import seedu.address.model.events.Status;
+import seedu.address.model.events.Timing;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
@@ -18,6 +24,10 @@ import seedu.address.model.person.parameters.Phone;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    private static DateTime toDateTime(String dateTime) {
+        return DateTime.tryParseSimpleDateFormat(dateTime);
+    }
+
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new PatientReferenceId("001A"), new Name("Alex Yeoh"), new Phone("87438807"),
@@ -47,12 +57,27 @@ public class SampleDataUtil {
         };
     }
 
+    public static Event[] getSampleEvents() {
+        return new Event[] {
+            new Event(new PatientReferenceId("001A"),
+                new Timing(toDateTime("20/01/2020 1200"), toDateTime("20/01/2020 1230")), new Status())
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyAppointmentBook getSampleAppointmentBook() {
+        AppointmentBook sampleAp = new AppointmentBook();
+        for (Event sampleEvent : getSampleEvents()) {
+            sampleAp.addEvent(sampleEvent);
+        }
+        return sampleAp;
     }
 
     /**
