@@ -2,6 +2,7 @@ package seedu.address.websocket;
 
 import java.util.logging.Logger;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import seedu.address.commons.core.LogsCenter;
@@ -83,19 +84,19 @@ public class NusmodApi {
     }
 
     /**
-     * Returns a JSONObject of summaries of all venues for the current semester.
+     * Returns a JSONArray of summaries of all venues for the current semester.
      *
      * @param semester current semmester: 1 -> sem 1
      *                 2 -> sem 2
      *                 3 -> special term 1
      *                 4 -> special term 2
-     * @return JSONObject representing the venues
+     * @return JSONArray representing the venues
      */
-    public JSONObject getVenues(String semester) {
+    public JSONArray getVenues(String semester) {
         ApiQuery query = new ApiQuery(BASEURL + ACAD_YEAR + SEMESTERS + semester + VENUES + JSON_EXTENTION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
-            JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
+            JSONArray obj = ParserUtil.parseStringToJsonArray(queryResult.getResponseResult());
             return obj;
         } else {
             return null;
