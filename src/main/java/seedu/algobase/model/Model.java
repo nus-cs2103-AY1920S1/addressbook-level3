@@ -85,7 +85,7 @@ public interface Model {
      */
     void setProblem(Problem target, Problem editedProblem);
 
-    /** Returns an unmodifiable view of the filtered Plan list */
+    /** Returns an unmodifiable view of the filtered Problem list */
     ObservableList<Problem> getFilteredProblemList();
 
     /**
@@ -111,6 +111,9 @@ public interface Model {
      * The Plan identity of {@code editedPlan} must not be the same as another existing Plan in the algobase.
      */
     void setPlan(Plan target, Plan editedPlan);
+
+    /** Returns an unmodifiable view of the filtered Plan list */
+    ObservableList<Plan> getFilteredPlanList();
 
     /**
      * Updates the filter of the filtered Plan list to filter by the given {@code predicate}.
