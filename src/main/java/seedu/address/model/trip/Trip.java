@@ -172,7 +172,7 @@ public class Trip {
      * Builder class to accommodate optional properties using builder pattern.
      * Can be used to construct {@link Trip} without optional fields.
      */
-    private static class Builder {
+    public static class Builder {
         private Name name;
         private LocalDateTime startDate;
         private LocalDateTime endDate;
@@ -182,6 +182,17 @@ public class Trip {
 
         public static Builder newInstance (){
             return new Builder();
+        }
+
+        public static Builder of (Trip trip){
+            requireAllNonNull(trip.name, trip.startDate, trip.endDate, trip.destination);
+            return Builder.newInstance()
+                    .setName(trip.getName())
+                    .setStartDate(trip.startDate)
+                    .setEndDate(trip.endDate)
+                    .setLocation(trip.destination)
+                    .setTotalBudget(trip.totalBudget)
+                    .setDayList(trip.dayList);
         }
 
         private Builder(){

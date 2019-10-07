@@ -37,6 +37,25 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_NAME_AFRICA = "Africa Trip";
+    public static final String VALID_NAME_BALI = "Bali Trip";
+    public static final String VALID_STARTDATE_AFRICA_1 = "01/01/2019";
+    public static final String VALID_STARTDATE_AFRICA_2 = "01/01/2019 1200";
+    public static final String VALID_STARTDATE_AFRICA_3 = "1200";
+    public static final String VALID_STARTTIME_BALI_1 = "02/02/2018";
+    public static final String VALID_STARTTIME_BALI_2 = "02/02/2018 1300";
+    public static final String VALID_STARTTIME_BALI_3 = "1300";
+    public static final String VALID_ENDTIME_AFRICA_1 = "01/02/2019";
+    public static final String VALID_ENDTIME_AFRICA_2 = "01/15/2019 1200";
+    public static final String VALID_ENDTIME_AFRICA_3 = "1500";
+    public static final String VALID_ENDTIME_BALI_1 = "05/05/2018";
+    public static final String VALID_ENDTIME_BALI_2 = "07/07/2018 1300";
+    public static final String VALID_ENDTIME_BALI_3 = "2100";
+    public static final String VALID_DESTINATION_AFRICA = "Africa";
+    public static final String VALID_DESTINATION_BALI = "Bali";
+    public static final String VALID_TOTAL_BUDGET_AFRICA = "120.00";
+    public static final String VALID_TOTAL_BUDGET_BALI = "3100.00";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;

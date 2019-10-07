@@ -3,11 +3,12 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTrips.TRIP_A;
+import static seedu.address.testutil.TypicalTrips.getTypicalTravelPal;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,9 +20,12 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.DuplicateTripException;
 import seedu.address.testutil.PersonBuilder;
 
 public class TravelPalTest {
@@ -30,7 +34,7 @@ public class TravelPalTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), travelPal.getPersonList());
+        assertEquals(Collections.emptyList(), travelPal.getTripList());
     }
 
     @Test
@@ -39,71 +43,81 @@ public class TravelPalTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        TravelPal newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyTravelPal_replacesData() {
+        TravelPal newData = getTypicalTravelPal();
         travelPal.resetData(newData);
         assertEquals(newData, travelPal);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        TravelPalStub newData = new TravelPalStub(newPersons);
+    public void resetData_withDuplicateTrips_throwsDuplicatePersonException() {
+        // Two trips with the same identity fields
+        Trip editedTripA = Trip.Builder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA)).build();
+        List<Trip> newTrips = Arrays.asList(TRIP_A, editedTripA);
+        TravelPalStub newData = new TravelPalStub(newTrips);
 
-        assertThrows(DuplicatePersonException.class, () -> travelPal.resetData(newData));
+        assertThrows(DuplicateTripException.class, () -> travelPal.resetData(newData));
     }
 
     @Test
-    public void
+    public void resetData_withClashingTrips_throwsClashingTripsException() {
+        Trip editedTripA = Trip.Builder.of(TRIP_A).build();
+        List<Trip> newTrips = Arrays.asList(TRIP_A, editedTripA);
+        TravelPalStub newData = new TravelPalStub(newTrips);
 
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> travelPal.hasPerson(null));
+        assertThrows(ClashingTripException.class, () -> travelPal.resetData(newData));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(travelPal.hasPerson(ALICE));
+    public void hasTrip_nullTrip_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> travelPal.hasTrip(null));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        travelPal.addPerson(ALICE);
-        assertTrue(travelPal.hasPerson(ALICE));
+    public void hasTrip_tripNotInTravelPal_returnsFalse() {
+        assertFalse(travelPal.hasTrip(TRIP_A));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        travelPal.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(travelPal.hasPerson(editedAlice));
+    public void hasTrip_tripInAddressBook_returnsTrue() {
+        try {
+            travelPal.addTrip(TRIP_A);
+            assertTrue(travelPal.hasTrip(TRIP_A));
+        } catch (ClashingTripException e){
+        }
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> travelPal.getPersonList().remove(0));
+    public void hasTrip_tripWithSameIdentityFieldsInTravelPal_returnsTrue() {
+        try {
+            travelPal.addTrip(TRIP_A);
+
+            Trip editedTripA = Trip.Builder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA))
+                    .build();
+            assertTrue(travelPal.hasTrip(editedTripA));
+        } catch (ClashingTripException e){
+        }
+    }
+
+    @Test
+    public void getTripList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> travelPal.getTripList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyTravelPal whose persons list can violate interface constraints.
+     * A stub ReadOnlyTravelPal whose trip list can violate interface constraints.
      */
     @Disabled
     private static class TravelPalStub implements ReadOnlyTravelPal {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Trip> trips = FXCollections.observableArrayList();
 
-        TravelPalStub(Collection<Person> persons, Collection<Trip> trips) {
-            this.persons.setAll(persons);
+        TravelPalStub(Collection<Trip> trips) {
             this.trips.setAll(trips);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
-            return persons;
+            return null;
         }
 
         @Override
