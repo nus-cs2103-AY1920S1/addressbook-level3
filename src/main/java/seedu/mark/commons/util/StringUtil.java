@@ -31,11 +31,35 @@ public class StringUtil {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        String preppedSentence = sentence;
+        String preppedSentence = sentence.trim();
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if any part of the {@code sentence} contains the {@code partialWord}.
+     *   Ignores case, and a full word match is not required.
+     *   <br>examples:<pre>
+     *       containsPartialWordIgnoreCase("ABc def", "Ab") == true
+     *       containsPartialWordIgnoreCase("ABc def", "abc") == true
+     *       containsPartialWordIgnoreCase("ABc def", "c DEF") == true
+     *       containsPartialWordIgnoreCase("ABc def", "abcdef") == false
+     *       </pre>
+     * @param sentence cannot be null
+     * @param partialWord cannot be null, cannot be empty
+     */
+    public static boolean containsPartialWordIgnoreCase(String sentence, String partialWord) {
+        requireNonNull(sentence);
+        requireNonNull(partialWord);
+
+        String preppedPartialWord = partialWord.trim().toLowerCase();
+        checkArgument(!preppedPartialWord.isEmpty(), "Word parameter cannot be empty");
+
+        String preppedSentence = sentence.toLowerCase(); // ignore case
+
+        return preppedSentence.contains(preppedPartialWord);
     }
 
     /**
