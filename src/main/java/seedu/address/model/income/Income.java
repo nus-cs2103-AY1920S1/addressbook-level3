@@ -1,5 +1,7 @@
 package seedu.address.model.income;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,7 +15,6 @@ import seedu.address.model.tag.Tag;
 
 
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents an Income in the Financial Planner.
