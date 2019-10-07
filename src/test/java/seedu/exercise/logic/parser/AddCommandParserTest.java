@@ -81,7 +81,7 @@ public class AddCommandParserTest {
             + QUANTITY_DESC_BASKETBALL + UNIT_DESC_BASKETBALL + MUSCLE_DESC_BASKETBALL,
             new AddCommand(expectedExercise));
 
-        // multiple quantities - last unit accepted
+        // multiple units - last unit accepted
         assertParseSuccess(parser, NAME_DESC_BASKETBALL + DATE_DESC_BASKETBALL
             + CALORIES_DESC_BASKETBALL + QUANTITY_DESC_BASKETBALL
             + UNIT_DESC_AEROBICS + UNIT_DESC_BASKETBALL + MUSCLE_DESC_BASKETBALL,
@@ -119,7 +119,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BASKETBALL + DATE_DESC_BASKETBALL
             + VALID_CALORIES_BASKETBALL + QUANTITY_DESC_BASKETBALL + UNIT_DESC_BASKETBALL, expectedMessage);
 
-        // missing qauntity prefix
+        // missing quantity prefix
         assertParseFailure(parser, NAME_DESC_BASKETBALL + DATE_DESC_BASKETBALL
             + CALORIES_DESC_BASKETBALL + VALID_QUANTITY_BASKETBALL + UNIT_DESC_BASKETBALL, expectedMessage);
 

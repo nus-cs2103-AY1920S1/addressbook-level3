@@ -128,7 +128,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Muscle>}.
+     * Parses {@code Collection<String> muscles} into a {@code Set<Muscle>}.
      */
     public static Set<Muscle> parseMuscles(Collection<String> muscles) throws ParseException {
         requireNonNull(muscles);

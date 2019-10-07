@@ -25,6 +25,7 @@ public class AddCommand extends Command {
         + PREFIX_DATE + "DATE "
         + PREFIX_CALORIES + "CALORIES "
         + PREFIX_QUANTITY + "QUANTITY "
+        + PREFIX_UNIT + "UNITS"
         + "[" + PREFIX_MUSCLE + "MUSCLE]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "Run "

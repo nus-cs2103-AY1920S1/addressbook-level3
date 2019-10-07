@@ -44,10 +44,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonExerciseBookStorage addressBookStorage =
-            new JsonExerciseBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonExerciseBookStorage exerciseBookStorage =
+            new JsonExerciseBookStorage(temporaryFolder.resolve("exerciseBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(exerciseBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -72,11 +72,11 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonExerciseBookIoExceptionThrowingStub
-        JsonExerciseBookStorage addressBookStorage =
-            new JsonExerciseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonExerciseBookStorage exerciseBookStorage =
+            new JsonExerciseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExerciseBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(exerciseBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

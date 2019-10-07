@@ -4,7 +4,7 @@ import static seedu.exercise.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class TagTest {
+public class MuscleTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {

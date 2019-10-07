@@ -40,7 +40,7 @@ public class ExerciseBook implements ReadOnlyExerciseBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code exercises}.
+     * Replaces the contents of the exercise list with {@code exercises}.
      * {@code exercises} must not contain duplicate exercises.
      */
     public void setExercises(List<Exercise> exercises) {
@@ -56,7 +56,7 @@ public class ExerciseBook implements ReadOnlyExerciseBook {
         setExercises(newData.getExerciseList());
     }
 
-    //// person-level operations
+    //// exercise-level operations
 
     /**
      * Returns true if a exercise with the same identity as {@code exercise} exists in the exercise book.

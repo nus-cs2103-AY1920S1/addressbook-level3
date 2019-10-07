@@ -8,8 +8,8 @@
   }, {
     "name": "Exercise with wrong date",
     "date": "33/20/2019",
-    "calories": "234a",
-    "quantity": "50km",
+    "calories": "234",
+    "quantity": "50",
     "unit" : " km"
   } ]
 }

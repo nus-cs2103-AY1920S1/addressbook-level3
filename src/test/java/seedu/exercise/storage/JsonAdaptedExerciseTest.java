@@ -19,7 +19,7 @@ import seedu.exercise.model.exercise.Quantity;
 import seedu.exercise.model.exercise.Unit;
 
 public class JsonAdaptedExerciseTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "D@nce";
     private static final String INVALID_DATE = "32/13/2019";
     private static final String INVALID_QUANTITY = "22m";
     private static final String INVALID_CALORIES = "example.com";
