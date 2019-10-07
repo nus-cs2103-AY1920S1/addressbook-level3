@@ -62,10 +62,7 @@ public class Borrower {
         }
 
         return otherBorrower != null
-                && otherBorrower.getBorrowerId().equals(getBorrowerId())
-                && otherBorrower.getName().equals(getName())
-                && (otherBorrower.getPhone().equals(getPhone())
-                    || otherBorrower.getEmail().equals(getEmail()));
+                && otherBorrower.getBorrowerId().equals(getBorrowerId());
     }
 
     /**

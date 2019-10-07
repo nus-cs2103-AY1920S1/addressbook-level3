@@ -24,13 +24,13 @@ public class BorrowerTest {
         // null -> returns false
         assertFalse(ALICE.isSameBorrower(null));
 
-        // different phone and email -> returns false
+        // different phone and email -> returns true
         Borrower editedAlice = new BorrowerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameBorrower(editedAlice));
+        assertTrue(ALICE.isSameBorrower(editedAlice));
 
-        // different name -> returns false
+        // different name -> returns true
         editedAlice = new BorrowerBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameBorrower(editedAlice));
+        assertTrue(ALICE.isSameBorrower(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new BorrowerBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
@@ -40,6 +40,10 @@ public class BorrowerTest {
         // same name, same email, different attributes -> returns true
         editedAlice = new BorrowerBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertTrue(ALICE.isSameBorrower(editedAlice));
+
+        // different borrowerId, -> returns false
+        editedAlice = new BorrowerBuilder(ALICE).withBorrowerId(VALID_ID_BOB).build();
+        assertFalse(ALICE.isSameBorrower(editedAlice));
     }
 
     @Test
