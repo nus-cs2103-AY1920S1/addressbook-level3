@@ -13,6 +13,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.EventSource;
 
+/**
+ * Represents a Command that deletes EventSources from the Model.
+ */
 public class DeleteEventCommand extends Command {
 
     private List<Integer> indexes;

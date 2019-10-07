@@ -3,7 +3,7 @@ package seedu.address.logic.commands.builders.arguments;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

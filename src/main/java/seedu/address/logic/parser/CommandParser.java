@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommandParser implements Parser<Command> {
 
-    private Command command;
     private CommandBuilder commandBuilder;
 
     @Override
@@ -46,15 +46,25 @@ public class CommandParser implements Parser<Command> {
             return state3;
         });
 
-        State state = state1;
-        while (state != null && !userInput.equals("")) {
-            StateResult result = state.apply(userInput);
+        HashSet<State> exitStates = new HashSet<>();
+        exitStates.add(state3);
+        exitStates.add(state4);
 
-            // Throw exception if no pattern matches.
-            if (result == null) {
-                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+        State state = state1;
+        while (state != null) {
+            // No more user input.
+            if (userInput.equals("")) {
+                // Exit if current state is an exitState.
+                if (exitStates.contains(state)) {
+                    break;
+                } else {
+                    throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+                }
             }
 
+            StateResult result = state.apply(userInput);
+
+            assert (result != null);
             state = result.next;
             userInput = userInput.substring(result.matchLength);
         }
@@ -113,6 +123,8 @@ public class CommandParser implements Parser<Command> {
                     return new StateResult(next, matchLength);
                 }
             }
+
+            // Should not reach this. If reached, the state machine is configured wrongly.
             return null;
         }
     }

@@ -6,6 +6,9 @@ import java.util.function.Consumer;
 import seedu.address.logic.parser.IndexParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Represents a variable argument of Indexes.
+ */
 public class IndexVariableArguments extends VariableArguments<Integer> {
 
     public IndexVariableArguments(String description, Consumer<List<Integer>> builder) {

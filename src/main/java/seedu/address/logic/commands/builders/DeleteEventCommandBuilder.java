@@ -9,6 +9,9 @@ import seedu.address.logic.commands.builders.arguments.IndexVariableArguments;
 import seedu.address.logic.commands.builders.arguments.StringVariableArguments;
 import seedu.address.logic.commands.builders.options.Option;
 
+/**
+ * Represents a CommandBuilder responsible for creating {@link DeleteEventCommand}.
+ */
 public class DeleteEventCommandBuilder extends CommandBuilder {
 
     private static final String ARGUMENT_INDEXES = "INDEXES";
