@@ -77,12 +77,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getTravelPalFilePath() {
         return userPrefs.getTravelPalFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setTravelPalFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setTravelPalFilePath(addressBookFilePath);
     }
@@ -134,44 +134,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public FilteredList<Trip> getFilteredTripList() {
-        return filteredTripList;
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return travelPal.equals(other.travelPal)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
-    }
+    //=========== Filtered Trip List Accessors =============================================================
 
     @Override
-    public void setPageStatus(PageStatus pageStatus) {
-        requireNonNull(pageStatus);
-        this.pageStatus = pageStatus;
-    }
-
-    @Override
-    public PageStatus getPageStatus() {
-        return pageStatus;
+    public FilteredList<Trip> getFilteredTripList() {
+        return filteredTripList;
     }
 
     @Override
@@ -190,5 +162,38 @@ public class ModelManager implements Model {
     public void deleteTrip(Trip target) throws TripNotFoundException {
         requireNonNull(target);
         travelPal.deleteTrip(target);
+    }
+
+    //=========== PageStatus List Accessors =============================================================
+
+    @Override
+    public void setPageStatus(PageStatus pageStatus) {
+        requireNonNull(pageStatus);
+        this.pageStatus = pageStatus;
+    }
+
+    @Override
+    public PageStatus getPageStatus() {
+        return pageStatus;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return travelPal.equals(other.travelPal)
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredTripList.equals(other.filteredTripList);
     }
 }

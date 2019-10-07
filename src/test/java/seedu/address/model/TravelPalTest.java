@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.trip.Trip;
 import seedu.address.testutil.PersonBuilder;
 
 public class TravelPalTest {
@@ -54,6 +55,9 @@ public class TravelPalTest {
 
         assertThrows(DuplicatePersonException.class, () -> travelPal.resetData(newData));
     }
+
+    @Test
+    public void
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
@@ -90,14 +94,21 @@ public class TravelPalTest {
     @Disabled
     private static class TravelPalStub implements ReadOnlyTravelPal {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Trip> trips = FXCollections.observableArrayList();
 
-        TravelPalStub(Collection<Person> persons) {
+        TravelPalStub(Collection<Person> persons, Collection<Trip> trips) {
             this.persons.setAll(persons);
+            this.trips.setAll(trips);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Trip> getTripList() {
+            return trips;
         }
     }
 

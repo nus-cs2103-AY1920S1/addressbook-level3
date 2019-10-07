@@ -78,11 +78,6 @@ public class TravelPal implements ReadOnlyTravelPal {
         return persons.contains(person);
     }
 
-    public boolean hasClashingTrip(Trip trip){
-        requireNonNull(trip);
-        return tripList.containsClashing(trip);
-    }
-
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
@@ -133,6 +128,12 @@ public class TravelPal implements ReadOnlyTravelPal {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    // trip-level operations
+    public boolean hasClashingTrip(Trip trip){
+        requireNonNull(trip);
+        return tripList.containsClashing(trip);
     }
 
     public void addTrip(Trip trip) throws ClashingTripException {

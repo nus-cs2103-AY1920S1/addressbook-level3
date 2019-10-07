@@ -107,7 +107,7 @@ Event setup creates/edits properties of a specified event. It is necessary for e
 
 * edit -id <id of trip> -day <index of day> -event <index of event> -name <name of event>: sets the name of the event
 * edit -id <id of trip> -day <index of day> -event <index of event> -description <description of event>: sets the description of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -startTime <starting time>: sets the starting time of the event
+* edit -id <id of trip> -day <index of day> -event <index of event> -startDate <starting time>: sets the starting time of the event
 * edit -id <id of trip> -day <index of day> -event <index of event> -endingTime <ending time>: sets the ending time of the event
 * edit -id <id of trip> -day <index of day> -event <index of event> -expenditure: sets the current known expenditure for a single event
 

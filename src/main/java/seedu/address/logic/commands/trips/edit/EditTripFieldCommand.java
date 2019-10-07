@@ -136,7 +136,9 @@ public class EditTripFieldCommand extends Command {
             setStartDate(toCopy.getStartDate());
             setEndDate(toCopy.getEndDate());
             setDestination(toCopy.getDestination());
-            setBudget(toCopy.getBudget());
+            if(toCopy.getBudget().isPresent()) {
+                setBudget(toCopy.getBudget().get());
+            }
         }
 
         /**
@@ -193,7 +195,7 @@ public class EditTripFieldCommand extends Command {
             LocalDateTime startDate = trip.getStartDate();
             LocalDateTime endDate = trip.getEndDate();
             Location destination = trip.getDestination();
-            Expenditure budget = trip.getBudget();
+            Expenditure budget = trip.getBudget().orElse(new Expenditure(0));
 
             if (this.name.isPresent()) {
                 tripName = this.name.get();

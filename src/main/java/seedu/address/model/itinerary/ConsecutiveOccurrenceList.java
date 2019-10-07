@@ -10,7 +10,10 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
-
+/**
+ * Represents a list of
+ * @param <T>
+ */
 public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
 
     public final ObservableList<T> internalList = FXCollections.observableArrayList();
@@ -18,10 +21,16 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent occurrence as the given argument.
      */
     public abstract boolean contains(T toCheck);
 
+    /**
+     * Returns true if the list contains
+     *
+     * @param toCheck
+     * @return
+     */
     public abstract boolean containsClashing(T toCheck);
 
     /**

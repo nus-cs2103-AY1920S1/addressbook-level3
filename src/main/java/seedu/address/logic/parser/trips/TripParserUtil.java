@@ -49,7 +49,7 @@ public abstract class TripParserUtil {
         requireNonNull(budget);
         String trimmedName = budget.trim();
         if (!Expenditure.isValidExpenditure(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Expenditure.MESSAGE_CONSTRAINTS);
         }
         return new Expenditure(trimmedName);
     }
