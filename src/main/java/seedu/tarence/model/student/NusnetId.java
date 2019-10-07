@@ -46,7 +46,7 @@ public class NusnetId {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof NusnetId // instanceof handles nulls
-                && nusnetId.equals(((NusnetId) other).nusnetId)); // state check
+                && nusnetId.equalsIgnoreCase(((NusnetId) other).nusnetId)); // state check
     }
 
     @Override

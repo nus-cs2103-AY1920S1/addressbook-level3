@@ -43,9 +43,9 @@ public class TutorialCard extends UiPart<Region> {
         this.tutorial = tutorial;
         id.setText(displayedIndex + ". ");
         name.setText(tutorial.getTutName().toString());
-        time.setText("Time: " + tutorial.getTimeTable().getTime().toString());
+        time.setText("Time: " + tutorial.getTimeTable().getStartTime().toString());
         day.setText("Day: " + tutorial.getTimeTable().getDay().toString().toLowerCase());
-        duration.setText("Duration: " + tutorial.getTimeTable().getTime().toString());
+        duration.setText("Duration: " + tutorial.getTimeTable().getStartTime().toString());
         String tutorialWeeks = tutorial.getTimeTable().getWeeks().stream()
                 .map(n -> n.toString())
                 .collect(Collectors.joining(", "));

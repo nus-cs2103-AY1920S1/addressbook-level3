@@ -62,7 +62,7 @@ public class AddTutorialCommand extends Command {
         model.addTutorial(tutorial);
         model.addTutorialToModule(tutorial);
         return new CommandResult(String.format(MESSAGE_SUCCESS, tutorial, tutorial.getTimeTable().getDay(),
-                tutorial.getTimeTable().getWeeks(), tutorial.getTimeTable().getTime(),
+                tutorial.getTimeTable().getWeeks(), tutorial.getTimeTable().getStartTime(),
                 tutorial.getTimeTable().getDuration().toMinutes()));
     }
 

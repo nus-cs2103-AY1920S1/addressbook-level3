@@ -25,7 +25,7 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.person.exceptions.DuplicatePersonException;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
-import seedu.tarence.model.tutorial.exeptions.DuplicateTutorialException;
+import seedu.tarence.model.tutorial.exceptions.DuplicateTutorialException;
 import seedu.tarence.testutil.ModuleBuilder;
 import seedu.tarence.testutil.PersonBuilder;
 import seedu.tarence.testutil.StudentBuilder;

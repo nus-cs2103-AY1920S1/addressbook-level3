@@ -1,5 +1,6 @@
 package seedu.tarence.model.tutorial;
 
+import static seedu.tarence.commons.util.AppUtil.checkArgument;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -24,6 +25,7 @@ public class TutName {
      */
     public TutName(String tutName) {
         requireAllNonNull(tutName);
+        checkArgument(isValidTutName(tutName), MESSAGE_CONSTRAINTS);
         this.tutName = tutName;
     }
 
@@ -44,7 +46,7 @@ public class TutName {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TutName // instanceof handles nulls
-                && tutName.equals(((TutName) other).tutName)); // state check
+                && tutName.equalsIgnoreCase(((TutName) other).tutName)); // state check
     }
 
     @Override
