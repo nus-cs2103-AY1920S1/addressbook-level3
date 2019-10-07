@@ -297,15 +297,45 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
+|`* * *` |secretary |add an appointment |organise and schedule meetings/appointments
+
+|`* * *` |secretary |request ro edit a specific appointment |fix any misinformation that I typed wrongly
+
+|`* * *` |secretary under a busy manager |find specific appointments |schedule meetings/appointments efficiently
+
+|`* * *` |secretary |have the option to clear the appointment list |restart from scratch
+
+|`* * *` |secretary |undo my previous commands |recall commands made by mistake
+
+|`* * *` |secretary |redo recalled commands |retrieve the commands undone by mistake
+
+|`* * *` |secretary |select and delete a specific appointment from the list |manage inactive or cancelled appointments
+
+|`* * *` |busy secretary |able to see the appointments in calendar view |enjoy better convenience
+
+|`* * *` |user |save and load data from a local file |keep the appointment list locally
+
+|`* *` |secretary under a busy manager |sort all appointments |see them in the order I want
+
+|`* *` |user |have a command to terminate the application |
+
+|`* *` |advanced user |be able to execute compound statements |improve efficiency
+
+|`*` |bored secretary |have a built-in game feature |keep myself entertained
+
+|`*` |highly driven secretary |have a way to practice typing |improve my efficiency during work
+
+|`*` |fast-typer |have a way to amend trivial spelling errors |improve typing efficiency
+
+|`*` |secretary |generate a PDF file of a selected appointment |make a distributable copy of the appointment
+
 |`*` |highly driven secretary |practise typing |improve my efficiency during work
 
 |`*` |bored secretary |keep myself entertained|
 
 |`***` |secretary under a busy manager |find specific appointments fast |schedule appointments efficiently
 
-|=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -390,9 +420,22 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+//Updated by Yu Chen
 [discrete]
-=== Use case: Find appointment
+=== Use case: (UC03) List appointments
+*MSS*
 
+1.  User requests to list appointments
+2.  System displays the list of appointments in chronological order
++
+Use case ends.
+
+[none]
+* 1a. User specifies ordering method
+** 2a1. System displays the list of appointments in specified order
+
+//Updated by Jun Hao
+=== Use case: (UC04) Find appointment
 *MSS*
 
 1.  User requests to find appointments
@@ -402,14 +445,14 @@ Use case resumes at step 2.
 Use case ends.
 
 *Extensions*
-
 [none]
 * 2a. The list is empty.
 +
 Use case ends.
 
+//Updated by Jun Hao
 [discrete]
-=== Use case: Typing game
+=== Use case: (UC05) Typing game
 
 *MSS*
 
