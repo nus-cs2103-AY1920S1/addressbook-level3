@@ -23,6 +23,7 @@ import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
+import seedu.mark.storage.Storage;
 
 /**
  * Edits the details of an existing bookmark in Mark.
@@ -62,7 +63,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 

@@ -40,7 +40,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = markParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        commandResult = command.execute(model, storage);
 
         try {
             storage.saveMark(model.getMark());

@@ -9,6 +9,7 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.Storage;
 
 /**
  * Adds a bookmark to Mark.
@@ -44,7 +45,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
 
         if (model.hasBookmark(toAdd)) {

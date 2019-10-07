@@ -35,7 +35,8 @@ public class AddCommandTest {
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded();
         Bookmark validBookmark = new BookmarkBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validBookmark).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validBookmark)
+                .execute(modelStub, new CommandTestUtil.StorageStub());
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBookmark),
                 commandResult.getFeedbackToUser());
@@ -49,7 +50,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithBookmark(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOKMARK, () ->
-                addCommand.execute(modelStub));
+                addCommand.execute(modelStub, new CommandTestUtil.StorageStub()));
     }
 
     @Test
@@ -192,5 +193,4 @@ public class AddCommandTest {
             return new Mark();
         }
     }
-
 }

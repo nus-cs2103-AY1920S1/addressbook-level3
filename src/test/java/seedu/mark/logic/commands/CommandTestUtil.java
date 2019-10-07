@@ -8,16 +8,22 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.testutil.Assert.assertThrows;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
+import seedu.mark.model.ReadOnlyMark;
+import seedu.mark.model.ReadOnlyUserPrefs;
+import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
+import seedu.mark.storage.Storage;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
 /**
@@ -71,7 +77,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, new StorageStub());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -101,7 +107,7 @@ public class CommandTestUtil {
         Mark expectedMark = new Mark(actualModel.getMark());
         List<Bookmark> expectedFilteredList = new ArrayList<>(actualModel.getFilteredBookmarkList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, new StorageStub()));
         assertEquals(expectedMark, actualModel.getMark());
         assertEquals(expectedFilteredList, actualModel.getFilteredBookmarkList());
     }
@@ -119,4 +125,48 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredBookmarkList().size());
     }
 
+    /**
+     * A default Storage Stub that has all of its methods failing.
+     */
+    public static final class StorageStub implements Storage {
+        @Override
+        public Path getUserPrefsFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<UserPrefs> readUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getMarkFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<ReadOnlyMark> readMark() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<ReadOnlyMark> readMark(Path filePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveMark(ReadOnlyMark mark) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveMark(ReadOnlyMark mark, Path filePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
 }

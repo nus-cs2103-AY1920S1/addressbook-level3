@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.mark.commons.core.Messages;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
+import seedu.mark.storage.Storage;
 
 /**
  * Finds and lists all bookmarks in Mark whose name contains any of the argument keywords.
@@ -26,7 +27,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, Storage storage) {
         requireNonNull(model);
         model.updateFilteredBookmarkList(predicate);
         return new CommandResult(

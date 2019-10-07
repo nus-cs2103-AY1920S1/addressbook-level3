@@ -9,6 +9,7 @@ import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.Storage;
 
 /**
  * Deletes a bookmark identified using its displayed index from Mark.
@@ -31,7 +32,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
