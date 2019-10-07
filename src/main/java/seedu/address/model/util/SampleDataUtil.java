@@ -60,7 +60,7 @@ public class SampleDataUtil {
     public static Event[] getSampleEvents() {
         return new Event[] {
             new Event(new PatientReferenceId("001A"),
-                new Timing(toDateTime("20/01/2020 1200"), toDateTime("20/01/2020 1230")), new Status())
+                new Timing(toDateTime("20/01/2020 1200"), toDateTime("20/01/2020 1230")), Status.APPROVED)
         };
     }
 

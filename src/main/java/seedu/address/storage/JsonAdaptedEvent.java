@@ -87,8 +87,6 @@ public class JsonAdaptedEvent {
         final Timing eventTiming = new Timing(startDateTime, endDateTime);
 
         //TODO: Implement Status
-//        final Status eventStatus = new Status();
-
         final Status eventStatus =Status.APPROVED;
         return new Event(patientReferenceId, eventTiming, eventStatus);
     }

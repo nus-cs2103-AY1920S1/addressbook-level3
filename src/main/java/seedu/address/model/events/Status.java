@@ -1,7 +1,4 @@
 package seedu.address.model.events;
-//
-////TODO: Stub models for now
-//
 
 /**
  * Describes the status of an appointment
@@ -14,7 +11,6 @@ public enum Status {
     MISSED("patient missed appointment, need to settle"),
     SETTLE("patient does not come for appointment but is settled "),
     CANCELLED("patient appointment has been cancelled");
-
 
     private String statusMess;
 

@@ -26,7 +26,7 @@ public class Event {
         requireAllNonNull(personId, timing, status);
         this.personId = personId;
         this.timing = timing;
-        this.status = Status.APPROVED;
+       this.status = Status.APPROVED;
     }
 
     public ReferenceId getPersonId() {
@@ -41,26 +41,26 @@ public class Event {
         return status;
     }
 
-    public void setStausAsAck() {
-        status = Status.ACK;
-    }
+   public void setStausAsAck() {
+       status = Status.ACK;
+   }
 
-    public void setStausAsWaiting() {
-        status = Status.WAITING;
-    }
+   public void setStausAsWaiting() {
+       status = Status.WAITING;
+   }
 
 
-    public void setStausAsMISS() {
-        status = Status.MISSED;
-    }
+   public void setStausAsMISS() {
+       status = Status.MISSED;
+   }
 
-    public void setStausAsSettle() {
-        status = Status.SETTLE;
-    }
+   public void setStausAsSettle() {
+       status = Status.SETTLE;
+   }
 
-    public void setStausAsCancell() {
-        status = Status.CANCELLED;
-    }
+   public void setStausAsCancell() {
+       status = Status.CANCELLED;
+   }
 
     /**
      * Returns true if both Event of the same patient and timing.
