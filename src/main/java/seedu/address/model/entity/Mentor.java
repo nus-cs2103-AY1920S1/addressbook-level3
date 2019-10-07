@@ -142,12 +142,12 @@ public class Mentor extends Entity {
         }
 
         Mentor otherMentor = ((Mentor) other);
-        return otherMentor.getName() == this.getName()
-                && otherMentor.getId() == this.getId()
-                && otherMentor.getPhone() == this.getPhone()
-                && otherMentor.getEmail() == this.getEmail()
-                && otherMentor.getOrganization() == this.getOrganization()
-                && otherMentor.getSubject() == this.getSubject();
+        return otherMentor.getName().equals(this.getName())
+                && otherMentor.getId().equals(this.getId())
+                && otherMentor.getPhone().equals(this.getPhone())
+                && otherMentor.getEmail().equals(this.getEmail())
+                && otherMentor.getOrganization().equals(this.getOrganization())
+                && otherMentor.getSubject().equals(this.getSubject());
     }
 
 }

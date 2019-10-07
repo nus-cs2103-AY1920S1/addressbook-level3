@@ -62,7 +62,7 @@ public class Location {
      * Returns true if both Location objects have the same data fields. This defines
      * a stronger notion of equality between two Location object.
      *
-     * @param other Other Locatio object.
+     * @param other Other Location object.
      */
     @Override
     public boolean equals(Object other) {

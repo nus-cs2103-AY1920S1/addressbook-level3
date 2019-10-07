@@ -3,6 +3,8 @@ package seedu.address.model.entity;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
+
 /**
  * Represents a Score attribute of {@code Team} and {@code Leaderboard}.
  *  * Guarantees: details are present and not null,
@@ -22,6 +24,10 @@ public class Score {
         requireNonNull(score);
         checkArgument(isValidScore(score), MESSAGE_CONSTRAINTS);
         this.score = score;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     /**
@@ -51,5 +57,16 @@ public class Score {
      */
     public int toStorageValue() {
         return this.score;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.score);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        Score otherScore = ((Score) other);
+        return otherScore == this | otherScore.getScore() == this.getScore();
     }
 }
