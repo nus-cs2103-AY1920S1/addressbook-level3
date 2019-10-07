@@ -41,6 +41,10 @@ public class DateTime {
         return parsedDateTime;
     }
 
+    public boolean before(DateTime other) {
+        return getTime().before(other.getTime());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

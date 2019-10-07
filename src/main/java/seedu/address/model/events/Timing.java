@@ -56,6 +56,14 @@ public class Timing {
         return endTiming;
     }
 
+    /**
+     * Returns true if the another timing is staggering within the start or end dateTime.
+     */
+    public boolean conflictsWith(Timing other) {
+        return !(getEndTime().before(other.getStartTime())
+                    || other.getStartTime().before(getStartTime()));
+    }
+
     @Override
     public String toString() {
         return String.format("%s - %s", startTiming.toString(), endTiming.toString());

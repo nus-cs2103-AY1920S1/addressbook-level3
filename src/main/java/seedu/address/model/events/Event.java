@@ -54,6 +54,10 @@ public class Event {
             && otherEvent.getEventTiming().equals(getEventTiming());
     }
 
+    public boolean conflictsWith(Event otherEvent) {
+        return getEventTiming().conflictsWith(otherEvent.getEventTiming());
+    }
+
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
