@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class InstalmentList {
     private ArrayList<Instalment> allInstallments;
-    private double totalMoneySpentOnInstalments = this.calculateTotalInstalmentSpending();
+    private double totalMoneySpentOnInstalments = 0;
 
     /**
      * Empty constructor to be used when there are no instalments previously stored by the user.
@@ -24,6 +24,7 @@ public class InstalmentList {
             //todo throw exception for no existing payments owed
         } else {
             this.allInstallments = allInstallments;
+            this.totalMoneySpentOnInstalments = calculateTotalInstalmentSpending();
         }
     }
 
@@ -31,7 +32,6 @@ public class InstalmentList {
      * Add installment to the list of installments
      */
     public void addInstalment(Instalment newInstalment) {
-        /*Instalment newInstalment = new Instalment(description, moneySpent);*/
         allInstallments.add(newInstalment);
         totalMoneySpentOnInstalments = this.calculateTotalInstalmentSpending();
     }
@@ -74,6 +74,10 @@ public class InstalmentList {
             amount += instalment.getMoneySpentOnInstallment();
         }
         return amount;
+    }
+
+    public double getTotalMoneySpentOnInstalments() {
+        return this.totalMoneySpentOnInstalments;
     }
 
     @Override

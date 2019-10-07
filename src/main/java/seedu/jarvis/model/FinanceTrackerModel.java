@@ -19,9 +19,9 @@ public interface FinanceTrackerModel {
     /**
      * Deletes single use payment.
      *
-     * @param purchase
+     * @param itemNumber
      */
-    void deletePayment(Purchase purchase);
+    void deletePayment(int itemNumber);
 
     /**
      * Adds instalment.
@@ -33,17 +33,18 @@ public interface FinanceTrackerModel {
     /**
      * Deletes instalment.
      *
-     * @param instalment
+     * @param instalNumber
      */
-    void deleteInstalment(Instalment instalment);
+    void deleteInstalment(int instalNumber);
 
     /**
      * Edits an existing instalment by its value.
      *
-     * @param instalment
+     * @param instalmentNumber
+     * @param description
      * @param value
      */
-    void editInstalmentByValue(Instalment instalment, double value);
+    void editInstalmentByValue(int instalmentNumber, String description, double value);
 
     /**
      * Sets the monthly limit for spending.
@@ -59,7 +60,7 @@ public interface FinanceTrackerModel {
      * @param monthB
      * todo consider removing this command
      */
-    void compareMonth(String monthA, String monthB);
+    //void compareMonth(String monthA, String monthB);
 
     /**
      * Lists all purchases and payments from this month.
@@ -72,26 +73,26 @@ public interface FinanceTrackerModel {
      *
      * @param allPayments
      */
-    void addTab(PendingPayment ...allPayments);
+    //void addTab(PendingPayment ...allPayments);
 
     /**
      * Marks a tab owed to the user as paid.
      *
      * @param pendingPayment
      */
-    void paidTab(PendingPayment pendingPayment);
+    //void paidTab(PendingPayment pendingPayment);
 
     /**
      * Adds a payment owed by the user to others.
      *
      * @param pendingPayment
      */
-    void addOwedPayment(PendingPayment pendingPayment);
+    //void addOwedPayment(PendingPayment pendingPayment);
 
     /**
      * Marks a payment owed by the user as done.
      *
      * @param pendingPayment
      */
-    void paidOwedPayment(PendingPayment pendingPayment);
+    //void paidOwedPayment(PendingPayment pendingPayment);
 }

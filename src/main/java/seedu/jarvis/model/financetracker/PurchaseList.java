@@ -42,4 +42,12 @@ public class PurchaseList {
         }
         return allPurchases.remove(purchaseIndex - 1);
     }
+
+    public double totalSpending() {
+        double total = 0;
+        for (Purchase purchase : allPurchases) {
+            total += purchase.getMoneySpent();
+        }
+        return total;
+    }
 }

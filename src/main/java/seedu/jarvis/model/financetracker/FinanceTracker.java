@@ -1,24 +1,22 @@
 package seedu.jarvis.model.financetracker;
 
-import seedu.jarvis.model.financetracker.Purchase;
-import seedu.jarvis.model.financetracker.Instalment;
-
 public class FinanceTracker {
     private PurchaseList purchaseList;
     private InstalmentList instalmentList;
     private PaymentsOwedToUser paymentsOwedToUser;
     private PaymentsOwedByUser paymentsOwedByUser;
     private double monthlyLimit;
+    private double totalSpending;
 
     public FinanceTracker() {
-
+        //todo assign all fields from existing model
     }
 
     /**
      * Adds single use payment.
      * @param purchase
      */
-    void addSinglePayment(Purchase purchase) {
+    public void addSinglePayment(Purchase purchase) {
         purchaseList.addSinglePurchase(purchase);
     }
 
@@ -27,7 +25,7 @@ public class FinanceTracker {
      *
      * @param itemNumber of payment to be deleted
      */
-    void deleteSinglePayment(int itemNumber) {
+    public void deleteSinglePayment(int itemNumber) {
         purchaseList.deletePurchase(itemNumber);
     }
 
@@ -36,10 +34,13 @@ public class FinanceTracker {
      *
      * @param instalment
      */
-    void addInstalment(Instalment instalment) {
+    public void addInstalment(Instalment instalment) {
         instalmentList.addInstalment(instalment);
     }
 
+    public void deleteInstalment(int instalNumber) {
+        instalmentList.deleteInstalment(instalNumber);
+    }
     /**
      * Deletes instalment.
      *
@@ -47,7 +48,7 @@ public class FinanceTracker {
      * @param description to be edited
      * @param value to be edited
      */
-    void editInstalment(int instalmentNumber, String description, double value) {
+    public void editInstalment(int instalmentNumber, String description, double value) {
         instalmentList.editInstalment(instalmentNumber, description, value);
     }
 
@@ -56,17 +57,20 @@ public class FinanceTracker {
      *
      * @param limit
      */
-    void setMonthlyLimit(double limit) {
+    public void setMonthlyLimit(double limit) {
         this.monthlyLimit = limit;
     }
 
     /**
      * Lists all purchases and payments from this month.
      */
-    void listSpending() {
+    public void listSpending() {
+        totalSpending = purchaseList.totalSpending() + instalmentList.getTotalMoneySpentOnInstalments();
         purchaseList.toString(); //todo print this out nicely on UI
     }
 
+
+    //debt tracker features to be added later
     /**
      * Adds tab to all people involved in the transaction which will be recorded as owed payments to the user. User is
      * included in calculation of individual tab owed.
@@ -75,7 +79,7 @@ public class FinanceTracker {
      * @param value paid entirely by user
      * @param persons involved in transaction
      */
-    void addTab(String description, double value, String ... persons) {
+    public void addTab(String description, double value, String ... persons) {
         double amountOwed = calculateTabs(value, persons);
         createTabs(description, amountOwed, persons);
         createPersonalTab(amountOwed, description);
@@ -135,7 +139,7 @@ public class FinanceTracker {
      *
      * @param debtNumber
      */
-    void paidTab(int debtNumber) {
+    public void paidTab(int debtNumber) {
         paymentsOwedToUser.userHasBeenPaid(debtNumber);
     }
 
@@ -146,7 +150,7 @@ public class FinanceTracker {
      * @param personName of person that user owes
      * @param amountOwed by user
      */
-    void addOwedPayment(String description, String personName, double amountOwed) {
+    public void addOwedPayment(String description, String personName, double amountOwed) {
         PendingPayment newPendingPayment = new PendingPayment(personName, amountOwed, description);
         newPendingPayment.setUserInDebt();
         paymentsOwedByUser.newDebtOwed(newPendingPayment);
@@ -158,18 +162,18 @@ public class FinanceTracker {
      *
      * @param debtNumber
      */
-    void paidOwedPayment(int debtNumber) {
-        PendingPayment userHasPaid = paymentsOwedByUser.userHasPaid(debtNumber);
-        addOwedPayment(userHasPaid);
+    public void paidOwedPayment(int debtNumber) {
+        PendingPayment paidPayment = paymentsOwedByUser.userHasPaid(debtNumber);
+        addOwedPayment(paidPayment);
     }
 
     /**
      * Adds a payment that was previously owed to someone else to the user's spending.
-     * @param pendingPayment
+     * @param paidPayment
      */
-    private void addOwedPayment(PendingPayment pendingPayment) {
-        PurchaseToPerson newPayment = new PurchaseToPerson(pendingPayment.getDescription(),
-                    pendingPayment.getMoneyAmount(), pendingPayment.getPersonName());
+    private void addOwedPayment(PendingPayment paidPayment) {
+        PurchaseToPerson newPayment = new PurchaseToPerson(paidPayment.getDescription(),
+                paidPayment.getMoneyAmount(), paidPayment.getPersonName());
         purchaseList.addSinglePayment(newPayment);
     }
 }
