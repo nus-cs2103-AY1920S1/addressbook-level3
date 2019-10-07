@@ -16,11 +16,11 @@
                    HBox.hgrow="ALWAYS">
 
         </TextField>
-        <Button fx:id="googleButton"
-                onAction="#handleGotoGoogle"
+        <Button fx:id="homeButton"
+                onAction="#gotoHomepage"
                 mnemonicParsing="false">
             <graphic>
-                <ImageView fx:id="googleLogo"
+                <ImageView fx:id="homepageLogo"
                         fitHeight="25.0" fitWidth="25.0"
                            pickOnBounds="true" preserveRatio="true"/>
             </graphic>
