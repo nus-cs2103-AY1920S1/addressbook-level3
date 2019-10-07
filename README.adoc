@@ -17,6 +17,11 @@ endif::[]
 * This is a financial tracking application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * This app provides basic expense management functions and more advanced features such as advanced searching and sorting, automatic archiving, as well as undo options for most operations.
 
+== Target Users
+* Users who can type fast, and prefer typing over mouse/voice commands.
+* Users who have too many transactions to keep track of and wants to manage their expenses more efficiently
+
+
 == Site Map
 
 * <<UserGuide#, User Guide>>
@@ -30,5 +35,6 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* AddressBook-Level3 project created by SE-EDU initiative at `https://se-education.org`
 
 == Licence : link:LICENSE[MIT]
