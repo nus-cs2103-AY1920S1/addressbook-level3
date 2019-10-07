@@ -1,14 +1,27 @@
 package seedu.jarvis.model.finance;
 
-import org.junit.jupiter.api.Test;
-import seedu.jarvis.model.financetracker.*;
-
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.Instalment;
+import seedu.jarvis.model.financetracker.InstalmentList;
+import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.PurchaseList;
+
+/**
+ * Tests logic of finance tracker class.
+ */
 public class FinanceTrackerTest {
+
+    /**
+     * Runs all tests in this test class.
+     * @param args
+     */
     public static void main(String[] args) {
         addPayment_normalInput_addedCorrectly();
         deletePayment_normalInput_deletedCorrectly();
@@ -20,7 +33,6 @@ public class FinanceTrackerTest {
         editInstalment_indexNonexistent_throwsError();
         editInstalment_emptyDescription_throwsError();
         setMonthlyLimit_normalInput_updatedCorrectly();
-//        setMonthlyLimit_negativeValue_throwsError();
     }
 
     @Test
@@ -79,7 +91,8 @@ public class FinanceTrackerTest {
         financeTracker.setInstalmentList(new InstalmentListStub(allInstalments));
         Instalment deletedInstalment = financeTracker.deleteInstalment(2);
         assertEquals(new InstalmentStub2().getDescription(), deletedInstalment.getDescription());
-        assertEquals(new InstalmentStub2().getMoneySpentOnInstallment(), deletedInstalment.getMoneySpentOnInstallment());
+        assertEquals(new InstalmentStub2().getMoneySpentOnInstallment(),
+                deletedInstalment.getMoneySpentOnInstallment());
         assertEquals(2, financeTracker.getTotalInstalments());
     }
 
@@ -104,7 +117,8 @@ public class FinanceTrackerTest {
         allInstalments.add(new InstalmentStub());
         financeTracker.setInstalmentList(new InstalmentListStub(allInstalments));
         financeTracker.editInstalment(1, "Student price Spotify subscription", 7.50);
-        assertEquals("Student price Spotify subscription", financeTracker.getInstalment(1).getDescription());
+        assertEquals("Student price Spotify subscription",
+                financeTracker.getInstalment(1).getDescription());
         assertEquals(7.50, financeTracker.getInstalment(1).getMoneySpentOnInstallment());
     }
 
@@ -116,7 +130,9 @@ public class FinanceTrackerTest {
         allInstalments.add(new InstalmentStub2());
         allInstalments.add(new InstalmentStub());
         financeTracker.setInstalmentList(new InstalmentListStub(allInstalments));
-        assertThrows(IndexOutOfBoundsException.class, () -> financeTracker.editInstalment(5, "Spotify", 9.50));
+        assertThrows(IndexOutOfBoundsException.class, (
+
+        ) -> financeTracker.editInstalment(5, "Spotify", 9.50));
     }
 
     @Test
@@ -127,7 +143,9 @@ public class FinanceTrackerTest {
         allInstalments.add(new InstalmentStub2());
         allInstalments.add(new InstalmentStub());
         financeTracker.setInstalmentList(new InstalmentListStub(allInstalments));
-        assertThrows(NullPointerException.class, () -> financeTracker.editInstalment(3, null, 9.50));
+        assertThrows(NullPointerException.class, (
+
+            ) -> financeTracker.editInstalment(3, null, 9.50));
     }
 
     @Test
@@ -137,12 +155,6 @@ public class FinanceTrackerTest {
         assertEquals(500.0, financeTracker.getMonthlyLimit());
     }
 
-//    @Test //todo check why assertion fails
-//    public static void setMonthlyLimit_negativeValue_throwsError() {
-//        FinanceTracker financeTracker = new FinanceTracker();
-//        financeTracker.setMonthlyLimit(-500.0);
-//        assertThrows(AssertionError.class, () -> financeTracker.getMonthlyLimit());
-//    }
 }
 
 class PurchaseStub2 extends Purchase {

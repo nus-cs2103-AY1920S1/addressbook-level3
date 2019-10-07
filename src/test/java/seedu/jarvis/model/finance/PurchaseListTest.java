@@ -1,18 +1,24 @@
 package seedu.jarvis.model.finance;
 
-import org.junit.jupiter.api.Test;
-import seedu.jarvis.model.financetracker.Purchase;
-import seedu.jarvis.model.financetracker.PurchaseList;
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.PurchaseList;
+
 /**
- * Tests totalSpending() method //todo edit documentation
+ * Tests logic of purchase list class.
  */
 public class PurchaseListTest {
 
+    /**
+     * Runs all tests in this test class.
+     * @param args
+     */
     public static void main(String[] args) {
         getPurchase_normalInput_retrievedCorrectly();
         addPurchase_normalInput_addedCorrectly();

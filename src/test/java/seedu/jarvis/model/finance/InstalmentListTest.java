@@ -1,16 +1,24 @@
 package seedu.jarvis.model.finance;
 
-import org.junit.jupiter.api.Test;
-import seedu.jarvis.model.financetracker.Instalment;
-import seedu.jarvis.model.financetracker.InstalmentList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 
-import static seedu.jarvis.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.model.financetracker.Instalment;
+import seedu.jarvis.model.financetracker.InstalmentList;
+
+/**
+ * Tests logic of instalment list class.
+ */
 public class InstalmentListTest {
 
+    /**
+     * Runs all tests in this test class.
+     * @param args
+     */
     public static void main(String[] args) {
         getPurchase_normalInput_retrievedCorrectly();
         addInstalment_normalInput_addedCorrectly();
@@ -29,7 +37,8 @@ public class InstalmentListTest {
         listPurchases.add(new InstalmentStub());
         InstalmentList ip = new InstalmentList(listPurchases);
         assertEquals(new InstalmentStub().getDescription(), ip.getInstalment(1).getDescription());
-        assertEquals(new InstalmentStub().getMoneySpentOnInstallment(), ip.getInstalment(1).getMoneySpentOnInstallment());
+        assertEquals(new InstalmentStub().getMoneySpentOnInstallment(),
+                ip.getInstalment(1).getMoneySpentOnInstallment());
     }
 
     @Test
@@ -37,7 +46,8 @@ public class InstalmentListTest {
         InstalmentList ip = new InstalmentList(new ArrayList<>());
         ip.addInstalment(new InstalmentStub());
         assertEquals(new InstalmentStub().getDescription(), ip.getInstalment(1).getDescription());
-        assertEquals(new InstalmentStub().getMoneySpentOnInstallment(), ip.getInstalment(1).getMoneySpentOnInstallment());
+        assertEquals(new InstalmentStub().getMoneySpentOnInstallment(),
+                ip.getInstalment(1).getMoneySpentOnInstallment());
         assertEquals(1, ip.getNumInstalments());
     }
 
@@ -94,7 +104,9 @@ public class InstalmentListTest {
         listInstalments.add(new InstalmentStub());
         listInstalments.add(new InstalmentStub());
         InstalmentList ip = new InstalmentList(listInstalments);
-        assertThrows(IndexOutOfBoundsException.class, () -> ip.editInstalment(5, "Spotify", 9.50));
+        assertThrows(IndexOutOfBoundsException.class, (
+
+        ) -> ip.editInstalment(5, "Spotify", 9.50));
     }
 
     @Test
@@ -104,7 +116,9 @@ public class InstalmentListTest {
         listInstalments.add(new InstalmentStub());
         listInstalments.add(new InstalmentStub());
         InstalmentList ip = new InstalmentList(listInstalments);
-        assertThrows(NullPointerException.class, () -> ip.editInstalment(3, null, 9.50));
+        assertThrows(NullPointerException.class, (
+
+        ) -> ip.editInstalment(3, null, 9.50));
     }
 
     @Test

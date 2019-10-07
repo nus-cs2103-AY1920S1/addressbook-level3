@@ -26,15 +26,6 @@ public class Purchase {
         return this.moneySpent;
     }
 
-//    public boolean equals(Purchase otherP) {
-//        boolean isMatching = false;
-//        if (this.getDescription().equals(otherP.getDescription()) &&
-//                this.getMoneySpent() == otherP.getMoneySpent()) {
-//            isMatching = true;
-//        }
-//        return isMatching;
-//    }
-
     @Override
     public String toString() {
         return this.description + " (" + this.moneySpent + ")";

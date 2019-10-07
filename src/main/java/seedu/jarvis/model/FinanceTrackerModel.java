@@ -1,7 +1,6 @@
 package seedu.jarvis.model;
 
 import seedu.jarvis.model.financetracker.Instalment;
-import seedu.jarvis.model.financetracker.PendingPayment;
 import seedu.jarvis.model.financetracker.Purchase;
 
 /**

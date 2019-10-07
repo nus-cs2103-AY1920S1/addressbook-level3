@@ -1,12 +1,20 @@
 package seedu.jarvis.model.finance;
 
-import org.junit.jupiter.api.Test;
-import seedu.jarvis.model.financetracker.Instalment;
-
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.jarvis.model.financetracker.Instalment;
+
+/**
+ * Tests instalment class.
+ */
 public class InstalmentTest {
 
+    /**
+     * Runs all tests in this test class.
+     * @param args
+     */
     public static void main(String[] args) {
         constructor_nullDescription_throwsNullPointerException();
         editInstalment_nullDescription_throwsNullPointerException();

@@ -8,8 +8,7 @@ public class PurchaseList {
     private ArrayList<Purchase> allPurchases;
 
     public PurchaseList(ArrayList<Purchase> allPurchases) {
-            this.allPurchases = allPurchases;
-//        }
+        this.allPurchases = allPurchases;
     }
 
     /**
@@ -38,6 +37,11 @@ public class PurchaseList {
         return allPurchases.remove(purchaseIndex - 1);
     }
 
+    /**
+     * Calculates the total spending based on the list of purchases.
+     *
+     * @return double value containing total expenditure
+     */
     public double totalSpending() {
         double total = 0;
         for (Purchase purchase : allPurchases) {

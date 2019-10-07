@@ -1,7 +1,6 @@
 package seedu.jarvis.model;
 
 import seedu.jarvis.commons.core.GuiSettings;
-import seedu.jarvis.model.financetracker.FinanceTracker;
 
 /**
  * The API of the Model component.
