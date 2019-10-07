@@ -24,7 +24,7 @@ public class Description {
         for (int i = 0; i < transList.size(); i++) {
             Transaction trans = transList.get(i);
             String transDes = trans.getDescription();
-            description = description + Integer.toString(i) + ". " + transDes + "\n";
+            description = description + Integer.toString(i) + ". " + transDes + System.lineSeparator();
         }
     }
 

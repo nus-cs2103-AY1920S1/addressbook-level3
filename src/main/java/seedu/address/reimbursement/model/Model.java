@@ -1,16 +1,27 @@
 package seedu.address.reimbursement.model;
 
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.exception.NoSuchPersonException;
+import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
+import seedu.address.transaction.util.TransactionList;
 
 
 public interface Model {
+    ReimbursementList getReimbursementList();
 
-    Reimbursement findReimbursement(Person person) throws NoSuchPersonException;
+    Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException;
 
-    void sortReimbursementList(String attribute);
+    void sortReimbursementListByName();
 
-    void addDeadline(int num, String date);
+    void sortReimbursementListByAmount();
 
-    void updateIndexes();
+    void sortReimbursementListByDeadline();
+
+    Reimbursement addDeadline(Person person, String date) throws Exception;
+
+    Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException;
+
+    void writeInReimbursementFile() throws Exception;
+
+    void updateReimbursementList(TransactionList transList);
+
 }

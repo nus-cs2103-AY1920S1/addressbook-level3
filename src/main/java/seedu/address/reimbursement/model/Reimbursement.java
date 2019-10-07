@@ -9,6 +9,7 @@ import seedu.address.reimbursement.model.util.Description;
 import seedu.address.transaction.model.Transaction;
 
 public class Reimbursement {
+    private final static String VB = " | ";
     private ArrayList<Transaction> list;
     private Person person;
     private double amount;
@@ -26,25 +27,40 @@ public class Reimbursement {
         amount = trans.getAmount();
         person = trans.getPerson();
         description = new Description(list);
-        deadline = null;
+        deadline = new Deadline();
     }
 
     public void addDeadline(String date) throws InvalidDeadlineException {
-        if(date.length() != 8) {
+        if (date.length() != 8) {
             throw new InvalidDeadlineException();
-        }else {
-            int year = Integer.parseInt(date.substring(0,4));
-            int month = Integer.parseInt(date.substring(4,6));
-            int day = Integer.parseInt(date.substring(6,8));
-            deadline = new Deadline(year,month,day);
+        } else {
+            int year = Integer.parseInt(date.substring(0, 4));
+            int month = Integer.parseInt(date.substring(4, 6));
+            int day = Integer.parseInt(date.substring(6, 8));
+            deadline = new Deadline(year, month, day);
         }
     }
 
+    public void matchDeadline(String date) {
+        try {
+            this.addDeadline(date);
+        } catch (InvalidDeadlineException e) {
+            deadline = new Deadline();
+        }
+
+    }
+
     public boolean comparePerson(Reimbursement reimbursement) {
-        if (this.person.equals(reimbursement.getPerson())) {
+        if (this.person.isSamePerson(reimbursement.getPerson())) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void done() {
+        for (Transaction trans : list) {
+            trans.updateStatus();
         }
     }
 
@@ -60,8 +76,12 @@ public class Reimbursement {
         return amount;
     }
 
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
     public void merge(Reimbursement reimbursement) {
-        assert reimbursement.getPerson().equals(this.getPerson()) : "Merging reimbursements is invalid.";
+        assert reimbursement.getPerson().isSamePerson(this.getPerson()) : "Merging reimbursements is invalid.";
         for (Transaction trans : reimbursement.getList()) {
             list.add(trans);
         }
@@ -78,7 +98,16 @@ public class Reimbursement {
     }
 
     public String toString() {
-        return person.getName() + " " + amount + deadline.toString() + "\n" + description.toString();
+        return person.getName() + " " + amount + deadline.toString() + System.lineSeparator() + description.toString();
+    }
+
+    public String toStringNoDeadline() {
+        return person.getName() + " " + amount + System.lineSeparator() + description.toString();
+    }
+
+    public String toWriteIntoFile() {
+        String msg = this.person.getName() + VB + this.amount + VB + this.deadline.toString();
+        return msg;
     }
 
 }
