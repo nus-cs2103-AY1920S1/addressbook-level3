@@ -5,17 +5,15 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.trips.edit.CancelEditTripCommand;
 import seedu.address.logic.commands.trips.edit.DoneEditTripCommand;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.Page;
 import seedu.address.ui.components.form.DateFormItem;
-import seedu.address.ui.components.form.ExpenditureFormItem;
+import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
@@ -32,7 +30,7 @@ public class EditTripPage extends Page<AnchorPane> {
     private TextFormItem tripDestinationFormItem;
     private DateFormItem tripStartDateFormItem;
     private DateFormItem tripEndDateFormItem;
-    private ExpenditureFormItem tripTotalBudgetFormItem;
+    private DoubleFormItem tripTotalBudgetFormItem;
 
     @FXML
     private VBox formItemsPlaceholder;
@@ -61,7 +59,7 @@ public class EditTripPage extends Page<AnchorPane> {
         currentEditDescriptor.getEndDate().ifPresent(endDate ->
                 tripEndDateFormItem.setValue(endDate.toLocalDate()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
-                tripTotalBudgetFormItem.setValue(budget));
+                tripTotalBudgetFormItem.setValue(budget.value));
     }
 
     /**
@@ -86,7 +84,7 @@ public class EditTripPage extends Page<AnchorPane> {
                             + " " + PREFIX_DATE_END
                             + ParserDateUtil.getStringFromDate(endDate.atStartOfDay()));
                 });
-        tripTotalBudgetFormItem = new ExpenditureFormItem("Total budget : ", totalBudget -> {
+        tripTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget -> {
             mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);
                 });
