@@ -34,7 +34,6 @@ public class MainWindow extends UiPart<Stage> {
     private BookmarkListPanel bookmarkListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private FolderStructureTreeView folderStructureTreeView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -114,7 +113,7 @@ public class MainWindow extends UiPart<Stage> {
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
 
-        folderStructureTreeView = new FolderStructureTreeView(
+        FolderStructureTreeView folderStructureTreeView = new FolderStructureTreeView(
                 logic.getFolderStructure(), logic.getFilteredBookmarkList());
         folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());
 

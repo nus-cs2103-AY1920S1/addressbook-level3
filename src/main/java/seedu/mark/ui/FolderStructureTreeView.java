@@ -3,7 +3,6 @@ package seedu.mark.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Region;
-import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.folderstructure.FolderStructure;
 
@@ -21,7 +19,6 @@ import seedu.mark.model.folderstructure.FolderStructure;
 public class FolderStructureTreeView extends UiPart<Region> {
 
     private static final String FXML = "FolderStructure.fxml";
-    private final Logger logger = LogsCenter.getLogger(FolderStructureTreeView.class);
 
     @FXML
     private TreeView<String> treeView;
