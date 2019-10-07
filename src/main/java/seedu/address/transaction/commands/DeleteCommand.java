@@ -2,7 +2,7 @@ package seedu.address.transaction.commands;
 
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.ui.TransactionUi;
+import seedu.address.transaction.ui.TransactionMessages;
 
 public class DeleteCommand extends Command {
     private int index;
@@ -14,9 +14,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
-        TransactionUi transactionUi = new TransactionUi();
+        TransactionMessages transactionMessages = new TransactionMessages();
         Transaction transaction = model.findTransactionByIndex(index);
         model.deleteTransaction(index);
-        return new CommandResult(transactionUi.deletedTransaction(transaction));
+        return new CommandResult(transactionMessages.deletedTransaction(transaction));
     }
 }

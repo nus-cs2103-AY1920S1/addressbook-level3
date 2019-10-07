@@ -1,15 +1,16 @@
 package seedu.address.person.logic.commands;
 
 import java.util.Objects;
+import seedu.address.util.OverallCommandResult;
 
 import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the result of a command execution.
  */
-public class CommandResult {
+public class CommandResult extends OverallCommandResult {
 
-    private final String feedbackToUser;
+    private String feedbackToUser;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -21,7 +22,7 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
+        super(requireNonNull(feedbackToUser));
         this.showHelp = showHelp;
         this.exit = exit;
     }
@@ -34,9 +35,9 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
-    public String getFeedbackToUser() {
+    /*public String getFeedbackToUser() {
         return feedbackToUser;
-    }
+    }*/
 
     public boolean isShowHelp() {
         return showHelp;

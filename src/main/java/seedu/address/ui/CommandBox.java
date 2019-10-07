@@ -4,8 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import seedu.address.transaction.commands.CommandResult;
-import seedu.address.ui.UiPart;
+import seedu.address.util.OverallCommandResult;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -69,7 +68,7 @@ public class CommandBox extends UiPart<Region> {
          * Executes the command and returns the result.
          *
          */
-        CommandResult execute(String commandText) throws Exception;
+        OverallCommandResult execute(String commandText) throws Exception;
     }
 
 }

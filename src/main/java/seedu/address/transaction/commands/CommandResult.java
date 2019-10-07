@@ -1,18 +1,12 @@
 package seedu.address.transaction.commands;
 
-public class CommandResult {
+import seedu.address.util.OverallCommandResult;
+
+public class CommandResult extends OverallCommandResult {
 
     private String feedbackToUser;
 
     public CommandResult(String feedbackToUser) {
-        this.feedbackToUser = feedbackToUser;
-    }
-
-    public String toString() {
-        return feedbackToUser;
-    }
-
-    public String getFeedbackToUser() {
-        return feedbackToUser;
+        super(feedbackToUser);
     }
 }

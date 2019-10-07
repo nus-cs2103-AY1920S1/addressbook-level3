@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.util.DummyNamedPerson;
 
 public class Transaction {
     private LocalDate date;
@@ -14,17 +13,19 @@ public class Transaction {
     private Person person;
     private String name;
     private String id;
+    private boolean isReimbursed;
     private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
 
     public Transaction(String date, String description, String category,
-                       double amount, String name, int i) {
+                       double amount, Person person, int i) {
         this.date = LocalDate.parse(date, myFormatter);
         this.description = description;
         this.category = category;
         this.amount = amount;
-        this.person = new DummyNamedPerson(name).getDummy();
-        this.name = name;
+        this.person = person;
+        this.name = person.getName().toString();
         this.id = "" + i;
+        this.isReimbursed = false;
     }
 
     public Person getPerson() {
@@ -51,8 +52,16 @@ public class Transaction {
         return this.id;
     }
 
+    public boolean getStatus() {
+        return this.isReimbursed;
+    }
+
     public void setId(int i) {
         this.id = "" + i;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String toWriteIntoFile() {
@@ -62,21 +71,23 @@ public class Transaction {
     }
 
     public String toString() {
-        String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category +
-                " | " + this.amount + " | " + this.person.getName();
+        String msg = "Date: " + this.date.format(myFormatter) + "\nDescription: " + this.description + "\nCategory: " + this.category +
+                "\nAmount: $" + this.amount + "\nPaid by: " + this.person.getName();
         return msg;
     }
 
     public String getName() {
         return this.person.getName().toString();
     }
-
+    
     public boolean equals(Transaction editedTransaction) {
         return this.person.equals(editedTransaction.getPerson()) &&
                 this.description.equals(editedTransaction.getDescription()) &&
                 this.category.equals(editedTransaction.getCategory()) &&
                 this.amount == editedTransaction.getAmount() &&
-                this.date.equals(editedTransaction.getDate());
+                this.getDate().equals(editedTransaction.getDate());
 
     }
+
+
 }
