@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ALICE;
@@ -30,25 +29,19 @@ public class TaskTest {
         // null -> returns false
         assertFalse(ALICE.isSameTask(null));
 
-        // different phone and email -> returns false
-        Task editedAlice = new TaskBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameTask(editedAlice));
+        // different email -> returns false
+        Task editedAlice = new TaskBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
 
         // different name -> returns false
         editedAlice = new TaskBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameTask(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new TaskBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
+        // same name, same email, different attributes -> returns true
+        editedAlice = new TaskBuilder(ALICE)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameTask(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new TaskBuilder(ALICE).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameTask(editedAlice));
-
-        // same name, same phone, same email, different attributes -> returns true
         editedAlice = new TaskBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameTask(editedAlice));
     }
@@ -73,10 +66,6 @@ public class TaskTest {
 
         // different name -> returns false
         Task editedAlice = new TaskBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different phone -> returns false
-        editedAlice = new TaskBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false

@@ -9,7 +9,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
 import seedu.address.model.task.Task;
 
 /**
@@ -18,17 +17,17 @@ import seedu.address.model.task.Task;
 public class SampleDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[] {
-            new Task(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+            new Task(new Name("Alex Yeoh"), new Email("alexyeoh@example.com"),
                 getTagSet("friends")),
-            new Task(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+            new Task(new Name("Bernice Yu"), new Email("berniceyu@example.com"),
                 getTagSet("colleagues", "friends")),
-            new Task(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+            new Task(new Name("Charlotte Oliveiro"), new Email("charlotte@example.com"),
                 getTagSet("neighbours")),
-            new Task(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+            new Task(new Name("David Li"), new Email("lidavid@example.com"),
                 getTagSet("family")),
-            new Task(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Task(new Name("Irfan Ibrahim"), new Email("irfan@example.com"),
                 getTagSet("classmates")),
-            new Task(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Task(new Name("Roy Balakrishnan"), new Email("royb@example.com"),
                 getTagSet("colleagues"))
         };
     }

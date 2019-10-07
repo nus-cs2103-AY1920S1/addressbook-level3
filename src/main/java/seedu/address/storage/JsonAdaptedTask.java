@@ -13,7 +13,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
 import seedu.address.model.task.Task;
 
 /**
@@ -24,7 +23,6 @@ class JsonAdaptedTask {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
     private final String name;
-    private final String phone;
     private final String email;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -32,11 +30,10 @@ class JsonAdaptedTask {
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
-    public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedTask(@JsonProperty("name") String name,
                            @JsonProperty("email") String email,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
         this.email = email;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -48,7 +45,6 @@ class JsonAdaptedTask {
      */
     public JsonAdaptedTask(Task source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
         email = source.getEmail().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -74,14 +70,6 @@ class JsonAdaptedTask {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
-
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -91,7 +79,7 @@ class JsonAdaptedTask {
         final Email modelEmail = new Email(email);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Task(modelName, modelPhone, modelEmail, modelTags);
+        return new Task(modelName,  modelEmail, modelTags);
     }
 
 }

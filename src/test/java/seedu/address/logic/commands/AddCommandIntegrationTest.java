@@ -25,6 +25,7 @@ public class AddCommandIntegrationTest {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
 
+    // TODO @ambhinav Test fails with "Operation would result in duplicate tasks"
     @Test
     public void execute_newTask_success() {
         Task validTask = new TaskBuilder().build();

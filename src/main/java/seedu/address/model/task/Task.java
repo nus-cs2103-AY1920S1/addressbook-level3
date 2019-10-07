@@ -17,7 +17,6 @@ public class Task {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
     private final Email email;
 
     private final Set<Tag> tags = new HashSet<>();
@@ -25,20 +24,15 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone modelPhone, Email email, Set<Tag> tags) {
+    public Task(Name name, Email email, Set<Tag> tags) {
         requireAllNonNull(name, email, tags);
         this.name = name;
-        this.phone = phone;
         this.email = email;
         this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
     }
 
     public Email getEmail() {
@@ -62,9 +56,10 @@ public class Task {
             return true;
         }
 
+        // TODO change the logic to suit a task
+        // basically the name cannot be the same, that's it
         return otherTask != null
-                && otherTask.getName().equals(getName())
-                && (otherTask.getPhone().equals(getPhone()) || otherTask.getEmail().equals(getEmail()));
+            && otherTask.getName().equals(getName());
     }
 
     /**
@@ -83,7 +78,6 @@ public class Task {
 
         Task otherTask = (Task) other;
         return otherTask.getName().equals(getName())
-                && otherTask.getPhone().equals(getPhone())
                 && otherTask.getEmail().equals(getEmail())
                 && otherTask.getTags().equals(getTags());
     }
@@ -91,15 +85,13 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, email, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Tags: ");
