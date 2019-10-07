@@ -52,7 +52,7 @@ public class OrderCard extends UiPart<Region> {
         this.order = order;
         index.setText(displayedIndex + ". ");
 
-        customerName.setText(order.getCustomer().getName().fullName);
+        customerName.setText(order.getCustomer().getCustomerName().fullName);
 
         phoneName.setText(order.getPhone().getName().fullName);
         phoneColour.setText(order.getPhone().getColour().value);

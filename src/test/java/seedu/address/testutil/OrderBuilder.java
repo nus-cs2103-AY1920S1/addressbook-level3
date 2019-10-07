@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalCustomers.CUSTOMERONE;
+import static seedu.address.testutil.TypicalPhones.IPHONEONE;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,9 +14,6 @@ import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TypicalCustomers.CUSTOMERONE;
-import seedu.address.testutil.TypicalPhones.IPHONEONE;
-
 
 /**
  * A utility class to help with building Order objects.
@@ -100,10 +100,6 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        try {
-            return new Order(customer, phone, price, status, schedule, tags);
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+        return new Order(customer, phone, price, status, schedule, tags);
     }
 }

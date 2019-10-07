@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalOrders.ORDERONE;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +11,6 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TypicalOrders.ORDERONE;
 
 /**
  * A utility class to help with building Schedule objects.
@@ -75,11 +76,7 @@ public class ScheduleBuilder {
     }
 
     public Schedule build() {
-        try {
-            return new Schedule(order, calendar, venue, tags);
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+        return new Schedule(order, calendar, venue, tags);
     }
 
 }

@@ -57,7 +57,7 @@ public class Name implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Object clone() {
         return new Name(new String(fullName));
     }
 

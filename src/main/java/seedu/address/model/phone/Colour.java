@@ -55,7 +55,7 @@ public class Colour implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Object clone() {
         return new Colour(new String(value));
     }
 

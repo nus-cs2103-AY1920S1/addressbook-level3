@@ -1,19 +1,19 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalCustomers.CUSTOMERONE;
+import static seedu.address.testutil.TypicalCustomers.CUSTOMERTHREE;
+import static seedu.address.testutil.TypicalCustomers.CUSTOMERTWO;
+import static seedu.address.testutil.TypicalPhones.ANDROIDONE;
+import static seedu.address.testutil.TypicalPhones.IPHONEONE;
+import static seedu.address.testutil.TypicalPhones.IPHONETWO;
+
 import seedu.address.model.order.Order;
-import seedu.address.testutil.TypicalCustomers.CUSTOMERONE;
-import seedu.address.testutil.TypicalCustomers.CUSTOMERTWO;
-import seedu.address.testutil.TypicalCustomers.CUSTOMERTHREE;
-import seedu.address.testutil.TypicalPhones.IPHONEONE;
-import seedu.address.testutil.TypicalPhones.ANDROIDONE;
-import seedu.address.testutil.TypicalPhones.IPHONETWO;
 
 /**
  * A utility class containing a list of {@code Order} objects to be used in tests.
  */
 public class TypicalOrders {
 
-    //might move into commandtestutil later on
     private static final String DEFAULT_PRICE_1 = "$1231.12";
     private static final String DEFAULT_PRICE_2 = "$909";
     private static final String DEFAULT_PRICE_3 = "$500";

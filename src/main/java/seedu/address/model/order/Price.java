@@ -47,7 +47,7 @@ public class Price implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Object clone() {
         return new Price(new String(value));
     }
 

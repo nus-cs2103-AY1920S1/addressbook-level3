@@ -118,7 +118,7 @@ public class Phone implements Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public Object clone() {
         Phone clone = new Phone(this.id, (Name) this.name.clone(), (Brand) this.brand.clone(), this.capacity,
                 (Colour) this.colour.clone(), (Cost) this.cost.clone(), this.getTags());
         return clone;

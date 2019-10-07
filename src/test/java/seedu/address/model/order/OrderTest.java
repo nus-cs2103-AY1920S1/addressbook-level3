@@ -2,11 +2,9 @@ package seedu.address.model.order;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.testutil.TypicalCustomers.CUSTOMERTHREE;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
-import static seedu.address.testutil.TypicalOrders.ORDERTWO;
-import seedu.address.testutil.TypicalCustomers.CUSTOMERTHREE;
-import seedu.address.testutil.TypicalPhones.IPHONETWO;
+import static seedu.address.testutil.TypicalPhones.IPHONETWO;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +14,7 @@ public class OrderTest {
 
     private static final String VALID_PRICE = "$1021";
     private static final Status VALID_STATUS = Status.CANCELLED;
-    private static final String VALID_TAG = "Buyer cancelled";
+    private static final String VALID_TAG = "Cancelled";
 
     @Test
     public void isSameOrder() {
@@ -30,11 +28,7 @@ public class OrderTest {
         assertFalse(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).build()));
 
         // clone -> returns true
-        try {
-            assertTrue(ORDERONE.isSameOrder((Order) ORDERONE.clone()));
-        } catch (CloneNotSupportedException e) {
-            fail();
-        }
+        assertTrue(ORDERONE.isSameOrder((Order) ORDERONE.clone()));
     }
 
     @Test
@@ -43,11 +37,7 @@ public class OrderTest {
         assertTrue(ORDERONE.equals(ORDERONE));
 
         // clone -> returns true
-        try {
-            assertTrue(ORDERONE.equals((Order) ORDERONE.clone()));
-        } catch (CloneNotSupportedException e) {
-            fail();
-        }
+        assertTrue(ORDERONE.equals((Order) ORDERONE.clone()));
 
         // null -> returns false
         assertFalse(ORDERONE.equals(null));

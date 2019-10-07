@@ -2,21 +2,19 @@ package seedu.address.model.schedule;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.testutil.TypicalOrders.ORDERTHREE;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
 
 import java.util.Calendar;
 
-import seedu.address.testutil.ScheduleBuilder;
-import seedu.address.testutil.TypicalOrders.ORDERTHREE;
-import seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
-import seedu.address.testutil.TypicalSchedules.SCHEDULETWO;
-
 import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.ScheduleBuilder;
 
 public class ScheduleTest {
 
     private static final String VALID_VENUE = "Changi Airport T3";
-    private static final String VALID_TAG = "Bring free cable";
+    private static final String VALID_TAG = "Freebie";
     private static final Calendar VALID_CALENDAR = new Calendar.Builder()
             .setDate(2030, 3, 19).setTimeOfDay(15, 30, 0).build();
 
@@ -29,11 +27,7 @@ public class ScheduleTest {
         assertFalse(SCHEDULEONE.isSameSchedule(null));
 
         // clone -> returns true
-        try {
-            assertTrue(SCHEDULEONE.isSameSchedule((Schedule) SCHEDULEONE.clone()));
-        } catch (CloneNotSupportedException e) {
-            fail();
-        }
+        assertTrue(SCHEDULEONE.isSameSchedule((Schedule) SCHEDULEONE.clone()));
     }
 
     @Test
@@ -42,11 +36,7 @@ public class ScheduleTest {
         assertTrue(SCHEDULEONE.equals(SCHEDULEONE));
 
         // clone -> returns true
-        try {
-            assertTrue(SCHEDULEONE.equals((Schedule) SCHEDULEONE.clone()));
-        } catch (CloneNotSupportedException e) {
-            fail();
-        }
+        assertTrue(SCHEDULEONE.equals((Schedule) SCHEDULEONE.clone()));
 
         // null -> returns false
         assertFalse(SCHEDULEONE.equals(null));

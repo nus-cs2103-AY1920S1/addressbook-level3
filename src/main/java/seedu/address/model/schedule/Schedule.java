@@ -29,7 +29,7 @@ public class Schedule implements Cloneable {
      * Every field must be present and not null.
      * @throws CloneNotSupportedException If Order class does not implement Cloneable interface.
      */
-    public Schedule(Order order, Calendar calendar, Venue venue, Set<Tag> tags) throws CloneNotSupportedException {
+    public Schedule(Order order, Calendar calendar, Venue venue, Set<Tag> tags) {
         requireAllNonNull(order, calendar, venue, tags);
         this.order = (Order) order.clone();
         this.calendar = calendar;
@@ -92,7 +92,7 @@ public class Schedule implements Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public Object clone() {
         Schedule clone = new Schedule((Order) this.order.clone(), (Calendar) this.calendar.clone(),
                 (Venue) this.venue.clone(), this.getTags());
         return clone;

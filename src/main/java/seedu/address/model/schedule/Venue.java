@@ -46,7 +46,7 @@ public class Venue implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Object clone() {
         return new Venue(new String(venue));
     }
 
