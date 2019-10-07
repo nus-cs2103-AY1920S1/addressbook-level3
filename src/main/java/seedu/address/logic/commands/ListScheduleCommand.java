@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class ListScheduleCommand extends Command {
 
-    //to be dicussed
+    //to be discussed
     public static final String COMMAND_WORD = "to be confirmed";
 
     public static final String MESSAGE_SUCCESS = "Listed current schedule";

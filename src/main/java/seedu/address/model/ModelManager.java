@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-/*import java.util.HashSet;
-import java.util.Set;*/
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,20 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-//import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
-//import seedu.address.model.customer.Email;
-//import seedu.address.model.customer.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
-/*import seedu.address.model.phone.Name;
-import seedu.address.model.phone.Brand;
-import seedu.address.model.phone.Capacity;
-import seedu.address.model.phone.Colour;
-import seedu.address.model.phone.Cost;*/
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
-/*import seedu.address.model.tag.Tag;*/
+
 
 /**
  * Represents the in-memory model of the SML data.
@@ -237,16 +227,6 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Customer> getFilteredCustomerList() {
-        //dummy data to ensure panel can display
-        //can just leave the return statement here
-
-        /*Set<Tag> temp = new HashSet();
-        temp.add(new Tag("friend"));
-
-        Customer test = new Customer(new Name("Eugene"), new ContactNumber("12345678"), new Email("eugene@gmail.com"),
-                temp);
-        this.addCustomer(test);*/
-
         return filteredCustomers;
     }
 
@@ -300,13 +280,6 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Phone> getFilteredPhoneList() {
-        //dummy data to ensure panel can display
-        //can just leave the return statement here
-        /*Set<Tag> temp = new HashSet();
-        temp.add(new Tag("friend"));
-        Phone testphone = new Phone(new Name("testphone"), new Brand("huawei"),
-                Capacity.SIZE_8GB, new Colour("blue"), new Cost("$500"), temp);
-        this.addPhone(testphone);*/
         return filteredPhones;
     }
 
