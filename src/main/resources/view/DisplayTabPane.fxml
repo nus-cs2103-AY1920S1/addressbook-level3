@@ -2,5 +2,6 @@
 
 <?import javafx.scene.control.TabPane?>
 
-<TabPane styleClass="tab-pane" prefHeight="360.0" prefWidth="340.0" side="TOP" tabClosingPolicy="UNAVAILABLE"
+<TabPane styleClass="tab-pane" minHeight="360.0" prefWidth="340.0" side="TOP" tabClosingPolicy="UNAVAILABLE"
          xmlns:fx="http://javafx.com/fxml/1" fx:id="tabsPlaceholder" />
+
