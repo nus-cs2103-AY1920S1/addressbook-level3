@@ -1,4 +1,4 @@
-= Financial Tracker
+= Billboard
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.com/AY1920S1-CS2103T-F12-4/main.svg?branch=master["Build Status", link="https://travis-ci.com/AY1920S1-CS2103T-F12-4/main"]
