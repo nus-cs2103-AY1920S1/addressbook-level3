@@ -86,7 +86,7 @@ Format: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​`
 
 ****
 * A bookmark can have any number of tags (including 0).
-* `FOLDER` must be an existing folder (see <<folder>>.
+* `FOLDER` must be an existing folder (see <<folder>>).
 * Use the keyword `this` in place of URL to bookmark the current page,
 e.g. `*add* u/this n/Homepage`
 ****
@@ -99,14 +99,14 @@ Only valid if a web-page is currently being viewed.
 * `*add* u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T`
 * `*add* u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
 
-=== Adding a new folder *`newfolder`*
+=== Adding a new folder *`folder`*
 
 Creates a new folder for organizing bookmarks into.
 
 Format: `*newfolder* FOLDER_NAME [p/PARENT_FOLDER]`
 
 ****
-* `FOLDER_NAME` must not have already existed.
+* `FOLDER_NAME` must not already exist.
 * `PARENT_FOLDER` must be an existing folder.
 * If `PARENT_FOLDER` is not specified, `FOLDER_NAME` will have no parent, and be at the root.
 ****
@@ -116,7 +116,7 @@ Examples:
 * `*newfolder* CS2103 p/NUS +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
 
-=== Deleting a folder *`deletefolder`*
+=== Deleting a folder *`folder delete`*
 
 Creates a new folder for organizing bookmarks into.
 
@@ -130,7 +130,7 @@ Format: `*deletefolder* FOLDER_NAME`
 Examples:
 
 * `*deletefolder* CS2103 +
-Deletes the folder named `CS2103`.
+Deletes the folder named `CS2103` and all of its subfolders.
 
 === Listing all bookmarks: *`list`*
 
