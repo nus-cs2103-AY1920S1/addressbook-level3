@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of Duke Cooks data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -30,7 +30,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(dukeCooks, userPrefs);
 
-        logger.fine("Initializing with address book: " + dukeCooks + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Duke Cooks: " + dukeCooks + " and user prefs " + userPrefs);
 
         this.dukeCooks = new DukeCooks(dukeCooks);
         this.userPrefs = new UserPrefs(userPrefs);

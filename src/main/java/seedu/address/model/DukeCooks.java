@@ -59,7 +59,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in Duke Cooks.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -67,8 +67,8 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to Duke Cooks.
+     * The person must not already exist in Duke Cooks.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -76,8 +76,8 @@ public class DukeCooks implements ReadOnlyDukeCooks {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in Duke Cooks.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in Duke Cooks.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -87,7 +87,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
 
     /**
      * Removes {@code key} from this {@code DukeCooks}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in Duke Cooks.
      */
     public void removePerson(Person key) {
         persons.remove(key);
