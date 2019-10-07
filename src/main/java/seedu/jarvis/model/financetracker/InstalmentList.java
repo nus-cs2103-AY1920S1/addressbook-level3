@@ -20,12 +20,8 @@ public class InstalmentList {
      * Default constructor to be used when JARVIS starts up.
      */
     public InstalmentList(ArrayList<Instalment> allInstallments) {
-        if (allInstallments.size() == 0) {
-            //todo throw exception for no existing payments owed
-        } else {
-            this.allInstallments = allInstallments;
-            this.totalMoneySpentOnInstalments = calculateTotalInstalmentSpending();
-        }
+        this.allInstallments = allInstallments;
+        this.totalMoneySpentOnInstalments = calculateTotalInstalmentSpending();
     }
 
     /**
@@ -42,13 +38,9 @@ public class InstalmentList {
      * todo parse this command before this class (assign null if no change)
      */
     public void editInstalment(int instalmentNumber, String description, double value) {
-        if (instalmentNumber > allInstallments.size()) {
-            //todo throw exception that instalment does not exist
-        } else if (description == null) {
-            allInstallments.get(instalmentNumber - 1).editAmount(value);
-        } else if ((Double) value == null) {
-            allInstallments.get(instalmentNumber - 1).editDescription(description);
-        }
+        //todo add exception for if the instalment does not exist
+        allInstallments.get(instalmentNumber - 1).editDescription(description);
+        allInstallments.get(instalmentNumber - 1).editAmount(value);
         totalMoneySpentOnInstalments = this.calculateTotalInstalmentSpending();
     }
 
@@ -58,9 +50,7 @@ public class InstalmentList {
      * @return Instalment object that has been removed from the list
      */
     public Instalment deleteInstalment(int instalmentNumber) {
-        if (instalmentNumber > allInstallments.size()) {
-            //todo throw error
-        }
+        //todo check if the number is within the size of the list
         return allInstallments.remove(instalmentNumber - 1);
     }
 
@@ -78,6 +68,10 @@ public class InstalmentList {
 
     public double getTotalMoneySpentOnInstalments() {
         return this.totalMoneySpentOnInstalments;
+    }
+
+    public Instalment getInstalment(int instalNum) {
+        return allInstallments.get(instalNum - 1);
     }
 
     @Override

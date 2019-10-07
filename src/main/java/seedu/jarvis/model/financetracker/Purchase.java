@@ -1,5 +1,7 @@
 package seedu.jarvis.model.financetracker;
 
+import java.util.Objects;
+
 /**
  * Object stores a single payment including its details such as the description and the money spent.
  */
@@ -8,6 +10,7 @@ public class Purchase {
     private double moneySpent;
 
     public Purchase(String description, double moneySpent) {
+        Objects.requireNonNull(description);
         this.description = description;
         this.moneySpent = moneySpent;
     }
@@ -22,6 +25,15 @@ public class Purchase {
     public double getMoneySpent() {
         return this.moneySpent;
     }
+
+//    public boolean equals(Purchase otherP) {
+//        boolean isMatching = false;
+//        if (this.getDescription().equals(otherP.getDescription()) &&
+//                this.getMoneySpent() == otherP.getMoneySpent()) {
+//            isMatching = true;
+//        }
+//        return isMatching;
+//    }
 
     @Override
     public String toString() {

@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class PurchaseList {
     private ArrayList<Purchase> allPurchases;
 
-    public PurchaseList(ArrayList<Purchase> allPurchases) throws Exception {
-        if (allPurchases.size() == 0) {
-            throw new Exception("This purchase does not exist in your list!");
-        } else {
+    public PurchaseList(ArrayList<Purchase> allPurchases) {
+//        if (allPurchases.size() == 0) {
+//            throw new Exception("This purchase does not exist in your list!");
+//        } else {
             this.allPurchases = allPurchases;
-        }
+//        }
     }
 
     /**
@@ -37,9 +37,7 @@ public class PurchaseList {
      * @return
      */
     public Purchase deletePurchase(int purchaseIndex) {
-        if (purchaseIndex > allPurchases.size()) {
-            //todo throw error
-        }
+        //todo check if the number is within the size of the list
         return allPurchases.remove(purchaseIndex - 1);
     }
 
@@ -49,5 +47,9 @@ public class PurchaseList {
             total += purchase.getMoneySpent();
         }
         return total;
+    }
+
+    public Purchase getPurchase(int purchaseIndex) {
+        return this.allPurchases.get(purchaseIndex - 1);
     }
 }
