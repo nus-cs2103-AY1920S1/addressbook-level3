@@ -15,12 +15,12 @@
 </p>
 
 <p align="center">
-  <a href="#_key-features">Key Features</a> •
-  <a href="#_how-to-use">How To Use</a> •
-  <a href="#_download">Download</a> •
-  <a href="#_site_map">Site Map</a> •
-  <a href="#_acknowledgements">Acknowledgements</a> •
-  <a href="#_license">License</a>
+  <a href="#key-features">Key Features</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#download">Download</a> •
+  <a href="#site_map">Site Map</a> •
+  <a href="#acknowledgements">Acknowledgements</a> •
+  <a href="#license">License</a>
 </p>
 
 <p align="center">
@@ -31,26 +31,27 @@
 
 == Key Features
 
-* Completely CLI-Friendly
-  - Prefer the keyboard? VISIT is made to be entirely operable just using your keyboard!
-* Patient Profiling
-  - Keep all the key patient details like names, addresses and contact information of your patients easily accessible.
-* Visit Tracking
-  - Keep track of the history of past visits by the same patient to provide holistic and personalized healthcare.
-* Reminder System
-  - Can't remember when your next appointment is? VISIT reminds you when your next consultation is.
+* Completely CLI-Friendly 💻
+**Prefer the keyboard? VISIT is made to be entirely operable just using your keyboard!
+* Patient Profiling 👪
+**Keep all the key patient details like names, addresses and contact information of your patients easily accessible.
+* Visit Tracking 🏠
+**Keep track of the history of past visits by the same patient to provide holistic and personalized healthcare.
+* Reminder System 📆
+**Can't remember when your next appointment is? VISIT reminds you when your next consultation is.
 * Alias / Macro command support
 * Tagging and Search functionality
 * Save patient information as a text file
 * Cross platform
-  - Windows, macOS and Linux ready.
+**Windows, macOS and Linux ready.
 
 == How To Use
 
 To run this application, you'll need  https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[Java 11] installed on your computer. +
 Run the program then, try typing the following commands:
 
-```
+[source, md]
+----
 # Adds a Patient with details
 $ add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
 
@@ -62,7 +63,7 @@ $ find John Tim Betsy
 
 # Show the full profile of the patient at position 1
 $ profile 1
-```
+----
 
 For other commands, check out our User Guide at <<UserGuide#, here>>!
 
