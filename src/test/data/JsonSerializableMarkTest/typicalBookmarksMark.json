@@ -42,5 +42,9 @@
     "remark" : "4th street",
     "folder" : "ROOT",
     "tagged" : [ ]
-  } ]
+  } ],
+  "folderStructure": {
+    "name": "ROOT",
+    "subfolders": []
+  }
 }

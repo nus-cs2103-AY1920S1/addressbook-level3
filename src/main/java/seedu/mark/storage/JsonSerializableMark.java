@@ -36,7 +36,6 @@ class JsonSerializableMark {
         @JsonProperty("folderStructure") JsonAdaptedFolderStructure folderStructure) {
         this.bookmarks.addAll(bookmarks);
         this.folderStructure = folderStructure;
-        System.out.println(folderStructure.toString());
     }
 
     /**

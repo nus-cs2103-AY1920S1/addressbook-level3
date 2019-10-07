@@ -10,5 +10,9 @@
     "url": "https://alice-example.com",
     "remark": "4th street",
     "folder" : "ROOT"
-  } ]
+  } ],
+  "folderStructure": {
+    "name": "ROOT",
+    "subfolders": []
+  }
 }
