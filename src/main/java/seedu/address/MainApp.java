@@ -68,7 +68,7 @@ public class MainApp extends Application {
         seedu.address.transaction.storage.StorageManager transactionStorage =
                 new seedu.address.transaction.storage.StorageManager("data/transactionHistory.txt", model);
         seedu.address.transaction.model.ModelManager transactionManager =
-                new seedu.address.transaction.model.ModelManager(transactionStorage);
+                new seedu.address.transaction.model.ModelManager(transactionStorage.getTransactionList());
         seedu.address.transaction.logic.LogicManager transactionLogic = new
                 seedu.address.transaction.logic.LogicManager(transactionManager, transactionStorage, model, storage);
         logic = new LogicManager(model, storage, transactionLogic);

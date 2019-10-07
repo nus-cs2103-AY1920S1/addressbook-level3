@@ -8,7 +8,7 @@ import seedu.address.transaction.util.TransactionList;
 public class TransactionMessages {
     private static final Logger logger = LogsCenter.getLogger(TransactionMessages.class);
 
-    public static final String  NO_SUCH_PERSON = "Sorry! There is no such member in our database. Do add the member in.";
+    public static final String NO_SUCH_PERSON = "Sorry! There is no such member in our database. Do add the member in.";
 
     public static final String NO_SUCH_COMMAND =  "Sorry! There is no such command.";
 

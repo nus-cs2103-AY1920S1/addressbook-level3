@@ -38,7 +38,7 @@ public class Main {
         seedu.address.person.model.ModelManager personMM =
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);
         StorageManager storage = new StorageManager("data/transactionHistory.txt", personMM);
-        ModelManager mm = new ModelManager(storage);
+        ModelManager mm = new ModelManager(storage.getTransactionList());
         LogicManager lm = new LogicManager(mm, storage, personMM, personStorage);
 
         Start mw = new Start(lm);

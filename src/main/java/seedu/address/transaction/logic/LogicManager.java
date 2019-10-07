@@ -40,7 +40,8 @@ public class LogicManager implements Logic {
     }
 
     public void writeIntoTransactionFile() throws Exception {
-        model.writeInTransactionFile();
+        //model.writeInTransactionFile();
+        storage.writeFile(model.getTransactionList());
     }
 
     public void setTransaction(Transaction transaction, Transaction newTransaction) throws Exception {

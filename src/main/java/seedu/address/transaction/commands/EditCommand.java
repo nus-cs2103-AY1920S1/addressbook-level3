@@ -16,7 +16,7 @@ public class EditCommand extends Command {
     private int index;
     private EditTransactionDescriptor editTransactionDescriptor;
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person is already recorded.";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction is already recorded.";
 
     public EditCommand(int index, EditTransactionDescriptor editTransactionDescriptor) {
         this.index = index;
@@ -32,7 +32,7 @@ public class EditCommand extends Command {
         Transaction editedTransaction = createdEditedTransaction(transactionToEdit, editTransactionDescriptor, personModel);
 
         if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {
             //personModel.addPerson(editedTransaction.getPerson());

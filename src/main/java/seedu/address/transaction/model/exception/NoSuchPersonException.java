@@ -8,7 +8,7 @@ public class NoSuchPersonException extends Exception {
         super(msg);
     }
 
-    public NoSuchPersonException() {}
+    //public NoSuchPersonException() {}
 
     public String toString() {
         return this.msg;
