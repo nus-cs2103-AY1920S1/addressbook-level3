@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import dream.fcard.commons.core.GuiSettings;
 import dream.fcard.model.Model;
 import dream.fcard.model.ReadOnlyAddressBook;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 import javafx.collections.ObservableList;
 
 /**

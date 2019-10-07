@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import dream.fcard.model.AddressBook;
 import dream.fcard.model.ReadOnlyAddressBook;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 import dream.fcard.commons.exceptions.IllegalValueException;
 
 /**

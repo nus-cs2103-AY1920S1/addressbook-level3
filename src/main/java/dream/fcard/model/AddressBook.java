@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import dream.fcard.model.person.Person;
-import dream.fcard.model.person.UniquePersonList;
+import dream.fcard.model.cards.Person;
+import dream.fcard.model.cards.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level

@@ -3,7 +3,7 @@ package dream.fcard.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import dream.fcard.commons.exceptions.IllegalValueException;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 
 /**
  * Jackson-friendly version of {@link Person}.

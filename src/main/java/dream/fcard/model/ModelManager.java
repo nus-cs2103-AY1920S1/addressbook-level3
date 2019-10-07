@@ -12,7 +12,7 @@ import dream.fcard.commons.core.LogsCenter;
 import dream.fcard.commons.util.CollectionUtil;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import dream.fcard.model.person.Person;
+import dream.fcard.model.cards.Person;
 
 /**
  * Represents the in-memory model of the address book data.
