@@ -1,5 +1,7 @@
 {
-  "persons": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster"
-  } ]
+  "persons": [
+    {
+      "name": "Person with invalid name field: Ha!ns Mu@ster"
+    }
+  ]
 }

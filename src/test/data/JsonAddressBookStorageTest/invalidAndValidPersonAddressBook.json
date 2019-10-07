@@ -1,7 +1,10 @@
 {
-  "persons": [ {
-    "name": "Valid Person"
-  }, {
-    "name": "Person With Invalid Phone Field"
-  } ]
+  "persons": [
+    {
+      "name": "Valid Person"
+    },
+    {
+      "name": "Person With Invalid Phone Field"
+    }
+  ]
 }
