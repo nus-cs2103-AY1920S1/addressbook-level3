@@ -5,11 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.group.Group;
@@ -19,9 +21,13 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.AcadCalendar;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleList;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -49,6 +55,8 @@ public class ModelManager implements Model {
     private NusModsData nusModsData;
 
     private ModuleList moduleList;
+    private AcadCalendar acadCalendar;
+    private Holidays holidays;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -83,6 +91,8 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
         this.nusModsData = nusModsData;
         this.moduleList = nusModsData.getModuleList();
+        this.acadCalendar = nusModsData.getAcadCalendar();
+        this.holidays = nusModsData.getHolidays();
 
         //TODO: please abstract this
         int personCounter = -1;
@@ -148,6 +158,17 @@ public class ModelManager implements Model {
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
+    }
+
+    @Override
+    public AppSettings getAppSettings() {
+        return userPrefs.getAppSettings();
+    }
+
+    @Override
+    public void setAppSettings(AppSettings appSettings) {
+        requireNonNull(appSettings);
+        userPrefs.setAppSettings(appSettings);
     }
 
     @Override
@@ -359,13 +380,25 @@ public class ModelManager implements Model {
 
     //=========== NusModsData ================================================================================
 
-    /**
-     * Returns the NusModsData
-     */
     public NusModsData getNusModsData() {
         return nusModsData;
     };
 
+    public String getAcadSemesterStartDateString(AcadYear acadYear, SemesterNo semesterNo) {
+        return acadCalendar.getAcadSemesterStartDateString(acadYear, semesterNo);
+    };
+
+    public void setAcademicCalendar(AcadCalendar acadCalendar) {
+        this.acadCalendar = acadCalendar;
+    }
+
+    public List<String> getHolidayDateStrings() {
+        return holidays.getHolidayDates();
+    }
+
+    public void setHolidays(Holidays holidays) {
+        this.holidays = holidays;
+    }
 
     //=========== Module Accessors =============================================================
 

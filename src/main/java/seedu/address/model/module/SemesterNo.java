@@ -10,6 +10,14 @@ public class SemesterNo {
         this.semesterNo = semesterNo;
     }
 
+    public String getSemesterNo() {
+        return semesterNo;
+    }
+
+    public void setSemesterNo(String semesterNo) {
+        this.semesterNo = semesterNo;
+    }
+
     @Override
     public String toString() {
         return semesterNo;

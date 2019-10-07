@@ -40,8 +40,8 @@ public class NusModsShareLink {
     );
 
     public static final String SEMESTER_REGEX = "(" + String.join("|", SEMESTER_NUMBER_MAPPING.keySet()) + ")";
-    public static final String VALIDATION_REGEX = "https://nusmods.com/timetable/"
-            + SEMESTER_REGEX + "/share?[#]]";
+    public static final String VALIDATION_REGEX = "^https://nusmods.com/timetable/"
+            + SEMESTER_REGEX + "/share?(.+)$";
 
     public final String value;
     public final SemesterNo semesterNo;
@@ -53,9 +53,14 @@ public class NusModsShareLink {
 
         try {
             // parse semester number from link
-            Pattern p = Pattern.compile(NusModsShareLink.SEMESTER_REGEX);
+            Pattern p = Pattern.compile(VALIDATION_REGEX);
             Matcher m = p.matcher(link);
-            String semString = m.group(0);
+            String semString = "";
+            if (m.matches()) {
+                 semString = m.group(1);
+            } else {
+                throw new ParseException(NusModsShareLink.MESSAGE_CONSTRAINTS);
+            }
 
             if (!SEMESTER_NUMBER_MAPPING.containsKey(semString)) {
                 throw new ParseException(NusModsShareLink.MESSAGE_CONSTRAINTS);

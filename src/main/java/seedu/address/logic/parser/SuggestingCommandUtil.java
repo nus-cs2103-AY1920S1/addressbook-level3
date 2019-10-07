@@ -14,8 +14,8 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.commands.ShowCommand;
+import seedu.address.logic.commands.ShowNusModCommand;
 
 /**
  * Contains utility methods used for suggesting user commands in the *SuggestingCommandBox classes.

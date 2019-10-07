@@ -38,12 +38,13 @@ public class ShowNusModCommand extends Command {
 
         Module module = model.findModule(moduleCode);
         if (module == null) {
-            NusModApi api = new NusModApi();
+            NusModApi api = new NusModApi(model.getAppSettings().getAcadYear());
             JSONObject obj = api.getModule(moduleCode);
             if (obj == null) {
                 return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
             } else {
                 module = new Module(obj);
+                model.addModule(module);
             }
         }
 

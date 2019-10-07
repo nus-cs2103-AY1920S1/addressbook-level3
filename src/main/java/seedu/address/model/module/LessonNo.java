@@ -16,7 +16,7 @@ public class LessonNo {
     }
 
     /**
-     * Checks if this LessonNo is equal to other SemesterNo.
+     * Checks if this LessonNo is equal to other LessonNo.
      * @param other to be compared
      * @return boolean
      */

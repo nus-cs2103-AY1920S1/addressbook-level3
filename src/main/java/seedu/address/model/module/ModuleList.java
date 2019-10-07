@@ -26,8 +26,8 @@ public class ModuleList {
      * @return module found
      */
     public Module findModule(ModuleCode code) {
-        int i;
-        for (i = 0; i < modules.size(); i++) {
+        //TODO: create overloaded findModule(acadYear, code)
+        for (int i = 0; i < modules.size(); i++) {
             if (modules.get(i).getModuleCode().equals(code)) {
                 return modules.get(i);
             }

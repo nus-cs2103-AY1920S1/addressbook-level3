@@ -2,9 +2,11 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
@@ -13,9 +15,13 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.AcadCalendar;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleList;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -43,6 +49,16 @@ public interface Model {
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+
+    /**
+     * Returns the user prefs' App settings.
+     */
+    AppSettings getAppSettings();
+
+    /**
+     * Sets the user prefs' App settings.
+     */
+    void setAppSettings(AppSettings appSettings);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -218,6 +234,14 @@ public interface Model {
      * Returns the NusModsData
      */
     NusModsData getNusModsData();
+
+    String getAcadSemesterStartDateString(AcadYear acadYear, SemesterNo semesterNo);
+
+    void setAcademicCalendar(AcadCalendar acadCalendar);
+
+    List<String> getHolidayDateStrings();
+
+    void setHolidays(Holidays holidays);
 
     //=========== Module Accessors =============================================================
 

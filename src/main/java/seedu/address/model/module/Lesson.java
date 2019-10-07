@@ -1,14 +1,6 @@
 package seedu.address.model.module;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.json.simple.JSONObject;
-
-import seedu.address.model.person.schedule.Timeslot;
 
 /**
  * A lesson in a semester timetable.
@@ -23,13 +15,47 @@ public class Lesson {
     private Venue venue;
 
     public Lesson(JSONObject obj) {
-        this.lessonNo = new LessonNo(obj.get("classNo").toString());
-        this.startTime = new StartTime(obj.get("startTime").toString());
-        this.endTime = new EndTime(obj.get("endTime").toString());
-        this.weeks = new Weeks(obj.get("weeks").toString());
-        this.lessonType = new LessonType(obj.get("lessonType").toString());
-        this.day = new Day(obj.get("day").toString());
-        this.venue = new Venue(obj.get("venue").toString());
+        if (obj.containsKey("classNo")) {
+            this.lessonNo = new LessonNo(obj.get("classNo").toString());
+        } else {
+            this.lessonNo = new LessonNo("");
+        }
+
+        if (obj.containsKey("startTime")) {
+            this.startTime = new StartTime(obj.get("startTime").toString());
+        } else {
+            this.startTime = new StartTime("");
+        }
+
+        if (obj.containsKey("endTime")) {
+            this.endTime = new EndTime(obj.get("endTime").toString());
+        } else {
+            this.endTime = new EndTime("");
+        }
+
+        if (obj.containsKey("weeks")) {
+            this.weeks = new Weeks(obj.get("weeks"));
+        } else {
+            this.weeks = new Weeks("");
+        }
+
+        if (obj.containsKey("lessonType")) {
+            this.lessonType = new LessonType(obj.get("lessonType").toString());
+        } else {
+            this.lessonType = new LessonType("");
+        }
+
+        if (obj.containsKey("day")) {
+            this.day = new Day(obj.get("day").toString());
+        } else {
+            this.day = new Day("");
+        }
+
+        if (obj.containsKey("venue")) {
+            this.venue = new Venue(obj.get("venue").toString());
+        } else {
+            this.venue = new Venue("");
+        }
     }
 
     public Lesson(LessonNo lessonNo, StartTime startTime, EndTime endTime, Weeks weeks,
@@ -82,28 +108,5 @@ public class Lesson {
 
     public Venue getVenue() {
         return venue;
-    }
-
-    /**
-     * Generate all timeslots for the lesson, taking into account of holidays.
-     * @return
-     */
-    public List<Timeslot> generateTimeslots() {
-        List<Timeslot> timeslots = new ArrayList<>();
-
-        seedu.address.model.person.schedule.Venue venue = new
-                seedu.address.model.person.schedule.Venue(this.venue.toString());
-
-        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
-        // need acad year and semester no
-
-        LocalDateTime startDateTime = LocalDateTime.parse(this.startTime.toString(), DATE_FORMATTER);
-        LocalDateTime endDateTime = LocalDateTime.parse(this.endTime.toString(), DATE_FORMATTER);
-
-        Timeslot ts = new Timeslot(startDateTime, endDateTime, venue);
-        timeslots.add(ts);
-
-        return timeslots;
     }
 }

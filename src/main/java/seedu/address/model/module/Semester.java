@@ -16,16 +16,30 @@ public class Semester {
     private final ExamDuration examDuration;
 
     public Semester(JSONObject obj) {
-        this.semesterNo = new SemesterNo(obj.get("semester").toString());
-
-        JSONArray arr = (JSONArray) obj.get("timetable");
-
-        for (int i = 0; i < arr.size(); i++) {
-            timetable.add(new Lesson((JSONObject) arr.get(i)));
+        if (obj.containsKey("semester")) {
+            this.semesterNo = new SemesterNo(obj.get("semester").toString());
+        } else {
+            this.semesterNo = new SemesterNo("");
         }
 
-        this.examDate = new ExamDate(obj.get("examDate").toString());
-        this.examDuration = new ExamDuration(obj.get("examDuration").toString());
+        if (obj.containsKey("timetable")) {
+            JSONArray arr = (JSONArray) obj.get("timetable");
+            for (int i = 0; i < arr.size(); i++) {
+                timetable.add(new Lesson((JSONObject) arr.get(i)));
+            }
+        }
+
+        if (obj.containsKey("examDate")) {
+            this.examDate = new ExamDate(obj.get("examDate").toString());
+        } else {
+            this.examDate = new ExamDate("");
+        }
+
+        if (obj.containsKey("examDuration")) {
+            this.examDuration = new ExamDuration(obj.get("examDuration").toString());
+        } else {
+            this.examDuration = new ExamDuration("");
+        }
     }
 
     public Semester(SemesterNo semesterNo, List<Lesson> timetable,

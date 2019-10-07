@@ -13,16 +13,22 @@ import seedu.address.model.NusModsData;
 import seedu.address.model.module.Module;
 
 /**
- * A ModuleList serialized to JSON format.
+ * NusModsData serialized to JSON format.
  */
 @JsonRootName(value = "nusmodsdata")
 class JsonSerializableNusModsData {
 
     private final List<JsonAdaptedModule> moduleList = new ArrayList<>();
+    private final JsonAdaptedAcadCalendar acadCalendar;
+    private final JsonAdaptedHolidays holidays;
 
     @JsonCreator
-    public JsonSerializableNusModsData(@JsonProperty("moduleList") List<JsonAdaptedModule> moduleList) {
+    public JsonSerializableNusModsData(@JsonProperty("moduleList") List<JsonAdaptedModule> moduleList,
+                                       @JsonProperty("acadCalendar") JsonAdaptedAcadCalendar acadCalendar,
+                                       @JsonProperty("holidays") JsonAdaptedHolidays holidays) {
         this.moduleList.addAll(moduleList);
+        this.acadCalendar = acadCalendar;
+        this.holidays = holidays;
     }
 
     /**
@@ -33,10 +39,12 @@ class JsonSerializableNusModsData {
     public JsonSerializableNusModsData(NusModsData source) {
         moduleList.addAll(source.getUnmodifiableModuleList().stream()
                 .map(JsonAdaptedModule::new).collect(Collectors.toList()));
+        acadCalendar = new JsonAdaptedAcadCalendar(source.getAcadCalendar());
+        holidays = new JsonAdaptedHolidays(source.getHolidays());
     }
 
     /**
-     * Converts this ModuleList into the model's {@code ModuleList} object.
+     * Converts the JsonSerializableNusModsData into the model's {@code NusModsData} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -47,6 +55,10 @@ class JsonSerializableNusModsData {
             Module module = jsonAdaptedModule.toModelType();
             nusModsData.addModule(module);
         }
+
+        nusModsData.setAcadCalendar(acadCalendar.toModelType());
+
+        nusModsData.setHolidays(holidays.toModelType());
 
         return nusModsData;
     }

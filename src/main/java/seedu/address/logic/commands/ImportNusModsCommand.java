@@ -7,6 +7,8 @@ import org.json.simple.JSONObject;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.module.AcadCalendar;
+import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.websocket.NusModApi;
@@ -27,8 +29,18 @@ public class ImportNusModsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        NusModApi api = new NusModApi(model.getAppSettings().getAcadYear());
 
-        NusModApi api = new NusModApi();
+        // import academic calendar and holidays
+        JSONObject academicCalendarObj = api.getAcademicCalendar();
+        AcadCalendar acadCalendar = AcadCalendar.parseFromJson(academicCalendarObj);
+        model.setAcademicCalendar(acadCalendar);;
+
+        JSONArray holidaysArr = api.getHolidays();
+        Holidays holidays = Holidays.parseFromJson(holidaysArr);
+        model.setHolidays(holidays);
+
+        // import list of detailed module timetable data
         JSONArray moduleListJsonArr = api.getModuleList();
 
         int numMods = moduleListJsonArr.size();
@@ -57,9 +69,9 @@ public class ImportNusModsCommand extends Command {
 
         return new CommandResult(MESSAGE_COMPLETE
                 + "Total number of modules: " + numMods + "\n"
-                + "Number of modules in local storage: " + numModsInLocalStorage + "\n"
-                + "Number of modules imported from NUSMods API: " + numModsImportedFromApi + "\n"
-                + "Number of modules failed to retrieve info of: " + numModsFailed);
+                + "Modules in local storage: " + numModsInLocalStorage + "\n"
+                + "Modules imported from NUSMods API: " + numModsImportedFromApi + "\n"
+                + "Modules failed to retrieve info of: " + numModsFailed);
     }
 
     @Override

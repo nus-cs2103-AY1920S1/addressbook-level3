@@ -6,9 +6,6 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import seedu.address.model.person.schedule.Event;
-import seedu.address.model.person.schedule.Timeslot;
-
 /**
  * The module details
  */
@@ -21,14 +18,35 @@ public class Module {
 
 
     public Module(JSONObject obj) {
-        this.moduleCode = new ModuleCode(obj.get("moduleCode").toString());
-        this.title = new Title(obj.get("title").toString());
-        this.description = new Description(obj.get("description").toString());
-        this.acadYear = new AcadYear(obj.get("acadYear").toString());
+        if (obj.containsKey("moduleCode")) {
+            this.moduleCode = new ModuleCode(obj.get("moduleCode").toString());
+        } else {
+            this.moduleCode = new ModuleCode("");
+        }
 
-        JSONArray jsonSemesterData = (JSONArray) obj.get("semesterData");
-        for (int i = 0; i < jsonSemesterData.size(); i++) {
-            semesterData.add(new Semester((JSONObject) jsonSemesterData.get(i)));
+        if (obj.containsKey("title")) {
+            this.title = new Title(obj.get("title").toString());
+        } else {
+            this.title = new Title("");
+        }
+
+        if (obj.containsKey("description")) {
+            this.description = new Description(obj.get("description").toString());
+        } else {
+            this.description = new Description("");
+        }
+
+        if (obj.containsKey("acadYear")) {
+            this.acadYear = new AcadYear(obj.get("acadYear").toString());
+        } else {
+            this.acadYear = new AcadYear("");
+        }
+
+        if (obj.containsKey("semesterData")) {
+            JSONArray jsonSemesterData = (JSONArray) obj.get("semesterData");
+            for (int i = 0; i < jsonSemesterData.size(); i++) {
+                semesterData.add(new Semester((JSONObject) jsonSemesterData.get(i)));
+            }
         }
     }
 
@@ -75,23 +93,5 @@ public class Module {
     public String toString() {
         String result = moduleCode + " " + title;
         return result;
-    }
-
-    /**
-     * Converts a {@code Module} to an {@code Event}.
-     * @return an Event translated from a Semester of a Module.
-     */
-    public Event toEvent(SemesterNo semesterNo, List<LessonNo> lessonNos) {
-        ArrayList<Lesson> lessons = new ArrayList<>();
-        for (LessonNo lessonNo : lessonNos) {
-            lessons.addAll(this.getSemester(semesterNo).findLessons(lessonNo));
-        }
-
-        ArrayList<Timeslot> timeslots = new ArrayList<>();
-        for (Lesson lesson : lessons) {
-            timeslots.addAll(lesson.generateTimeslots());
-        }
-
-        return new Event(moduleCode.toString(), timeslots);
     }
 }

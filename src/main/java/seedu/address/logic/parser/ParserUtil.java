@@ -2,22 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -26,7 +16,6 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.NusModsShareLink;
-import seedu.address.model.module.Semester;
 import seedu.address.model.module.SemesterNo;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -36,7 +25,6 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.person.schedule.Timeslot;
 import seedu.address.model.person.schedule.Venue;
 import seedu.address.model.tag.Tag;
-import seedu.address.websocket.util.UrlUtil;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

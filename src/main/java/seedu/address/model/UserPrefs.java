@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 
 /**
@@ -13,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
 
+    private AppSettings appSettings = new AppSettings();
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data", "addressbook.json");
     private Path timeBookFilePath = Paths.get("data", "timebook.json");
@@ -37,9 +39,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      */
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
+        setAppSettings(newUserPrefs.getAppSettings());
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setTimeBookFilePath(newUserPrefs.getTimeBookFilePath());
+    }
+
+    public AppSettings getAppSettings() {
+        return appSettings;
+    }
+
+    public void setAppSettings(AppSettings appSettings) {
+        requireNonNull(appSettings);
+        this.appSettings = appSettings;
     }
 
     public GuiSettings getGuiSettings() {
@@ -89,7 +101,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return guiSettings.equals(o.guiSettings)
+        return appSettings.equals(o.appSettings)
+                && guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
                 && timeBookFilePath.equals(o.timeBookFilePath)
                 && nusModsDataFilePath.equals(o.nusModsDataFilePath);
@@ -97,12 +110,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, timeBookFilePath, nusModsDataFilePath);
+        return Objects.hash(appSettings, guiSettings, addressBookFilePath, timeBookFilePath, nusModsDataFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("App Settings : " + appSettings);
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : \n");
         sb.append("\t" + addressBookFilePath + "\n");
