@@ -42,6 +42,21 @@ public class DateTime {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DateTime)) {
+            return false;
+        }
+
+        DateTime otherTiming = (DateTime) other;
+        return getTime().equals(otherTiming.getTime());
+    }
+
+
+    @Override
     public String toString() {
         return DATE_FORMATTER.format(time);
     }
