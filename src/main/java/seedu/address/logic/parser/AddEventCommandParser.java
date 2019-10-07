@@ -9,8 +9,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventName;
-
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -20,6 +18,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddEventCommand parse(String args) throws ParseException {
@@ -31,8 +30,8 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        EventName name = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_NAME).get());
-        Event event = new Event(name);
+        //EventName name = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_NAME).get());
+        Event event = new Event();
 
         return new AddEventCommand(event);
     }

@@ -46,7 +46,7 @@ class JsonAdaptedEvent {
     public Event toModelType() throws IllegalValueException {
         final EventName modelName = new EventName(name);
         //final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Event(modelName);
+        return new Event();
     }
 
 }

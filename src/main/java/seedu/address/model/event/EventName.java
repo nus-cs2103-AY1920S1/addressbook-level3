@@ -7,6 +7,7 @@ import seedu.address.model.person.Name;
 
 /**
  * Represents the Event's name.
+ * Guarantees: Immutable.
  */
 public class EventName {
     public static final String MESSAGE_CONSTRAINTS =
