@@ -18,6 +18,11 @@ public class GotoCommand extends Command {
 
     private View gotoView;
 
+    /**
+     * Constructor that constructs the command based on the view that is placed in the params
+     * @param view 3 different types of view possible
+     * @throws ParseException if the view is not properly typed by user
+     */
     public GotoCommand(View view) throws ParseException {
         try {
             if (view == null) {
