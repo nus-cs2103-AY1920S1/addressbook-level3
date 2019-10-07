@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.logic.exception.ParseException;
-import seedu.address.transaction.ui.TransactionUi;
+import seedu.address.transaction.ui.TransactionMessages;
 
 import static seedu.address.transaction.logic.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.transaction.logic.CliSyntax.PREFIX_CATEGORY;
@@ -25,7 +25,7 @@ public class EditCommandParser {
         try {
             index = Integer.parseInt(argMultimap.getPreamble());
         } catch (Exception pe) {
-            throw new ParseException(TransactionUi.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(TransactionMessages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         EditCommand.EditTransactionDescriptor editPersonDescriptor = new EditCommand.EditTransactionDescriptor();
@@ -46,7 +46,7 @@ public class EditCommandParser {
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(TransactionUi.MESSAGE_NOT_EDITED);
+            throw new ParseException(TransactionMessages.MESSAGE_NOT_EDITED);
         }
         return new EditCommand(index, editPersonDescriptor);
     }

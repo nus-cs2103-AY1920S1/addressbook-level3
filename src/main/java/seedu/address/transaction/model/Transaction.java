@@ -13,6 +13,7 @@ public class Transaction {
     private Person person;
     private String name;
     private String id;
+    private boolean isReimbursed;
     private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
 
     public Transaction(String date, String description, String category,
@@ -24,6 +25,7 @@ public class Transaction {
         this.person = person;
         this.name = person.getName().toString();
         this.id = "" + i;
+        this.isReimbursed = false;
     }
 
     public Person getPerson() {
@@ -48,6 +50,10 @@ public class Transaction {
 
     public String getId() {
         return this.id;
+    }
+
+    public boolean getStatus() {
+        return this.isReimbursed;
     }
 
     public void setId(int i) {
@@ -83,5 +89,6 @@ public class Transaction {
                 this.getDate().equals(editedTransaction.getDate());
 
     }
+
 
 }

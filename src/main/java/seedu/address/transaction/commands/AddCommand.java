@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.ui.TransactionUi;
+import seedu.address.transaction.ui.TransactionMessages;
 
 public class AddCommand extends Command {
     private Transaction transaction;
@@ -17,9 +17,9 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
-        TransactionUi transactionUi = new TransactionUi();
+        TransactionMessages transactionMessages = new TransactionMessages();
         model.addTransaction(transaction);
         logger.info(transaction.toString());
-        return new CommandResult(transactionUi.addedTransaction(transaction));
+        return new CommandResult(transactionMessages.addedTransaction(transaction));
     }
 }

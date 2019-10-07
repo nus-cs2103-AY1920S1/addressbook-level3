@@ -8,7 +8,7 @@ import seedu.address.transaction.commands.Command;
 import seedu.address.transaction.commands.DeleteCommand;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.logic.exception.ParseException;
-import seedu.address.transaction.ui.TransactionUi;
+import seedu.address.transaction.ui.TransactionMessages;
 
 public class TransactionTabParser {
 
@@ -19,7 +19,7 @@ public class TransactionTabParser {
                                 Model personModel) throws Exception {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(TransactionUi.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -40,7 +40,7 @@ public class TransactionTabParser {
             return new PersonCommandParser().parse(arguments);*/
 
         default:
-            throw new ParseException(TransactionUi.NO_SUCH_COMMAND);
+            throw new ParseException(TransactionMessages.NO_SUCH_COMMAND);
 
         }
     }

@@ -5,9 +5,10 @@ import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
-public class TransactionUi {
+public class TransactionMessages {
+    private static final Logger logger = LogsCenter.getLogger(TransactionMessages.class);
+
     public static final String  NO_SUCH_PERSON = "Sorry! There is no such member in our database. Do add the member in.";
-    private static final Logger logger = LogsCenter.getLogger(TransactionUi.class);
 
     public static final String NO_SUCH_COMMAND =  "Sorry! There is no such command.";
 

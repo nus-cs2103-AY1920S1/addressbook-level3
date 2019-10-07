@@ -7,7 +7,7 @@ import seedu.address.transaction.commands.AddCommand;
 import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
-import seedu.address.transaction.ui.TransactionUi;
+import seedu.address.transaction.ui.TransactionMessages;
 
 import static seedu.address.transaction.logic.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.transaction.logic.CliSyntax.PREFIX_CATEGORY;
@@ -24,7 +24,7 @@ public class AddCommandParser {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(TransactionUi.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
         }
 
         String datetime = argMultimap.getValue(PREFIX_DATETIME).get();
@@ -38,7 +38,7 @@ public class AddCommandParser {
             AddCommand addCommand = new AddCommand(transaction);
             return addCommand;
         } catch (Exception e) {
-            throw new NoSuchPersonException(TransactionUi.NO_SUCH_PERSON);
+            throw new NoSuchPersonException(TransactionMessages.NO_SUCH_PERSON);
         }
     }
 

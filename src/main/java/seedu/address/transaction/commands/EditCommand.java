@@ -9,7 +9,7 @@ import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
-import seedu.address.transaction.ui.TransactionUi;
+import seedu.address.transaction.ui.TransactionMessages;
 
 public class EditCommand extends Command {
     private static int id;
@@ -26,7 +26,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
-        TransactionUi transactionUi = new TransactionUi();
+        TransactionMessages transactionMessages = new TransactionMessages();
         Transaction transactionToEdit = model.findTransactionByIndex(index);
 
         Transaction editedTransaction = createdEditedTransaction(transactionToEdit, editTransactionDescriptor, personModel);
@@ -36,10 +36,10 @@ public class EditCommand extends Command {
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {
             //personModel.addPerson(editedTransaction.getPerson());
-            throw new NoSuchPersonException(TransactionUi.NO_SUCH_PERSON);
+            throw new NoSuchPersonException(TransactionMessages.NO_SUCH_PERSON);
         }
         model.setTransaction(transactionToEdit, editedTransaction);
-        return new CommandResult(TransactionUi.editedTransaction(editedTransaction));
+        return new CommandResult(TransactionMessages.editedTransaction(editedTransaction));
     }
 
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
