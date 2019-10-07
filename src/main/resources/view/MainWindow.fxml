@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="AlgoBase App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -45,12 +46,11 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="problemList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <StackPane VBox.vgrow="NEVER" fx:id="displayTabPanePlaceholder" styleClass="pane-with-border">
           <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
-          <StackPane fx:id="problemListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
