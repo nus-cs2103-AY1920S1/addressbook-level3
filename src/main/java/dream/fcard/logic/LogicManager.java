@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import dream.fcard.commons.core.GuiSettings;
 import dream.fcard.commons.core.LogsCenter;
-import dream.fcard.logic.parser.AddressBookParser;
 import dream.fcard.model.Model;
 import dream.fcard.model.ReadOnlyAddressBook;
 import dream.fcard.model.cards.Person;
@@ -21,12 +20,10 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
     }
 
 
