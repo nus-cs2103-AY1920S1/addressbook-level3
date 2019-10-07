@@ -14,8 +14,13 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.PanelType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.panels.CustomerListPanel;
+import seedu.address.ui.panels.OrderListPanel;
+import seedu.address.ui.panels.PhoneListPanel;
+import seedu.address.ui.panels.ScheduleListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,10 +36,18 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+
     //private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
+
+    //real panels
+    private CustomerListPanel customerListPanel;
+    private PhoneListPanel phoneListPanel;
+    private OrderListPanel orderListPanel;
+    private ScheduleListPanel scheduleListPanel;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -43,8 +56,8 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     /*@FXML
-    private StackPane personListPanelPlaceholder;
-*/
+    private StackPane personListPanelPlaceholder;*/
+
     @FXML
     private StackPane resultDisplayPlaceholder;
 
@@ -112,11 +125,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        tabPanel = new TabPanel(this.logic);
-        tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
+        customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+        phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
+        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
 
-        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, scheduleListPanel);
+        tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -126,6 +141,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        this.showPhonePanel();
     }
 
     /**
@@ -191,6 +208,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            //retrieve the type that the command works on here;
+            PanelType panelToSwitchTo = commandResult.getPanelType();
+            switchPanel(panelToSwitchTo);
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -198,4 +218,51 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * checks which panel the command acts on and switches it
+     * @param input type of panel the result works on
+     */
+    private void switchPanel(PanelType input) {
+        if (input.equals(PanelType.CUSTOMER)) {
+            this.showCustomerPanel();
+        } else if (input.equals(PanelType.PHONE)) {
+            this.showPhonePanel();
+        } else if (input.equals(PanelType.ORDER)) {
+            this.showOrderPanel();
+        } else if (input.equals(PanelType.SCHEDULE)) {
+            this.showSchedulePanel();
+        } else if (input.equals(PanelType.DEFAULT)) {
+            //do nothing
+        }
+    }
+
+    /**
+     * switch selected tab to customer tab
+     */
+    private void showCustomerPanel() {
+        tabPanel.switchTabCustomer();
+    }
+
+    /**
+     * switch selected tab to phone tab
+     */
+    private void showPhonePanel() {
+        tabPanel.switchTabPhone();
+    }
+
+    /**
+     * switch selected tab to order tab
+     */
+    private void showOrderPanel() {
+        tabPanel.switchTabOrder();
+    }
+
+    /**
+     * switch selected tab to schedule tab
+     */
+    private void showSchedulePanel() {
+        tabPanel.switchTabSchedule();
+    }
+
 }

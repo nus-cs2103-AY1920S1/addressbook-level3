@@ -27,7 +27,8 @@ public class CustomerBook implements ReadOnlyDataBook<Customer> {
         customers = new UniqueCustomerList();
     }
 
-    public CustomerBook() {}
+    public CustomerBook() {
+    }
 
     /**
      * Creates an CustomerBook using the Customers in the {@code toBeCopied}

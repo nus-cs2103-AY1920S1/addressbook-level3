@@ -16,7 +16,7 @@ import seedu.address.ui.cards.PhoneCard;
  * Panel containing the list of phones.
  */
 public class PhoneListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "PhoneListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CustomerListPanel.class);
 
     @FXML
