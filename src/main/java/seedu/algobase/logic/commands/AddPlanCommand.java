@@ -8,6 +8,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_NAME;
 
+/**
+ * Adds a Plan to AlgoBase.
+ */
 public class AddPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "addplan";

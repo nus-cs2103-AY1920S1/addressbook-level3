@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.algobase.model.task.Task;
 
+
 /**
  * Represents a Plan in the algobase.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -24,6 +25,7 @@ public class Plan {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final Set<Task> tasks;
+
 
     /**
      * Every field must be present and not null.
@@ -57,7 +59,7 @@ public class Plan {
     }
 
     /**
-     * Returns an immutable problem set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable task set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Task> getTasks() {

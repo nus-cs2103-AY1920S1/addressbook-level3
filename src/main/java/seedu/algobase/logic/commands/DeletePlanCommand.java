@@ -10,7 +10,9 @@ import seedu.algobase.model.plan.Plan;
 
 import java.util.List;
 
-
+/**
+ * Deletes a Plan from AlgoBase.
+ */
 public class DeletePlanCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteplan";
