@@ -9,10 +9,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.customer.Email;
+import seedu.address.model.customer.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -63,6 +64,21 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String contactNumber} into a {@code contactNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code contactNumber} is invalid.
+     */
+    public static ContactNumber parseContactNumber(String contactNumber) throws ParseException {
+        requireNonNull(contactNumber);
+        String trimmedContactNumber = contactNumber.trim();
+        if (!ContactNumber.isValidContactNumber(trimmedContactNumber)) {
+            throw new ParseException(ContactNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new ContactNumber(trimmedContactNumber);
     }
 
     /**
