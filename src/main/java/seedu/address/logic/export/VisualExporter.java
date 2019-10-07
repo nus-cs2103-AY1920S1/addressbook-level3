@@ -1,21 +1,15 @@
 package seedu.address.logic.export;
 
+import static javafx.embed.swing.SwingFXUtils.fromFXImage;
+
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import javafx.embed.swing.SwingFXUtils;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.VBox;
-
-import static javafx.embed.swing.SwingFXUtils.fromFXImage;
 
 /**
  * Interface class to export visual representations of schedules.

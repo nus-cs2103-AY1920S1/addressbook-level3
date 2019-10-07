@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import seedu.address.logic.export.VisualExporter;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
@@ -28,11 +27,25 @@ public class UiViewManager {
         ui.changeView(message);
     }
 
+    /**
+     * Method to export visual representation of a person.
+     * @param p The person to be exported.
+     */
     public void exportVisual(Person p) {
+        if (ui == null) {
+            return;
+        }
         ui.exportVisual(p);
     }
 
+    /**
+     * Method to export group visual representation.
+     * @param g The group to be exported.
+     */
     public void exportVisual(Group g) {
+        if (ui == null) {
+            return;
+        }
         ui.exportVisual(g);
     }
 }

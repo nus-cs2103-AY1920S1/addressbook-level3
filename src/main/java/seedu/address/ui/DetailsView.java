@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ScheduleStub;
@@ -21,6 +22,15 @@ public class DetailsView extends UiPart<Region> {
     @FXML
     private VBox detailsView;
 
+    @FXML
+    private StackPane card;
+
+    @FXML
+    private StackPane schedule;
+
+    @FXML
+    private ScrollPane container;
+
     public DetailsView(Person person) {
         super(FXML);
         this.detailsView = new VBox();
@@ -29,13 +39,9 @@ public class DetailsView extends UiPart<Region> {
         ArrayList<Schedule> schedules = new ArrayList<>(List.of(stub.getSchedule(),
                 stub.getSchedule(), stub.getSchedule()));
         ScheduleView scheduleView = new ScheduleView(schedules);
-        detailsView.getChildren().addAll(personCard.getRoot(), scheduleView.getScheduleView());
-    }
+        schedule.getChildren().add(scheduleView.getScheduleView());
+        this.card.getChildren().add(personCard.getRoot());
 
-    public ScrollPane getDetailsView() {
-        ScrollPane sp = new ScrollPane();
-        sp.setContent(this.detailsView);
-        return sp;
     }
 
     public VBox exportNode() {

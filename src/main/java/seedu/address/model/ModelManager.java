@@ -67,6 +67,8 @@ public class ModelManager implements Model {
 
     public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
+        //Edit addressbook with the details here?
+        this.addressBook.setPersons(personList.getPersonList());
     }
 
     public ModelManager() {
@@ -233,7 +235,9 @@ public class ModelManager implements Model {
     @Override
     public Group addGroup(GroupDescriptor groupDescriptor) {
         Group isAdded = this.groupList.addGroup(groupDescriptor);
-        this.addressBook.addGroup(isAdded);
+        if (isAdded != null) {
+            this.addressBook.addGroup(isAdded);
+        }
         return isAdded;
     }
 

@@ -37,6 +37,6 @@ public class TabPanel extends UiPart<Region> {
     }
 
     public TabPane getTabs() {
-         return this.tabPanel;
+        return this.tabPanel;
     }
 }

@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -18,9 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.export.VisualExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -148,7 +145,6 @@ public class MainWindow extends UiPart<Stage> {
     public void handleChangeOnDetailsView(Node details) {
         detailsViewPlaceholder.getChildren().clear();
         detailsViewPlaceholder.getChildren().add(details);
-
     }
 
     /**

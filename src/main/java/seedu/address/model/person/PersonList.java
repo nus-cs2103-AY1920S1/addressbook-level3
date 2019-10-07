@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * List of Persons.
@@ -124,5 +125,13 @@ public class PersonList {
             output += "\n";
         }
         return output;
+    }
+
+    /**
+     * Method to return person list.
+     * @return List of persons.
+     */
+    public List<Person> getPersonList() {
+        return persons;
     }
 }

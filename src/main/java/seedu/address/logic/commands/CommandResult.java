@@ -1,13 +1,12 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Objects;
+
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiViewManager;
-
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Represents the result of a command execution.

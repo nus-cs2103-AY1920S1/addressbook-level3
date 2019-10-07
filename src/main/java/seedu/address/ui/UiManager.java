@@ -59,7 +59,7 @@ public class UiManager implements Ui {
     @Override
     public void changeView(Person person) {
         DetailsView detailsView = new DetailsView(person);
-        mainWindow.handleChangeOnDetailsView(detailsView.getDetailsView());
+        mainWindow.handleChangeOnDetailsView(detailsView.getRoot());
     }
 
     @Override
