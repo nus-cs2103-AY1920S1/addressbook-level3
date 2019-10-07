@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.utility;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -117,5 +118,28 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
 
     public void setEmploymentStatus(String employmentStatus) {
         this.employmentStatus = employmentStatus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UpdateWorkerDescriptor)) {
+            return false;
+        }
+        UpdateWorkerDescriptor that = (UpdateWorkerDescriptor) o;
+        return Objects.equals(getPhone(), that.getPhone())
+                && getSex().equals(that.getSex())
+                && getDateOfBirth().equals(that.getDateOfBirth())
+                && getDateJoined().equals(that.getDateJoined())
+                && getDesignation().equals(that.getDesignation())
+                && getEmploymentStatus().equals(that.getEmploymentStatus());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPhone(), getSex(), getDateOfBirth(), getDateJoined(), getDesignation(),
+                getEmploymentStatus());
     }
 }
