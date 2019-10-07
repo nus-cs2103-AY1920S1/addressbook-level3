@@ -7,8 +7,8 @@ import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
-import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.Phone;
+import seedu.address.model.phone.PhoneName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
