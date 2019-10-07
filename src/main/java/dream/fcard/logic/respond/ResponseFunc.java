@@ -1,6 +1,6 @@
 package dream.fcard.logic.respond;
 
-import dream.fcard.model.cards.State;
+import dream.fcard.model.State;
 
 /**
  * Interface for lambdas or commands classes for Responses enum.

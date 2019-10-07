@@ -1,9 +1,14 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.util.json.jsontypes.JSONValue;
 import java.util.ArrayList;
+
+import dream.fcard.util.json.jsontypes.JsonValue;
+
 import javafx.scene.Node;
 
+/**
+ * FrontBackCard with additional data of multiple choices.
+ */
 public class MultipleChoiceCard extends FrontBackCard {
 
     private ArrayList<String> choices;
@@ -14,8 +19,8 @@ public class MultipleChoiceCard extends FrontBackCard {
     }
 
     @Override
-    public JSONValue toJSON() {
-        return super.toJSON();
+    public JsonValue toJson() {
+        return super.toJson();
     }
 
     @Override

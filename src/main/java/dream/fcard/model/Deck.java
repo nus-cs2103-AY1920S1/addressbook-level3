@@ -1,12 +1,17 @@
 package dream.fcard.model;
 
-import dream.fcard.model.cards.FlashCard;
-import dream.fcard.util.json.JSONInterface;
-import dream.fcard.util.json.jsontypes.JSONValue;
 import java.util.ArrayList;
+
+import dream.fcard.model.cards.FlashCard;
+import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.jsontypes.JsonValue;
+
 import javafx.scene.Node;
 
-public class Deck implements JSONInterface {
+/**
+ * Collection of cards.
+ */
+public class Deck implements JsonInterface {
 
     private ArrayList<FlashCard> cards;
 
@@ -19,7 +24,7 @@ public class Deck implements JSONInterface {
     }
 
     @Override
-    public JSONValue toJSON() {
+    public JsonValue toJson() {
         return null;
     }
 

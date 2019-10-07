@@ -1,8 +1,10 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.util.json.jsontypes.JSONValue;
 import javafx.scene.Node;
 
+/**
+ * Interface all flash card types must implement.
+ */
 public interface FlashCard {
 
     /**

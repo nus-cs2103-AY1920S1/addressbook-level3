@@ -1,10 +1,13 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.util.json.JSONInterface;
-import dream.fcard.util.json.jsontypes.JSONValue;
+import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.jsontypes.JsonValue;
 import javafx.scene.Node;
 
-public class FrontBackCard implements FlashCard, JSONInterface {
+/**
+ * Card that evaluates input to match back of card.
+ */
+public class FrontBackCard implements FlashCard, JsonInterface {
 
     protected String back;
     protected String front;
@@ -15,7 +18,7 @@ public class FrontBackCard implements FlashCard, JSONInterface {
     }
 
     @Override
-    public JSONValue toJSON() {
+    public JsonValue toJson() {
         return null;
     }
 
