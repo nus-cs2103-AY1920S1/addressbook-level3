@@ -169,7 +169,7 @@ public class BrowserPanel extends UiPart<Region> {
         //TODO: parse and check if the url is a valid url
         //check if have protocol in front
         //if true then test out by creating a url and catching malinformedurlexception?
-        return url.isBlank(); //dummy code
+        return !url.isBlank(); //dummy code
     }
 
     /**
