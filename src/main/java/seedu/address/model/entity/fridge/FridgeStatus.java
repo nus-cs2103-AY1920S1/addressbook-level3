@@ -4,7 +4,7 @@ package seedu.address.model.entity.fridge;
 /**
  * Enumerates all the possible states a fridge undergoes in the mortuary.
  */
-public enum Status {
+public enum FridgeStatus {
     UNOCCUPIED, OCCUPIED
 
 }

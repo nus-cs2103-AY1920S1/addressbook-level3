@@ -17,11 +17,11 @@ public class Fridge {
 
     // Data field
     private Body body;
-    private Status status;
+    private FridgeStatus fridgeStatus;
 
     public Fridge() {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
-        this.status = Status.UNOCCUPIED;
+        this.fridgeStatus = FridgeStatus.UNOCCUPIED;
         this.body = null;
     }
 
@@ -31,7 +31,7 @@ public class Fridge {
         } else {
             this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
         }
-        this.status = Status.UNOCCUPIED;
+        this.fridgeStatus = FridgeStatus.UNOCCUPIED;
         this.body = null;
     }
 
@@ -39,9 +39,9 @@ public class Fridge {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
         this.body = body;
         if (body == null) {
-            this.status = Status.UNOCCUPIED;
+            this.fridgeStatus = FridgeStatus.UNOCCUPIED;
         } else {
-            this.status = Status.OCCUPIED;
+            this.fridgeStatus = FridgeStatus.OCCUPIED;
         }
     }
 
@@ -53,9 +53,9 @@ public class Fridge {
         }
         this.body = body;
         if (body == null) {
-            this.status = Status.UNOCCUPIED;
+            this.fridgeStatus = FridgeStatus.UNOCCUPIED;
         } else {
-            this.status = Status.OCCUPIED;
+            this.fridgeStatus = FridgeStatus.OCCUPIED;
         }
     }
 
@@ -63,24 +63,24 @@ public class Fridge {
         return fridgeIdNum;
     }
 
-    public Status getStatus() {
-        return status;
+    public FridgeStatus getFridgeStatus() {
+        return fridgeStatus;
     }
 
     public Body getBody() {
         return body;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setFridgeStatus(FridgeStatus fridgeStatus) {
+        this.fridgeStatus = fridgeStatus;
     }
 
     public void setBody(Body body) {
         this.body = body;
         if (body == null) {
-            setStatus(Status.UNOCCUPIED);
+            setFridgeStatus(FridgeStatus.UNOCCUPIED);
         } else {
-            setStatus(Status.OCCUPIED);
+            setFridgeStatus(FridgeStatus.OCCUPIED);
         }
     }
 
@@ -113,7 +113,7 @@ public class Fridge {
 
         Fridge otherFridge = (Fridge) other;
         return otherFridge.getFridgeIdNum().toString().equals(getFridgeIdNum().toString())
-                && otherFridge.getStatus() == getStatus()
+                && otherFridge.getFridgeStatus() == getFridgeStatus()
                 && otherFridge.getBody() == getBody();
     }
 
@@ -130,14 +130,14 @@ public class Fridge {
             builder.append(" Fridge ID: ")
                     .append(getFridgeIdNum())
                     .append(" Status: ")
-                    .append(getStatus())
+                    .append(getFridgeStatus())
                     .append(" Body: ")
                     .append(getBody());
         } else {
             builder.append(" Fridge ID: ")
                     .append(getFridgeIdNum())
                     .append(" Status: ")
-                    .append(getStatus());
+                    .append(getFridgeStatus());
         }
         return builder.toString();
     }

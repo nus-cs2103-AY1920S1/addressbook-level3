@@ -65,9 +65,9 @@ public class FridgeTest {
     }
 
     @Test
-    void getStatus() {
-        assertEquals(EMPTY_FRIDGE.getStatus(), Status.UNOCCUPIED);
-        assertEquals(ALICE_FRIDGE.getStatus(), Status.OCCUPIED);
+    void getFridgeStatus() {
+        assertEquals(EMPTY_FRIDGE.getFridgeStatus(), FridgeStatus.UNOCCUPIED);
+        assertEquals(ALICE_FRIDGE.getFridgeStatus(), FridgeStatus.OCCUPIED);
     }
 
     @Test
@@ -89,13 +89,13 @@ public class FridgeTest {
 
     @Test
     void getSetStatus() {
-        ALICE_FRIDGE.setStatus(Status.UNOCCUPIED);
-        assertTrue(ALICE_FRIDGE.getStatus() == Status.UNOCCUPIED);
-        ALICE_FRIDGE.setStatus(Status.OCCUPIED);
+        ALICE_FRIDGE.setFridgeStatus(FridgeStatus.UNOCCUPIED);
+        assertTrue(ALICE_FRIDGE.getFridgeStatus() == FridgeStatus.UNOCCUPIED);
+        ALICE_FRIDGE.setFridgeStatus(FridgeStatus.OCCUPIED);
 
-        EMPTY_FRIDGE.setStatus(Status.OCCUPIED);
-        assertTrue(EMPTY_FRIDGE.getStatus() == Status.OCCUPIED);
-        EMPTY_FRIDGE.setStatus(Status.UNOCCUPIED);
+        EMPTY_FRIDGE.setFridgeStatus(FridgeStatus.OCCUPIED);
+        assertTrue(EMPTY_FRIDGE.getFridgeStatus() == FridgeStatus.OCCUPIED);
+        EMPTY_FRIDGE.setFridgeStatus(FridgeStatus.UNOCCUPIED);
 
     }
 

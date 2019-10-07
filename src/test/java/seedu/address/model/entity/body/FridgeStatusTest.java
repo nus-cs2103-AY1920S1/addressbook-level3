@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 //@@author ambervoong
-class StatusTest {
+class FridgeStatusTest {
 
     @Test
     void enumerateStatus_indexOne_correct() {
