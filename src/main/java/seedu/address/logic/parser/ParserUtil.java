@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.View;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.person.Address;
@@ -24,16 +25,42 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_VIEW = "View is not recognised.";
 
-    public boolean checkView(String view) {
-        return true;
+    private static int viewIndex;
+    /**
+     * Checks if the parsed argument is a valid view
+     * @param view
+     * @return
+     */
+    public static boolean checkView(String view) {
+
+        if (view.equals("contacts")) {
+            viewIndex = 1;
+            return true;
+        } else if (view.equals("claims")) {
+            viewIndex = 2;
+            return true;
+        } else if (view.equals("income")) {
+            viewIndex = 3;
+            return true;
+        } else {
+            return false;
+        }
     }
 
-
-
-
-    public static String parseView(String view) throws ParseException {
+    /**
+     * Parses {@code view} into a {@code view} and returns it. Leading and trailing
+     * whitespace are trimmed
+     * @param view is a String variable that is scanned
+     * @return the view
+     * @throws ParseException if the specified view is not recognised
+     */
+    public static View parseView(String view) throws ParseException {
         String trimmedView = view.trim();
-        return "";
+        if (checkView(trimmedView)) {
+            return new View(view, viewIndex);
+        } else {
+            throw new ParseException(MESSAGE_INVALID_VIEW);
+        }
     }
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

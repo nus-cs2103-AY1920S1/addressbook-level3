@@ -53,7 +53,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case GotoContactsCommand.COMMAND_WORD:
-            return new GotoContactsCommand();
+            return new GotoContactsCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
