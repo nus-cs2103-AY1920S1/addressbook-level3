@@ -54,7 +54,7 @@ public class PhoneCard extends UiPart<Region> {
         capacity.setText(phone.getCapacity().value);
         colour.setText(phone.getColour().value);
         cost.setText(phone.getCost().value);
-        name.setText(phone.getName().fullName);
+        name.setText(phone.getPhoneName().fullName);
         phone.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
