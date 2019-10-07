@@ -92,8 +92,7 @@ public class Event {
 
         Event otherEvent = (Event) other;
         return otherEvent.getPersonId().equals(getPersonId())
-                && otherEvent.getEventTiming().equals(getEventTiming())
-                && otherEvent.getStatus().equals(getStatus());
+                && otherEvent.getEventTiming().equals(getEventTiming());
     }
 
     @Override

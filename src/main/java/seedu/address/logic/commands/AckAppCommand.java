@@ -1,5 +1,5 @@
-//
 //package seedu.address.logic.commands;
+//
 //
 //import static java.util.Objects.requireNonNull;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -20,21 +20,16 @@
 //import seedu.address.model.events.Event;
 //import seedu.address.model.person.Person;
 //
-///**
-// * Adds a person to the address book.
-// */
 //public class AckAppCommand extends ReversibleCommand {
-//
+////    public static final Prefix PREFIX_START = new Prefix("str/");
+////    public static final Prefix PREFIX_END = new Prefix("end/");
 //    public static final String COMMAND_WORD = "ackappt";
 //
 //    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Ack a appointment to the address book. "
 //            + "Parameters: "
-//            + PREFIX_ID + "REFERENCE ID "
-//            + PREFIX_NAME + "PREFIX_NAME \n"
+//            + PREFIX_ID + "REFERENCE ID \n"
 //            + "Example: " + COMMAND_WORD + " "
-//            + PREFIX_ID + "001A "
-//            + PREFIX_NAME + "John Doe "
-//            + PREFIX_EVENT + "01/01/2001 1900";
+//            + PREFIX_ID + "001A ";
 //
 //    public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
 //    public static final String MESSAGE_DUPLICATE_PERSON = "This appointment already exists in the address book";
@@ -82,4 +77,5 @@
 //                || (other instanceof AckAppCommand // instanceof handles nulls
 //                && appointment.equals(((AckAppCommand) other).appointment));
 //    }
+//
 //}

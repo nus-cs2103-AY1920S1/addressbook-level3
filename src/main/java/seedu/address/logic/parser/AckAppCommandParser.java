@@ -12,6 +12,7 @@
 //import java.util.Set;
 //import java.util.stream.Stream;
 //
+//import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.AckAppCommand;
 //import seedu.address.logic.commands.AddAppCommand;
 //import seedu.address.logic.commands.AddCommand;
@@ -30,7 +31,7 @@
 ///**
 // * Parses input arguments and creates a new AddCommand object
 // */
-//public class AckAppCommandParser implements Parser<AddAppCommand> {
+//public class AckAppCommandParser implements Parser<AckAppCommand> {
 //
 //    /**
 //     * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -40,6 +41,7 @@
 //    public AckAppCommand parse(String args) throws ParseException {
 //        ArgumentMultimap argMultimap =
 //                ArgumentTokenizer.tokenize(args, PREFIX_ID);
+//        Index index;
 //
 //        if (!arePrefixesPresent(argMultimap, PREFIX_ID)
 //                || !argMultimap.getPreamble().isEmpty()) {
@@ -48,20 +50,10 @@
 //
 //        ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
 //
-////        return new AckAppCommand(event);
+//        return new AckAppCommand(referenceId);
 //    }
 //
-//    public FindCommand parse(String args) throws ParseException {
-//        String trimmedArgs = args.trim();
-//        if (trimmedArgs.isEmpty()) {
-//            throw new ParseException(
-//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-//        }
 //
-//        String[] nameKeywords = trimmedArgs.split("\\s+");
-//
-//        return new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-//    }
 //
 //    /**
 //     * Returns true if none of the prefixes contains empty {@code Optional} values in the given

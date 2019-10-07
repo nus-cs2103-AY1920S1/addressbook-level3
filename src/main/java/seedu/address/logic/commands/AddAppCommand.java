@@ -29,7 +29,7 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_END + "01/11/2019 1900";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This appointment already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This appointment already exists in the address book";
     public static final String MESSAGE_wrong_PERSON = "This appointment already exists in the address book";
     public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
@@ -49,7 +49,7 @@ public class AddAppCommand extends ReversibleCommand {
         requireNonNull(model);
 
         if (model.hasEvent(appointment)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
         model.addEvent(appointment);
