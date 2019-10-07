@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.testutil.Assert.assertThrows;
 
@@ -38,6 +39,8 @@ public class CommandTestUtil {
     public static final String VALID_TUTORIAL_NAME_BOB = "T10";
     public static final String VALID_TUTORIAL_DAY_AMY = "MONDAY";
     public static final String VALID_TUTORIAL_DAY_BOB = "TUESDAY";
+    public static final Integer VALID_TUTORIAL_INDEX_AMY = 3;
+    public static final Integer VALID_TUTORIAL_INDEX_BOB = 1;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -49,9 +52,15 @@ public class CommandTestUtil {
     public static final String NUSNET_DESC_AMY = " " + VALID_NUSNET_AMY;
     public static final String TUTORIAL_DESC_AMY = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME_AMY;
     public static final String TUTORIAL_DESC_BOB = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME_BOB;
+    public static final String TUTORIAL_IDX_DESC_AMY = " " + PREFIX_TUTORIAL_INDEX + VALID_TUTORIAL_INDEX_AMY;
+    public static final String TUTORIAL_IDX_DESC_BOB = " " + PREFIX_TUTORIAL_INDEX + VALID_TUTORIAL_INDEX_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+
+    public static final String INVALID_TUTORIAL_INDEX_1 = " " + PREFIX_TUTORIAL_INDEX + "sa&";
+    public static final String INVALID_TUTORIAL_INDEX_2 = " " + PREFIX_TUTORIAL_INDEX + "☹";
+    public static final String INVALID_TUTORIAL_INDEX_3 = " " + PREFIX_TUTORIAL_INDEX + "0";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
