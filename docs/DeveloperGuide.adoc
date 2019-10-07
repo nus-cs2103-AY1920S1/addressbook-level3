@@ -286,7 +286,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 * requires submitting large amount of structured reports or documents
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage appointments and contacts faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -296,7 +296,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
 |`* * *` |secretary |add an appointment |organise and schedule meetings/appointments
 
@@ -330,7 +329,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |secretary |generate a PDF file of a selected appointment |make a distributable copy of the appointment
 
-|=======================================================================
+|`*` |highly driven secretary |practise typing |improve my efficiency during work
+
+|`*` |bored secretary |keep myself entertained|
+
+|`***` |secretary under a busy manager |find specific appointments fast |schedule appointments efficiently
+
 
 
 [appendix]
@@ -340,14 +344,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete appointment
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list appointments
+2.  System displays the list of appointments
+3.  User requests to delete a specific appointment in the list
+4.  System deletes the person
 +
 Use case ends.
 
@@ -361,7 +365,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
@@ -416,9 +420,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+//Updated by Yu Chen
 [discrete]
 === Use case: (UC03) List appointments
-
 *MSS*
 
 1.  User requests to list appointments
@@ -426,12 +430,45 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-*Extensions*
 [none]
 * 1a. User specifies ordering method
 ** 2a1. System displays the list of appointments in specified order
+
+//Updated by Jun Hao
+=== Use case: (UC04) Find appointment
+*MSS*
+
+1.  User requests to find appointments
+2.  User provides fields that the user wants to use to find appointments
+3.  System finds and displays the list of relevant appointment(s)
++
+Use case ends.
+
+*Extensions*
 [none]
 * 2a. The list is empty.
++
+Use case ends.
+
+//Updated by Jun Hao
+[discrete]
+=== Use case: (UC05) Typing game
+
+*MSS*
+
+1.  User requests to start the typing game
+2.  Typing game shows the user the word(s) to type for a period of time
+3.  User types the word(s) within the period of time
+4.  Typing game updates the User's score and life points accordingly.
+Steps 2-4 are repeated for as many rounds as required until User runs out of life points.
+5.  Typing game shows the final score of the User
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User exits game
 +
 Use case ends.
 
@@ -439,6 +476,9 @@ Use case ends.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should come with automated unit tests and open source code.
+.  Should work on both 32-bit and 64-bit environments.
+.  Application should not exceed 100MB in size.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
