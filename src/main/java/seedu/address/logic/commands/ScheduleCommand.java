@@ -1,20 +1,20 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
+
+import java.time.LocalDateTime;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.mainwindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonId;
-import seedu.address.model.display.mainwindow.WeekSchedule;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
-
+/**
+ * Gives the schedule for the week of a group.
+ */
 public class ScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "schedule";
@@ -32,7 +32,7 @@ public class ScheduleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Group group = model.findGroup(groupName);
-        if(group == null) {
+        if (group == null) {
             return new CommandResult(MESSAGE_FAILURE);
         }
 
@@ -48,7 +48,7 @@ public class ScheduleCommand extends Command {
 
     @Override
     public boolean equals(Command command) {
-        if(command == null) {
+        if (command == null) {
             return false;
         } else if (!(command instanceof ScheduleCommand)) {
             return false;

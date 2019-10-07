@@ -15,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.mainwindow.MainWindowDisplay;
 import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.mainwindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.Display;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
@@ -33,7 +34,6 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
-import seedu.address.model.display.mainwindow.WeekSchedule;
 
 
 /**
@@ -114,6 +114,10 @@ public class ModelManager implements Model {
 
     public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
+    }
+
+    public ModelManager(TimeBook timeBook) {
+        this(new AddressBook(), timeBook, new UserPrefs());
     }
 
     public ModelManager() {
@@ -405,7 +409,7 @@ public class ModelManager implements Model {
         Group group = groupList.findGroup(groupName);
         ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
         ArrayList<Person> persons = new ArrayList<>();
-        for(int i = 0; i < personIds.size(); i++) {
+        for (int i = 0; i < personIds.size(); i++) {
             persons.add(findPerson(personIds.get(i)));
         }
 
@@ -423,29 +427,29 @@ public class ModelManager implements Model {
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
         SidePanelDisplay sidePanelDisplay;
 
-        switch(type) {
-            case PERSONS:
-                ArrayList<Display> displayPersons = new ArrayList<>();
-                ArrayList<Person> persons = timeBook.getPersonList().getPersons();
-                for(int i = 0; i < persons.size(); i++) {
-                    displayPersons.add(new PersonDisplay(persons.get(i)));
-                }
-                sidePanelDisplay = new SidePanelDisplay(displayPersons, type);
-                updateSidePanelDisplay(sidePanelDisplay);
-                break;
+        switch (type) {
+        case PERSONS:
+            ArrayList<Display> displayPersons = new ArrayList<>();
+            ArrayList<Person> persons = timeBook.getPersonList().getPersons();
+            for (int i = 0; i < persons.size(); i++) {
+                displayPersons.add(new PersonDisplay(persons.get(i)));
+            }
+            sidePanelDisplay = new SidePanelDisplay(displayPersons, type);
+            updateSidePanelDisplay(sidePanelDisplay);
+            break;
 
-            case GROUPS:
-                ArrayList<Display> displayGroups = new ArrayList<>();
-                ArrayList<Group> groups = timeBook.getGroupList().getGroups();
-                for(int i = 0; i < groups.size(); i++) {
-                    displayGroups.add(new GroupDisplay(groups.get(i)));
-                }
-                sidePanelDisplay = new SidePanelDisplay(displayGroups, type);
-                updateSidePanelDisplay(sidePanelDisplay);
-                break;
+        case GROUPS:
+            ArrayList<Display> displayGroups = new ArrayList<>();
+            ArrayList<Group> groups = timeBook.getGroupList().getGroups();
+            for (int i = 0; i < groups.size(); i++) {
+                displayGroups.add(new GroupDisplay(groups.get(i)));
+            }
+            sidePanelDisplay = new SidePanelDisplay(displayGroups, type);
+            updateSidePanelDisplay(sidePanelDisplay);
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
     }
 

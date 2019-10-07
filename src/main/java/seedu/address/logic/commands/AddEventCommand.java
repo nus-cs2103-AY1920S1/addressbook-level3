@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
 
+import java.time.LocalDateTime;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.mainwindow.MainWindowDisplayType;
@@ -12,7 +14,6 @@ import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.schedule.Event;
 
-import java.time.LocalDateTime;
 
 /**
  * Adds an Event to the schedule of a person.

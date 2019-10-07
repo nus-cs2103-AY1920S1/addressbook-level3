@@ -1,6 +1,7 @@
 package seedu.address.testutil.modelutil;
 
 import seedu.address.model.ModelManager;
+import seedu.address.model.TimeBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.mapping.PersonToGroupMappingList;
@@ -17,6 +18,7 @@ public class TypicalModel {
 
     /**
      * Generates a Typical Model.
+     *
      * @return Model
      */
     public static ModelManager generateTypicalModel() {
@@ -27,7 +29,9 @@ public class TypicalModel {
         GroupList groupList = TypicalGroups.generateTypicalGroupList();
         PersonToGroupMappingList personToGroupMappingList = TypicalMappings.generateTypicalMappingList();
 
-        ModelManager modelManager = new ModelManager(personList, groupList, personToGroupMappingList);
+        TimeBook timeBook = new TimeBook(personList, groupList, personToGroupMappingList);
+
+        ModelManager modelManager = new ModelManager(timeBook);
 
         return modelManager;
     }

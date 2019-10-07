@@ -4,6 +4,9 @@ import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
 
+/**
+ * Group display model
+ */
 public class GroupDisplay extends Display {
     private final GroupName groupName;
     private final GroupRemark groupRemark;

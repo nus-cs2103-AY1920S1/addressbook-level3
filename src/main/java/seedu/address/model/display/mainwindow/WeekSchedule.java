@@ -1,23 +1,26 @@
 package seedu.address.model.display.mainwindow;
 
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.schedule.Event;
-import seedu.address.model.person.schedule.Timeslot;
-import seedu.address.model.person.schedule.Venue;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import static java.time.temporal.ChronoUnit.DAYS;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Timeslot;
+import seedu.address.model.person.schedule.Venue;
 
+/**
+ * Schedule of timeslots for the week.
+ */
 public class WeekSchedule {
 
-    private final static int DAYS_OF_THE_WEEK = 7;
-    private final static LocalTime STARTTIME = LocalTime.of(00,00);
-    private final static LocalTime ENDTIME = LocalTime.of(23,59);
+    private static final int DAYS_OF_THE_WEEK = 7;
+    private static final LocalTime STARTTIME = LocalTime.of(00, 00);
+    private static final LocalTime ENDTIME = LocalTime.of(23, 59);
 
     private String weekScheduleName;
 
@@ -29,20 +32,20 @@ public class WeekSchedule {
         LocalDate currentDate = now.toLocalDate();
         weekSchedule = new ArrayList<>();
 
-        for(int day = 0; day < DAYS_OF_THE_WEEK; day++) {
+        for (int day = 0; day < DAYS_OF_THE_WEEK; day++) {
             weekSchedule.add(new DaySchedule(currentDate));
 
-            for(int p = 0; p < persons.size(); p ++) {
+            for (int p = 0; p < persons.size(); p++) {
                 Person currentPerson = persons.get(p);
                 Name name = currentPerson.getName();
 
                 ArrayList<Event> events = currentPerson.getSchedule().getEvents();
-                for(int e = 0; e < events.size(); e++) {
+                for (int e = 0; e < events.size(); e++) {
                     Event currentEvent = events.get(e);
                     String eventName = currentEvent.getEventName();
 
                     ArrayList<Timeslot> timeslots = currentEvent.getTimeslots();
-                    for(int t = 0; t < timeslots.size(); t++) {
+                    for (int t = 0; t < timeslots.size(); t++) {
                         Timeslot currentTimeslot = timeslots.get(t);
 
                         LocalDateTime currentStartTime = currentTimeslot.getStartTime();
@@ -55,7 +58,7 @@ public class WeekSchedule {
                         int startDateDifference = (int) DAYS.between(currentDate, currentStartDate);
                         int endDateDifference = (int) DAYS.between(currentDate, currentEndDate);
 
-                        if(startDateDifference == 0 && endDateDifference == 0) {
+                        if (startDateDifference == 0 && endDateDifference == 0) {
                             DayTimeslot timeslot = new DayTimeslot(
                                     name,
                                     eventName,
@@ -115,7 +118,7 @@ public class WeekSchedule {
         String output = "";
 
         output += "=====" + weekScheduleName + "=====" + "\n";
-        for(int i = 0; i < weekSchedule.size(); i++) {
+        for (int i = 0; i < weekSchedule.size(); i++) {
             output += weekSchedule.get(i).toString();
         }
 

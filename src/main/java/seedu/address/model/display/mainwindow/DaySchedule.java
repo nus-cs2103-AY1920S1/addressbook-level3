@@ -1,14 +1,15 @@
 package seedu.address.model.display.mainwindow;
 
-import seedu.address.model.display.mainwindow.DayTimeslot;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * A schedule of Timeslots of a day.
+ */
 public class DaySchedule {
 
-    LocalDate day;
-    ArrayList<DayTimeslot> timeslots;
+    private LocalDate day;
+    private ArrayList<DayTimeslot> timeslots;
 
     public DaySchedule(LocalDate day) {
         this.day = day;
@@ -41,7 +42,7 @@ public class DaySchedule {
         String output = "";
         output += day.toString() + ":\n";
 
-        for(int i = 0; i < timeslots.size(); i ++) {
+        for (int i = 0; i < timeslots.size(); i++) {
             output += timeslots.get(i).toString();
             output += "\n";
         }

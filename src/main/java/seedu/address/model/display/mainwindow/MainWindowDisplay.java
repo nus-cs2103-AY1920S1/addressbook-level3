@@ -1,5 +1,8 @@
 package seedu.address.model.display.mainwindow;
 
+/**
+ * Main window display model.
+ */
 public class MainWindowDisplay {
 
     private WeekSchedule weekSchedule;
@@ -10,7 +13,7 @@ public class MainWindowDisplay {
         this.weekSchedule = weekSchedule;
     }
 
-    public MainWindowDisplay(){
+    public MainWindowDisplay() {
         this.weekSchedule = null;
         this.mainWindowDisplayType = MainWindowDisplayType.EMPTY;
     }

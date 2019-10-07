@@ -1,10 +1,13 @@
 package seedu.address.model.display.mainwindow;
 
+import java.time.LocalTime;
+
 import seedu.address.model.person.Name;
 import seedu.address.model.person.schedule.Venue;
 
-import java.time.LocalTime;
-
+/**
+ * A timeslot of a day.
+ */
 public class DayTimeslot {
 
     private Name name;

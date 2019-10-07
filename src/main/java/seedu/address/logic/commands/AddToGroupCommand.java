@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.time.LocalDateTime;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.mainwindow.MainWindowDisplayType;
@@ -12,8 +14,6 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-
-import java.time.LocalDateTime;
 
 /**
  * Adds a person into a group.
@@ -50,7 +50,8 @@ public class AddToGroupCommand extends Command {
             if (model.addPersonToGroupMapping(mapping)) {
 
                 // updates main window
-                model.updateMainWindowDisplay(group.getGroupName(), LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
+                model.updateMainWindowDisplay(group.getGroupName(),
+                        LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
 
                 // updates side panel
                 model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);

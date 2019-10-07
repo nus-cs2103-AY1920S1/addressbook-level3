@@ -98,8 +98,8 @@ public class AddressBookParser {
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(arguments);
 
-            case ScheduleCommand.COMMAND_WORD:
-                return new ScheduleCommandParser().parse(arguments);
+        case ScheduleCommand.COMMAND_WORD:
+            return new ScheduleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

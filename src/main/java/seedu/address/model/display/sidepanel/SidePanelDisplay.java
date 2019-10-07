@@ -2,6 +2,9 @@ package seedu.address.model.display.sidepanel;
 
 import java.util.ArrayList;
 
+/**
+ * Side Panel display model.
+ */
 public class SidePanelDisplay {
 
     private ArrayList<Display> display;
