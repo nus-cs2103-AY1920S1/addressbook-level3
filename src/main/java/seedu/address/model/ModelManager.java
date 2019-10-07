@@ -17,6 +17,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 
+
 /**
  * Represents the in-memory model of the SML data.
  */
@@ -190,6 +191,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyDataBook<Customer> getCustomerBook() {
+
         return customerBook;
     }
 

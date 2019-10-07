@@ -16,7 +16,7 @@ import seedu.address.ui.cards.CustomerCard;
  * Panel containing the list of customers.
  */
 public class CustomerListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "CustomerListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CustomerListPanel.class);
 
     @FXML

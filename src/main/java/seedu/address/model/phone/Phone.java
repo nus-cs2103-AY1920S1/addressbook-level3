@@ -22,8 +22,6 @@ public class Phone implements Cloneable {
     private final Brand brand;
     private final Capacity capacity;
     private final Colour colour;
-
-    // Data fields
     private final Cost cost;
     private final Set<Tag> tags = new HashSet<>();
 
@@ -32,6 +30,18 @@ public class Phone implements Cloneable {
         requireAllNonNull(phoneName, brand, capacity, colour, cost, tags);
         this.id = UUID.randomUUID();
         this.phoneName = phoneName;
+        this.brand = brand;
+        this.capacity = capacity;
+        this.colour = colour;
+        this.cost = cost;
+        this.tags.addAll(tags);
+    }
+
+    private Phone(UUID id, PhoneName name, Brand brand, Capacity capacity, Colour colour, Cost cost,
+                 Set<Tag> tags) {
+        requireAllNonNull(id, name, brand, capacity, colour, cost, tags);
+        this.id = id;
+        this.phoneName = name;
         this.brand = brand;
         this.capacity = capacity;
         this.colour = colour;
@@ -73,7 +83,6 @@ public class Phone implements Cloneable {
 
     /**
      * Returns true if both phones have the same identity fields.
-     * This defines a weaker notion of equality between two phones.
      */
     public boolean isSamePhone(Phone otherPhone) {
         if (otherPhone == this) {
@@ -81,16 +90,11 @@ public class Phone implements Cloneable {
         }
 
         return otherPhone != null
-                && otherPhone.getId().equals(getId())
-                && otherPhone.getPhoneName().equals(getPhoneName())
-                && otherPhone.getBrand().equals((getBrand()))
-                && otherPhone.getCapacity().equals((getCapacity()))
-                && otherPhone.getColour().equals((getColour()));
+                && otherPhone.getId().equals(getId());
     }
 
     /**
-     * Returns true if both phones have the same identity and data fields.
-     * This defines a stronger notion of equality between two phones.
+     * Returns true if both phones have the same data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -103,8 +107,7 @@ public class Phone implements Cloneable {
         }
 
         Phone otherPhone = (Phone) other;
-        return otherPhone.getId().equals(getId())
-                && otherPhone.getPhoneName().equals(getPhoneName())
+        return otherPhone.getPhoneName().equals(getPhoneName())
                 && otherPhone.getBrand().equals((getBrand()))
                 && otherPhone.getCapacity().equals((getCapacity()))
                 && otherPhone.getColour().equals((getColour()))
@@ -114,7 +117,9 @@ public class Phone implements Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Phone clone = new Phone(this.id, (PhoneName) this.phoneName.clone(), (Brand) this.brand.clone(), this.capacity,
+                (Colour) this.colour.clone(), (Cost) this.cost.clone(), this.getTags());
+        return clone;
     }
 
     @Override
