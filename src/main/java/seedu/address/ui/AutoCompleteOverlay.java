@@ -48,4 +48,8 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         autoCompleteOverlay.getSelectionModel().select(0);
         autoCompleteOverlay.setPrefHeight(listOfSuggestions.size() * 20);
     }
+
+    public void traverseSelection(boolean moveUp) {
+        autoCompleteOverlay.scrollTo(1);
+    }
 }
