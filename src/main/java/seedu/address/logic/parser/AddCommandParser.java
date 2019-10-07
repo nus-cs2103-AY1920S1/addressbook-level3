@@ -39,9 +39,9 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
-import seedu.address.model.entity.body.Status;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -122,7 +122,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else if (flag.equals("b")) {
             Date dateOfDeath = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_DEATH).get());
             Date dateOfAdmission = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_ADMISSION).get());
-            Status status = Status.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
+            BodyStatus status = BodyStatus.parseBodyStatus(argMultimap.getValue(PREFIX_STATUS).get());
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
             Name nameNok = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME_NOK).get());
             Phone phoneNok = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE_NOK).get());

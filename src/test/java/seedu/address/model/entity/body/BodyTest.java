@@ -139,8 +139,8 @@ class BodyTest {
 
     @Test
     void getSetStatus() {
-        ALICE.setStatus(Status.ARRIVED);
-        assertEquals(Status.ARRIVED, ALICE.getStatus());
+        ALICE.setBodyStatus(BodyStatus.ARRIVED);
+        assertEquals(BodyStatus.ARRIVED, ALICE.getBodyStatus());
     }
 
     @Test

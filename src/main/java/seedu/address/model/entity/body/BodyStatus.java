@@ -4,13 +4,13 @@ package seedu.address.model.entity.body;
 /**
  * Enumerates all the possible states a body undergoes in the mortuary.
  */
-public enum Status {
+public enum BodyStatus {
     ARRIVED, PENDING_IDENTIFICATION, PENDING_CLAIM, CLAIMED, DONATED, PENDING_POLICE_REPORT, PENDING_CORONER_APPROVAL;
 
     /**
      * Parses {@code String status} to return the corresponding {@code Status}.
      */
-    public static Status parseStatus(String status) {
+    public static BodyStatus parseBodyStatus(String status) {
         assert(status != null);
         String statusLowerCaps = status.toLowerCase();
         switch(statusLowerCaps) {
