@@ -1,13 +1,13 @@
 package seedu.address.model;
 
-import seedu.address.model.person.Balance;
+import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccount {
-    private Balance balance;
+    private Amount balance;
     private List<Transaction> transactions;
 
     BankAccount() {
@@ -15,7 +15,7 @@ public class BankAccount {
     }
 
     public void addTransaction(Transaction txn) {
-        this.transactions.add(txn);
-        balance.updateBalance(txn);
+        Amount newBalance = txn.handleBalance(this.balance);
+        this.balance = newBalance;
     }
 }

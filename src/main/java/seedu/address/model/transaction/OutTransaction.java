@@ -3,12 +3,13 @@ package seedu.address.model.transaction;
 import java.util.Date;
 
 public class OutTransaction extends Transaction{
-    public OutTransaction(int amount, Date date) {
+    public OutTransaction(Amount amount, Date date) {
         super(amount, date);
     }
 
     @Override
-    public int handleBalance(int balance) {
-        return balance - super.amount;
+    public Amount handleBalance(Amount balance) {
+        Amount newBalance = balance.subtractAmount(super.amount);
+        return newBalance;
     }
 }
