@@ -2,15 +2,14 @@ package dream.fcard.gui;
 
 import java.util.logging.Logger;
 
-import dream.fcard.commons.core.LogsCenter;
-import dream.fcard.logic.Logic;
+import dream.fcard.core.commons.core.LogsCenter;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import dream.fcard.MainApp;
-import dream.fcard.commons.util.StringUtil;
+import dream.fcard.core.commons.util.StringUtil;
 
 /**
  * The manager of the UI component.
@@ -22,12 +21,10 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private Logic logic;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic) {
+    public UiManager() {
         super();
-        this.logic = logic;
     }
 
     @Override
@@ -38,7 +35,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

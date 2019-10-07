@@ -2,7 +2,7 @@ package dream.fcard.gui;
 
 import java.util.logging.Logger;
 
-import dream.fcard.commons.core.LogsCenter;
+import dream.fcard.core.commons.core.LogsCenter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

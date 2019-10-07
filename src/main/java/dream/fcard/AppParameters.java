@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import dream.fcard.commons.core.LogsCenter;
-import dream.fcard.commons.util.FileUtil;
+import dream.fcard.core.commons.core.LogsCenter;
+import dream.fcard.core.commons.util.FileUtil;
 import javafx.application.Application;
 
 /**

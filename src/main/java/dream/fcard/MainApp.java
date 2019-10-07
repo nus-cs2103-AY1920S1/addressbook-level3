@@ -5,17 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import dream.fcard.commons.core.Config;
-import dream.fcard.commons.core.LogsCenter;
-import dream.fcard.commons.core.Version;
-import dream.fcard.commons.exceptions.DataConversionException;
-import dream.fcard.commons.util.ConfigUtil;
-import dream.fcard.commons.util.StringUtil;
+import dream.fcard.core.commons.core.Config;
+import dream.fcard.core.commons.core.LogsCenter;
+import dream.fcard.core.commons.core.Version;
+import dream.fcard.core.commons.exceptions.DataConversionException;
+import dream.fcard.core.commons.util.ConfigUtil;
+import dream.fcard.core.commons.util.StringUtil;
 import dream.fcard.gui.Ui;
 import dream.fcard.gui.UiManager;
-import dream.fcard.logic.Logic;
-import dream.fcard.logic.LogicManager;
-import dream.fcard.model.Model;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -29,8 +26,6 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    protected Logic logic;
-    protected Model model;
     protected Config config;
 
     @Override
@@ -44,9 +39,8 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        logic = new LogicManager(model);
 
-        ui = new UiManager(logic);
+        ui = new UiManager();
     }
 
 
