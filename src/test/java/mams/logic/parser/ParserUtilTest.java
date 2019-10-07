@@ -1,20 +1,20 @@
 package mams.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static mams.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static mams.testutil.Assert.assertThrows;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import mams.model.student.Address;
 import org.junit.jupiter.api.Test;
 
 import mams.logic.parser.exceptions.ParseException;
+import mams.model.student.Address;
 import mams.model.student.Email;
 import mams.model.student.Name;
 import mams.model.student.Phone;

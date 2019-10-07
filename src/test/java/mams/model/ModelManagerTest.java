@@ -3,19 +3,19 @@ package mams.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mams.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import mams.commons.core.GuiSettings;
-import mams.model.student.NameContainsKeywordsPredicate;
-import mams.testutil.MamsBuilder;
-import mams.testutil.Assert;
-import mams.testutil.TypicalStudents;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import mams.commons.core.GuiSettings;
+import mams.model.student.NameContainsKeywordsPredicate;
+import mams.testutil.Assert;
+import mams.testutil.MamsBuilder;
+import mams.testutil.TypicalStudents;
 
 public class ModelManagerTest {
 

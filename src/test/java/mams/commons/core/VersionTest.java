@@ -2,10 +2,10 @@ package mams.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mams.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import mams.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class VersionTest {
 

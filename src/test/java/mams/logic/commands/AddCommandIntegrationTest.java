@@ -4,14 +4,14 @@ import static mams.logic.commands.CommandTestUtil.assertCommandFailure;
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.testutil.TypicalStudents.getTypicalMams;
 
-import mams.model.student.Student;
-import mams.testutil.StudentBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
+import mams.model.student.Student;
+import mams.testutil.StudentBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

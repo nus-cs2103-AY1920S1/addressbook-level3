@@ -3,12 +3,16 @@ package mams.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mams.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import mams.logic.commands.CommandTestUtil;
 import mams.model.student.Student;
@@ -16,10 +20,6 @@ import mams.model.student.exceptions.DuplicateStudentException;
 import mams.testutil.Assert;
 import mams.testutil.StudentBuilder;
 import mams.testutil.TypicalStudents;
-import org.junit.jupiter.api.Test;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class MamsTest {
 
@@ -45,7 +45,8 @@ public class MamsTest {
     @Test
     public void resetData_withDuplicateStudents_throwsDuplicateStudentException() {
         // Two students with the same identity fields
-        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
+                .withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         List<Student> newStudents = Arrays.asList(TypicalStudents.ALICE, editedAlice);
         MamsStub newData = new MamsStub(newStudents);

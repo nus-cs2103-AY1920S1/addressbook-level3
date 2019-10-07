@@ -1,8 +1,8 @@
 package mams.model.student;
 
+import static mams.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mams.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 

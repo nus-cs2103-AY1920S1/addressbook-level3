@@ -4,8 +4,6 @@ import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static mams.testutil.TypicalStudents.AMY;
 import static mams.testutil.TypicalStudents.BOB;
 
-import mams.model.student.Student;
-import mams.testutil.StudentBuilder;
 import org.junit.jupiter.api.Test;
 
 import mams.logic.commands.AddCommand;
@@ -14,7 +12,9 @@ import mams.model.student.Address;
 import mams.model.student.Email;
 import mams.model.student.Name;
 import mams.model.student.Phone;
+import mams.model.student.Student;
 import mams.model.tag.Tag;
+import mams.testutil.StudentBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();

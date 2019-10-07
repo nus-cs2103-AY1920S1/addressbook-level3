@@ -2,16 +2,15 @@ package mams.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mams.commons.util.CollectionUtil.requireAllNonNull;
-import static mams.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import mams.testutil.Assert;
 import org.junit.jupiter.api.Test;
+
+import mams.testutil.Assert;
 
 public class CollectionUtilTest {
     @Test

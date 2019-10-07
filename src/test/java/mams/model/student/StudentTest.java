@@ -1,15 +1,12 @@
 package mams.model.student;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mams.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import mams.logic.commands.CommandTestUtil;
 import mams.testutil.Assert;
 import mams.testutil.StudentBuilder;
 import mams.testutil.TypicalStudents;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class StudentTest {
 
@@ -28,7 +25,8 @@ public class StudentTest {
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(null));
 
         // different phone and email -> returns false
-        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
+        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
+                .withPhone(CommandTestUtil.VALID_PHONE_BOB).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // different name -> returns false
@@ -36,17 +34,20 @@ public class StudentTest {
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withEmail(CommandTestUtil.VALID_EMAIL_BOB).withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
+        editedAlice = new StudentBuilder(TypicalStudents.ALICE)
+                .withEmail(CommandTestUtil.VALID_EMAIL_BOB).withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
+        editedAlice = new StudentBuilder(TypicalStudents.ALICE)
+                .withPhone(CommandTestUtil.VALID_PHONE_BOB).withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+        editedAlice = new StudentBuilder(TypicalStudents.ALICE)
+                .withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
     }
 
@@ -69,11 +70,13 @@ public class StudentTest {
         Assertions.assertFalse(TypicalStudents.ALICE.equals(TypicalStudents.BOB));
 
         // different name -> returns false
-        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
+                .withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
+        editedAlice = new StudentBuilder(TypicalStudents.ALICE)
+                .withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
         // different email -> returns false

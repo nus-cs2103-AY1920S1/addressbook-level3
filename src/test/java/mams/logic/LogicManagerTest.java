@@ -1,29 +1,29 @@
 package mams.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static mams.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
 import static mams.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static mams.testutil.Assert.assertThrows;
 import static mams.testutil.TypicalStudents.AMY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import mams.logic.commands.CommandTestUtil;
-import mams.model.ReadOnlyMams;
-import mams.model.student.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import mams.logic.commands.AddCommand;
 import mams.logic.commands.CommandResult;
+import mams.logic.commands.CommandTestUtil;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.exceptions.CommandException;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
 import mams.model.ModelManager;
+import mams.model.ReadOnlyMams;
 import mams.model.UserPrefs;
+import mams.model.student.Student;
 import mams.storage.JsonMamsStorage;
 import mams.storage.JsonUserPrefsStorage;
 import mams.storage.StorageManager;
@@ -76,7 +76,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.PHONE_DESC_AMY + CommandTestUtil.EMAIL_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY
+                + CommandTestUtil.PHONE_DESC_AMY + CommandTestUtil.EMAIL_DESC_AMY
                 + CommandTestUtil.ADDRESS_DESC_AMY;
         Student expectedStudent = new StudentBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

@@ -1,14 +1,14 @@
 package mams.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static mams.commons.core.Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW;
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.testutil.TypicalStudents.CARL;
 import static mams.testutil.TypicalStudents.ELLE;
 import static mams.testutil.TypicalStudents.FIONA;
 import static mams.testutil.TypicalStudents.getTypicalMams;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

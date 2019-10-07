@@ -1,9 +1,8 @@
 package mams.model.tag;
 
-import static mams.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import mams.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class TagTest {
 

@@ -1,11 +1,11 @@
 package mams.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static mams.testutil.Assert.assertThrows;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.student.Address;
@@ -14,8 +14,6 @@ import mams.model.student.Name;
 import mams.model.student.Phone;
 import mams.testutil.Assert;
 import mams.testutil.TypicalStudents;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class JsonAdaptedStudentTest {
     private static final String INVALID_NAME = "R@chel";

@@ -1,17 +1,16 @@
 package mams.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static mams.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static mams.testutil.Assert.assertThrows;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import mams.testutil.StudentBuilder;
 import org.junit.jupiter.api.Test;
 
 import mams.logic.commands.AddCommand;
@@ -26,6 +25,7 @@ import mams.logic.parser.exceptions.ParseException;
 import mams.model.student.NameContainsKeywordsPredicate;
 import mams.model.student.Student;
 import mams.testutil.EditStudentDescriptorBuilder;
+import mams.testutil.StudentBuilder;
 import mams.testutil.StudentUtil;
 
 public class MamsParserTest {

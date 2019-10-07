@@ -7,8 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import mams.testutil.StudentBuilder;
 import org.junit.jupiter.api.Test;
+
+import mams.testutil.StudentBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 

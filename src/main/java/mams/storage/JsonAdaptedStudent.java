@@ -13,8 +13,8 @@ import mams.commons.exceptions.IllegalValueException;
 import mams.model.student.Address;
 import mams.model.student.Email;
 import mams.model.student.Name;
-import mams.model.student.Student;
 import mams.model.student.Phone;
+import mams.model.student.Student;
 import mams.model.tag.Tag;
 
 /**

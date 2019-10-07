@@ -1,27 +1,27 @@
 package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static mams.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mams.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import mams.model.Mams;
-import mams.model.ReadOnlyMams;
-import mams.model.student.Student;
-import mams.testutil.StudentBuilder;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import mams.commons.core.GuiSettings;
 import mams.logic.commands.exceptions.CommandException;
+import mams.model.Mams;
 import mams.model.Model;
+import mams.model.ReadOnlyMams;
 import mams.model.ReadOnlyUserPrefs;
+import mams.model.student.Student;
+import mams.testutil.StudentBuilder;
 
 public class AddCommandTest {
 

@@ -5,9 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.Test;
+
 import mams.testutil.SerializableTestClass;
 import mams.testutil.TestUtil;
-import org.junit.jupiter.api.Test;
 
 /**
  * Tests JSON Read and Write

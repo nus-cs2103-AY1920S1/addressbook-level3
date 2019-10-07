@@ -1,7 +1,5 @@
 package mams.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static mams.logic.commands.CommandTestUtil.DESC_AMY;
 import static mams.logic.commands.CommandTestUtil.DESC_BOB;
 import static mams.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -14,16 +12,19 @@ import static mams.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
 import static mams.testutil.TypicalStudents.getTypicalMams;
 
-import mams.model.Mams;
-import mams.model.student.Student;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
 import mams.logic.commands.EditCommand.EditStudentDescriptor;
+import mams.model.Mams;
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
+import mams.model.student.Student;
 import mams.testutil.EditStudentDescriptorBuilder;
 import mams.testutil.StudentBuilder;
 

@@ -1,13 +1,13 @@
 package mams.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static mams.logic.commands.CommandTestUtil.assertCommandFailure;
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
 import static mams.testutil.TypicalStudents.getTypicalMams;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 

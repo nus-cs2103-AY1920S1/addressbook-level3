@@ -3,9 +3,9 @@ package mams.logic.commands;
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.testutil.TypicalStudents.getTypicalMams;
 
-import mams.model.Mams;
 import org.junit.jupiter.api.Test;
 
+import mams.model.Mams;
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
