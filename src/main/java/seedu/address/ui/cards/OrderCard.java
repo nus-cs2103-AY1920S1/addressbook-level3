@@ -54,7 +54,7 @@ public class OrderCard extends UiPart<Region> {
 
         customerName.setText(order.getCustomer().getCustomerName().fullName);
 
-        phoneName.setText(order.getPhone().getName().fullName);
+        phoneName.setText(order.getPhone().getPhoneName().fullName);
         phoneColour.setText(order.getPhone().getColour().value);
         phoneCapacity.setText(order.getPhone().getCapacity().value);
 

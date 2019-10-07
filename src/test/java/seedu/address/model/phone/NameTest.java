@@ -10,32 +10,32 @@ public class NameTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Name(null));
+        assertThrows(NullPointerException.class, () -> new PhoneName(null));
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
+    public void constructor_invalidCustomerName_throwsIllegalArgumentException() {
         String invalidName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
+        assertThrows(IllegalArgumentException.class, () -> new PhoneName(invalidName));
     }
 
     @Test
-    public void isValidName() {
+    public void isValidCustomerName() {
         // null name
-        assertThrows(NullPointerException.class, () -> Name.isValidName(null));
+        assertThrows(NullPointerException.class, () -> PhoneName.isValidPhoneName(null));
 
         // invalid name
-        assertFalse(Name.isValidName("")); // empty string
-        assertFalse(Name.isValidName(" ")); // spaces only
-        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(PhoneName.isValidPhoneName("")); // empty string
+        assertFalse(PhoneName.isValidPhoneName(" ")); // spaces only
+        assertFalse(PhoneName.isValidPhoneName("^")); // only non-alphanumeric characters
+        assertFalse(PhoneName.isValidPhoneName("peter*")); // contains non-alphanumeric characters
 
         // valid name
-        assertTrue(Name.isValidName("peter jack")); // alphabets only
-        assertTrue(Name.isValidName("12345")); // numbers only
-        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
-        assertTrue(Name.isValidName("Capital Tan")); // with capital letters
-        assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(PhoneName.isValidPhoneName("peter jack")); // alphabets only
+        assertTrue(PhoneName.isValidPhoneName("12345")); // numbers only
+        assertTrue(PhoneName.isValidPhoneName("peter the 2nd")); // alphanumeric characters
+        assertTrue(PhoneName.isValidPhoneName("Capital Tan")); // with capital letters
+        assertTrue(PhoneName.isValidPhoneName("David Roger Jackson Ray Jr 2nd")); // long names
     }
 
 }

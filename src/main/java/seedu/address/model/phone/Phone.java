@@ -20,18 +20,18 @@ public class Phone implements Cloneable {
     private final UUID id;
 
     // Data fields
-    private final Name name;
+    private final PhoneName phoneName;
     private final Brand brand;
     private final Capacity capacity;
     private final Colour colour;
     private final Cost cost;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Phone(Name name, Brand brand, Capacity capacity, Colour colour, Cost cost,
+    public Phone(PhoneName phoneName, Brand brand, Capacity capacity, Colour colour, Cost cost,
                  Set<Tag> tags) {
-        requireAllNonNull(name, brand, capacity, colour, cost, tags);
+        requireAllNonNull(phoneName, brand, capacity, colour, cost, tags);
         this.id = UUID.randomUUID();
-        this.name = name;
+        this.phoneName = phoneName;
         this.brand = brand;
         this.capacity = capacity;
         this.colour = colour;
@@ -39,11 +39,11 @@ public class Phone implements Cloneable {
         this.tags.addAll(tags);
     }
 
-    private Phone(UUID id, Name name, Brand brand, Capacity capacity, Colour colour, Cost cost,
+    private Phone(UUID id, PhoneName phoneName, Brand brand, Capacity capacity, Colour colour, Cost cost,
                  Set<Tag> tags) {
-        requireAllNonNull(id, name, brand, capacity, colour, cost, tags);
+        requireAllNonNull(id, phoneName, brand, capacity, colour, cost, tags);
         this.id = id;
-        this.name = name;
+        this.phoneName = phoneName;
         this.brand = brand;
         this.capacity = capacity;
         this.colour = colour;
@@ -55,8 +55,8 @@ public class Phone implements Cloneable {
         return id;
     }
 
-    public Name getName() {
-        return name;
+    public PhoneName getPhoneName() {
+        return phoneName;
     }
 
     public Brand getBrand() {
@@ -109,7 +109,7 @@ public class Phone implements Cloneable {
         }
 
         Phone otherPhone = (Phone) other;
-        return otherPhone.getName().equals(getName())
+        return otherPhone.getPhoneName().equals(getPhoneName())
                 && otherPhone.getBrand().equals((getBrand()))
                 && otherPhone.getCapacity().equals((getCapacity()))
                 && otherPhone.getColour().equals((getColour()))
@@ -119,7 +119,7 @@ public class Phone implements Cloneable {
 
     @Override
     public Object clone() {
-        Phone clone = new Phone(this.id, (Name) this.name.clone(), (Brand) this.brand.clone(), this.capacity,
+        Phone clone = new Phone(this.id, (PhoneName) this.phoneName.clone(), (Brand) this.brand.clone(), this.capacity,
                 (Colour) this.colour.clone(), (Cost) this.cost.clone(), this.getTags());
         return clone;
     }
@@ -127,7 +127,7 @@ public class Phone implements Cloneable {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, name, brand, capacity, colour, cost, tags);
+        return Objects.hash(id, phoneName, brand, capacity, colour, cost, tags);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class Phone implements Cloneable {
         builder.append(" # ")
                 .append(getId())
                 .append(" Name: ")
-                .append(getName())
+                .append(getPhoneName())
                 .append(" Brand: ")
                 .append(getBrand())
                 .append(" Capacity: ")

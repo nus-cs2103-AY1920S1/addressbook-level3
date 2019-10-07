@@ -5,9 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Phone's name in the SML.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPhoneName(String)}
  */
-public class Name implements Cloneable {
+public class PhoneName implements Cloneable {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -23,18 +23,18 @@ public class Name implements Cloneable {
     /**
      * Constructs a {@code Name}.
      *
-     * @param name A valid name.
+     * @param phoneName A valid name.
      */
-    public Name(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+    public PhoneName(String phoneName) {
+        requireNonNull(phoneName);
+        checkArgument(isValidPhoneName(phoneName), MESSAGE_CONSTRAINTS);
+        fullName = phoneName;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidPhoneName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -47,8 +47,8 @@ public class Name implements Cloneable {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+                || (other instanceof PhoneName // instanceof handles nulls
+                && fullName.equals(((PhoneName) other).fullName)); // state check
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Name implements Cloneable {
 
     @Override
     protected Object clone() {
-        return new Name(new String(fullName));
+        return new PhoneName(new String(fullName));
     }
 
 }
