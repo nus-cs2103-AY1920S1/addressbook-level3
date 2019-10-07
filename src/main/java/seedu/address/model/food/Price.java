@@ -23,14 +23,50 @@ public class Price {
     public Price(String price) {
         requireNonNull(price);
         checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
-        value = price;
+        value = convert(price);
     }
 
     /**
      * Returns true if a given string is a valid price number.
      */
     public static boolean isValidPrice(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (test.matches(VALIDATION_REGEX)) {
+            try {
+                Double.parseDouble(test);
+            } catch (Exception e) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the input price has decimal digits or not.
+     * @param price the input String.
+     * @return true if the input price has no decimal digits.
+     */
+    public boolean isPerfectNumber(String price) {
+        try {
+            Integer.parseInt(price);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Converts the input price to a more accurate representation.
+     * @param price the input String.
+     * @return the correct String representation of the input price.
+     */
+    public String convert(String price) {
+        if (isPerfectNumber(price)) {
+            return Integer.parseInt(price) + ".00";
+        } else {
+            return String.format("%.2f", Double.parseDouble(price));
+        }
     }
 
     @Override

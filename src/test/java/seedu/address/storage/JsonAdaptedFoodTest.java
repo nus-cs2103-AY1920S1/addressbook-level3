@@ -19,7 +19,7 @@ import seedu.address.model.food.Price;
 public class JsonAdaptedFoodTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PRICE = "+651234";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_EMAIL = "";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
