@@ -9,15 +9,17 @@ import static seedu.mark.commons.util.AppUtil.checkArgument;
  */
 public class Remark {
 
-    public static final String SPECIAL_CHARACTER = "/";
+    public static final String INVALID_CHARACTER = "/";
 
-    public static final String MESSAGE_CONSTRAINTS = "Remarks can contain any characters except " + SPECIAL_CHARACTER;
+    public static final String MESSAGE_CONSTRAINTS = "Remarks can contain any characters except " + INVALID_CHARACTER;
 
     /*
      * The first character of the remark must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     *
+     * The rest of the remark can contain any character except the invalid character.
      */
-    public static final String VALIDATION_REGEX = "[^\\s][^" + SPECIAL_CHARACTER + "]*";
+    public static final String VALIDATION_REGEX = "[^\\s][^" + INVALID_CHARACTER + "]*";
 
     public static final String DEFAULT_VALUE = "-";
     public final String value;
