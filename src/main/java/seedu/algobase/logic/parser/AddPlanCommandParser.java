@@ -1,6 +1,7 @@
 package seedu.algobase.logic.parser;
 
 import seedu.algobase.logic.commands.AddPlanCommand;
+import seedu.algobase.logic.commands.DeleteCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
@@ -22,7 +23,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 /**
  * Parses input arguments and creates a new AddPlanCommand object
  */
-public class AddPlanCommandParser {
+public class AddPlanCommandParser implements Parser<AddPlanCommand>{
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPlanCommand
