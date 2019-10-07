@@ -38,15 +38,18 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE), pe);
         }
 
         EditCustomerDescriptor editCustomerDescriptor = new EditCustomerDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editCustomerDescriptor.setCustomerName(ParserUtil.parseCustomerName(argMultimap.getValue(PREFIX_NAME).get()));
+            editCustomerDescriptor.setCustomerName(
+                    ParserUtil.parseCustomerName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT).isPresent()) {
-            editCustomerDescriptor.setContactNumber(ParserUtil.parseContactNumber(argMultimap.getValue(PREFIX_CONTACT).get()));
+            editCustomerDescriptor.setContactNumber(
+                    ParserUtil.parseContactNumber(argMultimap.getValue(PREFIX_CONTACT).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editCustomerDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));

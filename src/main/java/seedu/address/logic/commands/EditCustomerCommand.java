@@ -87,11 +87,13 @@ public class EditCustomerCommand extends Command {
      * Creates and returns a {@code Customer} with the details of {@code customerToEdit}
      * edited with {@code editCustomerDescriptor}.
      */
-    private static Customer createEditedCustomer(Customer customerToEdit, EditCustomerDescriptor editCustomerDescriptor) {
+    private static Customer createEditedCustomer(Customer customerToEdit,
+                                                 EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
         CustomerName updatedName = editCustomerDescriptor.getCustomerName().orElse(customerToEdit.getCustomerName());
-        ContactNumber updatedContactNumber = editCustomerDescriptor.getContactNumber().orElse(customerToEdit.getContactNumber());
+        ContactNumber updatedContactNumber =
+                editCustomerDescriptor.getContactNumber().orElse(customerToEdit.getContactNumber());
         Email updatedEmail = editCustomerDescriptor.getEmail().orElse(customerToEdit.getEmail());
         Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
 
