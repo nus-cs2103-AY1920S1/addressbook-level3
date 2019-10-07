@@ -2,10 +2,11 @@ package seedu.weme.ui;
 
 import java.util.logging.Logger;
 
+import org.controlsfx.control.GridCell;
+import org.controlsfx.control.GridView;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
@@ -13,23 +14,23 @@ import seedu.weme.model.meme.Meme;
 /**
  * Panel containing the list of memes.
  */
-public class MemeListPanel extends UiPart<Region> {
-    private static final String FXML = "MemeListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(MemeListPanel.class);
+public class MemeGridPanel extends UiPart<Region> {
+    private static final String FXML = "MemeGridPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(MemeGridPanel.class);
 
     @FXML
-    private ListView<Meme> memeListView;
+    private GridView<Meme> memeGridView;
 
-    public MemeListPanel(ObservableList<Meme> memeList) {
+    public MemeGridPanel(ObservableList<Meme> memeList) {
         super(FXML);
-        memeListView.setItems(memeList);
-        memeListView.setCellFactory(listView -> new MemeListViewCell());
+        memeGridView.setItems(memeList);
+        memeGridView.setCellFactory(gridView -> new MemeGridViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Meme} using a {@code MemeCard}.
+     * Custom {@code GridCell} that displays the graphics of a {@code Meme} using a {@code MemeCard}.
      */
-    class MemeListViewCell extends ListCell<Meme> {
+    class MemeGridViewCell extends GridCell<Meme> {
         @Override
         protected void updateItem(Meme meme, boolean empty) {
             super.updateItem(meme, empty);
