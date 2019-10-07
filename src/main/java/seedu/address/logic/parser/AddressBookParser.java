@@ -37,11 +37,17 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddContactCommand.COMMAND_WORD:
+            return new AddContactCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditContactCommand.COMMAND_WORD:
+            return new EditContactCommandParser().parse(arguments);
+
+        case AddClaimCommand.COMMAND_WORD:
+            return new AddClaimCommandParser().parse(arguments);
+
+        case EditClaimCommand.COMMAND_WORD:
+            return new EditClaimCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -53,7 +59,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case GotoContactsCommand.COMMAND_WORD:
-            return new GotoContactsCommand();
+            return new GotoContactsCommand(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
