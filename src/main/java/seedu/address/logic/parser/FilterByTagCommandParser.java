@@ -36,7 +36,7 @@ public class FilterByTagCommandParser implements Parser<FilterByTagCommand> {
         for (String s : tagKeywords) {
             tags.add(new Tag(s));
         }
-        return new FilterByTagCommand(new PersonContainsTagPredicate(tags));
+        return new FilterByTagCommand(new PersonContainsTagPredicate(tags), tagKeywords);
     }
 
 }
