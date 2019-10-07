@@ -12,6 +12,7 @@ import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
+import seedu.mark.logic.commands.ExportCommand;
 import seedu.mark.logic.commands.FindCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ListCommand;
@@ -61,6 +62,9 @@ public class MarkParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
