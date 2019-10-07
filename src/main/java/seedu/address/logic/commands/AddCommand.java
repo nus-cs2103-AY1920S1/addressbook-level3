@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.DuplicatePersonException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -43,7 +44,8 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "elderly ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book\n";
+    public static final String DUPLICATE_PERSON_MERGE_PROMPT = "Do you wish to edit this person's profile?";
 
     private final Person toAdd;
 
@@ -56,11 +58,15 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) throws DuplicatePersonException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            StringBuilder exceptionMessage = new StringBuilder();
+            exceptionMessage.append(MESSAGE_DUPLICATE_PERSON);
+            exceptionMessage.append(model.getPerson(toAdd).toString() + "\n");
+            exceptionMessage.append(DUPLICATE_PERSON_MERGE_PROMPT);
+            throw new DuplicatePersonException(exceptionMessage.toString());
         }
 
         model.addPerson(toAdd);

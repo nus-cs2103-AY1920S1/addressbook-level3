@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "This is not a valid Singapore Idenfication number.\n" +
+            "This is not a valid Singapore Identification number.\n" +
                     "NRICs should only contain alphanumeric characters. It should start with S, T, F or G" +
                     " followed by 6 numerical numbers and a checksum letter. It should not be blank.\n";
 

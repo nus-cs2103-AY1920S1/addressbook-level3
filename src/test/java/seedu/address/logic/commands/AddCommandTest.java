@@ -48,7 +48,9 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON +
+                validPerson.toString() + "\n" + AddCommand.DUPLICATE_PERSON_MERGE_PROMPT,
+                () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -115,7 +117,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public Person getPerson(Person person) {
+            return person;
+        }
+
+        @Override
         public void addPolicy(Policy policy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Policy getPolicy(Policy policy) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -131,6 +143,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPolicy(Policy policy) {
             throw new AssertionError("This method should not be called.");
         }
 

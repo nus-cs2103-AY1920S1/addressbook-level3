@@ -20,10 +20,10 @@ public class ParseExceptionHandler {
         boolean isValidPhone = phone != null;
         boolean isValidEmail = email != null;
         if (isValidPhone) {
-            suggestionMessage.append(" Phone Number: " + phone.toString());
+            suggestionMessage.append("Phone Number: " + phone.toString());
         }
         if (isValidEmail) {
-            suggestionMessage.append(" Email: " + email.toString());
+            suggestionMessage.append("Email: " + email.toString());
         }
         boolean hasNoValidContact = suggestionMessage.length() == 0;
         if (hasNoValidContact) {
@@ -41,7 +41,7 @@ public class ParseExceptionHandler {
         exceptionMessage.append(Phone.MESSAGE_CONSTRAINTS);
         boolean isValidEmail = email != null;
         if (isValidEmail) {
-            suggestionMessage.append(" Email: " + email.toString());
+            suggestionMessage.append("Email: " + email.toString());
         }
         boolean hasNoValidContact = suggestionMessage.length() == 0;
         if (hasNoValidContact) {
@@ -59,7 +59,7 @@ public class ParseExceptionHandler {
         exceptionMessage.append(Email.MESSAGE_CONSTRAINTS);
         boolean isValidPhone = phone != null;
         if (isValidPhone) {
-            suggestionMessage.append(" Phone: " + phone.toString());
+            suggestionMessage.append("Phone: " + phone.toString());
         }
         boolean hasNoValidContact = suggestionMessage.length() == 0;
         if (hasNoValidContact) {

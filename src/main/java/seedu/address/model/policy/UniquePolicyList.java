@@ -36,6 +36,11 @@ public class UniquePolicyList implements Iterable<Policy> {
         return internalList.stream().anyMatch(toCheck::isSamePolicy);
     }
 
+    public Policy getPolicy(Policy policy) {
+        requireNonNull(policy);
+        return internalList.stream().filter(policy::isSamePolicy).findAny().get();
+    }
+
     /**
      * Adds a policy to the list.
      * The person must not already exist in the list.
@@ -88,7 +93,7 @@ public class UniquePolicyList implements Iterable<Policy> {
      * Replaces the contents of this list with {@code policies}.
      * {@code policies} must not contain duplicate policies.
      */
-    public void setPersons(List<Policy> policies) {
+    public void setPolicies(List<Policy> policies) {
         requireAllNonNull(policies);
         if (!policiesAreUnique(policies)) {
             throw new DuplicatePolicyException();

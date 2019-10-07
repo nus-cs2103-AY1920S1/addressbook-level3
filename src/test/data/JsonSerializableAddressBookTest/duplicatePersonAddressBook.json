@@ -12,6 +12,7 @@
     "nric" : "S000001J",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "date of birth" : "12.12.1992",
     "address": "4th street"
   } ]
 }

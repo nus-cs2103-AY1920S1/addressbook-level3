@@ -34,7 +34,7 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "date of birth" : "14.2.2019",
-    "policies" : [ ["Infant Insurance", "Infant Insurance", "years/2", "$1500"] ],
+    "policies" : [ ["Infant Insurance", "Infant Insurance", "years/2", "$1000"] ],
     "tagged" : [ ]
   }, {
     "name" : "Elle Meyer",

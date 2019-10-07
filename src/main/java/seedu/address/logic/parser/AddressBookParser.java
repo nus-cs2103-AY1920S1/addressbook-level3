@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MERGE;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -103,6 +104,10 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+        /*
+        case MergeCommand.COMMAND_WORD:
+            return new MergeCommandParser().parse(arguments);
+        */
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

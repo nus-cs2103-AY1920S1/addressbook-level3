@@ -43,21 +43,21 @@ public class TypicalPersons {
             .withPhone("87652533").withEmail("cornelia@example.com").withAddress("10th street")
             .withDateOfBirth("14.2.2019").withPolicies("Infant Insurance").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withNric("S000005J")
-            .withPhone("9482224").withEmail("werner@example.com").withAddress("michegan ave")
+            .withPhone("94822247").withEmail("werner@example.com").withAddress("michegan ave")
             .withDateOfBirth("17.5.2000").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withNric("S000006J")
-            .withPhone("9482427").withEmail("lydia@example.com").withAddress("little tokyo")
+            .withPhone("94824279").withEmail("lydia@example.com").withAddress("little tokyo")
             .withDateOfBirth("15.8.2008").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withNric("S000007J")
-            .withPhone("9482442").withEmail("anna@example.com").withAddress("4th street")
+            .withPhone("94824425").withEmail("anna@example.com").withAddress("4th street")
             .withDateOfBirth("5.5.2015").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withNric("S012345H")
-            .withPhone("8482424").withEmail("stefan@example.com").withAddress("little india")
+            .withPhone("84824248").withEmail("stefan@example.com").withAddress("little india")
             .withDateOfBirth("22.4.1988").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withNric("T098765H")
-            .withPhone("8482131").withEmail("hans@example.com").withAddress("chicago ave")
+            .withPhone("84821318").withEmail("hans@example.com").withAddress("chicago ave")
             .withDateOfBirth("16.7.2017").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}

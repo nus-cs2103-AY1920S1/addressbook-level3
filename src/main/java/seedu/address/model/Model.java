@@ -59,6 +59,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns the matching person in the address book.
+     */
+    Person getPerson(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -91,5 +96,15 @@ public interface Model {
      * {@code policy} must not already exist in the address book.
      */
     void addPolicy(Policy policy);
+
+    /**
+     * Returns true if a policy with the same identity as {@code policy} exists in the address book.
+     */
+    boolean hasPolicy(Policy policy);
+
+    /**
+     * Returns the matching person in the address book.
+     */
+    Policy getPolicy(Policy policy);
 
 }

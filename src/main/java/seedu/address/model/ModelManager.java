@@ -96,6 +96,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person getPerson(Person person) {
+        requireNonNull(person);
+        return addressBook.getPerson(person);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -128,6 +134,18 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasPolicy(Policy policy) {
+        requireNonNull(policy);
+        return addressBook.hasPolicy(policy);
+    }
+
+    @Override
+    public Policy getPolicy(Policy policy) {
+        requireNonNull(policy);
+        return addressBook.getPolicy(policy);
     }
 
     @Override

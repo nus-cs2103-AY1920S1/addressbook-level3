@@ -70,6 +70,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    public Person getPerson(Person person) {
+        requireNonNull(person);
+        return persons.getPerson(person);
+    }
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
@@ -97,7 +102,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-    //// util methods
+    /**
+     * Returns true if a policy with the same identity as {@code policy} exists in the address book.
+     */
+    public boolean hasPolicy(Policy policy) {
+        requireNonNull(policy);
+        return policies.contains(policy);
+    }
+
+    public Policy getPolicy(Policy policy) {
+        requireNonNull(policy);
+        return policies.getPolicy(policy);
+    }
 
     /**
      * Adds a policy to the address book.
@@ -106,6 +122,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addPolicy(Policy p) {
         policies.add(p);
     }
+
+    //// util methods
 
     @Override
     public String toString() {

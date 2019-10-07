@@ -28,12 +28,12 @@ public class PersonTest {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));
 
+        // different phone and email -> returns true
+        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        assertTrue(ALICE.isSamePerson(editedAlice));
+
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
-
-        // different phone and email -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
 
         // different name -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();

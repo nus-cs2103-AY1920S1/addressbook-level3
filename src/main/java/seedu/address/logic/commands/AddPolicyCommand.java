@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.DuplicatePolicyException;
 import seedu.address.model.Model;
 import seedu.address.model.policy.Policy;
 
@@ -39,6 +40,8 @@ public class AddPolicyCommand extends Command {
             + PREFIX_TAG + "senior insurance ";
 
     public static final String MESSAGE_SUCCESS = "New policy added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This policy already exists in the address book";
+    public static final String DUPLICATE_PERSON_MERGE_PROMPT = "Do you wish to edit this policy's information?";
 
     private final Policy toAdd;
 
@@ -53,7 +56,13 @@ public class AddPolicyCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        if (model.hasPolicy(toAdd)) {
+            StringBuilder exceptionMessage = new StringBuilder();
+            exceptionMessage.append(MESSAGE_DUPLICATE_PERSON + "\n");
+            exceptionMessage.append(model.getPolicy(toAdd).toString() + "\n");
+            exceptionMessage.append(DUPLICATE_PERSON_MERGE_PROMPT);
+            throw new DuplicatePolicyException(exceptionMessage.toString());
+        }
         model.addPolicy(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.DuplicatePersonException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -33,13 +34,18 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered() {
+        String command = commandTextField.getText();
         try {
-            commandExecutor.execute(commandTextField.getText());
+            commandExecutor.execute(command);
             commandTextField.setText("");
+        } catch (DuplicatePersonException e) {
+            commandTextField.setText("");
+            setStyleToIndicateCommandFailure();
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
     }
+
 
     /**
      * Sets the command box style to use the default style.

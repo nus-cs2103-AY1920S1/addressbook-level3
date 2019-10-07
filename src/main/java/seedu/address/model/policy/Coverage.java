@@ -85,6 +85,7 @@ public class Coverage {
 
     @Override
     public String toString() {
+        /*
         StringBuilder coverageString = new StringBuilder();
         boolean hasDaysSpecified = period.getDays() != 0;
         if (hasDaysSpecified) {
@@ -108,7 +109,8 @@ public class Coverage {
             }
             coverageString.append(period.getYears() + " years");
         }
-        return coverageString.toString();
+        */
+        return coverage.toString();
     }
 
     @Override
