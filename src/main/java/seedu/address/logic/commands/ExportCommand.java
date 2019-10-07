@@ -18,7 +18,7 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Exporting person %1$s";
     public static final String MESSAGE_FAILURE = "Failed to export...";
     public static final String MESSAGE_PERSON_NOT_FOUND = "This entity does not exists in the address book!";
-    public static final String MESSAGE_USAGE = "Show command takes in a person's name as argument!";
+    public static final String MESSAGE_USAGE = "Export command takes in a person's name as argument!";
 
     private Name name;
 

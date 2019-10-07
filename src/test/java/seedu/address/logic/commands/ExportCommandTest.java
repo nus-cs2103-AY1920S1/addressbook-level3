@@ -56,7 +56,7 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void exportFail() {
+    public void exportFailure() {
         //Person not found in the person list.
         assertThrows(CommandException.class, () -> new ExportCommand(new Name("Abedagge")).execute(model));
     }
