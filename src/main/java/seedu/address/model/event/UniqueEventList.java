@@ -3,10 +3,13 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -93,6 +96,35 @@ public class UniqueEventList {
 
         internalList.setAll(events);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueEventList // instanceof handles nulls
+                && internalList.equals(((UniqueEventList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
+
+    /**
+     * Returns true if {@code persons} contains only unique persons.
+     */
+    /*
+    private boolean personsAreUnique(List<Person> persons) {
+        for (int i = 0; i < persons.size() - 1; i++) {
+            for (int j = i + 1; j < persons.size(); j++) {
+                if (persons.get(i).isSamePerson(persons.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+     */
 
 
 }
