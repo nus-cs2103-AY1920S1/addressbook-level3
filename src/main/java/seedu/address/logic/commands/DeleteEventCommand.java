@@ -18,12 +18,16 @@ import seedu.address.model.events.EventSource;
  */
 public class DeleteEventCommand extends Command {
 
-    private List<Integer> indexes;
-    private List<String> tags;
+    private final List<Integer> indexes;
+    private final List<String> tags;
 
-    public DeleteEventCommand(List<Integer> indexes, List<String> tags) {
-        this.indexes = indexes;
-        this.tags = tags;
+    DeleteEventCommand(DeleteEventCommandBuilder builder) {
+        this.indexes = builder.getIndexes();
+        this.tags = builder.getTags();
+    }
+
+    public static CommandBuilder newBuilder() {
+        return new DeleteEventCommandBuilder().init();
     }
 
     @Override

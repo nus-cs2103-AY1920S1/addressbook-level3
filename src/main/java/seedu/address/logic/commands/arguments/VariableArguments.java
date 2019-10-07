@@ -1,8 +1,7 @@
-package seedu.address.logic.commands.builders.arguments;
+package seedu.address.logic.commands.arguments;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -14,23 +13,21 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public abstract class VariableArguments<T> {
 
-    private final List<T> arguments;
+    private final List<T> values;
     private final String description;
-    private final Consumer<List<T>> builder;
 
-    VariableArguments(String description, Consumer<List<T>> builder) {
-        this.arguments = new ArrayList<>();
-        this.description = description;
-        this.builder = builder;
+    VariableArguments(VariableArgumentsBuilder<T> builder) {
+        this.values = new ArrayList<>();
+        this.description = builder.getDescription();
     }
 
     public void accept(String userInput) throws ParseException {
-        this.arguments.add(this.parse(userInput));
+        this.values.add(this.parse(userInput));
     }
 
     abstract T parse(String userInput) throws ParseException;
 
-    public void build() {
-        this.builder.accept(this.arguments);
+    List<T> getValues() {
+        return this.values;
     }
 }

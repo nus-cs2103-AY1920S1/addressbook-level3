@@ -1,11 +1,11 @@
-package seedu.address.logic.commands.builders;
+package seedu.address.logic.commands;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.builders.options.Option;
 import seedu.address.logic.commands.exceptions.ArgumentException;
+import seedu.address.logic.commands.options.Option;
+import seedu.address.logic.commands.options.OptionBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -24,13 +24,20 @@ public abstract class CommandBuilder {
     /**
      * This method must be called first.
      */
-    public void initialize() {
-        this.arguments = this.getCommandArguments();
-        this.options = new HashMap<>(this.getCommandOptions());
+    CommandBuilder init() {
+        // Build OptionBuilders
+        this.arguments = this.getCommandArguments().build();
+        this.options = new HashMap<>();
+        for (Map.Entry<String, OptionBuilder> entry : this.getCommandOptions().entrySet()) {
+            String keyword = entry.getKey();
+            OptionBuilder option = entry.getValue();
+            this.options.put(keyword, option.build());
+        }
 
         // Set the initial context.
         this.context = this.arguments;
         this.context.setActive();
+        return this;
     }
 
     /**
@@ -60,12 +67,12 @@ public abstract class CommandBuilder {
         for (Option option : this.options.values()) {
             option.build();
         }
-        return this.buildCommand();
+        return this.commandBuild();
     }
 
-    abstract Option getCommandArguments();
+    abstract OptionBuilder getCommandArguments();
 
-    abstract Map<String, Option> getCommandOptions();
+    abstract Map<String, OptionBuilder> getCommandOptions();
 
-    abstract Command buildCommand();
+    abstract Command commandBuild();
 }

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.builders.arguments;
+package seedu.address.logic.commands.arguments;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -46,12 +46,24 @@ class CommandArgumentTest {
     private static class CommandArgumentMock extends Argument<Object> {
 
         CommandArgumentMock() {
-            super("", o -> {});
+            super(new CommandArgumentBuilderStub(""));
         }
 
         @Override
         Object parse(String userInput) {
             return "";
+        }
+    }
+
+    private static class CommandArgumentBuilderStub extends ArgumentBuilder<Object> {
+
+        CommandArgumentBuilderStub(String description) {
+            super(description);
+        }
+
+        @Override
+        Argument<Object> argumentBuild() {
+            return new CommandArgumentMock();
         }
     }
 }

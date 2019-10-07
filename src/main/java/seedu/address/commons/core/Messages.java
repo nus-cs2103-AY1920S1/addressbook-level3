@@ -18,4 +18,5 @@ public class Messages {
 
     public static final String MESSAGE_ADD_EVENT_SUCCESS = "\"New event added: \" %s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "\"Events deleted: \" %s";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "\"Events edited: \" %s";
 }

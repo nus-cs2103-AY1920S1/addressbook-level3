@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.builders.CommandBuilder;
+import seedu.address.logic.commands.CommandBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -33,7 +33,6 @@ public class CommandParser implements Parser<Command> {
         state1.addPattern("\\s*", matches -> state2);
         state2.addPattern("[^\\s]+", matches -> {
             this.commandBuilder = new CommandKeywordParser().parse(matches.get(0));
-            this.commandBuilder.initialize();
             return state3;
         });
         state3.addPattern("\\s+", matches -> state4);

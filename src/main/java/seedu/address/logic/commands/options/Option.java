@@ -1,10 +1,9 @@
-package seedu.address.logic.commands.builders.options;
+package seedu.address.logic.commands.options;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.commands.builders.arguments.Argument;
-import seedu.address.logic.commands.builders.arguments.VariableArguments;
+import seedu.address.logic.commands.arguments.Argument;
+import seedu.address.logic.commands.arguments.VariableArguments;
 import seedu.address.logic.commands.exceptions.ArgumentException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -17,27 +16,17 @@ public class Option {
     // Determines whether or not this option is used in the Command.
     private boolean active;
     private int argumentIndex;
+
     private final List<Argument> arguments;
+    private final VariableArguments variableArguments;
 
-    private VariableArguments variableArguments;
-
-    public Option() {
-        this.arguments = new ArrayList<>();
-    }
-
-    /**
-     * Adds an argument to this option.
-     * @param argument the argument
-     * @return this instance
-     */
-    public Option addArgument(Argument argument) {
-        this.arguments.add(argument);
-        return this;
-    }
-
-    public Option setVariableArguments(VariableArguments variableArguments) {
+    Option(List<Argument> arguments, VariableArguments variableArguments) {
+        this.arguments = arguments;
         this.variableArguments = variableArguments;
-        return this;
+    }
+
+    public static OptionBuilder newBuilder() {
+        return new OptionBuilder();
     }
 
     /**
@@ -61,10 +50,6 @@ public class Option {
     public void build() throws ArgumentException {
         for (Argument argument : this.arguments) {
             argument.build(this.active);
-        }
-
-        if (this.variableArguments != null) {
-            this.variableArguments.build();
         }
     }
 

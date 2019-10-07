@@ -1,9 +1,8 @@
-package seedu.address.logic.commands.builders.arguments;
+package seedu.address.logic.commands.arguments;
 
 import static seedu.address.commons.core.Messages.MESSAGE_REQUIRED_COMMAND_ARGUMENT;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import seedu.address.logic.commands.exceptions.ArgumentException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -17,11 +16,9 @@ public abstract class Argument<T> {
 
     private T value;
     private final String description;
-    private final Consumer<T> builder;
 
-    Argument(String description, Consumer<T> builder) {
-        this.description = description;
-        this.builder = builder;
+    Argument(ArgumentBuilder<T> builder) {
+        this.description = builder.getDescription();
     }
 
     /**
@@ -34,8 +31,6 @@ public abstract class Argument<T> {
         this.value = this.parse(userInput);
     }
 
-    abstract T parse(String userInput) throws ParseException;
-
     /**
      * Builds the argument, calls the builder consumer.
      * @param required if the argument is required to have a value
@@ -45,6 +40,11 @@ public abstract class Argument<T> {
         if (required && this.value == null) {
             throw new ArgumentException(String.format(MESSAGE_REQUIRED_COMMAND_ARGUMENT, this.description));
         }
-        builder.accept(this.value);
     }
+
+    T getValue() {
+        return value;
+    }
+
+    abstract T parse(String userInput) throws ParseException;
 }

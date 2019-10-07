@@ -1,7 +1,4 @@
-package seedu.address.logic.commands.builders.arguments;
-
-import java.util.List;
-import java.util.function.Consumer;
+package seedu.address.logic.commands.arguments;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -10,8 +7,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class StringVariableArguments extends VariableArguments<String> {
 
-    public StringVariableArguments(String description, Consumer<List<String>> builder) {
-        super(description, builder);
+    StringVariableArguments(VariableArgumentsBuilder<String> builder) {
+        super(builder);
+    }
+
+    public static StringVariableArgumentsBuilder newBuilder(String description) {
+        return new StringVariableArgumentsBuilder(description);
     }
 
     @Override
