@@ -22,7 +22,8 @@ image::SakuraBlossom.png[width="150", align="left"]
 {empty}[http://github.com/SakuraBlossom[github]]
 
 Role: Team Lead +
-Responsibilities: Logic, Storage
+Responsibilities: Undo/Redo functionality, Eager Evaluation +
+Component(s) In Charge: Logic, Storage
 
 '''
 
@@ -31,7 +32,8 @@ image::CarbonGrid.png[width="150", align="left"]
 {empty}[http://github.com/CarbonGrid[github]]
 
 Role: Developer +
-Responsibilities: UI, Model
+Responsibilities: AutoCompleter, History +
+Component(s) In Charge: UI
 
 '''
 
