@@ -12,7 +12,6 @@ import seedu.address.transaction.util.TransactionList;
 
 public class ReimbursementList {
     private static String INVALIDINDEX = "Index is out of bound. Please key in a valid index.";
-    private static String NOPERSON = "No such person in reimbursement list.";
     private ArrayList<Reimbursement> list;
 
     public ReimbursementList() {
