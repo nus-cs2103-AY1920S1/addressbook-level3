@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLAIMS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,15 +18,12 @@ import seedu.address.model.Model;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Description;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing claim in the claim list.
  */
 public class EditClaimCommand extends Command {
 
@@ -54,8 +50,8 @@ public class EditClaimCommand extends Command {
     private final EditClaimDescriptor editClaimDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the claim in the filtered claim list to edit
+     * @param editClaimDescriptor details to edit the claim with
      */
     public EditClaimCommand(Index index, EditClaimDescriptor editClaimDescriptor) {
         requireNonNull(index);
@@ -87,13 +83,13 @@ public class EditClaimCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Claim} with the details of {@code claimToEdit}
+     * edited with {@code editClaimDescriptor}.
      */
     private static Claim createEditedClaim(Claim claimToEdit, EditClaimDescriptor editClaimDescriptor) {
         assert claimToEdit != null;
 
-        Description updatedDescription = editClaimDescriptor.getDescription().orElse(claimToEdit.getName());
+        Description updatedDescription = editClaimDescriptor.getDescription().orElse(claimToEdit.getDescription());
         Amount updatedAmount = editClaimDescriptor.getAmount().orElse(claimToEdit.getAmount());
         Name updatedName = editClaimDescriptor.getName().orElse(claimToEdit.getName());
         Phone updatedPhone = editClaimDescriptor.getPhone().orElse(claimToEdit.getPhone());
@@ -121,8 +117,8 @@ public class EditClaimCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the claim with. Each non-empty field value will replace the
+     * corresponding field value of the claim.
      */
     public static class EditClaimDescriptor {
         private Description description;

@@ -98,6 +98,13 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the given claim {@code target} with {@code editedClaim}.
+     * {@code target} must exist in the claim list.
+     * The claim identity of {@code editedClaim} must not be the same as another existing claim in the claim list.
+     */
+    void setClaim(Claim target, Claim editedClaim);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -106,4 +113,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered claim list */
+    ObservableList<Claim> getFilteredClaimList();
+
+    /**
+     * Updates the filter of the filtered claim list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredClaimList(Predicate<Claim> predicate);
 }
