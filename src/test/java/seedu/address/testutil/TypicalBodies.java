@@ -10,7 +10,6 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.Religion;
 import seedu.address.model.entity.body.Status;
 import seedu.address.model.entity.worker.Worker;
-import seedu.address.model.person.Person;
 
 //@@author ambervoong
 /**
@@ -55,9 +54,9 @@ public class TypicalBodies {
     private TypicalBodies() {
     } // prevents instantiation
 
-     /**
-     * Returns an {@code AddressBook} with all the typical persons.
-     */
+    /**
+    * Returns an {@code AddressBook} with all the typical persons.
+    */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Worker worker : TypicalWorkers.getTypicalWorkers()) {

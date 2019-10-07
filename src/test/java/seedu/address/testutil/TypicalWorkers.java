@@ -3,13 +3,13 @@ package seedu.address.testutil;
 import static seedu.address.model.entity.Sex.FEMALE;
 import static seedu.address.model.entity.Sex.MALE;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.entity.body.Body;
-import seedu.address.model.entity.worker.Worker;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.address.model.AddressBook;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 
 /**
  * A utility class containing a list of {@code Workers} objects to be used in tests.
