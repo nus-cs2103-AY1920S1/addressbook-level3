@@ -31,9 +31,9 @@ public class Home extends UiPart<Region> {
         // parse and construct User datamodel list by looping your ResultSet rs
         // and return the list
         List<Transaction> list = new ArrayList<>();
-        for (int i = 0; i < logic.getTransactionList().size(); i++) {
-            logic.getTransactionList().get(i).setId(i + 1);
-            list.add(logic.getTransactionList().get(i));
+        for (int i = 0; i < logic.getTransactionListFromFile().size(); i++) {
+            logic.getTransactionListFromFile().get(i).setId(i + 1);
+            list.add(logic.getTransactionListFromFile().get(i));
 
         }
         return list;

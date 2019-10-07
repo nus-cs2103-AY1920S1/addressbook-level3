@@ -27,10 +27,12 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final seedu.address.transaction.logic.Logic transactionLogic;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, seedu.address.transaction.logic.Logic transactionLogic) {
         this.model = model;
         this.storage = storage;
+        this.transactionLogic = transactionLogic;
         addressBookParser = new AddressBookParser();
     }
 
@@ -40,7 +42,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        commandResult = command.execute(model, transactionLogic);
 
         try {
             storage.saveAddressBook(model.getAddressBook());

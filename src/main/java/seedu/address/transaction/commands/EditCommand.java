@@ -5,10 +5,11 @@ import java.util.Locale;
 import java.util.Optional;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.transaction.commands.exception.NoSuchPersonException;
+import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.ui.TransactionUi;
+import seedu.address.transaction.model.exception.NoSuchPersonException;
+import seedu.address.transaction.ui.TransactionMessages;
 
 public class EditCommand extends Command {
     private static int id;
@@ -25,31 +26,33 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
-        TransactionUi transactionUi = new TransactionUi();
+        TransactionMessages transactionMessages = new TransactionMessages();
         Transaction transactionToEdit = model.findTransactionByIndex(index);
 
-        Transaction editedTransaction = createdEditedTransaction(transactionToEdit, editTransactionDescriptor);
+        Transaction editedTransaction = createdEditedTransaction(transactionToEdit, editTransactionDescriptor, personModel);
 
-        if (!transactionToEdit.isSameTransaction(editedTransaction) && model.hasTransaction(editedTransaction)) {
+        if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {
             //personModel.addPerson(editedTransaction.getPerson());
-            throw new NoSuchPersonException();
+            throw new NoSuchPersonException(TransactionMessages.NO_SUCH_PERSON);
         }
         model.setTransaction(transactionToEdit, editedTransaction);
-        return new CommandResult(TransactionUi.editedTransaction(editedTransaction));
+        return new CommandResult(TransactionMessages.editedTransaction(editedTransaction));
     }
 
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
-                                                        EditTransactionDescriptor editTransactionDescriptor) {
+                                                        EditTransactionDescriptor editTransactionDescriptor,
+                                                        seedu.address.person.model.Model personModel) {
 
         String updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         String updatedDescription = editTransactionDescriptor.getDescription().orElse(transactionToEdit.getDescription());
         String updatedCategory = editTransactionDescriptor.getCategory().orElse(transactionToEdit.getCategory());
         double updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
-        String updatedName = editTransactionDescriptor.getName().orElse(transactionToEdit.getName());
-        return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount, updatedName, id);
+        Person updatedPerson =
+                personModel.getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
+        return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount, updatedPerson, id);
     }
 
     public static class EditTransactionDescriptor {

@@ -23,11 +23,13 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
+    private seedu.address.person.logic.Logic personLogic;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic) {
+    public UiManager(Logic logic, seedu.address.person.logic.Logic personLogic) {
         super();
         this.logic = logic;
+        this.personLogic = personLogic;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, logic, personLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

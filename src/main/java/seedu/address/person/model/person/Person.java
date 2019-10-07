@@ -35,6 +35,14 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    public Person() {
+        this.name = new Name("dummy name");
+        this.phone = new Phone("12345678");
+        this.email = new Email("dummy@example.com");
+        this.address = new Address("blk 00 dummy st");
+        this.tags.add(new Tag("dummyTag"));
+    }
+
     public Name getName() {
         return name;
     }
@@ -59,6 +67,14 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public String getTagsAsStrings() {
+        final StringBuilder builder = new StringBuilder();
+        for (Tag tag: tags) {
+            builder.append(tag + "\n");
+        }
+        return builder.toString();
+    }
+
     /**
      * Returns true if both persons of the same name.
      * This defines a weaker notion of equality between two persons.
@@ -70,7 +86,6 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
-                //&& (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
     /**

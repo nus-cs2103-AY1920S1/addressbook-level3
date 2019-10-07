@@ -18,8 +18,6 @@ import seedu.address.transaction.ui.Start;
 //NO LONGER USED (USED FOR CLI, NO UI)
 public class Main {
     public static void main(String[] args) {
-        StorageManager storage = new StorageManager("data/transactionHistory.txt");
-        ModelManager mm = new ModelManager(storage);
 
         //no config for ui yet
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
@@ -39,6 +37,8 @@ public class Main {
         }
         seedu.address.person.model.ModelManager personMM =
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);
+        StorageManager storage = new StorageManager("data/transactionHistory.txt", personMM);
+        ModelManager mm = new ModelManager(storage);
         LogicManager lm = new LogicManager(mm, storage, personMM, personStorage);
 
         Start mw = new Start(lm);
