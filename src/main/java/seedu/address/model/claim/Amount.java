@@ -10,7 +10,7 @@ public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Claim amount should only contain numbers, and has a maximum decimal places of 2";
-    public static final String VALIDATION_REGEX = "\\d+.\\d\\d";
+    public static final String VALIDATION_REGEX = "\\d+.?\\d{0,2}";
     public final String value;
 
     /**
