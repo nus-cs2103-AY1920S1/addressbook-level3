@@ -6,9 +6,21 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
+import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.Nric;
+import seedu.address.model.entity.body.Religion;
+import seedu.address.model.entity.body.Status;
+import seedu.address.model.person.Name;
 import seedu.address.testutil.BodyBuilder;
 
 //@@author ambervoong
@@ -29,118 +41,118 @@ class UpdateBodyDescriptorTest {
 
     @Test
     void apply_fieldsPresent_success() {
-//        Body body = new BodyBuilder(ALICE).build();
-//        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(new BodyBuilder().build());
-//        assertTrue(descriptor.apply(body).equals(new BodyBuilder().build()));
-
+        Body body = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
+        descriptor.setSex(Sex.MALE);
+        Body bodyCopy = new BodyBuilder(ALICE).build();
+        bodyCopy.setSex(Sex.MALE);
+        assertTrue(descriptor.apply(body).equals(bodyCopy));
     }
 
     @Test
-    void apply_somefieldsNotPresent_success() {
+    void apply_allFieldsNotPresent_success() {
+        //  Success because apply does not check whether fields are present or not.
+        Body body = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
+        Body bodyCopy = new BodyBuilder(ALICE).build();
+        assertTrue(descriptor.apply(body).equals(bodyCopy));
     }
 
     @Test
-    void getName() {
+    void getSetName() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setName(new Name("Long Tetulu"));
+        assertEquals(new Name("Long Tetulu"), body.getName());
     }
 
     @Test
-    void setName() {
+    void getSetSex() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setSex(Sex.MALE);
+        assertEquals(Sex.MALE, body.getSex());
     }
 
     @Test
-    void getSex() {
+    void getSetNric() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setNric(new Nric("F9123456B"));
+        assertEquals(new Nric("F9123456B"), body.getNric());
     }
 
     @Test
-    void setSex() {
+    void getSetReligion() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setReligion(Religion.ISLAM);
+        assertEquals(Religion.ISLAM, body.getReligion());
     }
 
     @Test
-    void getNric() {
+    void getSetCauseOfDeath() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setCauseOfDeath("Sepsis");
+        assertEquals("Sepsis", body.getCauseOfDeath());
     }
 
     @Test
-    void setNric() {
+    void getSetOrgansForDonation() {
+        Body body = new BodyBuilder(ALICE).build();
+        ArrayList<String> list = new ArrayList<>(3);
+        list.add("kidney");
+        list.add("cornea");
+        body.setOrgansForDonation(list);
+        assertEquals(list, body.getOrgansForDonation());
     }
 
     @Test
-    void getReligion() {
+    void getSetStatus() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setStatus(Status.PENDING_IDENTIFICATION);
+        assertEquals(Status.PENDING_IDENTIFICATION, body.getStatus());
     }
 
     @Test
-    void setReligion() {
+    void getSetFridgeId() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setFridgeId(IdentificationNumber.customGenerateId("F", 5));
+        assertEquals(IdentificationNumber.customGenerateId("F", 5), body.getFridgeId());
     }
 
     @Test
-    void getCauseOfDeath() {
+    void getSetDateOfBirth() throws ParseException {
+        Body body = new BodyBuilder(ALICE).build();
+        Date birthday = ParserUtil.parseDate("01/02/2018");
+        body.setDateOfBirth(birthday);
+        assertEquals(birthday, body.getDateOfBirth());
     }
 
     @Test
-    void setCauseOfDeath() {
+    void getSetDateOfDeath() throws ParseException {
+        Body body = new BodyBuilder(ALICE).build();
+        Date deathDay = ParserUtil.parseDate("01/05/2018");
+        body.setDateOfDeath(deathDay);
+        assertEquals(deathDay, body.getDateOfDeath());
     }
 
     @Test
-    void getOrgansForDonation() {
+    void getSetNextOfKin() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setNextOfKin(new Name("Sepe Lok Aew"));
+        assertEquals(new Name("Sepe Lok Aew"), body.getNextOfKin());
     }
 
     @Test
-    void setOrgansForDonation() {
+    void getSetRelationship() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setRelationship("Mother");
+        assertEquals("Mother", body.getRelationship());
     }
 
-    @Test
-    void getStatus() {
-    }
 
     @Test
-    void setStatus() {
-    }
-
-    @Test
-    void getFridgeId() {
-    }
-
-    @Test
-    void setFridgeId() {
-    }
-
-    @Test
-    void getDateOfBirth() {
-    }
-
-    @Test
-    void setDateOfBirth() {
-    }
-
-    @Test
-    void getDateOfDeath() {
-    }
-
-    @Test
-    void setDateOfDeath() {
-    }
-
-    @Test
-    void getNextOfKin() {
-    }
-
-    @Test
-    void setNextOfKin() {
-    }
-
-    @Test
-    void getRelationship() {
-    }
-
-    @Test
-    void setRelationship() {
-    }
-
-    @Test
-    void getKinPhoneNumber() {
-    }
-
-    @Test
-    void setKinPhoneNumber() {
+    void getSetKinPhoneNumber() {
+        Body body = new BodyBuilder(ALICE).build();
+        body.setKinPhoneNumber(new PhoneNumber("98981234"));
+        assertEquals(new PhoneNumber("98981234"), body.getKinPhoneNumber());
     }
 
     @Test
