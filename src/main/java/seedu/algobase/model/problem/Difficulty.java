@@ -7,7 +7,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
  * Represents a Problem's difficulty in the algobase.
  * Guarantees: immutable; is valid as declared in {@link #isValidDifficulty(String)}
  */
-public class Difficulty {
+public class Difficulty implements Comparable<Difficulty> {
 
     public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric.";
     public static final double DIFFICULTY_LOWER_BOUND = 0.0;
@@ -81,4 +81,11 @@ public class Difficulty {
         return Double.hashCode(value);
     }
 
+    @Override
+    public int compareTo(Difficulty o) {
+        if (this == o) {
+            return 0;
+        }
+        return Double.compare(this.value, o.value);
+    }
 }

@@ -108,7 +108,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        problemListPanel = new ProblemListPanel(logic.getFilteredProblemList());
+        problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
         DisplayTab problemListPanelTab = new DisplayTab("Problems", problemListPanel);
         DisplayTab tagListPanelTab = new DisplayTab("Tags");
         DisplayTab planListPanelTab = new DisplayTab("Plans");
