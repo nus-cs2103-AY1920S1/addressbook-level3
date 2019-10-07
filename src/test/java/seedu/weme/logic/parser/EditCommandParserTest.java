@@ -1,16 +1,15 @@
 package seedu.weme.logic.parser;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.weme.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.weme.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.weme.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.weme.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.weme.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
 import static seedu.weme.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.weme.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.weme.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.weme.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.weme.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -26,7 +25,6 @@ import org.junit.jupiter.api.Test;
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.EditCommand;
 import seedu.weme.logic.commands.EditCommand.EditMemeDescriptor;
-import seedu.weme.model.meme.Address;
 import seedu.weme.model.meme.Name;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
@@ -70,7 +68,6 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid weme
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Meme} being edited,
@@ -80,7 +77,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_ADDRESS_AMY,
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_DESCRIPTION_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -88,10 +85,10 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_MEME;
         String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND
-                + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+                + DESCRIPTION_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAddress(VALID_ADDRESS_AMY)
+                .withDescription(VALID_DESCRIPTION_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -101,10 +98,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_MEME;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY + ADDRESS_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY + DESCRIPTION_DESC_BOB;
 
         EditCommand.EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAddress(VALID_ADDRESS_BOB).build();
+                .withDescription(VALID_DESCRIPTION_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -120,8 +117,8 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // weme
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditMemeDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_AMY;
+        descriptor = new EditMemeDescriptorBuilder().withDescription(VALID_DESCRIPTION_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -135,12 +132,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_MEME;
-        String userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + ADDRESS_DESC_AMY + TAG_DESC_FRIEND
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_AMY
+                + TAG_DESC_FRIEND + DESCRIPTION_DESC_AMY + TAG_DESC_FRIEND
+                + DESCRIPTION_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder()
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -157,9 +154,9 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + INVALID_NAME_DESC + ADDRESS_DESC_BOB
+        userInput = targetIndex.getOneBased() + INVALID_NAME_DESC + DESCRIPTION_DESC_BOB
                 + NAME_DESC_AMY;
-        descriptor = new EditMemeDescriptorBuilder().withAddress(VALID_ADDRESS_BOB)
+        descriptor = new EditMemeDescriptorBuilder().withDescription(VALID_DESCRIPTION_BOB)
                 .withName(VALID_NAME_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

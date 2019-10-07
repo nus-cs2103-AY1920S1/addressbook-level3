@@ -1,6 +1,6 @@
 package seedu.weme.testutil;
 
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -29,7 +29,7 @@ public class MemeUtil {
     public static String getMemeDetails(Meme meme) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + meme.getName().fullName + " ");
-        sb.append(PREFIX_ADDRESS + meme.getAddress().value + " ");
+        sb.append(PREFIX_DESCRIPTION + meme.getDescription().value + " ");
         meme.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -42,7 +42,8 @@ public class MemeUtil {
     public static String getEditMemeDescriptorDetails(EditMemeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getDescription().ifPresent(description ->
+                sb.append(PREFIX_DESCRIPTION).append(description.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

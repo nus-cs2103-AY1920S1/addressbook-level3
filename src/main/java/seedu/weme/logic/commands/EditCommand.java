@@ -1,7 +1,7 @@
 package seedu.weme.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
@@ -17,7 +17,7 @@ import seedu.weme.commons.core.index.Index;
 import seedu.weme.commons.util.CollectionUtil;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
-import seedu.weme.model.meme.Address;
+import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.Name;
 import seedu.weme.model.tag.Tag;
@@ -34,7 +34,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
@@ -86,10 +86,10 @@ public class EditCommand extends Command {
         assert memeToEdit != null;
 
         Name updatedName = editMemeDescriptor.getName().orElse(memeToEdit.getName());
-        Address updatedAddress = editMemeDescriptor.getAddress().orElse(memeToEdit.getAddress());
+        Description updatedDescription = editMemeDescriptor.getDescription().orElse(memeToEdit.getDescription());
         Set<Tag> updatedTags = editMemeDescriptor.getTags().orElse(memeToEdit.getTags());
 
-        return new Meme(updatedName, updatedAddress, updatedTags);
+        return new Meme(updatedName, updatedDescription, updatedTags);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class EditCommand extends Command {
      */
     public static class EditMemeDescriptor {
         private Name name;
-        private Address address;
+        private Description description;
         private Set<Tag> tags;
 
         public EditMemeDescriptor() {}
@@ -127,7 +127,7 @@ public class EditCommand extends Command {
          */
         public EditMemeDescriptor(EditMemeDescriptor toCopy) {
             setName(toCopy.name);
-            setAddress(toCopy.address);
+            setDescription(toCopy.description);
             setTags(toCopy.tags);
         }
 
@@ -135,7 +135,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, address, tags);
+            return CollectionUtil.isAnyNonNull(name, description, tags);
         }
 
         public void setName(Name name) {
@@ -146,12 +146,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         /**
@@ -187,7 +187,7 @@ public class EditCommand extends Command {
             EditMemeDescriptor e = (EditMemeDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getAddress().equals(e.getAddress())
+                    && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
         }
     }

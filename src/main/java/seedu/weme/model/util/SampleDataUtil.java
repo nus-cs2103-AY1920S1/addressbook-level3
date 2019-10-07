@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.ReadOnlyMemeBook;
-import seedu.weme.model.meme.Address;
+import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.Name;
 import seedu.weme.model.tag.Tag;
@@ -18,22 +18,22 @@ public class SampleDataUtil {
     public static Meme[] getSampleMemes() {
         return new Meme[] {
             new Meme(new Name("Alex Yeoh"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
+                new Description("Meme Description 01"),
                 getTagSet("friends")),
             new Meme(new Name("Bernice Yu"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                new Description("Meme Description 02"),
                 getTagSet("colleagues", "friends")),
             new Meme(new Name("Charlotte Oliveiro"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                new Description("Meme Description 03"),
                 getTagSet("neighbours")),
             new Meme(new Name("David Li"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                new Description("Meme Description 04"),
                 getTagSet("family")),
             new Meme(new Name("Irfan Ibrahim"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
+                new Description("Meme Description 05"),
                 getTagSet("classmates")),
             new Meme(new Name("Roy Balakrishnan"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
+                new Description("Meme Description 06"),
                 getTagSet("colleagues"))
         };
     }

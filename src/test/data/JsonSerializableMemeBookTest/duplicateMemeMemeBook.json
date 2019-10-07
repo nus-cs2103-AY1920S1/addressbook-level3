@@ -1,10 +1,10 @@
 {
   "memes": [ {
     "name": "Alice Pauline",
-    "address": "123, Jurong West Ave 6, #08-111",
+    "description": "123, Jurong West Ave 6, #08-111",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "address": "4th street"
+    "description": "4th street"
   } ]
 }
