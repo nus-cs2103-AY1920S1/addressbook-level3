@@ -28,11 +28,13 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListBodyCommand(), model, ListBodyCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListWorkerCommand(), model, ListWorkerCommand.MESSAGE_SUCCESS, expectedModel);
+        //assertCommandSuccess(new ListFridgeCommand(), model, ListFridgeCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    public void execute_listIsFiltered_showsEverything() {  //?
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
