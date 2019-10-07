@@ -1,11 +1,12 @@
-= Address Book (Level 3)
-ifdef::env-github,env-browser[:relfileprefix: docs/]
+== Duke Academy
+:site-section: ReadMe
+:stylesDir: stylesheets
+Data structure Practice App for your outstanding school results
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://travis-ci.org/AY1920S1-CS2103T-F14-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-1/main.svg?branch=master[Build Status]]
+https://coveralls.io/github/AY1920S1-CS2103T-F14-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F14-1/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.codacy.com/project/badge/Grade/967c7be5909941f486c674f65e6332e4["Codacy code quality", link="https://www.codacy.com/manual/dukecodedoc/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-F14-1/main&utm_campaign=Badge_Grade"]
+
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -15,15 +16,53 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+== What is Duke Academy?
 
-== Site Map
+[none]
+* *Duke Academy* is a desktop application to auto-grade Data Structure & Algorithms problems.
+* It is a Java application intended for students learning Data Structure & Algorithms to practice their coding skills.
+* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
+== Preview
+
+You can browse questions:
+
+ifdef::env-github[]
+image::docs/images/userguide/view.png[width="600", text-center]
+endif::[]
+
+ifndef::env-github[]
+image::images/userguide/view.png[width="600", text-center]
+endif::[]
+
+
+'''
+
+Attempt Questions and view results:
+
+ifdef::env-github[]
+image::docs/images/userguide/submit.png[width="600", text-center]
+endif::[]
+
+ifndef::env-github[]
+image::images/userguide/submit.png[width="600", text-center]
+endif::[]
+
+== Install
+[none]
+* Make sure your java version is at least `11`.
+* Download the jar file from the https://github.com/AY1920S1-CS2103T-F14-1/main/releases[latest release].
+
+== Quick Start
+* Open terminal and type `java -jar dukeacademy.jar` to start the app.
+* Type `list` in the command box. Open a question by `view <question ID>`, e.g. `view 2103`. Attempt the question by `attempt <question ID>`, e.g. `attempt 2103`.
+* Start your first Duke Academy code!
+* For any help, type `help`.
+
+== See Also
+
+* For students and educators, please refer to the <<UserGuide#, user guide>>.
+* This is an open source project. To contribute, please refer to the <<DeveloperGuide#, developer guide>> to get familiar with the code base.
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -31,6 +70,7 @@ endif::[]
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
+* The original source code comes from the https://se-education.org[AddressBook-Level 3 project] created by SE-EDU initiative.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
