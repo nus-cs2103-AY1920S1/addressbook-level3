@@ -17,6 +17,7 @@ public interface Model {
     Predicate<Problem> PREDICATE_SHOW_ALL_PROBLEMS = unused -> true;
 
     //=========== UserPref =============================================================
+    Predicate<Plan> PREDICATE_SHOW_ALL_PLANS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -84,8 +85,38 @@ public interface Model {
      */
     void setProblem(Problem target, Problem editedProblem);
 
-    /** Returns an unmodifiable view of the filtered Problem list */
+    /** Returns an unmodifiable view of the filtered Plan list */
     ObservableList<Problem> getFilteredProblemList();
+
+    /**
+     * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.
+     */
+    boolean hasPlan(Plan plan);
+
+    /**
+     * Deletes the given Plan.
+     * The Plan must exist in the algobase.
+     */
+    void deletePlan(Plan target);
+
+    /**
+     * Adds the given Plan.
+     * {@code Plan} must not already exist in the algobase.
+     */
+    void addPlan(Plan plan);
+
+    /**
+     * Replaces the given Plan {@code target} with {@code editedPlan}.
+     * {@code target} must exist in the algobase.
+     * The Plan identity of {@code editedPlan} must not be the same as another existing Plan in the algobase.
+     */
+    void setPlan(Plan target, Plan editedPlan);
+
+    /**
+     * Updates the filter of the filtered Plan list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPlanList(Predicate<Plan> predicate);
 
     /**
      * Updates the filter of the filtered Problem list to filter by the given {@code predicate}.
@@ -104,4 +135,5 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered Problem list */
     ObservableList<Plan> getFilteredPlanList();
+
 }

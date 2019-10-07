@@ -119,6 +119,31 @@ public class ModelManager implements Model {
     }
 
     //=========== Problem List =============================================================
+    @Override
+    public boolean hasPlan(Plan plan) {
+        requireNonNull(plan);
+        return algoBase.hasPlan(plan);
+    }
+
+    @Override
+    public void deletePlan(Plan target) {
+        algoBase.removePlan(target);
+    }
+
+    @Override
+    public void addPlan(Plan plan) {
+        algoBase.addPlan(plan);
+        updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+    }
+
+    @Override
+    public void setPlan(Plan target, Plan editedPlan) {
+        requireAllNonNull(target, editedPlan);
+
+        algoBase.setPlan(target, editedPlan);
+    }
+
+    //=========== Filtered Problem List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
@@ -159,6 +184,12 @@ public class ModelManager implements Model {
     }
 
     //============== Util ==================================================================
+
+    @Override
+    public void updateFilteredPlanList(Predicate<Plan> predicate) {
+        requireNonNull(predicate);
+        filteredPlans.setPredicate(predicate);
+    }
 
     @Override
     public boolean equals(Object obj) {
