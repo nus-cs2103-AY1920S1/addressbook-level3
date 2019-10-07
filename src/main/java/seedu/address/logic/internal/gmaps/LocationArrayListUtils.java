@@ -24,4 +24,13 @@ public class LocationArrayListUtils {
         }
         return newArrayList;
     }
+
+    public static int getIndex(ArrayList<Location> arrayList, String locationName) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i).getLocationName().equals(locationName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

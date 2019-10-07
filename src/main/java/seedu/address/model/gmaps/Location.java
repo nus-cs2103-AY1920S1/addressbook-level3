@@ -8,32 +8,42 @@ import static java.util.Objects.requireNonNull;
 
 public class Location {
 
-    public final String locationName;
-    private String latitude;
-    private String longitude;
+    private final String locationName;
+    private String googleRecognisedLocation = null;
+    private int index;
 
-    public Location(String locationName, String latitude, String longitude) {
+    public Location(String locationName, int index) {
         requireNonNull(locationName);
         this.locationName = locationName;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.index = index;
     }
-    public Location(String locationName) {
-        requireNonNull(locationName);
-        this.locationName = locationName;
+
+    public void setGoogleRecognisedLocation(String googleRecognisedLocation) {
+        this.googleRecognisedLocation = googleRecognisedLocation;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public String getGoogleRecognisedLocation() {
+        return googleRecognisedLocation;
     }
 
     @Override
 
     public boolean equals(Object other) {
         return other == this || other instanceof Location
-                && ((Location) other).locationName.equals(locationName)
-                && ((Location) other).latitude.equals(latitude)
-                && ((Location) other).longitude.equals(longitude);
+                && ((Location) other).getLocationName().equals(locationName)
+                && ((Location) other).getGoogleRecognisedLocation().equals(googleRecognisedLocation);
     }
 
     @Override
     public String toString() {
-        return "Location: " + locationName + " at latitude: " + latitude + ", longitude: " + longitude;
+        return index + ". " + "Location: " + locationName + ", Google recognised location: " + googleRecognisedLocation;
     }
 }

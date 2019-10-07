@@ -20,8 +20,8 @@ public class GmapsApi {
     private final String apiKey;
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public GmapsApi(String apiKey) {
-        this.apiKey = apiKey;
+    public GmapsApi() {
+        this.apiKey = "AIzaSyDAFxuSmPkh76205mOAA6kWBx6oTye_TNI";
     }
 
     /**
@@ -48,6 +48,21 @@ public class GmapsApi {
         originQueryParams = originQueryParams + venuesQueryParams + "&";
         destinationQueryParams = destinationQueryParams + venuesQueryParams + "&";
         String fullUrl = baseUrl + originQueryParams + destinationQueryParams + apiKeyQueryParams;
+        ApiQuery query = new ApiQuery(fullUrl);
+        QueryResult queryResult = query.execute();
+        if (queryResult.process(logger)) {
+            JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
+            return obj;
+        } else {
+            throw new ConnectException(ParserUtil.parseStringToJsonObject(queryResult.getResponseResult()).toString());
+        }
+    }
+
+    public JSONObject getLocation(String locationName) throws ConnectException {
+        String baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?location=.sg&";
+        String apiKeyQueryParams = "key=" + apiKey + "&";
+        String queryParams = "query=" + locationName + "&";
+        String fullUrl = baseUrl + queryParams + apiKeyQueryParams;
         ApiQuery query = new ApiQuery(fullUrl);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {

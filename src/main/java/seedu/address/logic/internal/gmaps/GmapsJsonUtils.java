@@ -38,5 +38,8 @@ public class GmapsJsonUtils {
         return distanceMatrixArrayList;
     }
 
-
+    public static String getStatus(JSONObject apiResponse) {
+        String status = (String) apiResponse.get("status");
+        return status;
+    }
 }

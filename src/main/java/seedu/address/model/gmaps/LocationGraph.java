@@ -1,47 +1,46 @@
 package seedu.address.model.gmaps;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+
+import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
 
 /**
  * This is the graph object that contains the information for location vertex
  */
 public class LocationGraph {
-    private Hashtable<String, LocationVertex> graph = new Hashtable<>();
-    private ArrayList<String> orderedKeys = new ArrayList<>();
 
-    LocationGraph() {
-    }
+    private ArrayList<Location> venues;
 
-    LocationGraph(Hashtable<String, LocationVertex> graph, ArrayList<String> orderedeKeys) {
-        this.graph = graph;
-        this.orderedKeys = orderedeKeys;
-    }
+    private ArrayList<ArrayList<Long>> distanceMatrix = new ArrayList<>();
 
-    /**
-     * Add vertex to the graph
-     * @param locationVertex
-     * @return a new LocationGraph with the newly added LocationGraph
-     */
-
-    public LocationGraph addVertex(LocationVertex locationVertex) {
-        graph.put(locationVertex.getLocationVertexName(), locationVertex);
-        orderedKeys.add(locationVertex.getLocationVertexName());
-        return new LocationGraph(graph, orderedKeys);
-    }
-
-    public LocationVertex getVertex(String locationName) {
-        return graph.get(locationName);
-    }
-
-    @Override
-    public String toString() {
-        String returnString = "Location graph:\n\n";
-        for (int i = 0; i < orderedKeys.size(); i++) {
-            String currKey = orderedKeys.get(i);
-            LocationVertex currVertex = graph.get(currKey);
-            returnString = returnString + currVertex.toString();
+    public LocationGraph(ArrayList<Location> venues) {
+        this.venues = venues;
+        int venuesSize = venues.size();
+        for (int i = 0; i < venuesSize ; i++) {
+            distanceMatrix.add(new ArrayList<>());
         }
-        return returnString;
     }
+
+    public LocationGraph(ArrayList<Location> venues, ArrayList<ArrayList<Long>> distanceMatrix) {
+        this.venues = venues;
+        this.distanceMatrix = distanceMatrix;
+    }
+
+    public ArrayList<Location> getVenues() {
+        return venues;
+    }
+
+    public int getLocationIndex(String locationName) {
+        return LocationArrayListUtils.getIndex(venues, locationName);
+    }
+
+    public ArrayList<Long> getLocationRow(int index) {
+        return distanceMatrix.get(index);
+    }
+
+    public LocationGraph setMatrix(int rowNum, ArrayList<Long> row) {
+            distanceMatrix.get(rowNum).addAll(row);
+            return new LocationGraph(venues, distanceMatrix);
+    }
+
 }
