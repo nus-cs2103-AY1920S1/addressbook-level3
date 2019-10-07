@@ -15,37 +15,19 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
-    // Identity fields
-    private final Name name;
-    private final Phone phone;
-
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
+    public Person(Set<Tag> tags) {
+        requireAllNonNull(tags);
+
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
-    }
 
-    public Phone getPhone() {
-        return phone;
-    }
-
-
-    public Address getAddress() {
-        return address;
-    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -64,9 +46,7 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()));
+        return otherPerson != null;
     }
 
     /**
@@ -84,27 +64,19 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        return otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address, tags);
+        return Objects.hash(tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
