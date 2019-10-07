@@ -5,9 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.StringUtil;
+import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
@@ -115,7 +117,7 @@ public class ParserUtil {
      */
     public static Remark parseRemark(String remark) throws ParseException {
         // TODO: implementation
-        return Remark.DEFAULT_REMARK;
+        return new Remark(remark);
     }
 
     /**
@@ -125,7 +127,7 @@ public class ParserUtil {
      */
     public static Source parseSource(String source) throws ParseException {
         // TODO: implementation
-        return Source.DEFAULT_SOURCE;
+        return new Source(source);
     }
 
     /**
@@ -153,5 +155,51 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String method} into a {@code SortingMethod}.
+     *
+     * @throws ParseException
+     */
+    public static SortCommand.SortingMethod parseSortingMethod(String method) throws ParseException {
+        switch (method) {
+        case "name":
+            return SortCommand.SortingMethod.byName;
+        case "author":
+            return SortCommand.SortingMethod.byAuthor;
+        case "difficulty":
+            return SortCommand.SortingMethod.byDifficulty;
+        case "source":
+            return SortCommand.SortingMethod.bySource;
+        case "weblink":
+            return SortCommand.SortingMethod.byWebLink;
+        default:
+            throw new ParseException(SortCommand.SortingMethod.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String order} into a {@code SortingOrder}.
+     *
+     * @throws ParseException
+     */
+    public static SortCommand.SortingOrder parseSortingOrder(String order) throws ParseException {
+        switch (order) {
+        case "ascend":
+            return SortCommand.SortingOrder.ascend;
+        case "descend":
+            return SortCommand.SortingOrder.descend;
+        default:
+            throw new ParseException(SortCommand.SortingOrder.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

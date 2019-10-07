@@ -7,7 +7,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
  * Represents a Problem's author number in the algobase.
  * Guarantees: immutable; is valid as declared in {@link #isValidAuthor(String)}
  */
-public class Author {
+public class Author implements Comparable<Author> {
 
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -75,4 +75,11 @@ public class Author {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Author o) {
+        if (this == o) {
+            return 0;
+        }
+        return this.value.compareTo(o.value);
+    }
 }

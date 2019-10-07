@@ -21,7 +21,7 @@ public class ProblemBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_AUTHOR = "85355255";
-    public static final String DEFAULT_WEBLINK = "alice@gmail.com";
+    public static final String DEFAULT_WEBLINK = "http://open.kattis.com";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DIFFICULTY = "3.0";
     public static final String DEFAULT_REMARK = "remark placeholder";

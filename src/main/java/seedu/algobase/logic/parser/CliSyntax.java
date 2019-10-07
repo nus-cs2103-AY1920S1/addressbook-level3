@@ -14,4 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_DIFFICULTY = new Prefix("diff/");
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
     public static final Prefix PREFIX_SOURCE = new Prefix("src/");
+    public static final Prefix PREFIX_SORTING_METHOD = new Prefix("m/");
+    public static final Prefix PREFIX_SORTING_ORDER = new Prefix("ord/");
 }

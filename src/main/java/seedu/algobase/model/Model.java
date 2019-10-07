@@ -1,6 +1,7 @@
 package seedu.algobase.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -84,4 +85,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredProblemList(Predicate<Problem> predicate);
+
+    /**
+     * Updates the Problem list according to the given {@code problemComparator}.
+     * @param problemComparator
+     * @throws NullPointerException if {@code problemComparator} is null;
+     */
+    void updateSortedProblemList(Comparator<Problem> problemComparator);
 }
