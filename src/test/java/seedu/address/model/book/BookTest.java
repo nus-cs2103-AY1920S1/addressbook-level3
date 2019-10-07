@@ -131,6 +131,23 @@ public class BookTest {
     }
 
     @Test
+    public void returnBook_bookOnLoan_success() {
+        Book toBeLoaned = new BookBuilder(BOOK_1).build();
+        assertFalse(toBeLoaned.isCurrentlyLoanedOut());
+
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        Loan loan = new Loan(
+                toBeLoaned.getSerialNumber(),
+                currentBorrowerId,
+                DateUtil.getTodayDate(),
+                DateUtil.getTodayPlusDays(30));
+
+        Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
+        loanedBook.returnBook();
+        assertTrue(toBeLoaned.equals(loanedBook));
+    }
+
+    @Test
     public void hashCode_sameBookSameHashCode_assertTrue() {
         Book book1 = new BookBuilder(BOOK_1).build();
         Book book2 = new BookBuilder(BOOK_1).build();

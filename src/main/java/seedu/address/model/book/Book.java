@@ -90,6 +90,15 @@ public class Book {
     }
 
     /**
+     * Returns the book from the borrower to the library.
+     */
+    public void returnBook() {
+        // Create a similar method in Borrower class to remove loan object.
+        assert (this.loan.isPresent()) : "Book is in library";
+        this.loan = Optional.empty();
+    }
+
+    /**
      * Returns true if both books have the same identity and data fields.
      * This defines a stronger notion of equality between two books.
      */
