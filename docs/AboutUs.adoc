@@ -29,8 +29,8 @@ Responsibilities: Claims Feature
 '''
 
 === Joshua Seet
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+image::joshuaseet.jpg[width="150", align="left"]
+{empty}[http://github.com/joshuaseetss[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing
 Responsibilities: Income Feature
