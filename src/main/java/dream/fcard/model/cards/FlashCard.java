@@ -6,12 +6,6 @@ import javafx.scene.Node;
 public interface FlashCard {
 
     /**
-     * Returns a JSONObject representation of this flashcard.
-     * @return  JSONObject
-     */
-    JSONValue toJSON();
-
-    /**
      * Returns render of front of this flash card.
      * @return  JavaFX Node
      */

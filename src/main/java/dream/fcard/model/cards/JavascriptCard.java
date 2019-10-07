@@ -1,9 +1,10 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.util.json.JSONInterface;
 import dream.fcard.util.json.jsontypes.JSONValue;
 import javafx.scene.Node;
 
-public class JavascriptCard implements FlashCard {
+public class JavascriptCard implements FlashCard, JSONInterface {
 
     protected String front;
     protected String output;
