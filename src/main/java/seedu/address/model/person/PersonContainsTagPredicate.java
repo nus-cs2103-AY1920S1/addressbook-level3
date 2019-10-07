@@ -21,7 +21,7 @@ public class PersonContainsTagPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return tags.stream()
-                .anyMatch(tag -> person.containsTag(tag));
+                .anyMatch(person::containsTag);
     }
 
     @Override

@@ -10,6 +10,9 @@ public class FilterByTagCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
+    public static final String MESSAGE_USAGE = "filter by tags. Find all related persons with the specified \n" +
+            "tags. Example : filter [neighbours] [friends]";
+
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter by tag : ";
 
     private final PersonContainsTagPredicate tagPredicate;
