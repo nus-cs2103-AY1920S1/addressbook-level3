@@ -41,7 +41,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String name} into a {@code PlanName}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
@@ -71,7 +71,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String description} into an {@code Description}.
+     * Parses a {@code String description} into an {@code PlanDescription}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code description} is invalid.

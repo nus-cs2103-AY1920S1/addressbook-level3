@@ -51,7 +51,7 @@ control to the Logic component. According to the sequence diagram, the UI compon
 through a method named `execute`. Searching through the code base for `execute()` yields a promising candidate in
 `seedu.address.ui.CommandBox.CommandExecutor`.
 
-.Using the `Search for target by name` feature. `Navigate` > `Symbol`.
+.Using the `Search for target by planName` feature. `Navigate` > `Symbol`.
 image::Execute.png[]
 
 A quick look at the class confirms that this is indeed close to what we're looking for. However, it is just an

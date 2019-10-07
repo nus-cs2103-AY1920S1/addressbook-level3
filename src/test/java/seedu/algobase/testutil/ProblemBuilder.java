@@ -62,7 +62,7 @@ public class ProblemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Problem} that we are building.
+     * Sets the {@code PlanName} of the {@code Problem} that we are building.
      */
     public ProblemBuilder withName(String name) {
         this.name = new Name(name);
@@ -78,7 +78,7 @@ public class ProblemBuilder {
     }
 
     /**
-     * Sets the {@code Description} of the {@code Problem} that we are building.
+     * Sets the {@code PlanDescription} of the {@code Problem} that we are building.
      */
     public ProblemBuilder withDescription(String description) {
         this.description = new Description(description);

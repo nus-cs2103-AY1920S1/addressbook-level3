@@ -7,7 +7,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
  * Represents a Plan's description in the algobase.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Description {
+public class PlanDescription {
 
     public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values, and it should not be blank";
 
@@ -20,11 +20,11 @@ public class Description {
     public final String value;
 
     /**
-     * Constructs an {@code Description}.
+     * Constructs an {@code PlanDescription}.
      *
      * @param description A valid description.
      */
-    public Description(String description) {
+    public PlanDescription(String description) {
         requireNonNull(description);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
@@ -45,8 +45,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && value.equals(((Description) other).value)); // state check
+                || (other instanceof PlanDescription // instanceof handles nulls
+                && value.equals(((PlanDescription) other).value)); // state check
     }
 
     @Override

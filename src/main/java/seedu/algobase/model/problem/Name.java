@@ -21,7 +21,7 @@ public class Name implements Comparable<Name> {
     public final String fullName;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code PlanName}.
      *
      * @param name A valid name.
      */

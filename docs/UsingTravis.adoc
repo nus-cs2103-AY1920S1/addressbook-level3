@@ -77,7 +77,7 @@ We use a new user account to generate the token for team projects to prevent tea
 If you are the only one with write access to the repo, you can use your own account to generate the token.
 +
 --
-* Add a description for the token. (e.g. `Travis CI - deploy docs to gh-pages`)
+* Add a planDescription for the token. (e.g. `Travis CI - deploy docs to gh-pages`)
 * Check the `public_repo` checkbox.
 * Click `Generate Token` and copy your new personal access token.
 --
@@ -92,7 +92,7 @@ image:flick_repository_switch.png[Activate the switch]
 .  Click on the settings button next to the switch. In the Environment Variables section, add a new environment variable with
 +
 --
-* name: `GITHUB_TOKEN`
+* planName: `GITHUB_TOKEN`
 * value: personal access token copied in step 1
 * Display value in build log: `OFF`
 --
@@ -110,7 +110,7 @@ Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis sc
 .  Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
    Suggested change: Remove the codacy badge from `README`.
 .  Wait for Travis CI to finish running the build on your new commit.
-.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level3/`. You should see your `README` file displayed.
+.  Go to the URL `\https://<your-username-or-organization-planName>.github.io/addressbook-level3/`. You should see your `README` file displayed.
 
 == Repository-wide checks
 

@@ -44,16 +44,16 @@ module Slim::Helpers
 
 
   ##
-  # Creates an HTML tag with the given name and optionally attributes. Can take
+  # Creates an HTML tag with the given planName and optionally attributes. Can take
   # a block that will run between the opening and closing tags.
   #
-  # @param name [#to_s] the name of the tag.
+  # @param planName [#to_s] the planName of the tag.
   # @param attributes [Hash]
   # @param content [#to_s] the content; +nil+ to call the block.
   # @yield The block of Slim/HTML code within the tag (optional).
   # @return [String] a rendered HTML element.
   #
-  def html_tag(name, attributes = {}, content = nil)
+  def html_tag(planName, attributes = {}, content = nil)
     attrs = attributes.reject { |_, v|
       v.nil? || (v.respond_to?(:empty?) && v.empty?)
     }.map do |k, v|
@@ -64,11 +64,11 @@ module Slim::Helpers
     end
     attrs_str = attrs.empty? ? '' : attrs.join(' ').prepend(' ')
 
-    if VOID_ELEMENTS.include? name.to_s
-      %(<#{name}#{attrs_str}>)
+    if VOID_ELEMENTS.include? planName.to_s
+      %(<#{planName}#{attrs_str}>)
     else
       content ||= yield if block_given?
-      %(<#{name}#{attrs_str}>#{content}</#{name}>)
+      %(<#{planName}#{attrs_str}>#{content}</#{planName}>)
     end
   end
 
@@ -180,7 +180,7 @@ module Slim::Helpers
   #   sets its site-section attribute to this String, indicating that the
   #   reader is browsing this section of the site.
   # @param href [String] Path to the target page, relative to the site root.
-  # @param content [String] Link content. This is usually the human-readable name
+  # @param content [String] Link content. This is usually the human-readable planName
   #   of the link target.
   # @return [String] The rendered <a> tag.
   def nav_link(section, href, content)
@@ -199,12 +199,12 @@ module Slim::Helpers
   ##
   # Returns HTML meta tag if the given +content+ is not +nil+.
   #
-  # @param name [#to_s] the name for the metadata.
+  # @param planName [#to_s] the planName for the metadata.
   # @param content [#to_s, nil] the value of the metadata, or +nil+.
   # @return [String, nil] the meta tag, or +nil+ if the +content+ is +nil+.
   #
-  def html_meta_if(name, content)
-    %(<meta name="#{name}" content="#{content}">) if content
+  def html_meta_if(planName, content)
+    %(<meta planName="#{planName}" content="#{content}">) if content
   end
 
   # Returns formatted style/link and script tags for header.
@@ -232,7 +232,7 @@ module Slim::Helpers
       if attr? 'iconfont-remote'
         styles << { href: (attr 'iconfont-cdn', FONT_AWESOME_URI) }
       else
-        styles << { href: [stylesdir, %(#{attr 'iconfont-name', 'font-awesome'}.css)] }
+        styles << { href: [stylesdir, %(#{attr 'iconfont-planName', 'font-awesome'}.css)] }
       end
     end
 

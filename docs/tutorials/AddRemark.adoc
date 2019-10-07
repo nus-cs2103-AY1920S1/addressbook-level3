@@ -246,7 +246,7 @@ If you are stuck, check out the sample link:https://github.com/nus-cs2103-AY1920
 
 Now that we have all the information that we need, let's lay the groundwork for some _persistent_ changes.
 We achieve that by working with the `Person` model.
-Each field in a Person is implemented as a separate class (e.g. a `Name` object represents the person's name).
+Each field in a Person is implemented as a separate class (e.g. a `Name` object represents the person's planName).
 That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a person.
 
 === Add a new `Remark` class
@@ -402,7 +402,7 @@ Then, create a test for the `execute` method.
 .Creating a test for `execute`.
 image::CreateTest.png[, 664px,751px]
 
-Following convention, let's change the name of the generated method to `execute_addRemarkUnfilteredList_success`.
+Following convention, let's change the planName of the generated method to `execute_addRemarkUnfilteredList_success`.
 
 Let's use the utility functions provided in `CommandTestUtil`. The functions ensure that commands produce the expected `CommandResult` and output the correct message.
 In this case, `CommandTestUtil#assertCommandSuccess` is the best fit as we are testing that a `RemarkCommand` will successfully add a `Remark`.

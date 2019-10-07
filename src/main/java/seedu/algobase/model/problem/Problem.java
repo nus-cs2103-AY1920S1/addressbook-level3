@@ -131,7 +131,7 @@ public class Problem {
                 .append(getAuthor())
                 .append(" WebLink: ")
                 .append(getWebLink())
-                .append(" Description: ")
+                .append(" PlanDescription: ")
                 .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
