@@ -1,83 +1,135 @@
-package seedu.address.reimbursement;
+package seedu.address.reimbursement.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-import seedu.address.model.person.Person;
+import seedu.address.person.model.person.Person;
+import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
+import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.exception.NoSuchIndexException;
+import seedu.address.transaction.util.TransactionList;
 
 public class ReimbursementList {
-    private ArrayList<ReimbursementRecord> list;
-
-    public ReimbursementList(ArrayList<ReimbursementRecord> list) {
-        this.list = list;
-    }
+    private static String INVALIDINDEX = "Index is out of bound. Please key in a valid index.";
+    private ArrayList<Reimbursement> list;
 
     public ReimbursementList() {
-        this(new ArrayList<ReimbursementRecord>());
+        list = new ArrayList<Reimbursement>();
     }
 
-    /**
-     * Adds a new reimbursement record into reimbursement list.
-     * if the the person in the new record is already in the list, merge the new record with the existing record.
-     * otherwise, add the new record directly to the list.
-     *
-     * @param newRecord new reimbursement list to be added to the list.
-     */
-    public void addRecord(ReimbursementRecord newRecord) {
-
+    public ReimbursementList(TransactionList transList) {
+        ArrayList<Transaction> pendingList = checkStatus(transList);
+        for (Transaction trans : pendingList) {
+            Reimbursement newRecord = new Reimbursement(trans);
+            merge(newRecord);
+        }
     }
 
-    public int getSize() {
+    public ReimbursementList(ArrayList<Reimbursement> reimbursementList) {
+        list = reimbursementList;
+    }
+
+    private ArrayList<Transaction> checkStatus(TransactionList transList) {
+        //gets all the transactions whose status is pending reimbursement.
+        ArrayList<Transaction> pendingList = new ArrayList<>();
+        for (int i = 0; i < transList.size(); i++) {
+            try {
+                Transaction trans = transList.get(i);
+                if (trans.getStatus() == false) {
+                    pendingList.add(trans);
+                }
+            } catch (NoSuchIndexException e) {
+                break;
+            }
+        }
+        return pendingList;
+    }
+
+    private void merge(Reimbursement newRecord) {
+        boolean canMerge = false;
+        for (Reimbursement record : list) {
+            if (newRecord.comparePerson(record)) {
+                record.merge(newRecord);
+                canMerge = true;
+                break;
+            }
+        }
+        if (canMerge == false) {
+            list.add(newRecord);
+        }
+    }
+
+    public Reimbursement get(int index) throws NoSuchIndexException {
+        if (index >= list.size()) {
+            throw new NoSuchIndexException(INVALIDINDEX);
+        }
+        return list.get(index);
+    }
+
+    public void sortByName() {
+        Collections.sort(list, new SortByName());
+    }
+
+    public void sortByAmount() {
+        Collections.sort(list, new SortByAmount());
+    }
+
+    public void sortByDeadline() {
+        Collections.sort(list, new SortByDeadline());
+    }
+
+    public Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException {
+        for (Reimbursement reim : list) {
+            if (person.isSamePerson(reim.getPerson())) {
+                return reim;
+            }
+        }
+        throw new NoSuchPersonReimbursementException();
+    }
+
+    public int size() {
         return list.size();
     }
 
-    public double getAmount(Person person) {
-        for (ReimbursementRecord item : list) {
-            if (person.equals(item.getPerson())) {
-                return item.getAmount();
-            }
-        }
-        return 0;
+    public void addDeadline(Person person, String date) throws Exception {
+        Reimbursement rmb = findReimbursement(person);
+        rmb.addDeadline(date);
     }
 
-    public double getTotalAmount() {
-        double totalAmount = 0;
-        for (ReimbursementRecord item : list) {
-            totalAmount += item.getAmount();
+    public String toString() {
+        String output = "";
+        for (int i = 0; i < list.size(); i++) {
+            Reimbursement reimbursement = list.get(i);
+            output = output + reimbursement.toString();
         }
-        return totalAmount;
+        return output;
     }
+}
 
-    public ArrayList<Person> getPeople() {
-        ArrayList<Person> peopleList = new ArrayList<>();
-        for (ReimbursementRecord item : list) {
-            peopleList.add(item.getPerson());
-        }
-        return peopleList;
+class SortByName implements Comparator<Reimbursement> {
+    // Used for sorting in ascending order
+    public int compare(Reimbursement a, Reimbursement b) {
+        return a.getPerson().getName().compareTo(b.getPerson().getName());
     }
+}
 
-    /**
-     * Checks whether the person is already in the list.
-     *
-     * @param person the person to be checked whether he/she is already in the list.
-     * @return true if the person is in the list, otherwise false.
-     */
-    public boolean checkPerson(Person person) {
-        ReimbursementRecord result = getRecord(person);
-        if (result == null) {
-            return false;
+class SortByAmount implements Comparator<Reimbursement> {
+    // Used for sorting in ascending order
+    public int compare(Reimbursement a, Reimbursement b) {
+        if (a.getAmount() > b.getAmount()) {
+            return 1;
+        } else if (a.getAmount() == b.getAmount()) {
+            return 0;
         } else {
-            return true;
+            return -1;
         }
     }
+}
 
-    public ReimbursementRecord getRecord(Person person) {
-        for (ReimbursementRecord record : list) {
-            if (record.getPerson().equals(person)) {
-                return record;
-            }
-        }
-        return null;
+class SortByDeadline implements Comparator<Reimbursement> {
+    // Used for sorting in ascending order
+    public int compare(Reimbursement a, Reimbursement b) {
+        return a.getDeadline().compareTo(b.getDeadline());
     }
-
-
 }
