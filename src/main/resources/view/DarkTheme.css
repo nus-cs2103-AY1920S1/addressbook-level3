@@ -153,6 +153,17 @@
     -fx-text-fill: white;
 }
 
+.timer-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "monospace";
+    -fx-font-size: 13pt;
+    -fx-text-fill: pink;
+}
+
+.result-display .label {
+    -fx-text-fill: black !important;
+}
+
 .result-display .label {
     -fx-text-fill: black !important;
 }
@@ -333,6 +344,11 @@
 }
 
 #resultDisplay .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+}
+
+#timerDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
 }

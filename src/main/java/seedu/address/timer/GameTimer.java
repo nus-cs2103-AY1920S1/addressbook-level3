@@ -1,9 +1,10 @@
-package seedu.address.ui;
+package seedu.address.timer;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
+import seedu.address.ui.TimerDisplay;
 
 /**
  * Class that represents a countdown timer
@@ -11,14 +12,14 @@ import javafx.application.Platform;
 public class GameTimer {
     private Timer timer;
     private double currentMilliSeconds;
-    private ResultDisplay resultDisplay;
+    private TimerDisplay timerDisplay;
     private String mainMessage;
 
 
 
-    public GameTimer(String mainMessage, double durationInMs, ResultDisplay resultDisplay) {
+    public GameTimer(String mainMessage, double durationInMs, TimerDisplay timerDisplay) {
         this.mainMessage = mainMessage;
-        this.resultDisplay = resultDisplay;
+        this.timerDisplay = timerDisplay;
         this.currentMilliSeconds = durationInMs;
         this.timer = new Timer(true);
         timer.schedule(new TimerTask() {
@@ -26,10 +27,13 @@ public class GameTimer {
             public void run() {
                 Platform.runLater(() -> {
                     if (getTimeLeft() >= 0) {
-                        resultDisplay.setFeedbackToUser(mainMessage + " : " + getTimeLeft() / 100);
+                        timerDisplay.setNormalTextColour();
+                        timerDisplay.setFeedbackToUser(mainMessage + ": " + getTimeLeft() / 100);
+                        if(getTimeLeft() <= 500)
+                            timerDisplay.setAlertTextColour();
                     } else {
                         timer.cancel();
-                        resultDisplay.setFeedbackToUser("");
+                        timerDisplay.setFeedbackToUser("Time's Up!");
                     }
                     updateMilliSecondsLeft();
                 });
