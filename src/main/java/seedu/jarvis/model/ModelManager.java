@@ -11,6 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
+import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.Instalment;
+import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.person.Person;
 
 /**
@@ -20,6 +23,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    //private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -148,4 +152,38 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+//    @Override
+//    public void addPayment(Purchase purchase) {
+//        financeTracker.addSinglePayment(purchase);
+//    }
+//
+//    @Override
+//    public void deletePayment(int itemNumber) {
+//        financeTracker.deleteSinglePayment(itemNumber);
+//    }
+//
+//    @Override
+//    public void addInstalment(Instalment instalment) {
+//        financeTracker.addInstalment(instalment);
+//    }
+//
+//    @Override
+//    public void deleteInstalment(int instalNumber) {
+//        financeTracker.deleteInstalment(instalNumber);
+//    }
+//
+//    @Override
+//    public void editInstalmentByValue(int instalmentNumber, String description, double value) {
+//        financeTracker.editInstalment(instalmentNumber, description, value);
+//    }
+//
+//    @Override
+//    public void setMonthlyLimit(double value) {
+//        financeTracker.setMonthlyLimit(value);
+//    }
+//
+//    @Override
+//    public void listSpending() {
+//        financeTracker.listSpending();
+//    }
 }

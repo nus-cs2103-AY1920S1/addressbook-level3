@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financeTracker;
+package seedu.jarvis.model.financetracker;
 
 /**
  * Creates an instance to be used for tracking when a payment has been made to a person.
@@ -18,6 +18,6 @@ public class PurchaseToPerson extends Purchase {
 
     @Override
     public String toString() {
-            return super.getDescription()+  " paid to " + this.personName + " (" + super.getMoneySpent() + ")";
+        return super.getDescription() + " paid to " + this.personName + " (" + super.getMoneySpent() + ")";
     }
 }

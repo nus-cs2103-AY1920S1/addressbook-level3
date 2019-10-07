@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financeTracker;
+package seedu.jarvis.model.financetracker;
 
 import java.util.ArrayList;
 
@@ -41,13 +41,13 @@ public class PaymentsOwedByUser {
      *  spending list.
      * @return double the amount that has been paid by the user
      */
-    public double userHasPaid(int debtNumber) {
+    public PendingPayment userHasPaid(int debtNumber) {
         if (debtNumber > pendingPaymentsByUser.size()) {
             //todo throw error
         }
-        double amountPaid = pendingPaymentsByUser.get(debtNumber - 1).getMoneyAmount();
+        PendingPayment pendingPayment = pendingPaymentsByUser.get(debtNumber - 1);
         pendingPaymentsByUser.remove(debtNumber - 1);
-        return amountPaid;
+        return pendingPayment;
     }
 
     @Override

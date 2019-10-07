@@ -1,5 +1,8 @@
-package seedu.jarvis.model.financeTracker;
+package seedu.jarvis.model.financetracker;
 
+/**
+ * Object stores a single recurring payment with its details such as description and the amount spent.
+ */
 public class Instalment {
     private String description;
     private double moneySpentOnInstallment;
