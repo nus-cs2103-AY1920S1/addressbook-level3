@@ -25,14 +25,16 @@ public class AddVisitCommandParser implements Parser<AddVisitCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_VISIT);
 
         Index index;
+        String report;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            report = ParserUtil.parseVisitReport(argMultimap.getValue(PREFIX_VISIT).orElse(""));
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddVisitCommand.MESSAGE_USAGE), ive);
         }
 
-        String date = argMultimap.getValue(PREFIX_VISIT).orElse("");
+        //String date = argMultimap.getValue(PREFIX_VISIT).orElse("");
 
-        return new AddVisitCommand(index, date);
+        return new AddVisitCommand(index, report);
     }
 }

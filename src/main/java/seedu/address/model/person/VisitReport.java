@@ -9,10 +9,22 @@ public class VisitReport {
 
     private String medication;
     private String diagnosis;
+    private String remarks;
+    public Name name;
 
     public VisitReport(String date) {
         requireNonNull(date);
         value = date;
+        name = new Name("null");
+    }
+
+
+    public String getMedication() {
+        return medication;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
     }
 
     @Override
@@ -37,6 +49,20 @@ public class VisitReport {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public String getRemarks() {
+        return this.remarks;
+    }
+
+    public void setDetails(String prescription, String disease, String comment) {
+        this.medication = prescription;
+        this.diagnosis = disease;
+        this.remarks = comment;
     }
 }
 

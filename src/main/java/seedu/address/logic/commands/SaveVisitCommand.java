@@ -1,5 +1,4 @@
 package seedu.address.logic.commands;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -13,36 +12,25 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.VisitReport;
 import seedu.address.ui.VisitRecordWindow;
-
-/**
- * Changes the visitList of an existing person in the address book.
- */
-public class AddVisitCommand extends Command {
-    public static final String COMMAND_WORD = "addVisit";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the visitation record of the person identified "
-            + "by the index number used in the last person listing. "
-            + "Existing record will be overwritten by the input.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_VISIT + "[DATE]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_VISIT + "31/12/2019";
-
+public class SaveVisitCommand extends Command {
     public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added visit to Person: %1$s";
     public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed visit from Person: %1$s";
 
     private final Index index;
-    private final String date;
+    private final VisitReport visitReport;
 
-    /**
-     * @param index of the person in the filtered person list to edit the visitList
-     * @param date of the person to be updated to
-     */
-    public AddVisitCommand(Index index, String date) {
+    private String medication;
+    private String diagnosis;
+    private String remarks;
+
+    public SaveVisitCommand(int index, String date, String meds, String dg, String rmk) {
         requireAllNonNull(index, date);
-
-        this.index = index;
-        this.date = date;
+        System.out.println("INDEX = " + index + "\n");
+        this.index = Index.fromOneBased(index);
+        this.visitReport = new VisitReport(date);
+        this.medication = meds;
+        this.diagnosis = dg;
+        this.remarks = rmk;
     }
 
     @Override
@@ -54,9 +42,15 @@ public class AddVisitCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
+        visitReport.setName(personToEdit.getName());
+        visitReport.setDetails(medication, diagnosis, remarks);
+        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(),personToEdit.getVisitList().addRecord(visitReport) , personToEdit.getTags());
+
+        model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(personToEdit), false, true, false, index.getOneBased(), date);
+        return new CommandResult(generateSuccessMessage(editedPerson), false, true, false);
     }
 
     /**
@@ -64,7 +58,7 @@ public class AddVisitCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !date.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        String message = !visitReport.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
         return String.format(message, personToEdit);
     }
 
@@ -76,13 +70,14 @@ public class AddVisitCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddVisitCommand)) {
+        if (!(other instanceof SaveVisitCommand)) {
             return false;
         }
 
         // state check
-        AddVisitCommand e = (AddVisitCommand) other;
+        SaveVisitCommand e = (SaveVisitCommand) other;
         return index.equals(e.index)
-                && date.equals(e.date);
+                && visitReport.equals(e.visitReport);
     }
+
 }
