@@ -3,7 +3,7 @@ package seedu.address.model.transaction;
 import java.util.Date;
 
 public class InTransaction extends Transaction {
-    InTransaction(Amount amount, Date date) {
+    public InTransaction(Amount amount, Date date) {
         super(amount, date);
     }
 
