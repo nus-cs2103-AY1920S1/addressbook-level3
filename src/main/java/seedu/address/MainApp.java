@@ -63,7 +63,7 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         AppointmentBookStorage appointmentBookStorage = new JsonAppointmentBookStorage(
             userPrefs.getAppointmentBookFilePath());
-        storage = new StorageManager(userPrefsStorage, addressBookStorage, appointmentBookStorage);
+        storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
 
         initLogging(config);
 

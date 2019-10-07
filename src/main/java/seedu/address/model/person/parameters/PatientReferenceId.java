@@ -44,6 +44,6 @@ public class PatientReferenceId extends PersonReferenceId {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof PatientReferenceId // instanceof handles nulls
-            && getReferenceIdentifier().equals(((PatientReferenceId) other).getReferenceIdentifier())); // state check
+            && toString().equals(((PatientReferenceId) other).toString())); // state check
     }
 }

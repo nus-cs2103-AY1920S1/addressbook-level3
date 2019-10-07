@@ -39,11 +39,6 @@ public abstract class PersonReferenceId implements ReferenceId {
     }
 
     @Override
-    public String getReferenceIdentifier() {
-        return referenceId;
-    }
-
-    @Override
     public String toString() {
         return referenceId;
     }

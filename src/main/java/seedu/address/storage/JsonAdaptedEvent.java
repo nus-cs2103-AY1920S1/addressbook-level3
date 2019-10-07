@@ -41,7 +41,7 @@ public class JsonAdaptedEvent {
      */
     public JsonAdaptedEvent(Event source) {
 
-        patientId = source.getPersonId().getReferenceIdentifier();
+        patientId = source.getPersonId().toString();
         startTime = source.getEventTiming().getStartTime().toString();
         endTime = source.getEventTiming().getEndTime().toString();
         status = source.getStatus().toString();
