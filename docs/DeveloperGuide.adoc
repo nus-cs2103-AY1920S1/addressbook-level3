@@ -645,8 +645,8 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-=======
-=== Use case: UC09 - Start a quiz on a tag
+===
+Use case: UC09 - Start a quiz on a tag
 
 Actor: User
 
