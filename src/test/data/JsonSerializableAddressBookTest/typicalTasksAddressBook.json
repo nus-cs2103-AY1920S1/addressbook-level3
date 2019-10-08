@@ -2,31 +2,24 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "tasks" : [ {
     "name" : "Alice Pauline",
-    "email" : "alice@example.com",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
-    "email" : "johnd@example.com",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
-    "email" : "heinz@example.com",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
-    "email" : "cornelia@example.com",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
-    "email" : "werner@example.com",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "email" : "lydia@example.com",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
-    "email" : "anna@example.com",
     "tagged" : [ ]
   } ]
 }

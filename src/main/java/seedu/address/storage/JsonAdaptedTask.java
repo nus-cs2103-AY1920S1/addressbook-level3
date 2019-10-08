@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
 
@@ -23,7 +22,6 @@ class JsonAdaptedTask {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
     private final String name;
-    private final String email;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -31,10 +29,8 @@ class JsonAdaptedTask {
      */
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("name") String name,
-                           @JsonProperty("email") String email,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.email = email;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -45,7 +41,6 @@ class JsonAdaptedTask {
      */
     public JsonAdaptedTask(Task source) {
         name = source.getName().fullName;
-        email = source.getEmail().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -70,16 +65,8 @@ class JsonAdaptedTask {
         }
         final Name modelName = new Name(name);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
-
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Task(modelName,  modelEmail, modelTags);
+        return new Task(modelName,  modelTags);
     }
 
 }

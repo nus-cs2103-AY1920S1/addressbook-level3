@@ -35,8 +35,6 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
-    private Label email;
-    @FXML
     private FlowPane tags;
 
     public TaskCard(Task task, int displayedIndex) {
@@ -44,7 +42,6 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
-        email.setText(task.getEmail().value);
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

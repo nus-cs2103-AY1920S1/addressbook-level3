@@ -2,7 +2,6 @@ package seedu.address.model.task;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -30,7 +29,7 @@ public class TaskTest {
         assertFalse(ALICE.isSameTask(null));
 
         // different email -> returns false
-        Task editedAlice = new TaskBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Task editedAlice = new TaskBuilder(ALICE).build();
 
         // different name -> returns false
         editedAlice = new TaskBuilder(ALICE).withName(VALID_NAME_BOB).build();
@@ -66,10 +65,6 @@ public class TaskTest {
 
         // different name -> returns false
         Task editedAlice = new TaskBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new TaskBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

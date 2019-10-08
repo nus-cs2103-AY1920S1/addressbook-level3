@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
 
@@ -17,18 +16,12 @@ import seedu.address.model.task.Task;
 public class SampleDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[] {
-            new Task(new Name("Alex Yeoh"), new Email("alexyeoh@example.com"),
-                getTagSet("friends")),
-            new Task(new Name("Bernice Yu"), new Email("berniceyu@example.com"),
-                getTagSet("colleagues", "friends")),
-            new Task(new Name("Charlotte Oliveiro"), new Email("charlotte@example.com"),
-                getTagSet("neighbours")),
-            new Task(new Name("David Li"), new Email("lidavid@example.com"),
-                getTagSet("family")),
-            new Task(new Name("Irfan Ibrahim"), new Email("irfan@example.com"),
-                getTagSet("classmates")),
-            new Task(new Name("Roy Balakrishnan"), new Email("royb@example.com"),
-                getTagSet("colleagues"))
+            new Task(new Name("Alex Yeoh"), getTagSet("friends")),
+            new Task(new Name("Bernice Yu"), getTagSet("colleagues", "friends")),
+            new Task(new Name("Charlotte Oliveiro"), getTagSet("neighbours")),
+            new Task(new Name("David Li"), getTagSet("family")),
+            new Task(new Name("Irfan Ibrahim"), getTagSet("classmates")),
+            new Task(new Name("Roy Balakrishnan"), getTagSet("colleagues"))
         };
     }
 

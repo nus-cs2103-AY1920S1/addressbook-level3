@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
 import seedu.address.model.util.SampleDataUtil;
@@ -15,15 +14,12 @@ import seedu.address.model.util.SampleDataUtil;
 public class TaskBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
 
     private Name name;
-    private Email email;
     private Set<Tag> tags;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
-        email = new Email(DEFAULT_EMAIL);
         tags = new HashSet<>();
     }
 
@@ -32,7 +28,6 @@ public class TaskBuilder {
      */
     public TaskBuilder(Task taskToCopy) {
         name = taskToCopy.getName();
-        email = taskToCopy.getEmail();
         tags = new HashSet<>(taskToCopy.getTags());
     }
 
@@ -52,16 +47,8 @@ public class TaskBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code Task} that we are building.
-     */
-    public TaskBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
     public Task build() {
-        return new Task(name, email, tags);
+        return new Task(name, tags);
     }
 
 }
