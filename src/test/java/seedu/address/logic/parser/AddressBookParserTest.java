@@ -88,6 +88,17 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
 
+    /* To fix
+    @Test
+    //To fix - Because flashcard currently only allows alphanumeric characters in question and answer field
+    public void parseCommand_add_flashcard() throws Exception {
+        Flashcard flashcard = new FlashcardBuilder().build();
+        AddFlashcardCommand command =
+                (AddFlashcardCommand) parser.parseCommand(FlashcardUtil.getAddFlashcardCommand(flashcard));
+        assertEquals(new AddFlashcardCommand(flashcard), command);
+    }
+     */
+
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
