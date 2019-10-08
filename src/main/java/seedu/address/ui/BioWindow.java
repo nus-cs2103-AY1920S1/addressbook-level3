@@ -6,10 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -26,12 +29,14 @@ public class BioWindow extends UiPart<Stage> {
     private static final String FXML = "BioWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private ResultDisplay resultDisplay;
     private Profile profile;
     private HelpWindow helpWindow;
 
@@ -45,7 +50,10 @@ public class BioWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane resultDisplayStubPlaceholder;
+    private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private HBox profilePlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -87,13 +95,13 @@ public class BioWindow extends UiPart<Stage> {
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * Profile contains a TextArea, thus some accelerators (e.g F1) will
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
          * help window purposely so to support accelerators even when focus is
-         * in CommandBox or Profile.
+         * in CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -110,8 +118,13 @@ public class BioWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        profile = new Profile();
-        resultDisplayStubPlaceholder.getChildren().add(profile.getRoot());
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        Image img = new Image(MainApp.class.getResourceAsStream(ICON_APPLICATION));
+
+        profile = new Profile(img, "Example Name", "Example Address");
+        profilePlaceholder.getChildren().add(profile.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -173,7 +186,7 @@ public class BioWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            profile.setFeedbackToUser(commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -186,7 +199,7 @@ public class BioWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            profile.setFeedbackToUser(e.getMessage());
+            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
