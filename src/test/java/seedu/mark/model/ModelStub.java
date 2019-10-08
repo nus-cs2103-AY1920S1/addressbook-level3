@@ -92,4 +92,29 @@ public class ModelStub implements Model {
     public boolean hasFolder(Folder folder) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public boolean canUndoMark() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean canRedoMark() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void undoMark() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void redoMark() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void commitMark() {
+        throw new AssertionError("This method should not be called.");
+    }
 }
