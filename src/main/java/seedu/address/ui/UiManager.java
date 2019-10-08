@@ -21,8 +21,6 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private static Tab tab;
-
     private Logic logic;
     private MainWindow mainWindow;
 
@@ -83,16 +81,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
-    public static Tab getTab() {
-        return tab;
-    }
-
-    /**
-     * The various tabs users can switch to.
-     */
-    public enum Tab {
-        DASHBOARD, BODIES, WORKERS, FRIDGES;
-    }
-
 }

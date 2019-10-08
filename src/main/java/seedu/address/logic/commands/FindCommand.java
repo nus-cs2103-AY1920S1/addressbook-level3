@@ -6,7 +6,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.NameContainsKeywordsPredicate;
-import seedu.address.ui.UiManager;
 
 /**
  * Finds and lists all entries in address book whose name contains any of the argument keywords.
@@ -23,24 +22,27 @@ public class FindCommand extends Command {
 
     private final NameContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    private final String flag;
+
+    public FindCommand(NameContainsKeywordsPredicate predicate, String flag) {
         this.predicate = predicate;
+        this.flag = flag;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            if (UiManager.getTab() == UiManager.Tab.BODIES) {
+            if (flag.equals("b")) {
                 model.updateFilteredBodyList(predicate);
                 return new CommandResult(
-                        String.format(Messages.MESSAGE_WORKERS_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
-            } else if (UiManager.getTab() == UiManager.Tab.WORKERS) {
+                        String.format(Messages.MESSAGE_BODIES_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
+            } else if (flag.equals("w")) {
                 model.updateFilteredWorkerList(predicate);
                 return new CommandResult(
                         String.format(Messages.MESSAGE_WORKERS_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
             } else {
-                throw new CommandException("Please switch to Workers or Bodies tab to execute this command.");
+                throw new CommandException("Please flag the command with '-b' or '-w'");
             }
         } catch (CommandException e) {
             return new CommandResult(e.getMessage());
