@@ -21,14 +21,14 @@ public class BriefDescriptions {
         case "help":
             return HelpCommand.MESSAGE_USAGE;
 
-        case "add":
-            return AddCommand.MESSAGE_USAGE;
+        case "add_claim":
+            return AddClaimCommand.MESSAGE_USAGE;
 
         case "delete":
             return DeleteCommand.MESSAGE_USAGE;
 
-        case "edit":
-            return EditCommand.MESSAGE_USAGE;
+        case "edit_claim":
+            return EditClaimCommand.MESSAGE_USAGE;
 
         case "find":
             return FindCommand.MESSAGE_USAGE;
