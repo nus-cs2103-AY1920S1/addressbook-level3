@@ -35,6 +35,7 @@ public class UserTag implements Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        addModule(module);
     }
 
     /**
@@ -74,18 +75,6 @@ public class UserTag implements Tag {
      */
     public void rename(String newName) {
         this.tagName = newName;
-    }
-
-    /**
-     * Returns true if the other tag is also a {@code UserTag} and the two tags have the same tag name.
-     * @param other The other {@code Tag}.
-     */
-    @Override
-    public boolean isSameTag(Tag other) {
-        if (other.isDefault()) {
-            return false;
-        }
-        return tagName.equals(((UserTag) other).getTagName());
     }
 
     @Override
