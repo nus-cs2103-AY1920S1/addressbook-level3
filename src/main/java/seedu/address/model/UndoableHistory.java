@@ -1,10 +1,7 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
-import jdk.jfr.Event;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.EventList;
 
 /**
@@ -26,8 +23,6 @@ public class UndoableHistory {
      * duplicates due to its synchronisation with the GUI.
      */
     private EventList mainEventList;
-
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Deep-copies of mainEventList are stored to this list
@@ -60,7 +55,7 @@ public class UndoableHistory {
      * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
      */
     void commit(EventList eventList) {
-        // Store a deep-copy of the mainAddressBook to the list
+        // Store a deep-copy of the mainEventList to the list
         EventList deepCopy = new EventList(eventList);
         assert currentStateIndex >= eventListStateList.size() - 1
                 : "Pointer always points to end of list during commit; All future states must have been discarded.";

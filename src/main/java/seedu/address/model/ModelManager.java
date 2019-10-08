@@ -25,21 +25,24 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final EventList eventList;
+    private final UndoableHistory undoableHistory;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEventList eventList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEventList readOnlyEventList,
+            ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        EventList eventList = new EventList(readOnlyEventList);
+
         this.addressBook = new AddressBook(addressBook);
-        this.eventList = new EventList(eventList);
+        this.undoableHistory = new UndoableHistory(eventList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
@@ -123,32 +126,52 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(EventSource event) {
-        this.eventList.add(event);
+        EventList eventList = undoableHistory.getCurrentState();
+
+        eventList.add(event);
+
+        // Save the modified EventList state to the UndoableHistory
+        commitToHistory(eventList);
     }
 
     @Override
     public void deleteEvent(EventSource target) {
-        this.eventList.remove(target);
+        EventList eventList = undoableHistory.getCurrentState();
+
+        eventList.remove(target);
+
+        // Save the modified EventList state to the UndoableHistory
+        commitToHistory(eventList);
     }
 
     @Override
     public ReadOnlyEventList getEventList() {
-        return this.eventList;
+        return undoableHistory.getCurrentState();
     }
 
     @Override
     public boolean hasEvent(EventSource event) {
-        return this.eventList.contains(event);
+        return undoableHistory.getCurrentState().contains(event);
     }
 
     @Override
     public void setEvent(EventSource target, EventSource editedEvent) {
-        this.eventList.replace(target, editedEvent);
+        EventList eventList = undoableHistory.getCurrentState();
+
+        eventList.replace(target, editedEvent);
+
+        // Save the modified EventList state to the UndoableHistory
+        commitToHistory(eventList);
     }
 
     @Override
-    public void setEventList(ReadOnlyEventList eventList) {
-        this.eventList.reset(eventList);
+    public void setEventList(ReadOnlyEventList readOnlyEventList) {
+        EventList eventList = undoableHistory.getCurrentState();
+
+        eventList.resetData(readOnlyEventList);
+
+        // Save the modified EventList state to the UndoableHistory
+        commitToHistory(eventList);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -170,7 +193,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<EventSource> getFilteredEventList() {
-        return this.eventList.getReadOnlyList();
+        return undoableHistory.getCurrentState().getReadOnlyList();
     }
 
     @Override
@@ -191,4 +214,48 @@ public class ModelManager implements Model {
             && userPrefs.equals(other.userPrefs)
             && filteredPersons.equals(other.filteredPersons);
     }
+
+    //=========== UndoableHistory ================================================================================
+
+    /**
+     * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
+     */
+    public void commitToHistory(EventList eventList) {
+        undoableHistory.commit(eventList);
+    }
+
+    /**
+     * Restores the previous event list state from UndoableHistory.
+     */
+    @Override
+    public void undoFromHistory() {
+        undoableHistory.undo();
+    }
+
+    /**
+     * Restores the previously undone event list state from UndoableHistory.
+     */
+    @Override
+    public void redoFromHistory() {
+        undoableHistory.redo();
+    }
+
+    /**
+     * Returns true if there are previous event list states to restore, and false otherwise.
+     *
+     * @return boolean
+     */
+    @Override
+    public boolean canUndoHistory() {
+        return undoableHistory.canUndo();
+    }
+
+    /**
+     * Clears all future event list states in UndoableHistory beyond the current state.
+     */
+    @Override
+    public void clearFutureHistory() {
+        undoableHistory.clearFutureHistory();
+    }
+
 }
