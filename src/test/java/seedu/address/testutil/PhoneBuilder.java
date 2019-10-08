@@ -54,8 +54,8 @@ public class PhoneBuilder {
     /**
      * Sets the {@code Name} of the {@code Phone} that we are building.
      */
-    public PhoneBuilder withName(String name) {
-        this.phoneName = new PhoneName(name);
+    public PhoneBuilder withName(String phoneName) {
+        this.phoneName = new PhoneName(phoneName);
         return this;
     }
 

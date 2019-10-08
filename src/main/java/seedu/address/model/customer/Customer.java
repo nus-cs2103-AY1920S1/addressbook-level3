@@ -91,8 +91,10 @@ public class Customer implements Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Object clone() {
+        Customer clone = new Customer((CustomerName) this.customerName.clone(),
+                (ContactNumber) this.contactNumber.clone(), (Email) this.email.clone(), this.getTags());
+        return clone;
     }
 
     @Override

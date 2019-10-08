@@ -5,9 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Phone's name in the SML.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPhoneName(String)}
  */
-
 public class PhoneName implements Cloneable {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -24,18 +23,19 @@ public class PhoneName implements Cloneable {
     /**
      * Constructs a {@code Name}.
      *
-     * @param name A valid name.
+     * @param phoneName A valid name.
      */
-    public PhoneName(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+
+    public PhoneName(String phoneName) {
+        requireNonNull(phoneName);
+        checkArgument(isValidPhoneName(phoneName), MESSAGE_CONSTRAINTS);
+        fullName = phoneName;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidPhoneName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -58,7 +58,7 @@ public class PhoneName implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Object clone() {
         return new PhoneName(new String(fullName));
     }
 

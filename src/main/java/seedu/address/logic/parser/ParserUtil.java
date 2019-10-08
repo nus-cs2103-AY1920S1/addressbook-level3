@@ -149,7 +149,7 @@ public class ParserUtil {
     public static CustomerName parseCustomerName(String customerName) throws ParseException {
         requireNonNull(customerName);
         String trimmedCustomerName = customerName.trim();
-        if (!CustomerName.isValidName(trimmedCustomerName)) {
+        if (!CustomerName.isValidCustomerName(trimmedCustomerName)) {
             throw new ParseException(CustomerName.MESSAGE_CONSTRAINTS);
         }
         return new CustomerName(trimmedCustomerName);

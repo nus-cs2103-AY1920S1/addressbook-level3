@@ -5,9 +5,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Customer's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCustomerName(String)}
  */
-public class CustomerName {
+
+public class CustomerName implements Cloneable {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -27,14 +28,14 @@ public class CustomerName {
      */
     public CustomerName(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCustomerName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidCustomerName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -56,4 +57,8 @@ public class CustomerName {
         return fullName.hashCode();
     }
 
+    @Override
+    protected Object clone() {
+        return new CustomerName(new String(fullName));
+    }
 }

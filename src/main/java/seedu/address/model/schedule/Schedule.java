@@ -15,7 +15,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Schedule in the SML.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Schedule {
+public class Schedule implements Cloneable {
 
     // Identity fields
     private final Order order;
@@ -29,7 +29,7 @@ public class Schedule {
      * Every field must be present and not null.
      * @throws CloneNotSupportedException If Order class does not implement Cloneable interface.
      */
-    public Schedule(Order order, Calendar calendar, Venue venue, Set<Tag> tags) throws CloneNotSupportedException {
+    public Schedule(Order order, Calendar calendar, Venue venue, Set<Tag> tags) {
         requireAllNonNull(order, calendar, venue, tags);
         this.order = (Order) order.clone();
         this.calendar = calendar;
@@ -89,6 +89,13 @@ public class Schedule {
                 && otherSchedule.getCalendar().equals(getCalendar())
                 && otherSchedule.getVenue().equals(getVenue())
                 && otherSchedule.getTags().equals((getTags()));
+    }
+
+    @Override
+    public Object clone() {
+        Schedule clone = new Schedule((Order) this.order.clone(), (Calendar) this.calendar.clone(),
+                (Venue) this.venue.clone(), this.getTags());
+        return clone;
     }
 
     @Override

@@ -37,11 +37,12 @@ public class Phone implements Cloneable {
         this.tags.addAll(tags);
     }
 
-    private Phone(UUID id, PhoneName name, Brand brand, Capacity capacity, Colour colour, Cost cost,
+
+    private Phone(UUID id, PhoneName phoneName, Brand brand, Capacity capacity, Colour colour, Cost cost,
                  Set<Tag> tags) {
-        requireAllNonNull(id, name, brand, capacity, colour, cost, tags);
+        requireAllNonNull(id, phoneName, brand, capacity, colour, cost, tags);
         this.id = id;
-        this.phoneName = name;
+        this.phoneName = phoneName;
         this.brand = brand;
         this.capacity = capacity;
         this.colour = colour;
@@ -116,7 +117,7 @@ public class Phone implements Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public Object clone() {
         Phone clone = new Phone(this.id, (PhoneName) this.phoneName.clone(), (Brand) this.brand.clone(), this.capacity,
                 (Colour) this.colour.clone(), (Cost) this.cost.clone(), this.getTags());
         return clone;

@@ -2,7 +2,6 @@ package seedu.address.model.phone;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 
 import org.junit.jupiter.api.Test;
@@ -23,11 +22,7 @@ class PhoneTest {
         assertTrue(IPHONEONE.isSamePhone(IPHONEONE));
 
         // clone -> returns true
-        try {
-            assertTrue(IPHONEONE.isSamePhone((Phone) IPHONEONE.clone()));
-        } catch (CloneNotSupportedException e) {
-            fail();
-        }
+        assertTrue(IPHONEONE.isSamePhone((Phone) IPHONEONE.clone()));
 
         // null -> returns false
         assertFalse(IPHONEONE.isSamePhone(null));
@@ -42,11 +37,7 @@ class PhoneTest {
         assertTrue(IPHONEONE.equals(IPHONEONE));
 
         // clone -> returns true
-        try {
-            assertTrue(IPHONEONE.equals(IPHONEONE.clone()));
-        } catch (CloneNotSupportedException e) {
-            fail();
-        }
+        assertTrue(IPHONEONE.equals(IPHONEONE.clone()));
 
         // null -> returns false
         assertFalse(IPHONEONE.equals(null));
