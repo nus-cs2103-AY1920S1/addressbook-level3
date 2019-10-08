@@ -2,6 +2,8 @@ package seedu.address.model.question;
 
 import java.util.ArrayList;
 
+import seedu.address.commons.core.index.Index;
+
 /**
  * Stores questions and provides functionality to manage them.
  */
@@ -24,6 +26,26 @@ public class QuestionList {
     public void addQuestion(Question question) {
         this.questions.add(question);
         // TODO: Implement check if duplicated question AND answer is entered
+    }
+
+    /**
+     * Returns the question object.
+     *
+     * @param index of the question in the list.
+     * @return Question object.
+     */
+    public Question getQuestion(Index index){
+        return questions.get(index.getZeroBased());
+    }
+
+    /**
+     * Sets the question object at the specified index in the list.
+     *
+     * @param index of the question in the list.
+     * @param question object.
+     */
+    public void setQuestion(Index index, Question question){
+        questions.set(index.getZeroBased(), question);
     }
 
     /**

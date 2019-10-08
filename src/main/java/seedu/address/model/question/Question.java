@@ -3,27 +3,60 @@ package seedu.address.model.question;
 /**
  * Represents a question in the question list.
  */
-public class Question {
+public abstract class Question {
 
-    private String question;
-    private String answer;
-    private QuestionType type;
+    protected String question;
+    protected String answer;
 
     /**
      * Creates a new question.
      *
      * @param question to set.
      * @param answer   to the question.
-     * @param type     of question e.g open or mcq.
      */
-    public Question(String question, String answer, QuestionType type) {
+    public Question(String question, String answer) {
         this.question = question;
         this.answer = answer;
-        this.type = type;
+    }
+
+    /**
+     * Returns the question.
+     *
+     * @return Question string
+     */
+    public String getQuestion(){
+        return this.question;
+    }
+
+    /**
+     * Returns the answer.
+     *
+     * @return Answer string
+     */
+    public String getAnswer(){
+        return this.answer;
+    }
+
+    /**
+     * Sets the question.
+     *
+     * @param question to set.
+     */
+    public void setQuestion(String question){
+        this.question = question;
+    }
+
+    /**
+     * Sets the answer.
+     *
+     * @param answer to set.
+     */
+    public void setAnswer(String answer){
+        this.answer = answer;
     }
 
     @Override
     public String toString() {
-        return question;
+        return question ;
     }
 }
