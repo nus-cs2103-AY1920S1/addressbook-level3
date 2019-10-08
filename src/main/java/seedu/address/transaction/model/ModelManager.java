@@ -1,25 +1,24 @@
 package seedu.address.transaction.model;
 
+import java.util.logging.Logger;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
-import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
 
 public class ModelManager implements Model {
-    private TransactionList transactionList;
-    private StorageManager storage;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private final TransactionList transactionList;
+    //private final StorageManager storage;
 
     public ModelManager(TransactionList transactionList) {
         this.transactionList = transactionList;
     }
 
-    public ModelManager(StorageManager storage) {
+    /*public ModelManager(StorageManager storage) {
         this.storage = storage;
-        try {
-            this.transactionList = storage.getTransactionList();
-        } catch (Exception e) {
-            this.transactionList = new TransactionList();
-        }
-    }
+        this.transactionList = storage.getTransactionList();
+    }*/
 
     @Override
     public TransactionList getTransactionList() {
@@ -27,23 +26,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws Exception {
+    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws NoSuchIndexException {
         for (int i = 0; i < transactionList.size(); i++) {
-            if (transactionList.get(i).equals(transactionToEdit)) {
+            Transaction curr = transactionList.get(i);
+            if (curr.equals(transactionToEdit)) {
                 transactionList.set(i, editedTransaction);
             }
         }
     }
 
     @Override
-    public boolean hasTransaction(Transaction editedTransaction) {
+    public boolean hasTransaction(Transaction editedTransaction) throws NoSuchIndexException {
         for (int i = 0 ; i < transactionList.size(); i++) {
-            try {
-                if (transactionList.get(i).equals(editedTransaction)) {
-                    return true;
-                }
-            } catch (Exception e) {
-                return false;
+            if (transactionList.get(i).equals(editedTransaction)) {
+                return true;
             }
         }
         return false;
@@ -65,16 +61,36 @@ public class ModelManager implements Model {
         transactionList.delete(index - 1);
     }
 
-    @Override
+    /*@Override
     public void writeInTransactionFile() throws Exception{
         storage.writeFile(transactionList);
-    }
+    }*/
 
     @Override
     public void updateIndexes() throws Exception {
         for (int i = 0; i < transactionList.size(); i++) {
             transactionList.get(i).setId(i + 1);
         }
+    }
+
+    @Override
+    public void sortByDate() {
+        transactionList.sortByDate();
+    }
+
+    @Override
+    public void sortByName() {
+        transactionList.sortByName();
+    }
+
+    @Override
+    public void sortByAmount() {
+        transactionList.sortByAmount();
+    }
+
+    @Override
+    public void sortReset() {
+        transactionList.unSort();
     }
 
 }

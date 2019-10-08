@@ -2,11 +2,10 @@ package seedu.address.transaction.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.util.DummyNamedPerson;
 
 public class Transaction {
+    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     private LocalDate date;
     private String description;
     private String category;
@@ -14,25 +13,34 @@ public class Transaction {
     private Person person;
     private String name;
     private String id;
-    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
+    private boolean isReimbursed;
 
     public Transaction(String date, String description, String category,
-                       double amount, String name, int i) {
+                       double amount, Person person, int i, boolean isReimbursed) {
         this.date = LocalDate.parse(date, myFormatter);
         this.description = description;
         this.category = category;
         this.amount = amount;
-        this.person = new DummyNamedPerson(name).getDummy();
-        this.name = name;
+        this.person = person;
+        this.name = person.getName().toString();
         this.id = "" + i;
+        this.isReimbursed = isReimbursed;
     }
 
     public Person getPerson() {
         return this.person;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public String getDate() {
         return date.format(myFormatter);
+    }
+
+    public LocalDate getDateObject() {
+        return this.date;
     }
 
     public double getAmount() {
@@ -55,9 +63,21 @@ public class Transaction {
         this.id = "" + i;
     }
 
+    public boolean getStatus() {
+        return this.isReimbursed;
+    }
+
+    public void updateStatus() {
+        isReimbursed = true;
+    }
+
+    private String isOne(boolean isReimbursed) {
+        return isReimbursed? "1": "0";
+    }
+
     public String toWriteIntoFile() {
         String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category +
-                " | " + this.amount + " | " + this.person.getName();
+                " | " + this.amount + " | " + this.person.getName() + " | " + isOne(this.isReimbursed);
         return msg;
     }
 
@@ -71,12 +91,18 @@ public class Transaction {
         return this.person.getName().toString();
     }
 
-    public boolean isSameTransaction(Transaction editedTransaction) {
+    public boolean getIsReimbursed() {
+        return this.isReimbursed;
+    }
+
+    public boolean equals(Transaction editedTransaction) {
         return this.person.equals(editedTransaction.getPerson()) &&
                 this.description.equals(editedTransaction.getDescription()) &&
                 this.category.equals(editedTransaction.getCategory()) &&
                 this.amount == editedTransaction.getAmount() &&
-                this.date.equals(editedTransaction.getDate());
+                this.getDate().equals(editedTransaction.getDate());
 
     }
+
+
 }
