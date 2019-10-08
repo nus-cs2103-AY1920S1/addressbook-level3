@@ -407,6 +407,14 @@ Use case resumes at step 2.
 [discrete]
 === Use case: (UC05) Exit application ('bye')
 
+*MSS*
+
+1. User requests to exit the application
+2. The application displays the exit message
+3. The application closes
++
+Use case ends
+
 [discrete]
 === Use case: (UC06) Request help information
 
@@ -455,8 +463,16 @@ Use case resumes at step 2.
 [discrete]
 === Use case: (UC10) Redo previous command
 
+// Updated by Kevin
 [discrete]
 === Use case: (UC11) Switch to 'Calendar' view mode
+
+*MSS*
+
+1. User requests to switch to the calendar view
+2. Typee shows the calendar view with scheduled appointments
++
+Use case ends.
 
 //Updated by Jun Hao
 [discrete]
