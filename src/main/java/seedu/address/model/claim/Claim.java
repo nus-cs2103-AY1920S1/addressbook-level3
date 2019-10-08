@@ -95,4 +95,19 @@ public class Claim {
                 && otherClaim.getAmount().equals(getAmount())
                 && otherClaim.getTags().equals(getTags());
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getDescription())
+                .append(" Amount: ")
+                .append(getAmount())
+                .append(" Name: ")
+                .append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 }

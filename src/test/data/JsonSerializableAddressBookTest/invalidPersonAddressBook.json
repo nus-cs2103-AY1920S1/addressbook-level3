@@ -5,5 +5,6 @@
     "email": "invalid@email!3e",
     "address": "4th street"
   } ],
-  "incomes": [ ]
+  "incomes": [ ],
+  "claims" : [ ]
 }
