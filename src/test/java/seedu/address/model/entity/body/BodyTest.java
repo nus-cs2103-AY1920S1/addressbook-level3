@@ -15,9 +15,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.testutil.BodyBuilder;
 
 //@@author ambervoong
@@ -119,8 +119,8 @@ class BodyTest {
 
     @Test
     void getSetKinPhoneNumber() {
-        ALICE.setKinPhoneNumber(new Phone("87871234"));
-        assertEquals(new Phone("87871234"), ALICE.getKinPhoneNumber());
+        ALICE.setKinPhoneNumber(new PhoneNumber("87871234"));
+        assertEquals(new PhoneNumber("87871234"), ALICE.getKinPhoneNumber());
     }
 
     @Test

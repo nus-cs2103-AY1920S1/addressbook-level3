@@ -7,13 +7,13 @@ import java.util.List;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 
 //@@author ambervoong
 /**
@@ -56,7 +56,7 @@ public class BodyBuilder {
     // Next of kin details
     private Name nextOfKin;
     private String relationship;
-    private Phone kinPhoneNumber;
+    private PhoneNumber kinPhoneNumber;
 
 
     public BodyBuilder() {
@@ -71,7 +71,7 @@ public class BodyBuilder {
 
         nextOfKin = new Name(DEFAULT_NEXT_OF_KIN);
         relationship = DEFAULT_RELATIONSHIP;
-        kinPhoneNumber = new Phone(DEFAULT_KIN_PHONE);
+        kinPhoneNumber = new PhoneNumber(DEFAULT_KIN_PHONE);
 
         try {
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
@@ -195,7 +195,7 @@ public class BodyBuilder {
      * Sets the {@code kinPhoneNumber} of the {@code Body} that we are building.
      */
     public BodyBuilder withKinPhoneNumber(String kinPhoneNumber) {
-        this.kinPhoneNumber = new Phone(kinPhoneNumber);
+        this.kinPhoneNumber = new PhoneNumber(kinPhoneNumber);
         return this;
     }
 
