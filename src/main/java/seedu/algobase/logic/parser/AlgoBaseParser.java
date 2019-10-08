@@ -15,6 +15,7 @@ import seedu.algobase.logic.commands.ExitCommand;
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListCommand;
+import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
@@ -58,6 +59,9 @@ public class AlgoBaseParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

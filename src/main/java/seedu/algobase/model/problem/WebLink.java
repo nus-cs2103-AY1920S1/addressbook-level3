@@ -10,7 +10,7 @@ import java.net.URL;
  * Represents a Problem's weblink in the algobase.
  * Guarantees: immutable; is valid as declared in {@link #isValidWeblink(String)}
  */
-public class WebLink {
+public class WebLink implements Comparable<WebLink> {
 
     public static final String MESSAGE_CONSTRAINTS = "Weblinks should be parsable by java.net.URL";
     public static final String VALIDATION_REGEX =
@@ -78,4 +78,11 @@ public class WebLink {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(WebLink o) {
+        if (this == o) {
+            return 0;
+        }
+        return this.value.compareTo(o.value);
+    }
 }

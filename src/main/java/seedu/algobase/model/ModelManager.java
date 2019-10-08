@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.problem.Problem;
@@ -22,6 +24,7 @@ public class ModelManager implements Model {
     private final AlgoBase algoBase;
     private final UserPrefs userPrefs;
     private final FilteredList<Problem> filteredProblems;
+    private final SortedList<Problem> sortedProblems;
 
     /**
      * Initializes a ModelManager with the given algoBase and userPrefs.
@@ -35,6 +38,7 @@ public class ModelManager implements Model {
         this.algoBase = new AlgoBase(algoBase);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
+        sortedProblems = new SortedList<>(filteredProblems);
     }
 
     public ModelManager() {
@@ -108,7 +112,6 @@ public class ModelManager implements Model {
     @Override
     public void setProblem(Problem target, Problem editedProblem) {
         requireAllNonNull(target, editedProblem);
-
         algoBase.setProblem(target, editedProblem);
     }
 
@@ -120,7 +123,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Problem> getFilteredProblemList() {
-        return filteredProblems;
+        return sortedProblems;
     }
 
     @Override
@@ -128,6 +131,19 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredProblems.setPredicate(predicate);
     }
+
+    /**
+     * Updates the Problem list according to the given {@code problemComparator}.
+     *
+     * @param problemComparator
+     * @throws NullPointerException if {@code problemComparator} is null;
+     */
+    @Override
+    public void updateSortedProblemList(Comparator<Problem> problemComparator) {
+        requireNonNull(problemComparator);
+        sortedProblems.setComparator(problemComparator);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
