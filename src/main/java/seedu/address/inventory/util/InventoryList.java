@@ -8,6 +8,8 @@ import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryUi;
 import seedu.address.ui.Inventory;
 
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -54,6 +56,11 @@ public class InventoryList {
 
     public void set(int i, Item item) {
         iList.set(i, item);
+    }
+
+
+    public void set(int i, Item item) {
+        inventory.set(i, item);
     }
 
 }

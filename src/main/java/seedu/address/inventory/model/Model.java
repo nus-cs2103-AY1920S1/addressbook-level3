@@ -2,6 +2,7 @@ package seedu.address.inventory.model;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.util.InventoryList;
+import seedu.address.transaction.util.TransactionList;
 
 public interface Model {
 
