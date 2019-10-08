@@ -129,9 +129,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         calendarPanel = new CalendarPanel(logic.getFilteredEventList());
-
         listPanel = new ListPanel(logic.getFilteredEventList());
         viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
+
 
         logPanel = new LogPanel();
         logPanelPlaceholder.getChildren().add(logPanel.getRoot());
@@ -160,7 +160,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set the stage width and height
         primaryStage.setMaxWidth(screenWidth);
         primaryStage.setMaxHeight(screenHeight);
-
     }
 
     /**
