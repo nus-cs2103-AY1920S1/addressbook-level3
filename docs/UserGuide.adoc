@@ -78,16 +78,17 @@ Adds the item `HL Milk` with expiry date `10/10/2019` and two tags `#Dairy` and 
 Shows all items in the list. +
 Format: `view`
 
-=== Setting a reminder for an item: `set reminder`
+=== Setting reminder for an item: `set reminder`
 
-Set a reminder threshold for the specified item +
-Format: `set reminder|<index>|<reminder threshold>...`
+Sets a reminder threshold for the specified item. +
+This allows the check command to quickly find the item once the reminder threshold is exceeded. +
+Format: `set reminder|<index>|<reminder threshold>`
 
 ****
-* Reminder threshold refers to the number of days before the item's expiry date to activate the reminder.
+* Reminder threshold refers to *the number of days before the item's expiry date* to activate the reminder.
 * All items have their default reminder threshold set to 0.
 * To reset a reminder threshold, simply write over the old one.
-* To delete a reminder, reset the reminder threshold to 0. e.g. `set reminder|1|0` will delete the reminder for item 1.
+* To delete a reminder, reset the reminder threshold to 0.
 ****
 
 Examples:
