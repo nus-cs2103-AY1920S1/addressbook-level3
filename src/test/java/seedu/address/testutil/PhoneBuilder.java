@@ -7,8 +7,8 @@ import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
-import seedu.address.model.phone.Name;
 import seedu.address.model.phone.Phone;
+import seedu.address.model.phone.PhoneName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -23,7 +23,7 @@ public class PhoneBuilder {
     public static final String DEFAULT_COLOUR = "Vanilla White";
     public static final String DEFAULT_COST = "$42.42";
 
-    private Name name;
+    private PhoneName phoneName;
     private Brand brand;
     private Capacity capacity;
     private Colour colour;
@@ -31,7 +31,7 @@ public class PhoneBuilder {
     private Set<Tag> tags;
 
     public PhoneBuilder() {
-        name = new Name(DEFAULT_NAME);
+        phoneName = new PhoneName(DEFAULT_NAME);
         brand = new Brand(DEFAULT_BRAND);
         capacity = DEFAULT_CAPACITY;
         colour = new Colour(DEFAULT_COLOUR);
@@ -43,7 +43,7 @@ public class PhoneBuilder {
      * Initializes the PhoneBuilder with the data of {@code phoneToCopy}.
      */
     public PhoneBuilder(Phone phoneToCopy) {
-        name = phoneToCopy.getName();
+        phoneName = phoneToCopy.getPhoneName();
         brand = phoneToCopy.getBrand();
         capacity = phoneToCopy.getCapacity();
         colour = phoneToCopy.getColour();
@@ -54,8 +54,8 @@ public class PhoneBuilder {
     /**
      * Sets the {@code Name} of the {@code Phone} that we are building.
      */
-    public PhoneBuilder withName(String name) {
-        this.name = new Name(name);
+    public PhoneBuilder withName(String phoneName) {
+        this.phoneName = new PhoneName(phoneName);
         return this;
     }
 
@@ -100,7 +100,7 @@ public class PhoneBuilder {
     }
 
     public Phone build() {
-        return new Phone(name, brand, capacity, colour, cost, tags);
+        return new Phone(phoneName, brand, capacity, colour, cost, tags);
     }
 
 }

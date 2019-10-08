@@ -7,12 +7,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Customer's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidContactNumber(String)}
  */
-public class ContactNumber {
+public class ContactNumber implements Cloneable {
 
 
     public static final String MESSAGE_CONSTRAINTS =
             "ContactNumber numbers should only contain numbers, and it should be at least 8 digits long";
-    public static final String VALIDATION_REGEX = "\\d{8,}";
+    public static final String VALIDATION_REGEX = "\\d{8}";
     public final String value;
 
     /**
@@ -47,6 +47,11 @@ public class ContactNumber {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    protected Object clone() {
+        return new ContactNumber(new String(value));
     }
 
 }
