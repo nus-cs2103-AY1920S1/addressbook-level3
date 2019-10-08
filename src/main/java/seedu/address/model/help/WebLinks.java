@@ -1,9 +1,17 @@
 package seedu.address.model.help;
 
+/**
+ * Contains links to our User Guide for all the commands in FinSec
+ */
+
 public class WebLinks {
 
-    public WebLinks() {
-    }
+    /**
+     * Matches the command input of the user to the correct web link.
+     *
+     * @param secondaryCommand A valid command in FinSec.
+     * @return a web link to the {@code HelpCommand}.
+     */
 
     public static String getLink (SecondaryCommand secondaryCommand){
         switch (secondaryCommand.toString()){

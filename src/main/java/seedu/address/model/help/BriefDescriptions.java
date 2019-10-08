@@ -2,7 +2,18 @@ package seedu.address.model.help;
 
 import seedu.address.logic.commands.*;
 
+/**
+ * Contains a brief descriptions of all the commands in FinSec
+ */
+
 public class BriefDescriptions {
+
+    /**
+     * Matches the command input of the user to the correct description.
+     *
+     * @param secondaryCommand A valid command in FinSec.
+     * @return a brief description to the {@code HelpCommand}.
+     */
 
     public static String getDescription (SecondaryCommand secondaryCommand){
         switch (secondaryCommand.toString()){

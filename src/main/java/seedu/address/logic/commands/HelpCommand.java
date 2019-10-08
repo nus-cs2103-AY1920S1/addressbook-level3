@@ -1,16 +1,14 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
-import seedu.address.model.help.BriefDescriptions;
-import seedu.address.model.help.SecondaryCommand;
-import seedu.address.model.help.Type;
-import seedu.address.model.help.WebLinks;
+import seedu.address.model.help.*;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -21,6 +19,9 @@ public class HelpCommand extends Command {
     public static String SHOWING_HELP_MESSAGE = "Opened help window.";
     private Type type;
     private SecondaryCommand command;
+
+    public HelpCommand() {
+    }
 
     public HelpCommand(SecondaryCommand secondaryCommand, Type typeOfHelp) {
         command = requireNonNull(secondaryCommand);
@@ -36,21 +37,37 @@ public class HelpCommand extends Command {
             "Example: " + COMMAND_WORD + " cmd/add type/guide       " +
             "For more details, press F1 for list of available Commands and Types";
 
+
+    /**
+     * Resets the variables for Type and SecondaryCommand.
+     */
+
+    private void ResetCommandAndTypeValues(){
+        type = null;
+        command = null;
+    }
+
     @Override
     public CommandResult execute(Model model) throws IOException {
 
-        switch (type.toString()) {
-        case "guide":
-            java.awt.Desktop.getDesktop().browse(java.net.URI.create(requireNonNull(WebLinks.getLink(command))));
-            break;
-        case "brief":
-            String briefDescription = BriefDescriptions.getDescription(command);
-            return new CommandResult(briefDescription, false, false);
-        case "api":
-            File f = new File("docs/javadocs/seedu/address/logic/commands/AddCommand.html");
-            Desktop.getDesktop().browse(f.toURI());
-            break;
+        if (isNull(type)&&isNull(command)) {
+            return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        } else {
+            switch (type.toString()) {
+            case "guide":
+                java.awt.Desktop.getDesktop().browse(java.net.URI.create(requireNonNull(WebLinks.getLink(command))));
+                break;
+            case "brief":
+                String briefDescription = BriefDescriptions.getDescription(command);
+                ResetCommandAndTypeValues();
+                return new CommandResult(briefDescription, false, false);
+            case "api":
+                File f = new File(ApiLinks.getLink(command));
+                Desktop.getDesktop().browse(f.toURI());
+                break;
+            }
+            ResetCommandAndTypeValues();
+            return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
         }
-        return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
     }
 }

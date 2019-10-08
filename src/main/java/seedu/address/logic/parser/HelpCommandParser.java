@@ -7,7 +7,6 @@ import seedu.address.model.help.SecondaryCommand;
 
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
@@ -27,14 +26,14 @@ public class HelpCommandParser implements Parser<HelpCommand>{
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_COMMAND, PREFIX_TYPE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_COMMAND, PREFIX_TYPE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        if (arePrefixesPresent(argMultimap, PREFIX_COMMAND, PREFIX_TYPE)) {
+            SecondaryCommand secondaryCommand = ParserUtil.parseCommand(argMultimap.getValue(PREFIX_COMMAND).get());
+            Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+            return new HelpCommand(secondaryCommand, type);
         }
-
-        SecondaryCommand secondaryCommand = ParserUtil.parseCommand(argMultimap.getValue(PREFIX_COMMAND).get());
-        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        return new HelpCommand(secondaryCommand, type);
+        else {
+            return new HelpCommand();
+        }
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
