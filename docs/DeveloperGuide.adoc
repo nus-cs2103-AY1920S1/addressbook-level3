@@ -1,4 +1,4 @@
-= Flashback - Developer Guide
+= FlashMind - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T14-3/main.git
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -467,13 +467,15 @@ Actor: User
 
 *MSS*
 
-1. User request to list the tags.
-2. FlashMind shows a list of all current tags.
-3. User finds the tag.
+1. User request to list all the flashcard sets with the same tags.
+2. FlashMind shows a list of all current flashcard sets.
+3. User finds the particular set he or she desires.
 
 [none]
 * 2a. The tag list is empty.
 +
+[none]
+** 2a1. System displays an error message.
 user case ends.
 
 [discrete]
@@ -525,6 +527,7 @@ Actor: User
 +
 Use case ends.
 
+
 [discrete]
 === Use case: UC08 - delete a tag from a flashcard
 
@@ -546,6 +549,103 @@ Actor: User
 Use case ends.
 
 [discrete]
+
+=== Use case: UC09 - Add a new flashcard
+
+Actor: User
+
+*MSS*
+
+1.  User enters the question and answer of the flashcard to be added.
+2.  The new card will be added to the flashcard list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given question format is invalid.
++
+[none]
+** 1a1. FlashMind shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. The given answer format is invalid.
++
+[none]
+** 1b1. FlashMind shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: UC10 - View all the available commands
+
+Actor: User
+
+*MSS*
+
+1.  User enters `help` to ask FlashMind for all the commands.
+2.  System responds by providing all the available commands.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC11 - Start a quiz on a set of flashcards with the same tag
+
+Actor: User
+
+*MSS*
+
+1. User [.underline]#finds the tag that he or she wants to do a quiz on (UC05)#
+2. System finds the particular flashcard set with the same tag and wait for further commands.
+3. User sets the time limit for each flashcard and tells the system to start the quiz.
+4. User does the timed quiz.
+5. At the end of the quiz, system will show useful statistics to the user.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The desired flashcard set is not found.
++
+[none]
+** 2a1. System reports error.
++
+Use case resumes at step 2.
+
+[none]
+* *a. User wants end the quiz prematurely at any time during the quiz mode.
++
+[none]
+** *a1. User types in `exit` +
+   *a2. System exits the quiz, displays a goodbye message and skips the statistics part. +
+   Use case ends.
+
+[discrete]
+=== Use case: UC12 - View the statistics of a set of flashcards
+
+Actor: User
+
+*MSS*
+
+1.  User [.underline]#finds the particular set of flashcards he or she desires (UC05)#
+2.  System displays the statistics of that flashcard set with the same tag.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given flashcard set name is invalid or does not exist.
++
+[none]
+** 1a1. FlashMind displays an error message.
++
+Use case resumes at step 1.
+
+=======
 === Use case: UC09 - Start a quiz on a tag
 
 Actor: User
@@ -601,7 +701,12 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 flashcards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+.  If the stored flashcard list is very long, all commands should still be executed at a fast speed, with minimal sluggishness.
+.  Should be able to minimize loss of stored flashcard information if the app closes due to unforeseen external circumstances.
+=======
 .  Command format should be easily understandable and intuitive to make it easier then using a GUI interface
+
 
 _{More to be added}_
 
@@ -612,7 +717,7 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 [[flashcard]] Flashcard::
-A digital card that contains a short knowledge like an English word or a geography common knowledge.
+A digital card that contains a short piece of information like an English word or a geography common knowledge. Normally used by people to facilitate the memorization process.
 
 [appendix]
 == Product Survey
@@ -655,16 +760,16 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a flashcard
 
-. Deleting a person while all persons are listed
+. Deleting a flashcard  while all flashcards (in a tagged set/in the all-flashcard list) are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all flashcards using the `list` command. Multiple flashcards in the list.
+.. Test case: `delete 000001` +
+   Expected: First flashcard with ID 1 is deleted from the list.
+.. Test case: `delete 000000` +
+   Expected: No flashcard is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or ID number is negative)
    Expected: Similar to previous.
 
 _{ more test cases ... }_
