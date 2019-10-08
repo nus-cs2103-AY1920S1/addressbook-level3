@@ -14,7 +14,7 @@ public class Word {
             "Words should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
 
     /*
-     * The name should contain 1-256 characters, and not all are white spaces.
+     * The word should contain 1-256 characters, and not all are white spaces.
      */
     public static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN + "}$";
 

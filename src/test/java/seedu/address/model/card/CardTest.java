@@ -3,7 +3,7 @@ package seedu.address.model.card;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUTTERFREE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
@@ -30,7 +30,7 @@ public class CardTest {
         assertFalse(ABRA.isSameName(null));
 
         // different name -> returns false
-        Card editedAbra = new CardBuilder(ABRA).withName(VALID_NAME_BUTTERFREE).build();
+        Card editedAbra = new CardBuilder(ABRA).withName(VALID_WORD_BUTTERFREE).build();
         assertFalse(ABRA.isSameName(editedAbra));
 
         // same name, different attributes -> returns true
@@ -58,7 +58,7 @@ public class CardTest {
         assertFalse(ABRA.equals(BUTTERFREE));
 
         // different name -> returns false
-        Card editedAbra = new CardBuilder(ABRA).withName(VALID_NAME_BUTTERFREE).build();
+        Card editedAbra = new CardBuilder(ABRA).withName(VALID_WORD_BUTTERFREE).build();
         assertFalse(ABRA.equals(editedAbra));
 
         // different description -> returns false
