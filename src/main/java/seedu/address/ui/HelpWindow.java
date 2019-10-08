@@ -1,12 +1,11 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -15,14 +14,22 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html";
+    public static final String HELP_MESSAGE = "The 'help' command format is as follows: "
+            + "help cmd/COMMAND type/TYPE\n\nCommand List: \n[help], [goto], [find], [delete], [list], [exit],\n"
+            + "[add_contact], [edit_contact], [add_claim], [edit_claim], [add_income], [edit_income]\n\n"
+            + "Type List:\n"
+            + "[brief] (gives a brief description)\n"
+            + "[guide] (opens up our user guide on your browser) \n"
+            + "[api] (for advanced users who want to know the inner workings of the command) \n\n"
+            + "Example: help cmd/add type/guide\n"
+            + "For more information you can refer to the user guide by clicking on the button";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
-    private Button copyButton;
+    private Button gotoButton;
 
     @FXML
     private Label helpMessage;
@@ -93,10 +100,7 @@ public class HelpWindow extends UiPart<Stage> {
      * Copies the URL to the user guide to the clipboard.
      */
     @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
+    private void gotoUrl() throws IOException {
+        java.awt.Desktop.getDesktop().browse(java.net.URI.create(USERGUIDE_URL));
     }
 }
