@@ -21,9 +21,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindowStub extends UiPart<Stage> {
+public class BioWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindowStub.fxml";
+    private static final String FXML = "BioWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -32,7 +32,7 @@ public class MainWindowStub extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private ResultDisplayStub resultDisplayStub;
+    private Profile profile;
     private HelpWindow helpWindow;
 
     @FXML
@@ -50,7 +50,7 @@ public class MainWindowStub extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindowStub(Stage primaryStage, Logic logic) {
+    public BioWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -87,13 +87,13 @@ public class MainWindowStub extends UiPart<Stage> {
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplayStub contains a TextArea, thus some accelerators (e.g F1) will
+         * Profile contains a TextArea, thus some accelerators (e.g F1) will
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
          * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplayStub.
+         * in CommandBox or Profile.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -110,8 +110,8 @@ public class MainWindowStub extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        resultDisplayStub = new ResultDisplayStub();
-        resultDisplayStubPlaceholder.getChildren().add(resultDisplayStub.getRoot());
+        profile = new Profile();
+        resultDisplayStubPlaceholder.getChildren().add(profile.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -173,7 +173,7 @@ public class MainWindowStub extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplayStub.setFeedbackToUser(commandResult.getFeedbackToUser());
+            profile.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -186,7 +186,7 @@ public class MainWindowStub extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplayStub.setFeedbackToUser(e.getMessage());
+            profile.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
