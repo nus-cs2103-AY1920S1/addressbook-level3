@@ -3,8 +3,6 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.person.Name;
-
 /**
  * Represents the Event's name.
  * Guarantees: Immutable.
@@ -48,8 +46,8 @@ public class EventName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && eventName.equals(((Name) other).fullName)); // state check
+                || (other instanceof EventName // instanceof handles nulls
+                && eventName.equals(((EventName) other).eventName)); // state check
     }
 
     @Override

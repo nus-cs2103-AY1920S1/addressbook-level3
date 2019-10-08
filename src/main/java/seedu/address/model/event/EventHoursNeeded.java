@@ -1,6 +1,7 @@
 package seedu.address.model.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represent the total duration, in hours, of the Event.
@@ -17,7 +18,7 @@ public class EventHoursNeeded {
      */
     public EventHoursNeeded(String hours) {
         requireNonNull(hours);
-        //checkArgument(isValidPhone(hours), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEventHours(hours), MESSAGE_CONSTRAINTS);
         value = Integer.parseInt(hours);
     }
 

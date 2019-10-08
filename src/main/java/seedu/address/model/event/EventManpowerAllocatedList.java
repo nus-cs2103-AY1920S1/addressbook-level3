@@ -15,7 +15,7 @@ public class EventManpowerAllocatedList {
      * Constructs a {@code Name}.
      */
     public EventManpowerAllocatedList() {
-        manpowerList = new ArrayList<Person>();
+        manpowerList = new ArrayList<>();
     }
 
     /**

@@ -16,7 +16,7 @@ public class EventId {
      * Constructs an {@code EventID}.
      */
     public EventId() {
-        String id = String.format("%.3d", nextID);
+        String id = String.format("%03d", nextID);
         checkArgument(isValidId(id), MESSAGE_CONSTRAINTS);
         this.id = id;
         nextID++;
