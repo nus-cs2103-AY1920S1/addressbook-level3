@@ -5,12 +5,14 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.GuiSettings;
@@ -38,6 +40,7 @@ public class BioWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private Profile profile;
+    private BioTable bioTable;
     private HelpWindow helpWindow;
 
     @FXML
@@ -47,13 +50,13 @@ public class BioWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private HBox profilePlaceholder;
+
+    @FXML
+    private VBox bioTablePlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -115,16 +118,31 @@ public class BioWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         Image img = new Image(MainApp.class.getResourceAsStream(ICON_APPLICATION));
 
-        profile = new Profile(img, "Example Name", "Example Address");
+        String manyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed mollis quam, vitae iaculis risus. Suspendisse potenti. Cras sit amet magna tempus, pellentesque enim vulputate, commodo diam. Cras a tristique lacus. Maecenas non cursus ipsum. Nunc sit amet interdum diam, at ultrices nunc. Sed non dignissim risus, sit amet egestas ipsum. Aenean quis nisl non massa lobortis tristique in sit amet tellus. Aenean non lectus sed lectus aliquet interdum eget a mi. Morbi eget porta leo. Pellentesque a pretium lorem, sit amet semper ante. Phasellus pellentesque ante sit amet eros maximus aliquet in ut purus. In maximus lectus quis tellus pulvinar, a malesuada orci suscipit. Aenean sodales euismod mauris, sit amet vehicula eros placerat nec. Nullam in tincidunt lectus.\n" +
+                "\n" +
+                "Vestibulum ipsum lacus, fermentum at elit quis, accumsan ullamcorper metus. Aliquam fermentum sem vel arcu maximus, at gravida lacus maximus. Donec mollis nibh efficitur condimentum vulputate. Mauris ut urna nec odio congue dignissim. Praesent vitae risus vitae sem suscipit faucibus. Sed elementum lobortis orci, a hendrerit dolor vulputate ut. Etiam ornare erat nisi, at porta sapien scelerisque a. Cras eu velit pretium, egestas nisl sit amet, posuere tortor. Duis pretium nec ligula ac lacinia. Nunc non convallis orci, sit amet egestas nibh.\n" +
+                "\n" +
+                "Praesent nec purus mauris. Donec porta congue eleifend. Cras feugiat facilisis euismod. Nullam vehicula quam id pellentesque luctus. Fusce ut vehicula elit. Nullam nec nisi et purus interdum faucibus. Fusce viverra nisl at metus finibus, eget mollis elit fermentum. Pellentesque auctor viverra erat, nec pretium quam fringilla sit amet. Curabitur a gravida felis, scelerisque cursus mauris.\n" +
+                "\n" +
+                "Proin et purus nisl. Donec vulputate bibendum augue. Suspendisse volutpat lobortis tellus in tincidunt. Phasellus felis nulla, scelerisque eget odio non, vestibulum cursus lacus. Curabitur erat tellus, faucibus vel sem vel, dapibus consectetur urna. Nulla facilisi. Duis commodo fringilla ante, egestas ultrices dui scelerisque eu. Suspendisse faucibus pharetra aliquet.\n" +
+                "\n" +
+                "Etiam vitae pulvinar mauris, id convallis ex. Pellentesque sit amet pellentesque velit. Donec condimentum dolor massa, vitae accumsan nibh sollicitudin sed. Sed commodo gravida arcu, at venenatis ex tempus nec. Proin ac interdum tellus. Aliquam nec tincidunt nulla. Morbi elementum tincidunt massa placerat pellentesque. Fusce vitae sapien quis ante tincidunt eleifend id id tortor. Donec nec tristique eros, quis ullamcorper velit. Donec justo orci, efficitur ut arcu vitae, faucibus elementum enim. Vivamus sed facilisis tellus, non imperdiet tortor. Vestibulum ac enim quis quam venenatis auctor. Duis in justo elit. Donec auctor egestas dolor, sit amet euismod ante condimentum quis.";
+
+        String abit = "Example Age \nExample Gender \nExample Address";
+        String little = "Example Profile";
+
+        profile = new Profile(img, "Example Name", abit);
+//        profile = new Profile(img, "Example Name", "Example Profile");
         profilePlaceholder.getChildren().add(profile.getRoot());
+
+        bioTable = new BioTable();
+        bioTablePlaceholder.getChildren().add(bioTable.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());

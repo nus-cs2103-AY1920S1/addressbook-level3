@@ -23,7 +23,6 @@ public class Profile extends UiPart<Region> {
     @FXML
     private Label asl;
 
-
     public Profile(Image img, String name, String asl) {
         super(FXML);
         displayPicture.setImage(img);

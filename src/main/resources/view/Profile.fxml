@@ -2,21 +2,33 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="profile" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox HBox.hgrow="ALWAYS" fx:id="profile" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="displayPicture" fitHeight="76.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" />
-      <VBox maxHeight="1.7976931348623157E308" prefHeight="30.0" prefWidth="314.0">
-         <children>
-            <Label fx:id="name" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" styleClass="profile-name"/>
-            <Label fx:id="asl" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="ALWAYS" styleClass="profile-asl" />
-         </children>
-      </VBox>
+    <ImageView fx:id="displayPicture" fitHeight="76.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" />
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hvalue="1.0" pannable="true" styleClass="profile-scroll" vvalue="1.0">
+        <content>
+                  <VBox maxHeight="Infinity">
+                     <children>
+                        <Label fx:id="name" maxHeight="Infinity" styleClass="profile-name" text="Label" wrapText="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="asl" maxHeight="Infinity" styleClass="profile-asl" text="Label" wrapText="true"/>
+                     </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+                  </VBox>
+        </content>
+      </ScrollPane>
    </children>
    <padding>
-      <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
 </HBox>

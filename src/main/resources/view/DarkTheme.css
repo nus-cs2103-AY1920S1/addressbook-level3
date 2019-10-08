@@ -173,10 +173,6 @@
      -fx-text-fill: white;
  }
 
-.profile-name .label {
-    -fx-text-fill: black !important;
-}
-
 .profile-asl {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
@@ -184,8 +180,21 @@
     -fx-text-fill: white;
 }
 
-.profile-asl .label {
-    -fx-text-fill: black !important;
+.bio-table {
+    -fx-background-color: transparent;
+}
+
+.field-column .label {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-font-style: italic !important;
+    -fx-text-fill: white !important;
+}
+
+.data-column .label{
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-text-fill: white !important;
 }
 
 .status-bar .label {
@@ -310,6 +319,12 @@
     -fx-font-style: italic;
     -fx-fill: white;
     -fx-text-fill: white;
+}
+
+.profile-scroll {
+    -fx-background: transparent !important;
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
 }
 
 .scroll-bar {

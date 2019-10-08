@@ -47,17 +47,16 @@
           </padding>
         </StackPane>
 
-        <HBox VBox.vgrow="NEVER" fx:id="profilePlaceholder" styleClass="pane-with-border" minHeight="100" prefHeight="100" maxHeight="100">
+        <HBox fx:id="profilePlaceholder" styleClass="pane-with-border">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </HBox>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <VBox VBox.vgrow="ALWAYS" fx:id="bioTablePlaceholder" styleClass="pane-with-border">
           <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
+            <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
