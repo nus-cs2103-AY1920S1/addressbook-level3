@@ -43,7 +43,6 @@ public class Problem {
         this.source = source;
     }
 
-
     public Name getName() {
         return name;
     }

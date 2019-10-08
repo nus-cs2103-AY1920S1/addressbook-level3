@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.algobase.model.plan.Plan;
+import seedu.algobase.model.plan.PlanList;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.UniqueProblemList;
 
@@ -15,6 +17,7 @@ import seedu.algobase.model.problem.UniqueProblemList;
 public class AlgoBase implements ReadOnlyAlgoBase {
 
     private final UniqueProblemList problems;
+    private final PlanList plans;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,6 +27,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      *   among constructors.
      */
     {
+        plans = new PlanList();
         problems = new UniqueProblemList();
     }
 
@@ -93,17 +97,24 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         problems.remove(key);
     }
 
+    @Override
+    public ObservableList<Problem> getProblemList() {
+        return problems.asUnmodifiableObservableList();
+    }
+
+    //// Plan-level operations
+
+    @Override
+    public ObservableList<Plan> getPlanList() {
+        return plans.asUnmodifiableObservableList();
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return problems.asUnmodifiableObservableList().size() + " problems";
         // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Problem> getProblemList() {
-        return problems.asUnmodifiableObservableList();
     }
 
     @Override

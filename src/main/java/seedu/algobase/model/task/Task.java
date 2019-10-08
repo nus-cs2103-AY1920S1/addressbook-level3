@@ -18,13 +18,13 @@ public class Task {
     private final LocalDateTime dateTime;
 
     /**
-     * Every field must be present and not null.
+     * Problem field must be present and not null.
      */
-    public Task(Problem problem, Boolean isSolved, LocalDateTime dateTime) {
-        requireAllNonNull(problem, isSolved, dateTime);
+    public Task(Problem problem) {
+        requireAllNonNull(problem);
         this.problem = problem;
-        this.isSolved = isSolved;
-        this.dateTime = dateTime;
+        this.isSolved = false;
+        this.dateTime = null;
     }
 
     public Problem getProblem() {

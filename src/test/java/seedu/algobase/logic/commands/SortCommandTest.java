@@ -23,6 +23,7 @@ import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.ReadOnlyUserPrefs;
 import seedu.algobase.model.UserPrefs;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 
 class SortCommandTest {
@@ -174,6 +175,11 @@ class SortCommandTest {
 
         @Override
         public void setProblem(Problem target, Problem editedProblem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Plan> getFilteredPlanList() {
             throw new AssertionError("This method should not be called.");
         }
 
