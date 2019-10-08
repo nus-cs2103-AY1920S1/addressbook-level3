@@ -9,14 +9,14 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 
 /**
- * Deletes a book identified using it's displayed index from the catalog.
+ * Deletes a book identified using it's serial number from the catalog.
  */
 public class DeleteBySerialNumberCommand extends DeleteCommand {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the book identified by the index number used in the displayed book list.\n"
+            + ": Deletes the book identified by its serial number used in the displayed book list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

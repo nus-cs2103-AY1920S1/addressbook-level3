@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.SerialNumber;
 
 /**
- * Parses input arguments and creates a new DeleteByIndexCommand object
+ * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
