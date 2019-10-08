@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
@@ -32,8 +34,9 @@ class JsonAdaptedIncome {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedIncome(@JsonProperty("description") Description description, @JsonProperty("amount") Amount amount,
-                             @JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedIncome(@JsonProperty("description") Description description,
+                             @JsonProperty("amount") Amount amount, @JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
         this.amount = amount;
@@ -69,19 +72,19 @@ class JsonAdaptedIncome {
             personTags.add(tag.toModelType());
         }
 
-        if(description == null) {
+        if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
         }
-        if(!Description.isValidDescription(description.toString())) {
+        if (!Description.isValidDescription(description.toString())) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDescription = new Description(description.toString());
 
-        if(amount == null) {
+        if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
-        if(!Amount.isValidAmount(amount.toString())) {
+        if (!Amount.isValidAmount(amount.toString())) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
         final Amount modelAmount = new Amount(amount.toString());
