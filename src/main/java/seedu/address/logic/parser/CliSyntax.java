@@ -25,6 +25,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_STUDENT = new Prefix("student/");
     // END OF STUDENT PREFIX
 
+    public static final Prefix PREFIX_NOTE = new Prefix("note/");
+    public static final Prefix PREFIX_DESCRIPTION = new Prefix("desc/");
+
     public static final Prefix PREFIX_LIST = new Prefix("list");
     public static final Prefix PREFIX_DELETE = new Prefix("delete");
 
