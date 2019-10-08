@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import java.time.LocalDateTime;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupName;
@@ -52,6 +56,13 @@ public class EditGroupCommand extends Command {
         if (group == null) {
             return new CommandResult(MESSAGE_FAILURE);
         } else {
+
+            // update main window display
+            model.updateMainWindowDisplay(group.getGroupName(), LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
+
+            // update side panel display
+            model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
+
             return new CommandResult(MESSAGE_SUCCESS + group.details());
         }
     }
