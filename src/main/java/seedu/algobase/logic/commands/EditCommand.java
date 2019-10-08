@@ -6,7 +6,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PROBLEMS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -49,9 +49,9 @@ public class EditCommand extends Command {
             + PREFIX_AUTHOR + "Tung Kam Chuen "
             + PREFIX_WEBLINK + "https://open.kattis.com/problems/sequences";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Problem: %1$s";
+    public static final String MESSAGE_EDIT_PROBLEM_SUCCESS = "Edited Problem: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This Problem already exists in the algobase.";
+    public static final String MESSAGE_DUPLICATE_PROBLEM = "This Problem already exists in the algobase.";
 
     private final Index index;
     private final EditProblemDescriptor editProblemDescriptor;
@@ -74,19 +74,19 @@ public class EditCommand extends Command {
         List<Problem> lastShownList = model.getFilteredProblemList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX);
         }
 
         Problem problemToEdit = lastShownList.get(index.getZeroBased());
         Problem editedProblem = createEditedProblem(problemToEdit, editProblemDescriptor);
 
         if (!problemToEdit.isSameProblem(editedProblem) && model.hasProblem(editedProblem)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_PROBLEM);
         }
 
         model.setProblem(problemToEdit, editedProblem);
-        model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedProblem));
+        model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
+        return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedProblem));
     }
 
     /**

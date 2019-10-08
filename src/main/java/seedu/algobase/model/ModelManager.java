@@ -106,7 +106,7 @@ public class ModelManager implements Model {
     @Override
     public void addProblem(Problem problem) {
         algoBase.addProblem(problem);
-        updateFilteredProblemList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
     }
 
     @Override

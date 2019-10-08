@@ -13,7 +13,7 @@ import seedu.algobase.model.problem.Problem;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Problem> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Problem> PREDICATE_SHOW_ALL_PROBLEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

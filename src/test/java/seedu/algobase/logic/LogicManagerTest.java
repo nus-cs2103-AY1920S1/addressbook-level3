@@ -1,7 +1,7 @@
 package seedu.algobase.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX;
 import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.algobase.logic.commands.CommandTestUtil.AUTHOR_DESC_QUICK_SORT;
 import static seedu.algobase.logic.commands.CommandTestUtil.DESCRIPTION_DESC_QUICK_SORT;
@@ -62,7 +62,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX);
     }
 
     @Test
