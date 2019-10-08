@@ -170,6 +170,9 @@ public class ParserUtil {
             throw new ParseException(Type.MESSAGE_CONSTRAINTS);
         }
         return new Type(trimmedType);
+    }
+
+     /**
      * Parses a {@code String description} into an {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
