@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -43,6 +44,9 @@ public class Home extends UiPart<Region> {
     public Home (Logic logic) throws Exception {
         super(FXML);
         tableView.getItems().setAll(parseTransactionList(logic));
+        /*ObservableList<Transaction> transactionObservableList = FXCollections.observableArrayList(parseTransactionList(logic));
+        tableView.setItems(transactionObservableList);*/
+        //personListView.setCellFactory(listView -> new PersonListViewCell());
         idCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("id"));
         dateCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("date"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("description"));
@@ -50,5 +54,33 @@ public class Home extends UiPart<Region> {
         amountCol.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("amount"));
         personCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("name"));
 
+        /*idCol.setCellFactory(view -> new TransactionViewCell<String>("id"));
+        dateCol.setCellFactory(view -> new TransactionViewCell<String>("date"));
+        descriptionCol.setCellFactory(view -> new TransactionViewCell<String>("description"));
+        categoryCol.setCellFactory(view -> new TransactionViewCell<String>("category"));
+        amountCol.setCellFactory(view -> new TransactionViewCell<Double>("amount"));
+        personCol.setCellFactory(view -> new TransactionViewCell<String>("name"));*/
+
     }
+
+    class TransactionViewCell<T> extends TableCell<Transaction, T> {
+        private String attribute;
+
+        public TransactionViewCell(String attribute) {
+            this.attribute = attribute;
+        }
+
+        @Override
+        protected void updateItem(T type, boolean empty) {
+            super.updateItem(type, empty);
+
+            if (empty || type == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setText(new PropertyValueFactory<Transaction, T>(attribute).getProperty());
+            }
+        }
+     }
+
 }
