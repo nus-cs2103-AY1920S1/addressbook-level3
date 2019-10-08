@@ -16,7 +16,8 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
+    Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
+    Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -56,26 +57,26 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if an entity with the same identity as {@code entity} exists in the address book.
+     * Returns true if an entity with the same identity as {@code entity} exists in Mortago.
      */
     boolean hasEntity(Entity entity);
 
     /**
      * Deletes the given entity.
-     * The entity must exist in the address book.
+     * The entity must exist in Mortago.
      */
     void deleteEntity(Entity target);
 
     /**
      * Adds the given entity.
-     * {@code entity} must not already exist in the address book.
+     * {@code entity} must not already exist in Mortago.
      */
     void addEntity(Entity entity);
 
     /**
      * Replaces the given entity {@code target} with {@code editedEntity}.
-     * {@code target} must exist in the address book.
-     * The entity identity of {@code editedEntity} must not be the same as another existing entity in the address book.
+     * {@code target} must exist in Mortago.
+     * The entity identity of {@code editedEntity} must not be the same as another existing entity in Mortago.
      */
     void setEntity(Entity target, Entity editedEntity);
 
@@ -87,8 +88,11 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered list of bodies */
     ObservableList<Body> getFilteredBodyList();
+  
+    //** Returns an unmodifiable view of the filtered list of fridges */
+    // ObservableList<Fridge> getFilteredFridgeList();
 
-    /** Returns an unmodifiable view of the filtered list of bodies */
+    /** Returns an unmodifiable view of the filtered list of entities */
     ObservableList<? extends Entity> getFilteredEntityList(String entityType);
 
     /**

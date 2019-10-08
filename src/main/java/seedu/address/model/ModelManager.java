@@ -42,6 +42,8 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
+        //filteredFridge = new FilteredList<>(this.addressBook.getFridgeList());
+
     }
 
     public ModelManager() {
@@ -118,6 +120,39 @@ public class ModelManager implements Model {
 
         addressBook.setEntity(target, editedEntity);
     }
+    //=========== Filtered Body List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Worker} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Body> getFilteredBodyList() {
+        return filteredBodies;
+    }
+
+    @Override
+    public void updateFilteredBodyList(Predicate<Body> predicate) {
+        requireNonNull(predicate);
+        filteredBodies.setPredicate(predicate);
+    }
+
+    //=========== Filtered Worker List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Worker} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Worker> getFilteredWorkerList() {
+        return filteredWorkers;
+    }
+
+    @Override
+    public void updateFilteredWorkerList(Predicate<Worker> predicate) {
+        requireNonNull(predicate);
+        filteredWorkers.setPredicate(predicate);
+    }
+
+    //=========== Filtered Fridge List Accessors =============================================================
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -134,40 +169,6 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    //=========== Filtered Workers List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Workers} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Worker> getFilteredWorkerList() {
-        return filteredWorkers;
-    }
-
-    @Override
-    public void updateFilteredWorkerList(Predicate<Worker> predicate) {
-        requireNonNull(predicate);
-        filteredWorkers.setPredicate(predicate);
-    }
-
-    //=========== Filtered Workers List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Bodies} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Body> getFilteredBodyList() {
-        return filteredBodies;
-    }
-
-    @Override
-    public void updateFilteredBodyList(Predicate<Body> predicate) {
-        requireNonNull(predicate);
-        filteredBodies.setPredicate(predicate);
     }
 
     //=========== Filtered Entities List Accessors =============================================================
@@ -205,6 +206,9 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+        //&& filteredWorkers.equals(other.filteredWorkers);
+        //&& filteredBodies.equals(other.filteredBodies);
+        //&& filteredFridges.equals(other.filteredFridges);
     }
 
 }
