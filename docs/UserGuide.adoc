@@ -68,7 +68,7 @@ Examples:
 
 Edits a current expenditure with the given index number
 
-Format: `editExpense <index> [--desc <description>] [--tag <tag] [--amt <expenditure>]`
+Format: `editExpense <index> [--desc <description>] [--tag <tag>] [--amt <expenditure>]`
 
 Examples:
 
