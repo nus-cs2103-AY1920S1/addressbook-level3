@@ -1,9 +1,10 @@
 package seedu.address.notification;
 
+import java.util.logging.Logger;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.ReadOnlyEventList;
 
-import java.util.logging.Logger;
 
 /**
  * The implementing class of the Notification interface.
@@ -21,7 +22,12 @@ public class NotificationManager implements Notification {
         systemTrayCommunicator = new SystemTrayCommunicator();
         systemTrayCommunicator.initialise();
     }
-    
+
+    /**
+     * Updates the queue of notifications to be posted.
+     *
+     * @param readOnlyEventList The list of events for which notifications should be posted
+     */
     public void updateNotificationQueue(ReadOnlyEventList readOnlyEventList) {
         interruptExistingThread();
         createNewThread(readOnlyEventList);
@@ -45,7 +51,7 @@ public class NotificationManager implements Notification {
 
     /**
      * Generates and starts a new EventNotificationThread.
-     * 
+     *
      * @param readOnlyEventList The ReadOnlyEventList through which notifications can be generated.
      */
     private void createNewThread(ReadOnlyEventList readOnlyEventList) {

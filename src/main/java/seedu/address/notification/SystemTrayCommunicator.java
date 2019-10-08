@@ -24,8 +24,8 @@ public class SystemTrayCommunicator {
      */
     public void initialise() {
         systemTrayIsSupported = SystemTray.isSupported();
-        
-        if(systemTrayIsSupported) {
+
+        if (systemTrayIsSupported) {
             SystemTray tray = SystemTray.getSystemTray();
             trayIcon = getTrayIcon();
 
@@ -39,20 +39,19 @@ public class SystemTrayCommunicator {
 
     /**
      * Posts a new notification to the System Tray.
-     * 
+     *
      * @param name The name of the notification.
      * @param description The description of the notification.
      */
     public void postNewNotification(String name, String description) {
-
-        if(systemTrayIsSupported) {
+        if (systemTrayIsSupported) {
             trayIcon.displayMessage(name, description, MessageType.INFO);
         }
     }
 
     /**
      * Creates a new icon on the System Tray, and returns its reference.
-     * 
+     *
      * @return The reference to a new System Tray icon.
      */
     private static TrayIcon getTrayIcon() {
@@ -64,17 +63,17 @@ public class SystemTrayCommunicator {
 
     /**
      * Locates and returns the image to be used as the Tray Icon.
-     * 
+     *
      * @return the image to be used as the Tray Icon.
      */
     private static Image getImage() {
         return Toolkit.getDefaultToolkit()
             .getImage(System.getProperty("user.dir") + "/" + TRAY_ICON_IMAGE_PATH);
     }
-    
+
     /**
      * Creates and returns the PopupMenu designed for this app.
-     * 
+     *
      * @return The PopupMenu designed for the System Tray app.
      */
     private static PopupMenu getPopupMenu() {
@@ -92,7 +91,7 @@ public class SystemTrayCommunicator {
     /**
      * Creates and returns an instance of the ClickActionListener used for this app.
      *     The listener will be called whenever the user clicks on a notification.
-     * 
+     *
      * @return An instance of the ClickActionListener used for this app.
      */
     private static NotificationClickActionListener getNotificationClickActionListener() {
