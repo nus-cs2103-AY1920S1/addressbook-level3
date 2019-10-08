@@ -7,14 +7,18 @@ import seedu.address.model.events.DateTime;
 /**
  * Represents a command argument of type DateTime.
  */
-public class DateTimeArgument extends CommandArgument<DateTime> {
+public class DateTimeArgument extends Argument<DateTime> {
 
-    public DateTimeArgument(String description, boolean required) {
-        super(description, required);
+    DateTimeArgument(ArgumentBuilder<DateTime> builder) {
+        super(builder);
+    }
+
+    public static DateTimeArgumentBuilder newBuilder(String description) {
+        return new DateTimeArgumentBuilder(description);
     }
 
     @Override
-    public DateTime parse(String userInput) throws ParseException {
+    DateTime parse(String userInput) throws ParseException {
         return new DateTimeParser().parse(userInput);
     }
 }
