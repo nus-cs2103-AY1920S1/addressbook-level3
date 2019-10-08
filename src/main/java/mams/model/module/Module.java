@@ -9,13 +9,19 @@ import mams.commons.util.CollectionUtil;
  * Represents a Module in MAMS.
  */
 public class Module {
-
     // Identity fields
     private final String moduleCode;
     private final String sessionId;
 
     // Data fields
+    /**
+     * timeSlots of lecture of the module. Time slots can occupy any number
+     *  of hours in a day.
+     * Assumptions: No more than 1 session per daytracing.
+     *   TimeSlots(value) are arranged in ascending order
+     */
     private final int[] timeSlot;
+    //private final Student[] students; // to be added
 
     /**
      * Every field must be present and not null.
@@ -91,37 +97,80 @@ public class Module {
         return builder.toString();
     }
 
-    //work in progress
-    String timeSlotsToString(){
-        String buffer = "" ;
+    /**
+     * Returns the string indicating which time slot this module occupies.
+     * @return Day and TimeSlots of this module
+     */
+    String timeSlotsToString() {
+        final StringBuilder builder = new StringBuilder();
+        int startTimeSlot = 0;
 
-        int temp = 0;
-        for(int i=0; i< timeSlot.length; i++){
-            if ((temp == 0) && (i != timeSlot.length - 1) && (timeSlot[i] < timeSlot[i+1] - 1)){
-                //print for 1hour time slot.
-                System.out.println("print 1 hour time slot" + timeSlot[i]);
-            } else if (temp == 0 && (i != timeSlot.length - 1)) {
-                //first hour of 2/3hr sessions. do nothing
-                temp = timeSlot[i];
-                System.out.println("first hour of 2/3hr sessions" + timeSlot[i]);
-            } else if ((temp == timeSlot[i] - 1) && (timeSlot[i] == timeSlot[i+1] - 1)) {
-                //2nd hour of 3 hr session. do nothing
-                System.out.println("2nd hour of 3 hr session. do nothing" + timeSlot[i]);
-            } else if ((i == timeSlot.length -1) && (temp == 0)) {
-                //print 1 hr session. last item in array
-                System.out.println("1 hr session. last item in array" + timeSlot[i]);
-                temp = 0;
-            } else if ((i == timeSlot.length - 1) || (timeSlot[i] < timeSlot[i+1] - 1)){
+        for (int i = 0; i < timeSlot.length; i++) {
+            if (((startTimeSlot == 0) && (i != timeSlot.length - 1) && (timeSlot[i] < timeSlot[i + 1] - 1))
+                    || ((i == timeSlot.length - 1) && (startTimeSlot == 0))) {
+                //print for 1hour time slot OR print 1hr time slot(last time in array)
+                builder.append(getDay(timeSlot[i]))
+                        .append(" ")
+                        .append(getTime(timeSlot[i]))
+                        .append(" to ")
+                        .append(getTime(timeSlot[i] + 1))
+                        .append(" "); //Ends at next hour
+                startTimeSlot = 0;
+            } else if (startTimeSlot == 0 && (i != timeSlot.length - 1)) {
+                //first hour of 2/3hr sessions.
+                startTimeSlot = timeSlot[i];
+            } else if ((i == timeSlot.length - 1) || (timeSlot[i] < timeSlot[i + 1] - 1)) {
                 //print time slot 2nd hour of 2hr session/3rd hour of 3 hours session.
-                System.out.println("2nd hour of 2hr session/3rd hour of 3 hours session. print time slot." + timeSlot[i]);
-                temp = 0;
+                builder.append(getDay(timeSlot[i]))
+                        .append(" ")
+                        .append(getTime(startTimeSlot))
+                        .append(" to ")
+                        .append(getTime(timeSlot[i] + 1))
+                        .append(" "); //Ends at next hour
+                startTimeSlot = 0;
             }
         }
-        return buffer;
+        return builder.toString();
     }
 
-    String timeSlot(int timeSlot) {
-        switch (timeSlot) {
+    /**
+     * Returns the day of the time slot. Only weekdays are possible days for modules.
+     * @param timeSlot integer value that identifies which timeslot of the week the module
+     *                 occupies. Range: (1-69)
+     * @return String indicating which day the module falls on
+     */
+    String getDay(int timeSlot) {
+        final int timeSlotsPerDay = 14;
+        int day = timeSlot / timeSlotsPerDay;
+
+        switch (day) {
+        case 0:
+            return "MONDAY";
+        case 1:
+            return "TUESDAY";
+        case 2:
+            return "WEDNESDAY";
+        case 3:
+            return "THURSDAY";
+        case 4:
+            return "FRIDAY";
+        default:
+            return "Invalid day";
+        }
+    }
+
+    /**
+     * Returns the time with respect to the timeslot. All days of the week have 13 possible time slots.
+     * Note: The 14th time slot (21:00) is only valid as a end time, and is not a valid time slot.
+     * @param timeSlot integer value that identifies which timeslot of the week the module
+     *                 occupies. Range: (1-69)
+     * @return String of the time of which the modules falls on
+     */
+    String getTime(int timeSlot) {
+        final int numberOfTimeSlots = 14;
+        int actualTime = timeSlot % numberOfTimeSlots;
+
+        switch (actualTime) {
         case 1:
             return "08:00";
         case 2:
@@ -148,10 +197,10 @@ public class Module {
             return "19:00";
         case 13:
             return "20:00";
-        case 14:
+        case 0:
             return "21:00";
         default:
-            return "unknown time";
+            return "Invalid time";
         }
     }
 }
