@@ -24,7 +24,13 @@ public class LocationArrayListUtils {
         }
         return newArrayList;
     }
-
+    public static ArrayList<String> locationListToStringList(ArrayList<Location> arrayList) {
+        ArrayList<String> newArrayList = new ArrayList<>();
+        for (int i = 0; i < arrayList.size(); i++) {
+            newArrayList.add(arrayList.get(i).getGoogleRecognisedLocation());
+        }
+        return newArrayList;
+    }
     public static int getIndex(ArrayList<Location> arrayList, String locationName) {
         for (int i = 0; i < arrayList.size(); i++) {
             if (arrayList.get(i).getLocationName().equals(locationName)) {
@@ -33,4 +39,5 @@ public class LocationArrayListUtils {
         }
         return -1;
     }
+
 }

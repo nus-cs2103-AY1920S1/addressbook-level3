@@ -38,7 +38,11 @@ public class LocationGraph {
         return distanceMatrix.get(index);
     }
 
-    public LocationGraph setMatrix(int rowNum, ArrayList<Long> row) {
+    public ArrayList<ArrayList<Long>> getDistanceMatrix() {
+        return distanceMatrix;
+    }
+
+    public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) {
             distanceMatrix.get(rowNum).addAll(row);
             return new LocationGraph(venues, distanceMatrix);
     }
