@@ -30,6 +30,14 @@ public class CommandResult {
         return false;
     }
 
+    public boolean isOpen() {
+        return false;
+    }
+
+    public String getUrl() {
+        return null;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -44,12 +52,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && isShowHelp() == otherCommandResult.isShowHelp()
-                && isExit() == otherCommandResult.isExit();
+                && isExit() == otherCommandResult.isExit()
+                && (getUrl() == null || getUrl().equals(otherCommandResult.getUrl()));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, isShowHelp(), isExit());
+        return Objects.hash(feedbackToUser, isShowHelp(), isExit(), getUrl());
     }
 
 }

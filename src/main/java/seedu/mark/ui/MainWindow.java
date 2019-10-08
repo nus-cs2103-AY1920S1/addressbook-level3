@@ -158,6 +158,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens an url.
+     */
+    @FXML
+    public void handleOpen(String url) {
+        browserPanel.loadPage(url);
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -195,6 +203,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isOpen()) {
+                handleOpen(commandResult.getUrl());
             }
 
             return commandResult;
