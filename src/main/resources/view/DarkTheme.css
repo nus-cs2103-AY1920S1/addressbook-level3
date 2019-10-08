@@ -1,3 +1,16 @@
+.red {
+    -fx-text-fill: #FF0000;
+}
+
+.blue {
+    -fx-control-inner-background: transparent;
+    -fx-background-color: rgba(255, 255, 0, 0.2);
+    -fx-border-color: #FF00FF;
+    /*-fx-table-cell-border-color: transparent;*/
+    /*-fx-table-header-border-color: transparent;*/
+    -fx-border-top-width: 1px;
+}
+
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
     background-color: #383838; /* Used in the default.html file */
