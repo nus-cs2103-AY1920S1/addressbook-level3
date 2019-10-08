@@ -52,7 +52,7 @@ public class AddCustomerCommand extends Command {
         }
 
         model.addCustomer(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),PanelType.CUSTOMER);
     }
 
     @Override

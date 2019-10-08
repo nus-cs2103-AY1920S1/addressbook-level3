@@ -17,12 +17,13 @@ public class CliSyntax {
     public static final Prefix PREFIX_BRAND = new Prefix("b/");
     public static final Prefix PREFIX_CAPACITY = new Prefix("cp/");
     public static final Prefix PREFIX_COLOUR = new Prefix("cl/");
-    public static final Prefix PREFIX_PRICE = new Prefix("$/");
+    public static final Prefix PREFIX_COST = new Prefix("$/");
 
 
     //// Order
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_CUSTOMER = new Prefix("c/");
+    public static final Prefix PREFIX_PRICE = new Prefix("$/");
     // price + tags
 
     //// Schedule
