@@ -9,7 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -77,11 +80,6 @@ public class ParserUtil {
         return new Address(trimmedAddress);
     }
 
-    public static Remark parseRemark(String remark) {
-        requireNonNull(remark);
-        return new Remark(remark);
-    }
-
     /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
@@ -123,6 +121,4 @@ public class ParserUtil {
         }
         return tagSet;
     }
-
-
 }
