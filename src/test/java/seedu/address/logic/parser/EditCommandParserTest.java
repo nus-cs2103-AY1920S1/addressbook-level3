@@ -11,7 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -28,9 +27,6 @@ import seedu.address.model.person.Title;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 
 public class EditCommandParserTest {
-
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 

@@ -53,7 +53,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getNoteList());
     }
 
     //// person-level operations
@@ -70,7 +70,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addNote(Person p) {
         persons.add(p);
     }
 
@@ -79,7 +79,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
+    public void setNote(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
@@ -89,7 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removeNote(Person key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Person> getNoteList() {
         return persons.asUnmodifiableObservableList();
     }
 

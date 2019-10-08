@@ -55,21 +55,21 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getFilteredNoteList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
         }
 
         Person noteToEdit = lastShownList.get(index.getZeroBased());
         Person editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
 
-        if (!noteToEdit.isSameNote(editedNote) && model.hasPerson(editedNote)) {
+        if (!noteToEdit.isSameNote(editedNote) && model.hasNote(editedNote)) {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
-        model.setPerson(noteToEdit, editedNote);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_NOTES);
+        model.setNote(noteToEdit, editedNote);
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
         return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
     }
 
