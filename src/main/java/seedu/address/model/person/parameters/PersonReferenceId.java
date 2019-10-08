@@ -39,6 +39,12 @@ public abstract class PersonReferenceId implements ReferenceId {
     }
 
     @Override
+    public int compareTo(ReferenceId o) {
+        requireNonNull(o);
+        return toString().compareTo(o.toString());
+    }
+
+    @Override
     public String toString() {
         return referenceId;
     }
