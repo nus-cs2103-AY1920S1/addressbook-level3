@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T16-4/main
 
 By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listExpenditure`* : lists all expenditure
-* **`addAutoExpenditure`**` --freq month --desc drinks --amt 11.99 to the guiltTrip.
-* **`deleteExpenditure`**`3` : deletes the 3rd contact shown in the expenditure list
-* *`exit`* : exits the app
+* `listExpenditure` : lists all expenditure
+  ** `addAutoExpenditure` --freq month --desc drinks --amt 11.99 to the guiltTrip.
+  ** `deleteExpenditure 3` : deletes the 3rd contact shown in the expenditure list
+* `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -89,7 +89,7 @@ Examples:
 
 Adds an automatically recurring expenditure every day/week/month (frequency) with the given description and amount.
 
-Format: `addAutoExpenditure --freq <frequency> --desc <description> --amt <expenditure> `
+Format: `addAutoExpenditure --freq <frequency> --desc <description> --amt <expenditure>`
 
 Examples:
 
@@ -327,7 +327,7 @@ Example:
 ==== Resetting Record : 'reset'
 Resets records of expenditure/budget/income/loan.
 
-Format: `reset --before <DD/MM/YYYY> --after <DD/MM/YYYY> `
+Format: `reset --before <DD/MM/YYYY> --after <DD/MM/YYYY>`
 
 Example:
 
@@ -423,7 +423,7 @@ Examples:
 ==== Delete WishList : `deleteWishlist`
 Deletes the item at the stated index from your current wishlist
 
-Format: `deleteWishlist <Index>`
+Format: `deleteWishlist <index>`
 
 Examples:
 
@@ -498,18 +498,19 @@ Search wishlist for items containing keyword in their name/ notes +
 Format: `searchWishList <keyword>`
 Examples:
 
-* searchWishList mala
+* `searchWishList mala`
 
 ==== Purchase WishList : `purchase`
 Purchases the item at the stated index from your current wishlist
 Format: `purchase <index>`
 
 Examples:
+
 * `purchase 1`
 
 == FAQ
 
-*Q*: When will the record of my expenditure be until?
+*Q*: When will the record of my expenditure be until? +
 *A*: It can be as long as you want it to be until! If you want to delete a certain month’s expenditure, you can just call a command to
 do so.
 
