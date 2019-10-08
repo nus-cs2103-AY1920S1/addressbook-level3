@@ -19,6 +19,7 @@ import seedu.tarence.logic.commands.AddTutorialCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.TimeTable;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
@@ -40,7 +41,7 @@ public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_DAY, PREFIX_MODULE,
                 PREFIX_TUTORIAL_DURATION_IN_MINUTES, PREFIX_TUTORIAL_NAME,
-                PREFIX_TUTORIAL_START_TIME, PREFIX_TUTORIAL_WEEKS)
+                PREFIX_TUTORIAL_START_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTutorialCommand.MESSAGE_USAGE));
         }
@@ -52,8 +53,13 @@ public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
         // Attributes for TimeTable class.
         String tutorialDay = argMultimap.getValue(PREFIX_TUTORIAL_DAY).get();
         String tutorialDuration = argMultimap.getValue(PREFIX_TUTORIAL_DURATION_IN_MINUTES).get();
-        String tutorialWeeks = argMultimap.getValue(PREFIX_TUTORIAL_WEEKS).get();
         String tutorialStartTime = argMultimap.getValue(PREFIX_TUTORIAL_START_TIME).get();
+        String tutorialWeeks;
+        if (arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_WEEKS)) {
+            tutorialWeeks = argMultimap.getValue(PREFIX_TUTORIAL_WEEKS).get();
+        } else {
+            tutorialWeeks = TimeTable.DEFAULT_WEEKS;
+        }
 
         DayOfWeek day = ParserUtil.parseDayOfWeek(tutorialDay);
         Duration duration = ParserUtil.parseDuration(tutorialDuration);

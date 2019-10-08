@@ -43,7 +43,10 @@ public class TutorialBuilder {
         duration = Duration.ofMinutes(DEFAULT_DURATION);
         day = DayOfWeek.valueOf(DEFAULT_DAY);
         startTime = LocalTime.parse(DEFAULT_STARTTIME, DateTimeFormatter.ISO_TIME);
-        DEFAULT_WEEKS.add(new Week(1));
+        DEFAULT_WEEKS.clear();
+        for (int w = 3; w <= 13; w++) {
+            DEFAULT_WEEKS.add(new Week(w));
+        }
         weeks = DEFAULT_WEEKS;
         tutName = new TutName(DEFAULT_TUTNAME);
         students = DEFAULT_STUDENTS;

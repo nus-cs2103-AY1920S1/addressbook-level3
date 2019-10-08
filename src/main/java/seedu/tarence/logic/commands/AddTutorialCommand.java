@@ -80,5 +80,19 @@ public class AddTutorialCommand extends Command {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddTutorialCommand)) {
+            return false;
+        }
+
+        return tutorial.equals(((AddTutorialCommand) other).tutorial);
+    }
 }
 

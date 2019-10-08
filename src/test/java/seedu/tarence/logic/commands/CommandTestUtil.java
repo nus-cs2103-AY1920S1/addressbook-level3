@@ -5,8 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DAY;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DURATION_IN_MINUTES;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_START_TIME;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -54,6 +58,32 @@ public class CommandTestUtil {
     public static final String TUTORIAL_DESC_BOB = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME_BOB;
     public static final String TUTORIAL_IDX_DESC_AMY = " " + PREFIX_TUTORIAL_INDEX + VALID_TUTORIAL_INDEX_AMY;
     public static final String TUTORIAL_IDX_DESC_BOB = " " + PREFIX_TUTORIAL_INDEX + VALID_TUTORIAL_INDEX_BOB;
+
+    public static final String VALID_MODCODE = "EC2303";
+    public static final String VALID_TUTORIAL_NAME = "Tutorial 5";
+    public static final String VALID_TUTORIAL_DAY = "TUESDAY";
+    public static final String VALID_TUTORIAL_START_HHMMSS = "11:00:00";
+    public static final String VALID_TUTORIAL_START_HHMM = "1100";
+    public static final int VALID_TUTORIAL_DUR = 60;
+    public static final String VALID_WEEKS = "1,5,6,8,10";
+    public static final ArrayList<Integer> VALID_WEEKS_LIST = new ArrayList<>(Arrays.asList(1, 5, 6, 8, 10));
+    public static final String VALID_WEEKS_ODD = "odd";
+    public static final ArrayList<Integer> VALID_WEEKS_ODD_LIST = new ArrayList<>(Arrays.asList(3, 5, 7, 9, 11, 13));
+    public static final String VALID_WEEKS_RANGE = "5-10";
+    public static final ArrayList<Integer> VALID_WEEKS_RANGE_LIST = new ArrayList<>(Arrays.asList(5, 6, 7, 8, 9, 10));
+
+    public static final String INVALID_WEEKS_RANGE = "1-14";
+
+    public static final String VALID_MODCODE_DESC = " " + PREFIX_MODULE + VALID_MODCODE;
+    public static final String VALID_TUTORIAL_NAME_DESC = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME;
+    public static final String VALID_TUTORIAL_DAY_DESC = " " + PREFIX_TUTORIAL_DAY + VALID_TUTORIAL_DAY;
+    public static final String VALID_TUTORIAL_START_DESC = " " + PREFIX_TUTORIAL_START_TIME + VALID_TUTORIAL_START_HHMM;
+    public static final String VALID_TUTORIAL_DUR_DESC = " " + PREFIX_TUTORIAL_DURATION_IN_MINUTES + VALID_TUTORIAL_DUR;
+    public static final String VALID_WEEKS_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS;
+    public static final String VALID_WEEKS_ODD_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_ODD;
+    public static final String VALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_RANGE;
+
+    public static final String INVALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + INVALID_WEEKS_RANGE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
