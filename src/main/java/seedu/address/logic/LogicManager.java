@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.autocomplete.AutoCompleter;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.logic.commands.core.Command;
 import seedu.address.logic.commands.core.CommandHistory;
@@ -31,6 +32,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final CommandHistory commandHistory;
+    private final AutoCompleter autoCompleter;
     private final QueueManager queueManager;
 
     public LogicManager(Model model, Storage storage) {
@@ -39,6 +41,7 @@ public class LogicManager implements Logic {
         this.commandHistory = new CommandHistory();
         this.addressBookParser = new AddressBookParser(commandHistory);
         this.queueManager = new QueueManager();
+        this.autoCompleter = new AutoCompleter();
     }
 
     @Override
@@ -60,6 +63,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public AutoCompleter updateAutoCompleter(String commandText) {
+        return autoCompleter.update(commandText);
     }
 
     @Override
