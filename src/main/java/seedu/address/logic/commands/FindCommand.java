@@ -42,7 +42,7 @@ public class FindCommand extends Command {
                 return new CommandResult(
                         String.format(Messages.MESSAGE_WORKERS_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
             } else {
-                throw new CommandException("Please flag the command with '-b' or '-w' to indicate bodies or workers");
+                throw new CommandException(Messages.MESSAGE_NO_FLAG);
             }
         } catch (CommandException e) {
             return new CommandResult(e.getMessage());

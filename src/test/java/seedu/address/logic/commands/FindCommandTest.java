@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BODIES_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_FLAG;
 import static seedu.address.commons.core.Messages.MESSAGE_WORKERS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBodies.ALICE;
@@ -58,6 +59,16 @@ public class FindCommandTest {
 
         // different person -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
+    }
+
+    @Test
+    public void execute_noFlagGiven_invalidCommand() {
+        String expectedMessage = MESSAGE_NO_FLAG;
+        CommandResult expectedResult = new CommandResult(expectedMessage);
+        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        FindCommand command = new FindCommand(predicate, "");
+        expectedModel.updateFilteredBodyList(predicate);
+        assertCommandSuccess(command, model, expectedResult, expectedModel);
     }
 
     @Test
