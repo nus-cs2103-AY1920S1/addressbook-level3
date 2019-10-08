@@ -17,6 +17,11 @@ public class Holidays {
         holidayDates = holidays;
     }
 
+    /**
+     * Parse Holidays from a JSONArray
+     * @param arr JSONArray
+     * @return Holidays object
+     */
     public static Holidays parseFromJson(JSONArray arr) {
         requireNonNull(arr);
         List<String> holidayDates = new ArrayList<>();

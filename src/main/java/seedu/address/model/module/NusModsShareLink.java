@@ -57,7 +57,7 @@ public class NusModsShareLink {
             Matcher m = p.matcher(link);
             String semString = "";
             if (m.matches()) {
-                 semString = m.group(1);
+                semString = m.group(1);
             } else {
                 throw new ParseException(NusModsShareLink.MESSAGE_CONSTRAINTS);
             }

@@ -4,17 +4,17 @@ package seedu.address.model.module;
  * The acad year of the module
  */
 public class AcadYear {
+    private String acadYear;
+
+    public AcadYear(String acadYear) {
+        this.acadYear = acadYear;
+    }
+
     public String getAcadYear() {
         return acadYear;
     }
 
     public void setAcadYear(String acadYear) {
-        this.acadYear = acadYear;
-    }
-
-    private String acadYear;
-
-    public AcadYear(String acadYear) {
         this.acadYear = acadYear;
     }
 

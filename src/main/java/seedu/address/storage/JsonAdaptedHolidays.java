@@ -2,18 +2,13 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.module.ExamDate;
-import seedu.address.model.module.ExamDuration;
 import seedu.address.model.module.Holidays;
-import seedu.address.model.module.Lesson;
 import seedu.address.model.module.Semester;
-import seedu.address.model.module.SemesterNo;
 
 /**
  * Jackson-friendly version of {@link Semester}.
