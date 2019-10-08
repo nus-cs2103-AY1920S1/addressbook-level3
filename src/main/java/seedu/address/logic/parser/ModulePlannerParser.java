@@ -6,11 +6,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.CheckCommand;
+import seedu.address.logic.commands.verification.CheckCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CreateStudyPlanCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
+import seedu.address.logic.commands.datamanagement.FindCommand;
+import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.parser.cli.AddModuleParser;
 import seedu.address.logic.parser.cli.BlockCurrentSemesterParser;
 import seedu.address.logic.parser.cli.DeleteCommandParser;
