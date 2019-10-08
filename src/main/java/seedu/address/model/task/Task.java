@@ -93,6 +93,7 @@ public class Task {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append("Task status: " + getTaskStatus().getDisplayName())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
