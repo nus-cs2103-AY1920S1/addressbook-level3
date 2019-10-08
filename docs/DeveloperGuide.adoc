@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Teacher's Notebook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-T14-1`      Since: `October 19`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* needs to keep track of vast amount of information on students and homework
+* has many deadlines to keep track of
+* prefer desktop apps over mobile or written
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* likes being organised
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage students, deadlines, homework in one place.
 
 [appendix]
 == User Stories
@@ -295,17 +297,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |teacher  |keep track of my students’ progress |understand which student to help more
+
+|`* * *` |teacher  |keep track of all my administrative duties |focus on providing the best education I can for my students
+
+|`* * *` |slave-driving teacher |keep track of my students’ submissions |follow up if they have undone assignments
+
+|`* * *` |thoughtful teacher  |keep track of important details of students| establish rapport with them
+
+|`* * *` |responsible teacher |keep track of all the deadlines that I have | set a good example for my students
+
+|`* * *` |concerned teacher  |want to be able to access parents’ contact details |communicate often and openly with them about their child
+
+|`* * *` |caring teacher  |know any health issues students may have | look out for which students I have to take more care of
+
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* *` |teacher |what my next lessons are | avoid being late for lessons.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* *` |teacher |keep track of students’ behaviour in class | so I can chart my students' growth or misbehaviour
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |teacher |record feedback from students | help them with issues that they may have
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |teacher |know what homework the students already have | understand how much homework I can assign to them next
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |teacher |know students' MBTI | cater lessons to their respective learning styles
+
+|`*` |teacher |know their astrological signs|know which students are compatible with each other
+
+|`*` |teacher |monitor my students’ social media |know how they are faring in their personal life
+
+|`*` |teacher |be bilingual and know the pronunciation of their Mother Tongue names | can respect their culture
+
+|`*` |teacher |know their number of demerit points |put them in the first row in class
 |=======================================================================
 
 _{More to be added}_
@@ -313,9 +337,34 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Teacher's Notebook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+=== Use case: Delete person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to delete a specific person in the list
+4.  AddressBook deletes the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
 === Use case: Delete person
 
 *MSS*
@@ -349,6 +398,10 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to display student's photos in 4KKKKKK resolutionnnnn
+.  Application should respond within 5 seconds
+.  Should have a clean and minimalist interface
+.  User should be able to view and undo changes
 
 _{More to be added}_
 
