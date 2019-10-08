@@ -59,7 +59,7 @@ Format: `help`
 
 === Changing Views : `goto`
 
-Displays a list of all people in the contact list +
+Changes the displayed list to show Contacts, Claims or Income +
 
 Keyword: `goto` +
 

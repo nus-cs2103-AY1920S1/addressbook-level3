@@ -5,6 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.model.claim.Claim;
+import seedu.address.model.claim.UniqueClaimsList;
+import seedu.address.model.income.Income;
+import seedu.address.model.income.UniqueIncomeList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +20,8 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueClaimsList claims;
+    private final UniqueIncomeList incomes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +32,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        claims = new UniqueClaimsList();
+        incomes = new UniqueIncomeList();
     }
 
     public AddressBook() {}
@@ -91,6 +100,76 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Returns true if a claim with the same identity as {@code claim} exists in the address book.
+     */
+    public boolean hasClaim(Claim claim) {
+        requireNonNull(claim);
+        return claims.contains(claim);
+    }
+
+    /**
+     * Adds a claim to the address book.
+     * The claim must not already exist in the address book.
+     */
+    public void addClaim(Claim c) {
+        claims.add(c);
+    }
+
+    /**
+     * Replaces the given claim {@code target} in the list with {@code editedClaim}.
+     * {@code target} must exist in the address book.
+     * The claim identity of {@code editedClaim} must not be the same as another existing claim in the address book.
+     */
+    public void setClaim(Claim target, Claim editedClaim) {
+        requireNonNull(editedClaim);
+
+        claims.setClaim(target, editedClaim);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeClaim(Claim key) {
+        claims.remove(key);
+    }
+
+    /**
+     * Returns true if an income with the same identity as {@code income} exists in the address book.
+     */
+    public boolean hasIncome(Income income) {
+        requireNonNull(income);
+        return incomes.contains(income);
+    }
+
+    /**
+     * Adds an income to the address book.
+     * The income must not already be existing in the address book.
+     */
+    public void addIncome(Income income) {
+        incomes.add(income);
+    }
+
+    /**
+     * Replaces the income {@code target} in the list with {@code editedIncome}.
+     * {@code target} must exist in the address book.
+     * The income identity of {@code editedClaim} must not be the same as another existing income in the address book.
+     */
+    public void setIncome(Income target, Income editedIncome) {
+        requireNonNull(editedIncome);
+
+        incomes.setIncome(target, editedIncome);
+    }
+
+    /**
+     * Removes {@code income} from this {@code AddressBook}.
+     * {@code income} must already exist in the address book.
+     */
+    public void removeIncome(Income income) {
+        incomes.remove(income);
     }
 
     //// util methods

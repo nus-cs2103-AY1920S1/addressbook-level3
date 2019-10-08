@@ -6,15 +6,19 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddClaimCommand;
+import seedu.address.logic.commands.AddContactCommand;
+import seedu.address.logic.commands.AddIncomeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditClaimCommand;
+import seedu.address.logic.commands.EditContactCommand;
+import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -44,11 +48,23 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddContactCommand.COMMAND_WORD:
+            return new AddContactCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditContactCommand.COMMAND_WORD:
+            return new EditContactCommandParser().parse(arguments);
+
+        case AddClaimCommand.COMMAND_WORD:
+            return new AddClaimCommandParser().parse(arguments);
+
+        case EditClaimCommand.COMMAND_WORD:
+            return new EditClaimCommandParser().parse(arguments);
+
+        case AddIncomeCommand.COMMAND_WORD:
+            return new AddIncomeCommandParser().parse(arguments);
+
+        case EditIncomeCommand.COMMAND_WORD:
+            return new EditIncomeCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -59,8 +75,8 @@ public class AddressBookParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case GotoCommand.COMMAND_WORD:
+            return new GotoCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
