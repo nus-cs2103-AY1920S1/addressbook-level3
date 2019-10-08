@@ -3,10 +3,14 @@ package seedu.address.model.cheatsheet;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a content of a Cheatsheet in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidContent(String)}
+ */
 public class Content {
 
-    public static final String MESSAGE_CONSTRAINTS = "Content should be alphanumeric. " +
-            "For flashcard's components, images are not supported in the cheatsheet.";
+    public static final String MESSAGE_CONSTRAINTS = "Content should be alphanumeric. "
+            + "For flashcard's components, images are not supported in the cheatsheet.";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String content;
