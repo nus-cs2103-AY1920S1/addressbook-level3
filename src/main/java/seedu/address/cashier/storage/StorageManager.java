@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.util.InventoryList;
-import seedu.address.inventory.Item;
+import seedu.address.inventory.model.Item;
+import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
@@ -17,10 +18,13 @@ public class StorageManager {
 
     private String filepathToInventory;
     private String filepathToTransaction;
+    private final seedu.address.person.model.Model personModel;
 
-    public StorageManager(String filepathToInventory, String filepathToTransaction) {
+    public StorageManager(String filepathToInventory, String filepathToTransaction,
+                          seedu.address.person.model.Model personModel) {
         this.filepathToInventory = filepathToInventory;
         this.filepathToTransaction = filepathToTransaction;
+        this.personModel = personModel;
     }
 
     public InventoryList getInventoryList() throws Exception {
@@ -39,7 +43,14 @@ public class StorageManager {
 
     public static Item readInInventoryFileLine(String line) {
         String[] stringArr = line.split(" [|] ", 0);
-        Item i = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]), Double.parseDouble(stringArr[3]));
+        Item i = null;
+        if (stringArr.length == 4) {
+            i = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]),
+                    Double.parseDouble(stringArr[3]));
+        } else if (stringArr.length == 5) {
+            i = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]),
+                    Double.parseDouble(stringArr[3]), Double.parseDouble(stringArr[4]));
+        }
         return i;
     }
 
@@ -66,19 +77,24 @@ public class StorageManager {
         BufferedReader bfr = new BufferedReader(new FileReader(f));
         String line = null;
         while ((line = bfr.readLine()) != null) {
-            Transaction t = this.readInFileLine(line);
+            Transaction t = this.readInTransactionFileLine(line, personModel);
             transactionArrayList.add(t);
         }
         return new TransactionList(transactionArrayList);
     }
 
-    public static Transaction readInFileLine(String line) {
+    public static Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
+        Person person = personModel.getPersonByName(stringArr[4]);
         Transaction t = new Transaction(dateTimeArr[1], stringArr[1],
-                stringArr[2], Double.parseDouble(stringArr[3]), stringArr[4],
-                Integer.parseInt(dateTimeArr[0].split("[.]")[0]));
+                stringArr[2], Double.parseDouble(stringArr[3]), person,
+                Integer.parseInt(dateTimeArr[0].split("[.]")[0]), isReimbursed(stringArr[5]));
         return t;
+    }
+
+    private static boolean isReimbursed(String num) {
+        return num.equals("1")? true: false;
     }
 
     public void appendToTransaction(Transaction transaction) throws Exception {

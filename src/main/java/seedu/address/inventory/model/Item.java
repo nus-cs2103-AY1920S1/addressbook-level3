@@ -10,7 +10,7 @@ public class Item {
 
     private final String category;
     private final String description;
-    private final int quantity;
+    private int quantity;
     private final double cost;
     private static double price;
 
@@ -60,6 +60,10 @@ public class Item {
         this.price = price;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     /**
      * Stores the attributes of the Item into a String, for storage in a File.
      * @return a String containing the attributes of the Item.
@@ -102,7 +106,7 @@ public class Item {
         Item otherItem = (Item) other;
         return otherItem.getDescription().equals(getDescription())
                 && otherItem.getCategory().equals(getCategory())
-                && otherItem.getQuantity() == getQuantity()
+                //&& otherItem.getQuantity() == getQuantity()
                 && otherItem.getCost() == getCost()
                 && otherItem.getPrice() == getPrice();
     }

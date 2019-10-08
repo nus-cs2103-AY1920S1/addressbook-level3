@@ -3,7 +3,7 @@ package seedu.address.cashier.ui;
 import java.util.logging.Logger;
 
 import seedu.address.cashier.util.InventoryList;
-import seedu.address.inventory.Item;
+import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
 
 public class CashierUi {
@@ -37,7 +37,7 @@ public class CashierUi {
         String msg = "";
         try {
             for (int i = 0; i < inventoryList.size(); i++) {
-                msg = msg + inventoryList.getItem(i) + "\n";
+                msg = msg + inventoryList.getItemByIndex(i) + "\n";
             }
         } catch (Exception e) {
             logger.severe("problem here.");

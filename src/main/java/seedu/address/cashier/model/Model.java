@@ -2,7 +2,8 @@ package seedu.address.cashier.model;
 
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.util.InventoryList;
-import seedu.address.inventory.Item;
+import seedu.address.inventory.model.Item;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 
 public interface Model {
 
@@ -14,7 +15,7 @@ public interface Model {
 
     InventoryList getInventoryList();
 
-    boolean hasSufficientQuantity(Item i, int quantity);
+    boolean hasSufficientQuantity(Item i, int quantity) throws NoSuchItemException;
 
     void writeInInventoryFile() throws Exception;
 

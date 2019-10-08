@@ -37,10 +37,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasItem(Item item) {
+    public boolean hasItemInInventory(Item item) {
         for (int i = 0 ; i < inventoryList.size(); i++) {
             try {
-                if (inventoryList.get(i).equals(item)) {
+                if (inventoryList.getItemByIndex(i).equals(item)) {
                     return true;
                 }
             } catch (Exception e) {

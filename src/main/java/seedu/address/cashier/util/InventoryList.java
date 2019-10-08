@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierUi;
-import seedu.address.inventory.Item;
+import seedu.address.inventory.model.Item;
 
 public class InventoryList {
 
@@ -28,12 +28,13 @@ public class InventoryList {
         throw new NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
     }
 
-    public static Item getItem(Item i) throws NoSuchItemException {
-        if (iList.contains(i)) {
-            return i;
-        } else {
-            throw new NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
+    public static Item getOriginalItem(Item itemToFind) throws seedu.address.inventory.model.exception.NoSuchItemException {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).isSameItem(itemToFind)) {
+                return iList.get(i);
+            }
         }
+        throw new seedu.address.inventory.model.exception.NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
     }
 
     public static Item getItemByIndex(int index) throws NoSuchIndexException {

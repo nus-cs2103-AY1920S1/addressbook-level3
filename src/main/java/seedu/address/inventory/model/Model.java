@@ -2,7 +2,6 @@ package seedu.address.inventory.model;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.util.InventoryList;
-import seedu.address.transaction.util.TransactionList;
 
 public interface Model {
 
@@ -18,7 +17,7 @@ public interface Model {
 
     void setItem(Item itemToEdit, Item editedItem) throws Exception;
 
-    boolean hasItem(Item item);
+    boolean hasItemInInventory(Item item);
 
     boolean hasSufficientQuantity(Item item, int quantity);
 

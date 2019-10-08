@@ -1,13 +1,12 @@
 package seedu.address.cashier.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.util.InventoryList;
-import seedu.address.inventory.Item;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.inventory.model.Item;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.transaction.util.TransactionList;
 
 public class ModelManager implements Model {
@@ -36,24 +35,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasSufficientQuantity(Item i, int quantity) {
-        try {
-            if (InventoryList.getItem(i).getQuantity() > quantity) {
-                return false;
-                }
-            else {
+    public boolean hasSufficientQuantity(Item i, int quantity) throws NoSuchItemException {
+        if (inventoryList.getOriginalItem(i).getQuantity() > quantity) {
+            return false;
+        }
+        else {
                 return true;
-            }
-        } catch (Exception e) {
-                return false;
         }
     }
 
     @Override
     public boolean hasItemInInventory(Item item) {
-        for (int i = 0 ; i < InventoryList.size(); i++) {
+        for (int i = 0 ; i < inventoryList.size(); i++) {
             try {
-                if (InventoryList.getItemByIndex(i).equals(item)) {
+                if (inventoryList.getItemByIndex(i).isSameItem(item)) {
                     return true;
                 }
             } catch (Exception e) {
@@ -88,13 +83,13 @@ public class ModelManager implements Model {
     public void updateInventoryList() throws Exception {
         for (int i = 0; i < salesList.size(); i++) {
             Item item = salesList.get(i);
-            inventoryList.getItem(item).setQuantity(i + 1);
+            inventoryList.getOriginalItem(item).setQuantity(i + 1);
         }
     }
 
-    @Override
+/*    @Override
     public void Transaction checkoutAsTransaction() {
         Transaction transaction = new Transaction(LocalDateTime.now(), )
-    }
+    } */
 }
 
