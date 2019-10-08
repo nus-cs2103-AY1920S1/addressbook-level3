@@ -103,6 +103,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Question deleteQuestion(Index index) {
+        return questions.deleteQuestion(index);
+    }
+
+    @Override
     public Question getQuestion(Index index) {
         return questions.getQuestion(index);
     }

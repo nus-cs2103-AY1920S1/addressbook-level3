@@ -1,5 +1,8 @@
 package seedu.address.model.question;
 
+/**
+ * Represents an open ended question in the question list.
+ */
 public class OpenEndedQuestion extends Question {
 
     /**

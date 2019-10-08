@@ -29,22 +29,32 @@ public class QuestionList {
     }
 
     /**
+     * Deletes the question at the specified index in the list.
+     *
+     * @param index of the question in the list.
+     * @return question object.
+     */
+    public Question deleteQuestion(Index index) {
+        return questions.remove(index.getZeroBased());
+    }
+
+    /**
      * Returns the question object.
      *
      * @param index of the question in the list.
      * @return Question object.
      */
-    public Question getQuestion(Index index){
+    public Question getQuestion(Index index) {
         return questions.get(index.getZeroBased());
     }
 
     /**
      * Sets the question object at the specified index in the list.
      *
-     * @param index of the question in the list.
+     * @param index    of the question in the list.
      * @param question object.
      */
-    public void setQuestion(Index index, Question question){
+    public void setQuestion(Index index, Question question) {
         questions.set(index.getZeroBased(), question);
     }
 
@@ -58,7 +68,7 @@ public class QuestionList {
             + "Here is the list of questions:\n";
 
         for (int i = 0; i < questions.size(); i++) {
-            summary += questions.get(i);
+            summary += (i + 1) + ". " + "\"" + questions.get(i) + "\"";
 
             if ((i + 1) != questions.size()) {
                 summary += "\n";

@@ -1,11 +1,8 @@
 package seedu.address.logic.commands.question;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.HashMap;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -14,11 +11,11 @@ import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.Question;
 
 /**
- * Creates a new question to be added to the question list.
+ * Edits the question details in the question list.
  */
 public class QuestionEditCommand extends QuestionCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a question\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Edits a question\n"
         + "Parameters(All are optional):\n"
         + "topic/ [TOPIC]\n"
         + "Example: topic/ What is the year that Singapore gained independence?\n\n"
@@ -33,7 +30,7 @@ public class QuestionEditCommand extends QuestionCommand {
     private final String type;
 
     /**
-     * Creates a CreateQuestionCommand object.
+     * Creates a QuestionEditCommand object.
      *
      * @param fields to edit.
      */
@@ -48,10 +45,10 @@ public class QuestionEditCommand extends QuestionCommand {
     public CommandResult execute(Model model) throws CommandException {
         Question questionObj = model.getQuestion(index);
 
-        String question = (!this.question.isBlank()) ? this.question: questionObj.getQuestion();
-        String answer = (!this.answer.isBlank()) ? this.answer: questionObj.getAnswer();
+        String question = (!this.question.isBlank()) ? this.question : questionObj.getQuestion();
+        String answer = (!this.answer.isBlank()) ? this.answer : questionObj.getAnswer();
 
-        if(!type.isBlank()){
+        if (!type.isBlank()) {
             switch (type) {
             case "open":
                 questionObj = new OpenEndedQuestion(question, answer);
@@ -63,8 +60,7 @@ public class QuestionEditCommand extends QuestionCommand {
                 questionObj = new OpenEndedQuestion(question, answer);
                 break;
             }
-        }
-        else{
+        } else {
             questionObj.setQuestion(question);
             questionObj.setAnswer(answer);
         }

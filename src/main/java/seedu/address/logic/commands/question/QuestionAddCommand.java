@@ -2,7 +2,6 @@ package seedu.address.logic.commands.question;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -29,7 +28,7 @@ public class QuestionAddCommand extends QuestionCommand {
     private final String type;
 
     /**
-     * Creates a CreateQuestionCommand object.
+     * Creates a QuestionAddCommand object.
      *
      * @param question to set.
      * @param answer   to the question.

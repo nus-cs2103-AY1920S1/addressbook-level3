@@ -64,6 +64,11 @@ public interface Model {
     void addQuestion(Question question);
 
     /**
+     * Returns the question that has been deleted based on the index.
+     */
+    Question deleteQuestion(Index index);
+
+    /**
      * Returns the question based on its Index.
      */
     Question getQuestion(Index index);

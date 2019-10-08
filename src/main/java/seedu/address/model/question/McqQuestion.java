@@ -1,5 +1,8 @@
 package seedu.address.model.question;
 
+/**
+ * Represents an MCQ question in the question list.
+ */
 public class McqQuestion extends Question {
 
     /**

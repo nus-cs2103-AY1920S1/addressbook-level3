@@ -3,6 +3,8 @@ package seedu.address.logic.parser.question;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
@@ -10,10 +12,11 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.question.QuestionAddCommand;
 import seedu.address.logic.commands.question.QuestionCommand;
+import seedu.address.logic.commands.question.QuestionDeleteCommand;
 import seedu.address.logic.commands.question.QuestionEditCommand;
+import seedu.address.logic.commands.question.QuestionListCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -36,24 +39,45 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer
-            .tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE);
+            .tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE, PREFIX_LIST,
+                PREFIX_DELETE);
 
         boolean isEdit = false;
         Index index = Index.fromZeroBased(0);
         try {
             String preamble = argMultimap.getPreamble();
 
-            if(!preamble.isBlank()) {
+            if (!preamble.isBlank()) {
                 index = ParserUtil.parseIndex(preamble);
                 isEdit = true;
             }
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuestionEditCommand.MESSAGE_USAGE),
+                pe);
         }
 
-        // Checking if command is referring to edit
-        if(isEdit){
+        if (argMultimap.getValue(PREFIX_LIST).isPresent()) { // List command
+            return new QuestionListCommand();
+        } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
+            try {
+                int indexToDelete = Integer
+                    .parseInt(argMultimap.getValue(PREFIX_DELETE).orElse("0"));
 
+                if (indexToDelete <= 0) {
+                    throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            QuestionDeleteCommand.MESSAGE_USAGE));
+                }
+                index.fromOneBased(indexToDelete);
+            } catch (NumberFormatException e) {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        QuestionDeleteCommand.MESSAGE_USAGE));
+            }
+
+            return new QuestionDeleteCommand(index);
+        } else if (isEdit) { // Edit command
             // Add parameters to be edited. Note: the fields are optional
             HashMap<String, String> fields = new HashMap<>();
             fields.put("question", argMultimap.getValue(PREFIX_QUESTION).orElse(""));
@@ -61,12 +85,12 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
             fields.put("type", argMultimap.getValue(PREFIX_TYPE).orElse(""));
 
             return new QuestionEditCommand(index, fields);
-        }
-        else{
+        } else { // Create command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuestionAddCommand.MESSAGE_USAGE));
+                    String
+                        .format(MESSAGE_INVALID_COMMAND_FORMAT, QuestionAddCommand.MESSAGE_USAGE));
             }
 
             String question = argMultimap.getValue(PREFIX_QUESTION).orElse("");

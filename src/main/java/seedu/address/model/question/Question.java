@@ -24,7 +24,7 @@ public abstract class Question {
      *
      * @return Question string
      */
-    public String getQuestion(){
+    public String getQuestion() {
         return this.question;
     }
 
@@ -33,7 +33,7 @@ public abstract class Question {
      *
      * @return Answer string
      */
-    public String getAnswer(){
+    public String getAnswer() {
         return this.answer;
     }
 
@@ -42,7 +42,7 @@ public abstract class Question {
      *
      * @param question to set.
      */
-    public void setQuestion(String question){
+    public void setQuestion(String question) {
         this.question = question;
     }
 
@@ -51,12 +51,12 @@ public abstract class Question {
      *
      * @param answer to set.
      */
-    public void setAnswer(String answer){
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 
     @Override
     public String toString() {
-        return question ;
+        return question;
     }
 }
