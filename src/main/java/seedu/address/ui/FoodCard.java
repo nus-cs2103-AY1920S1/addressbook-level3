@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 
 /**
@@ -46,7 +47,8 @@ public class FoodCard extends UiPart<Region> {
         name.setText(food.getName().fullName);
         price.setText("$" + food.getPrice().value);
 
-        if (food.getDescription().value.equals("No description")) {
+        // Description is an optional field
+        if (food.getDescription().value.equals(Description.DEFAULT_VALUE)) {
             description.setText("");
         } else {
             description.setText(food.getDescription().value);
