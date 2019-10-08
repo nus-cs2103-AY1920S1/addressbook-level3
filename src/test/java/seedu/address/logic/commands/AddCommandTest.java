@@ -48,9 +48,10 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON +
-                validPerson.toString() + "\n" + AddCommand.DUPLICATE_PERSON_MERGE_PROMPT,
-                () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_PERSON
+                        + validPerson.toString()
+                        + "\n" + AddCommand.DUPLICATE_PERSON_MERGE_PROMPT, () -> addCommand.execute(modelStub));
     }
 
     @Test
