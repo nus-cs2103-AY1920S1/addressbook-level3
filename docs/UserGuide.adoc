@@ -103,24 +103,24 @@ Only valid if a web-page is currently being viewed.
 
 Creates a new folder for organizing bookmarks into.
 
-Format: `*newfolder* FOLDER_NAME [p/PARENT_FOLDER]`
+Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER]`
 
 ****
 * `FOLDER_NAME` must not already exist.
 * `PARENT_FOLDER` must be an existing folder.
-* If `PARENT_FOLDER` is not specified, `FOLDER_NAME` will have no parent, and be at the root.
+* If `PARENT_FOLDER` is not specified, `FOLDER_NAME` will have no parent and will be placed at the root.
 ****
 
 Examples:
 
-* `*newfolder* CS2103 p/NUS +
+* `*folder* CS2103 p/NUS +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
 
 === Deleting a folder *`folder delete`*
 
 Creates a new folder for organizing bookmarks into.
 
-Format: `*deletefolder* FOLDER_NAME`
+Format: `*folder delete* FOLDER_NAME`
 
 ****
 * `FOLDER_NAME` must be an existing folder.
@@ -129,7 +129,7 @@ Format: `*deletefolder* FOLDER_NAME`
 
 Examples:
 
-* `*deletefolder* CS2103 +
+* `*folder delete* CS2103 +
 Deletes the folder named `CS2103` and all of its subfolders.
 
 === Listing all bookmarks: *`list`*
