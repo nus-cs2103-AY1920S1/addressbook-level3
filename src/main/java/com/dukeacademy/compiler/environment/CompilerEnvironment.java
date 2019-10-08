@@ -1,4 +1,4 @@
-package com.dukeacademy.compiler;
+package com.dukeacademy.compiler.environment;
 
 import com.dukeacademy.compiler.exceptions.CompilerContentException;
 import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
@@ -38,5 +38,5 @@ public interface CompilerEnvironment {
      * Closes the environment by deleting any created files or directories at the specified location path during
      * initialization.
      */
-    public void close();
+    public void close() throws CompilerEnvironmentException;
 }

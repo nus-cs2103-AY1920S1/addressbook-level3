@@ -1,17 +1,30 @@
-package com.dukeacademy.compiler;
+package com.dukeacademy.compiler.environment;
 
 import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.compiler.exceptions.FileCreationException;
 import com.dukeacademy.compiler.exceptions.FileDirectoryCreationException;
+import com.dukeacademy.compiler.exceptions.FileDirectoryDeletionException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * The standard environment class used by the compiler to perform file management.
+ */
 public class StandardCompilerEnvironment implements CompilerEnvironment {
     private String MESSAGE_ENVIRONMENT_NOT_INITIALIZED;
+    private String MESSAGE_ENVIRONMENT_NOT_CLOSED;
 
     private StandardCompilerFileManager fileManager;
     private boolean isInitialized;
+
+    public boolean isInitialized() {
+        return this.isInitialized;
+    }
+
+    public String getEnvironmentPath() {
+        return this.fileManager.getDirectoryPath();
+    }
 
     @Override
     public void initiate(String locationPath) throws CompilerEnvironmentException {
@@ -42,7 +55,11 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public void close() {
-        this.fileManager.clearDirectory();
+    public void close() throws CompilerEnvironmentException {
+        try {
+            this.fileManager.clearDirectory();
+        } catch (FileDirectoryDeletionException e) {
+            throw new CompilerEnvironmentException(MESSAGE_ENVIRONMENT_NOT_CLOSED);
+        }
     }
 }
