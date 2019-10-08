@@ -7,7 +7,7 @@ import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Card}'s {@code Word} contains any of the keywords given.
- * Keyword "HE" will match all {"he", "HeArt", "HeAVEN", "PORSChE"}
+ * Keyword "HE" will match all {"he", "HeArt", "HeAVEN", "NEW HeaVEN"
  */
 public class WordContainsKeywordsPredicate implements Predicate<Card> {
     private final List<String> keywords;
@@ -19,7 +19,7 @@ public class WordContainsKeywordsPredicate implements Predicate<Card> {
     @Override
     public boolean test(Card card) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(card.getWord().value, keyword));
+                .anyMatch(keyword -> StringUtil.startsWithIgnoreCase(card.getWord().value, keyword));
     }
 
     @Override

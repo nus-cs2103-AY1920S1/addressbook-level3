@@ -39,24 +39,28 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if the {@code sentence} contains the {@code word}.
-     *   Ignores case, a full word match is NOT required.
+     * Returns true if the {@code sentence} starts with the {@code word}.
+     *   Ignores case.
      *   <br>examples:<pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
-     *       containsWordIgnoreCase("ABc def", "DEF") == true
      *       containsWordIgnoreCase("ABc def", "AB") == true
+     *       containsWordIgnoreCase("ABc def", "dE") == true
      *       </pre>
      * @param sentence cannot be null
      * @param word cannot be null, cannot be empty
      */
-    public static boolean containsSubstringIgnoreCase(String sentence, String word) {
+    public static boolean startsWithIgnoreCase(String sentence, String word) {
         requireNonNull(sentence);
         requireNonNull(word);
 
         String preppedWord = word.trim();
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        return sentence.toLowerCase().contains(word.toLowerCase());
+        String[] wordsInPreppedSentence = sentence.split("\\s+");
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(x -> x.toLowerCase().startsWith(word.toLowerCase()));
     }
 
 
