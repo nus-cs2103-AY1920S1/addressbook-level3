@@ -46,8 +46,8 @@ public class XpireTest {
     @Test
     public void resetData_withDuplicateItems_throwsDuplicateItemException() {
         // Two items with the same identity fields
-        Item editedAlice = new ItemBuilder(APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE).withTags(VALID_TAG_FRUIT)
-                                                   .build();
+        Item editedAlice = new ItemBuilder(APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE)
+                .withQuantity("2").withTags(VALID_TAG_FRUIT).build();
         List<Item> newPersons = Arrays.asList(APPLE, editedAlice);
         XpireStub newData = new XpireStub(newPersons);
 

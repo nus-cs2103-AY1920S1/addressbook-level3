@@ -4,6 +4,7 @@ import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDE
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_KIWI;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_KIWI;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_KIWI;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.KIWI;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -78,7 +79,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI;
+        String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI
+                + "|" + VALID_QUANTITY_KIWI;
         Item expectedPerson = new ItemBuilder(KIWI).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addItem(expectedPerson);

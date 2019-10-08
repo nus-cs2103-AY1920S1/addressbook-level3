@@ -14,19 +14,19 @@ public class TypicalItems {
 
     public static final Item BANANA = new ItemBuilder().withName("Banana")
                                                      .withExpiryDate("01/02/2019")
-                                                      .withTags("fruit").build();
+                                                      .withQuantity("5").withTags("fruit").build();
 
     public static final Item APPLE = new ItemBuilder().withName("Apple")
                                                       .withExpiryDate("01/02/2019")
-                                                      .withTags("fruit").build();
+                                                      .withQuantity("1").withTags("fruit").build();
 
     public static final Item KIWI = new ItemBuilder().withName("Kiwi")
                                                       .withExpiryDate("01/02/2019")
-                                                      .withTags("fruit").build();
+                                                      .withQuantity("2").withTags("fruit").build();
 
     public static final Item MILK = new ItemBuilder().withName("Milk")
                                                      .withExpiryDate("01/02/2019")
-                                                     .withTags("drinks").build();
+                                                     .withQuantity("2").withTags("drinks").build();
 
     private TypicalItems() {} // prevents instantiation
 

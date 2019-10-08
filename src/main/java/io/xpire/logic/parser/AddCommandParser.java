@@ -10,6 +10,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 
 /**
@@ -23,16 +24,17 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        String[] arguments = args.split("\\|", 3);
+        String[] arguments = args.split("\\|", 4);
         if (!areArgumentsPresent(arguments)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(arguments[0]);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
+        Quantity quantity = ParserUtil.parseQuantity(arguments[2]);
         Item item;
         if (hasTags(arguments)) {
-            String trimmedTags = arguments[2].trim();
+            String trimmedTags = arguments[3].trim();
             String[] tags = trimmedTags.split("#");
             /* TODO:Need to change tests such that we prevent e from being tagged if user input = add|item|date|e#Tag1
             if (tags.length != 0) {
@@ -40,20 +42,20 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
              */
             Set<Tag> tagSet = ParserUtil.parseTags(Arrays.asList(tags));
-            item = new Item(name, expiryDate, tagSet);
+            item = new Item(name, expiryDate, quantity, tagSet);
         } else {
-            item = new Item(name, expiryDate);
+            item = new Item(name, expiryDate, quantity);
         }
 
         return new AddCommand(item);
     }
 
     private static boolean areArgumentsPresent(String...arguments) {
-        return arguments.length >= 2;
+        return arguments.length >= 3;
     }
 
     private static boolean hasTags(String...arguments) {
-        return arguments.length >= 3;
+        return arguments.length >= 4;
     }
 
 }

@@ -13,6 +13,7 @@ import io.xpire.commons.exceptions.IllegalValueException;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.tag.Tag;
 
@@ -25,6 +26,7 @@ class JsonAdaptedItem {
 
     private final String name;
     private final String expiryDate;
+    private final String quantity;
     private final String reminderThreshold;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -34,10 +36,12 @@ class JsonAdaptedItem {
     @JsonCreator
     public JsonAdaptedItem(@JsonProperty("name") String name,
                            @JsonProperty("expiryDate") String expiryDate,
+                           @JsonProperty("quantity") String quantity,
                            @JsonProperty("reminderThreshold") String reminderThreshold,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.expiryDate = expiryDate;
+        this.quantity = quantity;
         this.reminderThreshold = reminderThreshold;
         if (tags != null) {
             this.tags.addAll(tags);
@@ -50,6 +54,7 @@ class JsonAdaptedItem {
     public JsonAdaptedItem(Item source) {
         this.name = source.getName().toString();
         this.expiryDate = source.getExpiryDate().toString();
+        this.quantity = source.getQuantity().toString();
         this.reminderThreshold = source.getReminderThreshold().toString();
         this.tags.addAll(source
                 .getTags()
@@ -82,6 +87,15 @@ class JsonAdaptedItem {
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(this.expiryDate);
 
+        if (this.quantity == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Quantity.class.getSimpleName()));
+        }
+        if (!Quantity.isValidQuantity(this.quantity)) {
+            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS);
+        }
+        final Quantity modelQuantity = new Quantity(this.quantity);
+
         if (this.reminderThreshold == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ReminderThreshold.class.getSimpleName()));
@@ -97,7 +111,7 @@ class JsonAdaptedItem {
         }
         final Set<Tag> modelTags = new HashSet<>(itemTags);
 
-        Item item = new Item(modelName, modelExpiryDate, modelTags);
+        Item item = new Item(modelName, modelExpiryDate, modelQuantity, modelTags);
         item.setReminderThreshold(modelReminderThreshold);
         return item;
     }

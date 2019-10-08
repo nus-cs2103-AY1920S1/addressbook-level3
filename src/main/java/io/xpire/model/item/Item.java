@@ -19,16 +19,18 @@ public class Item {
     private final ExpiryDate expiryDate;
 
     // Data fields
+    private final Quantity quantity;
     private final Set<Tag> tags = new HashSet<>();
     private ReminderThreshold reminderThreshold = new ReminderThreshold(("0"));
 
     /**
      * Every field must be present and not null.
      */
-    public Item(Name name, ExpiryDate expiryDate, Set<Tag> tags) {
+    public Item(Name name, ExpiryDate expiryDate, Quantity quantity, Set<Tag> tags) {
         CollectionUtil.requireAllNonNull(name, expiryDate, tags);
         this.name = name;
         this.expiryDate = expiryDate;
+        this.quantity = quantity;
         this.tags.addAll(tags);
     }
 
@@ -36,10 +38,11 @@ public class Item {
      * Every field must be present and not null.
      * Tags are optional.
      */
-    public Item(Name name, ExpiryDate expiryDate) {
+    public Item(Name name, ExpiryDate expiryDate, Quantity quantity) {
         CollectionUtil.requireAllNonNull(name, expiryDate);
         this.name = name;
         this.expiryDate = expiryDate;
+        this.quantity = quantity;
     }
 
     public Name getName() {
@@ -49,6 +52,10 @@ public class Item {
     public ExpiryDate getExpiryDate() {
         return this.expiryDate;
     }
+
+    public Quantity getQuantity() {
+        return this.quantity;
+    };
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

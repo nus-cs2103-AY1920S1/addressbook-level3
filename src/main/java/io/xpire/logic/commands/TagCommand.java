@@ -67,9 +67,9 @@ public class TagCommand extends Command {
         assert itemToTag != null;
         Set<Tag> updatedTags = updateTags(itemToTag, tagItemDescriptor);
         if (updatedTags == null) {
-            return new Item(itemToTag.getName(), itemToTag.getExpiryDate());
+            return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), itemToTag.getQuantity());
         } else {
-            return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), updatedTags);
+            return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), itemToTag.getQuantity(), updatedTags);
         }
     }
 
