@@ -10,11 +10,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.events.EventSource;
 import seedu.address.model.person.Person;
+import seedu.address.notification.Notification;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,12 +28,14 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final Notification notification;
+    private final CommandParser commandParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, Notification notification) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        this.notification = notification;
+        this.commandParser = new CommandParser();
     }
 
     @Override
@@ -39,8 +43,10 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = this.commandParser.parse(commandText);
         commandResult = command.execute(model);
+
+        notification.updateNotificationQueue(model.getEventList());
 
         try {
             storage.saveAddressBook(model.getAddressBook());
@@ -75,4 +81,12 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+
+    //================== For Events ===============================================================================
+    @Override
+    public ObservableList<EventSource> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
 }

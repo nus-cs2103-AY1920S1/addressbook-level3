@@ -21,7 +21,10 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.events.EventList;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.notification.Notification;
+import seedu.address.notification.NotificationManager;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -45,6 +48,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected Notification notification;
 
     @Override
     public void init() throws Exception {
@@ -63,7 +67,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        notification = new NotificationManager();
+
+        logic = new LogicManager(model, storage, notification);
 
         ui = new UiManager(logic);
     }
@@ -90,7 +96,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, new EventList(), userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -174,10 +180,14 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
+        notification.shutDown();
+
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+
+        System.exit(0);
     }
 }
