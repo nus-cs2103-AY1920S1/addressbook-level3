@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.UniquePolicyList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniquePolicyList policies;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        policies = new UniquePolicyList();
     }
 
     public AddressBook() {}
@@ -66,6 +70,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    public Person getPerson(Person person) {
+        requireNonNull(person);
+        return persons.getPerson(person);
+    }
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
@@ -91,6 +100,27 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Returns true if a policy with the same identity as {@code policy} exists in the address book.
+     */
+    public boolean hasPolicy(Policy policy) {
+        requireNonNull(policy);
+        return policies.contains(policy);
+    }
+
+    public Policy getPolicy(Policy policy) {
+        requireNonNull(policy);
+        return policies.getPolicy(policy);
+    }
+
+    /**
+     * Adds a policy to the address book.
+     * The policy must not already exist in the address book.
+     */
+    public void addPolicy(Policy p) {
+        policies.add(p);
     }
 
     //// util methods

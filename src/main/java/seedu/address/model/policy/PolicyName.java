@@ -1,13 +1,13 @@
-package seedu.address.model.person;
+package seedu.address.model.policy;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Policy's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class PolicyName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -18,17 +18,17 @@ public class Name {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullName;
+    public final String policyName;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code PolicyName}.
      *
-     * @param name A valid name.
+     * @param name A valid policy name.
      */
-    public Name(String name) {
+    public PolicyName(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = formatName(name);
+        policyName = name;
     }
 
     /**
@@ -38,34 +38,22 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
-    private String formatName(String name) {
-        String[] nameSplitBySpace = name.toLowerCase().split(" ");
-        StringBuilder formattedName = new StringBuilder();
-        for (int i = 0; i < nameSplitBySpace.length; i++) {
-            String firstLetter = nameSplitBySpace[i].substring(0,1);
-            String remainingLetters = nameSplitBySpace[i].substring(1);
-            formattedName.append(firstLetter.toUpperCase() + remainingLetters);
-            formattedName.append(" ");
-        }
-        return formattedName.toString().trim();
-    }
-
 
     @Override
     public String toString() {
-        return fullName;
+        return policyName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+                || (other instanceof PolicyName // instanceof handles nulls
+                && policyName.equals(((PolicyName) other).policyName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return policyName.hashCode();
     }
 
 }

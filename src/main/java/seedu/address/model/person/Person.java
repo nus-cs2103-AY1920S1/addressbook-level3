@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.policy.Policy;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,27 +18,38 @@ public class Person {
 
     // Identity fields
     private final Name name;
+    private final Nric nric;
     private final Phone phone;
     private final Email email;
+    private final DateOfBirth dateOfBirth;
 
     // Data fields
     private final Address address;
+    private final Set<Policy> policies = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Nric nric, Phone phone, Email email, Address address, DateOfBirth dateOfBirth,
+                  Set<Policy> policies, Set<Tag> tags) {
+        requireAllNonNull(name, nric, phone, email, address, dateOfBirth, policies, tags);
         this.name = name;
+        this.nric = nric;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.policies.addAll(policies);
         this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Nric getNric() {
+        return nric;
     }
 
     public Phone getPhone() {
@@ -50,6 +62,18 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Policy> getPolicies() {
+        return Collections.unmodifiableSet(policies);
     }
 
     /**
@@ -70,8 +94,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && otherPerson.getName().equals(getName()) && otherPerson.getNric().equals(getNric());
     }
 
     /**
@@ -90,30 +113,40 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
+                && otherPerson.getNric().equals(getNric())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getDateOfBirth().equals(getDateOfBirth())
+                && otherPerson.getPolicies().equals(getPolicies())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, nric, phone, email, address, dateOfBirth, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" NRIC: ")
+                .append(getNric())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Tags: ");
+                .append(" Date of birth: ")
+                .append(getDateOfBirth())
+                .append(" Policies: ");
+        getPolicies().forEach(policy -> builder.append(policy.getName().policyName));
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
+
         return builder.toString();
     }
 

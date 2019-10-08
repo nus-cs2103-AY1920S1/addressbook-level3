@@ -4,10 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.policy.Policy;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -17,21 +20,29 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NRIC = "S000000J";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_DATE_OF_BIRTH = "3.3.1993";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
+    private Nric nric;
     private Phone phone;
     private Email email;
     private Address address;
+    private DateOfBirth dateOfBirth;
+    private Set<Policy> policies;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
+        nric = new Nric(DEFAULT_NRIC);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        dateOfBirth = new DateOfBirth(DEFAULT_DATE_OF_BIRTH);
+        policies = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -40,10 +51,27 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
+        nric = personToCopy.getNric();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        dateOfBirth = personToCopy.getDateOfBirth();
+        policies = new HashSet<>(personToCopy.getPolicies());
         tags = new HashSet<>(personToCopy.getTags());
+    }
+
+    /**
+     * Initializes the PersonBuilder with the data of {@code policies and tags}.
+     */
+    public PersonBuilder(Set<Policy> policies, Set<Tag> tags) {
+        name = new Name(DEFAULT_NAME);
+        nric = new Nric(DEFAULT_NRIC);
+        phone = new Phone(DEFAULT_PHONE);
+        email = new Email(DEFAULT_EMAIL);
+        address = new Address(DEFAULT_ADDRESS);
+        dateOfBirth = new DateOfBirth(DEFAULT_DATE_OF_BIRTH);
+        this.policies = new HashSet<>(policies);
+        this.tags = new HashSet<>(tags);
     }
 
     /**
@@ -55,10 +83,26 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Nric} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNric(String nric) {
+        this.nric = new Nric(nric);
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code policies} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withPolicies(String ... policies) {
+        this.policies = SampleDataUtil.getPolicySet(policies);
         return this;
     }
 
@@ -86,8 +130,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code DateOfBirth} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = new DateOfBirth(dateOfBirth);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, nric, phone, email, address, dateOfBirth, policies, tags);
     }
 
 }

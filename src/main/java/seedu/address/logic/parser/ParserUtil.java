@@ -10,9 +10,18 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
+import seedu.address.model.policy.Coverage;
+import seedu.address.model.policy.Description;
+import seedu.address.model.policy.EndAge;
+import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
+import seedu.address.model.policy.Price;
+import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -51,6 +60,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String NRIC} into a {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim().toUpperCase();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
+        }
+        return new Nric(nric);
+    }
+
+    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -78,6 +102,21 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String dateOfBirth} into an {@code DateOfBirth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateOfBirth} is invalid.
+     */
+    public static DateOfBirth parseDateOfBirth(String dateOfBirth) throws ParseException {
+        requireNonNull(dateOfBirth);
+        String trimmedDateOfBirth = dateOfBirth.trim();
+        if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
+            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        return new DateOfBirth(dateOfBirth);
     }
 
     /**
@@ -120,5 +159,135 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> criteria} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseCriteria(Collection<String> criteria) throws ParseException {
+        requireNonNull(criteria);
+        final Set<Tag> criteriaSet = new HashSet<>();
+        for (String criteriaName : criteria) {
+            criteriaSet.add(parseTag(criteriaName));
+        }
+        return criteriaSet;
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code PolicyName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static PolicyName parsePolicyName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!PolicyName.isValidName(trimmedName)) {
+            throw new ParseException(PolicyName.MESSAGE_CONSTRAINTS);
+        }
+        return new PolicyName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription (String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(description);
+    }
+
+    /**
+     * Parses a {@code String coverage} into a {@code Coverage}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Coverage parseCoverage (String coverage) throws ParseException {
+        requireNonNull(coverage);
+        String trimmedCoverage = coverage.trim();
+        System.out.println(trimmedCoverage);
+        if (!Coverage.isValidCoverage(trimmedCoverage)) {
+            throw new ParseException(Coverage.MESSAGE_CONSTRAINTS);
+        }
+        return new Coverage(trimmedCoverage);
+    }
+
+    /**
+     * Parses a {@code String price} into a {@code Price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Price parsePrice (String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(price);
+    }
+
+    /**
+     * Parses a {@code String startAge} into a {@code StartAge}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startAge} is invalid.
+     */
+    public static StartAge parseStartAge (String startAge) throws ParseException {
+        requireNonNull(startAge);
+        String trimmedAge = startAge.trim();
+        if (!StartAge.isValidAge(trimmedAge)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new StartAge(trimmedAge);
+    }
+
+    /**
+     * Parses a {@code String endAge} into a {@code EndAge}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startAge} is invalid.
+     */
+    public static EndAge parseEndAge (String endAge) throws ParseException {
+        requireNonNull(endAge);
+        String trimmedAge = endAge.trim();
+        if (!EndAge.isValidAge(trimmedAge)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new EndAge(trimmedAge);
+    }
+
+    /**
+     * Parses a {@code String policy} into a {@code Policy}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code policy} is invalid.
+     */
+    public static Policy parsePolicy(String policy) throws ParseException {
+        requireNonNull(policy);
+        String trimmedPolicy = policy.trim();
+        if (!Policy.isAvailable(trimmedPolicy)) {
+            throw new ParseException(Policy.MESSAGE_CONSTRAINTS);
+        }
+        return Policy.getPolicy(policy);
+    }
+
+    /**
+     * Parses {@code Collection<String> policiesNames} into a {@code Set<Policy>}.
+     */
+    public static Set<Policy> parsePolicies(Collection<String> policyNames) throws ParseException {
+        requireNonNull(policyNames);
+        final Set<Policy> policySet = new HashSet<>();
+        for (String name : policyNames) {
+            policySet.add(parsePolicy(name));
+        }
+        return policySet;
     }
 }

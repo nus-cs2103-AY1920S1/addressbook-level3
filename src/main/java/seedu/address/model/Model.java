@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 
 /**
  * The API of the Model component.
@@ -58,6 +59,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns the matching person in the address book.
+     */
+    Person getPerson(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -84,4 +90,21 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Adds the given policy.
+     * {@code policy} must not already exist in the address book.
+     */
+    void addPolicy(Policy policy);
+
+    /**
+     * Returns true if a policy with the same identity as {@code policy} exists in the address book.
+     */
+    boolean hasPolicy(Policy policy);
+
+    /**
+     * Returns the matching person in the address book.
+     */
+    Policy getPolicy(Policy policy);
+
 }
