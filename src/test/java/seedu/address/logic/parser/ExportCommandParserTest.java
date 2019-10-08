@@ -1,16 +1,16 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.ExportCommand;
-import seedu.address.model.person.Name;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.WHITESPACE;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.model.person.Name;
 
 public class ExportCommandParserTest {
     private ExportCommandParser parser = new ExportCommandParser();

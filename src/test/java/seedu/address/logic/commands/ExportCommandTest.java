@@ -46,13 +46,15 @@ public class ExportCommandTest {
 
     @Test
     public void exportSuccess() {
+        CommandResult actualMessage = null;
+        CommandResult expectedMessage = null;
         try {
-            CommandResult actualMessage = (new ExportCommand(alice.getName())).execute(model);
-            CommandResult expectedMessage = new CommandResult(String.format(ExportCommand.MESSAGE_SUCCESS, alice));
-            assertEquals(expectedMessage, actualMessage);
+            actualMessage = (new ExportCommand(alice.getName())).execute(model);
+            expectedMessage = new CommandResult(String.format(ExportCommand.MESSAGE_SUCCESS, alice));
         } catch (CommandException e) {
-            assertEquals(1, 2);
+
         }
+        assertEquals(expectedMessage, actualMessage);
     }
 
     @Test
