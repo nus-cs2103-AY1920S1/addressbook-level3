@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -154,9 +155,14 @@ public class SuggestingCommandBox extends CommandBox {
             }
 
             final String userCommandWord = userCommand.substring(0, spaceCharIdx);
-            filteredCommandSuggestions.setPredicate(commandWord -> {
-                return commandWord.startsWith(userCommandWord) && !userCommandWord.equals(commandWord);
-            });
+
+            if (commandSuggestions.contains(userCommandWord)) {
+                // the userCommandWord exactly matches a command, so we stop showing suggestions
+                filteredCommandSuggestions.setPredicate((commandWord) -> false);
+            } else {
+                final Predicate<String> commandMatcher = SuggestingCommandUtil.createSequenceMatcher(userCommandWord);
+                filteredCommandSuggestions.setPredicate(commandMatcher);
+            }
         });
     }
 }
