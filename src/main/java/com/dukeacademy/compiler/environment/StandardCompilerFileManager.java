@@ -1,6 +1,7 @@
 package com.dukeacademy.compiler.environment;
 
 import com.dukeacademy.compiler.exceptions.FileCreationException;
+import com.dukeacademy.compiler.exceptions.FileDeletionException;
 import com.dukeacademy.compiler.exceptions.FileDirectoryCreationException;
 import com.dukeacademy.compiler.exceptions.FileDirectoryDeletionException;
 
@@ -23,20 +24,22 @@ public class StandardCompilerFileManager {
     private static String MESSAGE_CREATE_DIRECTORY_FAILED = "Failed to create directory.";
     private static String MESSAGE_FILE_NOT_FOUND = "No such file was found.";
     private static String MESSAGE_DIRECTORY_CANNOT_BE_DELETED = "Directory cannot be deleted";
+    private static String MESSAGE_DIRECTORY_CANNOT_BE_CLEARED = "Directory cannot be cleared";
 
-    private String locationPath;
+    private Path locationPath;
 
     public String getDirectoryPath() {
-        return this.locationPath;
+        return this.locationPath.toUri().getPath();
     }
 
     StandardCompilerFileManager(String locationPath) throws FileDirectoryCreationException {
-        this.locationPath = locationPath;
+        this.locationPath = Path.of(locationPath);
 
         boolean createDirectorySuccessful;
 
         try {
-            createDirectorySuccessful = new File(locationPath).mkdir();
+            String directoryPath = this.locationPath.toUri().getPath();
+            createDirectorySuccessful = new File(directoryPath).mkdir();
         } catch (SecurityException e) {
             throw new FileDirectoryCreationException(MESSAGE_NO_PERMISSIONS, e);
         }
@@ -47,7 +50,7 @@ public class StandardCompilerFileManager {
     }
 
     File createFile(String fileName, String content) throws FileCreationException {
-        String filePath = this.locationPath + File.separator + fileName;
+        String filePath = this.locationPath.resolve(fileName).toUri().getPath();
         File file = new File(filePath);
 
         boolean fileCreationSuccessful;
@@ -77,7 +80,7 @@ public class StandardCompilerFileManager {
     }
 
     File getFile(String fileName) throws FileNotFoundException {
-        String filePath = this.locationPath + File.separator + fileName;
+        String filePath = this.locationPath.resolve(fileName).toUri().getPath();
         File file = new File(filePath);
 
         if (!file.exists()) {
@@ -87,9 +90,21 @@ public class StandardCompilerFileManager {
         return file;
     }
 
-    void clearDirectory() throws FileDirectoryDeletionException {
+    void clearDirectory() throws FileDeletionException {
         try {
-            Files.walk(Path.of(locationPath))
+            Files.walk(locationPath)
+                    .filter(path -> !path.equals(locationPath))
+                    .map(Path::toFile)
+                    .sorted(Comparator.reverseOrder())
+                    .forEach(File::delete);
+        } catch (IOException e) {
+            throw new FileDeletionException(MESSAGE_DIRECTORY_CANNOT_BE_CLEARED);
+        }
+    }
+
+    void deleteDirectory() throws FileDirectoryDeletionException {
+        try {
+            Files.walk(locationPath)
                     .map(Path::toFile)
                     .sorted(Comparator.reverseOrder())
                     .forEach(File::delete);

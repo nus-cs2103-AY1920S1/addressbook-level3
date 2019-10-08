@@ -1,18 +1,14 @@
 package com.dukeacademy.compiler.environment;
 
 import com.dukeacademy.compiler.exceptions.FileCreationException;
+import com.dukeacademy.compiler.exceptions.FileDeletionException;
 import com.dukeacademy.compiler.exceptions.FileDirectoryCreationException;
 import com.dukeacademy.compiler.exceptions.FileDirectoryDeletionException;
-import com.sun.source.tree.AssertTree;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,12 +37,13 @@ class StandardCompilerFileManagerTest {
         File createdFile = fileManager.createFile(fileName, content);
         assertTrue(createdFile.exists());
 
-        String fileAbsolutePath = environmentPath.resolve(fileName).toUri().getPath();
-        File file = new File(fileAbsolutePath);
+        Path fileAbsolutePath =environmentPath.resolve(fileName);
+
+        File file = environmentPath.resolve(fileName).toFile();
 
         assertTrue(file.exists());
 
-        Optional<String> fileContent = Files.lines(Path.of(fileAbsolutePath))
+        Optional<String> fileContent = Files.lines(fileAbsolutePath)
                 .reduce((x, y) -> x + "\n" + y);
         assertTrue(fileContent.isPresent());
         assertEquals(content, fileContent.get());
@@ -63,21 +60,36 @@ class StandardCompilerFileManagerTest {
         assertTrue(file.exists());
         assertEquals(file.getName(), fileName);
 
-        String fileAbsolutePath = environmentPath.resolve(fileName).toUri().getPath();
+        Path fileAbsolutePath = environmentPath.resolve(fileName);
 
-        Optional<String> fileContent = Files.lines(Path.of(fileAbsolutePath)).reduce((x, y) -> x + "\n" + y);
+        Optional<String> fileContent = Files.lines(fileAbsolutePath).reduce((x, y) -> x + "\n" + y);
         assertTrue(fileContent.isPresent());
         assertEquals(content, fileContent.get());
     }
 
     @Test
-    void clearDirectory() throws FileDirectoryDeletionException, FileCreationException {
+    void deleteDirectory() throws FileDirectoryDeletionException, FileCreationException {
+        String fileName = "test2.txt";
+        String content = "hello12345";
+        fileManager.createFile(fileName, content);
+
+        fileManager.deleteDirectory();
+
+        assertFalse(new File(environmentPath.toUri().getPath()).exists());
+    }
+
+    @Test
+    void clearDirectory() throws FileCreationException, FileDeletionException, IOException {
         String fileName = "test2.txt";
         String content = "hello12345";
         fileManager.createFile(fileName, content);
 
         fileManager.clearDirectory();
 
-        assertFalse(new File(environmentPath.toUri().getPath()).exists());
+        long remainingFiles = Files.walk(environmentPath)
+                .filter(path -> !path.equals(path))
+                .count();
+
+        assertEquals(0, remainingFiles);
     }
 }

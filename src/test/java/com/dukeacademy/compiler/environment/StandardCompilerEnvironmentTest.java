@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StandardCompilerEnvironmentTest {
     StandardCompilerEnvironment compilerEnvironment;
-    String environmentPath;
+    Path environmentPath;
 
     @TempDir
     Path temporaryFolder;
@@ -27,15 +27,15 @@ class StandardCompilerEnvironmentTest {
     @BeforeEach
     void initializeTest() throws CompilerEnvironmentException {
         compilerEnvironment = new StandardCompilerEnvironment();
-        environmentPath = temporaryFolder.resolve("compiler").toUri().getPath();
-        compilerEnvironment.initiate(environmentPath);
+        environmentPath = temporaryFolder.resolve("compiler");
+        compilerEnvironment.initiate(environmentPath.toUri().getPath());
     }
 
     @Test
     void initiate() {
         assertTrue(compilerEnvironment.isInitialized());
-        assertTrue(new File(environmentPath).exists());
-        assertEquals(compilerEnvironment.getEnvironmentPath(), environmentPath);
+        assertTrue(environmentPath.toFile().exists());
+        assertEquals(environmentPath + File.separator, compilerEnvironment.getEnvironmentPath());
     }
 
     @Test
@@ -45,13 +45,13 @@ class StandardCompilerEnvironmentTest {
 
         compilerEnvironment.createJavaFile(fileName, content);
 
-        String javaFilePath = environmentPath + File.separator + fileName +  ".java";
+        Path javaFilePath = environmentPath.resolve(fileName +  ".java");
 
-        File javaFile = new File(javaFilePath);
+        File javaFile = javaFilePath.toFile();
         assertTrue(javaFile.exists());
 
 
-        Optional<String> fileContent = Files.lines(Path.of(javaFilePath)).reduce((x, y) -> x + "\n" + y);
+        Optional<String> fileContent = Files.lines(javaFilePath).reduce((x, y) -> x + "\n" + y);
         assertTrue(fileContent.isPresent());
         assertEquals(content, fileContent.get());
     }
@@ -67,9 +67,9 @@ class StandardCompilerEnvironmentTest {
         assertTrue(javaFile.exists());
         assertEquals(fileName + ".java", javaFile.getName());
 
-        String fileAbsolutePath = environmentPath + File.separator + fileName + ".java";
+        Path filePath = environmentPath.resolve(fileName + ".java");
 
-        Optional<String> fileContent = Files.lines(Path.of(fileAbsolutePath)).reduce((x, y) -> x + "\n" + y);
+        Optional<String> fileContent = Files.lines(filePath).reduce((x, y) -> x + "\n" + y);
         assertTrue(fileContent.isPresent());
         assertEquals(content, fileContent.get());
     }
@@ -82,6 +82,21 @@ class StandardCompilerEnvironmentTest {
 
         compilerEnvironment.close();
 
-        assertFalse(new File(environmentPath).exists());
+        assertFalse(environmentPath.toFile().exists());
+    }
+
+    @Test
+    void clearEnvironment() throws CompilerEnvironmentException, FileCreationException, IOException {
+        String fileName = "Test2";
+        String content = "public class Test2 {\n}";
+        compilerEnvironment.createJavaFile(fileName, content);
+
+        compilerEnvironment.clearEnvironment();
+
+        long remainingFiles = Files.walk(environmentPath)
+                .filter(path -> !path.equals(path))
+                .count();
+
+        assertEquals(0, remainingFiles);
     }
 }

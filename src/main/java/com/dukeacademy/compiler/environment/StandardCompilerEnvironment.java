@@ -2,6 +2,7 @@ package com.dukeacademy.compiler.environment;
 
 import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.compiler.exceptions.FileCreationException;
+import com.dukeacademy.compiler.exceptions.FileDeletionException;
 import com.dukeacademy.compiler.exceptions.FileDirectoryCreationException;
 import com.dukeacademy.compiler.exceptions.FileDirectoryDeletionException;
 
@@ -12,8 +13,9 @@ import java.io.FileNotFoundException;
  * The standard environment class used by the compiler to perform file management.
  */
 public class StandardCompilerEnvironment implements CompilerEnvironment {
-    private String MESSAGE_ENVIRONMENT_NOT_INITIALIZED;
-    private String MESSAGE_ENVIRONMENT_NOT_CLOSED;
+    private String MESSAGE_ENVIRONMENT_NOT_INITIALIZED = "Compiler environment failed to initialized.";
+    private String MESSAGE_ENVIRONMENT_NOT_CLOSED = "Compiler environment failed to close, remnant files may persist.";
+    private String MESSAGE_ENVIRONMENT_NOT_CLEARED = "Compiler environment could not be cleared.";
 
     private StandardCompilerFileManager fileManager;
     private boolean isInitialized;
@@ -55,9 +57,26 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public void close() throws CompilerEnvironmentException {
+    public void clearEnvironment() throws CompilerEnvironmentException {
+        if (!this.isInitialized) {
+            throw new CompilerEnvironmentException(MESSAGE_ENVIRONMENT_NOT_INITIALIZED);
+        }
+
         try {
             this.fileManager.clearDirectory();
+        } catch (FileDeletionException e) {
+            throw new CompilerEnvironmentException(MESSAGE_ENVIRONMENT_NOT_CLEARED);
+        }
+    }
+
+    @Override
+    public void close() throws CompilerEnvironmentException {
+        if (!this.isInitialized) {
+            throw new CompilerEnvironmentException(MESSAGE_ENVIRONMENT_NOT_INITIALIZED);
+        }
+
+        try {
+            this.fileManager.deleteDirectory();
         } catch (FileDirectoryDeletionException e) {
             throw new CompilerEnvironmentException(MESSAGE_ENVIRONMENT_NOT_CLOSED);
         }

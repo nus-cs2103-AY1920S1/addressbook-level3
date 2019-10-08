@@ -35,8 +35,15 @@ public interface CompilerEnvironment {
     public File getJavaFile(String name) throws FileNotFoundException, CompilerEnvironmentException;
 
     /**
+     * Clears the environment of any existing files and artifacts.
+     * @throws CompilerEnvironmentException if the environment cannot be cleared.
+     */
+    public void clearEnvironment() throws CompilerEnvironmentException;
+
+    /**
      * Closes the environment by deleting any created files or directories at the specified location path during
      * initialization.
+     * @throws CompilerEnvironmentException if the environment cannot be closer properly.
      */
     public void close() throws CompilerEnvironmentException;
 }
