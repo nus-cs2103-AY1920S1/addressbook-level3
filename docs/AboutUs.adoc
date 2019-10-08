@@ -31,7 +31,7 @@ Responsibilities: UI
 
 
 === Luk Chi Heng
-image::aaronnluk.png[width="150", align="left"]
+image::aaronluk.png[width="150", align="left"]
 {empty}[http://github.com/AaronLuk[github]] [<<johndoe#, portfolio>>]
 
 
@@ -41,8 +41,8 @@ Responsibilities: Data
 '''
 
 === Ng Yong Kuan
-image::SendorasLeft.png[width="150", align="left"]
-{empty}[https://github.com/SendorasLeft[github]] [<<YongKuan#, portfolio>>]
+image::sendorasleft.png[width="150", align="left"]
+{empty}[https://github.com/SendorasLeft[github]] [<<sendorasleft#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
@@ -50,7 +50,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Tan Wei Adam
-image::MistyRainforest.png[width="150", align="left"]
+image::mistyrainforest.png[width="150", align="left"]
 {empty}[http://github.com/MistyRainforest[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Module Appeal Management System (MAMS) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,11 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T11-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `ay1920s1-cs2103-t11-2`      Since: `Sep 2019`      Licence: `MIT`
+
+Acknowledgements: MAMS is adapted from AddressBook-Level3, a project created by SE-EDU initiative (available at `https://se-education.org`)
 
 == Setting up
 
@@ -147,7 +149,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `mams.commons` package.
 
 == Implementation
 
@@ -279,110 +281,310 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+A specialized Appeal Administrator that handles module appeals during
+the hectic start-of-semester module registration in the National
+University of Singapore. He/She:
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+* prefers desktop apps over other types
+* prefers typing over mouse input
+* can type fast
+* is reasonably comfortable using CLI apps
+* has a need to view large lists of modules, appeal cases, and student
+particulars
+* has a need to edit current student/appeal/module information to
+resolve appeal cases
+* has *neither the authority nor need* to add/remove students, appeals,
+and modules to/from the current database (out of job purview)
+
+*Value proposition*: View, manage, and resolve appeals as fast as or
+faster than a typical mouse/GUI driven app.
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
+Epic: As a admin, I want to be able to view module/student/appeal data.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a/an … |I want to … |So that I can…
+|`* * *` |admin |be able to view lists of students/appeals/modules |
 
-|`* * *` |user |add a new person |
+|`* * *` |admin |filter lists of students/appeals/modules by year/module
+info/type |quickly find specific items of interest
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |admin |be able to view the full expanded details of a
+student/appeal/module |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |admin |be able to view lists or items side-by-side |easily
+cross-reference information between modules/students/appeals.
 
-|`* * *` |user |add a module to a student |
+|`* * *` |admin |be able to find a module/appeal/student using their
+unique ID sequences |locate details of persons without having to go
+through the entire list
 
-|`* * *` |user |remove a module from a student |
+|`* * *` |admin |check for clashes between modules |determine if a
+student can take up the module he/she requested for
 
-|`* * *` |user |check for clashes between modules |determine if a student can take up the module he/she requested for
+|`* * *` |admin |check for clashes in a student’s timetable |determine
+if a student have sufficient reason to drop the pre-allocated modules
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |admin |group types of appeal cases |resolve multiple of the
+same type of appeal cases
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |admin |check the vacancy of a module |Check if module can take
+in additional students
+
+|`* *` |admin |be able to decide which pane (left/right) the results of
+my command (list or object view) shows up on |
 |=======================================================================
 
-_{More to be added}_
+Epic: As an admin, I want to be able to edit module/student/appeal data.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a/an … |I want to … |So that I can…
+|`* * *` |admin |add a module to a student |resolve their appeal request
+
+|`* * *` |admin |remove a module from a student |
+
+|`* * *` |admin |update the name list of students taking the module |
+
+|`* * *` |admin |increase the number of MCs allocated to a student
+|allow the student to take more classes
+
+|`* * *` |admin |add remarks to a student page |refer back at a later
+time if needed
+
+|`* * *` |admin |mass approve and reject |Approve and reject multiple
+appeals with one command
+
+|`* *` |admin |add a reason for the rejection |inform them why their
+appeal was not approve
+|=======================================================================
+
+Other User Stories
+^^^^^^^^^^^^^^^^^^
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a/an … |I want to … |So that I can…
+|`* * *` |new admin |see usage instructions |refer to instructions when
+I forget how to use the App
+|=======================================================================
+
+User Stories up to v2.0 (coming soon!)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a/an … |I want to … |So that I can…
+|`* *` |admin |send an automated email to the involved student once I
+resolve an appeal |alert them to the appeal outcomne easily and quickly
+
+|`* *` |admin |encrypt all data when writing them back to disk |ensure
+security in handling sensitive student information under privacy laws
+
+|`* *` |admin |mass approve and reject |Approve and reject multiple
+appeals with one command
+
+|`* *` |admin |send short messages/emails to lecturers/other admin staff
+|consult them for further information that may be needed for appeal
+resolution
+
+|`* *` |careless admin |undo my previous commands |
+
+|`*` |admin |cycle through my command history using the `up' button
+|easily resuse previously typed commands
+
+|`*` |new admin |view resolved appeal cases from previous semesters |use
+them as precedents to make decisions for other appeal cases
+
+|`*` |admin |be able to toggle between different colourschemes for the
+app |
+
+|`*` |admin |archive appeal cases |view an uncluttered list of appeals
+
+|`*` |admin |get alerts on oversubscribed modules |receive early
+warnings of modules likely to receive appeal requests
+|=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the System is the MAMS application and the
+Actor is the admin, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== UC01: Resolving an Appeal Request to Drop a Pre-allocated Module
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+Pre-condition: System has only just been opened, and is showing a list
+of appeals by default.
+
+1.  Admin views the details of the first appeal.
+2.  Admin displays the expanded information of the module.
+3.  Admin displays the expanded information of the student-of-interest.
+4.  Admin removes the pre-allocated module from student.
+5.  Admin marks the appeal as approved, with an approval message to be
+displayed to the student.
 +
-Use case ends.
+*Use case ends.*
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. MAMS suggests an autocomplete based on the displayed appeal
+information *(Coming in v2.0)*
 +
-Use case ends.
+*Use case resumes at step 1.*
 
-* 3a. The given index is invalid.
+* 4a. Student workload goes below the minimum MC requirement for one
+semester
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 4a1. MAMS alerts the admin and asks for confirmation
+** 4a2. Admin confirms the decision.
 +
-Use case resumes at step 2.
+*Use case resumes at step 5.*
 
-_{More to be added}_
-
-=== Use case: Add module to a student
+[discrete]
+=== UC02: Approve second appeal in the list (a request from student to add a module)
 
 *MSS*
 
-1.  User requests to view appeal details uploaded by student A on right pane
-2.  MAMS shows the appeal details(student particulars, module requested)
-3.  User requests to check potential clash of module requested by student with student's existing modules
-4.  MAMS shows that there are no clashes
-5.  User requests to add module to student
-6.  MAMS adds module to student
-7.  User requests to approve appeal
-8.  MAMS marks appeal as approved
+Pre-condition: System has only just been opened, and is showing a list
+of appeals by default.
+
+1.  Admin views the details of the appeals in the displayed list
+2.  Admin requests to view appeal details of 2nd appeal in the list.
+3.  MAMS shows the appeal details(student particulars, module requested)
+4.  Admin requests to check potential clash of module requested by
+student with student’s existing modules
+5.  MAMS shows that there are no clashes
+6.  Admin requests to add module to student
+7.  MAMS adds module to student
+8.  Admin requests to approve appeal
+9.  MAMS marks appeal as approved
 +
-Use case ends.
+*Use case ends.*
 
 *Extensions*
 
 [none]
-* 4a. MAMS shows that there is a clash between requested module and a module student A is currently taking
+* 4a. MAMS shows that there is a clash between requested module and a
+module student A is currently taking
++
 [none]
-** 4a1. User requests to reject appeal
+** 4a1. Admin proceeds to reject appeal
 ** 4a2. MAMS marks appeal as rejected
 +
-Use case ends.
+*Use case ends.*
+
+* 5a. MAMS indicates that the module has reached max student capacity.
+MAMS does not add the student in as the module is unable to accept any
+more students
++
+[none]
+** 5a1. Admin requests to reject appeal
+** 5a2. MAMS marks appeal as rejected
++
+*Use case ends.*
+
+[discrete]
+=== UC03 Approve request to increase work load
+
+*MSS*
+
+Pre-condition: System has only just been opened, and is showing a list
+of appeals by default.
+
+1.  Admin views details of appeal
+2.  Admin views expanded view of student-of-interest
+3.  Admin sees grades of student and deems he is capable of having a
+higher workload
+4.  Admin increases workload of the student
+5.  Admin approves the appeal
+6.  MAMS mark appeal as approved
++
+*Use case ends.*
+
+[discrete]
+=== UC04: Approve request from a student to add a module with clashes in timetable
+
+*MSS*
+
+Pre-condition: System has only just been opened, and is showing a list
+of appeals by default.
+
+1.  Admin requests to check potential clash of module requested by
+student with student’s existing modules.
+2.  MAMS shows that there are clashes.
+3.  Admin requests to add the module to the student with clashes.
+4.  MAMS asks for confirmation to add the module to the student.
+5.  Admin adds a remark to the approval case.
+6.  Admin adds the student to the module.
+7.  Admin requests to approve appeal.
+8.  MAMS marks appeal as approved.
++
+*Use case ends.*
+
+[discrete]
+=== (Coming in 2.0) UC05: Encrypt and Archive this semester’s appeal cases
+
+*MSS*
+
+Pre-condition: System has only just been opened, and is showing a list
+of appeals by default.
+
+1.  Admin requests to encrypt this semester’s appeal cases
+2.  MAMS requests for a password to be set
+3.  Admin provides a password
+4.  MAMS accepts password and encrypts this semester’s appeal cases.
+5.  Admin requests to save the encrypted file
+6.  MAMS prompts admin for file save location
+7.  Admin selects a location
+8.  MAMS saves the encrypted file to the location
++
+*Use case ends.*
+
+*Extensions*
+
+[none]
+* 6a. Admin chooses not to save the file
++
+[none]
+** 6a1. Admin requests to shut down MAMS
+** 6a2. MAMS asks the Admin if the encrypted file should be saved before
+shutting down
+** 6a3. Admin declines
+** 6a4. MAMS saves the encrypted file to a temporary location, to be
+retrieved on next startup.
++
+*Use case ends.*
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
-
+.  An admin with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands
+than using the mouse.
+.  Should be quick and efficient, with each use case above taking less
+than 5 minutes to navigate (excluding the time needed for user
+consideration and decision)
+.  Should be convenient for users to view details of different objects
+at the same time.
+.  Should be able to hold up to 40000 students and 1000 modules without
+a noticeable sluggishness in performance for typical usage.
+.  Should only load data from current semesters by default.
+.  Should have a dark theme/comfortable visual interface as the user
+might spend long hours on MAMS.
+.  (Coming in 2.0) Should be able to differentiate between
+student/appeal/module data from different semesters.
 .  Should be able to hold up to 40000 students and 1000 modules without a noticeable sluggishness in performance for typical usage.
 [appendix]
 
@@ -393,25 +595,20 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[module]] Module::
+A module refers to a course taken by a National Univerisity
+of Singapore (NUS) student during a semester. These can be semester-long
+or year-long.
 
-[appendix]
-== Product Survey
+[[appeal]] Appeal::
+An appeal refers to a formal request by a student seeking
+permission for receiving special exceptions to module arrangements, or
+for correcting anomalous system errors made during module allocation.
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[mc]] MC::
+Modular Credits, a weightage of the module workload. As of
+AY2019/2020, the minimum semester workload for a student is 16 MCs, and
+without special permissions, the default maximum is typically 26 MCs.
 
 [appendix]
 == Instructions for Manual Testing

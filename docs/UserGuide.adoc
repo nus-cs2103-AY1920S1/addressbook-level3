@@ -67,13 +67,37 @@ Tags:
 Examples:
 
 * `view A0122432Z l/`
-Expected output: Fully expanded administrative details of the student with matriculation ID A0122432Z on the left pane.
+
+Sample output: Fully expanded administrative details of the student with matriculation ID A0122432Z on the left pane.
 
 * `view 230293`
-Expected output: Fully expanded administrative details of the appeal with case ID 230293 on the right pane.
+
+Sample output: Fully expanded administrative details of the appeal with case ID 230293 on the right pane.
 
 * `view CS2103 r/`
-Expected output: Fully expanded administrative details of the CS2103 module on the right pane.
+
+Sample output: Fully expanded administrative details of the CS2103 module on the right pane.
+
+=== Listing objects by specified lists: `list`
+
+Format: list OBJECT_TYPE `[f/FILTER]... [r/] [l/]`
+
+Tags:
+`[f/FILTER]` specifies the filters that are applied on the results of the list command. Each FILTER is delimited by commas following the `f/` tag, with no spaces. When this tag is not present, the program defaults to displaying the full list. As with the `view` command, if both `/r` and `/l` tags are not present, the program defaults to displaying the lists on the right pane.
+
+Examples:
+
+* `list`
+
+Sample Output: Shows a list of all appeals by default on the right pane
+
+* `list module f/CS`
+
+Sample Output: Shows a list of modules filtered by the CS (Computer Science) tag, on the right pane
+
+* `list students f/YEAR4,CS l/`
+
+Sample Output: Shows a list of students filtered by the Year4 and CS tags, displayed on the left pane.
 
 === Show clashes: `clash`
 
@@ -209,6 +233,7 @@ Sample output:
 `Invalid operation. Module CS1010S session 2 does not exist in student
 A0180001A's timetable`
 
+<<<<<<< HEAD
 === Approve or reject an appeal `approve` & `reject`
 
 ==== Approve an appeal
@@ -233,6 +258,8 @@ Examples:
 Sample output:
 `Appeal of UC12232 has been rejected`
 
+
+=======
 
 
 === Saving the data

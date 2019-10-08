@@ -1,10 +1,10 @@
 = Module Appeal Management System (MAMS)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.com/AY1920S1-CS2103-T11-2/main[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
+https://travis-ci.com/AY1920S1-CS2103-T11-2/main[image:https://travis-ci.com/AY1920S1-CS2103-T11-2/main.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
-image::docs/images/MAMS-UI.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
@@ -29,7 +29,9 @@ With MAMS, solving module appeals becomes easier. Our application provides quick
 
 == Acknowledgements
 
-* The original source of the code is the AddressBook-Level3 project, created by the SE-EDU initiative.
+* The original source of the code is the AddressBook-Level3 project, created by the SE-EDU initiative at https://se-education.org
+
+
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
