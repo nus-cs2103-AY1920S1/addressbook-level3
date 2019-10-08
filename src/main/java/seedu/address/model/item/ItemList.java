@@ -83,4 +83,12 @@ public class ItemList {
         }
         return il;
     }
+
+    public int indexOf(Item item) {
+        return list.indexOf(item);
+    }
+
+    public Item set(int index, Item item) {
+        return list.set(index, item);
+    }
 }
