@@ -27,6 +27,8 @@ public class EditCommand extends Command {
      */
     public EditCommand(int index, EditTransactionDescriptor editTransactionDescriptor) {
         this.index = index;
+
+
         this.id = index;
         this.editTransactionDescriptor = new EditTransactionDescriptor(editTransactionDescriptor);
     }

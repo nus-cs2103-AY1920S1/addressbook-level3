@@ -4,7 +4,7 @@ import seedu.address.person.logic.commands.Command;
 import seedu.address.person.logic.parser.exceptions.ParseException;
 
 /**
- * Represents a Parser that is able to parse user input into a {@code Command} of type {@code T}.
+ * Represents a GeneralParser that is able to parse user input into a {@code Command} of type {@code T}.
  */
 public interface Parser<T extends Command> {
 

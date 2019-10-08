@@ -3,9 +3,11 @@ package seedu.address.transaction.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
 import seedu.address.person.model.person.Person;
 
 public class Transaction {
+    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
     private LocalDate date;
     private String description;
     private String category;
@@ -14,7 +16,6 @@ public class Transaction {
     private String name;
     private String id;
     private boolean isReimbursed;
-    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
 
     public Transaction(String date, String description, String category,
                        double amount, Person person, int i) {
@@ -30,6 +31,10 @@ public class Transaction {
 
     public Person getPerson() {
         return this.person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String getDate() {
@@ -52,16 +57,16 @@ public class Transaction {
         return this.id;
     }
 
-    public boolean getStatus() {
-        return this.isReimbursed;
-    }
-
     public void setId(int i) {
         this.id = "" + i;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public boolean getStatus() {
+        return this.isReimbursed;
+    }
+
+    public void updateStatus() {
+        isReimbursed = true;
     }
 
     public String toWriteIntoFile() {
@@ -79,7 +84,6 @@ public class Transaction {
     public String getName() {
         return this.person.getName().toString();
     }
-
 
     public boolean equals(Transaction editedTransaction) {
         return this.person.equals(editedTransaction.getPerson()) &&

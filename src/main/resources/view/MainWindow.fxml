@@ -59,6 +59,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
+
                         <Tab id="membersTab" fx:id="membersTab" text="Members">
                           <content>
                             <AnchorPane layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="691.0">
