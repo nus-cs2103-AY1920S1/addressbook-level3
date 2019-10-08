@@ -12,7 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.QueueList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.queue.QueueManager;
 
 class CommandHistoryTest {
 
@@ -25,8 +27,8 @@ class CommandHistoryTest {
 
     @Test
     void execute_performUndo_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new QueueManager());
 
         assertFalse(history.canUndo());
 
@@ -55,8 +57,8 @@ class CommandHistoryTest {
 
     @Test
     void canRedo() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new QueueManager());
 
         assertFalse(history.canRedo());
 

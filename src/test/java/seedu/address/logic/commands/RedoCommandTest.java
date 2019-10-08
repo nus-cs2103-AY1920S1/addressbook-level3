@@ -13,7 +13,9 @@ import seedu.address.logic.commands.core.UndoableCommandStub;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.QueueList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.queue.QueueManager;
 
 /**
  * Contains integration tests (interaction with the Model and CommandHistory) and unit tests for RedoCommand.
@@ -24,8 +26,8 @@ class RedoCommandTest {
     public void execute_performRedo_success() {
 
         CommandHistory history = new CommandHistory();
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager());
 
         RedoCommand redoCommand = new RedoCommand(history);
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);

@@ -11,8 +11,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.QueueList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.queue.QueueManager;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -25,9 +27,9 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddCommand command = new AddCommand(validPerson);
 
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel1 = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Model expectedModel2 = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager());
+        Model expectedModel1 = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager());
+        Model expectedModel2 = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager());
         expectedModel1.addPerson(validPerson);
 
         assertCommandSuccess(command, model,
@@ -42,8 +44,8 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddCommand command = new AddCommand(validPerson);
 
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager());
 
         assertUndoCommandFailure(command, model,
                 String.format(AddCommand.MESSAGE_UNDO_ADD_ERROR, validPerson));
@@ -54,7 +56,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager());
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

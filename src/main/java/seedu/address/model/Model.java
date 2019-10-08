@@ -6,6 +6,11 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.queue.QueueManager;
+import seedu.address.model.queue.Room;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * The API of the Model component.
@@ -84,4 +89,28 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    public QueueManager getQueueManager();
+
+    public void removePatient(Person target);
+
+    public void addPatient(Person person);
+
+    public ObservableList<Person> getFilteredPatientList();
+
+    public boolean hasPatient(Person person);
+
+    public ObservableList<Room> getFilteredRoomList();
+
+    public void updateFilteredRoomList(Predicate<Room> predicate);
+
+    public void removePatient(int index);
+
+    public void next(int index);
+
+    public void addRoom(Person patient);
+
+    public void removeRoom(int index);
+
+    public void updateFilteredPatientList(Predicate<Person> predicate);
 }

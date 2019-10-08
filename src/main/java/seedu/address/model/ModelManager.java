@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.queue.QueueManager;
+import seedu.address.model.queue.Room;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,23 +24,70 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final QueueManager queueManager;
+    private final FilteredList<Person> filteredPatients;
+    private final FilteredList<Room> filteredRooms;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
         super();
         requireAllNonNull(addressBook, userPrefs);
-
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
+        this.queueManager = new QueueManager(queueManager);
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPatients = new FilteredList<>(this.queueManager.getPatientList());
+        filteredRooms = new FilteredList<>(this.queueManager.getRoomList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new QueueManager());
+    }
+
+    //=========== QueueManager ==================================================================================
+
+    @Override
+    public QueueManager getQueueManager() {
+        return queueManager;
+    }
+
+    @Override
+    public void removePatient(Person target) {
+        queueManager.removePatient(target);
+    }
+
+    @Override
+    public void removePatient(int index) {
+        queueManager.removePatient(index);
+    }
+
+    @Override
+    public void next(int index) {
+        queueManager.serveNext(index);
+    }
+
+    @Override
+    public void addPatient(Person person) {
+        queueManager.addPatient(person);
+    }
+
+    @Override
+    public boolean hasPatient(Person person) {
+        requireNonNull(person);
+        return queueManager.hasPatient(person);
+    }
+
+    @Override
+    public void addRoom(Person patient) {
+        queueManager.addRoom(patient);
+    }
+
+    @Override
+    public void removeRoom(int index) {
+        queueManager.removeRoom(index);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -129,6 +178,35 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Filtered Patient List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPatientList() {
+        return filteredPatients;
+    }
+
+    @Override
+    public void updateFilteredPatientList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPatients.setPredicate(predicate);
+    }
+
+    //=========== Filtered Room List Accessors =============================================================
+
+    @Override
+    public ObservableList<Room> getFilteredRoomList() {
+        return filteredRooms;
+    }
+
+    @Override
+    public void updateFilteredRoomList(Predicate<Room> predicate) {
+        requireNonNull(predicate);
+        filteredRooms.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -145,7 +223,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredPatients.equals(other.filteredPatients)
+                && filteredRooms.equals(other.filteredRooms)
+                && queueManager.equals(other.queueManager);
     }
-
 }

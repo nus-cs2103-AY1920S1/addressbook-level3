@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.queue.QueueManager;
 import seedu.address.logic.commands.core.Command;
 import seedu.address.logic.commands.core.CommandHistory;
 import seedu.address.logic.commands.core.CommandResult;
@@ -30,12 +31,14 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final CommandHistory commandHistory;
+    private final QueueManager queueManager;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.commandHistory = new CommandHistory();
         this.addressBookParser = new AddressBookParser(commandHistory);
+        this.queueManager = new QueueManager();
     }
 
     @Override
