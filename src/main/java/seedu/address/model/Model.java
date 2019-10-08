@@ -2,7 +2,9 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;

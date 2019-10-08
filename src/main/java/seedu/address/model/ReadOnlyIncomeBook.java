@@ -3,6 +3,9 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.income.Income;
 
+/**
+ * Unmodifiable view of an income book
+ */
 public interface ReadOnlyIncomeBook {
 
     /**

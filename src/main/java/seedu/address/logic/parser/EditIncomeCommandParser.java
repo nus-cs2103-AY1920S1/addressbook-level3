@@ -40,7 +40,8 @@ public class EditIncomeCommandParser implements Parser<EditIncomeCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIncomeCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                                EditIncomeCommand.MESSAGE_USAGE), pe);
         }
 
         EditIncomeDescriptor editIncomeDescriptor = new EditIncomeDescriptor();

@@ -34,7 +34,7 @@ public class Income {
     /**
      * Every field must be present and not null.
      */
-    public Income(Description description, Amount amount, Name name, Phone phone,  Set<Tag> tags) {
+    public Income(Description description, Amount amount, Name name, Phone phone, Set<Tag> tags) {
         requireAllNonNull(name, phone, description, amount, tags);
         this.description = description;
         this.amount = amount;
@@ -60,7 +60,9 @@ public class Income {
         return amount;
     }
 
-    public Date getDateAdded() { return dateAdded; }
+    public Date getDateAdded() {
+        return dateAdded;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

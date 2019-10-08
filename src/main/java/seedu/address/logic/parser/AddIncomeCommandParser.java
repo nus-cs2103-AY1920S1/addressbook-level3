@@ -13,10 +13,10 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddIncomeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.claim.Amount;
-import seedu.address.model.income.Income;
 import seedu.address.model.claim.Description;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
+import seedu.address.model.income.Income;
 import seedu.address.model.tag.Tag;
 
 /**
