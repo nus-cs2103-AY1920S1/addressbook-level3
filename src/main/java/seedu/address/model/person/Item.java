@@ -1,18 +1,18 @@
 package seedu.address.model.person;
 
-import seedu.address.model.tag.Tag;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents an Item in Elisa.
- * Guarantees: ItemDescription is present and not null. 
+ * Guarantees: ItemDescription is present and not null.
  * At least one of the following three fields (Task, Event, Reminder) is present and not null.
  */
 public class Item {
@@ -21,7 +21,6 @@ public class Item {
     private final Task task;
     private final Event event;
     private final Reminder reminder;
-    
     // Data fields
     private final ItemDescription itemDescription;
     private final Set<Tag> tags = new HashSet<>();
@@ -35,41 +34,46 @@ public class Item {
         this.task = task;
         this.event = event;
         this.reminder = reminder;
-        
         this.itemDescription = itemDescription;
         this.tags.addAll(tags);
     }
 
-    public boolean hasTask() { return task != null; }
-    
-    public boolean hasEvent() { return event != null; }
-    
-    public boolean hasReminder() { return reminder != null; }
-    
+    public boolean hasTask() {
+        return task != null;
+    }
+
+    public boolean hasEvent() {
+        return event != null;
+    }
+
+    public boolean hasReminder() {
+        return reminder != null;
+    }
+
     public Optional<Task> getTask() {
-        if(this.task == null) {
+        if (this.task == null) {
             return Optional.empty();
         } else {
             return Optional.of(this.task);
         }
     }
-    
+
     public Optional<Event> getEvent() {
-        if(this.event == null) {
+        if (this.event == null) {
             return Optional.empty();
         } else {
             return Optional.of(this.event);
         }
     }
-    
+
     public Optional<Reminder> getReminder() {
-        if(this.reminder == null) {
+        if (this.reminder == null) {
             return Optional.empty();
         } else {
             return Optional.of(this.reminder);
         }
     }
-    
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -141,13 +145,13 @@ public class Item {
                 .setTags(newTags)
                 .build();
     }
-    
+
     /**
      * Returns true if both items have the same task referenced.
      * This defines a weaker notion of equality between two items.
      */
     public boolean hasSameTask(Item otherItem) {
-        return getTask().equals(otherItem.getTask());     
+        return getTask().equals(otherItem.getTask());
     }
 
     /**
@@ -165,7 +169,7 @@ public class Item {
     public boolean hasSameReminder(Item otherItem) {
         return getReminder().equals(otherItem.getReminder());
     }
-    
+
     /**
      * Returns true if both items have the same identity and data fields.
      * This defines a stronger notion of equality between two items.
@@ -211,59 +215,67 @@ public class Item {
         return builder.toString();
     }
 
+    /**
+     * Builder class for Item.
+     */
     public static class ItemBuilder {
-    
+
         // Identity fields
         private Task task;
         private Event event;
         private Reminder reminder;
-    
+
         // Data fields
         private ItemDescription itemDescription;
         private Set<Tag> tags = new HashSet<>();
-        
+
         public ItemBuilder() {}
-        
+
         public ItemBuilder setTask(Task task) {
             requireNonNull(task);
             this.task = task;
             return this;
         }
-        
+
         public ItemBuilder setEvent(Event event) {
             requireNonNull(event);
             this.event = event;
             return this;
         }
-        
+
         public ItemBuilder setReminder(Reminder reminder) {
             requireNonNull(reminder);
             this.reminder = reminder;
             return this;
         }
-        
+
         public ItemBuilder setItemDescription(ItemDescription descriptor) {
             requireNonNull(descriptor);
             this.itemDescription = descriptor;
             return this;
         }
-        
+
         //Consider using a defensive copy of tags, similar to EditCommand in AB3
         public ItemBuilder setTags(Set<Tag> tags) {
             requireNonNull(tags);
             this.tags = tags;
             return this;
         }
-        
-        public Item build() throws IllegalArgumentException{
+
+        /**Validates arguments of Item before initialising it
+         *
+         * @return A valid Item.
+         * @throws IllegalArgumentException If description not provided or task, event and reminder fields are null.
+         */
+        public Item build() throws IllegalArgumentException {
             Item newItem = new Item(this.task, this.event, this.reminder, this.itemDescription, this.tags);
-            
+
             //Validation of parameters of object after object has been created.
             //Validate after object has been created as per StackOverflow link
             //https://stackoverflow.com/questions/38173274/builder-pattern-validation-effective-java
             //However this seems to be contrary to the answer in the following link
             //https://stackoverflow.com/questions/12930852/clearing-doubts-about-the-builder-pattern
-            //However it seems safer to follow the first as the object fields could be mutated after it has been copied 
+            //However it seems safer to follow the first as the object fields could be mutated after it has been copied
             // from the builder to the object.
             if (newItem.getItemDescription() == null) {
                 throw new IllegalArgumentException("Description must be provided!");
@@ -271,17 +283,17 @@ public class Item {
             if (newItem.getTask() == null && newItem.getEvent() == null && newItem.getReminder() == null) {
                 throw new IllegalArgumentException("Task, Event & Reminder cannot all be empty!");
             }
-            
-            //Resetting all constructing parameters back to null, so a new object doesn't use the parameters of the 
+
+            //Resetting all constructing parameters back to null, so a new object doesn't use the parameters of the
             // previous object.
             task = null;
             event = null;
             reminder = null;
             itemDescription = null;
             tags = null;
-            
+
             return newItem;
         }
-        
+
     }
 }

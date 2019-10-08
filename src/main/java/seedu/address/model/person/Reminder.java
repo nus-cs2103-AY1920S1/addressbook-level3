@@ -1,16 +1,17 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents an Item's Reminder in ELISA.
  * Guarantees: immutable;
  */
 public class Reminder {
-    
+
     private final LocalDateTime dateTime;
 
     /**
@@ -22,12 +23,17 @@ public class Reminder {
         requireNonNull(dateTime);
         this.dateTime = dateTime;
     }
-    
+
 
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
+    /**
+     * Changes the dateTime that the reminder occurs. Removes the previous reminder so it does not occur.
+     * @param dateTime A LocalDateTime object which dictates the dateTime the reminder occurs.
+     * @return A new Reminder with the new dateTime for the reminder.
+     */
     public Reminder changeDateTime(LocalDateTime dateTime) {
         //When Reminder is implemented, the previous reminder notification should also be removed here
         return new Reminder(dateTime);

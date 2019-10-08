@@ -1,10 +1,10 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents an Item's Event in ELISA.
@@ -16,7 +16,6 @@ public class Event {
 
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
-    
     //Duration chosen over Period as Events are unlikely to exceed a day.
     private final Duration duration;
     private final Priority priority;
@@ -28,9 +27,8 @@ public class Event {
      * @param duration A Duration of the event. Defaults to Duration.ZERO if null.
      * @param priority A Priority of the event. Defaults to Priority.MEDIUM if null.
      */
-    public Event(LocalDateTime startDateTime, Duration duration, Priority priority) throws IllegalArgumentException{
+    public Event(LocalDateTime startDateTime, Duration duration, Priority priority) throws IllegalArgumentException {
         requireNonNull(startDateTime);
-        
         if (duration != null) {
             this.duration = duration;
         } else {
@@ -45,23 +43,12 @@ public class Event {
 
         this.startDateTime = startDateTime;
         this.endDateTime = startDateTime.plus(duration);
-        
-        /*
-        try {
-            //Check validity of startDateTimeString by parsing
-            this.startDateTime = LocalDateTime.parse(startDateTimeString);
-            this.endDateTime = startDateTime.plus(duration);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("DateTimeString Invalid! It should follow the ISO_LOCAL_DATE_TIME format:" +
-                    " YYYY-MM-DDTHH:MM. Eg.2019-10-09T02:00");
-        }
-         */
     }
-    
+
     public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
-    
+
     public LocalDateTime getEndDateTime() {
         return endDateTime;
     }
@@ -73,7 +60,7 @@ public class Event {
     public Priority getPriority() {
         return priority;
     }
-    
+
     public Event changeStartDateTime(LocalDateTime newStartDateTime) {
         return new Event(newStartDateTime, getDuration(), getPriority());
     }
@@ -85,7 +72,7 @@ public class Event {
     public Event changePriority(Priority newPriority) {
         return new Event(getStartDateTime(), getDuration(), newPriority);
     }
-    
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -115,7 +102,6 @@ public class Event {
                 && otherEvent.getEndDateTime().equals(getEndDateTime())
                 && otherEvent.getDuration().equals(getDuration())
                 && otherEvent.getPriority().equals(getPriority());
-                
     }
 
     @Override

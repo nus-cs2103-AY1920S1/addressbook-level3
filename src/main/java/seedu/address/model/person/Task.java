@@ -9,15 +9,15 @@ import java.util.Objects;
  * Guarantees: immutable;
  */
 public class Task {
-    
+
     private final Priority priority;
-    private final Boolean complete; 
+    private final Boolean complete;
 
     /**
      * Constructs a {@code Task}.
      *
      * @param priority A Priority of the event. Defaults to Priority.MEDIUM if null.
-     * @param complete Denotes whether the task has been completed or not. Defaults to false if null.   
+     * @param complete Denotes whether the task has been completed or not. Defaults to false if null.
      */
     public Task(Priority priority, Boolean complete) {
 
@@ -41,7 +41,7 @@ public class Task {
     public Boolean isComplete() {
         return complete;
     }
-    
+
     public Task markComplete() {
         return new Task(getPriority(), true);
     }
