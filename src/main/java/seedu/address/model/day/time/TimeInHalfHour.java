@@ -1,8 +1,8 @@
-package seedu.address.commons.core.time;
+package seedu.address.model.day.time;
 
-import seedu.address.commons.core.time.exceptions.NotInIntervalsOf30MinException;
-import seedu.address.commons.core.time.exceptions.TimeOutOfBoundException;
-import seedu.address.commons.core.time.exceptions.TimeOutOfBoundsException;
+import seedu.address.model.day.time.exceptions.NotInIntervalsOf30MinException;
+import seedu.address.model.day.time.exceptions.TimeOutOfBoundException;
+import seedu.address.model.day.time.exceptions.TimeOutOfBoundsException;
 
 /**
  * Represents the time in 24-hour clock.

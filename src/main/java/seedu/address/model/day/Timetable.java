@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.core.time.TimeInHalfHour;
+import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.day.exceptions.TimeSlotOccupiedException;
 
 /**

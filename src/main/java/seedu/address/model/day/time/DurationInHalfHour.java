@@ -1,4 +1,4 @@
-package seedu.address.commons.core.time;
+package seedu.address.model.day.time;
 
 /**
  * Represents the duration in units of thirty minutes.
