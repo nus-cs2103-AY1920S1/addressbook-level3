@@ -272,4 +272,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredScheduleList(Predicate<Schedule> predicate);
+
+
+    /**
+     * Generate the statistics a given book
+     */
+    String calculateStats() ;
+
 }

@@ -395,6 +395,12 @@ public class ModelManager implements Model {
         filteredSchedules.setPredicate(predicate);
     }
 
+    //=========== Statistics module ================================================================================
+
+    @Override
+    public String calculateStats() {
+        return "test stat";
+    }
 
     @Override
     public boolean equals(Object obj) {

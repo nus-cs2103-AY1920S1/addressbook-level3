@@ -9,6 +9,5 @@ public enum PanelType {
     CUSTOMER,
     PHONE,
     ORDER,
-    SCHEDULE,
-    STATS;
+    SCHEDULE;
 }

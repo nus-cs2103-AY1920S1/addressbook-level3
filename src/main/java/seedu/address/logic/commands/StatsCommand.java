@@ -16,6 +16,7 @@ public class StatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_STATS_MESSAGE, PanelType.STATS);
+        model.calculateStats();
+        return new CommandResult(SHOWING_STATS_MESSAGE, false, false, true);
     }
 }
