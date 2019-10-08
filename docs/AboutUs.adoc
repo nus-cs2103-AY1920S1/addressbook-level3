@@ -12,46 +12,45 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Choong Jin Yao
 image::charliechoong.png[width="150", align="left"]
-{empty}[https://github.com/charliechoong[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/charliechoong[github]]
 
 Role: Developer +
-Responsibilities: Support
+Responsibilities: Code Quality, Documentation, Integration, Testing
 
 '''
 
 === Low Ee Ter
 image::https://comp.nus.edu.sg/~lowet/n20191002.jpg[width="150", align="left"]
 image:etlow.png[]
-{empty}[https://github.com/etlow[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/etlow[github]]
 
 Role: Team Lead +
-Responsibilities: Assasin
+Responsibilities: Code Quality, Documentation, Integration, Testing
 
 '''
 
 === Ryan Tay
 image::ryantay232.png[width="150", align="left"]
-{empty}[http://github.com/ryantay232[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ryantay232[github]]
 
 Role: Developer +
-Responsibilities: Fighter
+Responsibilities: Code Quality, Documentation, Integration, Testing
 
 '''
 
 === Stanley Yuan
-image::m133225.jpg[width="150", align="left"]
-{empty}[https://github.com/SoilingRogue[github]] [<<johndoe#, portfolio>>]
+image::soilingrogue.png[width="150", align="left"]
+{empty}[https://github.com/SoilingRogue[github]]
 
 Role: Developer +
-Responsibilities: Tank
+Responsibilities: Code Quality, Documentation, Integration, Testing
 
 '''
 
 === Zhou Tianyu
 image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/MackyMaguire[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/MackyMaguire[github]]
 
 Role: Developer +
-Responsibilities: Marksman
-
+Responsibilities: Code Quality, Documentation, Integration, Testing
 '''
