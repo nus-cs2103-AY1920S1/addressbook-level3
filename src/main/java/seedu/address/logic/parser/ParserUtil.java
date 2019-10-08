@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -46,6 +47,25 @@ public class ParserUtil {
         }
         return new Name(trimmedName);
     }
+
+    /**
+     * Parses a {@code String taskStatus} into a {@code TaskStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tag} is invalid.
+     */
+    public static TaskStatus parseStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedAndUpperCaseStatus = status.trim().toUpperCase();
+        TaskStatus taskStatus;
+        try {
+            taskStatus = TaskStatus.valueOf(trimmedAndUpperCaseStatus);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(TaskStatus.MESSAGE_CONSTRAINTS);
+        }
+        return taskStatus;
+    }
+
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.

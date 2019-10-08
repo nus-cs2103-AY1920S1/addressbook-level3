@@ -17,16 +17,24 @@ public class Task {
 
     // Identity fields
     private final Name name;
+    private final TaskStatus taskStatus;
 
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Set<Tag> tags) {
+    public Task(Name name, TaskStatus taskStatus, Set<Tag> tags) {
         requireAllNonNull(name, tags);
         this.name = name;
+        this.taskStatus = taskStatus;
         this.tags.addAll(tags);
+    }
+
+    // TODO add multiple constructors so that users can add aditional info later
+
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
     public Name getName() {

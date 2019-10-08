@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
@@ -19,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Edits the details of an existing task in the address book.
@@ -32,6 +34,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
@@ -83,9 +86,10 @@ public class EditCommand extends Command {
         assert taskToEdit != null;
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
+        TaskStatus updatedTaskStatus = editTaskDescriptor.getTaskStatus().orElse(taskToEdit.getTaskStatus());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
-        return new Task(updatedName,  updatedTags);
+        return new Task(updatedName, updatedTaskStatus, updatedTags);
     }
 
     @Override
@@ -112,6 +116,7 @@ public class EditCommand extends Command {
      */
     public static class EditTaskDescriptor {
         private Name name;
+        private TaskStatus taskStatus;
         private Set<Tag> tags;
 
         public EditTaskDescriptor() {}
@@ -122,6 +127,7 @@ public class EditCommand extends Command {
          */
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setName(toCopy.name);
+            setTaskStatus(toCopy.taskStatus);
             setTags(toCopy.tags);
         }
 
@@ -132,6 +138,13 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, tags);
         }
 
+        public void setTaskStatus(TaskStatus taskStatus) {
+            this.taskStatus = taskStatus;
+        }
+
+        public Optional<TaskStatus> getTaskStatus() {
+            return Optional.ofNullable(taskStatus);
+        }
         public void setName(Name name) {
             this.name = name;
         }
@@ -173,6 +186,7 @@ public class EditCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getName().equals(e.getName())
+                    && (getTaskStatus() == e.getTaskStatus())
                     && getTags().equals(e.getTags());
         }
     }

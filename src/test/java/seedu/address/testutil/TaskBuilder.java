@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -16,6 +17,7 @@ public class TaskBuilder {
     public static final String DEFAULT_NAME = "Sample Task Name";
 
     private Name name;
+    private TaskStatus taskStatus;
     private Set<Tag> tags;
 
     public TaskBuilder() {
@@ -40,6 +42,14 @@ public class TaskBuilder {
     }
 
     /**
+     * Sets the {@code TaskStatus} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Task} that we are building.
      */
     public TaskBuilder withTags(String ... tags) {
@@ -48,7 +58,7 @@ public class TaskBuilder {
     }
 
     public Task build() {
-        return new Task(name, tags);
+        return new Task(name, taskStatus, tags);
     }
 
 }
