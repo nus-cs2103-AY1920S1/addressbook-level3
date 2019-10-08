@@ -11,12 +11,15 @@ import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditTitleCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.parser.cli.DeleteCommandParser;
+import seedu.address.logic.parser.datamanagement.FindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.storage.CreateStudyPlanCommandParser;
+import seedu.address.logic.parser.verification.CheckCommandParser;
 
 /**
  * Parses user input.
@@ -47,9 +50,6 @@ public class ModulePlannerParser {
 
         case CreateStudyPlanCommand.COMMAND_WORD:
             return new CreateStudyPlanCommandParser().parse(arguments);
-
-        case EditTitleCommand.COMMAND_WORD:
-            return new EditTitleCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
