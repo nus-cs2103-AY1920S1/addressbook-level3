@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.vehicle.UniqueVehicleList;
+import seedu.address.model.vehicle.Vehicle;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueVehicleList vehicles;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,12 +28,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        vehicles = new UniqueVehicleList();
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Persons and Vehicles in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -48,12 +52,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the vehicle list with {@code vehicles}.
+     * {@code vehicles} must not contain duplicate vehicles.
+     */
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles.setVehicles(vehicles);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setVehicles(newData.getVehicleList());
     }
 
     //// person-level operations
@@ -93,11 +106,30 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// vehicle-level operation
+
+    /**
+     * Returns true if a vehicle with the same identity as {@code vehicle} exists in the address book.
+     */
+    public boolean hasVehicle(Vehicle vehicle) {
+        requireNonNull(vehicle);
+        return vehicles.contains(vehicle);
+    }
+
+    /**
+     * Adds a vehicle to the address book.
+     * The vehicle must not already exist in the address book.
+     */
+    public void addVehicle(Vehicle v) {
+        vehicles.add(v);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons" + "\n"
+                + vehicles.asUnmodifiableObservableList().size() + " vehicles";
         // TODO: refine later
     }
 
@@ -107,10 +139,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Vehicle> getVehicleList() {
+        return vehicles.asUnmodifiableObservableList();
+    }
+
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons) && vehicles.equals(((AddressBook) other).vehicles));
     }
 
     @Override

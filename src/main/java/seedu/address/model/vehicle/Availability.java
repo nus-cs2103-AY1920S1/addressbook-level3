@@ -16,7 +16,7 @@ public class Availability {
     public static final String VEHICLE_AVAILABLE_TAG = "AVAILABLE";
     public static final String VEHICLE_BUSY_TAG = "BUSY";
 
-    public String availability;
+    private String availability;
     /**
      * Constructs an {@code Availability}.
      *
@@ -25,7 +25,7 @@ public class Availability {
     public Availability(String d) {
         requireNonNull(d);
         checkArgument(isValidAvailability(d), MESSAGE_CONSTRAINTS);
-         this.availability = d.toUpperCase();
+        this.availability = d.toUpperCase();
     }
 
     /**
@@ -41,6 +41,10 @@ public class Availability {
      */
     public void setAvailability(Availability updatedAvailability) {
         this.availability = updatedAvailability.availability;
+    }
+
+    public String getAvailabilityTag() {
+        return this.availability;
     }
 
     @Override

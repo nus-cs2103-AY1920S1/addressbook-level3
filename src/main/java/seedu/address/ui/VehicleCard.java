@@ -43,7 +43,7 @@ public class VehicleCard extends UiPart<Region> {
         vehicleNumber.setText(vehicle.getVehicleNumber().vehicleNumber);
         vehicleType.setText(vehicle.getVehicleType().vehicleType);
         district.setText(vehicle.getDistrict().district);
-        availability.setText(vehicle.getAvailability().availability);
+        availability.setText(vehicle.getAvailability().getAvailabilityTag());
     }
 
     @Override
