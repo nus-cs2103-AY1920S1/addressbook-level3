@@ -45,7 +45,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_URL_DESC = " " + PREFIX_URL + "bob??yahoo"; // double '?'
-    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK; // empty string not allowed for remarks
+    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "t/ means tag"; // '/' not allowed in remarks
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

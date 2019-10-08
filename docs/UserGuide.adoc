@@ -82,7 +82,7 @@ Format: *`help`*
 
 Adds a bookmark to the bookmark manager.
 
-Format: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​`
+Format: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​ [r/REMARK]`
 
 ****
 * A bookmark can have any number of tags (including 0).
@@ -96,7 +96,9 @@ Examples:
 * `*add* u/this n/Homepage` +
 Bookmarks the current place and names it `Homepage`.
 Only valid if a web-page is currently being viewed.
-* `*add* u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T`
+* `*add* u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T r/Contains textbook & important deadlines` +
+Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
+The new bookmark's remark is "Contains textbook & important deadlines".
 * `*add* u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
 
 === Adding a new folder *`folder`*

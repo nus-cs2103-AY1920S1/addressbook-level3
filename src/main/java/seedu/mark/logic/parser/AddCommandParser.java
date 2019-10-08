@@ -31,14 +31,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_URL, PREFIX_REMARK, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_REMARK, PREFIX_URL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_URL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        // compulsory fields
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get());
-        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+
+        // optional fields
+        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(Remark.DEFAULT_VALUE));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Bookmark bookmark = new Bookmark(name, url, remark, tagList);

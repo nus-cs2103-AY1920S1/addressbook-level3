@@ -21,7 +21,7 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_URL + "URL "
-            + PREFIX_REMARK + "REMARK " // TODO: Make REMARK an optional field
+            + "[" + PREFIX_REMARK + "REMARK] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe " // TODO: Change AddCommand example

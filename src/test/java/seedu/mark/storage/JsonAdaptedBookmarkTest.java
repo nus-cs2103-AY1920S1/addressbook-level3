@@ -18,8 +18,8 @@ import seedu.mark.model.bookmark.Url;
 
 public class JsonAdaptedBookmarkTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_REMARK = " ";
     private static final String INVALID_URL = "exam?ple.com?";
+    private static final String INVALID_REMARK = "t/ means tag";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
