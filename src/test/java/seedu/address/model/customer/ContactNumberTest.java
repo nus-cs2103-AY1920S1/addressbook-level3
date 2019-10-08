@@ -15,12 +15,12 @@ public class ContactNumberTest {
 
     @Test
     public void constructor_invalidContactNumber_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        assertThrows(IllegalArgumentException.class, () -> new ContactNumber(invalidPhone));
+        String invalidContactNumber = "";
+        assertThrows(IllegalArgumentException.class, () -> new ContactNumber(invalidContactNumber));
     }
 
     @Test
-    public void isValidPhone() {
+    public void isValidContactNumber() {
         // null contact number
         assertThrows(NullPointerException.class, () -> ContactNumber.isValidContactNumber(null));
 
@@ -34,6 +34,5 @@ public class ContactNumberTest {
 
         // valid contact numbers
         assertTrue(ContactNumber.isValidContactNumber("93121534")); // exactly 8 numbers
-        assertTrue(ContactNumber.isValidContactNumber("124293842033123")); // long phone numbers
     }
 }
