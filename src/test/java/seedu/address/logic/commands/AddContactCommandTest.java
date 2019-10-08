@@ -10,10 +10,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
-
-import org.junit.jupiter.api.Test;
-
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -21,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -174,6 +173,47 @@ public class AddContactCommandTest {
 
         @Override
         public void setClaim(Claim target, Claim editedClaim) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public boolean hasIncome(Income income) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+            return false;
+        }
+
+        @Override
+        public void deleteIncome(Income target) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void addIncome(Income income) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void setIncome(Income target, Income editedIncome) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public ObservableList<Income> getFilteredIncomeList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredIncomeList(Predicate<Income> predicate) {
             /*
             FUNCTION TO BE EDITED
              */

@@ -34,12 +34,12 @@ public class Income {
     /**
      * Every field must be present and not null.
      */
-    public Income(Name name, Phone phone, Description description, Amount amount, Set<Tag> tags) {
+    public Income(Description description, Amount amount, Name name, Phone phone,  Set<Tag> tags) {
         requireAllNonNull(name, phone, description, amount, tags);
-        this.name = name;
-        this.phone = phone;
         this.description = description;
         this.amount = amount;
+        this.name = name;
+        this.phone = phone;
         this.tags.addAll(tags);
         this.dateAdded = new Date();
     }
