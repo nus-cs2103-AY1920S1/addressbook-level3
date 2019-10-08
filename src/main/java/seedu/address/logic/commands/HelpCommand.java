@@ -27,7 +27,8 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD + " cmd/add type/guide       "
             + "For more details, press F1 for list of available Commands and Types";
 
-    public static String helpMessage = "Opened help window.";
+    private static String helpMessage = "Opened help window.";
+
     private Type type;
     private SecondaryCommand command;
 
@@ -49,6 +50,14 @@ public class HelpCommand extends Command {
     private void resetCommandAndTypeValues() {
         type = null;
         command = null;
+    }
+
+    /**
+     * Gets the help message
+     */
+
+    public static String getHelpMessage() {
+        return helpMessage;
     }
 
     @Override
