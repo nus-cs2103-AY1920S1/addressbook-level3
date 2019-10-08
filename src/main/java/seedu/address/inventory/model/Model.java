@@ -18,7 +18,7 @@ public interface Model {
 
     void setItem(Item itemToEdit, Item editedItem) throws Exception;
 
-    boolean hasItem(Item item);
+    boolean hasItemInInventory(Item item);
 
     boolean hasSufficientQuantity(Item item, int quantity);
 
