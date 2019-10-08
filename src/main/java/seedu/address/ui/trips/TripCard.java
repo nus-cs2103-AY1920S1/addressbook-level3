@@ -38,9 +38,7 @@ public class TripCard extends UiPart<GridPane> {
     private void fillTripCardLabels() {
         tripDisplayIndexLabel.setText(displayedIndex.getOneBased() + "");
         tripNameLabel.setText(trip.getName().toString());
-        if(trip.getBudget().isPresent()) {
-            tripBudgetLabel.setText(trip.getBudget().get().toString());
-        }
+        tripBudgetLabel.setText(trip.getBudget().toString());
         tripDestinationLabel.setText(trip.getDestination().toString());
         tripStartDateLabel.setText(ParserDateUtil.getDisplayTime(trip.getStartDate()));
         tripEndDateLabel.setText(ParserDateUtil.getDisplayTime(trip.getEndDate()));
