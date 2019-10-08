@@ -8,7 +8,7 @@ import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Item} objects to be used in tests.
  */
 public class TypicalItems {
 
@@ -31,7 +31,7 @@ public class TypicalItems {
     private TypicalItems() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical items.
      */
     public static Xpire getTypicalExpiryDateTracker() {
         Xpire edt = new Xpire();

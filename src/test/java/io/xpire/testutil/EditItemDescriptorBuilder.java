@@ -11,7 +11,7 @@ import io.xpire.model.item.Name;
 import io.xpire.model.tag.Tag;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditItemDescriptor objects.
  */
 public class EditItemDescriptorBuilder {
 

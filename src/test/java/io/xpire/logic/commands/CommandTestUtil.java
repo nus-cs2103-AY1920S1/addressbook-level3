@@ -118,7 +118,7 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredItemList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the item at the given {@code targetIndex} in the
      * {@code model}'s expiry date tracker.
      */
     public static void showItemAtIndex(Model model, Index targetIndex) {
