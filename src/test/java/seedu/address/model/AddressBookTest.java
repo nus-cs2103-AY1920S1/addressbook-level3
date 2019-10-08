@@ -1,15 +1,19 @@
 package seedu.address.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -98,12 +102,10 @@ public class AddressBookTest {
         public ObservableList<Person> getPersonList() {
             return persons;
         }
-
+        
         @Override
-        public ObservableList<Income> getIncomeList() {
-            return incomes;
-        }
-      
+        public ObservableList<Income> getIncomeList() { return incomes; }
+
         @Override
         public ObservableList<Claim> getClaimList() {
             return claims;
