@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -23,33 +25,42 @@ public class TypicalFood {
 
     public static final Food ALICE = new FoodBuilder().withName("Alice Pauline")
             .withDescription("First Description.")
-            .withPrice("94351253")
+            .withPrice("94351253").withCategory("abc")
             .withTags("friends").build();
     public static final Food BENSON = new FoodBuilder().withName("Benson Meier")
             .withDescription("description abc123456").withPrice("98765432")
+            .withCategory("def")
             .withTags("owesMoney", "friends").build();
     public static final Food CARL = new FoodBuilder().withName("Carl Kurz").withPrice("95352563")
+            .withCategory("ghi")
             .withDescription("Description!@$%^&*()").build();
     public static final Food DANIEL = new FoodBuilder().withName("Daniel Meier").withPrice("87652533")
+            .withCategory("ijk")
             .withDescription("Daniel's Description?").withTags("friends").build();
     public static final Food ELLE = new FoodBuilder().withName("Elle Meyer").withPrice("9482224")
+            .withCategory("lmn")
             .withDescription("description").build();
     public static final Food FIONA = new FoodBuilder().withName("Fiona Kunz").withPrice("9482427")
+            .withCategory("opq")
             .withDescription("another description lydia@example.com").build();
     public static final Food GEORGE = new FoodBuilder().withName("George Best").withPrice("9482442")
+            .withCategory("rst")
             .withDescription("last description").build();
-
     // Manually added
     public static final Food HOON = new FoodBuilder().withName("Hoon Meier").withPrice("8482424")
+            .withCategory("uvx")
             .withDescription("new description").build();
     public static final Food IDA = new FoodBuilder().withName("Ida Mueller").withPrice("8482131")
+            .withCategory("yz")
             .withDescription("new description 2").build();
 
     // Manually added - Food's details found in {@code CommandTestUtil}
     public static final Food AMY = new FoodBuilder().withName(VALID_NAME_AMY).withPrice(VALID_PRICE_AMY)
-            .withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withDescription(VALID_DESCRIPTION_AMY).withCategory(VALID_CATEGORY_AMY)
+            .withTags(VALID_TAG_FRIEND).build();
     public static final Food BOB = new FoodBuilder().withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
-            .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withDescription(VALID_DESCRIPTION_BOB).withCategory(VALID_CATEGORY_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

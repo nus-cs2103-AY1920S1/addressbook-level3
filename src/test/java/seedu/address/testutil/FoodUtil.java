@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -32,6 +33,7 @@ public class FoodUtil {
         sb.append(PREFIX_NAME + food.getName().fullName + " ");
         sb.append(PREFIX_PRICE + food.getPrice().value + " ");
         sb.append(PREFIX_DESCRIPTION + food.getDescription().value + " ");
+        sb.append(PREFIX_CATEGORY + food.getCategory().category + " ");
         food.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -47,6 +49,8 @@ public class FoodUtil {
         descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));
         descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION)
                 .append(description.value).append(" "));
+        descriptor.getCategory().ifPresent(category -> sb.append(PREFIX_CATEGORY)
+                .append(category.category).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

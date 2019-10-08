@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -18,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.food.Category;
 import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
@@ -38,6 +40,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "91234567 "
@@ -93,9 +96,11 @@ public class EditCommand extends Command {
         Name updatedName = editFoodDescriptor.getName().orElse(foodToEdit.getName());
         Price updatedPrice = editFoodDescriptor.getPrice().orElse(foodToEdit.getPrice());
         Description updatedDescription = editFoodDescriptor.getDescription().orElse(foodToEdit.getDescription());
+        Category updatedCategory = editFoodDescriptor.getCategory().orElse(foodToEdit.getCategory());
         Set<Tag> updatedTags = editFoodDescriptor.getTags().orElse(foodToEdit.getTags());
 
-        return new Food(updatedName, updatedPrice, updatedDescription, updatedTags);
+        return new Food(updatedName, updatedPrice, updatedDescription,
+                updatedCategory, updatedTags);
     }
 
     @Override
@@ -124,6 +129,7 @@ public class EditCommand extends Command {
         private Name name;
         private Price price;
         private Description description;
+        private Category category;
         private Set<Tag> tags;
 
         public EditFoodDescriptor() {}
@@ -136,6 +142,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPrice(toCopy.price);
             setDescription(toCopy.description);
+            setCategory(toCopy.category);
             setTags(toCopy.tags);
         }
 
@@ -168,6 +175,14 @@ public class EditCommand extends Command {
 
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
+        }
+
+        public void setCategory(Category category) {
+            this.category = category;
+        }
+
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         /**
@@ -205,6 +220,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPrice().equals(e.getPrice())
                     && getDescription().equals(e.getDescription())
+                    && getCategory().equals(e.getCategory())
                     && getTags().equals(e.getTags());
         }
     }

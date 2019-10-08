@@ -2,6 +2,7 @@
   "foods": [ {
     "name": "food with invalid name field: Ha!ns Mu@ster",
     "price": "9482424",
-    "description": "hans@example.com"
+    "description": "hans@example.com",
+    "category": "hehexd"
   } ]
 }

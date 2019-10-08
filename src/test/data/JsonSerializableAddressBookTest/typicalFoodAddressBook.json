@@ -4,36 +4,43 @@
     "name" : "Alice Pauline",
     "price" : "94351253",
     "description" : "First Description.",
+    "category": "abc",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "price" : "98765432",
     "description" : "description abc123456",
+    "category": "def",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "price" : "95352563",
     "description" : "Description!@$%^&*()",
+    "category": "ghi",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "price" : "87652533",
     "description" : "Daniel's Description?",
+    "category": "ijk",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "price" : "9482224",
     "description" : "description",
+    "category": "lmn",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "price" : "9482427",
     "description" : "another description lydia@example.com",
+    "category": "opq",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "price" : "9482442",
     "description" : "last description",
+    "category": "rst",
     "tagged" : [ ]
   } ]
 }

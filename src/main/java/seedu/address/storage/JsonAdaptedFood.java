@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.food.Category;
 import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
@@ -26,6 +27,7 @@ class JsonAdaptedFood {
     private final String name;
     private final String price;
     private final String description;
+    private final String category;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,10 +36,12 @@ class JsonAdaptedFood {
     @JsonCreator
     public JsonAdaptedFood(@JsonProperty("name") String name, @JsonProperty("price") String price,
                            @JsonProperty("description") String description,
+                           @JsonProperty("category") String category,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.category = category;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,6 +54,7 @@ class JsonAdaptedFood {
         name = source.getName().fullName;
         price = source.getPrice().value;
         description = source.getDescription().value;
+        category = source.getCategory().category;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -89,10 +94,20 @@ class JsonAdaptedFood {
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
+
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
+        }
+        if (!Category.isValidCategory(category)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
+        }
+        final Category modelCategory = new Category(category);
+
         final Description modelDesciption = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(foodTags);
-        return new Food(modelName, modelPrice, modelDesciption, modelTags);
+        return new Food(modelName, modelPrice, modelDesciption, modelCategory, modelTags);
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
@@ -12,6 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -103,10 +105,12 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_FOOD;
         String userInput = targetIndex.getOneBased() + PRICE_DESC_BOB + TAG_DESC_HUSBAND
-                + DESCRIPTION_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+                + DESCRIPTION_DESC_AMY + NAME_DESC_AMY + CATEGORY_DESC_AMY
+                + TAG_DESC_FRIEND;
 
         EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPrice(VALID_PRICE_BOB).withDescription(VALID_DESCRIPTION_AMY)
+                .withCategory(VALID_CATEGORY_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -119,7 +123,8 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PRICE_DESC_BOB + DESCRIPTION_DESC_AMY;
 
         EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_BOB)
-                .withDescription(VALID_DESCRIPTION_AMY).build();
+                .withDescription(VALID_DESCRIPTION_AMY)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
