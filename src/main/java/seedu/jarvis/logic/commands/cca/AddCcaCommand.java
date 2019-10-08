@@ -7,7 +7,7 @@ import seedu.jarvis.model.Model;
 
 public class AddCcaCommand extends Command {
 
-    public static final String COMMAND_WORD = "cca";
+    public static final String COMMAND_WORD = "add-cca";
 
     @Override
     public boolean hasInverseExecution() {
