@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= guiltTrip() - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,17 +14,17 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Craving for a nice bowl of Mala but can’t seem to save up enough for it? guiltTrip() is the perfect platform for those *aspiring to be able to afford their Mala*, finally! More importantly, guiltTrip() is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, guiltTrip() can get your finance tracker tasks done faster than traditional GUI apps.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `guiltTrip().jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your guiltTrip.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listExpenditure`* : lists all expenditure
+* **`addAutoExpenditure`**` --freq month --desc drinks --amt 11.99 to the guiltTrip.
+* **`deleteExpenditure`**`3` : deletes the 3rd contact shown in the expenditure list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,132 +46,526 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [--desc <description>]`, `<description>` is a parameter which can be used as `addExpense --desc deck mala`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Expenses and Income
 
-Format: `help`
+==== Adding a expense: `addExpense`
+Adds a new expenditure to your total/daily/weekly/monthly spending with current timestamp. Inputs can be arranged in a different order. Description and tag may be omitted from the expenditure record.
 
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Format: `addExpense [--desc <description>] [--tag <tag>] --amt <expenditure>`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addExpense --desc deck mala --tag food --amt 5.60`
+* `addExpense --tag food --amt 5.60`
+* `addExpense --amt 5.60 --cat food`
+* `addExpense --amt 5.60`
 
-=== Listing all persons : `list`
+==== Editing a expense: `editExpense`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Edits a current expenditure with the given index number
 
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `editExpense <index> [--desc <description>] [--tag <tag>] [--amt <expenditure>]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editExpense 1 --desc deck mala with friends`
+* `editExpense 1 --tag mala --amt 5.33`
 
-=== Locating persons by name: `find`
+==== Deleting a expense: `deleteExpense`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Deletes the recorded expenditure with the given index number.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: `deleteExpense <index>`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `deleteExpense 2`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Adding AutoExpenditure : `addAutoExpenditure`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Adds an automatically recurring expenditure every day/week/month (frequency) with the given description and amount.
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `addAutoExpenditure --freq <frequency> --desc <description> --amt <expenditure> `
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `addAutoExpenditure --freq month --desc spotify --amt 11.99`
 
-// end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Listing AutoExpenditure : `listAutoExpenditure`
 
-=== Exiting the program : `exit`
+Lists all the current automatically recurring expenditures.
 
-Exits the program. +
-Format: `exit`
+Format: `editAutoExpenditure <index> [--freq <frequency>] [--desc <description>] [--amt <expenditure>]`
 
-=== Saving the data
+Examples:
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+* `listAutoExpenditure`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Deleting AutoExpenditure : `deleteAutoExpenditure`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Deletes a current automatically recurring expenditure at the given index.
+
+Format: `deleteAutoExpenditure <index>`
+
+==== Adding Income : `addIncome`
+
+Adds the amount to your total income. Inputs can be arranged in a different order. Description may be omitted from the income record.
+
+Format: `addIncome [--desc <description>] --amt <income amount>`
+
+Examples:
+
+* `addIncome --amt 6000`
+* `addIncome --amt 1000 --desc year-end bonus!! :DD`
+
+==== Editing Income : `editIncome`
+
+Edits a current income record at the given index number.
+
+Format: `editIncome <index> [--desc <description> --amt <income amount>] [--tag <tag>]`
+
+Examples:
+
+* `editIncome 1 --desc salary for feb`
+* `editIncome 1 --desc february --amt 6500 --tag salary`
+
+==== Deleting Income : `deleteIncome`
+
+Deletes the recorded income at the given index number.
+
+Format: `deleteIncome <index>`
+
+Examples:
+
+* `deleteIncome 3`
+
+==== Adding Budget : 'addBudget`
+
+Adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month
+
+Format: `addBudget --desc <description> --amt <budget> --period <period> [--tag <tag>]`
+
+Examples:
+
+* `addBudget --desc food budget --period day --amt 200 --tag food`
+* `addBudget --desc entertainment budget --amt 300`
+
+==== Listing Budget : 'listBudget`
+
+Lists all the current budgets the user has.
+
+Format: `listBudget`
+
+Examples:
+
+* `listBudget`
+
+==== Editing Budget : 'editBudget`
+Edits a current budget's description, amount or tag (if applicable) at the given index.
+
+Format: `editBudget --index <index> [--desc <description>] [--amt <budget>] [--tag <tag>]`
+
+Examples:
+
+* `editBudget 1 --desc fooooood budget`
+* `editBudget 2 --desc lunch budget --amt 150`
+* `editBudget 2 --tag fun`
+
+==== Deleting Budget : `deleteBudget`
+Deletes a current budget at the given index.
+
+Format: `deleteBudget <index>`
+
+Examples:
+
+* `deleteBudget 2`
+
+==== Adding a Loan : `addLoan`
+Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
+
+Format: `addLoan --desc <description> --amt <loan amount> --int <interest>`
+
+Examples:
+
+* `addLoan --desc student loan --amt 30000 --int 4.5`
+
+==== Listing a loan : `listLoan`
+Lists all the loans that the user has.
+
+Format: `listLoan`
+
+Example: `listLoan`
+
+==== Editing a loan : `editLoan`
+Edits a current loan's description, loan amount, or both.
+
+Format: `editLoan <index> [--desc <description>] [--amt <loan amount>] [--int <interest>]`
+
+Example:
+
+* `editLoan 1 --desc nus tuition loan T.T`
+* `editLoan 1 --amt 25000 --int 4.45%`
+
+==== Deleting a loan : `deleteLoan`
+
+Deletes a current loan at the given index.
+
+Format: `deleteLoan <index>`
+
+Example:
+
+* `deleteLoan 1`
+
+==== Paying a loan : `payLoan`
+
+Reduces the loan amount for the loan at the given index after user pays for part of the loan.
+
+Format: `payLoan <index> <amountPaid>`
+
+Example:
+
+* `payLoan 1 4000`
+
+=== Statistics
+
+==== Viewing History : `viewHistory`
+View past expenditure/ income from startDate to endDate (if present). If startDate not present, lists from 1 month before endDate. If endDate not present, list to current time.
+
+Format: `viewHistory -- cat <category> [--period <startDate>, <endDate>]`
+
+Example:
+
+* `viewHistory -- cat expenditure`
+* `viewHistory -- cat expenditure --period 11/9/2019, 21/9/2019`
+* `viewHistory -- cat income --period 11/9/2019`
+* `viewHistory -- cat expenditure --period ,2 21/9/2019`
+
+==== Sorting Time : `sortTime`
+
+List of expenditure/ income currently displayed by viewHistory will be sorted according to time in increasing/ decreasing order.
+
+Format: `sortTime order <ascending || descending>`
+
+Example:
+
+* `sortTime ascending`
+* `sortTime descending`
+
+==== Sorting Amount : `sortAmt`
+
+List of expenditure/ income currently displayed by viewHistory will be sorted according to amount in increasing/ decreasing order.
+
+Format: `sortAmt order <ascending || descending>`
+
+Example:
+
+* `sortAmt ascending`
+* `sortAmt descending`
+
+==== Search : `search`
+
+Search income/expenditure list/ wishlist for keyword/ tag.
+
+Format: `Search [--cat <category>] --key <keyword> || --amt <(== || < || > || <= || >=) amount> || --tag <tag>`
+
+Example:
+
+* `search --cat expenditure --key book: lists each entry in expenditure with title containing keyword “book”.`
+* `search --cat wishlist --key monitor: lists each entry in expenditure with title containing keyword “monitor”`
+* `search --key book: search everything in database with keyword “book”.`
+* `search --cat expenditure --tag _CLOTHING: lists each entry in expenditure with tag _CLOTHING.`
+* `search --cat wishlist  --tag _BOOK: lists each entry in wishlist with tag _BOOK.`
+* `search --cat expenditure --amt >100: list each entry in expenditure over $100.`
+
+=== Organization
+
+==== Creating Tags : 'createTag'
+Creates a Tag.
+
+Format: `createTag <category name>`
+
+Example:
+
+* `createTag income salary`
+* `createTag expense food`
+* `createTag wishList Nov`
+
+==== Listing Tags : 'listTags'
+List the list of Tags.
+
+Format: `listTags <keywords> --regex <regex>`
+
+Example:
+
+* `listTags important`
+* `listTags --regex .*important`
+
+==== Renaming Tags : 'renameTag'
+Rename the description of one tag.
+
+Format: `renameTag <oldname> <newname>`
+
+Example:
+
+* `renameTag food moreFood`
+
+==== Deleting Tags : 'deleteTag'
+Deletes the tag from the pool of tag. Tagged objects can be removed with -h flag.
+
+Format: `deleteTag <name> <-h || --hard>`
+
+Example:
+
+* `deleteTag food`
+* `deleteTag food -h`
+
+==== Resetting Record : 'reset'
+Resets records of expenditure/budget/income/loan.
+
+Format: `reset --before <DD/MM/YYYY> --after <DD/MM/YYYY> `
+
+Example:
+
+* `reset --after 27/1/1000 --before 28/1/1000` :nothing deleted
+* `reset --before 2/1/2019 # 1/1/2019 and earlier`
+
+=== Reminders
+
+==== List Reminders for Expenditure : `listExpenditureReminders`
+Lists all the expenditure reminders that the user has set.
+
+Format: `listExpenditureReminders`
+
+Example:
+
+* `listExpenditureReminders`
+
+==== List Reminders for WishList : `listWishlistReminders`
+Lists all the wishlist reminders that the user has set.
+
+Format: `listWishlistReminders`
+
+Example:
+
+* `listWishlistReminders`
+
+==== Set Reminder Date for Expenditure : `setExpenditureReminderDate`
+Set reminder to alert on certain date if app is running.
+
+Format: `setExpenditureReminderDate --index<index> --DateTime<DateTime>`
+
+Example:
+
+* `setReminders --index 2 --27/9/2019 1500`
+
+==== Add Reminder for Expenditure : `addExpenditureReminder`
+
+Set the current reminder limit to expenditureLimit, which will remind the user whenever he/she exceeds the amount. The limit refreshes according to <time>. Type will work on Categories/Tags To inform the user whenever he/she exceeds the limit for that tag.
+Format: `addExpenditureReminder --limit <expenditureLimit> --time <time> --type <type>`
+
+Example:
+
+* `addExpenditureReminder --limit 1900 --time weekly --type Food`
+
+==== Delete Reminder for Expenditure : `deleteExpenditureReminder`
+Deletes the Expenditure reminder that was at index in the list.
+
+Format: `deleteExpenditureReminder --index <index>`
+
+Example:
+
+* `deleteWishListReminder --index 3`
+
+==== Add Reminder for WishList : `addWishlistReminder`
+Set a reminder to inform user when they have saved the specified percentage towards their wishlist item that is located at the index in the wishlist. If percentage is not specified, the reminder is set with 80% as its default.
+
+Format: `addWishlistReminder --index <index> --percent [percentage]`
+
+Example:
+
+* `addWishlistReminder --index 2 --percent 100`
+
+==== Delete Reminder for WishList : `deleteWishlistReminder`
+Deletes the WishList reminder that was at index in the list.
+
+Format: `deleteWishListReminder --index <index>`
+
+Example:
+
+* `deleteWishListReminder --index 3`
+
+==== Edit Reminder : `editReminder`
+Edits the reminder that was at index <index> in the list. List will have two types of reminders, expenditure reminder and wishlist reminder.
+
+Format : `editReminder --type <type> --index <index> [--limit <expenditureLimit>] || [--time <time>]`
+
+Example :
+
+* `editReminder --type WishList --index 3 --percent 100`
+
+=== WishList
+
+==== Add WishList : `addWishlist`
+Adds a new item to your current wishlist
+
+Format: `addWishlist --name <name> --cat <category> --amt <price> --deadline <date>`
+
+Examples:
+
+* `addWishlist --name deck mala --cat food --amt 5.60`
+* `addWishlist --name deck mala --cat food --amt 5.60 --deadline 01/01/2020`
+
+==== Delete WishList : `deleteWishlist`
+Deletes the item at the stated index from your current wishlist
+
+Format: `deleteWishlist <Index>`
+
+Examples:
+
+* `deleteWishlist 3`
+
+==== Add Notes to WishList : `noteWishlist`
+Add notes to the item at the stated index in your current wishlist
+
+Format: `noteWishlist <index> <note>`
+
+Examples:
+* `noteWishlist 1 try the chinatown ri ri hong mala!`
+
+==== Add Tags to WishList : `tagWishlist`
+Tags the item at the stated index in your current wishlist with High/ Medium/ Low priority
+
+Format: `tag <index> <high/ medium/ low>`
+
+Examples:
+* `tagWishlist 1 high`
+
+==== View WishList: `viewWishlist`
+Displays your current wishlist
+
+Format: `viewWishlist`
+
+Example:
+
+* `viewWishList`
+
+==== Sort WishList by Time : `sortWishlistTime`
+Sort by date added from earliest to latest/ from latest to earliest
+
+Format: `sortWishlistTime <ascending/ descending>`
+
+Examples:
+
+* `sortWishlistTime ascending`
+* `sortWishlistTime descending`
+
+==== Sort WishList by Price : `sortWishlistPrice`
+Sort by price from lowest to highest/ from highest to lowest
+
+Format: `sortWishlistPrice <ascending/ descending>`
+
+Examples:
+
+* `sortWishlistPrice ascending`
+* `sortWishlistPrice descending`
+
+==== Sort WishList by Name : `sortWishlistName`
+Sort by name in alphabetical order/ reverse alphabetical order
+
+Format: `sortWishlistName <ascending/ descending>`
+
+Examples:
+
+* `sortWishlistName ascending`
+* `sortWishlistName descending`
+
+==== Sort WishList by Priority : `sortWishlistPriority`
+Sort by priority status from lowest to highest priority/ from highest to lowest priority
+Format: `sortWishlistPriority <ascending/descending>`
+Examples:
+
+* `sortWishlistPriority ascending`
+* `sortWishlistPriority descending`
+
+
+==== Search WishList : `searchWishList`
+Search wishlist for items containing keyword in their name/ notes +
+Format: `searchWishList <keyword>`
+Examples:
+
+* searchWishList mala
+
+==== Purchase WishList : `purchase`
+Purchases the item at the stated index from your current wishlist
+Format: `purchase <index>`
+
+Examples:
+* `purchase 1`
 
 == FAQ
+
+*Q*: When will the record of my expenditure be until?
+*A*: It can be as long as you want it to be until! If you want to delete a certain month’s expenditure, you can just call a command to
+do so.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+. Expenses and Income:
+.. addExpense [--desc <description>] [--tag <tag>] --amt <expenditure>
+.. editExpense <index> [--desc <description>] [--tag <tag] [--amt <expenditure>]
+.. deleteExpense <index>
+.. addAutoExpenditure --freq <frequency> --desc <description> --amt <expenditure>
+.. listAutoExpenditure
+.. editAutoExpenditure <index> [--freq <frequency>] [--desc <description>] [--amt <expenditure>]
+.. deleteAutoExpenditure <index>
+.. addIncome [--desc <description>] --amt <income amount>
+.. editIncome <index> [--desc <description> --amt <income amount>] [--tag <tag>]
+.. deleteIncome <index>
+.. addBudget --desc <description> --amt <budget> --period <period> [--tag <tag>]
+.. listBudget
+.. editBudget --index <index> [--desc <description>] [--amt <budget>] [--tag <tag>]
+.. deleteBudget <index>
+.. addLoan --desc <description> --amt <loan amount> --int <interest>
+.. listLoan
+.. editLoan <index> [--desc <description>] [--amt <loan amount>] [--int <interest>]
+.. deleteLoan <index>
+.. payLoan <index> <amountPaid>
+. Statistics:
+.. viewHistory -- cat <category> [--period <startDate>, <endDate>]
+.. sortTime order <ascending || descending>
+.. sortAmt order <ascending || descending>
+.. Search [--cat <category>] --key <keyword> || --amt <(== || < || > || <= || >=) amount> || --tag
+. Organisation:
+.. createTag <category name>
+.. listTags <keywords> --regex <regex>
+.. renameTag <oldname> <newname>
+.. deleteTag <name> <-h || --hard>
+.. reset --before <DD/MM/YYYY> --after <DD/MM/YYYY>
+. Reminders:
+.. listExpenditureReminders
+.. listWishlistReminders
+.. setExpenditureReminderDate --index<index> --DateTime<DateTime>
+.. addExpenditureReminder --limit <expenditureLimit> --time <time> --type <type>
+.. addWishlistReminder --index <index> --percent [percentage]
+.. deleteReminder <index>
+. Wishlist
+.. addWishlist --name <name> --cat <category> --amt <price> --deadline <date>
+.. deleteWishlist <Index>
+.. noteWishlist <index> <note>
+.. tag <index> <high/ medium/ low>
+.. viewWishlist
+.. sortWishlistTime <ascending/ descending>
+.. sortWishlistPrice <ascending/ descending>
+.. sortWishlistName <ascending/ descending>
+.. sortWishlistPriority <ascending/descending>
+.. search <keyword>
+.. purchase <index>
+.. importWishlist <file path>
