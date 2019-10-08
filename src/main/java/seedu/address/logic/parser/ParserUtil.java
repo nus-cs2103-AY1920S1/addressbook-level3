@@ -58,7 +58,7 @@ public class ParserUtil {
      * Checks whether or not the module is valid.
      * @throws ParseException if specified module is not valid.
      */
-    public static String checkModule(String module) throws ParseException {
+    public static String parseModule(String module) throws ParseException {
         // TODO: Check module against megaList to ensure that it is valid
         return module.trim();
     }
