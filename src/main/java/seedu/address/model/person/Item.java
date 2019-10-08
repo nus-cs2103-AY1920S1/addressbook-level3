@@ -28,7 +28,7 @@ public class Item {
      */
     private Item(Task task, Event event, Reminder reminder,
                  ItemDescription itemDescription, Set<Tag> tags) {
-        requireAllNonNull(itemDescription, tags);
+        requireNonNull(itemDescription);
         this.task = task;
         this.event = event;
         this.reminder = reminder;
@@ -82,28 +82,36 @@ public class Item {
     /**
      * Change ItemDescription
      */
-    public boolean setItemDescription(ItemDescription) {
-        ItemDescription
+    public Item changeItemDescription(ItemDescription newItemDescription) {
+        return ItemBuilder.setItemDescription(newItemDescription)
+                .set()
     }
 
     /**
      * Change Task referenced
      */
-    public boolean setTask(Task newTask) {
+    public Item changeTask(Task newTask) {
         ItemDescription
     }
 
     /**
      * Change Event referenced
      */
-    public boolean setEvent(Event newEvent) {
+    public Item changeEvent(Event newEvent) {
         ItemDescription
     }
 
     /**
      * Change Reminder referenced
      */
-    public boolean setReminder(Reminder newReminder) {
+    public Item changeReminder(Reminder newReminder) {
+        ItemDescription
+    }
+
+    /**
+     * Change Tags referenced
+     */
+    public Item changeTags(HashSet<Tag> newTags) {
         ItemDescription
     }
     
@@ -112,7 +120,7 @@ public class Item {
      * This defines a weaker notion of equality between two items.
      */
     public boolean hasSameTask(Item otherItem) {
-        return void;        
+        return getTask().equals(otherItem.getTask());     
     }
 
     /**
@@ -120,7 +128,7 @@ public class Item {
      * This defines a weaker notion of equality between two items.
      */
     public boolean hasSameEvent(Item otherItem) {
-
+        return getEvent().equals(otherItem.getEvent());
     }
 
     /**
@@ -128,7 +136,7 @@ public class Item {
      * This defines a weaker notion of equality between two items.
      */
     public boolean hasSameReminder(Item otherItem) {
-
+        return getReminder().equals(otherItem.getReminder());
     }
     
     /**
@@ -162,13 +170,16 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(" Tags: ");
+        builder.append("Description: ")
+                .append(itemDescription.toString())
+                .append(" Task: ")
+                .append(getTask().toString())
+                .append(" Event: ")
+                .append(getEvent().toString())
+                .append(" Reminder: ")
+                .append(getReminder().toString())
+                .append(" Tags: ")
+                .append(getTags().toString());
         getTags().forEach(builder::append);
         return builder.toString();
     }
@@ -204,7 +215,7 @@ public class Item {
             return this;
         }
         
-        public ItemBuilder setDescriptor(ItemDescription descriptor) {
+        public ItemBuilder setItemDescription(ItemDescription descriptor) {
             requireNonNull(descriptor);
             this.itemDescription = descriptor;
             return this;
