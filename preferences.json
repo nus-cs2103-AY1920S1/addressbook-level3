@@ -8,5 +8,6 @@
     }
   },
   "addressBookFilePath" : "data/addressbook.json",
-  "studentRecordFilePath" : "data/students.json"
+  "studentRecordFilePath" : "data/students.json",
+
 }
