@@ -88,7 +88,7 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered list of bodies */
     ObservableList<Body> getFilteredBodyList();
-  
+    
     //** Returns an unmodifiable view of the filtered list of fridges */
     // ObservableList<Fridge> getFilteredFridgeList();
 
