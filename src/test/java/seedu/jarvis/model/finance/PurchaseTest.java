@@ -12,7 +12,7 @@ import seedu.jarvis.model.financetracker.Purchase;
 public class PurchaseTest {
 
     @Test
-    public static void constructor_nullDescription_throwsNullPointerException() {
+    public void constructor_nullDescription_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Purchase(null, 0.0));
     }
 

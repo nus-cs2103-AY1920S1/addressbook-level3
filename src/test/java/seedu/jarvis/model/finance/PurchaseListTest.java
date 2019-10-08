@@ -5,6 +5,7 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.financetracker.Purchase;
@@ -15,41 +16,39 @@ import seedu.jarvis.model.financetracker.PurchaseList;
  */
 public class PurchaseListTest {
 
-    @Test
-    public static void getPurchase_normalInput_retrievedCorrectly() {
+    private PurchaseList p;
+
+    @BeforeEach
+    public void setUp() {
         ArrayList<Purchase> listPurchases = new ArrayList<>();
         listPurchases.add(new PurchaseStub());
-        PurchaseList p = new PurchaseList(listPurchases);
+        listPurchases.add(new PurchaseStub());
+        listPurchases.add(new PurchaseStub());
+        p = new PurchaseList(listPurchases);
+    }
+
+    @Test
+    public void getPurchase_normalInput_retrievedCorrectly() {
+
         assertEquals(new PurchaseStub().getDescription(), p.getPurchase(1).getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), p.getPurchase(1).getMoneySpent());
     }
 
     @Test
-    public static void addPurchase_normalInput_addedCorrectly() {
-        PurchaseList p = new PurchaseList(new ArrayList<>());
+    public void addPurchase_normalInput_addedCorrectly() {
         p.addSinglePurchase(new PurchaseStub());
         assertEquals(new PurchaseStub().getDescription(), p.getPurchase(1).getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), p.getPurchase(1).getMoneySpent());
-        assertEquals(1, p.getNumPurchases());
+        assertEquals(4, p.getNumPurchases());
     }
 
     @Test
-    public static void countNumPurchases_normalInput_addedCorrectly() {
-        ArrayList<Purchase> listPurchases = new ArrayList<>();
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        PurchaseList p = new PurchaseList(listPurchases);
+    public void countNumPurchases_normalInput_addedCorrectly() {
         assertEquals(3, p.getNumPurchases());
     }
 
     @Test
-    public static void deletePurchase_normalInput_deletedCorrectly() {
-        ArrayList<Purchase> listPurchases = new ArrayList<>();
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        PurchaseList p = new PurchaseList(listPurchases);
+    public void deletePurchase_normalInput_deletedCorrectly() {
         Purchase removedPurchase = p.deletePurchase(3);
         assertEquals(new PurchaseStub().getDescription(), removedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), removedPurchase.getMoneySpent());
@@ -57,32 +56,19 @@ public class PurchaseListTest {
     }
 
     @Test
-    public static void deletePurchase_indexNonexistent_throwsError() {
-        ArrayList<Purchase> listPurchases = new ArrayList<>();
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        PurchaseList p = new PurchaseList(listPurchases);
+    public void deletePurchase_indexNonexistent_throwsError() {
         assertThrows(IndexOutOfBoundsException.class, () -> p.deletePurchase(4));
         assertEquals(3, p.getNumPurchases());
     }
 
     @Test
-    public static void totalSpending_normalInput_addedCorrectly() {
-        ArrayList<Purchase> listPurchases = new ArrayList<>();
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        listPurchases.add(new PurchaseStub());
-        PurchaseList p = new PurchaseList(listPurchases);
-        assertEquals(30.0, p.totalSpending());
+    public void totalSpending_normalInput_addedCorrectly() {
+        assertEquals(15.0, p.totalSpending());
     }
 }
 
 class PurchaseStub extends Purchase {
     public PurchaseStub() {
-        super("test purchase", 5.00);
+        super("lunch at Saizerya", 5.00);
     }
 }

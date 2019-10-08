@@ -12,12 +12,12 @@ import seedu.jarvis.model.financetracker.Instalment;
 public class InstalmentTest {
 
     @Test
-    public static void constructor_nullDescription_throwsNullPointerException() {
+    public void constructor_nullDescription_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Instalment(null, 0.0));
     }
 
     @Test
-    public static void editInstalment_nullDescription_throwsNullPointerException() {
+    public void editInstalment_nullDescription_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new InstalmentStub2().editDescription(null));
     }
 }
