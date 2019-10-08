@@ -46,6 +46,15 @@ public class WebLinks {
         case "edit_income":
             return base + "#editing-an-income";
 
+        case "delete":
+            return base + "#deleting-a-person";
+
+        case "find":
+            return base + "#filter";
+
+        case "sort":
+            return base + "#sorting-claims-list-based-on-dates";
+
         default: return base;
         }
     }

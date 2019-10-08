@@ -32,10 +32,10 @@ public class BriefDescriptions {
         case "add_claim":
             return AddClaimCommand.MESSAGE_USAGE;
 
-        case  "add_contact":
+        case "add_contact":
             return AddContactCommand.MESSAGE_USAGE;
 
-        case  "add_income":
+        case "add_income":
             return AddIncomeCommand.MESSAGE_USAGE;
 
         case "delete":

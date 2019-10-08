@@ -21,7 +21,7 @@ public class HelpWindow extends UiPart<Stage> {
             + "Type List:\n"
             + "[brief] (gives a brief description)\n"
             + "[guide] (opens up our user guide on your browser) \n"
-            +"[api] (for advanced users who want to know the inner workings of the command) \n\n"
+            + "[api] (for advanced users who want to know the inner workings of the command) \n\n"
             + "Example: help cmd/add type/guide\n"
             + "For more information you can refer to the user guide by clicking on the button";
 

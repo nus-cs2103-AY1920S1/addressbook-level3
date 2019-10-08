@@ -14,10 +14,10 @@ import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.help.SecondaryCommand;
 import seedu.address.model.help.Type;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
 import seedu.address.model.tag.Tag;
 
 /**

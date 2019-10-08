@@ -18,7 +18,6 @@ public class SecondaryCommand {
     private static ArrayList<String> commandList = new ArrayList<String>(
             Arrays.asList("help",
                     "add_person",
-                    "clear",
                     "delete",
                     "edit_person",
                     "exit",
@@ -28,7 +27,8 @@ public class SecondaryCommand {
                     "add_income",
                     "edit_claim",
                     "edit_income",
-                    "goto"));
+                    "goto",
+                    "sort"));
 
     public final String value;
 
