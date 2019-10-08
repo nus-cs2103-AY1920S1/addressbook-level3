@@ -3,12 +3,8 @@ package seedu.address.logic.commands.note;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.question.QuestionEditCommand;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
-import seedu.address.model.question.McqQuestion;
-import seedu.address.model.question.OpenEndedQuestion;
-import seedu.address.model.question.Question;
 
 import java.util.HashMap;
 

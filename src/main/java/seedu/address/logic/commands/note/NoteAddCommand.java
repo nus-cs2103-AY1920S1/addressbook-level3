@@ -2,13 +2,8 @@ package seedu.address.logic.commands.note;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.question.QuestionAddCommand;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
-import seedu.address.model.question.McqQuestion;
-import seedu.address.model.question.OpenEndedQuestion;
-import seedu.address.model.question.Question;
-
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 

@@ -5,7 +5,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
-import seedu.address.model.question.Question;
 
 public class NoteDeleteCommand extends NoteCommand {
 

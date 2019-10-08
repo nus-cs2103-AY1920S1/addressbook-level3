@@ -1,9 +1,16 @@
 package seedu.address.logic.parser.note;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.note.*;
-import seedu.address.logic.commands.question.*;
-import seedu.address.logic.parser.*;
+import seedu.address.logic.commands.note.NoteAddCommand;
+import seedu.address.logic.commands.note.NoteCommand;
+import seedu.address.logic.commands.note.NoteDeleteCommand;
+import seedu.address.logic.commands.note.NoteEditCommand;
+import seedu.address.logic.commands.note.NoteListCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.HashMap;
