@@ -279,15 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* is a computer science student in NUS
-* is a visual learner that benefits from using flashcards
-* can benefit from better organization of notes
+* has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: integrate flashcards and note compilers for CS students better than a typical mouse/GUI driven app
+*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,67 +295,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |have as much information on hand as possible |get all the information I have collected and tagged as part of my revision and ensure that I have all the necessary information at hand.
+|`* * *` |user |add a new person |
 
-|`* * *` |user |save time in creating cheatsheet | spend more time on revision
+|`* * *` |user |delete a person |remove entries that I no longer need
 
-|`* * *` |user |tailor the information I have in my cheatsheet |choose which types of tags I want to include in my cheatsheet.
+|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* * *` |user |familiarise with some common programs from the pre-set flashcards in the question bank |learn more useful tips and snippets of information
+|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`* * *` |user |quickly store tutorial questions for revision |just store a screenshot of the question for future reference
-
-|`* * *` |user |lighten the weight of my bag |cure my back pain from carrying a heavy bag and still store my notes conveniently.
-
-|`* * *` |user |find my notes efficiently for reference |write as much notes as possible during studies without worries
-
-|`* * *` |user who constantly misplace notes |keep myself more organized |effectively see what notes are missing
-
-|`* * *` |user |sort and skim through long lists of notes quickly |take notes during class without missing out important pointers
-
-|`* * *` |user |take charge of my learning by having multiple “filters” or “levels” to my learning |be a proactive learner
-
-|`* * *` |user who is forgetful |practice spaced retention |better memorize and recall the topics
-
-|`* * *` |user |better understand or memorize the topics |improve my results
-
-|`* * *` |university educator teaching multiple modules |easily categorize and organize the notes I create for my students |easily search by the tags for relevant notes
-
-|`* *` |user |make cheatsheets from exams |organize and collate the best pointers to be made into a cheatsheet
-
-|`* *` |user |creatively create and implement notes |be more effective with my studies
-
-|`* *` |user |not take break for too long |be effective with my revision using the pomodoro technique
-
-|`* *` |user |have suggestions on what to do during breaks | be more productive and on-track with tasks
-
-|`* *` |user |make sure that my notes doesn’t miss out important points |collate and compare my notes with my friends’ efficiently
-
-|`* *` |user |be reminded at appropriate times to revise my work |revise regularly and consistently
-
-|`* *` |user |disseminate information efficiently |save the work amongst different teammates
-
-|`* *` |user |better understand or memorize the topics |improve my results
-
-|`* *` |user |connect different parts of questions together | easily link concepts together
-
-|`* *` |user |share notes with my friends and for them to share notes with me, for ease of discussion |be able to study with others
-
-|`* *` |user |answer the questions within a certain time frame |boost my confidence and proficiency in a subject
-
-|`* *` |user |keep track of the harder questions |revise more effectively
-
-|`* *` |university educator |keep track of my students' progress and evaluate who are the stronger/weaker students so they can help each other |help my students do well in their studies
-
-|`* *` |university educator |distribute the flashcards I create to my students so they can use them to practice |help my students better memorise and recall my class content
-
-|`* *` |university educator |give my students quizzes during lecture using the flashcards | make sure that they will not fall asleep during lecture.
-
-|`*` |user |download flashcards from online sources |save time for other revisions
-
-|`*` |user |create notes without papers | save the earth
-
+|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -365,226 +313,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `StudyBuddy` and the *Actor* is the `user`, unless specified otherwise)
-
-[discrete]
-=== *User story 1:*
-As a student who is busy with revision and has no time to create a cheatsheet, the cheatsheet
-generation feature will help me save time on creating cheatsheets and let me spend more time on revision.
-
-[discrete]
-=== Use case: UC01 – Create a cheatsheet
-
-Preconditions: StuddyBuddy application is opened
-
-*MSS*
-
-1.	User navigates to cheetsheat section.
-
-2.	User chooses to create new cheatsheet.
-
-3.	StuddyBuddy asks user for new cheatsheet’s title.
-
-4.	User inputs new cheatsheet’s title.
-
-5.	StuddyBuddy asks user for new cheatsheet’s module.
-
-6.	User inputs new cheatsheet’s module.
-
-7.	StuddyBuddy asks for new cheatsheet’s tags.
-
-8.	User inputs new cheatsheet’s tags.
-+
-Use case ends
-
-[discrete]
-=== Use case: UC02 – List cheatsheets
-
-Preconditions: StuddyBuddy application is opened
-
-*MSS*
-
-1.	User navigates to cheetsheat section.
-
-2.	User chooses to list all cheatsheet.
-
-3.	StudyBuddy displays all cheatsheets.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC03 – Edit a cheatsheet
-
-Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
-
-*MSS*
-
-1.	User navigates to cheetsheat section.
-
-2.	User chooses to edit cheatsheet.
-
-3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be edited.
-
-4.	User inputs cheatsheet ID.
-
-5.	StudyBuddy asks for parameters to be edited.
-
-6.	User inputs perimeters to be edited.
-
-7.	StudyBuddy displays edited cheatsheet.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC04 – View a cheatsheet
-
-Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
-
-*MSS*
-
-1.	User navigates to cheetsheat section.
-
-2.	User chooses to view cheatsheet.
-
-3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be viewed.
-
-4.	User inputs cheatsheet ID.
-
-5.	StudyBuddy displays cheatsheet.
-+
-Use case ends.
-
-=== Use case: User story 1
-
-*MSS*
-
-1.	User _creates cheatsheet (UC01)_.
-
-2.	User _views cheatsheet (UC04)_.
-+
-Use case ends.
-
-*Extensions*
-
-* 2a. User chooses to edit cheatsheet.
-+
-2a1. User _edits cheatsheet (UC03)_.
-
-{Fix indent}
-
-+
-Use case ends.
-
-[discrete]
-=== User story 2:
-As a student who finds it very cumbersome to store tutorial questions that I would like to revise, I can make use of the flashcard function to just store a screenshot of the question for future reference.
-
-[discrete]
-=== Use case: UC05 – Create a flashcard from image
-Software system: StudyBuddy, OS
-
-Preconditions: StudyBuddy application is opened
-
-*MSS*
-
-1.	User finds a tutorial question he/she would like to revise.
-
-2.	User takes screenshot of tutorial question.
-
-3.	OS asks user where screenshot should be saved.
-
-4.	User saves screenshot in designated StudyBuddy image folder with custom name.
-
-5.	User opens StudyBuddy application.
-
-6.	User navigates to flashcard section.
-
-7.	User chooses to create new flashcard from image source.
-
-8.	StudyBuddy asks user for file name.
-
-9.	User inputs file name.
-
-10.	StudyBuddy asks user for flashcard’s answer.
-
-11.	User inputs flashcard’s answer.
-
-12.	StudyBuddy asks user for flashcard’s title.
-
-13.	User inputs flashcard’s title.
-
-14.	StudyBuddy asks user for flashcard’s module.
-
-15.	User inputs flashcard’s module.
-
-16.	StudyBuddy displays created flashcard.
-+
-Use case ends.
-
-*Extensions*
-
-* 15a. User wants to input additional flashcard hint.
-
-15a1. User inputs flashcard’s hint.
-
-{Todo markup indent}
-
-+
-Use case resumes from step 16.
-
-* 15b. User wants to input additional flashcard tags.
-
-15a2. User inputs flashcard’s tags.
-
-{Todo markup indent}
-
-+
-Use case resumes from step 16.
-
-* 15c. User wants to input additional hint and tags.
-
-15c1. User inputs flashcard’s hint.
-
-15c2. User inputs flashcard’s tags.
-
-{Todo markup indent}
-
-+
-Use case resumes from step 16.
-
-[discrete]
-=== Use case: UC06 – Start <<time-trial,time trial>>
-
-*MSS*
-
-1.	User navigates to flashcard section.
-
-2.	User chooses to start time trial.
-
-3.	StudyBuddy asks user for time per flashcard.
-
-4.	User inputs time per flashcard.
-
-5.	StudyBuddy asks user for tags to select flashcards for inclusion.
-
-6.	User inputs tags.
-
-7.	StudyBuddy starts time trial with specified parameters.
-+
-Use case ends.
-
-[discrete]
-=== Use case: User story 2
-
-*MSS*
-
-1.	User _creates flashcards from image (UC05)_ with tag “tutorial questions”.
-
-2.	User _starts time trial (UC06)_ with tag “tutorial questions”.
-+
-Use case ends.
-
-{Todo delete later}
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -618,10 +347,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  A flashcard cannot have more than 10 tags.
-.  The product is not required to confirm if the user has answered the flashcard correctly. Instead, the product lets the user checks the answer and determine himself/herself if he/she has answered it correctly.
-.  The in-built flashcard library is expected to be updated annually, to follow the curriculum of NUS computing modules.
-.  The command-line syntax should prioritise user-friendliness.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -631,15 +358,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[flash-card]] FlashCard::
-A titled digital 'card' that contains a question (image or text), answer, as well as it's relevant tags.
-
-[[cheat-sheet]] Cheatsheet::
-A document that contains the notes the user has specified during creation
-
-[[time-trial]] Time-Trial::
-A mode of answering flashcards in which you must provide the answer within a deisgnated time period.
-
+[[private-contact-detail]] Private contact detail::
+A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
@@ -703,4 +423,5 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
 

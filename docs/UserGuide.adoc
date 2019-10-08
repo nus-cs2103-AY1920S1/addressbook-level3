@@ -32,26 +32,55 @@ manage their studies efficiently and faster than traditional GUI apps.
 <NOT IN DRAFT>
 
 
-== Command Format
+== Command Format / Rules
+
+Things noted here are standardization of the User Guide.
+These points are absolute, unless stated otherwise in the specific section(s).
 
 ****
-** Words in `UPPER_CASE` are the parameters to be supplied by the user
-e.g. in `add <n/NAME>`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* All commands are written in ENGLISH with no weird symbols.
 
-** Items in square brackets are optional
-e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+E.g. `add <t/TITLE>` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
 
-** Items with `…`​ after them can be used multiple times including zero times
-e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional.
+E.g `t/TITLE [t/TAG]` can be used as `t/Midterm note t/exam` or as `t/Midterm`.
+
+* Items with `...`​ after them can be used multiple times including zero times.
+E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family`
+
+* All flashcards, notes, cheatsheets objects will be given a unique `id` on creation.
+
+* All flashcards, notes, cheatsheets objects can have a maximum of 5 `TAG` each.
+
+* All `MODULE` parameters are a `TAG`.
+
+* In EDITING (`edit`):
+    ** All optional fields provided, except `t/TAG`, will overwrite their relevant fields.
+    ** `t/TAG` optional field, will be added to the flashcard, if they do not already exist.
+
+* In DELETING (`delete`), Confirmation reply of `y` or `n` has to be given, else no objects is deleted.
+    ** `y` indicates `YES` and notes will be deleted.
+    ** `n` indicates `NO` and notes will not be deleted.
+
+* Any indexes (`id`) must be positive integer (e.g. 1, 2, 3, ...).
+The indexes refers to the index number shown in the displayed list of objects (e.g. flashcards, notes, cheatsheets, tags).
+
+* Only exact matches of any searches will be returned.
+E.g. "noted" will return "noted" but not "note" or "notes"
+
+* All searches are case insensitive.
+E.g. 'cs2103t' will match 'CS2103T'
+
 ****
 
 == Global Commands
 
-=== Getting into Flashcard function: `fc`
+=== Getting into FiveFlash function: `ff`
 
-Brings the user to the Flashcard section, regardless of where the user is.
+Brings the user to the FiveFlash section, regardless of where the user is.
 
-    Format: fc
+    Format: ff
 
 === Getting into FiveNotes function: `fn`
 
@@ -59,276 +88,219 @@ Brings the user to the FiveNotes section, regardless of where the user is.
 
     Format: fn
 
+=== Getting into FiveCheat function: `fc`
+
+Brings the user to the FiveCheat section, regardless of where the user is.
+
+    Format: fc
+
+=== Listing tags: `tag list`
+
+Lists all the tags available in the application.
+
+    Format: tag list
+
+=== Editing tags: `tag edit`
+
+Replaces the existing tag with <TAG_ID> with <NEW_TAG_NAME> in the application.
+
+    Format: tag edit id/TAG_ID n/NEW_TAG_NAME
+
+=== Deleting tags: `tag delete`
+
+Deletes all tags from the application.
+
+    Format: tag delete [-c]
+
+* If `-c` is flagged, all contents tagged to the all tags are deleted.
+
 === Viewing Help: `help`
 
 Views the help session of all the functionality.
 
-    Format: help [-fc] [-fn]
+    Format: help [-fc] [-fn] [-ff]
 
-****
-* Only ONE of the optional fields can be provided in one command.
-* If `fc` flag is raised, returns the help section of the 'Flashcard' feature.
-* If `fn` flag is raised, returns the help section of the 'FiveNotes' feature.
-****
+* Only ONE of the optional fields can be provided in one command. E.g.
+    ** Correct commands: "help", "help -fc", "help -fn", "help -ff"
+    ** Wrong commands: "help -fc -fn", "help -fc -fn -ff"
+* If `fc` flagged, returns the help section of the 'FiveCheat' feature.
+* If `fn` flagged, returns the help section of the 'FiveNotes' feature.
+* If `ff` flagged, returns the help section of the 'FiveFlash' feature.
 
-== Flashcards
+== FiveFlash
 
 === Creating flashcards: `new`
+
+1. Creates a new flashcard from user input question <QUESTION> and answer <ANSWER>.
+
+   Format: new q/QUESTION a/ANSWER t/TITLE m/MODULE [h/HINT] [tag/TAG]...
+
+2. Creates a new flashcard from file input <FILE_NAME> and answer <ANSWER>.
+
+    Format: new f/<FILE_NAME> a/ANSWER t/TITLE m/MODULE [h/HINT] [tag/TAG]...
+
+* File must be in specified directory.
+* File input must be of type jpg.
+
 === Viewing flashcards: `view`
+
+Displays flashcard <FLASHCARD_ID> to user without answer.
+
+    Format: view id/FLASHCARD_ID [-h] [-a] [-tag]
+
+* `-h`, `-a` or `-tag` can be used after entering view flashcard mode to view flashcard's hint, answer or tags respectively.
+* View page displays flashcard title, module and question by default.
+
 === Editing flashcards: `edit`
+
+Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
+
+    Format: edit id/FLASHCARD_ID [m/MODULE] [q/NEW_QUESTION] [f/FILE_NAME] [a/ANSWER] [t/TITLE] [h/HINT] [tag/TAG]...
+
+* At least one of the optional fields must be provided.
+
 === Listing flashcards: `list`
+
+Lists all flashcards.
+
+   Format: list [tag/TAG]...
+
+* If more than one tag is specified, lists only flashcards which satisfy all specified tags.
+
 === Deleting flashcards: `delete`
+
+Deletes the flashcard with <FLASHCARD_ID> or flashcard(s) with specified tag(s).
+
+   Format: delete [id/FLASHCARD_ID] [tag/TAG]...
+
+* At least one of the optional fields must be specified.
+
 === Time Trial: `time`
+
+Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
+
+    Format: time [time/TIME] [tag/TAG]...
+
+* At least one tag must be specified.
+* If more than one tag is specified, selects only flashcards which satisfy all specified tags.
+* Default <TIME> will be 30 seconds, if not specified.
 
 == FiveNotes
 
-=== Creating notes: `add`
+=== Creating notes: `new`
 
-1. Adds a module named <MODULE_CODE> into the notes.
+Creates a notes with empty content, unless specified, under <MODULE> section.
 
-   Format: add mc/MODULE_CODE
-
-2. Adds a note with title <NOTE_TITLE> and content <NOTE_CONTENT> to the module <MODULE_CODE>.
-
-   Format: add mc/MODULE_CODE nt/NOTE_TITLE nc/NOTE_CONTENT
-
-=== Deleting notes: `delete`
-
-1. Deletes all notes from module <MODULE_CODE>.
-
-   Format: delete mc/MODULE_CODE
-
-2. Deletes the note with title <NOTE_TITLE> from module <MODULE_CODE>.
-
-   Format: delete <MODULE_CODE> <NOTE_TITLE>
-
-=== Listing notes: `list`
-
-1. Lists all modules user is taking in the current semester.
-If -a flag is raised, lists all modules found in the user's notes.
-
-   Format: list [-a]
-
-2. Lists all note titles from module <MODULE_CODE>.
-If <NOTE_TITLE> is given, returns all notes with title containing the given <NOTE_TITLE>.
-
-   Format: list mc/MODULE_CODE [nt/NOTE_TITLE]
-
-****
-* The search is case insensitive. e.g 'lab' will match 'Lab'
-* Partial words will also be matched e.g. 'lab' will match with 'the laboratory 4'
-* The order of the keywords does not matter. e.g. 'Lab 4' will match '4 Lab'
-* Note titles matching ALL keywords will be returned.
-e.g. 'lab 4' will return 'the lab 4 exercise', 'the lab 4' but will NOT return 'the lab exercise', 'the 4'
-****
+    Format: new m/MODULE [t/NOTE_TITLE] [c/NOTE_CONTENT] [tag/TAG]...
 
 === Editing notes: `edit`
 
-1. Opens up the note with title index <NOTE_TITLE_ID> from module <MODULE_CODE> for editing.
+Edits the specified note's title or content or tag(s).
 
-   Format: edit mc/MODULE_CODE nti/NOTE_TITLE_ID
+   Format: edit id/NOTE_ID [t/TITLE] [c/NOTE_CONTENT] [tag/TAG]...
 
-****
-* Title index MUST be positive integer (e.g. 1, 2, 3, ...). The title index refers to the index number shown in the displayed title list.
-* Only exact match of module code will be returned.
-* The search is case insensitive. e.g. 'cs2103t' will match 'CS2103T'
-****
+* At least one of the optional fields must be specified.
+
+=== Deleting notes: `delete`
+
+1. Deletes notes with specified <MODULE> or specified note with <NOTE_ID> or all notes.
+
+   Format: delete [m/MODULE] [id/NOTE_ID] [-a]
+
+* At least one of the optional fields must be specified.
+* If `a` is flagged, all notes will be deleted.
+
+2. Deletes specified tag(s) of note with <NOTE_ID>.
+
+    Format: delete id/NOTE_ID [tag/TAG]...
+
+* At least one tag must be specified.
+
+=== Viewing notes: `view`
+
+Views the note with <NOTE_ID>.
+
+    Format: view id/NOTE_ID
+
+=== Listing notes: `list`
+
+1. Lists all notes found in the user's notes.
+
+   Format: list [-m] [-t]
+
+* If `-m` flagged, lists all modules found in notes.
+* If `-t` flagged, lists all titles found in notes.
+
+2. Lists all notes from <MODULE>.
+
+   Format: list m/MODULE [-t]
+
+* If `-t` flagged, lists all titles found in notes.
+
+== FiveCheat
+
+=== Creating cheatsheets: `new`
+
+Creates a new cheatsheet with <TITLE> and <MODULE>.
+
+   Format: new t/TITLE m/MODULE [tag/TAG]...
+
+=== Editing cheatsheets: `edit`
+
+Edits cheatsheet's content with <CHEATSHEET_ID>, unless optional fields are specified.
+
+   Format: edit id/CHEATSHEET_ID [t/TITLE] [m/MODULE] [tag/TAG]...
+
+=== Deleting cheatsheets: `delete`
+
+1. Deletes cheatsheets with specified <MODULE> or specified cheatsheet with <CHEATSHEET_ID> or all cheatsheets.
+
+   Format: delete [m/MODULE] [id/CHEATSHEET_ID] [-a]
+
+* At least one of the optional fields must be specified.
+* If `-a` flagged, all cheatsheets will be deleted.
+
+2. Deletes specified tag(s) of cheatsheet with <CHEATSHEET_ID>.
+
+    Format: delete id/CHEATSHEET_ID [tag/TAG]...
+
+* At least one tag must be specified.
+
+=== Listing cheatsheets: `list`
+
+1. Lists all cheatsheets found in the user's notes.
+
+   Format: list [-m] [-t]
+
+* If `-m` flagged, lists all modules found in the user's cheatsheets.
+* If `-t` flagged, lists all titles found in the user's cheatsheets.
+
+2. Lists all cheatsheets from <MODULE>.
+
+   Format: list m/MODULE [-t]
+
+* If `-t` flagged, lists all titles found in the user's cheatsheets.
 
 == FAQ
 
 <NOT INCLUDED IN DRAFT>
 
+*Q*: Do I need to create a new tag before using the tag? +
+*A*: No, you do not need to. Tags, if not exist, are automatically created.
+
 == Command Summary
 
+<NOT INCLUDED IN DRAFT>
 
 == Mock-up User Interface
 
-image::UiMockUpDraft.png[width="790"]
+image::UiMockUp1.png[width="790"]
+image::UiMockUp2.png[width="790"]
+
+== Draft Workflow (To-be-removed)
+
+image::WorkflowDraft.png[width="790"]
 
 
 
-
-
-
-
-
-////
-= AddressBook Level 3 - User Guide
-:site-section: UserGuide
-:toc:
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-:experimental:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
-
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
-
-== Introduction
-
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
-
-== Quick Start
-
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
-
-[[Features]]
-== Features
-
-====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
-
-=== Viewing help : `help`
-
-Format: `help`
-
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-////
 
