@@ -155,8 +155,8 @@ public class SuggestingCommandBox extends CommandBox {
                 // the userCommandWord exactly matches a command, so we stop showing suggestions
                 filteredCommandSuggestions.setPredicate((commandWord) -> false);
             } else {
-                final Predicate<String> commandMatcher = SuggestingCommandUtil.createSequenceMatcher(userCommandWord);
-                filteredCommandSuggestions.setPredicate(commandMatcher);
+                final Predicate<String> fuzzyMatcher = SuggestingCommandUtil.createFuzzyMatcher(userCommandWord);
+                filteredCommandSuggestions.setPredicate(fuzzyMatcher);
             }
         });
     }

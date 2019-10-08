@@ -66,7 +66,7 @@ public class SuggestingCommandUtil {
      * @return A {@link Predicate} that checks if the candidate string contains the {@code input} characters
      * in the same order.
      */
-    public static Predicate<String> createSequenceMatcher(final String characterSequence) {
+    public static Predicate<String> createFuzzyMatcher(final String characterSequence) {
         requireNonNull(characterSequence);
 
         final String anyPrintableCharacter = "\\w*";
