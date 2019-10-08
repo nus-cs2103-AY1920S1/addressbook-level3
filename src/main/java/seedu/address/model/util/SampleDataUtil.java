@@ -48,13 +48,13 @@ public class SampleDataUtil {
     public static Vehicle[] getSampleVehicles() {
         return new Vehicle[] {
             new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SGS2121G"),
-                new District("16 Upper East Coast"), new Availability("AVAILABLE")),
+                new District(1), new Availability("AVAILABLE")),
             new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
-                new District("6 City Hall"), new Availability("BUSY")),
+                new District(6), new Availability("BUSY")),
             new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKTH1221P"),
-                new District("20 Ang Mo Kio"), new Availability("AVAILABLE")),
+                new District(20), new Availability("AVAILABLE")),
             new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
-                new District("8 Little India"), new Availability("BUSY"))
+                new District(8), new Availability("BUSY"))
         };
     }
 
