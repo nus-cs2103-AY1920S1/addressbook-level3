@@ -9,8 +9,11 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
 
 /**
@@ -112,6 +115,56 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasClaim(Claim claim) {
+        requireNonNull(claim);
+        return addressBook.hasClaim(claim);
+    }
+
+    @Override
+    public void deleteClaim(Claim target) {
+        addressBook.removeClaim(target);
+    }
+
+    @Override
+    public void addClaim(Claim claim) {
+        addressBook.addClaim(claim);
+        updateFilteredClaimList(PREDICATE_SHOW_ALL_CLAIMS);
+    }
+
+    @Override
+    public void setClaim(Claim target, Claim editedClaim) {
+        requireAllNonNull(target, editedClaim);
+
+        addressBook.setClaim(target, editedClaim);
+    }
+
+    @Override
+    public boolean hasIncome(Income income) {
+        requireNonNull(income);
+        return addressBook.hasIncome(income);
+    }
+
+    @Override
+    public void deleteIncome(Income target) {
+        addressBook.removeIncome(target);
+    }
+
+    @Override
+    public void addIncome(Income income) {
+        addressBook.addIncome(income);
+        updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
+    }
+
+    @Override
+    public void setIncome(Income target, Income editedIncome) {
+        requireAllNonNull(target, editedIncome);
+
+        addressBook.setIncome(target, editedIncome);
+    }
+
+
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -148,4 +201,33 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
+    public ObservableList<Claim> getFilteredClaimList() {
+        /*
+         FUNCTION TO BE EDITED
+         */
+        return null;
+    }
+
+    @Override
+    public void updateFilteredClaimList(Predicate<Claim> predicate) {
+        /*
+         FUNCTION TO BE EDITED
+         */
+    }
+
+    @Override
+    public ObservableList<Income> getFilteredIncomeList() {
+        /*
+         FUNCTION TO BE EDITED
+         */
+        return null;
+    }
+
+    @Override
+    public void updateFilteredIncomeList(Predicate<Income> predicate) {
+        /*
+         FUNCTION TO BE EDITED
+         */
+    }
 }

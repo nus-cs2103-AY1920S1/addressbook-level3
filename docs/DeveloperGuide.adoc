@@ -279,7 +279,8 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts and claims
+* has a need to manage a significant number of contacts, claim and income
+* has to keep track of the budget for an organisation
 * prefer desktop apps over other types
 * can type fast and prefers typing over mouse input
 * is reasonably comfortable using CLI apps
@@ -762,11 +763,17 @@ Use case ends.
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[[budget]]Budget::
+The total available budget of the organisation available for expenditure
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[income]]Income::
+An income made by a contact that contributes to the income
+
+[[claim]]Claim::
+A claim made by a contact that deducts from the income
+
+[[contact]]Contact::
+A contact who may be claiming from or contributing income to the budget
 
 [appendix]
 == Product Survey
