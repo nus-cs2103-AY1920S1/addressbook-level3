@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.statistic.Statistic;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -16,5 +17,15 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
+
+    /**
+     * Executes the statistic command and returns the result message.
+     * @param statistic {@codde Statistic} which the command should use to calculate on;
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
+    public CommandResult execute(Statistic statistic) throws CommandException {
+        return null;
+    };
 
 }

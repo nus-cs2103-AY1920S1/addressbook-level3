@@ -77,7 +77,9 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isShowStatistics() { return  showStatistics;}
+    public boolean isShowStatistics() {
+        return showStatistics;
+    }
 
     @Override
     public boolean equals(Object other) {

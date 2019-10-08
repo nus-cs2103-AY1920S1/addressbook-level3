@@ -273,10 +273,4 @@ public interface Model {
      */
     void updateFilteredScheduleList(Predicate<Schedule> predicate);
 
-
-    /**
-     * Generate the statistics a given book
-     */
-    String calculateStats() ;
-
 }
