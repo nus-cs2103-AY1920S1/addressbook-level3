@@ -1,0 +1,51 @@
+package seedu.address.cashier.util;
+
+import java.util.ArrayList;
+
+import seedu.address.cashier.model.exception.NoSuchIndexException;
+import seedu.address.cashier.model.exception.NoSuchItemException;
+import seedu.address.cashier.ui.CashierUi;
+import seedu.address.inventory.Item;
+
+public class InventoryList {
+
+    private static ArrayList<Item> iList;
+
+    public InventoryList() {
+        iList = new ArrayList<>();
+    }
+
+    public InventoryList(ArrayList<Item> iList) {
+        this.iList = iList;
+    }
+
+    public int getIndex(String description) throws NoSuchItemException {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).getDescription().equalsIgnoreCase(description)) {
+                return i;
+            }
+        }
+        throw new NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
+    }
+
+    public static Item getItem(Item i) throws NoSuchItemException {
+        if (iList.contains(i)) {
+            return i;
+        } else {
+            throw new NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
+        }
+    }
+
+    public static Item getItemByIndex(int index) throws NoSuchIndexException {
+        if (index >= iList.size()) {
+            throw new NoSuchIndexException(CashierUi.NO_SUCH_INDEX_CASHIER);
+        } else {
+            return iList.get(index);
+        }
+    }
+
+    public static int size() {
+        return iList.size();
+    }
+
+}
