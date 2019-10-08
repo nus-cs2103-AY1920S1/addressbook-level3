@@ -355,10 +355,19 @@ unless specified otherwise)
 +
 Use case ends.
 
+*Extensions*
 [none]
 * 1a. User specifies ordering method
++
 [none]
-** 2a1. System displays the list of appointments in specified order
+** 1a1. System displays the list of appointments in specified order
++
+Use case ends.
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
 
 //Jun Hao
 [discrete]
@@ -459,9 +468,35 @@ Use case resumes at step 2.
 
 [discrete]
 === Use case: (UC09) Undo previous command
+*MSS*
+
+1.  User requests to undo command
+2.  System reverts the appointment list to its previous state
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no previous command
++
+Use case ends.
 
 [discrete]
 === Use case: (UC10) Redo previous command
+*MSS*
+
+1.  User requests to redo command
+2.  System reverts the appointment list to its previous undone state
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no previous undone command
++
+Use case ends.
 
 // Updated by Kevin
 [discrete]
@@ -538,8 +573,17 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[secretary]] Secretary::
+a person employed by an individual or in an office to assist with correspondence, make appointments,
+and carry out administrative tasks.
+
+[[manager]] Manager::
+The person a secretary is assigned to work for particularly.
+
+[[appointment]] Appointment::
+An arrangement, managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
+
+
 
 [appendix]
 == Product Survey
