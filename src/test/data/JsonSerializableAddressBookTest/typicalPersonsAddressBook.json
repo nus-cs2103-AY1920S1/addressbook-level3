@@ -7,7 +7,7 @@
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "date of birth" : "12.12.1992",
-    "policies" : [ ["teenage insured", "teenage insured", "days/12", "$100"] ],
+    "policies" : [],
     "tagged" : [ "diabetic" ]
   }, {
     "name" : "Benson Meier",
@@ -16,7 +16,7 @@
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "date of birth" : "12.12.1922",
-    "policies" : [ ["SeniorCare", "SeniorCare", "months/12", "$1000" ],
+    "policies" : [],
     "tagged" : [ "smoker", "disabled" ]
   }, {
     "name" : "Carl Kurz",
@@ -34,12 +34,12 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "date of birth" : "14.2.2019",
-    "policies" : [ ["Infant Insurance", "Infant Insurance", "years/2", "$1000"] ],
+    "policies" : [],
     "tagged" : [ ]
   }, {
     "name" : "Elle Meyer",
     "nric" : "S000035J",
-    "phone" : "9482224",
+    "phone" : "94530193",
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "date of birth" : "17.5.2000",
@@ -48,7 +48,7 @@
   }, {
     "name" : "Fiona Kunz",
     "nric" : "S000002J",
-    "phone" : "9482427",
+    "phone" : "94824273",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "date of birth" : "15.8.2008",
@@ -57,7 +57,7 @@
   }, {
     "name" : "George Best",
     "nric" : "S000001J",
-    "phone" : "9482442",
+    "phone" : "94824423",
     "email" : "anna@example.com",
     "address" : "4th street",
     "date of birth" : "16.7.2017",
