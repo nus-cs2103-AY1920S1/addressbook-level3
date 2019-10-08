@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static seedu.address.logic.commands.EditClaimCommand.MESSAGE_DUPLICATE_CLAIM;
+import static seedu.address.logic.commands.EditIncomeCommand.MESSAGE_DUPLICATE_INCOME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
+
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -24,7 +27,9 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
+
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedClaim> claims = new ArrayList<>();
 
     /**
@@ -32,9 +37,11 @@ class JsonSerializableAddressBook {
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("incomes") List<JsonAdaptedIncome> incomes,
                                        @JsonProperty("claims") List<JsonAdaptedClaim> claims) {
         this.persons.addAll(persons);
         this.claims.addAll(claims);
+        this.incomes.addAll(incomes);
     }
 
     /**
@@ -44,6 +51,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
         claims.addAll(source.getClaimList().stream().map(JsonAdaptedClaim::new).collect(Collectors.toList()));
     }
 
@@ -61,6 +69,15 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
+        for (JsonAdaptedIncome jsonAdaptedIncome : incomes) {
+            Income income = jsonAdaptedIncome.toModelType();
+            if (addressBook.hasIncome(income)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_INCOME);
+            }
+            addressBook.addIncome(income);
+        }
+
         for (JsonAdaptedClaim jsonAdaptedClaim : claims) {
             Claim claim = jsonAdaptedClaim.toModelType();
             if (addressBook.hasClaim(claim)) {

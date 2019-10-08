@@ -43,5 +43,6 @@
     "address" : "4th street",
     "tagged" : [ ]
   } ],
+  "incomes": [ ],
   "claims" : [ ]
 }
