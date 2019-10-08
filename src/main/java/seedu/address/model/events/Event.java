@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import seedu.address.model.common.ReferenceId;
 
-//TODO: Stub models for now
 /**
  * Represents an event involving a single Person.
  * Guarantees: Reference Id to a person, the event timing and status are present, validated and immutable.

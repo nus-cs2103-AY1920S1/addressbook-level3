@@ -1,9 +1,9 @@
 package seedu.address.model.events;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -35,17 +35,9 @@ public class Timing {
     /**
      * Returns true if the start dateTime is before the end dateTime.
      */
-    public static boolean isValidTiming(String testStart, String testEnd) {
-        DateTime startDate = DateTime.tryParseSimpleDateFormat(testStart);
-        DateTime endDate = DateTime.tryParseSimpleDateFormat(testEnd);
-        return isValidTiming(startDate, endDate);
-    }
-
-    /**
-     * Returns true if the start dateTime is before the end dateTime.
-     */
     public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
-        return testStart != null && testEnd != null && testStart.getTime().before(testEnd.getTime());
+        requireAllNonNull(testStart, testEnd);
+        return testStart.before(testEnd);
     }
 
     public DateTime getStartTime() {
@@ -60,8 +52,10 @@ public class Timing {
      * Returns true if the another timing is staggering within the start or end dateTime.
      */
     public boolean conflictsWith(Timing other) {
-        return !(getEndTime().before(other.getStartTime())
-                    || other.getStartTime().before(getStartTime()));
+        requireNonNull(other);
+        return other != this
+                && getStartTime().before(other.getEndTime())
+                && other.getStartTime().before(getEndTime());
     }
 
     @Override
