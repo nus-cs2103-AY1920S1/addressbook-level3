@@ -14,12 +14,6 @@ public class DateTime {
         this.dateTime = dateTime;
     }
 
-    @Override
-    public String toString() {
-        return dateTime.toString();
-    }
-
-
     /**
      * Creates a new instance of DateTime according to the clock.
      *
@@ -28,7 +22,6 @@ public class DateTime {
     public static DateTime now() {
         return new DateTime(Instant.now());
     }
-
 
     /**
      * Computes the number of milliseconds between the calling instance of DateTime
@@ -41,5 +34,10 @@ public class DateTime {
      */
     public long msecsTimeUntil(DateTime futureTime) {
         return futureTime.dateTime.toEpochMilli() - this.dateTime.toEpochMilli();
+    }
+
+    @Override
+    public String toString() {
+        return dateTime.toString();
     }
 }
