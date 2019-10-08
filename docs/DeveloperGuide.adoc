@@ -549,35 +549,39 @@ Actor: User
 Use case ends.
 
 [discrete]
-
-=== Use case: UC09 - Add a new flashcard
+=== Use case: UC09 - Start a quiz on a tag
 
 Actor: User
 
+Precondition: The tag exists in the database
+
 *MSS*
 
-1.  User enters the question and answer of the flashcard to be added.
-2.  The new card will be added to the flashcard list.
-+
-Use case ends.
+1. User starts a quiz on a tag
+2. FlashMind shows a question
+3. User answers the question
+4. FlashMind displays result
+5. User confirms the result
+[none]
+* steps 2-5 are repeated until all the flashcard in the tag have been displayed.
+6. Quiz shows the results of the quiz
+
+Use case ends
 
 *Extensions*
+[none]
+* 3a. User does not give an answer
+[none]
+** 3a1. FlashMind waits for the set period
+** 3a2. User still has no answer
+** Use case resumes from step 4 (question is marked wrong)
 
 [none]
-* 1a. The given question format is invalid.
-+
+* *a. At any time, User decides to quit the quiz
 [none]
-** 1a1. FlashMind shows an error message.
-+
-Use case resumes at step 2.
-
-[none]
-* 1b. The given answer format is invalid.
-+
-[none]
-** 1b1. FlashMind shows an error message.
-+
-Use case resumes at step 1.
+** *a1. FlashMind  requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
+** use case ends
 
 [discrete]
 === Use case: UC10 - View all the available commands
@@ -645,43 +649,8 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-===
-Use case: UC09 - Start a quiz on a tag
-
-Actor: User
-
-Precondition: The tag exists in the database
-
-*MSS*
-
-1. User starts a quiz on a tag
-2. FlashMind shows a question
-3. User answers the question
-4. FlashMind displays result
-5. User confirms the result
-[none]
-* steps 2-5 are repeated until all the flashcard in the tag have been displayed.
-6. Quiz shows the results of the quiz
-
-Use case ends
-
-*Extensions*
-[none]
-* 3a. User does not give an answer
-[none]
-** 3a1. FlashMind waits for the set period
-** 3a2. User still has no answer
-** Use case resumes from step 4 (question is marked wrong)
-
-[none]
-* *a. At any time, User decides to quit the quiz
-[none]
-** *a1. FlashMind  requests to confirm the cancellation.
-** *a2. User confirms the cancellation.
-** use case ends
-
 [discrete]
-=== Use case: UC10 - Show progress of tag
+=== Use case: UC13 - Show progress of tag
 Actor: user
 
 Precondition: Tag exists in the system.
@@ -704,7 +673,6 @@ _{More to be added}_
 
 .  If the stored flashcard list is very long, all commands should still be executed at a fast speed, with minimal sluggishness.
 .  Should be able to minimize loss of stored flashcard information if the app closes due to unforeseen external circumstances.
-=======
 .  Command format should be easily understandable and intuitive to make it easier then using a GUI interface
 
 
