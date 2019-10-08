@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Dukemon - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,29 +14,39 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `SErebros`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Our project is a game that requires the user to match a keyword to a given description. This game aims to aid students who are trying to revise concepts and definitions in their schoolwork.
+
+The general flow of the program is as follows:
+
+1. Select and Edit Dataset
+2. Configure Settings
+3. Start and Play Game
+4. End Game
+5. Display Statistics
+
+The user manually stores definitions / vocabulary into a word dataset. He can also pre-load a word dataset given to him from a file. During the game, you will be tasked to type the correct word given the description. Depending on the game mode, there may also be time restrictions. Answer correctly as quickly as possible and to score as much as you can! You can view your statistics afterwards to review your performance!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `dukemon.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`/help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`/list`* : lists all data sets.
+* **`/start`** : starts the quiz.
+* **`/stop`** : stops the quiz
+* *`/exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,115 +56,219 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
+* All commands are typed with `/` in front of them to differentiate them from answers that the user puts in. `~` will be used as an escape character in case `/` is used as part of the answer.
+    - Eg, `~/help` will be intepreted by the computer as a string "/help" instead of the command `/help`.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Viewing help : `/help`
 
-Format: `help`
+Format: `/help`
 
-=== Adding a person: `add`
+=== Loading a data set : `/load`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Loads a data set from storage. +
+Format: `/load DATASET_NAME`
 
 [TIP]
-A person can have any number of tags (including 0)
+Use `/list` to get all data sets currently in your storage.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `/load List of animals`
+* `/load All gen 1 pokemon`
 
-=== Listing all persons : `list`
+=== Listing all data sets : `/list`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Shows a list of all data sets currently in storage. +
+Format: `/list`
 
-=== Editing a person : `edit`
+=== Viewing a data set's content : `/view`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Views the content of a data set. +
+Format: `/view DATASET_NAME`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Examples :
+
+* `/view Anatomy of the guitar`
+* `/view Steps in the krebs cycle`
+
+=== Editor mode : `/editor`
+
+Opens the in-app editor for managing data sets. All changes made in editor is automatically saved in storage. +
+Format: `/editor`
+
+==== Create new data set : `/new`
+
+Creates a new data set with specified name. Will automatically be set in edit mode for that data set. +
+Format: `/new DATASET_NAME`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `/new Parts of the arm`
+* `/new All amino acids`
 
-=== Locating persons by name: `find`
+==== Editing a data set's content : `/edit`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Enters edit mode for selected data set. +
+Format: `/edit DATASET_NAME`
+
+Examples:
+
+* `/edit List of animals`
+* `/edit Teeth`
+
+===== Adding a word : `/add`
+
+Adds a new word-description pair to the data set. +
+Format: `/add /w WORD /d DESCRIPTION`
+
+NOTE: Word can be more than just 1 word. Can consist of multiple words if term to remember requires it.
+
+Examples:
+
+* `/add /w Elephant /d Has a long nose`
+* `/add /w Newton's third law of motion /d Every action will produce and equal and opposite reaction`
+* `/add /w Kopi Luwak /d Coffee produced from the coffee beans found in the faeces of a civet cat`
+
+===== Locating a word/description: `/find`
+
+Finds entry whose word or description contain any of the given keywords. +
+Format: `/find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Both word and description will be searched
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find long` +
+Returns entries containing elephant and giraffe.
+* `find mammal fish bird` +
+Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or words.
 
 // tag::delete[]
-=== Deleting a person : `delete`
+===== Deleting a word : `/delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified word from the data set. +
+Format: `/delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the word at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+* `/list` +
+`/delete 2` +
+Deletes the 2nd word in the data set.
+* `/find elephant` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
+Deletes the 1st word in the results of the `/find` command.
 // end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Start new game session : `/start`
 
-=== Exiting the program : `exit`
+Starts a game session with the desired data set. +
+Format: `/start List of animals`
+
+=== Stop game session : `/stop`
+
+Stops current game session (all progress will be lost) and returns to the home page. +
+Format: `/stop`
+
+=== Viewing statistics : `/stats`
+
+Views and compares statistics. Can be specified to view stats for specific data sets. +
+Format: `/stats [DATASET_NAME]`
+
+Examples:
+
+* `/stats` +
+Returns overall statistics for the whole app.
+* `/stats List of animals` +
+Returns statistics for the data set `List of animals`.
+
+=== Changing settings : `/settings`
+
+Goes into the settings menu. +
+Format: `/settings`
+
+==== Changing the theme : `/theme`
+
+Changes the theme of the UI. +
+Format: `/theme dark/light`
+
+Examples:
+
+* `/theme dark` +
+Changes the UI theme to dark.
+* `/theme light` +
+Changes the UI theme to light.
+
+==== Turning hints on/off : `/hints`
+
+Turns hints on or off. +
+Format: `/hints on/off`
+
+Examples:
+
+* `/hints on` +
+Turns hints on.
+* `/hints off` +
+Turns hints off.
+
+==== Changing difficulty : `/difficulty`
+
+Changes the difficulty of the game. +
+Format: `/difficulty low/medium/high`
+
+Examples:
+
+* `/difficulty low` +
+Changes the difficulty to low. (Timer = 30 seconds)
+* `/difficulty medium` +
+Changes the difficulty to medium. (Timer = 20 seconds)
+* `/difficulty high` +
+Changes the difficulty to high. (Timer = 10 seconds)
+
+=== Navigating back : `/back`
+
+At any point in time, if there is a previous screen, navigates back to that screen. add home to navigate back to the home page. +
+Format: `/back [home]`
+
+Examples:
+
+* `/back`
+* `/back home`
+
+=== Exiting the program : `/exit`
 
 Exits the program. +
 Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Dukemon data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Leaderboard `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+View and compare your statistics with peers on the internet.
+
+=== User profiles `[coming in v2.0]`
+
+Have more than one account to monitor statistics on the same computer
 // end::dataencryption[]
 
 == FAQ
@@ -162,16 +276,38 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+*Q*: How do I pronounce your name? +
+*A*: Think Pokemon.
+
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Help* : `/help`
+* *Load* : `/load DATASET_NAME` +
+e.g. `/load List of animals`
+* *List* : `/list`
+* *View* : `/view DATASET_NAME` +
+e.g. `/view List of animals`
+* *Editor* : `/editor` +
+    ** *New* : `/new DATASET_NAME` +
+    e.g. `/new Car brands`
+    ** *Edit* : `/edit DATASET_NAME` +
+    e.g. `/edit List of animals`
+        *** *Add* : `/add /w WORD /d DESCRIPTION` +
+        e.g. `/add /w Elephant /d Has a long nose` +
+        e.g. `/add /w Giraffe /d Has a long neck`
+        *** *Find* : `/find WORD [WORDS]...` +
+        e.g. `/find long`
+        *** *Delete* : `/delete INDEX` +
+        e.g. `/delete 1`
+* *Start* : `/start DATASET_NAME` +
+e.g. `/start List of animals`
+* *Stop* : `/stop`
+* *Stats* : `/stats [DATASET_NAME]` +
+e.g. `/stats` +
+e.g. `/stats List of animals`
+* *Settings* : `/settings`
+    ** *Theme* : `/theme dark/light`
+    ** *Hints* : `/hints on/off`
+    ** *Difficulty* : `/difficulty low/medium/high`
+* *Back* : `/back [home]`
+* *Exit* : `/exit`

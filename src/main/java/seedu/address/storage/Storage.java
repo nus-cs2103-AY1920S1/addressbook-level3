@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ReadOnlyWordBank;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -25,6 +25,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException;
+
+    /*
+    Step 4.
+    Define method signature of readGame here.
+    Extends into concrete definition in StorageManager.java
+     */
 
     @Override
     void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;

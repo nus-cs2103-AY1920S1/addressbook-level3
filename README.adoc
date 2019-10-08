@@ -1,10 +1,9 @@
-= Address Book (Level 3)
+= Dukemon
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T11-2/main[image:https://travis-ci.org/AY1920S1-CS2103T-T11-2/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T11-2/main?branch=master[image:https://coveralls.io/repos/AY1920S1-CS2103T-T11-2/main/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://www.codacy.com/manual/kohyida1997/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2103T-T11-2/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/cd0b23e15b6a4fbca82036bdf5952fb1[Codacy Badge]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,20 +13,24 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* Dukemon is a desktop Flashcard style program designed to help YOU revise your work. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is a program intended to help *troubled students* revise definitions and important keywords that they encounter in their studies.
+* Subjects like Biology, Physics and Chemistry are especially compatible with our program. You will be able to create and save your own flashcards and datasets to test yourself.
+* The flow of the program is simple - the question appears and you type in the matching answer.
+* There are different game modes (Timed vs. Non-Timed, Hints vs. No-Hints) and difficulties that you can configure to challenge yourself.
+* You will also be able to keep track of your statistics and progress.
+* *SUPERCHARGE YOUR LEARNING NOW* and use *Dukemon* !
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
+* Adapted from source code of the AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]

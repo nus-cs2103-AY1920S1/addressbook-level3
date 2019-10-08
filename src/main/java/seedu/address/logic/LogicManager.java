@@ -7,12 +7,15 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GameCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 //import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyWordBank;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.card.Card;
 import seedu.address.storage.Storage;
 
@@ -25,22 +28,51 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    //private final AddressBookParser addressBookParser;
+    private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        //addressBookParser = new AddressBookParser();
+        /*
+        Step 9.
+        this.game = game //get from constructor
+         */
+        addressBookParser = new AddressBookParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult = null;
-        //Command command = addressBookParser.parseCommand(commandText);
-        //commandResult = command.execute(model);
+        CommandResult commandResult;
 
+        /*
+        Step 10.
+        Modify parseCommand()
+        2 user modes: Game mode and Normal mode
+        */
+        Command command = addressBookParser.parseCommand(commandText);
+
+        /*
+        Step 11.
+        Extends to Step 13 in Command.java
+
+        commandResult = command.execute(model, game);
+         */
+        commandResult = command.execute(model);
+        if (command instanceof GameCommand) {
+            //Game logic
+            commandResult = new GameLogic(model, (GameCommand) command).process();
+        } else {
+            //Non-game Logic
+            commandResult = command.execute(model);
+        }
+
+        /*
+        Step 12.
+        We save game here too.
+        Similar methods to saveAddressBook();
+         */
         try {
             storage.saveAddressBook(model.getWordBank());
         } catch (IOException ioe) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.WordBank;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.card.Card;
 
 /**

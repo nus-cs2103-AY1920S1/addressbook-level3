@@ -20,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.testutil.CardBuilder;
 
 public class WordBankTest {

@@ -46,6 +46,13 @@
           </padding>
         </StackPane>
 
+        <StackPane VBox.vgrow="NEVER" fx:id="timerDisplayPlaceholder" styleClass="pane-with-border"
+                   minHeight="50" prefHeight="50" maxHeight="50">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane>
+
         <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />

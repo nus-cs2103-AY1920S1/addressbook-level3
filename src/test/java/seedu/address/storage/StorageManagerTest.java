@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.ReadOnlyWordBank;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.WordBank;
+import seedu.address.model.wordbank.WordBank;
 
 public class StorageManagerTest {
 

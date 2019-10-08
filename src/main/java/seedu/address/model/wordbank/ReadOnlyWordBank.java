@@ -1,6 +1,7 @@
-package seedu.address.model;
+package seedu.address.model.wordbank;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
 
 /**
@@ -13,5 +14,9 @@ public interface ReadOnlyWordBank {
      * This list will not contain any duplicate cards.
      */
     ObservableList<Card> getCardList();
+
+    Card getCard(Index index);
+
+    int size();
 
 }

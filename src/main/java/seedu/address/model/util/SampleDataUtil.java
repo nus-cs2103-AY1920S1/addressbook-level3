@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.ReadOnlyWordBank;
-import seedu.address.model.WordBank;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Description;
 import seedu.address.model.card.Name;
@@ -36,7 +36,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyWordBank getSampleWordBank() {
+    public static WordBank getSampleWordBank() {
         WordBank sampleWb = new WordBank();
         for (Card sampleCard : getSampleCards()) {
             sampleWb.addCard(sampleCard);

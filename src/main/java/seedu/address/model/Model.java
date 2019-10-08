@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
+import seedu.address.model.game.Game;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 
 /**
  * The API of the Model component.
@@ -84,4 +86,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCardList(Predicate<Card> predicate);
+
+    void setGame(Game game);
+
+    Game getGame();
 }

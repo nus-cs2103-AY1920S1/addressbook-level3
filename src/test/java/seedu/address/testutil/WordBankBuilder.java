@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.WordBank;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.card.Card;
 
 /**

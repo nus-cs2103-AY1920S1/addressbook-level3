@@ -12,6 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
+import seedu.address.model.game.Game;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +25,19 @@ public class ModelManager implements Model {
     private final WordBank wordBank;
     private final UserPrefs userPrefs;
     private final FilteredList<Card> filteredCards;
+
+    //Placeholder game model
+    private Game game = null;
+
+
+    //Placeholder setGame method
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return this.game;
+    }
 
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
@@ -96,7 +112,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteCard(Card target) {
-        wordBank.removePerson(target);
+        wordBank.removeCard(target);
     }
 
     @Override

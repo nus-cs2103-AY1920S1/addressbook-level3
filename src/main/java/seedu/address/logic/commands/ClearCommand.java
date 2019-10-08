@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.Model;
-import seedu.address.model.WordBank;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * Clears the address book.

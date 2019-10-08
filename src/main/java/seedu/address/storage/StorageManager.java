@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ReadOnlyWordBank;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.UserPrefs;
 
 /**

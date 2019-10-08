@@ -1,10 +1,11 @@
-package seedu.address.model;
+package seedu.address.model.wordbank;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.UniqueCardList;
 
@@ -56,7 +57,7 @@ public class WordBank implements ReadOnlyWordBank {
         setCards(newData.getCardList());
     }
 
-    //// person-level operations
+    //// card-level operations
 
     /**
      * Returns true if a card with the same name as {@code card} exists in the word bank.
@@ -89,7 +90,7 @@ public class WordBank implements ReadOnlyWordBank {
      * Removes {@code key} from this {@code WordBank}.
      * {@code key} must exist in the word bank.
      */
-    public void removePerson(Card key) {
+    public void removeCard(Card key) {
         cards.remove(key);
     }
 
@@ -102,8 +103,18 @@ public class WordBank implements ReadOnlyWordBank {
     }
 
     @Override
+    public int size() {
+        return cards.size();
+    }
+
+    @Override
     public ObservableList<Card> getCardList() {
         return cards.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public Card getCard(Index index) {
+        return cards.get(index);
     }
 
     @Override

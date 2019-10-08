@@ -28,14 +28,21 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
+
     /**
      * Handles the Enter button pressed event.
      */
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
+            CommandResult commandResult = commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
+
+            if(commandResult.isPromptingGuess()) {
+                commandTextField.setText("guess ");
+                commandTextField.positionCaret(6);
+            }
+
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }

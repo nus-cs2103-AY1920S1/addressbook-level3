@@ -31,6 +31,11 @@ public class Index {
         return zeroBasedIndex + 1;
     }
 
+    public void increment() {
+        ++zeroBasedIndex;
+    }
+
+
     /**
      * Creates a new {@code Index} using a zero-based index.
      */

@@ -279,13 +279,12 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* wants to learn new English words or definitions
 * can type fast
-* prefers typing over mouse input
+* enjoys games
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: gamify learning experiences
 
 [appendix]
 == User Stories
@@ -295,17 +294,58 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |teacher |add, edit, and delete questions in the word banks |make corrections on what my students are supposed to learn
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |teacher |give customised word banks and definitions |can let my students practice specific problems.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |list all my word banks |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |give titles to word banks |recognise them better
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |delete word banks |free up some memory when I don’t need it anymore
+
+|`* * *` |user |see the content of the word bank |study beforehand/make changes
+
+|`* * *` |young student |trivia questions to be gamified |enjoy the process
+
+|`* * *` |student |create my own question banks |tailor fit to my learning
+
+|`* * *` |computer science student |have a manual of the commands available |refer to them when I am lost
+
+|`* *` |frequent user |easily access my most recently attempted question sets |can quickly resume my revision
+
+|`* *` |studious student |set and complete goals |have something to work towards
+
+|`* *` |student |see my test statistics |track my progress/improvement
+
+|`* *` |student |choose different kinds of time constraints |can simulate exam conditions
+
+|`* *` |student |categorise my question sets |easily look for relevant materials
+
+|`* *` |student |mark question sets as important/urgent |know how to prioritise my revision
+
+|`* *` |module coordinator |export lessons |send to their students
+
+|`* *` |student |share and compare my results with my classmates |know where I stand
+
+|`* *` |student |partition the trivia |attempt questions that I'm comfortable with
+
+|`* *` |weak student |have the option to see hints |won’t get stuck all the time
+
+|`* *` |computer science student |practise typing bash commands into the CLI |strengthen my bash skills
+
+|`* *` |teacher |export statistics |can compare performance across different students
+
+|`*` |computer science student |customize my “terminal” |changing themes/ background/ font size/ font colour, so that I feel comfortable working on it
+
+|`*` |teacher |protect tests with passwords |let my students do them in lessons together when password is released
+
+|`*` |teacher |protect the files |doesn't get tampered when distributing to students
+
+|`*` |student |have smaller sized files |have more space on my computer
+
+
 |=======================================================================
 
 _{More to be added}_
@@ -347,8 +387,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Users can export and import their <<word-bank,word banks>> or statistics.
 
 _{More to be added}_
 
@@ -360,6 +400,9 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[word-bank]] Word Bank::
+A list of word-description pair that either the user can create himself or import from.
 
 [appendix]
 == Product Survey

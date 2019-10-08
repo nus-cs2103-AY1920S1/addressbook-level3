@@ -24,7 +24,7 @@ package seedu.address.logic;
 //import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.model.Model;
 //import seedu.address.model.ModelManager;
-//import seedu.address.model.ReadOnlyWordBank;
+//import seedu.address.model.wordbank.ReadOnlyWordBank;
 //import seedu.address.model.UserPrefs;
 //import seedu.address.model.card.Card;
 //import seedu.address.storage.JsonAddressBookStorage;
