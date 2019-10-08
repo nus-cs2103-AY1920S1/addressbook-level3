@@ -8,6 +8,9 @@ import seedu.address.logic.commands.arguments.ArgumentBuilder;
 import seedu.address.logic.commands.arguments.VariableArguments;
 import seedu.address.logic.commands.arguments.VariableArgumentsBuilder;
 
+/**
+ * Represents an object that builds {@link Option}.
+ */
 public class OptionBuilder {
 
     private final List<Argument> arguments;

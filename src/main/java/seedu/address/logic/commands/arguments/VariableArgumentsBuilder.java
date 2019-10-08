@@ -2,6 +2,10 @@ package seedu.address.logic.commands.arguments;
 
 import java.util.List;
 
+/**
+ * Represents an object that builds variable arguments.
+ * @param <T> the type of variable arguments to build
+ */
 public abstract class VariableArgumentsBuilder<T> {
 
     private final String description;
@@ -16,6 +20,10 @@ public abstract class VariableArgumentsBuilder<T> {
         return this.argument.getValues();
     }
 
+    /**
+     * Builds the variable arguments.
+     * @return the built variable arguments
+     */
     public VariableArguments<T> build() {
         this.argument = argumentBuild();
         return this.argument;
