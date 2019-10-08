@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1" VBox.vgrow="ALWAYS">
+    <rowConstraints>
+        <RowConstraints vgrow="ALWAYS" valignment="TOP"/>
+        <RowConstraints vgrow="NEVER" valignment="BOTTOM"/>
+    </rowConstraints>
+    <children>
+        <StackPane VBox.vgrow="ALWAYS" styleClass="stack-pane" GridPane.rowIndex="0">
+            <ScrollPane fx:id="dialogScrollPane" hbarPolicy="NEVER" fitToWidth="true">
+                <content>
+                    <VBox fx:id="dialogContainer" />
+                </content>
+            </ScrollPane>
+        </StackPane>
+
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="stack-pane"
+                   GridPane.rowIndex="1">
+            <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+        </StackPane>
+    </children>
+</GridPane>

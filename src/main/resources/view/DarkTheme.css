@@ -213,7 +213,7 @@
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 5 22 5 22;
+    -fx-padding: 5 15 5 15;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
@@ -349,4 +349,37 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-spacing: 15;
+    -fx-pref-width: 400;
+    -fx-background-color: #383838;
+}
+
+.dialog-box > .message-content {
+    -fx-padding: 10 10 10 10;
+    -fx-border-radius: 13;
+    -fx-background-radius: 13;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+    -fx-font-family: "Segoe UI Light";
+}
+
+.dialog-box > .response-dialog {
+    -fx-text-fill: #EEEEEE;
+    -fx-background-color: #6890BC;
+}
+
+.dialog-box > .command-dialog {
+    -fx-text-fill: #DDDDDD;
+    -fx-background-color: #666666;
 }
