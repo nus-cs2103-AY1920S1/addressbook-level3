@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TravelPalBuilder;
 
 public class ModelManagerTest {
 
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        TravelPal travelPal = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        TravelPal travelPal = new TravelPalBuilder().withPerson(ALICE).withPerson(BENSON).build();
         TravelPal differentTravelPal = new TravelPal();
         UserPrefs userPrefs = new UserPrefs();
 

@@ -142,7 +142,7 @@ public class Day {
      * Builder class to accommodate optional properties using builder pattern.
      * Can be used to construct {@link Day} without optional fields.
      */
-    private static class Builder {
+    public static class Builder {
         private Name name;
         private LocalDateTime startDate;
         private LocalDateTime endDate;
@@ -156,7 +156,21 @@ public class Day {
         }
 
         private Builder(){
+            eventList = new EventList();
         }
+
+        public static Builder of (Day day){
+            requireAllNonNull(day.name, day.startDate, day.endDate, day.destination);
+            return Builder.newInstance()
+                    .setName(day.getName())
+                    .setStartDate(day.startDate)
+                    .setEndDate(day.endDate)
+                    .setLocation(day.destination)
+                    .setTotalBudget(day.totalBudget)
+                    .setDescription(day.description)
+                    .setEventList(day.eventList);
+        }
+
 
         public Builder setName(Name name){
             this.name = name;

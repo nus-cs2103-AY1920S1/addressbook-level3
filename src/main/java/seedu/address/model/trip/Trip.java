@@ -174,6 +174,7 @@ public class Trip {
         }
 
         private Builder(){
+            dayList = new DayList();
         }
 
         public Builder setName(Name name){
