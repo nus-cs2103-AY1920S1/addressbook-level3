@@ -21,12 +21,12 @@ public class Profile extends UiPart<Region> {
     private Label name;
 
     @FXML
-    private Label asl;
+    private Label description;
 
-    public Profile(Image img, String name, String asl) {
+    public Profile(Image displayPicture, String name, String description) {
         super(FXML);
-        displayPicture.setImage(img);
+        this.displayPicture.setImage(displayPicture);
         this.name.setText(name);
-        this.asl.setText(asl);
+        this.description.setText(description);
     }
 }

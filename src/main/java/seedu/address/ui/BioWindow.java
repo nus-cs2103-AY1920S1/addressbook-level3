@@ -157,7 +157,7 @@ public class BioWindow extends UiPart<Stage> {
         ObservableList<BioTableFieldDataPair> list = FXCollections.observableArrayList();
         list.addAll(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath, bgColour, fontColour, myGoals);
 
-        profile = new Profile(img, "Amy", "79 years old, Female\n\nBlk 123 Example Road\n#12-34\nS(612345)");
+        profile = new Profile(img, "Amy", "If at first you don't succeed, call it version 1.0.\n-Anonymous");
         profilePlaceholder.getChildren().add(profile.getRoot());
 
         bioTable = new BioTable();
