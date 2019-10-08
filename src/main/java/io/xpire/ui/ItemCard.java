@@ -35,6 +35,8 @@ public class ItemCard extends UiPart<Region> {
     @FXML
     private Label expiryDate;
     @FXML
+    private Label quantity;
+    @FXML
     private FlowPane tags;
 
     public ItemCard(Item item, int displayedIndex) {
@@ -43,6 +45,7 @@ public class ItemCard extends UiPart<Region> {
         this.id.setText(displayedIndex + ". ");
         this.name.setText(item.getName().toString());
         this.expiryDate.setText(item.getExpiryDate().toString());
+        this.quantity.setText("Quantity: " + item.getQuantity().toString());
         item.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.getTagName()))
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
