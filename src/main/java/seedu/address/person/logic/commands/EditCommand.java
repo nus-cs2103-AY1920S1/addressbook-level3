@@ -87,10 +87,12 @@ public class EditCommand extends Command {
 
         if (editPersonDescriptor.getName().isPresent()) {
             try {
-                for (int i = 0; i < transactionLogic.getTransactionListFromFile().size(); i++) {
-                    Transaction transaction = transactionLogic.getTransactionListFromFile().get(i);
-                    logger.info(transaction.getPerson().toString());
-                    logger.info(personToEdit.toString());
+                int max = transactionLogic.getTransactionList().size();
+                for (int i = 0; i < max; i++) {
+                    Transaction transaction = transactionLogic.getTransactionList().get(i);
+                    logger.info("curr transaction person: " + transaction.getPerson().toString());
+                    logger.info("person I need to edit: " + personToEdit.toString());
+                    logger.info("" + max);
                     if (transaction.getPerson().equals(personToEdit)) {
                         Transaction transaction1 = new Transaction(transaction.getDate(),
                                 transaction.getDescription(), transaction.getCategory(),
@@ -100,7 +102,7 @@ public class EditCommand extends Command {
                     }
                 }
             } catch (Exception e) {
-                logger.severe("Throws IOException for edit command");
+                logger.info("Throws Exception for edit command.");
             }
         }
         model.setPerson(personToEdit, editedPerson);

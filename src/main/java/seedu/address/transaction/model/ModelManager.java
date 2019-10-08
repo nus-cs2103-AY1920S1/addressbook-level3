@@ -25,10 +25,6 @@ public class ModelManager implements Model {
         return this.transactionList;
     }
 
-    public void updateFilteredTransactionList(TransactionContainsKeywordsPredicate predicate) {
-        this.transactionList.updateFilteredTransactionList(predicate);
-    }
-
     @Override
     public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws NoSuchIndexException {
         for (int i = 0; i < transactionList.size(); i++) {

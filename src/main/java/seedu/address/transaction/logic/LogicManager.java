@@ -44,12 +44,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    public TransactionList getTransactionListFromFile() throws Exception {
-        return this.storage.getTransactionList();
-    }
-
     public void writeIntoTransactionFile() throws Exception {
-        //model.writeInTransactionFile();
         storage.writeFile(model.getTransactionList());
     }
 

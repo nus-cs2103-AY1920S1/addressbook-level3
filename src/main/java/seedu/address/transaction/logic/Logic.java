@@ -8,8 +8,6 @@ public interface Logic {
 
     CommandResult execute(String commandText) throws Exception;
 
-    TransactionList getTransactionListFromFile() throws Exception;
-
     void writeIntoTransactionFile() throws Exception;
 
     void setTransaction(Transaction transaction, Transaction newTransaction) throws Exception;
