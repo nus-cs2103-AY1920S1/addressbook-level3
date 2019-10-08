@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * A utility class to help with building WordBank objects.

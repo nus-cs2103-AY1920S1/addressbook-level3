@@ -1,19 +1,36 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_MEANING_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_WORD_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEANING_DESC_ABRA;
+import static seedu.address.logic.commands.CommandTestUtil.MEANING_DESC_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BUG;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PSYCHIC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEANING_ABRA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEANING_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PSYCHIC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_ABRA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.WORD_DESC_ABRA;
+import static seedu.address.logic.commands.CommandTestUtil.WORD_DESC_BUTTERFREE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditCardDescriptorBuilder;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.*;
 
 public class EditCommandParserTest {
 
@@ -112,11 +129,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + MEANING_DESC_ABRA 
+        String userInput = targetIndex.getOneBased() + MEANING_DESC_ABRA
                 + TAG_DESC_BUG + MEANING_DESC_ABRA + TAG_DESC_BUG
                 + MEANING_DESC_BUTTERFREE + TAG_DESC_PSYCHIC;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withMeaning(VALID_MEANING_BUTTERFREE)
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withMeaning(VALID_MEANING_BUTTERFREE)
                 .withTags(VALID_TAG_BUG, VALID_TAG_PSYCHIC)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -129,7 +147,8 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_MEANING_DESC + MEANING_DESC_BUTTERFREE;
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withMeaning(VALID_MEANING_BUTTERFREE).build();
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withMeaning(VALID_MEANING_BUTTERFREE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

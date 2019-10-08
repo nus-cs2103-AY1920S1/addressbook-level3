@@ -2,7 +2,9 @@ package seedu.address.model.card;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEANING_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;

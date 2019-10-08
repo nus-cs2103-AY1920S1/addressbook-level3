@@ -2,7 +2,21 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_MEANING_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_WORD_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEANING_DESC_ABRA;
+import static seedu.address.logic.commands.CommandTestUtil.MEANING_DESC_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BUG;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FLYING;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PSYCHIC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FLYING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PSYCHIC;
+import static seedu.address.logic.commands.CommandTestUtil.WORD_DESC_ABRA;
+import static seedu.address.logic.commands.CommandTestUtil.WORD_DESC_BUTTERFREE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalCards.ABRA;

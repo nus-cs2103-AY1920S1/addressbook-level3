@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * A utility class containing a list of {@code Card} objects to be used in tests.
