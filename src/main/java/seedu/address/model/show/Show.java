@@ -16,7 +16,7 @@ public abstract class Show {
     private seedu.address.model.person.Name name;
     private Date dateOfRelease;
     private boolean isWatched;
-    
+
     //data fields
     private final Description description;
     private final RunningTime runningTime;
@@ -36,7 +36,7 @@ public abstract class Show {
     public Name getName() {
         return name;
     }
-    
+
     public Date getDateOfRelease() {
         return dateOfRelease;
     }
@@ -44,7 +44,7 @@ public abstract class Show {
     public boolean isWatched() {
         return isWatched;
     }
-    
+
     public Description getDescription() {
         return description;
     }
@@ -52,7 +52,7 @@ public abstract class Show {
     public RunningTime getRunningTime() {
         return runningTime;
     }
-    
+
     /**
      * Returns an immutable actor set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
