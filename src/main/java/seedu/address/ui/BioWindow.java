@@ -149,7 +149,7 @@ public class BioWindow extends UiPart<Stage> {
         BioTableFieldDataPair emergencyHp = new BioTableFieldDataPair("Emergency HP:", "91234567");
         BioTableFieldDataPair medicalCondition = new BioTableFieldDataPair("Medical Condition:", "Type II Diabetes, High Blood Pressure");
         BioTableFieldDataPair address = new BioTableFieldDataPair("Address:", "Blk 123 Example Road\n#12-34\nS(612345)");
-        BioTableFieldDataPair dpPath = new BioTableFieldDataPair("DP Path:", "/Users/Bob/dp.png");
+        BioTableFieldDataPair dpPath = new BioTableFieldDataPair("DP Path:", "/Users/Amy/dp.png");
         BioTableFieldDataPair bgColour = new BioTableFieldDataPair("Background Colour:", "navy-blue");
         BioTableFieldDataPair fontColour = new BioTableFieldDataPair("Font Colour:", "yellow");
         BioTableFieldDataPair myGoals = new BioTableFieldDataPair("My Goals:", "lose 4kg from 29/09/2019 to 30/09/2019");
