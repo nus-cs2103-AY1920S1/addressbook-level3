@@ -148,4 +148,8 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
+    public void updateViewingList(String targetList) {
+
+    }
 }

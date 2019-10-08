@@ -11,6 +11,10 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    /** The application should switch views.*/
+    private final boolean switchViews;
+    private final String view;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -20,10 +24,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean switchViews, String view) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.switchViews = switchViews;
+        this.view = null;
     }
 
     /**
@@ -31,7 +37,14 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false, null);
+    }
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, false, null);
+    }
+    public CommandResult(String feedbackToUser, String view) {
+        this(feedbackToUser, false, false, true, view);
     }
 
     public String getFeedbackToUser() {
@@ -42,8 +55,16 @@ public class CommandResult {
         return showHelp;
     }
 
+    public boolean isSwitchViews() {
+        return switchViews;
+    }
+
     public boolean isExit() {
         return exit;
+    }
+
+    public String getView() {
+        return view;
     }
 
     @Override

@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -32,7 +33,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane commandBoxPlaceholder;
 
-
     @FXML
     private StackPane personListPanelPlaceholder;
 
@@ -41,6 +41,11 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    /*
+    @FXML
+    private TabPane viewsPlaceholder;
+    */
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -99,6 +104,28 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+
+    private void switchViews(String targetView) {
+        /*
+        switch (targetView) {
+            case "T":
+                viewsPlaceholder.getSelectionModel().select(0);
+                break;
+            case "E":
+                viewsPlaceholder.getSelectionModel().select(1);
+                break;
+            case "R":
+                viewsPlaceholder.getSelectionModel().select(2);
+                break;
+            case "C":
+                viewsPlaceholder.getSelectionModel().select(3);
+                break;
+            default:
+                break;
+        }
+        */
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -116,6 +143,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSwitchViews()) {
+                switchViews(commandResult.getView());
             }
 
             return commandResult;
