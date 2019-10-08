@@ -14,6 +14,10 @@ public class DateTime {
         this.dateTime = dateTime;
     }
 
+    public Instant getDateTime() {
+        return this.getDateTime();
+    }
+
     @Override
     public String toString() {
         return dateTime.toString();

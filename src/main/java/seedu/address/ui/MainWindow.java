@@ -38,8 +38,11 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
+    private CalendarPanel calendarPanel;
     private LogPanel logPanel;
     private HelpWindow helpWindow;
+
+    private boolean calendarMode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -48,7 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane listPanelPlaceholder;
+    private StackPane viewPanelPlaceholder;
 
     @FXML
     private StackPane logPanelPlaceholder;
@@ -74,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.calendarMode = false;
 
         setWindowDefaultSize(logic.getGuiSettings());
 
@@ -124,8 +128,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        calendarPanel = new CalendarPanel(logic.getFilteredEventList());
         listPanel = new ListPanel(logic.getFilteredEventList());
-        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
+
 
         logPanel = new LogPanel();
         logPanelPlaceholder.getChildren().add(logPanel.getRoot());
@@ -148,7 +154,7 @@ public class MainWindow extends UiPart<Stage> {
         double screenWidth = primaryScreenBounds.getWidth();
 
         logPanelPlaceholder.setPrefWidth(screenWidth);
-        listPanelPlaceholder.setPrefWidth(screenWidth);
+        viewPanelPlaceholder.setPrefWidth(screenWidth);
         // listPanelPlaceholder.setPrefHeight(screenHeight);
 
         // Set the stage width and height
@@ -202,6 +208,20 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        // Temporary Stub for UI testing.
+        /*
+        if(commandText.equals("view")) {
+            viewPanelPlaceholder.getChildren().clear();
+            if(calendarMode) {
+                calendarMode = false;
+                viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
+            } else {
+                calendarMode = true;
+                viewPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+            }
+            return null;
+        }
+        */
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
