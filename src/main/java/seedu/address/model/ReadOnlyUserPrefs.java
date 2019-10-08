@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 
-import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 
 /**
@@ -10,13 +9,8 @@ import seedu.address.commons.core.GuiSettings;
  */
 public interface ReadOnlyUserPrefs {
 
-    AppSettings getAppSettings();
-
     GuiSettings getGuiSettings();
 
     Path getAddressBookFilePath();
 
-    Path getTimeBookFilePath();
-
-    Path getNusModsDataFilePath();
 }
