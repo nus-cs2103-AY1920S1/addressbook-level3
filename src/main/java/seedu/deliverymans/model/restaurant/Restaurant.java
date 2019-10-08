@@ -1,15 +1,19 @@
 package seedu.deliverymans.model.restaurant;
 
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
-import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Order;
-import seedu.deliverymans.model.Food;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Order;
+import seedu.deliverymans.model.Food;
+
+/**
+ * Represents a Restaurant
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Restaurant {
     private int numberOfRatings;
 
@@ -23,6 +27,9 @@ public class Restaurant {
     private final Set<Order> orders = new HashSet<>();
     private final Set<Food> menu = new HashSet<>();
 
+    /**
+     * Every field must be present and not null.
+     */
     public Restaurant(Name name, Location location, Set<Tag> tags) {
         requireAllNonNull(name, location, tags);
         this.numberOfRatings = 0;

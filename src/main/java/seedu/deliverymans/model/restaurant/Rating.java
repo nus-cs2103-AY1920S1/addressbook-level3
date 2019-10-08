@@ -3,6 +3,9 @@ package seedu.deliverymans.model.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Rating
+ */
 public class Rating {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -11,6 +14,11 @@ public class Rating {
     public final String rating;
     public final double ratingValue;
 
+    /**
+     * Constructs a {@code Rating}.
+     *
+     * @param rating A valid rating.
+     */
     public Rating(String rating) {
         requireNonNull(rating);
         checkArgument(isValidRating(rating), MESSAGE_CONSTRAINTS);
@@ -18,6 +26,9 @@ public class Rating {
         this.ratingValue = Double.parseDouble(rating);
     }
 
+    /**
+     * Returns true if a given string is a valid rating.
+     */
     public static boolean isValidRating(String rating) {
         boolean matchRegex = rating.matches(VALIDATION_REGEX);
 
@@ -25,8 +36,7 @@ public class Rating {
             double value = Double.parseDouble(rating);
             boolean matchRange = (value <= 5) && (value >= 0);
             return matchRange;
-        }
-        else {
+        } else {
             return false;
         }
     }
