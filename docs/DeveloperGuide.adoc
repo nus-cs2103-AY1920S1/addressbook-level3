@@ -277,15 +277,20 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
+
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage classes of students
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* has a need to create questions easily
+* has a need to generate quizzes with previously created questions
+* requires a timetable manager
+* prefers efficient viewing statistics of students rather than manually computing it
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage classes of students faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -307,10 +312,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |teacher |record scores | tally the marks accurately instead of manually inputting them into the system
 
-|`* * *` [Epic] |teacher |write questions to a question bank |retrieve them as per needed for quizzes generated with Njoy
+|`* * *` [Epic] |teacher |write questions to a question bank |store questions to be used later on
 
-|`* * *` |teacher |have the option to format the questions as either MCQ or Open Ended |retrieve them
-as per needed for specific quizzes generated with Njoy
+|`* * *` |teacher |have the option to format the questions as either MCQ or Open Ended |have different types of questions
 
 |`* * *` |teacher |generate quizzes with randomised questions for assignments |students are unable to copy solutions
 from one another
@@ -616,10 +620,18 @@ Use case resumes at step 1.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 students without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The system should work on both 32-bit and 64-bit environments
+.  The assistant should never take more than 5 seconds to process any command
+.  The assistant should be usable by any teacher from any academic background without much of a learning curve
+.  The teacher should be able to have as many classes as desired
+.  The assistant is not required to synchronize timetables / quizzes between 2 teachers
+
+
 
 _{More to be added}_
+
 
 [appendix]
 == Glossary
@@ -632,6 +644,12 @@ _{More to be added}_
 
 *Njoy* - A shortened version of the word "Enjoy".
 
+*Teacher* - User of the Njoy assistant who manages his/her students.
+
+*Student* - Entity that Teacher manages.
+
+*Class* - A manageable unit of Student that Teacher can create, read, edit and delete.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
@@ -643,17 +661,18 @@ A contact detail that is not meant to be shared with others
 
 *Njoy*
 
-Author:
+Author: Jeong Yu Han
 
 Pros:
 
-* ...
-* ...
+* Faster than existing market solutions, particularly for Teachers who can type fast.
+* Integrated management of taking attendance, managing classes and creating quizzes
+as opposed to managing them separately on multiple different platforms.
 
 Cons:
 
-* ...
-* ...
+* Integrated management exists on the PC only, no cloud functionality for management from home.
+* Require understanding of CLI as well as the commands to carry out the functionality of Njoy effectively.
 
 [appendix]
 == Instructions for Manual Testing

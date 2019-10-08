@@ -11,15 +11,20 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
+import seedu.address.model.question.Question;
+import seedu.address.model.question.QuestionList;
 
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final QuestionList questions;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -30,9 +35,11 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine(
+            "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.questions = new QuestionList();
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
@@ -87,6 +94,35 @@ public class ModelManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
+
+    //=========== Questions ================================================================================
+
+    @Override
+    public void addQuestion(Question question) {
+        questions.addQuestion(question);
+    }
+
+    @Override
+    public Question deleteQuestion(Index index) {
+        return questions.deleteQuestion(index);
+    }
+
+    @Override
+    public Question getQuestion(Index index) {
+        return questions.getQuestion(index);
+    }
+
+    @Override
+    public void setQuestion(Index index, Question question) {
+        questions.setQuestion(index, question);
+    }
+
+    @Override
+    public String getQuestionsSummary() {
+        return questions.getQuestionsSummary();
+    }
+
+    //=========== Person ================================================================================
 
     @Override
     public boolean hasPerson(Person person) {
@@ -144,8 +180,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+            && userPrefs.equals(other.userPrefs)
+            && filteredPersons.equals(other.filteredPersons);
     }
 
 }
