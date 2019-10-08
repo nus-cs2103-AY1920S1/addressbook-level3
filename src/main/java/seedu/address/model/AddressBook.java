@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.UniqueBudgetList;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.expense.UniqueExpenseList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueExpenseList expenses;
+    private final UniqueBudgetList budgets;
 
     /*
      * The 'unusual' code block below is a non-static initialization block,
@@ -26,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         expenses = new UniqueExpenseList();
+        budgets = new UniqueBudgetList();
     }
 
     public AddressBook() {}
@@ -48,6 +52,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.expenses.setExpenses(expenses);
     }
 
+    public void setBudgets(List<Budget> budgets) {
+        this.budgets.setBudgets(budgets);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -55,6 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenseList());
+        setBudgets(newData.getBudgetList());
     }
 
     //// expense-level operations
@@ -96,6 +105,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         expenses.remove(key);
     }
 
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return budgets.contains(budget);
+    }
+
+    public void addBudget(Budget budget) {
+        budgets.add(budget);
+    }
+
     //// util methods
 
     @Override
@@ -107,6 +125,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Expense> getExpenseList() {
         return expenses.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Budget> getBudgetList() {
+        return budgets.asUnmodifiableObservableList();
     }
 
     @Override

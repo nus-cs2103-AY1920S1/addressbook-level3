@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -110,6 +111,17 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedExpense);
 
         addressBook.setExpense(target, editedExpense);
+    }
+
+    @Override
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return addressBook.hasBudget(budget);
+    }
+
+    @Override
+    public void addBudget(Budget budget) {
+        addressBook.addBudget(budget);
     }
 
     //=========== Filtered Expense List Accessors =============================================================
