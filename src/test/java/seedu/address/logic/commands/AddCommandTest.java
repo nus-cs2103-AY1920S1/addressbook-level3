@@ -170,6 +170,11 @@ public class AddCommandTest {
         public void updateFilteredBodyList(Predicate<Body> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<? extends Entity> getFilteredEntityList(String entityType) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

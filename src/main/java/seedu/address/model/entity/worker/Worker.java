@@ -133,7 +133,7 @@ public class Worker implements Entity {
 
     @Override
     public boolean isSameEntity(Object o) {
-        return isSamePerson(o);
+        return o == this;
     }
 
     /**

@@ -42,6 +42,8 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
+        //filteredFridge = new FilteredList<>(this.addressBook.getFridgeList());
+
     }
 
     public ModelManager() {
@@ -118,9 +120,39 @@ public class ModelManager implements Model {
 
         addressBook.setEntity(target, editedEntity);
     }
+    //=========== Filtered Body List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Worker} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Body> getFilteredBodyList() {
+        return filteredBodies;
+    }
+
+    @Override
+    public void updateFilteredBodyList(Predicate<Body> predicate) {
+        requireNonNull(predicate);
+        filteredBodies.setPredicate(predicate);
+    }
+
+    //=========== Filtered Worker List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Worker} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Worker> getFilteredWorkerList() {
+        return filteredWorkers;
+    }
+
+    @Override
+    public void updateFilteredWorkerList(Predicate<Worker> predicate) {
+        requireNonNull(predicate);
+        filteredWorkers.setPredicate(predicate);
+    }
 
     //=========== Filtered Person List Accessors =============================================================
-
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -136,39 +168,23 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Workers List Accessors =============================================================
+    //=========== Filtered Entities List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Workers} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Entities} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Worker> getFilteredWorkerList() {
-        return filteredWorkers;
+    public ObservableList<? extends Entity> getFilteredEntityList(String entityType) {
+        if (entityType.equals("W") || entityType.equals("w")) {
+            return filteredWorkers;
+        } else if (entityType.equals("B") || entityType.equals("b")) {
+            return filteredBodies;
+        }
+        // to add fridge!
+        return null;
     }
 
-    @Override
-    public void updateFilteredWorkerList(Predicate<Worker> predicate) {
-        requireNonNull(predicate);
-        filteredWorkers.setPredicate(predicate);
-    }
-
-    //=========== Filtered Body List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Bodies} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Body> getFilteredBodyList() {
-        return filteredBodies;
-    }
-
-    @Override
-    public void updateFilteredBodyList(Predicate<Body> predicate) {
-        requireNonNull(predicate);
-        filteredBodies.setPredicate(predicate);
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -187,6 +203,9 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+        //&& filteredWorkers.equals(other.filteredWorkers);
+        //&& filteredBodies.equals(other.filteredBodies);
+        //&& filteredFridges.equals(other.filteredFridges);
     }
 
 }

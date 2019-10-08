@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
+import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_ID_NUM;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -22,8 +24,10 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListBodyCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.ListWorkerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.entity.Sex;
@@ -53,9 +57,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        DeleteCommand bodyCommand = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + FIRST_BODY_ID_NUM.toString());
+        assertEquals(new DeleteCommand(FIRST_BODY_ID_NUM), bodyCommand);
+
+        DeleteCommand workerCommand = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + FIRST_WORKER_ID_NUM.toString());
+        assertEquals(new DeleteCommand(FIRST_WORKER_ID_NUM), workerCommand);
+
+        // todo add parser test for fridge class
     }
     /*
     @Test
@@ -104,8 +114,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " -b") instanceof ListBodyCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " -w") instanceof ListWorkerCommand);
+        //assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " -f") instanceof ListFridgeCommand);
     }
 
     @Test
