@@ -55,8 +55,8 @@ public class AppSettings implements Serializable {
 
         AppSettings o = (AppSettings) other;
 
-        return acadYear.equals(o.getAcadYear())
-                && acadSemester.equals(o.getAcadSemester());
+        return acadYear.equals(o.getAcadYear().toString())
+                && acadSemester.equals(o.getAcadSemester().toString());
     }
 
     @Override
@@ -68,7 +68,7 @@ public class AppSettings implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Academic Year : " + acadYear + "\n");
-        sb.append("Academic Semester : " + acadSemester);
+        sb.append("Academic Semester : " + acadSemester + "\n");
         return sb.toString();
     }
 }
