@@ -19,7 +19,7 @@ public class StudentEditCommand extends StudentCommand{
     private final String name;
 
     /**
-     * Creates a QuestionEditCommand object.
+     * Creates a StudentEditCommand object.
      *
      * @param fields to edit.
      */

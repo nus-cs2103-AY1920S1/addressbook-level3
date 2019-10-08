@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.student.Student;
 
 public class StudentDeleteCommand extends StudentCommand {
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Deletes a question\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Deletes a student\n"
             + "Note: index has to be greater than 0";
 
     private final Index index;
