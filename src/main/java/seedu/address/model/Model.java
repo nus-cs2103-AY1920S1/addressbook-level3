@@ -56,6 +56,36 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    //=========== Students ================================================================================
+    /**
+     * Adds the given student.
+     * {@code student} must not exist in the student list.
+     */
+    void addStudent(Student student);
+
+    /**
+     * Returns the student that has been deleted based on the index.
+     */
+    void deleteStudent(Student student);
+
+    /**
+     * Returns the student based on its Index.
+     */
+    Student getStudent(Index index);
+
+    /**
+     * Replaces the student at the specified index.
+     */
+    void setStudent(Index index, Student student);
+
+    /**
+     * Returns the list of students.
+     *
+     * @return list of students
+     */
+    String getStudentList();
+
+
     //=========== Questions ================================================================================
     /**
      * Adds the given question.

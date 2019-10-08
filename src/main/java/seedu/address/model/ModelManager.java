@@ -26,6 +26,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final QuestionList questions;
     private final UserPrefs userPrefs;
+    private final UniqueStudentList students;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -93,6 +94,33 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    //=========== Students ================================================================================
+
+    @Override
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    @Override
+    public void deleteStudent(Student student) {
+        return students.remove(student);
+    }
+
+    @Override
+    public Student getStudent(Student student) {
+        return students.getStudent(student);
+    }
+
+    @Override
+    public void setStudent(Student target, Student editedStudent) {
+        students.setStudent(target, editedStudent);
+    }
+
+    @Override
+    public String getStudentList() {
+        return students.getStudentList();
     }
 
     //=========== Questions ================================================================================
