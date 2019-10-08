@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.show;
 
 public class Episode {
     private Name name;

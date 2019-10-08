@@ -1,4 +1,7 @@
-package seedu.address.model.person;
+package seedu.address.model.show;
+
+import seedu.address.model.actor.Actor;
+import seedu.address.model.person.Name;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -10,7 +13,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public abstract class Show {
 
     //identity fields
-    private Name name;
+    private seedu.address.model.person.Name name;
     private Date dateOfRelease;
     private boolean isWatched;
     
@@ -19,7 +22,7 @@ public abstract class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
 
-    public Show(Name name, Description description, boolean isWatched, Date dateOfRelease,
+    public Show(seedu.address.model.person.Name name, Description description, boolean isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
         requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
@@ -111,7 +114,7 @@ public abstract class Show {
                 .append(getDescription())
                 .append(" Running Time: ")
                 .append(getRunningTime())
-                .append( " actors: ");
+                .append(" Actors: ");
         getActors().forEach(builder::append);
         return builder.toString();
     }
