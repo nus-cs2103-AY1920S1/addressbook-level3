@@ -39,8 +39,8 @@ public class LogicManager implements Logic {
         model.updateIndexes();
         personStorage.saveAddressBook(personModel.getAddressBook());
         storage.writeFile(model.getTransactionList());
-        reimbursementModel.updateReimbursementList(model.getTransactionList());
-        reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
+        //reimbursementModel.updateReimbursementList(model.getTransactionList());
+        //reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
         return commandResult;
     }
 
