@@ -196,10 +196,10 @@ public class UniqueEntityLists {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof UniqueEntityLists // instanceof handles nulls
-            && (internalListPerson.equals(((UniqueEntityLists) other).internalListPerson))
-            && (internalListWorker.equals(((UniqueEntityLists) other).internalListWorker))
-            && internalListBody.equals(((UniqueEntityLists) other).internalListBody));
+                || (other instanceof UniqueEntityLists // instanceof handles nulls
+                && (internalListPerson.equals(((UniqueEntityLists) other).internalListPerson))
+                && (internalListWorker.equals(((UniqueEntityLists) other).internalListWorker))
+                && internalListBody.equals(((UniqueEntityLists) other).internalListBody));
     }
 
     @Override

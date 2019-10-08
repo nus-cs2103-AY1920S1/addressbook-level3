@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Religion;
 import seedu.address.model.entity.body.Status;
 import seedu.address.model.entity.worker.Worker;
@@ -25,7 +26,7 @@ public class TypicalBodies {
             .withReligion(Religion.ISLAM)
             .withCauseOfDeath("Stroke")
             .withOrgansForDonation(new ArrayList<>())
-            .withStatus(Status.PENDING_CLAIM)
+            .withStatus(BodyStatus.PENDING_CLAIM)
             .withFridgeId(1)
             .withDateOfBirth("03/09/1982")
             .withDateOfDeath("01/01/1991")
@@ -42,7 +43,7 @@ public class TypicalBodies {
             .withReligion(Religion.CHRISTIANITY)
             .withCauseOfDeath("NECROSIS")
             .withOrgansForDonation(new ArrayList<>())
-            .withStatus(Status.ARRIVED)
+            .withStatus(BodyStatus.ARRIVED)
             .withFridgeId(1)
             .withDateOfBirth("02/09/1982")
             .withDateOfDeath("01/06/1971")
