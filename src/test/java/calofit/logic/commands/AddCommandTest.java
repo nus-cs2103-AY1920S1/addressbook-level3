@@ -7,6 +7,7 @@ import calofit.model.Model;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.ReadOnlyUserPrefs;
 import calofit.model.dish.Dish;
+import calofit.model.meal.Meal;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 import javafx.collections.ObservableList;
@@ -142,6 +143,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredDishList(Predicate<Dish> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Meal> getFilteredMealList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMeal(Meal meal) {
             throw new AssertionError("This method should not be called.");
         }
     }

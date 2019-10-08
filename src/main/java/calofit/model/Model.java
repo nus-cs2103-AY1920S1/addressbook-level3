@@ -88,4 +88,6 @@ public interface Model {
     void updateFilteredDishList(Predicate<Dish> predicate);
 
     ObservableList<Meal> getFilteredMealList();
+
+    void addMeal(Meal meal);
 }

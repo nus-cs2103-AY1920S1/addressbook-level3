@@ -55,6 +55,10 @@ public class ModelManager implements Model {
         this(new MealLog(), new DishDatabase(), new UserPrefs());
     }
 
+    public ModelManager(ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
+        this(new MealLog(), dishDatabase, userPrefs);
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -167,4 +171,8 @@ public class ModelManager implements Model {
                 && filteredDishes.equals(other.filteredDishes);
     }
 
+    @Override
+    public void addMeal(Meal meal) {
+        this.mealLog.addMeal(meal);
+    }
 }
