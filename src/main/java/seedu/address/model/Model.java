@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 
@@ -61,6 +62,21 @@ public interface Model {
      * {@code question} must not exist in the question list.
      */
     void addQuestion(Question question);
+
+    /**
+     * Returns the question that has been deleted based on the index.
+     */
+    Question deleteQuestion(Index index);
+
+    /**
+     * Returns the question based on its Index.
+     */
+    Question getQuestion(Index index);
+
+    /**
+     * Replaces the question at the specified index.
+     */
+    void setQuestion(Index index, Question question);
 
     /**
      * Returns the questions summary.

@@ -19,4 +19,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ANSWER = new Prefix("answer/");
     public static final Prefix PREFIX_TYPE = new Prefix("type/");
 
+    public static final Prefix PREFIX_LIST = new Prefix("list");
+    public static final Prefix PREFIX_DELETE = new Prefix("delete");
+
 }
