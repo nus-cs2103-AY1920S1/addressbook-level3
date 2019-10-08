@@ -53,7 +53,7 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
 		StudentRecordStorage studentRecordStorage = new JsonStudentRecordStorage(userPrefs.getStudentRecordFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, studentRecordStorage);
 
         initLogging(config);
 
