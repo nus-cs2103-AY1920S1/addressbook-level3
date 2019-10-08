@@ -1,17 +1,17 @@
 package seedu.address.testutil;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
-import seedu.address.model.entity.body.Status;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
@@ -29,7 +29,7 @@ public class BodyBuilder {
     public static final Religion DEFAULT_RELIGION = Religion.NONRELIGIOUS;
     public static final String DEFAULT_CAUSE_OF_DEATH = "Heart Attack";
     public static final String DEFAULT_ORGANS_FOR_DONATION = "Liver Cornea Kidney";
-    public static final Status DEFAULT_STATUS = Status.ARRIVED;
+    public static final BodyStatus DEFAULT_BODY_STATUS = BodyStatus.ARRIVED;
     public static final int DEFAULT_FRIDGE_ID = 1;
     public static final String DEFAULT_DATE_OF_BIRTH = "12/12/2012";
     public static final String DEFAULT_DATE_OF_DEATH = "02/10/2019";
@@ -45,8 +45,8 @@ public class BodyBuilder {
     private Religion religion;
 
     private String causeOfDeath;
-    private ArrayList<String> organsForDonation;
-    private Status status;
+    private List<String> organsForDonation;
+    private BodyStatus bodyStatus;
     private IdentificationNumber fridgeId;
 
     private Date dateOfBirth;
@@ -65,8 +65,8 @@ public class BodyBuilder {
         nric = new Nric(DEFAULT_NRIC);
         religion = DEFAULT_RELIGION;
         causeOfDeath = DEFAULT_CAUSE_OF_DEATH;
-        organsForDonation = new ArrayList<>(Arrays.asList(DEFAULT_ORGANS_FOR_DONATION.split(" ")));
-        status = DEFAULT_STATUS;
+        organsForDonation = Arrays.asList(DEFAULT_ORGANS_FOR_DONATION.split(" "));
+        bodyStatus = DEFAULT_BODY_STATUS;
         fridgeId = IdentificationNumber.customGenerateId("F", DEFAULT_FRIDGE_ID);
 
         nextOfKin = new Name(DEFAULT_NEXT_OF_KIN);
@@ -92,7 +92,7 @@ public class BodyBuilder {
         religion = bodyToCopy.getReligion();
         causeOfDeath = bodyToCopy.getCauseOfDeath();
         organsForDonation = bodyToCopy.getOrgansForDonation();
-        status = bodyToCopy.getStatus();
+        bodyStatus = bodyToCopy.getBodyStatus();
         fridgeId = bodyToCopy.getFridgeId();
         nextOfKin = bodyToCopy.getNextOfKin();
         relationship = bodyToCopy.getRelationship();
@@ -146,7 +146,7 @@ public class BodyBuilder {
     /**
      * Sets the list of {@code organsForDonation} of the {@code Body} that we are building.
      */
-    public BodyBuilder withOrgansForDonation(ArrayList<String> organsForDonation) {
+    public BodyBuilder withOrgansForDonation(List<String> organsForDonation) {
         this.organsForDonation = organsForDonation;
         return this;
     }
@@ -154,8 +154,8 @@ public class BodyBuilder {
     /**
      * Sets the {@code status} of the {@code Body} that we are building.
      */
-    public BodyBuilder withStatus(Status status) {
-        this.status = status;
+    public BodyBuilder withStatus(BodyStatus bodyStatus) {
+        this.bodyStatus = bodyStatus;
         return this;
     }
 
@@ -241,6 +241,7 @@ public class BodyBuilder {
      */
     public Body build() {
         return new Body(true, 1, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
-                organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship, kinPhoneNumber);
+                organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
+                kinPhoneNumber);
     }
 }

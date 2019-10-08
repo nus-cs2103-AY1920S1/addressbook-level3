@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.entity.Sex.FEMALE;
+import static seedu.address.model.entity.Sex.MALE;
+
 import seedu.address.model.entity.worker.Worker;
 
 /**
@@ -8,10 +11,10 @@ import seedu.address.model.entity.worker.Worker;
 public class TypicalWorkers {
 
     public static final Worker ALICE = new WorkerBuilder().withName("Alice Pauline")
-        .withPhone("94351253").withDateJoined("12/12/2019").withSex("Female")
+        .withPhone("94351253").withDateJoined("12/12/2019").withSex(FEMALE)
         .withEmploymentStatus("cleaning").build();
     public static final Worker BENSON = new WorkerBuilder().withName("Benson Meier")
-        .withPhone("98765432").withDateJoined("12/12/2019").withSex("Male")
+        .withPhone("98765432").withDateJoined("12/12/2019").withSex(MALE)
         .withEmploymentStatus("transporting").build();
 
     private TypicalWorkers() {} // prevents instantiation
