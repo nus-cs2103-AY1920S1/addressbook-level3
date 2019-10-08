@@ -9,15 +9,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.logic.commands.EditCommand.EditNoteDescriptor;
+import seedu.address.testutil.EditNoteDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class EditNoteDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
+        EditNoteDescriptor descriptorWithSameValues = new EditNoteDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -33,11 +33,12 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different title -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_TITLE_BOB).build();
+        EditCommand.EditNoteDescriptor editedAmy = new EditNoteDescriptorBuilder(DESC_AMY)
+                .withTitle(VALID_TITLE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different content -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_CONTENT_BOB).build();
+        editedAmy = new EditNoteDescriptorBuilder(DESC_AMY).withContent(VALID_CONTENT_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

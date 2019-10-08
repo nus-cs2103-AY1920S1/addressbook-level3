@@ -22,10 +22,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditNoteDescriptor;
 import seedu.address.model.person.Content;
 import seedu.address.model.person.Title;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditNoteDescriptorBuilder;
 
 public class EditCommandParserTest {
 
@@ -77,8 +77,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY + TITLE_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_TITLE_AMY)
-                .withAddress(VALID_CONTENT_AMY).build();
+        EditCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_AMY)
+                .withContent(VALID_CONTENT_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -89,7 +89,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_CONTENT_AMY).build();
+        EditCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder()
+                .withContent(VALID_CONTENT_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -100,13 +101,13 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TITLE_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_TITLE_AMY).build();
+        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
         userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_CONTENT_AMY).build();
+        descriptor = new EditNoteDescriptorBuilder().withContent(VALID_CONTENT_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -116,7 +117,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY + CONTENT_DESC_AMY + CONTENT_DESC_BOB;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_CONTENT_BOB).build();
+        EditCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder()
+                .withContent(VALID_CONTENT_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -127,13 +129,15 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_CONTENT_DESC + CONTENT_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_CONTENT_BOB).build();
+        EditCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder()
+                .withContent(VALID_CONTENT_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + INVALID_TITLE_DESC + CONTENT_DESC_BOB + TITLE_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withName(VALID_TITLE_BOB).withAddress(VALID_CONTENT_BOB).build();
+        descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_BOB)
+                .withContent(VALID_CONTENT_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

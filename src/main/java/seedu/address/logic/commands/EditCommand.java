@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,23 +33,23 @@ public class EditCommand extends Command {
             + PREFIX_TITLE + "Linked lists "
             + PREFIX_CONTENT + "A linked list may be singly or doubly linked.";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited lecture note: %1$s";
+    public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited lecture note: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This lecture note already exists.";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This title already exists.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditNoteDescriptor editNoteDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the lecture note in the filtered note list to edit
+     * @param editNoteDescriptor details to edit the note with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditNoteDescriptor editNoteDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editNoteDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editNoteDescriptor = new EditNoteDescriptor(editNoteDescriptor);
     }
 
     @Override
@@ -61,27 +61,27 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Person noteToEdit = lastShownList.get(index.getZeroBased());
+        Person editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
 
-        if (!personToEdit.isSameNote(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!noteToEdit.isSameNote(editedNote) && model.hasPerson(editedNote)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setPerson(noteToEdit, editedNote);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_NOTES);
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Note} with the details of {@code noteToEdit}
+     * edited with {@code editNoteDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Person createEditedNote(Person noteToEdit, EditNoteDescriptor editNoteDescriptor) {
+        assert noteToEdit != null;
 
-        Title updatedTitle = editPersonDescriptor.getTitle().orElse(personToEdit.getTitle());
-        Content updatedContent = editPersonDescriptor.getContent().orElse(personToEdit.getContent());
+        Title updatedTitle = editNoteDescriptor.getTitle().orElse(noteToEdit.getTitle());
+        Content updatedContent = editNoteDescriptor.getContent().orElse(noteToEdit.getContent());
         return new Person(updatedTitle, updatedContent);
     }
 
@@ -100,24 +100,24 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editNoteDescriptor.equals(e.editNoteDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the lecture note with. Each non-empty field value will replace the
+     * corresponding field value of the note.
      */
-    public static class EditPersonDescriptor {
+    public static class EditNoteDescriptor {
         private Title title;
         private Content content;
 
-        public EditPersonDescriptor() {}
+        public EditNoteDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditNoteDescriptor(EditNoteDescriptor toCopy) {
             setTitle(toCopy.title);
             setContent(toCopy.content);
         }
@@ -153,12 +153,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditNoteDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditNoteDescriptor e = (EditNoteDescriptor) other;
 
             return getTitle().equals(e.getTitle()) && getContent().equals(e.getContent());
         }

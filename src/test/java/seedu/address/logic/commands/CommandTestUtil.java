@@ -16,7 +16,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TitleContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditNoteDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -38,12 +38,12 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditNoteDescriptor DESC_AMY;
+    public static final EditCommand.EditNoteDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_TITLE_AMY).withAddress(VALID_CONTENT_AMY).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_TITLE_BOB).withAddress(VALID_CONTENT_BOB).build();
+        DESC_AMY = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_AMY).withContent(VALID_CONTENT_AMY).build();
+        DESC_BOB = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_BOB).withContent(VALID_CONTENT_BOB).build();
     }
 
     /**
