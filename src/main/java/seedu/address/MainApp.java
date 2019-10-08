@@ -18,20 +18,15 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.NusModsData;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.module.AcadCalendar;
-import seedu.address.model.module.Holidays;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonNusModsDataStorage;
 import seedu.address.storage.JsonTimeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.NusModsDataStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TimeBookStorage;
@@ -39,7 +34,6 @@ import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 import seedu.address.ui.UiViewManager;
-import seedu.address.websocket.NusModApi;
 
 /**
  * Runs the application.
@@ -68,9 +62,7 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TimeBookStorage timeBookStorage = new JsonTimeBookStorage(userPrefs.getTimeBookFilePath());
-        NusModsDataStorage nusModsDataStorage = new JsonNusModsDataStorage(userPrefs.getNusModsDataFilePath());
-
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage, nusModsDataStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage);
 
         initLogging(config);
 
@@ -122,54 +114,7 @@ public class MainApp extends Application {
             logger.severe("Failed to load TimeBook, starting with a new instance");
         }
 
-        NusModsData nusModsData = initNusModsData(storage, userPrefs);
-
-
-        return new ModelManager(initialData, timeBook, nusModsData, userPrefs);
-    }
-
-    /**
-     * Returns an {@code NusModsData} with the data from {@code storage}'s nusModsData and {@code userPrefs}. <br>
-     * The NusModsApi will be used instead if {@code storage}'s nusModsData is not found,
-     * or if errors occur when reading {@code storage}'s NusModsData.
-     */
-    private NusModsData initNusModsData(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<NusModsData> nusModsDataOptional;
-        NusModsData initializedNusModsData;
-
-        try {
-            nusModsDataOptional = storage.readNusModsData();
-            if (!nusModsDataOptional.isPresent()) {
-                logger.info("NusModsData file not found. Will attempt to load data from API.");
-            }
-            initializedNusModsData = nusModsDataOptional.orElse(getNusModsDataFromApi(userPrefs));
-        } catch (DataConversionException e) {
-            logger.warning("NusModsData not in the correct format. Will attempt to load data from API.");
-            initializedNusModsData = getNusModsDataFromApi(userPrefs);
-        } catch (IOException e) {
-            logger.warning("Problem while reading from NusModsData file. "
-                    + "Will attempt to load data from API.");
-            initializedNusModsData = getNusModsDataFromApi(userPrefs);
-        }
-
-        //Update nusmods file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveNusModsData(initializedNusModsData);
-        } catch (IOException e) {
-            logger.warning("Failed to save nusMods file : " + StringUtil.getDetails(e));
-        }
-
-        return initializedNusModsData;
-    }
-
-    private NusModsData getNusModsDataFromApi(ReadOnlyUserPrefs userPrefs) {
-        NusModApi api = new NusModApi(userPrefs.getAppSettings().getAcadYear());
-        NusModsData newNusModsData = new NusModsData();
-
-        newNusModsData.setHolidays(Holidays.parseFromJson(api.getHolidays()));
-        newNusModsData.setAcadCalendar(AcadCalendar.parseFromJson(api.getAcademicCalendar()));
-
-        return newNusModsData;
+        return new ModelManager(initialData, timeBook, userPrefs);
     }
 
     private void initLogging(Config config) {

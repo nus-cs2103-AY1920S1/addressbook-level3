@@ -65,13 +65,4 @@ public class StringUtil {
             return false;
         }
     }
-
-    /**
-     * Checks if {@code s} is null or is an empty String.
-     * @param s string to check.
-     * @return true if {@code s} is null or is an empty String.
-     */
-    public static boolean isNullOrEmpty(String s) {
-        return s == null || s.trim().length() == 0;
-    }
 }
