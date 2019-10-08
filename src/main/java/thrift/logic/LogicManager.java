@@ -9,6 +9,7 @@ import thrift.commons.core.GuiSettings;
 import thrift.commons.core.LogsCenter;
 import thrift.logic.commands.Command;
 import thrift.logic.commands.CommandResult;
+import thrift.logic.commands.Undoable;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.logic.parser.ThriftParser;
 import thrift.logic.parser.exceptions.ParseException;
@@ -41,7 +42,9 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = thriftParser.parseCommand(commandText);
         commandResult = command.execute(model);
-
+        if (command instanceof Undoable) {
+            model.keepTrackCommands((Undoable) command);
+        }
         try {
             storage.saveThrift(model.getThrift());
         } catch (IOException ioe) {

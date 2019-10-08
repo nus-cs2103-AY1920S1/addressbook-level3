@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import thrift.model.Model;
 import thrift.model.ModelManager;
+import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
 import thrift.testutil.TypicalIndexes;
 import thrift.testutil.TypicalTransactions;
@@ -21,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
-        expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
+        model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(), new PastUndoableCommands());
+        expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
     }
 
     @Test

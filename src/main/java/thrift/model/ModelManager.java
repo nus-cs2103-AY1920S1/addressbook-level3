@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import thrift.commons.core.GuiSettings;
 import thrift.commons.core.LogsCenter;
 import thrift.commons.util.CollectionUtil;
+import thrift.logic.commands.Undoable;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
@@ -25,11 +26,12 @@ public class ModelManager implements Model {
     private final Thrift thrift;
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> filteredTransactions;
+    private final PastUndoableCommands pastUndoableCommands;
 
     /**
-     * Initializes a ModelManager with the given thrift and userPrefs.
+     * Initializes a ModelManager with the given thrift, userPrefs and pastUndoableCommands.
      */
-    public ModelManager(ReadOnlyThrift thrift, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyThrift thrift, ReadOnlyUserPrefs userPrefs, PastUndoableCommands pastUndoableCommands) {
         super();
         requireAllNonNull(thrift, userPrefs);
 
@@ -38,10 +40,11 @@ public class ModelManager implements Model {
         this.thrift = new Thrift(thrift);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.thrift.getTransactionList());
+        this.pastUndoableCommands = pastUndoableCommands;
     }
 
     public ModelManager() {
-        this(new Thrift(), new UserPrefs());
+        this(new Thrift(), new UserPrefs(), new PastUndoableCommands());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -158,4 +161,16 @@ public class ModelManager implements Model {
                 && filteredTransactions.equals(other.filteredTransactions);
     }
 
+    //=========== Past Commands History =============================================================
+    public void keepTrackCommands(Undoable command) {
+        pastUndoableCommands.addPastCommand(command);
+    }
+
+    public Undoable getPreviousUndoableCommand() {
+        return pastUndoableCommands.getCommandToUndo();
+    }
+
+    public boolean hasUndoableCommand() {
+        return !pastUndoableCommands.isEmpty();
+    }
 }

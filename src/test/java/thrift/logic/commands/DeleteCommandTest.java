@@ -12,6 +12,7 @@ import thrift.commons.core.Messages;
 import thrift.commons.core.index.Index;
 import thrift.model.Model;
 import thrift.model.ModelManager;
+import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Transaction;
 import thrift.testutil.TypicalIndexes;
@@ -23,7 +24,8 @@ import thrift.testutil.TypicalTransactions;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
+    private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
+            new PastUndoableCommands());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +35,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
+                new PastUndoableCommands());
         expectedModel.deleteTransaction(transactionToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -57,7 +60,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
+                new PastUndoableCommands());
         expectedModel.deleteTransaction(transactionToDelete);
         showNoTransaction(expectedModel);
 

@@ -18,6 +18,7 @@ import thrift.logic.commands.exceptions.CommandException;
 import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
+import thrift.model.PastUndoableCommands;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.UserPrefs;
 import thrift.storage.JsonThriftStorage;
@@ -65,6 +66,7 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredTransactionList().remove(0));
     }
 
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
@@ -101,7 +103,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

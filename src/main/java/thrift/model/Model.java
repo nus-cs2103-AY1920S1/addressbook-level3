@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import thrift.commons.core.GuiSettings;
+import thrift.logic.commands.Undoable;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
@@ -89,4 +90,23 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+    /**
+     * Keeps track of past undoable commands.
+     */
+    void keepTrackCommands(Undoable command);
+
+    /**
+     * Returns the previous undoable command.
+     *
+     * @return previous undoable command
+     */
+    Undoable getPreviousUndoableCommand();
+
+    /**
+     * Checks if there is any undoable command to undo.
+     *
+     * @return true if there is undoable command, else false.
+     */
+    boolean hasUndoableCommand();
 }

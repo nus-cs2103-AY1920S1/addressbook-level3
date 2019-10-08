@@ -95,7 +95,7 @@ public class Thrift implements ReadOnlyThrift {
 
     @Override
     public String toString() {
-        return transactions.asUnmodifiableObservableList().size() + " persons";
+        return transactions.asUnmodifiableObservableList().size() + " transactions";
         // TODO: refine later
     }
 

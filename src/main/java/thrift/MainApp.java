@@ -17,6 +17,7 @@ import thrift.logic.Logic;
 import thrift.logic.LogicManager;
 import thrift.model.Model;
 import thrift.model.ModelManager;
+import thrift.model.PastUndoableCommands;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.ReadOnlyUserPrefs;
 import thrift.model.Thrift;
@@ -58,10 +59,11 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ThriftStorage thriftStorage = new JsonThriftStorage(userPrefs.getThriftFilePath());
         storage = new StorageManager(thriftStorage, userPrefsStorage);
+        PastUndoableCommands pastUndoableCommands = new PastUndoableCommands();
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, userPrefs, pastUndoableCommands);
 
         logic = new LogicManager(model, storage);
 
@@ -73,7 +75,8 @@ public class MainApp extends Application {
      * The data from the sample thrift will be used instead if {@code storage}'s thrift is not found,
      * or an empty thrift will be used instead if errors occur when reading {@code storage}'s thrift.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs,
+            PastUndoableCommands pastUndoableCommands) {
         Optional<ReadOnlyThrift> thriftOptional;
         ReadOnlyThrift initialData;
         try {
@@ -90,7 +93,7 @@ public class MainApp extends Application {
             initialData = new Thrift();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, pastUndoableCommands);
     }
 
     private void initLogging(Config config) {

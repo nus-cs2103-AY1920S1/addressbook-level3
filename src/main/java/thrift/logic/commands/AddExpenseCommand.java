@@ -2,14 +2,17 @@ package thrift.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
 import thrift.model.transaction.Expense;
+import thrift.model.transaction.Transaction;
 
 /**
  * Adds an expense transaction to the THRIFT.
  */
-public class AddExpenseCommand extends Command {
+public class AddExpenseCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "add_expense";
 
@@ -48,5 +51,12 @@ public class AddExpenseCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddExpenseCommand // instanceof handles nulls
                 && toAdd.equals(((AddExpenseCommand) other).toAdd));
+    }
+
+    @Override
+    public void undo(Model model) {
+        List<Transaction> lastShownList = model.getThrift().getTransactionList();
+        Transaction transactionToDelete = lastShownList.get(lastShownList.size() - 1);
+        model.deleteTransaction(transactionToDelete);
     }
 }

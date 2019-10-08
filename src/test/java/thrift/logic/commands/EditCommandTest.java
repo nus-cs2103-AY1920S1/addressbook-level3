@@ -11,6 +11,7 @@ import thrift.commons.core.index.Index;
 import thrift.logic.commands.EditCommand.EditTransactionDescriptor;
 import thrift.model.Model;
 import thrift.model.ModelManager;
+import thrift.model.PastUndoableCommands;
 import thrift.model.Thrift;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Expense;
@@ -25,7 +26,8 @@ import thrift.testutil.TypicalTransactions;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
+    private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
+            new PastUndoableCommands());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -35,7 +37,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
+                new PastUndoableCommands());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -53,7 +56,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
+                new PastUndoableCommands());
         expectedModel.setTransaction(lastTransaction, editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -68,7 +72,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
+                new PastUndoableCommands());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -87,7 +92,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
+                new PastUndoableCommands());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

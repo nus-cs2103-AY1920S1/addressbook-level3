@@ -24,7 +24,7 @@ public class TypicalTransactions {
     private TypicalTransactions() {} // prevents instantiation
 
     /**
-     * Returns an {@code Thrift} with all the typical persons.
+     * Returns an {@code Thrift} with all the typical transactions.
      */
     public static Thrift getTypicalThrift() {
         Thrift thrift = new Thrift();

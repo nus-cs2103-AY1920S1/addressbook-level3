@@ -15,6 +15,7 @@ import thrift.logic.commands.ExitCommand;
 import thrift.logic.commands.FindCommand;
 import thrift.logic.commands.HelpCommand;
 import thrift.logic.commands.ListCommand;
+import thrift.logic.commands.UndoCommand;
 import thrift.logic.parser.exceptions.ParseException;
 
 /**
@@ -61,6 +62,9 @@ public class ThriftParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

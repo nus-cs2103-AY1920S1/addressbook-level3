@@ -9,10 +9,13 @@ import static thrift.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import thrift.commons.core.GuiSettings;
 import thrift.model.Model;
@@ -40,6 +43,19 @@ public class AddExpenseCommandTest {
 
         assertEquals(String.format(AddExpenseCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validExpense), modelStub.transactionsAdded);
+    }
+
+    @Test
+    public void undo_undoSuccessful() {
+        ModelStubUndoAddExpenses modelStub = new ModelStubUndoAddExpenses();
+        Expense validExpense = new ExpenseBuilder().build();
+        modelStub.addExpense(validExpense);
+        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
+        modelStub.keepTrackCommands(addExpenseCommand);
+        Undoable undoable = modelStub.getPreviousUndoableCommand();
+        undoable.undo(modelStub);
+        assertEquals(0, modelStub.getThrift().getTransactionList().size());
+        assertTrue(modelStub.undoableCommandStack.isEmpty());
     }
 
     @Test
@@ -144,6 +160,21 @@ public class AddExpenseCommandTest {
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void keepTrackCommands(Undoable command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Undoable getPreviousUndoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasUndoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -188,4 +219,61 @@ public class AddExpenseCommandTest {
         }
     }
 
+    /**
+     * A Model stub that allows user to perform undo operation.
+     */
+    private class ModelStubUndoAddExpenses extends ModelStub {
+        final Stack<Undoable> undoableCommandStack = new Stack<>();
+        final ThriftStubForUndoAddExpenses thriftStub;
+
+        public ModelStubUndoAddExpenses() {
+            thriftStub = new ThriftStubForUndoAddExpenses();
+        }
+
+        @Override
+        public void keepTrackCommands(Undoable command) {
+            undoableCommandStack.push(command);
+        }
+
+        @Override
+        public Undoable getPreviousUndoableCommand() {
+            return undoableCommandStack.pop();
+        }
+
+        @Override
+        public Thrift getThrift() {
+            return thriftStub;
+        }
+
+        @Override
+        public void addExpense(Expense expense) {
+            thriftStub.addTransaction(expense);
+        }
+
+        @Override
+        public void deleteTransaction(Transaction transaction) {
+            thriftStub.removeTransaction(transaction);
+        }
+    }
+
+    /**
+     * A Thrift stub that contains an empty list of transaction.
+     */
+    private class ThriftStubForUndoAddExpenses extends Thrift {
+        final List<Transaction> transactionsAdded = new ArrayList<>();
+        @Override
+        public void removeTransaction(Transaction transaction) {
+            transactionsAdded.remove(transaction);
+        }
+
+        @Override
+        public void addTransaction(Transaction transaction) {
+            transactionsAdded.add(transaction);
+        }
+
+        @Override
+        public ObservableList<Transaction> getTransactionList() {
+            return FXCollections.observableArrayList(transactionsAdded);
+        }
+    }
 }

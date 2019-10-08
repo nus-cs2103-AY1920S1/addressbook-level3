@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import thrift.model.Model;
 
 /**
- * Lists all persons in THRIFT to the user.
+ * Lists all transactions in THRIFT to the user.
  */
 public class ListCommand extends Command {
 

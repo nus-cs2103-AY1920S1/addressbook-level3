@@ -13,7 +13,10 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import thrift.commons.core.GuiSettings;
+import thrift.logic.commands.AddExpenseCommand;
 import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
+import thrift.model.transaction.Expense;
+import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.ThriftBuilder;
 import thrift.testutil.TypicalTransactions;
 
@@ -77,14 +80,23 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void keepTrackCommands_addCommand_success() {
+        Expense expense = new ExpenseBuilder().build();
+        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(expense);
+        modelManager.keepTrackCommands(addExpenseCommand);
+        assertEquals(addExpenseCommand, modelManager.getPreviousUndoableCommand());
+    }
+
+    @Test
     public void equals() {
         Thrift thrift = new ThriftBuilder().withTransaction(TypicalTransactions.LAKSA).build();
         Thrift differentThrift = new Thrift();
         UserPrefs userPrefs = new UserPrefs();
+        PastUndoableCommands pastUndoableCommands = new PastUndoableCommands();
 
         // same values -> returns true
-        modelManager = new ModelManager(thrift, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(thrift, userPrefs);
+        modelManager = new ModelManager(thrift, userPrefs, pastUndoableCommands);
+        ModelManager modelManagerCopy = new ModelManager(thrift, userPrefs, pastUndoableCommands);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -97,12 +109,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different thrift -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentThrift, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentThrift, userPrefs, pastUndoableCommands)));
 
         // different filteredList -> returns false
         String[] keywords = TypicalTransactions.PENANG_LAKSA.getDescription().toString().split("\\s+");
         modelManager.updateFilteredTransactionList(new DescriptionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(thrift, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(thrift, userPrefs, pastUndoableCommands)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
@@ -110,6 +122,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setThriftFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(thrift, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(thrift, differentUserPrefs, pastUndoableCommands)));
     }
 }

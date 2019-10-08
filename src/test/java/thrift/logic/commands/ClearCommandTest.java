@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import thrift.model.Model;
 import thrift.model.ModelManager;
+import thrift.model.PastUndoableCommands;
 import thrift.model.Thrift;
 import thrift.model.UserPrefs;
 import thrift.testutil.TypicalTransactions;
@@ -22,8 +23,10 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyThrift_success() {
-        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs());
+        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+        Model expectedModel = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
+                new PastUndoableCommands());
         expectedModel.setThrift(new Thrift());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
