@@ -45,7 +45,7 @@ public abstract class CommandBuilder {
      * A sentence can either be an option or an argument.
      * @param sentence a sentence from user input
      */
-    public void acceptSentence(String sentence) {
+    public CommandBuilder acceptSentence(String sentence) {
         if (this.options.containsKey(sentence)) {
             // Sets the context.
             this.context = this.options.get(sentence);
@@ -54,6 +54,7 @@ public abstract class CommandBuilder {
             // Adds an argument to the context.
             this.context.acceptArgument(sentence);
         }
+        return this;
     }
 
     /**

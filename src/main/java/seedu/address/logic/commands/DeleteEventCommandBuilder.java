@@ -15,10 +15,10 @@ import seedu.address.logic.commands.options.OptionBuilder;
  */
 class DeleteEventCommandBuilder extends CommandBuilder {
 
+    public static final String OPTION_TAGS = "--tag";
+
     private static final String ARGUMENT_INDEXES = "INDEXES";
     private static final String ARGUMENT_TAGS = "TAGS";
-
-    private static final String OPTION_TAGS = "--tag";
 
     private final IndexVariableArgumentsBuilder indexes;
     private final StringVariableArgumentsBuilder tags;

@@ -20,18 +20,18 @@ import seedu.address.model.events.DateTime;
  */
 class EditEventCommandBuilder extends CommandBuilder {
 
+    public static final String OPTION_DESCRIPTION = "--description";
+    public static final String OPTION_START_DATE_TIME = "--start";
+    public static final String OPTION_END_DATE_TIME = "--end";
+    public static final String OPTION_REMIND_DATE_TIME = "--remind";
+    public static final String OPTION_TAGS = "--tag";
+
     private static final String ARGUMENT_INDEXES = "INDEXES";
     private static final String ARGUMENT_DESCRIPTION = "DESCRIPTION";
     private static final String ARGUMENT_START_DATE_TIME = "START_DATE_TIME";
     private static final String ARGUMENT_END_DATE_TIME = "END_DATE_TIME";
     private static final String ARGUMENT_REMIND_DATE_TIME = "REMIND_DATE_TIME";
     private static final String ARGUMENT_TAGS = "TAGS";
-
-    private static final String OPTION_DESCRIPTION = "--description";
-    private static final String OPTION_START_DATE_TIME = "--start";
-    private static final String OPTION_END_DATE_TIME = "--end";
-    private static final String OPTION_REMIND_DATE_TIME = "--remind";
-    private static final String OPTION_TAGS = "--tag";
 
     private final IndexVariableArgumentsBuilder indexes;
     private final StringArgumentBuilder description;

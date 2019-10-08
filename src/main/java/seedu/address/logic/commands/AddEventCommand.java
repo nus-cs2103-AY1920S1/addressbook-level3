@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_ADD_EVENT_SUCCESS;
 
 import java.util.Objects;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
@@ -27,7 +26,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         model.addEvent(this.event);
         return new CommandResult(String.format(MESSAGE_ADD_EVENT_SUCCESS, this.event.getDescription()));
     }
