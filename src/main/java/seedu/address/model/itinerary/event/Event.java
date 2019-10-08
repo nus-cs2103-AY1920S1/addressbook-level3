@@ -72,22 +72,6 @@ public class Event {
         this.inventory = null;
     }
 
-    /**Constructor for {@link Builder} */
-    private Event(Builder builder){
-        try {
-            requireAllNonNull(builder.name, builder.startTime, builder.endTime);
-        } catch (NullPointerException e) {
-            throw new CompulsoryFieldEmptyException();
-        }
-        this.name = builder.name;
-        this.startDate = builder.startTime;
-        this.endDate = builder.endTime;
-        this.booking = builder.booking;
-        this.destination = builder.destination;
-        this.totalBudget = builder.totalBudget;
-        this.inventory = builder.inventory;
-    }
-
     public Name getName() {
         return name;
     }
@@ -141,64 +125,4 @@ public class Event {
     }
 
 
-    /**
-     * Builder class to accommodate optional properties using builder pattern.
-     * Can be used to construct {@link Event} without optional fields.
-     */
-    private static class Builder {
-        private Name name;
-        private LocalDateTime startTime;
-        private LocalDateTime endTime;
-        private Booking booking;
-        private Location destination;
-        private Expenditure totalBudget;
-        private Inventory inventory;
-
-        public static Builder newInstance (){
-            return new Builder();
-        }
-
-        private Builder(){
-        }
-
-        public Builder setName(Name name){
-            this.name = name;
-            return this;
-        }
-
-        public Builder setStartTime (LocalDateTime startTime) {
-            this.startTime = startTime;
-            return this;
-        }
-
-        public Builder setEndTime (LocalDateTime endTime) {
-            this.endTime = endTime;
-            return this;
-        }
-
-        public Builder setBooking (Booking booking){
-            this.booking = booking;
-            return this;
-        }
-
-        public Builder setLocation (Location location) {
-            this.destination = location;
-            return this;
-        }
-
-        public Builder setTotalBudget (Expenditure totalBudget){
-            this.totalBudget = totalBudget;
-            return this;
-        }
-
-        public Builder setInventory (Inventory inventory){
-            this.inventory = inventory;
-            return this;
-        }
-
-        public Event build(){
-            return new Event(this);
-        }
-
-    }
 }

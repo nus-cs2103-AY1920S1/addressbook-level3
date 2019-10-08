@@ -30,8 +30,7 @@ public class Day {
     private final Description description;
 
     /** Constructs a Day */
-    public Day (Name name, LocalDateTime startDate, LocalDateTime endDate, Description description
-            , Location destination, Expenditure totalBudget, EventList eventList) {
+    public Day(Name name, LocalDateTime startDate, LocalDateTime endDate, Description description, Location destination, Expenditure totalBudget, EventList eventList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -52,23 +51,6 @@ public class Day {
         this.totalBudget = totalBudget.isPresent() ? totalBudget.get() : null;
         this.eventList = eventList;
     }
-
-    /**Constructor for {@link Builder} */
-    private Day (Builder builder) {
-        try {
-            requireAllNonNull(builder.name, builder.startDate, builder.endDate);
-        } catch (NullPointerException e) {
-            throw new CompulsoryFieldEmptyException();
-        }
-        this.name = builder.name;
-        this.startDate = builder.startDate;
-        this.endDate = builder.endDate;
-        this.description = builder.description;
-        this.destination = builder.destination;
-        this.totalBudget = builder.totalBudget;
-        this.eventList = builder.eventList;
-    }
-
 
     // Compulsory Field getters
     public Name getName() {
@@ -137,80 +119,5 @@ public class Day {
                 && this.getEndDate().compareTo(other.getEndDate()) <= 0);
     }
 
-
-    /**
-     * Builder class to accommodate optional properties using builder pattern.
-     * Can be used to construct {@link Day} without optional fields.
-     */
-    public static class Builder {
-        private Name name;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
-        private Description description;
-        private Location destination;
-        private Expenditure totalBudget;
-        private EventList eventList;
-
-        public static Builder newInstance (){
-            return new Builder();
-        }
-
-        private Builder(){
-            eventList = new EventList();
-        }
-
-        public static Builder of (Day day){
-            requireAllNonNull(day.name, day.startDate, day.endDate, day.destination);
-            return Builder.newInstance()
-                    .setName(day.getName())
-                    .setStartDate(day.startDate)
-                    .setEndDate(day.endDate)
-                    .setLocation(day.destination)
-                    .setTotalBudget(day.totalBudget)
-                    .setDescription(day.description)
-                    .setEventList(day.eventList);
-        }
-
-
-        public Builder setName(Name name){
-            this.name = name;
-            return this;
-        }
-
-        public Builder setStartDate(LocalDateTime startDate) {
-            this.startDate = startDate;
-            return this;
-        }
-
-        public Builder setEndDate(LocalDateTime endDate) {
-            this.endDate = endDate;
-            return this;
-        }
-
-        public Builder setDescription (Description description){
-            this.description = description;
-            return this;
-        }
-
-        public Builder setLocation (Location location) {
-            this.destination = location;
-            return this;
-        }
-
-        public Builder setTotalBudget (Expenditure totalBudget){
-            this.totalBudget = totalBudget;
-            return this;
-        }
-
-        public Builder setEventList (EventList eventList) {
-            this.eventList = eventList;
-            return this;
-        }
-
-        public Day build(){
-            return new Day(this);
-        }
-
-    }
 
 }

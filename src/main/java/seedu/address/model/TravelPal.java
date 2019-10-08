@@ -63,8 +63,6 @@ public class TravelPal implements ReadOnlyTravelPal {
     public void resetData(ReadOnlyTravelPal newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
-
         setTripList(newData.getTripList());
     }
 

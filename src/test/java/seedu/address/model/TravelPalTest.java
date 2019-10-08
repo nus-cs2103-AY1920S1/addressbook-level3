@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalTrips.TRIP_A;
 import static seedu.address.testutil.TypicalTrips.getTypicalTravelPal;
 
@@ -21,12 +19,12 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.itinerary.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.DuplicateTripException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TripBuilder;
 
 public class TravelPalTest {
 
@@ -50,9 +48,9 @@ public class TravelPalTest {
     }
 
     @Test
-    public void resetData_withDuplicateTrips_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateTrips_throwsDuplicateTripException() {
         // Two trips with the same identity fields
-        Trip editedTripA = Trip.Builder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA)).build();
+        Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA)).build();
         List<Trip> newTrips = Arrays.asList(TRIP_A, editedTripA);
         TravelPalStub newData = new TravelPalStub(newTrips);
 
@@ -61,7 +59,7 @@ public class TravelPalTest {
 
     @Test
     public void resetData_withClashingTrips_throwsClashingTripsException() {
-        Trip editedTripA = Trip.Builder.of(TRIP_A).build();
+        Trip editedTripA = TripBuilder.of(TRIP_A).setName(new Name(VALID_NAME_BALI)).build();
         List<Trip> newTrips = Arrays.asList(TRIP_A, editedTripA);
         TravelPalStub newData = new TravelPalStub(newTrips);
 
@@ -92,7 +90,7 @@ public class TravelPalTest {
         try {
             travelPal.addTrip(TRIP_A);
 
-            Trip editedTripA = Trip.Builder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA))
+            Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA))
                     .build();
             assertTrue(travelPal.hasTrip(editedTripA));
         } catch (ClashingTripException e){

@@ -75,4 +75,16 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         }
         return true;
     }
+
+    @Override
+    public boolean areUnique(List<Day> occurrence) {
+        for (int i = 0; i < occurrence.size() - 1; i++) {
+            for (int j = i + 1; j < occurrence.size(); j++) {
+                if (occurrence.get(i).isSameDay(occurrence.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

@@ -8,7 +8,6 @@ import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.trip.exceptions.CompulsoryFieldEmptyException;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -39,26 +38,6 @@ public class Trip {
         this.dayList = dayList;
         this.tripId = new TripId();
     }
-
-    /**
-     * Constructor for {@link Builder}.
-     */
-    private Trip (Builder builder) {
-        try {
-            requireAllNonNull(builder.name, builder.startDate, builder.endDate);
-        } catch (NullPointerException e) {
-            throw new CompulsoryFieldEmptyException();
-        }
-        this.name = builder.name;
-        this.startDate = builder.startDate;
-        this.endDate = builder.endDate;
-        this.destination = builder.destination;
-        this.totalBudget = builder.totalBudget;
-        this.dayList = builder.dayList;
-        this.tripId = new TripId();
-
-    }
-
 
     //Compulsory field getters
     public Name getName() {
@@ -146,73 +125,4 @@ public class Trip {
         return builder.toString();
     }
 
-    /**
-     * Builder class to accommodate optional properties using builder pattern.
-     * Can be used to construct {@link Trip} without optional fields.
-     */
-    public static class Builder {
-        private Name name;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
-        private Location destination;
-        private Expenditure totalBudget;
-        private DayList dayList;
-
-        public static Builder newInstance (){
-            return new Builder();
-        }
-
-        public static Builder of (Trip trip){
-            requireAllNonNull(trip.name, trip.startDate, trip.endDate, trip.destination);
-            return Builder.newInstance()
-                    .setName(trip.getName())
-                    .setStartDate(trip.startDate)
-                    .setEndDate(trip.endDate)
-                    .setLocation(trip.destination)
-                    .setTotalBudget(trip.totalBudget)
-                    .setDayList(trip.dayList);
-        }
-
-        private Builder(){
-            dayList = new DayList();
-        }
-
-        public Builder setName(Name name){
-            this.name = name;
-            return this;
-        }
-
-        public Builder setStartDate(LocalDateTime startDate) {
-            this.startDate = startDate;
-            return this;
-        }
-
-        public Builder setEndDate(LocalDateTime endDate) {
-            this.endDate = endDate;
-            return this;
-        }
-
-        public Builder setLocation (Location location) {
-            this.destination = location;
-            return this;
-        }
-
-        public Builder setTotalBudget (Expenditure totalBudget){
-            this.totalBudget = totalBudget;
-            return this;
-        }
-
-        public Builder setDayList (DayList dayList) {
-            this.dayList = dayList;
-            return this;
-        }
-
-        /**
-         * Terminal method to construct new {@link Trip}.
-         */
-        public Trip build(){
-            return new Trip(this);
-        }
-
-    }
 }

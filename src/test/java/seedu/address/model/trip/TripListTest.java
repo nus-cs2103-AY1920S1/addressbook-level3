@@ -5,6 +5,7 @@ import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.DuplicateTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
+import seedu.address.testutil.TripBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalTrips.TRIP_A;
 import static seedu.address.testutil.TypicalTrips.TRIP_B;
 
@@ -45,7 +45,7 @@ public class TripListTest {
     public void contains_tripWithSameIdentityFieldsInList_returnsTrue() {
         try {
             tripList.add(TRIP_A);
-            Trip editedTripA = Trip.Builder.of(TRIP_A).setTotalBudget(new Expenditure("10"))
+            Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure("10"))
                     .build();
             assertTrue(tripList.contains(editedTripA));
         } catch (ClashingTripException e){
@@ -100,7 +100,7 @@ public class TripListTest {
     public void setTrip_editedTripHasSameIdentity_success() {
         try{
             tripList.add(TRIP_A);
-            Trip editedTrip = Trip.Builder.of(TRIP_A).setTotalBudget(new Expenditure("100"))
+            Trip editedTrip = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure("100"))
                     .build();
             tripList.set(TRIP_A, editedTrip);
             TripList expectedUniqueTripList = new TripList();
@@ -170,7 +170,7 @@ public class TripListTest {
             List<Trip> expectedUniqueTripList = new ArrayList<Trip>();
             expectedUniqueTripList.add(TRIP_B);
             tripList.set(expectedUniqueTripList);
-            assertEquals(expectedUniqueTripList, tripList);
+            assertEquals(expectedUniqueTripList, tripList.asUnmodifiableObservableList());
         } catch (ClashingTripException e){
 
         }

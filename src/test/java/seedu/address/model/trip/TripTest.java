@@ -5,8 +5,9 @@ import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
-import seedu.address.model.itinerary.day.Day;
+import seedu.address.testutil.DayBuilder;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.testutil.TripBuilder;
 
 import java.time.LocalDateTime;
 
@@ -40,33 +41,33 @@ public class TripTest {
         assertFalse(TRIP_A.isSameTrip(null));
 
         // different start and end dates -> returns false
-        Trip editedTripA = Trip.Builder.of(TRIP_A).setStartDate(LocalDateTime.of(2020, 9, 12, 3, 30))
+        Trip editedTripA = TripBuilder.of(TRIP_A).setStartDate(LocalDateTime.of(2020, 9, 12, 3, 30))
                 .setEndDate(LocalDateTime.of(2021, 4, 3, 4, 13)).build();
 
         assertFalse(TRIP_A.isSameTrip(editedTripA));
 
         // different name -> returns false
-        editedTripA = Trip.Builder.of(TRIP_A).setName(new Name(VALID_NAME_AFRICA)).build();
+        editedTripA = TripBuilder.of(TRIP_A).setName(new Name(VALID_NAME_AFRICA)).build();
         assertFalse(TRIP_A.isSameTrip(editedTripA));
 
         // same name, same start and end times, different attributes -> returns true
-        editedTripA = Trip.Builder.of(TRIP_A).setLocation(new Location(VALID_DESTINATION_AFRICA)).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA))
+        editedTripA = TripBuilder.of(TRIP_A).setLocation(new Location(VALID_DESTINATION_AFRICA)).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA))
                 .build();
         assertTrue(TRIP_A.isSameTrip(editedTripA));
 
         // same name, same start and end times, same total budget, different attributes -> returns true
-        editedTripA = Trip.Builder.of(TRIP_A).setLocation(new Location(VALID_DESTINATION_AFRICA)).build();
+        editedTripA = TripBuilder.of(TRIP_A).setLocation(new Location(VALID_DESTINATION_AFRICA)).build();
         assertTrue(TRIP_A.isSameTrip(editedTripA));
 
         // same name, start and end times, same total budger, same location, different attributes -> returns true
-        editedTripA = Trip.Builder.of(TRIP_A).build();
+        editedTripA = TripBuilder.of(TRIP_A).build();
         assertTrue(TRIP_A.isSameTrip(editedTripA));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Trip tripACopy = Trip.Builder.of(TRIP_A).build();
+        Trip tripACopy = TripBuilder.of(TRIP_A).build();
         assertTrue(TRIP_A.equals(tripACopy));
 
         // same object -> returns true
@@ -82,28 +83,28 @@ public class TripTest {
         assertFalse(TRIP_A.equals(TRIP_B));
 
         // different name -> returns false
-        Trip editedTripA = Trip.Builder.of(TRIP_A).setName(new Name(VALID_NAME_BALI)).build();
+        Trip editedTripA = TripBuilder.of(TRIP_A).setName(new Name(VALID_NAME_BALI)).build();
         assertFalse(TRIP_A.equals(editedTripA));
 
         // different start date -> returns false
-        editedTripA = Trip.Builder.of(TRIP_A).setStartDate(LocalDateTime.parse(VALID_STARTDATE_BALI_2, DATE_TIME_FORMATTER)).build();
+        editedTripA = TripBuilder.of(TRIP_A).setStartDate(LocalDateTime.parse(VALID_STARTDATE_BALI_2, DATE_TIME_FORMATTER)).build();
         assertFalse(TRIP_A.equals(editedTripA));
 
         // different end date -> returns false
-        editedTripA = Trip.Builder.of(TRIP_A).setEndDate(LocalDateTime.parse(VALID_ENDDATE_BALI_2, DATE_TIME_FORMATTER)).build();
+        editedTripA = TripBuilder.of(TRIP_A).setEndDate(LocalDateTime.parse(VALID_ENDDATE_BALI_2, DATE_TIME_FORMATTER)).build();
         assertFalse(TRIP_A.equals(editedTripA));
 
         // different Location -> returns false
-        editedTripA = Trip.Builder.of(TRIP_A).setLocation(new Location(VALID_DESTINATION_BALI)).build();
+        editedTripA = TripBuilder.of(TRIP_A).setLocation(new Location(VALID_DESTINATION_BALI)).build();
         assertFalse(TRIP_A.equals(editedTripA));
 
         // different total budget -> returns false
-        editedTripA = Trip.Builder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_DESTINATION_BALI)).build();
+        editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_DESTINATION_BALI)).build();
         assertFalse(TRIP_A.equals(editedTripA));
 
         // different daylist -> returns false
         DayList days = new DayList();
-        days.add(Day.Builder.newInstance().setName(new Name(VALID_NAME_DAY_1))
+        days.add(DayBuilder.newInstance().setName(new Name(VALID_NAME_DAY_1))
                 .setDescription(new Description(VALID_DESCRIPTION_DAY_1))
                 .setStartDate(LocalDateTime.parse(VALID_STARTDATE_DAY_1_2, DATE_TIME_FORMATTER))
                 .setEndDate(LocalDateTime.parse(VALID_ENDDATE_DAY_1_2, DATE_TIME_FORMATTER))
@@ -111,7 +112,7 @@ public class TripTest {
                 .setLocation(new Location(VALID_DESTINATION_DAY_1))
                 .build()
         );
-        editedTripA = Trip.Builder.of(TRIP_A).setDayList(days).build();
+        editedTripA = TripBuilder.of(TRIP_A).setDayList(days).build();
         assertFalse(TRIP_A.equals(editedTripA));
     }
 

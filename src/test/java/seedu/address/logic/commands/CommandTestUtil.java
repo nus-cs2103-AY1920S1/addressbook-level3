@@ -53,7 +53,7 @@ public class CommandTestUtil {
     public static final String VALID_STARTDATE_BALI_2 = "02/02/2018 1300";
     public static final String VALID_STARTDATE_BALI_3 = "1300";
     public static final String VALID_ENDDATE_AFRICA_1 = "01/02/2019";
-    public static final String VALID_ENDDATE_AFRICA_2 = "01/15/2019 1200";
+    public static final String VALID_ENDDATE_AFRICA_2 = "01/11/2019 1200";
     public static final String VALID_ENDDATE_AFRICA_3 = "1500";
     public static final String VALID_ENDDATE_BALI_1 = "05/05/2018";
     public static final String VALID_ENDDATE_BALI_2 = "07/07/2018 1300";
@@ -72,7 +72,7 @@ public class CommandTestUtil {
     public static final String VALID_STARTDATE_DAY_2_2 = "02/02/2018 1300";
     public static final String VALID_STARTDATE_DAY_2_3 = "1300";
     public static final String VALID_ENDDATE_DAY_1_1 = "01/02/2019";
-    public static final String VALID_ENDDATE_DAY_1_2 = "01/15/2019 1200";
+    public static final String VALID_ENDDATE_DAY_1_2 = "01/11/2019 1200";
     public static final String VALID_ENDDATE_DAY_1_3 = "1500";
     public static final String VALID_ENDDATE_DAY_2_1 = "05/05/2018";
     public static final String VALID_ENDDATE_DAY_2_2 = "07/07/2018 1300";

@@ -76,4 +76,16 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
         }
         return true;
     }
+
+    @Override
+    public boolean areUnique(List<Event> occurrence) {
+        for (int i = 0; i < occurrence.size() - 1; i++) {
+            for (int j = i + 1; j < occurrence.size(); j++) {
+                if (occurrence.get(i).isSameEvent(occurrence.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

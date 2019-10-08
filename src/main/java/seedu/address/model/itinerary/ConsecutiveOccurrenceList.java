@@ -93,4 +93,10 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
      */
     public abstract boolean areConsecutive(List<T> persons);
 
+    /**
+     * Returns true if {@code trips} contains only unique trips.
+     * @param occurrence
+     */
+    public abstract boolean areUnique(List<T> occurrence);
+
 }
