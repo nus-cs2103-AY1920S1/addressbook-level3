@@ -15,17 +15,23 @@ public class SecondaryCommand {
 
     public static final String MESSAGE_CONSTRAINTS = "Please use the 'help' command to check the available commands";
 
-    public final String value;
-
     private static ArrayList<String> commandList = new ArrayList<String>(
             Arrays.asList("help",
-            "add",
-            "clear",
-            "delete",
-            "edit",
-            "exit",
-            "find",
-            "list"));
+                    "add_person",
+                    "clear",
+                    "delete",
+                    "edit_person",
+                    "exit",
+                    "find",
+                    "list",
+                    "add_claim",
+                    "add_income",
+                    "edit_claim",
+                    "edit_income",
+                    "goto"));
+
+    public final String value;
+
 
     /**
      * Constructs an {@code SecondaryCommand}.
@@ -44,10 +50,11 @@ public class SecondaryCommand {
      */
     public static boolean isValidSecondaryCommand(String test) {
 
-        for (String cmd : commandList)
+        for (String cmd : commandList) {
             if (test.equals(cmd)) {
                 return true;
             }
+        }
         return false;
     }
 

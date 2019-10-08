@@ -13,15 +13,15 @@ import java.util.Arrays;
 
 public class Type {
 
-    public static final String MESSAGE_CONSTRAINTS = "There are 3 available types of help: brief, api and " +
-            "guide\n Please select one of them";
-
-    public final String value;
+    public static final String MESSAGE_CONSTRAINTS = "There are 3 available types of help: brief, api and "
+            + "guide\n Please select one of them";
 
     private static ArrayList<String> typeList = new ArrayList<String>(
             Arrays.asList("guide",
                     "brief",
                     "api"));
+
+    public final String value;
 
     /**
      * Constructs an {@code Type}.
@@ -40,10 +40,11 @@ public class Type {
      */
     public static boolean isValidType(String test) {
 
-        for (String deg : typeList)
+        for (String deg : typeList) {
             if (test.equals(deg)) {
                 return true;
             }
+        }
         return false;
     }
 

@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,9 +11,8 @@ import seedu.address.model.Model;
 import seedu.address.model.help.ApiLinks;
 import seedu.address.model.help.BriefDescriptions;
 import seedu.address.model.help.SecondaryCommand;
-import seedu.address.model.help.WebLinks;
 import seedu.address.model.help.Type;
-
+import seedu.address.model.help.WebLinks;
 
 
 /**
@@ -28,7 +27,7 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD + " cmd/add type/guide       "
             + "For more details, press F1 for list of available Commands and Types";
 
-    private String SHOWING_HELP_MESSAGE = "Opened help window.";
+    private String helpMessage = "Opened help window.";
     private Type type;
     private SecondaryCommand command;
 
@@ -38,7 +37,7 @@ public class HelpCommand extends Command {
     public HelpCommand(SecondaryCommand secondaryCommand, Type typeOfHelp) {
         command = requireNonNull(secondaryCommand);
         type = requireNonNull(typeOfHelp);
-        SHOWING_HELP_MESSAGE = "Opened help window for the "
+        helpMessage = "Opened help window for the "
                 + command.toString()
                 + " command. Type of help requested: " + type.toString();
     }
@@ -56,7 +55,7 @@ public class HelpCommand extends Command {
     public CommandResult execute(Model model) throws IOException {
 
         if (isNull(type) && isNull(command)) {
-            return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+            return new CommandResult(helpMessage, true, false);
         } else {
             switch (type.toString()) {
             case "guide":
@@ -72,10 +71,10 @@ public class HelpCommand extends Command {
                 break;
             default:
                 resetCommandAndTypeValues();
-                return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
+                return new CommandResult(helpMessage, false, false);
             }
             resetCommandAndTypeValues();
-            return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
+            return new CommandResult(helpMessage, false, false);
         }
     }
 }
