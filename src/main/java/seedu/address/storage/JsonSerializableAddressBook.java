@@ -21,14 +21,14 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final List<JsonAdaptedCard> persons = new ArrayList<>();
+    private final List<JsonAdaptedCard> wordBank = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedCard> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("Persons") List<JsonAdaptedCard> card) {
+        this.wordBank.addAll(card);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyWordBank source) {
-        persons.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
+        wordBank.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableAddressBook {
      */
     public WordBank toModelType() throws IllegalValueException {
         WordBank wordBank = new WordBank();
-        for (JsonAdaptedCard jsonAdaptedCard : persons) {
-            Card person = jsonAdaptedCard.toModelType();
-            if (wordBank.hasCard(person)) {
+        for (JsonAdaptedCard jsonAdaptedCard : this.wordBank) {
+            Card card = jsonAdaptedCard.toModelType();
+            if (wordBank.hasCard(card)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            wordBank.addCard(person);
+            wordBank.addCard(card);
         }
         return wordBank;
     }
