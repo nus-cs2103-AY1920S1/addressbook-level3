@@ -7,8 +7,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Order;
 import seedu.deliverymans.model.Food;
+import seedu.deliverymans.model.Order;
 
 /**
  * Represents a Restaurant
