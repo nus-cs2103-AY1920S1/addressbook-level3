@@ -13,10 +13,10 @@ import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of cards that enforces uniqueness between its elements and does not allow nulls.
  * A card is considered unique by comparing using {@code Card#isSameCard(Card)}. As such, adding and updating of
- * cards uses Card#isSameCard(Card) for equality so as to ensure that the person being added or updated is
- * unique in terms of names in UniqueCardList. However, the removal of a card uses Person#equals(Object) so
+ * cards uses Card#isSameName(Card) for equality so as to ensure that the person being added or updated is
+ * unique in terms of names in UniqueCardList. However, the removal of a card uses Card#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.

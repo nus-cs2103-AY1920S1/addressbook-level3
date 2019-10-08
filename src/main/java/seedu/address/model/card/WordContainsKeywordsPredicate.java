@@ -6,7 +6,8 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Card}'s {@code Word} matches any of the keywords given.
+ * Tests that a {@code Card}'s {@code Word} contains any of the keywords given.
+ * Keyword "HE" will match all {"he", "HeArt", "HeAVEN", "PORSChE"}
  */
 public class WordContainsKeywordsPredicate implements Predicate<Card> {
     private final List<String> keywords;
