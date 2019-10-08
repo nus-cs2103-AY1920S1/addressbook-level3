@@ -40,6 +40,10 @@ public class CommandParser implements Parser<Command> {
             this.commandBuilder.acceptSentence(matches.get(1));
             return state3;
         });
+        state4.addPattern("'(.*?)'", matches -> {
+            this.commandBuilder.acceptSentence(matches.get(1));
+            return state3;
+        });
         state4.addPattern("[^\\s]+", matches -> {
             this.commandBuilder.acceptSentence(matches.get(0));
             return state3;
