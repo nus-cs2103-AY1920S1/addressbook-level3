@@ -258,16 +258,20 @@ Format: `viewdefaulttags`
 ****
 List of default tags:
 
-* `completed` +
+* `Completed` +
 _Completed_ modules are modules that are in any semester before the *current semester*.
-* `core` +
+* `Core` +
 _Core_ modules are *Computer Science Foundation* modules that count towards *Programme Requirements*.
-* `s/u-able` +
+* `S/U-able` +
 _S/U-able_ modules are modules that permit the *Satisfactory/Unsatisfactory option*.
-* `ue` +
+* `UE` +
 _UE_ modules are *Unrestricted Elective* modules.
-* `ulr` +
+* `ULR` +
 _ULR_ modules are modules that count towards *University Level Requirements*.
+* `P` +
+_P_ modules are modules that count towards Focus Area Primaries.
+* `E` +
+_E_ modules are modules that count towards Focus Area Electives.
 ****
 
 ==== Viewing all tags : `viewalltags`

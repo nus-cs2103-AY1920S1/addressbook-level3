@@ -1,5 +1,7 @@
 package seedu.address.model.semester;
 
+import java.util.List;
+
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -13,7 +15,7 @@ public class Semester {
 
     // Data fields
     private final UniqueModuleList modules = new UniqueModuleList();
-    private boolean isBlocked = false;
+    private boolean isBlocked;
     private String reasonForBlocked;
     private boolean isExpanded = false;
 
@@ -22,6 +24,20 @@ public class Semester {
      */
     public Semester(SemesterName semesterName) {
         this.semesterName = semesterName;
+        isBlocked = false;
+    }
+
+    /**
+     * This constructor is for {@code JsonAdaptedSemester} to create a semester with skeletal modules inside.
+     */
+    public Semester(SemesterName semesterName, boolean isBlocked,
+                    String reasonForBlocked, List<Module> modules) {
+        this.semesterName = semesterName;
+        this.isBlocked = isBlocked;
+        this.reasonForBlocked = reasonForBlocked;
+        for(Module module : modules) {
+            this.modules.add(module);
+        }
     }
 
     public SemesterName getSemesterName() {
