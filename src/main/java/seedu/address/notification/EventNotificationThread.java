@@ -56,7 +56,7 @@ public class EventNotificationThread extends Thread {
             }
 
         } catch (InterruptedException e) {
-            logger.info("EventNotificationThread interrupted.");
+            logger.info("EventNotificationThread successfully interrupted.");
         }
     }
 

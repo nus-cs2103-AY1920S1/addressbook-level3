@@ -34,7 +34,7 @@ public class NotificationManager implements Notification {
     }
 
     /**
-     * Interrupts any ongoing threads so that the program may shutdown gracefully
+     * Interrupts any ongoing threads so that the program may shutdown gracefully.
      */
     public void shutDown() {
         interruptExistingThread();
@@ -45,6 +45,7 @@ public class NotificationManager implements Notification {
      */
     private void interruptExistingThread () {
         if (currentEventNotificationThread != null) {
+            logger.info("Attempting to interrupt current EventNotificationThread.");
             currentEventNotificationThread.interrupt();
         }
     }
