@@ -74,8 +74,8 @@ public class MainApp extends Application {
 
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.storage.StorageManager reimbursementStorage =
-                new seedu.address.reimbursement.storage.StorageManager("data/transactionHistory.txt", "data" +
-                        "/reimbursementInformation.txt", model);
+                new seedu.address.reimbursement.storage.StorageManager("data" +
+                        "/reimbursementInformation.txt", "data/transactionHistory.txt", model);
         seedu.address.reimbursement.model.ModelManager reimbursementManager =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementStorage);
 

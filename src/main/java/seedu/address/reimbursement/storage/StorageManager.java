@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
-
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
@@ -32,8 +30,8 @@ public class StorageManager implements Storage {
     public static void readInFileLine(HashMap<Person, String> map, String line,
                                       seedu.address.person.model.Model personModel) {
         String[] stringArr = line.split(VBSPLIT, 0);
-        String[] personNameArr = stringArr[0].split(DOTSPLIT);
-        String personName = personNameArr[1];
+        String[] nameArr = stringArr[0].split(DOTSPLIT);
+        String personName = nameArr[1];
         Person person = personModel.getPersonByName(personName);
         String date = stringArr[2];
         boolean exists = false;
@@ -62,6 +60,7 @@ public class StorageManager implements Storage {
             TransactionList transList = transactionStorageManager.getTransactionList();
             ReimbursementList newList = new ReimbursementList(transList);
             matchDeadline(newList, map);
+            this.writeFile(newList);
             return newList;
         } catch (Exception e) {
             return new ReimbursementList();

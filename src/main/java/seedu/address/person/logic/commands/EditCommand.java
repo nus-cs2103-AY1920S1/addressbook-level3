@@ -94,7 +94,7 @@ public class EditCommand extends Command {
                     if (transaction.getPerson().equals(personToEdit)) {
                         Transaction transaction1 = new Transaction(transaction.getDate(),
                                 transaction.getDescription(), transaction.getCategory(),
-                                transaction.getAmount(), editedPerson, i + 1);
+                                transaction.getAmount(), editedPerson, i + 1, transaction.getIsReimbursed());
                         transactionLogic.setTransaction(transaction, transaction1);
                         transactionLogic.writeIntoTransactionFile();
                     }

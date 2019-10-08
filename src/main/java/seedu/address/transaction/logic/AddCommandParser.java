@@ -34,7 +34,8 @@ public class AddCommandParser {
         double amount = Double.parseDouble(amountString);
         try {
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
-            Transaction transaction = new Transaction(datetime, description, category, amount, person, transactionListSize + 1);
+            Transaction transaction = new Transaction(datetime, description, category, amount, person,
+                    transactionListSize + 1, false);
             AddCommand addCommand = new AddCommand(transaction);
             return addCommand;
         } catch (Exception e) {

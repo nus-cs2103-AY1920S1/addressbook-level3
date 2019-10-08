@@ -18,7 +18,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model reimbursementModel, seedu.address.reimbursement.storage.StorageManager reimbursementStorage,
                         seedu.address.transaction.model.Model transactionModel,
                         seedu.address.transaction.storage.StorageManager transactionStorage,
-                        seedu.address.person.model.Model personModel) {
+                        seedu.address.person.model.Model personModel) throws Exception {
 
         this.reimbursementModel = reimbursementModel;
         this.reimbursementStorage = reimbursementStorage;
@@ -29,6 +29,9 @@ public class LogicManager implements Logic {
 
         this.transactionModel = transactionModel;
         this.transactionStorage = transactionStorage;
+
+        reimbursementModel.updateReimbursementList(transactionModel.getTransactionList());
+        reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
     }
 
     @Override

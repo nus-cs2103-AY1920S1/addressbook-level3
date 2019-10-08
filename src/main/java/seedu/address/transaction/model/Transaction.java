@@ -18,7 +18,7 @@ public class Transaction {
     private boolean isReimbursed;
 
     public Transaction(String date, String description, String category,
-                       double amount, Person person, int i) {
+                       double amount, Person person, int i, boolean isReimbursed) {
         this.date = LocalDate.parse(date, myFormatter);
         this.description = description;
         this.category = category;
@@ -26,7 +26,7 @@ public class Transaction {
         this.person = person;
         this.name = person.getName().toString();
         this.id = "" + i;
-        this.isReimbursed = false;
+        this.isReimbursed = isReimbursed;
     }
 
     public Person getPerson() {
@@ -69,9 +69,13 @@ public class Transaction {
         isReimbursed = true;
     }
 
+    private String isOne(boolean isReimbursed) {
+        return isReimbursed? "1": "0";
+    }
+
     public String toWriteIntoFile() {
         String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category +
-                " | " + this.amount + " | " + this.person.getName();
+                " | " + this.amount + " | " + this.person.getName() + " | " + isOne(this.isReimbursed);
         return msg;
     }
 
@@ -83,6 +87,10 @@ public class Transaction {
 
     public String getName() {
         return this.person.getName().toString();
+    }
+
+    public boolean getIsReimbursed() {
+        return this.isReimbursed;
     }
 
     public boolean equals(Transaction editedTransaction) {

@@ -62,7 +62,9 @@ public class EditCommand extends Command {
         double updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Person updatedPerson =
                 personModel.getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
-        return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount, updatedPerson, id);
+        boolean updatedIsReimbursed = editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());
+        return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount,
+                updatedPerson, id, updatedIsReimbursed);
     }
 
     /**
@@ -75,6 +77,7 @@ public class EditCommand extends Command {
         private String category;
         private double amount;
         private String name;
+        private boolean isReimbursed;
         private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy",
                 Locale.ENGLISH);
 
@@ -90,6 +93,7 @@ public class EditCommand extends Command {
             setCategory(toCopy.category);
             setAmount(toCopy.amount);
             setName(toCopy.name);
+            setIsReimbursed(toCopy.isReimbursed);
         }
 
         /**
@@ -139,6 +143,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
+        public void setIsReimbursed(boolean isReimbursed) {
+            this.isReimbursed = isReimbursed;
+        }
+        public Optional<Boolean> getIsReimbursed() {
+            return Optional.ofNullable(isReimbursed);
+        }
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -158,7 +168,8 @@ public class EditCommand extends Command {
                     && getDescription().equals(e.getDescription())
                     && getCategory().equals(e.getCategory())
                     && getAmount().equals(e.getAmount())
-                    && getName().equals(e.getName());
+                    && getName().equals(e.getName())
+                    && getIsReimbursed().equals(e.getIsReimbursed());
         }
     }
 

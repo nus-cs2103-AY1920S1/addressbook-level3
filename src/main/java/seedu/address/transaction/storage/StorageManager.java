@@ -44,9 +44,14 @@ public class StorageManager implements Storage {
         Person person = personModel.getPersonByName(stringArr[4]);
         Transaction t = new Transaction(dateTimeArr[1], stringArr[1],
                 stringArr[2], Double.parseDouble(stringArr[3]), person,
-                Integer.parseInt(dateTimeArr[0].split("[.]")[0]));
+                Integer.parseInt(dateTimeArr[0].split("[.]")[0]), isReimbursed(stringArr[5]));
         return t;
     }
+
+    private static boolean isReimbursed(String num) {
+        return num.equals("1")? true: false;
+    }
+
 
     public void writeFile(TransactionList transactionList) throws IOException, NoSuchIndexException {
         FileWriter fw = new FileWriter(this.filepath);

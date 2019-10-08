@@ -15,10 +15,12 @@ public class ReimbursementList {
     private ArrayList<Reimbursement> list;
 
     public ReimbursementList() {
+
         list = new ArrayList<Reimbursement>();
     }
 
     public ReimbursementList(TransactionList transList) {
+        list = new ArrayList<Reimbursement>();
         ArrayList<Transaction> pendingList = checkStatus(transList);
         for (Transaction trans : pendingList) {
             Reimbursement newRecord = new Reimbursement(trans);
@@ -32,7 +34,7 @@ public class ReimbursementList {
 
     private ArrayList<Transaction> checkStatus(TransactionList transList) {
         //gets all the transactions whose status is pending reimbursement.
-        ArrayList<Transaction> pendingList = new ArrayList<>();
+        ArrayList<Transaction> pendingList = new ArrayList<>(); //throws null pointer here
         for (int i = 0; i < transList.size(); i++) {
             try {
                 Transaction trans = transList.get(i);
