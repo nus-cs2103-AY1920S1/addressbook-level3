@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import java.util.stream.Collectors;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -128,5 +130,13 @@ public class FolderStructure {
      */
     public static boolean isValidFolderStructure(FolderStructure test) {
         return FolderStructure.isValidFolderStructure(test, new HashSet<>());
+    }
+
+    /**
+     * Clones a folder structure.
+     */
+    public FolderStructure clone() {
+        return new FolderStructure(
+                name, subfolders.stream().map(FolderStructure::clone).collect(Collectors.toList()));
     }
 }

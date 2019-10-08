@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
@@ -51,7 +52,7 @@ public class Mark implements ReadOnlyMark {
         requireNonNull(newData);
 
         setBookmarks(newData.getBookmarkList());
-        setFolderStructure(newData.getFolderStructure());
+        setFolderStructure(newData.getFolderStructure().clone());
     }
 
     //// bookmark-level operations
@@ -99,7 +100,8 @@ public class Mark implements ReadOnlyMark {
      * {@code bookmarks} must not contain duplicate bookmarks.
      */
     public void setFolderStructure(FolderStructure folderStructure) {
-        this.folderStructure = folderStructure;
+        this.folderStructure.getSubfolders().clear();
+        this.folderStructure.getSubfolders().addAll(folderStructure.getSubfolders());
     }
 
 
