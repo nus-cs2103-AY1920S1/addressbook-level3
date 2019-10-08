@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.addcommand.AddTeamCommand;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -32,7 +31,7 @@ import seedu.address.model.entitylist.TeamList;
 /**
  * Parses input arguments and creates a new {@link AddTeamCommand} object.
  */
-public class AddTeamCommandParser implements Parser<AddCommand> {
+public class AddTeamCommandParser implements Parser<AddTeamCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand

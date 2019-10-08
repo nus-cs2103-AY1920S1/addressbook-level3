@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
 
-import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.addcommand.AddMentorCommand;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -25,7 +24,7 @@ import seedu.address.model.entitylist.MentorList;
 /**
  * Parses input arguments and creates a new {@link AddMentorCommand} object.
  */
-public class AddMentorCommandParser implements Parser<AddCommand> {
+public class AddMentorCommandParser implements Parser<AddMentorCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the {@code AddMentorCommand}
