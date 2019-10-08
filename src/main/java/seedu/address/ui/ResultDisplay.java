@@ -24,5 +24,4 @@ public class ResultDisplay extends UiPart<Region> {
         requireNonNull(feedbackToUser);
         resultDisplay.setText(feedbackToUser);
     }
-
 }
