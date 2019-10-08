@@ -5,10 +5,10 @@ import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.wordbank.WordBank;
 
 public class ClearCommandTest {
 

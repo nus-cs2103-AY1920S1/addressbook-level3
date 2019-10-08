@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.GuessCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.game.Guess;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * Parses input arguments and creates a new GuessCommand object
+ */
 public class GuessCommandParser implements Parser<GuessCommand> {
 
     @Override

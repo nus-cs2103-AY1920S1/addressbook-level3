@@ -29,16 +29,6 @@ public class ModelManager implements Model {
     //Placeholder game model
     private Game game = null;
 
-
-    //Placeholder setGame method
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public Game getGame() {
-        return this.game;
-    }
-
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
      */
@@ -55,6 +45,15 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new WordBank(), new UserPrefs());
+    }
+
+    // Placeholder setGame method
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 
     //=========== UserPrefs ==================================================================================

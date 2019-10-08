@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -14,7 +16,8 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.*;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -29,14 +32,14 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_CardAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
         Card validCard = new CardBuilder().build();
 
         CommandResult commandResult = new AddCommand(validCard).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCard), modelStub.CardsAdded);
+        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
     }
 
     @Test
@@ -117,7 +120,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addCard(Card Card) {
+        public void addCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -132,7 +135,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card Card) {
+        public boolean hasCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -179,18 +182,18 @@ public class AddCommandTest {
      * A Model stub that always accept the card being added.
      */
     private class ModelStubAcceptingCardAdded extends ModelStub {
-        final ArrayList<Card> CardsAdded = new ArrayList<>();
+        final ArrayList<Card> cardsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasCard(Card Card) {
-            requireNonNull(Card);
-            return CardsAdded.stream().anyMatch(Card::isSameName);
+        public boolean hasCard(Card card) {
+            requireNonNull(card);
+            return cardsAdded.stream().anyMatch(card::isSameName);
         }
 
         @Override
-        public void addCard(Card Card) {
-            requireNonNull(Card);
-            CardsAdded.add(Card);
+        public void addCard(Card card) {
+            requireNonNull(card);
+            cardsAdded.add(card);
         }
 
         @Override

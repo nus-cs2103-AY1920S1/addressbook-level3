@@ -2,11 +2,15 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_ABRA;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEANING_BUTTERFREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.testutil.EditCardDescriptorBuilder;
 
+import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class EditCardDescriptorTest {
 
@@ -29,7 +33,8 @@ public class EditCardDescriptorTest {
         assertFalse(DESC_ABRA.equals(DESC_BUTTERFREE));
 
         // different word -> returns false
-        EditCommand.EditCardDescriptor editedAbra = new EditCardDescriptorBuilder(DESC_ABRA).withWord(VALID_WORD_BUTTERFREE).build();
+        EditCommand.EditCardDescriptor editedAbra = new EditCardDescriptorBuilder(DESC_ABRA)
+                .withWord(VALID_WORD_BUTTERFREE).build();
         assertFalse(DESC_ABRA.equals(editedAbra));
 
         // different meaning -> returns false

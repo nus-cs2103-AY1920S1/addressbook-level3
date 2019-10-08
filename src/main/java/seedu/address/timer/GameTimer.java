@@ -7,15 +7,14 @@ import javafx.application.Platform;
 import seedu.address.ui.TimerDisplay;
 
 /**
- * Class that represents a countdown timer
+ * Represents a countdown timer.
  */
 public class GameTimer {
+
     private Timer timer;
     private double currentMilliSeconds;
     private TimerDisplay timerDisplay;
     private String mainMessage;
-
-
 
     public GameTimer(String mainMessage, double durationInMs, TimerDisplay timerDisplay) {
         this.mainMessage = mainMessage;
@@ -29,8 +28,9 @@ public class GameTimer {
                     if (getTimeLeft() >= 0) {
                         timerDisplay.setNormalTextColour();
                         timerDisplay.setFeedbackToUser(mainMessage + ": " + getTimeLeft() / 100);
-                        if(getTimeLeft() <= 500)
+                        if (getTimeLeft() <= 500) {
                             timerDisplay.setAlertTextColour();
+                        }
                     } else {
                         timer.cancel();
                         timerDisplay.setFeedbackToUser("Time's Up!");
@@ -49,6 +49,9 @@ public class GameTimer {
         return currentMilliSeconds;
     }
 
+    /**
+     * Aborts the current timer.
+     */
     public void abortTimer() {
         this.timer.cancel();
         this.timer.purge();

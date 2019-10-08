@@ -9,11 +9,14 @@ Extends to Step 15 in Game.java
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.game.Game;
 import seedu.address.model.Model;
+import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.WordBank;
 
+/**
+ * Start the game.
+ */
 public class StartCommand extends GameCommand {
 
     public static final String COMMAND_WORD = "start";
@@ -33,7 +36,7 @@ public class StartCommand extends GameCommand {
         return new CommandResult(
                 MESSAGE_GAME_START_SUCCESS + FIRST_QUESTION_MESSAGE
                         + "\n"
-                        + currQuestion
-                , true);
+                        + currQuestion,
+                true);
     }
 }

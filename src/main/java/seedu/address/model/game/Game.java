@@ -1,15 +1,19 @@
 package seedu.address.model.game;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 
+/**
+ * Represents a game. todo give a more descriptive comment
+ */
 public class Game {
+
+    public static final int CORRECT_GUESS = 1;
+    public static final int WRONG_GUESS = 0;
 
     private WordBank wordBank;
     private Index cardIndex;
-    public static final int CORRECT_GUESS = 1;
-    public static final int WRONG_GUESS = 0;
 
     public Game(WordBank wordBank) {
         this.wordBank = wordBank;

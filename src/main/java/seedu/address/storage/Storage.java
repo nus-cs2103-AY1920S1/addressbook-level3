@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 
 /**
  * API of the Storage component

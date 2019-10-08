@@ -5,7 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_CARDS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCards.*;
+import static seedu.address.testutil.TypicalCards.BUTTERFREE;
+import static seedu.address.testutil.TypicalCards.EEVEE;
+import static seedu.address.testutil.TypicalCards.FLAREON;
+import static seedu.address.testutil.TypicalCards.GEODUDE;
+import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -64,7 +68,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 4);
-        WordContainsKeywordsPredicate predicate = preparePredicate("ee eo");
+        WordContainsKeywordsPredicate predicate = preparePredicate("ee fl");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredCardList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
