@@ -23,9 +23,10 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.testutil.PersonBuilder;
 
 public class AddContactCommandTest {
 
