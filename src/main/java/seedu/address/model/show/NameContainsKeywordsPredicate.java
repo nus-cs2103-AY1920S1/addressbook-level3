@@ -1,9 +1,9 @@
 package seedu.address.model.show;
 
-import seedu.address.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
@@ -18,7 +18,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Show> {
     @Override
     public boolean test(Show show) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(show.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(show.getName().showName, keyword));
     }
 
     @Override

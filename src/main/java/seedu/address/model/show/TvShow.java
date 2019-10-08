@@ -1,16 +1,18 @@
 package seedu.address.model.show;
 
-import seedu.address.model.actor.Actor;
-import seedu.address.model.person.Name;
-
 import java.util.ArrayList;
 import java.util.Set;
 
+import seedu.address.model.actor.Actor;
+
+/**
+ * Represents a TvShow in the watchlist.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class TvShow extends Show {
 
     private int numOfEpisodesWatched;
     private ArrayList<TvSeason> tvSeasons;
-
     private final int totalNumOfEpisodes;
 
     public TvShow(Name name, Description description, boolean isWatched,

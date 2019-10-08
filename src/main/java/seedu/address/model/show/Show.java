@@ -1,28 +1,31 @@
 package seedu.address.model.show;
 
-import seedu.address.model.actor.Actor;
-import seedu.address.model.person.Name;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.HashSet;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.actor.Actor;
 
+/**
+ * Represents a Show in the watchlist.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public abstract class Show {
 
     //identity fields
-    private seedu.address.model.person.Name name;
-    private Date dateOfRelease;
-    private boolean isWatched;
+    private final Name name;
+    private final Date dateOfRelease;
+    private final boolean isWatched;
 
     //data fields
     private final Description description;
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
 
-    public Show(seedu.address.model.person.Name name, Description description, boolean isWatched, Date dateOfRelease,
+    public Show(Name name, Description description, boolean isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
         requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;

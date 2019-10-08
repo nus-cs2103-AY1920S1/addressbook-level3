@@ -2,9 +2,14 @@ package seedu.address.model.show;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Show's Running Time in the watchlist.
+ * Guarantees: immutable.
+ */
 public class RunningTime {
     // For now the running time will be an integer, since that is what the API returns it as.
-    public static final String MESSAGE_CONSTRAINTS = "Running time can take any integer values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Running time can take any integer values, and it should not be blank";
 
     public final int value;
 

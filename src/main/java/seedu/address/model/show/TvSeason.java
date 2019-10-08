@@ -2,11 +2,15 @@ package seedu.address.model.show;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a TvSeason of a TvShow in the watchlist.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class TvSeason {
 
-    private int seasonNum;
-    private int totalNumOfEpisodes;
-    private ArrayList<Episode> episodes;
+    private final int seasonNum;
+    private final int totalNumOfEpisodes;
+    private final ArrayList<Episode> episodes;
 
     public TvSeason(int seasonNum, int totalNumOfEpisodes, ArrayList<Episode> episodes) {
         this.seasonNum = seasonNum;
