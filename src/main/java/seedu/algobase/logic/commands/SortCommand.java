@@ -46,7 +46,7 @@ public class SortCommand extends Command {
         + PREFIX_SORTING_METHOD + "SORTING_METHOD "
             + PREFIX_SORTING_ORDER + "SORTING_ORDER\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_SORTING_METHOD + "time "
+            + PREFIX_SORTING_METHOD + "name "
             + PREFIX_SORTING_ORDER + "ascend";
     public static final String MESSAGE_SUCCESS = "AlgoBase has been sorted!";
 
