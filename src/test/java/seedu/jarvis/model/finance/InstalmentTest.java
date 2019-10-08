@@ -18,7 +18,7 @@ public class InstalmentTest {
 
     @Test
     public void editInstalment_nullDescription_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new InstalmentStub2().editDescription(null));
+        assertThrows(NullPointerException.class, () -> new InstalmentStub().editDescription(null));
     }
 }
 
