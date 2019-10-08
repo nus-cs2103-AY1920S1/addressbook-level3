@@ -416,8 +416,8 @@ Use case resumes at step 2.
 *MSS*
 
 1. User make changes in the appointment list, or a specific appointment via CRUD.
-2. System saves the updated data to the external text file
-3. System displays the updated appointment data in the main window
+2. System saves the updated data
+3. System displays the updated appointment data
 +
 Use case ends
 
