@@ -7,7 +7,7 @@ import seedu.address.model.Model;
  * Command to create a new Activity.
  */
 
-public class CreateActivityCommand extends Command {
+public class ActivityCommand extends Command {
     public static final String COMMAND_WORD="activity";
 
     public CommandResult execute(Model model) {
