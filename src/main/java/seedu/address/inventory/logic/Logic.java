@@ -7,5 +7,5 @@ public interface Logic {
 
     CommandResult execute(String commandText) throws Exception;
 
-    TransactionList getTransactionList() throws Exception;
+    TransactionList getInventoryList() throws Exception;
 }
