@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TabPane?>
+
+<TabPane styleClass="tab-pane" minHeight="360.0" prefWidth="340.0" side="TOP" tabClosingPolicy="UNAVAILABLE"
+         xmlns:fx="http://javafx.com/fxml/1" fx:id="tabsPlaceholder" />
+
