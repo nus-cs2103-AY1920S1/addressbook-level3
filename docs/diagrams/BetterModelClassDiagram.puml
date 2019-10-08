@@ -17,4 +17,5 @@ Food o-up-> "*" Tag
 Food *--> Name
 Food *--> Price
 Food *--> Description
+Food *--> Category
 @enduml
