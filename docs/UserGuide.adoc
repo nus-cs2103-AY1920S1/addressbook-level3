@@ -78,6 +78,25 @@ Adds the item `HL Milk` with expiry date `10/10/2019` and two tags `#Dairy` and 
 Shows all items in the list. +
 Format: `view`
 
+=== Setting a reminder for an item: `set reminder`
+
+Set a reminder threshold for the specified item +
+Format: `set reminder|<index>|<reminder threshold>...`
+
+****
+* Reminder threshold refers to the number of days before the item's expiry date to activate the reminder.
+* All items have their default reminder threshold set to 0.
+* To reset a reminder threshold, simply write over the old one.
+* To delete a reminder, reset the reminder threshold to 0. e.g. `set reminder|1|0` will delete the reminder for item 1.
+****
+
+Examples:
+
+* `set reminder|2|4` +
+Sets a reminder for the second item in the list 4 days before its expiry date.
+* `set|1|0` +
+Removes the reminder for the first item in the list.
+
 //=== Editing an item : `edit`
 
 //Edits an existing item in the list. +
@@ -100,16 +119,22 @@ Format: `view`
 
 === Listing expiring items : `check`
 
-Shows expiring items in the list. +
-Format: `check[|<days>]`
+Shows items whose reminder has been activated. +
+Format: `check`
+
+Shows items that will expire within the specified number of days in the list. +
+Format: `check|<days>`
 
 ****
-* Lists items expiring within the specified number of `<days>`
-* Number of days *must be a positive integer* 1,2,3,..
+* Number of days *must be a non-negative integer* 0,1,2,3,..
 ****
+
+[TIP]
+`check|0` lists items that have already expired or expires on the day of checking.
 
 Examples:
 
+* `check`
 * `check|20` +
 Lists items expiring in the next 20 days.
 
