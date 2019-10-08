@@ -11,14 +11,14 @@ import seedu.address.model.person.PersonContainsTagPredicate;
 
 public class FilterByTagCommand extends Command {
 
-    private String[] tagKeywords;
+    public static final String COMMAND_WORD = "filter";
 
-    public final static String COMMAND_WORD = "filter";
-
-    public final static String MESSAGE_USAGE = "filter by tags. Find all related persons with the specified \n"
+    public static final String MESSAGE_USAGE = "filter by tags. Find all related persons with the specified \n"
             + "tags. Example : filter [neighbours] [friends]";
 
-    public final static String FILTER_TAG_MESSAGE_SUCCESS = "Filter by tag(s) : ";
+    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter by tag(s) : ";
+
+    private String[] tagKeywords;
 
     private final PersonContainsTagPredicate tagPredicate;
 
@@ -32,6 +32,10 @@ public class FilterByTagCommand extends Command {
         this.tagKeywords = tagKeywords;
     }
 
+    /**
+     * Displays the tags entered in the display
+     * @return string of the tags keyed in
+     */
     public String displayTagKeywords() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tagKeywords.length; i++) {
