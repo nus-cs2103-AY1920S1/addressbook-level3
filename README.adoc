@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= TimeBook
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T10-4/main[image:https://travis-ci.org/AY1920S1-CS2103T-T10-4/main.svg?branch=master[Build Status]]
