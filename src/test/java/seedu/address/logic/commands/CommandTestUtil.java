@@ -32,7 +32,7 @@ public class CommandTestUtil {
             + "one flapping its wings, be careful not to inhale any of the dust.";
     public static final String VALID_TAG_PSYCHIC = "psychic";
     public static final String VALID_TAG_BUG = "bug";
-
+    public static final String VALID_TAG_FLYING = "flying";
 
     public static final String WORD_DESC_ABRA = " " + PREFIX_WORD + VALID_WORD_ABRA;
     public static final String WORD_DESC_BUTTERFREE = " " + PREFIX_WORD + VALID_WORD_BUTTERFREE;
@@ -40,6 +40,7 @@ public class CommandTestUtil {
     public static final String MEANING_DESC_BUTTERFREE = " " + PREFIX_MEANING + VALID_MEANING_BUTTERFREE;
     public static final String TAG_DESC_PSYCHIC = " " + PREFIX_TAG + VALID_TAG_PSYCHIC;
     public static final String TAG_DESC_BUG = " " + PREFIX_TAG + VALID_TAG_BUG;
+    public static final String TAG_DESC_FLYING = " " + PREFIX_TAG + VALID_TAG_FLYING;
 
     public static final String INVALID_WORD_DESC = " " + PREFIX_WORD + "      "; // all white spaces not allowed
     public static final String INVALID_MEANING_DESC = " " + PREFIX_MEANING + "     "; // all white spaces not allowed
@@ -57,7 +58,7 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_PSYCHIC).build();
         DESC_BUTTERFREE = new EditCardDescriptorBuilder().withWord(VALID_WORD_BUTTERFREE)
                 .withMeaning(VALID_MEANING_BUTTERFREE)
-                .withTags(VALID_TAG_BUG).build();
+                .withTags(VALID_TAG_BUG).withTags(VALID_TAG_FLYING).build();
     }
 
     /**

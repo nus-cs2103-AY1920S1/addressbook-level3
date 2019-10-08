@@ -18,20 +18,20 @@ public class SampleDataUtil {
         return new Card[] {
             new Card(new Word("Abra"), new Meaning("It sleeps eighteen hours a day, but employs telekinesis even "
                     + "while sleeping."),
-                    getTagSet("friends")),
+                    getTagSet("psychic")),
             new Card(new Word("Butterfree"), new Meaning("Its wings are covered with poisonous dust. If you see "
                     + "one flapping its wings, be careful not to inhale any of the dust."),
-                    getTagSet("friends")),
+                    getTagSet("bug", "flying")),
             new Card(new Word("Charizard"), new Meaning("It flies around the sky in search of powerful "
                     + "opponents. It breathes fire of such great heat that it melts anything. However, it never turns "
                     + "its fiery breath on any opponent weaker than itself."),
-                    getTagSet("friends")),
+                    getTagSet("fire", "flying")),
             new Card(new Word("Ditto"), new Meaning("Its transformation ability is perfect. However, if it "
                     + "is made to laugh, it can't maintain its disguise."),
-                    getTagSet("friends")),
+                    getTagSet("normal")),
             new Card(new Word("Eevee"), new Meaning("Possessing an unbalanced and unstable genetic makeup, it "
                     + "conceals many possible evolutions."),
-                    getTagSet("friends"))
+                    getTagSet("normal"))
         };
     }
 
