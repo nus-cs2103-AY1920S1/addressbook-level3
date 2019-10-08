@@ -574,7 +574,7 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 [[secretary]] Secretary::
-a person employed by an individual or in an office to assist with correspondence, make appointments,
+A person employed by an individual or in an office to assist with correspondence, make appointments,
 and carry out administrative tasks.
 
 [[manager]] Manager::
