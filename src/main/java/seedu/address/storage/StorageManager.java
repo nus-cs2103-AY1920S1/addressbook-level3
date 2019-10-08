@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of Contact data in local storage.
+ * Manages storage of FinSec data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -45,7 +45,7 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ Contact methods ==============================
+    // ================ FinSec methods ==============================
 
     @Override
     public Path getFinSecFilePath() {
@@ -53,23 +53,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyContact> readContacts() throws DataConversionException, IOException {
+    public Optional<ReadOnlyFinSec> readContacts() throws DataConversionException, IOException {
         return readContacts(finSecStorage.getFinSecFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyContact> readContacts(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyFinSec> readContacts(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return finSecStorage.readContacts(filePath);
     }
 
     @Override
-    public void saveFinSec(ReadOnlyContact contact) throws IOException {
+    public void saveFinSec(ReadOnlyFinSec contact) throws IOException {
         saveFinSec(contact, finSecStorage.getFinSecFilePath());
     }
 
     @Override
-    public void saveFinSec(ReadOnlyContact contact, Path filePath) throws IOException {
+    public void saveFinSec(ReadOnlyFinSec contact, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         finSecStorage.saveFinSec(contact, filePath);
     }

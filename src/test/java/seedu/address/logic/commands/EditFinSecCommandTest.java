@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditContactCommand.EditPersonDescriptor;
-import seedu.address.model.Contact;
+import seedu.address.model.FinSec;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -29,7 +29,7 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
-public class EditContactCommandTest {
+public class EditFinSecCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -41,8 +41,8 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new Contact(model.getFinSec()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedContact);
+        Model expectedModel = new ModelManager(new FinSec(model.getFinSec()), new UserPrefs());
+        expectedModel.setContact(model.getFilteredPersonList().get(0), editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
     }
@@ -62,8 +62,8 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new Contact(model.getFinSec()), new UserPrefs());
-        expectedModel.setPerson(lastContact, editedContact);
+        Model expectedModel = new ModelManager(new FinSec(model.getFinSec()), new UserPrefs());
+        expectedModel.setContact(lastContact, editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
     }
@@ -75,7 +75,7 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new Contact(model.getFinSec()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FinSec(model.getFinSec()), new UserPrefs());
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
     }
@@ -91,8 +91,8 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new Contact(model.getFinSec()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedContact);
+        Model expectedModel = new ModelManager(new FinSec(model.getFinSec()), new UserPrefs());
+        expectedModel.setContact(model.getFilteredPersonList().get(0), editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
     }

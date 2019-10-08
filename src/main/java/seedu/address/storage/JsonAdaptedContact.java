@@ -22,7 +22,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedContact {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Contact's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "FinSec's %s field is missing!";
 
     private final String name;
     private final String phone;
@@ -47,7 +47,7 @@ class JsonAdaptedContact {
     }
 
     /**
-     * Converts a given {@code Contact} into this class for Jackson use.
+     * Converts a given {@code FinSec} into this class for Jackson use.
      */
     public JsonAdaptedContact(Contact source) {
         name = source.getName().fullName;
@@ -60,7 +60,7 @@ class JsonAdaptedContact {
     }
 
     /**
-     * Converts this Jackson-friendly adapted contact object into the model's {@code Contact} object.
+     * Converts this Jackson-friendly adapted contact object into the model's {@code FinSec} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */

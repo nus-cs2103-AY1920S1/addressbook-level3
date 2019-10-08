@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.Contact;
-import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.FinSec;
+import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
@@ -13,7 +13,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code Contact} with sample data.
+ * Contains utility methods for populating {@code FinSec} with sample data.
  */
 public class SampleDataUtil {
     public static seedu.address.model.contact.Contact[] getSamplePersons() {
@@ -39,10 +39,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyContact getSampleAddressBook() {
-        Contact sampleAb = new Contact();
+    public static ReadOnlyFinSec getSampleAddressBook() {
+        FinSec sampleAb = new FinSec();
         for (seedu.address.model.contact.Contact sampleContact : getSamplePersons()) {
-            sampleAb.addPerson(sampleContact);
+            sampleAb.addContact(sampleContact);
         }
         return sampleAb;
     }

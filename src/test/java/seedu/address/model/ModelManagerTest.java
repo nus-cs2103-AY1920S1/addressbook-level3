@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new Contact(), new Contact(modelManager.getFinSec()));
+        assertEquals(new FinSec(), new FinSec(modelManager.getFinSec()));
     }
 
     @Test
@@ -74,18 +74,18 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasContact(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasContact(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+        modelManager.addContact(ALICE);
+        assertTrue(modelManager.hasContact(ALICE));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Contact finSec = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        Contact differentFinSec = new Contact();
+        FinSec finSec = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        FinSec differentFinSec = new FinSec();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

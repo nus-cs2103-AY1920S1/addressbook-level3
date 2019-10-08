@@ -12,12 +12,10 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyClaim;
-import seedu.address.model.ReadOnlyContact;
-import seedu.address.model.ReadOnlyIncome;
+import seedu.address.model.ReadOnlyFinSec;
 
 /**
- * A class to access Contact data stored as a json file on the hard disk.
+ * A class to access FinSec data stored as a json file on the hard disk.
  */
 public class JsonFinSecStorage implements FinSecStorage {
 
@@ -34,7 +32,7 @@ public class JsonFinSecStorage implements FinSecStorage {
     }
 
     @Override
-    public Optional<ReadOnlyContact> readContacts() throws DataConversionException {
+    public Optional<ReadOnlyFinSec> readContacts() throws DataConversionException {
         return readContacts(filePath);
     }
 
@@ -44,7 +42,7 @@ public class JsonFinSecStorage implements FinSecStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyContact> readContacts(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyFinSec> readContacts(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableFinSec> jsonFinSec = JsonUtil.readJsonFile(
@@ -61,27 +59,21 @@ public class JsonFinSecStorage implements FinSecStorage {
         }
     }
 
-    @Override
-    public void saveFinSec(ReadOnlyContact contact) throws IOException {
-        saveFinSec(contact, filePath);
-    }
-
-    @Override
-    public void saveFinSec(ReadOnlyContact contact, Path filePath) throws IOException {
-
+    public void saveFinSec(ReadOnlyFinSec finSec) throws IOException {
+        saveFinSec(finSec, filePath);
     }
 
     /**
-     * Similar to {@link #saveFinSec(ReadOnlyContact)}.
+     * Similar to {@link #saveFinSec(ReadOnlyFinSec)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveFinSec(ReadOnlyContact contact, ReadOnlyClaim claim, ReadOnlyIncome income, Path filePath) throws IOException {
-        requireNonNull(contact);
+    public void saveFinSec(ReadOnlyFinSec finSec, Path filePath) throws IOException {
+        requireNonNull(finSec);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableFinSec(contact, claim, income), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableFinSec(finSec), filePath);
     }
 
 }

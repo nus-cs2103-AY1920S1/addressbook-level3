@@ -16,15 +16,14 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Contact;
+import seedu.address.model.FinSec;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyContact;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddContactCommandTest {
+public class AddFinSecCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -111,7 +110,7 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public void addPerson(seedu.address.model.contact.Contact contact) {
+        public void addContact(seedu.address.model.contact.Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -126,17 +125,17 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public boolean hasPerson(seedu.address.model.contact.Contact contact) {
+        public boolean hasContact(seedu.address.model.contact.Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(seedu.address.model.contact.Contact target) {
+        public void deleteContact(seedu.address.model.contact.Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
+        public void setContact(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -245,7 +244,7 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public boolean hasPerson(seedu.address.model.contact.Contact contact) {
+        public boolean hasContact(seedu.address.model.contact.Contact contact) {
             requireNonNull(contact);
             return this.contact.isSamePerson(contact);
         }
@@ -258,20 +257,20 @@ public class AddContactCommandTest {
         final ArrayList<seedu.address.model.contact.Contact> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(seedu.address.model.contact.Contact contact) {
+        public boolean hasContact(seedu.address.model.contact.Contact contact) {
             requireNonNull(contact);
             return personsAdded.stream().anyMatch(contact::isSamePerson);
         }
 
         @Override
-        public void addPerson(seedu.address.model.contact.Contact contact) {
+        public void addContact(seedu.address.model.contact.Contact contact) {
             requireNonNull(contact);
             personsAdded.add(contact);
         }
 
         @Override
         public ReadOnlyContact getFinSec() {
-            return new Contact();
+            return new FinSec();
         }
     }
 

@@ -18,12 +18,13 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.testutil.PersonBuilder;
 
 public class FinSecTest {
 
-    private final Contact finSec = new Contact();
+    private final FinSec finSec = new FinSec();
 
     @Test
     public void constructor() {
@@ -37,7 +38,7 @@ public class FinSecTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        Contact newData = getTypicalAddressBook();
+        FinSec newData = getTypicalAddressBook();
         finSec.resetData(newData);
         assertEquals(newData, finSec);
     }
@@ -55,26 +56,26 @@ public class FinSecTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> finSec.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> finSec.hasContact(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(finSec.hasPerson(ALICE));
+        assertFalse(finSec.hasContact(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        finSec.addPerson(ALICE);
-        assertTrue(finSec.hasPerson(ALICE));
+        finSec.addContact(ALICE);
+        assertTrue(finSec.hasContact(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        finSec.addPerson(ALICE);
+        finSec.addContact(ALICE);
         seedu.address.model.contact.Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(finSec.hasPerson(editedAlice));
+        assertTrue(finSec.hasContact(editedAlice));
     }
 
     @Test
@@ -85,7 +86,7 @@ public class FinSecTest {
     /**
      * A stub ReadOnlyContact whose contacts list can violate interface constraints.
      */
-    private static class ContactStub implements ReadOnlyContact {
+    private static class ContactStub implements ReadOnlyFinSec {
         private final ObservableList<seedu.address.model.contact.Contact> contacts = FXCollections.observableArrayList();
 
         ContactStub(Collection<seedu.address.model.contact.Contact> contacts) {
@@ -95,6 +96,11 @@ public class FinSecTest {
         @Override
         public ObservableList<seedu.address.model.contact.Contact> getContactList() {
             return contacts;
+        }
+
+        @Override
+        public ObservableList<Claim> getClaimList() {
+            return null;
         }
     }
 

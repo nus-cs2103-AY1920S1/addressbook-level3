@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.PersonBuilder;
 
-public class ContactTest {
+public class FinSecTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {

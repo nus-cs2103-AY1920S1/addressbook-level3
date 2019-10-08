@@ -12,7 +12,7 @@ import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Contact in the address book.
+ * Represents a FinSec in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Contact {

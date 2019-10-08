@@ -39,7 +39,7 @@ public class AddClaimCommand extends Command {
     private final Claim toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Contact}
+     * Creates an AddCommand to add the specified {@code FinSec}
      */
     public AddClaimCommand(Claim claim) {
         requireNonNull(claim);

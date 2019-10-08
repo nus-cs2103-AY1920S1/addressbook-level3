@@ -56,28 +56,28 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code finSec}.
      */
-    void setFinSec(ReadOnlyContact finSec);
+    void setFinSec(ReadOnlyFinSec finSec);
 
-    /** Returns the Contact */
-    ReadOnlyContact getFinSec();
+    /** Returns the FinSec */
+    ReadOnlyFinSec getFinSec();
 
 
     /**
      * Returns true if a contact with the same identity as {@code contact} exists in the address book.
      */
-    boolean hasPerson(Contact contact);
+    boolean hasContact(Contact contact);
 
     /**
      * Deletes the given contact.
      * The contact must exist in the address book.
      */
-    void deletePerson(Contact target);
+    void deleteContact(Contact target);
 
     /**
      * Adds the given contact.
      * {@code contact} must not already exist in the address book.
      */
-    void addPerson(Contact contact);
+    void addContact(Contact contact);
 
 
     /**
@@ -102,7 +102,7 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
      */
-    void setPerson(Contact target, Contact editedContact);
+    void setContact(Contact target, Contact editedContact);
 
     /**
      * Replaces the given claim {@code target} with {@code editedClaim}.

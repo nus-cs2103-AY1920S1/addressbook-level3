@@ -16,7 +16,7 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
-public class AddContactCommandIntegrationTest {
+public class AddFinSecCommandIntegrationTest {
 
     private Model model;
 
@@ -30,7 +30,7 @@ public class AddContactCommandIntegrationTest {
         Contact validContact = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
-        expectedModel.addPerson(validContact);
+        expectedModel.addContact(validContact);
 
         assertCommandSuccess(new AddContactCommand(validContact), model,
                 String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), expectedModel);

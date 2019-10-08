@@ -16,8 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Contact;
-import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.FinSec;
 
 public class JsonFinSecStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonFinSecStorageTest");
@@ -63,26 +62,26 @@ public class JsonFinSecStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        Contact original = getTypicalAddressBook();
+        FinSec original = getTypicalAddressBook();
         JsonFinSecStorage jsonAddressBookStorage = new JsonFinSecStorage(filePath);
 
         // Save in new file and read back
         jsonAddressBookStorage.saveFinSec(original, filePath);
         ReadOnlyContact readBack = jsonAddressBookStorage.readContacts(filePath).get();
-        assertEquals(original, new Contact(readBack));
+        assertEquals(original, new FinSec(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
         jsonAddressBookStorage.saveFinSec(original, filePath);
         readBack = jsonAddressBookStorage.readContacts(filePath).get();
-        assertEquals(original, new Contact(readBack));
+        assertEquals(original, new FinSec(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
         jsonAddressBookStorage.saveFinSec(original); // file path not specified
         readBack = jsonAddressBookStorage.readContacts().get(); // file path not specified
-        assertEquals(original, new Contact(readBack));
+        assertEquals(original, new FinSec(readBack));
 
     }
 
@@ -105,6 +104,6 @@ public class JsonFinSecStorageTest {
 
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new Contact(), null));
+        assertThrows(NullPointerException.class, () -> saveAddressBook(new FinSec(), null));
     }
 }

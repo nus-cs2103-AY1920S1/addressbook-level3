@@ -1,7 +1,7 @@
 package seedu.address.model.help;
 
 /**
- * Contains links to our JavaDocs for all the commands in Contact
+ * Contains links to our JavaDocs for all the commands in FinSec
  */
 
 public class ApiLinks {
@@ -9,7 +9,7 @@ public class ApiLinks {
     /**
      * Matches the command input of the user to the correct API link.
      *
-     * @param secondaryCommand A valid command in Contact.
+     * @param secondaryCommand A valid command in FinSec.
      * @return an API link to the {@code HelpCommand}.
      */
 

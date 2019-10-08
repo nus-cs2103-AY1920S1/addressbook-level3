@@ -16,7 +16,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
-import seedu.address.model.Contact;
+import seedu.address.model.FinSec;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.*;
 import seedu.address.storage.JsonFinSecStorage;
@@ -40,7 +40,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing Contact ]===========================");
+        logger.info("=============================[ Initializing FinSec ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -66,20 +66,20 @@ public class MainApp extends Application {
      * or an empty contacts book will be used instead if errors occur when reading {@code storage}'s contacts book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyContact> contactsBookOptional;
-        ReadOnlyContact initialData;
+        Optional<ReadOnlyFinSec> contactsBookOptional;
+        ReadOnlyFinSec initialData;
         try {
             contactsBookOptional = storage.readContacts();
             if (!contactsBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Contact");
+                logger.info("Data file not found. Will be starting with a sample FinSec");
             }
             initialData = contactsBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Contact");
-            initialData = new Contact();
+            logger.warning("Data file not in the correct format. Will be starting with an empty FinSec");
+            initialData = new FinSec();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Contact");
-            initialData = new Contact();
+            logger.warning("Problem while reading from the file. Will be starting with an empty FinSec");
+            initialData = new FinSec();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -143,7 +143,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Contact");
+            logger.warning("Problem while reading from the file. Will be starting with an empty FinSec");
             initializedPrefs = new UserPrefs();
         }
 
@@ -159,7 +159,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Contact " + MainApp.VERSION);
+        logger.info("Starting FinSec " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

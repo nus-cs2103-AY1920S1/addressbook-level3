@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Contact;
-import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.FinSec;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -54,10 +53,10 @@ public class StorageManagerTest {
          * {@link JsonFinSecStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonFinSecStorageTest} class.
          */
-        Contact original = getTypicalAddressBook();
+        FinSec original = getTypicalAddressBook();
         storageManager.saveFinSec(original);
         ReadOnlyContact retrieved = storageManager.readContacts().get();
-        assertEquals(original, new Contact(retrieved));
+        assertEquals(original, new FinSec(retrieved));
     }
 
     @Test

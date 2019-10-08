@@ -46,7 +46,7 @@ public class EditContactCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Contact: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited FinSec: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This contact already exists in the address book.";
 
@@ -77,17 +77,17 @@ public class EditContactCommand extends Command {
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
         Contact editedContact = createEditedPerson(contactToEdit, editPersonDescriptor);
 
-        if (!contactToEdit.isSamePerson(editedContact) && model.hasPerson(editedContact)) {
+        if (!contactToEdit.isSamePerson(editedContact) && model.hasContact(editedContact)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(contactToEdit, editedContact);
+        model.setContact(contactToEdit, editedContact);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedContact));
     }
 
     /**
-     * Creates and returns a {@code Contact} with the details of {@code contactToEdit}
+     * Creates and returns a {@code FinSec} with the details of {@code contactToEdit}
      * edited with {@code editPersonDescriptor}.
      */
     private static Contact createEditedPerson(Contact contactToEdit, EditPersonDescriptor editPersonDescriptor) {

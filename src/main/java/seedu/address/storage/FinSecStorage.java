@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Contact;
-import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.FinSec;
+import seedu.address.model.ReadOnlyFinSec;
 
 /**
- * Represents a storage for {@link Contact}.
+ * Represents a storage for {@link FinSec}.
  */
 public interface FinSecStorage {
 
@@ -19,28 +19,28 @@ public interface FinSecStorage {
     Path getFinSecFilePath();
 
     /**
-     * Returns Contact data as a {@link ReadOnlyContact}.
+     * Returns FinSec data as a {@link ReadOnlyFinSec}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyContact> readContacts() throws DataConversionException, IOException;
+    Optional<ReadOnlyFinSec> readContacts() throws DataConversionException, IOException;
 
     /**
      * @see #getFinSecFilePath()
      */
-    Optional<ReadOnlyContact> readContacts(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyFinSec> readContacts(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyContact} to the storage.
+     * Saves the given {@link ReadOnlyFinSec} to the storage.
      * @param contact cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveFinSec(ReadOnlyContact contact) throws IOException;
+    void saveFinSec(ReadOnlyFinSec contact) throws IOException;
 
     /**
-     * @see #saveFinSec(ReadOnlyContact)
+     * @see #saveFinSec(seedu.address.model.ReadOnlyFinSec)
      */
-    void saveFinSec(ReadOnlyContact contact, Path filePath) throws IOException;
+    void saveFinSec(ReadOnlyFinSec contact, Path filePath) throws IOException;
 
 }

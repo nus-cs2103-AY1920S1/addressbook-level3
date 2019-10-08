@@ -13,7 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.contact.Contact;
 import seedu.address.storage.Storage;
 
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyContact getAddressBook() {
-        return model.getFinSec();
+    public ReadOnlyFinSec getFinSec() {
+        return null;
     }
 
     @Override

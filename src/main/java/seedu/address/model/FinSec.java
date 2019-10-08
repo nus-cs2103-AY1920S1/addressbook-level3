@@ -16,7 +16,7 @@ import seedu.address.model.contact.UniqueContactsList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
+public class FinSec implements ReadOnlyFinSec {
 
     private final UniqueContactsList persons;
     private final UniqueClaimsList claims;
@@ -35,12 +35,12 @@ public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
         incomes = new UniqueIncomesList();
     }
 
-    public Contact() {}
+    public FinSec() {}
 
     /**
-     * Creates Contact using the Contact in the {@code toBeCopied}
+     * Creates FinSec using the FinSec in the {@code toBeCopied}
      */
-    public Contact(ReadOnlyContact toBeCopied) {
+    public FinSec(ReadOnlyFinSec toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -56,9 +56,9 @@ public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
     }
 
     /**
-     * Resets the existing data of this {@code Contact} with {@code newData}.
+     * Resets the existing data of this {@code FinSec} with {@code newData}.
      */
-    public void resetData(ReadOnlyContact newData) {
+    public void resetData(ReadOnlyFinSec newData) {
         requireNonNull(newData);
 
         setContacts(newData.getContactList());
@@ -69,7 +69,7 @@ public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
     /**
      * Returns true if a contact with the same identity as {@code contact} exists in the address book.
      */
-    public boolean hasPerson(seedu.address.model.contact.Contact contact) {
+    public boolean hasContact(seedu.address.model.contact.Contact contact) {
         requireNonNull(contact);
         return persons.contains(contact);
     }
@@ -78,7 +78,7 @@ public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
      * Adds a contact to the address book.
      * The contact must not already exist in the address book.
      */
-    public void addPerson(seedu.address.model.contact.Contact p) {
+    public void addContact(seedu.address.model.contact.Contact p) {
         persons.add(p);
     }
 
@@ -87,17 +87,17 @@ public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
      * {@code target} must exist in the address book.
      * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
      */
-    public void setPerson(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
+    public void setContact(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
         requireNonNull(editedContact);
 
         persons.setPerson(target, editedContact);
     }
 
     /**
-     * Removes {@code key} from this {@code Contact}.
+     * Removes {@code key} from this {@code FinSec}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(seedu.address.model.contact.Contact key) {
+    public void removeContact(seedu.address.model.contact.Contact key) {
         persons.remove(key);
     }
 
@@ -129,7 +129,7 @@ public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
     }
 
     /**
-     * Removes {@code key} from this {@code Contact}.
+     * Removes {@code key} from this {@code FinSec}.
      * {@code key} must exist in the address book.
      */
     public void removeClaim(Claim key) {
@@ -164,7 +164,7 @@ public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
     }
 
     /**
-     * Removes {@code income} from this {@code Contact}.
+     * Removes {@code income} from this {@code FinSec}.
      * {@code income} must already exist in the address book.
      */
     public void removeIncome(Income income) {
@@ -189,16 +189,14 @@ public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
         return claims.asUnmodifiableObservableList();
     }
 
-    @Override
     public ObservableList<Income> getIncomeList() {
         return incomes.asUnmodifiableObservableList();
     }
 
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Contact // instanceof handles nulls
-                && persons.equals(((Contact) other).persons));
+                || (other instanceof FinSec // instanceof handles nulls
+                && persons.equals(((FinSec) other).persons));
     }
 
     @Override

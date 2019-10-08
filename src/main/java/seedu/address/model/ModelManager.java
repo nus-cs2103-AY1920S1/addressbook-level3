@@ -21,7 +21,7 @@ import seedu.address.model.income.Income;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Contact finSec;
+    private final FinSec finSec;
     private final UserPrefs userPrefs;
     private final FilteredList<seedu.address.model.contact.Contact> filteredContacts;
     private final FilteredList<Claim> filteredClaims;
@@ -30,13 +30,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given finSec and userPrefs.
      */
-    public ModelManager(ReadOnlyContact finSec, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFinSec finSec, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(finSec, userPrefs);
 
         logger.fine("Initializing with address book: " + finSec + " and user prefs " + userPrefs);
 
-        this.finSec = new Contact(finSec);
+        this.finSec = new FinSec(finSec);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredContacts = new FilteredList<>(this.finSec.getContactList());
         filteredClaims = new FilteredList<>(this.finSec.getClaimList());
@@ -44,7 +44,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new Contact(), new UserPrefs());
+        this(new FinSec(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -82,40 +82,40 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== Contact ================================================================================
+    //=========== FinSec ================================================================================
 
     @Override
-    public void setFinSec(ReadOnlyContact finSec) {
+    public void setFinSec(ReadOnlyFinSec finSec) {
         this.finSec.resetData(finSec);
     }
 
     @Override
-    public ReadOnlyContact getFinSec() {
+    public ReadOnlyFinSec getFinSec() {
         return finSec;
     }
 
     @Override
-    public boolean hasPerson(seedu.address.model.contact.Contact contact) {
+    public boolean hasContact(seedu.address.model.contact.Contact contact) {
         requireNonNull(contact);
-        return finSec.hasPerson(contact);
+        return finSec.hasContact(contact);
     }
 
     @Override
-    public void deletePerson(seedu.address.model.contact.Contact target) {
-        finSec.removePerson(target);
+    public void deleteContact(seedu.address.model.contact.Contact target) {
+        finSec.removeContact(target);
     }
 
     @Override
-    public void addPerson(seedu.address.model.contact.Contact contact) {
-        finSec.addPerson(contact);
+    public void addContact(seedu.address.model.contact.Contact contact) {
+        finSec.addContact(contact);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
+    public void setContact(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
         requireAllNonNull(target, editedContact);
 
-        finSec.setPerson(target, editedContact);
+        finSec.setContact(target, editedContact);
     }
 
     //=========== Claims ================================================================================
@@ -170,10 +170,10 @@ public class ModelManager implements Model {
 
 
 
-    //=========== Filtered Contact List Accessors =============================================================
+    //=========== Filtered FinSec List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code FinSec} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override

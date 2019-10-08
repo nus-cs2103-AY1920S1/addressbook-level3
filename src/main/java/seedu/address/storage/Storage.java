@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -24,9 +24,9 @@ public interface Storage extends FinSecStorage, UserPrefsStorage {
     Path getFinSecFilePath();
 
     @Override
-    Optional<ReadOnlyContact> readContacts() throws DataConversionException, IOException;
+    Optional<ReadOnlyFinSec> readContacts() throws DataConversionException, IOException;
 
     @Override
-    void saveFinSec(ReadOnlyContact contact) throws IOException;
+    void saveFinSec(ReadOnlyFinSec contact) throws IOException;
 
 }

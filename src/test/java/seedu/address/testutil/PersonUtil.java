@@ -14,7 +14,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for Contact.
+ * A utility class for FinSec.
  */
 public class PersonUtil {
 

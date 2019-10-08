@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.Contact;
+import seedu.address.model.FinSec;
 
 /**
- * A utility class containing a list of {@code Contact} objects to be used in tests.
+ * A utility class containing a list of {@code FinSec} objects to be used in tests.
  */
 public class TypicalPersons {
 
@@ -47,7 +47,7 @@ public class TypicalPersons {
     public static final seedu.address.model.contact.Contact IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
 
-    // Manually added - Contact's details found in {@code CommandTestUtil}
+    // Manually added - FinSec's details found in {@code CommandTestUtil}
     public static final seedu.address.model.contact.Contact AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final seedu.address.model.contact.Contact BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
@@ -59,10 +59,10 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code Contact} with all the typical persons.
+     * Returns an {@code FinSec} with all the typical persons.
      */
-    public static Contact getTypicalAddressBook() {
-        Contact ab = new Contact();
+    public static FinSec getTypicalAddressBook() {
+        FinSec ab = new FinSec();
         for (seedu.address.model.contact.Contact contact : getTypicalPersons()) {
             ab.addPerson(contact);
         }

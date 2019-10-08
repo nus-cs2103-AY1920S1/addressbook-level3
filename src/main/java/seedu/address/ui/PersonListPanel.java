@@ -27,7 +27,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Contact} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code FinSec} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Contact> {
         @Override
