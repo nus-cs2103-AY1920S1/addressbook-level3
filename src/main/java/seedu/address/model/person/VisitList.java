@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -29,6 +32,11 @@ public class VisitList {
     public ArrayList<VisitReport> getRecords() {
         return this.records;
     }
+
+    public ObservableList<VisitReport> getObservableRecords() {
+        return FXCollections.observableArrayList(this.records);
+    }
+
     @Override
     public String toString() {
         return records.toString();
@@ -39,6 +47,11 @@ public class VisitList {
      */
     public static boolean isValidVisitDate(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public VisitList deleteRecord(int id) throws IndexOutOfBoundsException {
+        this.records.remove(id - 1);
+        return this;
     }
     /*
     @Override

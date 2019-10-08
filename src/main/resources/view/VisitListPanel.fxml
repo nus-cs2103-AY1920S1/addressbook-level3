@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
+<fx:root resizable="false" title="Visit List" type="javafx.stage.Stage" minWidth="450" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                <ListView fx:id="visitListView" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

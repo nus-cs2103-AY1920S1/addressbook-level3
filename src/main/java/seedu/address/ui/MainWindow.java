@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.VisitReport;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private VisitRecordWindow visitWindow;
+    private VisitListPanel visitListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -65,6 +69,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         visitWindow = new VisitRecordWindow();
+        visitListPanel = new VisitListPanel();
     }
 
     public Stage getPrimaryStage() {
@@ -160,6 +165,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         visitWindow.hide();
+        visitListPanel.hide();
         primaryStage.hide();
     }
 
@@ -172,6 +178,18 @@ public class MainWindow extends UiPart<Stage> {
             visitWindow.show();
         } else {
             visitWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the visit form or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleDeleteVisit() {
+        if (!visitListPanel.isShowing()) {
+            visitListPanel.show();
+        } else {
+            visitListPanel.focus();
         }
     }
 
@@ -197,6 +215,11 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isAddVisit()) {
                 visitWindow.setReportInfo(commandResult.getIdx(), commandResult.getDate(), logic);
                 handleAddVisit();
+            }
+
+            if (commandResult.isDeleteVisit()) {
+                visitListPanel.setup(commandResult.getObservableVisitList());
+                handleDeleteVisit();
             }
 
             if (commandResult.isExit()) {

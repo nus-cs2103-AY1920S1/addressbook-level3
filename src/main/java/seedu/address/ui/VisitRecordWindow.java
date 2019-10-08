@@ -104,21 +104,6 @@ public class VisitRecordWindow extends UiPart<Stage> {
 
     @FXML
     protected void saveReport(ActionEvent event) throws CommandException {
-        /*
-        Window owner = saveButton.getScene().getWindow();
-        if(medicine.getText().isEmpty()) {
-
-        }
-        if(diagnosis.getText().isEmpty()) {
-
-            return;
-        }
-        if(remarks.getText().isEmpty()) {
-
-            return;
-        }
-
-         */
         SaveVisitCommand save = new SaveVisitCommand(index, date, medicine.getText(), diagnosis.getText(), remarks.getText());
         logic.execute(save);
         medicine.clear();
@@ -139,7 +124,7 @@ public class VisitRecordWindow extends UiPart<Stage> {
     }
 
 
-    private void setSaveAccelerator(Button button) {
+    private void setSaveAccelerator(Button button) throws IllegalArgumentException {
         if(button==null) {
             System.out.println("Button null!!");
         }

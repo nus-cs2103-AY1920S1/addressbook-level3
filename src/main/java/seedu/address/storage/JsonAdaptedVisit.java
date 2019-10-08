@@ -36,7 +36,7 @@ class JsonAdaptedVisit {
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedVisit(VisitReport source) {
-        visitDate = source.value;
+        visitDate = source.date;
         name = source.name.toString();
         medicine = source.getMedication();
         diagnosis = source.getDiagnosis();

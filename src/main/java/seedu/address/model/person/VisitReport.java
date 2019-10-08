@@ -1,9 +1,11 @@
 package seedu.address.model.person;
 
+import java.util.Objects;
+
 import static java.util.Objects.requireNonNull;
 
 public class VisitReport {
-    public final String value;
+    public final String date;
     public static final String MESSAGE_CONSTRAINTS = "Visit date should follow dd/mm/yyyy format";
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
 
@@ -12,12 +14,15 @@ public class VisitReport {
     private String remarks;
     public Name name;
 
-    public VisitReport(String date) {
-        requireNonNull(date);
-        value = date;
+    public VisitReport(String value) {
+        requireNonNull(value);
+        date = value;
         name = new Name("null");
     }
 
+    public String getName() {
+        return this.name.toString();
+    }
 
     public String getMedication() {
         return medication;
@@ -27,9 +32,13 @@ public class VisitReport {
         return diagnosis;
     }
 
+    public String getRemarks() {
+        return this.remarks;
+    }
+
     @Override
     public String toString() {
-        return value;
+        return date;
     }
 
     /**
@@ -43,20 +52,19 @@ public class VisitReport {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof VisitReport // instanceof handles nulls
-                && value.equals(((VisitReport) other).value)); // state check
+                && date.equals(((VisitReport) other).date))
+                && medication.equals(((VisitReport) other).medication)
+                && diagnosis.equals(((VisitReport) other).diagnosis)
+                && remarks.equals(((VisitReport) other).remarks);// state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Objects.hash(name, date, medication, diagnosis, remarks);
     }
 
     public void setName(Name name) {
         this.name = name;
-    }
-
-    public String getRemarks() {
-        return this.remarks;
     }
 
     public void setDetails(String prescription, String disease, String comment) {
@@ -64,5 +72,7 @@ public class VisitReport {
         this.diagnosis = disease;
         this.remarks = comment;
     }
+
+
 }
 

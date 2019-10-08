@@ -13,8 +13,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.VisitReport;
 import seedu.address.ui.VisitRecordWindow;
 public class SaveVisitCommand extends Command {
-    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added visit to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed visit from Person: %1$s";
+    public static final String MESSAGE_SAVE_VISIT_SUCCESS = "Added visit to Person: %1$s";
 
     private final Index index;
     private final VisitReport visitReport;
@@ -50,16 +49,7 @@ public class SaveVisitCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedPerson), false, true, false);
-    }
-
-    /**
-     * Generates a command execution success message based on whether the visitList is added to or removed from
-     * {@code personToEdit}.
-     */
-    private String generateSuccessMessage(Person personToEdit) {
-        String message = !visitReport.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
-        return String.format(message, personToEdit);
+        return new CommandResult(String.format(MESSAGE_SAVE_VISIT_SUCCESS, personToEdit));
     }
 
     @Override
