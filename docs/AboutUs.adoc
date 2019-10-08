@@ -42,7 +42,7 @@ image::tanzhanming.png[width="150", align="left"]
 {empty}[http://https://github.com/TanZhanMing[github]] [<<johndoe#, portfolio>>]
 
 Role: Integration +
-Responsibilities: Budget Feature
+Responsibilities: Budget and Help Features
 
 
 '''

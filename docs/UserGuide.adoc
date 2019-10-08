@@ -55,7 +55,23 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Format: `help`
+Keyword: `help`
+
+Provides 3 different types of help for all commands.
+
+Format:
+`help cmd/COMMAND type/TYPE`
+
+Refer to <<Command Summary>> for all available commands
+
+Types include: 	brief (gives a brief description)
+		guide (opens a web browser and bring you to our user guide)
+		api (for advanced users who want to know the inner workings of the command)
+
+Examples:
+`help cmd/add_income type/brief`
+`help cmd/goto type/guide`
+`help cmd/help type/api`
 
 === Changing Views : `goto`
 
@@ -301,7 +317,8 @@ Automatically detects command and comes up with suggestions as a pop-up on what 
 
 == Command Summary
 
-* *Help* : `help`
+* *Help* : `help cmd/COMMAND type/TYPE` +
+e.g. `help cmd/add_claim type/bief`
 
 * *Changing of Views* `goto (parameter)`
 e.g. `goto claims`
