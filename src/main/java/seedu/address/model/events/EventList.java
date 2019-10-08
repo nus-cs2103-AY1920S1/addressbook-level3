@@ -21,7 +21,7 @@ public class EventList implements ReadOnlyEventList {
 
     public EventList(ReadOnlyEventList eventList) {
         this();
-        this.reset(eventList);
+        this.resetData(eventList);
     }
 
     /**
@@ -63,7 +63,7 @@ public class EventList implements ReadOnlyEventList {
      * Clears this event list and re-adds events from a given {@link ReadOnlyEventList}.
      * @param eventList the list of events to re-add
      */
-    public void reset(ReadOnlyEventList eventList) {
+    public void resetData(ReadOnlyEventList eventList) {
         requireNonNull(eventList);
         this.list.clear();
         this.list.addAll(eventList.getReadOnlyList());
