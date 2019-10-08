@@ -81,7 +81,7 @@ public class EditCommandParserTest {
                 + WORD_DESC_ABRA + TAG_DESC_PSYCHIC;
 
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withWord(VALID_WORD_ABRA)
-                .withMeaning(MEANING_DESC_ABRA).withTags(VALID_TAG_PSYCHIC).build();
+                .withMeaning(VALID_MEANING_ABRA).withTags(VALID_TAG_PSYCHIC).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -116,7 +116,7 @@ public class EditCommandParserTest {
                 + TAG_DESC_BUG + MEANING_DESC_ABRA + TAG_DESC_BUG
                 + MEANING_DESC_BUTTERFREE + TAG_DESC_PSYCHIC;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withMeaning(MEANING_DESC_BUTTERFREE)
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withMeaning(VALID_MEANING_BUTTERFREE)
                 .withTags(VALID_TAG_BUG, VALID_TAG_PSYCHIC)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);

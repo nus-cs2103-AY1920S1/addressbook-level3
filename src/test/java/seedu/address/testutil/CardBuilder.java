@@ -54,10 +54,10 @@ public class CardBuilder {
     }
 
     /**
-     * Sets the {@code Description} of the {@code Card} that we are building.
+     * Sets the {@code Meaning} of the {@code Card} that we are building.
      */
-    public CardBuilder withDescription(String description) {
-        this.meaning = new Meaning(description);
+    public CardBuilder withMeaning(String meaning) {
+        this.meaning = new Meaning(meaning);
         return this;
     }
 

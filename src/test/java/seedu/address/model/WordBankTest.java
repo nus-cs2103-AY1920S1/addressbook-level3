@@ -3,8 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUTTERFREE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
@@ -18,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -48,7 +48,7 @@ public class WordBankTest {
     @Test
     public void resetData_withDuplicateCards_throwsDuplicateCardException() {
         // Two Cards with the same identity fields
-        Card editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).withTags(VALID_TAG_BUG)
+        Card editedAbra = new CardBuilder(ABRA).withMeaning(VALID_MEANING_BUTTERFREE).withTags(VALID_TAG_BUG)
                 .build();
         List<Card> newCards = Arrays.asList(ABRA, editedAbra);
         WordBankStub newData = new WordBankStub(newCards);
@@ -75,7 +75,7 @@ public class WordBankTest {
     @Test
     public void hasCard_cardWithSameIdentityFieldsInWordBank_returnsTrue() {
         wordBank.addCard(ABRA);
-        Card editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).withTags(VALID_TAG_BUG)
+        Card editedAbra = new CardBuilder(ABRA).withMeaning(VALID_MEANING_BUTTERFREE).withTags(VALID_TAG_BUG)
                 .build();
         assertTrue(wordBank.hasCard(editedAbra));
     }
@@ -98,6 +98,16 @@ public class WordBankTest {
         @Override
         public ObservableList<Card> getCardList() {
             return cards;
+        }
+
+        @Override
+        public Card getCard(Index index) {
+            return cards.get(index.getZeroBased());
+        }
+
+        @Override
+        public int size() {
+            return cards.size();
         }
     }
 

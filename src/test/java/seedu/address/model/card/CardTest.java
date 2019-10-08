@@ -2,9 +2,7 @@ package seedu.address.model.card;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUTTERFREE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
@@ -34,7 +32,7 @@ public class CardTest {
         assertFalse(ABRA.isSameName(editedAbra));
 
         // same name, different attributes -> returns true
-        editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE)
+        editedAbra = new CardBuilder(ABRA).withMeaning(VALID_MEANING_BUTTERFREE)
                 .withTags(VALID_TAG_BUG).build();
         assertTrue(ABRA.isSameName(editedAbra));
     }
@@ -62,7 +60,7 @@ public class CardTest {
         assertFalse(ABRA.equals(editedAbra));
 
         // different description -> returns false
-        editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).build();
+        editedAbra = new CardBuilder(ABRA).withMeaning(VALID_MEANING_BUTTERFREE).build();
         assertFalse(ABRA.equals(editedAbra));
 
         // different tags -> returns false

@@ -69,6 +69,6 @@ public class WordContainsKeywordsPredicateTest {
 
         // Keywords match phone, email and address, but does not match name
         predicate = new WordContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new CardBuilder().withName("Alice").withDescription("Main Street").build()));
+        assertFalse(predicate.test(new CardBuilder().withName("Alice").withMeaning("Main Street").build()));
     }
 }

@@ -3,9 +3,7 @@ package seedu.address.model.card;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUTTERFREE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PSYCHIC;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
@@ -43,7 +41,7 @@ public class UniqueCardListTest {
     @Test
     public void contains_cardWithSameNameInList_returnsTrue() {
         uniqueCardList.add(ABRA);
-        Card editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE)
+        Card editedAbra = new CardBuilder(ABRA).withMeaning(VALID_MEANING_BUTTERFREE)
                 .withTags(VALID_TAG_PSYCHIC)
                 .build();
         assertTrue(uniqueCardList.contains(editedAbra));
@@ -87,7 +85,7 @@ public class UniqueCardListTest {
     @Test
     public void setCard_editedCardHasSameName_success() {
         uniqueCardList.add(ABRA);
-        Card editedAbra = new CardBuilder(ABRA).withDescription(VALID_DESCRIPTION_BUTTERFREE).withTags(VALID_TAG_BUG)
+        Card editedAbra = new CardBuilder(ABRA).withMeaning(VALID_MEANING_BUTTERFREE).withTags(VALID_TAG_BUG)
                 .build();
         uniqueCardList.setCard(ABRA, editedAbra);
         UniqueCardList expectedUniqueCardList = new UniqueCardList();

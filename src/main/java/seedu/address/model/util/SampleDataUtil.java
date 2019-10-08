@@ -30,7 +30,7 @@ public class SampleDataUtil {
                     + "is made to laugh, it can't maintain its disguise."),
                     getTagSet("friends")),
             new Card(new Word("Eevee"), new Meaning("Possessing an unbalanced and unstable genetic makeup, it "
-                    + "conceals many possible evolutions"),
+                    + "conceals many possible evolutions."),
                     getTagSet("friends"))
         };
     }

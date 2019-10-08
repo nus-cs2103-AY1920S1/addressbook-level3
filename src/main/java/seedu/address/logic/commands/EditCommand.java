@@ -39,9 +39,9 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MEANING + "PIKA PIKA";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the word bank.";
 
     private final Index index;
     private final EditCardDescriptor editCardDescriptor;
@@ -71,12 +71,12 @@ public class EditCommand extends Command {
         Card editedCard = createEditedCard(cardToEdit, editCardDescriptor);
 
         if (!cardToEdit.isSameName(editedCard) && model.hasCard(editedCard)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
 
         model.setCard(cardToEdit, editedCard);
         model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCard));
+        return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
     }
 
     /**

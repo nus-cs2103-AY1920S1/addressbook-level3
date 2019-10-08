@@ -16,9 +16,9 @@ public class WordContainsKeywordsPredicate implements Predicate<Card> {
     }
 
     @Override
-    public boolean test(Card person) {
+    public boolean test(Card card) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getWord().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(card.getWord().value, keyword));
     }
 
     @Override
