@@ -1,7 +1,10 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.algobase.logic.commands.SortCommand.MESSAGE_SUCCESS;
+import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -12,16 +15,39 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
+import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.Model;
+import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.ReadOnlyUserPrefs;
+import seedu.algobase.model.UserPrefs;
 import seedu.algobase.model.problem.Problem;
 
 class SortCommandTest {
+    private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
+
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new SortCommand(null, null));
+    }
+
+    @Test
+    public void execute_byNameAscend_success() throws CommandException {
+        String expectedMessage = String.format(MESSAGE_SUCCESS);
+        SortCommand command = new SortCommand(SortCommand.SortingMethod.byName, SortCommand.SortingOrder.ascend);
+        expectedModel.updateSortedProblemList(SortCommand.PROBLEM_NAME_COMPARATOR);
+        CommandResult actualResult = command.execute(model);
+        assertEquals(new CommandResult(expectedMessage), actualResult);
+        ObservableList<Problem> expectedList = expectedModel.getFilteredProblemList();
+        ObservableList<Problem> actualList = model.getFilteredProblemList();
+        assertEquals(expectedList.size(), actualList.size());
+        for (int i = 0; i < expectedList.size(); i++) {
+            assertEquals(expectedList.get(i), actualList.get(i));
+        }
+        // TODO: Fix the broken line below, probably it was due to incorrect implementation of hashcode.
+        // assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     /**

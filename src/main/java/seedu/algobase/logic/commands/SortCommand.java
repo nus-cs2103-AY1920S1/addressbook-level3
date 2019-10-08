@@ -167,6 +167,6 @@ public class SortCommand extends Command {
         default:
             throw new IllegalArgumentException("Sorting method doesn't exist.");
         }
-        return new CommandResult("Problem list sorted!");
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
