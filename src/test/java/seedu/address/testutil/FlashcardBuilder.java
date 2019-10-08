@@ -14,8 +14,8 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class FlashcardBuilder {
 
-    public static final String DEFAULT_QUESTION = "What is 1 + 1?";
-    public static final String DEFAULT_ANSWER = "2";
+    public static final String DEFAULT_QUESTION = "What is binary value for true";
+    public static final String DEFAULT_ANSWER = "1";
 
     private Question question;
     private Answer answer;
