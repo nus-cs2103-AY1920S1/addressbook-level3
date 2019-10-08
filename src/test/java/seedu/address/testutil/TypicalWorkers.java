@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.worker.Worker;
 
 /**
@@ -35,10 +34,6 @@ public class TypicalWorkers {
         AddressBook ab = new AddressBook();
         for (Worker worker : getTypicalWorkers()) {
             ab.addEntity(worker);
-        }
-
-        for (Body body : TypicalBodies.getTypicalBodies()) {
-            ab.addEntity(body);
         }
 
         return ab;

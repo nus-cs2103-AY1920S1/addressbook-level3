@@ -59,12 +59,13 @@ public class TypicalBodies {
     */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Worker worker : TypicalWorkers.getTypicalWorkers()) {
-            ab.addEntity(worker);
-        }
 
         for (Body body : getTypicalBodies()) {
             ab.addEntity(body);
+        }
+
+        for (Worker worker : TypicalWorkers.getTypicalWorkers()) {
+            ab.addEntity(worker);
         }
 
         return ab;

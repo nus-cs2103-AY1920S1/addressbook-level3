@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 
 import java.util.Arrays;
 
@@ -31,6 +31,12 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FLAG);
         String flag = argMultimap.getValue(PREFIX_FLAG).orElse("");
+
+        if (!flag.equals("")) {
+            flag = Character.toString(flag.charAt(0));
+        }
+
+        System.out.println(flag);
 
         return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)), flag);
     }
