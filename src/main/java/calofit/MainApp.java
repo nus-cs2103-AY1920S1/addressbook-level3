@@ -8,9 +8,13 @@ import calofit.commons.util.ConfigUtil;
 import calofit.commons.util.StringUtil;
 import calofit.logic.Logic;
 import calofit.logic.LogicManager;
-import calofit.model.*;
+import calofit.model.Model;
+import calofit.model.ModelManager;
+import calofit.model.ReadOnlyUserPrefs;
+import calofit.model.UserPrefs;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.MealLog;
 import calofit.model.util.SampleDataUtil;
 import calofit.storage.*;
 import calofit.ui.Ui;
@@ -60,12 +64,7 @@ public class MainApp extends Application {
         ui = new UiManager(logic);
     }
 
-    /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s dish database and {@code userPrefs}. <br>
-     * The data from the sample dish database will be used instead if {@code storage}'s dish database is not found,
-     * or an empty dish database will be used instead if errors occur when reading {@code storage}'s dish database.
-     */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private ReadOnlyDishDatabase loadDishDatabase(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyDishDatabase> dishDatabaseOptional;
         ReadOnlyDishDatabase initialData;
         try {
@@ -73,16 +72,30 @@ public class MainApp extends Application {
             if (!dishDatabaseOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample DishDatabase");
             }
-            initialData = dishDatabaseOptional.orElseGet(SampleDataUtil::getSampleDishDatabase);
+            return dishDatabaseOptional.orElseGet(SampleDataUtil::getSampleDishDatabase);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DishDatabase");
-            initialData = new DishDatabase();
+            return new DishDatabase();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty DishDatabase");
-            initialData = new DishDatabase();
+            return new DishDatabase();
         }
+    }
 
-        return new ModelManager(initialData, userPrefs);
+    private MealLog loadMealLog(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        MealLog mealLog = new MealLog();
+        return mealLog;
+    }
+
+    /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s dish database and {@code userPrefs}. <br>
+     * The data from the sample dish database will be used instead if {@code storage}'s dish database is not found,
+     * or an empty dish database will be used instead if errors occur when reading {@code storage}'s dish database.
+     */
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyDishDatabase dishDb = loadDishDatabase(storage, userPrefs);
+        MealLog mealLog = loadMealLog(storage, userPrefs);
+        return new ModelManager(mealLog, dishDb, userPrefs);
     }
 
     private void initLogging(Config config) {

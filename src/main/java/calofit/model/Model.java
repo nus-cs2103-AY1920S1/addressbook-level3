@@ -3,6 +3,7 @@ package calofit.model;
 import calofit.commons.core.GuiSettings;
 import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.Meal;
 import javafx.collections.ObservableList;
 
 import java.nio.file.Path;
@@ -85,4 +86,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDishList(Predicate<Dish> predicate);
+
+    ObservableList<Meal> getFilteredMealList();
 }

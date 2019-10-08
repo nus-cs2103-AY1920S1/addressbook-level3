@@ -1,17 +1,18 @@
 package calofit.logic;
 
+import calofit.commons.core.GuiSettings;
+import calofit.commons.core.LogsCenter;
 import calofit.logic.commands.Command;
 import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.CommandParser;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.dish.ReadOnlyDishDatabase;
-import calofit.model.dish.Dish;
-import javafx.collections.ObservableList;
-import calofit.commons.core.GuiSettings;
-import calofit.commons.core.LogsCenter;
 import calofit.model.Model;
+import calofit.model.dish.Dish;
+import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.Meal;
 import calofit.storage.Storage;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -62,6 +63,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Meal> getFilteredMealList() {
+        return model.getFilteredMealList();
+    }
+        @Override
     public Path getDishDatbaseFilePath() {
         return model.getDishDatabaseFilePath();
     }

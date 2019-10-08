@@ -6,10 +6,14 @@ import calofit.commons.util.CollectionUtil;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.Meal;
+import calofit.model.meal.MealLog;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -22,13 +26,17 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final DishDatabase dishDatabase;
+    private final MealLog mealLog;
     private final UserPrefs userPrefs;
     private final FilteredList<Dish> filteredDishes;
+
+    private final FilteredList<Meal> filteredMeals;
+    private final SortedList<Meal> sortedMeals;
 
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
      */
-    public ModelManager(ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(MealLog mealLog, ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
         super();
         CollectionUtil.requireAllNonNull(dishDatabase, userPrefs);
 
@@ -36,11 +44,15 @@ public class ModelManager implements Model {
 
         this.dishDatabase = new DishDatabase(dishDatabase);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.mealLog = mealLog;
         filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
+
+        filteredMeals = new FilteredList<>(this.mealLog.getMeals());
+        sortedMeals = new SortedList<>(filteredMeals, Comparator.naturalOrder());
     }
 
     public ModelManager() {
-        this(new DishDatabase(), new UserPrefs());
+        this(new MealLog(), new DishDatabase(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -129,6 +141,11 @@ public class ModelManager implements Model {
     public void updateFilteredDishList(Predicate<Dish> predicate) {
         requireNonNull(predicate);
         filteredDishes.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Meal> getFilteredMealList() {
+        return sortedMeals;
     }
 
     @Override
