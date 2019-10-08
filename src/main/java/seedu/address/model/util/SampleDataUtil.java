@@ -73,6 +73,8 @@ public class SampleDataUtil {
         return getTagSet(strings);
     }
 
+    // TODO: Change coverage parsing
+    // TODO: Change to hashtable?
     public static Set<Policy> getPolicySet(String... strings) {
         return Arrays.stream(strings)
                 .map(string -> new Policy(new PolicyName(string), new Description(string),
