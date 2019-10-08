@@ -38,7 +38,7 @@
                 <AnchorPane fx:id="anchorPane" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                     <children>
 
-                        <SplitPane AnchorPane.topAnchor="0.0"
+                        <SplitPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" VBox.vgrow="ALWAYS">
                             <VBox fx:id="personList" styleClass="pane-with-border"
                                   HBox.hgrow="SOMETIMES" minWidth="400" maxWidth="Infinity">

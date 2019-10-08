@@ -30,6 +30,10 @@ public class Room {
         return patientCurrentlyBeingServed;
     }
 
+    public Person getDoctor() {
+        return doctor;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

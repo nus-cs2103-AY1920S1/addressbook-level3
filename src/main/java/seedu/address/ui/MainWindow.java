@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         //TODO: EDIT HERE
-        queueListPanel = new QueueListPanel(FXCollections.observableArrayList(), logic.getFilteredPersonList());
+        queueListPanel = new QueueListPanel(FXCollections.observableArrayList(), logic.getFilteredPatientList());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

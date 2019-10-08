@@ -30,7 +30,7 @@ public class RoomCard extends UiPart<Region> {
         super(FXML);
         this.room = room;
         doctorName.setText(room.getDoctor().getName().fullName);
-        name.setText(room.getCurrentPatient().getName().fullName);
+        name.setText(room.getPatientCurrentlyBeingServed().getName().fullName);
     }
 
     @Override
