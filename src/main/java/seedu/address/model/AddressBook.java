@@ -186,11 +186,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-
     public ObservableList<Income> getIncomeList() {
         return incomes.asUnmodifiableObservableList();
     }
-  
+
     @Override
     public ObservableList<Claim> getClaimList() {
         return claims.asUnmodifiableObservableList();

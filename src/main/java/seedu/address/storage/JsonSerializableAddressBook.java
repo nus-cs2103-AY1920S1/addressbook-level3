@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
-import static seedu.address.logic.commands.EditIncomeCommand.MESSAGE_DUPLICATE_INCOME;
 import static seedu.address.logic.commands.EditClaimCommand.MESSAGE_DUPLICATE_CLAIM;
+import static seedu.address.logic.commands.EditIncomeCommand.MESSAGE_DUPLICATE_INCOME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,11 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
-import seedu.address.model.ReadOnlyAddressBook;
+
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -76,6 +77,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addIncome(income);
         }
+
         for (JsonAdaptedClaim jsonAdaptedClaim : claims) {
             Claim claim = jsonAdaptedClaim.toModelType();
             if (addressBook.hasClaim(claim)) {
@@ -83,7 +85,6 @@ class JsonSerializableAddressBook {
             }
             addressBook.addClaim(claim);
         }
-      
         return addressBook;
     }
 
