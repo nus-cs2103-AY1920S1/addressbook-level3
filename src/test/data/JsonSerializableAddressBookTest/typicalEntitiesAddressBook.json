@@ -42,5 +42,11 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tagged" : [ ]
-  } ]
+  } ],
+  "vehicles": [{
+    "vehicleType": "Patrol Car",
+    "vehicleNumber": "SBH3100F",
+    "district": "16 Upper East Coast",
+    "availability": "BUSY"
+  }]
 }

@@ -12,6 +12,11 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vehicle.Availability;
+import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.vehicle.VehicleNumber;
+import seedu.address.model.vehicle.VehicleType;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -40,10 +45,26 @@ public class SampleDataUtil {
         };
     }
 
+    public static Vehicle[] getSampleVehicles() {
+        return new Vehicle[] {
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SGS2121G"),
+                new District("16 Upper East Coast"), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
+                new District("6 City Hall"), new Availability("BUSY")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKTH1221P"),
+                new District("20 Ang Mo Kio"), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
+                new District("8 Little India"), new Availability("BUSY"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Vehicle sampleVehicle : getSampleVehicles()) {
+            sampleAb.addVehicle(sampleVehicle);
         }
         return sampleAb;
     }

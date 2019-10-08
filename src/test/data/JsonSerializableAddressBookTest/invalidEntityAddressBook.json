@@ -1,0 +1,14 @@
+{
+  "persons": [ {
+    "name": "Hans Muster",
+    "phone": "9482424",
+    "email": "invalid@email!3e",
+    "address": "4th street"
+  } ],
+  "vehicles": [{
+    "vehicleType": "Bus",
+    "vehicleNumber": "invalid####",
+    "district": "-",
+    "availability": "BYE"
+  }]
+}
