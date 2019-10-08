@@ -3,6 +3,8 @@ package seedu.address.logic.commands.student;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.student.Name;
+import seedu.address.model.student.Student;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -27,7 +29,7 @@ public class StudentAddCommand extends StudentCommand{
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Student student;
-        student = new Student(this.name);
+        student = new Student(new Name(this.name));
         model.addStudent(student);
         return new CommandResult(generateSuccessMessage(student));
     }

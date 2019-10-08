@@ -4,20 +4,21 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.student.Student;
 
 public class StudentDeleteCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Deletes a question\n"
             + "Note: index has to be greater than 0";
 
-    private final Student student;
+    private final Index index;
 
     /**
      * Creates a StudentDeleteCommand object.
      *
-     * @param student student to delete from the list.
+     * @param index index of student to delete from the list.
      */
-    public StudentDeleteCommand(Student student) {
-        this.student = student;
+    public StudentDeleteCommand(Index index) {
+        this.index = index;
     }
 
     @Override

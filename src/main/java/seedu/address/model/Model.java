@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
+import seedu.address.model.student.Student;
 
 /**
  * The API of the Model component.
@@ -66,8 +67,9 @@ public interface Model {
 
     /**
      * Returns the student that has been deleted based on the index.
+     * @return
      */
-    void deleteStudent(Student student);
+    Student deleteStudent(Index index);
 
     /**
      * Returns the student based on its Index.

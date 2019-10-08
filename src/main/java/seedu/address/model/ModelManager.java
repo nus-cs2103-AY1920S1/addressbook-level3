@@ -17,6 +17,8 @@ import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionList;
+import seedu.address.model.student.Student;
+import seedu.address.model.student.UniqueStudentList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -46,6 +48,7 @@ public class ModelManager implements Model {
         this.questions = new QuestionList();
         this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
+        this.students = new UniqueStudentList();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
@@ -108,18 +111,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteStudent(Student student) {
-        return students.remove(student);
+    public Student deleteStudent(Index index) {
+        return students.remove(index);
     }
 
     @Override
-    public Student getStudent(Student student) {
-        return students.getStudent(student);
+    public Student getStudent(Index index) {
+        return students.getStudent(index);
     }
 
     @Override
-    public void setStudent(Student target, Student editedStudent) {
-        students.setStudent(target, editedStudent);
+    public void setStudent(Index index, Student student) {
+        students.setStudent(index, student);
     }
 
     @Override
