@@ -52,7 +52,7 @@ public class DeleteTutorialCommandTest {
         assertCommandFailure(deleteTutorialCommand, model, Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
     }
 
-    /* todo: implement later?
+    /* TODO: implement later?
     @Test
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_IN_LIST);

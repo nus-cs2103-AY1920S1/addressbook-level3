@@ -17,6 +17,7 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.Week;
 
 /**
  * Represents the in-memory model of the application data.
@@ -27,6 +28,7 @@ public class ModelManager implements Model {
     private final Application application;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    // TODO: FilteredList<Student>?
     private final FilteredList<Person> filteredStudents;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Tutorial> filteredTutorials;
@@ -207,6 +209,12 @@ public class ModelManager implements Model {
     public void deleteTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
         application.removeTutorial(tutorial);
+    }
+
+    @Override
+    public void setAttendance(Tutorial tutorial, Week week, Student student) {
+        requireAllNonNull(tutorial, week, student);
+        application.setAttendance(tutorial, week, student);
     }
 
     //=========== Filtered Person List Accessors =============================================================

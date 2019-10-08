@@ -11,6 +11,7 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.Week;
 
 /**
  * The API of the Model component.
@@ -174,4 +175,10 @@ public interface Model {
      * Checks if there are multiple tutorials of the same name in the application.
      */
     int getNumberOfTutorialsOfName(TutName tutName);
+
+    /**
+     * Sets attendance of a student of a tutorial in the application.
+     */
+    public void setAttendance(Tutorial tutorial,
+            Week week, Student student);
 }

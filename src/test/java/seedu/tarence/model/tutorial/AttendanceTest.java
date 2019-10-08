@@ -44,11 +44,6 @@ public class AttendanceTest {
     }
 
     @Test
-    public void setAttendance_studentNotInList_throwsStudentNotFoundException() {
-        assertThrows(StudentNotFoundException.class, () -> attendance.setAttendance(new Week(1), ALICE, true));
-    }
-
-    @Test
     public void setAttendance() {
         students.add(ALICE);
         Attendance attendanceWithStudent = new Attendance(weeks, students);
@@ -58,14 +53,9 @@ public class AttendanceTest {
     }
 
     @Test
-    public void addStudentToWeek_weeksNotInList_throwsWeekNotFoundException() {
-        assertThrows(WeekNotFoundException.class, () -> attendance.addStudentToWeek(new Week(4), ALICE, true));
-    }
-
-    @Test
-    public void addStudentToWeek() {
+    public void addStudent() {
         assertThrows(StudentNotFoundException.class, () -> attendance.isPresent(new Week(1), ALICE));
-        attendance.addStudentToWeek(new Week(1), ALICE, false);
+        attendance.addStudent(ALICE);
         assertFalse(attendance.isPresent(new Week(1), ALICE));
     }
 

@@ -52,9 +52,6 @@ public class Tutorial {
         return students;
     }
 
-    public void addStudent(Student student) {
-        students.add(student);
-    }
 
     public ModCode getModCode() {
         return modCode;
@@ -62,6 +59,21 @@ public class Tutorial {
 
     public Attendance getAttendance() {
         return attendance;
+    }
+
+    /**
+     * Adds a Student to a Tutorial.
+     */
+    public void addStudent(Student student) {
+        students.add(student);
+        attendance.addStudent(student);
+    }
+
+    /**
+     * Sets a Student's Attendance.
+     */
+    public void setAttendance(Week week, Student student) {
+        attendance.setAttendance(week, student);
     }
 
     /**

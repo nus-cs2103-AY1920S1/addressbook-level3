@@ -14,7 +14,7 @@ import seedu.tarence.model.module.Module;
 
 /**
  * Deletes a person identified using it's displayed index from T.A.rence.
- * // todo: disallow deleting non-empty modules?
+ * // TODO: disallow deleting non-empty modules?
  */
 public class DeleteModuleCommand extends Command {
 

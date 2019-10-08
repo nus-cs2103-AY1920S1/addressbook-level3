@@ -13,7 +13,7 @@ import seedu.tarence.model.module.ModCode;
  */
 public class DeleteModuleCommandParser extends CommandParser<DeleteModuleCommand> {
 
-    // todo: implement optionalArgs
+    // TODO: implement optionalArgs
     private static final OptionalArgument[] optionalArgs = {};
 
     /**
