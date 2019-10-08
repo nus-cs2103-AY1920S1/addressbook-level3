@@ -32,9 +32,6 @@ public class ItemModelManager implements ItemModel {
         this.visualList = taskList;
         this.addressBook = addressBook;
         this.userPrefs = userPrefs;
-        for (Item i: itemStorage.getList()) {
-            this.addItem(i);
-        }
     }
 
     @Override
@@ -178,6 +175,11 @@ public class ItemModelManager implements ItemModel {
         }
     }
 
+    /**
+     * Find an item based on its description.
+     * @param searchString the string to search for within the description
+     * @return the item list containing all the items that contain the search string
+     */
     public ItemList findItem(String searchString) {
         this.visualList = visualList.find(searchString);
         return this.visualList;
