@@ -30,11 +30,13 @@ public class SortCommandParser implements Parser<SortCommand> {
         SortCommand.SortingMethod method =
             ParserUtil.parseSortingMethod(argumentMultimap.getValue(PREFIX_SORTING_METHOD).get());
 
+        SortCommand.SortingOrder order;
         if (!arePrefixesPresent(argumentMultimap, PREFIX_SORTING_ORDER)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            // As specified in UG, ascending order is the default value.
+            order = SortCommand.SortingOrder.ascend;
+        } else {
+            order = ParserUtil.parseSortingOrder(argumentMultimap.getValue(PREFIX_SORTING_ORDER).get());
         }
-        SortCommand.SortingOrder order =
-            ParserUtil.parseSortingOrder(argumentMultimap.getValue(PREFIX_SORTING_ORDER).get());
 
         return new SortCommand(method, order);
     }

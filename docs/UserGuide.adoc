@@ -130,10 +130,20 @@ Deletes the 1st problem in the results of the `find` command.
 ==== Sorting problems: `sort`
 
 Sorts the current list of results by a specified order and direction. +
-Format: `sort m/METHOD [d/DIRECTION]`
+Format: `sort m/METHOD [ord/ORDER]`
 
-* Method can be `alphabetical`, `chronological` or `difficulty`.
-* Direction can be `ASC` or `DESC` representing ascending and descending order. The default is in ascending order.
+* Method can be `name`, `author`, `weblink`, `difficulty` or `source`.
+* ORDER can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
+* String-based values (i.e. `name`, `author`, etc.) are sorted alphabetically.
+
+Examples:
+
+* `sort m/name`
+Sorts the current list of problems in ascending order of names.
+* `sort m/author ord/descend`
+Sorts the current list of problems in descending order of author names.
+* `sort m/difficulty ord/ascend`
+Sorts the current list of problems from lowest to highest difficulty.
 
 === Tags
 
