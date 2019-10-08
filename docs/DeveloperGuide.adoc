@@ -312,10 +312,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |teacher |record scores | tally the marks accurately instead of manually inputting them into the system
 
-|`* * *` [Epic] |teacher |write questions to a question bank |retrieve them as per needed for quizzes generated with Njoy
+|`* * *` [Epic] |teacher |write questions to a question bank |store questions to be used later on
 
-|`* * *` |teacher |have the option to format the questions as either MCQ or Open Ended |retrieve them
-as per needed for specific quizzes generated with Njoy
+|`* * *` |teacher |have the option to format the questions as either MCQ or Open Ended |have different types of questions
 
 |`* * *` |teacher |generate quizzes with randomised questions for assignments |students are unable to copy solutions
 from one another
