@@ -310,7 +310,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |SoC student who has to pay school fees regularly |track how much I’ll have to pay and when I have to pay it by |avoid making late payments
 
-|`* * *` |SOC student experienced in writing programs |write my own scripts to manipulate entries in the app |automate and customize the app to my liking
+|`* * *` |SoC student experienced in writing programs |write my own scripts to manipulate entries in the app |automate and customize the app to my liking
 
 |`* * *` |ambitious user |set goals for my cumulative income |work towards my dream home/car/goal
 
