@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.food.Email;
+import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.Price;
@@ -18,17 +18,17 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Food[] getSampleFood() {
         return new Food[] {
-            new Food(new Name("Alex Yeoh"), new Price("87438807"), new Email("alexyeoh@example.com"),
+            new Food(new Name("Alex Yeoh"), new Price("87438807"), new Description("First description"),
                 getTagSet("friends")),
-            new Food(new Name("Bernice Yu"), new Price("99272758"), new Email("berniceyu@example.com"),
+            new Food(new Name("Bernice Yu"), new Price("99272758"), new Description("Bernice Yu's description"),
                 getTagSet("colleagues", "friends")),
-            new Food(new Name("Charlotte Oliveiro"), new Price("93210283"), new Email("charlotte@example.com"),
+            new Food(new Name("Charlotte Oliveiro"), new Price("93210283"), new Description("Description 3"),
                 getTagSet("neighbours")),
-            new Food(new Name("David Li"), new Price("91031282"), new Email("lidavid@example.com"),
+            new Food(new Name("David Li"), new Price("91031282"), new Description("Another description"),
                 getTagSet("family")),
-            new Food(new Name("Irfan Ibrahim"), new Price("92492021"), new Email("irfan@example.com"),
+            new Food(new Name("Irfan Ibrahim"), new Price("92492021"), new Description("Description #5"),
                 getTagSet("classmates")),
-            new Food(new Name("Roy Balakrishnan"), new Price("92624417"), new Email("royb@example.com"),
+            new Food(new Name("Roy Balakrishnan"), new Price("92624417"), new Description("Last description."),
                 getTagSet("colleagues"))
         };
     }

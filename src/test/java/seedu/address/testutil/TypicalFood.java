@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
@@ -22,34 +22,34 @@ import seedu.address.model.food.Food;
 public class TypicalFood {
 
     public static final Food ALICE = new FoodBuilder().withName("Alice Pauline")
-            .withEmail("alice@example.com")
+            .withDescription("First Description.")
             .withPrice("94351253")
             .withTags("friends").build();
     public static final Food BENSON = new FoodBuilder().withName("Benson Meier")
-            .withEmail("johnd@example.com").withPrice("98765432")
+            .withDescription("description abc123456").withPrice("98765432")
             .withTags("owesMoney", "friends").build();
     public static final Food CARL = new FoodBuilder().withName("Carl Kurz").withPrice("95352563")
-            .withEmail("heinz@example.com").build();
+            .withDescription("Description!@$%^&*()").build();
     public static final Food DANIEL = new FoodBuilder().withName("Daniel Meier").withPrice("87652533")
-            .withEmail("cornelia@example.com").withTags("friends").build();
+            .withDescription("Daniel's Description?").withTags("friends").build();
     public static final Food ELLE = new FoodBuilder().withName("Elle Meyer").withPrice("9482224")
-            .withEmail("werner@example.com").build();
+            .withDescription("description").build();
     public static final Food FIONA = new FoodBuilder().withName("Fiona Kunz").withPrice("9482427")
-            .withEmail("lydia@example.com").build();
+            .withDescription("another description lydia@example.com").build();
     public static final Food GEORGE = new FoodBuilder().withName("George Best").withPrice("9482442")
-            .withEmail("anna@example.com").build();
+            .withDescription("last description").build();
 
     // Manually added
     public static final Food HOON = new FoodBuilder().withName("Hoon Meier").withPrice("8482424")
-            .withEmail("stefan@example.com").build();
+            .withDescription("new description").build();
     public static final Food IDA = new FoodBuilder().withName("Ida Mueller").withPrice("8482131")
-            .withEmail("hans@example.com").build();
+            .withDescription("new description 2").build();
 
     // Manually added - Food's details found in {@code CommandTestUtil}
     public static final Food AMY = new FoodBuilder().withName(VALID_NAME_AMY).withPrice(VALID_PRICE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Food BOB = new FoodBuilder().withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

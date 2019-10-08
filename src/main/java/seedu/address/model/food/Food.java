@@ -18,7 +18,7 @@ public class Food {
     // Identity fields
     private final Name name;
     private final Price price;
-    private final Email email;
+    private final Description description;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -26,11 +26,11 @@ public class Food {
     /**
      * Every field must be present and not null.
      */
-    public Food(Name name, Price price, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, price, email, tags);
+    public Food(Name name, Price price, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, price, description, tags);
         this.name = name;
         this.price = price;
-        this.email = email;
+        this.description = description;
         this.tags.addAll(tags);
     }
 
@@ -42,8 +42,8 @@ public class Food {
         return price;
     }
 
-    public Email getEmail() {
-        return email;
+    public Description getDescription() {
+        return description;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Food {
 
         return otherFood != null
                 && otherFood.getName().equals(getName())
-                && (otherFood.getPrice().equals(getPrice()) || otherFood.getEmail().equals(getEmail()));
+                && (otherFood.getPrice().equals(getPrice()) || otherFood.getDescription().equals(getDescription()));
     }
 
     /**
@@ -85,14 +85,14 @@ public class Food {
         Food otherFood = (Food) other;
         return otherFood.getName().equals(getName())
                 && otherFood.getPrice().equals(getPrice())
-                && otherFood.getEmail().equals(getEmail())
+                && otherFood.getDescription().equals(getDescription())
                 && otherFood.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, price, email, tags);
+        return Objects.hash(name, price, description, tags);
     }
 
     @Override
@@ -101,8 +101,8 @@ public class Food {
         builder.append(getName())
                 .append(" Price: $")
                 .append(getPrice())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

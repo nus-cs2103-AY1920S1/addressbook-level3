@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.food.Food;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Food}.
  */
 public class FoodCard extends UiPart<Region> {
 
@@ -35,7 +35,7 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private Label price;
     @FXML
-    private Label email;
+    private Label description;
     @FXML
     private FlowPane tags;
 
@@ -45,7 +45,13 @@ public class FoodCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(food.getName().fullName);
         price.setText("$" + food.getPrice().value);
-        email.setText(food.getEmail().value);
+
+        if (food.getDescription().value.equals("No description")) {
+            description.setText("");
+        } else {
+            description.setText(food.getDescription().value);
+        }
+
         food.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

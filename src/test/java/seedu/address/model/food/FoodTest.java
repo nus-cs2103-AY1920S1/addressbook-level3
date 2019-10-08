@@ -2,7 +2,7 @@ package seedu.address.model.food;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -30,8 +30,9 @@ public class FoodTest {
         // null -> returns false
         assertFalse(ALICE.isSameFood(null));
 
-        // different price and email -> returns false
-        Food editedAlice = new FoodBuilder(ALICE).withPrice(VALID_PRICE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        // different price and description -> returns false
+        Food editedAlice = new FoodBuilder(ALICE).withPrice(VALID_PRICE_BOB)
+                .withDescription(VALID_DESCRIPTION_BOB).build();
         assertFalse(ALICE.isSameFood(editedAlice));
 
         // different name -> returns false
@@ -39,16 +40,16 @@ public class FoodTest {
         assertFalse(ALICE.isSameFood(editedAlice));
 
         // same name, same price, different attributes -> returns true
-        editedAlice = new FoodBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
+        editedAlice = new FoodBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameFood(editedAlice));
 
-        // same name, same email, different attributes -> returns true
+        // same name, same description, different attributes -> returns true
         editedAlice = new FoodBuilder(ALICE).withPrice(VALID_PRICE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameFood(editedAlice));
 
-        // same name, same price, same email, different attributes -> returns true
+        // same name, same price, same description, different attributes -> returns true
         editedAlice = new FoodBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameFood(editedAlice));
     }
@@ -79,8 +80,8 @@ public class FoodTest {
         editedAlice = new FoodBuilder(ALICE).withPrice(VALID_PRICE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new FoodBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        // different description -> returns false
+        editedAlice = new FoodBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditFoodDescriptor;
-import seedu.address.model.food.Email;
+import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.Price;
@@ -33,7 +33,7 @@ public class EditFoodDescriptorBuilder {
         descriptor = new EditFoodDescriptor();
         descriptor.setName(food.getName());
         descriptor.setPrice(food.getPrice());
-        descriptor.setEmail(food.getEmail());
+        descriptor.setDescription(food.getDescription());
         descriptor.setTags(food.getTags());
     }
 
@@ -54,10 +54,10 @@ public class EditFoodDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditFoodDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditFoodDescriptor} that we are building.
      */
-    public EditFoodDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditFoodDescriptorBuilder withDescription(String description) {
+        descriptor.setDescription(new Description(description));
         return this;
     }
 

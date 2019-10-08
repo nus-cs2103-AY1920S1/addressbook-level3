@@ -23,13 +23,13 @@ public class FoodListPanel extends UiPart<Region> {
     public FoodListPanel(ObservableList<Food> foodList) {
         super(FXML);
         foodListView.setItems(foodList);
-        foodListView.setCellFactory(listView -> new foodListViewCell());
+        foodListView.setCellFactory(listView -> new FoodListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Food} using a {@code FoodCard}.
      */
-    class foodListViewCell extends ListCell<Food> {
+    class FoodListViewCell extends ListCell<Food> {
         @Override
         protected void updateItem(Food food, boolean empty) {
             super.updateItem(food, empty);

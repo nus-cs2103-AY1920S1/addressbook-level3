@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.food.Email;
+import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.Price;
@@ -25,7 +25,7 @@ class JsonAdaptedFood {
 
     private final String name;
     private final String price;
-    private final String email;
+    private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -33,11 +33,11 @@ class JsonAdaptedFood {
      */
     @JsonCreator
     public JsonAdaptedFood(@JsonProperty("name") String name, @JsonProperty("price") String price,
-                           @JsonProperty("email") String email,
+                           @JsonProperty("description") String description,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.price = price;
-        this.email = email;
+        this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -49,7 +49,7 @@ class JsonAdaptedFood {
     public JsonAdaptedFood(Food source) {
         name = source.getName().fullName;
         price = source.getPrice().value;
-        email = source.getEmail().value;
+        description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -82,16 +82,17 @@ class JsonAdaptedFood {
         }
         final Price modelPrice = new Price(price);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Description modelDesciption = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(foodTags);
-        return new Food(modelName, modelPrice, modelEmail, modelTags);
+        return new Food(modelName, modelPrice, modelDesciption, modelTags);
     }
 
 }
