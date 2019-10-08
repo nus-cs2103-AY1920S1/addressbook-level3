@@ -6,6 +6,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 
+/**
+ * Deletes a note in the note list.
+ */
 public class NoteDeleteCommand extends NoteCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Deletes a note\n"

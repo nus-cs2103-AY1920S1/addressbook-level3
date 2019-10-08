@@ -1,5 +1,15 @@
 package seedu.address.logic.parser.note;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
+
+import java.util.HashMap;
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.note.NoteAddCommand;
 import seedu.address.logic.commands.note.NoteCommand;
@@ -13,15 +23,17 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.HashMap;
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-
+/**
+ * Parses input arguments and creates a new {@code NoteCommand} object
+ */
 public class NoteCommandParser implements Parser<NoteCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddNoteCommand
+     * and returns an NoteCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public NoteCommand parse(String args) throws ParseException {
         requireNonNull(args);
 

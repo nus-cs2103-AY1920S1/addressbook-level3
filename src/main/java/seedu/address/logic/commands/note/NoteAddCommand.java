@@ -1,12 +1,15 @@
 package seedu.address.logic.commands.note;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * Creates a new note to be added to the note list.
+ */
 public class NoteAddCommand extends NoteCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new note\n"

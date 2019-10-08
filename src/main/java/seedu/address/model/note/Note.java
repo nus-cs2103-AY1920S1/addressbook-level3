@@ -1,5 +1,8 @@
 package seedu.address.model.note;
 
+/**
+ * Represents a note in the note list.
+ */
 public class Note {
 
     protected String note;

@@ -1,10 +1,12 @@
 package seedu.address.model.note;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.question.Question;
-
 import java.util.ArrayList;
 
+import seedu.address.commons.core.index.Index;
+
+/**
+ * Represents a list of Notes.
+ */
 public class NoteList {
 
     private ArrayList<Note> notes;
