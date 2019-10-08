@@ -9,10 +9,10 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the dish database level
+ * Duplicates are not allowed (by .isSameDish comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class DishDatabase implements ReadOnlyDishDatabase {
 
     private final UniqueDishList dishes;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         dishes = new UniqueDishList();
     }
 
-    public AddressBook() {}
+    public DishDatabase() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an DishDatabase using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public DishDatabase(ReadOnlyDishDatabase toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code DishDatabase} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyDishDatabase newData) {
         requireNonNull(newData);
 
         setDishes(newData.getDishList());
@@ -59,7 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// dish-level operations
 
     /**
-     * Returns true if a dish with the same identity as {@code dish} exists in the address book.
+     * Returns true if a dish with the same identity as {@code dish} exists in the dish database.
      */
     public boolean hasDish(Dish dish) {
         requireNonNull(dish);
@@ -67,8 +67,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a dish to the address book.
-     * The dish must not already exist in the address book.
+     * Adds a dish to the dish database.
+     * The dish must not already exist in the dish database.
      */
     public void addDish(Dish p) {
         dishes.add(p);
@@ -76,8 +76,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given dish {@code target} in the list with {@code editedDish}.
-     * {@code target} must exist in the address book.
-     * The dish identity of {@code editedDish} must not be the same as another existing dish in the address book.
+     * {@code target} must exist in the dish database.
+     * The dish identity of {@code editedDish} must not be the same as another existing dish in the dish database.
      */
     public void setDish(Dish target, Dish editedDish) {
         requireNonNull(editedDish);
@@ -86,8 +86,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code DishDatabase}.
+     * {@code key} must exist in the dish database.
      */
     public void removeDish(Dish key) {
         dishes.remove(key);
@@ -109,8 +109,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && dishes.equals(((AddressBook) other).dishes));
+                || (other instanceof DishDatabase // instanceof handles nulls
+                && dishes.equals(((DishDatabase) other).dishes));
     }
 
     @Override

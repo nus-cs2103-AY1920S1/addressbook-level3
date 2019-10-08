@@ -1,18 +1,18 @@
 package calofit.storage;
 
+import calofit.commons.exceptions.DataConversionException;
+import calofit.model.ReadOnlyDishDatabase;
+import calofit.model.ReadOnlyUserPrefs;
+import calofit.model.UserPrefs;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import calofit.commons.exceptions.DataConversionException;
-import calofit.model.ReadOnlyAddressBook;
-import calofit.model.ReadOnlyUserPrefs;
-import calofit.model.UserPrefs;
-
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends DishDatabaseStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +21,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getDishDatabaseFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyDishDatabase> readDishDatabase() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveDishDatabase(ReadOnlyDishDatabase dishDatabase) throws IOException;
 
 }

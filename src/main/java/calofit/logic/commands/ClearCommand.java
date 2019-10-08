@@ -2,22 +2,22 @@ package calofit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import calofit.model.AddressBook;
+import calofit.model.DishDatabase;
 import calofit.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the dish database.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Dish database has been cleared!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setDishDatabase(new DishDatabase());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

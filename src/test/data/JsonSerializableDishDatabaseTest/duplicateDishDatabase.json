@@ -1,0 +1,8 @@
+{
+  "dishes": [ {
+    "name": "Alice Pauline",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Alice Pauline"
+  } ]
+}

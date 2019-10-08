@@ -1,9 +1,9 @@
 package calofit.model.util;
 
+import calofit.model.DishDatabase;
 import calofit.model.meal.Dish;
 import calofit.model.meal.Name;
-import calofit.model.AddressBook;
-import calofit.model.ReadOnlyAddressBook;
+import calofit.model.ReadOnlyDishDatabase;
 import calofit.model.tag.Tag;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code DishDatabase} with sample data.
  */
 public class SampleDataUtil {
     public static Dish[] getSampleDishes() {
@@ -31,8 +31,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyDishDatabase getSampleDishDatabase() {
+        DishDatabase sampleAb = new DishDatabase();
         for (Dish sampleDish : getSampleDishes()) {
             sampleAb.addDish(sampleDish);
         }

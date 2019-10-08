@@ -1,7 +1,5 @@
 package calofit.model;
 
-import static calofit.testutil.Assert.assertThrows;
-
 import calofit.testutil.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +12,9 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setDishDatabaseFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setAddressBookFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setDishDatabaseFilePath(null));
     }
 
 }

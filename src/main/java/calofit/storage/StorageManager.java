@@ -1,29 +1,29 @@
 package calofit.storage;
 
+import calofit.commons.core.LogsCenter;
+import calofit.commons.exceptions.DataConversionException;
+import calofit.model.ReadOnlyDishDatabase;
+import calofit.model.ReadOnlyUserPrefs;
+import calofit.model.UserPrefs;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import calofit.commons.core.LogsCenter;
-import calofit.commons.exceptions.DataConversionException;
-import calofit.model.ReadOnlyAddressBook;
-import calofit.model.ReadOnlyUserPrefs;
-import calofit.model.UserPrefs;
-
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of DishDatabase data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private DishDatabaseStorage dishDatabaseStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(DishDatabaseStorage dishDatabaseStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.dishDatabaseStorage = dishDatabaseStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ DishDatabase methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getDishDatabaseFilePath() {
+        return dishDatabaseStorage.getDishDatabaseFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyDishDatabase> readDishDatabase() throws DataConversionException, IOException {
+        return readDishDatabase(dishDatabaseStorage.getDishDatabaseFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyDishDatabase> readDishDatabase(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return dishDatabaseStorage.readDishDatabase(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveDishDatabase(ReadOnlyDishDatabase dishDatabase) throws IOException {
+        saveDishDatabase(dishDatabase, dishDatabaseStorage.getDishDatabaseFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveDishDatabase(ReadOnlyDishDatabase dishDatabase, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        dishDatabaseStorage.saveDishDatabase(dishDatabase, filePath);
     }
 
 }

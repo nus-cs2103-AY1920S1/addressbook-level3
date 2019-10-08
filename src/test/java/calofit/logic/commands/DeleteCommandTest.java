@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -29,7 +29,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS, dishToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getDishDatabase(), new UserPrefs());
         expectedModel.deleteDish(dishToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -52,7 +52,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS, dishToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDishDatabase(), new UserPrefs());
         expectedModel.deleteDish(dishToDelete);
         showNoDish(expectedModel);
 
@@ -64,8 +64,8 @@ public class DeleteCommandTest {
         showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
 
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_MEAL;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getDishList().size());
+        // ensures that outOfBoundIndex is still in bounds of dish database list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDishDatabase().getDishList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

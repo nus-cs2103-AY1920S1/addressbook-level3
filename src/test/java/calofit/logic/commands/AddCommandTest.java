@@ -2,9 +2,9 @@ package calofit.logic.commands;
 
 import calofit.commons.core.GuiSettings;
 import calofit.logic.commands.exceptions.CommandException;
-import calofit.model.AddressBook;
+import calofit.model.DishDatabase;
 import calofit.model.Model;
-import calofit.model.ReadOnlyAddressBook;
+import calofit.model.ReadOnlyDishDatabase;
 import calofit.model.ReadOnlyUserPrefs;
 import calofit.model.meal.Dish;
 import calofit.testutil.Assert;
@@ -96,12 +96,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getDishDatabaseFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setDishDatabaseFilePath(Path dishDatabaseFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -111,12 +111,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setDishDatabase(ReadOnlyDishDatabase dishDatabase) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyDishDatabase getDishDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -183,8 +183,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyDishDatabase getDishDatabase() {
+            return new DishDatabase();
         }
     }
 

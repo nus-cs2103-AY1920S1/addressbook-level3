@@ -3,7 +3,7 @@ package calofit.logic.commands;
 import calofit.commons.core.index.Index;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.CliSyntax;
-import calofit.model.AddressBook;
+import calofit.model.DishDatabase;
 import calofit.model.Model;
 import calofit.model.meal.Dish;
 import calofit.model.meal.NameContainsKeywordsPredicate;
@@ -78,21 +78,21 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered dish list and selected dish in {@code actualModel} remain unchanged
+     * - the dish database, filtered dish list and selected dish in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        DishDatabase expectedDishDatabase = new DishDatabase(actualModel.getDishDatabase());
         List<Dish> expectedFilteredList = new ArrayList<>(actualModel.getFilteredDishList());
 
         Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedDishDatabase, actualModel.getDishDatabase());
         assertEquals(expectedFilteredList, actualModel.getFilteredDishList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the dish at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s dish database.
      */
     public static void showDishAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredDishList().size());

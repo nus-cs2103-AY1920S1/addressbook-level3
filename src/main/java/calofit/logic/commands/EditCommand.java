@@ -17,7 +17,7 @@ import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
 
 /**
- * Edits the details of an existing dish in the address book.
+ * Edits the details of an existing dish in the dish database.
  */
 public class EditCommand extends Command {
 
@@ -33,7 +33,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_MEAL_SUCCESS = "Edited Dish: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the dish database.";
 
     private final Index index;
     private final EditDishDescriptor editDishDescriptor;

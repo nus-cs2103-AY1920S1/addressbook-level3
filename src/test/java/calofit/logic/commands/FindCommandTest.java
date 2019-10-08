@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
+    private Model expectedModel = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
 
     @Test
     public void equals() {

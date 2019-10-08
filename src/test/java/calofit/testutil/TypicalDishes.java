@@ -1,6 +1,6 @@
 package calofit.testutil;
 
-import calofit.model.AddressBook;
+import calofit.model.DishDatabase;
 import calofit.model.meal.Dish;
 
 import java.util.ArrayList;
@@ -40,10 +40,10 @@ public class TypicalDishes {
     private TypicalDishes() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code DishDatabase} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static DishDatabase getTypicalDishDatabase() {
+        DishDatabase ab = new DishDatabase();
         for (Dish dish : getTypicalDishes()) {
             ab.addDish(dish);
         }

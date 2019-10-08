@@ -1,35 +1,25 @@
 package calofit;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
-
-import calofit.logic.Logic;
-import calofit.logic.LogicManager;
-import calofit.ui.Ui;
-import calofit.ui.UiManager;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import calofit.commons.core.Config;
 import calofit.commons.core.LogsCenter;
 import calofit.commons.core.Version;
 import calofit.commons.exceptions.DataConversionException;
 import calofit.commons.util.ConfigUtil;
 import calofit.commons.util.StringUtil;
-import calofit.model.AddressBook;
-import calofit.model.Model;
-import calofit.model.ModelManager;
-import calofit.model.ReadOnlyAddressBook;
-import calofit.model.ReadOnlyUserPrefs;
-import calofit.model.UserPrefs;
+import calofit.logic.Logic;
+import calofit.logic.LogicManager;
+import calofit.model.*;
 import calofit.model.util.SampleDataUtil;
-import calofit.storage.AddressBookStorage;
-import calofit.storage.JsonAddressBookStorage;
-import calofit.storage.JsonUserPrefsStorage;
-import calofit.storage.Storage;
-import calofit.storage.StorageManager;
-import calofit.storage.UserPrefsStorage;
+import calofit.storage.*;
+import calofit.ui.Ui;
+import calofit.ui.UiManager;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * Runs the application.
@@ -48,7 +38,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing DishDatabase ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +46,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        DishDatabaseStorage dishDatabaseStorage = new JsonDishDatabaseStorage(userPrefs.getDishDatabaseFilePath());
+        storage = new StorageManager(dishDatabaseStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -69,25 +59,25 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s dish database and {@code userPrefs}. <br>
+     * The data from the sample dish database will be used instead if {@code storage}'s dish database is not found,
+     * or an empty dish database will be used instead if errors occur when reading {@code storage}'s dish database.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyDishDatabase> dishDatabaseOptional;
+        ReadOnlyDishDatabase initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            dishDatabaseOptional = storage.readDishDatabase();
+            if (!dishDatabaseOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample DishDatabase");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = dishDatabaseOptional.orElseGet(SampleDataUtil::getSampleDishDatabase);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty DishDatabase");
+            initialData = new DishDatabase();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty DishDatabase");
+            initialData = new DishDatabase();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +141,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty DishDatabase");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,13 +157,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting DishDatabase " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Dish database ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

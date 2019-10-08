@@ -6,7 +6,7 @@ import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the dish database to the user.
  */
 public class ListCommand extends Command {
 

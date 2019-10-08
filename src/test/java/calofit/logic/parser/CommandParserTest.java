@@ -16,9 +16,9 @@ import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AddressBookParserTest {
+public class CommandParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final CommandParser parser = new CommandParser();
 
     @Test
     public void parseCommand_add() throws Exception {

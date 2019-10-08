@@ -5,7 +5,7 @@ import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.Model;
-import calofit.model.ReadOnlyAddressBook;
+import calofit.model.ReadOnlyDishDatabase;
 import calofit.model.meal.Dish;
 import javafx.collections.ObservableList;
 
@@ -25,19 +25,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the DishDatabase.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getDishDatabase()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyDishDatabase getDishDatabase();
 
     /** Returns an unmodifiable view of the filtered list of dishes */
     ObservableList<Dish> getFilteredDishList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' dish database file path.
      */
-    Path getAddressBookFilePath();
+    Path getDishDatbaseFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

@@ -2,7 +2,7 @@ package calofit.model;
 
 import calofit.commons.core.GuiSettings;
 import calofit.model.meal.NameContainsKeywordsPredicate;
-import calofit.testutil.AddressBookBuilder;
+import calofit.testutil.DishDatabaseBuilder;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new DishDatabase(), new DishDatabase(modelManager.getDishDatabase()));
     }
 
     @Test
@@ -33,14 +33,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setDishDatabaseFilePath(Paths.get("dishdb/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setDishDatabaseFilePath(Paths.get("new/dishdb/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -57,15 +57,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setDishDatabaseFilePath_nullPath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.setDishDatabaseFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setDishDatabaseFilePath_validPath_setsDishDatabaseFilePath() {
+        Path path = Paths.get("dishdb/file/path");
+        modelManager.setDishDatabaseFilePath(path);
+        assertEquals(path, modelManager.getDishDatabaseFilePath());
     }
 
     @Test
@@ -74,12 +74,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasDish_dishNotInAddressBook_returnsFalse() {
+    public void hasDish_dishNotInDishDatabase_returnsFalse() {
         assertFalse(modelManager.hasDish(TypicalDishes.ALICE));
     }
 
     @Test
-    public void hasDish_dishInAddressBook_returnsTrue() {
+    public void hasDish_dishInDishDatabase_returnsTrue() {
         modelManager.addDish(TypicalDishes.ALICE);
         assertTrue(modelManager.hasDish(TypicalDishes.ALICE));
     }
@@ -91,13 +91,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withDish(TypicalDishes.ALICE).withDish(TypicalDishes.BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        DishDatabase dishDatabase = new DishDatabaseBuilder().withDish(TypicalDishes.ALICE).withDish(TypicalDishes.BENSON).build();
+        DishDatabase differentDishDatabase = new DishDatabase();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(dishDatabase, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(dishDatabase, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -109,20 +109,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different dishDatabase -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentDishDatabase, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = TypicalDishes.ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredDishList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(dishDatabase, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setDishDatabaseFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(dishDatabase, differentUserPrefs)));
     }
 }

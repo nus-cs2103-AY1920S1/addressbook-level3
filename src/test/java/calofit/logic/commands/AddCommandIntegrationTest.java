@@ -21,14 +21,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
     }
 
     @Test
     public void execute_newDish_success() {
         Dish validDish = new DishBuilder().withName("Charlie").build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDishDatabase(), new UserPrefs());
         expectedModel.addDish(validDish);
 
         assertCommandSuccess(new AddCommand(validDish), model,
@@ -37,7 +37,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateDish_throwsCommandException() {
-        Dish dishInList = model.getAddressBook().getDishList().get(0);
+        Dish dishInList = model.getDishDatabase().getDishList().get(0);
         assertCommandFailure(new AddCommand(dishInList), model, AddCommand.MESSAGE_DUPLICATE_MEAL);
     }
 

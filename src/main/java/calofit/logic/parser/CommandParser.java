@@ -1,26 +1,18 @@
 package calofit.logic.parser;
 
-import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import calofit.logic.commands.*;
+import calofit.logic.parser.exceptions.ParseException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import calofit.logic.parser.exceptions.ParseException;
-import calofit.logic.commands.AddCommand;
-import calofit.logic.commands.ClearCommand;
-import calofit.logic.commands.Command;
-import calofit.logic.commands.DeleteCommand;
-import calofit.logic.commands.EditCommand;
-import calofit.logic.commands.ExitCommand;
-import calofit.logic.commands.FindCommand;
-import calofit.logic.commands.HelpCommand;
-import calofit.logic.commands.ListCommand;
+import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class CommandParser {
 
     /**
      * Used for initial separation of command word and args.

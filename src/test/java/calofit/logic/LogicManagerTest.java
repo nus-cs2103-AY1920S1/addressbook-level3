@@ -8,10 +8,10 @@ import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.Model;
 import calofit.model.ModelManager;
-import calofit.model.ReadOnlyAddressBook;
+import calofit.model.ReadOnlyDishDatabase;
 import calofit.model.UserPrefs;
 import calofit.model.meal.Dish;
-import calofit.storage.JsonAddressBookStorage;
+import calofit.storage.JsonDishDatabaseStorage;
 import calofit.storage.JsonUserPrefsStorage;
 import calofit.storage.StorageManager;
 import calofit.testutil.Assert;
@@ -39,10 +39,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonDishDatabaseStorage dishDatabaseStorage =
+                new JsonDishDatabaseStorage(temporaryFolder.resolve("dishDb.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dishDatabaseStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -66,12 +66,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonDishDatabaseIoExceptionThrowingStub
+        JsonDishDatabaseStorage dishDatabaseStorage =
+                new JsonDishDatabaseIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDishDb.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dishDatabaseStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -124,7 +124,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDishDatabase(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -144,13 +144,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonDishDatabaseIoExceptionThrowingStub extends JsonDishDatabaseStorage {
+        private JsonDishDatabaseIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveDishDatabase(ReadOnlyDishDatabase dishDatabase, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

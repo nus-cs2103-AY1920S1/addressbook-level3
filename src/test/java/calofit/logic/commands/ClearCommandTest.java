@@ -1,6 +1,6 @@
 package calofit.logic.commands;
 
-import calofit.model.AddressBook;
+import calofit.model.DishDatabase;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
@@ -12,7 +12,7 @@ import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyDishDatabase_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -20,10 +20,10 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
+    public void execute_nonEmptyDishDatabase_success() {
+        Model model = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
+        Model expectedModel = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
+        expectedModel.setDishDatabase(new DishDatabase());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

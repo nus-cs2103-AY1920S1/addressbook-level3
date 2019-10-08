@@ -14,31 +14,31 @@ import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the dish database data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final DishDatabase dishDatabase;
     private final UserPrefs userPrefs;
     private final FilteredList<Dish> filteredDishes;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given dishDatabase and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(addressBook, userPrefs);
+        CollectionUtil.requireAllNonNull(dishDatabase, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with dish database: " + dishDatabase + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.dishDatabase = new DishDatabase(dishDatabase);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredDishes = new FilteredList<>(this.addressBook.getDishList());
+        filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new DishDatabase(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,42 +66,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getDishDatabaseFilePath() {
+        return userPrefs.getDishDatabaseFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setDishDatabaseFilePath(Path dishDatabaseFilePath) {
+        requireNonNull(dishDatabaseFilePath);
+        userPrefs.setDishDatabaseFilePath(dishDatabaseFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== DishDatabase ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setDishDatabase(ReadOnlyDishDatabase dishDatabase) {
+        this.dishDatabase.resetData(dishDatabase);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyDishDatabase getDishDatabase() {
+        return dishDatabase;
     }
 
     @Override
     public boolean hasDish(Dish dish) {
         requireNonNull(dish);
-        return addressBook.hasDish(dish);
+        return dishDatabase.hasDish(dish);
     }
 
     @Override
     public void deleteDish(Dish target) {
-        addressBook.removeDish(target);
+        dishDatabase.removeDish(target);
     }
 
     @Override
     public void addDish(Dish dish) {
-        addressBook.addDish(dish);
+        dishDatabase.addDish(dish);
         updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
     }
 
@@ -109,14 +109,14 @@ public class ModelManager implements Model {
     public void setDish(Dish target, Dish editedDish) {
         CollectionUtil.requireAllNonNull(target, editedDish);
 
-        addressBook.setDish(target, editedDish);
+        dishDatabase.setDish(target, editedDish);
     }
 
     //=========== Filtered Dish List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Dish} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code dishDatabase}
      */
     @Override
     public ObservableList<Dish> getFilteredDishList() {
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return dishDatabase.equals(other.dishDatabase)
                 && userPrefs.equals(other.userPrefs)
                 && filteredDishes.equals(other.filteredDishes);
     }

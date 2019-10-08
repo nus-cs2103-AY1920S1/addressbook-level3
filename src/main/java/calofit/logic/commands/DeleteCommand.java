@@ -11,7 +11,7 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Deletes a dish identified using it's displayed index from the address book.
+ * Deletes a dish identified using it's displayed index from the dish database.
  */
 public class DeleteCommand extends Command {
 

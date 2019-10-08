@@ -10,7 +10,7 @@ import java.util.Set;
 import static calofit.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
- * Represents a Dish in the address book.
+ * Represents a Dish in the dish database.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Dish {

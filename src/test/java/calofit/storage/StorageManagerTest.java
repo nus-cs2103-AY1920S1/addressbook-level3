@@ -1,8 +1,8 @@
 package calofit.storage;
 
 import calofit.commons.core.GuiSettings;
-import calofit.model.AddressBook;
-import calofit.model.ReadOnlyAddressBook;
+import calofit.model.DishDatabase;
+import calofit.model.ReadOnlyDishDatabase;
 import calofit.model.UserPrefs;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +23,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonDishDatabaseStorage dishDatabaseStorage = new JsonDishDatabaseStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(dishDatabaseStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -47,21 +47,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void dishDatabaseReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonDishDatabaseStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonDishDatabaseStorageTest} class.
          */
-        AddressBook original = TypicalDishes.getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        DishDatabase original = TypicalDishes.getTypicalDishDatabase();
+        storageManager.saveDishDatabase(original);
+        ReadOnlyDishDatabase retrieved = storageManager.readDishDatabase().get();
+        assertEquals(original, new DishDatabase(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getDishDatabaseFilePath() {
+        assertNotNull(storageManager.getDishDatabaseFilePath());
     }
 
 }

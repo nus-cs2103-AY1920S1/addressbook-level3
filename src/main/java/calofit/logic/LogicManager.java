@@ -3,14 +3,14 @@ package calofit.logic;
 import calofit.logic.commands.Command;
 import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
-import calofit.logic.parser.AddressBookParser;
+import calofit.logic.parser.CommandParser;
 import calofit.logic.parser.exceptions.ParseException;
+import calofit.model.ReadOnlyDishDatabase;
 import calofit.model.meal.Dish;
 import javafx.collections.ObservableList;
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.model.Model;
-import calofit.model.ReadOnlyAddressBook;
 import calofit.storage.Storage;
 
 import java.io.IOException;
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final CommandParser commandParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        commandParser = new CommandParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = commandParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveDishDatabase(model.getDishDatabase());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyDishDatabase getDishDatabase() {
+        return model.getDishDatabase();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getDishDatbaseFilePath() {
+        return model.getDishDatabaseFilePath();
     }
 
     @Override

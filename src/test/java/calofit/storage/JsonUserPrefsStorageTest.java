@@ -1,21 +1,19 @@
 package calofit.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static calofit.testutil.Assert.assertThrows;
+import calofit.commons.core.GuiSettings;
+import calofit.commons.exceptions.DataConversionException;
+import calofit.model.UserPrefs;
+import calofit.testutil.Assert;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import calofit.testutil.Assert;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import calofit.commons.core.GuiSettings;
-import calofit.commons.exceptions.DataConversionException;
-import calofit.model.UserPrefs;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class JsonUserPrefsStorageTest {
 
@@ -74,7 +72,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
+        userPrefs.setDishDatabaseFilePath(Paths.get("dishDb.json"));
         return userPrefs;
     }
 

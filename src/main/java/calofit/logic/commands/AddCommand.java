@@ -9,13 +9,13 @@ import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
- * Adds a dish to the address book.
+ * Adds a dish to the dish database.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a dish to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a dish to the dish database. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -25,7 +25,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New dish added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the dish database";
 
     private final Dish toAdd;
 

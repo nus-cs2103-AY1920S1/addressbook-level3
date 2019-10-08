@@ -1,5 +1,6 @@
 package calofit.logic.commands;
 
+import calofit.model.DishDatabase;
 import calofit.model.meal.Dish;
 import calofit.testutil.EditDishDescriptorBuilder;
 import calofit.testutil.DishBuilder;
@@ -8,7 +9,6 @@ import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
-import calofit.model.AddressBook;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -31,7 +31,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, editedDish);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new DishDatabase(model.getDishDatabase()), new UserPrefs());
         expectedModel.setDish(model.getFilteredDishList().get(0), editedDish);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -51,7 +51,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, editedDish);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new DishDatabase(model.getDishDatabase()), new UserPrefs());
         expectedModel.setDish(lastDish, editedDish);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -64,7 +64,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, editedDish);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new DishDatabase(model.getDishDatabase()), new UserPrefs());
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -80,7 +80,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, editedDish);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new DishDatabase(model.getDishDatabase()), new UserPrefs());
         expectedModel.setDish(model.getFilteredDishList().get(0), editedDish);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -99,8 +99,8 @@ public class EditCommandTest {
     public void execute_duplicateDishFilteredList_failure() {
         CommandTestUtil.showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
 
-        // edit dish in filtered list into a duplicate in address book
-        Dish dishInList = model.getAddressBook().getDishList().get(TypicalIndexes.INDEX_SECOND_MEAL.getZeroBased());
+        // edit dish in filtered list into a duplicate in dish database
+        Dish dishInList = model.getDishDatabase().getDishList().get(TypicalIndexes.INDEX_SECOND_MEAL.getZeroBased());
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL,
                 new EditDishDescriptorBuilder(dishInList).build());
 
@@ -118,14 +118,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of dish database
      */
     @Test
     public void execute_invalidDishIndexFilteredList_failure() {
         CommandTestUtil.showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_MEAL;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getDishList().size());
+        // ensures that outOfBoundIndex is still in bounds of dish database list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDishDatabase().getDishList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());

@@ -35,44 +35,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' dish database file path.
      */
-    Path getAddressBookFilePath();
+    Path getDishDatabaseFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' dish database file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setDishDatabaseFilePath(Path dishDatabaseFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces dish database data with the data in {@code dishDatabase}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setDishDatabase(ReadOnlyDishDatabase dishDatabase);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the DishDatabase */
+    ReadOnlyDishDatabase getDishDatabase();
 
     /**
-     * Returns true if a dish with the same identity as {@code dish} exists in the address book.
+     * Returns true if a dish with the same identity as {@code dish} exists in the dish database.
      */
     boolean hasDish(Dish dish);
 
     /**
      * Deletes the given dish.
-     * The dish must exist in the address book.
+     * The dish must exist in the dish database.
      */
     void deleteDish(Dish target);
 
     /**
      * Adds the given dish.
-     * {@code dish} must not already exist in the address book.
+     * {@code dish} must not already exist in the dish database.
      */
     void addDish(Dish dish);
 
     /**
      * Replaces the given dish {@code target} with {@code editedDish}.
-     * {@code target} must exist in the address book.
-     * The dish identity of {@code editedDish} must not be the same as another existing dish in the address book.
+     * {@code target} must exist in the dish database.
+     * The dish identity of {@code editedDish} must not be the same as another existing dish in the dish database.
      */
     void setDish(Dish target, Dish editedDish);
 

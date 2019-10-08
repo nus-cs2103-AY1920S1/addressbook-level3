@@ -1,11 +1,11 @@
 package calofit.logic.parser;
 
 import calofit.logic.parser.exceptions.ParseException;
+import calofit.model.meal.Name;
+import calofit.model.tag.Tag;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
-import calofit.model.meal.Name;
-import calofit.model.tag.Tag;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,19 +14,12 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static calofit.testutil.Assert.assertThrows;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
