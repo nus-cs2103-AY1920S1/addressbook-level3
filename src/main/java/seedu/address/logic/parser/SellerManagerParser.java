@@ -7,21 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCustomerCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCustomerCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class SellerManagerParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -45,17 +38,11 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        //case AddCommand.COMMAND_WORD:
-        //    return new AddCommandParser().parse(arguments);
-
-        //case EditCommand.COMMAND_WORD:
-        //    return new EditCommandParser().parse(arguments);
-
         case AddCustomerCommand.COMMAND_WORD:
             return new AddCustomerCommandParser().parse(arguments);
 
-        case EditCustomerCommand.COMMAND_WORD:
-            return new EditCustomerCommandParser().parse(arguments);
+        /*case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -74,7 +61,7 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+        */
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

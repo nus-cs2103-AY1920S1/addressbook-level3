@@ -18,8 +18,6 @@ public class Phone implements Cloneable {
 
     // Identity fields
     private final UUID id;
-
-    // Data fields
     private final PhoneName phoneName;
     private final Brand brand;
     private final Capacity capacity;
@@ -38,6 +36,7 @@ public class Phone implements Cloneable {
         this.cost = cost;
         this.tags.addAll(tags);
     }
+
 
     private Phone(UUID id, PhoneName phoneName, Brand brand, Capacity capacity, Colour colour, Cost cost,
                  Set<Tag> tags) {

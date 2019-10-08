@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class NameTest {
+public class PhoneNameTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -14,13 +14,13 @@ public class NameTest {
     }
 
     @Test
-    public void constructor_invalidCustomerName_throwsIllegalArgumentException() {
+    public void constructor_invalidName_throwsIllegalArgumentException() {
         String invalidName = "";
         assertThrows(IllegalArgumentException.class, () -> new PhoneName(invalidName));
     }
 
     @Test
-    public void isValidCustomerName() {
+    public void isValidName() {
         // null name
         assertThrows(NullPointerException.class, () -> PhoneName.isValidPhoneName(null));
 
