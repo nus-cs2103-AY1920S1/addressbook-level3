@@ -19,7 +19,7 @@ public class ModuleCode {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs a {@code ModuleCode}.
      *
      * @param code a valid module code.
      */
