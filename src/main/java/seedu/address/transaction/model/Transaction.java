@@ -2,12 +2,10 @@ package seedu.address.transaction.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
 import seedu.address.person.model.person.Person;
 
 public class Transaction {
-    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
+    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     private LocalDate date;
     private String description;
     private String category;
@@ -39,6 +37,10 @@ public class Transaction {
 
     public String getDate() {
         return date.format(myFormatter);
+    }
+
+    public LocalDate getDateObject() {
+        return this.date;
     }
 
     public double getAmount() {

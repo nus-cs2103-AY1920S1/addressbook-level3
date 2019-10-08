@@ -7,7 +7,7 @@ import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
 public class SortAmountCommand extends Command{
-    public static final String COMMAND_WORD = "sortamount";
+    public static final String COMMAND_WORD = "sort amount";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @Override

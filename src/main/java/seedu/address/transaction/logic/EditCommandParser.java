@@ -25,7 +25,7 @@ public class EditCommandParser {
         try {
             index = Integer.parseInt(argMultimap.getPreamble());
         } catch (Exception pe) {
-            throw new ParseException(TransactionMessages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
         }
 
         EditCommand.EditTransactionDescriptor editPersonDescriptor = new EditCommand.EditTransactionDescriptor();

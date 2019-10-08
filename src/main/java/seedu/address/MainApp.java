@@ -71,7 +71,6 @@ public class MainApp extends Application {
         seedu.address.transaction.model.ModelManager transactionManager =
                 new seedu.address.transaction.model.ModelManager(transactionStorage.getTransactionList());
 
-
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.storage.StorageManager reimbursementStorage =
                 new seedu.address.reimbursement.storage.StorageManager("data" +
@@ -220,6 +219,7 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
+
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

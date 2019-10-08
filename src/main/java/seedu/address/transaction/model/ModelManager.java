@@ -25,6 +25,10 @@ public class ModelManager implements Model {
         return this.transactionList;
     }
 
+    public void updateFilteredTransactionList(TransactionContainsKeywordsPredicate predicate) {
+        this.transactionList.updateFilteredTransactionList(predicate);
+    }
+
     @Override
     public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws NoSuchIndexException {
         for (int i = 0; i < transactionList.size(); i++) {
@@ -71,6 +75,26 @@ public class ModelManager implements Model {
         for (int i = 0; i < transactionList.size(); i++) {
             transactionList.get(i).setId(i + 1);
         }
+    }
+
+    @Override
+    public void sortByDate() {
+        transactionList.sortByDate();
+    }
+
+    @Override
+    public void sortByName() {
+        transactionList.sortByName();
+    }
+
+    @Override
+    public void sortByAmount() {
+        transactionList.sortByAmount();
+    }
+
+    @Override
+    public void sortReset() {
+        transactionList.unSort();
     }
 
 }

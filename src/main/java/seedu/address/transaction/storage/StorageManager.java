@@ -21,6 +21,10 @@ public class StorageManager implements Storage {
     }
 
     public TransactionList getTransactionList() {
+        return getTransactionList(filepath);
+    }
+
+    private TransactionList getTransactionList(String filepath) {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
             File f = new File(filepath);
@@ -67,5 +71,4 @@ public class StorageManager implements Storage {
         fw.write(textFileMsg);
         fw.close();
     }
-
 }

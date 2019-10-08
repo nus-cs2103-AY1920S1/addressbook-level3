@@ -24,7 +24,7 @@ public class LogicManager implements Logic {
                         seedu.address.reimbursement.storage.Storage reimbursementStorage) {
         this.model = transactionModel;
         this.storage = transactionStorage;
-        parser = new TransactionTabParser();
+        this.parser = new TransactionTabParser();
         this.personStorage = personStorage;
         this.personModel = personModel;
         this.reimbursementModel = reimbursementModel;

@@ -20,4 +20,14 @@ public interface Model {
     boolean hasTransaction(Transaction editedTransaction) throws NoSuchIndexException;
 
     void updateIndexes() throws Exception;
+
+    void sortByDate();
+
+    void sortByName();
+
+    void sortByAmount();
+
+    void sortReset();
+
+    void updateFilteredTransactionList(TransactionContainsKeywordsPredicate predicate);
 }
