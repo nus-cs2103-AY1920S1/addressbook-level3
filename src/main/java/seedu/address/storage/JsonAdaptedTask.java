@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Jackson-friendly version of {@link Task}.
@@ -22,15 +23,17 @@ class JsonAdaptedTask {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
     private final String name;
+    private final TaskStatus taskStatus;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
-    public JsonAdaptedTask(@JsonProperty("name") String name,
+    public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("status") TaskStatus taskStatus,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
+        this.taskStatus = taskStatus;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -41,6 +44,7 @@ class JsonAdaptedTask {
      */
     public JsonAdaptedTask(Task source) {
         name = source.getName().fullName;
+        taskStatus = source.getTaskStatus();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -60,13 +64,16 @@ class JsonAdaptedTask {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
+        if (taskStatus == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskStatus.class.getSimpleName()));
+        }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
-
+        final TaskStatus modelTaskStatus = TaskStatus.valueOf(taskStatus.name());
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Task(modelName,  modelTags);
+        return new Task(modelName, modelTaskStatus, modelTags);
     }
 
 }
