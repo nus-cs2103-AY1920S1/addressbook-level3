@@ -46,11 +46,11 @@ public class WordContainsKeywordsPredicateTest {
 
         // Multiple keywords
         predicate = new WordContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new CardBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new CardBuilder().withName("Alice Bobby").build()));
 
         // Only one matching keyword
         predicate = new WordContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new CardBuilder().withName("Alice Carol").build()));
+        assertTrue(predicate.test(new CardBuilder().withName("Alice Caroline").build()));
 
         // Mixed-case keywords
         predicate = new WordContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
@@ -67,7 +67,7 @@ public class WordContainsKeywordsPredicateTest {
         predicate = new WordContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new CardBuilder().withName("Alice Bob").build()));
 
-        // Keywords match phone, email and address, but does not match name
+        // Keywords match meaning, but does not match word
         predicate = new WordContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new CardBuilder().withName("Alice").withMeaning("Main Street").build()));
     }

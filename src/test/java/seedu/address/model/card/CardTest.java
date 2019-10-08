@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.CardBuilder;
 
+import java.util.HashSet;
+
 public class CardTest {
 
     @Test
@@ -38,6 +40,20 @@ public class CardTest {
                 .withTags(VALID_TAG_BUG).build();
         assertTrue(ABRA.isSameName(editedAbra));
     }
+
+    @Test
+    public void getHint() {
+        String wordStr = "Pikachu";
+        String meaningStr = "PIKA PIKA";
+        Card card = new Card(new Word(wordStr), new Meaning(meaningStr), new HashSet<>());
+        for (int i = 0; i < wordStr.length(); ++i) {
+            Hint hint = card.getHint();
+            assertTrue(wordStr.charAt(hint.index.getZeroBased()) == hint.letter);
+        }
+        assertTrue(card.getHint() == null); // hints exhausted
+    }
+
+
 
     @Test
     public void equals() {

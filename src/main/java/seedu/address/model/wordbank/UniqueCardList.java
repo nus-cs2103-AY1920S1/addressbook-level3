@@ -1,4 +1,4 @@
-package seedu.address.model.card;
+package seedu.address.model.wordbank;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 
@@ -21,7 +22,7 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Card#isSameName(Card)
+ * @see seedu.address.model.card.Card#isSameName(seedu.address.model.card.Card)
  */
 public class UniqueCardList implements Iterable<Card> {
 

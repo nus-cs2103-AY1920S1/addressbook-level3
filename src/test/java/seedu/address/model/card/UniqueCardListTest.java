@@ -16,8 +16,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.wordbank.UniqueCardList;
 import seedu.address.testutil.CardBuilder;
 
 public class UniqueCardListTest {
@@ -168,5 +170,29 @@ public class UniqueCardListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueCardList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void getCard_indexOutOfBound_throwsIndexOutOfBoundException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> uniqueCardList.get(Index.fromZeroBased(0)));
+        uniqueCardList.add(ABRA);
+        assertThrows(IndexOutOfBoundsException.class, () -> uniqueCardList.get(Index.fromZeroBased(1)));
+    }
+
+    @Test
+    public void getCard_indexInBound_success() {
+        uniqueCardList.add(ABRA);
+        uniqueCardList.add(BUTTERFREE);
+        assertTrue(uniqueCardList.get(Index.fromZeroBased(0)).equals(ABRA));
+        assertTrue(uniqueCardList.get(Index.fromZeroBased(1)).equals(BUTTERFREE));
+    }
+
+    @Test
+    public void size() {
+        assertTrue(uniqueCardList.size() == 0);
+        uniqueCardList.add(ABRA);
+        assertTrue(uniqueCardList.size() == 1);
+        uniqueCardList.add(BUTTERFREE);
+        assertTrue(uniqueCardList.size() == 2);
     }
 }

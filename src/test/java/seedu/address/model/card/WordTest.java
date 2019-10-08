@@ -26,7 +26,7 @@ public class WordTest {
 
         // invalid name
         assertFalse(Word.isValidWord("")); // empty string
-        assertFalse(Word.isValidWord(" ")); // spaces only
+        assertFalse(Word.isValidWord(" \n \t   ")); // spaces only
         // todo dont know if this should be allowed
         //assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
         //assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters

@@ -14,9 +14,11 @@ public class MeaningTest {
     }
 
     @Test
-    public void constructor_invalidDescription_throwsIllegalArgumentException() {
-        String emptyDescription = "";
-        assertThrows(IllegalArgumentException.class, () -> new Meaning(emptyDescription));
+    public void constructor_invalidMeaning_throwsIllegalArgumentException() {
+        String emptyMeaning = "";
+        assertThrows(IllegalArgumentException.class, () -> new Meaning(emptyMeaning));
+        String whiteSpace = "   \t \n \r  ";
+        assertThrows(IllegalArgumentException.class, () -> new Meaning(whiteSpace));
         StringBuilder tooLongDescription = new StringBuilder();
         for (int i = 0; i < Meaning.MAX_LEN + 1; ++i) {
             tooLongDescription.append("a");
@@ -25,7 +27,7 @@ public class MeaningTest {
     }
 
     @Test
-    public void isValidDescription() {
+    public void isValidMeaning() {
         // null description
         assertThrows(NullPointerException.class, () -> Meaning.isValidMeaning(null));
 
