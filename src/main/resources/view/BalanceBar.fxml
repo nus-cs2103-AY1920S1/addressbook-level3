@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<HBox styleClass="balance-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+  <Label fx:id="balanceRemainingLabel" />
+  <Pane HBox.hgrow="ALWAYS"></Pane>
+  <Label fx:id="balance" />
+</HBox>

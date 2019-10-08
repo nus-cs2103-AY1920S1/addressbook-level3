@@ -16,6 +16,7 @@ import thrift.logic.Logic;
 import thrift.logic.commands.CommandResult;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.logic.parser.exceptions.ParseException;
+import thrift.model.transaction.Value;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -46,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane balancebarPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -112,6 +116,12 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        //TODO: Change the hardcoded balance to dynamically calculated balance. Can consider changing background
+        //      color of the balance bar if the balance is negative.
+        BalanceBar balanceBar = new BalanceBar(new Value("1337"));
+        balancebarPlaceholder.getChildren().add(balanceBar.getRoot());
+        balancebarPlaceholder.setStyle("-fx-background-color: derive(#b5b8b4, 70%);");
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getThriftFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());

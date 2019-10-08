@@ -120,6 +120,18 @@
     -fx-text-fill: white;
 }
 
+.list-cell #expenseValue {
+    -fx-text-fill: #ff6c4f;
+    -fx-font-size: 22px;
+    -fx-label-padding: 25px 40px 0 0;
+}
+
+.list-cell #incomeValue {
+    -fx-text-fill: #69ff4f;
+    -fx-font-size: 22px;
+    -fx-label-padding: 25px 40px 0 0;
+}
+
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
@@ -155,6 +167,20 @@
 
 .result-display .label {
     -fx-text-fill: black !important;
+}
+
+.balance-bar .label {
+    -fx-font-family: "Segoe UI Bold";
+    -fx-text-fill: black;
+    -fx-font-size: 22px;
+}
+
+.balance-bar #balanceRemainingLabel {
+    -fx-label-padding: 0 0 0 15px;
+}
+
+.balance-bar #balance {
+    -fx-label-padding: 0 40px 0 0;
 }
 
 .status-bar .label {

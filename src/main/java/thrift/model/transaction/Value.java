@@ -3,6 +3,7 @@ package thrift.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static thrift.commons.util.AppUtil.checkArgument;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 
 import thrift.model.util.CurrencyUtil;
@@ -20,8 +21,11 @@ public class Value {
             "Currency should only be 'SGD', 'MYR', 'USD' OR 'EUR'!";
     public static final String VALIDATION_REGEX = "^\\d+\\.?\\d{0,2}$";
     public static final String DEFAULT_CURRENCY = "SGD";
+    private static final DecimalFormat decimalFormatter = new DecimalFormat("0.00");
+
     public final Double amount;
     public final String currency;
+
 
     /**
      * Constructs a {@code Value} with the default currency {@link #DEFAULT_CURRENCY}.
@@ -83,7 +87,7 @@ public class Value {
 
     @Override
     public String toString() {
-        return String.valueOf(getMonetaryValue());
+        return String.valueOf(decimalFormatter.format(getMonetaryValue()));
     }
 
     @Override

@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import thrift.commons.core.LogsCenter;
+import thrift.model.transaction.Expense;
 import thrift.model.transaction.Transaction;
 
 /**
@@ -27,7 +28,8 @@ public class TransactionListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Transaction} using a {@code TransactionCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Transaction} using either a
+     * {@code ExpenseTransactionCard} or a {@code IncomeTransactionCard}.
      */
     class TransactionListViewCell extends ListCell<Transaction> {
         @Override
@@ -38,7 +40,11 @@ public class TransactionListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new TransactionCard(transaction, getIndex() + 1).getRoot());
+                if (transaction instanceof Expense) {
+                    setGraphic(new ExpenseTransactionCard(transaction, getIndex() + 1).getRoot());
+                } else {
+                    setGraphic(new IncomeTransactionCard(transaction, getIndex() + 1).getRoot());
+                }
             }
         }
     }

@@ -10,11 +10,11 @@ import javafx.scene.layout.Region;
 import thrift.model.transaction.Transaction;
 
 /**
- * An UI component that displays information of a {@code Transaction}.
+ * An UI component that displays information of a {@code Income}.
  */
-public class TransactionCard extends UiPart<Region> {
+public class IncomeTransactionCard extends UiPart<Region> {
 
-    private static final String FXML = "TransactionListCard.fxml";
+    private static final String FXML = "IncomeTransactionCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -29,26 +29,26 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label description;
+    private Label incomeDescription;
     @FXML
     private Label id;
     @FXML
-    private Label value;
+    private Label incomeValue;
     @FXML
-    private Label date;
+    private Label incomeDate;
     @FXML
-    private Label reserved;
+    private Label incomeReserved;
     @FXML
     private FlowPane tags;
 
-    public TransactionCard(Transaction transaction, int displayedIndex) {
+    public IncomeTransactionCard(Transaction transaction, int displayedIndex) {
         super(FXML);
         this.transaction = transaction;
         id.setText(displayedIndex + ". ");
-        description.setText(transaction.getDescription().toString());
-        value.setText(transaction.getValue().toString());
-        date.setText(transaction.getDate().toString());
-        reserved.setText("Dummy text label in TransactionCard.java.");
+        incomeDescription.setText(transaction.getDescription().toString());
+        incomeValue.setText("$" + transaction.getValue().toString());
+        incomeDate.setText(transaction.getDate().toString());
+        incomeReserved.setText("Dummy text label in IncomeTransactionCard.java.");
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -62,12 +62,12 @@ public class TransactionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TransactionCard)) {
+        if (!(other instanceof IncomeTransactionCard)) {
             return false;
         }
 
         // state check
-        TransactionCard card = (TransactionCard) other;
+        IncomeTransactionCard card = (IncomeTransactionCard) other;
         return id.getText().equals(card.id.getText())
                 && transaction.equals(card.transaction);
     }
