@@ -295,9 +295,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |operator |open the app |I can dispatch personnel and record the incident
+|`* * *` |operator |log into the system with a password |secure the system against unauthorised access
+
+|`* * *` |operator |log into the system with a unique identifier |hold accountable others who use the system
+
+|`* * *` |new user |create an account |log into the system to manage incidents
+
+|`* * *` |operator |open the app |I can dispatch personnel and record an incident
 
 |`* * *` |operator |view available vehicles |I can dispatch vehicles
 
