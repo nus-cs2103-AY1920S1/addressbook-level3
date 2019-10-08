@@ -3,6 +3,8 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,6 +19,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final CommandHistory commandHistory;
 
     @FXML
     private TextField commandTextField;
@@ -24,8 +27,32 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.commandHistory = new CommandHistory();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+    }
+
+    /**
+     * Handle Up/Down Key Press
+     */
+    @FXML
+    private void handleKeyPress(KeyEvent e) {
+        if (e.getCode().equals(KeyCode.UP)) {
+            String prevCommand = commandHistory.getPrev();
+            if (prevCommand != null) {
+                commandTextField.setText(prevCommand);
+            }
+            commandTextField.end();
+            e.consume(); // this stop propagating the event
+        }
+        if (e.getCode().equals(KeyCode.DOWN)) {
+            String nextCommand = commandHistory.getNext();
+            if (nextCommand != null) {
+                commandTextField.setText(nextCommand);
+            }
+            commandTextField.end();
+            e.consume(); // this stop propagating the event
+        }
     }
 
     /**
@@ -35,8 +62,10 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         try {
             commandExecutor.execute(commandTextField.getText());
+            commandHistory.storeValidCommand(commandTextField.getText());
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
+            commandHistory.storeInvalidCommand(commandTextField.getText());
             setStyleToIndicateCommandFailure();
         }
     }
