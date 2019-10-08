@@ -6,44 +6,43 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
- * Represents a TimeTable.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a TimeTable for a Tutorial. Guarantees: details are present and not null, field
+ * values are validated, immutable.
  */
 public class TimeTable {
+    // By default, tutorials run from weeks 3-13
+    public static final String DEFAULT_WEEKS = "3-13";
+
     private final Duration duration;
     private final DayOfWeek day;
-    private final LocalTime time;
-    private final List<Integer> weeks;
+    private final LocalTime startTime;
+    private final Set<Week> weeks;
 
     /**
      * Every field must be present and not null.
      */
-    public TimeTable(DayOfWeek day, LocalTime time, List<Integer> weeks, Duration duration) {
-        requireAllNonNull(day, time, weeks, duration);
+    public TimeTable(DayOfWeek day, LocalTime startTime,
+            Set<Week> weeks, Duration duration) {
+        requireAllNonNull(day, startTime, weeks, duration);
         this.day = day;
-        this.time = time;
-
-        for (Integer week : weeks) {
-            assert(week >= 1 && week <= 13);
-        }
+        this.startTime = startTime;
         this.weeks = weeks;
         this.duration = duration;
-
     }
 
     public DayOfWeek getDay() {
         return day;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public List<Integer> getWeeks() {
+    public Set<Week> getWeeks() {
         return weeks;
     }
 
@@ -52,7 +51,7 @@ public class TimeTable {
     }
 
     /**
-     * Returns true if both timetables have the same identity and data fields.
+     * Returns true if both timetables have the same identity or data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -66,7 +65,7 @@ public class TimeTable {
 
         TimeTable otherTimeTable = (TimeTable) other;
         return otherTimeTable.getDay().equals(getDay())
-                && otherTimeTable.getTime().equals(getTime())
+                && otherTimeTable.getStartTime().equals(getStartTime())
                 && otherTimeTable.getWeeks().equals(getWeeks())
                 && otherTimeTable.getDuration().equals(getDuration());
     }
@@ -74,7 +73,7 @@ public class TimeTable {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(day, time, weeks, duration);
+        return Objects.hash(day, startTime, weeks, duration);
     }
 
     @Override
@@ -83,8 +82,8 @@ public class TimeTable {
         builder.append(getWeeks())
                 .append(" Day: ")
                 .append(getDay())
-                .append(" Time: ")
-                .append(getTime())
+                .append(" Start Time: ")
+                .append(getStartTime())
                 .append(" Weeks: ")
                 .append(getWeeks())
                 .append(" Duration: ")

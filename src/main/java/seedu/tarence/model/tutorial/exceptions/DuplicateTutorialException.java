@@ -1,4 +1,4 @@
-package seedu.tarence.model.tutorial.exeptions;
+package seedu.tarence.model.tutorial.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Tutorial.

@@ -59,7 +59,7 @@ public class ApplicationParser {
         } else if (FindCommand.isMatchingCommandWord(commandWord)) {
             return new FindCommandParser().parse(arguments);
         } else if (ListCommand.isMatchingCommandWord(commandWord)) {
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
         } else if (ExitCommand.isMatchingCommandWord(commandWord)) {
             return new ExitCommand();
         } else if (HelpCommand.isMatchingCommandWord(commandWord)) {

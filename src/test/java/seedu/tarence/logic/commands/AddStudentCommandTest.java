@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.logic.commands.exceptions.CommandException;
@@ -35,9 +36,17 @@ public class AddStudentCommandTest {
 
     public static final String VALID_MOD_CODE = "ES1601";
     public static final String VALID_TUT_NAME = "T02";
+    public static final Integer VALID_TUT_INDEX = 1;
+
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
+    }
+
+    @Test
+    public void indexConstructor_nullPerson_throwsNullPointerException() {
+        Student validStudent = new StudentBuilder().build();
+        assertThrows(NullPointerException.class, () -> new AddStudentCommand(validStudent, null));
     }
 
     @Test
@@ -47,6 +56,8 @@ public class AddStudentCommandTest {
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
         modelStub.addModule(new ModuleBuilder().withModCode(validModCode).build());
         modelStub.addTutorial(new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
+        modelStub.addTutorialToModule(
+                new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
         Student validStudent = new StudentBuilder().withModCode(validModCode).withTutName(validTutName).build();
 
         CommandResult commandResult = new AddStudentCommand(validStudent).execute(modelStub);
@@ -64,6 +75,44 @@ public class AddStudentCommandTest {
 
         assertThrows(CommandException.class,
             AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, () -> addStudentCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_studentAcceptedByIndexFormat_addSuccessful() throws Exception {
+        final String validModCode = "ES1601";
+        final String validTutName = "T02";
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+        modelStub.addModule(new ModuleBuilder().withModCode(validModCode).build());
+        modelStub.addTutorial(new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
+        modelStub.addTutorialToModule(
+                new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
+        Student validStudent = new StudentBuilder().withModCode(validModCode).withTutName(validTutName).build();
+
+        CommandResult commandResult = new AddStudentCommand(validStudent, VALID_TUT_INDEX).execute(modelStub);
+
+        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
+    }
+
+    @Test
+    public void execute_tutorialIndexOutOfBounds_throwsCommandException() {
+        final String validModCode = "ES1601";
+        final String validTutName = "T02";
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+        modelStub.addModule(new ModuleBuilder().withModCode(validModCode).build());
+        modelStub.addTutorial(new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
+        modelStub.addTutorialToModule(
+                new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
+
+        Student bob = new StudentBuilder().withName("Bob").build();
+        Integer outOfBoundsTutorialIndex = -1;
+        AddStudentCommand addStudentCommand = new AddStudentCommand(bob, outOfBoundsTutorialIndex);
+        String tutorialIndexOutOfBoundsMessage =
+                String.format(AddStudentCommand.MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS, outOfBoundsTutorialIndex);
+
+        assertThrows(CommandException.class,
+                tutorialIndexOutOfBoundsMessage, () -> addStudentCommand.execute(modelStub));
     }
 
     @Test
@@ -160,7 +209,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getFilteredStudentList() {
+        public ObservableList<Student> getFilteredStudentList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -180,7 +229,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void updateFilteredStudentList(Predicate<Person> predicate) {
+        public void updateFilteredStudentList(Predicate<Student> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,32 +245,31 @@ public class AddStudentCommandTest {
 
         @Override
         public boolean hasStudent(Student student) {
-            // todo: Implement test for hasStudent
             return false;
         }
 
         @Override
         public void addStudent(Student student) {
-            // todo: Implement test for addStudent
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasModule(Module module) {
-            // todo: Implement test for hasModule
             return false;
         }
 
         @Override
         public void addModule(Module module) {
-            // todo: Implement test for addModule
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteModule(Module module) {}
+        public void deleteModule(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean hasTutorial(Tutorial tutorial) {
-            // todo: Implement test for hasTutorial
             return false;
         }
 
@@ -232,33 +280,31 @@ public class AddStudentCommandTest {
 
         @Override
         public void deleteTutorial(Tutorial tutorial) {
-            // todo: Implement test for deleteTutorial
+            throw new AssertionError("This method should not be called.");
         }
         @Override
         public boolean hasModuleOfCode(ModCode modCode) {
-            // to implement
             return false;
         }
 
         @Override
         public void addTutorialToModule(Tutorial tutorial) {
-            // to implement
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addStudentToTutorial(Student student) {
-            // to implement
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
-            // to implement
             return false;
         }
 
         @Override
         public int getNumberOfTutorialsOfName(TutName tutName) {
-            return 0;
+            throw new AssertionError("This method should not be called.");
         }
     }
 
@@ -309,8 +355,17 @@ public class AddStudentCommandTest {
 
         @Override
         public void addStudent(Student student) {
-            requireNonNull(student);
             studentsAdded.add(student);
+        }
+
+        @Override
+        public void addStudentToTutorial(Student student) {
+            requireNonNull(student);
+            for (int i = 0; i < tutorials.size(); i++) {
+                if (tutorials.get(i).getTutName().equals(student.getTutName())) {
+                    tutorials.get(i).addStudent(student);
+                }
+            }
         }
 
         public void addModule(Module module) {
@@ -321,6 +376,16 @@ public class AddStudentCommandTest {
         public void addTutorial(Tutorial tutorial) {
             requireNonNull(tutorial);
             tutorials.add(tutorial);
+        }
+
+        @Override
+        public void addTutorialToModule(Tutorial tutorial) {
+            requireNonNull(tutorial);
+            for (int i = 0; i < modules.size(); i++) {
+                if (modules.get(i).getModCode().equals(tutorial.getModCode())) {
+                    modules.get(i).addTutorial(tutorial);
+                }
+            }
         }
 
         @Override
@@ -349,6 +414,11 @@ public class AddStudentCommandTest {
         @Override
         public ReadOnlyApplication getApplication() {
             return new Application();
+        }
+
+        @Override
+        public ObservableList<Tutorial> getFilteredTutorialList() {
+            return FXCollections.observableArrayList(tutorials);
         }
     }
 

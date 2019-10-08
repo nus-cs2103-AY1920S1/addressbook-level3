@@ -62,7 +62,7 @@ public class AddTutorialCommand extends Command {
         model.addTutorial(tutorial);
         model.addTutorialToModule(tutorial);
         return new CommandResult(String.format(MESSAGE_SUCCESS, tutorial, tutorial.getTimeTable().getDay(),
-                tutorial.getTimeTable().getWeeks(), tutorial.getTimeTable().getTime(),
+                tutorial.getTimeTable().getWeeks(), tutorial.getTimeTable().getStartTime(),
                 tutorial.getTimeTable().getDuration().toMinutes()));
     }
 
@@ -79,6 +79,20 @@ public class AddTutorialCommand extends Command {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddTutorialCommand)) {
+            return false;
+        }
+
+        return tutorial.equals(((AddTutorialCommand) other).tutorial);
     }
 }
 

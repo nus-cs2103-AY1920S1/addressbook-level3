@@ -306,8 +306,8 @@ public class Application implements ReadOnlyApplication {
     }
 
     @Override
-    public ObservableList<Person> getStudentList() {
-        return students.asUnmodifiableObservableList();
+    public ObservableList<Student> getStudentList() {
+        return (ObservableList<Student>) (ObservableList<?>) students.asUnmodifiableObservableList();
     }
 
     @Override

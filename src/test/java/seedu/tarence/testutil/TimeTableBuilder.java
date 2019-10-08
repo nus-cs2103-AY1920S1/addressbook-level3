@@ -4,10 +4,11 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.tarence.model.tutorial.TimeTable;
+import seedu.tarence.model.tutorial.Week;
 
 
 /**
@@ -17,19 +18,23 @@ public class TimeTableBuilder {
 
     public static final int DEFAULT_DURATION = 100;
     public static final String DEFAULT_DAY = "MONDAY";
-    public static final String DEFAULT_TIME = "12:00:00";
-    public static final List<Integer> DEFAULT_WEEKS = new ArrayList<>();
+    public static final String DEFAULT_STARTTIME = "12:00:00";
+    public static final Set<Week> DEFAULT_WEEKS = new TreeSet<>();
 
     private Duration duration;
     private DayOfWeek day;
-    private LocalTime time;
-    private List<Integer> weeks;
+    private LocalTime startTime;
+    private Set<Week> weeks;
 
     public TimeTableBuilder() {
         duration = Duration.ofMinutes(DEFAULT_DURATION);
         day = DayOfWeek.valueOf(DEFAULT_DAY);
-        time = LocalTime.parse(DEFAULT_TIME, DateTimeFormatter.ISO_TIME);
-        DEFAULT_WEEKS.add(1);
+        startTime = LocalTime.parse(DEFAULT_STARTTIME, DateTimeFormatter.ISO_TIME);
+        DEFAULT_WEEKS.clear();
+        for (int w = 3; w <= 13; w++) {
+            DEFAULT_WEEKS.add(new Week(w));
+        }
+        weeks = DEFAULT_WEEKS;
         weeks = DEFAULT_WEEKS;
     }
 
@@ -39,7 +44,7 @@ public class TimeTableBuilder {
     public TimeTableBuilder(TimeTable timeTableToCopy) {
         duration = timeTableToCopy.getDuration();
         day = timeTableToCopy.getDay();
-        time = timeTableToCopy.getTime();
+        startTime = timeTableToCopy.getStartTime();
         weeks = timeTableToCopy.getWeeks();
     }
 
@@ -62,21 +67,21 @@ public class TimeTableBuilder {
     /**
      * Sets the {@code Time} of the {@code TimeTable} that we are building.
      */
-    public TimeTableBuilder withTime(String time) {
-        this.time = LocalTime.parse(time, DateTimeFormatter.ISO_TIME);
+    public TimeTableBuilder withStartTime(String startTime) {
+        this.startTime = LocalTime.parse(startTime, DateTimeFormatter.ISO_TIME);
         return this;
     }
 
     /**
      * Sets the {@code Weeks} of the {@code TimeTable} that we are building.
      */
-    public TimeTableBuilder withWeeks(List<Integer> weeks) {
+    public TimeTableBuilder withWeeks(Set<Week> weeks) {
         this.weeks = weeks;
         return this;
     }
 
     public TimeTable build() {
-        return new TimeTable(day, time, weeks, duration);
+        return new TimeTable(day, startTime, weeks, duration);
     }
 
 }

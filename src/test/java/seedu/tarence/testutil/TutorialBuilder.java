@@ -6,12 +6,15 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TimeTable;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.Week;
 
 
 /**
@@ -23,25 +26,30 @@ public class TutorialBuilder {
     public static final String DEFAULT_TUTNAME = "T01";
     public static final int DEFAULT_DURATION = 100;
     public static final String DEFAULT_DAY = "MONDAY";
-    public static final String DEFAULT_TIME = "12:00:00";
-    public static final List<Integer> DEFAULT_WEEKS = new ArrayList<>();
+    public static final String DEFAULT_STARTTIME = "12:00:00";
+    public static final Set<Week> DEFAULT_WEEKS = new TreeSet<>();
     public static final List<Student> DEFAULT_STUDENTS = new ArrayList<>();
 
     private ModCode modCode;
     private Duration duration;
     private DayOfWeek day;
-    private LocalTime time;
-    private List<Integer> weeks;
+    private LocalTime startTime;
+    private Set<Week> weeks;
     private TutName tutName;
+    private List<Student> students;
 
     public TutorialBuilder() {
         modCode = new ModCode(DEFAULT_MODCODE);
         duration = Duration.ofMinutes(DEFAULT_DURATION);
         day = DayOfWeek.valueOf(DEFAULT_DAY);
-        time = LocalTime.parse(DEFAULT_TIME, DateTimeFormatter.ISO_TIME);
-        DEFAULT_WEEKS.add(1);
+        startTime = LocalTime.parse(DEFAULT_STARTTIME, DateTimeFormatter.ISO_TIME);
+        DEFAULT_WEEKS.clear();
+        for (int w = 3; w <= 13; w++) {
+            DEFAULT_WEEKS.add(new Week(w));
+        }
         weeks = DEFAULT_WEEKS;
         tutName = new TutName(DEFAULT_TUTNAME);
+        students = DEFAULT_STUDENTS;
     }
 
     /**
@@ -51,9 +59,10 @@ public class TutorialBuilder {
         this.modCode = tutorialToCopy.getModCode();
         this.duration = tutorialToCopy.getTimeTable().getDuration();
         this.day = tutorialToCopy.getTimeTable().getDay();
-        this.time = tutorialToCopy.getTimeTable().getTime();
+        this.startTime = tutorialToCopy.getTimeTable().getStartTime();
         this.weeks = tutorialToCopy.getTimeTable().getWeeks();
         this.tutName = tutorialToCopy.getTutName();
+        this.students = tutorialToCopy.getStudents();
     }
 
     /**
@@ -70,7 +79,7 @@ public class TutorialBuilder {
     public TutorialBuilder withTimeTable(TimeTable timeTable) {
         this.duration = timeTable.getDuration();
         this.day = timeTable.getDay();
-        this.time = timeTable.getTime();
+        this.startTime = timeTable.getStartTime();
         this.weeks = timeTable.getWeeks();
         return this;
     }
@@ -83,8 +92,16 @@ public class TutorialBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code List<Student>} of the {@code Tutorial} that we are building.
+     */
+    public TutorialBuilder withStudents(List<Student> students) {
+        this.students = students;
+        return this;
+    }
+
     public Tutorial build() {
-        return new Tutorial(tutName, day, time, weeks, duration, DEFAULT_STUDENTS, modCode);
+        return new Tutorial(tutName, day, startTime, weeks, duration, students, modCode);
     }
 
 }

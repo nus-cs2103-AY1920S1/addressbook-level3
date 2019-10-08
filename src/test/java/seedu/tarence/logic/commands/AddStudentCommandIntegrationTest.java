@@ -34,7 +34,7 @@ public class AddStudentCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newStudent_success() {
+    public void execute_newStudentFullFormat_success() {
         Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
 
         Tutorial validTutorial = new TutorialBuilder().withModCode(VALID_MOD_CODE)
@@ -53,6 +53,32 @@ public class AddStudentCommandIntegrationTest {
         expectedModel.addStudentToTutorial(validStudent);
 
         assertCommandSuccess(new AddStudentCommand(validStudent), model,
+                String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), expectedModel);
+    }
+
+    @Test
+    public void execute_newStudentIndexFormat_success() {
+        Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
+
+        Tutorial validTutorial = new TutorialBuilder().withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME).build();
+        Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        model.addModule(validModule);
+        expectedModel.addModule(validModule);
+        model.addTutorial(validTutorial);
+        model.addTutorialToModule(validTutorial);
+        expectedModel.addTutorial(validTutorial);
+        expectedModel.addTutorialToModule(validTutorial);
+
+        Student validStudent = new StudentBuilder().withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME).build();
+        expectedModel.addStudent(validStudent);
+        expectedModel.addStudentToTutorial(validStudent);
+
+        Student indexedStudent = new StudentBuilder().build();
+        Integer validTutorialIndex = 1;
+
+        assertCommandSuccess(new AddStudentCommand(indexedStudent, validTutorialIndex), model,
                 String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), expectedModel);
     }
 

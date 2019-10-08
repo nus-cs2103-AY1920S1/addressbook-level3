@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.tarence.model.Application;
 import seedu.tarence.model.ReadOnlyApplication;
@@ -20,6 +22,7 @@ import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TimeTable;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.Week;
 
 /**
  * Contains utility methods for populating {@code Application} with sample data.
@@ -73,8 +76,8 @@ public class SampleDataUtil {
     public static TimeTable getSampleTimeTable() {
         LocalTime time = LocalTime.parse("12:00:00", DateTimeFormatter.ISO_TIME);
 
-        ArrayList<Integer> weekFiveTutorial = new ArrayList<Integer>();
-        weekFiveTutorial.add(5);
+        Set<Week> weekFiveTutorial = new TreeSet<>();
+        weekFiveTutorial.add(new Week(5));
 
         Duration oneHour = Duration.ofHours(1);
 
@@ -93,8 +96,8 @@ public class SampleDataUtil {
      */
     public static Tutorial getSampleTutorial() {
         LocalTime time = LocalTime.parse("12:00:00", DateTimeFormatter.ISO_TIME);
-        ArrayList<Integer> weekFiveTutorial = new ArrayList<Integer>();
-        weekFiveTutorial.add(5);
+        Set<Week> weekFiveTutorial = new TreeSet<>();
+        weekFiveTutorial.add(new Week(5));
         ArrayList<Student> students = new ArrayList<Student>();
         students.add(getSampleStudent());
         ModCode modCode = new ModCode("CS1101S");

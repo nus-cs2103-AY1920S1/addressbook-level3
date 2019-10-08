@@ -15,6 +15,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_TUTORIAL_IN_MODULE = "No such tutorial in this module!";
     public static final String MESSAGE_INVALID_TUTORIAL_MULTIPLE = "Multiple tutorials of the same name exist!\n"
             + "Please specify the module code.";
+    public static final String MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT =
+            "Tutorial index should only be a positive integer.";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
 
 }
