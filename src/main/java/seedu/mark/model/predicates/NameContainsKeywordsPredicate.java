@@ -7,7 +7,7 @@ import seedu.mark.commons.util.StringUtil;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * Tests that a {@code Bookmark}'s {@code Name} matches any of the keywords given.
+ * Tests that part of a {@code Bookmark}'s {@code Name} matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Bookmark> {
     private final List<String> keywords;
@@ -19,7 +19,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Bookmark> {
     @Override
     public boolean test(Bookmark bookmark) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(bookmark.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(bookmark.getName().fullName, keyword));
     }
 
     @Override
