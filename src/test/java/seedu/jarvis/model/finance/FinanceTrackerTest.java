@@ -17,24 +17,6 @@ import seedu.jarvis.model.financetracker.PurchaseList;
  * Tests logic of finance tracker class.
  */
 public class FinanceTrackerTest {
-
-    /**
-     * Runs all tests in this test class.
-     * @param args
-     */
-    public static void main(String[] args) {
-        addPayment_normalInput_addedCorrectly();
-        deletePayment_normalInput_deletedCorrectly();
-        deletePayment_indexNonexistent_throwsError();
-        addInstalment_normalInput_addedCorrectly();
-        deleteInstalment_normalInput_deletedCorrectly();
-        deleteInstalment_indexNonexistent_throwsError();
-        editInstalment_normalInputs_editedCorrectly();
-        editInstalment_indexNonexistent_throwsError();
-        editInstalment_emptyDescription_throwsError();
-        setMonthlyLimit_normalInput_updatedCorrectly();
-    }
-
     @Test
     public static void addPayment_normalInput_addedCorrectly() {
         FinanceTracker financeTracker = new FinanceTracker();

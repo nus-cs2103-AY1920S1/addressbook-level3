@@ -11,15 +11,6 @@ import seedu.jarvis.model.financetracker.Instalment;
  */
 public class InstalmentTest {
 
-    /**
-     * Runs all tests in this test class.
-     * @param args
-     */
-    public static void main(String[] args) {
-        constructor_nullDescription_throwsNullPointerException();
-        editInstalment_nullDescription_throwsNullPointerException();
-    }
-
     @Test
     public static void constructor_nullDescription_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Instalment(null, 0.0));

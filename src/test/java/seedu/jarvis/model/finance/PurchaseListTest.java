@@ -15,19 +15,6 @@ import seedu.jarvis.model.financetracker.PurchaseList;
  */
 public class PurchaseListTest {
 
-    /**
-     * Runs all tests in this test class.
-     * @param args
-     */
-    public static void main(String[] args) {
-        getPurchase_normalInput_retrievedCorrectly();
-        addPurchase_normalInput_addedCorrectly();
-        countNumPurchases_normalInput_addedCorrectly();
-        deletePurchase_normalInput_deletedCorrectly();
-        deletePurchase_indexNonexistent_throwsError();
-        totalSpending_normalInput_addedCorrectly();
-    }
-
     @Test
     public static void getPurchase_normalInput_retrievedCorrectly() {
         ArrayList<Purchase> listPurchases = new ArrayList<>();

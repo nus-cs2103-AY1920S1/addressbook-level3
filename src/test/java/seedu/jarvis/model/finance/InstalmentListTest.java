@@ -15,22 +15,6 @@ import seedu.jarvis.model.financetracker.InstalmentList;
  */
 public class InstalmentListTest {
 
-    /**
-     * Runs all tests in this test class.
-     * @param args
-     */
-    public static void main(String[] args) {
-        getPurchase_normalInput_retrievedCorrectly();
-        addInstalment_normalInput_addedCorrectly();
-        countNumInstalments_normalInput_addedCorrectly();
-        deleteInstalment_normalInput_deletedCorrectly();
-        deleteInstalment_indexNonexistent_throwsError();
-        editInstalment_normalInputs_editedCorrectly();
-        editInstalment_indexNonexistent_throwsError();
-        editInstalment_emptyDescription_throwsError();
-        totalMoneySpentOnInstalments_normalInputs_addedCorrectly();
-    }
-
     @Test
     public static void getPurchase_normalInput_retrievedCorrectly() {
         ArrayList<Instalment> listPurchases = new ArrayList<>();
