@@ -1,45 +1,59 @@
 package seedu.address.model.module;
 
 import java.util.ArrayList;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import java.util.List;
 
 /**
  * The semester of the module
  */
 public class Semester {
-    private final String semesterNo;
-    private final ArrayList<Timetable> timetable = new ArrayList<>();
+    private final SemesterNo semesterNo;
+    private final ArrayList<Lesson> timetable = new ArrayList<>();
+    private final Exam exam;
 
-    public Semester(JSONObject obj) {
-        this.semesterNo = obj.get("semester").toString();
-        JSONArray arr = (JSONArray) obj.get("timetable");
-
-        int i;
-        for (i = 0; i < arr.size(); i++) {
-            timetable.add(new Timetable((JSONObject) arr.get(i)));
-        }
+    public Semester(SemesterNo semesterNo, List<Lesson> timetable,
+                    Exam exam) {
+        this.semesterNo = semesterNo;
+        this.exam = exam;
+        this.timetable.addAll(timetable);
     }
 
-    public Timetable getTimetable(String classNo) {
-        int i;
-        for (i = 0; i < timetable.size(); i++) {
-            if (timetable.get(i).getClassNo().equals(classNo)) {
-                return timetable.get(i);
+    /**
+     * Find all Lessons with the given lesson number string.
+     * @param lessonNo Lesson number string.
+     * @return ArrayList of Lessons matching the lesson number, returns empty list if no matching lessons.
+     */
+    public ArrayList<Lesson> findLessons(LessonNo lessonNo) {
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        for (int i = 0; i < timetable.size(); i++) {
+            if (timetable.get(i).getLessonNo().equals(lessonNo)) {
+                lessons.add(timetable.get(i));
             }
         }
-        System.out.println("Error: No such classNo found");
-        return null;
+        return lessons;
     }
 
-    public String getSemesterNo() {
+    public ArrayList<Lesson> getTimetable() {
+        return timetable;
+    }
+
+    public SemesterNo getSemesterNo() {
         return semesterNo;
+    }
+
+    public Exam getExam() {
+        return exam;
     }
 
     @Override
     public String toString() {
-        String s = "Semester " + semesterNo;
-        return s;
+        StringBuilder result = new StringBuilder("Semester ").append(semesterNo).append("\n");
+
+        result.append("Timetable:\n");
+        for (int i = 0; i < timetable.size(); i++) {
+            result.append(timetable.get(i).toString()).append("\n");
+        }
+
+        return result.toString();
     }
 }

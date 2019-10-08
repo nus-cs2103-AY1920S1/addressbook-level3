@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.display.mainwindow.MainWindowDisplay;
 import seedu.address.model.display.mainwindow.MainWindowDisplayType;
@@ -18,6 +19,9 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -45,6 +49,16 @@ public interface Model {
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+
+    /**
+     * Returns the user prefs' App settings.
+     */
+    public AppSettings getAppSettings();
+
+    /**
+     * Sets the user prefs' App settings.
+     */
+    public void setAppSettings(AppSettings appSettings);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -256,6 +270,19 @@ public interface Model {
      * Returns a list of Group's names that starts with prefix.
      */
     ArrayList<String> groupSuggester(String prefix);
+
+    //=========== NusModsData ================================================================================
+
+    NusModsData getNusModsData();
+
+    /**
+     * Returns a module for the academic year and module code.
+     * Tries to find the module from 3 sources in the order:
+     *      1. Model.NusModsData.DetailedModuleList
+     *      2. ApiCache
+     *      3. NusModsApi
+     */
+    Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode);
 
     //=========== Others =============================================================
 

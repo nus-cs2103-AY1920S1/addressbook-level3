@@ -4,33 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.module.exceptions.SemesterNotFoundException;
-
 /**
  * The module details
  */
-public class Module {
+public class ModuleCondensed {
     private final ModuleCode moduleCode;
     private final Title title;
-    private final Description description;
     private final AcadYear acadYear;
-    private final List<Semester> semesterData = new ArrayList<>();
+    private final List<Integer> semesters = new ArrayList<>();
 
-    public Module(ModuleCode moduleCode, Title title, Description description,
-                  AcadYear acadYear, List<Semester> semesterData) {
+    public ModuleCondensed(ModuleCode moduleCode, Title title, AcadYear acadYear, List<Integer> semesters) {
         this.moduleCode = moduleCode;
         this.title = title;
-        this.description = description;
         this.acadYear = acadYear;
-        this.semesterData.addAll(semesterData);
+        this.semesters.addAll(semesters);
     }
 
     public Title getTitle() {
         return title;
-    }
-
-    public Description getDescription() {
-        return description;
     }
 
     public ModuleCode getModuleCode() {
@@ -41,17 +32,8 @@ public class Module {
         return acadYear;
     }
 
-    public List<Semester> getSemesterData() {
-        return semesterData;
-    }
-
-    public Semester getSemester(SemesterNo semesterNo) {
-        for (int i = 0; i < semesterData.size(); i++) {
-            if (semesterData.get(i).getSemesterNo().equals(semesterNo)) {
-                return semesterData.get(i);
-            }
-        }
-        throw new SemesterNotFoundException();
+    public List<Integer> getSemesters() {
+        return semesters;
     }
 
     @Override
@@ -62,7 +44,7 @@ public class Module {
     /**
      * Returns true if both modules are the same instance of module.
      */
-    public boolean equals(Module other) {
+    public boolean equals(ModuleCondensed other) {
         if (other == this) {
             return true;
         } else if (other == null) {
@@ -77,6 +59,6 @@ public class Module {
 
     @Override
     public int hashCode() {
-        return Objects.hash(moduleCode, title, description, acadYear, semesterData);
+        return Objects.hash(moduleCode, title, acadYear, semesters);
     }
 }
