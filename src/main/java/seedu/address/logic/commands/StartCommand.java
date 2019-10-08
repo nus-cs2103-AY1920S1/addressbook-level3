@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
@@ -27,14 +28,18 @@ public class StartCommand extends Command {
 
     public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
 
+    private final AddressBookParser addressBookParser;
+
     private final String deckName; // TODO: will integrate after deck class is completed
 
-    public StartCommand() {
+    public StartCommand(AddressBookParser addressBookParser) {
         this.deckName = "Test"; // TODO: will get a random deck name from list of decks
+        this.addressBookParser = addressBookParser;
     }
 
-    public StartCommand(String deckName) {
+    public StartCommand(AddressBookParser addressBookParser, String deckName) {
         this.deckName = deckName;
+        this.addressBookParser = addressBookParser;
     }
 
     @Override
@@ -42,6 +47,7 @@ public class StartCommand extends Command {
         requireNonNull(model);
 
         // TODO: get the system to enter start mode, disable other commands except good/bad/end
+        addressBookParser.startTest();
 
         // start stub
         List<FlashCard> testList = new ArrayList();

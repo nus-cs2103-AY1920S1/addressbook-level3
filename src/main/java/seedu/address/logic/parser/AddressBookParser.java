@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_TEST_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,7 +67,7 @@ public class AddressBookParser {
         case EndTestCommand.COMMAND_WORD:
             return new EndTestCommand(this);
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
         }
     }
 
@@ -101,7 +102,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case StartCommand.COMMAND_WORD:
-            return new StartCommandParser().parse(arguments);
+            return new StartCommandParser(this).parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

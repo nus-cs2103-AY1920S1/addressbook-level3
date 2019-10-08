@@ -7,6 +7,11 @@ import seedu.address.logic.commands.StartCommand;
  */
 public class StartCommandParser implements Parser<StartCommand> {
 
+    private final AddressBookParser addressBookParser;
+
+    public StartCommandParser(AddressBookParser addressBookParser) {
+        this.addressBookParser = addressBookParser;
+    }
     /**
      * Parses the given {@code String} of arguments in the context of the StartCommand
      * and returns a StartCommand object for execution.
@@ -14,8 +19,8 @@ public class StartCommandParser implements Parser<StartCommand> {
     public StartCommand parse(String args) {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            return new StartCommand();
+            return new StartCommand(addressBookParser);
         }
-        return new StartCommand(trimmedArgs);
+        return new StartCommand(addressBookParser, trimmedArgs);
     }
 }
