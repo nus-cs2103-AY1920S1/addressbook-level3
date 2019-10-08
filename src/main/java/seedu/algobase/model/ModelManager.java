@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the algobase data.
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AlgoBase algoBase;
     private final UserPrefs userPrefs;
     private final FilteredList<Problem> filteredProblems;
+    private final FilteredList<Tag> filteredTags;
 
     /**
      * Initializes a ModelManager with the given algoBase and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.algoBase = new AlgoBase(algoBase);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
+        filteredTags = new FilteredList<>(this.algoBase.getTagList());
     }
 
     public ModelManager() {
@@ -102,7 +105,7 @@ public class ModelManager implements Model {
     @Override
     public void addProblem(Problem problem) {
         algoBase.addProblem(problem);
-        updateFilteredProblemList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
     }
 
     @Override
@@ -110,6 +113,32 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedProblem);
 
         algoBase.setProblem(target, editedProblem);
+    }
+
+    //=========== Tag ================================================================================
+
+    @Override
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return algoBase.hasTag(tag);
+    }
+
+    @Override
+    public void deleteTag(Tag target) {
+        algoBase.removeTag(target);
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+        algoBase.addTag(tag);
+        updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
+    }
+
+    @Override
+    public void setTag(Tag target, Tag editedTag) {
+        requireAllNonNull(target, editedTag);
+
+        algoBase.setTag(target, editedTag);
     }
 
     //=========== Filtered Problem List Accessors =============================================================
@@ -148,4 +177,41 @@ public class ModelManager implements Model {
                 && filteredProblems.equals(other.filteredProblems);
     }
 
+    //=========== Filtered Tag List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Tag} backed by the internal list of
+     * {@code versionedAlgoBase}
+     */
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return filteredTags;
+    }
+
+    @Override
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredTags.setPredicate(predicate);
+    }
+
+    /*
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return algoBase.equals(other.algoBase)
+                && userPrefs.equals(other.userPrefs)
+                && filteredProblems.equals(other.filteredProblems);
+    }
+    */
 }

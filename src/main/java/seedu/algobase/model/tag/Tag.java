@@ -27,6 +27,13 @@ public class Tag {
     }
 
     /**
+     *
+     */
+    public String getName() {
+        return this.tagName;
+    }
+
+    /**
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
@@ -52,4 +59,12 @@ public class Tag {
         return '[' + tagName + ']';
     }
 
+    public boolean isSameTag(Tag otherTag) {
+        if (otherTag == this) {
+            return true;
+        }
+
+        return otherTag != null
+                && otherTag.getName().equals(getName());
+    }
 }
