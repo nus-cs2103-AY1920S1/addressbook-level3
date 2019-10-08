@@ -2,8 +2,13 @@ package seedu.address.model.person;
 
 import seedu.address.model.tag.Tag;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.Objects;
+
 import static java.util.Objects.requireNonNull;
-import java.util.*;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -83,36 +88,60 @@ public class Item {
      * Change ItemDescription
      */
     public Item changeItemDescription(ItemDescription newItemDescription) {
-        return ItemBuilder.setItemDescription(newItemDescription)
-                .set()
+        return new ItemBuilder().setItemDescription(newItemDescription)
+                .setTask(task)
+                .setEvent(event)
+                .setReminder(reminder)
+                .setTags(tags)
+                .build();
     }
 
     /**
      * Change Task referenced
      */
     public Item changeTask(Task newTask) {
-        ItemDescription
+        return new ItemBuilder().setItemDescription(itemDescription)
+                .setTask(newTask)
+                .setEvent(event)
+                .setReminder(reminder)
+                .setTags(tags)
+                .build();
     }
 
     /**
      * Change Event referenced
      */
     public Item changeEvent(Event newEvent) {
-        ItemDescription
+        return new ItemBuilder().setItemDescription(itemDescription)
+                .setTask(task)
+                .setEvent(newEvent)
+                .setReminder(reminder)
+                .setTags(tags)
+                .build();
     }
 
     /**
      * Change Reminder referenced
      */
     public Item changeReminder(Reminder newReminder) {
-        ItemDescription
+        return new ItemBuilder().setItemDescription(itemDescription)
+                .setTask(task)
+                .setEvent(event)
+                .setReminder(newReminder)
+                .setTags(tags)
+                .build();
     }
 
     /**
      * Change Tags referenced
      */
     public Item changeTags(HashSet<Tag> newTags) {
-        ItemDescription
+        return new ItemBuilder().setItemDescription(itemDescription)
+                .setTask(task)
+                .setEvent(event)
+                .setReminder(reminder)
+                .setTags(newTags)
+                .build();
     }
     
     /**
@@ -221,6 +250,7 @@ public class Item {
             return this;
         }
         
+        //Consider using a defensive copy of tags, similar to EditCommand in AB3
         public ItemBuilder setTags(Set<Tag> tags) {
             requireNonNull(tags);
             this.tags = tags;
