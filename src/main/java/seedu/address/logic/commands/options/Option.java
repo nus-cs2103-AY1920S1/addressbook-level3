@@ -46,8 +46,9 @@ public class Option {
     /**
      * Builds all arguments.
      * @throws ArgumentException if any argument is required but null
+     * @throws ParseException if any user input is invalid
      */
-    public void build() throws ArgumentException {
+    public void build() throws ArgumentException, ParseException {
         for (Argument argument : this.arguments) {
             argument.build(this.active);
         }

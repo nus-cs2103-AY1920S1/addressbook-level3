@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public abstract class Argument<T> {
 
     private T value;
+    private String userInput;
     private final String description;
 
     Argument(ArgumentBuilder<T> builder) {
@@ -22,24 +23,29 @@ public abstract class Argument<T> {
     }
 
     /**
-     * Accepts user input and parses it to the defined type.
+     * Accepts user input.
      * @param userInput the user input
-     * @throws ParseException if the user input is invalid
+     * @return this instance
      */
-    public void accept(String userInput) throws ParseException {
+    public Argument<T> accept(String userInput) {
         Objects.requireNonNull(userInput);
-        this.value = this.parse(userInput);
+        this.userInput = userInput;
+        return this;
     }
 
     /**
-     * Builds the argument, calls the builder consumer.
+     * Builds the argument value, checks if user input is valid and parses it into the defined type.
      * @param required if the argument is required to have a value
-     * @throws ArgumentException if the argument is required but is null
+     * @return the built value
+     * @throws ArgumentException if the argument is required but user input is null
+     * @throws ParseException if the user input is invalid
      */
-    public void build(boolean required) throws ArgumentException {
-        if (required && this.value == null) {
+    public T build(boolean required) throws ArgumentException, ParseException {
+        if (required && this.userInput == null) {
             throw new ArgumentException(String.format(MESSAGE_REQUIRED_COMMAND_ARGUMENT, this.description));
         }
+        this.value = this.parse(userInput);
+        return this.value;
     }
 
     T getValue() {
