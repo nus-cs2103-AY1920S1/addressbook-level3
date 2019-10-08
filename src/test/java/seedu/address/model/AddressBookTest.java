@@ -14,11 +14,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
@@ -100,14 +99,19 @@ public class AddressBookTest {
 
         @Override
         public ObservableList<Person> getPersonList() {
+
             return persons;
         }
-        
+
         @Override
-        public ObservableList<Income> getIncomeList() { return incomes; }
+        public ObservableList<Income> getIncomeList() {
+
+            return incomes;
+        }
 
         @Override
         public ObservableList<Claim> getClaimList() {
+
             return claims;
         }
     }
