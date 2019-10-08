@@ -7,5 +7,9 @@ public interface Logic {
 
     CommandResult execute(String commandText) throws Exception;
 
+<<<<<<< HEAD
     TransactionList getInventoryList() throws Exception;
+=======
+    TransactionList getTransactionList() throws Exception;
+>>>>>>> Implemented some Inventory classes
 }

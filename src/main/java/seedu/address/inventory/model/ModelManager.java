@@ -1,7 +1,10 @@
 package seedu.address.inventory.model;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
+<<<<<<< HEAD
 import seedu.address.inventory.model.exception.NoSuchItemException;
+=======
+>>>>>>> Implemented some Inventory classes
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.util.InventoryList;
 
@@ -29,6 +32,7 @@ public class ModelManager implements Model {
     }
 
     @Override
+<<<<<<< HEAD
     public void setItem(int i, Item editedItem) throws Exception {
                 inventoryList.set(i, editedItem);
     }
@@ -38,6 +42,21 @@ public class ModelManager implements Model {
         for (int i = 0 ; i < inventoryList.size(); i++) {
             try {
                 if (inventoryList.getItemByIndex(i).equals(item)) {
+=======
+    public void setItem(Item itemToEdit, Item editedItem) throws Exception {
+        for (int i = 0; i < inventoryList.size(); i++) {
+            if (inventoryList.get(i).equals(itemToEdit)) {
+                inventoryList.set(i, editedItem);
+            }
+        }
+    }
+
+    @Override
+    public boolean hasItem(Item item) {
+        for (int i = 0 ; i < inventoryList.size(); i++) {
+            try {
+                if (inventoryList.get(i).equals(item)) {
+>>>>>>> Implemented some Inventory classes
                     return true;
                 }
             } catch (Exception e) {
@@ -54,7 +73,11 @@ public class ModelManager implements Model {
 
     @Override
     public Item findItemByIndex(int index) throws NoSuchIndexException {
+<<<<<<< HEAD
         Item item = inventoryList.getItemByIndex(index - 1);
+=======
+        Item item = inventoryList.get(index - 1);
+>>>>>>> Implemented some Inventory classes
         return item;
     }
 
@@ -69,6 +92,7 @@ public class ModelManager implements Model {
     }
 
     @Override
+<<<<<<< HEAD
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
             return false;
@@ -78,4 +102,18 @@ public class ModelManager implements Model {
         }
     }
 
+=======
+    public boolean hasSufficientQuantity(Item item, int quantity) {
+        boolean hasSufficientQuantity = true;
+        if (item.getQuantity() < quantity || !hasItem(item)) {
+            hasSufficientQuantity = false;
+        }
+        return hasSufficientQuantity;
+    }
+
+    @Override
+    public void updateInventoryList() throws Exception {
+
+    }
+>>>>>>> Implemented some Inventory classes
 }
