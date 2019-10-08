@@ -5,8 +5,8 @@ import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.commons.util.CollectionUtil;
 import calofit.model.Model;
-import calofit.model.meal.Dish;
-import calofit.model.meal.Name;
+import calofit.model.dish.Dish;
+import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 
 import java.util.*;

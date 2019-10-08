@@ -4,7 +4,7 @@ import calofit.logic.commands.exceptions.CommandException;
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.model.Model;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 
 import java.util.List;
 

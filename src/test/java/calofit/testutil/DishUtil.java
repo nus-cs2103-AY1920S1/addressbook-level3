@@ -3,7 +3,7 @@ package calofit.testutil;
 import calofit.logic.commands.AddCommand;
 import calofit.logic.commands.EditCommand;
 import calofit.logic.parser.CliSyntax;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 import calofit.model.tag.Tag;
 
 import java.util.Set;

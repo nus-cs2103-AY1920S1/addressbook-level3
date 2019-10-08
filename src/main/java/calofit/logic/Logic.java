@@ -5,8 +5,8 @@ import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.Model;
-import calofit.model.ReadOnlyDishDatabase;
-import calofit.model.meal.Dish;
+import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.dish.Dish;
 import javafx.collections.ObservableList;
 
 import java.nio.file.Path;

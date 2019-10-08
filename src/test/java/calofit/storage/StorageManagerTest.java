@@ -1,8 +1,8 @@
 package calofit.storage;
 
 import calofit.commons.core.GuiSettings;
-import calofit.model.DishDatabase;
-import calofit.model.ReadOnlyDishDatabase;
+import calofit.model.dish.DishDatabase;
+import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.UserPrefs;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.BeforeEach;

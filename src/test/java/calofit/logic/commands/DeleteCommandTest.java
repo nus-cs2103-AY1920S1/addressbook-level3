@@ -5,7 +5,7 @@ import calofit.commons.core.index.Index;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 import calofit.testutil.TypicalIndexes;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;

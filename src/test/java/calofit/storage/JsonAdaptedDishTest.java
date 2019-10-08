@@ -1,7 +1,7 @@
 package calofit.storage;
 
 import calofit.commons.exceptions.IllegalValueException;
-import calofit.model.meal.Name;
+import calofit.model.dish.Name;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;

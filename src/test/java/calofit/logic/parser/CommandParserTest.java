@@ -2,8 +2,8 @@ package calofit.logic.parser;
 
 import calofit.logic.commands.*;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.meal.Dish;
-import calofit.model.meal.NameContainsKeywordsPredicate;
+import calofit.model.dish.Dish;
+import calofit.model.dish.NameContainsKeywordsPredicate;
 import calofit.testutil.*;
 import org.junit.jupiter.api.Test;
 

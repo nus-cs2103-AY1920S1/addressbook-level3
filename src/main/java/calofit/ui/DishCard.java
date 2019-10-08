@@ -1,6 +1,6 @@
 package calofit.ui;
 
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;

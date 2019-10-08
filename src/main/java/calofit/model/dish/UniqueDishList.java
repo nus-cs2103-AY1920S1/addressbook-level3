@@ -1,8 +1,8 @@
-package calofit.model.meal;
+package calofit.model.dish;
 
 import calofit.commons.util.CollectionUtil;
-import calofit.model.meal.exceptions.DuplicateDishException;
-import calofit.model.meal.exceptions.DishNotFoundException;
+import calofit.model.dish.exceptions.DuplicateDishException;
+import calofit.model.dish.exceptions.DishNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

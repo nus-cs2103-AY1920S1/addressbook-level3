@@ -3,7 +3,9 @@ package calofit.model;
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.commons.util.CollectionUtil;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
+import calofit.model.dish.DishDatabase;
+import calofit.model.dish.ReadOnlyDishDatabase;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 

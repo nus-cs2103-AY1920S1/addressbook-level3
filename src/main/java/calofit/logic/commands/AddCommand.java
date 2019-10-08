@@ -2,7 +2,7 @@ package calofit.logic.commands;
 
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 
 import static java.util.Objects.requireNonNull;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;

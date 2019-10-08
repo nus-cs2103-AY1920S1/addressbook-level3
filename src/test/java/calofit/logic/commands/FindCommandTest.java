@@ -3,7 +3,7 @@ package calofit.logic.commands;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
-import calofit.model.meal.NameContainsKeywordsPredicate;
+import calofit.model.dish.NameContainsKeywordsPredicate;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;
 

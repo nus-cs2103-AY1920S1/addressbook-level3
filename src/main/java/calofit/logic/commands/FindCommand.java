@@ -2,7 +2,7 @@ package calofit.logic.commands;
 
 import calofit.commons.core.Messages;
 import calofit.model.Model;
-import calofit.model.meal.NameContainsKeywordsPredicate;
+import calofit.model.dish.NameContainsKeywordsPredicate;
 
 import static java.util.Objects.requireNonNull;
 

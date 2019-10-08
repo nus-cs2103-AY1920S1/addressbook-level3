@@ -6,7 +6,7 @@ import calofit.testutil.EditDishDescriptorBuilder;
 import calofit.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
 import calofit.commons.core.index.Index;
-import calofit.model.meal.Name;
+import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;

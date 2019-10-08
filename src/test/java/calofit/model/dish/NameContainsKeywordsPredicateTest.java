@@ -1,4 +1,4 @@
-package calofit.model.meal;
+package calofit.model.dish;
 
 import calofit.testutil.DishBuilder;
 import org.junit.jupiter.api.Test;

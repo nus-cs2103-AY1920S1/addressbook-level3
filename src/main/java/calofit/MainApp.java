@@ -9,6 +9,8 @@ import calofit.commons.util.StringUtil;
 import calofit.logic.Logic;
 import calofit.logic.LogicManager;
 import calofit.model.*;
+import calofit.model.dish.DishDatabase;
+import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.util.SampleDataUtil;
 import calofit.storage.*;
 import calofit.ui.Ui;

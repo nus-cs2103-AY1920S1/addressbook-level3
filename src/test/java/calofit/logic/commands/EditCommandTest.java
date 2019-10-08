@@ -1,7 +1,7 @@
 package calofit.logic.commands;
 
-import calofit.model.DishDatabase;
-import calofit.model.meal.Dish;
+import calofit.model.dish.DishDatabase;
+import calofit.model.dish.Dish;
 import calofit.testutil.EditDishDescriptorBuilder;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalIndexes;

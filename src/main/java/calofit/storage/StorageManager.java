@@ -2,7 +2,7 @@ package calofit.storage;
 
 import calofit.commons.core.LogsCenter;
 import calofit.commons.exceptions.DataConversionException;
-import calofit.model.ReadOnlyDishDatabase;
+import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.ReadOnlyUserPrefs;
 import calofit.model.UserPrefs;
 

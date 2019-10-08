@@ -1,7 +1,5 @@
-package calofit.model;
+package calofit.model.dish;
 
-import calofit.model.meal.Dish;
-import calofit.model.meal.UniqueDishList;
 import javafx.collections.ObservableList;
 
 import java.util.List;

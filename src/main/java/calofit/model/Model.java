@@ -1,7 +1,8 @@
 package calofit.model;
 
 import calofit.commons.core.GuiSettings;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
+import calofit.model.dish.ReadOnlyDishDatabase;
 import javafx.collections.ObservableList;
 
 import java.nio.file.Path;

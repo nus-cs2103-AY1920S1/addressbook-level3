@@ -1,4 +1,4 @@
-package calofit.model.meal;
+package calofit.model.dish;
 
 import calofit.commons.util.AppUtil;
 

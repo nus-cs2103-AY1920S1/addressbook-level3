@@ -2,11 +2,11 @@ package calofit.logic.commands;
 
 import calofit.commons.core.GuiSettings;
 import calofit.logic.commands.exceptions.CommandException;
-import calofit.model.DishDatabase;
+import calofit.model.dish.DishDatabase;
 import calofit.model.Model;
-import calofit.model.ReadOnlyDishDatabase;
+import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.ReadOnlyUserPrefs;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 import javafx.collections.ObservableList;

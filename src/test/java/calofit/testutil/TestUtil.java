@@ -2,7 +2,7 @@ package calofit.testutil;
 
 import calofit.commons.core.index.Index;
 import calofit.model.Model;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 
 import java.io.IOException;
 import java.nio.file.Files;

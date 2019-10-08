@@ -1,4 +1,4 @@
-package calofit.model.meal;
+package calofit.model.dish;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

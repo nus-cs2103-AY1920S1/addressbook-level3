@@ -1,8 +1,8 @@
-package calofit.model.meal;
+package calofit.model.dish;
 
 import calofit.logic.commands.CommandTestUtil;
-import calofit.model.meal.exceptions.DuplicateDishException;
-import calofit.model.meal.exceptions.DishNotFoundException;
+import calofit.model.dish.exceptions.DuplicateDishException;
+import calofit.model.dish.exceptions.DishNotFoundException;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;

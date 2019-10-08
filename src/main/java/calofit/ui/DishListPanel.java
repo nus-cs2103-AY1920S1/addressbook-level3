@@ -1,7 +1,7 @@
 package calofit.ui;
 
 import calofit.commons.core.LogsCenter;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;

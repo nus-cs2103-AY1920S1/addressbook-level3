@@ -1,8 +1,8 @@
 package calofit.storage;
 
 import calofit.commons.exceptions.DataConversionException;
-import calofit.model.DishDatabase;
-import calofit.model.ReadOnlyDishDatabase;
+import calofit.model.dish.DishDatabase;
+import calofit.model.dish.ReadOnlyDishDatabase;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -1,6 +1,6 @@
 package calofit.logic.commands;
 
-import calofit.model.DishDatabase;
+import calofit.model.dish.DishDatabase;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;

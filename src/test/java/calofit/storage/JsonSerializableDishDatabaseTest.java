@@ -2,7 +2,7 @@ package calofit.storage;
 
 import calofit.commons.exceptions.IllegalValueException;
 import calofit.commons.util.JsonUtil;
-import calofit.model.DishDatabase;
+import calofit.model.dish.DishDatabase;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;

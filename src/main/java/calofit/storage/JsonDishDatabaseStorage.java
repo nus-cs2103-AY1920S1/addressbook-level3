@@ -5,7 +5,7 @@ import calofit.commons.exceptions.DataConversionException;
 import calofit.commons.exceptions.IllegalValueException;
 import calofit.commons.util.FileUtil;
 import calofit.commons.util.JsonUtil;
-import calofit.model.ReadOnlyDishDatabase;
+import calofit.model.dish.ReadOnlyDishDatabase;
 
 import java.io.IOException;
 import java.nio.file.Path;

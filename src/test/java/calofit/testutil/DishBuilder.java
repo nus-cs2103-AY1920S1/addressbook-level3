@@ -1,7 +1,7 @@
 package calofit.testutil;
 
-import calofit.model.meal.Dish;
-import calofit.model.meal.Name;
+import calofit.model.dish.Dish;
+import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 import calofit.model.util.SampleDataUtil;
 

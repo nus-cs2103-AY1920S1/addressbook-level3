@@ -2,11 +2,11 @@ package calofit.logic.parser;
 
 import calofit.logic.commands.AddCommand;
 import calofit.logic.commands.CommandTestUtil;
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;
-import calofit.model.meal.Name;
+import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;

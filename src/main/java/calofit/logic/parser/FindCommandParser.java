@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import calofit.logic.commands.FindCommand;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.meal.NameContainsKeywordsPredicate;
+import calofit.model.dish.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

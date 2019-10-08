@@ -1,7 +1,8 @@
 package calofit.model;
 
 import calofit.commons.core.GuiSettings;
-import calofit.model.meal.NameContainsKeywordsPredicate;
+import calofit.model.dish.DishDatabase;
+import calofit.model.dish.NameContainsKeywordsPredicate;
 import calofit.testutil.DishDatabaseBuilder;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalDishes;

@@ -1,7 +1,6 @@
-package calofit.model;
+package calofit.model.dish;
 
-import calofit.model.meal.Dish;
-import calofit.model.meal.exceptions.DuplicateDishException;
+import calofit.model.dish.exceptions.DuplicateDishException;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;

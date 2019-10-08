@@ -1,6 +1,6 @@
 package calofit.logic.commands;
 
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.BeforeEach;

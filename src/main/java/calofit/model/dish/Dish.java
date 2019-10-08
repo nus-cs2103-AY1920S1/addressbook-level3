@@ -1,4 +1,4 @@
-package calofit.model.meal;
+package calofit.model.dish;
 
 import calofit.model.tag.Tag;
 

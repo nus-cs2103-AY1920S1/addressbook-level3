@@ -3,10 +3,10 @@ package calofit.logic.commands;
 import calofit.commons.core.index.Index;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.CliSyntax;
-import calofit.model.DishDatabase;
+import calofit.model.dish.DishDatabase;
 import calofit.model.Model;
-import calofit.model.meal.Dish;
-import calofit.model.meal.NameContainsKeywordsPredicate;
+import calofit.model.dish.Dish;
+import calofit.model.dish.NameContainsKeywordsPredicate;
 import calofit.testutil.Assert;
 import calofit.testutil.EditDishDescriptorBuilder;
 

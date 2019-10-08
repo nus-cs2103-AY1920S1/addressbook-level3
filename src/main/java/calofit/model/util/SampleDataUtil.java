@@ -1,9 +1,9 @@
 package calofit.model.util;
 
-import calofit.model.DishDatabase;
-import calofit.model.meal.Dish;
-import calofit.model.meal.Name;
-import calofit.model.ReadOnlyDishDatabase;
+import calofit.model.dish.DishDatabase;
+import calofit.model.dish.Dish;
+import calofit.model.dish.Name;
+import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.tag.Tag;
 
 import java.util.Arrays;

@@ -2,8 +2,8 @@ package calofit.logic.parser;
 
 import calofit.logic.commands.AddCommand;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.meal.Dish;
-import calofit.model.meal.Name;
+import calofit.model.dish.Dish;
+import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 
 import java.util.Set;

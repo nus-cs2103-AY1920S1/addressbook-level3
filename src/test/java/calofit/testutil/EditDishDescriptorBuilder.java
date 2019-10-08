@@ -1,8 +1,8 @@
 package calofit.testutil;
 
 import calofit.logic.commands.EditCommand;
-import calofit.model.meal.Dish;
-import calofit.model.meal.Name;
+import calofit.model.dish.Dish;
+import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 
 import java.util.Set;

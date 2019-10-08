@@ -1,7 +1,7 @@
 package calofit.logic.parser;
 
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.meal.Name;
+import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalIndexes;

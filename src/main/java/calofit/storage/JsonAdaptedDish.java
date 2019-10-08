@@ -1,10 +1,10 @@
 package calofit.storage;
 
-import calofit.model.meal.Dish;
+import calofit.model.dish.Dish;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import calofit.commons.exceptions.IllegalValueException;
-import calofit.model.meal.Name;
+import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 
 import java.util.ArrayList;

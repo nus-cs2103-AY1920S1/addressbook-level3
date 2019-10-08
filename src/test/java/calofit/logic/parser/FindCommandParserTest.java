@@ -9,7 +9,7 @@ import java.util.Arrays;
 import calofit.logic.commands.FindCommand;
 import org.junit.jupiter.api.Test;
 
-import calofit.model.meal.NameContainsKeywordsPredicate;
+import calofit.model.dish.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
