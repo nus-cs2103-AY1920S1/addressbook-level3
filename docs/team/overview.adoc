@@ -1,0 +1,3 @@
+MyMorise is a desktop expense tracking application.
+The user interacts with it using primarily with a CLI, and is supported with a GUI created with JavaFX.
+It is written in Java, and has about XX kLoC.
