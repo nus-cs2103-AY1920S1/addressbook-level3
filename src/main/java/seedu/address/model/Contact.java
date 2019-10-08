@@ -9,19 +9,18 @@ import javafx.collections.ObservableList;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.UniqueClaimsList;
 import seedu.address.model.income.Income;
-import seedu.address.model.income.UniqueIncomeList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.income.UniqueIncomesList;
+import seedu.address.model.contact.UniqueContactsList;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class Contact implements ReadOnlyContact,  ReadOnlyClaim, ReadOnlyIncome{
 
-    private final UniquePersonList persons;
+    private final UniqueContactsList persons;
     private final UniqueClaimsList claims;
-    private final UniqueIncomeList incomes;
+    private final UniqueIncomesList incomes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,17 +30,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        persons = new UniqueContactsList();
         claims = new UniqueClaimsList();
-        incomes = new UniqueIncomeList();
+        incomes = new UniqueIncomesList();
     }
 
-    public AddressBook() {}
+    public Contact() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates Contact using the Contact in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public Contact(ReadOnlyContact toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -49,56 +48,56 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the contact list with {@code contacts}.
+     * {@code contacts} must not contain duplicate contacts.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setContacts(List<seedu.address.model.contact.Contact> contacts) {
+        this.persons.setContacts(contacts);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Contact} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyContact newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setContacts(newData.getContactList());
     }
 
-    //// person-level operations
+    //// contact-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a contact with the same identity as {@code contact} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(seedu.address.model.contact.Contact contact) {
+        requireNonNull(contact);
+        return persons.contains(contact);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a contact to the address book.
+     * The contact must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(seedu.address.model.contact.Contact p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given contact {@code target} in the list with {@code editedContact}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
+        requireNonNull(editedContact);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedContact);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code Contact}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(seedu.address.model.contact.Contact key) {
         persons.remove(key);
     }
 
@@ -130,7 +129,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code Contact}.
      * {@code key} must exist in the address book.
      */
     public void removeClaim(Claim key) {
@@ -165,7 +164,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code income} from this {@code AddressBook}.
+     * Removes {@code income} from this {@code Contact}.
      * {@code income} must already exist in the address book.
      */
     public void removeIncome(Income income) {
@@ -181,15 +180,25 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<seedu.address.model.contact.Contact> getContactList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Claim> getClaimList() {
+        return claims.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Income> getIncomeList() {
+        return incomes.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof Contact // instanceof handles nulls
+                && persons.equals(((Contact) other).persons));
     }
 
     @Override

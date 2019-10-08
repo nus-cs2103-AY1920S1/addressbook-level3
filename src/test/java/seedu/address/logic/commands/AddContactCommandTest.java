@@ -16,13 +16,12 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Contact;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyContact;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddContactCommandTest {
@@ -35,19 +34,19 @@ public class AddContactCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        seedu.address.model.contact.Contact validContact = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddContactCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
 
-        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validContact), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddContactCommand addContactCommand = new AddContactCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        seedu.address.model.contact.Contact validContact = new PersonBuilder().build();
+        AddContactCommand addContactCommand = new AddContactCommand(validContact);
+        ModelStub modelStub = new ModelStubWithPerson(validContact);
 
         assertThrows(CommandException.class,
                 AddContactCommand.MESSAGE_DUPLICATE_PERSON, () -> addContactCommand.execute(modelStub));
@@ -55,8 +54,8 @@ public class AddContactCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        seedu.address.model.contact.Contact alice = new PersonBuilder().withName("Alice").build();
+        seedu.address.model.contact.Contact bob = new PersonBuilder().withName("Bob").build();
         AddContactCommand addAliceCommand = new AddContactCommand(alice);
         AddContactCommand addBobCommand = new AddContactCommand(bob);
 
@@ -73,7 +72,7 @@ public class AddContactCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different contact -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -102,52 +101,52 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getFinSecFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setFinSecFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addPerson(seedu.address.model.contact.Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setFinSec(ReadOnlyContact newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyContact getFinSec() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasPerson(seedu.address.model.contact.Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deletePerson(seedu.address.model.contact.Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setPerson(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<seedu.address.model.contact.Contact> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPersonList(Predicate<seedu.address.model.contact.Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -235,44 +234,44 @@ public class AddContactCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single contact.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+        private final seedu.address.model.contact.Contact contact;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithPerson(seedu.address.model.contact.Contact contact) {
+            requireNonNull(contact);
+            this.contact = contact;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasPerson(seedu.address.model.contact.Contact contact) {
+            requireNonNull(contact);
+            return this.contact.isSamePerson(contact);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the contact being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<seedu.address.model.contact.Contact> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasPerson(seedu.address.model.contact.Contact contact) {
+            requireNonNull(contact);
+            return personsAdded.stream().anyMatch(contact::isSamePerson);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addPerson(seedu.address.model.contact.Contact contact) {
+            requireNonNull(contact);
+            personsAdded.add(contact);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyContact getFinSec() {
+            return new Contact();
         }
     }
 

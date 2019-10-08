@@ -1,17 +1,9 @@
 package seedu.address.model.help;
 
-import seedu.address.logic.commands.AddClaimCommand;
-import seedu.address.logic.commands.AddContactCommand;
-import seedu.address.logic.commands.AddIncomeCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditClaimCommand;
-import seedu.address.logic.commands.EditContactCommand;
-import seedu.address.logic.commands.EditIncomeCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.*;
 
 /**
- * Contains a brief descriptions of all the commands in FinSec
+ * Contains a brief descriptions of all the commands in Contact
  */
 
 public class BriefDescriptions {
@@ -19,7 +11,7 @@ public class BriefDescriptions {
     /**
      * Matches the command input of the user to the correct description.
      *
-     * @param secondaryCommand A valid command in FinSec.
+     * @param secondaryCommand A valid command in Contact.
      * @return a brief description to the {@code HelpCommand}.
      */
 
@@ -52,6 +44,9 @@ public class BriefDescriptions {
 
         case "find":
             return FindCommand.MESSAGE_USAGE;
+
+        case "goto":
+            return GotoCommand.MESSAGE_USAGE;
 
         default: return "Command should be self-explanatory with no additional parameters.\n"
                 + "Use 'type/guide' if you really want to know the exact details "

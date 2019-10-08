@@ -129,14 +129,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><a href="seedu/address/commons/core/Messages.html#MESSAGE_INVALID_PERSON_DISPLAYED_INDEX">MESSAGE_INVALID_PERSON_DISPLAYED_INDEX</a></code></th>
-<td class="colLast"><code>"The person index provided is invalid"</code></td>
+<td class="colLast"><code>"The contact index provided is invalid"</code></td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><a id="seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><a href="seedu/address/commons/core/Messages.html#MESSAGE_PERSONS_LISTED_OVERVIEW">MESSAGE_PERSONS_LISTED_OVERVIEW</a></code></th>
-<td class="colLast"><code>"%1$d persons listed!"</code></td>
+<td class="colLast"><code>"%1$d contacts listed!"</code></td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><a id="seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND">
@@ -211,14 +211,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><a href="seedu/address/logic/commands/AddCommand.html#MESSAGE_DUPLICATE_PERSON">MESSAGE_DUPLICATE_PERSON</a></code></th>
-<td class="colLast"><code>"This person already exists in the address book"</code></td>
+<td class="colLast"><code>"This contact already exists in the address book"</code></td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><a id="seedu.address.logic.commands.AddCommand.MESSAGE_SUCCESS">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><a href="seedu/address/logic/commands/AddCommand.html#MESSAGE_SUCCESS">MESSAGE_SUCCESS</a></code></th>
-<td class="colLast"><code>"New person added: %1$s"</code></td>
+<td class="colLast"><code>"New contact added: %1$s"</code></td>
 </tr>
 </tbody>
 </table>
@@ -373,7 +373,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><a href="seedu/address/logic/commands/DeleteCommand.html#MESSAGE_USAGE">MESSAGE_USAGE</a></code></th>
-<td class="colLast"><code>"delete: Deletes the person identified by the index number used in the displayed person list.\nParameters: INDEX (must be a positive integer)\nExample: delete 1"</code></td>
+<td class="colLast"><code>"delete: Deletes the contact identified by the index number used in the displayed contact list.\nParameters: INDEX (must be a positive integer)\nExample: delete 1"</code></td>
 </tr>
 </tbody>
 </table>
@@ -399,7 +399,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><a href="seedu/address/logic/commands/EditCommand.html#MESSAGE_DUPLICATE_PERSON">MESSAGE_DUPLICATE_PERSON</a></code></th>
-<td class="colLast"><code>"This person already exists in the address book."</code></td>
+<td class="colLast"><code>"This contact already exists in the address book."</code></td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><a id="seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PERSON_SUCCESS">
@@ -465,7 +465,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><a href="seedu/address/logic/commands/FindCommand.html#MESSAGE_USAGE">MESSAGE_USAGE</a></code></th>
-<td class="colLast"><code>"find: Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\nParameters: KEYWORD [MORE_KEYWORDS]...\nExample: find alice bob charlie"</code></td>
+<td class="colLast"><code>"find: Finds all contacts whose names contain any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\nParameters: KEYWORD [MORE_KEYWORDS]...\nExample: find alice bob charlie"</code></td>
 </tr>
 </tbody>
 </table>
@@ -517,7 +517,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><a href="seedu/address/logic/commands/ListCommand.html#MESSAGE_SUCCESS">MESSAGE_SUCCESS</a></code></th>
-<td class="colLast"><code>"Listed all persons"</code></td>
+<td class="colLast"><code>"Listed all contacts"</code></td>
 </tr>
 </tbody>
 </table>
@@ -641,7 +641,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="constantsSummary">
-<caption><span>seedu.address.model.person.<a href="seedu/address/model/person/Address.html" title="class in seedu.address.model.person">Address</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>seedu.address.model.contact.<a href="seedu/address/model/contact/Address.html" title="class in seedu.address.model.contact">Address</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Constant Field</th>
@@ -649,17 +649,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a id="seedu.address.model.person.Address.MESSAGE_CONSTRAINTS">
+<td class="colFirst"><a id="seedu.address.model.contact.Address.MESSAGE_CONSTRAINTS">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><a href="seedu/address/model/person/Address.html#MESSAGE_CONSTRAINTS">MESSAGE_CONSTRAINTS</a></code></th>
+<th class="colSecond" scope="row"><code><a href="seedu/address/model/contact/Address.html#MESSAGE_CONSTRAINTS">MESSAGE_CONSTRAINTS</a></code></th>
 <td class="colLast"><code>"Addresses can take any values, and it should not be blank"</code></td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a id="seedu.address.model.person.Address.VALIDATION_REGEX">
+<td class="colFirst"><a id="seedu.address.model.contact.Address.VALIDATION_REGEX">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><a href="seedu/address/model/person/Address.html#VALIDATION_REGEX">VALIDATION_REGEX</a></code></th>
+<th class="colSecond" scope="row"><code><a href="seedu/address/model/contact/Address.html#VALIDATION_REGEX">VALIDATION_REGEX</a></code></th>
 <td class="colLast"><code>"[^\\s].*"</code></td>
 </tr>
 </tbody>
@@ -667,7 +667,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </li>
 <li class="blockList">
 <table class="constantsSummary">
-<caption><span>seedu.address.model.person.<a href="seedu/address/model/person/Email.html" title="class in seedu.address.model.person">Email</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>seedu.address.model.contact.<a href="seedu/address/model/contact/Email.html" title="class in seedu.address.model.contact">Email</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Constant Field</th>
@@ -675,17 +675,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a id="seedu.address.model.person.Email.MESSAGE_CONSTRAINTS">
+<td class="colFirst"><a id="seedu.address.model.contact.Email.MESSAGE_CONSTRAINTS">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><a href="seedu/address/model/person/Email.html#MESSAGE_CONSTRAINTS">MESSAGE_CONSTRAINTS</a></code></th>
+<th class="colSecond" scope="row"><code><a href="seedu/address/model/contact/Email.html#MESSAGE_CONSTRAINTS">MESSAGE_CONSTRAINTS</a></code></th>
 <td class="colLast"><code>"Emails should be of the format local-part@domain and adhere to the following constraints:\n1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (!#$%&amp;\'*+/=?`{|}~^.-) .\n2. This is followed by a \'@\' and then a domain name. The domain name must:\n    - be at least 2 characters long\n    - start and end with alphanumeric characters\n    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any."</code></td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a id="seedu.address.model.person.Email.VALIDATION_REGEX">
+<td class="colFirst"><a id="seedu.address.model.contact.Email.VALIDATION_REGEX">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><a href="seedu/address/model/person/Email.html#VALIDATION_REGEX">VALIDATION_REGEX</a></code></th>
+<th class="colSecond" scope="row"><code><a href="seedu/address/model/contact/Email.html#VALIDATION_REGEX">VALIDATION_REGEX</a></code></th>
 <td class="colLast"><code>"^[\\w!#$%&amp;\'*+/=?`{|}~^.-]+@[^\\W_][a-zA-Z0-9.-]*[^\\W_]$"</code></td>
 </tr>
 </tbody>
@@ -693,7 +693,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </li>
 <li class="blockList">
 <table class="constantsSummary">
-<caption><span>seedu.address.model.person.<a href="seedu/address/model/person/Name.html" title="class in seedu.address.model.person">Name</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>seedu.address.model.contact.<a href="seedu/address/model/contact/Name.html" title="class in seedu.address.model.contact">Name</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Constant Field</th>
@@ -701,17 +701,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a id="seedu.address.model.person.Name.MESSAGE_CONSTRAINTS">
+<td class="colFirst"><a id="seedu.address.model.contact.Name.MESSAGE_CONSTRAINTS">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><a href="seedu/address/model/person/Name.html#MESSAGE_CONSTRAINTS">MESSAGE_CONSTRAINTS</a></code></th>
+<th class="colSecond" scope="row"><code><a href="seedu/address/model/contact/Name.html#MESSAGE_CONSTRAINTS">MESSAGE_CONSTRAINTS</a></code></th>
 <td class="colLast"><code>"Names should only contain alphanumeric characters and spaces, and it should not be blank"</code></td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a id="seedu.address.model.person.Name.VALIDATION_REGEX">
+<td class="colFirst"><a id="seedu.address.model.contact.Name.VALIDATION_REGEX">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><a href="seedu/address/model/person/Name.html#VALIDATION_REGEX">VALIDATION_REGEX</a></code></th>
+<th class="colSecond" scope="row"><code><a href="seedu/address/model/contact/Name.html#VALIDATION_REGEX">VALIDATION_REGEX</a></code></th>
 <td class="colLast"><code>"[\\p{Alnum}][\\p{Alnum} ]*"</code></td>
 </tr>
 </tbody>
@@ -719,7 +719,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </li>
 <li class="blockList">
 <table class="constantsSummary">
-<caption><span>seedu.address.model.person.<a href="seedu/address/model/person/Phone.html" title="class in seedu.address.model.person">Phone</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>seedu.address.model.contact.<a href="seedu/address/model/contact/Phone.html" title="class in seedu.address.model.contact">Phone</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Constant Field</th>
@@ -727,17 +727,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a id="seedu.address.model.person.Phone.MESSAGE_CONSTRAINTS">
+<td class="colFirst"><a id="seedu.address.model.contact.Phone.MESSAGE_CONSTRAINTS">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><a href="seedu/address/model/person/Phone.html#MESSAGE_CONSTRAINTS">MESSAGE_CONSTRAINTS</a></code></th>
+<th class="colSecond" scope="row"><code><a href="seedu/address/model/contact/Phone.html#MESSAGE_CONSTRAINTS">MESSAGE_CONSTRAINTS</a></code></th>
 <td class="colLast"><code>"Phone numbers should only contain numbers, and it should be at least 3 digits long"</code></td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a id="seedu.address.model.person.Phone.VALIDATION_REGEX">
+<td class="colFirst"><a id="seedu.address.model.contact.Phone.VALIDATION_REGEX">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><a href="seedu/address/model/person/Phone.html#VALIDATION_REGEX">VALIDATION_REGEX</a></code></th>
+<th class="colSecond" scope="row"><code><a href="seedu/address/model/contact/Phone.html#VALIDATION_REGEX">VALIDATION_REGEX</a></code></th>
 <td class="colLast"><code>"\\d{3,}"</code></td>
 </tr>
 </tbody>

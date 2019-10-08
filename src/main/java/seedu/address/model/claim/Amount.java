@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Claim's claim amount in FinSec.
+ * Represents a Claim's claim amount in Contact.
  */
 public class Amount {
 

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.claim.Claim;
 
 /**
- * Adds a person to the address book.
+ * Adds a contact to the address book.
  */
 public class AddClaimCommand extends Command {
 
@@ -39,7 +39,7 @@ public class AddClaimCommand extends Command {
     private final Claim toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Contact}
      */
     public AddClaimCommand(Claim claim) {
         requireNonNull(claim);

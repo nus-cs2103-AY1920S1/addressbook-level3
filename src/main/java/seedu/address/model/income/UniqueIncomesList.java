@@ -16,13 +16,13 @@ import seedu.address.model.income.exceptions.IncomeNotFoundException;
  * A list of incomes that enforces uniqueness between its elements and does not allow nulls.
  * An income is considered unique by comparing using {@code Income#isSameIncome(Income)}. As such, adding and updating
  * of income uses Income#IsSameIncome(income) for equality so as to ensure that the income being added or updated is
- * unique in terms of identity in the UniqueIncomeList. However, the removal of an income uses Income#equals(Object) so
+ * unique in terms of identity in the UniqueIncomesList. However, the removal of an income uses Income#equals(Object) so
  * as to ensure that the income with exactly the same fields will be removed.
  *
  *
  * @see Income#isSameIncome(Income)
  * */
-public class UniqueIncomeList implements Iterable<Income> {
+public class UniqueIncomesList implements Iterable<Income> {
 
     private final ObservableList<Income> internalList = FXCollections.observableArrayList();
     private final ObservableList<Income> internalUnmodifiableList =
@@ -79,7 +79,7 @@ public class UniqueIncomeList implements Iterable<Income> {
         }
     }
 
-    public void setIncomes(UniqueIncomeList replacement) {
+    public void setIncomes(UniqueIncomesList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -112,8 +112,8 @@ public class UniqueIncomeList implements Iterable<Income> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueIncomeList // instanceof handles nulls
-                && internalList.equals(((UniqueIncomeList) other).internalList));
+                || (other instanceof UniqueIncomesList // instanceof handles nulls
+                && internalList.equals(((UniqueIncomesList) other).internalList));
     }
 
     @Override

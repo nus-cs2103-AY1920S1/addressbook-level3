@@ -9,16 +9,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.contact.Contact;
 
 /**
- * Adds a person to the address book.
+ * Adds a contact to the address book.
  */
 public class AddContactCommand extends Command {
 
     public static final String COMMAND_WORD = "add_contact";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a contact to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -33,17 +33,17 @@ public class AddContactCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This contact already exists in the address book";
 
-    private final Person toAdd;
+    private final Contact toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Contact}
      */
-    public AddContactCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddContactCommand(Contact contact) {
+        requireNonNull(contact);
+        toAdd = contact;
     }
 
     @Override

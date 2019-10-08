@@ -124,7 +124,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>seedu.address.model.AddressBook</li>
+<li>seedu.address.model.Contact</li>
 </ul>
 </li>
 </ul>
@@ -165,7 +165,7 @@ implements <a href="ReadOnlyAddressBook.html" title="interface in seedu.address.
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(seedu.address.model.ReadOnlyAddressBook)">AddressBook</a></span>&#8203;(<a href="ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;toBeCopied)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(seedu.address.model.ReadOnlyContact)">AddressBook</a></span>&#8203;(<a href="ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;toBeCopied)</code></th>
 <td class="colLast">
 <div class="block">Creates an AddressBook using the Persons in the <code>toBeCopied</code></div>
 </td>
@@ -190,9 +190,9 @@ implements <a href="ReadOnlyAddressBook.html" title="interface in seedu.address.
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addPerson(seedu.address.model.person.Person)">addPerson</a></span>&#8203;(<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;p)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addPerson(seedu.address.model.contact.Person)">addPerson</a></span>&#8203;(<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;p)</code></th>
 <td class="colLast">
-<div class="block">Adds a person to the address book.</div>
+<div class="block">Adds a contact to the address book.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -201,10 +201,10 @@ implements <a href="ReadOnlyAddressBook.html" title="interface in seedu.address.
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>javafx.collections.ObservableList&lt;<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&gt;</code></td>
+<td class="colFirst"><code>javafx.collections.ObservableList&lt;<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPersonList()">getPersonList</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns an unmodifiable view of the persons list.</div>
+<div class="block">Returns an unmodifiable view of the contacts list.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -214,38 +214,38 @@ implements <a href="ReadOnlyAddressBook.html" title="interface in seedu.address.
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hasPerson(seedu.address.model.person.Person)">hasPerson</a></span>&#8203;(<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;person)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hasPerson(seedu.address.model.contact.Person)">hasPerson</a></span>&#8203;(<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;contact)</code></th>
 <td class="colLast">
-<div class="block">Returns true if a person with the same identity as <code>person</code> exists in the address book.</div>
+<div class="block">Returns true if a contact with the same identity as <code>contact</code> exists in the address book.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removePerson(seedu.address.model.person.Person)">removePerson</a></span>&#8203;(<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;key)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removePerson(seedu.address.model.contact.Person)">removePerson</a></span>&#8203;(<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;key)</code></th>
 <td class="colLast">
 <div class="block">Removes <code>key</code> from this <code>AddressBook</code>.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetData(seedu.address.model.ReadOnlyAddressBook)">resetData</a></span>&#8203;(<a href="ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;newData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetData(seedu.address.model.ReadOnlyContact)">resetData</a></span>&#8203;(<a href="ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;newData)</code></th>
 <td class="colLast">
 <div class="block">Resets the existing data of this <code>AddressBook</code> with <code>newData</code>.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPerson(seedu.address.model.person.Person,seedu.address.model.person.Person)">setPerson</a></span>&#8203;(<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;target,
-         <a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;editedPerson)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPerson(seedu.address.model.contact.Person,seedu.address.model.contact.Person)">setPerson</a></span>&#8203;(<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;target,
+         <a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;editedContact)</code></th>
 <td class="colLast">
-<div class="block">Replaces the given person <code>target</code> in the list with <code>editedPerson</code>.</div>
+<div class="block">Replaces the given contact <code>target</code> in the list with <code>editedContact</code>.</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPersons(java.util.List)">setPersons</a></span>&#8203;(java.util.List&lt;<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&gt;&nbsp;persons)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPersons(java.util.List)">setPersons</a></span>&#8203;(java.util.List&lt;<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&gt;&nbsp;contacts)</code></th>
 <td class="colLast">
-<div class="block">Replaces the contents of the person list with <code>persons</code>.</div>
+<div class="block">Replaces the contents of the contact list with <code>contacts</code>.</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
@@ -286,7 +286,7 @@ implements <a href="ReadOnlyAddressBook.html" title="interface in seedu.address.
 <pre>public&nbsp;AddressBook()</pre>
 </li>
 </ul>
-<a id="&lt;init&gt;(seedu.address.model.ReadOnlyAddressBook)">
+<a id="&lt;init&gt;(seedu.address.model.ReadOnlyContact)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -312,12 +312,12 @@ implements <a href="ReadOnlyAddressBook.html" title="interface in seedu.address.
 <ul class="blockList">
 <li class="blockList">
 <h4>setPersons</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setPersons&#8203;(java.util.List&lt;<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&gt;&nbsp;persons)</pre>
-<div class="block">Replaces the contents of the person list with <code>persons</code>.
- <code>persons</code> must not contain duplicate persons.</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPersons&#8203;(java.util.List&lt;<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&gt;&nbsp;contacts)</pre>
+<div class="block">Replaces the contents of the contact list with <code>contacts</code>.
+ <code>contacts</code> must not contain duplicate contacts.</div>
 </li>
 </ul>
-<a id="resetData(seedu.address.model.ReadOnlyAddressBook)">
+<a id="resetData(seedu.address.model.ReadOnlyContact)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -327,47 +327,47 @@ implements <a href="ReadOnlyAddressBook.html" title="interface in seedu.address.
 <div class="block">Resets the existing data of this <code>AddressBook</code> with <code>newData</code>.</div>
 </li>
 </ul>
-<a id="hasPerson(seedu.address.model.person.Person)">
+<a id="hasPerson(seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>hasPerson</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;hasPerson&#8203;(<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;person)</pre>
-<div class="block">Returns true if a person with the same identity as <code>person</code> exists in the address book.</div>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;hasPerson&#8203;(<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;contact)</pre>
+<div class="block">Returns true if a contact with the same identity as <code>contact</code> exists in the address book.</div>
 </li>
 </ul>
-<a id="addPerson(seedu.address.model.person.Person)">
+<a id="addPerson(seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addPerson</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addPerson&#8203;(<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;p)</pre>
-<div class="block">Adds a person to the address book.
- The person must not already exist in the address book.</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;addPerson&#8203;(<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;p)</pre>
+<div class="block">Adds a contact to the address book.
+ The contact must not already exist in the address book.</div>
 </li>
 </ul>
-<a id="setPerson(seedu.address.model.person.Person,seedu.address.model.person.Person)">
+<a id="setPerson(seedu.address.model.contact.Person,seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setPerson</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setPerson&#8203;(<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;target,
-                      <a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;editedPerson)</pre>
-<div class="block">Replaces the given person <code>target</code> in the list with <code>editedPerson</code>.
+<pre class="methodSignature">public&nbsp;void&nbsp;setPerson&#8203;(<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;target,
+                      <a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;editedContact)</pre>
+<div class="block">Replaces the given contact <code>target</code> in the list with <code>editedContact</code>.
  <code>target</code> must exist in the address book.
- The person identity of <code>editedPerson</code> must not be the same as another existing person in the address book.</div>
+ The contact identity of <code>editedContact</code> must not be the same as another existing contact in the address book.</div>
 </li>
 </ul>
-<a id="removePerson(seedu.address.model.person.Person)">
+<a id="removePerson(seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>removePerson</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;removePerson&#8203;(<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;key)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;removePerson&#8203;(<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;key)</pre>
 <div class="block">Removes <code>key</code> from this <code>AddressBook</code>.
  <code>key</code> must exist in the address book.</div>
 </li>
@@ -391,10 +391,10 @@ implements <a href="ReadOnlyAddressBook.html" title="interface in seedu.address.
 <ul class="blockList">
 <li class="blockList">
 <h4>getPersonList</h4>
-<pre class="methodSignature">public&nbsp;javafx.collections.ObservableList&lt;<a href="person/Person.html" title="class in seedu.address.model.person">Person</a>&gt;&nbsp;getPersonList()</pre>
+<pre class="methodSignature">public&nbsp;javafx.collections.ObservableList&lt;<a href="contact/Person.html" title="class in seedu.address.model.contact">Person</a>&gt;&nbsp;getPersonList()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="ReadOnlyAddressBook.html#getPersonList()">ReadOnlyAddressBook</a></code></span></div>
-<div class="block">Returns an unmodifiable view of the persons list.
- This list will not contain any duplicate persons.</div>
+<div class="block">Returns an unmodifiable view of the contacts list.
+ This list will not contain any duplicate contacts.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="ReadOnlyAddressBook.html#getPersonList()">getPersonList</a></code>&nbsp;in interface&nbsp;<code><a href="ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a></code></dd>

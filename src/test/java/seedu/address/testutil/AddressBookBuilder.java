@@ -1,34 +1,33 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.Contact;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code Contact ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private Contact finSec;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        finSec = new Contact();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+    public AddressBookBuilder(Contact finSec) {
+        this.finSec = finSec;
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Contact} to the {@code Contact} that we are building.
      */
-    public AddressBookBuilder withPerson(Person person) {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(seedu.address.model.contact.Contact contact) {
+        finSec.addPerson(contact);
         return this;
     }
 
-    public AddressBook build() {
-        return addressBook;
+    public Contact build() {
+        return finSec;
     }
 }

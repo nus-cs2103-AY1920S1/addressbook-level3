@@ -1,7 +1,7 @@
 package seedu.address.model.help;
 
 /**
- * Contains links to our User Guide for all the commands in FinSec
+ * Contains links to our User Guide for all the commands in Contact
  */
 
 public class WebLinks {
@@ -9,7 +9,7 @@ public class WebLinks {
     /**
      * Matches the command input of the user to the correct web link.
      *
-     * @param secondaryCommand A valid command in FinSec.
+     * @param secondaryCommand A valid command in Contact.
      * @return a web link to the {@code HelpCommand}.
      */
 
@@ -29,10 +29,10 @@ public class WebLinks {
             return base + "#changing-views-code-goto-code";
 
         case "add_person":
-            return base + "#adding-a-person-code-add_person-code";
+            return base + "#adding-a-contact-code-add_person-code";
 
         case "edit_person":
-            return base + "#editing-a-person-code-edit_person-code";
+            return base + "#editing-a-contact-code-edit_person-code";
 
         case "add_claim":
             return base + "#adding-a-claim-code-add_claim-code";
@@ -47,7 +47,7 @@ public class WebLinks {
             return base + "#editing-an-income";
 
         case "delete":
-            return base + "#deleting-a-person";
+            return base + "#deleting-a-contact";
 
         case "find":
             return base + "#filter";

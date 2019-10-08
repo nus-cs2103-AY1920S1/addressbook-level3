@@ -175,14 +175,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyContact)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec)</code></th>
 <td class="colLast">
 <div class="block">Saves the given <a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model"><code>ReadOnlyAddressBook</code></a> to the storage.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyAddressBook,java.nio.file.Path)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyContact,java.nio.file.Path)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec,
                java.nio.file.Path&nbsp;filePath)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -249,37 +249,37 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 </li>
 </ul>
-<a id="saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">
+<a id="saveAddressBook(seedu.address.model.ReadOnlyContact)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>saveAddressBook</h4>
-<pre class="methodSignature">void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook)
+<pre class="methodSignature">void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec)
               throws java.io.IOException</pre>
 <div class="block">Saves the given <a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model"><code>ReadOnlyAddressBook</code></a> to the storage.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>addressBook</code> - cannot be null.</dd>
+<dd><code>finSec</code> - cannot be null.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code> - if there was any problem writing to the file.</dd>
 </dl>
 </li>
 </ul>
-<a id="saveAddressBook(seedu.address.model.ReadOnlyAddressBook,java.nio.file.Path)">
+<a id="saveAddressBook(seedu.address.model.ReadOnlyContact,java.nio.file.Path)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>saveAddressBook</h4>
-<pre class="methodSignature">void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook,
+<pre class="methodSignature">void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec,
                      java.nio.file.Path&nbsp;filePath)
               throws java.io.IOException</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code></dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)"><code>saveAddressBook(ReadOnlyAddressBook)</code></a></dd>
+<dd><a href="#saveAddressBook(seedu.address.model.ReadOnlyContact)"><code>saveAddressBook(ReadOnlyAddressBook)</code></a></dd>
 </dl>
 </li>
 </ul>
