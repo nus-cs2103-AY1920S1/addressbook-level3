@@ -58,7 +58,6 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     //// person-level operations
 
-
     /**
      * Returns true if a study plan with the same identity as {@code study plan} exists in the module planner.
      */
