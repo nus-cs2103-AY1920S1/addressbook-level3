@@ -55,9 +55,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Keyword: `help`
-
 Provides 3 different types of help for all commands.
+
+Keyword: `help`
 
 Format:
 `help cmd/COMMAND type/TYPE`
