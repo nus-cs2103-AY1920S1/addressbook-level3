@@ -24,8 +24,8 @@ class JsonAdaptedIncome {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Income's %s field is missing!";
 
-    private final Description description;
-    private final Amount amount;
+    private final String description;
+    private final String amount;
     private final String name;
     private final String phone;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -34,8 +34,8 @@ class JsonAdaptedIncome {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedIncome(@JsonProperty("description") Description description,
-                             @JsonProperty("amount") Amount amount, @JsonProperty("name") String name,
+    public JsonAdaptedIncome(@JsonProperty("description") String description,
+                             @JsonProperty("amount") String amount, @JsonProperty("name") String name,
                              @JsonProperty("phone") String phone,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
@@ -52,8 +52,8 @@ class JsonAdaptedIncome {
      */
     public JsonAdaptedIncome(Income source) {
 
-        description = source.getDescription();
-        amount = source.getAmount();
+        description = source.getDescription().text;
+        amount = source.getAmount().value;
         name = source.getName().fullName;
         phone = source.getPhone().value;
         tagged.addAll(source.getTags().stream()
@@ -62,7 +62,7 @@ class JsonAdaptedIncome {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code Income} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
@@ -76,18 +76,19 @@ class JsonAdaptedIncome {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(description.toString())) {
+        if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description.toString());
+        final Description modelDescription = new Description(description);
 
         if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
         }
-        if (!Amount.isValidAmount(amount.toString())) {
+        if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
-        final Amount modelAmount = new Amount(amount.toString());
+        final Amount modelAmount = new Amount(amount);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
