@@ -13,8 +13,8 @@ public class WebLinks {
      * @return a web link to the {@code HelpCommand}.
      */
 
-    public static String getLink (SecondaryCommand secondaryCommand){
-        switch (secondaryCommand.toString()){
+    public static String getLink (SecondaryCommand secondaryCommand) {
+        switch (secondaryCommand.toString()) {
 
         case "help":
             return "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html#viewing-help-code-help-code";

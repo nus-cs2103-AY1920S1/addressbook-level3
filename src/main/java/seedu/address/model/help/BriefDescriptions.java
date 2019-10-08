@@ -15,7 +15,7 @@ public class BriefDescriptions {
      * @return a brief description to the {@code HelpCommand}.
      */
 
-    public static String getDescription (SecondaryCommand secondaryCommand){
+    public static String getDescription (SecondaryCommand secondaryCommand) {
         switch (secondaryCommand.toString()){
 
         case "help":

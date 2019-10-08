@@ -1,17 +1,17 @@
 package seedu.address.model.help;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-public class Type {
+import java.util.ArrayList;
+import java.util.Arrays;
 
-    /**
-     * Represents a Help Object's type of help in the address book.
-     * Guarantees: immutable; is valid as declared in {@link #isValidType(String)}
-     */
+/**
+ * Represents a Help Object's type of help in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidType(String)}
+ */
+
+public class Type {
 
     public static final String MESSAGE_CONSTRAINTS = "There are 3 available types of help: brief, api and " +
             "guide\n Please select one of them";

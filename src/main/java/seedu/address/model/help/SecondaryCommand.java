@@ -1,18 +1,17 @@
 package seedu.address.model.help;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-public class SecondaryCommand {
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Represents a Help Object's secondary command in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidSecondaryCommand(String)}
  */
+
+public class SecondaryCommand {
 
     public static final String MESSAGE_CONSTRAINTS = "Please use the 'help' command to check the available commands";
 

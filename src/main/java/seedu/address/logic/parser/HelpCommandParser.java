@@ -1,20 +1,21 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.help.Type;
-import seedu.address.model.help.SecondaryCommand;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.help.SecondaryCommand;
+import seedu.address.model.help.Type;
+
 
 /**
  * Parses input arguments and creates a new HelpCommand object
  */
 
-public class HelpCommandParser implements Parser<HelpCommand>{
+public class HelpCommandParser implements Parser<HelpCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the HelpCommand
@@ -30,8 +31,7 @@ public class HelpCommandParser implements Parser<HelpCommand>{
             SecondaryCommand secondaryCommand = ParserUtil.parseCommand(argMultimap.getValue(PREFIX_COMMAND).get());
             Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
             return new HelpCommand(secondaryCommand, type);
-        }
-        else {
+        } else {
             return new HelpCommand();
         }
     }

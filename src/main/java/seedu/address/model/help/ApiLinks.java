@@ -13,11 +13,11 @@ public class ApiLinks {
      * @return an API link to the {@code HelpCommand}.
      */
 
-    public static String getLink (SecondaryCommand secondaryCommand){
+    public static String getLink (SecondaryCommand secondaryCommand) {
 
         String base = "docs/javadocs/seedu/address/logic/commands/";
 
-        switch (secondaryCommand.toString()){
+        switch (secondaryCommand.toString()) {
 
         case "help":
             return base + "HelpCommand.html";
