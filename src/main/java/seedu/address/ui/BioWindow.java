@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -137,7 +140,7 @@ public class BioWindow extends UiPart<Stage> {
         String abit = "Example Age \nExample Gender \nExample Address";
         String little = "Example Profile";
 
-        profile = new Profile(img, "Example Name", abit);
+        profile = new Profile(img, "Example Name", manyText);
 //        profile = new Profile(img, "Example Name", "Example Profile");
         profilePlaceholder.getChildren().add(profile.getRoot());
 

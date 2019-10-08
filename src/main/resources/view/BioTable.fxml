@@ -4,13 +4,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.SelectionMode?>
 <VBox xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView prefHeight="200.0" prefWidth="200.0" styleClass="bio-table">
+      <TableView fx:id = "tableView" prefHeight="200.0" prefWidth="200.0" styleClass="bio-table">
         <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
         <columns>
-          <TableColumn fx:id="field" maxWidth="58.0" minWidth="58.0" text="Field" styleClass="field-column"/>
-          <TableColumn fx:id="data" prefWidth="141.0" text="Data" styleClass="data-column"/>
+          <TableColumn fx:id="field" maxWidth="58.0" minWidth="58.0" text="Field" sortable="false" styleClass="field-column"/>
+          <TableColumn fx:id="data" prefWidth="141.0" text="Data" sortable="false" styleClass="data-column"/>
         </columns>
       </TableView>
    </children>
